@@ -28,7 +28,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_Pet[]> | Res<StatusCode, t_Error>>> {
     const url = this.basePath + `/pets`
     const query = this._query({ tags: p["tags"], limit: p["limit"] })
@@ -41,7 +41,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_NewPet
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_Pet> | Res<StatusCode, t_Error>>> {
     const url = this.basePath + `/pets`
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -50,7 +50,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -59,7 +59,7 @@ export class ApiClient extends AbstractFetchClient {
       id: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_Pet> | Res<StatusCode, t_Error>>> {
     const url = this.basePath + `/pets/${p["id"]}`
 
@@ -71,7 +71,7 @@ export class ApiClient extends AbstractFetchClient {
       id: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<StatusCode, t_Error>>> {
     const url = this.basePath + `/pets/${p["id"]}`
 

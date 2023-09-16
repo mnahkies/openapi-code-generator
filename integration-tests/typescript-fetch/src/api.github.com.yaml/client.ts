@@ -293,7 +293,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async metaRoot(
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_root>>> {
     const url = this.basePath + `/`
 
@@ -302,7 +302,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async appsGetAuthenticated(
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_integration>>> {
     const url = this.basePath + `/app`
 
@@ -314,7 +314,7 @@ export class ApiClient extends AbstractFetchClient {
       code: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -343,7 +343,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async appsGetWebhookConfigForApp(
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_webhook_config>>> {
     const url = this.basePath + `/app/hook/config`
 
@@ -360,7 +360,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_webhook_config>>> {
     const url = this.basePath + `/app/hook/config`
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -369,7 +369,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -380,7 +380,7 @@ export class ApiClient extends AbstractFetchClient {
       redelivery?: boolean
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_hook_delivery_item[]>
@@ -403,7 +403,7 @@ export class ApiClient extends AbstractFetchClient {
       deliveryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_hook_delivery>
@@ -421,7 +421,7 @@ export class ApiClient extends AbstractFetchClient {
       deliveryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<202, EmptyObject>
@@ -441,7 +441,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_integration_installation_request[]>
@@ -463,7 +463,7 @@ export class ApiClient extends AbstractFetchClient {
       outdated?: string
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_installation[]>>> {
     const url = this.basePath + `/app/installations`
     const query = this._query({
@@ -481,7 +481,7 @@ export class ApiClient extends AbstractFetchClient {
       installationId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_installation> | Res<404, t_basic_error>>
   > {
@@ -495,7 +495,7 @@ export class ApiClient extends AbstractFetchClient {
       installationId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/app/installations/${p["installationId"]}`
 
@@ -512,7 +512,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_installation_token>
@@ -530,7 +530,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -539,7 +539,7 @@ export class ApiClient extends AbstractFetchClient {
       installationId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/app/installations/${p["installationId"]}/suspended`
@@ -552,7 +552,7 @@ export class ApiClient extends AbstractFetchClient {
       installationId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/app/installations/${p["installationId"]}/suspended`
@@ -568,7 +568,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<204, void> | Res<422, t_validation_error>>
   > {
@@ -579,7 +579,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "DELETE", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -591,7 +591,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_authorization>
@@ -606,7 +606,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -618,7 +618,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_authorization> | Res<422, t_validation_error>>
   > {
@@ -629,7 +629,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -641,7 +641,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<204, void> | Res<422, t_validation_error>>
   > {
@@ -652,7 +652,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "DELETE", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -669,7 +669,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_authorization>
@@ -686,7 +686,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -695,7 +695,7 @@ export class ApiClient extends AbstractFetchClient {
       appSlug: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_integration>
@@ -710,7 +710,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async codesOfConductGetAllCodesOfConduct(
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_code_of_conduct[]> | Res<304, void>>
   > {
@@ -724,7 +724,7 @@ export class ApiClient extends AbstractFetchClient {
       key: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_code_of_conduct> | Res<304, void> | Res<404, t_basic_error>
@@ -737,7 +737,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async emojisGet(
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -771,7 +771,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_dependabot_alert_with_repository[]>
@@ -814,7 +814,7 @@ export class ApiClient extends AbstractFetchClient {
       after?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_organization_secret_scanning_alert[]>
@@ -851,7 +851,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_event[]>
@@ -875,7 +875,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async activityGetFeeds(
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_feed>>> {
     const url = this.basePath + `/feeds`
 
@@ -889,7 +889,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_base_gist[]> | Res<304, void> | Res<403, t_basic_error>
@@ -918,7 +918,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_gist_simple>
@@ -935,7 +935,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -946,7 +946,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_base_gist[]>
@@ -972,7 +972,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_base_gist[]>
@@ -996,7 +996,7 @@ export class ApiClient extends AbstractFetchClient {
       gistId: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_gist_simple>
@@ -1032,7 +1032,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_gist_simple>
@@ -1047,7 +1047,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -1056,7 +1056,7 @@ export class ApiClient extends AbstractFetchClient {
       gistId: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -1077,7 +1077,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_gist_comment[]>
@@ -1100,7 +1100,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_gist_comment>
@@ -1116,7 +1116,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -1126,7 +1126,7 @@ export class ApiClient extends AbstractFetchClient {
       commentId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_gist_comment>
@@ -1161,7 +1161,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_gist_comment> | Res<404, t_basic_error>>
   > {
@@ -1173,7 +1173,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -1183,7 +1183,7 @@ export class ApiClient extends AbstractFetchClient {
       commentId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -1205,7 +1205,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_gist_commit[]>
@@ -1227,7 +1227,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_gist_simple[]>
@@ -1247,7 +1247,7 @@ export class ApiClient extends AbstractFetchClient {
       gistId: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_base_gist>
@@ -1267,7 +1267,7 @@ export class ApiClient extends AbstractFetchClient {
       gistId: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -1286,7 +1286,7 @@ export class ApiClient extends AbstractFetchClient {
       gistId: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -1305,7 +1305,7 @@ export class ApiClient extends AbstractFetchClient {
       gistId: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -1325,7 +1325,7 @@ export class ApiClient extends AbstractFetchClient {
       sha: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_gist_simple>
@@ -1341,7 +1341,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async gitignoreGetAllTemplates(
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, string[]> | Res<304, void>>> {
     const url = this.basePath + `/gitignore/templates`
 
@@ -1353,7 +1353,7 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_gitignore_template> | Res<304, void>>
   > {
@@ -1368,7 +1368,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -1392,7 +1392,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async appsRevokeInstallationAccessToken(
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/installation/token`
 
@@ -1421,7 +1421,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_issue[]>
@@ -1456,7 +1456,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_license_simple[]> | Res<304, void>>
   > {
@@ -1475,7 +1475,7 @@ export class ApiClient extends AbstractFetchClient {
       license: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_license>
@@ -1498,7 +1498,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, string> | Res<304, void>>> {
     const url = this.basePath + `/markdown`
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -1507,7 +1507,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -1516,7 +1516,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: string
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, string> | Res<304, void>>> {
     const url = this.basePath + `/markdown/raw`
     const headers = this._headers({ "Content-Type": "text/plain" })
@@ -1525,7 +1525,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -1534,7 +1534,7 @@ export class ApiClient extends AbstractFetchClient {
       accountId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_marketplace_purchase>
@@ -1554,7 +1554,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_marketplace_listing_plan[]>
@@ -1577,7 +1577,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_marketplace_purchase[]>
@@ -1603,7 +1603,7 @@ export class ApiClient extends AbstractFetchClient {
       accountId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_marketplace_purchase>
@@ -1623,7 +1623,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_marketplace_listing_plan[]> | Res<401, t_basic_error>
@@ -1644,7 +1644,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_marketplace_purchase[]> | Res<401, t_basic_error>
@@ -1665,7 +1665,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async metaGet(
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_api_overview> | Res<304, void>>> {
     const url = this.basePath + `/meta`
 
@@ -1680,7 +1680,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_event[]>
@@ -1706,7 +1706,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_thread[]>
@@ -1737,7 +1737,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -1759,7 +1759,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -1768,7 +1768,7 @@ export class ApiClient extends AbstractFetchClient {
       threadId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_thread>
@@ -1787,7 +1787,7 @@ export class ApiClient extends AbstractFetchClient {
       threadId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<205, void> | Res<304, void> | Res<403, t_basic_error>
@@ -1803,7 +1803,7 @@ export class ApiClient extends AbstractFetchClient {
       threadId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_thread_subscription>
@@ -1826,7 +1826,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_thread_subscription>
@@ -1843,7 +1843,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -1852,7 +1852,7 @@ export class ApiClient extends AbstractFetchClient {
       threadId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -1872,7 +1872,7 @@ export class ApiClient extends AbstractFetchClient {
       s?: string
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, string>>> {
     const url = this.basePath + `/octocat`
     const query = this._query({ s: p["s"] })
@@ -1886,7 +1886,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_organization_simple[]> | Res<304, void>>
   > {
@@ -1910,7 +1910,7 @@ export class ApiClient extends AbstractFetchClient {
       lastUsedAfter?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_organization_programmatic_access_grant_request[]>
@@ -1948,7 +1948,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<202, EmptyObject>
@@ -1967,7 +1967,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -1981,7 +1981,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -2000,7 +2000,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -2012,7 +2012,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_minimal_repository[]>
@@ -2043,7 +2043,7 @@ export class ApiClient extends AbstractFetchClient {
       lastUsedAfter?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_organization_programmatic_access_grant[]>
@@ -2079,7 +2079,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<202, EmptyObject>
@@ -2097,7 +2097,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -2110,7 +2110,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -2129,7 +2129,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -2141,7 +2141,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_minimal_repository[]>
@@ -2163,7 +2163,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_organization_full> | Res<404, t_basic_error>>
   > {
@@ -2208,7 +2208,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_organization_full>
@@ -2223,7 +2223,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -2232,7 +2232,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<202, EmptyObject> | Res<403, t_basic_error> | Res<404, t_basic_error>
@@ -2248,7 +2248,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_actions_cache_usage_org_enterprise>>
   > {
@@ -2264,7 +2264,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -2288,7 +2288,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_oidc_custom_sub>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/oidc/customization/sub`
@@ -2302,7 +2302,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_oidc_custom_sub
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_empty_object>
@@ -2318,7 +2318,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -2327,7 +2327,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_actions_organization_permissions>>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/permissions`
 
@@ -2343,7 +2343,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/permissions`
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -2352,7 +2352,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -2363,7 +2363,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -2390,7 +2390,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/permissions/repositories`
@@ -2400,7 +2400,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -2410,7 +2410,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -2425,7 +2425,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -2439,7 +2439,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_selected_actions>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/permissions/selected-actions`
@@ -2453,7 +2453,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: t_selected_actions
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/permissions/selected-actions`
@@ -2463,7 +2463,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -2472,7 +2472,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_actions_get_default_workflow_permissions>>
   > {
@@ -2487,7 +2487,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: t_actions_set_default_workflow_permissions
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/permissions/workflow`
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -2496,7 +2496,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -2507,7 +2507,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -2536,7 +2536,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<201, t_required_workflow> | Res<422, t_validation_error_simple>
@@ -2549,7 +2549,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -2559,7 +2559,7 @@ export class ApiClient extends AbstractFetchClient {
       requiredWorkflowId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_required_workflow>>> {
     const url =
       this.basePath +
@@ -2580,7 +2580,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_required_workflow> | Res<422, t_validation_error_simple>
@@ -2595,7 +2595,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -2605,7 +2605,7 @@ export class ApiClient extends AbstractFetchClient {
       requiredWorkflowId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -2620,7 +2620,7 @@ export class ApiClient extends AbstractFetchClient {
       requiredWorkflowId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -2649,7 +2649,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -2660,7 +2660,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -2671,7 +2671,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<204, void> | Res<404, void> | Res<422, void>>
   > {
@@ -2689,7 +2689,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<204, void> | Res<404, void> | Res<422, void>>
   > {
@@ -2707,7 +2707,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -2730,7 +2730,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_runner_application[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/runners/downloads`
 
@@ -2742,7 +2742,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_authentication_token>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/runners/registration-token`
@@ -2755,7 +2755,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_authentication_token>>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/runners/remove-token`
 
@@ -2768,7 +2768,7 @@ export class ApiClient extends AbstractFetchClient {
       runnerId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_runner>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`
@@ -2782,7 +2782,7 @@ export class ApiClient extends AbstractFetchClient {
       runnerId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`
@@ -2796,7 +2796,7 @@ export class ApiClient extends AbstractFetchClient {
       runnerId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -2825,7 +2825,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -2848,7 +2848,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -2861,7 +2861,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -2884,7 +2884,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -2894,7 +2894,7 @@ export class ApiClient extends AbstractFetchClient {
       runnerId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -2921,7 +2921,7 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -2949,7 +2949,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -2972,7 +2972,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_actions_public_key>>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/secrets/public-key`
 
@@ -2985,7 +2985,7 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_organization_actions_secret>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
@@ -3005,7 +3005,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_empty_object> | Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
@@ -3015,7 +3015,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -3025,7 +3025,7 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
@@ -3041,7 +3041,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -3070,7 +3070,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -3081,7 +3081,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -3092,7 +3092,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
@@ -3108,7 +3108,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
@@ -3124,7 +3124,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -3153,7 +3153,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_empty_object>>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/variables`
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -3162,7 +3162,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -3172,7 +3172,7 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_organization_actions_variable>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/variables/${p["name"]}`
@@ -3192,7 +3192,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/variables/${p["name"]}`
@@ -3202,7 +3202,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -3212,7 +3212,7 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/variables/${p["name"]}`
@@ -3228,7 +3228,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -3258,7 +3258,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
@@ -3269,7 +3269,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -3280,7 +3280,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
@@ -3296,7 +3296,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
@@ -3312,7 +3312,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_simple_user[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/blocks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -3326,7 +3326,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`
 
@@ -3339,7 +3339,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<204, void> | Res<422, t_validation_error>>
   > {
@@ -3354,7 +3354,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`
 
@@ -3376,7 +3376,7 @@ export class ApiClient extends AbstractFetchClient {
       severity?: t_code_scanning_alert_severity
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_organization_alert_items[]>
@@ -3415,7 +3415,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -3451,7 +3451,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -3469,7 +3469,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -3481,7 +3481,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -3500,7 +3500,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -3512,7 +3512,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -3531,7 +3531,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "DELETE", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -3542,7 +3542,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -3565,7 +3565,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_codespaces_public_key>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/codespaces/secrets/public-key`
@@ -3579,7 +3579,7 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_codespaces_org_secret>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
@@ -3599,7 +3599,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_empty_object>
@@ -3616,7 +3616,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -3626,7 +3626,7 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
@@ -3642,7 +3642,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -3672,7 +3672,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<404, t_basic_error> | Res<409, void>
@@ -3687,7 +3687,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -3698,7 +3698,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -3721,7 +3721,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -3754,7 +3754,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_dependabot_alert_with_repository[]>
@@ -3791,7 +3791,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -3814,7 +3814,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_dependabot_public_key>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/dependabot/secrets/public-key`
@@ -3828,7 +3828,7 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_organization_dependabot_secret>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
@@ -3848,7 +3848,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_empty_object> | Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
@@ -3858,7 +3858,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -3868,7 +3868,7 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
@@ -3884,7 +3884,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -3913,7 +3913,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -3924,7 +3924,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -3935,7 +3935,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
@@ -3951,7 +3951,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
@@ -3965,7 +3965,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_package[]> | Res<401, t_basic_error> | Res<403, t_basic_error>
@@ -3983,7 +3983,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_event[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -3998,7 +3998,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_organization_invitation[]> | Res<404, t_basic_error>
@@ -4017,7 +4017,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_org_hook[]> | Res<404, t_basic_error>>
   > {
@@ -4045,7 +4045,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_org_hook>
@@ -4060,7 +4060,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -4070,7 +4070,7 @@ export class ApiClient extends AbstractFetchClient {
       hookId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_org_hook> | Res<404, t_basic_error>>
   > {
@@ -4096,7 +4096,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_org_hook>
@@ -4111,7 +4111,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -4121,7 +4121,7 @@ export class ApiClient extends AbstractFetchClient {
       hookId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`
 
@@ -4134,7 +4134,7 @@ export class ApiClient extends AbstractFetchClient {
       hookId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_webhook_config>>> {
     const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/config`
 
@@ -4153,7 +4153,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_webhook_config>>> {
     const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/config`
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -4162,7 +4162,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -4175,7 +4175,7 @@ export class ApiClient extends AbstractFetchClient {
       redelivery?: boolean
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_hook_delivery_item[]>
@@ -4201,7 +4201,7 @@ export class ApiClient extends AbstractFetchClient {
       deliveryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_hook_delivery>
@@ -4223,7 +4223,7 @@ export class ApiClient extends AbstractFetchClient {
       deliveryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<202, EmptyObject>
@@ -4244,7 +4244,7 @@ export class ApiClient extends AbstractFetchClient {
       hookId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/pings`
 
@@ -4256,7 +4256,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_installation>>> {
     const url = this.basePath + `/orgs/${p["org"]}/installation`
 
@@ -4270,7 +4270,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -4293,7 +4293,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_interaction_limit_response | EmptyObject>>
   > {
@@ -4308,7 +4308,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_interaction_limit
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_interaction_limit_response> | Res<422, t_validation_error>
@@ -4321,7 +4321,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -4330,7 +4330,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/orgs/${p["org"]}/interaction-limits`
 
@@ -4351,7 +4351,7 @@ export class ApiClient extends AbstractFetchClient {
       invitationSource?: "all" | "member" | "scim"
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_organization_invitation[]> | Res<404, t_basic_error>
@@ -4379,7 +4379,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_organization_invitation>
@@ -4394,7 +4394,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -4404,7 +4404,7 @@ export class ApiClient extends AbstractFetchClient {
       invitationId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<404, t_basic_error> | Res<422, t_validation_error>
@@ -4424,7 +4424,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team[]> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/invitations/${p["invitationId"]}/teams`
@@ -4452,7 +4452,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_issue[]> | Res<404, t_basic_error>>
   > {
@@ -4480,7 +4480,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_simple_user[]> | Res<422, t_validation_error>>
   > {
@@ -4501,7 +4501,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<204, void> | Res<302, void> | Res<404, void>>
   > {
@@ -4516,7 +4516,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<403, t_basic_error>>> {
     const url = this.basePath + `/orgs/${p["org"]}/members/${p["username"]}`
 
@@ -4531,7 +4531,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -4562,7 +4562,7 @@ export class ApiClient extends AbstractFetchClient {
       codespaceName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<202, EmptyObject>
@@ -4587,7 +4587,7 @@ export class ApiClient extends AbstractFetchClient {
       codespaceName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_codespace>
@@ -4611,7 +4611,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_org_membership>
@@ -4633,7 +4633,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_org_membership>
@@ -4648,7 +4648,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -4658,7 +4658,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
@@ -4677,7 +4677,7 @@ export class ApiClient extends AbstractFetchClient {
       exclude?: "repositories"[]
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_migration[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/migrations`
     const query = this._query({
@@ -4705,7 +4705,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_migration>
@@ -4720,7 +4720,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -4731,7 +4731,7 @@ export class ApiClient extends AbstractFetchClient {
       exclude?: "repositories"[]
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_migration> | Res<404, t_basic_error>>
   > {
@@ -4748,7 +4748,7 @@ export class ApiClient extends AbstractFetchClient {
       migrationId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<302, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`
@@ -4762,7 +4762,7 @@ export class ApiClient extends AbstractFetchClient {
       migrationId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`
@@ -4777,7 +4777,7 @@ export class ApiClient extends AbstractFetchClient {
       repoName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
@@ -4794,7 +4794,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_minimal_repository[]> | Res<404, t_basic_error>
@@ -4816,7 +4816,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_simple_user[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/outside_collaborators`
     const query = this._query({
@@ -4837,7 +4837,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<202, EmptyObject>
@@ -4854,7 +4854,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -4864,7 +4864,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -4898,7 +4898,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_package[]>
@@ -4931,7 +4931,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_package>>> {
     const url =
       this.basePath +
@@ -4953,7 +4953,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -4983,7 +4983,7 @@ export class ApiClient extends AbstractFetchClient {
       token?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -5000,7 +5000,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url + query,
       { method: "POST", ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -5020,7 +5020,7 @@ export class ApiClient extends AbstractFetchClient {
       state?: "active" | "deleted"
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_package_version[]>
@@ -5055,7 +5055,7 @@ export class ApiClient extends AbstractFetchClient {
       packageVersionId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_package_version>>> {
     const url =
       this.basePath +
@@ -5078,7 +5078,7 @@ export class ApiClient extends AbstractFetchClient {
       packageVersionId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -5108,7 +5108,7 @@ export class ApiClient extends AbstractFetchClient {
       packageVersionId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -5132,7 +5132,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_project[]> | Res<422, t_validation_error_simple>
@@ -5157,7 +5157,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_project>
@@ -5175,7 +5175,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -5186,7 +5186,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_simple_user[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/public_members`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -5200,7 +5200,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/public_members/${p["username"]}`
@@ -5214,7 +5214,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<403, t_basic_error>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/public_members/${p["username"]}`
@@ -5228,7 +5228,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/public_members/${p["username"]}`
@@ -5246,7 +5246,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_minimal_repository[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/repos`
     const query = this._query({
@@ -5291,7 +5291,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_repository>
@@ -5306,7 +5306,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -5315,7 +5315,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_ruleset[]>
@@ -5341,7 +5341,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_repository_ruleset>
@@ -5356,7 +5356,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -5366,7 +5366,7 @@ export class ApiClient extends AbstractFetchClient {
       rulesetId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_ruleset>
@@ -5393,7 +5393,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_ruleset>
@@ -5408,7 +5408,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -5418,7 +5418,7 @@ export class ApiClient extends AbstractFetchClient {
       rulesetId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<404, t_basic_error> | Res<500, t_basic_error>
@@ -5443,7 +5443,7 @@ export class ApiClient extends AbstractFetchClient {
       after?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_organization_secret_scanning_alert[]>
@@ -5479,7 +5479,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team_simple[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/security-managers`
 
@@ -5492,7 +5492,7 @@ export class ApiClient extends AbstractFetchClient {
       teamSlug: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
@@ -5507,7 +5507,7 @@ export class ApiClient extends AbstractFetchClient {
       teamSlug: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -5521,7 +5521,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_actions_billing_usage>>> {
     const url = this.basePath + `/orgs/${p["org"]}/settings/billing/actions`
 
@@ -5533,7 +5533,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_packages_billing_usage>>> {
     const url = this.basePath + `/orgs/${p["org"]}/settings/billing/packages`
 
@@ -5545,7 +5545,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_combined_billing_usage>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/settings/billing/shared-storage`
@@ -5560,7 +5560,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team[]> | Res<403, t_basic_error>>> {
     const url = this.basePath + `/orgs/${p["org"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -5585,7 +5585,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_team_full>
@@ -5600,7 +5600,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -5610,7 +5610,7 @@ export class ApiClient extends AbstractFetchClient {
       teamSlug: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_team_full> | Res<404, t_basic_error>>
   > {
@@ -5635,7 +5635,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_team_full>
@@ -5652,7 +5652,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -5662,7 +5662,7 @@ export class ApiClient extends AbstractFetchClient {
       teamSlug: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
 
@@ -5679,7 +5679,7 @@ export class ApiClient extends AbstractFetchClient {
       pinned?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion[]>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions`
@@ -5704,7 +5704,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_team_discussion>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions`
@@ -5714,7 +5714,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -5725,7 +5725,7 @@ export class ApiClient extends AbstractFetchClient {
       discussionNumber: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion>>> {
     const url =
       this.basePath +
@@ -5745,7 +5745,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion>>> {
     const url =
       this.basePath +
@@ -5756,7 +5756,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -5767,7 +5767,7 @@ export class ApiClient extends AbstractFetchClient {
       discussionNumber: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -5786,7 +5786,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion_comment[]>>> {
     const url =
       this.basePath +
@@ -5810,7 +5810,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_team_discussion_comment>>> {
     const url =
       this.basePath +
@@ -5821,7 +5821,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -5833,7 +5833,7 @@ export class ApiClient extends AbstractFetchClient {
       commentNumber: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion_comment>>> {
     const url =
       this.basePath +
@@ -5853,7 +5853,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion_comment>>> {
     const url =
       this.basePath +
@@ -5864,7 +5864,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -5876,7 +5876,7 @@ export class ApiClient extends AbstractFetchClient {
       commentNumber: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -5904,7 +5904,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_reaction[]>>> {
     const url =
       this.basePath +
@@ -5937,7 +5937,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_reaction> | Res<201, t_reaction>>> {
     const url =
       this.basePath +
@@ -5948,7 +5948,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -5961,7 +5961,7 @@ export class ApiClient extends AbstractFetchClient {
       reactionId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -5988,7 +5988,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_reaction[]>>> {
     const url =
       this.basePath +
@@ -6020,7 +6020,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_reaction> | Res<201, t_reaction>>> {
     const url =
       this.basePath +
@@ -6031,7 +6031,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -6043,7 +6043,7 @@ export class ApiClient extends AbstractFetchClient {
       reactionId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -6060,7 +6060,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_organization_invitation[]>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/invitations`
@@ -6078,7 +6078,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_simple_user[]>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/members`
@@ -6098,7 +6098,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team_membership> | Res<404, void>>> {
     const url =
       this.basePath +
@@ -6117,7 +6117,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_team_membership> | Res<403, void> | Res<422, void>
@@ -6132,7 +6132,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -6143,7 +6143,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<403, void>>> {
     const url =
       this.basePath +
@@ -6160,7 +6160,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team_project[]>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects`
@@ -6176,7 +6176,7 @@ export class ApiClient extends AbstractFetchClient {
       projectId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team_project> | Res<404, void>>> {
     const url =
       this.basePath +
@@ -6195,7 +6195,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -6217,7 +6217,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -6228,7 +6228,7 @@ export class ApiClient extends AbstractFetchClient {
       projectId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -6245,7 +6245,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_minimal_repository[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -6261,7 +6261,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_team_repository> | Res<204, void> | Res<404, void>
@@ -6285,7 +6285,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -6296,7 +6296,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -6308,7 +6308,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -6325,7 +6325,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -6347,7 +6347,7 @@ export class ApiClient extends AbstractFetchClient {
       enablement: "enable_all" | "disable_all"
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<422, void>>> {
     const url =
       this.basePath +
@@ -6361,7 +6361,7 @@ export class ApiClient extends AbstractFetchClient {
       cardId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_project_card>
@@ -6385,7 +6385,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_project_card>
@@ -6403,7 +6403,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -6412,7 +6412,7 @@ export class ApiClient extends AbstractFetchClient {
       cardId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -6443,7 +6443,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, EmptyObject>
@@ -6484,7 +6484,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -6493,7 +6493,7 @@ export class ApiClient extends AbstractFetchClient {
       columnId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_project_column>
@@ -6516,7 +6516,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_project_column>
@@ -6532,7 +6532,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -6541,7 +6541,7 @@ export class ApiClient extends AbstractFetchClient {
       columnId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -6563,7 +6563,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_project_card[]>
@@ -6595,7 +6595,7 @@ export class ApiClient extends AbstractFetchClient {
           }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_project_card>
@@ -6624,7 +6624,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -6636,7 +6636,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, EmptyObject>
@@ -6653,7 +6653,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -6662,7 +6662,7 @@ export class ApiClient extends AbstractFetchClient {
       projectId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_project>
@@ -6688,7 +6688,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_project>
@@ -6714,7 +6714,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -6723,7 +6723,7 @@ export class ApiClient extends AbstractFetchClient {
       projectId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -6754,7 +6754,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_simple_user[]>
@@ -6784,7 +6784,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -6804,7 +6804,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -6814,7 +6814,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -6838,7 +6838,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_project_collaborator_permission>
@@ -6863,7 +6863,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_project_column[]>
@@ -6886,7 +6886,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_project_column>
@@ -6903,13 +6903,13 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
   async rateLimitGet(
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_rate_limit_overview> | Res<304, void> | Res<404, t_basic_error>
@@ -6928,7 +6928,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -6956,7 +6956,7 @@ export class ApiClient extends AbstractFetchClient {
       requiredWorkflowIdForRepo: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_repo_required_workflow> | Res<404, t_basic_error>
@@ -6976,7 +6976,7 @@ export class ApiClient extends AbstractFetchClient {
       requiredWorkflowIdForRepo: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_workflow_usage> | Res<404, t_basic_error>>
   > {
@@ -6993,7 +6993,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_full_repository>
@@ -7050,7 +7050,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_full_repository>
@@ -7067,7 +7067,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -7077,7 +7077,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -7106,7 +7106,7 @@ export class ApiClient extends AbstractFetchClient {
       name?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -7136,7 +7136,7 @@ export class ApiClient extends AbstractFetchClient {
       artifactId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_artifact>>> {
     const url =
       this.basePath +
@@ -7152,7 +7152,7 @@ export class ApiClient extends AbstractFetchClient {
       artifactId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -7169,7 +7169,7 @@ export class ApiClient extends AbstractFetchClient {
       archiveFormat: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<302, void> | Res<410, t_basic_error>>> {
     const url =
       this.basePath +
@@ -7184,7 +7184,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_actions_cache_usage_by_repository>>
   > {
@@ -7206,7 +7206,7 @@ export class ApiClient extends AbstractFetchClient {
       direction?: "asc" | "desc"
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_actions_cache_list>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/caches`
@@ -7230,7 +7230,7 @@ export class ApiClient extends AbstractFetchClient {
       ref?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_actions_cache_list>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/caches`
@@ -7239,7 +7239,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url + query,
       { method: "DELETE", ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -7250,7 +7250,7 @@ export class ApiClient extends AbstractFetchClient {
       cacheId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -7266,7 +7266,7 @@ export class ApiClient extends AbstractFetchClient {
       jobId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_job>>> {
     const url =
       this.basePath +
@@ -7282,7 +7282,7 @@ export class ApiClient extends AbstractFetchClient {
       jobId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<302, void>>> {
     const url =
       this.basePath +
@@ -7301,7 +7301,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<201, t_empty_object> | Res<403, t_basic_error>>
   > {
@@ -7314,7 +7314,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -7324,7 +7324,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_oidc_custom_sub_repo>
@@ -7349,7 +7349,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_empty_object>
@@ -7367,7 +7367,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -7379,7 +7379,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -7407,7 +7407,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -7433,7 +7433,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_actions_repository_permissions>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/permissions`
@@ -7451,7 +7451,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/permissions`
@@ -7461,7 +7461,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -7471,7 +7471,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_actions_workflow_access_to_repository>>
   > {
@@ -7489,7 +7489,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_actions_workflow_access_to_repository
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -7500,7 +7500,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -7510,7 +7510,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_selected_actions>>> {
     const url =
       this.basePath +
@@ -7526,7 +7526,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: t_selected_actions
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -7537,7 +7537,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -7547,7 +7547,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_actions_get_default_workflow_permissions>>
   > {
@@ -7565,7 +7565,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_actions_set_default_workflow_permissions
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
@@ -7576,7 +7576,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -7611,7 +7611,7 @@ export class ApiClient extends AbstractFetchClient {
       headSha?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -7650,7 +7650,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -7675,7 +7675,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_runner_application[]>>> {
     const url =
       this.basePath +
@@ -7690,7 +7690,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_authentication_token>>> {
     const url =
       this.basePath +
@@ -7705,7 +7705,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_authentication_token>>> {
     const url =
       this.basePath +
@@ -7721,7 +7721,7 @@ export class ApiClient extends AbstractFetchClient {
       runnerId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_runner>>> {
     const url =
       this.basePath +
@@ -7737,7 +7737,7 @@ export class ApiClient extends AbstractFetchClient {
       runnerId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -7753,7 +7753,7 @@ export class ApiClient extends AbstractFetchClient {
       runnerId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -7783,7 +7783,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -7806,7 +7806,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -7820,7 +7820,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -7843,7 +7843,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -7854,7 +7854,7 @@ export class ApiClient extends AbstractFetchClient {
       runnerId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -7882,7 +7882,7 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -7933,7 +7933,7 @@ export class ApiClient extends AbstractFetchClient {
       headSha?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -7970,7 +7970,7 @@ export class ApiClient extends AbstractFetchClient {
       excludePullRequests?: boolean
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_workflow_run>>> {
     const url =
       this.basePath +
@@ -7989,7 +7989,7 @@ export class ApiClient extends AbstractFetchClient {
       runId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -8005,7 +8005,7 @@ export class ApiClient extends AbstractFetchClient {
       runId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_environment_approvals[]>>> {
     const url =
       this.basePath +
@@ -8021,7 +8021,7 @@ export class ApiClient extends AbstractFetchClient {
       runId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_empty_object>
@@ -8045,7 +8045,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -8074,7 +8074,7 @@ export class ApiClient extends AbstractFetchClient {
       excludePullRequests?: boolean
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_workflow_run>>> {
     const url =
       this.basePath +
@@ -8096,7 +8096,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -8125,7 +8125,7 @@ export class ApiClient extends AbstractFetchClient {
       attemptNumber: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<302, void>>> {
     const url =
       this.basePath +
@@ -8141,7 +8141,7 @@ export class ApiClient extends AbstractFetchClient {
       runId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<202, t_empty_object> | Res<409, t_basic_error>>
   > {
@@ -8162,7 +8162,7 @@ export class ApiClient extends AbstractFetchClient {
         | t_review_custom_gates_state_required
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -8173,7 +8173,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -8187,7 +8187,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -8218,7 +8218,7 @@ export class ApiClient extends AbstractFetchClient {
       runId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<302, void>>> {
     const url =
       this.basePath +
@@ -8234,7 +8234,7 @@ export class ApiClient extends AbstractFetchClient {
       runId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<403, t_basic_error> | Res<500, t_basic_error>
@@ -8254,7 +8254,7 @@ export class ApiClient extends AbstractFetchClient {
       runId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_pending_deployment[]>>> {
     const url =
       this.basePath +
@@ -8275,7 +8275,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_deployment[]>>> {
     const url =
       this.basePath +
@@ -8286,7 +8286,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -8300,7 +8300,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_empty_object>>> {
     const url =
       this.basePath +
@@ -8311,7 +8311,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -8325,7 +8325,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_empty_object>>> {
     const url =
       this.basePath +
@@ -8336,7 +8336,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -8347,7 +8347,7 @@ export class ApiClient extends AbstractFetchClient {
       runId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_workflow_run_usage>>> {
     const url =
       this.basePath +
@@ -8364,7 +8364,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -8389,7 +8389,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_actions_public_key>>> {
     const url =
       this.basePath +
@@ -8405,7 +8405,7 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_actions_secret>>> {
     const url =
       this.basePath +
@@ -8425,7 +8425,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_empty_object> | Res<204, void>>> {
     const url =
       this.basePath +
@@ -8436,7 +8436,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -8447,7 +8447,7 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -8464,7 +8464,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -8493,7 +8493,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_empty_object>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/variables`
@@ -8503,7 +8503,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -8514,7 +8514,7 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_actions_variable>>> {
     const url =
       this.basePath +
@@ -8534,7 +8534,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -8545,7 +8545,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -8556,7 +8556,7 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -8573,7 +8573,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -8599,7 +8599,7 @@ export class ApiClient extends AbstractFetchClient {
       workflowId: number | string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_workflow>>> {
     const url =
       this.basePath +
@@ -8615,7 +8615,7 @@ export class ApiClient extends AbstractFetchClient {
       workflowId: number | string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -8637,7 +8637,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -8648,7 +8648,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -8659,7 +8659,7 @@ export class ApiClient extends AbstractFetchClient {
       workflowId: number | string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -8699,7 +8699,7 @@ export class ApiClient extends AbstractFetchClient {
       headSha?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -8737,7 +8737,7 @@ export class ApiClient extends AbstractFetchClient {
       workflowId: number | string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_workflow_usage>>> {
     const url =
       this.basePath +
@@ -8754,7 +8754,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_simple_user[]> | Res<404, t_basic_error>>
   > {
@@ -8771,7 +8771,7 @@ export class ApiClient extends AbstractFetchClient {
       assignee: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
@@ -8787,7 +8787,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_autolink[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/autolinks`
     const query = this._query({ page: p["page"] })
@@ -8806,7 +8806,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<201, t_autolink> | Res<422, t_validation_error>>
   > {
@@ -8817,7 +8817,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -8828,7 +8828,7 @@ export class ApiClient extends AbstractFetchClient {
       autolinkId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_autolink> | Res<404, t_basic_error>>
   > {
@@ -8846,7 +8846,7 @@ export class ApiClient extends AbstractFetchClient {
       autolinkId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
@@ -8861,7 +8861,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -8876,7 +8876,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -8894,7 +8894,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_short_branch[]> | Res<404, t_basic_error>>
   > {
@@ -8915,7 +8915,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_branch_with_protection>
@@ -8937,7 +8937,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_branch_protection> | Res<404, t_basic_error>>
   > {
@@ -8994,7 +8994,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_protected_branch>
@@ -9012,7 +9012,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -9023,7 +9023,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<403, t_basic_error>>> {
     const url =
       this.basePath +
@@ -9039,7 +9039,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_protected_branch_admin_enforced>>> {
     const url =
       this.basePath +
@@ -9055,7 +9055,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_protected_branch_admin_enforced>>> {
     const url =
       this.basePath +
@@ -9071,7 +9071,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
@@ -9087,7 +9087,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_protected_branch_pull_request_review>>
   > {
@@ -9121,7 +9121,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_protected_branch_pull_request_review>
@@ -9137,7 +9137,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -9148,7 +9148,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
@@ -9164,7 +9164,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_protected_branch_admin_enforced> | Res<404, t_basic_error>
@@ -9184,7 +9184,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_protected_branch_admin_enforced> | Res<404, t_basic_error>
@@ -9204,7 +9204,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
@@ -9220,7 +9220,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_status_check_policy> | Res<404, t_basic_error>
@@ -9248,7 +9248,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_status_check_policy>
@@ -9265,7 +9265,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -9276,7 +9276,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -9292,7 +9292,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, string[]> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
@@ -9313,7 +9313,7 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, string[]>
@@ -9331,7 +9331,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -9347,7 +9347,7 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, string[]>
@@ -9364,7 +9364,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -9380,7 +9380,7 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, string[]>
@@ -9397,7 +9397,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "DELETE", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -9408,7 +9408,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_branch_restriction_policy> | Res<404, t_basic_error>
@@ -9428,7 +9428,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -9444,7 +9444,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_integration[]> | Res<404, t_basic_error>>
   > {
@@ -9467,7 +9467,7 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_integration[]> | Res<422, t_validation_error>>
   > {
@@ -9480,7 +9480,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -9496,7 +9496,7 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_integration[]> | Res<422, t_validation_error>>
   > {
@@ -9509,7 +9509,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -9525,7 +9525,7 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_integration[]> | Res<422, t_validation_error>>
   > {
@@ -9538,7 +9538,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "DELETE", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -9549,7 +9549,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team[]> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
@@ -9570,7 +9570,7 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_team[]> | Res<422, t_validation_error>>
   > {
@@ -9583,7 +9583,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -9599,7 +9599,7 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_team[]> | Res<422, t_validation_error>>
   > {
@@ -9612,7 +9612,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -9628,7 +9628,7 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_team[]> | Res<422, t_validation_error>>
   > {
@@ -9641,7 +9641,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "DELETE", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -9652,7 +9652,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_simple_user[]> | Res<404, t_basic_error>>
   > {
@@ -9675,7 +9675,7 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_simple_user[]> | Res<422, t_validation_error>>
   > {
@@ -9688,7 +9688,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -9704,7 +9704,7 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_simple_user[]> | Res<422, t_validation_error>>
   > {
@@ -9717,7 +9717,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -9733,7 +9733,7 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_simple_user[]> | Res<422, t_validation_error>>
   > {
@@ -9746,7 +9746,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "DELETE", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -9760,7 +9760,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_branch_with_protection>
@@ -9778,7 +9778,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -9798,7 +9798,7 @@ export class ApiClient extends AbstractFetchClient {
           }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_check_run>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/check-runs`
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -9807,7 +9807,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -9818,7 +9818,7 @@ export class ApiClient extends AbstractFetchClient {
       checkRunId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_check_run>>> {
     const url =
       this.basePath +
@@ -9877,7 +9877,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_check_run>>> {
     const url =
       this.basePath +
@@ -9888,7 +9888,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -9901,7 +9901,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_check_annotation[]>>> {
     const url =
       this.basePath +
@@ -9918,7 +9918,7 @@ export class ApiClient extends AbstractFetchClient {
       checkRunId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_empty_object>
@@ -9943,7 +9943,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_check_suite> | Res<201, t_check_suite>>
   > {
@@ -9954,7 +9954,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -9970,7 +9970,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_check_suite_preference>>> {
     const url =
       this.basePath +
@@ -9981,7 +9981,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -9992,7 +9992,7 @@ export class ApiClient extends AbstractFetchClient {
       checkSuiteId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_check_suite>>> {
     const url =
       this.basePath +
@@ -10013,7 +10013,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -10046,7 +10046,7 @@ export class ApiClient extends AbstractFetchClient {
       checkSuiteId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_empty_object>>> {
     const url =
       this.basePath +
@@ -10070,7 +10070,7 @@ export class ApiClient extends AbstractFetchClient {
       severity?: t_code_scanning_alert_severity
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_alert_items[]>
@@ -10111,7 +10111,7 @@ export class ApiClient extends AbstractFetchClient {
       alertNumber: t_alert_number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_alert>
@@ -10147,7 +10147,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_alert>
@@ -10172,7 +10172,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -10186,7 +10186,7 @@ export class ApiClient extends AbstractFetchClient {
       ref?: t_code_scanning_ref
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_alert_instance[]>
@@ -10228,7 +10228,7 @@ export class ApiClient extends AbstractFetchClient {
       sort?: "created"
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_analysis[]>
@@ -10267,7 +10267,7 @@ export class ApiClient extends AbstractFetchClient {
       analysisId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -10303,7 +10303,7 @@ export class ApiClient extends AbstractFetchClient {
       confirmDelete?: string | null
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_analysis_deletion>
@@ -10328,7 +10328,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url + query,
       { method: "DELETE", ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -10338,7 +10338,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_codeql_database[]>
@@ -10368,7 +10368,7 @@ export class ApiClient extends AbstractFetchClient {
       language: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_codeql_database>
@@ -10398,7 +10398,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_default_setup>
@@ -10428,7 +10428,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_code_scanning_default_setup_update
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_empty_object>
@@ -10455,7 +10455,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -10474,7 +10474,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<202, t_code_scanning_sarifs_receipt>
@@ -10500,7 +10500,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -10511,7 +10511,7 @@ export class ApiClient extends AbstractFetchClient {
       sarifId: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_sarifs_status>
@@ -10541,7 +10541,7 @@ export class ApiClient extends AbstractFetchClient {
       ref?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_codeowners_errors> | Res<404, void>>
   > {
@@ -10560,7 +10560,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -10601,7 +10601,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_codespace>
@@ -10627,7 +10627,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -10639,7 +10639,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -10676,7 +10676,7 @@ export class ApiClient extends AbstractFetchClient {
       clientIp?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -10711,7 +10711,7 @@ export class ApiClient extends AbstractFetchClient {
       clientIp?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -10744,7 +10744,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -10769,7 +10769,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_codespaces_public_key>>> {
     const url =
       this.basePath +
@@ -10785,7 +10785,7 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_repo_codespaces_secret>>> {
     const url =
       this.basePath +
@@ -10805,7 +10805,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_empty_object> | Res<204, void>>> {
     const url =
       this.basePath +
@@ -10816,7 +10816,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -10827,7 +10827,7 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -10846,7 +10846,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_collaborator[]> | Res<404, t_basic_error>>
   > {
@@ -10869,7 +10869,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, void>>> {
     const url =
       this.basePath +
@@ -10888,7 +10888,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_repository_invitation>
@@ -10906,7 +10906,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -10917,7 +10917,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -10933,7 +10933,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_repository_collaborator_permission> | Res<404, t_basic_error>
@@ -10954,7 +10954,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_commit_comment[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/comments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -10969,7 +10969,7 @@ export class ApiClient extends AbstractFetchClient {
       commentId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_commit_comment> | Res<404, t_basic_error>>
   > {
@@ -10990,7 +10990,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_commit_comment> | Res<404, t_basic_error>>
   > {
@@ -11003,7 +11003,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -11014,7 +11014,7 @@ export class ApiClient extends AbstractFetchClient {
       commentId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
@@ -11041,7 +11041,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_reaction[]> | Res<404, t_basic_error>>
   > {
@@ -11075,7 +11075,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_reaction> | Res<201, t_reaction> | Res<422, t_validation_error>
@@ -11090,7 +11090,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -11102,7 +11102,7 @@ export class ApiClient extends AbstractFetchClient {
       reactionId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -11125,7 +11125,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_commit[]>
@@ -11157,7 +11157,7 @@ export class ApiClient extends AbstractFetchClient {
       commitSha: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_branch_short[]> | Res<422, t_validation_error>
@@ -11179,7 +11179,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_commit_comment[]>>> {
     const url =
       this.basePath +
@@ -11202,7 +11202,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_commit_comment>
@@ -11219,7 +11219,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -11232,7 +11232,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_pull_request_simple[]>>> {
     const url =
       this.basePath +
@@ -11251,7 +11251,7 @@ export class ApiClient extends AbstractFetchClient {
       ref: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_commit>
@@ -11288,7 +11288,7 @@ export class ApiClient extends AbstractFetchClient {
       appId?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -11326,7 +11326,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -11360,7 +11360,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_combined_commit_status> | Res<404, t_basic_error>
@@ -11383,7 +11383,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_status[]> | Res<301, t_basic_error>>
   > {
@@ -11401,7 +11401,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_community_profile>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/community/profile`
@@ -11418,7 +11418,7 @@ export class ApiClient extends AbstractFetchClient {
       basehead: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_commit_comparison>
@@ -11450,7 +11450,7 @@ export class ApiClient extends AbstractFetchClient {
       ref?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -11495,7 +11495,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_file_commit>
@@ -11513,7 +11513,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -11537,7 +11537,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_file_commit>
@@ -11562,7 +11562,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "DELETE", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -11575,7 +11575,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_contributor[]>
@@ -11614,7 +11614,7 @@ export class ApiClient extends AbstractFetchClient {
       last?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_dependabot_alert[]>
@@ -11654,7 +11654,7 @@ export class ApiClient extends AbstractFetchClient {
       alertNumber: t_alert_number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_dependabot_alert>
@@ -11687,7 +11687,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_dependabot_alert>
@@ -11707,7 +11707,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -11719,7 +11719,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -11744,7 +11744,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_dependabot_public_key>>> {
     const url =
       this.basePath +
@@ -11760,7 +11760,7 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_dependabot_secret>>> {
     const url =
       this.basePath +
@@ -11780,7 +11780,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_empty_object> | Res<204, void>>> {
     const url =
       this.basePath +
@@ -11791,7 +11791,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -11802,7 +11802,7 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -11819,7 +11819,7 @@ export class ApiClient extends AbstractFetchClient {
       name?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_dependency_graph_diff>
@@ -11841,7 +11841,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_dependency_graph_spdx_sbom>
@@ -11862,7 +11862,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_snapshot
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -11885,7 +11885,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -11901,7 +11901,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_deployment[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/deployments`
     const query = this._query({
@@ -11937,7 +11937,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_deployment>
@@ -11958,7 +11958,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -11969,7 +11969,7 @@ export class ApiClient extends AbstractFetchClient {
       deploymentId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_deployment> | Res<404, t_basic_error>>
   > {
@@ -11987,7 +11987,7 @@ export class ApiClient extends AbstractFetchClient {
       deploymentId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -12011,7 +12011,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_deployment_status[]> | Res<404, t_basic_error>
@@ -12048,7 +12048,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<201, t_deployment_status> | Res<422, t_validation_error>
@@ -12063,7 +12063,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -12075,7 +12075,7 @@ export class ApiClient extends AbstractFetchClient {
       statusId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_deployment_status> | Res<404, t_basic_error>>
   > {
@@ -12098,7 +12098,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<204, void> | Res<422, t_validation_error>>
   > {
@@ -12109,7 +12109,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -12121,7 +12121,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -12146,7 +12146,7 @@ export class ApiClient extends AbstractFetchClient {
       environmentName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_environment>>> {
     const url =
       this.basePath +
@@ -12172,7 +12172,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_environment> | Res<422, t_basic_error>>
   > {
@@ -12185,7 +12185,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -12196,7 +12196,7 @@ export class ApiClient extends AbstractFetchClient {
       environmentName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -12214,7 +12214,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -12242,7 +12242,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_deployment_branch_policy_name_pattern
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_deployment_branch_policy> | Res<303, void> | Res<404, void>
@@ -12257,7 +12257,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -12269,7 +12269,7 @@ export class ApiClient extends AbstractFetchClient {
       branchPolicyId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_deployment_branch_policy>>> {
     const url =
       this.basePath +
@@ -12287,7 +12287,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_deployment_branch_policy_name_pattern
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_deployment_branch_policy>>> {
     const url =
       this.basePath +
@@ -12298,7 +12298,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -12310,7 +12310,7 @@ export class ApiClient extends AbstractFetchClient {
       branchPolicyId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -12326,7 +12326,7 @@ export class ApiClient extends AbstractFetchClient {
       owner: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -12355,7 +12355,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_deployment_protection_rule>>> {
     const url =
       this.basePath +
@@ -12366,7 +12366,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -12379,7 +12379,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -12407,7 +12407,7 @@ export class ApiClient extends AbstractFetchClient {
       protectionRuleId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_deployment_protection_rule>>> {
     const url =
       this.basePath +
@@ -12424,7 +12424,7 @@ export class ApiClient extends AbstractFetchClient {
       protectionRuleId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -12441,7 +12441,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_event[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -12458,7 +12458,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_minimal_repository[]> | Res<400, t_scim_error>
@@ -12485,7 +12485,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<202, t_full_repository>
@@ -12502,7 +12502,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -12516,7 +12516,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_short_blob>
@@ -12533,7 +12533,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -12544,7 +12544,7 @@ export class ApiClient extends AbstractFetchClient {
       fileSha: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_blob>
@@ -12582,7 +12582,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_git_commit>
@@ -12597,7 +12597,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -12608,7 +12608,7 @@ export class ApiClient extends AbstractFetchClient {
       commitSha: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_git_commit> | Res<404, t_basic_error>>
   > {
@@ -12626,7 +12626,7 @@ export class ApiClient extends AbstractFetchClient {
       ref: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_git_ref[]>>> {
     const url =
       this.basePath +
@@ -12642,7 +12642,7 @@ export class ApiClient extends AbstractFetchClient {
       ref: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_git_ref> | Res<404, t_basic_error>>
   > {
@@ -12662,7 +12662,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<201, t_git_ref> | Res<422, t_validation_error>>
   > {
@@ -12673,7 +12673,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -12688,7 +12688,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_git_ref> | Res<422, t_validation_error>>
   > {
@@ -12700,7 +12700,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -12711,7 +12711,7 @@ export class ApiClient extends AbstractFetchClient {
       ref: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<204, void> | Res<422, t_validation_error>>
   > {
@@ -12738,7 +12738,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<201, t_git_tag> | Res<422, t_validation_error>>
   > {
@@ -12749,7 +12749,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -12760,7 +12760,7 @@ export class ApiClient extends AbstractFetchClient {
       tagSha: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_git_tag> | Res<404, t_basic_error>>
   > {
@@ -12787,7 +12787,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_git_tree>
@@ -12803,7 +12803,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -12815,7 +12815,7 @@ export class ApiClient extends AbstractFetchClient {
       recursive?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_git_tree>
@@ -12839,7 +12839,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_hook[]> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -12866,7 +12866,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_hook>
@@ -12882,7 +12882,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -12893,7 +12893,7 @@ export class ApiClient extends AbstractFetchClient {
       hookId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_hook> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`
@@ -12922,7 +12922,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_hook> | Res<404, t_basic_error> | Res<422, t_validation_error>
@@ -12936,7 +12936,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -12947,7 +12947,7 @@ export class ApiClient extends AbstractFetchClient {
       hookId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`
@@ -12962,7 +12962,7 @@ export class ApiClient extends AbstractFetchClient {
       hookId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_webhook_config>>> {
     const url =
       this.basePath +
@@ -12984,7 +12984,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_webhook_config>>> {
     const url =
       this.basePath +
@@ -12995,7 +12995,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -13009,7 +13009,7 @@ export class ApiClient extends AbstractFetchClient {
       redelivery?: boolean
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_hook_delivery_item[]>
@@ -13037,7 +13037,7 @@ export class ApiClient extends AbstractFetchClient {
       deliveryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_hook_delivery>
@@ -13060,7 +13060,7 @@ export class ApiClient extends AbstractFetchClient {
       deliveryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<202, EmptyObject>
@@ -13082,7 +13082,7 @@ export class ApiClient extends AbstractFetchClient {
       hookId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
@@ -13098,7 +13098,7 @@ export class ApiClient extends AbstractFetchClient {
       hookId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
@@ -13113,7 +13113,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_import> | Res<404, t_basic_error> | Res<503, t_basic_error>
@@ -13137,7 +13137,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_import>
@@ -13153,7 +13153,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -13169,7 +13169,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_import> | Res<503, t_basic_error>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -13178,7 +13178,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -13188,7 +13188,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<503, t_basic_error>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`
 
@@ -13202,7 +13202,7 @@ export class ApiClient extends AbstractFetchClient {
       since?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_porter_author[]>
@@ -13228,7 +13228,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_porter_author>
@@ -13246,7 +13246,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -13256,7 +13256,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_porter_large_file[]> | Res<503, t_basic_error>
@@ -13277,7 +13277,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_import>
@@ -13292,7 +13292,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -13302,7 +13302,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_installation>
@@ -13321,7 +13321,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_interaction_limit_response | EmptyObject>>
   > {
@@ -13338,7 +13338,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_interaction_limit
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_interaction_limit_response> | Res<409, void>>
   > {
@@ -13350,7 +13350,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -13360,7 +13360,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
@@ -13376,7 +13376,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_repository_invitation[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -13394,7 +13394,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_repository_invitation>>> {
     const url =
       this.basePath +
@@ -13405,7 +13405,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -13416,7 +13416,7 @@ export class ApiClient extends AbstractFetchClient {
       invitationId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -13442,7 +13442,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_issue[]>
@@ -13491,7 +13491,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_issue>
@@ -13516,7 +13516,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -13531,7 +13531,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_issue_comment[]>
@@ -13559,7 +13559,7 @@ export class ApiClient extends AbstractFetchClient {
       commentId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_issue_comment> | Res<404, t_basic_error>>
   > {
@@ -13580,7 +13580,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_issue_comment> | Res<422, t_validation_error>>
   > {
@@ -13593,7 +13593,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -13604,7 +13604,7 @@ export class ApiClient extends AbstractFetchClient {
       commentId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -13631,7 +13631,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_reaction[]> | Res<404, t_basic_error>>
   > {
@@ -13665,7 +13665,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_reaction> | Res<201, t_reaction> | Res<422, t_validation_error>
@@ -13680,7 +13680,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -13692,7 +13692,7 @@ export class ApiClient extends AbstractFetchClient {
       reactionId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -13709,7 +13709,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_issue_event[]> | Res<422, t_validation_error>>
   > {
@@ -13727,7 +13727,7 @@ export class ApiClient extends AbstractFetchClient {
       eventId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_issue_event>
@@ -13750,7 +13750,7 @@ export class ApiClient extends AbstractFetchClient {
       issueNumber: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_issue>
@@ -13792,7 +13792,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_issue>
@@ -13820,7 +13820,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -13834,7 +13834,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_issue>>> {
     const url =
       this.basePath +
@@ -13845,7 +13845,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -13859,7 +13859,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_issue>>> {
     const url =
       this.basePath +
@@ -13870,7 +13870,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "DELETE", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -13882,7 +13882,7 @@ export class ApiClient extends AbstractFetchClient {
       assignee: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
@@ -13901,7 +13901,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_issue_comment[]>
@@ -13931,7 +13931,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_issue_comment>
@@ -13950,7 +13950,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -13963,7 +13963,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issue_event_for_issue[]> | Res<410, t_basic_error>
@@ -13986,7 +13986,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_label[]>
@@ -14024,7 +14024,7 @@ export class ApiClient extends AbstractFetchClient {
         | string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_label[]>
@@ -14043,7 +14043,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -14068,7 +14068,7 @@ export class ApiClient extends AbstractFetchClient {
         | string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_label[]>
@@ -14087,7 +14087,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -14098,7 +14098,7 @@ export class ApiClient extends AbstractFetchClient {
       issueNumber: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -14122,7 +14122,7 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_label[]>
@@ -14148,7 +14148,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -14167,7 +14167,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -14178,7 +14178,7 @@ export class ApiClient extends AbstractFetchClient {
       issueNumber: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
@@ -14209,7 +14209,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_reaction[]> | Res<404, t_basic_error> | Res<410, t_basic_error>
@@ -14245,7 +14245,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_reaction> | Res<201, t_reaction> | Res<422, t_validation_error>
@@ -14260,7 +14260,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -14272,7 +14272,7 @@ export class ApiClient extends AbstractFetchClient {
       reactionId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -14290,7 +14290,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_timeline_issue_events[]>
@@ -14314,7 +14314,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_deploy_key[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -14333,7 +14333,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<201, t_deploy_key> | Res<422, t_validation_error>>
   > {
@@ -14344,7 +14344,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -14355,7 +14355,7 @@ export class ApiClient extends AbstractFetchClient {
       keyId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_deploy_key> | Res<404, t_basic_error>>
   > {
@@ -14372,7 +14372,7 @@ export class ApiClient extends AbstractFetchClient {
       keyId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`
@@ -14388,7 +14388,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_label[]> | Res<404, t_basic_error>>
   > {
@@ -14409,7 +14409,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<201, t_label> | Res<404, t_basic_error> | Res<422, t_validation_error>
@@ -14422,7 +14422,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -14433,7 +14433,7 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_label> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
@@ -14453,7 +14453,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_label>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
@@ -14463,7 +14463,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -14474,7 +14474,7 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
@@ -14488,7 +14488,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_language>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/languages`
 
@@ -14501,7 +14501,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<202, EmptyObject> | Res<403, void>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/lfs`
 
@@ -14514,7 +14514,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/lfs`
 
@@ -14527,7 +14527,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_license_content>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/license`
 
@@ -14543,7 +14543,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_merged_upstream> | Res<409, void> | Res<422, void>
@@ -14557,7 +14557,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -14572,7 +14572,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_commit>
@@ -14590,7 +14590,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -14605,7 +14605,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_milestone[]> | Res<404, t_basic_error>>
   > {
@@ -14633,7 +14633,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_milestone>
@@ -14648,7 +14648,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -14659,7 +14659,7 @@ export class ApiClient extends AbstractFetchClient {
       milestoneNumber: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_milestone> | Res<404, t_basic_error>>
   > {
@@ -14683,7 +14683,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_milestone>>> {
     const url =
       this.basePath +
@@ -14694,7 +14694,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -14705,7 +14705,7 @@ export class ApiClient extends AbstractFetchClient {
       milestoneNumber: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
@@ -14723,7 +14723,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_label[]>>> {
     const url =
       this.basePath +
@@ -14745,7 +14745,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_thread[]>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/notifications`
@@ -14770,7 +14770,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -14791,7 +14791,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -14801,7 +14801,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_page> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`
 
@@ -14821,7 +14821,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<201, t_page> | Res<409, t_basic_error> | Res<422, t_validation_error>
@@ -14834,7 +14834,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -14857,7 +14857,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -14873,7 +14873,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -14883,7 +14883,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -14905,7 +14905,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_page_build[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/builds`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -14919,7 +14919,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_page_build_status>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/builds`
 
@@ -14932,7 +14932,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_page_build>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/builds/latest`
@@ -14947,7 +14947,7 @@ export class ApiClient extends AbstractFetchClient {
       buildId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_page_build>>> {
     const url =
       this.basePath +
@@ -14968,7 +14968,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_page_deployment>
@@ -14985,7 +14985,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -14995,7 +14995,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_pages_health_check>
@@ -15019,7 +15019,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_project[]>
@@ -15050,7 +15050,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_project>
@@ -15068,7 +15068,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -15085,7 +15085,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_pull_request_simple[]>
@@ -15123,7 +15123,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_pull_request>
@@ -15138,7 +15138,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -15153,7 +15153,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_pull_request_review_comment[]>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pulls/comments`
@@ -15175,7 +15175,7 @@ export class ApiClient extends AbstractFetchClient {
       commentId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_pull_request_review_comment> | Res<404, t_basic_error>
@@ -15198,7 +15198,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_pull_request_review_comment>>> {
     const url =
       this.basePath +
@@ -15209,7 +15209,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -15220,7 +15220,7 @@ export class ApiClient extends AbstractFetchClient {
       commentId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
@@ -15247,7 +15247,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_reaction[]> | Res<404, t_basic_error>>
   > {
@@ -15281,7 +15281,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_reaction> | Res<201, t_reaction> | Res<422, t_validation_error>
@@ -15296,7 +15296,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -15308,7 +15308,7 @@ export class ApiClient extends AbstractFetchClient {
       reactionId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -15324,7 +15324,7 @@ export class ApiClient extends AbstractFetchClient {
       pullNumber: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_pull_request>
@@ -15362,7 +15362,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_pull_request>
@@ -15379,7 +15379,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -15402,7 +15402,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_codespace>
@@ -15429,7 +15429,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -15445,7 +15445,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_pull_request_review_comment[]>>> {
     const url =
       this.basePath +
@@ -15480,7 +15480,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_pull_request_review_comment>
@@ -15497,7 +15497,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -15512,7 +15512,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<201, t_pull_request_review_comment> | Res<404, t_basic_error>
@@ -15527,7 +15527,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -15540,7 +15540,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_commit[]>>> {
     const url =
       this.basePath +
@@ -15559,7 +15559,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_diff_entry[]>
@@ -15590,7 +15590,7 @@ export class ApiClient extends AbstractFetchClient {
       pullNumber: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, void>>> {
     const url =
       this.basePath +
@@ -15612,7 +15612,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_pull_request_merge_result>
@@ -15644,7 +15644,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -15655,7 +15655,7 @@ export class ApiClient extends AbstractFetchClient {
       pullNumber: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_pull_request_review_request>>> {
     const url =
       this.basePath +
@@ -15675,7 +15675,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<201, t_pull_request_simple> | Res<403, t_basic_error> | Res<422, void>
@@ -15690,7 +15690,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -15705,7 +15705,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_pull_request_simple> | Res<422, t_validation_error>
@@ -15720,7 +15720,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "DELETE", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -15733,7 +15733,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_pull_request_review[]>>> {
     const url =
       this.basePath +
@@ -15764,7 +15764,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_pull_request_review>
@@ -15781,7 +15781,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -15793,7 +15793,7 @@ export class ApiClient extends AbstractFetchClient {
       reviewId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_pull_request_review> | Res<404, t_basic_error>
@@ -15817,7 +15817,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_pull_request_review> | Res<422, t_validation_error_simple>
@@ -15832,7 +15832,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -15844,7 +15844,7 @@ export class ApiClient extends AbstractFetchClient {
       reviewId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_pull_request_review>
@@ -15869,7 +15869,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_review_comment[]> | Res<404, t_basic_error>>
   > {
@@ -15893,7 +15893,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_pull_request_review>
@@ -15910,7 +15910,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -15926,7 +15926,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_pull_request_review>
@@ -15944,7 +15944,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -15958,7 +15958,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -15981,7 +15981,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -15992,7 +15992,7 @@ export class ApiClient extends AbstractFetchClient {
       ref?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_content_file>
@@ -16014,7 +16014,7 @@ export class ApiClient extends AbstractFetchClient {
       ref?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_content_file>
@@ -16037,7 +16037,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_release[]> | Res<404, t_basic_error>>
   > {
@@ -16064,7 +16064,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_release>
@@ -16079,7 +16079,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -16090,7 +16090,7 @@ export class ApiClient extends AbstractFetchClient {
       assetId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_release_asset> | Res<302, void> | Res<404, t_basic_error>
@@ -16115,7 +16115,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_release_asset>>> {
     const url =
       this.basePath +
@@ -16126,7 +16126,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -16137,7 +16137,7 @@ export class ApiClient extends AbstractFetchClient {
       assetId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -16158,7 +16158,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_release_notes_content> | Res<404, t_basic_error>
@@ -16173,7 +16173,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -16183,7 +16183,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_release>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/releases/latest`
@@ -16198,7 +16198,7 @@ export class ApiClient extends AbstractFetchClient {
       tag: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_release> | Res<404, t_basic_error>>
   > {
@@ -16216,7 +16216,7 @@ export class ApiClient extends AbstractFetchClient {
       releaseId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_release> | Res<404, t_basic_error>>
   > {
@@ -16244,7 +16244,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_release> | Res<404, t_basic_error>>
   > {
@@ -16257,7 +16257,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -16268,7 +16268,7 @@ export class ApiClient extends AbstractFetchClient {
       releaseId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -16286,7 +16286,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_release_asset[]>>> {
     const url =
       this.basePath +
@@ -16306,7 +16306,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_release_asset> | Res<422, void>>> {
     const url =
       this.basePath +
@@ -16320,7 +16320,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url + query,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -16334,7 +16334,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_reaction[]> | Res<404, t_basic_error>>
   > {
@@ -16360,7 +16360,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_reaction> | Res<201, t_reaction> | Res<422, t_validation_error>
@@ -16375,7 +16375,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -16387,7 +16387,7 @@ export class ApiClient extends AbstractFetchClient {
       reactionId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -16403,7 +16403,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_repository_rule[]>>> {
     const url =
       this.basePath +
@@ -16419,7 +16419,7 @@ export class ApiClient extends AbstractFetchClient {
       includesParents?: boolean
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_ruleset[]>
@@ -16448,7 +16448,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_repository_ruleset>
@@ -16463,7 +16463,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -16475,7 +16475,7 @@ export class ApiClient extends AbstractFetchClient {
       includesParents?: boolean
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_ruleset>
@@ -16507,7 +16507,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_ruleset>
@@ -16524,7 +16524,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -16535,7 +16535,7 @@ export class ApiClient extends AbstractFetchClient {
       rulesetId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<404, t_basic_error> | Res<500, t_basic_error>
@@ -16563,7 +16563,7 @@ export class ApiClient extends AbstractFetchClient {
       after?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_secret_scanning_alert[]>
@@ -16602,7 +16602,7 @@ export class ApiClient extends AbstractFetchClient {
       alertNumber: t_alert_number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_secret_scanning_alert>
@@ -16637,7 +16637,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_secret_scanning_alert>
@@ -16663,7 +16663,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -16676,7 +16676,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_secret_scanning_location[]>
@@ -16711,7 +16711,7 @@ export class ApiClient extends AbstractFetchClient {
       state?: "triage" | "draft" | "published" | "closed"
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_advisory[]>
@@ -16740,7 +16740,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_repository_advisory_create
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_repository_advisory>
@@ -16757,7 +16757,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -16768,7 +16768,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_private_vulnerability_report_create
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_repository_advisory>
@@ -16786,7 +16786,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -16797,7 +16797,7 @@ export class ApiClient extends AbstractFetchClient {
       ghsaId: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_advisory>
@@ -16820,7 +16820,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_repository_advisory_update
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_advisory>
@@ -16838,7 +16838,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -16850,7 +16850,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_simple_user[] | t_stargazer[]> | Res<422, t_validation_error>
@@ -16868,7 +16868,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_code_frequency_stat[]> | Res<202, EmptyObject> | Res<204, void>
@@ -16886,7 +16886,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_commit_activity[]> | Res<202, EmptyObject> | Res<204, void>
@@ -16904,7 +16904,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_contributor_activity[]>
@@ -16924,7 +16924,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_participation_stats> | Res<404, t_basic_error>
@@ -16942,7 +16942,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_code_frequency_stat[]> | Res<204, void>>
   > {
@@ -16965,7 +16965,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_status>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/statuses/${p["sha"]}`
@@ -16975,7 +16975,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -16987,7 +16987,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_simple_user[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscribers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -17001,7 +17001,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_subscription>
@@ -17024,7 +17024,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_repository_subscription>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -17033,7 +17033,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -17043,7 +17043,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`
 
@@ -17058,7 +17058,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_tag[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/tags`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -17072,7 +17072,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_tag_protection[]>
@@ -17095,7 +17095,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_tag_protection>
@@ -17111,7 +17111,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -17122,7 +17122,7 @@ export class ApiClient extends AbstractFetchClient {
       tagProtectionId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
@@ -17142,7 +17142,7 @@ export class ApiClient extends AbstractFetchClient {
       ref: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<302, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/tarball/${p["ref"]}`
@@ -17158,7 +17158,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -17174,7 +17174,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_topic> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/topics`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
@@ -17191,7 +17191,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_topic>
@@ -17206,7 +17206,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -17217,7 +17217,7 @@ export class ApiClient extends AbstractFetchClient {
       per?: "day" | "week"
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_clone_traffic> | Res<403, t_basic_error>>
   > {
@@ -17234,7 +17234,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_content_traffic[]> | Res<403, t_basic_error>>
   > {
@@ -17250,7 +17250,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_referrer_traffic[]> | Res<403, t_basic_error>>
   > {
@@ -17268,7 +17268,7 @@ export class ApiClient extends AbstractFetchClient {
       per?: "day" | "week"
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_view_traffic> | Res<403, t_basic_error>>
   > {
@@ -17290,7 +17290,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<202, t_minimal_repository>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/transfer`
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -17299,7 +17299,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -17309,7 +17309,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
@@ -17323,7 +17323,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
@@ -17337,7 +17337,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
@@ -17352,7 +17352,7 @@ export class ApiClient extends AbstractFetchClient {
       ref: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<302, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/zipball/${p["ref"]}`
@@ -17373,7 +17373,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_repository>>> {
     const url =
       this.basePath +
@@ -17384,7 +17384,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -17393,7 +17393,7 @@ export class ApiClient extends AbstractFetchClient {
       since?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_minimal_repository[]>
@@ -17415,7 +17415,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -17441,7 +17441,7 @@ export class ApiClient extends AbstractFetchClient {
       environmentName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_actions_public_key>>> {
     const url =
       this.basePath +
@@ -17457,7 +17457,7 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_actions_secret>>> {
     const url =
       this.basePath +
@@ -17477,7 +17477,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_empty_object> | Res<204, void>>> {
     const url =
       this.basePath +
@@ -17488,7 +17488,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -17499,7 +17499,7 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -17516,7 +17516,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -17546,7 +17546,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_empty_object>>> {
     const url =
       this.basePath +
@@ -17557,7 +17557,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -17568,7 +17568,7 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_actions_variable>>> {
     const url =
       this.basePath +
@@ -17588,7 +17588,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -17599,7 +17599,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -17610,7 +17610,7 @@ export class ApiClient extends AbstractFetchClient {
       environmentName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -17628,7 +17628,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -17673,7 +17673,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -17719,7 +17719,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -17765,7 +17765,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -17804,7 +17804,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -17846,7 +17846,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -17879,7 +17879,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -17919,7 +17919,7 @@ export class ApiClient extends AbstractFetchClient {
       teamId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_team_full> | Res<404, t_basic_error>>
   > {
@@ -17943,7 +17943,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_team_full>
@@ -17960,7 +17960,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -17969,7 +17969,7 @@ export class ApiClient extends AbstractFetchClient {
       teamId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<404, t_basic_error> | Res<422, t_validation_error>
@@ -17988,7 +17988,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion[]>>> {
     const url = this.basePath + `/teams/${p["teamId"]}/discussions`
     const query = this._query({
@@ -18010,7 +18010,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_team_discussion>>> {
     const url = this.basePath + `/teams/${p["teamId"]}/discussions`
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -18019,7 +18019,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -18029,7 +18029,7 @@ export class ApiClient extends AbstractFetchClient {
       discussionNumber: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion>>> {
     const url =
       this.basePath +
@@ -18048,7 +18048,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion>>> {
     const url =
       this.basePath +
@@ -18059,7 +18059,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -18069,7 +18069,7 @@ export class ApiClient extends AbstractFetchClient {
       discussionNumber: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -18087,7 +18087,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion_comment[]>>> {
     const url =
       this.basePath +
@@ -18110,7 +18110,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_team_discussion_comment>>> {
     const url =
       this.basePath +
@@ -18121,7 +18121,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -18132,7 +18132,7 @@ export class ApiClient extends AbstractFetchClient {
       commentNumber: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion_comment>>> {
     const url =
       this.basePath +
@@ -18151,7 +18151,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion_comment>>> {
     const url =
       this.basePath +
@@ -18162,7 +18162,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -18173,7 +18173,7 @@ export class ApiClient extends AbstractFetchClient {
       commentNumber: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
@@ -18200,7 +18200,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_reaction[]>>> {
     const url =
       this.basePath +
@@ -18232,7 +18232,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_reaction>>> {
     const url =
       this.basePath +
@@ -18243,7 +18243,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -18264,7 +18264,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_reaction[]>>> {
     const url =
       this.basePath +
@@ -18295,7 +18295,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<201, t_reaction>>> {
     const url =
       this.basePath +
@@ -18306,7 +18306,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -18317,7 +18317,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_organization_invitation[]>>> {
     const url = this.basePath + `/teams/${p["teamId"]}/invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -18333,7 +18333,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_simple_user[]> | Res<404, t_basic_error>>
   > {
@@ -18353,7 +18353,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, void>>> {
     const url = this.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`
 
@@ -18366,7 +18366,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<403, t_basic_error> | Res<404, void> | Res<422, void>
@@ -18383,7 +18383,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, void>>> {
     const url = this.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`
 
@@ -18396,7 +18396,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_team_membership> | Res<404, t_basic_error>>
   > {
@@ -18415,7 +18415,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_team_membership>
@@ -18432,7 +18432,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -18442,7 +18442,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<403, void>>> {
     const url =
       this.basePath + `/teams/${p["teamId"]}/memberships/${p["username"]}`
@@ -18457,7 +18457,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_team_project[]> | Res<404, t_basic_error>>
   > {
@@ -18473,7 +18473,7 @@ export class ApiClient extends AbstractFetchClient {
       projectId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_team_project> | Res<404, void>>> {
     const url =
       this.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`
@@ -18490,7 +18490,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -18513,7 +18513,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -18523,7 +18523,7 @@ export class ApiClient extends AbstractFetchClient {
       projectId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<404, t_basic_error> | Res<422, t_validation_error>
@@ -18542,7 +18542,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_minimal_repository[]> | Res<404, t_basic_error>
@@ -18561,7 +18561,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_team_repository> | Res<204, void> | Res<404, void>
@@ -18583,7 +18583,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<403, t_basic_error> | Res<422, t_validation_error>
@@ -18597,7 +18597,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -18608,7 +18608,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
@@ -18623,7 +18623,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_team[]>
@@ -18640,7 +18640,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async usersGetAuthenticated(
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_private_user | t_public_user>
@@ -18668,7 +18668,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_private_user>
@@ -18686,7 +18686,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -18696,7 +18696,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_simple_user[]>
@@ -18717,7 +18717,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -18737,7 +18737,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -18758,7 +18758,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -18780,7 +18780,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -18838,7 +18838,7 @@ export class ApiClient extends AbstractFetchClient {
           }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_codespace>
@@ -18863,7 +18863,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -18873,7 +18873,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -18893,7 +18893,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async codespacesGetPublicKeyForAuthenticatedUser(
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_codespaces_user_public_key>>> {
     const url = this.basePath + `/user/codespaces/secrets/public-key`
 
@@ -18905,7 +18905,7 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_codespaces_secret>>> {
     const url = this.basePath + `/user/codespaces/secrets/${p["secretName"]}`
 
@@ -18922,7 +18922,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_empty_object>
@@ -18938,7 +18938,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -18947,7 +18947,7 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/user/codespaces/secrets/${p["secretName"]}`
 
@@ -18959,7 +18959,7 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -18989,7 +18989,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -19007,7 +19007,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -19017,7 +19017,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -19040,7 +19040,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -19062,7 +19062,7 @@ export class ApiClient extends AbstractFetchClient {
       codespaceName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_codespace>
@@ -19088,7 +19088,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_codespace>
@@ -19104,7 +19104,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -19113,7 +19113,7 @@ export class ApiClient extends AbstractFetchClient {
       codespaceName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<202, EmptyObject>
@@ -19134,7 +19134,7 @@ export class ApiClient extends AbstractFetchClient {
       codespaceName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<202, t_codespace_export_details>
@@ -19156,7 +19156,7 @@ export class ApiClient extends AbstractFetchClient {
       exportId: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_codespace_export_details> | Res<404, t_basic_error>
@@ -19174,7 +19174,7 @@ export class ApiClient extends AbstractFetchClient {
       codespaceName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -19206,7 +19206,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_codespace_with_full_repository>
@@ -19223,7 +19223,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -19232,7 +19232,7 @@ export class ApiClient extends AbstractFetchClient {
       codespaceName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_codespace>
@@ -19256,7 +19256,7 @@ export class ApiClient extends AbstractFetchClient {
       codespaceName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_codespace>
@@ -19273,7 +19273,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async packagesListDockerMigrationConflictingPackagesForAuthenticatedUser(
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_package[]>>> {
     const url = this.basePath + `/user/docker/conflicts`
 
@@ -19287,7 +19287,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_email[]>
@@ -19305,7 +19305,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -19315,7 +19315,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_email[]>
@@ -19341,7 +19341,7 @@ export class ApiClient extends AbstractFetchClient {
         | string
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_email[]>
@@ -19359,7 +19359,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -19373,7 +19373,7 @@ export class ApiClient extends AbstractFetchClient {
         | string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -19391,7 +19391,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "DELETE", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -19401,7 +19401,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_simple_user[]>
@@ -19422,7 +19422,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_simple_user[]>
@@ -19442,7 +19442,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -19462,7 +19462,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -19482,7 +19482,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -19503,7 +19503,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_gpg_key[]>
@@ -19527,7 +19527,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_gpg_key>
@@ -19545,7 +19545,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -19554,7 +19554,7 @@ export class ApiClient extends AbstractFetchClient {
       gpgKeyId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_gpg_key>
@@ -19574,7 +19574,7 @@ export class ApiClient extends AbstractFetchClient {
       gpgKeyId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -19596,7 +19596,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -19624,7 +19624,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -19653,7 +19653,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -19675,7 +19675,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -19693,7 +19693,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async interactionsGetRestrictionsForAuthenticatedUser(
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_interaction_limit_response | EmptyObject> | Res<204, void>
@@ -19709,7 +19709,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_interaction_limit
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_interaction_limit_response> | Res<422, t_validation_error>
@@ -19722,13 +19722,13 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
   async interactionsRemoveRestrictionsForAuthenticatedUser(
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/user/interaction-limits`
 
@@ -19753,7 +19753,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issue[]> | Res<304, void> | Res<404, t_basic_error>
@@ -19780,7 +19780,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_key[]>
@@ -19804,7 +19804,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_key>
@@ -19822,7 +19822,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -19831,7 +19831,7 @@ export class ApiClient extends AbstractFetchClient {
       keyId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_key>
@@ -19851,7 +19851,7 @@ export class ApiClient extends AbstractFetchClient {
       keyId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -19872,7 +19872,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_user_marketplace_purchase[]>
@@ -19893,7 +19893,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_user_marketplace_purchase[]>
@@ -19914,7 +19914,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_org_membership[]>
@@ -19939,7 +19939,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_org_membership>
@@ -19960,7 +19960,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_org_membership>
@@ -19976,7 +19976,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -19986,7 +19986,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_migration[]>
@@ -20016,7 +20016,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_migration>
@@ -20033,7 +20033,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -20043,7 +20043,7 @@ export class ApiClient extends AbstractFetchClient {
       exclude?: string[]
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_migration>
@@ -20064,7 +20064,7 @@ export class ApiClient extends AbstractFetchClient {
       migrationId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<302, void>
@@ -20083,7 +20083,7 @@ export class ApiClient extends AbstractFetchClient {
       migrationId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20104,7 +20104,7 @@ export class ApiClient extends AbstractFetchClient {
       repoName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20128,7 +20128,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_minimal_repository[]> | Res<404, t_basic_error>
@@ -20147,7 +20147,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_organization_simple[]>
@@ -20176,7 +20176,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_package[]> | Res<400, void>>> {
     const url = this.basePath + `/user/packages`
     const query = this._query({
@@ -20201,7 +20201,7 @@ export class ApiClient extends AbstractFetchClient {
       packageName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_package>>> {
     const url =
       this.basePath + `/user/packages/${p["packageType"]}/${p["packageName"]}`
@@ -20221,7 +20221,7 @@ export class ApiClient extends AbstractFetchClient {
       packageName: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20249,7 +20249,7 @@ export class ApiClient extends AbstractFetchClient {
       token?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20266,7 +20266,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url + query,
       { method: "POST", ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -20285,7 +20285,7 @@ export class ApiClient extends AbstractFetchClient {
       state?: "active" | "deleted"
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_package_version[]>
@@ -20319,7 +20319,7 @@ export class ApiClient extends AbstractFetchClient {
       packageVersionId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_package_version>>> {
     const url =
       this.basePath +
@@ -20341,7 +20341,7 @@ export class ApiClient extends AbstractFetchClient {
       packageVersionId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20370,7 +20370,7 @@ export class ApiClient extends AbstractFetchClient {
       packageVersionId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20394,7 +20394,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_project>
@@ -20411,7 +20411,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -20421,7 +20421,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_email[]>
@@ -20450,7 +20450,7 @@ export class ApiClient extends AbstractFetchClient {
       before?: string
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository[]>
@@ -20505,7 +20505,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_repository>
@@ -20524,7 +20524,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -20534,7 +20534,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_invitation[]>
@@ -20555,7 +20555,7 @@ export class ApiClient extends AbstractFetchClient {
       invitationId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20576,7 +20576,7 @@ export class ApiClient extends AbstractFetchClient {
       invitationId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20598,7 +20598,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_social_account[]>
@@ -20621,7 +20621,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_social_account[]>
@@ -20639,7 +20639,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -20650,7 +20650,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20668,7 +20668,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "DELETE", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -20678,7 +20678,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_ssh_signing_key[]>
@@ -20702,7 +20702,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_ssh_signing_key>
@@ -20720,7 +20720,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -20729,7 +20729,7 @@ export class ApiClient extends AbstractFetchClient {
       sshSigningKeyId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_ssh_signing_key>
@@ -20749,7 +20749,7 @@ export class ApiClient extends AbstractFetchClient {
       sshSigningKeyId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20772,7 +20772,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_starred_repository[]>
@@ -20798,7 +20798,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20819,7 +20819,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20840,7 +20840,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20861,7 +20861,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_minimal_repository[]>
@@ -20882,7 +20882,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_team_full[]>
@@ -20903,7 +20903,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_simple_user[]> | Res<304, void>>> {
     const url = this.basePath + `/users`
     const query = this._query({ since: p["since"], per_page: p["perPage"] })
@@ -20916,7 +20916,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_private_user | t_public_user> | Res<404, t_basic_error>
@@ -20932,7 +20932,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_package[]> | Res<401, t_basic_error> | Res<403, t_basic_error>
@@ -20950,7 +20950,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_event[]>>> {
     const url = this.basePath + `/users/${p["username"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -20966,7 +20966,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_event[]>>> {
     const url =
       this.basePath + `/users/${p["username"]}/events/orgs/${p["org"]}`
@@ -20982,7 +20982,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_event[]>>> {
     const url = this.basePath + `/users/${p["username"]}/events/public`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -20997,7 +20997,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_simple_user[]>>> {
     const url = this.basePath + `/users/${p["username"]}/followers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -21012,7 +21012,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_simple_user[]>>> {
     const url = this.basePath + `/users/${p["username"]}/following`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -21026,7 +21026,7 @@ export class ApiClient extends AbstractFetchClient {
       targetUser: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, void>>> {
     const url =
       this.basePath + `/users/${p["username"]}/following/${p["targetUser"]}`
@@ -21042,7 +21042,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_base_gist[]> | Res<422, t_validation_error>>
   > {
@@ -21063,7 +21063,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_gpg_key[]>>> {
     const url = this.basePath + `/users/${p["username"]}/gpg_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -21078,7 +21078,7 @@ export class ApiClient extends AbstractFetchClient {
       subjectId?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_hovercard>
@@ -21100,7 +21100,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_installation>>> {
     const url = this.basePath + `/users/${p["username"]}/installation`
 
@@ -21114,7 +21114,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_key_simple[]>>> {
     const url = this.basePath + `/users/${p["username"]}/keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -21129,7 +21129,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_organization_simple[]>>> {
     const url = this.basePath + `/users/${p["username"]}/orgs`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -21152,7 +21152,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_package[]>
@@ -21185,7 +21185,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_package>>> {
     const url =
       this.basePath +
@@ -21207,7 +21207,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -21237,7 +21237,7 @@ export class ApiClient extends AbstractFetchClient {
       token?: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -21254,7 +21254,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url + query,
       { method: "POST", ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -21271,7 +21271,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_package_version[]>
@@ -21301,7 +21301,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_package_version>>> {
     const url =
       this.basePath +
@@ -21324,7 +21324,7 @@ export class ApiClient extends AbstractFetchClient {
       packageVersionId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -21354,7 +21354,7 @@ export class ApiClient extends AbstractFetchClient {
       packageVersionId: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -21378,7 +21378,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_project[]> | Res<422, t_validation_error>>
   > {
@@ -21399,7 +21399,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_event[]>>> {
     const url = this.basePath + `/users/${p["username"]}/received_events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -21414,7 +21414,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_event[]>>> {
     const url = this.basePath + `/users/${p["username"]}/received_events/public`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -21432,7 +21432,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_minimal_repository[]>>> {
     const url = this.basePath + `/users/${p["username"]}/repos`
     const query = this._query({
@@ -21451,7 +21451,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_actions_billing_usage>>> {
     const url =
       this.basePath + `/users/${p["username"]}/settings/billing/actions`
@@ -21464,7 +21464,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_packages_billing_usage>>> {
     const url =
       this.basePath + `/users/${p["username"]}/settings/billing/packages`
@@ -21477,7 +21477,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_combined_billing_usage>>> {
     const url =
       this.basePath + `/users/${p["username"]}/settings/billing/shared-storage`
@@ -21492,7 +21492,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_social_account[]>>> {
     const url = this.basePath + `/users/${p["username"]}/social_accounts`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -21507,7 +21507,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_ssh_signing_key[]>>> {
     const url = this.basePath + `/users/${p["username"]}/ssh_signing_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -21524,7 +21524,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<Res<200, t_starred_repository[] | t_repository[]>>
   > {
@@ -21546,7 +21546,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_minimal_repository[]>>> {
     const url = this.basePath + `/users/${p["username"]}/subscriptions`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -21556,7 +21556,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async metaGetAllVersions(
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, string[]> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/versions`
 
@@ -21565,7 +21565,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async metaGetZen(
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, string>>> {
     const url = this.basePath + `/zen`
 

@@ -37,12 +37,12 @@ import { z } from "zod"
 //endregion safe-edit-region-header
 export type GetTodoLists = (
   params: Params<void, t_GetTodoListsQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_TodoList[]>>
 
 export type GetTodoListById = (
   params: Params<t_GetTodoListByIdParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_TodoList>
   | Response<StatusCode4xx, t_Error>
@@ -55,7 +55,7 @@ export type UpdateTodoListById = (
     void,
     t_UpdateTodoListByIdBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_TodoList>
   | Response<StatusCode4xx, t_Error>
@@ -64,7 +64,7 @@ export type UpdateTodoListById = (
 
 export type DeleteTodoListById = (
   params: Params<t_DeleteTodoListByIdParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<StatusCode4xx, t_Error>
@@ -80,7 +80,7 @@ export type Implementation = {
 
 export function bootstrap(
   implementation: Implementation,
-  config: Omit<ServerConfig, "router">
+  config: Omit<ServerConfig, "router">,
 ) {
   // ApiClient
   const router = new KoaRouter()
@@ -92,7 +92,7 @@ export function bootstrap(
 
   const getTodoListsResponseValidator = responseValidationFactory(
     [["200", z.array(s_TodoList)]],
-    undefined
+    undefined,
   )
 
   router.get("getTodoLists", "/list", async (ctx, next) => {
@@ -116,7 +116,7 @@ export function bootstrap(
       ["200", s_TodoList],
       ["4XX", s_Error],
     ],
-    z.void()
+    z.void(),
   )
 
   router.get("getTodoListById", "/list/:listId", async (ctx, next) => {
@@ -142,7 +142,7 @@ export function bootstrap(
       ["200", s_TodoList],
       ["4XX", s_Error],
     ],
-    z.void()
+    z.void(),
   )
 
   router.put("updateTodoListById", "/list/:listId", async (ctx, next) => {
@@ -166,7 +166,7 @@ export function bootstrap(
       ["204", z.void()],
       ["4XX", s_Error],
     ],
-    z.void()
+    z.void(),
   )
 
   router.delete("deleteTodoListById", "/list/:listId", async (ctx, next) => {

@@ -20,7 +20,7 @@ export class ApiClientConfig {
 // from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
 type Enumerate<
   N extends number,
-  Acc extends number[] = []
+  Acc extends number[] = [],
 > = Acc["length"] extends N
   ? Acc[number]
   : Enumerate<N, [...Acc, Acc["length"]]>
@@ -61,16 +61,16 @@ export type QueryParams = {
 export class ApiClient {
   constructor(
     private readonly httpClient: HttpClient,
-    private readonly config: ApiClientConfig
+    private readonly config: ApiClientConfig,
   ) {}
 
   private _headers(
-    headers: Record<string, string | undefined>
+    headers: Record<string, string | undefined>,
   ): Record<string, string> {
     return Object.fromEntries(
       Object.entries({ ...this.config.defaultHeaders, ...headers }).filter(
-        (it): it is [string, string] => it[1] !== undefined
-      )
+        (it): it is [string, string] => it[1] !== undefined,
+      ),
     )
   }
 
@@ -86,7 +86,7 @@ export class ApiClient {
         return result
       }
       throw new Error(
-        `query parameter '${name}' with value '${value}' is not yet supported`
+        `query parameter '${name}' with value '${value}' is not yet supported`,
       )
     }, new HttpParams())
   }
@@ -95,7 +95,7 @@ export class ApiClient {
     p: {
       tags?: string[]
       limit?: number
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<t_Pet[]> & { status: 200 })
     | (HttpResponse<t_Error> & { status: StatusCode })
@@ -128,7 +128,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -145,7 +145,7 @@ export class ApiClient {
       {
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -162,7 +162,7 @@ export class ApiClient {
       {
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 }

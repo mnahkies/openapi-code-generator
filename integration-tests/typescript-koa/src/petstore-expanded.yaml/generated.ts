@@ -37,22 +37,22 @@ import { z } from "zod"
 //endregion safe-edit-region-header
 export type FindPets = (
   params: Params<void, t_FindPetsQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_Pet[]> | Response<StatusCode, t_Error>>
 
 export type AddPet = (
   params: Params<void, void, t_AddPetBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_Pet> | Response<StatusCode, t_Error>>
 
 export type FindPetById = (
   params: Params<t_FindPetByIdParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_Pet> | Response<StatusCode, t_Error>>
 
 export type DeletePet = (
   params: Params<t_DeletePetParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<StatusCode, t_Error>>
 
 export type Implementation = {
@@ -64,7 +64,7 @@ export type Implementation = {
 
 export function bootstrap(
   implementation: Implementation,
-  config: Omit<ServerConfig, "router">
+  config: Omit<ServerConfig, "router">,
 ) {
   // ApiClient
   const router = new KoaRouter()
@@ -76,7 +76,7 @@ export function bootstrap(
 
   const findPetsResponseValidator = responseValidationFactory(
     [["200", z.array(s_Pet)]],
-    s_Error
+    s_Error,
   )
 
   router.get("findPets", "/pets", async (ctx, next) => {
@@ -97,7 +97,7 @@ export function bootstrap(
 
   const addPetResponseValidator = responseValidationFactory(
     [["200", s_Pet]],
-    s_Error
+    s_Error,
   )
 
   router.post("addPet", "/pets", async (ctx, next) => {
@@ -118,7 +118,7 @@ export function bootstrap(
 
   const findPetByIdResponseValidator = responseValidationFactory(
     [["200", s_Pet]],
-    s_Error
+    s_Error,
   )
 
   router.get("findPetById", "/pets/:id", async (ctx, next) => {
@@ -139,7 +139,7 @@ export function bootstrap(
 
   const deletePetResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    s_Error
+    s_Error,
   )
 
   router.delete("deletePet", "/pets/:id", async (ctx, next) => {

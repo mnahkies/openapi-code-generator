@@ -1911,12 +1911,12 @@ export type GetAccount = (
     t_GetAccountQuerySchema,
     t_GetAccountBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_account> | Response<StatusCode, t_error>>
 
 export type PostAccountLinks = (
   params: Params<void, void, t_PostAccountLinksBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_account_link> | Response<StatusCode, t_error>>
 
 export type GetAccounts = (
@@ -1925,7 +1925,7 @@ export type GetAccounts = (
     t_GetAccountsQuerySchema,
     t_GetAccountsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -1941,7 +1941,7 @@ export type GetAccounts = (
 
 export type PostAccounts = (
   params: Params<void, void, t_PostAccountsBodySchema | undefined>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_account> | Response<StatusCode, t_error>>
 
 export type DeleteAccountsAccount = (
@@ -1950,7 +1950,7 @@ export type DeleteAccountsAccount = (
     void,
     t_DeleteAccountsAccountBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_deleted_account> | Response<StatusCode, t_error>>
 
 export type GetAccountsAccount = (
@@ -1959,7 +1959,7 @@ export type GetAccountsAccount = (
     t_GetAccountsAccountQuerySchema,
     t_GetAccountsAccountBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_account> | Response<StatusCode, t_error>>
 
 export type PostAccountsAccount = (
@@ -1968,7 +1968,7 @@ export type PostAccountsAccount = (
     void,
     t_PostAccountsAccountBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_account> | Response<StatusCode, t_error>>
 
 export type PostAccountsAccountBankAccounts = (
@@ -1977,7 +1977,7 @@ export type PostAccountsAccountBankAccounts = (
     void,
     t_PostAccountsAccountBankAccountsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_external_account> | Response<StatusCode, t_error>>
 
 export type DeleteAccountsAccountBankAccountsId = (
@@ -1986,7 +1986,7 @@ export type DeleteAccountsAccountBankAccountsId = (
     void,
     t_DeleteAccountsAccountBankAccountsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_deleted_external_account> | Response<StatusCode, t_error>
 >
@@ -1997,7 +1997,7 @@ export type GetAccountsAccountBankAccountsId = (
     t_GetAccountsAccountBankAccountsIdQuerySchema,
     t_GetAccountsAccountBankAccountsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_external_account> | Response<StatusCode, t_error>>
 
 export type PostAccountsAccountBankAccountsId = (
@@ -2006,7 +2006,7 @@ export type PostAccountsAccountBankAccountsId = (
     void,
     t_PostAccountsAccountBankAccountsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_external_account> | Response<StatusCode, t_error>>
 
 export type GetAccountsAccountCapabilities = (
@@ -2015,7 +2015,7 @@ export type GetAccountsAccountCapabilities = (
     t_GetAccountsAccountCapabilitiesQuerySchema,
     t_GetAccountsAccountCapabilitiesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2035,7 +2035,7 @@ export type GetAccountsAccountCapabilitiesCapability = (
     t_GetAccountsAccountCapabilitiesCapabilityQuerySchema,
     t_GetAccountsAccountCapabilitiesCapabilityBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_capability> | Response<StatusCode, t_error>>
 
 export type PostAccountsAccountCapabilitiesCapability = (
@@ -2044,7 +2044,7 @@ export type PostAccountsAccountCapabilitiesCapability = (
     void,
     t_PostAccountsAccountCapabilitiesCapabilityBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_capability> | Response<StatusCode, t_error>>
 
 export type GetAccountsAccountExternalAccounts = (
@@ -2053,7 +2053,7 @@ export type GetAccountsAccountExternalAccounts = (
     t_GetAccountsAccountExternalAccountsQuerySchema,
     t_GetAccountsAccountExternalAccountsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2073,7 +2073,7 @@ export type PostAccountsAccountExternalAccounts = (
     void,
     t_PostAccountsAccountExternalAccountsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_external_account> | Response<StatusCode, t_error>>
 
 export type DeleteAccountsAccountExternalAccountsId = (
@@ -2082,7 +2082,7 @@ export type DeleteAccountsAccountExternalAccountsId = (
     void,
     t_DeleteAccountsAccountExternalAccountsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_deleted_external_account> | Response<StatusCode, t_error>
 >
@@ -2093,7 +2093,7 @@ export type GetAccountsAccountExternalAccountsId = (
     t_GetAccountsAccountExternalAccountsIdQuerySchema,
     t_GetAccountsAccountExternalAccountsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_external_account> | Response<StatusCode, t_error>>
 
 export type PostAccountsAccountExternalAccountsId = (
@@ -2102,7 +2102,7 @@ export type PostAccountsAccountExternalAccountsId = (
     void,
     t_PostAccountsAccountExternalAccountsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_external_account> | Response<StatusCode, t_error>>
 
 export type PostAccountsAccountLoginLinks = (
@@ -2111,7 +2111,7 @@ export type PostAccountsAccountLoginLinks = (
     void,
     t_PostAccountsAccountLoginLinksBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_login_link> | Response<StatusCode, t_error>>
 
 export type GetAccountsAccountPeople = (
@@ -2120,7 +2120,7 @@ export type GetAccountsAccountPeople = (
     t_GetAccountsAccountPeopleQuerySchema,
     t_GetAccountsAccountPeopleBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2140,7 +2140,7 @@ export type PostAccountsAccountPeople = (
     void,
     t_PostAccountsAccountPeopleBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_person> | Response<StatusCode, t_error>>
 
 export type DeleteAccountsAccountPeoplePerson = (
@@ -2149,7 +2149,7 @@ export type DeleteAccountsAccountPeoplePerson = (
     void,
     t_DeleteAccountsAccountPeoplePersonBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_deleted_person> | Response<StatusCode, t_error>>
 
 export type GetAccountsAccountPeoplePerson = (
@@ -2158,7 +2158,7 @@ export type GetAccountsAccountPeoplePerson = (
     t_GetAccountsAccountPeoplePersonQuerySchema,
     t_GetAccountsAccountPeoplePersonBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_person> | Response<StatusCode, t_error>>
 
 export type PostAccountsAccountPeoplePerson = (
@@ -2167,7 +2167,7 @@ export type PostAccountsAccountPeoplePerson = (
     void,
     t_PostAccountsAccountPeoplePersonBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_person> | Response<StatusCode, t_error>>
 
 export type GetAccountsAccountPersons = (
@@ -2176,7 +2176,7 @@ export type GetAccountsAccountPersons = (
     t_GetAccountsAccountPersonsQuerySchema,
     t_GetAccountsAccountPersonsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2196,7 +2196,7 @@ export type PostAccountsAccountPersons = (
     void,
     t_PostAccountsAccountPersonsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_person> | Response<StatusCode, t_error>>
 
 export type DeleteAccountsAccountPersonsPerson = (
@@ -2205,7 +2205,7 @@ export type DeleteAccountsAccountPersonsPerson = (
     void,
     t_DeleteAccountsAccountPersonsPersonBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_deleted_person> | Response<StatusCode, t_error>>
 
 export type GetAccountsAccountPersonsPerson = (
@@ -2214,7 +2214,7 @@ export type GetAccountsAccountPersonsPerson = (
     t_GetAccountsAccountPersonsPersonQuerySchema,
     t_GetAccountsAccountPersonsPersonBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_person> | Response<StatusCode, t_error>>
 
 export type PostAccountsAccountPersonsPerson = (
@@ -2223,7 +2223,7 @@ export type PostAccountsAccountPersonsPerson = (
     void,
     t_PostAccountsAccountPersonsPersonBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_person> | Response<StatusCode, t_error>>
 
 export type PostAccountsAccountReject = (
@@ -2232,7 +2232,7 @@ export type PostAccountsAccountReject = (
     void,
     t_PostAccountsAccountRejectBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_account> | Response<StatusCode, t_error>>
 
 export type GetApplePayDomains = (
@@ -2241,7 +2241,7 @@ export type GetApplePayDomains = (
     t_GetApplePayDomainsQuerySchema,
     t_GetApplePayDomainsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2257,7 +2257,7 @@ export type GetApplePayDomains = (
 
 export type PostApplePayDomains = (
   params: Params<void, void, t_PostApplePayDomainsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_apple_pay_domain> | Response<StatusCode, t_error>>
 
 export type DeleteApplePayDomainsDomain = (
@@ -2266,7 +2266,7 @@ export type DeleteApplePayDomainsDomain = (
     void,
     t_DeleteApplePayDomainsDomainBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_deleted_apple_pay_domain> | Response<StatusCode, t_error>
 >
@@ -2277,7 +2277,7 @@ export type GetApplePayDomainsDomain = (
     t_GetApplePayDomainsDomainQuerySchema,
     t_GetApplePayDomainsDomainBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_apple_pay_domain> | Response<StatusCode, t_error>>
 
 export type GetApplicationFees = (
@@ -2286,7 +2286,7 @@ export type GetApplicationFees = (
     t_GetApplicationFeesQuerySchema,
     t_GetApplicationFeesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2306,7 +2306,7 @@ export type GetApplicationFeesFeeRefundsId = (
     t_GetApplicationFeesFeeRefundsIdQuerySchema,
     t_GetApplicationFeesFeeRefundsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_fee_refund> | Response<StatusCode, t_error>>
 
 export type PostApplicationFeesFeeRefundsId = (
@@ -2315,7 +2315,7 @@ export type PostApplicationFeesFeeRefundsId = (
     void,
     t_PostApplicationFeesFeeRefundsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_fee_refund> | Response<StatusCode, t_error>>
 
 export type GetApplicationFeesId = (
@@ -2324,7 +2324,7 @@ export type GetApplicationFeesId = (
     t_GetApplicationFeesIdQuerySchema,
     t_GetApplicationFeesIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_application_fee> | Response<StatusCode, t_error>>
 
 export type PostApplicationFeesIdRefund = (
@@ -2333,7 +2333,7 @@ export type PostApplicationFeesIdRefund = (
     void,
     t_PostApplicationFeesIdRefundBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_application_fee> | Response<StatusCode, t_error>>
 
 export type GetApplicationFeesIdRefunds = (
@@ -2342,7 +2342,7 @@ export type GetApplicationFeesIdRefunds = (
     t_GetApplicationFeesIdRefundsQuerySchema,
     t_GetApplicationFeesIdRefundsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2362,7 +2362,7 @@ export type PostApplicationFeesIdRefunds = (
     void,
     t_PostApplicationFeesIdRefundsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_fee_refund> | Response<StatusCode, t_error>>
 
 export type GetAppsSecrets = (
@@ -2371,7 +2371,7 @@ export type GetAppsSecrets = (
     t_GetAppsSecretsQuerySchema,
     t_GetAppsSecretsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2387,12 +2387,12 @@ export type GetAppsSecrets = (
 
 export type PostAppsSecrets = (
   params: Params<void, void, t_PostAppsSecretsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_apps_secret> | Response<StatusCode, t_error>>
 
 export type PostAppsSecretsDelete = (
   params: Params<void, void, t_PostAppsSecretsDeleteBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_apps_secret> | Response<StatusCode, t_error>>
 
 export type GetAppsSecretsFind = (
@@ -2401,7 +2401,7 @@ export type GetAppsSecretsFind = (
     t_GetAppsSecretsFindQuerySchema,
     t_GetAppsSecretsFindBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_apps_secret> | Response<StatusCode, t_error>>
 
 export type GetBalance = (
@@ -2410,7 +2410,7 @@ export type GetBalance = (
     t_GetBalanceQuerySchema,
     t_GetBalanceBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_balance> | Response<StatusCode, t_error>>
 
 export type GetBalanceHistory = (
@@ -2419,7 +2419,7 @@ export type GetBalanceHistory = (
     t_GetBalanceHistoryQuerySchema,
     t_GetBalanceHistoryBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2439,7 +2439,7 @@ export type GetBalanceHistoryId = (
     t_GetBalanceHistoryIdQuerySchema,
     t_GetBalanceHistoryIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_balance_transaction> | Response<StatusCode, t_error>
 >
@@ -2450,7 +2450,7 @@ export type GetBalanceTransactions = (
     t_GetBalanceTransactionsQuerySchema,
     t_GetBalanceTransactionsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2470,7 +2470,7 @@ export type GetBalanceTransactionsId = (
     t_GetBalanceTransactionsIdQuerySchema,
     t_GetBalanceTransactionsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_balance_transaction> | Response<StatusCode, t_error>
 >
@@ -2481,7 +2481,7 @@ export type GetBillingPortalConfigurations = (
     t_GetBillingPortalConfigurationsQuerySchema,
     t_GetBillingPortalConfigurationsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2497,7 +2497,7 @@ export type GetBillingPortalConfigurations = (
 
 export type PostBillingPortalConfigurations = (
   params: Params<void, void, t_PostBillingPortalConfigurationsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_billing_portal_configuration> | Response<StatusCode, t_error>
 >
@@ -2508,7 +2508,7 @@ export type GetBillingPortalConfigurationsConfiguration = (
     t_GetBillingPortalConfigurationsConfigurationQuerySchema,
     t_GetBillingPortalConfigurationsConfigurationBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_billing_portal_configuration> | Response<StatusCode, t_error>
 >
@@ -2519,14 +2519,14 @@ export type PostBillingPortalConfigurationsConfiguration = (
     void,
     t_PostBillingPortalConfigurationsConfigurationBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_billing_portal_configuration> | Response<StatusCode, t_error>
 >
 
 export type PostBillingPortalSessions = (
   params: Params<void, void, t_PostBillingPortalSessionsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_billing_portal_session> | Response<StatusCode, t_error>
 >
@@ -2537,7 +2537,7 @@ export type GetCharges = (
     t_GetChargesQuerySchema,
     t_GetChargesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2553,7 +2553,7 @@ export type GetCharges = (
 
 export type PostCharges = (
   params: Params<void, void, t_PostChargesBodySchema | undefined>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_charge> | Response<StatusCode, t_error>>
 
 export type GetChargesSearch = (
@@ -2562,7 +2562,7 @@ export type GetChargesSearch = (
     t_GetChargesSearchQuerySchema,
     t_GetChargesSearchBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2584,7 +2584,7 @@ export type GetChargesCharge = (
     t_GetChargesChargeQuerySchema,
     t_GetChargesChargeBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_charge> | Response<StatusCode, t_error>>
 
 export type PostChargesCharge = (
@@ -2593,7 +2593,7 @@ export type PostChargesCharge = (
     void,
     t_PostChargesChargeBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_charge> | Response<StatusCode, t_error>>
 
 export type PostChargesChargeCapture = (
@@ -2602,7 +2602,7 @@ export type PostChargesChargeCapture = (
     void,
     t_PostChargesChargeCaptureBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_charge> | Response<StatusCode, t_error>>
 
 export type GetChargesChargeDispute = (
@@ -2611,7 +2611,7 @@ export type GetChargesChargeDispute = (
     t_GetChargesChargeDisputeQuerySchema,
     t_GetChargesChargeDisputeBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_dispute> | Response<StatusCode, t_error>>
 
 export type PostChargesChargeDispute = (
@@ -2620,7 +2620,7 @@ export type PostChargesChargeDispute = (
     void,
     t_PostChargesChargeDisputeBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_dispute> | Response<StatusCode, t_error>>
 
 export type PostChargesChargeDisputeClose = (
@@ -2629,7 +2629,7 @@ export type PostChargesChargeDisputeClose = (
     void,
     t_PostChargesChargeDisputeCloseBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_dispute> | Response<StatusCode, t_error>>
 
 export type PostChargesChargeRefund = (
@@ -2638,7 +2638,7 @@ export type PostChargesChargeRefund = (
     void,
     t_PostChargesChargeRefundBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_charge> | Response<StatusCode, t_error>>
 
 export type GetChargesChargeRefunds = (
@@ -2647,7 +2647,7 @@ export type GetChargesChargeRefunds = (
     t_GetChargesChargeRefundsQuerySchema,
     t_GetChargesChargeRefundsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2667,7 +2667,7 @@ export type PostChargesChargeRefunds = (
     void,
     t_PostChargesChargeRefundsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_refund> | Response<StatusCode, t_error>>
 
 export type GetChargesChargeRefundsRefund = (
@@ -2676,7 +2676,7 @@ export type GetChargesChargeRefundsRefund = (
     t_GetChargesChargeRefundsRefundQuerySchema,
     t_GetChargesChargeRefundsRefundBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_refund> | Response<StatusCode, t_error>>
 
 export type PostChargesChargeRefundsRefund = (
@@ -2685,7 +2685,7 @@ export type PostChargesChargeRefundsRefund = (
     void,
     t_PostChargesChargeRefundsRefundBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_refund> | Response<StatusCode, t_error>>
 
 export type GetCheckoutSessions = (
@@ -2694,7 +2694,7 @@ export type GetCheckoutSessions = (
     t_GetCheckoutSessionsQuerySchema,
     t_GetCheckoutSessionsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2710,7 +2710,7 @@ export type GetCheckoutSessions = (
 
 export type PostCheckoutSessions = (
   params: Params<void, void, t_PostCheckoutSessionsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_checkout_session> | Response<StatusCode, t_error>>
 
 export type GetCheckoutSessionsSession = (
@@ -2719,7 +2719,7 @@ export type GetCheckoutSessionsSession = (
     t_GetCheckoutSessionsSessionQuerySchema,
     t_GetCheckoutSessionsSessionBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_checkout_session> | Response<StatusCode, t_error>>
 
 export type PostCheckoutSessionsSessionExpire = (
@@ -2728,7 +2728,7 @@ export type PostCheckoutSessionsSessionExpire = (
     void,
     t_PostCheckoutSessionsSessionExpireBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_checkout_session> | Response<StatusCode, t_error>>
 
 export type GetCheckoutSessionsSessionLineItems = (
@@ -2737,7 +2737,7 @@ export type GetCheckoutSessionsSessionLineItems = (
     t_GetCheckoutSessionsSessionLineItemsQuerySchema,
     t_GetCheckoutSessionsSessionLineItemsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2757,7 +2757,7 @@ export type GetCountrySpecs = (
     t_GetCountrySpecsQuerySchema,
     t_GetCountrySpecsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2777,7 +2777,7 @@ export type GetCountrySpecsCountry = (
     t_GetCountrySpecsCountryQuerySchema,
     t_GetCountrySpecsCountryBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_country_spec> | Response<StatusCode, t_error>>
 
 export type GetCoupons = (
@@ -2786,7 +2786,7 @@ export type GetCoupons = (
     t_GetCouponsQuerySchema,
     t_GetCouponsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2802,7 +2802,7 @@ export type GetCoupons = (
 
 export type PostCoupons = (
   params: Params<void, void, t_PostCouponsBodySchema | undefined>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_coupon> | Response<StatusCode, t_error>>
 
 export type DeleteCouponsCoupon = (
@@ -2811,7 +2811,7 @@ export type DeleteCouponsCoupon = (
     void,
     t_DeleteCouponsCouponBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_deleted_coupon> | Response<StatusCode, t_error>>
 
 export type GetCouponsCoupon = (
@@ -2820,7 +2820,7 @@ export type GetCouponsCoupon = (
     t_GetCouponsCouponQuerySchema,
     t_GetCouponsCouponBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_coupon> | Response<StatusCode, t_error>>
 
 export type PostCouponsCoupon = (
@@ -2829,7 +2829,7 @@ export type PostCouponsCoupon = (
     void,
     t_PostCouponsCouponBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_coupon> | Response<StatusCode, t_error>>
 
 export type GetCreditNotes = (
@@ -2838,7 +2838,7 @@ export type GetCreditNotes = (
     t_GetCreditNotesQuerySchema,
     t_GetCreditNotesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2854,7 +2854,7 @@ export type GetCreditNotes = (
 
 export type PostCreditNotes = (
   params: Params<void, void, t_PostCreditNotesBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_credit_note> | Response<StatusCode, t_error>>
 
 export type GetCreditNotesPreview = (
@@ -2863,7 +2863,7 @@ export type GetCreditNotesPreview = (
     t_GetCreditNotesPreviewQuerySchema,
     t_GetCreditNotesPreviewBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_credit_note> | Response<StatusCode, t_error>>
 
 export type GetCreditNotesPreviewLines = (
@@ -2872,7 +2872,7 @@ export type GetCreditNotesPreviewLines = (
     t_GetCreditNotesPreviewLinesQuerySchema,
     t_GetCreditNotesPreviewLinesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2892,7 +2892,7 @@ export type GetCreditNotesCreditNoteLines = (
     t_GetCreditNotesCreditNoteLinesQuerySchema,
     t_GetCreditNotesCreditNoteLinesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2912,7 +2912,7 @@ export type GetCreditNotesId = (
     t_GetCreditNotesIdQuerySchema,
     t_GetCreditNotesIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_credit_note> | Response<StatusCode, t_error>>
 
 export type PostCreditNotesId = (
@@ -2921,7 +2921,7 @@ export type PostCreditNotesId = (
     void,
     t_PostCreditNotesIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_credit_note> | Response<StatusCode, t_error>>
 
 export type PostCreditNotesIdVoid = (
@@ -2930,7 +2930,7 @@ export type PostCreditNotesIdVoid = (
     void,
     t_PostCreditNotesIdVoidBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_credit_note> | Response<StatusCode, t_error>>
 
 export type GetCustomers = (
@@ -2939,7 +2939,7 @@ export type GetCustomers = (
     t_GetCustomersQuerySchema,
     t_GetCustomersBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2955,7 +2955,7 @@ export type GetCustomers = (
 
 export type PostCustomers = (
   params: Params<void, void, t_PostCustomersBodySchema | undefined>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_customer> | Response<StatusCode, t_error>>
 
 export type GetCustomersSearch = (
@@ -2964,7 +2964,7 @@ export type GetCustomersSearch = (
     t_GetCustomersSearchQuerySchema,
     t_GetCustomersSearchBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2986,7 +2986,7 @@ export type DeleteCustomersCustomer = (
     void,
     t_DeleteCustomersCustomerBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_deleted_customer> | Response<StatusCode, t_error>>
 
 export type GetCustomersCustomer = (
@@ -2995,7 +2995,7 @@ export type GetCustomersCustomer = (
     t_GetCustomersCustomerQuerySchema,
     t_GetCustomersCustomerBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_customer | t_deleted_customer> | Response<StatusCode, t_error>
 >
@@ -3006,7 +3006,7 @@ export type PostCustomersCustomer = (
     void,
     t_PostCustomersCustomerBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_customer> | Response<StatusCode, t_error>>
 
 export type GetCustomersCustomerBalanceTransactions = (
@@ -3015,7 +3015,7 @@ export type GetCustomersCustomerBalanceTransactions = (
     t_GetCustomersCustomerBalanceTransactionsQuerySchema,
     t_GetCustomersCustomerBalanceTransactionsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3035,7 +3035,7 @@ export type PostCustomersCustomerBalanceTransactions = (
     void,
     t_PostCustomersCustomerBalanceTransactionsBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_customer_balance_transaction> | Response<StatusCode, t_error>
 >
@@ -3046,7 +3046,7 @@ export type GetCustomersCustomerBalanceTransactionsTransaction = (
     t_GetCustomersCustomerBalanceTransactionsTransactionQuerySchema,
     t_GetCustomersCustomerBalanceTransactionsTransactionBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_customer_balance_transaction> | Response<StatusCode, t_error>
 >
@@ -3057,7 +3057,7 @@ export type PostCustomersCustomerBalanceTransactionsTransaction = (
     void,
     t_PostCustomersCustomerBalanceTransactionsTransactionBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_customer_balance_transaction> | Response<StatusCode, t_error>
 >
@@ -3068,7 +3068,7 @@ export type GetCustomersCustomerBankAccounts = (
     t_GetCustomersCustomerBankAccountsQuerySchema,
     t_GetCustomersCustomerBankAccountsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3088,7 +3088,7 @@ export type PostCustomersCustomerBankAccounts = (
     void,
     t_PostCustomersCustomerBankAccountsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_source> | Response<StatusCode, t_error>>
 
 export type DeleteCustomersCustomerBankAccountsId = (
@@ -3097,7 +3097,7 @@ export type DeleteCustomersCustomerBankAccountsId = (
     void,
     t_DeleteCustomersCustomerBankAccountsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_payment_source | t_deleted_payment_source>
   | Response<StatusCode, t_error>
@@ -3109,7 +3109,7 @@ export type GetCustomersCustomerBankAccountsId = (
     t_GetCustomersCustomerBankAccountsIdQuerySchema,
     t_GetCustomersCustomerBankAccountsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_bank_account> | Response<StatusCode, t_error>>
 
 export type PostCustomersCustomerBankAccountsId = (
@@ -3118,7 +3118,7 @@ export type PostCustomersCustomerBankAccountsId = (
     void,
     t_PostCustomersCustomerBankAccountsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_card | t_bank_account | t_source>
   | Response<StatusCode, t_error>
@@ -3130,7 +3130,7 @@ export type PostCustomersCustomerBankAccountsIdVerify = (
     void,
     t_PostCustomersCustomerBankAccountsIdVerifyBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_bank_account> | Response<StatusCode, t_error>>
 
 export type GetCustomersCustomerCards = (
@@ -3139,7 +3139,7 @@ export type GetCustomersCustomerCards = (
     t_GetCustomersCustomerCardsQuerySchema,
     t_GetCustomersCustomerCardsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3159,7 +3159,7 @@ export type PostCustomersCustomerCards = (
     void,
     t_PostCustomersCustomerCardsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_source> | Response<StatusCode, t_error>>
 
 export type DeleteCustomersCustomerCardsId = (
@@ -3168,7 +3168,7 @@ export type DeleteCustomersCustomerCardsId = (
     void,
     t_DeleteCustomersCustomerCardsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_payment_source | t_deleted_payment_source>
   | Response<StatusCode, t_error>
@@ -3180,7 +3180,7 @@ export type GetCustomersCustomerCardsId = (
     t_GetCustomersCustomerCardsIdQuerySchema,
     t_GetCustomersCustomerCardsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_card> | Response<StatusCode, t_error>>
 
 export type PostCustomersCustomerCardsId = (
@@ -3189,7 +3189,7 @@ export type PostCustomersCustomerCardsId = (
     void,
     t_PostCustomersCustomerCardsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_card | t_bank_account | t_source>
   | Response<StatusCode, t_error>
@@ -3201,7 +3201,7 @@ export type GetCustomersCustomerCashBalance = (
     t_GetCustomersCustomerCashBalanceQuerySchema,
     t_GetCustomersCustomerCashBalanceBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_cash_balance> | Response<StatusCode, t_error>>
 
 export type PostCustomersCustomerCashBalance = (
@@ -3210,7 +3210,7 @@ export type PostCustomersCustomerCashBalance = (
     void,
     t_PostCustomersCustomerCashBalanceBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_cash_balance> | Response<StatusCode, t_error>>
 
 export type GetCustomersCustomerCashBalanceTransactions = (
@@ -3219,7 +3219,7 @@ export type GetCustomersCustomerCashBalanceTransactions = (
     t_GetCustomersCustomerCashBalanceTransactionsQuerySchema,
     t_GetCustomersCustomerCashBalanceTransactionsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3240,7 +3240,7 @@ export type GetCustomersCustomerCashBalanceTransactionsTransaction = (
     | t_GetCustomersCustomerCashBalanceTransactionsTransactionBodySchema
     | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_customer_cash_balance_transaction>
   | Response<StatusCode, t_error>
@@ -3252,7 +3252,7 @@ export type DeleteCustomersCustomerDiscount = (
     void,
     t_DeleteCustomersCustomerDiscountBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_deleted_discount> | Response<StatusCode, t_error>>
 
 export type GetCustomersCustomerDiscount = (
@@ -3261,7 +3261,7 @@ export type GetCustomersCustomerDiscount = (
     t_GetCustomersCustomerDiscountQuerySchema,
     t_GetCustomersCustomerDiscountBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_discount> | Response<StatusCode, t_error>>
 
 export type PostCustomersCustomerFundingInstructions = (
@@ -3270,7 +3270,7 @@ export type PostCustomersCustomerFundingInstructions = (
     void,
     t_PostCustomersCustomerFundingInstructionsBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_funding_instructions> | Response<StatusCode, t_error>
 >
@@ -3281,7 +3281,7 @@ export type GetCustomersCustomerPaymentMethods = (
     t_GetCustomersCustomerPaymentMethodsQuerySchema,
     t_GetCustomersCustomerPaymentMethodsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3301,7 +3301,7 @@ export type GetCustomersCustomerPaymentMethodsPaymentMethod = (
     t_GetCustomersCustomerPaymentMethodsPaymentMethodQuerySchema,
     t_GetCustomersCustomerPaymentMethodsPaymentMethodBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_method> | Response<StatusCode, t_error>>
 
 export type GetCustomersCustomerSources = (
@@ -3310,7 +3310,7 @@ export type GetCustomersCustomerSources = (
     t_GetCustomersCustomerSourcesQuerySchema,
     t_GetCustomersCustomerSourcesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3330,7 +3330,7 @@ export type PostCustomersCustomerSources = (
     void,
     t_PostCustomersCustomerSourcesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_source> | Response<StatusCode, t_error>>
 
 export type DeleteCustomersCustomerSourcesId = (
@@ -3339,7 +3339,7 @@ export type DeleteCustomersCustomerSourcesId = (
     void,
     t_DeleteCustomersCustomerSourcesIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_payment_source | t_deleted_payment_source>
   | Response<StatusCode, t_error>
@@ -3351,7 +3351,7 @@ export type GetCustomersCustomerSourcesId = (
     t_GetCustomersCustomerSourcesIdQuerySchema,
     t_GetCustomersCustomerSourcesIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_source> | Response<StatusCode, t_error>>
 
 export type PostCustomersCustomerSourcesId = (
@@ -3360,7 +3360,7 @@ export type PostCustomersCustomerSourcesId = (
     void,
     t_PostCustomersCustomerSourcesIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_card | t_bank_account | t_source>
   | Response<StatusCode, t_error>
@@ -3372,7 +3372,7 @@ export type PostCustomersCustomerSourcesIdVerify = (
     void,
     t_PostCustomersCustomerSourcesIdVerifyBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_bank_account> | Response<StatusCode, t_error>>
 
 export type GetCustomersCustomerSubscriptions = (
@@ -3381,7 +3381,7 @@ export type GetCustomersCustomerSubscriptions = (
     t_GetCustomersCustomerSubscriptionsQuerySchema,
     t_GetCustomersCustomerSubscriptionsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3401,7 +3401,7 @@ export type PostCustomersCustomerSubscriptions = (
     void,
     t_PostCustomersCustomerSubscriptionsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_subscription> | Response<StatusCode, t_error>>
 
 export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedId = (
@@ -3411,7 +3411,7 @@ export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedId = (
     | t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema
     | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_subscription> | Response<StatusCode, t_error>>
 
 export type GetCustomersCustomerSubscriptionsSubscriptionExposedId = (
@@ -3421,7 +3421,7 @@ export type GetCustomersCustomerSubscriptionsSubscriptionExposedId = (
     | t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema
     | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_subscription> | Response<StatusCode, t_error>>
 
 export type PostCustomersCustomerSubscriptionsSubscriptionExposedId = (
@@ -3431,7 +3431,7 @@ export type PostCustomersCustomerSubscriptionsSubscriptionExposedId = (
     | t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema
     | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_subscription> | Response<StatusCode, t_error>>
 
 export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount =
@@ -3442,7 +3442,7 @@ export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount =
       | t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountBodySchema
       | undefined
     >,
-    ctx: Context
+    ctx: Context,
   ) => Promise<
     Response<200, t_deleted_discount> | Response<StatusCode, t_error>
   >
@@ -3454,7 +3454,7 @@ export type GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount = (
     | t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountBodySchema
     | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_discount> | Response<StatusCode, t_error>>
 
 export type GetCustomersCustomerTaxIds = (
@@ -3463,7 +3463,7 @@ export type GetCustomersCustomerTaxIds = (
     t_GetCustomersCustomerTaxIdsQuerySchema,
     t_GetCustomersCustomerTaxIdsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3483,7 +3483,7 @@ export type PostCustomersCustomerTaxIds = (
     void,
     t_PostCustomersCustomerTaxIdsBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_tax_id> | Response<StatusCode, t_error>>
 
 export type DeleteCustomersCustomerTaxIdsId = (
@@ -3492,7 +3492,7 @@ export type DeleteCustomersCustomerTaxIdsId = (
     void,
     t_DeleteCustomersCustomerTaxIdsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_deleted_tax_id> | Response<StatusCode, t_error>>
 
 export type GetCustomersCustomerTaxIdsId = (
@@ -3501,7 +3501,7 @@ export type GetCustomersCustomerTaxIdsId = (
     t_GetCustomersCustomerTaxIdsIdQuerySchema,
     t_GetCustomersCustomerTaxIdsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_tax_id> | Response<StatusCode, t_error>>
 
 export type GetDisputes = (
@@ -3510,7 +3510,7 @@ export type GetDisputes = (
     t_GetDisputesQuerySchema,
     t_GetDisputesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3530,7 +3530,7 @@ export type GetDisputesDispute = (
     t_GetDisputesDisputeQuerySchema,
     t_GetDisputesDisputeBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_dispute> | Response<StatusCode, t_error>>
 
 export type PostDisputesDispute = (
@@ -3539,7 +3539,7 @@ export type PostDisputesDispute = (
     void,
     t_PostDisputesDisputeBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_dispute> | Response<StatusCode, t_error>>
 
 export type PostDisputesDisputeClose = (
@@ -3548,12 +3548,12 @@ export type PostDisputesDisputeClose = (
     void,
     t_PostDisputesDisputeCloseBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_dispute> | Response<StatusCode, t_error>>
 
 export type PostEphemeralKeys = (
   params: Params<void, void, t_PostEphemeralKeysBodySchema | undefined>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_ephemeral_key> | Response<StatusCode, t_error>>
 
 export type DeleteEphemeralKeysKey = (
@@ -3562,7 +3562,7 @@ export type DeleteEphemeralKeysKey = (
     void,
     t_DeleteEphemeralKeysKeyBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_ephemeral_key> | Response<StatusCode, t_error>>
 
 export type GetEvents = (
@@ -3571,7 +3571,7 @@ export type GetEvents = (
     t_GetEventsQuerySchema,
     t_GetEventsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3591,7 +3591,7 @@ export type GetEventsId = (
     t_GetEventsIdQuerySchema,
     t_GetEventsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_event> | Response<StatusCode, t_error>>
 
 export type GetExchangeRates = (
@@ -3600,7 +3600,7 @@ export type GetExchangeRates = (
     t_GetExchangeRatesQuerySchema,
     t_GetExchangeRatesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3620,7 +3620,7 @@ export type GetExchangeRatesRateId = (
     t_GetExchangeRatesRateIdQuerySchema,
     t_GetExchangeRatesRateIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_exchange_rate> | Response<StatusCode, t_error>>
 
 export type GetFileLinks = (
@@ -3629,7 +3629,7 @@ export type GetFileLinks = (
     t_GetFileLinksQuerySchema,
     t_GetFileLinksBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3645,7 +3645,7 @@ export type GetFileLinks = (
 
 export type PostFileLinks = (
   params: Params<void, void, t_PostFileLinksBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_file_link> | Response<StatusCode, t_error>>
 
 export type GetFileLinksLink = (
@@ -3654,7 +3654,7 @@ export type GetFileLinksLink = (
     t_GetFileLinksLinkQuerySchema,
     t_GetFileLinksLinkBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_file_link> | Response<StatusCode, t_error>>
 
 export type PostFileLinksLink = (
@@ -3663,12 +3663,12 @@ export type PostFileLinksLink = (
     void,
     t_PostFileLinksLinkBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_file_link> | Response<StatusCode, t_error>>
 
 export type GetFiles = (
   params: Params<void, t_GetFilesQuerySchema, t_GetFilesBodySchema | undefined>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3684,7 +3684,7 @@ export type GetFiles = (
 
 export type PostFiles = (
   params: Params<void, void, t_PostFilesBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_file> | Response<StatusCode, t_error>>
 
 export type GetFilesFile = (
@@ -3693,7 +3693,7 @@ export type GetFilesFile = (
     t_GetFilesFileQuerySchema,
     t_GetFilesFileBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_file> | Response<StatusCode, t_error>>
 
 export type GetFinancialConnectionsAccounts = (
@@ -3702,7 +3702,7 @@ export type GetFinancialConnectionsAccounts = (
     t_GetFinancialConnectionsAccountsQuerySchema,
     t_GetFinancialConnectionsAccountsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3722,7 +3722,7 @@ export type GetFinancialConnectionsAccountsAccount = (
     t_GetFinancialConnectionsAccountsAccountQuerySchema,
     t_GetFinancialConnectionsAccountsAccountBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_financial_connections_account> | Response<StatusCode, t_error>
 >
@@ -3733,7 +3733,7 @@ export type PostFinancialConnectionsAccountsAccountDisconnect = (
     void,
     t_PostFinancialConnectionsAccountsAccountDisconnectBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_financial_connections_account> | Response<StatusCode, t_error>
 >
@@ -3744,7 +3744,7 @@ export type GetFinancialConnectionsAccountsAccountOwners = (
     t_GetFinancialConnectionsAccountsAccountOwnersQuerySchema,
     t_GetFinancialConnectionsAccountsAccountOwnersBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3764,14 +3764,14 @@ export type PostFinancialConnectionsAccountsAccountRefresh = (
     void,
     t_PostFinancialConnectionsAccountsAccountRefreshBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_financial_connections_account> | Response<StatusCode, t_error>
 >
 
 export type PostFinancialConnectionsSessions = (
   params: Params<void, void, t_PostFinancialConnectionsSessionsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_financial_connections_session> | Response<StatusCode, t_error>
 >
@@ -3782,7 +3782,7 @@ export type GetFinancialConnectionsSessionsSession = (
     t_GetFinancialConnectionsSessionsSessionQuerySchema,
     t_GetFinancialConnectionsSessionsSessionBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_financial_connections_session> | Response<StatusCode, t_error>
 >
@@ -3793,7 +3793,7 @@ export type GetIdentityVerificationReports = (
     t_GetIdentityVerificationReportsQuerySchema,
     t_GetIdentityVerificationReportsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3813,7 +3813,7 @@ export type GetIdentityVerificationReportsReport = (
     t_GetIdentityVerificationReportsReportQuerySchema,
     t_GetIdentityVerificationReportsReportBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_identity_verification_report> | Response<StatusCode, t_error>
 >
@@ -3824,7 +3824,7 @@ export type GetIdentityVerificationSessions = (
     t_GetIdentityVerificationSessionsQuerySchema,
     t_GetIdentityVerificationSessionsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3840,7 +3840,7 @@ export type GetIdentityVerificationSessions = (
 
 export type PostIdentityVerificationSessions = (
   params: Params<void, void, t_PostIdentityVerificationSessionsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_identity_verification_session> | Response<StatusCode, t_error>
 >
@@ -3851,7 +3851,7 @@ export type GetIdentityVerificationSessionsSession = (
     t_GetIdentityVerificationSessionsSessionQuerySchema,
     t_GetIdentityVerificationSessionsSessionBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_identity_verification_session> | Response<StatusCode, t_error>
 >
@@ -3862,7 +3862,7 @@ export type PostIdentityVerificationSessionsSession = (
     void,
     t_PostIdentityVerificationSessionsSessionBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_identity_verification_session> | Response<StatusCode, t_error>
 >
@@ -3873,7 +3873,7 @@ export type PostIdentityVerificationSessionsSessionCancel = (
     void,
     t_PostIdentityVerificationSessionsSessionCancelBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_identity_verification_session> | Response<StatusCode, t_error>
 >
@@ -3884,7 +3884,7 @@ export type PostIdentityVerificationSessionsSessionRedact = (
     void,
     t_PostIdentityVerificationSessionsSessionRedactBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_identity_verification_session> | Response<StatusCode, t_error>
 >
@@ -3895,7 +3895,7 @@ export type GetInvoiceitems = (
     t_GetInvoiceitemsQuerySchema,
     t_GetInvoiceitemsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3911,7 +3911,7 @@ export type GetInvoiceitems = (
 
 export type PostInvoiceitems = (
   params: Params<void, void, t_PostInvoiceitemsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_invoiceitem> | Response<StatusCode, t_error>>
 
 export type DeleteInvoiceitemsInvoiceitem = (
@@ -3920,7 +3920,7 @@ export type DeleteInvoiceitemsInvoiceitem = (
     void,
     t_DeleteInvoiceitemsInvoiceitemBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_deleted_invoiceitem> | Response<StatusCode, t_error>
 >
@@ -3931,7 +3931,7 @@ export type GetInvoiceitemsInvoiceitem = (
     t_GetInvoiceitemsInvoiceitemQuerySchema,
     t_GetInvoiceitemsInvoiceitemBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_invoiceitem> | Response<StatusCode, t_error>>
 
 export type PostInvoiceitemsInvoiceitem = (
@@ -3940,7 +3940,7 @@ export type PostInvoiceitemsInvoiceitem = (
     void,
     t_PostInvoiceitemsInvoiceitemBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_invoiceitem> | Response<StatusCode, t_error>>
 
 export type GetInvoices = (
@@ -3949,7 +3949,7 @@ export type GetInvoices = (
     t_GetInvoicesQuerySchema,
     t_GetInvoicesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3965,7 +3965,7 @@ export type GetInvoices = (
 
 export type PostInvoices = (
   params: Params<void, void, t_PostInvoicesBodySchema | undefined>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_invoice> | Response<StatusCode, t_error>>
 
 export type GetInvoicesSearch = (
@@ -3974,7 +3974,7 @@ export type GetInvoicesSearch = (
     t_GetInvoicesSearchQuerySchema,
     t_GetInvoicesSearchBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3996,7 +3996,7 @@ export type GetInvoicesUpcoming = (
     t_GetInvoicesUpcomingQuerySchema,
     t_GetInvoicesUpcomingBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_invoice> | Response<StatusCode, t_error>>
 
 export type GetInvoicesUpcomingLines = (
@@ -4005,7 +4005,7 @@ export type GetInvoicesUpcomingLines = (
     t_GetInvoicesUpcomingLinesQuerySchema,
     t_GetInvoicesUpcomingLinesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -4025,7 +4025,7 @@ export type DeleteInvoicesInvoice = (
     void,
     t_DeleteInvoicesInvoiceBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_deleted_invoice> | Response<StatusCode, t_error>>
 
 export type GetInvoicesInvoice = (
@@ -4034,7 +4034,7 @@ export type GetInvoicesInvoice = (
     t_GetInvoicesInvoiceQuerySchema,
     t_GetInvoicesInvoiceBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_invoice> | Response<StatusCode, t_error>>
 
 export type PostInvoicesInvoice = (
@@ -4043,7 +4043,7 @@ export type PostInvoicesInvoice = (
     void,
     t_PostInvoicesInvoiceBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_invoice> | Response<StatusCode, t_error>>
 
 export type PostInvoicesInvoiceFinalize = (
@@ -4052,7 +4052,7 @@ export type PostInvoicesInvoiceFinalize = (
     void,
     t_PostInvoicesInvoiceFinalizeBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_invoice> | Response<StatusCode, t_error>>
 
 export type GetInvoicesInvoiceLines = (
@@ -4061,7 +4061,7 @@ export type GetInvoicesInvoiceLines = (
     t_GetInvoicesInvoiceLinesQuerySchema,
     t_GetInvoicesInvoiceLinesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -4081,7 +4081,7 @@ export type PostInvoicesInvoiceMarkUncollectible = (
     void,
     t_PostInvoicesInvoiceMarkUncollectibleBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_invoice> | Response<StatusCode, t_error>>
 
 export type PostInvoicesInvoicePay = (
@@ -4090,7 +4090,7 @@ export type PostInvoicesInvoicePay = (
     void,
     t_PostInvoicesInvoicePayBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_invoice> | Response<StatusCode, t_error>>
 
 export type PostInvoicesInvoiceSend = (
@@ -4099,7 +4099,7 @@ export type PostInvoicesInvoiceSend = (
     void,
     t_PostInvoicesInvoiceSendBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_invoice> | Response<StatusCode, t_error>>
 
 export type PostInvoicesInvoiceVoid = (
@@ -4108,7 +4108,7 @@ export type PostInvoicesInvoiceVoid = (
     void,
     t_PostInvoicesInvoiceVoidBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_invoice> | Response<StatusCode, t_error>>
 
 export type GetIssuingAuthorizations = (
@@ -4117,7 +4117,7 @@ export type GetIssuingAuthorizations = (
     t_GetIssuingAuthorizationsQuerySchema,
     t_GetIssuingAuthorizationsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -4137,7 +4137,7 @@ export type GetIssuingAuthorizationsAuthorization = (
     t_GetIssuingAuthorizationsAuthorizationQuerySchema,
     t_GetIssuingAuthorizationsAuthorizationBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_issuing_authorization> | Response<StatusCode, t_error>
 >
@@ -4148,7 +4148,7 @@ export type PostIssuingAuthorizationsAuthorization = (
     void,
     t_PostIssuingAuthorizationsAuthorizationBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_issuing_authorization> | Response<StatusCode, t_error>
 >
@@ -4159,7 +4159,7 @@ export type PostIssuingAuthorizationsAuthorizationApprove = (
     void,
     t_PostIssuingAuthorizationsAuthorizationApproveBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_issuing_authorization> | Response<StatusCode, t_error>
 >
@@ -4170,7 +4170,7 @@ export type PostIssuingAuthorizationsAuthorizationDecline = (
     void,
     t_PostIssuingAuthorizationsAuthorizationDeclineBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_issuing_authorization> | Response<StatusCode, t_error>
 >
@@ -4181,7 +4181,7 @@ export type GetIssuingCardholders = (
     t_GetIssuingCardholdersQuerySchema,
     t_GetIssuingCardholdersBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -4197,7 +4197,7 @@ export type GetIssuingCardholders = (
 
 export type PostIssuingCardholders = (
   params: Params<void, void, t_PostIssuingCardholdersBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_issuing_cardholder> | Response<StatusCode, t_error>
 >
@@ -4208,7 +4208,7 @@ export type GetIssuingCardholdersCardholder = (
     t_GetIssuingCardholdersCardholderQuerySchema,
     t_GetIssuingCardholdersCardholderBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_issuing_cardholder> | Response<StatusCode, t_error>
 >
@@ -4219,7 +4219,7 @@ export type PostIssuingCardholdersCardholder = (
     void,
     t_PostIssuingCardholdersCardholderBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_issuing_cardholder> | Response<StatusCode, t_error>
 >
@@ -4230,7 +4230,7 @@ export type GetIssuingCards = (
     t_GetIssuingCardsQuerySchema,
     t_GetIssuingCardsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -4246,7 +4246,7 @@ export type GetIssuingCards = (
 
 export type PostIssuingCards = (
   params: Params<void, void, t_PostIssuingCardsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_issuing_card> | Response<StatusCode, t_error>>
 
 export type GetIssuingCardsCard = (
@@ -4255,7 +4255,7 @@ export type GetIssuingCardsCard = (
     t_GetIssuingCardsCardQuerySchema,
     t_GetIssuingCardsCardBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_issuing_card> | Response<StatusCode, t_error>>
 
 export type PostIssuingCardsCard = (
@@ -4264,7 +4264,7 @@ export type PostIssuingCardsCard = (
     void,
     t_PostIssuingCardsCardBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_issuing_card> | Response<StatusCode, t_error>>
 
 export type GetIssuingDisputes = (
@@ -4273,7 +4273,7 @@ export type GetIssuingDisputes = (
     t_GetIssuingDisputesQuerySchema,
     t_GetIssuingDisputesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -4289,7 +4289,7 @@ export type GetIssuingDisputes = (
 
 export type PostIssuingDisputes = (
   params: Params<void, void, t_PostIssuingDisputesBodySchema | undefined>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_issuing_dispute> | Response<StatusCode, t_error>>
 
 export type GetIssuingDisputesDispute = (
@@ -4298,7 +4298,7 @@ export type GetIssuingDisputesDispute = (
     t_GetIssuingDisputesDisputeQuerySchema,
     t_GetIssuingDisputesDisputeBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_issuing_dispute> | Response<StatusCode, t_error>>
 
 export type PostIssuingDisputesDispute = (
@@ -4307,7 +4307,7 @@ export type PostIssuingDisputesDispute = (
     void,
     t_PostIssuingDisputesDisputeBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_issuing_dispute> | Response<StatusCode, t_error>>
 
 export type PostIssuingDisputesDisputeSubmit = (
@@ -4316,7 +4316,7 @@ export type PostIssuingDisputesDisputeSubmit = (
     void,
     t_PostIssuingDisputesDisputeSubmitBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_issuing_dispute> | Response<StatusCode, t_error>>
 
 export type GetIssuingSettlements = (
@@ -4325,7 +4325,7 @@ export type GetIssuingSettlements = (
     t_GetIssuingSettlementsQuerySchema,
     t_GetIssuingSettlementsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -4345,7 +4345,7 @@ export type GetIssuingSettlementsSettlement = (
     t_GetIssuingSettlementsSettlementQuerySchema,
     t_GetIssuingSettlementsSettlementBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_issuing_settlement> | Response<StatusCode, t_error>
 >
@@ -4356,7 +4356,7 @@ export type PostIssuingSettlementsSettlement = (
     void,
     t_PostIssuingSettlementsSettlementBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_issuing_settlement> | Response<StatusCode, t_error>
 >
@@ -4367,7 +4367,7 @@ export type GetIssuingTransactions = (
     t_GetIssuingTransactionsQuerySchema,
     t_GetIssuingTransactionsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -4387,7 +4387,7 @@ export type GetIssuingTransactionsTransaction = (
     t_GetIssuingTransactionsTransactionQuerySchema,
     t_GetIssuingTransactionsTransactionBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_issuing_transaction> | Response<StatusCode, t_error>
 >
@@ -4398,14 +4398,14 @@ export type PostIssuingTransactionsTransaction = (
     void,
     t_PostIssuingTransactionsTransactionBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_issuing_transaction> | Response<StatusCode, t_error>
 >
 
 export type PostLinkAccountSessions = (
   params: Params<void, void, t_PostLinkAccountSessionsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_financial_connections_session> | Response<StatusCode, t_error>
 >
@@ -4416,7 +4416,7 @@ export type GetLinkAccountSessionsSession = (
     t_GetLinkAccountSessionsSessionQuerySchema,
     t_GetLinkAccountSessionsSessionBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_financial_connections_session> | Response<StatusCode, t_error>
 >
@@ -4427,7 +4427,7 @@ export type GetLinkedAccounts = (
     t_GetLinkedAccountsQuerySchema,
     t_GetLinkedAccountsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -4447,7 +4447,7 @@ export type GetLinkedAccountsAccount = (
     t_GetLinkedAccountsAccountQuerySchema,
     t_GetLinkedAccountsAccountBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_financial_connections_account> | Response<StatusCode, t_error>
 >
@@ -4458,7 +4458,7 @@ export type PostLinkedAccountsAccountDisconnect = (
     void,
     t_PostLinkedAccountsAccountDisconnectBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_financial_connections_account> | Response<StatusCode, t_error>
 >
@@ -4469,7 +4469,7 @@ export type GetLinkedAccountsAccountOwners = (
     t_GetLinkedAccountsAccountOwnersQuerySchema,
     t_GetLinkedAccountsAccountOwnersBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -4489,7 +4489,7 @@ export type PostLinkedAccountsAccountRefresh = (
     void,
     t_PostLinkedAccountsAccountRefreshBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_financial_connections_account> | Response<StatusCode, t_error>
 >
@@ -4500,7 +4500,7 @@ export type GetMandatesMandate = (
     t_GetMandatesMandateQuerySchema,
     t_GetMandatesMandateBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_mandate> | Response<StatusCode, t_error>>
 
 export type GetPaymentIntents = (
@@ -4509,7 +4509,7 @@ export type GetPaymentIntents = (
     t_GetPaymentIntentsQuerySchema,
     t_GetPaymentIntentsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -4525,7 +4525,7 @@ export type GetPaymentIntents = (
 
 export type PostPaymentIntents = (
   params: Params<void, void, t_PostPaymentIntentsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_intent> | Response<StatusCode, t_error>>
 
 export type GetPaymentIntentsSearch = (
@@ -4534,7 +4534,7 @@ export type GetPaymentIntentsSearch = (
     t_GetPaymentIntentsSearchQuerySchema,
     t_GetPaymentIntentsSearchBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -4556,7 +4556,7 @@ export type GetPaymentIntentsIntent = (
     t_GetPaymentIntentsIntentQuerySchema,
     t_GetPaymentIntentsIntentBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_intent> | Response<StatusCode, t_error>>
 
 export type PostPaymentIntentsIntent = (
@@ -4565,7 +4565,7 @@ export type PostPaymentIntentsIntent = (
     void,
     t_PostPaymentIntentsIntentBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_intent> | Response<StatusCode, t_error>>
 
 export type PostPaymentIntentsIntentApplyCustomerBalance = (
@@ -4574,7 +4574,7 @@ export type PostPaymentIntentsIntentApplyCustomerBalance = (
     void,
     t_PostPaymentIntentsIntentApplyCustomerBalanceBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_intent> | Response<StatusCode, t_error>>
 
 export type PostPaymentIntentsIntentCancel = (
@@ -4583,7 +4583,7 @@ export type PostPaymentIntentsIntentCancel = (
     void,
     t_PostPaymentIntentsIntentCancelBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_intent> | Response<StatusCode, t_error>>
 
 export type PostPaymentIntentsIntentCapture = (
@@ -4592,7 +4592,7 @@ export type PostPaymentIntentsIntentCapture = (
     void,
     t_PostPaymentIntentsIntentCaptureBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_intent> | Response<StatusCode, t_error>>
 
 export type PostPaymentIntentsIntentConfirm = (
@@ -4601,7 +4601,7 @@ export type PostPaymentIntentsIntentConfirm = (
     void,
     t_PostPaymentIntentsIntentConfirmBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_intent> | Response<StatusCode, t_error>>
 
 export type PostPaymentIntentsIntentIncrementAuthorization = (
@@ -4610,7 +4610,7 @@ export type PostPaymentIntentsIntentIncrementAuthorization = (
     void,
     t_PostPaymentIntentsIntentIncrementAuthorizationBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_intent> | Response<StatusCode, t_error>>
 
 export type PostPaymentIntentsIntentVerifyMicrodeposits = (
@@ -4619,7 +4619,7 @@ export type PostPaymentIntentsIntentVerifyMicrodeposits = (
     void,
     t_PostPaymentIntentsIntentVerifyMicrodepositsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_intent> | Response<StatusCode, t_error>>
 
 export type GetPaymentLinks = (
@@ -4628,7 +4628,7 @@ export type GetPaymentLinks = (
     t_GetPaymentLinksQuerySchema,
     t_GetPaymentLinksBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -4644,7 +4644,7 @@ export type GetPaymentLinks = (
 
 export type PostPaymentLinks = (
   params: Params<void, void, t_PostPaymentLinksBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_link> | Response<StatusCode, t_error>>
 
 export type GetPaymentLinksPaymentLink = (
@@ -4653,7 +4653,7 @@ export type GetPaymentLinksPaymentLink = (
     t_GetPaymentLinksPaymentLinkQuerySchema,
     t_GetPaymentLinksPaymentLinkBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_link> | Response<StatusCode, t_error>>
 
 export type PostPaymentLinksPaymentLink = (
@@ -4662,7 +4662,7 @@ export type PostPaymentLinksPaymentLink = (
     void,
     t_PostPaymentLinksPaymentLinkBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_link> | Response<StatusCode, t_error>>
 
 export type GetPaymentLinksPaymentLinkLineItems = (
@@ -4671,7 +4671,7 @@ export type GetPaymentLinksPaymentLinkLineItems = (
     t_GetPaymentLinksPaymentLinkLineItemsQuerySchema,
     t_GetPaymentLinksPaymentLinkLineItemsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -4691,7 +4691,7 @@ export type GetPaymentMethods = (
     t_GetPaymentMethodsQuerySchema,
     t_GetPaymentMethodsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -4707,7 +4707,7 @@ export type GetPaymentMethods = (
 
 export type PostPaymentMethods = (
   params: Params<void, void, t_PostPaymentMethodsBodySchema | undefined>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_method> | Response<StatusCode, t_error>>
 
 export type GetPaymentMethodsPaymentMethod = (
@@ -4716,7 +4716,7 @@ export type GetPaymentMethodsPaymentMethod = (
     t_GetPaymentMethodsPaymentMethodQuerySchema,
     t_GetPaymentMethodsPaymentMethodBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_method> | Response<StatusCode, t_error>>
 
 export type PostPaymentMethodsPaymentMethod = (
@@ -4725,7 +4725,7 @@ export type PostPaymentMethodsPaymentMethod = (
     void,
     t_PostPaymentMethodsPaymentMethodBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_method> | Response<StatusCode, t_error>>
 
 export type PostPaymentMethodsPaymentMethodAttach = (
@@ -4734,7 +4734,7 @@ export type PostPaymentMethodsPaymentMethodAttach = (
     void,
     t_PostPaymentMethodsPaymentMethodAttachBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_method> | Response<StatusCode, t_error>>
 
 export type PostPaymentMethodsPaymentMethodDetach = (
@@ -4743,7 +4743,7 @@ export type PostPaymentMethodsPaymentMethodDetach = (
     void,
     t_PostPaymentMethodsPaymentMethodDetachBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payment_method> | Response<StatusCode, t_error>>
 
 export type GetPayouts = (
@@ -4752,7 +4752,7 @@ export type GetPayouts = (
     t_GetPayoutsQuerySchema,
     t_GetPayoutsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -4768,7 +4768,7 @@ export type GetPayouts = (
 
 export type PostPayouts = (
   params: Params<void, void, t_PostPayoutsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payout> | Response<StatusCode, t_error>>
 
 export type GetPayoutsPayout = (
@@ -4777,7 +4777,7 @@ export type GetPayoutsPayout = (
     t_GetPayoutsPayoutQuerySchema,
     t_GetPayoutsPayoutBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payout> | Response<StatusCode, t_error>>
 
 export type PostPayoutsPayout = (
@@ -4786,7 +4786,7 @@ export type PostPayoutsPayout = (
     void,
     t_PostPayoutsPayoutBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payout> | Response<StatusCode, t_error>>
 
 export type PostPayoutsPayoutCancel = (
@@ -4795,7 +4795,7 @@ export type PostPayoutsPayoutCancel = (
     void,
     t_PostPayoutsPayoutCancelBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payout> | Response<StatusCode, t_error>>
 
 export type PostPayoutsPayoutReverse = (
@@ -4804,12 +4804,12 @@ export type PostPayoutsPayoutReverse = (
     void,
     t_PostPayoutsPayoutReverseBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_payout> | Response<StatusCode, t_error>>
 
 export type GetPlans = (
   params: Params<void, t_GetPlansQuerySchema, t_GetPlansBodySchema | undefined>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -4825,7 +4825,7 @@ export type GetPlans = (
 
 export type PostPlans = (
   params: Params<void, void, t_PostPlansBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_plan> | Response<StatusCode, t_error>>
 
 export type DeletePlansPlan = (
@@ -4834,7 +4834,7 @@ export type DeletePlansPlan = (
     void,
     t_DeletePlansPlanBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_deleted_plan> | Response<StatusCode, t_error>>
 
 export type GetPlansPlan = (
@@ -4843,7 +4843,7 @@ export type GetPlansPlan = (
     t_GetPlansPlanQuerySchema,
     t_GetPlansPlanBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_plan> | Response<StatusCode, t_error>>
 
 export type PostPlansPlan = (
@@ -4852,7 +4852,7 @@ export type PostPlansPlan = (
     void,
     t_PostPlansPlanBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_plan> | Response<StatusCode, t_error>>
 
 export type GetPrices = (
@@ -4861,7 +4861,7 @@ export type GetPrices = (
     t_GetPricesQuerySchema,
     t_GetPricesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -4877,7 +4877,7 @@ export type GetPrices = (
 
 export type PostPrices = (
   params: Params<void, void, t_PostPricesBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_price> | Response<StatusCode, t_error>>
 
 export type GetPricesSearch = (
@@ -4886,7 +4886,7 @@ export type GetPricesSearch = (
     t_GetPricesSearchQuerySchema,
     t_GetPricesSearchBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -4908,7 +4908,7 @@ export type GetPricesPrice = (
     t_GetPricesPriceQuerySchema,
     t_GetPricesPriceBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_price> | Response<StatusCode, t_error>>
 
 export type PostPricesPrice = (
@@ -4917,7 +4917,7 @@ export type PostPricesPrice = (
     void,
     t_PostPricesPriceBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_price> | Response<StatusCode, t_error>>
 
 export type GetProducts = (
@@ -4926,7 +4926,7 @@ export type GetProducts = (
     t_GetProductsQuerySchema,
     t_GetProductsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -4942,7 +4942,7 @@ export type GetProducts = (
 
 export type PostProducts = (
   params: Params<void, void, t_PostProductsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_product> | Response<StatusCode, t_error>>
 
 export type GetProductsSearch = (
@@ -4951,7 +4951,7 @@ export type GetProductsSearch = (
     t_GetProductsSearchQuerySchema,
     t_GetProductsSearchBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -4973,7 +4973,7 @@ export type DeleteProductsId = (
     void,
     t_DeleteProductsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_deleted_product> | Response<StatusCode, t_error>>
 
 export type GetProductsId = (
@@ -4982,7 +4982,7 @@ export type GetProductsId = (
     t_GetProductsIdQuerySchema,
     t_GetProductsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_product> | Response<StatusCode, t_error>>
 
 export type PostProductsId = (
@@ -4991,7 +4991,7 @@ export type PostProductsId = (
     void,
     t_PostProductsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_product> | Response<StatusCode, t_error>>
 
 export type GetPromotionCodes = (
@@ -5000,7 +5000,7 @@ export type GetPromotionCodes = (
     t_GetPromotionCodesQuerySchema,
     t_GetPromotionCodesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5016,7 +5016,7 @@ export type GetPromotionCodes = (
 
 export type PostPromotionCodes = (
   params: Params<void, void, t_PostPromotionCodesBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_promotion_code> | Response<StatusCode, t_error>>
 
 export type GetPromotionCodesPromotionCode = (
@@ -5025,7 +5025,7 @@ export type GetPromotionCodesPromotionCode = (
     t_GetPromotionCodesPromotionCodeQuerySchema,
     t_GetPromotionCodesPromotionCodeBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_promotion_code> | Response<StatusCode, t_error>>
 
 export type PostPromotionCodesPromotionCode = (
@@ -5034,7 +5034,7 @@ export type PostPromotionCodesPromotionCode = (
     void,
     t_PostPromotionCodesPromotionCodeBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_promotion_code> | Response<StatusCode, t_error>>
 
 export type GetQuotes = (
@@ -5043,7 +5043,7 @@ export type GetQuotes = (
     t_GetQuotesQuerySchema,
     t_GetQuotesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5059,7 +5059,7 @@ export type GetQuotes = (
 
 export type PostQuotes = (
   params: Params<void, void, t_PostQuotesBodySchema | undefined>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_quote> | Response<StatusCode, t_error>>
 
 export type GetQuotesQuote = (
@@ -5068,7 +5068,7 @@ export type GetQuotesQuote = (
     t_GetQuotesQuoteQuerySchema,
     t_GetQuotesQuoteBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_quote> | Response<StatusCode, t_error>>
 
 export type PostQuotesQuote = (
@@ -5077,7 +5077,7 @@ export type PostQuotesQuote = (
     void,
     t_PostQuotesQuoteBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_quote> | Response<StatusCode, t_error>>
 
 export type PostQuotesQuoteAccept = (
@@ -5086,7 +5086,7 @@ export type PostQuotesQuoteAccept = (
     void,
     t_PostQuotesQuoteAcceptBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_quote> | Response<StatusCode, t_error>>
 
 export type PostQuotesQuoteCancel = (
@@ -5095,7 +5095,7 @@ export type PostQuotesQuoteCancel = (
     void,
     t_PostQuotesQuoteCancelBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_quote> | Response<StatusCode, t_error>>
 
 export type GetQuotesQuoteComputedUpfrontLineItems = (
@@ -5104,7 +5104,7 @@ export type GetQuotesQuoteComputedUpfrontLineItems = (
     t_GetQuotesQuoteComputedUpfrontLineItemsQuerySchema,
     t_GetQuotesQuoteComputedUpfrontLineItemsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5124,7 +5124,7 @@ export type PostQuotesQuoteFinalize = (
     void,
     t_PostQuotesQuoteFinalizeBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_quote> | Response<StatusCode, t_error>>
 
 export type GetQuotesQuoteLineItems = (
@@ -5133,7 +5133,7 @@ export type GetQuotesQuoteLineItems = (
     t_GetQuotesQuoteLineItemsQuerySchema,
     t_GetQuotesQuoteLineItemsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5153,7 +5153,7 @@ export type GetQuotesQuotePdf = (
     t_GetQuotesQuotePdfQuerySchema,
     t_GetQuotesQuotePdfBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, string> | Response<StatusCode, t_error>>
 
 export type GetRadarEarlyFraudWarnings = (
@@ -5162,7 +5162,7 @@ export type GetRadarEarlyFraudWarnings = (
     t_GetRadarEarlyFraudWarningsQuerySchema,
     t_GetRadarEarlyFraudWarningsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5182,7 +5182,7 @@ export type GetRadarEarlyFraudWarningsEarlyFraudWarning = (
     t_GetRadarEarlyFraudWarningsEarlyFraudWarningQuerySchema,
     t_GetRadarEarlyFraudWarningsEarlyFraudWarningBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_radar_early_fraud_warning> | Response<StatusCode, t_error>
 >
@@ -5193,7 +5193,7 @@ export type GetRadarValueListItems = (
     t_GetRadarValueListItemsQuerySchema,
     t_GetRadarValueListItemsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5209,7 +5209,7 @@ export type GetRadarValueListItems = (
 
 export type PostRadarValueListItems = (
   params: Params<void, void, t_PostRadarValueListItemsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_radar_value_list_item> | Response<StatusCode, t_error>
 >
@@ -5220,7 +5220,7 @@ export type DeleteRadarValueListItemsItem = (
     void,
     t_DeleteRadarValueListItemsItemBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_deleted_radar_value_list_item> | Response<StatusCode, t_error>
 >
@@ -5231,7 +5231,7 @@ export type GetRadarValueListItemsItem = (
     t_GetRadarValueListItemsItemQuerySchema,
     t_GetRadarValueListItemsItemBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_radar_value_list_item> | Response<StatusCode, t_error>
 >
@@ -5242,7 +5242,7 @@ export type GetRadarValueLists = (
     t_GetRadarValueListsQuerySchema,
     t_GetRadarValueListsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5258,7 +5258,7 @@ export type GetRadarValueLists = (
 
 export type PostRadarValueLists = (
   params: Params<void, void, t_PostRadarValueListsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_radar_value_list> | Response<StatusCode, t_error>>
 
 export type DeleteRadarValueListsValueList = (
@@ -5267,7 +5267,7 @@ export type DeleteRadarValueListsValueList = (
     void,
     t_DeleteRadarValueListsValueListBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_deleted_radar_value_list> | Response<StatusCode, t_error>
 >
@@ -5278,7 +5278,7 @@ export type GetRadarValueListsValueList = (
     t_GetRadarValueListsValueListQuerySchema,
     t_GetRadarValueListsValueListBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_radar_value_list> | Response<StatusCode, t_error>>
 
 export type PostRadarValueListsValueList = (
@@ -5287,7 +5287,7 @@ export type PostRadarValueListsValueList = (
     void,
     t_PostRadarValueListsValueListBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_radar_value_list> | Response<StatusCode, t_error>>
 
 export type GetRefunds = (
@@ -5296,7 +5296,7 @@ export type GetRefunds = (
     t_GetRefundsQuerySchema,
     t_GetRefundsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5312,7 +5312,7 @@ export type GetRefunds = (
 
 export type PostRefunds = (
   params: Params<void, void, t_PostRefundsBodySchema | undefined>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_refund> | Response<StatusCode, t_error>>
 
 export type GetRefundsRefund = (
@@ -5321,7 +5321,7 @@ export type GetRefundsRefund = (
     t_GetRefundsRefundQuerySchema,
     t_GetRefundsRefundBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_refund> | Response<StatusCode, t_error>>
 
 export type PostRefundsRefund = (
@@ -5330,7 +5330,7 @@ export type PostRefundsRefund = (
     void,
     t_PostRefundsRefundBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_refund> | Response<StatusCode, t_error>>
 
 export type PostRefundsRefundCancel = (
@@ -5339,7 +5339,7 @@ export type PostRefundsRefundCancel = (
     void,
     t_PostRefundsRefundCancelBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_refund> | Response<StatusCode, t_error>>
 
 export type GetReportingReportRuns = (
@@ -5348,7 +5348,7 @@ export type GetReportingReportRuns = (
     t_GetReportingReportRunsQuerySchema,
     t_GetReportingReportRunsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5364,7 +5364,7 @@ export type GetReportingReportRuns = (
 
 export type PostReportingReportRuns = (
   params: Params<void, void, t_PostReportingReportRunsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_reporting_report_run> | Response<StatusCode, t_error>
 >
@@ -5375,7 +5375,7 @@ export type GetReportingReportRunsReportRun = (
     t_GetReportingReportRunsReportRunQuerySchema,
     t_GetReportingReportRunsReportRunBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_reporting_report_run> | Response<StatusCode, t_error>
 >
@@ -5386,7 +5386,7 @@ export type GetReportingReportTypes = (
     t_GetReportingReportTypesQuerySchema,
     t_GetReportingReportTypesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5406,7 +5406,7 @@ export type GetReportingReportTypesReportType = (
     t_GetReportingReportTypesReportTypeQuerySchema,
     t_GetReportingReportTypesReportTypeBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_reporting_report_type> | Response<StatusCode, t_error>
 >
@@ -5417,7 +5417,7 @@ export type GetReviews = (
     t_GetReviewsQuerySchema,
     t_GetReviewsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5437,7 +5437,7 @@ export type GetReviewsReview = (
     t_GetReviewsReviewQuerySchema,
     t_GetReviewsReviewBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_review> | Response<StatusCode, t_error>>
 
 export type PostReviewsReviewApprove = (
@@ -5446,7 +5446,7 @@ export type PostReviewsReviewApprove = (
     void,
     t_PostReviewsReviewApproveBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_review> | Response<StatusCode, t_error>>
 
 export type GetSetupAttempts = (
@@ -5455,7 +5455,7 @@ export type GetSetupAttempts = (
     t_GetSetupAttemptsQuerySchema,
     t_GetSetupAttemptsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5475,7 +5475,7 @@ export type GetSetupIntents = (
     t_GetSetupIntentsQuerySchema,
     t_GetSetupIntentsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5491,7 +5491,7 @@ export type GetSetupIntents = (
 
 export type PostSetupIntents = (
   params: Params<void, void, t_PostSetupIntentsBodySchema | undefined>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_setup_intent> | Response<StatusCode, t_error>>
 
 export type GetSetupIntentsIntent = (
@@ -5500,7 +5500,7 @@ export type GetSetupIntentsIntent = (
     t_GetSetupIntentsIntentQuerySchema,
     t_GetSetupIntentsIntentBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_setup_intent> | Response<StatusCode, t_error>>
 
 export type PostSetupIntentsIntent = (
@@ -5509,7 +5509,7 @@ export type PostSetupIntentsIntent = (
     void,
     t_PostSetupIntentsIntentBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_setup_intent> | Response<StatusCode, t_error>>
 
 export type PostSetupIntentsIntentCancel = (
@@ -5518,7 +5518,7 @@ export type PostSetupIntentsIntentCancel = (
     void,
     t_PostSetupIntentsIntentCancelBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_setup_intent> | Response<StatusCode, t_error>>
 
 export type PostSetupIntentsIntentConfirm = (
@@ -5527,7 +5527,7 @@ export type PostSetupIntentsIntentConfirm = (
     void,
     t_PostSetupIntentsIntentConfirmBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_setup_intent> | Response<StatusCode, t_error>>
 
 export type PostSetupIntentsIntentVerifyMicrodeposits = (
@@ -5536,7 +5536,7 @@ export type PostSetupIntentsIntentVerifyMicrodeposits = (
     void,
     t_PostSetupIntentsIntentVerifyMicrodepositsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_setup_intent> | Response<StatusCode, t_error>>
 
 export type GetShippingRates = (
@@ -5545,7 +5545,7 @@ export type GetShippingRates = (
     t_GetShippingRatesQuerySchema,
     t_GetShippingRatesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5561,7 +5561,7 @@ export type GetShippingRates = (
 
 export type PostShippingRates = (
   params: Params<void, void, t_PostShippingRatesBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_shipping_rate> | Response<StatusCode, t_error>>
 
 export type GetShippingRatesShippingRateToken = (
@@ -5570,7 +5570,7 @@ export type GetShippingRatesShippingRateToken = (
     t_GetShippingRatesShippingRateTokenQuerySchema,
     t_GetShippingRatesShippingRateTokenBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_shipping_rate> | Response<StatusCode, t_error>>
 
 export type PostShippingRatesShippingRateToken = (
@@ -5579,7 +5579,7 @@ export type PostShippingRatesShippingRateToken = (
     void,
     t_PostShippingRatesShippingRateTokenBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_shipping_rate> | Response<StatusCode, t_error>>
 
 export type GetSigmaScheduledQueryRuns = (
@@ -5588,7 +5588,7 @@ export type GetSigmaScheduledQueryRuns = (
     t_GetSigmaScheduledQueryRunsQuerySchema,
     t_GetSigmaScheduledQueryRunsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5608,14 +5608,14 @@ export type GetSigmaScheduledQueryRunsScheduledQueryRun = (
     t_GetSigmaScheduledQueryRunsScheduledQueryRunQuerySchema,
     t_GetSigmaScheduledQueryRunsScheduledQueryRunBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_scheduled_query_run> | Response<StatusCode, t_error>
 >
 
 export type PostSources = (
   params: Params<void, void, t_PostSourcesBodySchema | undefined>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_source> | Response<StatusCode, t_error>>
 
 export type GetSourcesSource = (
@@ -5624,7 +5624,7 @@ export type GetSourcesSource = (
     t_GetSourcesSourceQuerySchema,
     t_GetSourcesSourceBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_source> | Response<StatusCode, t_error>>
 
 export type PostSourcesSource = (
@@ -5633,7 +5633,7 @@ export type PostSourcesSource = (
     void,
     t_PostSourcesSourceBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_source> | Response<StatusCode, t_error>>
 
 export type GetSourcesSourceMandateNotificationsMandateNotification = (
@@ -5643,7 +5643,7 @@ export type GetSourcesSourceMandateNotificationsMandateNotification = (
     | t_GetSourcesSourceMandateNotificationsMandateNotificationBodySchema
     | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_source_mandate_notification> | Response<StatusCode, t_error>
 >
@@ -5654,7 +5654,7 @@ export type GetSourcesSourceSourceTransactions = (
     t_GetSourcesSourceSourceTransactionsQuerySchema,
     t_GetSourcesSourceSourceTransactionsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5674,7 +5674,7 @@ export type GetSourcesSourceSourceTransactionsSourceTransaction = (
     t_GetSourcesSourceSourceTransactionsSourceTransactionQuerySchema,
     t_GetSourcesSourceSourceTransactionsSourceTransactionBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_source_transaction> | Response<StatusCode, t_error>
 >
@@ -5685,7 +5685,7 @@ export type PostSourcesSourceVerify = (
     void,
     t_PostSourcesSourceVerifyBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_source> | Response<StatusCode, t_error>>
 
 export type GetSubscriptionItems = (
@@ -5694,7 +5694,7 @@ export type GetSubscriptionItems = (
     t_GetSubscriptionItemsQuerySchema,
     t_GetSubscriptionItemsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5710,7 +5710,7 @@ export type GetSubscriptionItems = (
 
 export type PostSubscriptionItems = (
   params: Params<void, void, t_PostSubscriptionItemsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_subscription_item> | Response<StatusCode, t_error>>
 
 export type DeleteSubscriptionItemsItem = (
@@ -5719,7 +5719,7 @@ export type DeleteSubscriptionItemsItem = (
     void,
     t_DeleteSubscriptionItemsItemBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_deleted_subscription_item> | Response<StatusCode, t_error>
 >
@@ -5730,7 +5730,7 @@ export type GetSubscriptionItemsItem = (
     t_GetSubscriptionItemsItemQuerySchema,
     t_GetSubscriptionItemsItemBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_subscription_item> | Response<StatusCode, t_error>>
 
 export type PostSubscriptionItemsItem = (
@@ -5739,7 +5739,7 @@ export type PostSubscriptionItemsItem = (
     void,
     t_PostSubscriptionItemsItemBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_subscription_item> | Response<StatusCode, t_error>>
 
 export type GetSubscriptionItemsSubscriptionItemUsageRecordSummaries = (
@@ -5749,7 +5749,7 @@ export type GetSubscriptionItemsSubscriptionItemUsageRecordSummaries = (
     | t_GetSubscriptionItemsSubscriptionItemUsageRecordSummariesBodySchema
     | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5769,7 +5769,7 @@ export type PostSubscriptionItemsSubscriptionItemUsageRecords = (
     void,
     t_PostSubscriptionItemsSubscriptionItemUsageRecordsBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_usage_record> | Response<StatusCode, t_error>>
 
 export type GetSubscriptionSchedules = (
@@ -5778,7 +5778,7 @@ export type GetSubscriptionSchedules = (
     t_GetSubscriptionSchedulesQuerySchema,
     t_GetSubscriptionSchedulesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5794,7 +5794,7 @@ export type GetSubscriptionSchedules = (
 
 export type PostSubscriptionSchedules = (
   params: Params<void, void, t_PostSubscriptionSchedulesBodySchema | undefined>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_subscription_schedule> | Response<StatusCode, t_error>
 >
@@ -5805,7 +5805,7 @@ export type GetSubscriptionSchedulesSchedule = (
     t_GetSubscriptionSchedulesScheduleQuerySchema,
     t_GetSubscriptionSchedulesScheduleBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_subscription_schedule> | Response<StatusCode, t_error>
 >
@@ -5816,7 +5816,7 @@ export type PostSubscriptionSchedulesSchedule = (
     void,
     t_PostSubscriptionSchedulesScheduleBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_subscription_schedule> | Response<StatusCode, t_error>
 >
@@ -5827,7 +5827,7 @@ export type PostSubscriptionSchedulesScheduleCancel = (
     void,
     t_PostSubscriptionSchedulesScheduleCancelBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_subscription_schedule> | Response<StatusCode, t_error>
 >
@@ -5838,7 +5838,7 @@ export type PostSubscriptionSchedulesScheduleRelease = (
     void,
     t_PostSubscriptionSchedulesScheduleReleaseBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_subscription_schedule> | Response<StatusCode, t_error>
 >
@@ -5849,7 +5849,7 @@ export type GetSubscriptions = (
     t_GetSubscriptionsQuerySchema,
     t_GetSubscriptionsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5865,7 +5865,7 @@ export type GetSubscriptions = (
 
 export type PostSubscriptions = (
   params: Params<void, void, t_PostSubscriptionsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_subscription> | Response<StatusCode, t_error>>
 
 export type GetSubscriptionsSearch = (
@@ -5874,7 +5874,7 @@ export type GetSubscriptionsSearch = (
     t_GetSubscriptionsSearchQuerySchema,
     t_GetSubscriptionsSearchBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5896,7 +5896,7 @@ export type DeleteSubscriptionsSubscriptionExposedId = (
     void,
     t_DeleteSubscriptionsSubscriptionExposedIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_subscription> | Response<StatusCode, t_error>>
 
 export type GetSubscriptionsSubscriptionExposedId = (
@@ -5905,7 +5905,7 @@ export type GetSubscriptionsSubscriptionExposedId = (
     t_GetSubscriptionsSubscriptionExposedIdQuerySchema,
     t_GetSubscriptionsSubscriptionExposedIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_subscription> | Response<StatusCode, t_error>>
 
 export type PostSubscriptionsSubscriptionExposedId = (
@@ -5914,7 +5914,7 @@ export type PostSubscriptionsSubscriptionExposedId = (
     void,
     t_PostSubscriptionsSubscriptionExposedIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_subscription> | Response<StatusCode, t_error>>
 
 export type DeleteSubscriptionsSubscriptionExposedIdDiscount = (
@@ -5923,7 +5923,7 @@ export type DeleteSubscriptionsSubscriptionExposedIdDiscount = (
     void,
     t_DeleteSubscriptionsSubscriptionExposedIdDiscountBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_deleted_discount> | Response<StatusCode, t_error>>
 
 export type PostSubscriptionsSubscriptionResume = (
@@ -5932,12 +5932,12 @@ export type PostSubscriptionsSubscriptionResume = (
     void,
     t_PostSubscriptionsSubscriptionResumeBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_subscription> | Response<StatusCode, t_error>>
 
 export type PostTaxCalculations = (
   params: Params<void, void, t_PostTaxCalculationsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_tax_calculation> | Response<StatusCode, t_error>>
 
 export type GetTaxCalculationsCalculationLineItems = (
@@ -5946,7 +5946,7 @@ export type GetTaxCalculationsCalculationLineItems = (
     t_GetTaxCalculationsCalculationLineItemsQuerySchema,
     t_GetTaxCalculationsCalculationLineItemsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5966,12 +5966,12 @@ export type PostTaxTransactionsCreateFromCalculation = (
     void,
     t_PostTaxTransactionsCreateFromCalculationBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_tax_transaction> | Response<StatusCode, t_error>>
 
 export type PostTaxTransactionsCreateReversal = (
   params: Params<void, void, t_PostTaxTransactionsCreateReversalBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_tax_transaction> | Response<StatusCode, t_error>>
 
 export type GetTaxTransactionsTransaction = (
@@ -5980,7 +5980,7 @@ export type GetTaxTransactionsTransaction = (
     t_GetTaxTransactionsTransactionQuerySchema,
     t_GetTaxTransactionsTransactionBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_tax_transaction> | Response<StatusCode, t_error>>
 
 export type GetTaxTransactionsTransactionLineItems = (
@@ -5989,7 +5989,7 @@ export type GetTaxTransactionsTransactionLineItems = (
     t_GetTaxTransactionsTransactionLineItemsQuerySchema,
     t_GetTaxTransactionsTransactionLineItemsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6009,7 +6009,7 @@ export type GetTaxCodes = (
     t_GetTaxCodesQuerySchema,
     t_GetTaxCodesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6029,7 +6029,7 @@ export type GetTaxCodesId = (
     t_GetTaxCodesIdQuerySchema,
     t_GetTaxCodesIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_tax_code> | Response<StatusCode, t_error>>
 
 export type GetTaxRates = (
@@ -6038,7 +6038,7 @@ export type GetTaxRates = (
     t_GetTaxRatesQuerySchema,
     t_GetTaxRatesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6054,7 +6054,7 @@ export type GetTaxRates = (
 
 export type PostTaxRates = (
   params: Params<void, void, t_PostTaxRatesBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_tax_rate> | Response<StatusCode, t_error>>
 
 export type GetTaxRatesTaxRate = (
@@ -6063,7 +6063,7 @@ export type GetTaxRatesTaxRate = (
     t_GetTaxRatesTaxRateQuerySchema,
     t_GetTaxRatesTaxRateBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_tax_rate> | Response<StatusCode, t_error>>
 
 export type PostTaxRatesTaxRate = (
@@ -6072,7 +6072,7 @@ export type PostTaxRatesTaxRate = (
     void,
     t_PostTaxRatesTaxRateBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_tax_rate> | Response<StatusCode, t_error>>
 
 export type GetTerminalConfigurations = (
@@ -6081,7 +6081,7 @@ export type GetTerminalConfigurations = (
     t_GetTerminalConfigurationsQuerySchema,
     t_GetTerminalConfigurationsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6101,7 +6101,7 @@ export type PostTerminalConfigurations = (
     void,
     t_PostTerminalConfigurationsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_terminal_configuration> | Response<StatusCode, t_error>
 >
@@ -6112,7 +6112,7 @@ export type DeleteTerminalConfigurationsConfiguration = (
     void,
     t_DeleteTerminalConfigurationsConfigurationBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_deleted_terminal_configuration>
   | Response<StatusCode, t_error>
@@ -6124,7 +6124,7 @@ export type GetTerminalConfigurationsConfiguration = (
     t_GetTerminalConfigurationsConfigurationQuerySchema,
     t_GetTerminalConfigurationsConfigurationBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_terminal_configuration | t_deleted_terminal_configuration>
   | Response<StatusCode, t_error>
@@ -6136,7 +6136,7 @@ export type PostTerminalConfigurationsConfiguration = (
     void,
     t_PostTerminalConfigurationsConfigurationBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_terminal_configuration | t_deleted_terminal_configuration>
   | Response<StatusCode, t_error>
@@ -6148,7 +6148,7 @@ export type PostTerminalConnectionTokens = (
     void,
     t_PostTerminalConnectionTokensBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_terminal_connection_token> | Response<StatusCode, t_error>
 >
@@ -6159,7 +6159,7 @@ export type GetTerminalLocations = (
     t_GetTerminalLocationsQuerySchema,
     t_GetTerminalLocationsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6175,7 +6175,7 @@ export type GetTerminalLocations = (
 
 export type PostTerminalLocations = (
   params: Params<void, void, t_PostTerminalLocationsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_terminal_location> | Response<StatusCode, t_error>>
 
 export type DeleteTerminalLocationsLocation = (
@@ -6184,7 +6184,7 @@ export type DeleteTerminalLocationsLocation = (
     void,
     t_DeleteTerminalLocationsLocationBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_deleted_terminal_location> | Response<StatusCode, t_error>
 >
@@ -6195,7 +6195,7 @@ export type GetTerminalLocationsLocation = (
     t_GetTerminalLocationsLocationQuerySchema,
     t_GetTerminalLocationsLocationBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_terminal_location | t_deleted_terminal_location>
   | Response<StatusCode, t_error>
@@ -6207,7 +6207,7 @@ export type PostTerminalLocationsLocation = (
     void,
     t_PostTerminalLocationsLocationBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_terminal_location | t_deleted_terminal_location>
   | Response<StatusCode, t_error>
@@ -6219,7 +6219,7 @@ export type GetTerminalReaders = (
     t_GetTerminalReadersQuerySchema,
     t_GetTerminalReadersBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6235,7 +6235,7 @@ export type GetTerminalReaders = (
 
 export type PostTerminalReaders = (
   params: Params<void, void, t_PostTerminalReadersBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_terminal_reader> | Response<StatusCode, t_error>>
 
 export type DeleteTerminalReadersReader = (
@@ -6244,7 +6244,7 @@ export type DeleteTerminalReadersReader = (
     void,
     t_DeleteTerminalReadersReaderBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_deleted_terminal_reader> | Response<StatusCode, t_error>
 >
@@ -6255,7 +6255,7 @@ export type GetTerminalReadersReader = (
     t_GetTerminalReadersReaderQuerySchema,
     t_GetTerminalReadersReaderBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_terminal_reader | t_deleted_terminal_reader>
   | Response<StatusCode, t_error>
@@ -6267,7 +6267,7 @@ export type PostTerminalReadersReader = (
     void,
     t_PostTerminalReadersReaderBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_terminal_reader | t_deleted_terminal_reader>
   | Response<StatusCode, t_error>
@@ -6279,7 +6279,7 @@ export type PostTerminalReadersReaderCancelAction = (
     void,
     t_PostTerminalReadersReaderCancelActionBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_terminal_reader> | Response<StatusCode, t_error>>
 
 export type PostTerminalReadersReaderProcessPaymentIntent = (
@@ -6288,7 +6288,7 @@ export type PostTerminalReadersReaderProcessPaymentIntent = (
     void,
     t_PostTerminalReadersReaderProcessPaymentIntentBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_terminal_reader> | Response<StatusCode, t_error>>
 
 export type PostTerminalReadersReaderProcessSetupIntent = (
@@ -6297,7 +6297,7 @@ export type PostTerminalReadersReaderProcessSetupIntent = (
     void,
     t_PostTerminalReadersReaderProcessSetupIntentBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_terminal_reader> | Response<StatusCode, t_error>>
 
 export type PostTerminalReadersReaderRefundPayment = (
@@ -6306,7 +6306,7 @@ export type PostTerminalReadersReaderRefundPayment = (
     void,
     t_PostTerminalReadersReaderRefundPaymentBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_terminal_reader> | Response<StatusCode, t_error>>
 
 export type PostTerminalReadersReaderSetReaderDisplay = (
@@ -6315,7 +6315,7 @@ export type PostTerminalReadersReaderSetReaderDisplay = (
     void,
     t_PostTerminalReadersReaderSetReaderDisplayBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_terminal_reader> | Response<StatusCode, t_error>>
 
 export type PostTestHelpersCustomersCustomerFundCashBalance = (
@@ -6324,7 +6324,7 @@ export type PostTestHelpersCustomersCustomerFundCashBalance = (
     void,
     t_PostTestHelpersCustomersCustomerFundCashBalanceBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_customer_cash_balance_transaction>
   | Response<StatusCode, t_error>
@@ -6336,7 +6336,7 @@ export type PostTestHelpersIssuingCardsCardShippingDeliver = (
     void,
     t_PostTestHelpersIssuingCardsCardShippingDeliverBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_issuing_card> | Response<StatusCode, t_error>>
 
 export type PostTestHelpersIssuingCardsCardShippingFail = (
@@ -6345,7 +6345,7 @@ export type PostTestHelpersIssuingCardsCardShippingFail = (
     void,
     t_PostTestHelpersIssuingCardsCardShippingFailBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_issuing_card> | Response<StatusCode, t_error>>
 
 export type PostTestHelpersIssuingCardsCardShippingReturn = (
@@ -6354,7 +6354,7 @@ export type PostTestHelpersIssuingCardsCardShippingReturn = (
     void,
     t_PostTestHelpersIssuingCardsCardShippingReturnBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_issuing_card> | Response<StatusCode, t_error>>
 
 export type PostTestHelpersIssuingCardsCardShippingShip = (
@@ -6363,7 +6363,7 @@ export type PostTestHelpersIssuingCardsCardShippingShip = (
     void,
     t_PostTestHelpersIssuingCardsCardShippingShipBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_issuing_card> | Response<StatusCode, t_error>>
 
 export type PostTestHelpersRefundsRefundExpire = (
@@ -6372,7 +6372,7 @@ export type PostTestHelpersRefundsRefundExpire = (
     void,
     t_PostTestHelpersRefundsRefundExpireBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_refund> | Response<StatusCode, t_error>>
 
 export type PostTestHelpersTerminalReadersReaderPresentPaymentMethod = (
@@ -6382,7 +6382,7 @@ export type PostTestHelpersTerminalReadersReaderPresentPaymentMethod = (
     | t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodBodySchema
     | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_terminal_reader> | Response<StatusCode, t_error>>
 
 export type GetTestHelpersTestClocks = (
@@ -6391,7 +6391,7 @@ export type GetTestHelpersTestClocks = (
     t_GetTestHelpersTestClocksQuerySchema,
     t_GetTestHelpersTestClocksBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6407,7 +6407,7 @@ export type GetTestHelpersTestClocks = (
 
 export type PostTestHelpersTestClocks = (
   params: Params<void, void, t_PostTestHelpersTestClocksBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_test_helpers_test_clock> | Response<StatusCode, t_error>
 >
@@ -6418,7 +6418,7 @@ export type DeleteTestHelpersTestClocksTestClock = (
     void,
     t_DeleteTestHelpersTestClocksTestClockBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_deleted_test_helpers_test_clock>
   | Response<StatusCode, t_error>
@@ -6430,7 +6430,7 @@ export type GetTestHelpersTestClocksTestClock = (
     t_GetTestHelpersTestClocksTestClockQuerySchema,
     t_GetTestHelpersTestClocksTestClockBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_test_helpers_test_clock> | Response<StatusCode, t_error>
 >
@@ -6441,7 +6441,7 @@ export type PostTestHelpersTestClocksTestClockAdvance = (
     void,
     t_PostTestHelpersTestClocksTestClockAdvanceBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_test_helpers_test_clock> | Response<StatusCode, t_error>
 >
@@ -6452,7 +6452,7 @@ export type PostTestHelpersTreasuryInboundTransfersIdFail = (
     void,
     t_PostTestHelpersTreasuryInboundTransfersIdFailBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_inbound_transfer> | Response<StatusCode, t_error>
 >
@@ -6463,7 +6463,7 @@ export type PostTestHelpersTreasuryInboundTransfersIdReturn = (
     void,
     t_PostTestHelpersTreasuryInboundTransfersIdReturnBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_inbound_transfer> | Response<StatusCode, t_error>
 >
@@ -6474,7 +6474,7 @@ export type PostTestHelpersTreasuryInboundTransfersIdSucceed = (
     void,
     t_PostTestHelpersTreasuryInboundTransfersIdSucceedBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_inbound_transfer> | Response<StatusCode, t_error>
 >
@@ -6485,7 +6485,7 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdFail = (
     void,
     t_PostTestHelpersTreasuryOutboundPaymentsIdFailBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_outbound_payment> | Response<StatusCode, t_error>
 >
@@ -6496,7 +6496,7 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdPost = (
     void,
     t_PostTestHelpersTreasuryOutboundPaymentsIdPostBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_outbound_payment> | Response<StatusCode, t_error>
 >
@@ -6507,7 +6507,7 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdReturn = (
     void,
     t_PostTestHelpersTreasuryOutboundPaymentsIdReturnBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_outbound_payment> | Response<StatusCode, t_error>
 >
@@ -6519,7 +6519,7 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferFail = (
     | t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailBodySchema
     | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_outbound_transfer> | Response<StatusCode, t_error>
 >
@@ -6531,7 +6531,7 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferPost = (
     | t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostBodySchema
     | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_outbound_transfer> | Response<StatusCode, t_error>
 >
@@ -6543,7 +6543,7 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturn = (
     | t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnBodySchema
     | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_outbound_transfer> | Response<StatusCode, t_error>
 >
@@ -6554,21 +6554,21 @@ export type PostTestHelpersTreasuryReceivedCredits = (
     void,
     t_PostTestHelpersTreasuryReceivedCreditsBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_received_credit> | Response<StatusCode, t_error>
 >
 
 export type PostTestHelpersTreasuryReceivedDebits = (
   params: Params<void, void, t_PostTestHelpersTreasuryReceivedDebitsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_received_debit> | Response<StatusCode, t_error>
 >
 
 export type PostTokens = (
   params: Params<void, void, t_PostTokensBodySchema | undefined>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_token> | Response<StatusCode, t_error>>
 
 export type GetTokensToken = (
@@ -6577,7 +6577,7 @@ export type GetTokensToken = (
     t_GetTokensTokenQuerySchema,
     t_GetTokensTokenBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_token> | Response<StatusCode, t_error>>
 
 export type GetTopups = (
@@ -6586,7 +6586,7 @@ export type GetTopups = (
     t_GetTopupsQuerySchema,
     t_GetTopupsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6602,7 +6602,7 @@ export type GetTopups = (
 
 export type PostTopups = (
   params: Params<void, void, t_PostTopupsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_topup> | Response<StatusCode, t_error>>
 
 export type GetTopupsTopup = (
@@ -6611,7 +6611,7 @@ export type GetTopupsTopup = (
     t_GetTopupsTopupQuerySchema,
     t_GetTopupsTopupBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_topup> | Response<StatusCode, t_error>>
 
 export type PostTopupsTopup = (
@@ -6620,7 +6620,7 @@ export type PostTopupsTopup = (
     void,
     t_PostTopupsTopupBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_topup> | Response<StatusCode, t_error>>
 
 export type PostTopupsTopupCancel = (
@@ -6629,7 +6629,7 @@ export type PostTopupsTopupCancel = (
     void,
     t_PostTopupsTopupCancelBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_topup> | Response<StatusCode, t_error>>
 
 export type GetTransfers = (
@@ -6638,7 +6638,7 @@ export type GetTransfers = (
     t_GetTransfersQuerySchema,
     t_GetTransfersBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6654,7 +6654,7 @@ export type GetTransfers = (
 
 export type PostTransfers = (
   params: Params<void, void, t_PostTransfersBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_transfer> | Response<StatusCode, t_error>>
 
 export type GetTransfersIdReversals = (
@@ -6663,7 +6663,7 @@ export type GetTransfersIdReversals = (
     t_GetTransfersIdReversalsQuerySchema,
     t_GetTransfersIdReversalsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6683,7 +6683,7 @@ export type PostTransfersIdReversals = (
     void,
     t_PostTransfersIdReversalsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_transfer_reversal> | Response<StatusCode, t_error>>
 
 export type GetTransfersTransfer = (
@@ -6692,7 +6692,7 @@ export type GetTransfersTransfer = (
     t_GetTransfersTransferQuerySchema,
     t_GetTransfersTransferBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_transfer> | Response<StatusCode, t_error>>
 
 export type PostTransfersTransfer = (
@@ -6701,7 +6701,7 @@ export type PostTransfersTransfer = (
     void,
     t_PostTransfersTransferBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_transfer> | Response<StatusCode, t_error>>
 
 export type GetTransfersTransferReversalsId = (
@@ -6710,7 +6710,7 @@ export type GetTransfersTransferReversalsId = (
     t_GetTransfersTransferReversalsIdQuerySchema,
     t_GetTransfersTransferReversalsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_transfer_reversal> | Response<StatusCode, t_error>>
 
 export type PostTransfersTransferReversalsId = (
@@ -6719,7 +6719,7 @@ export type PostTransfersTransferReversalsId = (
     void,
     t_PostTransfersTransferReversalsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_transfer_reversal> | Response<StatusCode, t_error>>
 
 export type GetTreasuryCreditReversals = (
@@ -6728,7 +6728,7 @@ export type GetTreasuryCreditReversals = (
     t_GetTreasuryCreditReversalsQuerySchema,
     t_GetTreasuryCreditReversalsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6744,7 +6744,7 @@ export type GetTreasuryCreditReversals = (
 
 export type PostTreasuryCreditReversals = (
   params: Params<void, void, t_PostTreasuryCreditReversalsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_credit_reversal> | Response<StatusCode, t_error>
 >
@@ -6755,7 +6755,7 @@ export type GetTreasuryCreditReversalsCreditReversal = (
     t_GetTreasuryCreditReversalsCreditReversalQuerySchema,
     t_GetTreasuryCreditReversalsCreditReversalBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_credit_reversal> | Response<StatusCode, t_error>
 >
@@ -6766,7 +6766,7 @@ export type GetTreasuryDebitReversals = (
     t_GetTreasuryDebitReversalsQuerySchema,
     t_GetTreasuryDebitReversalsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6782,7 +6782,7 @@ export type GetTreasuryDebitReversals = (
 
 export type PostTreasuryDebitReversals = (
   params: Params<void, void, t_PostTreasuryDebitReversalsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_debit_reversal> | Response<StatusCode, t_error>
 >
@@ -6793,7 +6793,7 @@ export type GetTreasuryDebitReversalsDebitReversal = (
     t_GetTreasuryDebitReversalsDebitReversalQuerySchema,
     t_GetTreasuryDebitReversalsDebitReversalBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_debit_reversal> | Response<StatusCode, t_error>
 >
@@ -6804,7 +6804,7 @@ export type GetTreasuryFinancialAccounts = (
     t_GetTreasuryFinancialAccountsQuerySchema,
     t_GetTreasuryFinancialAccountsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6820,7 +6820,7 @@ export type GetTreasuryFinancialAccounts = (
 
 export type PostTreasuryFinancialAccounts = (
   params: Params<void, void, t_PostTreasuryFinancialAccountsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_financial_account> | Response<StatusCode, t_error>
 >
@@ -6831,7 +6831,7 @@ export type GetTreasuryFinancialAccountsFinancialAccount = (
     t_GetTreasuryFinancialAccountsFinancialAccountQuerySchema,
     t_GetTreasuryFinancialAccountsFinancialAccountBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_financial_account> | Response<StatusCode, t_error>
 >
@@ -6842,7 +6842,7 @@ export type PostTreasuryFinancialAccountsFinancialAccount = (
     void,
     t_PostTreasuryFinancialAccountsFinancialAccountBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_financial_account> | Response<StatusCode, t_error>
 >
@@ -6853,7 +6853,7 @@ export type GetTreasuryFinancialAccountsFinancialAccountFeatures = (
     t_GetTreasuryFinancialAccountsFinancialAccountFeaturesQuerySchema,
     t_GetTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_treasury_financial_account_features>
   | Response<StatusCode, t_error>
@@ -6866,7 +6866,7 @@ export type PostTreasuryFinancialAccountsFinancialAccountFeatures = (
     | t_PostTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema
     | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_treasury_financial_account_features>
   | Response<StatusCode, t_error>
@@ -6878,7 +6878,7 @@ export type GetTreasuryInboundTransfers = (
     t_GetTreasuryInboundTransfersQuerySchema,
     t_GetTreasuryInboundTransfersBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6894,7 +6894,7 @@ export type GetTreasuryInboundTransfers = (
 
 export type PostTreasuryInboundTransfers = (
   params: Params<void, void, t_PostTreasuryInboundTransfersBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_inbound_transfer> | Response<StatusCode, t_error>
 >
@@ -6905,7 +6905,7 @@ export type GetTreasuryInboundTransfersId = (
     t_GetTreasuryInboundTransfersIdQuerySchema,
     t_GetTreasuryInboundTransfersIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_inbound_transfer> | Response<StatusCode, t_error>
 >
@@ -6916,7 +6916,7 @@ export type PostTreasuryInboundTransfersInboundTransferCancel = (
     void,
     t_PostTreasuryInboundTransfersInboundTransferCancelBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_inbound_transfer> | Response<StatusCode, t_error>
 >
@@ -6927,7 +6927,7 @@ export type GetTreasuryOutboundPayments = (
     t_GetTreasuryOutboundPaymentsQuerySchema,
     t_GetTreasuryOutboundPaymentsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6943,7 +6943,7 @@ export type GetTreasuryOutboundPayments = (
 
 export type PostTreasuryOutboundPayments = (
   params: Params<void, void, t_PostTreasuryOutboundPaymentsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_outbound_payment> | Response<StatusCode, t_error>
 >
@@ -6954,7 +6954,7 @@ export type GetTreasuryOutboundPaymentsId = (
     t_GetTreasuryOutboundPaymentsIdQuerySchema,
     t_GetTreasuryOutboundPaymentsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_outbound_payment> | Response<StatusCode, t_error>
 >
@@ -6965,7 +6965,7 @@ export type PostTreasuryOutboundPaymentsIdCancel = (
     void,
     t_PostTreasuryOutboundPaymentsIdCancelBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_outbound_payment> | Response<StatusCode, t_error>
 >
@@ -6976,7 +6976,7 @@ export type GetTreasuryOutboundTransfers = (
     t_GetTreasuryOutboundTransfersQuerySchema,
     t_GetTreasuryOutboundTransfersBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6992,7 +6992,7 @@ export type GetTreasuryOutboundTransfers = (
 
 export type PostTreasuryOutboundTransfers = (
   params: Params<void, void, t_PostTreasuryOutboundTransfersBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_outbound_transfer> | Response<StatusCode, t_error>
 >
@@ -7003,7 +7003,7 @@ export type GetTreasuryOutboundTransfersOutboundTransfer = (
     t_GetTreasuryOutboundTransfersOutboundTransferQuerySchema,
     t_GetTreasuryOutboundTransfersOutboundTransferBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_outbound_transfer> | Response<StatusCode, t_error>
 >
@@ -7014,7 +7014,7 @@ export type PostTreasuryOutboundTransfersOutboundTransferCancel = (
     void,
     t_PostTreasuryOutboundTransfersOutboundTransferCancelBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_outbound_transfer> | Response<StatusCode, t_error>
 >
@@ -7025,7 +7025,7 @@ export type GetTreasuryReceivedCredits = (
     t_GetTreasuryReceivedCreditsQuerySchema,
     t_GetTreasuryReceivedCreditsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -7045,7 +7045,7 @@ export type GetTreasuryReceivedCreditsId = (
     t_GetTreasuryReceivedCreditsIdQuerySchema,
     t_GetTreasuryReceivedCreditsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_received_credit> | Response<StatusCode, t_error>
 >
@@ -7056,7 +7056,7 @@ export type GetTreasuryReceivedDebits = (
     t_GetTreasuryReceivedDebitsQuerySchema,
     t_GetTreasuryReceivedDebitsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -7076,7 +7076,7 @@ export type GetTreasuryReceivedDebitsId = (
     t_GetTreasuryReceivedDebitsIdQuerySchema,
     t_GetTreasuryReceivedDebitsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_received_debit> | Response<StatusCode, t_error>
 >
@@ -7087,7 +7087,7 @@ export type GetTreasuryTransactionEntries = (
     t_GetTreasuryTransactionEntriesQuerySchema,
     t_GetTreasuryTransactionEntriesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -7107,7 +7107,7 @@ export type GetTreasuryTransactionEntriesId = (
     t_GetTreasuryTransactionEntriesIdQuerySchema,
     t_GetTreasuryTransactionEntriesIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_transaction_entry> | Response<StatusCode, t_error>
 >
@@ -7118,7 +7118,7 @@ export type GetTreasuryTransactions = (
     t_GetTreasuryTransactionsQuerySchema,
     t_GetTreasuryTransactionsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -7138,7 +7138,7 @@ export type GetTreasuryTransactionsId = (
     t_GetTreasuryTransactionsIdQuerySchema,
     t_GetTreasuryTransactionsIdBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_treasury_transaction> | Response<StatusCode, t_error>
 >
@@ -7149,7 +7149,7 @@ export type GetWebhookEndpoints = (
     t_GetWebhookEndpointsQuerySchema,
     t_GetWebhookEndpointsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -7165,7 +7165,7 @@ export type GetWebhookEndpoints = (
 
 export type PostWebhookEndpoints = (
   params: Params<void, void, t_PostWebhookEndpointsBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_webhook_endpoint> | Response<StatusCode, t_error>>
 
 export type DeleteWebhookEndpointsWebhookEndpoint = (
@@ -7174,7 +7174,7 @@ export type DeleteWebhookEndpointsWebhookEndpoint = (
     void,
     t_DeleteWebhookEndpointsWebhookEndpointBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_deleted_webhook_endpoint> | Response<StatusCode, t_error>
 >
@@ -7185,7 +7185,7 @@ export type GetWebhookEndpointsWebhookEndpoint = (
     t_GetWebhookEndpointsWebhookEndpointQuerySchema,
     t_GetWebhookEndpointsWebhookEndpointBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_webhook_endpoint> | Response<StatusCode, t_error>>
 
 export type PostWebhookEndpointsWebhookEndpoint = (
@@ -7194,7 +7194,7 @@ export type PostWebhookEndpointsWebhookEndpoint = (
     void,
     t_PostWebhookEndpointsWebhookEndpointBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_webhook_endpoint> | Response<StatusCode, t_error>>
 
 export type Implementation = {
@@ -7654,7 +7654,7 @@ export type Implementation = {
 
 export function bootstrap(
   implementation: Implementation,
-  config: Omit<ServerConfig, "router">
+  config: Omit<ServerConfig, "router">,
 ) {
   // ApiClient
   const router = new KoaRouter()
@@ -7667,7 +7667,7 @@ export function bootstrap(
 
   const getAccountResponseValidator = responseValidationFactory(
     [["200", s_account]],
-    s_error
+    s_error,
   )
 
   router.get("getAccount", "/v1/account", async (ctx, next) => {
@@ -7695,7 +7695,7 @@ export function bootstrap(
 
   const postAccountLinksResponseValidator = responseValidationFactory(
     [["200", s_account_link]],
-    s_error
+    s_error,
   )
 
   router.post("postAccountLinks", "/v1/account_links", async (ctx, next) => {
@@ -7742,7 +7742,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getAccounts", "/v1/accounts", async (ctx, next) => {
@@ -8228,7 +8228,7 @@ export function bootstrap(
 
   const postAccountsResponseValidator = responseValidationFactory(
     [["200", s_account]],
-    s_error
+    s_error,
   )
 
   router.post("postAccounts", "/v1/accounts", async (ctx, next) => {
@@ -8253,7 +8253,7 @@ export function bootstrap(
 
   const deleteAccountsAccountResponseValidator = responseValidationFactory(
     [["200", s_deleted_account]],
-    s_error
+    s_error,
   )
 
   router.delete(
@@ -8265,19 +8265,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           deleteAccountsAccountBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.deleteAccountsAccount(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = deleteAccountsAccountResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getAccountsAccountParamSchema = z.object({ account: z.coerce.string() })
@@ -8290,7 +8290,7 @@ export function bootstrap(
 
   const getAccountsAccountResponseValidator = responseValidationFactory(
     [["200", s_account]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -8305,13 +8305,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.getAccountsAccount(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getAccountsAccountResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postAccountsAccountParamSchema = z.object({
@@ -8763,7 +8763,7 @@ export function bootstrap(
 
   const postAccountsAccountResponseValidator = responseValidationFactory(
     [["200", s_account]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -8775,19 +8775,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postAccountsAccount(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postAccountsAccountResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postAccountsAccountBankAccountsParamSchema = z.object({
@@ -8835,12 +8835,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postAccountsAccountBankAccountsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountBankAccountsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -8850,7 +8850,7 @@ export function bootstrap(
       ctx.body = postAccountsAccountBankAccountsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteAccountsAccountBankAccountsIdParamSchema = z.object({
@@ -8870,12 +8870,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteAccountsAccountBankAccountsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteAccountsAccountBankAccountsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -8884,11 +8884,11 @@ export function bootstrap(
 
       ctx.body = deleteAccountsAccountBankAccountsIdResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getAccountsAccountBankAccountsIdParamSchema = z.object({
@@ -8912,15 +8912,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getAccountsAccountBankAccountsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getAccountsAccountBankAccountsIdQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getAccountsAccountBankAccountsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -8930,7 +8930,7 @@ export function bootstrap(
       ctx.body = getAccountsAccountBankAccountsIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postAccountsAccountBankAccountsIdParamSchema = z.object({
@@ -8975,12 +8975,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postAccountsAccountBankAccountsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountBankAccountsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -8989,11 +8989,11 @@ export function bootstrap(
 
       ctx.body = postAccountsAccountBankAccountsIdResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getAccountsAccountCapabilitiesParamSchema = z.object({
@@ -9019,7 +9019,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -9029,15 +9029,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getAccountsAccountCapabilitiesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getAccountsAccountCapabilitiesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getAccountsAccountCapabilitiesBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -9047,7 +9047,7 @@ export function bootstrap(
       ctx.body = getAccountsAccountCapabilitiesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getAccountsAccountCapabilitiesCapabilityParamSchema = z.object({
@@ -9073,31 +9073,31 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getAccountsAccountCapabilitiesCapabilityParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getAccountsAccountCapabilitiesCapabilityQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getAccountsAccountCapabilitiesCapabilityBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.getAccountsAccountCapabilitiesCapability(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = getAccountsAccountCapabilitiesCapabilityResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postAccountsAccountCapabilitiesCapabilityParamSchema = z.object({
@@ -9122,28 +9122,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postAccountsAccountCapabilitiesCapabilityParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountCapabilitiesCapabilityBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postAccountsAccountCapabilitiesCapability(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postAccountsAccountCapabilitiesCapabilityResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getAccountsAccountExternalAccountsParamSchema = z.object({
@@ -9166,7 +9166,7 @@ export function bootstrap(
           "200",
           z.object({
             data: z.array(
-              z.union([z.lazy(() => s_bank_account), z.lazy(() => s_card)])
+              z.union([z.lazy(() => s_bank_account), z.lazy(() => s_card)]),
             ),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
@@ -9174,7 +9174,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -9184,15 +9184,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getAccountsAccountExternalAccountsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getAccountsAccountExternalAccountsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getAccountsAccountExternalAccountsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -9201,11 +9201,11 @@ export function bootstrap(
 
       ctx.body = getAccountsAccountExternalAccountsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postAccountsAccountExternalAccountsParamSchema = z.object({
@@ -9253,12 +9253,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postAccountsAccountExternalAccountsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountExternalAccountsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -9267,11 +9267,11 @@ export function bootstrap(
 
       ctx.body = postAccountsAccountExternalAccountsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteAccountsAccountExternalAccountsIdParamSchema = z.object({
@@ -9293,12 +9293,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteAccountsAccountExternalAccountsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteAccountsAccountExternalAccountsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -9307,11 +9307,11 @@ export function bootstrap(
 
       ctx.body = deleteAccountsAccountExternalAccountsIdResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getAccountsAccountExternalAccountsIdParamSchema = z.object({
@@ -9335,15 +9335,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getAccountsAccountExternalAccountsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getAccountsAccountExternalAccountsIdQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getAccountsAccountExternalAccountsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -9352,11 +9352,11 @@ export function bootstrap(
 
       ctx.body = getAccountsAccountExternalAccountsIdResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postAccountsAccountExternalAccountsIdParamSchema = z.object({
@@ -9401,12 +9401,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postAccountsAccountExternalAccountsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountExternalAccountsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -9415,11 +9415,11 @@ export function bootstrap(
 
       ctx.body = postAccountsAccountExternalAccountsIdResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postAccountsAccountLoginLinksParamSchema = z.object({
@@ -9440,12 +9440,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postAccountsAccountLoginLinksParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountLoginLinksBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -9455,7 +9455,7 @@ export function bootstrap(
       ctx.body = postAccountsAccountLoginLinksResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getAccountsAccountPeopleParamSchema = z.object({
@@ -9491,7 +9491,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -9501,27 +9501,27 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getAccountsAccountPeopleParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getAccountsAccountPeopleQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getAccountsAccountPeopleBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getAccountsAccountPeople(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getAccountsAccountPeopleResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postAccountsAccountPeopleParamSchema = z.object({
@@ -9643,7 +9643,7 @@ export function bootstrap(
 
   const postAccountsAccountPeopleResponseValidator = responseValidationFactory(
     [["200", s_person]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -9653,24 +9653,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postAccountsAccountPeopleParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountPeopleBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postAccountsAccountPeople(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postAccountsAccountPeopleResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteAccountsAccountPeoplePersonParamSchema = z.object({
@@ -9690,12 +9690,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteAccountsAccountPeoplePersonParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteAccountsAccountPeoplePersonBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -9704,11 +9704,11 @@ export function bootstrap(
 
       ctx.body = deleteAccountsAccountPeoplePersonResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getAccountsAccountPeoplePersonParamSchema = z.object({
@@ -9732,15 +9732,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getAccountsAccountPeoplePersonParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getAccountsAccountPeoplePersonQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getAccountsAccountPeoplePersonBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -9750,7 +9750,7 @@ export function bootstrap(
       ctx.body = getAccountsAccountPeoplePersonResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postAccountsAccountPeoplePersonParamSchema = z.object({
@@ -9881,12 +9881,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postAccountsAccountPeoplePersonParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountPeoplePersonBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -9896,7 +9896,7 @@ export function bootstrap(
       ctx.body = postAccountsAccountPeoplePersonResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getAccountsAccountPersonsParamSchema = z.object({
@@ -9932,7 +9932,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -9942,27 +9942,27 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getAccountsAccountPersonsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getAccountsAccountPersonsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getAccountsAccountPersonsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getAccountsAccountPersons(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getAccountsAccountPersonsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postAccountsAccountPersonsParamSchema = z.object({
@@ -10084,7 +10084,7 @@ export function bootstrap(
 
   const postAccountsAccountPersonsResponseValidator = responseValidationFactory(
     [["200", s_person]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -10094,24 +10094,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postAccountsAccountPersonsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountPersonsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postAccountsAccountPersons(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postAccountsAccountPersonsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteAccountsAccountPersonsPersonParamSchema = z.object({
@@ -10131,12 +10131,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteAccountsAccountPersonsPersonParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteAccountsAccountPersonsPersonBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -10145,11 +10145,11 @@ export function bootstrap(
 
       ctx.body = deleteAccountsAccountPersonsPersonResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getAccountsAccountPersonsPersonParamSchema = z.object({
@@ -10173,15 +10173,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getAccountsAccountPersonsPersonParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getAccountsAccountPersonsPersonQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getAccountsAccountPersonsPersonBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -10191,7 +10191,7 @@ export function bootstrap(
       ctx.body = getAccountsAccountPersonsPersonResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postAccountsAccountPersonsPersonParamSchema = z.object({
@@ -10322,12 +10322,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postAccountsAccountPersonsPersonParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountPersonsPersonBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -10337,7 +10337,7 @@ export function bootstrap(
       ctx.body = postAccountsAccountPersonsPersonResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postAccountsAccountRejectParamSchema = z.object({
@@ -10351,7 +10351,7 @@ export function bootstrap(
 
   const postAccountsAccountRejectResponseValidator = responseValidationFactory(
     [["200", s_account]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -10361,24 +10361,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postAccountsAccountRejectParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountRejectBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postAccountsAccountReject(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postAccountsAccountRejectResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getApplePayDomainsQuerySchema = z.object({
@@ -10403,7 +10403,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -10418,13 +10418,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.getApplePayDomains(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getApplePayDomainsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postApplePayDomainsBodySchema = z.object({
@@ -10434,7 +10434,7 @@ export function bootstrap(
 
   const postApplePayDomainsResponseValidator = responseValidationFactory(
     [["200", s_apple_pay_domain]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -10446,19 +10446,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postApplePayDomainsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postApplePayDomains(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postApplePayDomainsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteApplePayDomainsDomainParamSchema = z.object({
@@ -10477,24 +10477,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteApplePayDomainsDomainParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteApplePayDomainsDomainBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.deleteApplePayDomainsDomain(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = deleteApplePayDomainsDomainResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getApplePayDomainsDomainParamSchema = z.object({
@@ -10509,7 +10509,7 @@ export function bootstrap(
 
   const getApplePayDomainsDomainResponseValidator = responseValidationFactory(
     [["200", s_apple_pay_domain]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -10519,27 +10519,27 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getApplePayDomainsDomainParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getApplePayDomainsDomainQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getApplePayDomainsDomainBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getApplePayDomainsDomain(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getApplePayDomainsDomainResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getApplicationFeesQuerySchema = z.object({
@@ -10573,7 +10573,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -10588,13 +10588,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.getApplicationFees(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getApplicationFeesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getApplicationFeesFeeRefundsIdParamSchema = z.object({
@@ -10618,15 +10618,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getApplicationFeesFeeRefundsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getApplicationFeesFeeRefundsIdQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getApplicationFeesFeeRefundsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -10636,7 +10636,7 @@ export function bootstrap(
       ctx.body = getApplicationFeesFeeRefundsIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postApplicationFeesFeeRefundsIdParamSchema = z.object({
@@ -10661,12 +10661,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postApplicationFeesFeeRefundsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postApplicationFeesFeeRefundsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -10676,7 +10676,7 @@ export function bootstrap(
       ctx.body = postApplicationFeesFeeRefundsIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getApplicationFeesIdParamSchema = z.object({ id: z.coerce.string() })
@@ -10689,7 +10689,7 @@ export function bootstrap(
 
   const getApplicationFeesIdResponseValidator = responseValidationFactory(
     [["200", s_application_fee]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -10701,19 +10701,19 @@ export function bootstrap(
         query: parseRequestInput(getApplicationFeesIdQuerySchema, ctx.query),
         body: parseRequestInput(
           getApplicationFeesIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getApplicationFeesId(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getApplicationFeesIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postApplicationFeesIdRefundParamSchema = z.object({
@@ -10738,24 +10738,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postApplicationFeesIdRefundParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postApplicationFeesIdRefundBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postApplicationFeesIdRefund(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postApplicationFeesIdRefundResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getApplicationFeesIdRefundsParamSchema = z.object({
@@ -10784,7 +10784,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -10794,27 +10794,27 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getApplicationFeesIdRefundsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getApplicationFeesIdRefundsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getApplicationFeesIdRefundsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getApplicationFeesIdRefunds(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getApplicationFeesIdRefundsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postApplicationFeesIdRefundsParamSchema = z.object({
@@ -10839,12 +10839,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postApplicationFeesIdRefundsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postApplicationFeesIdRefundsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -10854,7 +10854,7 @@ export function bootstrap(
       ctx.body = postApplicationFeesIdRefundsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getAppsSecretsQuerySchema = z.object({
@@ -10882,7 +10882,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getAppsSecrets", "/v1/apps/secrets", async (ctx, next) => {
@@ -10912,7 +10912,7 @@ export function bootstrap(
 
   const postAppsSecretsResponseValidator = responseValidationFactory(
     [["200", s_apps_secret]],
-    s_error
+    s_error,
   )
 
   router.post("postAppsSecrets", "/v1/apps/secrets", async (ctx, next) => {
@@ -10940,7 +10940,7 @@ export function bootstrap(
 
   const postAppsSecretsDeleteResponseValidator = responseValidationFactory(
     [["200", s_apps_secret]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -10952,19 +10952,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postAppsSecretsDeleteBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postAppsSecretsDelete(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postAppsSecretsDeleteResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getAppsSecretsFindQuerySchema = z.object({
@@ -10980,7 +10980,7 @@ export function bootstrap(
 
   const getAppsSecretsFindResponseValidator = responseValidationFactory(
     [["200", s_apps_secret]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -10995,13 +10995,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.getAppsSecretsFind(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getAppsSecretsFindResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getBalanceQuerySchema = z.object({
@@ -11012,7 +11012,7 @@ export function bootstrap(
 
   const getBalanceResponseValidator = responseValidationFactory(
     [["200", s_balance]],
-    s_error
+    s_error,
   )
 
   router.get("getBalance", "/v1/balance", async (ctx, next) => {
@@ -11063,7 +11063,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getBalanceHistory", "/v1/balance/history", async (ctx, next) => {
@@ -11090,7 +11090,7 @@ export function bootstrap(
 
   const getBalanceHistoryIdResponseValidator = responseValidationFactory(
     [["200", s_balance_transaction]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -11102,19 +11102,19 @@ export function bootstrap(
         query: parseRequestInput(getBalanceHistoryIdQuerySchema, ctx.query),
         body: parseRequestInput(
           getBalanceHistoryIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getBalanceHistoryId(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getBalanceHistoryIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getBalanceTransactionsQuerySchema = z.object({
@@ -11151,7 +11151,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -11163,19 +11163,19 @@ export function bootstrap(
         query: parseRequestInput(getBalanceTransactionsQuerySchema, ctx.query),
         body: parseRequestInput(
           getBalanceTransactionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getBalanceTransactions(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getBalanceTransactionsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getBalanceTransactionsIdParamSchema = z.object({
@@ -11190,7 +11190,7 @@ export function bootstrap(
 
   const getBalanceTransactionsIdResponseValidator = responseValidationFactory(
     [["200", s_balance_transaction]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -11200,27 +11200,27 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getBalanceTransactionsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getBalanceTransactionsIdQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getBalanceTransactionsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getBalanceTransactionsId(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getBalanceTransactionsIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getBillingPortalConfigurationsQuerySchema = z.object({
@@ -11247,7 +11247,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -11258,11 +11258,11 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           getBillingPortalConfigurationsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getBillingPortalConfigurationsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -11272,7 +11272,7 @@ export function bootstrap(
       ctx.body = getBillingPortalConfigurationsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postBillingPortalConfigurationsBodySchema = z.object({
@@ -11295,7 +11295,7 @@ export function bootstrap(
                 "phone",
                 "shipping",
                 "tax_id",
-              ])
+              ]),
             ),
             z.enum([""]),
           ]),
@@ -11322,7 +11322,7 @@ export function bootstrap(
                     "too_complex",
                     "too_expensive",
                     "unused",
-                  ])
+                  ]),
                 ),
                 z.enum([""]),
               ]),
@@ -11350,7 +11350,7 @@ export function bootstrap(
               z.object({
                 prices: z.array(z.coerce.string()),
                 product: z.coerce.string(),
-              })
+              }),
             ),
             z.enum([""]),
           ]),
@@ -11367,7 +11367,7 @@ export function bootstrap(
   const postBillingPortalConfigurationsResponseValidator =
     responseValidationFactory(
       [["200", s_billing_portal_configuration]],
-      s_error
+      s_error,
     )
 
   router.post(
@@ -11379,7 +11379,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postBillingPortalConfigurationsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -11389,7 +11389,7 @@ export function bootstrap(
       ctx.body = postBillingPortalConfigurationsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getBillingPortalConfigurationsConfigurationParamSchema = z.object({
@@ -11407,7 +11407,7 @@ export function bootstrap(
   const getBillingPortalConfigurationsConfigurationResponseValidator =
     responseValidationFactory(
       [["200", s_billing_portal_configuration]],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -11417,31 +11417,31 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getBillingPortalConfigurationsConfigurationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getBillingPortalConfigurationsConfigurationQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getBillingPortalConfigurationsConfigurationBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.getBillingPortalConfigurationsConfiguration(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = getBillingPortalConfigurationsConfigurationResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postBillingPortalConfigurationsConfigurationParamSchema = z.object({
@@ -11473,7 +11473,7 @@ export function bootstrap(
                     "phone",
                     "shipping",
                     "tax_id",
-                  ])
+                  ]),
                 ),
                 z.enum([""]),
               ]),
@@ -11500,7 +11500,7 @@ export function bootstrap(
                         "too_complex",
                         "too_expensive",
                         "unused",
-                      ])
+                      ]),
                     ),
                     z.enum([""]),
                   ]),
@@ -11528,7 +11528,7 @@ export function bootstrap(
                   z.object({
                     prices: z.array(z.coerce.string()),
                     product: z.coerce.string(),
-                  })
+                  }),
                 ),
                 z.enum([""]),
               ]),
@@ -11547,7 +11547,7 @@ export function bootstrap(
   const postBillingPortalConfigurationsConfigurationResponseValidator =
     responseValidationFactory(
       [["200", s_billing_portal_configuration]],
-      s_error
+      s_error,
     )
 
   router.post(
@@ -11557,28 +11557,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postBillingPortalConfigurationsConfigurationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postBillingPortalConfigurationsConfigurationBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postBillingPortalConfigurationsConfiguration(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postBillingPortalConfigurationsConfigurationResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postBillingPortalSessionsBodySchema = z.object({
@@ -11663,7 +11663,7 @@ export function bootstrap(
 
   const postBillingPortalSessionsResponseValidator = responseValidationFactory(
     [["200", s_billing_portal_session]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -11675,19 +11675,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postBillingPortalSessionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postBillingPortalSessions(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postBillingPortalSessionsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getChargesQuerySchema = z.object({
@@ -11723,7 +11723,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getCharges", "/v1/charges", async (ctx, next) => {
@@ -11812,7 +11812,7 @@ export function bootstrap(
 
   const postChargesResponseValidator = responseValidationFactory(
     [["200", s_charge]],
-    s_error
+    s_error,
   )
 
   router.post("postCharges", "/v1/charges", async (ctx, next) => {
@@ -11852,7 +11852,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getChargesSearch", "/v1/charges/search", async (ctx, next) => {
@@ -11879,7 +11879,7 @@ export function bootstrap(
 
   const getChargesChargeResponseValidator = responseValidationFactory(
     [["200", s_charge]],
-    s_error
+    s_error,
   )
 
   router.get("getChargesCharge", "/v1/charges/:charge", async (ctx, next) => {
@@ -11930,7 +11930,7 @@ export function bootstrap(
 
   const postChargesChargeResponseValidator = responseValidationFactory(
     [["200", s_charge]],
-    s_error
+    s_error,
   )
 
   router.post("postChargesCharge", "/v1/charges/:charge", async (ctx, next) => {
@@ -11969,7 +11969,7 @@ export function bootstrap(
 
   const postChargesChargeCaptureResponseValidator = responseValidationFactory(
     [["200", s_charge]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -11979,24 +11979,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postChargesChargeCaptureParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postChargesChargeCaptureBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postChargesChargeCapture(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postChargesChargeCaptureResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getChargesChargeDisputeParamSchema = z.object({
@@ -12011,7 +12011,7 @@ export function bootstrap(
 
   const getChargesChargeDisputeResponseValidator = responseValidationFactory(
     [["200", s_dispute]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -12021,24 +12021,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getChargesChargeDisputeParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(getChargesChargeDisputeQuerySchema, ctx.query),
         body: parseRequestInput(
           getChargesChargeDisputeBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getChargesChargeDispute(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getChargesChargeDisputeResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postChargesChargeDisputeParamSchema = z.object({
@@ -12086,7 +12086,7 @@ export function bootstrap(
 
   const postChargesChargeDisputeResponseValidator = responseValidationFactory(
     [["200", s_dispute]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -12096,24 +12096,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postChargesChargeDisputeParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postChargesChargeDisputeBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postChargesChargeDispute(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postChargesChargeDisputeResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postChargesChargeDisputeCloseParamSchema = z.object({
@@ -12134,12 +12134,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postChargesChargeDisputeCloseParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postChargesChargeDisputeCloseBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -12149,7 +12149,7 @@ export function bootstrap(
       ctx.body = postChargesChargeDisputeCloseResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postChargesChargeRefundParamSchema = z.object({
@@ -12173,7 +12173,7 @@ export function bootstrap(
 
   const postChargesChargeRefundResponseValidator = responseValidationFactory(
     [["200", s_charge]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -12183,24 +12183,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postChargesChargeRefundParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postChargesChargeRefundBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postChargesChargeRefund(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postChargesChargeRefundResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getChargesChargeRefundsParamSchema = z.object({
@@ -12228,7 +12228,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -12238,24 +12238,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getChargesChargeRefundsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(getChargesChargeRefundsQuerySchema, ctx.query),
         body: parseRequestInput(
           getChargesChargeRefundsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getChargesChargeRefunds(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getChargesChargeRefundsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postChargesChargeRefundsParamSchema = z.object({
@@ -12282,7 +12282,7 @@ export function bootstrap(
 
   const postChargesChargeRefundsResponseValidator = responseValidationFactory(
     [["200", s_refund]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -12292,24 +12292,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postChargesChargeRefundsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postChargesChargeRefundsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postChargesChargeRefunds(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postChargesChargeRefundsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getChargesChargeRefundsRefundParamSchema = z.object({
@@ -12333,15 +12333,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getChargesChargeRefundsRefundParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getChargesChargeRefundsRefundQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getChargesChargeRefundsRefundBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -12351,7 +12351,7 @@ export function bootstrap(
       ctx.body = getChargesChargeRefundsRefundResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postChargesChargeRefundsRefundParamSchema = z.object({
@@ -12376,12 +12376,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postChargesChargeRefundsRefundParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postChargesChargeRefundsRefundBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -12391,7 +12391,7 @@ export function bootstrap(
       ctx.body = postChargesChargeRefundsRefundResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCheckoutSessionsQuerySchema = z.object({
@@ -12420,7 +12420,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -12432,19 +12432,19 @@ export function bootstrap(
         query: parseRequestInput(getCheckoutSessionsQuerySchema, ctx.query),
         body: parseRequestInput(
           getCheckoutSessionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getCheckoutSessions(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getCheckoutSessionsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postCheckoutSessionsBodySchema = z.object({
@@ -12476,7 +12476,10 @@ export function bootstrap(
           dropdown: z
             .object({
               options: z.array(
-                z.object({ label: z.coerce.string(), value: z.coerce.string() })
+                z.object({
+                  label: z.coerce.string(),
+                  value: z.coerce.string(),
+                }),
               ),
             })
             .optional(),
@@ -12487,7 +12490,7 @@ export function bootstrap(
           }),
           optional: z.coerce.boolean().optional(),
           type: z.enum(["dropdown", "numeric", "text"]),
-        })
+        }),
       )
       .optional(),
     custom_text: z
@@ -12517,7 +12520,7 @@ export function bootstrap(
         z.object({
           coupon: z.coerce.string().optional(),
           promotion_code: z.coerce.string().optional(),
-        })
+        }),
       )
       .optional(),
     expand: z.array(z.coerce.string()).optional(),
@@ -12533,7 +12536,7 @@ export function bootstrap(
             ]),
             custom_fields: z.union([
               z.array(
-                z.object({ name: z.coerce.string(), value: z.coerce.string() })
+                z.object({ name: z.coerce.string(), value: z.coerce.string() }),
               ),
               z.enum([""]),
             ]),
@@ -12592,7 +12595,7 @@ export function bootstrap(
             .optional(),
           quantity: z.coerce.number().optional(),
           tax_rates: z.array(z.coerce.string()).optional(),
-        })
+        }),
       )
       .optional(),
     locale: z
@@ -12765,7 +12768,7 @@ export function bootstrap(
                   .optional(),
                 requested_address_types: z
                   .array(
-                    z.enum(["iban", "sepa", "sort_code", "spei", "zengin"])
+                    z.enum(["iban", "sepa", "sort_code", "spei", "zengin"]),
                   )
                   .optional(),
                 type: z.enum([
@@ -12848,7 +12851,7 @@ export function bootstrap(
                       "ownership",
                       "payment_method",
                       "transactions",
-                    ])
+                    ]),
                   )
                   .optional(),
               })
@@ -12900,7 +12903,7 @@ export function bootstrap(
           "sofort",
           "us_bank_account",
           "wechat_pay",
-        ])
+        ]),
       )
       .optional(),
     phone_number_collection: z
@@ -13154,7 +13157,7 @@ export function bootstrap(
             "ZM",
             "ZW",
             "ZZ",
-          ])
+          ]),
         ),
       })
       .optional(),
@@ -13208,7 +13211,7 @@ export function bootstrap(
               type: z.enum(["fixed_amount"]).optional(),
             })
             .optional(),
-        })
+        }),
       )
       .optional(),
     submit_type: z.enum(["auto", "book", "donate", "pay"]).optional(),
@@ -13248,7 +13251,7 @@ export function bootstrap(
 
   const postCheckoutSessionsResponseValidator = responseValidationFactory(
     [["200", s_checkout_session]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -13260,19 +13263,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postCheckoutSessionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postCheckoutSessions(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postCheckoutSessionsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCheckoutSessionsSessionParamSchema = z.object({
@@ -13287,7 +13290,7 @@ export function bootstrap(
 
   const getCheckoutSessionsSessionResponseValidator = responseValidationFactory(
     [["200", s_checkout_session]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -13297,27 +13300,27 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCheckoutSessionsSessionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCheckoutSessionsSessionQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCheckoutSessionsSessionBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getCheckoutSessionsSession(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getCheckoutSessionsSessionResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postCheckoutSessionsSessionExpireParamSchema = z.object({
@@ -13338,12 +13341,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postCheckoutSessionsSessionExpireParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postCheckoutSessionsSessionExpireBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -13352,11 +13355,11 @@ export function bootstrap(
 
       ctx.body = postCheckoutSessionsSessionExpireResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCheckoutSessionsSessionLineItemsParamSchema = z.object({
@@ -13385,7 +13388,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -13395,15 +13398,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCheckoutSessionsSessionLineItemsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCheckoutSessionsSessionLineItemsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCheckoutSessionsSessionLineItemsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -13412,11 +13415,11 @@ export function bootstrap(
 
       ctx.body = getCheckoutSessionsSessionLineItemsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCountrySpecsQuerySchema = z.object({
@@ -13440,7 +13443,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getCountrySpecs", "/v1/country_specs", async (ctx, next) => {
@@ -13469,7 +13472,7 @@ export function bootstrap(
 
   const getCountrySpecsCountryResponseValidator = responseValidationFactory(
     [["200", s_country_spec]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -13479,24 +13482,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCountrySpecsCountryParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(getCountrySpecsCountryQuerySchema, ctx.query),
         body: parseRequestInput(
           getCountrySpecsCountryBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getCountrySpecsCountry(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getCountrySpecsCountryResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCouponsQuerySchema = z.object({
@@ -13529,7 +13532,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getCoupons", "/v1/coupons", async (ctx, next) => {
@@ -13568,7 +13571,7 @@ export function bootstrap(
 
   const postCouponsResponseValidator = responseValidationFactory(
     [["200", s_coupon]],
-    s_error
+    s_error,
   )
 
   router.post("postCoupons", "/v1/coupons", async (ctx, next) => {
@@ -13591,7 +13594,7 @@ export function bootstrap(
 
   const deleteCouponsCouponResponseValidator = responseValidationFactory(
     [["200", s_deleted_coupon]],
-    s_error
+    s_error,
   )
 
   router.delete(
@@ -13603,19 +13606,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           deleteCouponsCouponBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.deleteCouponsCoupon(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = deleteCouponsCouponResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCouponsCouponParamSchema = z.object({ coupon: z.coerce.string() })
@@ -13628,7 +13631,7 @@ export function bootstrap(
 
   const getCouponsCouponResponseValidator = responseValidationFactory(
     [["200", s_coupon]],
-    s_error
+    s_error,
   )
 
   router.get("getCouponsCoupon", "/v1/coupons/:coupon", async (ctx, next) => {
@@ -13658,7 +13661,7 @@ export function bootstrap(
 
   const postCouponsCouponResponseValidator = responseValidationFactory(
     [["200", s_coupon]],
-    s_error
+    s_error,
   )
 
   router.post("postCouponsCoupon", "/v1/coupons/:coupon", async (ctx, next) => {
@@ -13698,7 +13701,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getCreditNotes", "/v1/credit_notes", async (ctx, next) => {
@@ -13731,7 +13734,7 @@ export function bootstrap(
           type: z.enum(["custom_line_item", "invoice_line_item"]),
           unit_amount: z.coerce.number().optional(),
           unit_amount_decimal: z.coerce.string().optional(),
-        })
+        }),
       )
       .optional(),
     memo: z.coerce.string().optional(),
@@ -13754,7 +13757,7 @@ export function bootstrap(
 
   const postCreditNotesResponseValidator = responseValidationFactory(
     [["200", s_credit_note]],
-    s_error
+    s_error,
   )
 
   router.post("postCreditNotes", "/v1/credit_notes", async (ctx, next) => {
@@ -13787,7 +13790,7 @@ export function bootstrap(
           type: z.enum(["custom_line_item", "invoice_line_item"]),
           unit_amount: z.coerce.number().optional(),
           unit_amount_decimal: z.coerce.string().optional(),
-        })
+        }),
       )
       .optional(),
     memo: z.coerce.string().optional(),
@@ -13812,7 +13815,7 @@ export function bootstrap(
 
   const getCreditNotesPreviewResponseValidator = responseValidationFactory(
     [["200", s_credit_note]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -13824,19 +13827,19 @@ export function bootstrap(
         query: parseRequestInput(getCreditNotesPreviewQuerySchema, ctx.query),
         body: parseRequestInput(
           getCreditNotesPreviewBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getCreditNotesPreview(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getCreditNotesPreviewResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCreditNotesPreviewLinesQuerySchema = z.object({
@@ -13857,7 +13860,7 @@ export function bootstrap(
           type: z.enum(["custom_line_item", "invoice_line_item"]),
           unit_amount: z.coerce.number().optional(),
           unit_amount_decimal: z.coerce.string().optional(),
-        })
+        }),
       )
       .optional(),
     memo: z.coerce.string().optional(),
@@ -13893,7 +13896,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -13904,23 +13907,23 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           getCreditNotesPreviewLinesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCreditNotesPreviewLinesBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getCreditNotesPreviewLines(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getCreditNotesPreviewLinesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCreditNotesCreditNoteLinesParamSchema = z.object({
@@ -13949,7 +13952,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -13959,15 +13962,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCreditNotesCreditNoteLinesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCreditNotesCreditNoteLinesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCreditNotesCreditNoteLinesBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -13977,7 +13980,7 @@ export function bootstrap(
       ctx.body = getCreditNotesCreditNoteLinesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCreditNotesIdParamSchema = z.object({ id: z.coerce.string() })
@@ -13990,7 +13993,7 @@ export function bootstrap(
 
   const getCreditNotesIdResponseValidator = responseValidationFactory(
     [["200", s_credit_note]],
-    s_error
+    s_error,
   )
 
   router.get("getCreditNotesId", "/v1/credit_notes/:id", async (ctx, next) => {
@@ -14019,7 +14022,7 @@ export function bootstrap(
 
   const postCreditNotesIdResponseValidator = responseValidationFactory(
     [["200", s_credit_note]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -14034,13 +14037,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.postCreditNotesId(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postCreditNotesIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postCreditNotesIdVoidParamSchema = z.object({ id: z.coerce.string() })
@@ -14051,7 +14054,7 @@ export function bootstrap(
 
   const postCreditNotesIdVoidResponseValidator = responseValidationFactory(
     [["200", s_credit_note]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -14063,19 +14066,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postCreditNotesIdVoidBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postCreditNotesIdVoid(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postCreditNotesIdVoidResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCustomersQuerySchema = z.object({
@@ -14110,7 +14113,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getCustomers", "/v1/customers", async (ctx, next) => {
@@ -14161,7 +14164,7 @@ export function bootstrap(
         .object({
           custom_fields: z.union([
             z.array(
-              z.object({ name: z.coerce.string(), value: z.coerce.string() })
+              z.object({ name: z.coerce.string(), value: z.coerce.string() }),
             ),
             z.enum([""]),
           ]),
@@ -14261,7 +14264,7 @@ export function bootstrap(
               "za_vat",
             ]),
             value: z.coerce.string(),
-          })
+          }),
         )
         .optional(),
       test_clock: z.coerce.string().optional(),
@@ -14270,7 +14273,7 @@ export function bootstrap(
 
   const postCustomersResponseValidator = responseValidationFactory(
     [["200", s_customer]],
-    s_error
+    s_error,
   )
 
   router.post("postCustomers", "/v1/customers", async (ctx, next) => {
@@ -14310,7 +14313,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -14325,13 +14328,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.getCustomersSearch(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getCustomersSearchResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteCustomersCustomerParamSchema = z.object({
@@ -14342,7 +14345,7 @@ export function bootstrap(
 
   const deleteCustomersCustomerResponseValidator = responseValidationFactory(
     [["200", s_deleted_customer]],
-    s_error
+    s_error,
   )
 
   router.delete(
@@ -14352,24 +14355,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteCustomersCustomerParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.deleteCustomersCustomer(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = deleteCustomersCustomerResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCustomersCustomerParamSchema = z.object({
@@ -14384,7 +14387,7 @@ export function bootstrap(
 
   const getCustomersCustomerResponseValidator = responseValidationFactory(
     [["200", z.union([z.lazy(() => s_customer), s_deleted_customer])]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -14396,19 +14399,19 @@ export function bootstrap(
         query: parseRequestInput(getCustomersCustomerQuerySchema, ctx.query),
         body: parseRequestInput(
           getCustomersCustomerBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getCustomersCustomer(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getCustomersCustomerResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postCustomersCustomerParamSchema = z.object({
@@ -14483,7 +14486,7 @@ export function bootstrap(
         .object({
           custom_fields: z.union([
             z.array(
-              z.object({ name: z.coerce.string(), value: z.coerce.string() })
+              z.object({ name: z.coerce.string(), value: z.coerce.string() }),
             ),
             z.enum([""]),
           ]),
@@ -14530,7 +14533,7 @@ export function bootstrap(
 
   const postCustomersCustomerResponseValidator = responseValidationFactory(
     [["200", s_customer]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -14542,19 +14545,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postCustomersCustomer(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postCustomersCustomerResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCustomersCustomerBalanceTransactionsParamSchema = z.object({
@@ -14585,7 +14588,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -14595,15 +14598,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCustomersCustomerBalanceTransactionsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCustomersCustomerBalanceTransactionsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCustomersCustomerBalanceTransactionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -14612,11 +14615,11 @@ export function bootstrap(
 
       ctx.body = getCustomersCustomerBalanceTransactionsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postCustomersCustomerBalanceTransactionsParamSchema = z.object({
@@ -14634,7 +14637,7 @@ export function bootstrap(
   const postCustomersCustomerBalanceTransactionsResponseValidator =
     responseValidationFactory(
       [["200", s_customer_balance_transaction]],
-      s_error
+      s_error,
     )
 
   router.post(
@@ -14644,28 +14647,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postCustomersCustomerBalanceTransactionsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerBalanceTransactionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postCustomersCustomerBalanceTransactions(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postCustomersCustomerBalanceTransactionsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCustomersCustomerBalanceTransactionsTransactionParamSchema =
@@ -14681,7 +14684,7 @@ export function bootstrap(
   const getCustomersCustomerBalanceTransactionsTransactionResponseValidator =
     responseValidationFactory(
       [["200", s_customer_balance_transaction]],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -14691,32 +14694,32 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCustomersCustomerBalanceTransactionsTransactionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCustomersCustomerBalanceTransactionsTransactionQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCustomersCustomerBalanceTransactionsTransactionBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.getCustomersCustomerBalanceTransactionsTransaction(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         getCustomersCustomerBalanceTransactionsTransactionResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postCustomersCustomerBalanceTransactionsTransactionParamSchema =
@@ -14733,7 +14736,7 @@ export function bootstrap(
   const postCustomersCustomerBalanceTransactionsTransactionResponseValidator =
     responseValidationFactory(
       [["200", s_customer_balance_transaction]],
-      s_error
+      s_error,
     )
 
   router.post(
@@ -14743,29 +14746,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postCustomersCustomerBalanceTransactionsTransactionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerBalanceTransactionsTransactionBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postCustomersCustomerBalanceTransactionsTransaction(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         postCustomersCustomerBalanceTransactionsTransactionResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCustomersCustomerBankAccountsParamSchema = z.object({
@@ -14794,7 +14797,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -14804,15 +14807,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCustomersCustomerBankAccountsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCustomersCustomerBankAccountsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCustomersCustomerBankAccountsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -14822,7 +14825,7 @@ export function bootstrap(
       ctx.body = getCustomersCustomerBankAccountsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postCustomersCustomerBankAccountsParamSchema = z.object({
@@ -14878,12 +14881,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postCustomersCustomerBankAccountsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerBankAccountsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -14892,11 +14895,11 @@ export function bootstrap(
 
       ctx.body = postCustomersCustomerBankAccountsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteCustomersCustomerBankAccountsIdParamSchema = z.object({
@@ -14916,7 +14919,7 @@ export function bootstrap(
           z.union([z.lazy(() => s_payment_source), s_deleted_payment_source]),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.delete(
@@ -14926,12 +14929,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteCustomersCustomerBankAccountsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerBankAccountsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -14940,11 +14943,11 @@ export function bootstrap(
 
       ctx.body = deleteCustomersCustomerBankAccountsIdResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCustomersCustomerBankAccountsIdParamSchema = z.object({
@@ -14968,15 +14971,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCustomersCustomerBankAccountsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCustomersCustomerBankAccountsIdQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCustomersCustomerBankAccountsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -14985,11 +14988,11 @@ export function bootstrap(
 
       ctx.body = getCustomersCustomerBankAccountsIdResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postCustomersCustomerBankAccountsIdParamSchema = z.object({
@@ -15044,7 +15047,7 @@ export function bootstrap(
           ]),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.post(
@@ -15054,12 +15057,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postCustomersCustomerBankAccountsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerBankAccountsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -15068,11 +15071,11 @@ export function bootstrap(
 
       ctx.body = postCustomersCustomerBankAccountsIdResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postCustomersCustomerBankAccountsIdVerifyParamSchema = z.object({
@@ -15097,28 +15100,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postCustomersCustomerBankAccountsIdVerifyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerBankAccountsIdVerifyBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postCustomersCustomerBankAccountsIdVerify(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postCustomersCustomerBankAccountsIdVerifyResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCustomersCustomerCardsParamSchema = z.object({
@@ -15146,7 +15149,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -15156,27 +15159,27 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCustomersCustomerCardsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCustomersCustomerCardsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCustomersCustomerCardsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getCustomersCustomerCards(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getCustomersCustomerCardsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postCustomersCustomerCardsParamSchema = z.object({
@@ -15224,7 +15227,7 @@ export function bootstrap(
 
   const postCustomersCustomerCardsResponseValidator = responseValidationFactory(
     [["200", s_payment_source]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -15234,24 +15237,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postCustomersCustomerCardsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerCardsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postCustomersCustomerCards(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postCustomersCustomerCardsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteCustomersCustomerCardsIdParamSchema = z.object({
@@ -15271,7 +15274,7 @@ export function bootstrap(
           z.union([z.lazy(() => s_payment_source), s_deleted_payment_source]),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.delete(
@@ -15281,12 +15284,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteCustomersCustomerCardsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerCardsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -15296,7 +15299,7 @@ export function bootstrap(
       ctx.body = deleteCustomersCustomerCardsIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCustomersCustomerCardsIdParamSchema = z.object({
@@ -15320,27 +15323,27 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCustomersCustomerCardsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCustomersCustomerCardsIdQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCustomersCustomerCardsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getCustomersCustomerCardsId(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getCustomersCustomerCardsIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postCustomersCustomerCardsIdParamSchema = z.object({
@@ -15395,7 +15398,7 @@ export function bootstrap(
           ]),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.post(
@@ -15405,12 +15408,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postCustomersCustomerCardsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerCardsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -15420,7 +15423,7 @@ export function bootstrap(
       ctx.body = postCustomersCustomerCardsIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCustomersCustomerCashBalanceParamSchema = z.object({
@@ -15443,15 +15446,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCustomersCustomerCashBalanceParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCustomersCustomerCashBalanceQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCustomersCustomerCashBalanceBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -15461,7 +15464,7 @@ export function bootstrap(
       ctx.body = getCustomersCustomerCashBalanceResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postCustomersCustomerCashBalanceParamSchema = z.object({
@@ -15491,12 +15494,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postCustomersCustomerCashBalanceParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerCashBalanceBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -15506,7 +15509,7 @@ export function bootstrap(
       ctx.body = postCustomersCustomerCashBalanceResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCustomersCustomerCashBalanceTransactionsParamSchema = z.object({
@@ -15537,7 +15540,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -15547,31 +15550,31 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCustomersCustomerCashBalanceTransactionsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCustomersCustomerCashBalanceTransactionsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCustomersCustomerCashBalanceTransactionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.getCustomersCustomerCashBalanceTransactions(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = getCustomersCustomerCashBalanceTransactionsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCustomersCustomerCashBalanceTransactionsTransactionParamSchema =
@@ -15587,7 +15590,7 @@ export function bootstrap(
   const getCustomersCustomerCashBalanceTransactionsTransactionResponseValidator =
     responseValidationFactory(
       [["200", s_customer_cash_balance_transaction]],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -15597,32 +15600,32 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCustomersCustomerCashBalanceTransactionsTransactionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCustomersCustomerCashBalanceTransactionsTransactionQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCustomersCustomerCashBalanceTransactionsTransactionBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.getCustomersCustomerCashBalanceTransactionsTransaction(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         getCustomersCustomerCashBalanceTransactionsTransactionResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteCustomersCustomerDiscountParamSchema = z.object({
@@ -15641,12 +15644,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteCustomersCustomerDiscountParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerDiscountBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -15656,7 +15659,7 @@ export function bootstrap(
       ctx.body = deleteCustomersCustomerDiscountResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCustomersCustomerDiscountParamSchema = z.object({
@@ -15679,15 +15682,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCustomersCustomerDiscountParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCustomersCustomerDiscountQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCustomersCustomerDiscountBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -15697,7 +15700,7 @@ export function bootstrap(
       ctx.body = getCustomersCustomerDiscountResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postCustomersCustomerFundingInstructionsParamSchema = z.object({
@@ -15732,28 +15735,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postCustomersCustomerFundingInstructionsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerFundingInstructionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postCustomersCustomerFundingInstructions(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postCustomersCustomerFundingInstructionsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCustomersCustomerPaymentMethodsParamSchema = z.object({
@@ -15815,7 +15818,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -15825,15 +15828,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCustomersCustomerPaymentMethodsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCustomersCustomerPaymentMethodsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCustomersCustomerPaymentMethodsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -15842,11 +15845,11 @@ export function bootstrap(
 
       ctx.body = getCustomersCustomerPaymentMethodsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCustomersCustomerPaymentMethodsPaymentMethodParamSchema = z.object({
@@ -15872,32 +15875,32 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCustomersCustomerPaymentMethodsPaymentMethodParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCustomersCustomerPaymentMethodsPaymentMethodQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCustomersCustomerPaymentMethodsPaymentMethodBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.getCustomersCustomerPaymentMethodsPaymentMethod(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         getCustomersCustomerPaymentMethodsPaymentMethodResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCustomersCustomerSourcesParamSchema = z.object({
@@ -15925,7 +15928,7 @@ export function bootstrap(
                 z.lazy(() => s_bank_account),
                 z.lazy(() => s_card),
                 s_source,
-              ])
+              ]),
             ),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
@@ -15933,7 +15936,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -15943,27 +15946,27 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCustomersCustomerSourcesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCustomersCustomerSourcesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCustomersCustomerSourcesBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getCustomersCustomerSources(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getCustomersCustomerSourcesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postCustomersCustomerSourcesParamSchema = z.object({
@@ -16019,12 +16022,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postCustomersCustomerSourcesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerSourcesBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -16034,7 +16037,7 @@ export function bootstrap(
       ctx.body = postCustomersCustomerSourcesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteCustomersCustomerSourcesIdParamSchema = z.object({
@@ -16054,7 +16057,7 @@ export function bootstrap(
           z.union([z.lazy(() => s_payment_source), s_deleted_payment_source]),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.delete(
@@ -16064,12 +16067,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteCustomersCustomerSourcesIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerSourcesIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -16079,7 +16082,7 @@ export function bootstrap(
       ctx.body = deleteCustomersCustomerSourcesIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCustomersCustomerSourcesIdParamSchema = z.object({
@@ -16103,15 +16106,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCustomersCustomerSourcesIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCustomersCustomerSourcesIdQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCustomersCustomerSourcesIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -16121,7 +16124,7 @@ export function bootstrap(
       ctx.body = getCustomersCustomerSourcesIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postCustomersCustomerSourcesIdParamSchema = z.object({
@@ -16176,7 +16179,7 @@ export function bootstrap(
           ]),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.post(
@@ -16186,12 +16189,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postCustomersCustomerSourcesIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerSourcesIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -16201,7 +16204,7 @@ export function bootstrap(
       ctx.body = postCustomersCustomerSourcesIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postCustomersCustomerSourcesIdVerifyParamSchema = z.object({
@@ -16226,12 +16229,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postCustomersCustomerSourcesIdVerifyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerSourcesIdVerifyBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -16240,11 +16243,11 @@ export function bootstrap(
 
       ctx.body = postCustomersCustomerSourcesIdVerifyResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCustomersCustomerSubscriptionsParamSchema = z.object({
@@ -16273,7 +16276,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -16283,15 +16286,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCustomersCustomerSubscriptionsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCustomersCustomerSubscriptionsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCustomersCustomerSubscriptionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -16300,11 +16303,11 @@ export function bootstrap(
 
       ctx.body = getCustomersCustomerSubscriptionsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postCustomersCustomerSubscriptionsParamSchema = z.object({
@@ -16330,7 +16333,7 @@ export function bootstrap(
               .optional(),
             quantity: z.coerce.number().optional(),
             tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
-          })
+          }),
         )
         .optional(),
       application_fee_percent: z.coerce.number().optional(),
@@ -16382,7 +16385,7 @@ export function bootstrap(
               .optional(),
             quantity: z.coerce.number().optional(),
             tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
-          })
+          }),
         )
         .optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
@@ -16477,7 +16480,7 @@ export function bootstrap(
                             "ownership",
                             "payment_method",
                             "transactions",
-                          ])
+                          ]),
                         )
                         .optional(),
                     })
@@ -16515,7 +16518,7 @@ export function bootstrap(
                 "sofort",
                 "us_bank_account",
                 "wechat_pay",
-              ])
+              ]),
             ),
             z.enum([""]),
           ]),
@@ -16568,12 +16571,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postCustomersCustomerSubscriptionsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerSubscriptionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -16582,11 +16585,11 @@ export function bootstrap(
 
       ctx.body = postCustomersCustomerSubscriptionsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema =
@@ -16613,29 +16616,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.deleteCustomersCustomerSubscriptionsSubscriptionExposedId(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         deleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema =
@@ -16661,32 +16664,32 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCustomersCustomerSubscriptionsSubscriptionExposedIdQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.getCustomersCustomerSubscriptionsSubscriptionExposedId(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         getCustomersCustomerSubscriptionsSubscriptionExposedIdResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema =
@@ -16714,7 +16717,7 @@ export function bootstrap(
               .optional(),
             quantity: z.coerce.number().optional(),
             tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
-          })
+          }),
         )
         .optional(),
       application_fee_percent: z.coerce.number().optional(),
@@ -16785,7 +16788,7 @@ export function bootstrap(
               .optional(),
             quantity: z.coerce.number().optional(),
             tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
-          })
+          }),
         )
         .optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
@@ -16887,7 +16890,7 @@ export function bootstrap(
                             "ownership",
                             "payment_method",
                             "transactions",
-                          ])
+                          ]),
                         )
                         .optional(),
                     })
@@ -16925,7 +16928,7 @@ export function bootstrap(
                 "sofort",
                 "us_bank_account",
                 "wechat_pay",
-              ])
+              ]),
             ),
             z.enum([""]),
           ]),
@@ -16979,29 +16982,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postCustomersCustomerSubscriptionsSubscriptionExposedId(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         postCustomersCustomerSubscriptionsSubscriptionExposedIdResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema =
@@ -17023,29 +17026,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema =
@@ -17070,32 +17073,32 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCustomersCustomerTaxIdsParamSchema = z.object({
@@ -17123,7 +17126,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -17133,27 +17136,27 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCustomersCustomerTaxIdsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCustomersCustomerTaxIdsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCustomersCustomerTaxIdsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getCustomersCustomerTaxIds(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getCustomersCustomerTaxIdsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postCustomersCustomerTaxIdsParamSchema = z.object({
@@ -17228,24 +17231,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postCustomersCustomerTaxIdsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerTaxIdsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postCustomersCustomerTaxIds(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postCustomersCustomerTaxIdsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteCustomersCustomerTaxIdsIdParamSchema = z.object({
@@ -17265,12 +17268,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteCustomersCustomerTaxIdsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerTaxIdsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -17280,7 +17283,7 @@ export function bootstrap(
       ctx.body = deleteCustomersCustomerTaxIdsIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getCustomersCustomerTaxIdsIdParamSchema = z.object({
@@ -17304,15 +17307,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getCustomersCustomerTaxIdsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getCustomersCustomerTaxIdsIdQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getCustomersCustomerTaxIdsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -17322,7 +17325,7 @@ export function bootstrap(
       ctx.body = getCustomersCustomerTaxIdsIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getDisputesQuerySchema = z.object({
@@ -17357,7 +17360,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getDisputes", "/v1/disputes", async (ctx, next) => {
@@ -17384,7 +17387,7 @@ export function bootstrap(
 
   const getDisputesDisputeResponseValidator = responseValidationFactory(
     [["200", s_dispute]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -17399,13 +17402,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.getDisputesDispute(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getDisputesDisputeResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postDisputesDisputeParamSchema = z.object({
@@ -17453,7 +17456,7 @@ export function bootstrap(
 
   const postDisputesDisputeResponseValidator = responseValidationFactory(
     [["200", s_dispute]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -17465,19 +17468,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postDisputesDisputeBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postDisputesDispute(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postDisputesDisputeResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postDisputesDisputeCloseParamSchema = z.object({
@@ -17490,7 +17493,7 @@ export function bootstrap(
 
   const postDisputesDisputeCloseResponseValidator = responseValidationFactory(
     [["200", s_dispute]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -17500,24 +17503,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postDisputesDisputeCloseParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postDisputesDisputeCloseBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postDisputesDisputeClose(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postDisputesDisputeCloseResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postEphemeralKeysBodySchema = z
@@ -17531,7 +17534,7 @@ export function bootstrap(
 
   const postEphemeralKeysResponseValidator = responseValidationFactory(
     [["200", s_ephemeral_key]],
-    s_error
+    s_error,
   )
 
   router.post("postEphemeralKeys", "/v1/ephemeral_keys", async (ctx, next) => {
@@ -17556,7 +17559,7 @@ export function bootstrap(
 
   const deleteEphemeralKeysKeyResponseValidator = responseValidationFactory(
     [["200", s_ephemeral_key]],
-    s_error
+    s_error,
   )
 
   router.delete(
@@ -17566,24 +17569,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteEphemeralKeysKeyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteEphemeralKeysKeyBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.deleteEphemeralKeysKey(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = deleteEphemeralKeysKeyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getEventsQuerySchema = z.object({
@@ -17619,7 +17622,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getEvents", "/v1/events", async (ctx, next) => {
@@ -17646,7 +17649,7 @@ export function bootstrap(
 
   const getEventsIdResponseValidator = responseValidationFactory(
     [["200", s_event]],
-    s_error
+    s_error,
   )
 
   router.get("getEventsId", "/v1/events/:id", async (ctx, next) => {
@@ -17684,7 +17687,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getExchangeRates", "/v1/exchange_rates", async (ctx, next) => {
@@ -17713,7 +17716,7 @@ export function bootstrap(
 
   const getExchangeRatesRateIdResponseValidator = responseValidationFactory(
     [["200", s_exchange_rate]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -17723,24 +17726,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getExchangeRatesRateIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(getExchangeRatesRateIdQuerySchema, ctx.query),
         body: parseRequestInput(
           getExchangeRatesRateIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getExchangeRatesRateId(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getExchangeRatesRateIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getFileLinksQuerySchema = z.object({
@@ -17775,7 +17778,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getFileLinks", "/v1/file_links", async (ctx, next) => {
@@ -17801,7 +17804,7 @@ export function bootstrap(
 
   const postFileLinksResponseValidator = responseValidationFactory(
     [["200", s_file_link]],
-    s_error
+    s_error,
   )
 
   router.post("postFileLinks", "/v1/file_links", async (ctx, next) => {
@@ -17828,7 +17831,7 @@ export function bootstrap(
 
   const getFileLinksLinkResponseValidator = responseValidationFactory(
     [["200", s_file_link]],
-    s_error
+    s_error,
   )
 
   router.get("getFileLinksLink", "/v1/file_links/:link", async (ctx, next) => {
@@ -17857,7 +17860,7 @@ export function bootstrap(
 
   const postFileLinksLinkResponseValidator = responseValidationFactory(
     [["200", s_file_link]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -17872,13 +17875,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.postFileLinksLink(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postFileLinksLinkResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getFilesQuerySchema = z.object({
@@ -17930,7 +17933,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getFiles", "/v1/files", async (ctx, next) => {
@@ -17973,7 +17976,7 @@ export function bootstrap(
 
   const postFilesResponseValidator = responseValidationFactory(
     [["200", s_file]],
-    s_error
+    s_error,
   )
 
   router.post("postFiles", "/v1/files", async (ctx, next) => {
@@ -18000,7 +18003,7 @@ export function bootstrap(
 
   const getFilesFileResponseValidator = responseValidationFactory(
     [["200", s_file]],
-    s_error
+    s_error,
   )
 
   router.get("getFilesFile", "/v1/files/:file", async (ctx, next) => {
@@ -18046,7 +18049,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -18057,11 +18060,11 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           getFinancialConnectionsAccountsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getFinancialConnectionsAccountsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -18071,7 +18074,7 @@ export function bootstrap(
       ctx.body = getFinancialConnectionsAccountsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getFinancialConnectionsAccountsAccountParamSchema = z.object({
@@ -18089,7 +18092,7 @@ export function bootstrap(
   const getFinancialConnectionsAccountsAccountResponseValidator =
     responseValidationFactory(
       [["200", s_financial_connections_account]],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -18099,15 +18102,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getFinancialConnectionsAccountsAccountParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getFinancialConnectionsAccountsAccountQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getFinancialConnectionsAccountsAccountBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -18116,15 +18119,15 @@ export function bootstrap(
 
       ctx.body = getFinancialConnectionsAccountsAccountResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postFinancialConnectionsAccountsAccountDisconnectParamSchema = z.object(
-    { account: z.coerce.string() }
+    { account: z.coerce.string() },
   )
 
   const postFinancialConnectionsAccountsAccountDisconnectBodySchema = z
@@ -18134,7 +18137,7 @@ export function bootstrap(
   const postFinancialConnectionsAccountsAccountDisconnectResponseValidator =
     responseValidationFactory(
       [["200", s_financial_connections_account]],
-      s_error
+      s_error,
     )
 
   router.post(
@@ -18144,29 +18147,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postFinancialConnectionsAccountsAccountDisconnectParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postFinancialConnectionsAccountsAccountDisconnectBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postFinancialConnectionsAccountsAccountDisconnect(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         postFinancialConnectionsAccountsAccountDisconnectResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getFinancialConnectionsAccountsAccountOwnersParamSchema = z.object({
@@ -18198,7 +18201,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -18208,31 +18211,31 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getFinancialConnectionsAccountsAccountOwnersParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getFinancialConnectionsAccountsAccountOwnersQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getFinancialConnectionsAccountsAccountOwnersBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.getFinancialConnectionsAccountsAccountOwners(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = getFinancialConnectionsAccountsAccountOwnersResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postFinancialConnectionsAccountsAccountRefreshParamSchema = z.object({
@@ -18247,7 +18250,7 @@ export function bootstrap(
   const postFinancialConnectionsAccountsAccountRefreshResponseValidator =
     responseValidationFactory(
       [["200", s_financial_connections_account]],
-      s_error
+      s_error,
     )
 
   router.post(
@@ -18257,29 +18260,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postFinancialConnectionsAccountsAccountRefreshParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postFinancialConnectionsAccountsAccountRefreshBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postFinancialConnectionsAccountsAccountRefresh(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         postFinancialConnectionsAccountsAccountRefreshResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postFinancialConnectionsSessionsBodySchema = z.object({
@@ -18291,7 +18294,7 @@ export function bootstrap(
     expand: z.array(z.coerce.string()).optional(),
     filters: z.object({ countries: z.array(z.coerce.string()) }).optional(),
     permissions: z.array(
-      z.enum(["balances", "ownership", "payment_method", "transactions"])
+      z.enum(["balances", "ownership", "payment_method", "transactions"]),
     ),
     return_url: z.coerce.string().optional(),
   })
@@ -18299,7 +18302,7 @@ export function bootstrap(
   const postFinancialConnectionsSessionsResponseValidator =
     responseValidationFactory(
       [["200", s_financial_connections_session]],
-      s_error
+      s_error,
     )
 
   router.post(
@@ -18311,7 +18314,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postFinancialConnectionsSessionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -18321,7 +18324,7 @@ export function bootstrap(
       ctx.body = postFinancialConnectionsSessionsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getFinancialConnectionsSessionsSessionParamSchema = z.object({
@@ -18339,7 +18342,7 @@ export function bootstrap(
   const getFinancialConnectionsSessionsSessionResponseValidator =
     responseValidationFactory(
       [["200", s_financial_connections_session]],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -18349,15 +18352,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getFinancialConnectionsSessionsSessionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getFinancialConnectionsSessionsSessionQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getFinancialConnectionsSessionsSessionBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -18366,11 +18369,11 @@ export function bootstrap(
 
       ctx.body = getFinancialConnectionsSessionsSessionResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getIdentityVerificationReportsQuerySchema = z.object({
@@ -18406,7 +18409,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -18417,11 +18420,11 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           getIdentityVerificationReportsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getIdentityVerificationReportsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -18431,7 +18434,7 @@ export function bootstrap(
       ctx.body = getIdentityVerificationReportsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getIdentityVerificationReportsReportParamSchema = z.object({
@@ -18447,7 +18450,7 @@ export function bootstrap(
   const getIdentityVerificationReportsReportResponseValidator =
     responseValidationFactory(
       [["200", s_identity_verification_report]],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -18457,15 +18460,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getIdentityVerificationReportsReportParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getIdentityVerificationReportsReportQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getIdentityVerificationReportsReportBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -18474,11 +18477,11 @@ export function bootstrap(
 
       ctx.body = getIdentityVerificationReportsReportResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getIdentityVerificationSessionsQuerySchema = z.object({
@@ -18515,7 +18518,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -18526,11 +18529,11 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           getIdentityVerificationSessionsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getIdentityVerificationSessionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -18540,7 +18543,7 @@ export function bootstrap(
       ctx.body = getIdentityVerificationSessionsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postIdentityVerificationSessionsBodySchema = z.object({
@@ -18568,7 +18571,7 @@ export function bootstrap(
   const postIdentityVerificationSessionsResponseValidator =
     responseValidationFactory(
       [["200", s_identity_verification_session]],
-      s_error
+      s_error,
     )
 
   router.post(
@@ -18580,7 +18583,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postIdentityVerificationSessionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -18590,7 +18593,7 @@ export function bootstrap(
       ctx.body = postIdentityVerificationSessionsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getIdentityVerificationSessionsSessionParamSchema = z.object({
@@ -18608,7 +18611,7 @@ export function bootstrap(
   const getIdentityVerificationSessionsSessionResponseValidator =
     responseValidationFactory(
       [["200", s_identity_verification_session]],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -18618,15 +18621,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getIdentityVerificationSessionsSessionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getIdentityVerificationSessionsSessionQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getIdentityVerificationSessionsSessionBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -18635,11 +18638,11 @@ export function bootstrap(
 
       ctx.body = getIdentityVerificationSessionsSessionResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postIdentityVerificationSessionsSessionParamSchema = z.object({
@@ -18672,7 +18675,7 @@ export function bootstrap(
   const postIdentityVerificationSessionsSessionResponseValidator =
     responseValidationFactory(
       [["200", s_identity_verification_session]],
-      s_error
+      s_error,
     )
 
   router.post(
@@ -18682,12 +18685,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postIdentityVerificationSessionsSessionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postIdentityVerificationSessionsSessionBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -18696,11 +18699,11 @@ export function bootstrap(
 
       ctx.body = postIdentityVerificationSessionsSessionResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postIdentityVerificationSessionsSessionCancelParamSchema = z.object({
@@ -18714,7 +18717,7 @@ export function bootstrap(
   const postIdentityVerificationSessionsSessionCancelResponseValidator =
     responseValidationFactory(
       [["200", s_identity_verification_session]],
-      s_error
+      s_error,
     )
 
   router.post(
@@ -18724,28 +18727,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postIdentityVerificationSessionsSessionCancelParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postIdentityVerificationSessionsSessionCancelBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postIdentityVerificationSessionsSessionCancel(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postIdentityVerificationSessionsSessionCancelResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postIdentityVerificationSessionsSessionRedactParamSchema = z.object({
@@ -18759,7 +18762,7 @@ export function bootstrap(
   const postIdentityVerificationSessionsSessionRedactResponseValidator =
     responseValidationFactory(
       [["200", s_identity_verification_session]],
-      s_error
+      s_error,
     )
 
   router.post(
@@ -18769,28 +18772,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postIdentityVerificationSessionsSessionRedactParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postIdentityVerificationSessionsSessionRedactBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postIdentityVerificationSessionsSessionRedact(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postIdentityVerificationSessionsSessionRedactResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getInvoiceitemsQuerySchema = z.object({
@@ -18826,7 +18829,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getInvoiceitems", "/v1/invoiceitems", async (ctx, next) => {
@@ -18854,7 +18857,7 @@ export function bootstrap(
         z.object({
           coupon: z.coerce.string().optional(),
           discount: z.coerce.string().optional(),
-        })
+        }),
       ),
       z.enum([""]),
     ]),
@@ -18887,7 +18890,7 @@ export function bootstrap(
 
   const postInvoiceitemsResponseValidator = responseValidationFactory(
     [["200", s_invoiceitem]],
-    s_error
+    s_error,
   )
 
   router.post("postInvoiceitems", "/v1/invoiceitems", async (ctx, next) => {
@@ -18920,12 +18923,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteInvoiceitemsInvoiceitemParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteInvoiceitemsInvoiceitemBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -18935,7 +18938,7 @@ export function bootstrap(
       ctx.body = deleteInvoiceitemsInvoiceitemResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getInvoiceitemsInvoiceitemParamSchema = z.object({
@@ -18950,7 +18953,7 @@ export function bootstrap(
 
   const getInvoiceitemsInvoiceitemResponseValidator = responseValidationFactory(
     [["200", s_invoiceitem]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -18960,27 +18963,27 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getInvoiceitemsInvoiceitemParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getInvoiceitemsInvoiceitemQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getInvoiceitemsInvoiceitemBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getInvoiceitemsInvoiceitem(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getInvoiceitemsInvoiceitemResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postInvoiceitemsInvoiceitemParamSchema = z.object({
@@ -18997,7 +19000,7 @@ export function bootstrap(
           z.object({
             coupon: z.coerce.string().optional(),
             discount: z.coerce.string().optional(),
-          })
+          }),
         ),
         z.enum([""]),
       ]),
@@ -19039,24 +19042,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postInvoiceitemsInvoiceitemParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postInvoiceitemsInvoiceitemBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postInvoiceitemsInvoiceitem(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postInvoiceitemsInvoiceitemResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getInvoicesQuerySchema = z.object({
@@ -19106,7 +19109,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getInvoices", "/v1/invoices", async (ctx, next) => {
@@ -19135,7 +19138,7 @@ export function bootstrap(
       currency: z.coerce.string().optional(),
       custom_fields: z.union([
         z.array(
-          z.object({ name: z.coerce.string(), value: z.coerce.string() })
+          z.object({ name: z.coerce.string(), value: z.coerce.string() }),
         ),
         z.enum([""]),
       ]),
@@ -19150,7 +19153,7 @@ export function bootstrap(
           z.object({
             coupon: z.coerce.string().optional(),
             discount: z.coerce.string().optional(),
-          })
+          }),
         ),
         z.enum([""]),
       ]),
@@ -19237,7 +19240,7 @@ export function bootstrap(
                             "ownership",
                             "payment_method",
                             "transactions",
-                          ])
+                          ]),
                         )
                         .optional(),
                     })
@@ -19275,7 +19278,7 @@ export function bootstrap(
                 "sofort",
                 "us_bank_account",
                 "wechat_pay",
-              ])
+              ]),
             ),
             z.enum([""]),
           ]),
@@ -19370,7 +19373,7 @@ export function bootstrap(
 
   const postInvoicesResponseValidator = responseValidationFactory(
     [["200", s_invoice]],
-    s_error
+    s_error,
   )
 
   router.post("postInvoices", "/v1/invoices", async (ctx, next) => {
@@ -19410,7 +19413,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getInvoicesSearch", "/v1/invoices/search", async (ctx, next) => {
@@ -19521,7 +19524,7 @@ export function bootstrap(
                 "za_vat",
               ]),
               value: z.coerce.string(),
-            })
+            }),
           )
           .optional(),
       })
@@ -19531,7 +19534,7 @@ export function bootstrap(
         z.object({
           coupon: z.coerce.string().optional(),
           discount: z.coerce.string().optional(),
-        })
+        }),
       ),
       z.enum([""]),
     ]),
@@ -19548,7 +19551,7 @@ export function bootstrap(
               z.object({
                 coupon: z.coerce.string().optional(),
                 discount: z.coerce.string().optional(),
-              })
+              }),
             ),
             z.enum([""]),
           ]),
@@ -19577,7 +19580,7 @@ export function bootstrap(
           tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
           unit_amount: z.coerce.number().optional(),
           unit_amount_decimal: z.coerce.string().optional(),
-        })
+        }),
       )
       .optional(),
     schedule: z.coerce.string().optional(),
@@ -19622,7 +19625,7 @@ export function bootstrap(
             .optional(),
           quantity: z.coerce.number().optional(),
           tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
-        })
+        }),
       )
       .optional(),
     subscription_proration_behavior: z
@@ -19639,7 +19642,7 @@ export function bootstrap(
 
   const getInvoicesUpcomingResponseValidator = responseValidationFactory(
     [["200", s_invoice]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -19651,19 +19654,19 @@ export function bootstrap(
         query: parseRequestInput(getInvoicesUpcomingQuerySchema, ctx.query),
         body: parseRequestInput(
           getInvoicesUpcomingBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getInvoicesUpcoming(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getInvoicesUpcomingResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getInvoicesUpcomingLinesQuerySchema = z.object({
@@ -19760,7 +19763,7 @@ export function bootstrap(
                 "za_vat",
               ]),
               value: z.coerce.string(),
-            })
+            }),
           )
           .optional(),
       })
@@ -19770,7 +19773,7 @@ export function bootstrap(
         z.object({
           coupon: z.coerce.string().optional(),
           discount: z.coerce.string().optional(),
-        })
+        }),
       ),
       z.enum([""]),
     ]),
@@ -19788,7 +19791,7 @@ export function bootstrap(
               z.object({
                 coupon: z.coerce.string().optional(),
                 discount: z.coerce.string().optional(),
-              })
+              }),
             ),
             z.enum([""]),
           ]),
@@ -19817,7 +19820,7 @@ export function bootstrap(
           tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
           unit_amount: z.coerce.number().optional(),
           unit_amount_decimal: z.coerce.string().optional(),
-        })
+        }),
       )
       .optional(),
     limit: z.coerce.number().optional(),
@@ -19864,7 +19867,7 @@ export function bootstrap(
             .optional(),
           quantity: z.coerce.number().optional(),
           tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
-        })
+        }),
       )
       .optional(),
     subscription_proration_behavior: z
@@ -19891,7 +19894,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -19902,23 +19905,23 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           getInvoicesUpcomingLinesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getInvoicesUpcomingLinesBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getInvoicesUpcomingLines(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getInvoicesUpcomingLinesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteInvoicesInvoiceParamSchema = z.object({
@@ -19929,7 +19932,7 @@ export function bootstrap(
 
   const deleteInvoicesInvoiceResponseValidator = responseValidationFactory(
     [["200", s_deleted_invoice]],
-    s_error
+    s_error,
   )
 
   router.delete(
@@ -19941,19 +19944,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           deleteInvoicesInvoiceBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.deleteInvoicesInvoice(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = deleteInvoicesInvoiceResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getInvoicesInvoiceParamSchema = z.object({ invoice: z.coerce.string() })
@@ -19966,7 +19969,7 @@ export function bootstrap(
 
   const getInvoicesInvoiceResponseValidator = responseValidationFactory(
     [["200", s_invoice]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -19981,13 +19984,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.getInvoicesInvoice(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getInvoicesInvoiceResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postInvoicesInvoiceParamSchema = z.object({
@@ -20005,7 +20008,7 @@ export function bootstrap(
         .optional(),
       custom_fields: z.union([
         z.array(
-          z.object({ name: z.coerce.string(), value: z.coerce.string() })
+          z.object({ name: z.coerce.string(), value: z.coerce.string() }),
         ),
         z.enum([""]),
       ]),
@@ -20019,7 +20022,7 @@ export function bootstrap(
           z.object({
             coupon: z.coerce.string().optional(),
             discount: z.coerce.string().optional(),
-          })
+          }),
         ),
         z.enum([""]),
       ]),
@@ -20103,7 +20106,7 @@ export function bootstrap(
                             "ownership",
                             "payment_method",
                             "transactions",
-                          ])
+                          ]),
                         )
                         .optional(),
                     })
@@ -20141,7 +20144,7 @@ export function bootstrap(
                 "sofort",
                 "us_bank_account",
                 "wechat_pay",
-              ])
+              ]),
             ),
             z.enum([""]),
           ]),
@@ -20235,7 +20238,7 @@ export function bootstrap(
 
   const postInvoicesInvoiceResponseValidator = responseValidationFactory(
     [["200", s_invoice]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -20247,19 +20250,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postInvoicesInvoiceBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postInvoicesInvoice(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postInvoicesInvoiceResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postInvoicesInvoiceFinalizeParamSchema = z.object({
@@ -20283,24 +20286,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postInvoicesInvoiceFinalizeParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postInvoicesInvoiceFinalizeBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postInvoicesInvoiceFinalize(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postInvoicesInvoiceFinalizeResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getInvoicesInvoiceLinesParamSchema = z.object({
@@ -20328,7 +20331,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -20338,24 +20341,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getInvoicesInvoiceLinesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(getInvoicesInvoiceLinesQuerySchema, ctx.query),
         body: parseRequestInput(
           getInvoicesInvoiceLinesBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getInvoicesInvoiceLines(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getInvoicesInvoiceLinesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postInvoicesInvoiceMarkUncollectibleParamSchema = z.object({
@@ -20376,12 +20379,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postInvoicesInvoiceMarkUncollectibleParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postInvoicesInvoiceMarkUncollectibleBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -20390,11 +20393,11 @@ export function bootstrap(
 
       ctx.body = postInvoicesInvoiceMarkUncollectibleResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postInvoicesInvoicePayParamSchema = z.object({
@@ -20415,7 +20418,7 @@ export function bootstrap(
 
   const postInvoicesInvoicePayResponseValidator = responseValidationFactory(
     [["200", s_invoice]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -20425,24 +20428,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postInvoicesInvoicePayParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postInvoicesInvoicePayBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postInvoicesInvoicePay(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postInvoicesInvoicePayResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postInvoicesInvoiceSendParamSchema = z.object({
@@ -20455,7 +20458,7 @@ export function bootstrap(
 
   const postInvoicesInvoiceSendResponseValidator = responseValidationFactory(
     [["200", s_invoice]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -20465,24 +20468,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postInvoicesInvoiceSendParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postInvoicesInvoiceSendBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postInvoicesInvoiceSend(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postInvoicesInvoiceSendResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postInvoicesInvoiceVoidParamSchema = z.object({
@@ -20495,7 +20498,7 @@ export function bootstrap(
 
   const postInvoicesInvoiceVoidResponseValidator = responseValidationFactory(
     [["200", s_invoice]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -20505,24 +20508,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postInvoicesInvoiceVoidParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postInvoicesInvoiceVoidBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postInvoicesInvoiceVoid(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postInvoicesInvoiceVoidResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getIssuingAuthorizationsQuerySchema = z.object({
@@ -20558,7 +20561,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -20569,23 +20572,23 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           getIssuingAuthorizationsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getIssuingAuthorizationsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getIssuingAuthorizations(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getIssuingAuthorizationsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getIssuingAuthorizationsAuthorizationParamSchema = z.object({
@@ -20610,15 +20613,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getIssuingAuthorizationsAuthorizationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getIssuingAuthorizationsAuthorizationQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getIssuingAuthorizationsAuthorizationBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -20627,11 +20630,11 @@ export function bootstrap(
 
       ctx.body = getIssuingAuthorizationsAuthorizationResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postIssuingAuthorizationsAuthorizationParamSchema = z.object({
@@ -20655,12 +20658,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postIssuingAuthorizationsAuthorizationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postIssuingAuthorizationsAuthorizationBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -20669,11 +20672,11 @@ export function bootstrap(
 
       ctx.body = postIssuingAuthorizationsAuthorizationResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postIssuingAuthorizationsAuthorizationApproveParamSchema = z.object({
@@ -20698,28 +20701,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postIssuingAuthorizationsAuthorizationApproveParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postIssuingAuthorizationsAuthorizationApproveBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postIssuingAuthorizationsAuthorizationApprove(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postIssuingAuthorizationsAuthorizationApproveResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postIssuingAuthorizationsAuthorizationDeclineParamSchema = z.object({
@@ -20743,28 +20746,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postIssuingAuthorizationsAuthorizationDeclineParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postIssuingAuthorizationsAuthorizationDeclineBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postIssuingAuthorizationsAuthorizationDecline(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postIssuingAuthorizationsAuthorizationDeclineResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getIssuingCardholdersQuerySchema = z.object({
@@ -20801,7 +20804,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -20813,19 +20816,19 @@ export function bootstrap(
         query: parseRequestInput(getIssuingCardholdersQuerySchema, ctx.query),
         body: parseRequestInput(
           getIssuingCardholdersBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getIssuingCardholders(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getIssuingCardholdersResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postIssuingCardholdersBodySchema = z.object({
@@ -21179,7 +21182,7 @@ export function bootstrap(
               "womens_accessory_and_specialty_shops",
               "womens_ready_to_wear_stores",
               "wrecking_and_salvage_yards",
-            ])
+            ]),
           )
           .optional(),
         blocked_categories: z
@@ -21480,7 +21483,7 @@ export function bootstrap(
               "womens_accessory_and_specialty_shops",
               "womens_ready_to_wear_stores",
               "wrecking_and_salvage_yards",
-            ])
+            ]),
           )
           .optional(),
         spending_limits: z
@@ -21785,7 +21788,7 @@ export function bootstrap(
                     "womens_accessory_and_specialty_shops",
                     "womens_ready_to_wear_stores",
                     "wrecking_and_salvage_yards",
-                  ])
+                  ]),
                 )
                 .optional(),
               interval: z.enum([
@@ -21796,7 +21799,7 @@ export function bootstrap(
                 "weekly",
                 "yearly",
               ]),
-            })
+            }),
           )
           .optional(),
         spending_limits_currency: z.coerce.string().optional(),
@@ -21808,7 +21811,7 @@ export function bootstrap(
 
   const postIssuingCardholdersResponseValidator = responseValidationFactory(
     [["200", s_issuing_cardholder]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -21820,19 +21823,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postIssuingCardholdersBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postIssuingCardholders(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postIssuingCardholdersResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getIssuingCardholdersCardholderParamSchema = z.object({
@@ -21855,15 +21858,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getIssuingCardholdersCardholderParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getIssuingCardholdersCardholderQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getIssuingCardholdersCardholderBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -21873,7 +21876,7 @@ export function bootstrap(
       ctx.body = getIssuingCardholdersCardholderResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postIssuingCardholdersCardholderParamSchema = z.object({
@@ -22233,7 +22236,7 @@ export function bootstrap(
                 "womens_accessory_and_specialty_shops",
                 "womens_ready_to_wear_stores",
                 "wrecking_and_salvage_yards",
-              ])
+              ]),
             )
             .optional(),
           blocked_categories: z
@@ -22534,7 +22537,7 @@ export function bootstrap(
                 "womens_accessory_and_specialty_shops",
                 "womens_ready_to_wear_stores",
                 "wrecking_and_salvage_yards",
-              ])
+              ]),
             )
             .optional(),
           spending_limits: z
@@ -22839,7 +22842,7 @@ export function bootstrap(
                       "womens_accessory_and_specialty_shops",
                       "womens_ready_to_wear_stores",
                       "wrecking_and_salvage_yards",
-                    ])
+                    ]),
                   )
                   .optional(),
                 interval: z.enum([
@@ -22850,7 +22853,7 @@ export function bootstrap(
                   "weekly",
                   "yearly",
                 ]),
-              })
+              }),
             )
             .optional(),
           spending_limits_currency: z.coerce.string().optional(),
@@ -22870,12 +22873,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postIssuingCardholdersCardholderParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postIssuingCardholdersCardholderBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -22885,7 +22888,7 @@ export function bootstrap(
       ctx.body = postIssuingCardholdersCardholderResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getIssuingCardsQuerySchema = z.object({
@@ -22924,7 +22927,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getIssuingCards", "/v1/issuing/cards", async (ctx, next) => {
@@ -23271,7 +23274,7 @@ export function bootstrap(
               "womens_accessory_and_specialty_shops",
               "womens_ready_to_wear_stores",
               "wrecking_and_salvage_yards",
-            ])
+            ]),
           )
           .optional(),
         blocked_categories: z
@@ -23572,7 +23575,7 @@ export function bootstrap(
               "womens_accessory_and_specialty_shops",
               "womens_ready_to_wear_stores",
               "wrecking_and_salvage_yards",
-            ])
+            ]),
           )
           .optional(),
         spending_limits: z
@@ -23877,7 +23880,7 @@ export function bootstrap(
                     "womens_accessory_and_specialty_shops",
                     "womens_ready_to_wear_stores",
                     "wrecking_and_salvage_yards",
-                  ])
+                  ]),
                 )
                 .optional(),
               interval: z.enum([
@@ -23888,7 +23891,7 @@ export function bootstrap(
                 "weekly",
                 "yearly",
               ]),
-            })
+            }),
           )
           .optional(),
       })
@@ -23899,7 +23902,7 @@ export function bootstrap(
 
   const postIssuingCardsResponseValidator = responseValidationFactory(
     [["200", s_issuing_card]],
-    s_error
+    s_error,
   )
 
   router.post("postIssuingCards", "/v1/issuing/cards", async (ctx, next) => {
@@ -23926,7 +23929,7 @@ export function bootstrap(
 
   const getIssuingCardsCardResponseValidator = responseValidationFactory(
     [["200", s_issuing_card]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -23938,19 +23941,19 @@ export function bootstrap(
         query: parseRequestInput(getIssuingCardsCardQuerySchema, ctx.query),
         body: parseRequestInput(
           getIssuingCardsCardBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getIssuingCardsCard(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getIssuingCardsCardResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postIssuingCardsCardParamSchema = z.object({ card: z.coerce.string() })
@@ -24263,7 +24266,7 @@ export function bootstrap(
                 "womens_accessory_and_specialty_shops",
                 "womens_ready_to_wear_stores",
                 "wrecking_and_salvage_yards",
-              ])
+              ]),
             )
             .optional(),
           blocked_categories: z
@@ -24564,7 +24567,7 @@ export function bootstrap(
                 "womens_accessory_and_specialty_shops",
                 "womens_ready_to_wear_stores",
                 "wrecking_and_salvage_yards",
-              ])
+              ]),
             )
             .optional(),
           spending_limits: z
@@ -24869,7 +24872,7 @@ export function bootstrap(
                       "womens_accessory_and_specialty_shops",
                       "womens_ready_to_wear_stores",
                       "wrecking_and_salvage_yards",
-                    ])
+                    ]),
                   )
                   .optional(),
                 interval: z.enum([
@@ -24880,7 +24883,7 @@ export function bootstrap(
                   "weekly",
                   "yearly",
                 ]),
-              })
+              }),
             )
             .optional(),
         })
@@ -24891,7 +24894,7 @@ export function bootstrap(
 
   const postIssuingCardsCardResponseValidator = responseValidationFactory(
     [["200", s_issuing_card]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -24903,19 +24906,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postIssuingCardsCardBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postIssuingCardsCard(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postIssuingCardsCardResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getIssuingDisputesQuerySchema = z.object({
@@ -24952,7 +24955,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -24967,13 +24970,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.getIssuingDisputes(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getIssuingDisputesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postIssuingDisputesBodySchema = z
@@ -25104,7 +25107,7 @@ export function bootstrap(
 
   const postIssuingDisputesResponseValidator = responseValidationFactory(
     [["200", s_issuing_dispute]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -25116,19 +25119,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postIssuingDisputesBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postIssuingDisputes(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postIssuingDisputesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getIssuingDisputesDisputeParamSchema = z.object({
@@ -25143,7 +25146,7 @@ export function bootstrap(
 
   const getIssuingDisputesDisputeResponseValidator = responseValidationFactory(
     [["200", s_issuing_dispute]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -25153,27 +25156,27 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getIssuingDisputesDisputeParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getIssuingDisputesDisputeQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getIssuingDisputesDisputeBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getIssuingDisputesDispute(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getIssuingDisputesDisputeResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postIssuingDisputesDisputeParamSchema = z.object({
@@ -25306,7 +25309,7 @@ export function bootstrap(
 
   const postIssuingDisputesDisputeResponseValidator = responseValidationFactory(
     [["200", s_issuing_dispute]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -25316,24 +25319,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postIssuingDisputesDisputeParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postIssuingDisputesDisputeBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postIssuingDisputesDispute(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postIssuingDisputesDisputeResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postIssuingDisputesDisputeSubmitParamSchema = z.object({
@@ -25357,12 +25360,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postIssuingDisputesDisputeSubmitParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postIssuingDisputesDisputeSubmitBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -25372,7 +25375,7 @@ export function bootstrap(
       ctx.body = postIssuingDisputesDisputeSubmitResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getIssuingSettlementsQuerySchema = z.object({
@@ -25405,7 +25408,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -25417,19 +25420,19 @@ export function bootstrap(
         query: parseRequestInput(getIssuingSettlementsQuerySchema, ctx.query),
         body: parseRequestInput(
           getIssuingSettlementsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getIssuingSettlements(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getIssuingSettlementsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getIssuingSettlementsSettlementParamSchema = z.object({
@@ -25452,15 +25455,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getIssuingSettlementsSettlementParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getIssuingSettlementsSettlementQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getIssuingSettlementsSettlementBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -25470,7 +25473,7 @@ export function bootstrap(
       ctx.body = getIssuingSettlementsSettlementResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postIssuingSettlementsSettlementParamSchema = z.object({
@@ -25494,12 +25497,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postIssuingSettlementsSettlementParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postIssuingSettlementsSettlementBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -25509,7 +25512,7 @@ export function bootstrap(
       ctx.body = postIssuingSettlementsSettlementResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getIssuingTransactionsQuerySchema = z.object({
@@ -25545,7 +25548,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -25557,19 +25560,19 @@ export function bootstrap(
         query: parseRequestInput(getIssuingTransactionsQuerySchema, ctx.query),
         body: parseRequestInput(
           getIssuingTransactionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getIssuingTransactions(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getIssuingTransactionsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getIssuingTransactionsTransactionParamSchema = z.object({
@@ -25592,15 +25595,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getIssuingTransactionsTransactionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getIssuingTransactionsTransactionQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getIssuingTransactionsTransactionBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -25609,11 +25612,11 @@ export function bootstrap(
 
       ctx.body = getIssuingTransactionsTransactionResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postIssuingTransactionsTransactionParamSchema = z.object({
@@ -25637,12 +25640,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postIssuingTransactionsTransactionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postIssuingTransactionsTransactionBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -25651,11 +25654,11 @@ export function bootstrap(
 
       ctx.body = postIssuingTransactionsTransactionResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postLinkAccountSessionsBodySchema = z.object({
@@ -25667,14 +25670,14 @@ export function bootstrap(
     expand: z.array(z.coerce.string()).optional(),
     filters: z.object({ countries: z.array(z.coerce.string()) }).optional(),
     permissions: z.array(
-      z.enum(["balances", "ownership", "payment_method", "transactions"])
+      z.enum(["balances", "ownership", "payment_method", "transactions"]),
     ),
     return_url: z.coerce.string().optional(),
   })
 
   const postLinkAccountSessionsResponseValidator = responseValidationFactory(
     [["200", s_financial_connections_session]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -25686,19 +25689,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postLinkAccountSessionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postLinkAccountSessions(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postLinkAccountSessionsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getLinkAccountSessionsSessionParamSchema = z.object({
@@ -25714,7 +25717,7 @@ export function bootstrap(
   const getLinkAccountSessionsSessionResponseValidator =
     responseValidationFactory(
       [["200", s_financial_connections_session]],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -25724,15 +25727,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getLinkAccountSessionsSessionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getLinkAccountSessionsSessionQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getLinkAccountSessionsSessionBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -25742,7 +25745,7 @@ export function bootstrap(
       ctx.body = getLinkAccountSessionsSessionResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getLinkedAccountsQuerySchema = z.object({
@@ -25773,7 +25776,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getLinkedAccounts", "/v1/linked_accounts", async (ctx, next) => {
@@ -25802,7 +25805,7 @@ export function bootstrap(
 
   const getLinkedAccountsAccountResponseValidator = responseValidationFactory(
     [["200", s_financial_connections_account]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -25812,27 +25815,27 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getLinkedAccountsAccountParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getLinkedAccountsAccountQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getLinkedAccountsAccountBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getLinkedAccountsAccount(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getLinkedAccountsAccountResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postLinkedAccountsAccountDisconnectParamSchema = z.object({
@@ -25846,7 +25849,7 @@ export function bootstrap(
   const postLinkedAccountsAccountDisconnectResponseValidator =
     responseValidationFactory(
       [["200", s_financial_connections_account]],
-      s_error
+      s_error,
     )
 
   router.post(
@@ -25856,12 +25859,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postLinkedAccountsAccountDisconnectParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postLinkedAccountsAccountDisconnectBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -25870,11 +25873,11 @@ export function bootstrap(
 
       ctx.body = postLinkedAccountsAccountDisconnectResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getLinkedAccountsAccountOwnersParamSchema = z.object({
@@ -25904,7 +25907,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -25914,15 +25917,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getLinkedAccountsAccountOwnersParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getLinkedAccountsAccountOwnersQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getLinkedAccountsAccountOwnersBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -25932,7 +25935,7 @@ export function bootstrap(
       ctx.body = getLinkedAccountsAccountOwnersResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postLinkedAccountsAccountRefreshParamSchema = z.object({
@@ -25947,7 +25950,7 @@ export function bootstrap(
   const postLinkedAccountsAccountRefreshResponseValidator =
     responseValidationFactory(
       [["200", s_financial_connections_account]],
-      s_error
+      s_error,
     )
 
   router.post(
@@ -25957,12 +25960,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postLinkedAccountsAccountRefreshParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postLinkedAccountsAccountRefreshBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -25972,7 +25975,7 @@ export function bootstrap(
       ctx.body = postLinkedAccountsAccountRefreshResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getMandatesMandateParamSchema = z.object({ mandate: z.coerce.string() })
@@ -25985,7 +25988,7 @@ export function bootstrap(
 
   const getMandatesMandateResponseValidator = responseValidationFactory(
     [["200", s_mandate]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -26000,13 +26003,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.getMandatesMandate(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getMandatesMandateResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getPaymentIntentsQuerySchema = z.object({
@@ -26040,7 +26043,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getPaymentIntents", "/v1/payment_intents", async (ctx, next) => {
@@ -26499,7 +26502,7 @@ export function bootstrap(
                   .optional(),
                 requested_address_types: z
                   .array(
-                    z.enum(["iban", "sepa", "sort_code", "spei", "zengin"])
+                    z.enum(["iban", "sepa", "sort_code", "spei", "zengin"]),
                   )
                   .optional(),
                 type: z.enum([
@@ -26670,7 +26673,7 @@ export function bootstrap(
                       "ownership",
                       "payment_method",
                       "transactions",
-                    ])
+                    ]),
                   )
                   .optional(),
                 return_url: z.coerce.string().optional(),
@@ -26739,7 +26742,7 @@ export function bootstrap(
 
   const postPaymentIntentsResponseValidator = responseValidationFactory(
     [["200", s_payment_intent]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -26754,13 +26757,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.postPaymentIntents(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postPaymentIntentsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getPaymentIntentsSearchQuerySchema = z.object({
@@ -26786,7 +26789,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -26798,19 +26801,19 @@ export function bootstrap(
         query: parseRequestInput(getPaymentIntentsSearchQuerySchema, ctx.query),
         body: parseRequestInput(
           getPaymentIntentsSearchBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getPaymentIntentsSearch(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getPaymentIntentsSearchResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getPaymentIntentsIntentParamSchema = z.object({
@@ -26826,7 +26829,7 @@ export function bootstrap(
 
   const getPaymentIntentsIntentResponseValidator = responseValidationFactory(
     [["200", s_payment_intent]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -26836,24 +26839,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getPaymentIntentsIntentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(getPaymentIntentsIntentQuerySchema, ctx.query),
         body: parseRequestInput(
           getPaymentIntentsIntentBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getPaymentIntentsIntent(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getPaymentIntentsIntentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postPaymentIntentsIntentParamSchema = z.object({
@@ -27289,7 +27292,7 @@ export function bootstrap(
                     .optional(),
                   requested_address_types: z
                     .array(
-                      z.enum(["iban", "sepa", "sort_code", "spei", "zengin"])
+                      z.enum(["iban", "sepa", "sort_code", "spei", "zengin"]),
                     )
                     .optional(),
                   type: z.enum([
@@ -27466,7 +27469,7 @@ export function bootstrap(
                         "ownership",
                         "payment_method",
                         "transactions",
-                      ])
+                      ]),
                     )
                     .optional(),
                   return_url: z.coerce.string().optional(),
@@ -27529,7 +27532,7 @@ export function bootstrap(
 
   const postPaymentIntentsIntentResponseValidator = responseValidationFactory(
     [["200", s_payment_intent]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -27539,24 +27542,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postPaymentIntentsIntentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsIntentBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postPaymentIntentsIntent(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postPaymentIntentsIntentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postPaymentIntentsIntentApplyCustomerBalanceParamSchema = z.object({
@@ -27581,28 +27584,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postPaymentIntentsIntentApplyCustomerBalanceParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsIntentApplyCustomerBalanceBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postPaymentIntentsIntentApplyCustomerBalance(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postPaymentIntentsIntentApplyCustomerBalanceResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postPaymentIntentsIntentCancelParamSchema = z.object({
@@ -27628,12 +27631,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postPaymentIntentsIntentCancelParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsIntentCancelBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -27643,7 +27646,7 @@ export function bootstrap(
       ctx.body = postPaymentIntentsIntentCancelResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postPaymentIntentsIntentCaptureParamSchema = z.object({
@@ -27674,12 +27677,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postPaymentIntentsIntentCaptureParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsIntentCaptureBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -27689,7 +27692,7 @@ export function bootstrap(
       ctx.body = postPaymentIntentsIntentCaptureResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postPaymentIntentsIntentConfirmParamSchema = z.object({
@@ -28150,7 +28153,7 @@ export function bootstrap(
                     .optional(),
                   requested_address_types: z
                     .array(
-                      z.enum(["iban", "sepa", "sort_code", "spei", "zengin"])
+                      z.enum(["iban", "sepa", "sort_code", "spei", "zengin"]),
                     )
                     .optional(),
                   type: z.enum([
@@ -28327,7 +28330,7 @@ export function bootstrap(
                         "ownership",
                         "payment_method",
                         "transactions",
-                      ])
+                      ]),
                     )
                     .optional(),
                   return_url: z.coerce.string().optional(),
@@ -28397,12 +28400,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postPaymentIntentsIntentConfirmParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsIntentConfirmBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -28412,7 +28415,7 @@ export function bootstrap(
       ctx.body = postPaymentIntentsIntentConfirmResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postPaymentIntentsIntentIncrementAuthorizationParamSchema = z.object({
@@ -28441,29 +28444,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postPaymentIntentsIntentIncrementAuthorizationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsIntentIncrementAuthorizationBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postPaymentIntentsIntentIncrementAuthorization(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         postPaymentIntentsIntentIncrementAuthorizationResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postPaymentIntentsIntentVerifyMicrodepositsParamSchema = z.object({
@@ -28489,28 +28492,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postPaymentIntentsIntentVerifyMicrodepositsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsIntentVerifyMicrodepositsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postPaymentIntentsIntentVerifyMicrodeposits(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postPaymentIntentsIntentVerifyMicrodepositsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getPaymentLinksQuerySchema = z.object({
@@ -28535,7 +28538,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getPaymentLinks", "/v1/payment_links", async (ctx, next) => {
@@ -28580,7 +28583,10 @@ export function bootstrap(
           dropdown: z
             .object({
               options: z.array(
-                z.object({ label: z.coerce.string(), value: z.coerce.string() })
+                z.object({
+                  label: z.coerce.string(),
+                  value: z.coerce.string(),
+                }),
               ),
             })
             .optional(),
@@ -28591,7 +28597,7 @@ export function bootstrap(
           }),
           optional: z.coerce.boolean().optional(),
           type: z.enum(["dropdown", "numeric", "text"]),
-        })
+        }),
       )
       .optional(),
     custom_text: z
@@ -28619,7 +28625,7 @@ export function bootstrap(
             ]),
             custom_fields: z.union([
               z.array(
-                z.object({ name: z.coerce.string(), value: z.coerce.string() })
+                z.object({ name: z.coerce.string(), value: z.coerce.string() }),
               ),
               z.enum([""]),
             ]),
@@ -28649,7 +28655,7 @@ export function bootstrap(
           .optional(),
         price: z.coerce.string(),
         quantity: z.coerce.number(),
-      })
+      }),
     ),
     metadata: z.object({}).optional(),
     on_behalf_of: z.coerce.string().optional(),
@@ -28692,7 +28698,7 @@ export function bootstrap(
           "sofort",
           "us_bank_account",
           "wechat_pay",
-        ])
+        ]),
       )
       .optional(),
     phone_number_collection: z
@@ -28939,7 +28945,7 @@ export function bootstrap(
             "ZM",
             "ZW",
             "ZZ",
-          ])
+          ]),
         ),
       })
       .optional(),
@@ -28964,7 +28970,7 @@ export function bootstrap(
 
   const postPaymentLinksResponseValidator = responseValidationFactory(
     [["200", s_payment_link]],
-    s_error
+    s_error,
   )
 
   router.post("postPaymentLinks", "/v1/payment_links", async (ctx, next) => {
@@ -28993,7 +28999,7 @@ export function bootstrap(
 
   const getPaymentLinksPaymentLinkResponseValidator = responseValidationFactory(
     [["200", s_payment_link]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -29003,27 +29009,27 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getPaymentLinksPaymentLinkParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getPaymentLinksPaymentLinkQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getPaymentLinksPaymentLinkBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getPaymentLinksPaymentLink(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getPaymentLinksPaymentLinkResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postPaymentLinksPaymentLinkParamSchema = z.object({
@@ -29054,7 +29060,7 @@ export function bootstrap(
                   z.object({
                     label: z.coerce.string(),
                     value: z.coerce.string(),
-                  })
+                  }),
                 ),
               })
               .optional(),
@@ -29065,7 +29071,7 @@ export function bootstrap(
             }),
             optional: z.coerce.boolean().optional(),
             type: z.enum(["dropdown", "numeric", "text"]),
-          })
+          }),
         ),
         z.enum([""]),
       ]),
@@ -29097,7 +29103,7 @@ export function bootstrap(
                   z.object({
                     name: z.coerce.string(),
                     value: z.coerce.string(),
-                  })
+                  }),
                 ),
                 z.enum([""]),
               ]),
@@ -29128,7 +29134,7 @@ export function bootstrap(
               .optional(),
             id: z.coerce.string(),
             quantity: z.coerce.number().optional(),
-          })
+          }),
         )
         .optional(),
       metadata: z.object({}).optional(),
@@ -29163,7 +29169,7 @@ export function bootstrap(
             "sofort",
             "us_bank_account",
             "wechat_pay",
-          ])
+          ]),
         ),
         z.enum([""]),
       ]),
@@ -29408,7 +29414,7 @@ export function bootstrap(
               "ZM",
               "ZW",
               "ZZ",
-            ])
+            ]),
           ),
         }),
         z.enum([""]),
@@ -29426,24 +29432,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postPaymentLinksPaymentLinkParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentLinksPaymentLinkBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postPaymentLinksPaymentLink(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postPaymentLinksPaymentLinkResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getPaymentLinksPaymentLinkLineItemsParamSchema = z.object({
@@ -29472,7 +29478,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -29482,15 +29488,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getPaymentLinksPaymentLinkLineItemsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getPaymentLinksPaymentLinkLineItemsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getPaymentLinksPaymentLinkLineItemsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -29499,11 +29505,11 @@ export function bootstrap(
 
       ctx.body = getPaymentLinksPaymentLinkLineItemsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getPaymentMethodsQuerySchema = z.object({
@@ -29561,7 +29567,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getPaymentMethods", "/v1/payment_methods", async (ctx, next) => {
@@ -29832,7 +29838,7 @@ export function bootstrap(
 
   const postPaymentMethodsResponseValidator = responseValidationFactory(
     [["200", s_payment_method]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -29847,13 +29853,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.postPaymentMethods(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postPaymentMethodsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getPaymentMethodsPaymentMethodParamSchema = z.object({
@@ -29876,15 +29882,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getPaymentMethodsPaymentMethodParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getPaymentMethodsPaymentMethodQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getPaymentMethodsPaymentMethodBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -29894,7 +29900,7 @@ export function bootstrap(
       ctx.body = getPaymentMethodsPaymentMethodResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postPaymentMethodsPaymentMethodParamSchema = z.object({
@@ -29948,12 +29954,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postPaymentMethodsPaymentMethodParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentMethodsPaymentMethodBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -29963,7 +29969,7 @@ export function bootstrap(
       ctx.body = postPaymentMethodsPaymentMethodResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postPaymentMethodsPaymentMethodAttachParamSchema = z.object({
@@ -29985,12 +29991,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postPaymentMethodsPaymentMethodAttachParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentMethodsPaymentMethodAttachBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -29999,11 +30005,11 @@ export function bootstrap(
 
       ctx.body = postPaymentMethodsPaymentMethodAttachResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postPaymentMethodsPaymentMethodDetachParamSchema = z.object({
@@ -30024,12 +30030,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postPaymentMethodsPaymentMethodDetachParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentMethodsPaymentMethodDetachBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -30038,11 +30044,11 @@ export function bootstrap(
 
       ctx.body = postPaymentMethodsPaymentMethodDetachResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getPayoutsQuerySchema = z.object({
@@ -30086,7 +30092,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getPayouts", "/v1/payouts", async (ctx, next) => {
@@ -30117,7 +30123,7 @@ export function bootstrap(
 
   const postPayoutsResponseValidator = responseValidationFactory(
     [["200", s_payout]],
-    s_error
+    s_error,
   )
 
   router.post("postPayouts", "/v1/payouts", async (ctx, next) => {
@@ -30144,7 +30150,7 @@ export function bootstrap(
 
   const getPayoutsPayoutResponseValidator = responseValidationFactory(
     [["200", s_payout]],
-    s_error
+    s_error,
   )
 
   router.get("getPayoutsPayout", "/v1/payouts/:payout", async (ctx, next) => {
@@ -30172,7 +30178,7 @@ export function bootstrap(
 
   const postPayoutsPayoutResponseValidator = responseValidationFactory(
     [["200", s_payout]],
-    s_error
+    s_error,
   )
 
   router.post("postPayoutsPayout", "/v1/payouts/:payout", async (ctx, next) => {
@@ -30199,7 +30205,7 @@ export function bootstrap(
 
   const postPayoutsPayoutCancelResponseValidator = responseValidationFactory(
     [["200", s_payout]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -30209,24 +30215,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postPayoutsPayoutCancelParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postPayoutsPayoutCancelBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postPayoutsPayoutCancel(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postPayoutsPayoutCancelResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postPayoutsPayoutReverseParamSchema = z.object({
@@ -30242,7 +30248,7 @@ export function bootstrap(
 
   const postPayoutsPayoutReverseResponseValidator = responseValidationFactory(
     [["200", s_payout]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -30252,24 +30258,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postPayoutsPayoutReverseParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postPayoutsPayoutReverseBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postPayoutsPayoutReverse(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postPayoutsPayoutReverseResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getPlansQuerySchema = z.object({
@@ -30304,7 +30310,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getPlans", "/v1/plans", async (ctx, next) => {
@@ -30356,7 +30362,7 @@ export function bootstrap(
           unit_amount: z.coerce.number().optional(),
           unit_amount_decimal: z.coerce.string().optional(),
           up_to: z.union([z.enum(["inf"]), z.coerce.number()]),
-        })
+        }),
       )
       .optional(),
     tiers_mode: z.enum(["graduated", "volume"]).optional(),
@@ -30369,7 +30375,7 @@ export function bootstrap(
 
   const postPlansResponseValidator = responseValidationFactory(
     [["200", s_plan]],
-    s_error
+    s_error,
   )
 
   router.post("postPlans", "/v1/plans", async (ctx, next) => {
@@ -30392,7 +30398,7 @@ export function bootstrap(
 
   const deletePlansPlanResponseValidator = responseValidationFactory(
     [["200", s_deleted_plan]],
-    s_error
+    s_error,
   )
 
   router.delete("deletePlansPlan", "/v1/plans/:plan", async (ctx, next) => {
@@ -30419,7 +30425,7 @@ export function bootstrap(
 
   const getPlansPlanResponseValidator = responseValidationFactory(
     [["200", s_plan]],
-    s_error
+    s_error,
   )
 
   router.get("getPlansPlan", "/v1/plans/:plan", async (ctx, next) => {
@@ -30451,7 +30457,7 @@ export function bootstrap(
 
   const postPlansPlanResponseValidator = responseValidationFactory(
     [["200", s_plan]],
-    s_error
+    s_error,
   )
 
   router.post("postPlansPlan", "/v1/plans/:plan", async (ctx, next) => {
@@ -30509,7 +30515,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getPrices", "/v1/prices", async (ctx, next) => {
@@ -30574,7 +30580,7 @@ export function bootstrap(
           unit_amount: z.coerce.number().optional(),
           unit_amount_decimal: z.coerce.string().optional(),
           up_to: z.union([z.enum(["inf"]), z.coerce.number()]),
-        })
+        }),
       )
       .optional(),
     tiers_mode: z.enum(["graduated", "volume"]).optional(),
@@ -30588,7 +30594,7 @@ export function bootstrap(
 
   const postPricesResponseValidator = responseValidationFactory(
     [["200", s_price]],
-    s_error
+    s_error,
   )
 
   router.post("postPrices", "/v1/prices", async (ctx, next) => {
@@ -30628,7 +30634,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getPricesSearch", "/v1/prices/search", async (ctx, next) => {
@@ -30655,7 +30661,7 @@ export function bootstrap(
 
   const getPricesPriceResponseValidator = responseValidationFactory(
     [["200", s_price]],
-    s_error
+    s_error,
   )
 
   router.get("getPricesPrice", "/v1/prices/:price", async (ctx, next) => {
@@ -30691,7 +30697,7 @@ export function bootstrap(
 
   const postPricesPriceResponseValidator = responseValidationFactory(
     [["200", s_price]],
-    s_error
+    s_error,
   )
 
   router.post("postPricesPrice", "/v1/prices/:price", async (ctx, next) => {
@@ -30742,7 +30748,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getProducts", "/v1/products", async (ctx, next) => {
@@ -30801,7 +30807,7 @@ export function bootstrap(
 
   const postProductsResponseValidator = responseValidationFactory(
     [["200", s_product]],
-    s_error
+    s_error,
   )
 
   router.post("postProducts", "/v1/products", async (ctx, next) => {
@@ -30841,7 +30847,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getProductsSearch", "/v1/products/search", async (ctx, next) => {
@@ -30864,7 +30870,7 @@ export function bootstrap(
 
   const deleteProductsIdResponseValidator = responseValidationFactory(
     [["200", s_deleted_product]],
-    s_error
+    s_error,
   )
 
   router.delete("deleteProductsId", "/v1/products/:id", async (ctx, next) => {
@@ -30891,7 +30897,7 @@ export function bootstrap(
 
   const getProductsIdResponseValidator = responseValidationFactory(
     [["200", s_product]],
-    s_error
+    s_error,
   )
 
   router.get("getProductsId", "/v1/products/:id", async (ctx, next) => {
@@ -30938,7 +30944,7 @@ export function bootstrap(
 
   const postProductsIdResponseValidator = responseValidationFactory(
     [["200", s_product]],
-    s_error
+    s_error,
   )
 
   router.post("postProductsId", "/v1/products/:id", async (ctx, next) => {
@@ -30989,7 +30995,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getPromotionCodes", "/v1/promotion_codes", async (ctx, next) => {
@@ -31027,7 +31033,7 @@ export function bootstrap(
 
   const postPromotionCodesResponseValidator = responseValidationFactory(
     [["200", s_promotion_code]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -31042,13 +31048,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.postPromotionCodes(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postPromotionCodesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getPromotionCodesPromotionCodeParamSchema = z.object({
@@ -31071,15 +31077,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getPromotionCodesPromotionCodeParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getPromotionCodesPromotionCodeQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getPromotionCodesPromotionCodeBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -31089,7 +31095,7 @@ export function bootstrap(
       ctx.body = getPromotionCodesPromotionCodeResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postPromotionCodesPromotionCodeParamSchema = z.object({
@@ -31117,12 +31123,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postPromotionCodesPromotionCodeParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postPromotionCodesPromotionCodeBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -31132,7 +31138,7 @@ export function bootstrap(
       ctx.body = postPromotionCodesPromotionCodeResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getQuotesQuerySchema = z.object({
@@ -31159,7 +31165,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getQuotes", "/v1/quotes", async (ctx, next) => {
@@ -31192,7 +31198,7 @@ export function bootstrap(
           z.object({
             coupon: z.coerce.string().optional(),
             discount: z.coerce.string().optional(),
-          })
+          }),
         ),
         z.enum([""]),
       ]),
@@ -31232,7 +31238,7 @@ export function bootstrap(
               .optional(),
             quantity: z.coerce.number().optional(),
             tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
-          })
+          }),
         )
         .optional(),
       metadata: z.object({}).optional(),
@@ -31262,7 +31268,7 @@ export function bootstrap(
 
   const postQuotesResponseValidator = responseValidationFactory(
     [["200", s_quote]],
-    s_error
+    s_error,
   )
 
   router.post("postQuotes", "/v1/quotes", async (ctx, next) => {
@@ -31289,7 +31295,7 @@ export function bootstrap(
 
   const getQuotesQuoteResponseValidator = responseValidationFactory(
     [["200", s_quote]],
-    s_error
+    s_error,
   )
 
   router.get("getQuotesQuote", "/v1/quotes/:quote", async (ctx, next) => {
@@ -31324,7 +31330,7 @@ export function bootstrap(
           z.object({
             coupon: z.coerce.string().optional(),
             discount: z.coerce.string().optional(),
-          })
+          }),
         ),
         z.enum([""]),
       ]),
@@ -31359,7 +31365,7 @@ export function bootstrap(
               .optional(),
             quantity: z.coerce.number().optional(),
             tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
-          })
+          }),
         )
         .optional(),
       metadata: z.object({}).optional(),
@@ -31388,7 +31394,7 @@ export function bootstrap(
 
   const postQuotesQuoteResponseValidator = responseValidationFactory(
     [["200", s_quote]],
-    s_error
+    s_error,
   )
 
   router.post("postQuotesQuote", "/v1/quotes/:quote", async (ctx, next) => {
@@ -31415,7 +31421,7 @@ export function bootstrap(
 
   const postQuotesQuoteAcceptResponseValidator = responseValidationFactory(
     [["200", s_quote]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -31427,19 +31433,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postQuotesQuoteAcceptBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postQuotesQuoteAccept(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postQuotesQuoteAcceptResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postQuotesQuoteCancelParamSchema = z.object({
@@ -31452,7 +31458,7 @@ export function bootstrap(
 
   const postQuotesQuoteCancelResponseValidator = responseValidationFactory(
     [["200", s_quote]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -31464,19 +31470,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postQuotesQuoteCancelBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postQuotesQuoteCancel(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postQuotesQuoteCancelResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getQuotesQuoteComputedUpfrontLineItemsParamSchema = z.object({
@@ -31507,7 +31513,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -31517,15 +31523,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getQuotesQuoteComputedUpfrontLineItemsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getQuotesQuoteComputedUpfrontLineItemsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getQuotesQuoteComputedUpfrontLineItemsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -31534,11 +31540,11 @@ export function bootstrap(
 
       ctx.body = getQuotesQuoteComputedUpfrontLineItemsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postQuotesQuoteFinalizeParamSchema = z.object({
@@ -31554,7 +31560,7 @@ export function bootstrap(
 
   const postQuotesQuoteFinalizeResponseValidator = responseValidationFactory(
     [["200", s_quote]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -31564,24 +31570,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postQuotesQuoteFinalizeParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postQuotesQuoteFinalizeBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postQuotesQuoteFinalize(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postQuotesQuoteFinalizeResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getQuotesQuoteLineItemsParamSchema = z.object({
@@ -31609,7 +31615,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -31619,24 +31625,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getQuotesQuoteLineItemsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(getQuotesQuoteLineItemsQuerySchema, ctx.query),
         body: parseRequestInput(
           getQuotesQuoteLineItemsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getQuotesQuoteLineItems(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getQuotesQuoteLineItemsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getQuotesQuotePdfParamSchema = z.object({ quote: z.coerce.string() })
@@ -31649,7 +31655,7 @@ export function bootstrap(
 
   const getQuotesQuotePdfResponseValidator = responseValidationFactory(
     [["200", z.coerce.string()]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -31664,13 +31670,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.getQuotesQuotePdf(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getQuotesQuotePdfResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getRadarEarlyFraudWarningsQuerySchema = z.object({
@@ -31696,7 +31702,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -31707,23 +31713,23 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           getRadarEarlyFraudWarningsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getRadarEarlyFraudWarningsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getRadarEarlyFraudWarnings(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getRadarEarlyFraudWarningsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getRadarEarlyFraudWarningsEarlyFraudWarningParamSchema = z.object({
@@ -31748,31 +31754,31 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getRadarEarlyFraudWarningsEarlyFraudWarningParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getRadarEarlyFraudWarningsEarlyFraudWarningQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getRadarEarlyFraudWarningsEarlyFraudWarningBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.getRadarEarlyFraudWarningsEarlyFraudWarning(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = getRadarEarlyFraudWarningsEarlyFraudWarningResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getRadarValueListItemsQuerySchema = z.object({
@@ -31807,7 +31813,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -31819,19 +31825,19 @@ export function bootstrap(
         query: parseRequestInput(getRadarValueListItemsQuerySchema, ctx.query),
         body: parseRequestInput(
           getRadarValueListItemsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getRadarValueListItems(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getRadarValueListItemsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postRadarValueListItemsBodySchema = z.object({
@@ -31842,7 +31848,7 @@ export function bootstrap(
 
   const postRadarValueListItemsResponseValidator = responseValidationFactory(
     [["200", s_radar_value_list_item]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -31854,19 +31860,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postRadarValueListItemsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postRadarValueListItems(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postRadarValueListItemsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteRadarValueListItemsItemParamSchema = z.object({
@@ -31878,7 +31884,7 @@ export function bootstrap(
   const deleteRadarValueListItemsItemResponseValidator =
     responseValidationFactory(
       [["200", s_deleted_radar_value_list_item]],
-      s_error
+      s_error,
     )
 
   router.delete(
@@ -31888,12 +31894,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteRadarValueListItemsItemParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteRadarValueListItemsItemBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -31903,7 +31909,7 @@ export function bootstrap(
       ctx.body = deleteRadarValueListItemsItemResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getRadarValueListItemsItemParamSchema = z.object({
@@ -31918,7 +31924,7 @@ export function bootstrap(
 
   const getRadarValueListItemsItemResponseValidator = responseValidationFactory(
     [["200", s_radar_value_list_item]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -31928,27 +31934,27 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getRadarValueListItemsItemParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getRadarValueListItemsItemQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getRadarValueListItemsItemBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getRadarValueListItemsItem(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getRadarValueListItemsItemResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getRadarValueListsQuerySchema = z.object({
@@ -31983,7 +31989,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -31998,13 +32004,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.getRadarValueLists(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getRadarValueListsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postRadarValueListsBodySchema = z.object({
@@ -32028,7 +32034,7 @@ export function bootstrap(
 
   const postRadarValueListsResponseValidator = responseValidationFactory(
     [["200", s_radar_value_list]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -32040,19 +32046,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postRadarValueListsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postRadarValueLists(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postRadarValueListsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteRadarValueListsValueListParamSchema = z.object({
@@ -32071,12 +32077,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteRadarValueListsValueListParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteRadarValueListsValueListBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -32086,7 +32092,7 @@ export function bootstrap(
       ctx.body = deleteRadarValueListsValueListResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getRadarValueListsValueListParamSchema = z.object({
@@ -32109,27 +32115,27 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getRadarValueListsValueListParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getRadarValueListsValueListQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getRadarValueListsValueListBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getRadarValueListsValueList(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getRadarValueListsValueListResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postRadarValueListsValueListParamSchema = z.object({
@@ -32155,12 +32161,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postRadarValueListsValueListParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postRadarValueListsValueListBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -32170,7 +32176,7 @@ export function bootstrap(
       ctx.body = postRadarValueListsValueListResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getRefundsQuerySchema = z.object({
@@ -32205,7 +32211,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getRefunds", "/v1/refunds", async (ctx, next) => {
@@ -32243,7 +32249,7 @@ export function bootstrap(
 
   const postRefundsResponseValidator = responseValidationFactory(
     [["200", s_refund]],
-    s_error
+    s_error,
   )
 
   router.post("postRefunds", "/v1/refunds", async (ctx, next) => {
@@ -32270,7 +32276,7 @@ export function bootstrap(
 
   const getRefundsRefundResponseValidator = responseValidationFactory(
     [["200", s_refund]],
-    s_error
+    s_error,
   )
 
   router.get("getRefundsRefund", "/v1/refunds/:refund", async (ctx, next) => {
@@ -32298,7 +32304,7 @@ export function bootstrap(
 
   const postRefundsRefundResponseValidator = responseValidationFactory(
     [["200", s_refund]],
-    s_error
+    s_error,
   )
 
   router.post("postRefundsRefund", "/v1/refunds/:refund", async (ctx, next) => {
@@ -32325,7 +32331,7 @@ export function bootstrap(
 
   const postRefundsRefundCancelResponseValidator = responseValidationFactory(
     [["200", s_refund]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -32335,24 +32341,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postRefundsRefundCancelParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postRefundsRefundCancelBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postRefundsRefundCancel(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postRefundsRefundCancelResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getReportingReportRunsQuerySchema = z.object({
@@ -32385,7 +32391,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -32397,19 +32403,19 @@ export function bootstrap(
         query: parseRequestInput(getReportingReportRunsQuerySchema, ctx.query),
         body: parseRequestInput(
           getReportingReportRunsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getReportingReportRuns(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getReportingReportRunsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postReportingReportRunsBodySchema = z.object({
@@ -33069,7 +33075,7 @@ export function bootstrap(
 
   const postReportingReportRunsResponseValidator = responseValidationFactory(
     [["200", s_reporting_report_run]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -33081,19 +33087,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postReportingReportRunsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postReportingReportRuns(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postReportingReportRunsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getReportingReportRunsReportRunParamSchema = z.object({
@@ -33116,15 +33122,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getReportingReportRunsReportRunParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getReportingReportRunsReportRunQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getReportingReportRunsReportRunBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -33134,7 +33140,7 @@ export function bootstrap(
       ctx.body = getReportingReportRunsReportRunResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getReportingReportTypesQuerySchema = z.object({
@@ -33155,7 +33161,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -33167,19 +33173,19 @@ export function bootstrap(
         query: parseRequestInput(getReportingReportTypesQuerySchema, ctx.query),
         body: parseRequestInput(
           getReportingReportTypesBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getReportingReportTypes(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getReportingReportTypesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getReportingReportTypesReportTypeParamSchema = z.object({
@@ -33202,15 +33208,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getReportingReportTypesReportTypeParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getReportingReportTypesReportTypeQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getReportingReportTypesReportTypeBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -33219,11 +33225,11 @@ export function bootstrap(
 
       ctx.body = getReportingReportTypesReportTypeResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getReviewsQuerySchema = z.object({
@@ -33256,7 +33262,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getReviews", "/v1/reviews", async (ctx, next) => {
@@ -33283,7 +33289,7 @@ export function bootstrap(
 
   const getReviewsReviewResponseValidator = responseValidationFactory(
     [["200", s_review]],
-    s_error
+    s_error,
   )
 
   router.get("getReviewsReview", "/v1/reviews/:review", async (ctx, next) => {
@@ -33310,7 +33316,7 @@ export function bootstrap(
 
   const postReviewsReviewApproveResponseValidator = responseValidationFactory(
     [["200", s_review]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -33320,24 +33326,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postReviewsReviewApproveParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postReviewsReviewApproveBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postReviewsReviewApprove(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postReviewsReviewApproveResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getSetupAttemptsQuerySchema = z.object({
@@ -33371,7 +33377,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getSetupAttempts", "/v1/setup_attempts", async (ctx, next) => {
@@ -33421,7 +33427,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getSetupIntents", "/v1/setup_intents", async (ctx, next) => {
@@ -33786,7 +33792,7 @@ export function bootstrap(
                         "ownership",
                         "payment_method",
                         "transactions",
-                      ])
+                      ]),
                     )
                     .optional(),
                   return_url: z.coerce.string().optional(),
@@ -33817,7 +33823,7 @@ export function bootstrap(
 
   const postSetupIntentsResponseValidator = responseValidationFactory(
     [["200", s_setup_intent]],
-    s_error
+    s_error,
   )
 
   router.post("postSetupIntents", "/v1/setup_intents", async (ctx, next) => {
@@ -33847,7 +33853,7 @@ export function bootstrap(
 
   const getSetupIntentsIntentResponseValidator = responseValidationFactory(
     [["200", s_setup_intent]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -33859,19 +33865,19 @@ export function bootstrap(
         query: parseRequestInput(getSetupIntentsIntentQuerySchema, ctx.query),
         body: parseRequestInput(
           getSetupIntentsIntentBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getSetupIntentsIntent(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getSetupIntentsIntentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postSetupIntentsIntentParamSchema = z.object({
@@ -34206,7 +34212,7 @@ export function bootstrap(
                         "ownership",
                         "payment_method",
                         "transactions",
-                      ])
+                      ]),
                     )
                     .optional(),
                   return_url: z.coerce.string().optional(),
@@ -34232,7 +34238,7 @@ export function bootstrap(
 
   const postSetupIntentsIntentResponseValidator = responseValidationFactory(
     [["200", s_setup_intent]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -34242,24 +34248,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postSetupIntentsIntentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postSetupIntentsIntentBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postSetupIntentsIntent(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postSetupIntentsIntentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postSetupIntentsIntentCancelParamSchema = z.object({
@@ -34285,12 +34291,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postSetupIntentsIntentCancelParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postSetupIntentsIntentCancelBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -34300,7 +34306,7 @@ export function bootstrap(
       ctx.body = postSetupIntentsIntentCancelResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postSetupIntentsIntentConfirmParamSchema = z.object({
@@ -34655,7 +34661,7 @@ export function bootstrap(
                         "ownership",
                         "payment_method",
                         "transactions",
-                      ])
+                      ]),
                     )
                     .optional(),
                   return_url: z.coerce.string().optional(),
@@ -34689,12 +34695,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postSetupIntentsIntentConfirmParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postSetupIntentsIntentConfirmBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -34704,7 +34710,7 @@ export function bootstrap(
       ctx.body = postSetupIntentsIntentConfirmResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postSetupIntentsIntentVerifyMicrodepositsParamSchema = z.object({
@@ -34730,28 +34736,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postSetupIntentsIntentVerifyMicrodepositsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postSetupIntentsIntentVerifyMicrodepositsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postSetupIntentsIntentVerifyMicrodeposits(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postSetupIntentsIntentVerifyMicrodepositsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getShippingRatesQuerySchema = z.object({
@@ -34786,7 +34792,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getShippingRates", "/v1/shipping_rates", async (ctx, next) => {
@@ -34837,7 +34843,7 @@ export function bootstrap(
 
   const postShippingRatesResponseValidator = responseValidationFactory(
     [["200", s_shipping_rate]],
-    s_error
+    s_error,
   )
 
   router.post("postShippingRates", "/v1/shipping_rates", async (ctx, next) => {
@@ -34874,15 +34880,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getShippingRatesShippingRateTokenParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getShippingRatesShippingRateTokenQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getShippingRatesShippingRateTokenBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -34891,11 +34897,11 @@ export function bootstrap(
 
       ctx.body = getShippingRatesShippingRateTokenResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postShippingRatesShippingRateTokenParamSchema = z.object({
@@ -34926,12 +34932,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postShippingRatesShippingRateTokenParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postShippingRatesShippingRateTokenBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -34940,11 +34946,11 @@ export function bootstrap(
 
       ctx.body = postShippingRatesShippingRateTokenResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getSigmaScheduledQueryRunsQuerySchema = z.object({
@@ -34968,7 +34974,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -34979,23 +34985,23 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           getSigmaScheduledQueryRunsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getSigmaScheduledQueryRunsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getSigmaScheduledQueryRuns(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getSigmaScheduledQueryRunsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getSigmaScheduledQueryRunsScheduledQueryRunParamSchema = z.object({
@@ -35020,31 +35026,31 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getSigmaScheduledQueryRunsScheduledQueryRunParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getSigmaScheduledQueryRunsScheduledQueryRunQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getSigmaScheduledQueryRunsScheduledQueryRunBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.getSigmaScheduledQueryRunsScheduledQueryRun(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = getSigmaScheduledQueryRunsScheduledQueryRunResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postSourcesBodySchema = z
@@ -35129,7 +35135,7 @@ export function bootstrap(
                 parent: z.coerce.string().optional(),
                 quantity: z.coerce.number().optional(),
                 type: z.enum(["discount", "shipping", "sku", "tax"]).optional(),
-              })
+              }),
             )
             .optional(),
           shipping: z
@@ -35159,7 +35165,7 @@ export function bootstrap(
 
   const postSourcesResponseValidator = responseValidationFactory(
     [["200", s_source]],
-    s_error
+    s_error,
   )
 
   router.post("postSources", "/v1/sources", async (ctx, next) => {
@@ -35187,7 +35193,7 @@ export function bootstrap(
 
   const getSourcesSourceResponseValidator = responseValidationFactory(
     [["200", s_source]],
-    s_error
+    s_error,
   )
 
   router.get("getSourcesSource", "/v1/sources/:source", async (ctx, next) => {
@@ -35274,7 +35280,7 @@ export function bootstrap(
                 parent: z.coerce.string().optional(),
                 quantity: z.coerce.number().optional(),
                 type: z.enum(["discount", "shipping", "sku", "tax"]).optional(),
-              })
+              }),
             )
             .optional(),
           shipping: z
@@ -35300,7 +35306,7 @@ export function bootstrap(
 
   const postSourcesSourceResponseValidator = responseValidationFactory(
     [["200", s_source]],
-    s_error
+    s_error,
   )
 
   router.post("postSourcesSource", "/v1/sources/:source", async (ctx, next) => {
@@ -35340,32 +35346,32 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getSourcesSourceMandateNotificationsMandateNotificationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getSourcesSourceMandateNotificationsMandateNotificationQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getSourcesSourceMandateNotificationsMandateNotificationBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.getSourcesSourceMandateNotificationsMandateNotification(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         getSourcesSourceMandateNotificationsMandateNotificationResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getSourcesSourceSourceTransactionsParamSchema = z.object({
@@ -35394,7 +35400,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -35404,15 +35410,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getSourcesSourceSourceTransactionsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getSourcesSourceSourceTransactionsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getSourcesSourceSourceTransactionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -35421,11 +35427,11 @@ export function bootstrap(
 
       ctx.body = getSourcesSourceSourceTransactionsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getSourcesSourceSourceTransactionsSourceTransactionParamSchema =
@@ -35451,32 +35457,32 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getSourcesSourceSourceTransactionsSourceTransactionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getSourcesSourceSourceTransactionsSourceTransactionQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getSourcesSourceSourceTransactionsSourceTransactionBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.getSourcesSourceSourceTransactionsSourceTransaction(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         getSourcesSourceSourceTransactionsSourceTransactionResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postSourcesSourceVerifyParamSchema = z.object({
@@ -35490,7 +35496,7 @@ export function bootstrap(
 
   const postSourcesSourceVerifyResponseValidator = responseValidationFactory(
     [["200", s_source]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -35500,24 +35506,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postSourcesSourceVerifyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postSourcesSourceVerifyBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postSourcesSourceVerify(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postSourcesSourceVerifyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getSubscriptionItemsQuerySchema = z.object({
@@ -35542,7 +35548,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -35554,19 +35560,19 @@ export function bootstrap(
         query: parseRequestInput(getSubscriptionItemsQuerySchema, ctx.query),
         body: parseRequestInput(
           getSubscriptionItemsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getSubscriptionItems(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getSubscriptionItemsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postSubscriptionItemsBodySchema = z.object({
@@ -35611,7 +35617,7 @@ export function bootstrap(
 
   const postSubscriptionItemsResponseValidator = responseValidationFactory(
     [["200", s_subscription_item]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -35623,19 +35629,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postSubscriptionItemsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postSubscriptionItems(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postSubscriptionItemsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteSubscriptionItemsItemParamSchema = z.object({
@@ -35662,24 +35668,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteSubscriptionItemsItemParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteSubscriptionItemsItemBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.deleteSubscriptionItemsItem(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = deleteSubscriptionItemsItemResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getSubscriptionItemsItemParamSchema = z.object({
@@ -35694,7 +35700,7 @@ export function bootstrap(
 
   const getSubscriptionItemsItemResponseValidator = responseValidationFactory(
     [["200", s_subscription_item]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -35704,27 +35710,27 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getSubscriptionItemsItemParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getSubscriptionItemsItemQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getSubscriptionItemsItemBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getSubscriptionItemsItem(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getSubscriptionItemsItemResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postSubscriptionItemsItemParamSchema = z.object({
@@ -35775,7 +35781,7 @@ export function bootstrap(
 
   const postSubscriptionItemsItemResponseValidator = responseValidationFactory(
     [["200", s_subscription_item]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -35785,24 +35791,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postSubscriptionItemsItemParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postSubscriptionItemsItemBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postSubscriptionItemsItem(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postSubscriptionItemsItemResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getSubscriptionItemsSubscriptionItemUsageRecordSummariesParamSchema =
@@ -35833,7 +35839,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -35843,36 +35849,36 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getSubscriptionItemsSubscriptionItemUsageRecordSummariesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getSubscriptionItemsSubscriptionItemUsageRecordSummariesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getSubscriptionItemsSubscriptionItemUsageRecordSummariesBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.getSubscriptionItemsSubscriptionItemUsageRecordSummaries(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         getSubscriptionItemsSubscriptionItemUsageRecordSummariesResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postSubscriptionItemsSubscriptionItemUsageRecordsParamSchema = z.object(
-    { subscription_item: z.coerce.string() }
+    { subscription_item: z.coerce.string() },
   )
 
   const postSubscriptionItemsSubscriptionItemUsageRecordsBodySchema = z.object({
@@ -35892,29 +35898,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postSubscriptionItemsSubscriptionItemUsageRecordsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postSubscriptionItemsSubscriptionItemUsageRecordsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postSubscriptionItemsSubscriptionItemUsageRecords(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         postSubscriptionItemsSubscriptionItemUsageRecordsResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getSubscriptionSchedulesQuerySchema = z.object({
@@ -35976,7 +35982,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -35987,23 +35993,23 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           getSubscriptionSchedulesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getSubscriptionSchedulesBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getSubscriptionSchedules(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getSubscriptionSchedulesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postSubscriptionSchedulesBodySchema = z
@@ -36066,7 +36072,7 @@ export function bootstrap(
                     z.array(z.coerce.string()),
                     z.enum([""]),
                   ]),
-                })
+                }),
               )
               .optional(),
             application_fee_percent: z.coerce.number().optional(),
@@ -36121,7 +36127,7 @@ export function bootstrap(
                   .optional(),
                 quantity: z.coerce.number().optional(),
                 tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
-              })
+              }),
             ),
             iterations: z.coerce.number().optional(),
             metadata: z.object({}).optional(),
@@ -36137,7 +36143,7 @@ export function bootstrap(
               .optional(),
             trial: z.coerce.boolean().optional(),
             trial_end: z.coerce.number().optional(),
-          })
+          }),
         )
         .optional(),
       start_date: z.union([z.coerce.number(), z.enum(["now"])]),
@@ -36146,7 +36152,7 @@ export function bootstrap(
 
   const postSubscriptionSchedulesResponseValidator = responseValidationFactory(
     [["200", s_subscription_schedule]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -36158,19 +36164,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postSubscriptionSchedulesBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postSubscriptionSchedules(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postSubscriptionSchedulesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getSubscriptionSchedulesScheduleParamSchema = z.object({
@@ -36193,15 +36199,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getSubscriptionSchedulesScheduleParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getSubscriptionSchedulesScheduleQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getSubscriptionSchedulesScheduleBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -36211,7 +36217,7 @@ export function bootstrap(
       ctx.body = getSubscriptionSchedulesScheduleResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postSubscriptionSchedulesScheduleParamSchema = z.object({
@@ -36276,7 +36282,7 @@ export function bootstrap(
                     z.array(z.coerce.string()),
                     z.enum([""]),
                   ]),
-                })
+                }),
               )
               .optional(),
             application_fee_percent: z.coerce.number().optional(),
@@ -36330,7 +36336,7 @@ export function bootstrap(
                   .optional(),
                 quantity: z.coerce.number().optional(),
                 tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
-              })
+              }),
             ),
             iterations: z.coerce.number().optional(),
             metadata: z.object({}).optional(),
@@ -36347,7 +36353,7 @@ export function bootstrap(
               .optional(),
             trial: z.coerce.boolean().optional(),
             trial_end: z.union([z.coerce.number(), z.enum(["now"])]),
-          })
+          }),
         )
         .optional(),
       proration_behavior: z
@@ -36366,12 +36372,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postSubscriptionSchedulesScheduleParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postSubscriptionSchedulesScheduleBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -36380,11 +36386,11 @@ export function bootstrap(
 
       ctx.body = postSubscriptionSchedulesScheduleResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postSubscriptionSchedulesScheduleCancelParamSchema = z.object({
@@ -36409,12 +36415,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postSubscriptionSchedulesScheduleCancelParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postSubscriptionSchedulesScheduleCancelBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -36423,11 +36429,11 @@ export function bootstrap(
 
       ctx.body = postSubscriptionSchedulesScheduleCancelResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postSubscriptionSchedulesScheduleReleaseParamSchema = z.object({
@@ -36451,28 +36457,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postSubscriptionSchedulesScheduleReleaseParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postSubscriptionSchedulesScheduleReleaseBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postSubscriptionSchedulesScheduleRelease(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postSubscriptionSchedulesScheduleReleaseResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getSubscriptionsQuerySchema = z.object({
@@ -36543,7 +36549,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getSubscriptions", "/v1/subscriptions", async (ctx, next) => {
@@ -36578,7 +36584,7 @@ export function bootstrap(
             .optional(),
           quantity: z.coerce.number().optional(),
           tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
-        })
+        }),
       )
       .optional(),
     application_fee_percent: z.coerce.number().optional(),
@@ -36632,7 +36638,7 @@ export function bootstrap(
             .optional(),
           quantity: z.coerce.number().optional(),
           tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
-        })
+        }),
       )
       .optional(),
     metadata: z.union([z.object({}), z.enum([""])]),
@@ -36724,7 +36730,7 @@ export function bootstrap(
                           "ownership",
                           "payment_method",
                           "transactions",
-                        ])
+                        ]),
                       )
                       .optional(),
                   })
@@ -36762,7 +36768,7 @@ export function bootstrap(
               "sofort",
               "us_bank_account",
               "wechat_pay",
-            ])
+            ]),
           ),
           z.enum([""]),
         ]),
@@ -36802,7 +36808,7 @@ export function bootstrap(
 
   const postSubscriptionsResponseValidator = responseValidationFactory(
     [["200", s_subscription]],
-    s_error
+    s_error,
   )
 
   router.post("postSubscriptions", "/v1/subscriptions", async (ctx, next) => {
@@ -36842,7 +36848,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -36854,19 +36860,19 @@ export function bootstrap(
         query: parseRequestInput(getSubscriptionsSearchQuerySchema, ctx.query),
         body: parseRequestInput(
           getSubscriptionsSearchBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getSubscriptionsSearch(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getSubscriptionsSearchResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteSubscriptionsSubscriptionExposedIdParamSchema = z.object({
@@ -36909,28 +36915,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteSubscriptionsSubscriptionExposedIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteSubscriptionsSubscriptionExposedIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.deleteSubscriptionsSubscriptionExposedId(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = deleteSubscriptionsSubscriptionExposedIdResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getSubscriptionsSubscriptionExposedIdParamSchema = z.object({
@@ -36955,15 +36961,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getSubscriptionsSubscriptionExposedIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getSubscriptionsSubscriptionExposedIdQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getSubscriptionsSubscriptionExposedIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -36972,11 +36978,11 @@ export function bootstrap(
 
       ctx.body = getSubscriptionsSubscriptionExposedIdResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postSubscriptionsSubscriptionExposedIdParamSchema = z.object({
@@ -37002,7 +37008,7 @@ export function bootstrap(
               .optional(),
             quantity: z.coerce.number().optional(),
             tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
-          })
+          }),
         )
         .optional(),
       application_fee_percent: z.coerce.number().optional(),
@@ -37074,7 +37080,7 @@ export function bootstrap(
               .optional(),
             quantity: z.coerce.number().optional(),
             tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
-          })
+          }),
         )
         .optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
@@ -37177,7 +37183,7 @@ export function bootstrap(
                             "ownership",
                             "payment_method",
                             "transactions",
-                          ])
+                          ]),
                         )
                         .optional(),
                     })
@@ -37215,7 +37221,7 @@ export function bootstrap(
                 "sofort",
                 "us_bank_account",
                 "wechat_pay",
-              ])
+              ]),
             ),
             z.enum([""]),
           ]),
@@ -37269,12 +37275,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postSubscriptionsSubscriptionExposedIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postSubscriptionsSubscriptionExposedIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -37283,11 +37289,11 @@ export function bootstrap(
 
       ctx.body = postSubscriptionsSubscriptionExposedIdResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteSubscriptionsSubscriptionExposedIdDiscountParamSchema = z.object({
@@ -37308,29 +37314,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteSubscriptionsSubscriptionExposedIdDiscountParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteSubscriptionsSubscriptionExposedIdDiscountBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.deleteSubscriptionsSubscriptionExposedIdDiscount(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         deleteSubscriptionsSubscriptionExposedIdDiscountResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postSubscriptionsSubscriptionResumeParamSchema = z.object({
@@ -37358,12 +37364,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postSubscriptionsSubscriptionResumeParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postSubscriptionsSubscriptionResumeBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -37372,11 +37378,11 @@ export function bootstrap(
 
       ctx.body = postSubscriptionsSubscriptionResumeResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTaxCalculationsBodySchema = z.object({
@@ -37453,7 +37459,7 @@ export function bootstrap(
                 "za_vat",
               ]),
               value: z.coerce.string(),
-            })
+            }),
           )
           .optional(),
         taxability_override: z
@@ -37470,7 +37476,7 @@ export function bootstrap(
         reference: z.coerce.string().optional(),
         tax_behavior: z.enum(["exclusive", "inclusive"]).optional(),
         tax_code: z.coerce.string().optional(),
-      })
+      }),
     ),
     shipping_cost: z
       .object({
@@ -37485,7 +37491,7 @@ export function bootstrap(
 
   const postTaxCalculationsResponseValidator = responseValidationFactory(
     [["200", s_tax_calculation]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -37497,19 +37503,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postTaxCalculationsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postTaxCalculations(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postTaxCalculationsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTaxCalculationsCalculationLineItemsParamSchema = z.object({
@@ -37540,7 +37546,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -37550,15 +37556,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getTaxCalculationsCalculationLineItemsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getTaxCalculationsCalculationLineItemsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTaxCalculationsCalculationLineItemsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -37567,11 +37573,11 @@ export function bootstrap(
 
       ctx.body = getTaxCalculationsCalculationLineItemsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTaxTransactionsCreateFromCalculationBodySchema = z.object({
@@ -37593,23 +37599,23 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postTaxTransactionsCreateFromCalculationBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTaxTransactionsCreateFromCalculation(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postTaxTransactionsCreateFromCalculationResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTaxTransactionsCreateReversalBodySchema = z.object({
@@ -37623,7 +37629,7 @@ export function bootstrap(
           original_line_item: z.coerce.string(),
           quantity: z.coerce.number().optional(),
           reference: z.coerce.string(),
-        })
+        }),
       )
       .optional(),
     metadata: z.object({}).optional(),
@@ -37647,7 +37653,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postTaxTransactionsCreateReversalBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -37656,11 +37662,11 @@ export function bootstrap(
 
       ctx.body = postTaxTransactionsCreateReversalResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTaxTransactionsTransactionParamSchema = z.object({
@@ -37683,15 +37689,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getTaxTransactionsTransactionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getTaxTransactionsTransactionQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTaxTransactionsTransactionBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -37701,7 +37707,7 @@ export function bootstrap(
       ctx.body = getTaxTransactionsTransactionResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTaxTransactionsTransactionLineItemsParamSchema = z.object({
@@ -37732,7 +37738,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -37742,15 +37748,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getTaxTransactionsTransactionLineItemsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getTaxTransactionsTransactionLineItemsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTaxTransactionsTransactionLineItemsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -37759,11 +37765,11 @@ export function bootstrap(
 
       ctx.body = getTaxTransactionsTransactionLineItemsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTaxCodesQuerySchema = z.object({
@@ -37787,7 +37793,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getTaxCodes", "/v1/tax_codes", async (ctx, next) => {
@@ -37814,7 +37820,7 @@ export function bootstrap(
 
   const getTaxCodesIdResponseValidator = responseValidationFactory(
     [["200", s_tax_code]],
-    s_error
+    s_error,
   )
 
   router.get("getTaxCodesId", "/v1/tax_codes/:id", async (ctx, next) => {
@@ -37863,7 +37869,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getTaxRates", "/v1/tax_rates", async (ctx, next) => {
@@ -37909,7 +37915,7 @@ export function bootstrap(
 
   const postTaxRatesResponseValidator = responseValidationFactory(
     [["200", s_tax_rate]],
-    s_error
+    s_error,
   )
 
   router.post("postTaxRates", "/v1/tax_rates", async (ctx, next) => {
@@ -37938,7 +37944,7 @@ export function bootstrap(
 
   const getTaxRatesTaxRateResponseValidator = responseValidationFactory(
     [["200", s_tax_rate]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -37953,13 +37959,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.getTaxRatesTaxRate(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getTaxRatesTaxRateResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTaxRatesTaxRateParamSchema = z.object({
@@ -37995,7 +38001,7 @@ export function bootstrap(
 
   const postTaxRatesTaxRateResponseValidator = responseValidationFactory(
     [["200", s_tax_rate]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -38007,19 +38013,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postTaxRatesTaxRateBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postTaxRatesTaxRate(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postTaxRatesTaxRateResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTerminalConfigurationsQuerySchema = z.object({
@@ -38044,7 +38050,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -38055,23 +38061,23 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           getTerminalConfigurationsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTerminalConfigurationsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getTerminalConfigurations(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getTerminalConfigurationsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTerminalConfigurationsBodySchema = z
@@ -38191,7 +38197,7 @@ export function bootstrap(
 
   const postTerminalConfigurationsResponseValidator = responseValidationFactory(
     [["200", s_terminal_configuration]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -38203,19 +38209,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postTerminalConfigurationsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postTerminalConfigurations(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postTerminalConfigurationsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteTerminalConfigurationsConfigurationParamSchema = z.object({
@@ -38229,7 +38235,7 @@ export function bootstrap(
   const deleteTerminalConfigurationsConfigurationResponseValidator =
     responseValidationFactory(
       [["200", s_deleted_terminal_configuration]],
-      s_error
+      s_error,
     )
 
   router.delete(
@@ -38239,28 +38245,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteTerminalConfigurationsConfigurationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteTerminalConfigurationsConfigurationBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.deleteTerminalConfigurationsConfiguration(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = deleteTerminalConfigurationsConfigurationResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTerminalConfigurationsConfigurationParamSchema = z.object({
@@ -38286,7 +38292,7 @@ export function bootstrap(
           ]),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -38296,15 +38302,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getTerminalConfigurationsConfigurationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getTerminalConfigurationsConfigurationQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTerminalConfigurationsConfigurationBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -38313,11 +38319,11 @@ export function bootstrap(
 
       ctx.body = getTerminalConfigurationsConfigurationResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTerminalConfigurationsConfigurationParamSchema = z.object({
@@ -38452,7 +38458,7 @@ export function bootstrap(
           ]),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.post(
@@ -38462,12 +38468,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTerminalConfigurationsConfigurationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTerminalConfigurationsConfigurationBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -38476,11 +38482,11 @@ export function bootstrap(
 
       ctx.body = postTerminalConfigurationsConfigurationResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTerminalConnectionTokensBodySchema = z
@@ -38502,7 +38508,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postTerminalConnectionTokensBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -38512,7 +38518,7 @@ export function bootstrap(
       ctx.body = postTerminalConnectionTokensResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTerminalLocationsQuerySchema = z.object({
@@ -38536,7 +38542,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -38548,19 +38554,19 @@ export function bootstrap(
         query: parseRequestInput(getTerminalLocationsQuerySchema, ctx.query),
         body: parseRequestInput(
           getTerminalLocationsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getTerminalLocations(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getTerminalLocationsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTerminalLocationsBodySchema = z.object({
@@ -38580,7 +38586,7 @@ export function bootstrap(
 
   const postTerminalLocationsResponseValidator = responseValidationFactory(
     [["200", s_terminal_location]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -38592,19 +38598,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postTerminalLocationsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postTerminalLocations(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postTerminalLocationsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteTerminalLocationsLocationParamSchema = z.object({
@@ -38623,12 +38629,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteTerminalLocationsLocationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteTerminalLocationsLocationBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -38638,7 +38644,7 @@ export function bootstrap(
       ctx.body = deleteTerminalLocationsLocationResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTerminalLocationsLocationParamSchema = z.object({
@@ -38654,7 +38660,7 @@ export function bootstrap(
   const getTerminalLocationsLocationResponseValidator =
     responseValidationFactory(
       [["200", z.union([s_terminal_location, s_deleted_terminal_location])]],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -38664,15 +38670,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getTerminalLocationsLocationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getTerminalLocationsLocationQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTerminalLocationsLocationBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -38682,7 +38688,7 @@ export function bootstrap(
       ctx.body = getTerminalLocationsLocationResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTerminalLocationsLocationParamSchema = z.object({
@@ -38711,7 +38717,7 @@ export function bootstrap(
   const postTerminalLocationsLocationResponseValidator =
     responseValidationFactory(
       [["200", z.union([s_terminal_location, s_deleted_terminal_location])]],
-      s_error
+      s_error,
     )
 
   router.post(
@@ -38721,12 +38727,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTerminalLocationsLocationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTerminalLocationsLocationBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -38736,7 +38742,7 @@ export function bootstrap(
       ctx.body = postTerminalLocationsLocationResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTerminalReadersQuerySchema = z.object({
@@ -38772,7 +38778,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -38787,13 +38793,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.getTerminalReaders(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getTerminalReadersResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTerminalReadersBodySchema = z.object({
@@ -38806,7 +38812,7 @@ export function bootstrap(
 
   const postTerminalReadersResponseValidator = responseValidationFactory(
     [["200", s_terminal_reader]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -38818,19 +38824,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postTerminalReadersBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postTerminalReaders(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postTerminalReadersResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteTerminalReadersReaderParamSchema = z.object({
@@ -38849,24 +38855,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteTerminalReadersReaderParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteTerminalReadersReaderBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.deleteTerminalReadersReader(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = deleteTerminalReadersReaderResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTerminalReadersReaderParamSchema = z.object({
@@ -38886,7 +38892,7 @@ export function bootstrap(
         z.union([z.lazy(() => s_terminal_reader), s_deleted_terminal_reader]),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -38896,27 +38902,27 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getTerminalReadersReaderParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getTerminalReadersReaderQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTerminalReadersReaderBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getTerminalReadersReader(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getTerminalReadersReaderResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTerminalReadersReaderParamSchema = z.object({
@@ -38938,7 +38944,7 @@ export function bootstrap(
         z.union([z.lazy(() => s_terminal_reader), s_deleted_terminal_reader]),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -38948,24 +38954,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTerminalReadersReaderParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTerminalReadersReaderBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postTerminalReadersReader(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postTerminalReadersReaderResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTerminalReadersReaderCancelActionParamSchema = z.object({
@@ -38986,12 +38992,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTerminalReadersReaderCancelActionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTerminalReadersReaderCancelActionBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -39000,11 +39006,11 @@ export function bootstrap(
 
       ctx.body = postTerminalReadersReaderCancelActionResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTerminalReadersReaderProcessPaymentIntentParamSchema = z.object({
@@ -39034,28 +39040,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTerminalReadersReaderProcessPaymentIntentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTerminalReadersReaderProcessPaymentIntentBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTerminalReadersReaderProcessPaymentIntent(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postTerminalReadersReaderProcessPaymentIntentResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTerminalReadersReaderProcessSetupIntentParamSchema = z.object({
@@ -39078,28 +39084,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTerminalReadersReaderProcessSetupIntentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTerminalReadersReaderProcessSetupIntentBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTerminalReadersReaderProcessSetupIntent(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postTerminalReadersReaderProcessSetupIntentResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTerminalReadersReaderRefundPaymentParamSchema = z.object({
@@ -39128,12 +39134,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTerminalReadersReaderRefundPaymentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTerminalReadersReaderRefundPaymentBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -39142,11 +39148,11 @@ export function bootstrap(
 
       ctx.body = postTerminalReadersReaderRefundPaymentResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTerminalReadersReaderSetReaderDisplayParamSchema = z.object({
@@ -39162,7 +39168,7 @@ export function bootstrap(
             amount: z.coerce.number(),
             description: z.coerce.string(),
             quantity: z.coerce.number(),
-          })
+          }),
         ),
         tax: z.coerce.number().optional(),
         total: z.coerce.number(),
@@ -39182,28 +39188,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTerminalReadersReaderSetReaderDisplayParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTerminalReadersReaderSetReaderDisplayBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTerminalReadersReaderSetReaderDisplay(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postTerminalReadersReaderSetReaderDisplayResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTestHelpersCustomersCustomerFundCashBalanceParamSchema = z.object({
@@ -39220,7 +39226,7 @@ export function bootstrap(
   const postTestHelpersCustomersCustomerFundCashBalanceResponseValidator =
     responseValidationFactory(
       [["200", s_customer_cash_balance_transaction]],
-      s_error
+      s_error,
     )
 
   router.post(
@@ -39230,29 +39236,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTestHelpersCustomersCustomerFundCashBalanceParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersCustomersCustomerFundCashBalanceBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTestHelpersCustomersCustomerFundCashBalance(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         postTestHelpersCustomersCustomerFundCashBalanceResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTestHelpersIssuingCardsCardShippingDeliverParamSchema = z.object({
@@ -39273,29 +39279,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingDeliverParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingDeliverBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTestHelpersIssuingCardsCardShippingDeliver(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         postTestHelpersIssuingCardsCardShippingDeliverResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTestHelpersIssuingCardsCardShippingFailParamSchema = z.object({
@@ -39316,28 +39322,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingFailParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingFailBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTestHelpersIssuingCardsCardShippingFail(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postTestHelpersIssuingCardsCardShippingFailResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTestHelpersIssuingCardsCardShippingReturnParamSchema = z.object({
@@ -39358,28 +39364,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingReturnParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingReturnBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTestHelpersIssuingCardsCardShippingReturn(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postTestHelpersIssuingCardsCardShippingReturnResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTestHelpersIssuingCardsCardShippingShipParamSchema = z.object({
@@ -39400,28 +39406,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingShipParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingShipBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTestHelpersIssuingCardsCardShippingShip(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postTestHelpersIssuingCardsCardShippingShipResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTestHelpersRefundsRefundExpireParamSchema = z.object({
@@ -39442,12 +39448,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTestHelpersRefundsRefundExpireParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersRefundsRefundExpireBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -39456,11 +39462,11 @@ export function bootstrap(
 
       ctx.body = postTestHelpersRefundsRefundExpireResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTestHelpersTerminalReadersReaderPresentPaymentMethodParamSchema =
@@ -39490,29 +39496,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTestHelpersTerminalReadersReaderPresentPaymentMethodParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTerminalReadersReaderPresentPaymentMethodBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTestHelpersTerminalReadersReaderPresentPaymentMethod(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         postTestHelpersTerminalReadersReaderPresentPaymentMethodResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTestHelpersTestClocksQuerySchema = z.object({
@@ -39536,7 +39542,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -39547,23 +39553,23 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           getTestHelpersTestClocksQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTestHelpersTestClocksBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getTestHelpersTestClocks(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getTestHelpersTestClocksResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTestHelpersTestClocksBodySchema = z.object({
@@ -39574,7 +39580,7 @@ export function bootstrap(
 
   const postTestHelpersTestClocksResponseValidator = responseValidationFactory(
     [["200", s_test_helpers_test_clock]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -39586,19 +39592,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTestClocksBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postTestHelpersTestClocks(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postTestHelpersTestClocksResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteTestHelpersTestClocksTestClockParamSchema = z.object({
@@ -39610,7 +39616,7 @@ export function bootstrap(
   const deleteTestHelpersTestClocksTestClockResponseValidator =
     responseValidationFactory(
       [["200", s_deleted_test_helpers_test_clock]],
-      s_error
+      s_error,
     )
 
   router.delete(
@@ -39620,12 +39626,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteTestHelpersTestClocksTestClockParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteTestHelpersTestClocksTestClockBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -39634,11 +39640,11 @@ export function bootstrap(
 
       ctx.body = deleteTestHelpersTestClocksTestClockResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTestHelpersTestClocksTestClockParamSchema = z.object({
@@ -39661,15 +39667,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getTestHelpersTestClocksTestClockParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getTestHelpersTestClocksTestClockQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTestHelpersTestClocksTestClockBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -39678,11 +39684,11 @@ export function bootstrap(
 
       ctx.body = getTestHelpersTestClocksTestClockResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTestHelpersTestClocksTestClockAdvanceParamSchema = z.object({
@@ -39704,28 +39710,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTestHelpersTestClocksTestClockAdvanceParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTestClocksTestClockAdvanceBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTestHelpersTestClocksTestClockAdvance(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postTestHelpersTestClocksTestClockAdvanceResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTestHelpersTreasuryInboundTransfersIdFailParamSchema = z.object({
@@ -39769,28 +39775,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTestHelpersTreasuryInboundTransfersIdFailParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryInboundTransfersIdFailBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTestHelpersTreasuryInboundTransfersIdFail(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postTestHelpersTreasuryInboundTransfersIdFailResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTestHelpersTreasuryInboundTransfersIdReturnParamSchema = z.object({
@@ -39811,29 +39817,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTestHelpersTreasuryInboundTransfersIdReturnParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryInboundTransfersIdReturnBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTestHelpersTreasuryInboundTransfersIdReturn(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         postTestHelpersTreasuryInboundTransfersIdReturnResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTestHelpersTreasuryInboundTransfersIdSucceedParamSchema = z.object({
@@ -39854,29 +39860,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTestHelpersTreasuryInboundTransfersIdSucceedParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryInboundTransfersIdSucceedBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTestHelpersTreasuryInboundTransfersIdSucceed(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         postTestHelpersTreasuryInboundTransfersIdSucceedResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTestHelpersTreasuryOutboundPaymentsIdFailParamSchema = z.object({
@@ -39897,28 +39903,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTestHelpersTreasuryOutboundPaymentsIdFailParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryOutboundPaymentsIdFailBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTestHelpersTreasuryOutboundPaymentsIdFail(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postTestHelpersTreasuryOutboundPaymentsIdFailResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTestHelpersTreasuryOutboundPaymentsIdPostParamSchema = z.object({
@@ -39939,28 +39945,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTestHelpersTreasuryOutboundPaymentsIdPostParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryOutboundPaymentsIdPostBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTestHelpersTreasuryOutboundPaymentsIdPost(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postTestHelpersTreasuryOutboundPaymentsIdPostResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTestHelpersTreasuryOutboundPaymentsIdReturnParamSchema = z.object({
@@ -40001,29 +40007,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTestHelpersTreasuryOutboundPaymentsIdReturnParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryOutboundPaymentsIdReturnBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTestHelpersTreasuryOutboundPaymentsIdReturn(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         postTestHelpersTreasuryOutboundPaymentsIdReturnResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailParamSchema =
@@ -40042,29 +40048,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTestHelpersTreasuryOutboundTransfersOutboundTransferFailParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryOutboundTransfersOutboundTransferFailBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTestHelpersTreasuryOutboundTransfersOutboundTransferFail(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         postTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostParamSchema =
@@ -40083,29 +40089,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTestHelpersTreasuryOutboundTransfersOutboundTransferPostParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryOutboundTransfersOutboundTransferPostBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTestHelpersTreasuryOutboundTransfersOutboundTransferPost(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         postTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnParamSchema =
@@ -40146,29 +40152,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTestHelpersTreasuryReceivedCreditsBodySchema = z.object({
@@ -40204,7 +40210,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryReceivedCreditsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -40213,11 +40219,11 @@ export function bootstrap(
 
       ctx.body = postTestHelpersTreasuryReceivedCreditsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTestHelpersTreasuryReceivedDebitsBodySchema = z.object({
@@ -40253,7 +40259,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryReceivedDebitsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -40262,11 +40268,11 @@ export function bootstrap(
 
       ctx.body = postTestHelpersTreasuryReceivedDebitsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTokensBodySchema = z
@@ -40614,7 +40620,7 @@ export function bootstrap(
 
   const postTokensResponseValidator = responseValidationFactory(
     [["200", s_token]],
-    s_error
+    s_error,
   )
 
   router.post("postTokens", "/v1/tokens", async (ctx, next) => {
@@ -40641,7 +40647,7 @@ export function bootstrap(
 
   const getTokensTokenResponseValidator = responseValidationFactory(
     [["200", s_token]],
-    s_error
+    s_error,
   )
 
   router.get("getTokensToken", "/v1/tokens/:token", async (ctx, next) => {
@@ -40698,7 +40704,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getTopups", "/v1/topups", async (ctx, next) => {
@@ -40728,7 +40734,7 @@ export function bootstrap(
 
   const postTopupsResponseValidator = responseValidationFactory(
     [["200", s_topup]],
-    s_error
+    s_error,
   )
 
   router.post("postTopups", "/v1/topups", async (ctx, next) => {
@@ -40755,7 +40761,7 @@ export function bootstrap(
 
   const getTopupsTopupResponseValidator = responseValidationFactory(
     [["200", s_topup]],
-    s_error
+    s_error,
   )
 
   router.get("getTopupsTopup", "/v1/topups/:topup", async (ctx, next) => {
@@ -40784,7 +40790,7 @@ export function bootstrap(
 
   const postTopupsTopupResponseValidator = responseValidationFactory(
     [["200", s_topup]],
-    s_error
+    s_error,
   )
 
   router.post("postTopupsTopup", "/v1/topups/:topup", async (ctx, next) => {
@@ -40811,7 +40817,7 @@ export function bootstrap(
 
   const postTopupsTopupCancelResponseValidator = responseValidationFactory(
     [["200", s_topup]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -40823,19 +40829,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postTopupsTopupCancelBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postTopupsTopupCancel(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postTopupsTopupCancelResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTransfersQuerySchema = z.object({
@@ -40870,7 +40876,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get("getTransfers", "/v1/transfers", async (ctx, next) => {
@@ -40901,7 +40907,7 @@ export function bootstrap(
 
   const postTransfersResponseValidator = responseValidationFactory(
     [["200", s_transfer]],
-    s_error
+    s_error,
   )
 
   router.post("postTransfers", "/v1/transfers", async (ctx, next) => {
@@ -40941,7 +40947,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -40951,24 +40957,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getTransfersIdReversalsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(getTransfersIdReversalsQuerySchema, ctx.query),
         body: parseRequestInput(
           getTransfersIdReversalsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getTransfersIdReversals(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getTransfersIdReversalsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTransfersIdReversalsParamSchema = z.object({
@@ -40987,7 +40993,7 @@ export function bootstrap(
 
   const postTransfersIdReversalsResponseValidator = responseValidationFactory(
     [["200", s_transfer_reversal]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -40997,24 +41003,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTransfersIdReversalsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTransfersIdReversalsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postTransfersIdReversals(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postTransfersIdReversalsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTransfersTransferParamSchema = z.object({
@@ -41029,7 +41035,7 @@ export function bootstrap(
 
   const getTransfersTransferResponseValidator = responseValidationFactory(
     [["200", s_transfer]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -41041,19 +41047,19 @@ export function bootstrap(
         query: parseRequestInput(getTransfersTransferQuerySchema, ctx.query),
         body: parseRequestInput(
           getTransfersTransferBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getTransfersTransfer(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getTransfersTransferResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTransfersTransferParamSchema = z.object({
@@ -41070,7 +41076,7 @@ export function bootstrap(
 
   const postTransfersTransferResponseValidator = responseValidationFactory(
     [["200", s_transfer]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -41082,19 +41088,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postTransfersTransferBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postTransfersTransfer(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postTransfersTransferResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTransfersTransferReversalsIdParamSchema = z.object({
@@ -41118,15 +41124,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getTransfersTransferReversalsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getTransfersTransferReversalsIdQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTransfersTransferReversalsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -41136,7 +41142,7 @@ export function bootstrap(
       ctx.body = getTransfersTransferReversalsIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTransfersTransferReversalsIdParamSchema = z.object({
@@ -41161,12 +41167,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTransfersTransferReversalsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTransfersTransferReversalsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -41176,7 +41182,7 @@ export function bootstrap(
       ctx.body = postTransfersTransferReversalsIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTreasuryCreditReversalsQuerySchema = z.object({
@@ -41203,7 +41209,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -41214,23 +41220,23 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           getTreasuryCreditReversalsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTreasuryCreditReversalsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getTreasuryCreditReversals(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getTreasuryCreditReversalsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTreasuryCreditReversalsBodySchema = z.object({
@@ -41251,19 +41257,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postTreasuryCreditReversalsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postTreasuryCreditReversals(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postTreasuryCreditReversalsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTreasuryCreditReversalsCreditReversalParamSchema = z.object({
@@ -41288,31 +41294,31 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getTreasuryCreditReversalsCreditReversalParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getTreasuryCreditReversalsCreditReversalQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTreasuryCreditReversalsCreditReversalBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.getTreasuryCreditReversalsCreditReversal(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = getTreasuryCreditReversalsCreditReversalResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTreasuryDebitReversalsQuerySchema = z.object({
@@ -41340,7 +41346,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -41351,23 +41357,23 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           getTreasuryDebitReversalsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTreasuryDebitReversalsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getTreasuryDebitReversals(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getTreasuryDebitReversalsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTreasuryDebitReversalsBodySchema = z.object({
@@ -41378,7 +41384,7 @@ export function bootstrap(
 
   const postTreasuryDebitReversalsResponseValidator = responseValidationFactory(
     [["200", s_treasury_debit_reversal]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -41390,19 +41396,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postTreasuryDebitReversalsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postTreasuryDebitReversals(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postTreasuryDebitReversalsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTreasuryDebitReversalsDebitReversalParamSchema = z.object({
@@ -41427,15 +41433,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getTreasuryDebitReversalsDebitReversalParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getTreasuryDebitReversalsDebitReversalQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTreasuryDebitReversalsDebitReversalBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -41444,11 +41450,11 @@ export function bootstrap(
 
       ctx.body = getTreasuryDebitReversalsDebitReversalResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTreasuryFinancialAccountsQuerySchema = z.object({
@@ -41482,7 +41488,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -41493,11 +41499,11 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           getTreasuryFinancialAccountsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTreasuryFinancialAccountsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -41507,7 +41513,7 @@ export function bootstrap(
       ctx.body = getTreasuryFinancialAccountsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTreasuryFinancialAccountsBodySchema = z.object({
@@ -41571,7 +41577,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postTreasuryFinancialAccountsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -41581,7 +41587,7 @@ export function bootstrap(
       ctx.body = postTreasuryFinancialAccountsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTreasuryFinancialAccountsFinancialAccountParamSchema = z.object({
@@ -41606,31 +41612,31 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getTreasuryFinancialAccountsFinancialAccountParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getTreasuryFinancialAccountsFinancialAccountQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTreasuryFinancialAccountsFinancialAccountBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.getTreasuryFinancialAccountsFinancialAccount(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = getTreasuryFinancialAccountsFinancialAccountResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTreasuryFinancialAccountsFinancialAccountParamSchema = z.object({
@@ -41697,28 +41703,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTreasuryFinancialAccountsFinancialAccountParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTreasuryFinancialAccountsFinancialAccountBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTreasuryFinancialAccountsFinancialAccount(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = postTreasuryFinancialAccountsFinancialAccountResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema =
@@ -41734,7 +41740,7 @@ export function bootstrap(
   const getTreasuryFinancialAccountsFinancialAccountFeaturesResponseValidator =
     responseValidationFactory(
       [["200", s_treasury_financial_account_features]],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -41744,32 +41750,32 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getTreasuryFinancialAccountsFinancialAccountFeaturesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.getTreasuryFinancialAccountsFinancialAccountFeatures(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         getTreasuryFinancialAccountsFinancialAccountFeaturesResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema =
@@ -41811,7 +41817,7 @@ export function bootstrap(
   const postTreasuryFinancialAccountsFinancialAccountFeaturesResponseValidator =
     responseValidationFactory(
       [["200", s_treasury_financial_account_features]],
-      s_error
+      s_error,
     )
 
   router.post(
@@ -41821,29 +41827,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTreasuryFinancialAccountsFinancialAccountFeatures(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         postTreasuryFinancialAccountsFinancialAccountFeaturesResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTreasuryInboundTransfersQuerySchema = z.object({
@@ -41872,7 +41878,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -41883,23 +41889,23 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           getTreasuryInboundTransfersQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTreasuryInboundTransfersBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getTreasuryInboundTransfers(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getTreasuryInboundTransfersResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTreasuryInboundTransfersBodySchema = z.object({
@@ -41925,7 +41931,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postTreasuryInboundTransfersBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -41935,7 +41941,7 @@ export function bootstrap(
       ctx.body = postTreasuryInboundTransfersResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTreasuryInboundTransfersIdParamSchema = z.object({
@@ -41958,15 +41964,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getTreasuryInboundTransfersIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getTreasuryInboundTransfersIdQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTreasuryInboundTransfersIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -41976,11 +41982,11 @@ export function bootstrap(
       ctx.body = getTreasuryInboundTransfersIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTreasuryInboundTransfersInboundTransferCancelParamSchema = z.object(
-    { inbound_transfer: z.coerce.string() }
+    { inbound_transfer: z.coerce.string() },
   )
 
   const postTreasuryInboundTransfersInboundTransferCancelBodySchema = z
@@ -41997,29 +42003,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTreasuryInboundTransfersInboundTransferCancelParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTreasuryInboundTransfersInboundTransferCancelBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTreasuryInboundTransfersInboundTransferCancel(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         postTreasuryInboundTransfersInboundTransferCancelResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTreasuryOutboundPaymentsQuerySchema = z.object({
@@ -42049,7 +42055,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -42060,23 +42066,23 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           getTreasuryOutboundPaymentsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTreasuryOutboundPaymentsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getTreasuryOutboundPayments(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getTreasuryOutboundPaymentsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTreasuryOutboundPaymentsBodySchema = z.object({
@@ -42151,7 +42157,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postTreasuryOutboundPaymentsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -42161,7 +42167,7 @@ export function bootstrap(
       ctx.body = postTreasuryOutboundPaymentsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTreasuryOutboundPaymentsIdParamSchema = z.object({
@@ -42184,15 +42190,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getTreasuryOutboundPaymentsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getTreasuryOutboundPaymentsIdQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTreasuryOutboundPaymentsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -42202,7 +42208,7 @@ export function bootstrap(
       ctx.body = getTreasuryOutboundPaymentsIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTreasuryOutboundPaymentsIdCancelParamSchema = z.object({
@@ -42223,12 +42229,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTreasuryOutboundPaymentsIdCancelParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTreasuryOutboundPaymentsIdCancelBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -42237,11 +42243,11 @@ export function bootstrap(
 
       ctx.body = postTreasuryOutboundPaymentsIdCancelResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTreasuryOutboundTransfersQuerySchema = z.object({
@@ -42270,7 +42276,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -42281,11 +42287,11 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           getTreasuryOutboundTransfersQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTreasuryOutboundTransfersBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -42295,7 +42301,7 @@ export function bootstrap(
       ctx.body = getTreasuryOutboundTransfersResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTreasuryOutboundTransfersBodySchema = z.object({
@@ -42329,7 +42335,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postTreasuryOutboundTransfersBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -42339,7 +42345,7 @@ export function bootstrap(
       ctx.body = postTreasuryOutboundTransfersResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTreasuryOutboundTransfersOutboundTransferParamSchema = z.object({
@@ -42364,31 +42370,31 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getTreasuryOutboundTransfersOutboundTransferParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getTreasuryOutboundTransfersOutboundTransferQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTreasuryOutboundTransfersOutboundTransferBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.getTreasuryOutboundTransfersOutboundTransfer(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = getTreasuryOutboundTransfersOutboundTransferResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postTreasuryOutboundTransfersOutboundTransferCancelParamSchema =
@@ -42408,29 +42414,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postTreasuryOutboundTransfersOutboundTransferCancelParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postTreasuryOutboundTransfersOutboundTransferCancelBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.postTreasuryOutboundTransfersOutboundTransferCancel(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         postTreasuryOutboundTransfersOutboundTransferCancelResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTreasuryReceivedCreditsQuerySchema = z.object({
@@ -42466,7 +42472,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -42477,23 +42483,23 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           getTreasuryReceivedCreditsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTreasuryReceivedCreditsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getTreasuryReceivedCredits(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getTreasuryReceivedCreditsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTreasuryReceivedCreditsIdParamSchema = z.object({
@@ -42516,15 +42522,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getTreasuryReceivedCreditsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getTreasuryReceivedCreditsIdQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTreasuryReceivedCreditsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -42534,7 +42540,7 @@ export function bootstrap(
       ctx.body = getTreasuryReceivedCreditsIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTreasuryReceivedDebitsQuerySchema = z.object({
@@ -42560,7 +42566,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -42571,23 +42577,23 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           getTreasuryReceivedDebitsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTreasuryReceivedDebitsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getTreasuryReceivedDebits(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getTreasuryReceivedDebitsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTreasuryReceivedDebitsIdParamSchema = z.object({
@@ -42610,27 +42616,27 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getTreasuryReceivedDebitsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getTreasuryReceivedDebitsIdQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTreasuryReceivedDebitsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getTreasuryReceivedDebitsId(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getTreasuryReceivedDebitsIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTreasuryTransactionEntriesQuerySchema = z.object({
@@ -42676,7 +42682,7 @@ export function bootstrap(
           }),
         ],
       ],
-      s_error
+      s_error,
     )
 
   router.get(
@@ -42687,11 +42693,11 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           getTreasuryTransactionEntriesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTreasuryTransactionEntriesBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -42701,7 +42707,7 @@ export function bootstrap(
       ctx.body = getTreasuryTransactionEntriesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTreasuryTransactionEntriesIdParamSchema = z.object({
@@ -42724,15 +42730,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getTreasuryTransactionEntriesIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getTreasuryTransactionEntriesIdQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTreasuryTransactionEntriesIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -42742,7 +42748,7 @@ export function bootstrap(
       ctx.body = getTreasuryTransactionEntriesIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTreasuryTransactionsQuerySchema = z.object({
@@ -42791,7 +42797,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -42803,19 +42809,19 @@ export function bootstrap(
         query: parseRequestInput(getTreasuryTransactionsQuerySchema, ctx.query),
         body: parseRequestInput(
           getTreasuryTransactionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getTreasuryTransactions(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getTreasuryTransactionsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getTreasuryTransactionsIdParamSchema = z.object({
@@ -42830,7 +42836,7 @@ export function bootstrap(
 
   const getTreasuryTransactionsIdResponseValidator = responseValidationFactory(
     [["200", s_treasury_transaction]],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -42840,27 +42846,27 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getTreasuryTransactionsIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getTreasuryTransactionsIdQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getTreasuryTransactionsIdBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getTreasuryTransactionsId(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getTreasuryTransactionsIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getWebhookEndpointsQuerySchema = z.object({
@@ -42884,7 +42890,7 @@ export function bootstrap(
         }),
       ],
     ],
-    s_error
+    s_error,
   )
 
   router.get(
@@ -42896,19 +42902,19 @@ export function bootstrap(
         query: parseRequestInput(getWebhookEndpointsQuerySchema, ctx.query),
         body: parseRequestInput(
           getWebhookEndpointsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.getWebhookEndpoints(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = getWebhookEndpointsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postWebhookEndpointsBodySchema = z.object({
@@ -43241,7 +43247,7 @@ export function bootstrap(
         "treasury.received_credit.failed",
         "treasury.received_credit.succeeded",
         "treasury.received_debit.created",
-      ])
+      ]),
     ),
     expand: z.array(z.coerce.string()).optional(),
     metadata: z.union([z.object({}), z.enum([""])]),
@@ -43250,7 +43256,7 @@ export function bootstrap(
 
   const postWebhookEndpointsResponseValidator = responseValidationFactory(
     [["200", s_webhook_endpoint]],
-    s_error
+    s_error,
   )
 
   router.post(
@@ -43262,19 +43268,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           postWebhookEndpointsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.postWebhookEndpoints(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = postWebhookEndpointsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const deleteWebhookEndpointsWebhookEndpointParamSchema = z.object({
@@ -43295,12 +43301,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           deleteWebhookEndpointsWebhookEndpointParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteWebhookEndpointsWebhookEndpointBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -43309,11 +43315,11 @@ export function bootstrap(
 
       ctx.body = deleteWebhookEndpointsWebhookEndpointResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const getWebhookEndpointsWebhookEndpointParamSchema = z.object({
@@ -43336,15 +43342,15 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           getWebhookEndpointsWebhookEndpointParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           getWebhookEndpointsWebhookEndpointQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: parseRequestInput(
           getWebhookEndpointsWebhookEndpointBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -43353,11 +43359,11 @@ export function bootstrap(
 
       ctx.body = getWebhookEndpointsWebhookEndpointResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const postWebhookEndpointsWebhookEndpointParamSchema = z.object({
@@ -43594,7 +43600,7 @@ export function bootstrap(
             "treasury.received_credit.failed",
             "treasury.received_credit.succeeded",
             "treasury.received_debit.created",
-          ])
+          ]),
         )
         .optional(),
       expand: z.array(z.coerce.string()).optional(),
@@ -43613,12 +43619,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           postWebhookEndpointsWebhookEndpointParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           postWebhookEndpointsWebhookEndpointBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -43627,11 +43633,11 @@ export function bootstrap(
 
       ctx.body = postWebhookEndpointsWebhookEndpointResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   return startServer({
