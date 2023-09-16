@@ -28,7 +28,7 @@ export class ApiClient extends AbstractFetchClient {
       status?: "incomplete" | "complete"
     } = {},
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_TodoList[]>>> {
     const url = this.basePath + `/list`
     const query = this._query({ created: p["created"], status: p["status"] })
@@ -41,7 +41,7 @@ export class ApiClient extends AbstractFetchClient {
       listId: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_TodoList> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
@@ -58,7 +58,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_CreateUpdateTodoList
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<200, t_TodoList> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
@@ -71,7 +71,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout
+      timeout,
     )
   }
 
@@ -80,7 +80,7 @@ export class ApiClient extends AbstractFetchClient {
       listId: string
     },
     timeout?: number,
-    opts?: RequestInit
+    opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>

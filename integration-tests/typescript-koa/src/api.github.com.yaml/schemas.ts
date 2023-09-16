@@ -38,7 +38,7 @@ export const s_actions_cache_list = z.object({
       last_accessed_at: z.coerce.string().datetime({ offset: true }).optional(),
       created_at: z.coerce.string().datetime({ offset: true }).optional(),
       size_in_bytes: z.coerce.number().optional(),
-    })
+    }),
   ),
 })
 
@@ -267,7 +267,7 @@ export const s_branch_restriction_policy = z.object({
       received_events_url: z.coerce.string().optional(),
       type: z.coerce.string().optional(),
       site_admin: z.coerce.boolean().optional(),
-    })
+    }),
   ),
   teams: z.array(
     z.object({
@@ -284,7 +284,7 @@ export const s_branch_restriction_policy = z.object({
       members_url: z.coerce.string().optional(),
       repositories_url: z.coerce.string().optional(),
       parent: z.coerce.string().optional().nullable(),
-    })
+    }),
   ),
   apps: z.array(
     z.object({
@@ -333,7 +333,7 @@ export const s_branch_restriction_policy = z.object({
         })
         .optional(),
       events: z.array(z.coerce.string()).optional(),
-    })
+    }),
   ),
 })
 
@@ -483,7 +483,7 @@ export const s_code_scanning_default_setup = z.object({
         "python",
         "ruby",
         "typescript",
-      ])
+      ]),
     )
     .optional(),
   query_suite: z.enum(["default", "extended"]).optional(),
@@ -522,7 +522,7 @@ export const s_codeowners_errors = z.object({
       suggestion: z.coerce.string().optional().nullable(),
       message: z.coerce.string(),
       path: z.coerce.string(),
-    })
+    }),
   ),
 })
 
@@ -642,7 +642,7 @@ export const s_content_directory = z.array(
       html: z.coerce.string().nullable(),
       self: z.coerce.string(),
     }),
-  })
+  }),
 )
 
 export const s_content_file = z.object({
@@ -772,10 +772,10 @@ export const s_dependency_graph_diff = z.array(
         advisory_ghsa_id: z.coerce.string(),
         advisory_summary: z.coerce.string(),
         advisory_url: z.coerce.string(),
-      })
+      }),
     ),
     scope: z.enum(["unknown", "runtime", "development"]),
-  })
+  }),
 )
 
 export const s_dependency_graph_spdx_sbom = z.object({
@@ -806,10 +806,10 @@ export const s_dependency_graph_spdx_sbom = z.object({
               referenceCategory: z.coerce.string(),
               referenceLocator: z.coerce.string(),
               referenceType: z.coerce.string(),
-            })
+            }),
           )
           .optional(),
-      })
+      }),
     ),
   }),
 })
@@ -944,7 +944,7 @@ export const s_file_commit = z.object({
           url: z.coerce.string().optional(),
           html_url: z.coerce.string().optional(),
           sha: z.coerce.string().optional(),
-        })
+        }),
       )
       .optional(),
     verification: z
@@ -979,7 +979,7 @@ export const s_git_commit = z.object({
       sha: z.coerce.string(),
       url: z.coerce.string(),
       html_url: z.coerce.string(),
-    })
+    }),
   ),
   verification: z.object({
     verified: z.coerce.boolean(),
@@ -1013,7 +1013,7 @@ export const s_git_tree = z.object({
       sha: z.coerce.string().optional(),
       size: z.coerce.number().optional(),
       url: z.coerce.string().optional(),
-    })
+    }),
   ),
 })
 
@@ -1032,7 +1032,7 @@ export const s_gpg_key = z.object({
     z.object({
       email: z.coerce.string().optional(),
       verified: z.coerce.boolean().optional(),
-    })
+    }),
   ),
   subkeys: z.array(
     z.object({
@@ -1045,7 +1045,7 @@ export const s_gpg_key = z.object({
           z.object({
             email: z.coerce.string().optional(),
             verified: z.coerce.boolean().optional(),
-          })
+          }),
         )
         .optional(),
       subkeys: z.array(z.object({})).optional(),
@@ -1057,7 +1057,7 @@ export const s_gpg_key = z.object({
       expires_at: z.coerce.string().optional().nullable(),
       raw_key: z.coerce.string().optional().nullable(),
       revoked: z.coerce.boolean().optional(),
-    })
+    }),
   ),
   can_sign: z.coerce.boolean(),
   can_encrypt_comms: z.coerce.boolean(),
@@ -1114,7 +1114,7 @@ export const s_hook_response = z.object({
 
 export const s_hovercard = z.object({
   contexts: z.array(
-    z.object({ message: z.coerce.string(), octicon: z.coerce.string() })
+    z.object({ message: z.coerce.string(), octicon: z.coerce.string() }),
   ),
 })
 
@@ -1157,7 +1157,7 @@ export const s_import = z.object({
         vcs: z.coerce.string().optional(),
         tfvc_project: z.coerce.string().optional(),
         human_name: z.coerce.string().optional(),
-      })
+      }),
     )
     .optional(),
   message: z.coerce.string().optional(),
@@ -1253,7 +1253,7 @@ export const s_job = z.object({
           .datetime({ offset: true })
           .optional()
           .nullable(),
-      })
+      }),
     )
     .optional(),
   check_run_url: z.coerce.string(),
@@ -1896,7 +1896,7 @@ export const s_protected_branch_required_status_check = z.object({
     z.object({
       context: z.coerce.string(),
       app_id: z.coerce.number().nullable(),
-    })
+    }),
   ),
   contexts_url: z.coerce.string().optional(),
   strict: z.coerce.boolean().optional(),
@@ -2289,10 +2289,10 @@ export const s_search_result_text_matches = z.array(
         z.object({
           text: z.coerce.string().optional(),
           indices: z.array(z.coerce.number()).optional(),
-        })
+        }),
       )
       .optional(),
-  })
+  }),
 )
 
 export const s_secret_scanning_alert_resolution = z
@@ -2427,7 +2427,7 @@ export const s_status_check_policy = z.object({
     z.object({
       context: z.coerce.string(),
       app_id: z.coerce.number().nullable(),
-    })
+    }),
   ),
   contexts_url: z.coerce.string(),
 })
@@ -2564,7 +2564,7 @@ export const s_timeline_committed_event = z.object({
       sha: z.coerce.string(),
       url: z.coerce.string(),
       html_url: z.coerce.string(),
-    })
+    }),
   ),
   verification: z.object({
     verified: z.coerce.boolean(),
@@ -2599,7 +2599,7 @@ export const s_validation_error = z.object({
           z.coerce.number().nullable(),
           z.array(z.coerce.string()).nullable(),
         ]),
-      })
+      }),
     )
     .optional(),
 })
@@ -2661,7 +2661,7 @@ export const s_workflow_run_usage = z.object({
             z.object({
               job_id: z.coerce.number(),
               duration_ms: z.coerce.number(),
-            })
+            }),
           )
           .optional(),
       })
@@ -2675,7 +2675,7 @@ export const s_workflow_run_usage = z.object({
             z.object({
               job_id: z.coerce.number(),
               duration_ms: z.coerce.number(),
-            })
+            }),
           )
           .optional(),
       })
@@ -2689,7 +2689,7 @@ export const s_workflow_run_usage = z.object({
             z.object({
               job_id: z.coerce.number(),
               duration_ms: z.coerce.number(),
-            })
+            }),
           )
           .optional(),
       })
@@ -2825,7 +2825,7 @@ export const s_commit = z.object({
       sha: z.coerce.string(),
       url: z.coerce.string(),
       html_url: z.coerce.string().optional(),
-    })
+    }),
   ),
   stats: z
     .object({
@@ -2880,7 +2880,7 @@ export const s_contributor_activity = z.object({
       a: z.coerce.number().optional(),
       d: z.coerce.number().optional(),
       c: z.coerce.number().optional(),
-    })
+    }),
   ),
 })
 
@@ -2908,7 +2908,7 @@ export const s_environment_approvals = z.object({
       html_url: z.coerce.string().optional(),
       created_at: z.coerce.string().datetime({ offset: true }).optional(),
       updated_at: z.coerce.string().datetime({ offset: true }).optional(),
-    })
+    }),
   ),
   state: z.enum(["approved", "rejected", "pending"]),
   user: s_simple_user,
@@ -3723,7 +3723,7 @@ export const s_org_membership = z.object({
 })
 
 export const s_org_ruleset_conditions = s_repository_ruleset_conditions.merge(
-  s_repository_ruleset_conditions_repository_name_target
+  s_repository_ruleset_conditions_repository_name_target,
 )
 
 export const s_organization_invitation = z.object({
@@ -3820,7 +3820,7 @@ export const s_private_vulnerability_report_create = z.object({
         vulnerable_version_range: z.coerce.string().optional().nullable(),
         patched_versions: z.coerce.string().optional().nullable(),
         vulnerable_functions: z.array(z.coerce.string()).optional().nullable(),
-      })
+      }),
     )
     .optional()
     .nullable(),
@@ -4324,7 +4324,7 @@ export const s_repository_advisory_create = z.object({
       vulnerable_version_range: z.coerce.string().optional().nullable(),
       patched_versions: z.coerce.string().optional().nullable(),
       vulnerable_functions: z.array(z.coerce.string()).optional().nullable(),
-    })
+    }),
   ),
   cwe_ids: z.array(z.coerce.string()).optional().nullable(),
   credits: z
@@ -4332,7 +4332,7 @@ export const s_repository_advisory_create = z.object({
       z.object({
         login: z.coerce.string(),
         type: s_repository_advisory_credit_types,
-      })
+      }),
     )
     .optional()
     .nullable(),
@@ -4360,7 +4360,7 @@ export const s_repository_advisory_update = z.object({
         vulnerable_version_range: z.coerce.string().optional().nullable(),
         patched_versions: z.coerce.string().optional().nullable(),
         vulnerable_functions: z.array(z.coerce.string()).optional().nullable(),
-      })
+      }),
     )
     .optional(),
   cwe_ids: z.array(z.coerce.string()).optional().nullable(),
@@ -4369,7 +4369,7 @@ export const s_repository_advisory_update = z.object({
       z.object({
         login: z.coerce.string(),
         type: s_repository_advisory_credit_types,
-      })
+      }),
     )
     .optional()
     .nullable(),
@@ -4401,7 +4401,7 @@ export const s_repository_rule_required_status_checks = z.object({
   parameters: z
     .object({
       required_status_checks: z.array(
-        s_repository_rule_params_status_check_configuration
+        s_repository_rule_params_status_check_configuration,
       ),
       strict_required_status_checks_policy: z.coerce.boolean(),
     })
@@ -4710,7 +4710,7 @@ export const s_topic_search_result_item = z.object({
             relation_type: z.coerce.string().optional(),
           })
           .optional(),
-      })
+      }),
     )
     .optional()
     .nullable(),
@@ -4725,7 +4725,7 @@ export const s_topic_search_result_item = z.object({
             relation_type: z.coerce.string().optional(),
           })
           .optional(),
-      })
+      }),
     )
     .optional()
     .nullable(),
@@ -4902,7 +4902,7 @@ export const s_check_suite_preference = z.object({
   preferences: z.object({
     auto_trigger_checks: z
       .array(
-        z.object({ app_id: z.coerce.number(), setting: z.coerce.boolean() })
+        z.object({ app_id: z.coerce.number(), setting: z.coerce.boolean() }),
       )
       .optional(),
   }),
@@ -5119,7 +5119,7 @@ export const s_commit_search_result_item = z.object({
       url: z.coerce.string().optional(),
       html_url: z.coerce.string().optional(),
       sha: z.coerce.string().optional(),
-    })
+    }),
   ),
   repository: s_minimal_repository,
   score: z.coerce.number(),
@@ -5174,10 +5174,10 @@ export const s_dependabot_alert_security_advisory = z.object({
     vector_string: z.coerce.string().nullable(),
   }),
   cwes: z.array(
-    z.object({ cwe_id: z.coerce.string(), name: z.coerce.string() })
+    z.object({ cwe_id: z.coerce.string(), name: z.coerce.string() }),
   ),
   identifiers: z.array(
-    z.object({ type: z.enum(["CVE", "GHSA"]), value: z.coerce.string() })
+    z.object({ type: z.enum(["CVE", "GHSA"]), value: z.coerce.string() }),
   ),
   references: z.array(z.object({ url: z.coerce.string() })),
   published_at: z.coerce.string().datetime({ offset: true }),
@@ -5275,7 +5275,7 @@ export const s_environment = z.object({
               z.object({
                 type: s_deployment_reviewer_type,
                 reviewer: z.union([s_simple_user, s_team]),
-              })
+              }),
             )
             .optional(),
         }),
@@ -5284,7 +5284,7 @@ export const s_environment = z.object({
           node_id: z.coerce.string(),
           type: z.coerce.string(),
         }),
-      ])
+      ]),
     )
     .optional(),
   deployment_branch_policy: s_deployment_branch_policy_settings,
@@ -5416,7 +5416,7 @@ export const s_gist_simple = z.object({
         user: s_public_user,
         created_at: z.coerce.string().datetime({ offset: true }).optional(),
         updated_at: z.coerce.string().datetime({ offset: true }).optional(),
-      })
+      }),
     )
     .optional()
     .nullable(),
@@ -5507,7 +5507,7 @@ export const s_issue = z.object({
         color: z.coerce.string().optional().nullable(),
         default: z.coerce.boolean().optional(),
       }),
-    ])
+    ]),
   ),
   assignee: s_nullable_simple_user,
   assignees: z.array(s_simple_user).optional().nullable(),
@@ -5583,7 +5583,7 @@ export const s_issue_search_result_item = z.object({
       color: z.coerce.string().optional(),
       default: z.coerce.boolean().optional(),
       description: z.coerce.string().optional().nullable(),
-    })
+    }),
   ),
   state: z.coerce.string(),
   state_reason: z.coerce.string().optional().nullable(),
@@ -5732,7 +5732,7 @@ export const s_nullable_issue = z
           color: z.coerce.string().optional().nullable(),
           default: z.coerce.boolean().optional(),
         }),
-      ])
+      ]),
     ),
     assignee: s_nullable_simple_user,
     assignees: z.array(s_simple_user).optional().nullable(),
@@ -5836,7 +5836,7 @@ export const s_pending_deployment = z.object({
     z.object({
       type: s_deployment_reviewer_type,
       reviewer: z.union([s_simple_user, s_team]),
-    })
+    }),
   ),
 })
 
@@ -5942,7 +5942,7 @@ export const s_pull_request = z.object({
       description: z.coerce.string().nullable(),
       color: z.coerce.string(),
       default: z.coerce.boolean(),
-    })
+    }),
   ),
   milestone: s_nullable_milestone,
   active_lock_reason: z.coerce.string().optional().nullable(),
@@ -6303,7 +6303,7 @@ export const s_pull_request_simple = z.object({
       description: z.coerce.string(),
       color: z.coerce.string(),
       default: z.coerce.boolean(),
-    })
+    }),
   ),
   milestone: s_nullable_milestone,
   active_lock_reason: z.coerce.string().optional().nullable(),
@@ -6431,7 +6431,7 @@ export const s_repository_advisory = z.object({
   author: s_simple_user.nullable(),
   publisher: s_simple_user.nullable(),
   identifiers: z.array(
-    z.object({ type: z.enum(["CVE", "GHSA"]), value: z.coerce.string() })
+    z.object({ type: z.enum(["CVE", "GHSA"]), value: z.coerce.string() }),
   ),
   state: z.enum(["published", "closed", "withdrawn", "draft", "triage"]),
   created_at: z.coerce.string().datetime({ offset: true }).nullable(),
@@ -6456,7 +6456,7 @@ export const s_repository_advisory = z.object({
       z.object({
         login: z.coerce.string().optional(),
         type: s_repository_advisory_credit_types,
-      })
+      }),
     )
     .nullable(),
   credits_detailed: z.array(s_repository_advisory_credit).nullable(),
@@ -7035,7 +7035,7 @@ export const s_event = z.object({
           action: z.coerce.string().optional(),
           sha: z.coerce.string().optional(),
           html_url: z.coerce.string().optional(),
-        })
+        }),
       )
       .optional(),
   }),

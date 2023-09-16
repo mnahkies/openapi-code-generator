@@ -1975,17 +1975,17 @@ import { z } from "zod"
 //endregion safe-edit-region-header
 export type MetaRoot = (
   params: Params<void, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_root>>
 
 export type AppsGetAuthenticated = (
   params: Params<void, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_integration>>
 
 export type AppsCreateFromManifest = (
   params: Params<t_AppsCreateFromManifestParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       201,
@@ -2008,17 +2008,17 @@ export type AppsCreateFromManifest = (
 
 export type AppsGetWebhookConfigForApp = (
   params: Params<void, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_webhook_config>>
 
 export type AppsUpdateWebhookConfigForApp = (
   params: Params<void, void, t_AppsUpdateWebhookConfigForAppBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_webhook_config>>
 
 export type AppsListWebhookDeliveries = (
   params: Params<void, t_AppsListWebhookDeliveriesQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_hook_delivery_item[]>
   | Response<400, t_scim_error>
@@ -2027,7 +2027,7 @@ export type AppsListWebhookDeliveries = (
 
 export type AppsGetWebhookDelivery = (
   params: Params<t_AppsGetWebhookDeliveryParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_hook_delivery>
   | Response<400, t_scim_error>
@@ -2036,7 +2036,7 @@ export type AppsGetWebhookDelivery = (
 
 export type AppsRedeliverWebhookDelivery = (
   params: Params<t_AppsRedeliverWebhookDeliveryParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<202, EmptyObject>
   | Response<400, t_scim_error>
@@ -2049,7 +2049,7 @@ export type AppsListInstallationRequestsForAuthenticatedApp = (
     t_AppsListInstallationRequestsForAuthenticatedAppQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_integration_installation_request[]>
   | Response<304, void>
@@ -2058,17 +2058,17 @@ export type AppsListInstallationRequestsForAuthenticatedApp = (
 
 export type AppsListInstallations = (
   params: Params<void, t_AppsListInstallationsQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_installation[]>>
 
 export type AppsGetInstallation = (
   params: Params<t_AppsGetInstallationParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_installation> | Response<404, t_basic_error>>
 
 export type AppsDeleteInstallation = (
   params: Params<t_AppsDeleteInstallationParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
 
 export type AppsCreateInstallationAccessToken = (
@@ -2077,7 +2077,7 @@ export type AppsCreateInstallationAccessToken = (
     void,
     t_AppsCreateInstallationAccessTokenBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_installation_token>
   | Response<401, t_basic_error>
@@ -2088,12 +2088,12 @@ export type AppsCreateInstallationAccessToken = (
 
 export type AppsSuspendInstallation = (
   params: Params<t_AppsSuspendInstallationParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
 
 export type AppsUnsuspendInstallation = (
   params: Params<t_AppsUnsuspendInstallationParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
 
 export type AppsDeleteAuthorization = (
@@ -2102,12 +2102,12 @@ export type AppsDeleteAuthorization = (
     void,
     t_AppsDeleteAuthorizationBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<422, t_validation_error>>
 
 export type AppsCheckToken = (
   params: Params<t_AppsCheckTokenParamSchema, void, t_AppsCheckTokenBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_authorization>
   | Response<404, t_basic_error>
@@ -2116,7 +2116,7 @@ export type AppsCheckToken = (
 
 export type AppsResetToken = (
   params: Params<t_AppsResetTokenParamSchema, void, t_AppsResetTokenBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_authorization> | Response<422, t_validation_error>>
 
 export type AppsDeleteToken = (
@@ -2125,12 +2125,12 @@ export type AppsDeleteToken = (
     void,
     t_AppsDeleteTokenBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<422, t_validation_error>>
 
 export type AppsScopeToken = (
   params: Params<t_AppsScopeTokenParamSchema, void, t_AppsScopeTokenBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_authorization>
   | Response<401, t_basic_error>
@@ -2141,7 +2141,7 @@ export type AppsScopeToken = (
 
 export type AppsGetBySlug = (
   params: Params<t_AppsGetBySlugParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_integration>
   | Response<403, t_basic_error>
@@ -2150,12 +2150,12 @@ export type AppsGetBySlug = (
 
 export type CodesOfConductGetAllCodesOfConduct = (
   params: Params<void, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_code_of_conduct[]> | Response<304, void>>
 
 export type CodesOfConductGetConductCode = (
   params: Params<t_CodesOfConductGetConductCodeParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_code_of_conduct>
   | Response<304, void>
@@ -2164,7 +2164,7 @@ export type CodesOfConductGetConductCode = (
 
 export type EmojisGet = (
   params: Params<void, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2181,7 +2181,7 @@ export type DependabotListAlertsForEnterprise = (
     t_DependabotListAlertsForEnterpriseQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_dependabot_alert_with_repository[]>
   | Response<304, void>
@@ -2196,7 +2196,7 @@ export type SecretScanningListAlertsForEnterprise = (
     t_SecretScanningListAlertsForEnterpriseQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_organization_secret_scanning_alert[]>
   | Response<404, t_basic_error>
@@ -2212,7 +2212,7 @@ export type SecretScanningListAlertsForEnterprise = (
 
 export type ActivityListPublicEvents = (
   params: Params<void, t_ActivityListPublicEventsQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_event[]>
   | Response<304, void>
@@ -2229,12 +2229,12 @@ export type ActivityListPublicEvents = (
 
 export type ActivityGetFeeds = (
   params: Params<void, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_feed>>
 
 export type GistsList = (
   params: Params<void, t_GistsListQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_base_gist[]>
   | Response<304, void>
@@ -2243,7 +2243,7 @@ export type GistsList = (
 
 export type GistsCreate = (
   params: Params<void, void, t_GistsCreateBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_gist_simple>
   | Response<304, void>
@@ -2254,7 +2254,7 @@ export type GistsCreate = (
 
 export type GistsListPublic = (
   params: Params<void, t_GistsListPublicQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_base_gist[]>
   | Response<304, void>
@@ -2264,7 +2264,7 @@ export type GistsListPublic = (
 
 export type GistsListStarred = (
   params: Params<void, t_GistsListStarredQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_base_gist[]>
   | Response<304, void>
@@ -2274,7 +2274,7 @@ export type GistsListStarred = (
 
 export type GistsGet = (
   params: Params<t_GistsGetParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_gist_simple>
   | Response<304, void>
@@ -2295,7 +2295,7 @@ export type GistsGet = (
 
 export type GistsUpdate = (
   params: Params<t_GistsUpdateParamSchema, void, t_GistsUpdateBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_gist_simple>
   | Response<404, t_basic_error>
@@ -2304,7 +2304,7 @@ export type GistsUpdate = (
 
 export type GistsDelete = (
   params: Params<t_GistsDeleteParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -2318,7 +2318,7 @@ export type GistsListComments = (
     t_GistsListCommentsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_gist_comment[]>
   | Response<304, void>
@@ -2332,7 +2332,7 @@ export type GistsCreateComment = (
     void,
     t_GistsCreateCommentBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_gist_comment>
   | Response<304, void>
@@ -2342,7 +2342,7 @@ export type GistsCreateComment = (
 
 export type GistsGetComment = (
   params: Params<t_GistsGetCommentParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_gist_comment>
   | Response<304, void>
@@ -2367,12 +2367,12 @@ export type GistsUpdateComment = (
     void,
     t_GistsUpdateCommentBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_gist_comment> | Response<404, t_basic_error>>
 
 export type GistsDeleteComment = (
   params: Params<t_GistsDeleteCommentParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -2386,7 +2386,7 @@ export type GistsListCommits = (
     t_GistsListCommitsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_gist_commit[]>
   | Response<304, void>
@@ -2400,7 +2400,7 @@ export type GistsListForks = (
     t_GistsListForksQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_gist_simple[]>
   | Response<304, void>
@@ -2410,7 +2410,7 @@ export type GistsListForks = (
 
 export type GistsFork = (
   params: Params<t_GistsForkParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_base_gist>
   | Response<304, void>
@@ -2421,7 +2421,7 @@ export type GistsFork = (
 
 export type GistsCheckIsStarred = (
   params: Params<t_GistsCheckIsStarredParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -2431,7 +2431,7 @@ export type GistsCheckIsStarred = (
 
 export type GistsStar = (
   params: Params<t_GistsStarParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -2441,7 +2441,7 @@ export type GistsStar = (
 
 export type GistsUnstar = (
   params: Params<t_GistsUnstarParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -2451,7 +2451,7 @@ export type GistsUnstar = (
 
 export type GistsGetRevision = (
   params: Params<t_GistsGetRevisionParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_gist_simple>
   | Response<403, t_basic_error>
@@ -2461,12 +2461,12 @@ export type GistsGetRevision = (
 
 export type GitignoreGetAllTemplates = (
   params: Params<void, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, string[]> | Response<304, void>>
 
 export type GitignoreGetTemplate = (
   params: Params<t_GitignoreGetTemplateParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_gitignore_template> | Response<304, void>>
 
 export type AppsListReposAccessibleToInstallation = (
@@ -2475,7 +2475,7 @@ export type AppsListReposAccessibleToInstallation = (
     t_AppsListReposAccessibleToInstallationQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -2492,12 +2492,12 @@ export type AppsListReposAccessibleToInstallation = (
 
 export type AppsRevokeInstallationAccessToken = (
   params: Params<void, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type IssuesList = (
   params: Params<void, t_IssuesListQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_issue[]>
   | Response<304, void>
@@ -2507,12 +2507,12 @@ export type IssuesList = (
 
 export type LicensesGetAllCommonlyUsed = (
   params: Params<void, t_LicensesGetAllCommonlyUsedQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_license_simple[]> | Response<304, void>>
 
 export type LicensesGet = (
   params: Params<t_LicensesGetParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_license>
   | Response<304, void>
@@ -2522,17 +2522,17 @@ export type LicensesGet = (
 
 export type MarkdownRender = (
   params: Params<void, void, t_MarkdownRenderBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, string> | Response<304, void>>
 
 export type MarkdownRenderRaw = (
   params: Params<void, void, t_MarkdownRenderRawBodySchema | undefined>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, string> | Response<304, void>>
 
 export type AppsGetSubscriptionPlanForAccount = (
   params: Params<t_AppsGetSubscriptionPlanForAccountParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_marketplace_purchase>
   | Response<401, t_basic_error>
@@ -2541,7 +2541,7 @@ export type AppsGetSubscriptionPlanForAccount = (
 
 export type AppsListPlans = (
   params: Params<void, t_AppsListPlansQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_marketplace_listing_plan[]>
   | Response<401, t_basic_error>
@@ -2554,7 +2554,7 @@ export type AppsListAccountsForPlan = (
     t_AppsListAccountsForPlanQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_marketplace_purchase[]>
   | Response<401, t_basic_error>
@@ -2568,7 +2568,7 @@ export type AppsGetSubscriptionPlanForAccountStubbed = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_marketplace_purchase>
   | Response<401, t_basic_error>
@@ -2577,7 +2577,7 @@ export type AppsGetSubscriptionPlanForAccountStubbed = (
 
 export type AppsListPlansStubbed = (
   params: Params<void, t_AppsListPlansStubbedQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_marketplace_listing_plan[]> | Response<401, t_basic_error>
 >
@@ -2588,14 +2588,14 @@ export type AppsListAccountsForPlanStubbed = (
     t_AppsListAccountsForPlanStubbedQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_marketplace_purchase[]> | Response<401, t_basic_error>
 >
 
 export type MetaGet = (
   params: Params<void, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_api_overview> | Response<304, void>>
 
 export type ActivityListPublicEventsForRepoNetwork = (
@@ -2604,7 +2604,7 @@ export type ActivityListPublicEventsForRepoNetwork = (
     t_ActivityListPublicEventsForRepoNetworkQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_event[]>
   | Response<301, t_basic_error>
@@ -2619,7 +2619,7 @@ export type ActivityListNotificationsForAuthenticatedUser = (
     t_ActivityListNotificationsForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_thread[]>
   | Response<304, void>
@@ -2634,7 +2634,7 @@ export type ActivityMarkNotificationsAsRead = (
     void,
     t_ActivityMarkNotificationsAsReadBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       202,
@@ -2650,7 +2650,7 @@ export type ActivityMarkNotificationsAsRead = (
 
 export type ActivityGetThread = (
   params: Params<t_ActivityGetThreadParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_thread>
   | Response<304, void>
@@ -2660,7 +2660,7 @@ export type ActivityGetThread = (
 
 export type ActivityMarkThreadAsRead = (
   params: Params<t_ActivityMarkThreadAsReadParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<205, void> | Response<304, void> | Response<403, t_basic_error>
 >
@@ -2671,7 +2671,7 @@ export type ActivityGetThreadSubscriptionForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_thread_subscription>
   | Response<304, void>
@@ -2685,7 +2685,7 @@ export type ActivitySetThreadSubscription = (
     void,
     t_ActivitySetThreadSubscriptionBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_thread_subscription>
   | Response<304, void>
@@ -2695,7 +2695,7 @@ export type ActivitySetThreadSubscription = (
 
 export type ActivityDeleteThreadSubscription = (
   params: Params<t_ActivityDeleteThreadSubscriptionParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -2705,12 +2705,12 @@ export type ActivityDeleteThreadSubscription = (
 
 export type MetaGetOctocat = (
   params: Params<void, t_MetaGetOctocatQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, string>>
 
 export type OrgsList = (
   params: Params<void, t_OrgsListQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_organization_simple[]> | Response<304, void>>
 
 export type OrgsListPatGrantRequests = (
@@ -2719,7 +2719,7 @@ export type OrgsListPatGrantRequests = (
     t_OrgsListPatGrantRequestsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_organization_programmatic_access_grant_request[]>
   | Response<403, t_basic_error>
@@ -2734,7 +2734,7 @@ export type OrgsReviewPatGrantRequestsInBulk = (
     void,
     t_OrgsReviewPatGrantRequestsInBulkBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<202, EmptyObject>
   | Response<403, t_basic_error>
@@ -2749,7 +2749,7 @@ export type OrgsReviewPatGrantRequest = (
     void,
     t_OrgsReviewPatGrantRequestBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<403, t_basic_error>
@@ -2764,7 +2764,7 @@ export type OrgsListPatGrantRequestRepositories = (
     t_OrgsListPatGrantRequestRepositoriesQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_minimal_repository[]>
   | Response<403, t_basic_error>
@@ -2778,7 +2778,7 @@ export type OrgsListPatGrants = (
     t_OrgsListPatGrantsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_organization_programmatic_access_grant[]>
   | Response<403, t_basic_error>
@@ -2793,7 +2793,7 @@ export type OrgsUpdatePatAccesses = (
     void,
     t_OrgsUpdatePatAccessesBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<202, EmptyObject>
   | Response<403, t_basic_error>
@@ -2808,7 +2808,7 @@ export type OrgsUpdatePatAccess = (
     void,
     t_OrgsUpdatePatAccessBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<403, t_basic_error>
@@ -2823,7 +2823,7 @@ export type OrgsListPatGrantRepositories = (
     t_OrgsListPatGrantRepositoriesQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_minimal_repository[]>
   | Response<403, t_basic_error>
@@ -2833,7 +2833,7 @@ export type OrgsListPatGrantRepositories = (
 
 export type OrgsGet = (
   params: Params<t_OrgsGetParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_organization_full> | Response<404, t_basic_error>>
 
 export type OrgsUpdate = (
@@ -2842,7 +2842,7 @@ export type OrgsUpdate = (
     void,
     t_OrgsUpdateBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_organization_full>
   | Response<409, t_basic_error>
@@ -2851,7 +2851,7 @@ export type OrgsUpdate = (
 
 export type OrgsDelete = (
   params: Params<t_OrgsDeleteParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<202, EmptyObject>
   | Response<403, t_basic_error>
@@ -2860,7 +2860,7 @@ export type OrgsDelete = (
 
 export type ActionsGetActionsCacheUsageForOrg = (
   params: Params<t_ActionsGetActionsCacheUsageForOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_actions_cache_usage_org_enterprise>>
 
 export type ActionsGetActionsCacheUsageByRepoForOrg = (
@@ -2869,7 +2869,7 @@ export type ActionsGetActionsCacheUsageByRepoForOrg = (
     t_ActionsGetActionsCacheUsageByRepoForOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -2882,7 +2882,7 @@ export type ActionsGetActionsCacheUsageByRepoForOrg = (
 
 export type OidcGetOidcCustomSubTemplateForOrg = (
   params: Params<t_OidcGetOidcCustomSubTemplateForOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_oidc_custom_sub>>
 
 export type OidcUpdateOidcCustomSubTemplateForOrg = (
@@ -2891,7 +2891,7 @@ export type OidcUpdateOidcCustomSubTemplateForOrg = (
     void,
     t_OidcUpdateOidcCustomSubTemplateForOrgBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_empty_object>
   | Response<403, t_basic_error>
@@ -2904,7 +2904,7 @@ export type ActionsGetGithubActionsPermissionsOrganization = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_actions_organization_permissions>>
 
 export type ActionsSetGithubActionsPermissionsOrganization = (
@@ -2913,7 +2913,7 @@ export type ActionsSetGithubActionsPermissionsOrganization = (
     void,
     t_ActionsSetGithubActionsPermissionsOrganizationBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsListSelectedRepositoriesEnabledGithubActionsOrganization = (
@@ -2922,7 +2922,7 @@ export type ActionsListSelectedRepositoriesEnabledGithubActionsOrganization = (
     t_ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -2939,7 +2939,7 @@ export type ActionsSetSelectedRepositoriesEnabledGithubActionsOrganization = (
     void,
     t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsEnableSelectedRepositoryGithubActionsOrganization = (
@@ -2948,7 +2948,7 @@ export type ActionsEnableSelectedRepositoryGithubActionsOrganization = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsDisableSelectedRepositoryGithubActionsOrganization = (
@@ -2957,12 +2957,12 @@ export type ActionsDisableSelectedRepositoryGithubActionsOrganization = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsGetAllowedActionsOrganization = (
   params: Params<t_ActionsGetAllowedActionsOrganizationParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_selected_actions>>
 
 export type ActionsSetAllowedActionsOrganization = (
@@ -2971,7 +2971,7 @@ export type ActionsSetAllowedActionsOrganization = (
     void,
     t_ActionsSetAllowedActionsOrganizationBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsGetGithubActionsDefaultWorkflowPermissionsOrganization = (
@@ -2980,7 +2980,7 @@ export type ActionsGetGithubActionsDefaultWorkflowPermissionsOrganization = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_actions_get_default_workflow_permissions>>
 
 export type ActionsSetGithubActionsDefaultWorkflowPermissionsOrganization = (
@@ -2990,7 +2990,7 @@ export type ActionsSetGithubActionsDefaultWorkflowPermissionsOrganization = (
     | t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema
     | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsListRequiredWorkflows = (
@@ -2999,7 +2999,7 @@ export type ActionsListRequiredWorkflows = (
     t_ActionsListRequiredWorkflowsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -3016,14 +3016,14 @@ export type ActionsCreateRequiredWorkflow = (
     void,
     t_ActionsCreateRequiredWorkflowBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<201, t_required_workflow> | Response<422, t_validation_error_simple>
 >
 
 export type ActionsGetRequiredWorkflow = (
   params: Params<t_ActionsGetRequiredWorkflowParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_required_workflow>>
 
 export type ActionsUpdateRequiredWorkflow = (
@@ -3032,14 +3032,14 @@ export type ActionsUpdateRequiredWorkflow = (
     void,
     t_ActionsUpdateRequiredWorkflowBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_required_workflow> | Response<422, t_validation_error_simple>
 >
 
 export type ActionsDeleteRequiredWorkflow = (
   params: Params<t_ActionsDeleteRequiredWorkflowParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsListSelectedRepositoriesRequiredWorkflow = (
@@ -3048,7 +3048,7 @@ export type ActionsListSelectedRepositoriesRequiredWorkflow = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3066,7 +3066,7 @@ export type ActionsSetSelectedReposToRequiredWorkflow = (
     void,
     t_ActionsSetSelectedReposToRequiredWorkflowBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsAddSelectedRepoToRequiredWorkflow = (
@@ -3075,7 +3075,7 @@ export type ActionsAddSelectedRepoToRequiredWorkflow = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, void> | Response<422, void>>
 
 export type ActionsRemoveSelectedRepoFromRequiredWorkflow = (
@@ -3084,7 +3084,7 @@ export type ActionsRemoveSelectedRepoFromRequiredWorkflow = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, void> | Response<422, void>>
 
 export type ActionsListSelfHostedRunnersForOrg = (
@@ -3093,7 +3093,7 @@ export type ActionsListSelfHostedRunnersForOrg = (
     t_ActionsListSelfHostedRunnersForOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -3106,27 +3106,27 @@ export type ActionsListSelfHostedRunnersForOrg = (
 
 export type ActionsListRunnerApplicationsForOrg = (
   params: Params<t_ActionsListRunnerApplicationsForOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_runner_application[]>>
 
 export type ActionsCreateRegistrationTokenForOrg = (
   params: Params<t_ActionsCreateRegistrationTokenForOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_authentication_token>>
 
 export type ActionsCreateRemoveTokenForOrg = (
   params: Params<t_ActionsCreateRemoveTokenForOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_authentication_token>>
 
 export type ActionsGetSelfHostedRunnerForOrg = (
   params: Params<t_ActionsGetSelfHostedRunnerForOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_runner>>
 
 export type ActionsDeleteSelfHostedRunnerFromOrg = (
   params: Params<t_ActionsDeleteSelfHostedRunnerFromOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsListLabelsForSelfHostedRunnerForOrg = (
@@ -3135,7 +3135,7 @@ export type ActionsListLabelsForSelfHostedRunnerForOrg = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3153,7 +3153,7 @@ export type ActionsAddCustomLabelsToSelfHostedRunnerForOrg = (
     void,
     t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3172,7 +3172,7 @@ export type ActionsSetCustomLabelsForSelfHostedRunnerForOrg = (
     void,
     t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3191,7 +3191,7 @@ export type ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrg = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3209,7 +3209,7 @@ export type ActionsRemoveCustomLabelFromSelfHostedRunnerForOrg = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3228,7 +3228,7 @@ export type ActionsListOrgSecrets = (
     t_ActionsListOrgSecretsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -3241,12 +3241,12 @@ export type ActionsListOrgSecrets = (
 
 export type ActionsGetOrgPublicKey = (
   params: Params<t_ActionsGetOrgPublicKeyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_actions_public_key>>
 
 export type ActionsGetOrgSecret = (
   params: Params<t_ActionsGetOrgSecretParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_organization_actions_secret>>
 
 export type ActionsCreateOrUpdateOrgSecret = (
@@ -3255,12 +3255,12 @@ export type ActionsCreateOrUpdateOrgSecret = (
     void,
     t_ActionsCreateOrUpdateOrgSecretBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_empty_object> | Response<204, void>>
 
 export type ActionsDeleteOrgSecret = (
   params: Params<t_ActionsDeleteOrgSecretParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsListSelectedReposForOrgSecret = (
@@ -3269,7 +3269,7 @@ export type ActionsListSelectedReposForOrgSecret = (
     t_ActionsListSelectedReposForOrgSecretQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -3286,12 +3286,12 @@ export type ActionsSetSelectedReposForOrgSecret = (
     void,
     t_ActionsSetSelectedReposForOrgSecretBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsAddSelectedRepoToOrgSecret = (
   params: Params<t_ActionsAddSelectedRepoToOrgSecretParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<409, void>>
 
 export type ActionsRemoveSelectedRepoFromOrgSecret = (
@@ -3300,7 +3300,7 @@ export type ActionsRemoveSelectedRepoFromOrgSecret = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<409, void>>
 
 export type ActionsListOrgVariables = (
@@ -3309,7 +3309,7 @@ export type ActionsListOrgVariables = (
     t_ActionsListOrgVariablesQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -3326,12 +3326,12 @@ export type ActionsCreateOrgVariable = (
     void,
     t_ActionsCreateOrgVariableBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_empty_object>>
 
 export type ActionsGetOrgVariable = (
   params: Params<t_ActionsGetOrgVariableParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_organization_actions_variable>>
 
 export type ActionsUpdateOrgVariable = (
@@ -3340,12 +3340,12 @@ export type ActionsUpdateOrgVariable = (
     void,
     t_ActionsUpdateOrgVariableBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsDeleteOrgVariable = (
   params: Params<t_ActionsDeleteOrgVariableParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsListSelectedReposForOrgVariable = (
@@ -3354,7 +3354,7 @@ export type ActionsListSelectedReposForOrgVariable = (
     t_ActionsListSelectedReposForOrgVariableQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3372,12 +3372,12 @@ export type ActionsSetSelectedReposForOrgVariable = (
     void,
     t_ActionsSetSelectedReposForOrgVariableBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<409, void>>
 
 export type ActionsAddSelectedRepoToOrgVariable = (
   params: Params<t_ActionsAddSelectedRepoToOrgVariableParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<409, void>>
 
 export type ActionsRemoveSelectedRepoFromOrgVariable = (
@@ -3386,7 +3386,7 @@ export type ActionsRemoveSelectedRepoFromOrgVariable = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<409, void>>
 
 export type OrgsListBlockedUsers = (
@@ -3395,22 +3395,22 @@ export type OrgsListBlockedUsers = (
     t_OrgsListBlockedUsersQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_simple_user[]>>
 
 export type OrgsCheckBlockedUser = (
   params: Params<t_OrgsCheckBlockedUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
 
 export type OrgsBlockUser = (
   params: Params<t_OrgsBlockUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<422, t_validation_error>>
 
 export type OrgsUnblockUser = (
   params: Params<t_OrgsUnblockUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type CodeScanningListAlertsForOrg = (
@@ -3419,7 +3419,7 @@ export type CodeScanningListAlertsForOrg = (
     t_CodeScanningListAlertsForOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_code_scanning_organization_alert_items[]>
   | Response<404, t_basic_error>
@@ -3439,7 +3439,7 @@ export type CodespacesListInOrganization = (
     t_CodespacesListInOrganizationQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3461,7 +3461,7 @@ export type CodespacesSetCodespacesBilling = (
     void,
     t_CodespacesSetCodespacesBillingBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -3477,7 +3477,7 @@ export type CodespacesSetCodespacesBillingUsers = (
     void,
     t_CodespacesSetCodespacesBillingUsersBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -3493,7 +3493,7 @@ export type CodespacesDeleteCodespacesBillingUsers = (
     void,
     t_CodespacesDeleteCodespacesBillingUsersBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -3509,7 +3509,7 @@ export type CodespacesListOrgSecrets = (
     t_CodespacesListOrgSecretsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -3522,12 +3522,12 @@ export type CodespacesListOrgSecrets = (
 
 export type CodespacesGetOrgPublicKey = (
   params: Params<t_CodespacesGetOrgPublicKeyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_codespaces_public_key>>
 
 export type CodespacesGetOrgSecret = (
   params: Params<t_CodespacesGetOrgSecretParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_codespaces_org_secret>>
 
 export type CodespacesCreateOrUpdateOrgSecret = (
@@ -3536,7 +3536,7 @@ export type CodespacesCreateOrUpdateOrgSecret = (
     void,
     t_CodespacesCreateOrUpdateOrgSecretBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_empty_object>
   | Response<204, void>
@@ -3546,7 +3546,7 @@ export type CodespacesCreateOrUpdateOrgSecret = (
 
 export type CodespacesDeleteOrgSecret = (
   params: Params<t_CodespacesDeleteOrgSecretParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
 
 export type CodespacesListSelectedReposForOrgSecret = (
@@ -3555,7 +3555,7 @@ export type CodespacesListSelectedReposForOrgSecret = (
     t_CodespacesListSelectedReposForOrgSecretQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3573,14 +3573,14 @@ export type CodespacesSetSelectedReposForOrgSecret = (
     void,
     t_CodespacesSetSelectedReposForOrgSecretBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<204, void> | Response<404, t_basic_error> | Response<409, void>
 >
 
 export type CodespacesAddSelectedRepoToOrgSecret = (
   params: Params<t_CodespacesAddSelectedRepoToOrgSecretParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<404, t_basic_error>
@@ -3594,7 +3594,7 @@ export type CodespacesRemoveSelectedRepoFromOrgSecret = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<404, t_basic_error>
@@ -3608,7 +3608,7 @@ export type DependabotListAlertsForOrg = (
     t_DependabotListAlertsForOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_dependabot_alert_with_repository[]>
   | Response<304, void>
@@ -3624,7 +3624,7 @@ export type DependabotListOrgSecrets = (
     t_DependabotListOrgSecretsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -3637,12 +3637,12 @@ export type DependabotListOrgSecrets = (
 
 export type DependabotGetOrgPublicKey = (
   params: Params<t_DependabotGetOrgPublicKeyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_dependabot_public_key>>
 
 export type DependabotGetOrgSecret = (
   params: Params<t_DependabotGetOrgSecretParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_organization_dependabot_secret>>
 
 export type DependabotCreateOrUpdateOrgSecret = (
@@ -3651,12 +3651,12 @@ export type DependabotCreateOrUpdateOrgSecret = (
     void,
     t_DependabotCreateOrUpdateOrgSecretBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_empty_object> | Response<204, void>>
 
 export type DependabotDeleteOrgSecret = (
   params: Params<t_DependabotDeleteOrgSecretParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type DependabotListSelectedReposForOrgSecret = (
@@ -3665,7 +3665,7 @@ export type DependabotListSelectedReposForOrgSecret = (
     t_DependabotListSelectedReposForOrgSecretQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -3682,12 +3682,12 @@ export type DependabotSetSelectedReposForOrgSecret = (
     void,
     t_DependabotSetSelectedReposForOrgSecretBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type DependabotAddSelectedRepoToOrgSecret = (
   params: Params<t_DependabotAddSelectedRepoToOrgSecretParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<409, void>>
 
 export type DependabotRemoveSelectedRepoFromOrgSecret = (
@@ -3696,7 +3696,7 @@ export type DependabotRemoveSelectedRepoFromOrgSecret = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<409, void>>
 
 export type PackagesListDockerMigrationConflictingPackagesForOrganization = (
@@ -3705,7 +3705,7 @@ export type PackagesListDockerMigrationConflictingPackagesForOrganization = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_package[]>
   | Response<401, t_basic_error>
@@ -3718,7 +3718,7 @@ export type ActivityListPublicOrgEvents = (
     t_ActivityListPublicOrgEventsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_event[]>>
 
 export type OrgsListFailedInvitations = (
@@ -3727,7 +3727,7 @@ export type OrgsListFailedInvitations = (
     t_OrgsListFailedInvitationsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_organization_invitation[]> | Response<404, t_basic_error>
 >
@@ -3738,7 +3738,7 @@ export type OrgsListWebhooks = (
     t_OrgsListWebhooksQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_org_hook[]> | Response<404, t_basic_error>>
 
 export type OrgsCreateWebhook = (
@@ -3747,7 +3747,7 @@ export type OrgsCreateWebhook = (
     void,
     t_OrgsCreateWebhookBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_org_hook>
   | Response<404, t_basic_error>
@@ -3756,7 +3756,7 @@ export type OrgsCreateWebhook = (
 
 export type OrgsGetWebhook = (
   params: Params<t_OrgsGetWebhookParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_org_hook> | Response<404, t_basic_error>>
 
 export type OrgsUpdateWebhook = (
@@ -3765,7 +3765,7 @@ export type OrgsUpdateWebhook = (
     void,
     t_OrgsUpdateWebhookBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_org_hook>
   | Response<404, t_basic_error>
@@ -3774,12 +3774,12 @@ export type OrgsUpdateWebhook = (
 
 export type OrgsDeleteWebhook = (
   params: Params<t_OrgsDeleteWebhookParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
 
 export type OrgsGetWebhookConfigForOrg = (
   params: Params<t_OrgsGetWebhookConfigForOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_webhook_config>>
 
 export type OrgsUpdateWebhookConfigForOrg = (
@@ -3788,7 +3788,7 @@ export type OrgsUpdateWebhookConfigForOrg = (
     void,
     t_OrgsUpdateWebhookConfigForOrgBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_webhook_config>>
 
 export type OrgsListWebhookDeliveries = (
@@ -3797,7 +3797,7 @@ export type OrgsListWebhookDeliveries = (
     t_OrgsListWebhookDeliveriesQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_hook_delivery_item[]>
   | Response<400, t_scim_error>
@@ -3806,7 +3806,7 @@ export type OrgsListWebhookDeliveries = (
 
 export type OrgsGetWebhookDelivery = (
   params: Params<t_OrgsGetWebhookDeliveryParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_hook_delivery>
   | Response<400, t_scim_error>
@@ -3815,7 +3815,7 @@ export type OrgsGetWebhookDelivery = (
 
 export type OrgsRedeliverWebhookDelivery = (
   params: Params<t_OrgsRedeliverWebhookDeliveryParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<202, EmptyObject>
   | Response<400, t_scim_error>
@@ -3824,12 +3824,12 @@ export type OrgsRedeliverWebhookDelivery = (
 
 export type OrgsPingWebhook = (
   params: Params<t_OrgsPingWebhookParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
 
 export type AppsGetOrgInstallation = (
   params: Params<t_AppsGetOrgInstallationParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_installation>>
 
 export type OrgsListAppInstallations = (
@@ -3838,7 +3838,7 @@ export type OrgsListAppInstallations = (
     t_OrgsListAppInstallationsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -3851,7 +3851,7 @@ export type OrgsListAppInstallations = (
 
 export type InteractionsGetRestrictionsForOrg = (
   params: Params<t_InteractionsGetRestrictionsForOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_interaction_limit_response | EmptyObject>>
 
 export type InteractionsSetRestrictionsForOrg = (
@@ -3860,7 +3860,7 @@ export type InteractionsSetRestrictionsForOrg = (
     void,
     t_InteractionsSetRestrictionsForOrgBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_interaction_limit_response>
   | Response<422, t_validation_error>
@@ -3868,7 +3868,7 @@ export type InteractionsSetRestrictionsForOrg = (
 
 export type InteractionsRemoveRestrictionsForOrg = (
   params: Params<t_InteractionsRemoveRestrictionsForOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type OrgsListPendingInvitations = (
@@ -3877,7 +3877,7 @@ export type OrgsListPendingInvitations = (
     t_OrgsListPendingInvitationsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_organization_invitation[]> | Response<404, t_basic_error>
 >
@@ -3888,7 +3888,7 @@ export type OrgsCreateInvitation = (
     void,
     t_OrgsCreateInvitationBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_organization_invitation>
   | Response<404, t_basic_error>
@@ -3897,7 +3897,7 @@ export type OrgsCreateInvitation = (
 
 export type OrgsCancelInvitation = (
   params: Params<t_OrgsCancelInvitationParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<404, t_basic_error>
@@ -3910,7 +3910,7 @@ export type OrgsListInvitationTeams = (
     t_OrgsListInvitationTeamsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team[]> | Response<404, t_basic_error>>
 
 export type IssuesListForOrg = (
@@ -3919,7 +3919,7 @@ export type IssuesListForOrg = (
     t_IssuesListForOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_issue[]> | Response<404, t_basic_error>>
 
 export type OrgsListMembers = (
@@ -3928,17 +3928,17 @@ export type OrgsListMembers = (
     t_OrgsListMembersQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_simple_user[]> | Response<422, t_validation_error>>
 
 export type OrgsCheckMembershipForUser = (
   params: Params<t_OrgsCheckMembershipForUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<302, void> | Response<404, void>>
 
 export type OrgsRemoveMember = (
   params: Params<t_OrgsRemoveMemberParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<403, t_basic_error>>
 
 export type CodespacesGetCodespacesForUserInOrg = (
@@ -3947,7 +3947,7 @@ export type CodespacesGetCodespacesForUserInOrg = (
     t_CodespacesGetCodespacesForUserInOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -3965,7 +3965,7 @@ export type CodespacesGetCodespacesForUserInOrg = (
 
 export type CodespacesDeleteFromOrganization = (
   params: Params<t_CodespacesDeleteFromOrganizationParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<202, EmptyObject>
   | Response<304, void>
@@ -3977,7 +3977,7 @@ export type CodespacesDeleteFromOrganization = (
 
 export type CodespacesStopInOrganization = (
   params: Params<t_CodespacesStopInOrganizationParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_codespace>
   | Response<304, void>
@@ -3989,7 +3989,7 @@ export type CodespacesStopInOrganization = (
 
 export type OrgsGetMembershipForUser = (
   params: Params<t_OrgsGetMembershipForUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_org_membership>
   | Response<403, t_basic_error>
@@ -4002,7 +4002,7 @@ export type OrgsSetMembershipForUser = (
     void,
     t_OrgsSetMembershipForUserBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_org_membership>
   | Response<403, t_basic_error>
@@ -4011,7 +4011,7 @@ export type OrgsSetMembershipForUser = (
 
 export type OrgsRemoveMembershipForUser = (
   params: Params<t_OrgsRemoveMembershipForUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<403, t_basic_error>
@@ -4024,7 +4024,7 @@ export type MigrationsListForOrg = (
     t_MigrationsListForOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_migration[]>>
 
 export type MigrationsStartForOrg = (
@@ -4033,7 +4033,7 @@ export type MigrationsStartForOrg = (
     void,
     t_MigrationsStartForOrgBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_migration>
   | Response<404, t_basic_error>
@@ -4046,22 +4046,22 @@ export type MigrationsGetStatusForOrg = (
     t_MigrationsGetStatusForOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_migration> | Response<404, t_basic_error>>
 
 export type MigrationsDownloadArchiveForOrg = (
   params: Params<t_MigrationsDownloadArchiveForOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<302, void> | Response<404, t_basic_error>>
 
 export type MigrationsDeleteArchiveForOrg = (
   params: Params<t_MigrationsDeleteArchiveForOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
 
 export type MigrationsUnlockRepoForOrg = (
   params: Params<t_MigrationsUnlockRepoForOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
 
 export type MigrationsListReposForOrg = (
@@ -4070,7 +4070,7 @@ export type MigrationsListReposForOrg = (
     t_MigrationsListReposForOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_minimal_repository[]> | Response<404, t_basic_error>
 >
@@ -4081,7 +4081,7 @@ export type OrgsListOutsideCollaborators = (
     t_OrgsListOutsideCollaboratorsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_simple_user[]>>
 
 export type OrgsConvertMemberToOutsideCollaborator = (
@@ -4090,7 +4090,7 @@ export type OrgsConvertMemberToOutsideCollaborator = (
     void,
     t_OrgsConvertMemberToOutsideCollaboratorBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<202, EmptyObject>
   | Response<204, void>
@@ -4100,7 +4100,7 @@ export type OrgsConvertMemberToOutsideCollaborator = (
 
 export type OrgsRemoveOutsideCollaborator = (
   params: Params<t_OrgsRemoveOutsideCollaboratorParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<
@@ -4118,7 +4118,7 @@ export type PackagesListPackagesForOrganization = (
     t_PackagesListPackagesForOrganizationQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_package[]>
   | Response<400, void>
@@ -4128,12 +4128,12 @@ export type PackagesListPackagesForOrganization = (
 
 export type PackagesGetPackageForOrganization = (
   params: Params<t_PackagesGetPackageForOrganizationParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_package>>
 
 export type PackagesDeletePackageForOrg = (
   params: Params<t_PackagesDeletePackageForOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<401, t_basic_error>
@@ -4147,7 +4147,7 @@ export type PackagesRestorePackageForOrg = (
     t_PackagesRestorePackageForOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<401, t_basic_error>
@@ -4161,7 +4161,7 @@ export type PackagesGetAllPackageVersionsForPackageOwnedByOrg = (
     t_PackagesGetAllPackageVersionsForPackageOwnedByOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_package_version[]>
   | Response<401, t_basic_error>
@@ -4175,12 +4175,12 @@ export type PackagesGetPackageVersionForOrganization = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_package_version>>
 
 export type PackagesDeletePackageVersionForOrg = (
   params: Params<t_PackagesDeletePackageVersionForOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<401, t_basic_error>
@@ -4190,7 +4190,7 @@ export type PackagesDeletePackageVersionForOrg = (
 
 export type PackagesRestorePackageVersionForOrg = (
   params: Params<t_PackagesRestorePackageVersionForOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<401, t_basic_error>
@@ -4204,7 +4204,7 @@ export type ProjectsListForOrg = (
     t_ProjectsListForOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_project[]> | Response<422, t_validation_error_simple>
 >
@@ -4215,7 +4215,7 @@ export type ProjectsCreateForOrg = (
     void,
     t_ProjectsCreateForOrgBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_project>
   | Response<401, t_basic_error>
@@ -4231,12 +4231,12 @@ export type OrgsListPublicMembers = (
     t_OrgsListPublicMembersQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_simple_user[]>>
 
 export type OrgsCheckPublicMembershipForUser = (
   params: Params<t_OrgsCheckPublicMembershipForUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, void>>
 
 export type OrgsSetPublicMembershipForAuthenticatedUser = (
@@ -4245,7 +4245,7 @@ export type OrgsSetPublicMembershipForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<403, t_basic_error>>
 
 export type OrgsRemovePublicMembershipForAuthenticatedUser = (
@@ -4254,7 +4254,7 @@ export type OrgsRemovePublicMembershipForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ReposListForOrg = (
@@ -4263,7 +4263,7 @@ export type ReposListForOrg = (
     t_ReposListForOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_minimal_repository[]>>
 
 export type ReposCreateInOrg = (
@@ -4272,7 +4272,7 @@ export type ReposCreateInOrg = (
     void,
     t_ReposCreateInOrgBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_repository>
   | Response<403, t_basic_error>
@@ -4281,7 +4281,7 @@ export type ReposCreateInOrg = (
 
 export type ReposGetOrgRulesets = (
   params: Params<t_ReposGetOrgRulesetsParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_repository_ruleset[]>
   | Response<404, t_basic_error>
@@ -4294,7 +4294,7 @@ export type ReposCreateOrgRuleset = (
     void,
     t_ReposCreateOrgRulesetBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_repository_ruleset>
   | Response<404, t_basic_error>
@@ -4303,7 +4303,7 @@ export type ReposCreateOrgRuleset = (
 
 export type ReposGetOrgRuleset = (
   params: Params<t_ReposGetOrgRulesetParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_repository_ruleset>
   | Response<404, t_basic_error>
@@ -4316,7 +4316,7 @@ export type ReposUpdateOrgRuleset = (
     void,
     t_ReposUpdateOrgRulesetBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_repository_ruleset>
   | Response<404, t_basic_error>
@@ -4325,7 +4325,7 @@ export type ReposUpdateOrgRuleset = (
 
 export type ReposDeleteOrgRuleset = (
   params: Params<t_ReposDeleteOrgRulesetParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<404, t_basic_error>
@@ -4338,7 +4338,7 @@ export type SecretScanningListAlertsForOrg = (
     t_SecretScanningListAlertsForOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_organization_secret_scanning_alert[]>
   | Response<404, t_basic_error>
@@ -4354,42 +4354,42 @@ export type SecretScanningListAlertsForOrg = (
 
 export type OrgsListSecurityManagerTeams = (
   params: Params<t_OrgsListSecurityManagerTeamsParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team_simple[]>>
 
 export type OrgsAddSecurityManagerTeam = (
   params: Params<t_OrgsAddSecurityManagerTeamParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<409, void>>
 
 export type OrgsRemoveSecurityManagerTeam = (
   params: Params<t_OrgsRemoveSecurityManagerTeamParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type BillingGetGithubActionsBillingOrg = (
   params: Params<t_BillingGetGithubActionsBillingOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_actions_billing_usage>>
 
 export type BillingGetGithubPackagesBillingOrg = (
   params: Params<t_BillingGetGithubPackagesBillingOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_packages_billing_usage>>
 
 export type BillingGetSharedStorageBillingOrg = (
   params: Params<t_BillingGetSharedStorageBillingOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_combined_billing_usage>>
 
 export type TeamsList = (
   params: Params<t_TeamsListParamSchema, t_TeamsListQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team[]> | Response<403, t_basic_error>>
 
 export type TeamsCreate = (
   params: Params<t_TeamsCreateParamSchema, void, t_TeamsCreateBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_team_full>
   | Response<403, t_basic_error>
@@ -4398,7 +4398,7 @@ export type TeamsCreate = (
 
 export type TeamsGetByName = (
   params: Params<t_TeamsGetByNameParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team_full> | Response<404, t_basic_error>>
 
 export type TeamsUpdateInOrg = (
@@ -4407,7 +4407,7 @@ export type TeamsUpdateInOrg = (
     void,
     t_TeamsUpdateInOrgBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_team_full>
   | Response<201, t_team_full>
@@ -4418,7 +4418,7 @@ export type TeamsUpdateInOrg = (
 
 export type TeamsDeleteInOrg = (
   params: Params<t_TeamsDeleteInOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type TeamsListDiscussionsInOrg = (
@@ -4427,7 +4427,7 @@ export type TeamsListDiscussionsInOrg = (
     t_TeamsListDiscussionsInOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team_discussion[]>>
 
 export type TeamsCreateDiscussionInOrg = (
@@ -4436,12 +4436,12 @@ export type TeamsCreateDiscussionInOrg = (
     void,
     t_TeamsCreateDiscussionInOrgBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_team_discussion>>
 
 export type TeamsGetDiscussionInOrg = (
   params: Params<t_TeamsGetDiscussionInOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team_discussion>>
 
 export type TeamsUpdateDiscussionInOrg = (
@@ -4450,12 +4450,12 @@ export type TeamsUpdateDiscussionInOrg = (
     void,
     t_TeamsUpdateDiscussionInOrgBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team_discussion>>
 
 export type TeamsDeleteDiscussionInOrg = (
   params: Params<t_TeamsDeleteDiscussionInOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type TeamsListDiscussionCommentsInOrg = (
@@ -4464,7 +4464,7 @@ export type TeamsListDiscussionCommentsInOrg = (
     t_TeamsListDiscussionCommentsInOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team_discussion_comment[]>>
 
 export type TeamsCreateDiscussionCommentInOrg = (
@@ -4473,12 +4473,12 @@ export type TeamsCreateDiscussionCommentInOrg = (
     void,
     t_TeamsCreateDiscussionCommentInOrgBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_team_discussion_comment>>
 
 export type TeamsGetDiscussionCommentInOrg = (
   params: Params<t_TeamsGetDiscussionCommentInOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team_discussion_comment>>
 
 export type TeamsUpdateDiscussionCommentInOrg = (
@@ -4487,12 +4487,12 @@ export type TeamsUpdateDiscussionCommentInOrg = (
     void,
     t_TeamsUpdateDiscussionCommentInOrgBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team_discussion_comment>>
 
 export type TeamsDeleteDiscussionCommentInOrg = (
   params: Params<t_TeamsDeleteDiscussionCommentInOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ReactionsListForTeamDiscussionCommentInOrg = (
@@ -4501,7 +4501,7 @@ export type ReactionsListForTeamDiscussionCommentInOrg = (
     t_ReactionsListForTeamDiscussionCommentInOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_reaction[]>>
 
 export type ReactionsCreateForTeamDiscussionCommentInOrg = (
@@ -4510,7 +4510,7 @@ export type ReactionsCreateForTeamDiscussionCommentInOrg = (
     void,
     t_ReactionsCreateForTeamDiscussionCommentInOrgBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_reaction> | Response<201, t_reaction>>
 
 export type ReactionsDeleteForTeamDiscussionComment = (
@@ -4519,7 +4519,7 @@ export type ReactionsDeleteForTeamDiscussionComment = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ReactionsListForTeamDiscussionInOrg = (
@@ -4528,7 +4528,7 @@ export type ReactionsListForTeamDiscussionInOrg = (
     t_ReactionsListForTeamDiscussionInOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_reaction[]>>
 
 export type ReactionsCreateForTeamDiscussionInOrg = (
@@ -4537,12 +4537,12 @@ export type ReactionsCreateForTeamDiscussionInOrg = (
     void,
     t_ReactionsCreateForTeamDiscussionInOrgBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_reaction> | Response<201, t_reaction>>
 
 export type ReactionsDeleteForTeamDiscussion = (
   params: Params<t_ReactionsDeleteForTeamDiscussionParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type TeamsListPendingInvitationsInOrg = (
@@ -4551,7 +4551,7 @@ export type TeamsListPendingInvitationsInOrg = (
     t_TeamsListPendingInvitationsInOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_organization_invitation[]>>
 
 export type TeamsListMembersInOrg = (
@@ -4560,12 +4560,12 @@ export type TeamsListMembersInOrg = (
     t_TeamsListMembersInOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_simple_user[]>>
 
 export type TeamsGetMembershipForUserInOrg = (
   params: Params<t_TeamsGetMembershipForUserInOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team_membership> | Response<404, void>>
 
 export type TeamsAddOrUpdateMembershipForUserInOrg = (
@@ -4574,14 +4574,14 @@ export type TeamsAddOrUpdateMembershipForUserInOrg = (
     void,
     t_TeamsAddOrUpdateMembershipForUserInOrgBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_team_membership> | Response<403, void> | Response<422, void>
 >
 
 export type TeamsRemoveMembershipForUserInOrg = (
   params: Params<t_TeamsRemoveMembershipForUserInOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<403, void>>
 
 export type TeamsListProjectsInOrg = (
@@ -4590,12 +4590,12 @@ export type TeamsListProjectsInOrg = (
     t_TeamsListProjectsInOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team_project[]>>
 
 export type TeamsCheckPermissionsForProjectInOrg = (
   params: Params<t_TeamsCheckPermissionsForProjectInOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team_project> | Response<404, void>>
 
 export type TeamsAddOrUpdateProjectPermissionsInOrg = (
@@ -4604,7 +4604,7 @@ export type TeamsAddOrUpdateProjectPermissionsInOrg = (
     void,
     t_TeamsAddOrUpdateProjectPermissionsInOrgBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<
@@ -4618,7 +4618,7 @@ export type TeamsAddOrUpdateProjectPermissionsInOrg = (
 
 export type TeamsRemoveProjectInOrg = (
   params: Params<t_TeamsRemoveProjectInOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type TeamsListReposInOrg = (
@@ -4627,12 +4627,12 @@ export type TeamsListReposInOrg = (
     t_TeamsListReposInOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_minimal_repository[]>>
 
 export type TeamsCheckPermissionsForRepoInOrg = (
   params: Params<t_TeamsCheckPermissionsForRepoInOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_team_repository> | Response<204, void> | Response<404, void>
 >
@@ -4643,12 +4643,12 @@ export type TeamsAddOrUpdateRepoPermissionsInOrg = (
     void,
     t_TeamsAddOrUpdateRepoPermissionsInOrgBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type TeamsRemoveRepoInOrg = (
   params: Params<t_TeamsRemoveRepoInOrgParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type TeamsListChildInOrg = (
@@ -4657,7 +4657,7 @@ export type TeamsListChildInOrg = (
     t_TeamsListChildInOrgQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team[]>>
 
 export type OrgsEnableOrDisableSecurityProductOnAllOrgRepos = (
@@ -4666,12 +4666,12 @@ export type OrgsEnableOrDisableSecurityProductOnAllOrgRepos = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<422, void>>
 
 export type ProjectsGetCard = (
   params: Params<t_ProjectsGetCardParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_project_card>
   | Response<304, void>
@@ -4686,7 +4686,7 @@ export type ProjectsUpdateCard = (
     void,
     t_ProjectsUpdateCardBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_project_card>
   | Response<304, void>
@@ -4698,7 +4698,7 @@ export type ProjectsUpdateCard = (
 
 export type ProjectsDeleteCard = (
   params: Params<t_ProjectsDeleteCardParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -4720,7 +4720,7 @@ export type ProjectsMoveCard = (
     void,
     t_ProjectsMoveCardBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, EmptyObject>
   | Response<304, void>
@@ -4755,7 +4755,7 @@ export type ProjectsMoveCard = (
 
 export type ProjectsGetColumn = (
   params: Params<t_ProjectsGetColumnParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_project_column>
   | Response<304, void>
@@ -4770,7 +4770,7 @@ export type ProjectsUpdateColumn = (
     void,
     t_ProjectsUpdateColumnBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_project_column>
   | Response<304, void>
@@ -4780,7 +4780,7 @@ export type ProjectsUpdateColumn = (
 
 export type ProjectsDeleteColumn = (
   params: Params<t_ProjectsDeleteColumnParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -4794,7 +4794,7 @@ export type ProjectsListCards = (
     t_ProjectsListCardsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_project_card[]>
   | Response<304, void>
@@ -4808,7 +4808,7 @@ export type ProjectsCreateCard = (
     void,
     t_ProjectsCreateCardBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_project_card>
   | Response<304, void>
@@ -4835,7 +4835,7 @@ export type ProjectsMoveColumn = (
     void,
     t_ProjectsMoveColumnBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, EmptyObject>
   | Response<304, void>
@@ -4846,7 +4846,7 @@ export type ProjectsMoveColumn = (
 
 export type ProjectsGet = (
   params: Params<t_ProjectsGetParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_project>
   | Response<304, void>
@@ -4860,7 +4860,7 @@ export type ProjectsUpdate = (
     void,
     t_ProjectsUpdateBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_project>
   | Response<304, void>
@@ -4880,7 +4880,7 @@ export type ProjectsUpdate = (
 
 export type ProjectsDelete = (
   params: Params<t_ProjectsDeleteParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -4903,7 +4903,7 @@ export type ProjectsListCollaborators = (
     t_ProjectsListCollaboratorsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_simple_user[]>
   | Response<304, void>
@@ -4919,7 +4919,7 @@ export type ProjectsAddCollaborator = (
     void,
     t_ProjectsAddCollaboratorBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -4931,7 +4931,7 @@ export type ProjectsAddCollaborator = (
 
 export type ProjectsRemoveCollaborator = (
   params: Params<t_ProjectsRemoveCollaboratorParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -4943,7 +4943,7 @@ export type ProjectsRemoveCollaborator = (
 
 export type ProjectsGetPermissionForUser = (
   params: Params<t_ProjectsGetPermissionForUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_project_collaborator_permission>
   | Response<304, void>
@@ -4959,7 +4959,7 @@ export type ProjectsListColumns = (
     t_ProjectsListColumnsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_project_column[]>
   | Response<304, void>
@@ -4973,7 +4973,7 @@ export type ProjectsCreateColumn = (
     void,
     t_ProjectsCreateColumnBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_project_column>
   | Response<304, void>
@@ -4984,7 +4984,7 @@ export type ProjectsCreateColumn = (
 
 export type RateLimitGet = (
   params: Params<void, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_rate_limit_overview>
   | Response<304, void>
@@ -4997,7 +4997,7 @@ export type ActionsListRepoRequiredWorkflows = (
     t_ActionsListRepoRequiredWorkflowsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5011,19 +5011,19 @@ export type ActionsListRepoRequiredWorkflows = (
 
 export type ActionsGetRepoRequiredWorkflow = (
   params: Params<t_ActionsGetRepoRequiredWorkflowParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_repo_required_workflow> | Response<404, t_basic_error>
 >
 
 export type ActionsGetRepoRequiredWorkflowUsage = (
   params: Params<t_ActionsGetRepoRequiredWorkflowUsageParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_workflow_usage> | Response<404, t_basic_error>>
 
 export type ReposGet = (
   params: Params<t_ReposGetParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_full_repository>
   | Response<301, t_basic_error>
@@ -5037,7 +5037,7 @@ export type ReposUpdate = (
     void,
     t_ReposUpdateBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_full_repository>
   | Response<307, t_basic_error>
@@ -5048,7 +5048,7 @@ export type ReposUpdate = (
 
 export type ReposDelete = (
   params: Params<t_ReposDeleteParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<307, t_basic_error>
@@ -5068,7 +5068,7 @@ export type ActionsListArtifactsForRepo = (
     t_ActionsListArtifactsForRepoQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -5081,22 +5081,22 @@ export type ActionsListArtifactsForRepo = (
 
 export type ActionsGetArtifact = (
   params: Params<t_ActionsGetArtifactParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_artifact>>
 
 export type ActionsDeleteArtifact = (
   params: Params<t_ActionsDeleteArtifactParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsDownloadArtifact = (
   params: Params<t_ActionsDownloadArtifactParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<302, void> | Response<410, t_basic_error>>
 
 export type ActionsGetActionsCacheUsage = (
   params: Params<t_ActionsGetActionsCacheUsageParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_actions_cache_usage_by_repository>>
 
 export type ActionsGetActionsCacheList = (
@@ -5105,7 +5105,7 @@ export type ActionsGetActionsCacheList = (
     t_ActionsGetActionsCacheListQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_actions_cache_list>>
 
 export type ActionsDeleteActionsCacheByKey = (
@@ -5114,22 +5114,22 @@ export type ActionsDeleteActionsCacheByKey = (
     t_ActionsDeleteActionsCacheByKeyQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_actions_cache_list>>
 
 export type ActionsDeleteActionsCacheById = (
   params: Params<t_ActionsDeleteActionsCacheByIdParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsGetJobForWorkflowRun = (
   params: Params<t_ActionsGetJobForWorkflowRunParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_job>>
 
 export type ActionsDownloadJobLogsForWorkflowRun = (
   params: Params<t_ActionsDownloadJobLogsForWorkflowRunParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<302, void>>
 
 export type ActionsReRunJobForWorkflowRun = (
@@ -5138,12 +5138,12 @@ export type ActionsReRunJobForWorkflowRun = (
     void,
     t_ActionsReRunJobForWorkflowRunBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_empty_object> | Response<403, t_basic_error>>
 
 export type ActionsGetCustomOidcSubClaimForRepo = (
   params: Params<t_ActionsGetCustomOidcSubClaimForRepoParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_oidc_custom_sub_repo>
   | Response<400, t_scim_error>
@@ -5156,7 +5156,7 @@ export type ActionsSetCustomOidcSubClaimForRepo = (
     void,
     t_ActionsSetCustomOidcSubClaimForRepoBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_empty_object>
   | Response<400, t_scim_error>
@@ -5170,7 +5170,7 @@ export type ActionsListRepoOrganizationSecrets = (
     t_ActionsListRepoOrganizationSecretsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -5187,7 +5187,7 @@ export type ActionsListRepoOrganizationVariables = (
     t_ActionsListRepoOrganizationVariablesQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -5204,7 +5204,7 @@ export type ActionsGetGithubActionsPermissionsRepository = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_actions_repository_permissions>>
 
 export type ActionsSetGithubActionsPermissionsRepository = (
@@ -5213,12 +5213,12 @@ export type ActionsSetGithubActionsPermissionsRepository = (
     void,
     t_ActionsSetGithubActionsPermissionsRepositoryBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsGetWorkflowAccessToRepository = (
   params: Params<t_ActionsGetWorkflowAccessToRepositoryParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_actions_workflow_access_to_repository>>
 
 export type ActionsSetWorkflowAccessToRepository = (
@@ -5227,12 +5227,12 @@ export type ActionsSetWorkflowAccessToRepository = (
     void,
     t_ActionsSetWorkflowAccessToRepositoryBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsGetAllowedActionsRepository = (
   params: Params<t_ActionsGetAllowedActionsRepositoryParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_selected_actions>>
 
 export type ActionsSetAllowedActionsRepository = (
@@ -5241,7 +5241,7 @@ export type ActionsSetAllowedActionsRepository = (
     void,
     t_ActionsSetAllowedActionsRepositoryBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsGetGithubActionsDefaultWorkflowPermissionsRepository = (
@@ -5250,7 +5250,7 @@ export type ActionsGetGithubActionsDefaultWorkflowPermissionsRepository = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_actions_get_default_workflow_permissions>>
 
 export type ActionsSetGithubActionsDefaultWorkflowPermissionsRepository = (
@@ -5259,7 +5259,7 @@ export type ActionsSetGithubActionsDefaultWorkflowPermissionsRepository = (
     void,
     t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<409, void>>
 
 export type ActionsListRequiredWorkflowRuns = (
@@ -5268,7 +5268,7 @@ export type ActionsListRequiredWorkflowRuns = (
     t_ActionsListRequiredWorkflowRunsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -5285,7 +5285,7 @@ export type ActionsListSelfHostedRunnersForRepo = (
     t_ActionsListSelfHostedRunnersForRepoQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -5298,7 +5298,7 @@ export type ActionsListSelfHostedRunnersForRepo = (
 
 export type ActionsListRunnerApplicationsForRepo = (
   params: Params<t_ActionsListRunnerApplicationsForRepoParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_runner_application[]>>
 
 export type ActionsCreateRegistrationTokenForRepo = (
@@ -5307,17 +5307,17 @@ export type ActionsCreateRegistrationTokenForRepo = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_authentication_token>>
 
 export type ActionsCreateRemoveTokenForRepo = (
   params: Params<t_ActionsCreateRemoveTokenForRepoParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_authentication_token>>
 
 export type ActionsGetSelfHostedRunnerForRepo = (
   params: Params<t_ActionsGetSelfHostedRunnerForRepoParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_runner>>
 
 export type ActionsDeleteSelfHostedRunnerFromRepo = (
@@ -5326,7 +5326,7 @@ export type ActionsDeleteSelfHostedRunnerFromRepo = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsListLabelsForSelfHostedRunnerForRepo = (
@@ -5335,7 +5335,7 @@ export type ActionsListLabelsForSelfHostedRunnerForRepo = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5353,7 +5353,7 @@ export type ActionsAddCustomLabelsToSelfHostedRunnerForRepo = (
     void,
     t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5372,7 +5372,7 @@ export type ActionsSetCustomLabelsForSelfHostedRunnerForRepo = (
     void,
     t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5391,7 +5391,7 @@ export type ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepo = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5409,7 +5409,7 @@ export type ActionsRemoveCustomLabelFromSelfHostedRunnerForRepo = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5428,7 +5428,7 @@ export type ActionsListWorkflowRunsForRepo = (
     t_ActionsListWorkflowRunsForRepoQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -5445,22 +5445,22 @@ export type ActionsGetWorkflowRun = (
     t_ActionsGetWorkflowRunQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_workflow_run>>
 
 export type ActionsDeleteWorkflowRun = (
   params: Params<t_ActionsDeleteWorkflowRunParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsGetReviewsForRun = (
   params: Params<t_ActionsGetReviewsForRunParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_environment_approvals[]>>
 
 export type ActionsApproveWorkflowRun = (
   params: Params<t_ActionsApproveWorkflowRunParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_empty_object>
   | Response<403, t_basic_error>
@@ -5473,7 +5473,7 @@ export type ActionsListWorkflowRunArtifacts = (
     t_ActionsListWorkflowRunArtifactsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -5490,7 +5490,7 @@ export type ActionsGetWorkflowRunAttempt = (
     t_ActionsGetWorkflowRunAttemptQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_workflow_run>>
 
 export type ActionsListJobsForWorkflowRunAttempt = (
@@ -5499,7 +5499,7 @@ export type ActionsListJobsForWorkflowRunAttempt = (
     t_ActionsListJobsForWorkflowRunAttemptQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -5517,12 +5517,12 @@ export type ActionsDownloadWorkflowRunAttemptLogs = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<302, void>>
 
 export type ActionsCancelWorkflowRun = (
   params: Params<t_ActionsCancelWorkflowRunParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<202, t_empty_object> | Response<409, t_basic_error>>
 
 export type ActionsReviewCustomGatesForRun = (
@@ -5531,7 +5531,7 @@ export type ActionsReviewCustomGatesForRun = (
     void,
     t_ActionsReviewCustomGatesForRunBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsListJobsForWorkflowRun = (
@@ -5540,7 +5540,7 @@ export type ActionsListJobsForWorkflowRun = (
     t_ActionsListJobsForWorkflowRunQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -5553,12 +5553,12 @@ export type ActionsListJobsForWorkflowRun = (
 
 export type ActionsDownloadWorkflowRunLogs = (
   params: Params<t_ActionsDownloadWorkflowRunLogsParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<302, void>>
 
 export type ActionsDeleteWorkflowRunLogs = (
   params: Params<t_ActionsDeleteWorkflowRunLogsParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<403, t_basic_error>
@@ -5567,7 +5567,7 @@ export type ActionsDeleteWorkflowRunLogs = (
 
 export type ActionsGetPendingDeploymentsForRun = (
   params: Params<t_ActionsGetPendingDeploymentsForRunParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_pending_deployment[]>>
 
 export type ActionsReviewPendingDeploymentsForRun = (
@@ -5576,7 +5576,7 @@ export type ActionsReviewPendingDeploymentsForRun = (
     void,
     t_ActionsReviewPendingDeploymentsForRunBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_deployment[]>>
 
 export type ActionsReRunWorkflow = (
@@ -5585,7 +5585,7 @@ export type ActionsReRunWorkflow = (
     void,
     t_ActionsReRunWorkflowBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_empty_object>>
 
 export type ActionsReRunWorkflowFailedJobs = (
@@ -5594,12 +5594,12 @@ export type ActionsReRunWorkflowFailedJobs = (
     void,
     t_ActionsReRunWorkflowFailedJobsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_empty_object>>
 
 export type ActionsGetWorkflowRunUsage = (
   params: Params<t_ActionsGetWorkflowRunUsageParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_workflow_run_usage>>
 
 export type ActionsListRepoSecrets = (
@@ -5608,7 +5608,7 @@ export type ActionsListRepoSecrets = (
     t_ActionsListRepoSecretsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -5621,12 +5621,12 @@ export type ActionsListRepoSecrets = (
 
 export type ActionsGetRepoPublicKey = (
   params: Params<t_ActionsGetRepoPublicKeyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_actions_public_key>>
 
 export type ActionsGetRepoSecret = (
   params: Params<t_ActionsGetRepoSecretParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_actions_secret>>
 
 export type ActionsCreateOrUpdateRepoSecret = (
@@ -5635,12 +5635,12 @@ export type ActionsCreateOrUpdateRepoSecret = (
     void,
     t_ActionsCreateOrUpdateRepoSecretBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_empty_object> | Response<204, void>>
 
 export type ActionsDeleteRepoSecret = (
   params: Params<t_ActionsDeleteRepoSecretParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsListRepoVariables = (
@@ -5649,7 +5649,7 @@ export type ActionsListRepoVariables = (
     t_ActionsListRepoVariablesQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -5666,12 +5666,12 @@ export type ActionsCreateRepoVariable = (
     void,
     t_ActionsCreateRepoVariableBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_empty_object>>
 
 export type ActionsGetRepoVariable = (
   params: Params<t_ActionsGetRepoVariableParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_actions_variable>>
 
 export type ActionsUpdateRepoVariable = (
@@ -5680,12 +5680,12 @@ export type ActionsUpdateRepoVariable = (
     void,
     t_ActionsUpdateRepoVariableBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsDeleteRepoVariable = (
   params: Params<t_ActionsDeleteRepoVariableParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsListRepoWorkflows = (
@@ -5694,7 +5694,7 @@ export type ActionsListRepoWorkflows = (
     t_ActionsListRepoWorkflowsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -5707,12 +5707,12 @@ export type ActionsListRepoWorkflows = (
 
 export type ActionsGetWorkflow = (
   params: Params<t_ActionsGetWorkflowParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_workflow>>
 
 export type ActionsDisableWorkflow = (
   params: Params<t_ActionsDisableWorkflowParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsCreateWorkflowDispatch = (
@@ -5721,12 +5721,12 @@ export type ActionsCreateWorkflowDispatch = (
     void,
     t_ActionsCreateWorkflowDispatchBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsEnableWorkflow = (
   params: Params<t_ActionsEnableWorkflowParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsListWorkflowRuns = (
@@ -5735,7 +5735,7 @@ export type ActionsListWorkflowRuns = (
     t_ActionsListWorkflowRunsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -5748,7 +5748,7 @@ export type ActionsListWorkflowRuns = (
 
 export type ActionsGetWorkflowUsage = (
   params: Params<t_ActionsGetWorkflowUsageParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_workflow_usage>>
 
 export type IssuesListAssignees = (
@@ -5757,12 +5757,12 @@ export type IssuesListAssignees = (
     t_IssuesListAssigneesQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_simple_user[]> | Response<404, t_basic_error>>
 
 export type IssuesCheckUserCanBeAssigned = (
   params: Params<t_IssuesCheckUserCanBeAssignedParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
 
 export type ReposListAutolinks = (
@@ -5771,7 +5771,7 @@ export type ReposListAutolinks = (
     t_ReposListAutolinksQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_autolink[]>>
 
 export type ReposCreateAutolink = (
@@ -5780,27 +5780,27 @@ export type ReposCreateAutolink = (
     void,
     t_ReposCreateAutolinkBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_autolink> | Response<422, t_validation_error>>
 
 export type ReposGetAutolink = (
   params: Params<t_ReposGetAutolinkParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_autolink> | Response<404, t_basic_error>>
 
 export type ReposDeleteAutolink = (
   params: Params<t_ReposDeleteAutolinkParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
 
 export type ReposEnableAutomatedSecurityFixes = (
   params: Params<t_ReposEnableAutomatedSecurityFixesParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ReposDisableAutomatedSecurityFixes = (
   params: Params<t_ReposDisableAutomatedSecurityFixesParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ReposListBranches = (
@@ -5809,12 +5809,12 @@ export type ReposListBranches = (
     t_ReposListBranchesQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_short_branch[]> | Response<404, t_basic_error>>
 
 export type ReposGetBranch = (
   params: Params<t_ReposGetBranchParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_branch_with_protection>
   | Response<301, t_basic_error>
@@ -5823,7 +5823,7 @@ export type ReposGetBranch = (
 
 export type ReposGetBranchProtection = (
   params: Params<t_ReposGetBranchProtectionParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_branch_protection> | Response<404, t_basic_error>>
 
 export type ReposUpdateBranchProtection = (
@@ -5832,7 +5832,7 @@ export type ReposUpdateBranchProtection = (
     void,
     t_ReposUpdateBranchProtectionBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_protected_branch>
   | Response<403, t_basic_error>
@@ -5842,27 +5842,27 @@ export type ReposUpdateBranchProtection = (
 
 export type ReposDeleteBranchProtection = (
   params: Params<t_ReposDeleteBranchProtectionParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<403, t_basic_error>>
 
 export type ReposGetAdminBranchProtection = (
   params: Params<t_ReposGetAdminBranchProtectionParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_protected_branch_admin_enforced>>
 
 export type ReposSetAdminBranchProtection = (
   params: Params<t_ReposSetAdminBranchProtectionParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_protected_branch_admin_enforced>>
 
 export type ReposDeleteAdminBranchProtection = (
   params: Params<t_ReposDeleteAdminBranchProtectionParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
 
 export type ReposGetPullRequestReviewProtection = (
   params: Params<t_ReposGetPullRequestReviewProtectionParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_protected_branch_pull_request_review>>
 
 export type ReposUpdatePullRequestReviewProtection = (
@@ -5871,7 +5871,7 @@ export type ReposUpdatePullRequestReviewProtection = (
     void,
     t_ReposUpdatePullRequestReviewProtectionBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_protected_branch_pull_request_review>
   | Response<422, t_validation_error>
@@ -5883,12 +5883,12 @@ export type ReposDeletePullRequestReviewProtection = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
 
 export type ReposGetCommitSignatureProtection = (
   params: Params<t_ReposGetCommitSignatureProtectionParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_protected_branch_admin_enforced>
   | Response<404, t_basic_error>
@@ -5896,7 +5896,7 @@ export type ReposGetCommitSignatureProtection = (
 
 export type ReposCreateCommitSignatureProtection = (
   params: Params<t_ReposCreateCommitSignatureProtectionParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_protected_branch_admin_enforced>
   | Response<404, t_basic_error>
@@ -5904,12 +5904,12 @@ export type ReposCreateCommitSignatureProtection = (
 
 export type ReposDeleteCommitSignatureProtection = (
   params: Params<t_ReposDeleteCommitSignatureProtectionParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
 
 export type ReposGetStatusChecksProtection = (
   params: Params<t_ReposGetStatusChecksProtectionParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_status_check_policy> | Response<404, t_basic_error>
 >
@@ -5920,7 +5920,7 @@ export type ReposUpdateStatusCheckProtection = (
     void,
     t_ReposUpdateStatusCheckProtectionBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_status_check_policy>
   | Response<404, t_basic_error>
@@ -5929,12 +5929,12 @@ export type ReposUpdateStatusCheckProtection = (
 
 export type ReposRemoveStatusCheckProtection = (
   params: Params<t_ReposRemoveStatusCheckProtectionParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ReposGetAllStatusCheckContexts = (
   params: Params<t_ReposGetAllStatusCheckContextsParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, string[]> | Response<404, t_basic_error>>
 
 export type ReposAddStatusCheckContexts = (
@@ -5943,7 +5943,7 @@ export type ReposAddStatusCheckContexts = (
     void,
     t_ReposAddStatusCheckContextsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, string[]>
   | Response<403, t_basic_error>
@@ -5957,7 +5957,7 @@ export type ReposSetStatusCheckContexts = (
     void,
     t_ReposSetStatusCheckContextsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, string[]>
   | Response<404, t_basic_error>
@@ -5970,7 +5970,7 @@ export type ReposRemoveStatusCheckContexts = (
     void,
     t_ReposRemoveStatusCheckContextsBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, string[]>
   | Response<404, t_basic_error>
@@ -5979,14 +5979,14 @@ export type ReposRemoveStatusCheckContexts = (
 
 export type ReposGetAccessRestrictions = (
   params: Params<t_ReposGetAccessRestrictionsParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_branch_restriction_policy> | Response<404, t_basic_error>
 >
 
 export type ReposDeleteAccessRestrictions = (
   params: Params<t_ReposDeleteAccessRestrictionsParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ReposGetAppsWithAccessToProtectedBranch = (
@@ -5995,7 +5995,7 @@ export type ReposGetAppsWithAccessToProtectedBranch = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_integration[]> | Response<404, t_basic_error>>
 
 export type ReposAddAppAccessRestrictions = (
@@ -6004,7 +6004,7 @@ export type ReposAddAppAccessRestrictions = (
     void,
     t_ReposAddAppAccessRestrictionsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_integration[]> | Response<422, t_validation_error>>
 
 export type ReposSetAppAccessRestrictions = (
@@ -6013,7 +6013,7 @@ export type ReposSetAppAccessRestrictions = (
     void,
     t_ReposSetAppAccessRestrictionsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_integration[]> | Response<422, t_validation_error>>
 
 export type ReposRemoveAppAccessRestrictions = (
@@ -6022,7 +6022,7 @@ export type ReposRemoveAppAccessRestrictions = (
     void,
     t_ReposRemoveAppAccessRestrictionsBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_integration[]> | Response<422, t_validation_error>>
 
 export type ReposGetTeamsWithAccessToProtectedBranch = (
@@ -6031,7 +6031,7 @@ export type ReposGetTeamsWithAccessToProtectedBranch = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team[]> | Response<404, t_basic_error>>
 
 export type ReposAddTeamAccessRestrictions = (
@@ -6040,7 +6040,7 @@ export type ReposAddTeamAccessRestrictions = (
     void,
     t_ReposAddTeamAccessRestrictionsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team[]> | Response<422, t_validation_error>>
 
 export type ReposSetTeamAccessRestrictions = (
@@ -6049,7 +6049,7 @@ export type ReposSetTeamAccessRestrictions = (
     void,
     t_ReposSetTeamAccessRestrictionsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team[]> | Response<422, t_validation_error>>
 
 export type ReposRemoveTeamAccessRestrictions = (
@@ -6058,7 +6058,7 @@ export type ReposRemoveTeamAccessRestrictions = (
     void,
     t_ReposRemoveTeamAccessRestrictionsBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team[]> | Response<422, t_validation_error>>
 
 export type ReposGetUsersWithAccessToProtectedBranch = (
@@ -6067,7 +6067,7 @@ export type ReposGetUsersWithAccessToProtectedBranch = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_simple_user[]> | Response<404, t_basic_error>>
 
 export type ReposAddUserAccessRestrictions = (
@@ -6076,7 +6076,7 @@ export type ReposAddUserAccessRestrictions = (
     void,
     t_ReposAddUserAccessRestrictionsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_simple_user[]> | Response<422, t_validation_error>>
 
 export type ReposSetUserAccessRestrictions = (
@@ -6085,7 +6085,7 @@ export type ReposSetUserAccessRestrictions = (
     void,
     t_ReposSetUserAccessRestrictionsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_simple_user[]> | Response<422, t_validation_error>>
 
 export type ReposRemoveUserAccessRestrictions = (
@@ -6094,7 +6094,7 @@ export type ReposRemoveUserAccessRestrictions = (
     void,
     t_ReposRemoveUserAccessRestrictionsBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_simple_user[]> | Response<422, t_validation_error>>
 
 export type ReposRenameBranch = (
@@ -6103,7 +6103,7 @@ export type ReposRenameBranch = (
     void,
     t_ReposRenameBranchBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_branch_with_protection>
   | Response<403, t_basic_error>
@@ -6113,17 +6113,17 @@ export type ReposRenameBranch = (
 
 export type ChecksCreate = (
   params: Params<t_ChecksCreateParamSchema, void, t_ChecksCreateBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_check_run>>
 
 export type ChecksGet = (
   params: Params<t_ChecksGetParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_check_run>>
 
 export type ChecksUpdate = (
   params: Params<t_ChecksUpdateParamSchema, void, t_ChecksUpdateBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_check_run>>
 
 export type ChecksListAnnotations = (
@@ -6132,12 +6132,12 @@ export type ChecksListAnnotations = (
     t_ChecksListAnnotationsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_check_annotation[]>>
 
 export type ChecksRerequestRun = (
   params: Params<t_ChecksRerequestRunParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_empty_object>
   | Response<403, t_basic_error>
@@ -6151,7 +6151,7 @@ export type ChecksCreateSuite = (
     void,
     t_ChecksCreateSuiteBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_check_suite> | Response<201, t_check_suite>>
 
 export type ChecksSetSuitesPreferences = (
@@ -6160,12 +6160,12 @@ export type ChecksSetSuitesPreferences = (
     void,
     t_ChecksSetSuitesPreferencesBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_check_suite_preference>>
 
 export type ChecksGetSuite = (
   params: Params<t_ChecksGetSuiteParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_check_suite>>
 
 export type ChecksListForSuite = (
@@ -6174,7 +6174,7 @@ export type ChecksListForSuite = (
     t_ChecksListForSuiteQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -6187,7 +6187,7 @@ export type ChecksListForSuite = (
 
 export type ChecksRerequestSuite = (
   params: Params<t_ChecksRerequestSuiteParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_empty_object>>
 
 export type CodeScanningListAlertsForRepo = (
@@ -6196,7 +6196,7 @@ export type CodeScanningListAlertsForRepo = (
     t_CodeScanningListAlertsForRepoQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_code_scanning_alert_items[]>
   | Response<304, void>
@@ -6214,7 +6214,7 @@ export type CodeScanningListAlertsForRepo = (
 
 export type CodeScanningGetAlert = (
   params: Params<t_CodeScanningGetAlertParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_code_scanning_alert>
   | Response<304, void>
@@ -6236,7 +6236,7 @@ export type CodeScanningUpdateAlert = (
     void,
     t_CodeScanningUpdateAlertBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_code_scanning_alert>
   | Response<403, t_basic_error>
@@ -6257,7 +6257,7 @@ export type CodeScanningListAlertInstances = (
     t_CodeScanningListAlertInstancesQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_code_scanning_alert_instance[]>
   | Response<403, t_basic_error>
@@ -6278,7 +6278,7 @@ export type CodeScanningListRecentAnalyses = (
     t_CodeScanningListRecentAnalysesQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_code_scanning_analysis[]>
   | Response<403, t_basic_error>
@@ -6295,7 +6295,7 @@ export type CodeScanningListRecentAnalyses = (
 
 export type CodeScanningGetAnalysis = (
   params: Params<t_CodeScanningGetAnalysisParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6321,7 +6321,7 @@ export type CodeScanningDeleteAnalysis = (
     t_CodeScanningDeleteAnalysisQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_code_scanning_analysis_deletion>
   | Response<400, t_scim_error>
@@ -6339,7 +6339,7 @@ export type CodeScanningDeleteAnalysis = (
 
 export type CodeScanningListCodeqlDatabases = (
   params: Params<t_CodeScanningListCodeqlDatabasesParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_code_scanning_codeql_database[]>
   | Response<403, t_basic_error>
@@ -6356,7 +6356,7 @@ export type CodeScanningListCodeqlDatabases = (
 
 export type CodeScanningGetCodeqlDatabase = (
   params: Params<t_CodeScanningGetCodeqlDatabaseParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_code_scanning_codeql_database>
   | Response<302, void>
@@ -6374,7 +6374,7 @@ export type CodeScanningGetCodeqlDatabase = (
 
 export type CodeScanningGetDefaultSetup = (
   params: Params<t_CodeScanningGetDefaultSetupParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_code_scanning_default_setup>
   | Response<403, t_basic_error>
@@ -6395,7 +6395,7 @@ export type CodeScanningUpdateDefaultSetup = (
     void,
     t_CodeScanningUpdateDefaultSetupBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_empty_object>
   | Response<202, t_code_scanning_default_setup_update_response>
@@ -6418,7 +6418,7 @@ export type CodeScanningUploadSarif = (
     void,
     t_CodeScanningUploadSarifBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<202, t_code_scanning_sarifs_receipt>
   | Response<400, void>
@@ -6437,7 +6437,7 @@ export type CodeScanningUploadSarif = (
 
 export type CodeScanningGetSarif = (
   params: Params<t_CodeScanningGetSarifParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_code_scanning_sarifs_status>
   | Response<403, t_basic_error>
@@ -6458,7 +6458,7 @@ export type ReposCodeownersErrors = (
     t_ReposCodeownersErrorsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_codeowners_errors> | Response<404, void>>
 
 export type CodespacesListInRepositoryForAuthenticatedUser = (
@@ -6467,7 +6467,7 @@ export type CodespacesListInRepositoryForAuthenticatedUser = (
     t_CodespacesListInRepositoryForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6488,7 +6488,7 @@ export type CodespacesCreateWithRepoForAuthenticatedUser = (
     void,
     t_CodespacesCreateWithRepoForAuthenticatedUserBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_codespace>
   | Response<202, t_codespace>
@@ -6512,7 +6512,7 @@ export type CodespacesListDevcontainersInRepositoryForAuthenticatedUser = (
     t_CodespacesListDevcontainersInRepositoryForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6538,7 +6538,7 @@ export type CodespacesRepoMachinesForAuthenticatedUser = (
     t_CodespacesRepoMachinesForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6560,7 +6560,7 @@ export type CodespacesPreFlightWithRepoForAuthenticatedUser = (
     t_CodespacesPreFlightWithRepoForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6583,7 +6583,7 @@ export type CodespacesListRepoSecrets = (
     t_CodespacesListRepoSecretsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -6596,12 +6596,12 @@ export type CodespacesListRepoSecrets = (
 
 export type CodespacesGetRepoPublicKey = (
   params: Params<t_CodespacesGetRepoPublicKeyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_codespaces_public_key>>
 
 export type CodespacesGetRepoSecret = (
   params: Params<t_CodespacesGetRepoSecretParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_repo_codespaces_secret>>
 
 export type CodespacesCreateOrUpdateRepoSecret = (
@@ -6610,12 +6610,12 @@ export type CodespacesCreateOrUpdateRepoSecret = (
     void,
     t_CodespacesCreateOrUpdateRepoSecretBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_empty_object> | Response<204, void>>
 
 export type CodespacesDeleteRepoSecret = (
   params: Params<t_CodespacesDeleteRepoSecretParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ReposListCollaborators = (
@@ -6624,12 +6624,12 @@ export type ReposListCollaborators = (
     t_ReposListCollaboratorsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_collaborator[]> | Response<404, t_basic_error>>
 
 export type ReposCheckCollaborator = (
   params: Params<t_ReposCheckCollaboratorParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, void>>
 
 export type ReposAddCollaborator = (
@@ -6638,7 +6638,7 @@ export type ReposAddCollaborator = (
     void,
     t_ReposAddCollaboratorBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_repository_invitation>
   | Response<204, void>
@@ -6648,12 +6648,12 @@ export type ReposAddCollaborator = (
 
 export type ReposRemoveCollaborator = (
   params: Params<t_ReposRemoveCollaboratorParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ReposGetCollaboratorPermissionLevel = (
   params: Params<t_ReposGetCollaboratorPermissionLevelParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_repository_collaborator_permission>
   | Response<404, t_basic_error>
@@ -6665,12 +6665,12 @@ export type ReposListCommitCommentsForRepo = (
     t_ReposListCommitCommentsForRepoQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_commit_comment[]>>
 
 export type ReposGetCommitComment = (
   params: Params<t_ReposGetCommitCommentParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_commit_comment> | Response<404, t_basic_error>>
 
 export type ReposUpdateCommitComment = (
@@ -6679,12 +6679,12 @@ export type ReposUpdateCommitComment = (
     void,
     t_ReposUpdateCommitCommentBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_commit_comment> | Response<404, t_basic_error>>
 
 export type ReposDeleteCommitComment = (
   params: Params<t_ReposDeleteCommitCommentParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
 
 export type ReactionsListForCommitComment = (
@@ -6693,7 +6693,7 @@ export type ReactionsListForCommitComment = (
     t_ReactionsListForCommitCommentQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_reaction[]> | Response<404, t_basic_error>>
 
 export type ReactionsCreateForCommitComment = (
@@ -6702,7 +6702,7 @@ export type ReactionsCreateForCommitComment = (
     void,
     t_ReactionsCreateForCommitCommentBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_reaction>
   | Response<201, t_reaction>
@@ -6711,7 +6711,7 @@ export type ReactionsCreateForCommitComment = (
 
 export type ReactionsDeleteForCommitComment = (
   params: Params<t_ReactionsDeleteForCommitCommentParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ReposListCommits = (
@@ -6720,7 +6720,7 @@ export type ReposListCommits = (
     t_ReposListCommitsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_commit[]>
   | Response<400, t_scim_error>
@@ -6731,7 +6731,7 @@ export type ReposListCommits = (
 
 export type ReposListBranchesForHeadCommit = (
   params: Params<t_ReposListBranchesForHeadCommitParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_branch_short[]> | Response<422, t_validation_error>
 >
@@ -6742,7 +6742,7 @@ export type ReposListCommentsForCommit = (
     t_ReposListCommentsForCommitQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_commit_comment[]>>
 
 export type ReposCreateCommitComment = (
@@ -6751,7 +6751,7 @@ export type ReposCreateCommitComment = (
     void,
     t_ReposCreateCommitCommentBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_commit_comment>
   | Response<403, t_basic_error>
@@ -6764,7 +6764,7 @@ export type ReposListPullRequestsAssociatedWithCommit = (
     t_ReposListPullRequestsAssociatedWithCommitQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_pull_request_simple[]>>
 
 export type ReposGetCommit = (
@@ -6773,7 +6773,7 @@ export type ReposGetCommit = (
     t_ReposGetCommitQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_commit>
   | Response<404, t_basic_error>
@@ -6795,7 +6795,7 @@ export type ChecksListForRef = (
     t_ChecksListForRefQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -6812,7 +6812,7 @@ export type ChecksListSuitesForRef = (
     t_ChecksListSuitesForRefQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -6829,7 +6829,7 @@ export type ReposGetCombinedStatusForRef = (
     t_ReposGetCombinedStatusForRefQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_combined_commit_status> | Response<404, t_basic_error>
 >
@@ -6840,12 +6840,12 @@ export type ReposListCommitStatusesForRef = (
     t_ReposListCommitStatusesForRefQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_status[]> | Response<301, t_basic_error>>
 
 export type ReposGetCommunityProfileMetrics = (
   params: Params<t_ReposGetCommunityProfileMetricsParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_community_profile>>
 
 export type ReposCompareCommits = (
@@ -6854,7 +6854,7 @@ export type ReposCompareCommits = (
     t_ReposCompareCommitsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_commit_comparison>
   | Response<404, t_basic_error>
@@ -6875,7 +6875,7 @@ export type ReposGetContent = (
     t_ReposGetContentQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -6895,7 +6895,7 @@ export type ReposCreateOrUpdateFileContents = (
     void,
     t_ReposCreateOrUpdateFileContentsBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_file_commit>
   | Response<201, t_file_commit>
@@ -6910,7 +6910,7 @@ export type ReposDeleteFile = (
     void,
     t_ReposDeleteFileBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_file_commit>
   | Response<404, t_basic_error>
@@ -6932,7 +6932,7 @@ export type ReposListContributors = (
     t_ReposListContributorsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_contributor[]>
   | Response<204, void>
@@ -6946,7 +6946,7 @@ export type DependabotListAlertsForRepo = (
     t_DependabotListAlertsForRepoQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_dependabot_alert[]>
   | Response<304, void>
@@ -6958,7 +6958,7 @@ export type DependabotListAlertsForRepo = (
 
 export type DependabotGetAlert = (
   params: Params<t_DependabotGetAlertParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_dependabot_alert>
   | Response<304, void>
@@ -6972,7 +6972,7 @@ export type DependabotUpdateAlert = (
     void,
     t_DependabotUpdateAlertBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_dependabot_alert>
   | Response<400, t_scim_error>
@@ -6988,7 +6988,7 @@ export type DependabotListRepoSecrets = (
     t_DependabotListRepoSecretsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -7001,12 +7001,12 @@ export type DependabotListRepoSecrets = (
 
 export type DependabotGetRepoPublicKey = (
   params: Params<t_DependabotGetRepoPublicKeyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_dependabot_public_key>>
 
 export type DependabotGetRepoSecret = (
   params: Params<t_DependabotGetRepoSecretParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_dependabot_secret>>
 
 export type DependabotCreateOrUpdateRepoSecret = (
@@ -7015,12 +7015,12 @@ export type DependabotCreateOrUpdateRepoSecret = (
     void,
     t_DependabotCreateOrUpdateRepoSecretBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_empty_object> | Response<204, void>>
 
 export type DependabotDeleteRepoSecret = (
   params: Params<t_DependabotDeleteRepoSecretParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type DependencyGraphDiffRange = (
@@ -7029,7 +7029,7 @@ export type DependencyGraphDiffRange = (
     t_DependencyGraphDiffRangeQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_dependency_graph_diff>
   | Response<403, t_basic_error>
@@ -7038,7 +7038,7 @@ export type DependencyGraphDiffRange = (
 
 export type DependencyGraphExportSbom = (
   params: Params<t_DependencyGraphExportSbomParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_dependency_graph_spdx_sbom>
   | Response<403, t_basic_error>
@@ -7051,7 +7051,7 @@ export type DependencyGraphCreateRepositorySnapshot = (
     void,
     t_DependencyGraphCreateRepositorySnapshotBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     201,
@@ -7070,7 +7070,7 @@ export type ReposListDeployments = (
     t_ReposListDeploymentsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_deployment[]>>
 
 export type ReposCreateDeployment = (
@@ -7079,7 +7079,7 @@ export type ReposCreateDeployment = (
     void,
     t_ReposCreateDeploymentBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_deployment>
   | Response<
@@ -7094,12 +7094,12 @@ export type ReposCreateDeployment = (
 
 export type ReposGetDeployment = (
   params: Params<t_ReposGetDeploymentParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_deployment> | Response<404, t_basic_error>>
 
 export type ReposDeleteDeployment = (
   params: Params<t_ReposDeleteDeploymentParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<404, t_basic_error>
@@ -7112,7 +7112,7 @@ export type ReposListDeploymentStatuses = (
     t_ReposListDeploymentStatusesQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_deployment_status[]> | Response<404, t_basic_error>
 >
@@ -7123,14 +7123,14 @@ export type ReposCreateDeploymentStatus = (
     void,
     t_ReposCreateDeploymentStatusBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<201, t_deployment_status> | Response<422, t_validation_error>
 >
 
 export type ReposGetDeploymentStatus = (
   params: Params<t_ReposGetDeploymentStatusParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_deployment_status> | Response<404, t_basic_error>>
 
 export type ReposCreateDispatchEvent = (
@@ -7139,7 +7139,7 @@ export type ReposCreateDispatchEvent = (
     void,
     t_ReposCreateDispatchEventBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<422, t_validation_error>>
 
 export type ReposGetAllEnvironments = (
@@ -7148,7 +7148,7 @@ export type ReposGetAllEnvironments = (
     t_ReposGetAllEnvironmentsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -7161,7 +7161,7 @@ export type ReposGetAllEnvironments = (
 
 export type ReposGetEnvironment = (
   params: Params<t_ReposGetEnvironmentParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_environment>>
 
 export type ReposCreateOrUpdateEnvironment = (
@@ -7170,12 +7170,12 @@ export type ReposCreateOrUpdateEnvironment = (
     void,
     t_ReposCreateOrUpdateEnvironmentBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_environment> | Response<422, t_basic_error>>
 
 export type ReposDeleteAnEnvironment = (
   params: Params<t_ReposDeleteAnEnvironmentParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ReposListDeploymentBranchPolicies = (
@@ -7184,7 +7184,7 @@ export type ReposListDeploymentBranchPolicies = (
     t_ReposListDeploymentBranchPoliciesQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -7201,7 +7201,7 @@ export type ReposCreateDeploymentBranchPolicy = (
     void,
     t_ReposCreateDeploymentBranchPolicyBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_deployment_branch_policy>
   | Response<303, void>
@@ -7210,7 +7210,7 @@ export type ReposCreateDeploymentBranchPolicy = (
 
 export type ReposGetDeploymentBranchPolicy = (
   params: Params<t_ReposGetDeploymentBranchPolicyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_deployment_branch_policy>>
 
 export type ReposUpdateDeploymentBranchPolicy = (
@@ -7219,17 +7219,17 @@ export type ReposUpdateDeploymentBranchPolicy = (
     void,
     t_ReposUpdateDeploymentBranchPolicyBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_deployment_branch_policy>>
 
 export type ReposDeleteDeploymentBranchPolicy = (
   params: Params<t_ReposDeleteDeploymentBranchPolicyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ReposGetAllDeploymentProtectionRules = (
   params: Params<t_ReposGetAllDeploymentProtectionRulesParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -7246,7 +7246,7 @@ export type ReposCreateDeploymentProtectionRule = (
     void,
     t_ReposCreateDeploymentProtectionRuleBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_deployment_protection_rule>>
 
 export type ReposListCustomDeploymentRuleIntegrations = (
@@ -7255,7 +7255,7 @@ export type ReposListCustomDeploymentRuleIntegrations = (
     t_ReposListCustomDeploymentRuleIntegrationsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -7272,12 +7272,12 @@ export type ReposGetCustomDeploymentProtectionRule = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_deployment_protection_rule>>
 
 export type ReposDisableDeploymentProtectionRule = (
   params: Params<t_ReposDisableDeploymentProtectionRuleParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActivityListRepoEvents = (
@@ -7286,7 +7286,7 @@ export type ActivityListRepoEvents = (
     t_ActivityListRepoEventsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_event[]>>
 
 export type ReposListForks = (
@@ -7295,7 +7295,7 @@ export type ReposListForks = (
     t_ReposListForksQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_minimal_repository[]> | Response<400, t_scim_error>
 >
@@ -7306,7 +7306,7 @@ export type ReposCreateFork = (
     void,
     t_ReposCreateForkBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<202, t_full_repository>
   | Response<400, t_scim_error>
@@ -7317,7 +7317,7 @@ export type ReposCreateFork = (
 
 export type GitCreateBlob = (
   params: Params<t_GitCreateBlobParamSchema, void, t_GitCreateBlobBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_short_blob>
   | Response<403, t_basic_error>
@@ -7328,7 +7328,7 @@ export type GitCreateBlob = (
 
 export type GitGetBlob = (
   params: Params<t_GitGetBlobParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_blob>
   | Response<403, t_basic_error>
@@ -7342,7 +7342,7 @@ export type GitCreateCommit = (
     void,
     t_GitCreateCommitBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_git_commit>
   | Response<404, t_basic_error>
@@ -7351,47 +7351,47 @@ export type GitCreateCommit = (
 
 export type GitGetCommit = (
   params: Params<t_GitGetCommitParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_git_commit> | Response<404, t_basic_error>>
 
 export type GitListMatchingRefs = (
   params: Params<t_GitListMatchingRefsParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_git_ref[]>>
 
 export type GitGetRef = (
   params: Params<t_GitGetRefParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_git_ref> | Response<404, t_basic_error>>
 
 export type GitCreateRef = (
   params: Params<t_GitCreateRefParamSchema, void, t_GitCreateRefBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_git_ref> | Response<422, t_validation_error>>
 
 export type GitUpdateRef = (
   params: Params<t_GitUpdateRefParamSchema, void, t_GitUpdateRefBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_git_ref> | Response<422, t_validation_error>>
 
 export type GitDeleteRef = (
   params: Params<t_GitDeleteRefParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<422, t_validation_error>>
 
 export type GitCreateTag = (
   params: Params<t_GitCreateTagParamSchema, void, t_GitCreateTagBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_git_tag> | Response<422, t_validation_error>>
 
 export type GitGetTag = (
   params: Params<t_GitGetTagParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_git_tag> | Response<404, t_basic_error>>
 
 export type GitCreateTree = (
   params: Params<t_GitCreateTreeParamSchema, void, t_GitCreateTreeBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_git_tree>
   | Response<403, t_basic_error>
@@ -7401,7 +7401,7 @@ export type GitCreateTree = (
 
 export type GitGetTree = (
   params: Params<t_GitGetTreeParamSchema, t_GitGetTreeQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_git_tree>
   | Response<404, t_basic_error>
@@ -7414,7 +7414,7 @@ export type ReposListWebhooks = (
     t_ReposListWebhooksQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_hook[]> | Response<404, t_basic_error>>
 
 export type ReposCreateWebhook = (
@@ -7423,7 +7423,7 @@ export type ReposCreateWebhook = (
     void,
     t_ReposCreateWebhookBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_hook>
   | Response<403, t_basic_error>
@@ -7433,7 +7433,7 @@ export type ReposCreateWebhook = (
 
 export type ReposGetWebhook = (
   params: Params<t_ReposGetWebhookParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_hook> | Response<404, t_basic_error>>
 
 export type ReposUpdateWebhook = (
@@ -7442,7 +7442,7 @@ export type ReposUpdateWebhook = (
     void,
     t_ReposUpdateWebhookBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_hook>
   | Response<404, t_basic_error>
@@ -7451,12 +7451,12 @@ export type ReposUpdateWebhook = (
 
 export type ReposDeleteWebhook = (
   params: Params<t_ReposDeleteWebhookParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
 
 export type ReposGetWebhookConfigForRepo = (
   params: Params<t_ReposGetWebhookConfigForRepoParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_webhook_config>>
 
 export type ReposUpdateWebhookConfigForRepo = (
@@ -7465,7 +7465,7 @@ export type ReposUpdateWebhookConfigForRepo = (
     void,
     t_ReposUpdateWebhookConfigForRepoBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_webhook_config>>
 
 export type ReposListWebhookDeliveries = (
@@ -7474,7 +7474,7 @@ export type ReposListWebhookDeliveries = (
     t_ReposListWebhookDeliveriesQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_hook_delivery_item[]>
   | Response<400, t_scim_error>
@@ -7483,7 +7483,7 @@ export type ReposListWebhookDeliveries = (
 
 export type ReposGetWebhookDelivery = (
   params: Params<t_ReposGetWebhookDeliveryParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_hook_delivery>
   | Response<400, t_scim_error>
@@ -7492,7 +7492,7 @@ export type ReposGetWebhookDelivery = (
 
 export type ReposRedeliverWebhookDelivery = (
   params: Params<t_ReposRedeliverWebhookDeliveryParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<202, EmptyObject>
   | Response<400, t_scim_error>
@@ -7501,17 +7501,17 @@ export type ReposRedeliverWebhookDelivery = (
 
 export type ReposPingWebhook = (
   params: Params<t_ReposPingWebhookParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
 
 export type ReposTestPushWebhook = (
   params: Params<t_ReposTestPushWebhookParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
 
 export type MigrationsGetImportStatus = (
   params: Params<t_MigrationsGetImportStatusParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_import>
   | Response<404, t_basic_error>
@@ -7524,7 +7524,7 @@ export type MigrationsStartImport = (
     void,
     t_MigrationsStartImportBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_import>
   | Response<404, t_basic_error>
@@ -7538,12 +7538,12 @@ export type MigrationsUpdateImport = (
     void,
     t_MigrationsUpdateImportBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_import> | Response<503, t_basic_error>>
 
 export type MigrationsCancelImport = (
   params: Params<t_MigrationsCancelImportParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<503, t_basic_error>>
 
 export type MigrationsGetCommitAuthors = (
@@ -7552,7 +7552,7 @@ export type MigrationsGetCommitAuthors = (
     t_MigrationsGetCommitAuthorsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_porter_author[]>
   | Response<404, t_basic_error>
@@ -7565,7 +7565,7 @@ export type MigrationsMapCommitAuthor = (
     void,
     t_MigrationsMapCommitAuthorBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_porter_author>
   | Response<404, t_basic_error>
@@ -7575,7 +7575,7 @@ export type MigrationsMapCommitAuthor = (
 
 export type MigrationsGetLargeFiles = (
   params: Params<t_MigrationsGetLargeFilesParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_porter_large_file[]> | Response<503, t_basic_error>
 >
@@ -7586,7 +7586,7 @@ export type MigrationsSetLfsPreference = (
     void,
     t_MigrationsSetLfsPreferenceBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_import>
   | Response<422, t_validation_error>
@@ -7595,7 +7595,7 @@ export type MigrationsSetLfsPreference = (
 
 export type AppsGetRepoInstallation = (
   params: Params<t_AppsGetRepoInstallationParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_installation>
   | Response<301, t_basic_error>
@@ -7604,7 +7604,7 @@ export type AppsGetRepoInstallation = (
 
 export type InteractionsGetRestrictionsForRepo = (
   params: Params<t_InteractionsGetRestrictionsForRepoParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_interaction_limit_response | EmptyObject>>
 
 export type InteractionsSetRestrictionsForRepo = (
@@ -7613,7 +7613,7 @@ export type InteractionsSetRestrictionsForRepo = (
     void,
     t_InteractionsSetRestrictionsForRepoBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_interaction_limit_response> | Response<409, void>>
 
 export type InteractionsRemoveRestrictionsForRepo = (
@@ -7622,7 +7622,7 @@ export type InteractionsRemoveRestrictionsForRepo = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<409, void>>
 
 export type ReposListInvitations = (
@@ -7631,7 +7631,7 @@ export type ReposListInvitations = (
     t_ReposListInvitationsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_repository_invitation[]>>
 
 export type ReposUpdateInvitation = (
@@ -7640,12 +7640,12 @@ export type ReposUpdateInvitation = (
     void,
     t_ReposUpdateInvitationBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_repository_invitation>>
 
 export type ReposDeleteInvitation = (
   params: Params<t_ReposDeleteInvitationParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type IssuesListForRepo = (
@@ -7654,7 +7654,7 @@ export type IssuesListForRepo = (
     t_IssuesListForRepoQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_issue[]>
   | Response<301, t_basic_error>
@@ -7664,7 +7664,7 @@ export type IssuesListForRepo = (
 
 export type IssuesCreate = (
   params: Params<t_IssuesCreateParamSchema, void, t_IssuesCreateBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_issue>
   | Response<403, t_basic_error>
@@ -7687,7 +7687,7 @@ export type IssuesListCommentsForRepo = (
     t_IssuesListCommentsForRepoQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_issue_comment[]>
   | Response<404, t_basic_error>
@@ -7696,7 +7696,7 @@ export type IssuesListCommentsForRepo = (
 
 export type IssuesGetComment = (
   params: Params<t_IssuesGetCommentParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_issue_comment> | Response<404, t_basic_error>>
 
 export type IssuesUpdateComment = (
@@ -7705,12 +7705,12 @@ export type IssuesUpdateComment = (
     void,
     t_IssuesUpdateCommentBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_issue_comment> | Response<422, t_validation_error>>
 
 export type IssuesDeleteComment = (
   params: Params<t_IssuesDeleteCommentParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ReactionsListForIssueComment = (
@@ -7719,7 +7719,7 @@ export type ReactionsListForIssueComment = (
     t_ReactionsListForIssueCommentQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_reaction[]> | Response<404, t_basic_error>>
 
 export type ReactionsCreateForIssueComment = (
@@ -7728,7 +7728,7 @@ export type ReactionsCreateForIssueComment = (
     void,
     t_ReactionsCreateForIssueCommentBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_reaction>
   | Response<201, t_reaction>
@@ -7737,7 +7737,7 @@ export type ReactionsCreateForIssueComment = (
 
 export type ReactionsDeleteForIssueComment = (
   params: Params<t_ReactionsDeleteForIssueCommentParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type IssuesListEventsForRepo = (
@@ -7746,12 +7746,12 @@ export type IssuesListEventsForRepo = (
     t_IssuesListEventsForRepoQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_issue_event[]> | Response<422, t_validation_error>>
 
 export type IssuesGetEvent = (
   params: Params<t_IssuesGetEventParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_issue_event>
   | Response<403, t_basic_error>
@@ -7761,7 +7761,7 @@ export type IssuesGetEvent = (
 
 export type IssuesGet = (
   params: Params<t_IssuesGetParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_issue>
   | Response<301, t_basic_error>
@@ -7776,7 +7776,7 @@ export type IssuesUpdate = (
     void,
     t_IssuesUpdateBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_issue>
   | Response<301, t_basic_error>
@@ -7800,7 +7800,7 @@ export type IssuesAddAssignees = (
     void,
     t_IssuesAddAssigneesBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_issue>>
 
 export type IssuesRemoveAssignees = (
@@ -7809,12 +7809,12 @@ export type IssuesRemoveAssignees = (
     void,
     t_IssuesRemoveAssigneesBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_issue>>
 
 export type IssuesCheckUserCanBeAssignedToIssue = (
   params: Params<t_IssuesCheckUserCanBeAssignedToIssueParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
 
 export type IssuesListComments = (
@@ -7823,7 +7823,7 @@ export type IssuesListComments = (
     t_IssuesListCommentsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_issue_comment[]>
   | Response<404, t_basic_error>
@@ -7836,7 +7836,7 @@ export type IssuesCreateComment = (
     void,
     t_IssuesCreateCommentBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_issue_comment>
   | Response<403, t_basic_error>
@@ -7851,7 +7851,7 @@ export type IssuesListEvents = (
     t_IssuesListEventsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_issue_event_for_issue[]> | Response<410, t_basic_error>
 >
@@ -7862,7 +7862,7 @@ export type IssuesListLabelsOnIssue = (
     t_IssuesListLabelsOnIssueQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_label[]>
   | Response<301, t_basic_error>
@@ -7876,7 +7876,7 @@ export type IssuesAddLabels = (
     void,
     t_IssuesAddLabelsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_label[]>
   | Response<301, t_basic_error>
@@ -7891,7 +7891,7 @@ export type IssuesSetLabels = (
     void,
     t_IssuesSetLabelsBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_label[]>
   | Response<301, t_basic_error>
@@ -7902,7 +7902,7 @@ export type IssuesSetLabels = (
 
 export type IssuesRemoveAllLabels = (
   params: Params<t_IssuesRemoveAllLabelsParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<301, t_basic_error>
@@ -7912,7 +7912,7 @@ export type IssuesRemoveAllLabels = (
 
 export type IssuesRemoveLabel = (
   params: Params<t_IssuesRemoveLabelParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_label[]>
   | Response<301, t_basic_error>
@@ -7926,7 +7926,7 @@ export type IssuesLock = (
     void,
     t_IssuesLockBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<403, t_basic_error>
@@ -7937,7 +7937,7 @@ export type IssuesLock = (
 
 export type IssuesUnlock = (
   params: Params<t_IssuesUnlockParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<403, t_basic_error>
@@ -7950,7 +7950,7 @@ export type ReactionsListForIssue = (
     t_ReactionsListForIssueQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_reaction[]>
   | Response<404, t_basic_error>
@@ -7963,7 +7963,7 @@ export type ReactionsCreateForIssue = (
     void,
     t_ReactionsCreateForIssueBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_reaction>
   | Response<201, t_reaction>
@@ -7972,7 +7972,7 @@ export type ReactionsCreateForIssue = (
 
 export type ReactionsDeleteForIssue = (
   params: Params<t_ReactionsDeleteForIssueParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type IssuesListEventsForTimeline = (
@@ -7981,7 +7981,7 @@ export type IssuesListEventsForTimeline = (
     t_IssuesListEventsForTimelineQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_timeline_issue_events[]>
   | Response<404, t_basic_error>
@@ -7994,7 +7994,7 @@ export type ReposListDeployKeys = (
     t_ReposListDeployKeysQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_deploy_key[]>>
 
 export type ReposCreateDeployKey = (
@@ -8003,17 +8003,17 @@ export type ReposCreateDeployKey = (
     void,
     t_ReposCreateDeployKeyBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_deploy_key> | Response<422, t_validation_error>>
 
 export type ReposGetDeployKey = (
   params: Params<t_ReposGetDeployKeyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_deploy_key> | Response<404, t_basic_error>>
 
 export type ReposDeleteDeployKey = (
   params: Params<t_ReposDeleteDeployKeyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type IssuesListLabelsForRepo = (
@@ -8022,7 +8022,7 @@ export type IssuesListLabelsForRepo = (
     t_IssuesListLabelsForRepoQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_label[]> | Response<404, t_basic_error>>
 
 export type IssuesCreateLabel = (
@@ -8031,7 +8031,7 @@ export type IssuesCreateLabel = (
     void,
     t_IssuesCreateLabelBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_label>
   | Response<404, t_basic_error>
@@ -8040,7 +8040,7 @@ export type IssuesCreateLabel = (
 
 export type IssuesGetLabel = (
   params: Params<t_IssuesGetLabelParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_label> | Response<404, t_basic_error>>
 
 export type IssuesUpdateLabel = (
@@ -8049,32 +8049,32 @@ export type IssuesUpdateLabel = (
     void,
     t_IssuesUpdateLabelBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_label>>
 
 export type IssuesDeleteLabel = (
   params: Params<t_IssuesDeleteLabelParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ReposListLanguages = (
   params: Params<t_ReposListLanguagesParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_language>>
 
 export type ReposEnableLfsForRepo = (
   params: Params<t_ReposEnableLfsForRepoParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<202, EmptyObject> | Response<403, void>>
 
 export type ReposDisableLfsForRepo = (
   params: Params<t_ReposDisableLfsForRepoParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type LicensesGetForRepo = (
   params: Params<t_LicensesGetForRepoParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_license_content>>
 
 export type ReposMergeUpstream = (
@@ -8083,14 +8083,14 @@ export type ReposMergeUpstream = (
     void,
     t_ReposMergeUpstreamBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_merged_upstream> | Response<409, void> | Response<422, void>
 >
 
 export type ReposMerge = (
   params: Params<t_ReposMergeParamSchema, void, t_ReposMergeBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_commit>
   | Response<204, void>
@@ -8106,7 +8106,7 @@ export type IssuesListMilestones = (
     t_IssuesListMilestonesQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_milestone[]> | Response<404, t_basic_error>>
 
 export type IssuesCreateMilestone = (
@@ -8115,7 +8115,7 @@ export type IssuesCreateMilestone = (
     void,
     t_IssuesCreateMilestoneBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_milestone>
   | Response<404, t_basic_error>
@@ -8124,7 +8124,7 @@ export type IssuesCreateMilestone = (
 
 export type IssuesGetMilestone = (
   params: Params<t_IssuesGetMilestoneParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_milestone> | Response<404, t_basic_error>>
 
 export type IssuesUpdateMilestone = (
@@ -8133,12 +8133,12 @@ export type IssuesUpdateMilestone = (
     void,
     t_IssuesUpdateMilestoneBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_milestone>>
 
 export type IssuesDeleteMilestone = (
   params: Params<t_IssuesDeleteMilestoneParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
 
 export type IssuesListLabelsForMilestone = (
@@ -8147,7 +8147,7 @@ export type IssuesListLabelsForMilestone = (
     t_IssuesListLabelsForMilestoneQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_label[]>>
 
 export type ActivityListRepoNotificationsForAuthenticatedUser = (
@@ -8156,7 +8156,7 @@ export type ActivityListRepoNotificationsForAuthenticatedUser = (
     t_ActivityListRepoNotificationsForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_thread[]>>
 
 export type ActivityMarkRepoNotificationsAsRead = (
@@ -8165,7 +8165,7 @@ export type ActivityMarkRepoNotificationsAsRead = (
     void,
     t_ActivityMarkRepoNotificationsAsReadBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       202,
@@ -8179,7 +8179,7 @@ export type ActivityMarkRepoNotificationsAsRead = (
 
 export type ReposGetPages = (
   params: Params<t_ReposGetPagesParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_page> | Response<404, t_basic_error>>
 
 export type ReposCreatePagesSite = (
@@ -8188,7 +8188,7 @@ export type ReposCreatePagesSite = (
     void,
     t_ReposCreatePagesSiteBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_page>
   | Response<409, t_basic_error>
@@ -8201,7 +8201,7 @@ export type ReposUpdateInformationAboutPagesSite = (
     void,
     t_ReposUpdateInformationAboutPagesSiteBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<400, t_scim_error>
@@ -8211,7 +8211,7 @@ export type ReposUpdateInformationAboutPagesSite = (
 
 export type ReposDeletePagesSite = (
   params: Params<t_ReposDeletePagesSiteParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<404, t_basic_error>
@@ -8225,22 +8225,22 @@ export type ReposListPagesBuilds = (
     t_ReposListPagesBuildsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_page_build[]>>
 
 export type ReposRequestPagesBuild = (
   params: Params<t_ReposRequestPagesBuildParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_page_build_status>>
 
 export type ReposGetLatestPagesBuild = (
   params: Params<t_ReposGetLatestPagesBuildParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_page_build>>
 
 export type ReposGetPagesBuild = (
   params: Params<t_ReposGetPagesBuildParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_page_build>>
 
 export type ReposCreatePagesDeployment = (
@@ -8249,7 +8249,7 @@ export type ReposCreatePagesDeployment = (
     void,
     t_ReposCreatePagesDeploymentBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_page_deployment>
   | Response<400, t_scim_error>
@@ -8259,7 +8259,7 @@ export type ReposCreatePagesDeployment = (
 
 export type ReposGetPagesHealthCheck = (
   params: Params<t_ReposGetPagesHealthCheckParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_pages_health_check>
   | Response<202, t_empty_object>
@@ -8274,7 +8274,7 @@ export type ProjectsListForRepo = (
     t_ProjectsListForRepoQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_project[]>
   | Response<401, t_basic_error>
@@ -8290,7 +8290,7 @@ export type ProjectsCreateForRepo = (
     void,
     t_ProjectsCreateForRepoBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_project>
   | Response<401, t_basic_error>
@@ -8302,7 +8302,7 @@ export type ProjectsCreateForRepo = (
 
 export type PullsList = (
   params: Params<t_PullsListParamSchema, t_PullsListQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_pull_request_simple[]>
   | Response<304, void>
@@ -8311,7 +8311,7 @@ export type PullsList = (
 
 export type PullsCreate = (
   params: Params<t_PullsCreateParamSchema, void, t_PullsCreateBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_pull_request>
   | Response<403, t_basic_error>
@@ -8324,12 +8324,12 @@ export type PullsListReviewCommentsForRepo = (
     t_PullsListReviewCommentsForRepoQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_pull_request_review_comment[]>>
 
 export type PullsGetReviewComment = (
   params: Params<t_PullsGetReviewCommentParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_pull_request_review_comment> | Response<404, t_basic_error>
 >
@@ -8340,12 +8340,12 @@ export type PullsUpdateReviewComment = (
     void,
     t_PullsUpdateReviewCommentBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_pull_request_review_comment>>
 
 export type PullsDeleteReviewComment = (
   params: Params<t_PullsDeleteReviewCommentParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
 
 export type ReactionsListForPullRequestReviewComment = (
@@ -8354,7 +8354,7 @@ export type ReactionsListForPullRequestReviewComment = (
     t_ReactionsListForPullRequestReviewCommentQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_reaction[]> | Response<404, t_basic_error>>
 
 export type ReactionsCreateForPullRequestReviewComment = (
@@ -8363,7 +8363,7 @@ export type ReactionsCreateForPullRequestReviewComment = (
     void,
     t_ReactionsCreateForPullRequestReviewCommentBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_reaction>
   | Response<201, t_reaction>
@@ -8372,12 +8372,12 @@ export type ReactionsCreateForPullRequestReviewComment = (
 
 export type ReactionsDeleteForPullRequestComment = (
   params: Params<t_ReactionsDeleteForPullRequestCommentParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type PullsGet = (
   params: Params<t_PullsGetParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_pull_request>
   | Response<304, void>
@@ -8399,7 +8399,7 @@ export type PullsUpdate = (
     void,
     t_PullsUpdateBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_pull_request>
   | Response<403, t_basic_error>
@@ -8412,7 +8412,7 @@ export type CodespacesCreateWithPrForAuthenticatedUser = (
     void,
     t_CodespacesCreateWithPrForAuthenticatedUserBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_codespace>
   | Response<202, t_codespace>
@@ -8435,7 +8435,7 @@ export type PullsListReviewComments = (
     t_PullsListReviewCommentsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_pull_request_review_comment[]>>
 
 export type PullsCreateReviewComment = (
@@ -8444,7 +8444,7 @@ export type PullsCreateReviewComment = (
     void,
     t_PullsCreateReviewCommentBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_pull_request_review_comment>
   | Response<403, t_basic_error>
@@ -8457,7 +8457,7 @@ export type PullsCreateReplyForReviewComment = (
     void,
     t_PullsCreateReplyForReviewCommentBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<201, t_pull_request_review_comment> | Response<404, t_basic_error>
 >
@@ -8468,7 +8468,7 @@ export type PullsListCommits = (
     t_PullsListCommitsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_commit[]>>
 
 export type PullsListFiles = (
@@ -8477,7 +8477,7 @@ export type PullsListFiles = (
     t_PullsListFilesQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_diff_entry[]>
   | Response<422, t_validation_error>
@@ -8494,7 +8494,7 @@ export type PullsListFiles = (
 
 export type PullsCheckIfMerged = (
   params: Params<t_PullsCheckIfMergedParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, void>>
 
 export type PullsMerge = (
@@ -8503,7 +8503,7 @@ export type PullsMerge = (
     void,
     t_PullsMergeBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_pull_request_merge_result>
   | Response<403, t_basic_error>
@@ -8527,7 +8527,7 @@ export type PullsMerge = (
 
 export type PullsListRequestedReviewers = (
   params: Params<t_PullsListRequestedReviewersParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_pull_request_review_request>>
 
 export type PullsRequestReviewers = (
@@ -8536,7 +8536,7 @@ export type PullsRequestReviewers = (
     void,
     t_PullsRequestReviewersBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_pull_request_simple>
   | Response<403, t_basic_error>
@@ -8549,7 +8549,7 @@ export type PullsRemoveRequestedReviewers = (
     void,
     t_PullsRemoveRequestedReviewersBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_pull_request_simple> | Response<422, t_validation_error>
 >
@@ -8560,7 +8560,7 @@ export type PullsListReviews = (
     t_PullsListReviewsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_pull_request_review[]>>
 
 export type PullsCreateReview = (
@@ -8569,7 +8569,7 @@ export type PullsCreateReview = (
     void,
     t_PullsCreateReviewBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_pull_request_review>
   | Response<403, t_basic_error>
@@ -8578,7 +8578,7 @@ export type PullsCreateReview = (
 
 export type PullsGetReview = (
   params: Params<t_PullsGetReviewParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_pull_request_review> | Response<404, t_basic_error>
 >
@@ -8589,7 +8589,7 @@ export type PullsUpdateReview = (
     void,
     t_PullsUpdateReviewBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_pull_request_review>
   | Response<422, t_validation_error_simple>
@@ -8597,7 +8597,7 @@ export type PullsUpdateReview = (
 
 export type PullsDeletePendingReview = (
   params: Params<t_PullsDeletePendingReviewParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_pull_request_review>
   | Response<404, t_basic_error>
@@ -8610,7 +8610,7 @@ export type PullsListCommentsForReview = (
     t_PullsListCommentsForReviewQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_review_comment[]> | Response<404, t_basic_error>>
 
 export type PullsDismissReview = (
@@ -8619,7 +8619,7 @@ export type PullsDismissReview = (
     void,
     t_PullsDismissReviewBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_pull_request_review>
   | Response<404, t_basic_error>
@@ -8632,7 +8632,7 @@ export type PullsSubmitReview = (
     void,
     t_PullsSubmitReviewBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_pull_request_review>
   | Response<403, t_basic_error>
@@ -8646,7 +8646,7 @@ export type PullsUpdateBranch = (
     void,
     t_PullsUpdateBranchBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       202,
@@ -8665,7 +8665,7 @@ export type ReposGetReadme = (
     t_ReposGetReadmeQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_content_file>
   | Response<404, t_basic_error>
@@ -8678,7 +8678,7 @@ export type ReposGetReadmeInDirectory = (
     t_ReposGetReadmeInDirectoryQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_content_file>
   | Response<404, t_basic_error>
@@ -8691,7 +8691,7 @@ export type ReposListReleases = (
     t_ReposListReleasesQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_release[]> | Response<404, t_basic_error>>
 
 export type ReposCreateRelease = (
@@ -8700,7 +8700,7 @@ export type ReposCreateRelease = (
     void,
     t_ReposCreateReleaseBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_release>
   | Response<404, t_basic_error>
@@ -8709,7 +8709,7 @@ export type ReposCreateRelease = (
 
 export type ReposGetReleaseAsset = (
   params: Params<t_ReposGetReleaseAssetParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_release_asset>
   | Response<302, void>
@@ -8722,12 +8722,12 @@ export type ReposUpdateReleaseAsset = (
     void,
     t_ReposUpdateReleaseAssetBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_release_asset>>
 
 export type ReposDeleteReleaseAsset = (
   params: Params<t_ReposDeleteReleaseAssetParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ReposGenerateReleaseNotes = (
@@ -8736,24 +8736,24 @@ export type ReposGenerateReleaseNotes = (
     void,
     t_ReposGenerateReleaseNotesBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_release_notes_content> | Response<404, t_basic_error>
 >
 
 export type ReposGetLatestRelease = (
   params: Params<t_ReposGetLatestReleaseParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_release>>
 
 export type ReposGetReleaseByTag = (
   params: Params<t_ReposGetReleaseByTagParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_release> | Response<404, t_basic_error>>
 
 export type ReposGetRelease = (
   params: Params<t_ReposGetReleaseParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_release> | Response<404, t_basic_error>>
 
 export type ReposUpdateRelease = (
@@ -8762,12 +8762,12 @@ export type ReposUpdateRelease = (
     void,
     t_ReposUpdateReleaseBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_release> | Response<404, t_basic_error>>
 
 export type ReposDeleteRelease = (
   params: Params<t_ReposDeleteReleaseParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ReposListReleaseAssets = (
@@ -8776,7 +8776,7 @@ export type ReposListReleaseAssets = (
     t_ReposListReleaseAssetsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_release_asset[]>>
 
 export type ReposUploadReleaseAsset = (
@@ -8785,7 +8785,7 @@ export type ReposUploadReleaseAsset = (
     t_ReposUploadReleaseAssetQuerySchema,
     t_ReposUploadReleaseAssetBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_release_asset> | Response<422, void>>
 
 export type ReactionsListForRelease = (
@@ -8794,7 +8794,7 @@ export type ReactionsListForRelease = (
     t_ReactionsListForReleaseQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_reaction[]> | Response<404, t_basic_error>>
 
 export type ReactionsCreateForRelease = (
@@ -8803,7 +8803,7 @@ export type ReactionsCreateForRelease = (
     void,
     t_ReactionsCreateForReleaseBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_reaction>
   | Response<201, t_reaction>
@@ -8812,12 +8812,12 @@ export type ReactionsCreateForRelease = (
 
 export type ReactionsDeleteForRelease = (
   params: Params<t_ReactionsDeleteForReleaseParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ReposGetBranchRules = (
   params: Params<t_ReposGetBranchRulesParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_repository_rule[]>>
 
 export type ReposGetRepoRulesets = (
@@ -8826,7 +8826,7 @@ export type ReposGetRepoRulesets = (
     t_ReposGetRepoRulesetsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_repository_ruleset[]>
   | Response<404, t_basic_error>
@@ -8839,7 +8839,7 @@ export type ReposCreateRepoRuleset = (
     void,
     t_ReposCreateRepoRulesetBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_repository_ruleset>
   | Response<404, t_basic_error>
@@ -8852,7 +8852,7 @@ export type ReposGetRepoRuleset = (
     t_ReposGetRepoRulesetQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_repository_ruleset>
   | Response<404, t_basic_error>
@@ -8865,7 +8865,7 @@ export type ReposUpdateRepoRuleset = (
     void,
     t_ReposUpdateRepoRulesetBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_repository_ruleset>
   | Response<404, t_basic_error>
@@ -8874,7 +8874,7 @@ export type ReposUpdateRepoRuleset = (
 
 export type ReposDeleteRepoRuleset = (
   params: Params<t_ReposDeleteRepoRulesetParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<404, t_basic_error>
@@ -8887,7 +8887,7 @@ export type SecretScanningListAlertsForRepo = (
     t_SecretScanningListAlertsForRepoQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_secret_scanning_alert[]>
   | Response<404, void>
@@ -8903,7 +8903,7 @@ export type SecretScanningListAlertsForRepo = (
 
 export type SecretScanningGetAlert = (
   params: Params<t_SecretScanningGetAlertParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_secret_scanning_alert>
   | Response<304, void>
@@ -8924,7 +8924,7 @@ export type SecretScanningUpdateAlert = (
     void,
     t_SecretScanningUpdateAlertBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_secret_scanning_alert>
   | Response<400, void>
@@ -8946,7 +8946,7 @@ export type SecretScanningListLocationsForAlert = (
     t_SecretScanningListLocationsForAlertQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_secret_scanning_location[]>
   | Response<404, void>
@@ -8966,7 +8966,7 @@ export type SecurityAdvisoriesListRepositoryAdvisories = (
     t_SecurityAdvisoriesListRepositoryAdvisoriesQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_repository_advisory[]>
   | Response<400, t_scim_error>
@@ -8979,7 +8979,7 @@ export type SecurityAdvisoriesCreateRepositoryAdvisory = (
     void,
     t_SecurityAdvisoriesCreateRepositoryAdvisoryBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_repository_advisory>
   | Response<403, t_basic_error>
@@ -8993,7 +8993,7 @@ export type SecurityAdvisoriesCreatePrivateVulnerabilityReport = (
     void,
     t_SecurityAdvisoriesCreatePrivateVulnerabilityReportBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_repository_advisory>
   | Response<403, t_basic_error>
@@ -9007,7 +9007,7 @@ export type SecurityAdvisoriesGetRepositoryAdvisory = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_repository_advisory>
   | Response<403, t_basic_error>
@@ -9020,7 +9020,7 @@ export type SecurityAdvisoriesUpdateRepositoryAdvisory = (
     void,
     t_SecurityAdvisoriesUpdateRepositoryAdvisoryBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_repository_advisory>
   | Response<403, t_basic_error>
@@ -9034,7 +9034,7 @@ export type ActivityListStargazersForRepo = (
     t_ActivityListStargazersForRepoQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_simple_user[] | t_stargazer[]>
   | Response<422, t_validation_error>
@@ -9042,7 +9042,7 @@ export type ActivityListStargazersForRepo = (
 
 export type ReposGetCodeFrequencyStats = (
   params: Params<t_ReposGetCodeFrequencyStatsParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_code_frequency_stat[]>
   | Response<202, EmptyObject>
@@ -9051,7 +9051,7 @@ export type ReposGetCodeFrequencyStats = (
 
 export type ReposGetCommitActivityStats = (
   params: Params<t_ReposGetCommitActivityStatsParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_commit_activity[]>
   | Response<202, EmptyObject>
@@ -9060,7 +9060,7 @@ export type ReposGetCommitActivityStats = (
 
 export type ReposGetContributorsStats = (
   params: Params<t_ReposGetContributorsStatsParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_contributor_activity[]>
   | Response<202, EmptyObject>
@@ -9069,14 +9069,14 @@ export type ReposGetContributorsStats = (
 
 export type ReposGetParticipationStats = (
   params: Params<t_ReposGetParticipationStatsParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_participation_stats> | Response<404, t_basic_error>
 >
 
 export type ReposGetPunchCardStats = (
   params: Params<t_ReposGetPunchCardStatsParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_code_frequency_stat[]> | Response<204, void>>
 
 export type ReposCreateCommitStatus = (
@@ -9085,7 +9085,7 @@ export type ReposCreateCommitStatus = (
     void,
     t_ReposCreateCommitStatusBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_status>>
 
 export type ActivityListWatchersForRepo = (
@@ -9094,12 +9094,12 @@ export type ActivityListWatchersForRepo = (
     t_ActivityListWatchersForRepoQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_simple_user[]>>
 
 export type ActivityGetRepoSubscription = (
   params: Params<t_ActivityGetRepoSubscriptionParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_repository_subscription>
   | Response<403, t_basic_error>
@@ -9112,22 +9112,22 @@ export type ActivitySetRepoSubscription = (
     void,
     t_ActivitySetRepoSubscriptionBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_repository_subscription>>
 
 export type ActivityDeleteRepoSubscription = (
   params: Params<t_ActivityDeleteRepoSubscriptionParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ReposListTags = (
   params: Params<t_ReposListTagsParamSchema, t_ReposListTagsQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_tag[]>>
 
 export type ReposListTagProtection = (
   params: Params<t_ReposListTagProtectionParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_tag_protection[]>
   | Response<403, t_basic_error>
@@ -9140,7 +9140,7 @@ export type ReposCreateTagProtection = (
     void,
     t_ReposCreateTagProtectionBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_tag_protection>
   | Response<403, t_basic_error>
@@ -9149,7 +9149,7 @@ export type ReposCreateTagProtection = (
 
 export type ReposDeleteTagProtection = (
   params: Params<t_ReposDeleteTagProtectionParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<403, t_basic_error>
@@ -9158,7 +9158,7 @@ export type ReposDeleteTagProtection = (
 
 export type ReposDownloadTarballArchive = (
   params: Params<t_ReposDownloadTarballArchiveParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<302, void>>
 
 export type ReposListTeams = (
@@ -9167,7 +9167,7 @@ export type ReposListTeams = (
     t_ReposListTeamsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team[]>>
 
 export type ReposGetAllTopics = (
@@ -9176,7 +9176,7 @@ export type ReposGetAllTopics = (
     t_ReposGetAllTopicsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_topic> | Response<404, t_basic_error>>
 
 export type ReposReplaceAllTopics = (
@@ -9185,7 +9185,7 @@ export type ReposReplaceAllTopics = (
     void,
     t_ReposReplaceAllTopicsBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_topic>
   | Response<404, t_basic_error>
@@ -9198,47 +9198,47 @@ export type ReposGetClones = (
     t_ReposGetClonesQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_clone_traffic> | Response<403, t_basic_error>>
 
 export type ReposGetTopPaths = (
   params: Params<t_ReposGetTopPathsParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_content_traffic[]> | Response<403, t_basic_error>>
 
 export type ReposGetTopReferrers = (
   params: Params<t_ReposGetTopReferrersParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_referrer_traffic[]> | Response<403, t_basic_error>>
 
 export type ReposGetViews = (
   params: Params<t_ReposGetViewsParamSchema, t_ReposGetViewsQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_view_traffic> | Response<403, t_basic_error>>
 
 export type ReposTransfer = (
   params: Params<t_ReposTransferParamSchema, void, t_ReposTransferBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<202, t_minimal_repository>>
 
 export type ReposCheckVulnerabilityAlerts = (
   params: Params<t_ReposCheckVulnerabilityAlertsParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, void>>
 
 export type ReposEnableVulnerabilityAlerts = (
   params: Params<t_ReposEnableVulnerabilityAlertsParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ReposDisableVulnerabilityAlerts = (
   params: Params<t_ReposDisableVulnerabilityAlertsParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ReposDownloadZipballArchive = (
   params: Params<t_ReposDownloadZipballArchiveParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<302, void>>
 
 export type ReposCreateUsingTemplate = (
@@ -9247,12 +9247,12 @@ export type ReposCreateUsingTemplate = (
     void,
     t_ReposCreateUsingTemplateBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_repository>>
 
 export type ReposListPublic = (
   params: Params<void, t_ReposListPublicQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_minimal_repository[]>
   | Response<304, void>
@@ -9265,7 +9265,7 @@ export type ActionsListEnvironmentSecrets = (
     t_ActionsListEnvironmentSecretsQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -9278,12 +9278,12 @@ export type ActionsListEnvironmentSecrets = (
 
 export type ActionsGetEnvironmentPublicKey = (
   params: Params<t_ActionsGetEnvironmentPublicKeyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_actions_public_key>>
 
 export type ActionsGetEnvironmentSecret = (
   params: Params<t_ActionsGetEnvironmentSecretParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_actions_secret>>
 
 export type ActionsCreateOrUpdateEnvironmentSecret = (
@@ -9292,12 +9292,12 @@ export type ActionsCreateOrUpdateEnvironmentSecret = (
     void,
     t_ActionsCreateOrUpdateEnvironmentSecretBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_empty_object> | Response<204, void>>
 
 export type ActionsDeleteEnvironmentSecret = (
   params: Params<t_ActionsDeleteEnvironmentSecretParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsListEnvironmentVariables = (
@@ -9306,7 +9306,7 @@ export type ActionsListEnvironmentVariables = (
     t_ActionsListEnvironmentVariablesQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -9323,12 +9323,12 @@ export type ActionsCreateEnvironmentVariable = (
     void,
     t_ActionsCreateEnvironmentVariableBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_empty_object>>
 
 export type ActionsGetEnvironmentVariable = (
   params: Params<t_ActionsGetEnvironmentVariableParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_actions_variable>>
 
 export type ActionsUpdateEnvironmentVariable = (
@@ -9337,17 +9337,17 @@ export type ActionsUpdateEnvironmentVariable = (
     void,
     t_ActionsUpdateEnvironmentVariableBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ActionsDeleteEnvironmentVariable = (
   params: Params<t_ActionsDeleteEnvironmentVariableParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type SearchCode = (
   params: Params<void, t_SearchCodeQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -9372,7 +9372,7 @@ export type SearchCode = (
 
 export type SearchCommits = (
   params: Params<void, t_SearchCommitsQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -9387,7 +9387,7 @@ export type SearchCommits = (
 
 export type SearchIssuesAndPullRequests = (
   params: Params<void, t_SearchIssuesAndPullRequestsQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -9412,7 +9412,7 @@ export type SearchIssuesAndPullRequests = (
 
 export type SearchLabels = (
   params: Params<void, t_SearchLabelsQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -9430,7 +9430,7 @@ export type SearchLabels = (
 
 export type SearchRepos = (
   params: Params<void, t_SearchReposQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -9454,7 +9454,7 @@ export type SearchRepos = (
 
 export type SearchTopics = (
   params: Params<void, t_SearchTopicsQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -9469,7 +9469,7 @@ export type SearchTopics = (
 
 export type SearchUsers = (
   params: Params<void, t_SearchUsersQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -9493,7 +9493,7 @@ export type SearchUsers = (
 
 export type TeamsGetLegacy = (
   params: Params<t_TeamsGetLegacyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team_full> | Response<404, t_basic_error>>
 
 export type TeamsUpdateLegacy = (
@@ -9502,7 +9502,7 @@ export type TeamsUpdateLegacy = (
     void,
     t_TeamsUpdateLegacyBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_team_full>
   | Response<201, t_team_full>
@@ -9513,7 +9513,7 @@ export type TeamsUpdateLegacy = (
 
 export type TeamsDeleteLegacy = (
   params: Params<t_TeamsDeleteLegacyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<404, t_basic_error>
@@ -9526,7 +9526,7 @@ export type TeamsListDiscussionsLegacy = (
     t_TeamsListDiscussionsLegacyQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team_discussion[]>>
 
 export type TeamsCreateDiscussionLegacy = (
@@ -9535,12 +9535,12 @@ export type TeamsCreateDiscussionLegacy = (
     void,
     t_TeamsCreateDiscussionLegacyBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_team_discussion>>
 
 export type TeamsGetDiscussionLegacy = (
   params: Params<t_TeamsGetDiscussionLegacyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team_discussion>>
 
 export type TeamsUpdateDiscussionLegacy = (
@@ -9549,12 +9549,12 @@ export type TeamsUpdateDiscussionLegacy = (
     void,
     t_TeamsUpdateDiscussionLegacyBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team_discussion>>
 
 export type TeamsDeleteDiscussionLegacy = (
   params: Params<t_TeamsDeleteDiscussionLegacyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type TeamsListDiscussionCommentsLegacy = (
@@ -9563,7 +9563,7 @@ export type TeamsListDiscussionCommentsLegacy = (
     t_TeamsListDiscussionCommentsLegacyQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team_discussion_comment[]>>
 
 export type TeamsCreateDiscussionCommentLegacy = (
@@ -9572,12 +9572,12 @@ export type TeamsCreateDiscussionCommentLegacy = (
     void,
     t_TeamsCreateDiscussionCommentLegacyBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_team_discussion_comment>>
 
 export type TeamsGetDiscussionCommentLegacy = (
   params: Params<t_TeamsGetDiscussionCommentLegacyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team_discussion_comment>>
 
 export type TeamsUpdateDiscussionCommentLegacy = (
@@ -9586,12 +9586,12 @@ export type TeamsUpdateDiscussionCommentLegacy = (
     void,
     t_TeamsUpdateDiscussionCommentLegacyBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team_discussion_comment>>
 
 export type TeamsDeleteDiscussionCommentLegacy = (
   params: Params<t_TeamsDeleteDiscussionCommentLegacyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type ReactionsListForTeamDiscussionCommentLegacy = (
@@ -9600,7 +9600,7 @@ export type ReactionsListForTeamDiscussionCommentLegacy = (
     t_ReactionsListForTeamDiscussionCommentLegacyQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_reaction[]>>
 
 export type ReactionsCreateForTeamDiscussionCommentLegacy = (
@@ -9609,7 +9609,7 @@ export type ReactionsCreateForTeamDiscussionCommentLegacy = (
     void,
     t_ReactionsCreateForTeamDiscussionCommentLegacyBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_reaction>>
 
 export type ReactionsListForTeamDiscussionLegacy = (
@@ -9618,7 +9618,7 @@ export type ReactionsListForTeamDiscussionLegacy = (
     t_ReactionsListForTeamDiscussionLegacyQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_reaction[]>>
 
 export type ReactionsCreateForTeamDiscussionLegacy = (
@@ -9627,7 +9627,7 @@ export type ReactionsCreateForTeamDiscussionLegacy = (
     void,
     t_ReactionsCreateForTeamDiscussionLegacyBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<201, t_reaction>>
 
 export type TeamsListPendingInvitationsLegacy = (
@@ -9636,7 +9636,7 @@ export type TeamsListPendingInvitationsLegacy = (
     t_TeamsListPendingInvitationsLegacyQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_organization_invitation[]>>
 
 export type TeamsListMembersLegacy = (
@@ -9645,17 +9645,17 @@ export type TeamsListMembersLegacy = (
     t_TeamsListMembersLegacyQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_simple_user[]> | Response<404, t_basic_error>>
 
 export type TeamsGetMemberLegacy = (
   params: Params<t_TeamsGetMemberLegacyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, void>>
 
 export type TeamsAddMemberLegacy = (
   params: Params<t_TeamsAddMemberLegacyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<403, t_basic_error>
@@ -9665,12 +9665,12 @@ export type TeamsAddMemberLegacy = (
 
 export type TeamsRemoveMemberLegacy = (
   params: Params<t_TeamsRemoveMemberLegacyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, void>>
 
 export type TeamsGetMembershipForUserLegacy = (
   params: Params<t_TeamsGetMembershipForUserLegacyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team_membership> | Response<404, t_basic_error>>
 
 export type TeamsAddOrUpdateMembershipForUserLegacy = (
@@ -9679,7 +9679,7 @@ export type TeamsAddOrUpdateMembershipForUserLegacy = (
     void,
     t_TeamsAddOrUpdateMembershipForUserLegacyBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_team_membership>
   | Response<403, void>
@@ -9689,7 +9689,7 @@ export type TeamsAddOrUpdateMembershipForUserLegacy = (
 
 export type TeamsRemoveMembershipForUserLegacy = (
   params: Params<t_TeamsRemoveMembershipForUserLegacyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<403, void>>
 
 export type TeamsListProjectsLegacy = (
@@ -9698,7 +9698,7 @@ export type TeamsListProjectsLegacy = (
     t_TeamsListProjectsLegacyQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team_project[]> | Response<404, t_basic_error>>
 
 export type TeamsCheckPermissionsForProjectLegacy = (
@@ -9707,7 +9707,7 @@ export type TeamsCheckPermissionsForProjectLegacy = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_team_project> | Response<404, void>>
 
 export type TeamsAddOrUpdateProjectPermissionsLegacy = (
@@ -9716,7 +9716,7 @@ export type TeamsAddOrUpdateProjectPermissionsLegacy = (
     void,
     t_TeamsAddOrUpdateProjectPermissionsLegacyBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<
@@ -9732,7 +9732,7 @@ export type TeamsAddOrUpdateProjectPermissionsLegacy = (
 
 export type TeamsRemoveProjectLegacy = (
   params: Params<t_TeamsRemoveProjectLegacyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<404, t_basic_error>
@@ -9745,14 +9745,14 @@ export type TeamsListReposLegacy = (
     t_TeamsListReposLegacyQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_minimal_repository[]> | Response<404, t_basic_error>
 >
 
 export type TeamsCheckPermissionsForRepoLegacy = (
   params: Params<t_TeamsCheckPermissionsForRepoLegacyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_team_repository> | Response<204, void> | Response<404, void>
 >
@@ -9763,7 +9763,7 @@ export type TeamsAddOrUpdateRepoPermissionsLegacy = (
     void,
     t_TeamsAddOrUpdateRepoPermissionsLegacyBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<403, t_basic_error>
@@ -9772,7 +9772,7 @@ export type TeamsAddOrUpdateRepoPermissionsLegacy = (
 
 export type TeamsRemoveRepoLegacy = (
   params: Params<t_TeamsRemoveRepoLegacyParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type TeamsListChildLegacy = (
@@ -9781,7 +9781,7 @@ export type TeamsListChildLegacy = (
     t_TeamsListChildLegacyQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_team[]>
   | Response<403, t_basic_error>
@@ -9791,7 +9791,7 @@ export type TeamsListChildLegacy = (
 
 export type UsersGetAuthenticated = (
   params: Params<void, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_private_user | t_public_user>
   | Response<304, void>
@@ -9801,7 +9801,7 @@ export type UsersGetAuthenticated = (
 
 export type UsersUpdateAuthenticated = (
   params: Params<void, void, t_UsersUpdateAuthenticatedBodySchema | undefined>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_private_user>
   | Response<304, void>
@@ -9813,7 +9813,7 @@ export type UsersUpdateAuthenticated = (
 
 export type UsersListBlockedByAuthenticatedUser = (
   params: Params<void, t_UsersListBlockedByAuthenticatedUserQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_simple_user[]>
   | Response<304, void>
@@ -9824,7 +9824,7 @@ export type UsersListBlockedByAuthenticatedUser = (
 
 export type UsersCheckBlocked = (
   params: Params<t_UsersCheckBlockedParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -9835,7 +9835,7 @@ export type UsersCheckBlocked = (
 
 export type UsersBlock = (
   params: Params<t_UsersBlockParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -9847,7 +9847,7 @@ export type UsersBlock = (
 
 export type UsersUnblock = (
   params: Params<t_UsersUnblockParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -9858,7 +9858,7 @@ export type UsersUnblock = (
 
 export type CodespacesListForAuthenticatedUser = (
   params: Params<void, t_CodespacesListForAuthenticatedUserQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -9876,7 +9876,7 @@ export type CodespacesListForAuthenticatedUser = (
 
 export type CodespacesCreateForAuthenticatedUser = (
   params: Params<void, void, t_CodespacesCreateForAuthenticatedUserBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_codespace>
   | Response<202, t_codespace>
@@ -9899,7 +9899,7 @@ export type CodespacesListSecretsForAuthenticatedUser = (
     t_CodespacesListSecretsForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<
     200,
@@ -9912,7 +9912,7 @@ export type CodespacesListSecretsForAuthenticatedUser = (
 
 export type CodespacesGetPublicKeyForAuthenticatedUser = (
   params: Params<void, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_codespaces_user_public_key>>
 
 export type CodespacesGetSecretForAuthenticatedUser = (
@@ -9921,7 +9921,7 @@ export type CodespacesGetSecretForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_codespaces_secret>>
 
 export type CodespacesCreateOrUpdateSecretForAuthenticatedUser = (
@@ -9930,7 +9930,7 @@ export type CodespacesCreateOrUpdateSecretForAuthenticatedUser = (
     void,
     t_CodespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_empty_object>
   | Response<204, void>
@@ -9944,7 +9944,7 @@ export type CodespacesDeleteSecretForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type CodespacesListRepositoriesForSecretForAuthenticatedUser = (
@@ -9953,7 +9953,7 @@ export type CodespacesListRepositoriesForSecretForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -9974,7 +9974,7 @@ export type CodespacesSetRepositoriesForSecretForAuthenticatedUser = (
     void,
     t_CodespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<401, t_basic_error>
@@ -9989,7 +9989,7 @@ export type CodespacesAddRepositoryForSecretForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<401, t_basic_error>
@@ -10004,7 +10004,7 @@ export type CodespacesRemoveRepositoryForSecretForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<401, t_basic_error>
@@ -10015,7 +10015,7 @@ export type CodespacesRemoveRepositoryForSecretForAuthenticatedUser = (
 
 export type CodespacesGetForAuthenticatedUser = (
   params: Params<t_CodespacesGetForAuthenticatedUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_codespace>
   | Response<304, void>
@@ -10031,7 +10031,7 @@ export type CodespacesUpdateForAuthenticatedUser = (
     void,
     t_CodespacesUpdateForAuthenticatedUserBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_codespace>
   | Response<401, t_basic_error>
@@ -10041,7 +10041,7 @@ export type CodespacesUpdateForAuthenticatedUser = (
 
 export type CodespacesDeleteForAuthenticatedUser = (
   params: Params<t_CodespacesDeleteForAuthenticatedUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<202, EmptyObject>
   | Response<304, void>
@@ -10053,7 +10053,7 @@ export type CodespacesDeleteForAuthenticatedUser = (
 
 export type CodespacesExportForAuthenticatedUser = (
   params: Params<t_CodespacesExportForAuthenticatedUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<202, t_codespace_export_details>
   | Response<401, t_basic_error>
@@ -10069,7 +10069,7 @@ export type CodespacesGetExportDetailsForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_codespace_export_details> | Response<404, t_basic_error>
 >
@@ -10080,7 +10080,7 @@ export type CodespacesCodespaceMachinesForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -10102,7 +10102,7 @@ export type CodespacesPublishForAuthenticatedUser = (
     void,
     t_CodespacesPublishForAuthenticatedUserBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_codespace_with_full_repository>
   | Response<401, t_basic_error>
@@ -10113,7 +10113,7 @@ export type CodespacesPublishForAuthenticatedUser = (
 
 export type CodespacesStartForAuthenticatedUser = (
   params: Params<t_CodespacesStartForAuthenticatedUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_codespace>
   | Response<304, void>
@@ -10128,7 +10128,7 @@ export type CodespacesStartForAuthenticatedUser = (
 
 export type CodespacesStopForAuthenticatedUser = (
   params: Params<t_CodespacesStopForAuthenticatedUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_codespace>
   | Response<401, t_basic_error>
@@ -10140,7 +10140,7 @@ export type CodespacesStopForAuthenticatedUser = (
 export type PackagesListDockerMigrationConflictingPackagesForAuthenticatedUser =
   (
     params: Params<void, void, void>,
-    ctx: Context
+    ctx: Context,
   ) => Promise<Response<200, t_package[]>>
 
 export type UsersSetPrimaryEmailVisibilityForAuthenticatedUser = (
@@ -10149,7 +10149,7 @@ export type UsersSetPrimaryEmailVisibilityForAuthenticatedUser = (
     void,
     t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_email[]>
   | Response<304, void>
@@ -10161,7 +10161,7 @@ export type UsersSetPrimaryEmailVisibilityForAuthenticatedUser = (
 
 export type UsersListEmailsForAuthenticatedUser = (
   params: Params<void, t_UsersListEmailsForAuthenticatedUserQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_email[]>
   | Response<304, void>
@@ -10176,7 +10176,7 @@ export type UsersAddEmailForAuthenticatedUser = (
     void,
     t_UsersAddEmailForAuthenticatedUserBodySchema | undefined
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_email[]>
   | Response<304, void>
@@ -10188,7 +10188,7 @@ export type UsersAddEmailForAuthenticatedUser = (
 
 export type UsersDeleteEmailForAuthenticatedUser = (
   params: Params<void, void, t_UsersDeleteEmailForAuthenticatedUserBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -10204,7 +10204,7 @@ export type UsersListFollowersForAuthenticatedUser = (
     t_UsersListFollowersForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_simple_user[]>
   | Response<304, void>
@@ -10214,7 +10214,7 @@ export type UsersListFollowersForAuthenticatedUser = (
 
 export type UsersListFollowedByAuthenticatedUser = (
   params: Params<void, t_UsersListFollowedByAuthenticatedUserQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_simple_user[]>
   | Response<304, void>
@@ -10228,7 +10228,7 @@ export type UsersCheckPersonIsFollowedByAuthenticated = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -10239,7 +10239,7 @@ export type UsersCheckPersonIsFollowedByAuthenticated = (
 
 export type UsersFollow = (
   params: Params<t_UsersFollowParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -10250,7 +10250,7 @@ export type UsersFollow = (
 
 export type UsersUnfollow = (
   params: Params<t_UsersUnfollowParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -10261,7 +10261,7 @@ export type UsersUnfollow = (
 
 export type UsersListGpgKeysForAuthenticatedUser = (
   params: Params<void, t_UsersListGpgKeysForAuthenticatedUserQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_gpg_key[]>
   | Response<304, void>
@@ -10272,7 +10272,7 @@ export type UsersListGpgKeysForAuthenticatedUser = (
 
 export type UsersCreateGpgKeyForAuthenticatedUser = (
   params: Params<void, void, t_UsersCreateGpgKeyForAuthenticatedUserBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_gpg_key>
   | Response<304, void>
@@ -10284,7 +10284,7 @@ export type UsersCreateGpgKeyForAuthenticatedUser = (
 
 export type UsersGetGpgKeyForAuthenticatedUser = (
   params: Params<t_UsersGetGpgKeyForAuthenticatedUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_gpg_key>
   | Response<304, void>
@@ -10299,7 +10299,7 @@ export type UsersDeleteGpgKeyForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -10315,7 +10315,7 @@ export type AppsListInstallationsForAuthenticatedUser = (
     t_AppsListInstallationsForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -10335,7 +10335,7 @@ export type AppsListInstallationReposForAuthenticatedUser = (
     t_AppsListInstallationReposForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<
       200,
@@ -10356,7 +10356,7 @@ export type AppsAddRepoToInstallationForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -10370,7 +10370,7 @@ export type AppsRemoveRepoFromInstallationForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -10380,7 +10380,7 @@ export type AppsRemoveRepoFromInstallationForAuthenticatedUser = (
 
 export type InteractionsGetRestrictionsForAuthenticatedUser = (
   params: Params<void, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_interaction_limit_response | EmptyObject>
   | Response<204, void>
@@ -10392,7 +10392,7 @@ export type InteractionsSetRestrictionsForAuthenticatedUser = (
     void,
     t_InteractionsSetRestrictionsForAuthenticatedUserBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_interaction_limit_response>
   | Response<422, t_validation_error>
@@ -10400,12 +10400,12 @@ export type InteractionsSetRestrictionsForAuthenticatedUser = (
 
 export type InteractionsRemoveRestrictionsForAuthenticatedUser = (
   params: Params<void, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void>>
 
 export type IssuesListForAuthenticatedUser = (
   params: Params<void, t_IssuesListForAuthenticatedUserQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_issue[]> | Response<304, void> | Response<404, t_basic_error>
 >
@@ -10416,7 +10416,7 @@ export type UsersListPublicSshKeysForAuthenticatedUser = (
     t_UsersListPublicSshKeysForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_key[]>
   | Response<304, void>
@@ -10431,7 +10431,7 @@ export type UsersCreatePublicSshKeyForAuthenticatedUser = (
     void,
     t_UsersCreatePublicSshKeyForAuthenticatedUserBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_key>
   | Response<304, void>
@@ -10447,7 +10447,7 @@ export type UsersGetPublicSshKeyForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_key>
   | Response<304, void>
@@ -10462,7 +10462,7 @@ export type UsersDeletePublicSshKeyForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -10477,7 +10477,7 @@ export type AppsListSubscriptionsForAuthenticatedUser = (
     t_AppsListSubscriptionsForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_user_marketplace_purchase[]>
   | Response<304, void>
@@ -10491,7 +10491,7 @@ export type AppsListSubscriptionsForAuthenticatedUserStubbed = (
     t_AppsListSubscriptionsForAuthenticatedUserStubbedQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_user_marketplace_purchase[]>
   | Response<304, void>
@@ -10504,7 +10504,7 @@ export type OrgsListMembershipsForAuthenticatedUser = (
     t_OrgsListMembershipsForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_org_membership[]>
   | Response<304, void>
@@ -10519,7 +10519,7 @@ export type OrgsGetMembershipForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_org_membership>
   | Response<403, t_basic_error>
@@ -10532,7 +10532,7 @@ export type OrgsUpdateMembershipForAuthenticatedUser = (
     void,
     t_OrgsUpdateMembershipForAuthenticatedUserBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_org_membership>
   | Response<403, t_basic_error>
@@ -10542,7 +10542,7 @@ export type OrgsUpdateMembershipForAuthenticatedUser = (
 
 export type MigrationsListForAuthenticatedUser = (
   params: Params<void, t_MigrationsListForAuthenticatedUserQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_migration[]>
   | Response<304, void>
@@ -10552,7 +10552,7 @@ export type MigrationsListForAuthenticatedUser = (
 
 export type MigrationsStartForAuthenticatedUser = (
   params: Params<void, void, t_MigrationsStartForAuthenticatedUserBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_migration>
   | Response<304, void>
@@ -10567,7 +10567,7 @@ export type MigrationsGetStatusForAuthenticatedUser = (
     t_MigrationsGetStatusForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_migration>
   | Response<304, void>
@@ -10582,7 +10582,7 @@ export type MigrationsGetArchiveForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<302, void>
   | Response<304, void>
@@ -10596,7 +10596,7 @@ export type MigrationsDeleteArchiveForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -10611,7 +10611,7 @@ export type MigrationsUnlockRepoForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -10626,14 +10626,14 @@ export type MigrationsListReposForAuthenticatedUser = (
     t_MigrationsListReposForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_minimal_repository[]> | Response<404, t_basic_error>
 >
 
 export type OrgsListForAuthenticatedUser = (
   params: Params<void, t_OrgsListForAuthenticatedUserQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_organization_simple[]>
   | Response<304, void>
@@ -10647,7 +10647,7 @@ export type PackagesListPackagesForAuthenticatedUser = (
     t_PackagesListPackagesForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_package[]> | Response<400, void>>
 
 export type PackagesGetPackageForAuthenticatedUser = (
@@ -10656,7 +10656,7 @@ export type PackagesGetPackageForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_package>>
 
 export type PackagesDeletePackageForAuthenticatedUser = (
@@ -10665,7 +10665,7 @@ export type PackagesDeletePackageForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<401, t_basic_error>
@@ -10679,7 +10679,7 @@ export type PackagesRestorePackageForAuthenticatedUser = (
     t_PackagesRestorePackageForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<401, t_basic_error>
@@ -10693,7 +10693,7 @@ export type PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUser = (
     t_PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_package_version[]>
   | Response<401, t_basic_error>
@@ -10707,7 +10707,7 @@ export type PackagesGetPackageVersionForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_package_version>>
 
 export type PackagesDeletePackageVersionForAuthenticatedUser = (
@@ -10716,7 +10716,7 @@ export type PackagesDeletePackageVersionForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<401, t_basic_error>
@@ -10730,7 +10730,7 @@ export type PackagesRestorePackageVersionForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<401, t_basic_error>
@@ -10740,7 +10740,7 @@ export type PackagesRestorePackageVersionForAuthenticatedUser = (
 
 export type ProjectsCreateForAuthenticatedUser = (
   params: Params<void, void, t_ProjectsCreateForAuthenticatedUserBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_project>
   | Response<304, void>
@@ -10755,7 +10755,7 @@ export type UsersListPublicEmailsForAuthenticatedUser = (
     t_UsersListPublicEmailsForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_email[]>
   | Response<304, void>
@@ -10766,7 +10766,7 @@ export type UsersListPublicEmailsForAuthenticatedUser = (
 
 export type ReposListForAuthenticatedUser = (
   params: Params<void, t_ReposListForAuthenticatedUserQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_repository[]>
   | Response<304, void>
@@ -10777,7 +10777,7 @@ export type ReposListForAuthenticatedUser = (
 
 export type ReposCreateForAuthenticatedUser = (
   params: Params<void, void, t_ReposCreateForAuthenticatedUserBodySchema>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_repository>
   | Response<304, void>
@@ -10794,7 +10794,7 @@ export type ReposListInvitationsForAuthenticatedUser = (
     t_ReposListInvitationsForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_repository_invitation[]>
   | Response<304, void>
@@ -10809,7 +10809,7 @@ export type ReposAcceptInvitationForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -10824,7 +10824,7 @@ export type ReposDeclineInvitationForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -10839,7 +10839,7 @@ export type UsersListSocialAccountsForAuthenticatedUser = (
     t_UsersListSocialAccountsForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_social_account[]>
   | Response<304, void>
@@ -10854,7 +10854,7 @@ export type UsersAddSocialAccountForAuthenticatedUser = (
     void,
     t_UsersAddSocialAccountForAuthenticatedUserBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_social_account[]>
   | Response<304, void>
@@ -10870,7 +10870,7 @@ export type UsersDeleteSocialAccountForAuthenticatedUser = (
     void,
     t_UsersDeleteSocialAccountForAuthenticatedUserBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -10886,7 +10886,7 @@ export type UsersListSshSigningKeysForAuthenticatedUser = (
     t_UsersListSshSigningKeysForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_ssh_signing_key[]>
   | Response<304, void>
@@ -10901,7 +10901,7 @@ export type UsersCreateSshSigningKeyForAuthenticatedUser = (
     void,
     t_UsersCreateSshSigningKeyForAuthenticatedUserBodySchema
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<201, t_ssh_signing_key>
   | Response<304, void>
@@ -10917,7 +10917,7 @@ export type UsersGetSshSigningKeyForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_ssh_signing_key>
   | Response<304, void>
@@ -10932,7 +10932,7 @@ export type UsersDeleteSshSigningKeyForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -10947,7 +10947,7 @@ export type ActivityListReposStarredByAuthenticatedUser = (
     t_ActivityListReposStarredByAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_starred_repository[]>
   | Response<304, void>
@@ -10961,7 +10961,7 @@ export type ActivityCheckRepoIsStarredByAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -10972,7 +10972,7 @@ export type ActivityCheckRepoIsStarredByAuthenticatedUser = (
 
 export type ActivityStarRepoForAuthenticatedUser = (
   params: Params<t_ActivityStarRepoForAuthenticatedUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -10987,7 +10987,7 @@ export type ActivityUnstarRepoForAuthenticatedUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<304, void>
@@ -11002,7 +11002,7 @@ export type ActivityListWatchedReposForAuthenticatedUser = (
     t_ActivityListWatchedReposForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_minimal_repository[]>
   | Response<304, void>
@@ -11012,7 +11012,7 @@ export type ActivityListWatchedReposForAuthenticatedUser = (
 
 export type TeamsListForAuthenticatedUser = (
   params: Params<void, t_TeamsListForAuthenticatedUserQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_team_full[]>
   | Response<304, void>
@@ -11022,12 +11022,12 @@ export type TeamsListForAuthenticatedUser = (
 
 export type UsersList = (
   params: Params<void, t_UsersListQuerySchema, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_simple_user[]> | Response<304, void>>
 
 export type UsersGetByUsername = (
   params: Params<t_UsersGetByUsernameParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   Response<200, t_private_user | t_public_user> | Response<404, t_basic_error>
 >
@@ -11038,7 +11038,7 @@ export type PackagesListDockerMigrationConflictingPackagesForUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_package[]>
   | Response<401, t_basic_error>
@@ -11051,7 +11051,7 @@ export type ActivityListEventsForAuthenticatedUser = (
     t_ActivityListEventsForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_event[]>>
 
 export type ActivityListOrgEventsForAuthenticatedUser = (
@@ -11060,7 +11060,7 @@ export type ActivityListOrgEventsForAuthenticatedUser = (
     t_ActivityListOrgEventsForAuthenticatedUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_event[]>>
 
 export type ActivityListPublicEventsForUser = (
@@ -11069,7 +11069,7 @@ export type ActivityListPublicEventsForUser = (
     t_ActivityListPublicEventsForUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_event[]>>
 
 export type UsersListFollowersForUser = (
@@ -11078,7 +11078,7 @@ export type UsersListFollowersForUser = (
     t_UsersListFollowersForUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_simple_user[]>>
 
 export type UsersListFollowingForUser = (
@@ -11087,12 +11087,12 @@ export type UsersListFollowingForUser = (
     t_UsersListFollowingForUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_simple_user[]>>
 
 export type UsersCheckFollowingForUser = (
   params: Params<t_UsersCheckFollowingForUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<204, void> | Response<404, void>>
 
 export type GistsListForUser = (
@@ -11101,7 +11101,7 @@ export type GistsListForUser = (
     t_GistsListForUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_base_gist[]> | Response<422, t_validation_error>>
 
 export type UsersListGpgKeysForUser = (
@@ -11110,7 +11110,7 @@ export type UsersListGpgKeysForUser = (
     t_UsersListGpgKeysForUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_gpg_key[]>>
 
 export type UsersGetContextForUser = (
@@ -11119,7 +11119,7 @@ export type UsersGetContextForUser = (
     t_UsersGetContextForUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_hovercard>
   | Response<404, t_basic_error>
@@ -11128,7 +11128,7 @@ export type UsersGetContextForUser = (
 
 export type AppsGetUserInstallation = (
   params: Params<t_AppsGetUserInstallationParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_installation>>
 
 export type UsersListPublicKeysForUser = (
@@ -11137,7 +11137,7 @@ export type UsersListPublicKeysForUser = (
     t_UsersListPublicKeysForUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_key_simple[]>>
 
 export type OrgsListForUser = (
@@ -11146,7 +11146,7 @@ export type OrgsListForUser = (
     t_OrgsListForUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_organization_simple[]>>
 
 export type PackagesListPackagesForUser = (
@@ -11155,7 +11155,7 @@ export type PackagesListPackagesForUser = (
     t_PackagesListPackagesForUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_package[]>
   | Response<400, void>
@@ -11165,12 +11165,12 @@ export type PackagesListPackagesForUser = (
 
 export type PackagesGetPackageForUser = (
   params: Params<t_PackagesGetPackageForUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_package>>
 
 export type PackagesDeletePackageForUser = (
   params: Params<t_PackagesDeletePackageForUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<401, t_basic_error>
@@ -11184,7 +11184,7 @@ export type PackagesRestorePackageForUser = (
     t_PackagesRestorePackageForUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<401, t_basic_error>
@@ -11198,7 +11198,7 @@ export type PackagesGetAllPackageVersionsForPackageOwnedByUser = (
     void,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<200, t_package_version[]>
   | Response<401, t_basic_error>
@@ -11208,12 +11208,12 @@ export type PackagesGetAllPackageVersionsForPackageOwnedByUser = (
 
 export type PackagesGetPackageVersionForUser = (
   params: Params<t_PackagesGetPackageVersionForUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_package_version>>
 
 export type PackagesDeletePackageVersionForUser = (
   params: Params<t_PackagesDeletePackageVersionForUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<401, t_basic_error>
@@ -11223,7 +11223,7 @@ export type PackagesDeletePackageVersionForUser = (
 
 export type PackagesRestorePackageVersionForUser = (
   params: Params<t_PackagesRestorePackageVersionForUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<
   | Response<204, void>
   | Response<401, t_basic_error>
@@ -11237,7 +11237,7 @@ export type ProjectsListForUser = (
     t_ProjectsListForUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_project[]> | Response<422, t_validation_error>>
 
 export type ActivityListReceivedEventsForUser = (
@@ -11246,7 +11246,7 @@ export type ActivityListReceivedEventsForUser = (
     t_ActivityListReceivedEventsForUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_event[]>>
 
 export type ActivityListReceivedPublicEventsForUser = (
@@ -11255,7 +11255,7 @@ export type ActivityListReceivedPublicEventsForUser = (
     t_ActivityListReceivedPublicEventsForUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_event[]>>
 
 export type ReposListForUser = (
@@ -11264,22 +11264,22 @@ export type ReposListForUser = (
     t_ReposListForUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_minimal_repository[]>>
 
 export type BillingGetGithubActionsBillingUser = (
   params: Params<t_BillingGetGithubActionsBillingUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_actions_billing_usage>>
 
 export type BillingGetGithubPackagesBillingUser = (
   params: Params<t_BillingGetGithubPackagesBillingUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_packages_billing_usage>>
 
 export type BillingGetSharedStorageBillingUser = (
   params: Params<t_BillingGetSharedStorageBillingUserParamSchema, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_combined_billing_usage>>
 
 export type UsersListSocialAccountsForUser = (
@@ -11288,7 +11288,7 @@ export type UsersListSocialAccountsForUser = (
     t_UsersListSocialAccountsForUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_social_account[]>>
 
 export type UsersListSshSigningKeysForUser = (
@@ -11297,7 +11297,7 @@ export type UsersListSshSigningKeysForUser = (
     t_UsersListSshSigningKeysForUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_ssh_signing_key[]>>
 
 export type ActivityListReposStarredByUser = (
@@ -11306,7 +11306,7 @@ export type ActivityListReposStarredByUser = (
     t_ActivityListReposStarredByUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_starred_repository[] | t_repository[]>>
 
 export type ActivityListReposWatchedByUser = (
@@ -11315,17 +11315,17 @@ export type ActivityListReposWatchedByUser = (
     t_ActivityListReposWatchedByUserQuerySchema,
     void
   >,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, t_minimal_repository[]>>
 
 export type MetaGetAllVersions = (
   params: Params<void, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, string[]> | Response<404, t_basic_error>>
 
 export type MetaGetZen = (
   params: Params<void, void, void>,
-  ctx: Context
+  ctx: Context,
 ) => Promise<Response<200, string>>
 
 export type Implementation = {
@@ -12222,14 +12222,14 @@ export type Implementation = {
 
 export function bootstrap(
   implementation: Implementation,
-  config: Omit<ServerConfig, "router">
+  config: Omit<ServerConfig, "router">,
 ) {
   // ApiClient
   const router = new KoaRouter()
 
   const metaRootResponseValidator = responseValidationFactory(
     [["200", s_root]],
-    undefined
+    undefined,
   )
 
   router.get("metaRoot", "/", async (ctx, next) => {
@@ -12248,7 +12248,7 @@ export function bootstrap(
 
   const appsGetAuthenticatedResponseValidator = responseValidationFactory(
     [["200", s_integration]],
-    undefined
+    undefined,
   )
 
   router.get("appsGetAuthenticated", "/app", async (ctx, next) => {
@@ -12260,7 +12260,7 @@ export function bootstrap(
 
     const { status, body } = await implementation.appsGetAuthenticated(
       input,
-      ctx
+      ctx,
     )
 
     ctx.body = appsGetAuthenticatedResponseValidator(status, body)
@@ -12282,13 +12282,13 @@ export function bootstrap(
             client_secret: z.coerce.string(),
             webhook_secret: z.coerce.string().nullable(),
             pem: z.coerce.string(),
-          })
+          }),
         ),
       ],
       ["404", s_basic_error],
       ["422", s_validation_error_simple],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -12298,7 +12298,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           appsCreateFromManifestParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -12306,18 +12306,18 @@ export function bootstrap(
 
       const { status, body } = await implementation.appsCreateFromManifest(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = appsCreateFromManifestResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsGetWebhookConfigForAppResponseValidator = responseValidationFactory(
     [["200", s_webhook_config]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -12332,13 +12332,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.appsGetWebhookConfigForApp(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = appsGetWebhookConfigForAppResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsUpdateWebhookConfigForAppBodySchema = z.object({
@@ -12360,7 +12360,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           appsUpdateWebhookConfigForAppBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -12370,7 +12370,7 @@ export function bootstrap(
       ctx.body = appsUpdateWebhookConfigForAppResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsListWebhookDeliveriesQuerySchema = z.object({
@@ -12385,7 +12385,7 @@ export function bootstrap(
       ["400", s_scim_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -12396,20 +12396,20 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           appsListWebhookDeliveriesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.appsListWebhookDeliveries(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = appsListWebhookDeliveriesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsGetWebhookDeliveryParamSchema = z.object({
@@ -12422,7 +12422,7 @@ export function bootstrap(
       ["400", s_scim_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -12432,7 +12432,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           appsGetWebhookDeliveryParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -12440,13 +12440,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.appsGetWebhookDelivery(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = appsGetWebhookDeliveryResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsRedeliverWebhookDeliveryParamSchema = z.object({
@@ -12460,7 +12460,7 @@ export function bootstrap(
         ["400", s_scim_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -12470,7 +12470,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           appsRedeliverWebhookDeliveryParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -12482,7 +12482,7 @@ export function bootstrap(
       ctx.body = appsRedeliverWebhookDeliveryResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsListInstallationRequestsForAuthenticatedAppQuerySchema = z.object({
@@ -12497,7 +12497,7 @@ export function bootstrap(
         ["304", z.void()],
         ["401", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -12508,7 +12508,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           appsListInstallationRequestsForAuthenticatedAppQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -12516,17 +12516,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.appsListInstallationRequestsForAuthenticatedApp(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         appsListInstallationRequestsForAuthenticatedAppResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsListInstallationsQuerySchema = z.object({
@@ -12538,7 +12538,7 @@ export function bootstrap(
 
   const appsListInstallationsResponseValidator = responseValidationFactory(
     [["200", z.array(s_installation)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -12553,13 +12553,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.appsListInstallations(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = appsListInstallationsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsGetInstallationParamSchema = z.object({
@@ -12571,7 +12571,7 @@ export function bootstrap(
       ["200", s_installation],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -12586,13 +12586,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.appsGetInstallation(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = appsGetInstallationResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsDeleteInstallationParamSchema = z.object({
@@ -12604,7 +12604,7 @@ export function bootstrap(
       ["204", z.void()],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -12614,7 +12614,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           appsDeleteInstallationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -12622,13 +12622,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.appsDeleteInstallation(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = appsDeleteInstallationResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsCreateInstallationAccessTokenParamSchema = z.object({
@@ -12652,7 +12652,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -12662,12 +12662,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           appsCreateInstallationAccessTokenParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           appsCreateInstallationAccessTokenBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -12676,11 +12676,11 @@ export function bootstrap(
 
       ctx.body = appsCreateInstallationAccessTokenResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsSuspendInstallationParamSchema = z.object({
@@ -12692,7 +12692,7 @@ export function bootstrap(
       ["204", z.void()],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.put(
@@ -12702,7 +12702,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           appsSuspendInstallationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -12710,13 +12710,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.appsSuspendInstallation(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = appsSuspendInstallationResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsUnsuspendInstallationParamSchema = z.object({
@@ -12728,7 +12728,7 @@ export function bootstrap(
       ["204", z.void()],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -12738,7 +12738,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           appsUnsuspendInstallationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -12746,13 +12746,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.appsUnsuspendInstallation(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = appsUnsuspendInstallationResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsDeleteAuthorizationParamSchema = z.object({
@@ -12768,7 +12768,7 @@ export function bootstrap(
       ["204", z.void()],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -12778,24 +12778,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           appsDeleteAuthorizationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           appsDeleteAuthorizationBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.appsDeleteAuthorization(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = appsDeleteAuthorizationResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsCheckTokenParamSchema = z.object({ client_id: z.coerce.string() })
@@ -12808,7 +12808,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -12826,7 +12826,7 @@ export function bootstrap(
       ctx.body = appsCheckTokenResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsResetTokenParamSchema = z.object({ client_id: z.coerce.string() })
@@ -12838,7 +12838,7 @@ export function bootstrap(
       ["200", s_authorization],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -12856,7 +12856,7 @@ export function bootstrap(
       ctx.body = appsResetTokenResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsDeleteTokenParamSchema = z.object({ client_id: z.coerce.string() })
@@ -12870,7 +12870,7 @@ export function bootstrap(
       ["204", z.void()],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -12888,7 +12888,7 @@ export function bootstrap(
       ctx.body = appsDeleteTokenResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsScopeTokenParamSchema = z.object({ client_id: z.coerce.string() })
@@ -12910,7 +12910,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -12928,7 +12928,7 @@ export function bootstrap(
       ctx.body = appsScopeTokenResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsGetBySlugParamSchema = z.object({ app_slug: z.coerce.string() })
@@ -12939,7 +12939,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("appsGetBySlug", "/apps/:appSlug", async (ctx, next) => {
@@ -12962,7 +12962,7 @@ export function bootstrap(
         ["200", z.array(s_code_of_conduct)],
         ["304", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -12980,11 +12980,11 @@ export function bootstrap(
 
       ctx.body = codesOfConductGetAllCodesOfConductResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codesOfConductGetConductCodeParamSchema = z.object({
@@ -12998,7 +12998,7 @@ export function bootstrap(
         ["304", z.void()],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -13008,7 +13008,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codesOfConductGetConductCodeParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -13020,7 +13020,7 @@ export function bootstrap(
       ctx.body = codesOfConductGetConductCodeResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const emojisGetResponseValidator = responseValidationFactory(
@@ -13028,7 +13028,7 @@ export function bootstrap(
       ["200", z.object({})],
       ["304", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.get("emojisGet", "/emojis", async (ctx, next) => {
@@ -13073,7 +13073,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error_simple],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -13083,11 +13083,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           dependabotListAlertsForEnterpriseParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           dependabotListAlertsForEnterpriseQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -13097,11 +13097,11 @@ export function bootstrap(
 
       ctx.body = dependabotListAlertsForEnterpriseResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const secretScanningListAlertsForEnterpriseParamSchema = z.object({
@@ -13133,7 +13133,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -13143,11 +13143,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           secretScanningListAlertsForEnterpriseParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           secretScanningListAlertsForEnterpriseQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -13157,11 +13157,11 @@ export function bootstrap(
 
       ctx.body = secretScanningListAlertsForEnterpriseResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityListPublicEventsQuerySchema = z.object({
@@ -13183,7 +13183,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get("activityListPublicEvents", "/events", async (ctx, next) => {
@@ -13195,7 +13195,7 @@ export function bootstrap(
 
     const { status, body } = await implementation.activityListPublicEvents(
       input,
-      ctx
+      ctx,
     )
 
     ctx.body = activityListPublicEventsResponseValidator(status, body)
@@ -13205,7 +13205,7 @@ export function bootstrap(
 
   const activityGetFeedsResponseValidator = responseValidationFactory(
     [["200", s_feed]],
-    undefined
+    undefined,
   )
 
   router.get("activityGetFeeds", "/feeds", async (ctx, next) => {
@@ -13234,7 +13234,7 @@ export function bootstrap(
       ["304", z.void()],
       ["403", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("gistsList", "/gists", async (ctx, next) => {
@@ -13265,7 +13265,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post("gistsCreate", "/gists", async (ctx, next) => {
@@ -13295,7 +13295,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("gistsListPublic", "/gists/public", async (ctx, next) => {
@@ -13325,7 +13325,7 @@ export function bootstrap(
       ["401", s_basic_error],
       ["403", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("gistsListStarred", "/gists/starred", async (ctx, next) => {
@@ -13364,7 +13364,7 @@ export function bootstrap(
       ],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("gistsGet", "/gists/:gistId", async (ctx, next) => {
@@ -13396,7 +13396,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.patch("gistsUpdate", "/gists/:gistId", async (ctx, next) => {
@@ -13422,7 +13422,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete("gistsDelete", "/gists/:gistId", async (ctx, next) => {
@@ -13453,7 +13453,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -13468,13 +13468,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.gistsListComments(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = gistsListCommentsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gistsCreateCommentParamSchema = z.object({ gist_id: z.coerce.string() })
@@ -13488,7 +13488,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -13503,13 +13503,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.gistsCreateComment(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = gistsCreateCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gistsGetCommentParamSchema = z.object({
@@ -13537,7 +13537,7 @@ export function bootstrap(
       ],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -13555,7 +13555,7 @@ export function bootstrap(
       ctx.body = gistsGetCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gistsUpdateCommentParamSchema = z.object({
@@ -13570,7 +13570,7 @@ export function bootstrap(
       ["200", s_gist_comment],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -13585,13 +13585,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.gistsUpdateComment(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = gistsUpdateCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gistsDeleteCommentParamSchema = z.object({
@@ -13606,7 +13606,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -13621,13 +13621,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.gistsDeleteComment(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = gistsDeleteCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gistsListCommitsParamSchema = z.object({ gist_id: z.coerce.string() })
@@ -13644,7 +13644,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -13662,7 +13662,7 @@ export function bootstrap(
       ctx.body = gistsListCommitsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gistsListForksParamSchema = z.object({ gist_id: z.coerce.string() })
@@ -13679,7 +13679,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("gistsListForks", "/gists/:gistId/forks", async (ctx, next) => {
@@ -13706,7 +13706,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post("gistsFork", "/gists/:gistId/forks", async (ctx, next) => {
@@ -13734,7 +13734,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", z.object({})],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -13749,13 +13749,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.gistsCheckIsStarred(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = gistsCheckIsStarredResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gistsStarParamSchema = z.object({ gist_id: z.coerce.string() })
@@ -13767,7 +13767,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.put("gistsStar", "/gists/:gistId/star", async (ctx, next) => {
@@ -13793,7 +13793,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete("gistsUnstar", "/gists/:gistId/star", async (ctx, next) => {
@@ -13822,7 +13822,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("gistsGetRevision", "/gists/:gistId/:sha", async (ctx, next) => {
@@ -13844,7 +13844,7 @@ export function bootstrap(
       ["200", z.array(z.coerce.string())],
       ["304", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -13859,13 +13859,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.gitignoreGetAllTemplates(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = gitignoreGetAllTemplatesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gitignoreGetTemplateParamSchema = z.object({ name: z.coerce.string() })
@@ -13875,7 +13875,7 @@ export function bootstrap(
       ["200", s_gitignore_template],
       ["304", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -13890,13 +13890,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.gitignoreGetTemplate(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = gitignoreGetTemplateResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsListReposAccessibleToInstallationQuerySchema = z.object({
@@ -13919,7 +13919,7 @@ export function bootstrap(
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -13930,7 +13930,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           appsListReposAccessibleToInstallationQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -13940,11 +13940,11 @@ export function bootstrap(
 
       ctx.body = appsListReposAccessibleToInstallationResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsRevokeInstallationAccessTokenResponseValidator =
@@ -13965,11 +13965,11 @@ export function bootstrap(
 
       ctx.body = appsRevokeInstallationAccessTokenResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesListQuerySchema = z.object({
@@ -13996,7 +13996,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("issuesList", "/issues", async (ctx, next) => {
@@ -14024,7 +14024,7 @@ export function bootstrap(
       ["200", z.array(s_license_simple)],
       ["304", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.get("licensesGetAllCommonlyUsed", "/licenses", async (ctx, next) => {
@@ -14032,14 +14032,14 @@ export function bootstrap(
       params: undefined,
       query: parseRequestInput(
         licensesGetAllCommonlyUsedQuerySchema,
-        ctx.query
+        ctx.query,
       ),
       body: undefined,
     }
 
     const { status, body } = await implementation.licensesGetAllCommonlyUsed(
       input,
-      ctx
+      ctx,
     )
 
     ctx.body = licensesGetAllCommonlyUsedResponseValidator(status, body)
@@ -14056,7 +14056,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("licensesGet", "/licenses/:license", async (ctx, next) => {
@@ -14084,7 +14084,7 @@ export function bootstrap(
       ["200", z.coerce.string()],
       ["304", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.post("markdownRender", "/markdown", async (ctx, next) => {
@@ -14108,7 +14108,7 @@ export function bootstrap(
       ["200", z.coerce.string()],
       ["304", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.post("markdownRenderRaw", "/markdown/raw", async (ctx, next) => {
@@ -14136,7 +14136,7 @@ export function bootstrap(
         ["401", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -14146,7 +14146,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           appsGetSubscriptionPlanForAccountParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -14157,11 +14157,11 @@ export function bootstrap(
 
       ctx.body = appsGetSubscriptionPlanForAccountResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsListPlansQuerySchema = z.object({
@@ -14175,7 +14175,7 @@ export function bootstrap(
       ["401", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -14193,7 +14193,7 @@ export function bootstrap(
       ctx.body = appsListPlansResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsListAccountsForPlanParamSchema = z.object({
@@ -14214,7 +14214,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -14224,7 +14224,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           appsListAccountsForPlanParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(appsListAccountsForPlanQuerySchema, ctx.query),
         body: undefined,
@@ -14232,13 +14232,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.appsListAccountsForPlan(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = appsListAccountsForPlanResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsGetSubscriptionPlanForAccountStubbedParamSchema = z.object({
@@ -14252,7 +14252,7 @@ export function bootstrap(
         ["401", s_basic_error],
         ["404", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -14262,7 +14262,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           appsGetSubscriptionPlanForAccountStubbedParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -14271,16 +14271,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.appsGetSubscriptionPlanForAccountStubbed(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = appsGetSubscriptionPlanForAccountStubbedResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsListPlansStubbedQuerySchema = z.object({
@@ -14293,7 +14293,7 @@ export function bootstrap(
       ["200", z.array(s_marketplace_listing_plan)],
       ["401", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -14308,13 +14308,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.appsListPlansStubbed(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = appsListPlansStubbedResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsListAccountsForPlanStubbedParamSchema = z.object({
@@ -14334,7 +14334,7 @@ export function bootstrap(
         ["200", z.array(s_marketplace_purchase)],
         ["401", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -14344,11 +14344,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           appsListAccountsForPlanStubbedParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           appsListAccountsForPlanStubbedQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -14359,7 +14359,7 @@ export function bootstrap(
       ctx.body = appsListAccountsForPlanStubbedResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const metaGetResponseValidator = responseValidationFactory(
@@ -14367,7 +14367,7 @@ export function bootstrap(
       ["200", s_api_overview],
       ["304", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.get("metaGet", "/meta", async (ctx, next) => {
@@ -14403,7 +14403,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -14413,11 +14413,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityListPublicEventsForRepoNetworkParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           activityListPublicEventsForRepoNetworkQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -14427,11 +14427,11 @@ export function bootstrap(
 
       ctx.body = activityListPublicEventsForRepoNetworkResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityListNotificationsForAuthenticatedUserQuerySchema = z.object({
@@ -14452,7 +14452,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -14463,7 +14463,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           activityListNotificationsForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -14471,16 +14471,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.activityListNotificationsForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = activityListNotificationsForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityMarkNotificationsAsReadBodySchema = z
@@ -14499,7 +14499,7 @@ export function bootstrap(
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -14511,7 +14511,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           activityMarkNotificationsAsReadBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -14521,7 +14521,7 @@ export function bootstrap(
       ctx.body = activityMarkNotificationsAsReadResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityGetThreadParamSchema = z.object({
@@ -14535,7 +14535,7 @@ export function bootstrap(
       ["401", s_basic_error],
       ["403", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -14550,13 +14550,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.activityGetThread(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = activityGetThreadResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityMarkThreadAsReadParamSchema = z.object({
@@ -14569,7 +14569,7 @@ export function bootstrap(
       ["304", z.void()],
       ["403", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -14579,7 +14579,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityMarkThreadAsReadParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -14587,17 +14587,17 @@ export function bootstrap(
 
       const { status, body } = await implementation.activityMarkThreadAsRead(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = activityMarkThreadAsReadResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityGetThreadSubscriptionForAuthenticatedUserParamSchema = z.object(
-    { thread_id: z.coerce.number() }
+    { thread_id: z.coerce.number() },
   )
 
   const activityGetThreadSubscriptionForAuthenticatedUserResponseValidator =
@@ -14608,7 +14608,7 @@ export function bootstrap(
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -14618,7 +14618,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityGetThreadSubscriptionForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -14627,17 +14627,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.activityGetThreadSubscriptionForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         activityGetThreadSubscriptionForAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activitySetThreadSubscriptionParamSchema = z.object({
@@ -14656,7 +14656,7 @@ export function bootstrap(
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -14666,12 +14666,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activitySetThreadSubscriptionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           activitySetThreadSubscriptionBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -14681,7 +14681,7 @@ export function bootstrap(
       ctx.body = activitySetThreadSubscriptionResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityDeleteThreadSubscriptionParamSchema = z.object({
@@ -14696,7 +14696,7 @@ export function bootstrap(
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -14706,7 +14706,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityDeleteThreadSubscriptionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -14718,7 +14718,7 @@ export function bootstrap(
       ctx.body = activityDeleteThreadSubscriptionResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const metaGetOctocatQuerySchema = z.object({
@@ -14727,7 +14727,7 @@ export function bootstrap(
 
   const metaGetOctocatResponseValidator = responseValidationFactory(
     [["200", z.coerce.string()]],
-    undefined
+    undefined,
   )
 
   router.get("metaGetOctocat", "/octocat", async (ctx, next) => {
@@ -14754,7 +14754,7 @@ export function bootstrap(
       ["200", z.array(s_organization_simple)],
       ["304", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.get("orgsList", "/organizations", async (ctx, next) => {
@@ -14795,7 +14795,7 @@ export function bootstrap(
       ["422", s_validation_error],
       ["500", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -14805,24 +14805,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsListPatGrantRequestsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           orgsListPatGrantRequestsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.orgsListPatGrantRequests(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsListPatGrantRequestsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsReviewPatGrantRequestsInBulkParamSchema = z.object({
@@ -14844,7 +14844,7 @@ export function bootstrap(
         ["422", s_validation_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -14854,12 +14854,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsReviewPatGrantRequestsInBulkParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           orgsReviewPatGrantRequestsInBulkBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -14869,7 +14869,7 @@ export function bootstrap(
       ctx.body = orgsReviewPatGrantRequestsInBulkResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsReviewPatGrantRequestParamSchema = z.object({
@@ -14890,7 +14890,7 @@ export function bootstrap(
       ["422", s_validation_error],
       ["500", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -14900,24 +14900,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsReviewPatGrantRequestParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           orgsReviewPatGrantRequestBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.orgsReviewPatGrantRequest(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsReviewPatGrantRequestResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsListPatGrantRequestRepositoriesParamSchema = z.object({
@@ -14938,7 +14938,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -14948,11 +14948,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsListPatGrantRequestRepositoriesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           orgsListPatGrantRequestRepositoriesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -14962,11 +14962,11 @@ export function bootstrap(
 
       ctx.body = orgsListPatGrantRequestRepositoriesResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsListPatGrantsParamSchema = z.object({ org: z.coerce.string() })
@@ -14991,7 +14991,7 @@ export function bootstrap(
       ["422", s_validation_error],
       ["500", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -15006,13 +15006,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.orgsListPatGrants(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsListPatGrantsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsUpdatePatAccessesParamSchema = z.object({ org: z.coerce.string() })
@@ -15030,7 +15030,7 @@ export function bootstrap(
       ["422", s_validation_error],
       ["500", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -15042,19 +15042,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           orgsUpdatePatAccessesBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.orgsUpdatePatAccesses(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsUpdatePatAccessesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsUpdatePatAccessParamSchema = z.object({
@@ -15072,7 +15072,7 @@ export function bootstrap(
       ["422", s_validation_error],
       ["500", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -15084,19 +15084,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           orgsUpdatePatAccessBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.orgsUpdatePatAccess(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsUpdatePatAccessResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsListPatGrantRepositoriesParamSchema = z.object({
@@ -15117,7 +15117,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -15127,11 +15127,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsListPatGrantRepositoriesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           orgsListPatGrantRepositoriesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -15142,7 +15142,7 @@ export function bootstrap(
       ctx.body = orgsListPatGrantRepositoriesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsGetParamSchema = z.object({ org: z.coerce.string() })
@@ -15152,7 +15152,7 @@ export function bootstrap(
       ["200", s_organization_full],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("orgsGet", "/orgs/:org", async (ctx, next) => {
@@ -15229,7 +15229,7 @@ export function bootstrap(
       ["409", s_basic_error],
       ["422", z.union([s_validation_error, s_validation_error_simple])],
     ],
-    undefined
+    undefined,
   )
 
   router.patch("orgsUpdate", "/orgs/:org", async (ctx, next) => {
@@ -15254,7 +15254,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete("orgsDelete", "/orgs/:org", async (ctx, next) => {
@@ -15278,7 +15278,7 @@ export function bootstrap(
   const actionsGetActionsCacheUsageForOrgResponseValidator =
     responseValidationFactory(
       [["200", s_actions_cache_usage_org_enterprise]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -15288,7 +15288,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetActionsCacheUsageForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -15299,11 +15299,11 @@ export function bootstrap(
 
       ctx.body = actionsGetActionsCacheUsageForOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetActionsCacheUsageByRepoForOrgParamSchema = z.object({
@@ -15323,12 +15323,12 @@ export function bootstrap(
           z.object({
             total_count: z.coerce.number(),
             repository_cache_usages: z.array(
-              s_actions_cache_usage_by_repository
+              s_actions_cache_usage_by_repository,
             ),
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -15338,11 +15338,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetActionsCacheUsageByRepoForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsGetActionsCacheUsageByRepoForOrgQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -15352,11 +15352,11 @@ export function bootstrap(
 
       ctx.body = actionsGetActionsCacheUsageByRepoForOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const oidcGetOidcCustomSubTemplateForOrgParamSchema = z.object({
@@ -15373,7 +15373,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           oidcGetOidcCustomSubTemplateForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -15384,11 +15384,11 @@ export function bootstrap(
 
       ctx.body = oidcGetOidcCustomSubTemplateForOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const oidcUpdateOidcCustomSubTemplateForOrgParamSchema = z.object({
@@ -15404,7 +15404,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -15414,12 +15414,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           oidcUpdateOidcCustomSubTemplateForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           oidcUpdateOidcCustomSubTemplateForOrgBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -15428,11 +15428,11 @@ export function bootstrap(
 
       ctx.body = oidcUpdateOidcCustomSubTemplateForOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetGithubActionsPermissionsOrganizationParamSchema = z.object({
@@ -15442,7 +15442,7 @@ export function bootstrap(
   const actionsGetGithubActionsPermissionsOrganizationResponseValidator =
     responseValidationFactory(
       [["200", s_actions_organization_permissions]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -15452,7 +15452,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetGithubActionsPermissionsOrganizationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -15461,17 +15461,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.actionsGetGithubActionsPermissionsOrganization(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         actionsGetGithubActionsPermissionsOrganizationResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsSetGithubActionsPermissionsOrganizationParamSchema = z.object({
@@ -15493,29 +15493,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsSetGithubActionsPermissionsOrganizationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetGithubActionsPermissionsOrganizationBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.actionsSetGithubActionsPermissionsOrganization(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         actionsSetGithubActionsPermissionsOrganizationResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema =
@@ -15538,7 +15538,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -15548,11 +15548,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsListSelectedRepositoriesEnabledGithubActionsOrganizationQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -15560,17 +15560,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.actionsListSelectedRepositoriesEnabledGithubActionsOrganization(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         actionsListSelectedRepositoriesEnabledGithubActionsOrganizationResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema =
@@ -15589,29 +15589,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.actionsSetSelectedRepositoriesEnabledGithubActionsOrganization(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsEnableSelectedRepositoryGithubActionsOrganizationParamSchema =
@@ -15627,7 +15627,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsEnableSelectedRepositoryGithubActionsOrganizationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -15636,17 +15636,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.actionsEnableSelectedRepositoryGithubActionsOrganization(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         actionsEnableSelectedRepositoryGithubActionsOrganizationResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsDisableSelectedRepositoryGithubActionsOrganizationParamSchema =
@@ -15662,7 +15662,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsDisableSelectedRepositoryGithubActionsOrganizationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -15671,17 +15671,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.actionsDisableSelectedRepositoryGithubActionsOrganization(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         actionsDisableSelectedRepositoryGithubActionsOrganizationResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetAllowedActionsOrganizationParamSchema = z.object({
@@ -15698,7 +15698,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetAllowedActionsOrganizationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -15709,11 +15709,11 @@ export function bootstrap(
 
       ctx.body = actionsGetAllowedActionsOrganizationResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsSetAllowedActionsOrganizationParamSchema = z.object({
@@ -15732,12 +15732,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsSetAllowedActionsOrganizationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetAllowedActionsOrganizationBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -15746,11 +15746,11 @@ export function bootstrap(
 
       ctx.body = actionsSetAllowedActionsOrganizationResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema =
@@ -15759,7 +15759,7 @@ export function bootstrap(
   const actionsGetGithubActionsDefaultWorkflowPermissionsOrganizationResponseValidator =
     responseValidationFactory(
       [["200", s_actions_get_default_workflow_permissions]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -15769,7 +15769,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -15778,17 +15778,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.actionsGetGithubActionsDefaultWorkflowPermissionsOrganization(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         actionsGetGithubActionsDefaultWorkflowPermissionsOrganizationResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema =
@@ -15807,29 +15807,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.actionsSetGithubActionsDefaultWorkflowPermissionsOrganization(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListRequiredWorkflowsParamSchema = z.object({
@@ -15852,7 +15852,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -15862,11 +15862,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListRequiredWorkflowsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsListRequiredWorkflowsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -15877,7 +15877,7 @@ export function bootstrap(
       ctx.body = actionsListRequiredWorkflowsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsCreateRequiredWorkflowParamSchema = z.object({
@@ -15897,7 +15897,7 @@ export function bootstrap(
         ["201", s_required_workflow],
         ["422", s_validation_error_simple],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -15907,12 +15907,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsCreateRequiredWorkflowParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsCreateRequiredWorkflowBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -15922,7 +15922,7 @@ export function bootstrap(
       ctx.body = actionsCreateRequiredWorkflowResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetRequiredWorkflowParamSchema = z.object({
@@ -15932,7 +15932,7 @@ export function bootstrap(
 
   const actionsGetRequiredWorkflowResponseValidator = responseValidationFactory(
     [["200", s_required_workflow]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -15942,7 +15942,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetRequiredWorkflowParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -15950,13 +15950,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsGetRequiredWorkflow(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsGetRequiredWorkflowResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsUpdateRequiredWorkflowParamSchema = z.object({
@@ -15977,7 +15977,7 @@ export function bootstrap(
         ["200", s_required_workflow],
         ["422", s_validation_error_simple],
       ],
-      undefined
+      undefined,
     )
 
   router.patch(
@@ -15987,12 +15987,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsUpdateRequiredWorkflowParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsUpdateRequiredWorkflowBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -16002,7 +16002,7 @@ export function bootstrap(
       ctx.body = actionsUpdateRequiredWorkflowResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsDeleteRequiredWorkflowParamSchema = z.object({
@@ -16020,7 +16020,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsDeleteRequiredWorkflowParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -16032,7 +16032,7 @@ export function bootstrap(
       ctx.body = actionsDeleteRequiredWorkflowResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListSelectedRepositoriesRequiredWorkflowParamSchema = z.object({
@@ -16052,7 +16052,7 @@ export function bootstrap(
         ],
         ["404", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -16062,7 +16062,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListSelectedRepositoriesRequiredWorkflowParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -16071,17 +16071,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.actionsListSelectedRepositoriesRequiredWorkflow(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         actionsListSelectedRepositoriesRequiredWorkflowResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsSetSelectedReposToRequiredWorkflowParamSchema = z.object({
@@ -16103,28 +16103,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsSetSelectedReposToRequiredWorkflowParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetSelectedReposToRequiredWorkflowBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.actionsSetSelectedReposToRequiredWorkflow(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = actionsSetSelectedReposToRequiredWorkflowResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsAddSelectedRepoToRequiredWorkflowParamSchema = z.object({
@@ -16140,7 +16140,7 @@ export function bootstrap(
         ["404", z.void()],
         ["422", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -16150,7 +16150,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsAddSelectedRepoToRequiredWorkflowParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -16159,16 +16159,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.actionsAddSelectedRepoToRequiredWorkflow(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = actionsAddSelectedRepoToRequiredWorkflowResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsRemoveSelectedRepoFromRequiredWorkflowParamSchema = z.object({
@@ -16184,7 +16184,7 @@ export function bootstrap(
         ["404", z.void()],
         ["422", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -16194,7 +16194,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsRemoveSelectedRepoFromRequiredWorkflowParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -16203,16 +16203,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.actionsRemoveSelectedRepoFromRequiredWorkflow(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = actionsRemoveSelectedRepoFromRequiredWorkflowResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListSelfHostedRunnersForOrgParamSchema = z.object({
@@ -16235,7 +16235,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -16245,11 +16245,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListSelfHostedRunnersForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsListSelfHostedRunnersForOrgQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -16259,11 +16259,11 @@ export function bootstrap(
 
       ctx.body = actionsListSelfHostedRunnersForOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListRunnerApplicationsForOrgParamSchema = z.object({
@@ -16273,7 +16273,7 @@ export function bootstrap(
   const actionsListRunnerApplicationsForOrgResponseValidator =
     responseValidationFactory(
       [["200", z.array(s_runner_application)]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -16283,7 +16283,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListRunnerApplicationsForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -16294,11 +16294,11 @@ export function bootstrap(
 
       ctx.body = actionsListRunnerApplicationsForOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsCreateRegistrationTokenForOrgParamSchema = z.object({
@@ -16315,7 +16315,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsCreateRegistrationTokenForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -16326,11 +16326,11 @@ export function bootstrap(
 
       ctx.body = actionsCreateRegistrationTokenForOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsCreateRemoveTokenForOrgParamSchema = z.object({
@@ -16347,7 +16347,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsCreateRemoveTokenForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -16359,7 +16359,7 @@ export function bootstrap(
       ctx.body = actionsCreateRemoveTokenForOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetSelfHostedRunnerForOrgParamSchema = z.object({
@@ -16377,7 +16377,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetSelfHostedRunnerForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -16389,7 +16389,7 @@ export function bootstrap(
       ctx.body = actionsGetSelfHostedRunnerForOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsDeleteSelfHostedRunnerFromOrgParamSchema = z.object({
@@ -16407,7 +16407,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsDeleteSelfHostedRunnerFromOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -16418,11 +16418,11 @@ export function bootstrap(
 
       ctx.body = actionsDeleteSelfHostedRunnerFromOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListLabelsForSelfHostedRunnerForOrgParamSchema = z.object({
@@ -16442,7 +16442,7 @@ export function bootstrap(
         ],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -16452,7 +16452,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListLabelsForSelfHostedRunnerForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -16461,16 +16461,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.actionsListLabelsForSelfHostedRunnerForOrg(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = actionsListLabelsForSelfHostedRunnerForOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema = z.object({
@@ -16495,7 +16495,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error_simple],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -16505,29 +16505,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.actionsAddCustomLabelsToSelfHostedRunnerForOrg(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         actionsAddCustomLabelsToSelfHostedRunnerForOrgResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsSetCustomLabelsForSelfHostedRunnerForOrgParamSchema = z.object({
@@ -16552,7 +16552,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error_simple],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -16562,29 +16562,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsSetCustomLabelsForSelfHostedRunnerForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.actionsSetCustomLabelsForSelfHostedRunnerForOrg(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         actionsSetCustomLabelsForSelfHostedRunnerForOrgResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrgParamSchema =
@@ -16602,7 +16602,7 @@ export function bootstrap(
         ],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -16612,7 +16612,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -16621,17 +16621,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrg(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrgResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsRemoveCustomLabelFromSelfHostedRunnerForOrgParamSchema =
@@ -16654,7 +16654,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error_simple],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -16664,7 +16664,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsRemoveCustomLabelFromSelfHostedRunnerForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -16673,17 +16673,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.actionsRemoveCustomLabelFromSelfHostedRunnerForOrg(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         actionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListOrgSecretsParamSchema = z.object({ org: z.coerce.string() })
@@ -16703,7 +16703,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -16718,20 +16718,20 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsListOrgSecrets(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsListOrgSecretsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetOrgPublicKeyParamSchema = z.object({ org: z.coerce.string() })
 
   const actionsGetOrgPublicKeyResponseValidator = responseValidationFactory(
     [["200", s_actions_public_key]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -16741,7 +16741,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetOrgPublicKeyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -16749,13 +16749,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsGetOrgPublicKey(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsGetOrgPublicKeyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetOrgSecretParamSchema = z.object({
@@ -16765,7 +16765,7 @@ export function bootstrap(
 
   const actionsGetOrgSecretResponseValidator = responseValidationFactory(
     [["200", s_organization_actions_secret]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -16780,13 +16780,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsGetOrgSecret(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsGetOrgSecretResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsCreateOrUpdateOrgSecretParamSchema = z.object({
@@ -16807,7 +16807,7 @@ export function bootstrap(
         ["201", s_empty_object],
         ["204", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -16817,12 +16817,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsCreateOrUpdateOrgSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsCreateOrUpdateOrgSecretBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -16832,7 +16832,7 @@ export function bootstrap(
       ctx.body = actionsCreateOrUpdateOrgSecretResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsDeleteOrgSecretParamSchema = z.object({
@@ -16842,7 +16842,7 @@ export function bootstrap(
 
   const actionsDeleteOrgSecretResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -16852,7 +16852,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsDeleteOrgSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -16860,13 +16860,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsDeleteOrgSecret(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsDeleteOrgSecretResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListSelectedReposForOrgSecretParamSchema = z.object({
@@ -16890,7 +16890,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -16900,11 +16900,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListSelectedReposForOrgSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsListSelectedReposForOrgSecretQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -16914,11 +16914,11 @@ export function bootstrap(
 
       ctx.body = actionsListSelectedReposForOrgSecretResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsSetSelectedReposForOrgSecretParamSchema = z.object({
@@ -16940,12 +16940,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsSetSelectedReposForOrgSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetSelectedReposForOrgSecretBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -16954,11 +16954,11 @@ export function bootstrap(
 
       ctx.body = actionsSetSelectedReposForOrgSecretResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsAddSelectedRepoToOrgSecretParamSchema = z.object({
@@ -16973,7 +16973,7 @@ export function bootstrap(
         ["204", z.void()],
         ["409", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -16983,7 +16983,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsAddSelectedRepoToOrgSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -16994,11 +16994,11 @@ export function bootstrap(
 
       ctx.body = actionsAddSelectedRepoToOrgSecretResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsRemoveSelectedRepoFromOrgSecretParamSchema = z.object({
@@ -17013,7 +17013,7 @@ export function bootstrap(
         ["204", z.void()],
         ["409", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -17023,7 +17023,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsRemoveSelectedRepoFromOrgSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -17034,11 +17034,11 @@ export function bootstrap(
 
       ctx.body = actionsRemoveSelectedRepoFromOrgSecretResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListOrgVariablesParamSchema = z.object({
@@ -17060,7 +17060,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -17070,7 +17070,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListOrgVariablesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(actionsListOrgVariablesQuerySchema, ctx.query),
         body: undefined,
@@ -17078,13 +17078,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsListOrgVariables(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsListOrgVariablesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsCreateOrgVariableParamSchema = z.object({
@@ -17100,7 +17100,7 @@ export function bootstrap(
 
   const actionsCreateOrgVariableResponseValidator = responseValidationFactory(
     [["201", s_empty_object]],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -17110,24 +17110,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsCreateOrgVariableParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsCreateOrgVariableBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.actionsCreateOrgVariable(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsCreateOrgVariableResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetOrgVariableParamSchema = z.object({
@@ -17137,7 +17137,7 @@ export function bootstrap(
 
   const actionsGetOrgVariableResponseValidator = responseValidationFactory(
     [["200", s_organization_actions_variable]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -17152,13 +17152,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsGetOrgVariable(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsGetOrgVariableResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsUpdateOrgVariableParamSchema = z.object({
@@ -17175,7 +17175,7 @@ export function bootstrap(
 
   const actionsUpdateOrgVariableResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -17185,24 +17185,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsUpdateOrgVariableParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsUpdateOrgVariableBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.actionsUpdateOrgVariable(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsUpdateOrgVariableResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsDeleteOrgVariableParamSchema = z.object({
@@ -17212,7 +17212,7 @@ export function bootstrap(
 
   const actionsDeleteOrgVariableResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -17222,7 +17222,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsDeleteOrgVariableParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -17230,13 +17230,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsDeleteOrgVariable(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsDeleteOrgVariableResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListSelectedReposForOrgVariableParamSchema = z.object({
@@ -17261,7 +17261,7 @@ export function bootstrap(
         ],
         ["409", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -17271,11 +17271,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListSelectedReposForOrgVariableParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsListSelectedReposForOrgVariableQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -17285,11 +17285,11 @@ export function bootstrap(
 
       ctx.body = actionsListSelectedReposForOrgVariableResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsSetSelectedReposForOrgVariableParamSchema = z.object({
@@ -17307,7 +17307,7 @@ export function bootstrap(
         ["204", z.void()],
         ["409", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -17317,12 +17317,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsSetSelectedReposForOrgVariableParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetSelectedReposForOrgVariableBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -17331,11 +17331,11 @@ export function bootstrap(
 
       ctx.body = actionsSetSelectedReposForOrgVariableResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsAddSelectedRepoToOrgVariableParamSchema = z.object({
@@ -17350,7 +17350,7 @@ export function bootstrap(
         ["204", z.void()],
         ["409", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -17360,7 +17360,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsAddSelectedRepoToOrgVariableParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -17371,11 +17371,11 @@ export function bootstrap(
 
       ctx.body = actionsAddSelectedRepoToOrgVariableResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsRemoveSelectedRepoFromOrgVariableParamSchema = z.object({
@@ -17390,7 +17390,7 @@ export function bootstrap(
         ["204", z.void()],
         ["409", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -17400,7 +17400,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsRemoveSelectedRepoFromOrgVariableParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -17409,16 +17409,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.actionsRemoveSelectedRepoFromOrgVariable(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = actionsRemoveSelectedRepoFromOrgVariableResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsListBlockedUsersParamSchema = z.object({ org: z.coerce.string() })
@@ -17430,7 +17430,7 @@ export function bootstrap(
 
   const orgsListBlockedUsersResponseValidator = responseValidationFactory(
     [["200", z.array(s_simple_user)]],
-    undefined
+    undefined,
   )
 
   router.get("orgsListBlockedUsers", "/orgs/:org/blocks", async (ctx, next) => {
@@ -17442,7 +17442,7 @@ export function bootstrap(
 
     const { status, body } = await implementation.orgsListBlockedUsers(
       input,
-      ctx
+      ctx,
     )
 
     ctx.body = orgsListBlockedUsersResponseValidator(status, body)
@@ -17460,7 +17460,7 @@ export function bootstrap(
       ["204", z.void()],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -17475,13 +17475,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.orgsCheckBlockedUser(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsCheckBlockedUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsBlockUserParamSchema = z.object({
@@ -17494,7 +17494,7 @@ export function bootstrap(
       ["204", z.void()],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.put(
@@ -17512,7 +17512,7 @@ export function bootstrap(
       ctx.body = orgsBlockUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsUnblockUserParamSchema = z.object({
@@ -17522,7 +17522,7 @@ export function bootstrap(
 
   const orgsUnblockUserResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -17540,7 +17540,7 @@ export function bootstrap(
       ctx.body = orgsUnblockUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codeScanningListAlertsForOrgParamSchema = z.object({
@@ -17574,7 +17574,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -17584,11 +17584,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codeScanningListAlertsForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           codeScanningListAlertsForOrgQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -17599,7 +17599,7 @@ export function bootstrap(
       ctx.body = codeScanningListAlertsForOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesListInOrganizationParamSchema = z.object({
@@ -17627,7 +17627,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -17637,11 +17637,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesListInOrganizationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           codespacesListInOrganizationQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -17652,7 +17652,7 @@ export function bootstrap(
       ctx.body = codespacesListInOrganizationResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesSetCodespacesBillingParamSchema = z.object({
@@ -17679,7 +17679,7 @@ export function bootstrap(
         ["422", s_validation_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -17689,12 +17689,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesSetCodespacesBillingParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesSetCodespacesBillingBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -17704,7 +17704,7 @@ export function bootstrap(
       ctx.body = codespacesSetCodespacesBillingResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesSetCodespacesBillingUsersParamSchema = z.object({
@@ -17725,7 +17725,7 @@ export function bootstrap(
         ["422", s_validation_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -17735,12 +17735,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesSetCodespacesBillingUsersParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesSetCodespacesBillingUsersBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -17749,11 +17749,11 @@ export function bootstrap(
 
       ctx.body = codespacesSetCodespacesBillingUsersResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesDeleteCodespacesBillingUsersParamSchema = z.object({
@@ -17774,7 +17774,7 @@ export function bootstrap(
         ["422", s_validation_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -17784,12 +17784,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesDeleteCodespacesBillingUsersParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesDeleteCodespacesBillingUsersBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -17798,11 +17798,11 @@ export function bootstrap(
 
       ctx.body = codespacesDeleteCodespacesBillingUsersResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesListOrgSecretsParamSchema = z.object({
@@ -17824,7 +17824,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -17834,24 +17834,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesListOrgSecretsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           codespacesListOrgSecretsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.codespacesListOrgSecrets(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = codespacesListOrgSecretsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesGetOrgPublicKeyParamSchema = z.object({
@@ -17860,7 +17860,7 @@ export function bootstrap(
 
   const codespacesGetOrgPublicKeyResponseValidator = responseValidationFactory(
     [["200", s_codespaces_public_key]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -17870,7 +17870,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesGetOrgPublicKeyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -17878,13 +17878,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.codespacesGetOrgPublicKey(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = codespacesGetOrgPublicKeyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesGetOrgSecretParamSchema = z.object({
@@ -17894,7 +17894,7 @@ export function bootstrap(
 
   const codespacesGetOrgSecretResponseValidator = responseValidationFactory(
     [["200", s_codespaces_org_secret]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -17904,7 +17904,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesGetOrgSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -17912,13 +17912,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.codespacesGetOrgSecret(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = codespacesGetOrgSecretResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesCreateOrUpdateOrgSecretParamSchema = z.object({
@@ -17941,7 +17941,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -17951,12 +17951,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesCreateOrUpdateOrgSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesCreateOrUpdateOrgSecretBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -17965,11 +17965,11 @@ export function bootstrap(
 
       ctx.body = codespacesCreateOrUpdateOrgSecretResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesDeleteOrgSecretParamSchema = z.object({
@@ -17982,7 +17982,7 @@ export function bootstrap(
       ["204", z.void()],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -17992,7 +17992,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesDeleteOrgSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -18000,13 +18000,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.codespacesDeleteOrgSecret(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = codespacesDeleteOrgSecretResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesListSelectedReposForOrgSecretParamSchema = z.object({
@@ -18031,7 +18031,7 @@ export function bootstrap(
         ],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -18041,11 +18041,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesListSelectedReposForOrgSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           codespacesListSelectedReposForOrgSecretQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -18055,11 +18055,11 @@ export function bootstrap(
 
       ctx.body = codespacesListSelectedReposForOrgSecretResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesSetSelectedReposForOrgSecretParamSchema = z.object({
@@ -18078,7 +18078,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["409", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -18088,12 +18088,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesSetSelectedReposForOrgSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesSetSelectedReposForOrgSecretBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -18102,11 +18102,11 @@ export function bootstrap(
 
       ctx.body = codespacesSetSelectedReposForOrgSecretResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesAddSelectedRepoToOrgSecretParamSchema = z.object({
@@ -18123,7 +18123,7 @@ export function bootstrap(
         ["409", z.void()],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -18133,7 +18133,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesAddSelectedRepoToOrgSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -18144,11 +18144,11 @@ export function bootstrap(
 
       ctx.body = codespacesAddSelectedRepoToOrgSecretResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesRemoveSelectedRepoFromOrgSecretParamSchema = z.object({
@@ -18165,7 +18165,7 @@ export function bootstrap(
         ["409", z.void()],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -18175,7 +18175,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesRemoveSelectedRepoFromOrgSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -18184,16 +18184,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.codespacesRemoveSelectedRepoFromOrgSecret(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = codespacesRemoveSelectedRepoFromOrgSecretResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const dependabotListAlertsForOrgParamSchema = z.object({
@@ -18224,7 +18224,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error_simple],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -18234,24 +18234,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           dependabotListAlertsForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           dependabotListAlertsForOrgQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.dependabotListAlertsForOrg(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = dependabotListAlertsForOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const dependabotListOrgSecretsParamSchema = z.object({
@@ -18273,7 +18273,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -18283,24 +18283,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           dependabotListOrgSecretsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           dependabotListOrgSecretsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.dependabotListOrgSecrets(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = dependabotListOrgSecretsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const dependabotGetOrgPublicKeyParamSchema = z.object({
@@ -18309,7 +18309,7 @@ export function bootstrap(
 
   const dependabotGetOrgPublicKeyResponseValidator = responseValidationFactory(
     [["200", s_dependabot_public_key]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -18319,7 +18319,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           dependabotGetOrgPublicKeyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -18327,13 +18327,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.dependabotGetOrgPublicKey(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = dependabotGetOrgPublicKeyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const dependabotGetOrgSecretParamSchema = z.object({
@@ -18343,7 +18343,7 @@ export function bootstrap(
 
   const dependabotGetOrgSecretResponseValidator = responseValidationFactory(
     [["200", s_organization_dependabot_secret]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -18353,7 +18353,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           dependabotGetOrgSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -18361,13 +18361,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.dependabotGetOrgSecret(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = dependabotGetOrgSecretResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const dependabotCreateOrUpdateOrgSecretParamSchema = z.object({
@@ -18388,7 +18388,7 @@ export function bootstrap(
         ["201", s_empty_object],
         ["204", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -18398,12 +18398,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           dependabotCreateOrUpdateOrgSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           dependabotCreateOrUpdateOrgSecretBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -18412,11 +18412,11 @@ export function bootstrap(
 
       ctx.body = dependabotCreateOrUpdateOrgSecretResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const dependabotDeleteOrgSecretParamSchema = z.object({
@@ -18426,7 +18426,7 @@ export function bootstrap(
 
   const dependabotDeleteOrgSecretResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -18436,7 +18436,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           dependabotDeleteOrgSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -18444,13 +18444,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.dependabotDeleteOrgSecret(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = dependabotDeleteOrgSecretResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const dependabotListSelectedReposForOrgSecretParamSchema = z.object({
@@ -18474,7 +18474,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -18484,11 +18484,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           dependabotListSelectedReposForOrgSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           dependabotListSelectedReposForOrgSecretQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -18498,11 +18498,11 @@ export function bootstrap(
 
       ctx.body = dependabotListSelectedReposForOrgSecretResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const dependabotSetSelectedReposForOrgSecretParamSchema = z.object({
@@ -18524,12 +18524,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           dependabotSetSelectedReposForOrgSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           dependabotSetSelectedReposForOrgSecretBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -18538,11 +18538,11 @@ export function bootstrap(
 
       ctx.body = dependabotSetSelectedReposForOrgSecretResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const dependabotAddSelectedRepoToOrgSecretParamSchema = z.object({
@@ -18557,7 +18557,7 @@ export function bootstrap(
         ["204", z.void()],
         ["409", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -18567,7 +18567,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           dependabotAddSelectedRepoToOrgSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -18578,11 +18578,11 @@ export function bootstrap(
 
       ctx.body = dependabotAddSelectedRepoToOrgSecretResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const dependabotRemoveSelectedRepoFromOrgSecretParamSchema = z.object({
@@ -18597,7 +18597,7 @@ export function bootstrap(
         ["204", z.void()],
         ["409", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -18607,7 +18607,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           dependabotRemoveSelectedRepoFromOrgSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -18616,16 +18616,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.dependabotRemoveSelectedRepoFromOrgSecret(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = dependabotRemoveSelectedRepoFromOrgSecretResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesListDockerMigrationConflictingPackagesForOrganizationParamSchema =
@@ -18638,7 +18638,7 @@ export function bootstrap(
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -18648,7 +18648,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesListDockerMigrationConflictingPackagesForOrganizationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -18657,17 +18657,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.packagesListDockerMigrationConflictingPackagesForOrganization(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         packagesListDockerMigrationConflictingPackagesForOrganizationResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityListPublicOrgEventsParamSchema = z.object({
@@ -18689,24 +18689,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityListPublicOrgEventsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           activityListPublicOrgEventsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.activityListPublicOrgEvents(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = activityListPublicOrgEventsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsListFailedInvitationsParamSchema = z.object({
@@ -18723,7 +18723,7 @@ export function bootstrap(
       ["200", z.array(s_organization_invitation)],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -18733,24 +18733,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsListFailedInvitationsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           orgsListFailedInvitationsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.orgsListFailedInvitations(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsListFailedInvitationsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsListWebhooksParamSchema = z.object({ org: z.coerce.string() })
@@ -18765,7 +18765,7 @@ export function bootstrap(
       ["200", z.array(s_org_hook)],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("orgsListWebhooks", "/orgs/:org/hooks", async (ctx, next) => {
@@ -18804,7 +18804,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post("orgsCreateWebhook", "/orgs/:org/hooks", async (ctx, next) => {
@@ -18831,7 +18831,7 @@ export function bootstrap(
       ["200", s_org_hook],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -18849,7 +18849,7 @@ export function bootstrap(
       ctx.body = orgsGetWebhookResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsUpdateWebhookParamSchema = z.object({
@@ -18879,7 +18879,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -18894,13 +18894,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.orgsUpdateWebhook(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsUpdateWebhookResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsDeleteWebhookParamSchema = z.object({
@@ -18913,7 +18913,7 @@ export function bootstrap(
       ["204", z.void()],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -18928,13 +18928,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.orgsDeleteWebhook(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsDeleteWebhookResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsGetWebhookConfigForOrgParamSchema = z.object({
@@ -18944,7 +18944,7 @@ export function bootstrap(
 
   const orgsGetWebhookConfigForOrgResponseValidator = responseValidationFactory(
     [["200", s_webhook_config]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -18954,7 +18954,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsGetWebhookConfigForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -18962,13 +18962,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.orgsGetWebhookConfigForOrg(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsGetWebhookConfigForOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsUpdateWebhookConfigForOrgParamSchema = z.object({
@@ -18995,12 +18995,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsUpdateWebhookConfigForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           orgsUpdateWebhookConfigForOrgBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -19010,7 +19010,7 @@ export function bootstrap(
       ctx.body = orgsUpdateWebhookConfigForOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsListWebhookDeliveriesParamSchema = z.object({
@@ -19030,7 +19030,7 @@ export function bootstrap(
       ["400", s_scim_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -19040,24 +19040,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsListWebhookDeliveriesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           orgsListWebhookDeliveriesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.orgsListWebhookDeliveries(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsListWebhookDeliveriesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsGetWebhookDeliveryParamSchema = z.object({
@@ -19072,7 +19072,7 @@ export function bootstrap(
       ["400", s_scim_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -19082,7 +19082,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsGetWebhookDeliveryParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -19090,13 +19090,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.orgsGetWebhookDelivery(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsGetWebhookDeliveryResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsRedeliverWebhookDeliveryParamSchema = z.object({
@@ -19112,7 +19112,7 @@ export function bootstrap(
         ["400", s_scim_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -19122,7 +19122,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsRedeliverWebhookDeliveryParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -19134,7 +19134,7 @@ export function bootstrap(
       ctx.body = orgsRedeliverWebhookDeliveryResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsPingWebhookParamSchema = z.object({
@@ -19147,7 +19147,7 @@ export function bootstrap(
       ["204", z.void()],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -19165,14 +19165,14 @@ export function bootstrap(
       ctx.body = orgsPingWebhookResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsGetOrgInstallationParamSchema = z.object({ org: z.coerce.string() })
 
   const appsGetOrgInstallationResponseValidator = responseValidationFactory(
     [["200", s_installation]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -19182,7 +19182,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           appsGetOrgInstallationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -19190,13 +19190,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.appsGetOrgInstallation(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = appsGetOrgInstallationResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsListAppInstallationsParamSchema = z.object({
@@ -19218,7 +19218,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -19228,24 +19228,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsListAppInstallationsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           orgsListAppInstallationsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.orgsListAppInstallations(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsListAppInstallationsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const interactionsGetRestrictionsForOrgParamSchema = z.object({
@@ -19255,7 +19255,7 @@ export function bootstrap(
   const interactionsGetRestrictionsForOrgResponseValidator =
     responseValidationFactory(
       [["200", z.union([s_interaction_limit_response, z.object({})])]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -19265,7 +19265,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           interactionsGetRestrictionsForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -19276,11 +19276,11 @@ export function bootstrap(
 
       ctx.body = interactionsGetRestrictionsForOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const interactionsSetRestrictionsForOrgParamSchema = z.object({
@@ -19295,7 +19295,7 @@ export function bootstrap(
         ["200", s_interaction_limit_response],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -19305,12 +19305,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           interactionsSetRestrictionsForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           interactionsSetRestrictionsForOrgBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -19319,11 +19319,11 @@ export function bootstrap(
 
       ctx.body = interactionsSetRestrictionsForOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const interactionsRemoveRestrictionsForOrgParamSchema = z.object({
@@ -19340,7 +19340,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           interactionsRemoveRestrictionsForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -19351,11 +19351,11 @@ export function bootstrap(
 
       ctx.body = interactionsRemoveRestrictionsForOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsListPendingInvitationsParamSchema = z.object({
@@ -19382,7 +19382,7 @@ export function bootstrap(
       ["200", z.array(s_organization_invitation)],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -19392,24 +19392,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsListPendingInvitationsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           orgsListPendingInvitationsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.orgsListPendingInvitations(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsListPendingInvitationsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsCreateInvitationParamSchema = z.object({ org: z.coerce.string() })
@@ -19429,7 +19429,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -19441,19 +19441,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           orgsCreateInvitationBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.orgsCreateInvitation(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsCreateInvitationResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsCancelInvitationParamSchema = z.object({
@@ -19467,7 +19467,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -19482,13 +19482,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.orgsCancelInvitation(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsCancelInvitationResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsListInvitationTeamsParamSchema = z.object({
@@ -19506,7 +19506,7 @@ export function bootstrap(
       ["200", z.array(s_team)],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -19516,7 +19516,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsListInvitationTeamsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(orgsListInvitationTeamsQuerySchema, ctx.query),
         body: undefined,
@@ -19524,13 +19524,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.orgsListInvitationTeams(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsListInvitationTeamsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesListForOrgParamSchema = z.object({ org: z.coerce.string() })
@@ -19553,7 +19553,7 @@ export function bootstrap(
       ["200", z.array(s_issue)],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("issuesListForOrg", "/orgs/:org/issues", async (ctx, next) => {
@@ -19584,7 +19584,7 @@ export function bootstrap(
       ["200", z.array(s_simple_user)],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("orgsListMembers", "/orgs/:org/members", async (ctx, next) => {
@@ -19612,7 +19612,7 @@ export function bootstrap(
       ["302", z.void()],
       ["404", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -19622,7 +19622,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsCheckMembershipForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -19630,13 +19630,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.orgsCheckMembershipForUser(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsCheckMembershipForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsRemoveMemberParamSchema = z.object({
@@ -19649,7 +19649,7 @@ export function bootstrap(
       ["204", z.void()],
       ["403", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -19667,7 +19667,7 @@ export function bootstrap(
       ctx.body = orgsRemoveMemberResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesGetCodespacesForUserInOrgParamSchema = z.object({
@@ -19696,7 +19696,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -19706,11 +19706,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesGetCodespacesForUserInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           codespacesGetCodespacesForUserInOrgQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -19720,11 +19720,11 @@ export function bootstrap(
 
       ctx.body = codespacesGetCodespacesForUserInOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesDeleteFromOrganizationParamSchema = z.object({
@@ -19743,7 +19743,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -19753,7 +19753,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesDeleteFromOrganizationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -19765,7 +19765,7 @@ export function bootstrap(
       ctx.body = codespacesDeleteFromOrganizationResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesStopInOrganizationParamSchema = z.object({
@@ -19784,7 +19784,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -19794,7 +19794,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesStopInOrganizationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -19806,7 +19806,7 @@ export function bootstrap(
       ctx.body = codespacesStopInOrganizationResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsGetMembershipForUserParamSchema = z.object({
@@ -19820,7 +19820,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -19830,7 +19830,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsGetMembershipForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -19838,13 +19838,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.orgsGetMembershipForUser(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsGetMembershipForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsSetMembershipForUserParamSchema = z.object({
@@ -19862,7 +19862,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.put(
@@ -19872,24 +19872,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsSetMembershipForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           orgsSetMembershipForUserBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.orgsSetMembershipForUser(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsSetMembershipForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsRemoveMembershipForUserParamSchema = z.object({
@@ -19904,7 +19904,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -19914,7 +19914,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsRemoveMembershipForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -19922,13 +19922,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.orgsRemoveMembershipForUser(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsRemoveMembershipForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsListForOrgParamSchema = z.object({ org: z.coerce.string() })
@@ -19941,7 +19941,7 @@ export function bootstrap(
 
   const migrationsListForOrgResponseValidator = responseValidationFactory(
     [["200", z.array(s_migration)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -19956,13 +19956,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.migrationsListForOrg(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = migrationsListForOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsStartForOrgParamSchema = z.object({ org: z.coerce.string() })
@@ -19985,7 +19985,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -19997,19 +19997,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           migrationsStartForOrgBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.migrationsStartForOrg(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = migrationsStartForOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsGetStatusForOrgParamSchema = z.object({
@@ -20026,7 +20026,7 @@ export function bootstrap(
       ["200", s_migration],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -20036,24 +20036,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           migrationsGetStatusForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           migrationsGetStatusForOrgQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.migrationsGetStatusForOrg(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = migrationsGetStatusForOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsDownloadArchiveForOrgParamSchema = z.object({
@@ -20067,7 +20067,7 @@ export function bootstrap(
         ["302", z.void()],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -20077,7 +20077,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           migrationsDownloadArchiveForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -20089,7 +20089,7 @@ export function bootstrap(
       ctx.body = migrationsDownloadArchiveForOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsDeleteArchiveForOrgParamSchema = z.object({
@@ -20103,7 +20103,7 @@ export function bootstrap(
         ["204", z.void()],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -20113,7 +20113,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           migrationsDeleteArchiveForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -20125,7 +20125,7 @@ export function bootstrap(
       ctx.body = migrationsDeleteArchiveForOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsUnlockRepoForOrgParamSchema = z.object({
@@ -20139,7 +20139,7 @@ export function bootstrap(
       ["204", z.void()],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -20149,7 +20149,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           migrationsUnlockRepoForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -20157,13 +20157,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.migrationsUnlockRepoForOrg(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = migrationsUnlockRepoForOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsListReposForOrgParamSchema = z.object({
@@ -20181,7 +20181,7 @@ export function bootstrap(
       ["200", z.array(s_minimal_repository)],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -20191,24 +20191,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           migrationsListReposForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           migrationsListReposForOrgQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.migrationsListReposForOrg(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = migrationsListReposForOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsListOutsideCollaboratorsParamSchema = z.object({
@@ -20231,11 +20231,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsListOutsideCollaboratorsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           orgsListOutsideCollaboratorsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -20246,7 +20246,7 @@ export function bootstrap(
       ctx.body = orgsListOutsideCollaboratorsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsConvertMemberToOutsideCollaboratorParamSchema = z.object({
@@ -20266,7 +20266,7 @@ export function bootstrap(
         ["403", z.void()],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -20276,12 +20276,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsConvertMemberToOutsideCollaboratorParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           orgsConvertMemberToOutsideCollaboratorBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -20290,11 +20290,11 @@ export function bootstrap(
 
       ctx.body = orgsConvertMemberToOutsideCollaboratorResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsRemoveOutsideCollaboratorParamSchema = z.object({
@@ -20314,7 +20314,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -20324,7 +20324,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsRemoveOutsideCollaboratorParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -20336,7 +20336,7 @@ export function bootstrap(
       ctx.body = orgsRemoveOutsideCollaboratorResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesListPackagesForOrganizationParamSchema = z.object({
@@ -20365,7 +20365,7 @@ export function bootstrap(
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -20375,11 +20375,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesListPackagesForOrganizationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           packagesListPackagesForOrganizationQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -20389,11 +20389,11 @@ export function bootstrap(
 
       ctx.body = packagesListPackagesForOrganizationResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesGetPackageForOrganizationParamSchema = z.object({
@@ -20419,7 +20419,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesGetPackageForOrganizationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -20430,11 +20430,11 @@ export function bootstrap(
 
       ctx.body = packagesGetPackageForOrganizationResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesDeletePackageForOrgParamSchema = z.object({
@@ -20458,7 +20458,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -20468,7 +20468,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesDeletePackageForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -20476,13 +20476,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.packagesDeletePackageForOrg(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = packagesDeletePackageForOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesRestorePackageForOrgParamSchema = z.object({
@@ -20510,7 +20510,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -20520,11 +20520,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesRestorePackageForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           packagesRestorePackageForOrgQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -20535,7 +20535,7 @@ export function bootstrap(
       ctx.body = packagesRestorePackageForOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesGetAllPackageVersionsForPackageOwnedByOrgParamSchema = z.object(
@@ -20550,7 +20550,7 @@ export function bootstrap(
       ]),
       package_name: z.coerce.string(),
       org: z.coerce.string(),
-    }
+    },
   )
 
   const packagesGetAllPackageVersionsForPackageOwnedByOrgQuerySchema = z.object(
@@ -20558,7 +20558,7 @@ export function bootstrap(
       page: z.coerce.number().optional(),
       per_page: z.coerce.number().optional(),
       state: z.enum(["active", "deleted"]).optional(),
-    }
+    },
   )
 
   const packagesGetAllPackageVersionsForPackageOwnedByOrgResponseValidator =
@@ -20569,7 +20569,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -20579,11 +20579,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesGetAllPackageVersionsForPackageOwnedByOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           packagesGetAllPackageVersionsForPackageOwnedByOrgQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -20591,17 +20591,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.packagesGetAllPackageVersionsForPackageOwnedByOrg(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         packagesGetAllPackageVersionsForPackageOwnedByOrgResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesGetPackageVersionForOrganizationParamSchema = z.object({
@@ -20628,7 +20628,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesGetPackageVersionForOrganizationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -20637,16 +20637,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.packagesGetPackageVersionForOrganization(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = packagesGetPackageVersionForOrganizationResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesDeletePackageVersionForOrgParamSchema = z.object({
@@ -20671,7 +20671,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -20681,7 +20681,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesDeletePackageVersionForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -20692,11 +20692,11 @@ export function bootstrap(
 
       ctx.body = packagesDeletePackageVersionForOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesRestorePackageVersionForOrgParamSchema = z.object({
@@ -20721,7 +20721,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -20731,7 +20731,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesRestorePackageVersionForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -20742,11 +20742,11 @@ export function bootstrap(
 
       ctx.body = packagesRestorePackageVersionForOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const projectsListForOrgParamSchema = z.object({ org: z.coerce.string() })
@@ -20762,7 +20762,7 @@ export function bootstrap(
       ["200", z.array(s_project)],
       ["422", s_validation_error_simple],
     ],
-    undefined
+    undefined,
   )
 
   router.get("projectsListForOrg", "/orgs/:org/projects", async (ctx, next) => {
@@ -20795,7 +20795,7 @@ export function bootstrap(
       ["410", s_basic_error],
       ["422", s_validation_error_simple],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -20807,19 +20807,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           projectsCreateForOrgBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.projectsCreateForOrg(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = projectsCreateForOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsListPublicMembersParamSchema = z.object({ org: z.coerce.string() })
@@ -20831,7 +20831,7 @@ export function bootstrap(
 
   const orgsListPublicMembersResponseValidator = responseValidationFactory(
     [["200", z.array(s_simple_user)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -20846,13 +20846,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.orgsListPublicMembers(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsListPublicMembersResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsCheckPublicMembershipForUserParamSchema = z.object({
@@ -20866,7 +20866,7 @@ export function bootstrap(
         ["204", z.void()],
         ["404", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -20876,7 +20876,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsCheckPublicMembershipForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -20888,7 +20888,7 @@ export function bootstrap(
       ctx.body = orgsCheckPublicMembershipForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsSetPublicMembershipForAuthenticatedUserParamSchema = z.object({
@@ -20902,7 +20902,7 @@ export function bootstrap(
         ["204", z.void()],
         ["403", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -20912,7 +20912,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsSetPublicMembershipForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -20921,16 +20921,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.orgsSetPublicMembershipForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = orgsSetPublicMembershipForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsRemovePublicMembershipForAuthenticatedUserParamSchema = z.object({
@@ -20948,7 +20948,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsRemovePublicMembershipForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -20957,17 +20957,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.orgsRemovePublicMembershipForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         orgsRemovePublicMembershipForAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListForOrgParamSchema = z.object({ org: z.coerce.string() })
@@ -20984,7 +20984,7 @@ export function bootstrap(
 
   const reposListForOrgResponseValidator = responseValidationFactory(
     [["200", z.array(s_minimal_repository)]],
-    undefined
+    undefined,
   )
 
   router.get("reposListForOrg", "/orgs/:org/repos", async (ctx, next) => {
@@ -21040,7 +21040,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post("reposCreateInOrg", "/orgs/:org/repos", async (ctx, next) => {
@@ -21065,7 +21065,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["500", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -21080,13 +21080,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetOrgRulesets(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetOrgRulesetsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreateOrgRulesetParamSchema = z.object({ org: z.coerce.string() })
@@ -21106,7 +21106,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["500", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -21118,19 +21118,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposCreateOrgRulesetBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposCreateOrgRuleset(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposCreateOrgRulesetResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetOrgRulesetParamSchema = z.object({
@@ -21144,7 +21144,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["500", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -21159,13 +21159,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetOrgRuleset(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetOrgRulesetResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposUpdateOrgRulesetParamSchema = z.object({
@@ -21190,7 +21190,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["500", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.put(
@@ -21202,19 +21202,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposUpdateOrgRulesetBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposUpdateOrgRuleset(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposUpdateOrgRulesetResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDeleteOrgRulesetParamSchema = z.object({
@@ -21228,7 +21228,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["500", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -21243,13 +21243,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposDeleteOrgRuleset(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposDeleteOrgRulesetResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const secretScanningListAlertsForOrgParamSchema = z.object({
@@ -21282,7 +21282,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -21292,11 +21292,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           secretScanningListAlertsForOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           secretScanningListAlertsForOrgQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -21307,7 +21307,7 @@ export function bootstrap(
       ctx.body = secretScanningListAlertsForOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsListSecurityManagerTeamsParamSchema = z.object({
@@ -21324,7 +21324,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsListSecurityManagerTeamsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -21336,7 +21336,7 @@ export function bootstrap(
       ctx.body = orgsListSecurityManagerTeamsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsAddSecurityManagerTeamParamSchema = z.object({
@@ -21349,7 +21349,7 @@ export function bootstrap(
       ["204", z.void()],
       ["409", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.put(
@@ -21359,7 +21359,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsAddSecurityManagerTeamParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -21367,13 +21367,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.orgsAddSecurityManagerTeam(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = orgsAddSecurityManagerTeamResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsRemoveSecurityManagerTeamParamSchema = z.object({
@@ -21391,7 +21391,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsRemoveSecurityManagerTeamParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -21403,7 +21403,7 @@ export function bootstrap(
       ctx.body = orgsRemoveSecurityManagerTeamResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const billingGetGithubActionsBillingOrgParamSchema = z.object({
@@ -21420,7 +21420,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           billingGetGithubActionsBillingOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -21431,11 +21431,11 @@ export function bootstrap(
 
       ctx.body = billingGetGithubActionsBillingOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const billingGetGithubPackagesBillingOrgParamSchema = z.object({
@@ -21452,7 +21452,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           billingGetGithubPackagesBillingOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -21463,11 +21463,11 @@ export function bootstrap(
 
       ctx.body = billingGetGithubPackagesBillingOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const billingGetSharedStorageBillingOrgParamSchema = z.object({
@@ -21484,7 +21484,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           billingGetSharedStorageBillingOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -21495,11 +21495,11 @@ export function bootstrap(
 
       ctx.body = billingGetSharedStorageBillingOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsListParamSchema = z.object({ org: z.coerce.string() })
@@ -21514,7 +21514,7 @@ export function bootstrap(
       ["200", z.array(s_team)],
       ["403", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("teamsList", "/orgs/:org/teams", async (ctx, next) => {
@@ -21552,7 +21552,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post("teamsCreate", "/orgs/:org/teams", async (ctx, next) => {
@@ -21579,7 +21579,7 @@ export function bootstrap(
       ["200", s_team_full],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -21597,7 +21597,7 @@ export function bootstrap(
       ctx.body = teamsGetByNameResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsUpdateInOrgParamSchema = z.object({
@@ -21626,7 +21626,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -21644,7 +21644,7 @@ export function bootstrap(
       ctx.body = teamsUpdateInOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsDeleteInOrgParamSchema = z.object({
@@ -21654,7 +21654,7 @@ export function bootstrap(
 
   const teamsDeleteInOrgResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -21672,7 +21672,7 @@ export function bootstrap(
       ctx.body = teamsDeleteInOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsListDiscussionsInOrgParamSchema = z.object({
@@ -21689,7 +21689,7 @@ export function bootstrap(
 
   const teamsListDiscussionsInOrgResponseValidator = responseValidationFactory(
     [["200", z.array(s_team_discussion)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -21699,24 +21699,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsListDiscussionsInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           teamsListDiscussionsInOrgQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.teamsListDiscussionsInOrg(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsListDiscussionsInOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsCreateDiscussionInOrgParamSchema = z.object({
@@ -21732,7 +21732,7 @@ export function bootstrap(
 
   const teamsCreateDiscussionInOrgResponseValidator = responseValidationFactory(
     [["201", s_team_discussion]],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -21742,24 +21742,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsCreateDiscussionInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsCreateDiscussionInOrgBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.teamsCreateDiscussionInOrg(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsCreateDiscussionInOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsGetDiscussionInOrgParamSchema = z.object({
@@ -21770,7 +21770,7 @@ export function bootstrap(
 
   const teamsGetDiscussionInOrgResponseValidator = responseValidationFactory(
     [["200", s_team_discussion]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -21780,7 +21780,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsGetDiscussionInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -21788,13 +21788,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.teamsGetDiscussionInOrg(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsGetDiscussionInOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsUpdateDiscussionInOrgParamSchema = z.object({
@@ -21812,7 +21812,7 @@ export function bootstrap(
 
   const teamsUpdateDiscussionInOrgResponseValidator = responseValidationFactory(
     [["200", s_team_discussion]],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -21822,24 +21822,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsUpdateDiscussionInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsUpdateDiscussionInOrgBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.teamsUpdateDiscussionInOrg(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsUpdateDiscussionInOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsDeleteDiscussionInOrgParamSchema = z.object({
@@ -21850,7 +21850,7 @@ export function bootstrap(
 
   const teamsDeleteDiscussionInOrgResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -21860,7 +21860,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsDeleteDiscussionInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -21868,13 +21868,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.teamsDeleteDiscussionInOrg(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsDeleteDiscussionInOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsListDiscussionCommentsInOrgParamSchema = z.object({
@@ -21892,7 +21892,7 @@ export function bootstrap(
   const teamsListDiscussionCommentsInOrgResponseValidator =
     responseValidationFactory(
       [["200", z.array(s_team_discussion_comment)]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -21902,11 +21902,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsListDiscussionCommentsInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           teamsListDiscussionCommentsInOrgQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -21917,7 +21917,7 @@ export function bootstrap(
       ctx.body = teamsListDiscussionCommentsInOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsCreateDiscussionCommentInOrgParamSchema = z.object({
@@ -21940,12 +21940,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsCreateDiscussionCommentInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsCreateDiscussionCommentInOrgBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -21954,11 +21954,11 @@ export function bootstrap(
 
       ctx.body = teamsCreateDiscussionCommentInOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsGetDiscussionCommentInOrgParamSchema = z.object({
@@ -21978,7 +21978,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsGetDiscussionCommentInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -21990,7 +21990,7 @@ export function bootstrap(
       ctx.body = teamsGetDiscussionCommentInOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsUpdateDiscussionCommentInOrgParamSchema = z.object({
@@ -22014,12 +22014,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsUpdateDiscussionCommentInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsUpdateDiscussionCommentInOrgBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -22028,11 +22028,11 @@ export function bootstrap(
 
       ctx.body = teamsUpdateDiscussionCommentInOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsDeleteDiscussionCommentInOrgParamSchema = z.object({
@@ -22052,7 +22052,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsDeleteDiscussionCommentInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -22063,11 +22063,11 @@ export function bootstrap(
 
       ctx.body = teamsDeleteDiscussionCommentInOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsListForTeamDiscussionCommentInOrgParamSchema = z.object({
@@ -22104,11 +22104,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsListForTeamDiscussionCommentInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           reactionsListForTeamDiscussionCommentInOrgQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -22116,16 +22116,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.reactionsListForTeamDiscussionCommentInOrg(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = reactionsListForTeamDiscussionCommentInOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsCreateForTeamDiscussionCommentInOrgParamSchema = z.object({
@@ -22154,7 +22154,7 @@ export function bootstrap(
         ["200", s_reaction],
         ["201", s_reaction],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -22164,28 +22164,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsCreateForTeamDiscussionCommentInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForTeamDiscussionCommentInOrgBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.reactionsCreateForTeamDiscussionCommentInOrg(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = reactionsCreateForTeamDiscussionCommentInOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsDeleteForTeamDiscussionCommentParamSchema = z.object({
@@ -22206,7 +22206,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsDeleteForTeamDiscussionCommentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -22217,11 +22217,11 @@ export function bootstrap(
 
       ctx.body = reactionsDeleteForTeamDiscussionCommentResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsListForTeamDiscussionInOrgParamSchema = z.object({
@@ -22257,11 +22257,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsListForTeamDiscussionInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           reactionsListForTeamDiscussionInOrgQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -22271,11 +22271,11 @@ export function bootstrap(
 
       ctx.body = reactionsListForTeamDiscussionInOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsCreateForTeamDiscussionInOrgParamSchema = z.object({
@@ -22303,7 +22303,7 @@ export function bootstrap(
         ["200", s_reaction],
         ["201", s_reaction],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -22313,12 +22313,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsCreateForTeamDiscussionInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForTeamDiscussionInOrgBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -22327,11 +22327,11 @@ export function bootstrap(
 
       ctx.body = reactionsCreateForTeamDiscussionInOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsDeleteForTeamDiscussionParamSchema = z.object({
@@ -22351,7 +22351,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsDeleteForTeamDiscussionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -22363,7 +22363,7 @@ export function bootstrap(
       ctx.body = reactionsDeleteForTeamDiscussionResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsListPendingInvitationsInOrgParamSchema = z.object({
@@ -22379,7 +22379,7 @@ export function bootstrap(
   const teamsListPendingInvitationsInOrgResponseValidator =
     responseValidationFactory(
       [["200", z.array(s_organization_invitation)]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -22389,11 +22389,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsListPendingInvitationsInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           teamsListPendingInvitationsInOrgQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -22404,7 +22404,7 @@ export function bootstrap(
       ctx.body = teamsListPendingInvitationsInOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsListMembersInOrgParamSchema = z.object({
@@ -22420,7 +22420,7 @@ export function bootstrap(
 
   const teamsListMembersInOrgResponseValidator = responseValidationFactory(
     [["200", z.array(s_simple_user)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -22435,13 +22435,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.teamsListMembersInOrg(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsListMembersInOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsGetMembershipForUserInOrgParamSchema = z.object({
@@ -22456,7 +22456,7 @@ export function bootstrap(
         ["200", s_team_membership],
         ["404", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -22466,7 +22466,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsGetMembershipForUserInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -22478,7 +22478,7 @@ export function bootstrap(
       ctx.body = teamsGetMembershipForUserInOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsAddOrUpdateMembershipForUserInOrgParamSchema = z.object({
@@ -22498,7 +22498,7 @@ export function bootstrap(
         ["403", z.void()],
         ["422", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -22508,12 +22508,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsAddOrUpdateMembershipForUserInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateMembershipForUserInOrgBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -22522,11 +22522,11 @@ export function bootstrap(
 
       ctx.body = teamsAddOrUpdateMembershipForUserInOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsRemoveMembershipForUserInOrgParamSchema = z.object({
@@ -22541,7 +22541,7 @@ export function bootstrap(
         ["204", z.void()],
         ["403", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -22551,7 +22551,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsRemoveMembershipForUserInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -22562,11 +22562,11 @@ export function bootstrap(
 
       ctx.body = teamsRemoveMembershipForUserInOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsListProjectsInOrgParamSchema = z.object({
@@ -22581,7 +22581,7 @@ export function bootstrap(
 
   const teamsListProjectsInOrgResponseValidator = responseValidationFactory(
     [["200", z.array(s_team_project)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -22591,7 +22591,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsListProjectsInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(teamsListProjectsInOrgQuerySchema, ctx.query),
         body: undefined,
@@ -22599,13 +22599,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.teamsListProjectsInOrg(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsListProjectsInOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsCheckPermissionsForProjectInOrgParamSchema = z.object({
@@ -22620,7 +22620,7 @@ export function bootstrap(
         ["200", s_team_project],
         ["404", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -22630,7 +22630,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsCheckPermissionsForProjectInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -22641,11 +22641,11 @@ export function bootstrap(
 
       ctx.body = teamsCheckPermissionsForProjectInOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsAddOrUpdateProjectPermissionsInOrgParamSchema = z.object({
@@ -22671,7 +22671,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -22681,12 +22681,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsAddOrUpdateProjectPermissionsInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateProjectPermissionsInOrgBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -22695,11 +22695,11 @@ export function bootstrap(
 
       ctx.body = teamsAddOrUpdateProjectPermissionsInOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsRemoveProjectInOrgParamSchema = z.object({
@@ -22710,7 +22710,7 @@ export function bootstrap(
 
   const teamsRemoveProjectInOrgResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -22720,7 +22720,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsRemoveProjectInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -22728,13 +22728,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.teamsRemoveProjectInOrg(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsRemoveProjectInOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsListReposInOrgParamSchema = z.object({
@@ -22749,7 +22749,7 @@ export function bootstrap(
 
   const teamsListReposInOrgResponseValidator = responseValidationFactory(
     [["200", z.array(s_minimal_repository)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -22764,13 +22764,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.teamsListReposInOrg(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsListReposInOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsCheckPermissionsForRepoInOrgParamSchema = z.object({
@@ -22787,7 +22787,7 @@ export function bootstrap(
         ["204", z.void()],
         ["404", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -22797,7 +22797,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsCheckPermissionsForRepoInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -22808,11 +22808,11 @@ export function bootstrap(
 
       ctx.body = teamsCheckPermissionsForRepoInOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsAddOrUpdateRepoPermissionsInOrgParamSchema = z.object({
@@ -22836,12 +22836,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsAddOrUpdateRepoPermissionsInOrgParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateRepoPermissionsInOrgBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -22850,11 +22850,11 @@ export function bootstrap(
 
       ctx.body = teamsAddOrUpdateRepoPermissionsInOrgResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsRemoveRepoInOrgParamSchema = z.object({
@@ -22866,7 +22866,7 @@ export function bootstrap(
 
   const teamsRemoveRepoInOrgResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -22881,13 +22881,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.teamsRemoveRepoInOrg(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsRemoveRepoInOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsListChildInOrgParamSchema = z.object({
@@ -22902,7 +22902,7 @@ export function bootstrap(
 
   const teamsListChildInOrgResponseValidator = responseValidationFactory(
     [["200", z.array(s_team)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -22917,13 +22917,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.teamsListChildInOrg(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsListChildInOrgResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema = z.object({
@@ -22946,7 +22946,7 @@ export function bootstrap(
         ["204", z.void()],
         ["422", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -22956,7 +22956,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -22965,17 +22965,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.orgsEnableOrDisableSecurityProductOnAllOrgRepos(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         orgsEnableOrDisableSecurityProductOnAllOrgReposResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const projectsGetCardParamSchema = z.object({ card_id: z.coerce.number() })
@@ -22988,7 +22988,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -23006,7 +23006,7 @@ export function bootstrap(
       ctx.body = projectsGetCardResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const projectsUpdateCardParamSchema = z.object({ card_id: z.coerce.number() })
@@ -23027,7 +23027,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error_simple],
     ],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -23042,13 +23042,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.projectsUpdateCard(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = projectsUpdateCardResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const projectsDeleteCardParamSchema = z.object({ card_id: z.coerce.number() })
@@ -23068,7 +23068,7 @@ export function bootstrap(
       ],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -23083,13 +23083,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.projectsDeleteCard(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = projectsDeleteCardResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const projectsMoveCardParamSchema = z.object({ card_id: z.coerce.number() })
@@ -23116,7 +23116,7 @@ export function bootstrap(
                 message: z.coerce.string().optional(),
                 resource: z.coerce.string().optional(),
                 field: z.coerce.string().optional(),
-              })
+              }),
             )
             .optional(),
         }),
@@ -23133,13 +23133,13 @@ export function bootstrap(
               z.object({
                 code: z.coerce.string().optional(),
                 message: z.coerce.string().optional(),
-              })
+              }),
             )
             .optional(),
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -23157,7 +23157,7 @@ export function bootstrap(
       ctx.body = projectsMoveCardResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const projectsGetColumnParamSchema = z.object({
@@ -23172,7 +23172,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -23187,13 +23187,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.projectsGetColumn(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = projectsGetColumnResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const projectsUpdateColumnParamSchema = z.object({
@@ -23209,7 +23209,7 @@ export function bootstrap(
       ["401", s_basic_error],
       ["403", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -23221,19 +23221,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           projectsUpdateColumnBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.projectsUpdateColumn(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = projectsUpdateColumnResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const projectsDeleteColumnParamSchema = z.object({
@@ -23247,7 +23247,7 @@ export function bootstrap(
       ["401", s_basic_error],
       ["403", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -23262,13 +23262,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.projectsDeleteColumn(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = projectsDeleteColumnResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const projectsListCardsParamSchema = z.object({
@@ -23288,7 +23288,7 @@ export function bootstrap(
       ["401", s_basic_error],
       ["403", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -23303,13 +23303,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.projectsListCards(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = projectsListCardsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const projectsCreateCardParamSchema = z.object({
@@ -23342,13 +23342,13 @@ export function bootstrap(
               z.object({
                 code: z.coerce.string().optional(),
                 message: z.coerce.string().optional(),
-              })
+              }),
             )
             .optional(),
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -23363,13 +23363,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.projectsCreateCard(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = projectsCreateCardResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const projectsMoveColumnParamSchema = z.object({
@@ -23386,7 +23386,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["422", s_validation_error_simple],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -23401,13 +23401,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.projectsMoveColumn(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = projectsMoveColumnResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const projectsGetParamSchema = z.object({ project_id: z.coerce.number() })
@@ -23419,7 +23419,7 @@ export function bootstrap(
       ["401", s_basic_error],
       ["403", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("projectsGet", "/projects/:projectId", async (ctx, next) => {
@@ -23467,7 +23467,7 @@ export function bootstrap(
       ["410", s_basic_error],
       ["422", s_validation_error_simple],
     ],
-    undefined
+    undefined,
   )
 
   router.patch("projectsUpdate", "/projects/:projectId", async (ctx, next) => {
@@ -23502,7 +23502,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["410", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete("projectsDelete", "/projects/:projectId", async (ctx, next) => {
@@ -23538,7 +23538,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -23548,24 +23548,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           projectsListCollaboratorsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           projectsListCollaboratorsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.projectsListCollaborators(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = projectsListCollaboratorsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const projectsAddCollaboratorParamSchema = z.object({
@@ -23587,7 +23587,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.put(
@@ -23597,24 +23597,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           projectsAddCollaboratorParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           projectsAddCollaboratorBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.projectsAddCollaborator(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = projectsAddCollaboratorResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const projectsRemoveCollaboratorParamSchema = z.object({
@@ -23631,7 +23631,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -23641,7 +23641,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           projectsRemoveCollaboratorParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -23649,13 +23649,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.projectsRemoveCollaborator(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = projectsRemoveCollaboratorResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const projectsGetPermissionForUserParamSchema = z.object({
@@ -23673,7 +23673,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -23683,7 +23683,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           projectsGetPermissionForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -23695,7 +23695,7 @@ export function bootstrap(
       ctx.body = projectsGetPermissionForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const projectsListColumnsParamSchema = z.object({
@@ -23714,7 +23714,7 @@ export function bootstrap(
       ["401", s_basic_error],
       ["403", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -23729,13 +23729,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.projectsListColumns(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = projectsListColumnsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const projectsCreateColumnParamSchema = z.object({
@@ -23752,7 +23752,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["422", s_validation_error_simple],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -23764,19 +23764,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           projectsCreateColumnBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.projectsCreateColumn(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = projectsCreateColumnResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const rateLimitGetResponseValidator = responseValidationFactory(
@@ -23785,7 +23785,7 @@ export function bootstrap(
       ["304", z.void()],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("rateLimitGet", "/rate_limit", async (ctx, next) => {
@@ -23824,7 +23824,7 @@ export function bootstrap(
         ],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -23834,11 +23834,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListRepoRequiredWorkflowsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsListRepoRequiredWorkflowsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -23849,7 +23849,7 @@ export function bootstrap(
       ctx.body = actionsListRepoRequiredWorkflowsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetRepoRequiredWorkflowParamSchema = z.object({
@@ -23864,7 +23864,7 @@ export function bootstrap(
         ["200", s_repo_required_workflow],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -23874,7 +23874,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetRepoRequiredWorkflowParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -23886,7 +23886,7 @@ export function bootstrap(
       ctx.body = actionsGetRepoRequiredWorkflowResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetRepoRequiredWorkflowUsageParamSchema = z.object({
@@ -23901,7 +23901,7 @@ export function bootstrap(
         ["200", s_workflow_usage],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -23911,7 +23911,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetRepoRequiredWorkflowUsageParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -23922,11 +23922,11 @@ export function bootstrap(
 
       ctx.body = actionsGetRepoRequiredWorkflowUsageResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetParamSchema = z.object({
@@ -23941,7 +23941,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("reposGet", "/repos/:owner/:repo", async (ctx, next) => {
@@ -24018,7 +24018,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.patch("reposUpdate", "/repos/:owner/:repo", async (ctx, next) => {
@@ -24053,7 +24053,7 @@ export function bootstrap(
       ],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete("reposDelete", "/repos/:owner/:repo", async (ctx, next) => {
@@ -24092,7 +24092,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -24102,24 +24102,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListArtifactsForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsListArtifactsForRepoQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.actionsListArtifactsForRepo(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsListArtifactsForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetArtifactParamSchema = z.object({
@@ -24130,7 +24130,7 @@ export function bootstrap(
 
   const actionsGetArtifactResponseValidator = responseValidationFactory(
     [["200", s_artifact]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -24145,13 +24145,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsGetArtifact(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsGetArtifactResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsDeleteArtifactParamSchema = z.object({
@@ -24162,7 +24162,7 @@ export function bootstrap(
 
   const actionsDeleteArtifactResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -24177,13 +24177,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsDeleteArtifact(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsDeleteArtifactResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsDownloadArtifactParamSchema = z.object({
@@ -24198,7 +24198,7 @@ export function bootstrap(
       ["302", z.void()],
       ["410", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -24208,7 +24208,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsDownloadArtifactParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -24216,13 +24216,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsDownloadArtifact(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsDownloadArtifactResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetActionsCacheUsageParamSchema = z.object({
@@ -24233,7 +24233,7 @@ export function bootstrap(
   const actionsGetActionsCacheUsageResponseValidator =
     responseValidationFactory(
       [["200", s_actions_cache_usage_by_repository]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -24243,7 +24243,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetActionsCacheUsageParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -24251,13 +24251,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsGetActionsCacheUsage(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsGetActionsCacheUsageResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetActionsCacheListParamSchema = z.object({
@@ -24278,7 +24278,7 @@ export function bootstrap(
 
   const actionsGetActionsCacheListResponseValidator = responseValidationFactory(
     [["200", s_actions_cache_list]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -24288,24 +24288,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetActionsCacheListParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsGetActionsCacheListQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.actionsGetActionsCacheList(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsGetActionsCacheListResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsDeleteActionsCacheByKeyParamSchema = z.object({
@@ -24328,11 +24328,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsDeleteActionsCacheByKeyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsDeleteActionsCacheByKeyQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -24343,7 +24343,7 @@ export function bootstrap(
       ctx.body = actionsDeleteActionsCacheByKeyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsDeleteActionsCacheByIdParamSchema = z.object({
@@ -24362,7 +24362,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsDeleteActionsCacheByIdParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -24374,7 +24374,7 @@ export function bootstrap(
       ctx.body = actionsDeleteActionsCacheByIdResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetJobForWorkflowRunParamSchema = z.object({
@@ -24393,7 +24393,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetJobForWorkflowRunParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -24401,13 +24401,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsGetJobForWorkflowRun(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsGetJobForWorkflowRunResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsDownloadJobLogsForWorkflowRunParamSchema = z.object({
@@ -24426,7 +24426,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsDownloadJobLogsForWorkflowRunParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -24437,11 +24437,11 @@ export function bootstrap(
 
       ctx.body = actionsDownloadJobLogsForWorkflowRunResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsReRunJobForWorkflowRunParamSchema = z.object({
@@ -24461,7 +24461,7 @@ export function bootstrap(
         ["201", s_empty_object],
         ["403", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -24471,12 +24471,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsReRunJobForWorkflowRunParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsReRunJobForWorkflowRunBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -24486,7 +24486,7 @@ export function bootstrap(
       ctx.body = actionsReRunJobForWorkflowRunResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetCustomOidcSubClaimForRepoParamSchema = z.object({
@@ -24501,7 +24501,7 @@ export function bootstrap(
         ["400", s_scim_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -24511,7 +24511,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetCustomOidcSubClaimForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -24522,11 +24522,11 @@ export function bootstrap(
 
       ctx.body = actionsGetCustomOidcSubClaimForRepoResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsSetCustomOidcSubClaimForRepoParamSchema = z.object({
@@ -24547,7 +24547,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error_simple],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -24557,12 +24557,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsSetCustomOidcSubClaimForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetCustomOidcSubClaimForRepoBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -24571,11 +24571,11 @@ export function bootstrap(
 
       ctx.body = actionsSetCustomOidcSubClaimForRepoResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListRepoOrganizationSecretsParamSchema = z.object({
@@ -24599,7 +24599,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -24609,11 +24609,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListRepoOrganizationSecretsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsListRepoOrganizationSecretsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -24623,11 +24623,11 @@ export function bootstrap(
 
       ctx.body = actionsListRepoOrganizationSecretsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListRepoOrganizationVariablesParamSchema = z.object({
@@ -24651,7 +24651,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -24661,11 +24661,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListRepoOrganizationVariablesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsListRepoOrganizationVariablesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -24675,11 +24675,11 @@ export function bootstrap(
 
       ctx.body = actionsListRepoOrganizationVariablesResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetGithubActionsPermissionsRepositoryParamSchema = z.object({
@@ -24690,7 +24690,7 @@ export function bootstrap(
   const actionsGetGithubActionsPermissionsRepositoryResponseValidator =
     responseValidationFactory(
       [["200", s_actions_repository_permissions]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -24700,7 +24700,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetGithubActionsPermissionsRepositoryParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -24709,16 +24709,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.actionsGetGithubActionsPermissionsRepository(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = actionsGetGithubActionsPermissionsRepositoryResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsSetGithubActionsPermissionsRepositoryParamSchema = z.object({
@@ -24741,28 +24741,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsSetGithubActionsPermissionsRepositoryParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetGithubActionsPermissionsRepositoryBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.actionsSetGithubActionsPermissionsRepository(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = actionsSetGithubActionsPermissionsRepositoryResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetWorkflowAccessToRepositoryParamSchema = z.object({
@@ -24773,7 +24773,7 @@ export function bootstrap(
   const actionsGetWorkflowAccessToRepositoryResponseValidator =
     responseValidationFactory(
       [["200", s_actions_workflow_access_to_repository]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -24783,7 +24783,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetWorkflowAccessToRepositoryParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -24794,11 +24794,11 @@ export function bootstrap(
 
       ctx.body = actionsGetWorkflowAccessToRepositoryResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsSetWorkflowAccessToRepositoryParamSchema = z.object({
@@ -24819,12 +24819,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsSetWorkflowAccessToRepositoryParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetWorkflowAccessToRepositoryBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -24833,11 +24833,11 @@ export function bootstrap(
 
       ctx.body = actionsSetWorkflowAccessToRepositoryResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetAllowedActionsRepositoryParamSchema = z.object({
@@ -24855,7 +24855,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetAllowedActionsRepositoryParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -24866,11 +24866,11 @@ export function bootstrap(
 
       ctx.body = actionsGetAllowedActionsRepositoryResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsSetAllowedActionsRepositoryParamSchema = z.object({
@@ -24890,12 +24890,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsSetAllowedActionsRepositoryParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetAllowedActionsRepositoryBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -24904,11 +24904,11 @@ export function bootstrap(
 
       ctx.body = actionsSetAllowedActionsRepositoryResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema =
@@ -24917,7 +24917,7 @@ export function bootstrap(
   const actionsGetGithubActionsDefaultWorkflowPermissionsRepositoryResponseValidator =
     responseValidationFactory(
       [["200", s_actions_get_default_workflow_permissions]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -24927,7 +24927,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -24936,17 +24936,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.actionsGetGithubActionsDefaultWorkflowPermissionsRepository(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         actionsGetGithubActionsDefaultWorkflowPermissionsRepositoryResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema =
@@ -24961,7 +24961,7 @@ export function bootstrap(
         ["204", z.void()],
         ["409", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -24971,29 +24971,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.actionsSetGithubActionsDefaultWorkflowPermissionsRepository(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListRequiredWorkflowRunsParamSchema = z.object({
@@ -25043,7 +25043,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -25053,11 +25053,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListRequiredWorkflowRunsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsListRequiredWorkflowRunsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -25068,7 +25068,7 @@ export function bootstrap(
       ctx.body = actionsListRequiredWorkflowRunsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListSelfHostedRunnersForRepoParamSchema = z.object({
@@ -25092,7 +25092,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -25102,11 +25102,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListSelfHostedRunnersForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsListSelfHostedRunnersForRepoQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -25116,11 +25116,11 @@ export function bootstrap(
 
       ctx.body = actionsListSelfHostedRunnersForRepoResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListRunnerApplicationsForRepoParamSchema = z.object({
@@ -25131,7 +25131,7 @@ export function bootstrap(
   const actionsListRunnerApplicationsForRepoResponseValidator =
     responseValidationFactory(
       [["200", z.array(s_runner_application)]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -25141,7 +25141,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListRunnerApplicationsForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -25152,11 +25152,11 @@ export function bootstrap(
 
       ctx.body = actionsListRunnerApplicationsForRepoResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsCreateRegistrationTokenForRepoParamSchema = z.object({
@@ -25174,7 +25174,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsCreateRegistrationTokenForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -25185,11 +25185,11 @@ export function bootstrap(
 
       ctx.body = actionsCreateRegistrationTokenForRepoResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsCreateRemoveTokenForRepoParamSchema = z.object({
@@ -25207,7 +25207,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsCreateRemoveTokenForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -25219,7 +25219,7 @@ export function bootstrap(
       ctx.body = actionsCreateRemoveTokenForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetSelfHostedRunnerForRepoParamSchema = z.object({
@@ -25238,7 +25238,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetSelfHostedRunnerForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -25249,11 +25249,11 @@ export function bootstrap(
 
       ctx.body = actionsGetSelfHostedRunnerForRepoResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsDeleteSelfHostedRunnerFromRepoParamSchema = z.object({
@@ -25272,7 +25272,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsDeleteSelfHostedRunnerFromRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -25283,11 +25283,11 @@ export function bootstrap(
 
       ctx.body = actionsDeleteSelfHostedRunnerFromRepoResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListLabelsForSelfHostedRunnerForRepoParamSchema = z.object({
@@ -25308,7 +25308,7 @@ export function bootstrap(
         ],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -25318,7 +25318,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListLabelsForSelfHostedRunnerForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -25327,16 +25327,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.actionsListLabelsForSelfHostedRunnerForRepo(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = actionsListLabelsForSelfHostedRunnerForRepoResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema = z.object({
@@ -25362,7 +25362,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error_simple],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -25372,29 +25372,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.actionsAddCustomLabelsToSelfHostedRunnerForRepo(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         actionsAddCustomLabelsToSelfHostedRunnerForRepoResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsSetCustomLabelsForSelfHostedRunnerForRepoParamSchema = z.object({
@@ -25420,7 +25420,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error_simple],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -25430,29 +25430,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsSetCustomLabelsForSelfHostedRunnerForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.actionsSetCustomLabelsForSelfHostedRunnerForRepo(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         actionsSetCustomLabelsForSelfHostedRunnerForRepoResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepoParamSchema =
@@ -25474,7 +25474,7 @@ export function bootstrap(
         ],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -25484,7 +25484,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -25493,17 +25493,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepo(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepoResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsRemoveCustomLabelFromSelfHostedRunnerForRepoParamSchema =
@@ -25527,7 +25527,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error_simple],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -25537,7 +25537,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsRemoveCustomLabelFromSelfHostedRunnerForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -25546,17 +25546,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.actionsRemoveCustomLabelFromSelfHostedRunnerForRepo(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         actionsRemoveCustomLabelFromSelfHostedRunnerForRepoResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListWorkflowRunsForRepoParamSchema = z.object({
@@ -25605,7 +25605,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -25615,11 +25615,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListWorkflowRunsForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsListWorkflowRunsForRepoQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -25630,7 +25630,7 @@ export function bootstrap(
       ctx.body = actionsListWorkflowRunsForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetWorkflowRunParamSchema = z.object({
@@ -25645,7 +25645,7 @@ export function bootstrap(
 
   const actionsGetWorkflowRunResponseValidator = responseValidationFactory(
     [["200", s_workflow_run]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -25660,13 +25660,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsGetWorkflowRun(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsGetWorkflowRunResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsDeleteWorkflowRunParamSchema = z.object({
@@ -25677,7 +25677,7 @@ export function bootstrap(
 
   const actionsDeleteWorkflowRunResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -25687,7 +25687,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsDeleteWorkflowRunParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -25695,13 +25695,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsDeleteWorkflowRun(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsDeleteWorkflowRunResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetReviewsForRunParamSchema = z.object({
@@ -25712,7 +25712,7 @@ export function bootstrap(
 
   const actionsGetReviewsForRunResponseValidator = responseValidationFactory(
     [["200", z.array(s_environment_approvals)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -25722,7 +25722,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetReviewsForRunParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -25730,13 +25730,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsGetReviewsForRun(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsGetReviewsForRunResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsApproveWorkflowRunParamSchema = z.object({
@@ -25751,7 +25751,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -25761,7 +25761,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsApproveWorkflowRunParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -25769,13 +25769,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsApproveWorkflowRun(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsApproveWorkflowRunResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListWorkflowRunArtifactsParamSchema = z.object({
@@ -25800,7 +25800,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -25810,11 +25810,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListWorkflowRunArtifactsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsListWorkflowRunArtifactsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -25825,7 +25825,7 @@ export function bootstrap(
       ctx.body = actionsListWorkflowRunArtifactsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetWorkflowRunAttemptParamSchema = z.object({
@@ -25849,11 +25849,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetWorkflowRunAttemptParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsGetWorkflowRunAttemptQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -25864,7 +25864,7 @@ export function bootstrap(
       ctx.body = actionsGetWorkflowRunAttemptResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListJobsForWorkflowRunAttemptParamSchema = z.object({
@@ -25888,7 +25888,7 @@ export function bootstrap(
         ],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -25898,11 +25898,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListJobsForWorkflowRunAttemptParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsListJobsForWorkflowRunAttemptQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -25912,11 +25912,11 @@ export function bootstrap(
 
       ctx.body = actionsListJobsForWorkflowRunAttemptResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsDownloadWorkflowRunAttemptLogsParamSchema = z.object({
@@ -25936,7 +25936,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsDownloadWorkflowRunAttemptLogsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -25947,11 +25947,11 @@ export function bootstrap(
 
       ctx.body = actionsDownloadWorkflowRunAttemptLogsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsCancelWorkflowRunParamSchema = z.object({
@@ -25965,7 +25965,7 @@ export function bootstrap(
       ["202", s_empty_object],
       ["409", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -25975,7 +25975,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsCancelWorkflowRunParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -25983,13 +25983,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsCancelWorkflowRun(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsCancelWorkflowRunResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsReviewCustomGatesForRunParamSchema = z.object({
@@ -26013,12 +26013,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsReviewCustomGatesForRunParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsReviewCustomGatesForRunBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -26028,7 +26028,7 @@ export function bootstrap(
       ctx.body = actionsReviewCustomGatesForRunResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListJobsForWorkflowRunParamSchema = z.object({
@@ -26051,7 +26051,7 @@ export function bootstrap(
           z.object({ total_count: z.coerce.number(), jobs: z.array(s_job) }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -26061,11 +26061,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListJobsForWorkflowRunParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsListJobsForWorkflowRunQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -26076,7 +26076,7 @@ export function bootstrap(
       ctx.body = actionsListJobsForWorkflowRunResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsDownloadWorkflowRunLogsParamSchema = z.object({
@@ -26095,7 +26095,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsDownloadWorkflowRunLogsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -26107,7 +26107,7 @@ export function bootstrap(
       ctx.body = actionsDownloadWorkflowRunLogsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsDeleteWorkflowRunLogsParamSchema = z.object({
@@ -26123,7 +26123,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -26133,7 +26133,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsDeleteWorkflowRunLogsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -26145,7 +26145,7 @@ export function bootstrap(
       ctx.body = actionsDeleteWorkflowRunLogsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetPendingDeploymentsForRunParamSchema = z.object({
@@ -26157,7 +26157,7 @@ export function bootstrap(
   const actionsGetPendingDeploymentsForRunResponseValidator =
     responseValidationFactory(
       [["200", z.array(s_pending_deployment)]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -26167,7 +26167,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetPendingDeploymentsForRunParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -26178,11 +26178,11 @@ export function bootstrap(
 
       ctx.body = actionsGetPendingDeploymentsForRunResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsReviewPendingDeploymentsForRunParamSchema = z.object({
@@ -26207,12 +26207,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsReviewPendingDeploymentsForRunParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsReviewPendingDeploymentsForRunBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -26221,11 +26221,11 @@ export function bootstrap(
 
       ctx.body = actionsReviewPendingDeploymentsForRunResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsReRunWorkflowParamSchema = z.object({
@@ -26241,7 +26241,7 @@ export function bootstrap(
 
   const actionsReRunWorkflowResponseValidator = responseValidationFactory(
     [["201", s_empty_object]],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -26253,19 +26253,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsReRunWorkflowBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.actionsReRunWorkflow(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsReRunWorkflowResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsReRunWorkflowFailedJobsParamSchema = z.object({
@@ -26289,12 +26289,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsReRunWorkflowFailedJobsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsReRunWorkflowFailedJobsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -26304,7 +26304,7 @@ export function bootstrap(
       ctx.body = actionsReRunWorkflowFailedJobsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetWorkflowRunUsageParamSchema = z.object({
@@ -26315,7 +26315,7 @@ export function bootstrap(
 
   const actionsGetWorkflowRunUsageResponseValidator = responseValidationFactory(
     [["200", s_workflow_run_usage]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -26325,7 +26325,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetWorkflowRunUsageParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -26333,13 +26333,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsGetWorkflowRunUsage(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsGetWorkflowRunUsageResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListRepoSecretsParamSchema = z.object({
@@ -26362,7 +26362,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -26372,7 +26372,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListRepoSecretsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(actionsListRepoSecretsQuerySchema, ctx.query),
         body: undefined,
@@ -26380,13 +26380,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsListRepoSecrets(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsListRepoSecretsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetRepoPublicKeyParamSchema = z.object({
@@ -26396,7 +26396,7 @@ export function bootstrap(
 
   const actionsGetRepoPublicKeyResponseValidator = responseValidationFactory(
     [["200", s_actions_public_key]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -26406,7 +26406,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetRepoPublicKeyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -26414,13 +26414,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsGetRepoPublicKey(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsGetRepoPublicKeyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetRepoSecretParamSchema = z.object({
@@ -26431,7 +26431,7 @@ export function bootstrap(
 
   const actionsGetRepoSecretResponseValidator = responseValidationFactory(
     [["200", s_actions_secret]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -26446,13 +26446,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsGetRepoSecret(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsGetRepoSecretResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsCreateOrUpdateRepoSecretParamSchema = z.object({
@@ -26472,7 +26472,7 @@ export function bootstrap(
         ["201", s_empty_object],
         ["204", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -26482,12 +26482,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsCreateOrUpdateRepoSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsCreateOrUpdateRepoSecretBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -26497,7 +26497,7 @@ export function bootstrap(
       ctx.body = actionsCreateOrUpdateRepoSecretResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsDeleteRepoSecretParamSchema = z.object({
@@ -26508,7 +26508,7 @@ export function bootstrap(
 
   const actionsDeleteRepoSecretResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -26518,7 +26518,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsDeleteRepoSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -26526,13 +26526,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsDeleteRepoSecret(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsDeleteRepoSecretResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListRepoVariablesParamSchema = z.object({
@@ -26555,7 +26555,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -26565,24 +26565,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListRepoVariablesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsListRepoVariablesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.actionsListRepoVariables(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsListRepoVariablesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsCreateRepoVariableParamSchema = z.object({
@@ -26597,7 +26597,7 @@ export function bootstrap(
 
   const actionsCreateRepoVariableResponseValidator = responseValidationFactory(
     [["201", s_empty_object]],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -26607,24 +26607,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsCreateRepoVariableParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsCreateRepoVariableBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.actionsCreateRepoVariable(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsCreateRepoVariableResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetRepoVariableParamSchema = z.object({
@@ -26635,7 +26635,7 @@ export function bootstrap(
 
   const actionsGetRepoVariableResponseValidator = responseValidationFactory(
     [["200", s_actions_variable]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -26645,7 +26645,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetRepoVariableParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -26653,13 +26653,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsGetRepoVariable(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsGetRepoVariableResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsUpdateRepoVariableParamSchema = z.object({
@@ -26675,7 +26675,7 @@ export function bootstrap(
 
   const actionsUpdateRepoVariableResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -26685,24 +26685,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsUpdateRepoVariableParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsUpdateRepoVariableBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.actionsUpdateRepoVariable(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsUpdateRepoVariableResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsDeleteRepoVariableParamSchema = z.object({
@@ -26713,7 +26713,7 @@ export function bootstrap(
 
   const actionsDeleteRepoVariableResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -26723,7 +26723,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsDeleteRepoVariableParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -26731,13 +26731,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsDeleteRepoVariable(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsDeleteRepoVariableResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListRepoWorkflowsParamSchema = z.object({
@@ -26760,7 +26760,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -26770,24 +26770,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListRepoWorkflowsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsListRepoWorkflowsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.actionsListRepoWorkflows(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsListRepoWorkflowsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetWorkflowParamSchema = z.object({
@@ -26798,7 +26798,7 @@ export function bootstrap(
 
   const actionsGetWorkflowResponseValidator = responseValidationFactory(
     [["200", s_workflow]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -26813,13 +26813,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsGetWorkflow(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsGetWorkflowResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsDisableWorkflowParamSchema = z.object({
@@ -26830,7 +26830,7 @@ export function bootstrap(
 
   const actionsDisableWorkflowResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.put(
@@ -26840,7 +26840,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsDisableWorkflowParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -26848,13 +26848,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsDisableWorkflow(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsDisableWorkflowResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsCreateWorkflowDispatchParamSchema = z.object({
@@ -26878,12 +26878,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsCreateWorkflowDispatchParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsCreateWorkflowDispatchBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -26893,7 +26893,7 @@ export function bootstrap(
       ctx.body = actionsCreateWorkflowDispatchResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsEnableWorkflowParamSchema = z.object({
@@ -26904,7 +26904,7 @@ export function bootstrap(
 
   const actionsEnableWorkflowResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.put(
@@ -26919,13 +26919,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsEnableWorkflow(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsEnableWorkflowResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListWorkflowRunsParamSchema = z.object({
@@ -26974,7 +26974,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -26984,7 +26984,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListWorkflowRunsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(actionsListWorkflowRunsQuerySchema, ctx.query),
         body: undefined,
@@ -26992,13 +26992,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsListWorkflowRuns(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsListWorkflowRunsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetWorkflowUsageParamSchema = z.object({
@@ -27009,7 +27009,7 @@ export function bootstrap(
 
   const actionsGetWorkflowUsageResponseValidator = responseValidationFactory(
     [["200", s_workflow_usage]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -27019,7 +27019,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetWorkflowUsageParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -27027,13 +27027,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsGetWorkflowUsage(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsGetWorkflowUsageResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesListAssigneesParamSchema = z.object({
@@ -27051,7 +27051,7 @@ export function bootstrap(
       ["200", z.array(s_simple_user)],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -27066,13 +27066,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.issuesListAssignees(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesListAssigneesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesCheckUserCanBeAssignedParamSchema = z.object({
@@ -27087,7 +27087,7 @@ export function bootstrap(
         ["204", z.void()],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -27097,7 +27097,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           issuesCheckUserCanBeAssignedParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -27109,7 +27109,7 @@ export function bootstrap(
       ctx.body = issuesCheckUserCanBeAssignedResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListAutolinksParamSchema = z.object({
@@ -27123,7 +27123,7 @@ export function bootstrap(
 
   const reposListAutolinksResponseValidator = responseValidationFactory(
     [["200", z.array(s_autolink)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -27138,13 +27138,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposListAutolinks(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposListAutolinksResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreateAutolinkParamSchema = z.object({
@@ -27163,7 +27163,7 @@ export function bootstrap(
       ["201", s_autolink],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -27175,19 +27175,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposCreateAutolinkBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposCreateAutolink(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposCreateAutolinkResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetAutolinkParamSchema = z.object({
@@ -27201,7 +27201,7 @@ export function bootstrap(
       ["200", s_autolink],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -27219,7 +27219,7 @@ export function bootstrap(
       ctx.body = reposGetAutolinkResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDeleteAutolinkParamSchema = z.object({
@@ -27233,7 +27233,7 @@ export function bootstrap(
       ["204", z.void()],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -27248,13 +27248,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposDeleteAutolink(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposDeleteAutolinkResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposEnableAutomatedSecurityFixesParamSchema = z.object({
@@ -27272,7 +27272,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposEnableAutomatedSecurityFixesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -27283,11 +27283,11 @@ export function bootstrap(
 
       ctx.body = reposEnableAutomatedSecurityFixesResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDisableAutomatedSecurityFixesParamSchema = z.object({
@@ -27305,7 +27305,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposDisableAutomatedSecurityFixesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -27316,11 +27316,11 @@ export function bootstrap(
 
       ctx.body = reposDisableAutomatedSecurityFixesResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListBranchesParamSchema = z.object({
@@ -27339,7 +27339,7 @@ export function bootstrap(
       ["200", z.array(s_short_branch)],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -27354,13 +27354,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposListBranches(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposListBranchesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetBranchParamSchema = z.object({
@@ -27375,7 +27375,7 @@ export function bootstrap(
       ["301", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -27393,7 +27393,7 @@ export function bootstrap(
       ctx.body = reposGetBranchResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetBranchProtectionParamSchema = z.object({
@@ -27407,7 +27407,7 @@ export function bootstrap(
       ["200", s_branch_protection],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -27417,7 +27417,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetBranchProtectionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -27425,13 +27425,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetBranchProtection(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetBranchProtectionResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposUpdateBranchProtectionParamSchema = z.object({
@@ -27450,7 +27450,7 @@ export function bootstrap(
             z.object({
               context: z.coerce.string(),
               app_id: z.coerce.number().optional(),
-            })
+            }),
           )
           .optional(),
       })
@@ -27502,7 +27502,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error_simple],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -27512,24 +27512,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposUpdateBranchProtectionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposUpdateBranchProtectionBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposUpdateBranchProtection(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposUpdateBranchProtectionResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDeleteBranchProtectionParamSchema = z.object({
@@ -27544,7 +27544,7 @@ export function bootstrap(
         ["204", z.void()],
         ["403", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -27554,7 +27554,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposDeleteBranchProtectionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -27562,13 +27562,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposDeleteBranchProtection(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposDeleteBranchProtectionResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetAdminBranchProtectionParamSchema = z.object({
@@ -27580,7 +27580,7 @@ export function bootstrap(
   const reposGetAdminBranchProtectionResponseValidator =
     responseValidationFactory(
       [["200", s_protected_branch_admin_enforced]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -27590,7 +27590,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetAdminBranchProtectionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -27602,7 +27602,7 @@ export function bootstrap(
       ctx.body = reposGetAdminBranchProtectionResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposSetAdminBranchProtectionParamSchema = z.object({
@@ -27614,7 +27614,7 @@ export function bootstrap(
   const reposSetAdminBranchProtectionResponseValidator =
     responseValidationFactory(
       [["200", s_protected_branch_admin_enforced]],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -27624,7 +27624,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposSetAdminBranchProtectionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -27636,7 +27636,7 @@ export function bootstrap(
       ctx.body = reposSetAdminBranchProtectionResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDeleteAdminBranchProtectionParamSchema = z.object({
@@ -27651,7 +27651,7 @@ export function bootstrap(
         ["204", z.void()],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -27661,7 +27661,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposDeleteAdminBranchProtectionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -27673,7 +27673,7 @@ export function bootstrap(
       ctx.body = reposDeleteAdminBranchProtectionResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetPullRequestReviewProtectionParamSchema = z.object({
@@ -27685,7 +27685,7 @@ export function bootstrap(
   const reposGetPullRequestReviewProtectionResponseValidator =
     responseValidationFactory(
       [["200", s_protected_branch_pull_request_review]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -27695,7 +27695,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetPullRequestReviewProtectionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -27706,11 +27706,11 @@ export function bootstrap(
 
       ctx.body = reposGetPullRequestReviewProtectionResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposUpdatePullRequestReviewProtectionParamSchema = z.object({
@@ -27748,7 +27748,7 @@ export function bootstrap(
         ["200", s_protected_branch_pull_request_review],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.patch(
@@ -27758,12 +27758,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposUpdatePullRequestReviewProtectionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposUpdatePullRequestReviewProtectionBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -27772,11 +27772,11 @@ export function bootstrap(
 
       ctx.body = reposUpdatePullRequestReviewProtectionResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDeletePullRequestReviewProtectionParamSchema = z.object({
@@ -27791,7 +27791,7 @@ export function bootstrap(
         ["204", z.void()],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -27801,7 +27801,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposDeletePullRequestReviewProtectionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -27812,11 +27812,11 @@ export function bootstrap(
 
       ctx.body = reposDeletePullRequestReviewProtectionResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetCommitSignatureProtectionParamSchema = z.object({
@@ -27831,7 +27831,7 @@ export function bootstrap(
         ["200", s_protected_branch_admin_enforced],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -27841,7 +27841,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetCommitSignatureProtectionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -27852,11 +27852,11 @@ export function bootstrap(
 
       ctx.body = reposGetCommitSignatureProtectionResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreateCommitSignatureProtectionParamSchema = z.object({
@@ -27871,7 +27871,7 @@ export function bootstrap(
         ["200", s_protected_branch_admin_enforced],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -27881,7 +27881,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposCreateCommitSignatureProtectionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -27892,11 +27892,11 @@ export function bootstrap(
 
       ctx.body = reposCreateCommitSignatureProtectionResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDeleteCommitSignatureProtectionParamSchema = z.object({
@@ -27911,7 +27911,7 @@ export function bootstrap(
         ["204", z.void()],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -27921,7 +27921,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposDeleteCommitSignatureProtectionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -27932,11 +27932,11 @@ export function bootstrap(
 
       ctx.body = reposDeleteCommitSignatureProtectionResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetStatusChecksProtectionParamSchema = z.object({
@@ -27951,7 +27951,7 @@ export function bootstrap(
         ["200", s_status_check_policy],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -27961,7 +27961,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetStatusChecksProtectionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -27973,7 +27973,7 @@ export function bootstrap(
       ctx.body = reposGetStatusChecksProtectionResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposUpdateStatusCheckProtectionParamSchema = z.object({
@@ -27991,7 +27991,7 @@ export function bootstrap(
           z.object({
             context: z.coerce.string(),
             app_id: z.coerce.number().optional(),
-          })
+          }),
         )
         .optional(),
     })
@@ -28004,7 +28004,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.patch(
@@ -28014,12 +28014,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposUpdateStatusCheckProtectionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposUpdateStatusCheckProtectionBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -28029,7 +28029,7 @@ export function bootstrap(
       ctx.body = reposUpdateStatusCheckProtectionResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposRemoveStatusCheckProtectionParamSchema = z.object({
@@ -28048,7 +28048,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposRemoveStatusCheckProtectionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -28060,7 +28060,7 @@ export function bootstrap(
       ctx.body = reposRemoveStatusCheckProtectionResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetAllStatusCheckContextsParamSchema = z.object({
@@ -28075,7 +28075,7 @@ export function bootstrap(
         ["200", z.array(z.coerce.string())],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -28085,7 +28085,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetAllStatusCheckContextsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -28097,7 +28097,7 @@ export function bootstrap(
       ctx.body = reposGetAllStatusCheckContextsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposAddStatusCheckContextsParamSchema = z.object({
@@ -28119,7 +28119,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -28129,24 +28129,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposAddStatusCheckContextsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposAddStatusCheckContextsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposAddStatusCheckContexts(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposAddStatusCheckContextsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposSetStatusCheckContextsParamSchema = z.object({
@@ -28167,7 +28167,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -28177,24 +28177,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposSetStatusCheckContextsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposSetStatusCheckContextsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposSetStatusCheckContexts(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposSetStatusCheckContextsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposRemoveStatusCheckContextsParamSchema = z.object({
@@ -28215,7 +28215,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -28225,12 +28225,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposRemoveStatusCheckContextsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposRemoveStatusCheckContextsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -28240,7 +28240,7 @@ export function bootstrap(
       ctx.body = reposRemoveStatusCheckContextsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetAccessRestrictionsParamSchema = z.object({
@@ -28254,7 +28254,7 @@ export function bootstrap(
       ["200", s_branch_restriction_policy],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -28264,7 +28264,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetAccessRestrictionsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -28272,13 +28272,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetAccessRestrictions(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetAccessRestrictionsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDeleteAccessRestrictionsParamSchema = z.object({
@@ -28297,7 +28297,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposDeleteAccessRestrictionsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -28309,7 +28309,7 @@ export function bootstrap(
       ctx.body = reposDeleteAccessRestrictionsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetAppsWithAccessToProtectedBranchParamSchema = z.object({
@@ -28324,7 +28324,7 @@ export function bootstrap(
         ["200", z.array(s_integration)],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -28334,7 +28334,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetAppsWithAccessToProtectedBranchParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -28345,11 +28345,11 @@ export function bootstrap(
 
       ctx.body = reposGetAppsWithAccessToProtectedBranchResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposAddAppAccessRestrictionsParamSchema = z.object({
@@ -28369,7 +28369,7 @@ export function bootstrap(
         ["200", z.array(s_integration)],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -28379,12 +28379,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposAddAppAccessRestrictionsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposAddAppAccessRestrictionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -28394,7 +28394,7 @@ export function bootstrap(
       ctx.body = reposAddAppAccessRestrictionsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposSetAppAccessRestrictionsParamSchema = z.object({
@@ -28414,7 +28414,7 @@ export function bootstrap(
         ["200", z.array(s_integration)],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -28424,12 +28424,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposSetAppAccessRestrictionsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposSetAppAccessRestrictionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -28439,7 +28439,7 @@ export function bootstrap(
       ctx.body = reposSetAppAccessRestrictionsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposRemoveAppAccessRestrictionsParamSchema = z.object({
@@ -28459,7 +28459,7 @@ export function bootstrap(
         ["200", z.array(s_integration)],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -28469,12 +28469,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposRemoveAppAccessRestrictionsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposRemoveAppAccessRestrictionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -28484,7 +28484,7 @@ export function bootstrap(
       ctx.body = reposRemoveAppAccessRestrictionsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetTeamsWithAccessToProtectedBranchParamSchema = z.object({
@@ -28499,7 +28499,7 @@ export function bootstrap(
         ["200", z.array(s_team)],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -28509,7 +28509,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetTeamsWithAccessToProtectedBranchParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -28518,16 +28518,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.reposGetTeamsWithAccessToProtectedBranch(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = reposGetTeamsWithAccessToProtectedBranchResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposAddTeamAccessRestrictionsParamSchema = z.object({
@@ -28547,7 +28547,7 @@ export function bootstrap(
         ["200", z.array(s_team)],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -28557,12 +28557,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposAddTeamAccessRestrictionsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposAddTeamAccessRestrictionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -28572,7 +28572,7 @@ export function bootstrap(
       ctx.body = reposAddTeamAccessRestrictionsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposSetTeamAccessRestrictionsParamSchema = z.object({
@@ -28592,7 +28592,7 @@ export function bootstrap(
         ["200", z.array(s_team)],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -28602,12 +28602,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposSetTeamAccessRestrictionsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposSetTeamAccessRestrictionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -28617,7 +28617,7 @@ export function bootstrap(
       ctx.body = reposSetTeamAccessRestrictionsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposRemoveTeamAccessRestrictionsParamSchema = z.object({
@@ -28637,7 +28637,7 @@ export function bootstrap(
         ["200", z.array(s_team)],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -28647,12 +28647,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposRemoveTeamAccessRestrictionsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposRemoveTeamAccessRestrictionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -28661,11 +28661,11 @@ export function bootstrap(
 
       ctx.body = reposRemoveTeamAccessRestrictionsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetUsersWithAccessToProtectedBranchParamSchema = z.object({
@@ -28680,7 +28680,7 @@ export function bootstrap(
         ["200", z.array(s_simple_user)],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -28690,7 +28690,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetUsersWithAccessToProtectedBranchParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -28699,16 +28699,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.reposGetUsersWithAccessToProtectedBranch(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = reposGetUsersWithAccessToProtectedBranchResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposAddUserAccessRestrictionsParamSchema = z.object({
@@ -28728,7 +28728,7 @@ export function bootstrap(
         ["200", z.array(s_simple_user)],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -28738,12 +28738,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposAddUserAccessRestrictionsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposAddUserAccessRestrictionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -28753,7 +28753,7 @@ export function bootstrap(
       ctx.body = reposAddUserAccessRestrictionsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposSetUserAccessRestrictionsParamSchema = z.object({
@@ -28773,7 +28773,7 @@ export function bootstrap(
         ["200", z.array(s_simple_user)],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -28783,12 +28783,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposSetUserAccessRestrictionsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposSetUserAccessRestrictionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -28798,7 +28798,7 @@ export function bootstrap(
       ctx.body = reposSetUserAccessRestrictionsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposRemoveUserAccessRestrictionsParamSchema = z.object({
@@ -28818,7 +28818,7 @@ export function bootstrap(
         ["200", z.array(s_simple_user)],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -28828,12 +28828,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposRemoveUserAccessRestrictionsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposRemoveUserAccessRestrictionsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -28842,11 +28842,11 @@ export function bootstrap(
 
       ctx.body = reposRemoveUserAccessRestrictionsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposRenameBranchParamSchema = z.object({
@@ -28864,7 +28864,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -28879,13 +28879,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposRenameBranch(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposRenameBranchResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const checksCreateParamSchema = z.object({
@@ -28900,7 +28900,7 @@ export function bootstrap(
 
   const checksCreateResponseValidator = responseValidationFactory(
     [["201", s_check_run]],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -28918,7 +28918,7 @@ export function bootstrap(
       ctx.body = checksCreateResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const checksGetParamSchema = z.object({
@@ -28929,7 +28929,7 @@ export function bootstrap(
 
   const checksGetResponseValidator = responseValidationFactory(
     [["200", s_check_run]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -28947,7 +28947,7 @@ export function bootstrap(
       ctx.body = checksGetResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const checksUpdateParamSchema = z.object({
@@ -28992,7 +28992,7 @@ export function bootstrap(
               message: z.coerce.string(),
               title: z.coerce.string().optional(),
               raw_details: z.coerce.string().optional(),
-            })
+            }),
           )
           .optional(),
         images: z
@@ -29001,7 +29001,7 @@ export function bootstrap(
               alt: z.coerce.string(),
               image_url: z.coerce.string(),
               caption: z.coerce.string().optional(),
-            })
+            }),
           )
           .optional(),
       })
@@ -29012,14 +29012,14 @@ export function bootstrap(
           label: z.coerce.string(),
           description: z.coerce.string(),
           identifier: z.coerce.string(),
-        })
+        }),
       )
       .optional(),
   })
 
   const checksUpdateResponseValidator = responseValidationFactory(
     [["200", s_check_run]],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -29037,7 +29037,7 @@ export function bootstrap(
       ctx.body = checksUpdateResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const checksListAnnotationsParamSchema = z.object({
@@ -29053,7 +29053,7 @@ export function bootstrap(
 
   const checksListAnnotationsResponseValidator = responseValidationFactory(
     [["200", z.array(s_check_annotation)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -29068,13 +29068,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.checksListAnnotations(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = checksListAnnotationsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const checksRerequestRunParamSchema = z.object({
@@ -29090,7 +29090,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -29105,13 +29105,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.checksRerequestRun(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = checksRerequestRunResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const checksCreateSuiteParamSchema = z.object({
@@ -29126,7 +29126,7 @@ export function bootstrap(
       ["200", s_check_suite],
       ["201", s_check_suite],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -29141,13 +29141,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.checksCreateSuite(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = checksCreateSuiteResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const checksSetSuitesPreferencesParamSchema = z.object({
@@ -29158,14 +29158,14 @@ export function bootstrap(
   const checksSetSuitesPreferencesBodySchema = z.object({
     auto_trigger_checks: z
       .array(
-        z.object({ app_id: z.coerce.number(), setting: z.coerce.boolean() })
+        z.object({ app_id: z.coerce.number(), setting: z.coerce.boolean() }),
       )
       .optional(),
   })
 
   const checksSetSuitesPreferencesResponseValidator = responseValidationFactory(
     [["200", s_check_suite_preference]],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -29175,24 +29175,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           checksSetSuitesPreferencesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           checksSetSuitesPreferencesBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.checksSetSuitesPreferences(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = checksSetSuitesPreferencesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const checksGetSuiteParamSchema = z.object({
@@ -29203,7 +29203,7 @@ export function bootstrap(
 
   const checksGetSuiteResponseValidator = responseValidationFactory(
     [["200", s_check_suite]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -29221,7 +29221,7 @@ export function bootstrap(
       ctx.body = checksGetSuiteResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const checksListForSuiteParamSchema = z.object({
@@ -29248,7 +29248,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -29263,13 +29263,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.checksListForSuite(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = checksListForSuiteResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const checksRerequestSuiteParamSchema = z.object({
@@ -29280,7 +29280,7 @@ export function bootstrap(
 
   const checksRerequestSuiteResponseValidator = responseValidationFactory(
     [["201", s_empty_object]],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -29295,13 +29295,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.checksRerequestSuite(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = checksRerequestSuiteResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codeScanningListAlertsForRepoParamSchema = z.object({
@@ -29337,7 +29337,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -29347,11 +29347,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codeScanningListAlertsForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           codeScanningListAlertsForRepoQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -29362,7 +29362,7 @@ export function bootstrap(
       ctx.body = codeScanningListAlertsForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codeScanningGetAlertParamSchema = z.object({
@@ -29386,7 +29386,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -29401,13 +29401,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.codeScanningGetAlert(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = codeScanningGetAlertResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codeScanningUpdateAlertParamSchema = z.object({
@@ -29436,7 +29436,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -29446,24 +29446,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codeScanningUpdateAlertParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           codeScanningUpdateAlertBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.codeScanningUpdateAlert(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = codeScanningUpdateAlertResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codeScanningListAlertInstancesParamSchema = z.object({
@@ -29493,7 +29493,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -29503,11 +29503,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codeScanningListAlertInstancesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           codeScanningListAlertInstancesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -29518,7 +29518,7 @@ export function bootstrap(
       ctx.body = codeScanningListAlertInstancesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codeScanningListRecentAnalysesParamSchema = z.object({
@@ -29552,7 +29552,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -29562,11 +29562,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codeScanningListRecentAnalysesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           codeScanningListRecentAnalysesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -29577,7 +29577,7 @@ export function bootstrap(
       ctx.body = codeScanningListRecentAnalysesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codeScanningGetAnalysisParamSchema = z.object({
@@ -29600,7 +29600,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -29610,7 +29610,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codeScanningGetAnalysisParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -29618,13 +29618,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.codeScanningGetAnalysis(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = codeScanningGetAnalysisResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codeScanningDeleteAnalysisParamSchema = z.object({
@@ -29652,7 +29652,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -29662,24 +29662,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codeScanningDeleteAnalysisParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           codeScanningDeleteAnalysisQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.codeScanningDeleteAnalysis(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = codeScanningDeleteAnalysisResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codeScanningListCodeqlDatabasesParamSchema = z.object({
@@ -29702,7 +29702,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -29712,7 +29712,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codeScanningListCodeqlDatabasesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -29724,7 +29724,7 @@ export function bootstrap(
       ctx.body = codeScanningListCodeqlDatabasesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codeScanningGetCodeqlDatabaseParamSchema = z.object({
@@ -29749,7 +29749,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -29759,7 +29759,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codeScanningGetCodeqlDatabaseParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -29771,7 +29771,7 @@ export function bootstrap(
       ctx.body = codeScanningGetCodeqlDatabaseResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codeScanningGetDefaultSetupParamSchema = z.object({
@@ -29794,7 +29794,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -29804,7 +29804,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codeScanningGetDefaultSetupParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -29812,13 +29812,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.codeScanningGetDefaultSetup(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = codeScanningGetDefaultSetupResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codeScanningUpdateDefaultSetupParamSchema = z.object({
@@ -29846,7 +29846,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.patch(
@@ -29856,12 +29856,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codeScanningUpdateDefaultSetupParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           codeScanningUpdateDefaultSetupBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -29871,7 +29871,7 @@ export function bootstrap(
       ctx.body = codeScanningUpdateDefaultSetupResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codeScanningUploadSarifParamSchema = z.object({
@@ -29905,7 +29905,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -29915,24 +29915,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codeScanningUploadSarifParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           codeScanningUploadSarifBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.codeScanningUploadSarif(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = codeScanningUploadSarifResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codeScanningGetSarifParamSchema = z.object({
@@ -29955,7 +29955,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -29970,13 +29970,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.codeScanningGetSarif(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = codeScanningGetSarifResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCodeownersErrorsParamSchema = z.object({
@@ -29993,7 +29993,7 @@ export function bootstrap(
       ["200", s_codeowners_errors],
       ["404", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -30008,13 +30008,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposCodeownersErrors(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposCodeownersErrorsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesListInRepositoryForAuthenticatedUserParamSchema = z.object({
@@ -30042,7 +30042,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -30052,11 +30052,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesListInRepositoryForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           codespacesListInRepositoryForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -30064,17 +30064,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.codespacesListInRepositoryForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         codespacesListInRepositoryForAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesCreateWithRepoForAuthenticatedUserParamSchema = z.object({
@@ -30118,7 +30118,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -30128,28 +30128,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesCreateWithRepoForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesCreateWithRepoForAuthenticatedUserBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.codespacesCreateWithRepoForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = codespacesCreateWithRepoForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesListDevcontainersInRepositoryForAuthenticatedUserParamSchema =
@@ -30173,7 +30173,7 @@ export function bootstrap(
                 path: z.coerce.string(),
                 name: z.coerce.string().optional(),
                 display_name: z.coerce.string().optional(),
-              })
+              }),
             ),
           }),
         ],
@@ -30183,7 +30183,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -30193,11 +30193,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesListDevcontainersInRepositoryForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           codespacesListDevcontainersInRepositoryForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -30205,17 +30205,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.codespacesListDevcontainersInRepositoryForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         codespacesListDevcontainersInRepositoryForAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesRepoMachinesForAuthenticatedUserParamSchema = z.object({
@@ -30244,7 +30244,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -30254,11 +30254,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesRepoMachinesForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           codespacesRepoMachinesForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -30266,16 +30266,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.codespacesRepoMachinesForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = codespacesRepoMachinesForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesPreFlightWithRepoForAuthenticatedUserParamSchema = z.object({
@@ -30307,7 +30307,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -30317,11 +30317,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesPreFlightWithRepoForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           codespacesPreFlightWithRepoForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -30329,17 +30329,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.codespacesPreFlightWithRepoForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         codespacesPreFlightWithRepoForAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesListRepoSecretsParamSchema = z.object({
@@ -30362,7 +30362,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -30372,24 +30372,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesListRepoSecretsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           codespacesListRepoSecretsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.codespacesListRepoSecrets(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = codespacesListRepoSecretsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesGetRepoPublicKeyParamSchema = z.object({
@@ -30399,7 +30399,7 @@ export function bootstrap(
 
   const codespacesGetRepoPublicKeyResponseValidator = responseValidationFactory(
     [["200", s_codespaces_public_key]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -30409,7 +30409,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesGetRepoPublicKeyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -30417,13 +30417,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.codespacesGetRepoPublicKey(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = codespacesGetRepoPublicKeyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesGetRepoSecretParamSchema = z.object({
@@ -30434,7 +30434,7 @@ export function bootstrap(
 
   const codespacesGetRepoSecretResponseValidator = responseValidationFactory(
     [["200", s_repo_codespaces_secret]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -30444,7 +30444,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesGetRepoSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -30452,13 +30452,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.codespacesGetRepoSecret(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = codespacesGetRepoSecretResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesCreateOrUpdateRepoSecretParamSchema = z.object({
@@ -30478,7 +30478,7 @@ export function bootstrap(
         ["201", s_empty_object],
         ["204", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -30488,12 +30488,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesCreateOrUpdateRepoSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesCreateOrUpdateRepoSecretBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -30502,11 +30502,11 @@ export function bootstrap(
 
       ctx.body = codespacesCreateOrUpdateRepoSecretResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesDeleteRepoSecretParamSchema = z.object({
@@ -30517,7 +30517,7 @@ export function bootstrap(
 
   const codespacesDeleteRepoSecretResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -30527,7 +30527,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesDeleteRepoSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -30535,13 +30535,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.codespacesDeleteRepoSecret(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = codespacesDeleteRepoSecretResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListCollaboratorsParamSchema = z.object({
@@ -30563,7 +30563,7 @@ export function bootstrap(
       ["200", z.array(s_collaborator)],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -30573,7 +30573,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposListCollaboratorsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(reposListCollaboratorsQuerySchema, ctx.query),
         body: undefined,
@@ -30581,13 +30581,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposListCollaborators(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposListCollaboratorsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCheckCollaboratorParamSchema = z.object({
@@ -30601,7 +30601,7 @@ export function bootstrap(
       ["204", z.void()],
       ["404", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -30611,7 +30611,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposCheckCollaboratorParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -30619,13 +30619,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposCheckCollaborator(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposCheckCollaboratorResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposAddCollaboratorParamSchema = z.object({
@@ -30645,7 +30645,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.put(
@@ -30657,19 +30657,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposAddCollaboratorBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposAddCollaborator(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposAddCollaboratorResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposRemoveCollaboratorParamSchema = z.object({
@@ -30680,7 +30680,7 @@ export function bootstrap(
 
   const reposRemoveCollaboratorResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -30690,7 +30690,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposRemoveCollaboratorParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -30698,13 +30698,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposRemoveCollaborator(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposRemoveCollaboratorResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetCollaboratorPermissionLevelParamSchema = z.object({
@@ -30719,7 +30719,7 @@ export function bootstrap(
         ["200", s_repository_collaborator_permission],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -30729,7 +30729,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetCollaboratorPermissionLevelParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -30740,11 +30740,11 @@ export function bootstrap(
 
       ctx.body = reposGetCollaboratorPermissionLevelResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListCommitCommentsForRepoParamSchema = z.object({
@@ -30767,11 +30767,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposListCommitCommentsForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           reposListCommitCommentsForRepoQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -30782,7 +30782,7 @@ export function bootstrap(
       ctx.body = reposListCommitCommentsForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetCommitCommentParamSchema = z.object({
@@ -30796,7 +30796,7 @@ export function bootstrap(
       ["200", s_commit_comment],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -30811,13 +30811,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetCommitComment(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetCommitCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposUpdateCommitCommentParamSchema = z.object({
@@ -30835,7 +30835,7 @@ export function bootstrap(
       ["200", s_commit_comment],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -30845,24 +30845,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposUpdateCommitCommentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposUpdateCommitCommentBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposUpdateCommitComment(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposUpdateCommitCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDeleteCommitCommentParamSchema = z.object({
@@ -30876,7 +30876,7 @@ export function bootstrap(
       ["204", z.void()],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -30886,7 +30886,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposDeleteCommitCommentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -30894,13 +30894,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposDeleteCommitComment(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposDeleteCommitCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsListForCommitCommentParamSchema = z.object({
@@ -30932,7 +30932,7 @@ export function bootstrap(
         ["200", z.array(s_reaction)],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -30942,11 +30942,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsListForCommitCommentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           reactionsListForCommitCommentQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -30957,7 +30957,7 @@ export function bootstrap(
       ctx.body = reactionsListForCommitCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsCreateForCommitCommentParamSchema = z.object({
@@ -30986,7 +30986,7 @@ export function bootstrap(
         ["201", s_reaction],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -30996,12 +30996,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsCreateForCommitCommentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForCommitCommentBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -31011,7 +31011,7 @@ export function bootstrap(
       ctx.body = reactionsCreateForCommitCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsDeleteForCommitCommentParamSchema = z.object({
@@ -31031,7 +31031,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsDeleteForCommitCommentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -31043,7 +31043,7 @@ export function bootstrap(
       ctx.body = reactionsDeleteForCommitCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListCommitsParamSchema = z.object({
@@ -31070,7 +31070,7 @@ export function bootstrap(
       ["409", s_basic_error],
       ["500", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -31088,7 +31088,7 @@ export function bootstrap(
       ctx.body = reposListCommitsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListBranchesForHeadCommitParamSchema = z.object({
@@ -31103,7 +31103,7 @@ export function bootstrap(
         ["200", z.array(s_branch_short)],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -31113,7 +31113,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposListBranchesForHeadCommitParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -31125,7 +31125,7 @@ export function bootstrap(
       ctx.body = reposListBranchesForHeadCommitResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListCommentsForCommitParamSchema = z.object({
@@ -31141,7 +31141,7 @@ export function bootstrap(
 
   const reposListCommentsForCommitResponseValidator = responseValidationFactory(
     [["200", z.array(s_commit_comment)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -31151,24 +31151,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposListCommentsForCommitParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           reposListCommentsForCommitQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.reposListCommentsForCommit(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposListCommentsForCommitResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreateCommitCommentParamSchema = z.object({
@@ -31190,7 +31190,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -31200,24 +31200,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposCreateCommitCommentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateCommitCommentBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposCreateCommitComment(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposCreateCommitCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListPullRequestsAssociatedWithCommitParamSchema = z.object({
@@ -31234,7 +31234,7 @@ export function bootstrap(
   const reposListPullRequestsAssociatedWithCommitResponseValidator =
     responseValidationFactory(
       [["200", z.array(s_pull_request_simple)]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -31244,11 +31244,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposListPullRequestsAssociatedWithCommitParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           reposListPullRequestsAssociatedWithCommitQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -31256,16 +31256,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.reposListPullRequestsAssociatedWithCommit(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = reposListPullRequestsAssociatedWithCommitResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetCommitParamSchema = z.object({
@@ -31294,7 +31294,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -31312,7 +31312,7 @@ export function bootstrap(
       ctx.body = reposGetCommitResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const checksListForRefParamSchema = z.object({
@@ -31340,7 +31340,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -31358,7 +31358,7 @@ export function bootstrap(
       ctx.body = checksListForRefResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const checksListSuitesForRefParamSchema = z.object({
@@ -31384,7 +31384,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -31394,7 +31394,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           checksListSuitesForRefParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(checksListSuitesForRefQuerySchema, ctx.query),
         body: undefined,
@@ -31402,13 +31402,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.checksListSuitesForRef(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = checksListSuitesForRefResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetCombinedStatusForRefParamSchema = z.object({
@@ -31428,7 +31428,7 @@ export function bootstrap(
         ["200", s_combined_commit_status],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -31438,11 +31438,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetCombinedStatusForRefParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           reposGetCombinedStatusForRefQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -31453,7 +31453,7 @@ export function bootstrap(
       ctx.body = reposGetCombinedStatusForRefResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListCommitStatusesForRefParamSchema = z.object({
@@ -31473,7 +31473,7 @@ export function bootstrap(
         ["200", z.array(s_status)],
         ["301", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -31483,11 +31483,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposListCommitStatusesForRefParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           reposListCommitStatusesForRefQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -31498,7 +31498,7 @@ export function bootstrap(
       ctx.body = reposListCommitStatusesForRefResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetCommunityProfileMetricsParamSchema = z.object({
@@ -31516,7 +31516,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetCommunityProfileMetricsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -31528,7 +31528,7 @@ export function bootstrap(
       ctx.body = reposGetCommunityProfileMetricsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCompareCommitsParamSchema = z.object({
@@ -31556,7 +31556,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -31571,13 +31571,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposCompareCommits(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposCompareCommitsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetContentParamSchema = z.object({
@@ -31605,7 +31605,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -31623,7 +31623,7 @@ export function bootstrap(
       ctx.body = reposGetContentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreateOrUpdateFileContentsParamSchema = z.object({
@@ -31662,7 +31662,7 @@ export function bootstrap(
         ["409", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -31672,12 +31672,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposCreateOrUpdateFileContentsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateOrUpdateFileContentsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -31687,7 +31687,7 @@ export function bootstrap(
       ctx.body = reposCreateOrUpdateFileContentsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDeleteFileParamSchema = z.object({
@@ -31729,7 +31729,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -31747,7 +31747,7 @@ export function bootstrap(
       ctx.body = reposDeleteFileResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListContributorsParamSchema = z.object({
@@ -31768,7 +31768,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -31783,13 +31783,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposListContributors(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposListContributorsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const dependabotListAlertsForRepoParamSchema = z.object({
@@ -31824,7 +31824,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error_simple],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -31834,24 +31834,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           dependabotListAlertsForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           dependabotListAlertsForRepoQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.dependabotListAlertsForRepo(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = dependabotListAlertsForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const dependabotGetAlertParamSchema = z.object({
@@ -31867,7 +31867,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -31882,13 +31882,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.dependabotGetAlert(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = dependabotGetAlertResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const dependabotUpdateAlertParamSchema = z.object({
@@ -31920,7 +31920,7 @@ export function bootstrap(
       ["409", s_basic_error],
       ["422", s_validation_error_simple],
     ],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -31932,19 +31932,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           dependabotUpdateAlertBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.dependabotUpdateAlert(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = dependabotUpdateAlertResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const dependabotListRepoSecretsParamSchema = z.object({
@@ -31967,7 +31967,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -31977,24 +31977,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           dependabotListRepoSecretsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           dependabotListRepoSecretsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.dependabotListRepoSecrets(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = dependabotListRepoSecretsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const dependabotGetRepoPublicKeyParamSchema = z.object({
@@ -32004,7 +32004,7 @@ export function bootstrap(
 
   const dependabotGetRepoPublicKeyResponseValidator = responseValidationFactory(
     [["200", s_dependabot_public_key]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -32014,7 +32014,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           dependabotGetRepoPublicKeyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -32022,13 +32022,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.dependabotGetRepoPublicKey(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = dependabotGetRepoPublicKeyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const dependabotGetRepoSecretParamSchema = z.object({
@@ -32039,7 +32039,7 @@ export function bootstrap(
 
   const dependabotGetRepoSecretResponseValidator = responseValidationFactory(
     [["200", s_dependabot_secret]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -32049,7 +32049,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           dependabotGetRepoSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -32057,13 +32057,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.dependabotGetRepoSecret(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = dependabotGetRepoSecretResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const dependabotCreateOrUpdateRepoSecretParamSchema = z.object({
@@ -32083,7 +32083,7 @@ export function bootstrap(
         ["201", s_empty_object],
         ["204", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -32093,12 +32093,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           dependabotCreateOrUpdateRepoSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           dependabotCreateOrUpdateRepoSecretBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -32107,11 +32107,11 @@ export function bootstrap(
 
       ctx.body = dependabotCreateOrUpdateRepoSecretResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const dependabotDeleteRepoSecretParamSchema = z.object({
@@ -32122,7 +32122,7 @@ export function bootstrap(
 
   const dependabotDeleteRepoSecretResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -32132,7 +32132,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           dependabotDeleteRepoSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -32140,13 +32140,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.dependabotDeleteRepoSecret(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = dependabotDeleteRepoSecretResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const dependencyGraphDiffRangeParamSchema = z.object({
@@ -32165,7 +32165,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -32175,24 +32175,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           dependencyGraphDiffRangeParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           dependencyGraphDiffRangeQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.dependencyGraphDiffRange(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = dependencyGraphDiffRangeResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const dependencyGraphExportSbomParamSchema = z.object({
@@ -32206,7 +32206,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -32216,7 +32216,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           dependencyGraphExportSbomParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -32224,13 +32224,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.dependencyGraphExportSbom(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = dependencyGraphExportSbomResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const dependencyGraphCreateRepositorySnapshotParamSchema = z.object({
@@ -32253,7 +32253,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -32263,12 +32263,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           dependencyGraphCreateRepositorySnapshotParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           dependencyGraphCreateRepositorySnapshotBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -32277,11 +32277,11 @@ export function bootstrap(
 
       ctx.body = dependencyGraphCreateRepositorySnapshotResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListDeploymentsParamSchema = z.object({
@@ -32300,7 +32300,7 @@ export function bootstrap(
 
   const reposListDeploymentsResponseValidator = responseValidationFactory(
     [["200", z.array(s_deployment)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -32315,13 +32315,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposListDeployments(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposListDeploymentsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreateDeploymentParamSchema = z.object({
@@ -32348,7 +32348,7 @@ export function bootstrap(
       ["409", z.void()],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -32360,19 +32360,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposCreateDeploymentBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposCreateDeployment(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposCreateDeploymentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetDeploymentParamSchema = z.object({
@@ -32386,7 +32386,7 @@ export function bootstrap(
       ["200", s_deployment],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -32401,13 +32401,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetDeployment(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetDeploymentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDeleteDeploymentParamSchema = z.object({
@@ -32422,7 +32422,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error_simple],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -32437,13 +32437,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposDeleteDeployment(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposDeleteDeploymentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListDeploymentStatusesParamSchema = z.object({
@@ -32463,7 +32463,7 @@ export function bootstrap(
         ["200", z.array(s_deployment_status)],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -32473,24 +32473,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposListDeploymentStatusesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           reposListDeploymentStatusesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.reposListDeploymentStatuses(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposListDeploymentStatusesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreateDeploymentStatusParamSchema = z.object({
@@ -32523,7 +32523,7 @@ export function bootstrap(
         ["201", s_deployment_status],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -32533,24 +32533,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposCreateDeploymentStatusParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateDeploymentStatusBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposCreateDeploymentStatus(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposCreateDeploymentStatusResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetDeploymentStatusParamSchema = z.object({
@@ -32565,7 +32565,7 @@ export function bootstrap(
       ["200", s_deployment_status],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -32575,7 +32575,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetDeploymentStatusParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -32583,13 +32583,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetDeploymentStatus(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetDeploymentStatusResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreateDispatchEventParamSchema = z.object({
@@ -32607,7 +32607,7 @@ export function bootstrap(
       ["204", z.void()],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -32617,24 +32617,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposCreateDispatchEventParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateDispatchEventBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposCreateDispatchEvent(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposCreateDispatchEventResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetAllEnvironmentsParamSchema = z.object({
@@ -32657,7 +32657,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -32667,7 +32667,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetAllEnvironmentsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(reposGetAllEnvironmentsQuerySchema, ctx.query),
         body: undefined,
@@ -32675,13 +32675,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetAllEnvironments(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetAllEnvironmentsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetEnvironmentParamSchema = z.object({
@@ -32692,7 +32692,7 @@ export function bootstrap(
 
   const reposGetEnvironmentResponseValidator = responseValidationFactory(
     [["200", s_environment]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -32707,13 +32707,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetEnvironment(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetEnvironmentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreateOrUpdateEnvironmentParamSchema = z.object({
@@ -32730,7 +32730,7 @@ export function bootstrap(
           z.object({
             type: s_deployment_reviewer_type,
             id: z.coerce.number().optional(),
-          })
+          }),
         )
         .optional()
         .nullable(),
@@ -32745,7 +32745,7 @@ export function bootstrap(
         ["200", s_environment],
         ["422", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -32755,12 +32755,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposCreateOrUpdateEnvironmentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateOrUpdateEnvironmentBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -32770,7 +32770,7 @@ export function bootstrap(
       ctx.body = reposCreateOrUpdateEnvironmentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDeleteAnEnvironmentParamSchema = z.object({
@@ -32781,7 +32781,7 @@ export function bootstrap(
 
   const reposDeleteAnEnvironmentResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -32791,7 +32791,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposDeleteAnEnvironmentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -32799,13 +32799,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposDeleteAnEnvironment(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposDeleteAnEnvironmentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListDeploymentBranchPoliciesParamSchema = z.object({
@@ -32830,7 +32830,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -32840,11 +32840,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposListDeploymentBranchPoliciesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           reposListDeploymentBranchPoliciesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -32854,11 +32854,11 @@ export function bootstrap(
 
       ctx.body = reposListDeploymentBranchPoliciesResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreateDeploymentBranchPolicyParamSchema = z.object({
@@ -32877,7 +32877,7 @@ export function bootstrap(
         ["303", z.void()],
         ["404", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -32887,12 +32887,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposCreateDeploymentBranchPolicyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateDeploymentBranchPolicyBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -32901,11 +32901,11 @@ export function bootstrap(
 
       ctx.body = reposCreateDeploymentBranchPolicyResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetDeploymentBranchPolicyParamSchema = z.object({
@@ -32925,7 +32925,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetDeploymentBranchPolicyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -32937,7 +32937,7 @@ export function bootstrap(
       ctx.body = reposGetDeploymentBranchPolicyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposUpdateDeploymentBranchPolicyParamSchema = z.object({
@@ -32960,12 +32960,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposUpdateDeploymentBranchPolicyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposUpdateDeploymentBranchPolicyBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -32974,11 +32974,11 @@ export function bootstrap(
 
       ctx.body = reposUpdateDeploymentBranchPolicyResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDeleteDeploymentBranchPolicyParamSchema = z.object({
@@ -32998,7 +32998,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposDeleteDeploymentBranchPolicyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -33009,11 +33009,11 @@ export function bootstrap(
 
       ctx.body = reposDeleteDeploymentBranchPolicyResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetAllDeploymentProtectionRulesParamSchema = z.object({
@@ -33035,7 +33035,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -33045,7 +33045,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetAllDeploymentProtectionRulesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -33056,11 +33056,11 @@ export function bootstrap(
 
       ctx.body = reposGetAllDeploymentProtectionRulesResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreateDeploymentProtectionRuleParamSchema = z.object({
@@ -33076,7 +33076,7 @@ export function bootstrap(
   const reposCreateDeploymentProtectionRuleResponseValidator =
     responseValidationFactory(
       [["201", s_deployment_protection_rule]],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -33086,12 +33086,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposCreateDeploymentProtectionRuleParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateDeploymentProtectionRuleBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -33100,11 +33100,11 @@ export function bootstrap(
 
       ctx.body = reposCreateDeploymentProtectionRuleResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListCustomDeploymentRuleIntegrationsParamSchema = z.object({
@@ -33131,7 +33131,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -33141,11 +33141,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposListCustomDeploymentRuleIntegrationsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           reposListCustomDeploymentRuleIntegrationsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -33153,16 +33153,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.reposListCustomDeploymentRuleIntegrations(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = reposListCustomDeploymentRuleIntegrationsResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetCustomDeploymentProtectionRuleParamSchema = z.object({
@@ -33175,7 +33175,7 @@ export function bootstrap(
   const reposGetCustomDeploymentProtectionRuleResponseValidator =
     responseValidationFactory(
       [["200", s_deployment_protection_rule]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -33185,7 +33185,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetCustomDeploymentProtectionRuleParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -33196,11 +33196,11 @@ export function bootstrap(
 
       ctx.body = reposGetCustomDeploymentProtectionRuleResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDisableDeploymentProtectionRuleParamSchema = z.object({
@@ -33220,7 +33220,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposDisableDeploymentProtectionRuleParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -33231,11 +33231,11 @@ export function bootstrap(
 
       ctx.body = reposDisableDeploymentProtectionRuleResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityListRepoEventsParamSchema = z.object({
@@ -33250,7 +33250,7 @@ export function bootstrap(
 
   const activityListRepoEventsResponseValidator = responseValidationFactory(
     [["200", z.array(s_event)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -33260,7 +33260,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityListRepoEventsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(activityListRepoEventsQuerySchema, ctx.query),
         body: undefined,
@@ -33268,13 +33268,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.activityListRepoEvents(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = activityListRepoEventsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListForksParamSchema = z.object({
@@ -33293,7 +33293,7 @@ export function bootstrap(
       ["200", z.array(s_minimal_repository)],
       ["400", s_scim_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -33311,7 +33311,7 @@ export function bootstrap(
       ctx.body = reposListForksResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreateForkParamSchema = z.object({
@@ -33336,7 +33336,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -33354,7 +33354,7 @@ export function bootstrap(
       ctx.body = reposCreateForkResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gitCreateBlobParamSchema = z.object({
@@ -33375,7 +33375,7 @@ export function bootstrap(
       ["409", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -33393,7 +33393,7 @@ export function bootstrap(
       ctx.body = gitCreateBlobResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gitGetBlobParamSchema = z.object({
@@ -33409,7 +33409,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -33427,7 +33427,7 @@ export function bootstrap(
       ctx.body = gitGetBlobResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gitCreateCommitParamSchema = z.object({
@@ -33462,7 +33462,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -33480,7 +33480,7 @@ export function bootstrap(
       ctx.body = gitCreateCommitResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gitGetCommitParamSchema = z.object({
@@ -33494,7 +33494,7 @@ export function bootstrap(
       ["200", s_git_commit],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -33512,7 +33512,7 @@ export function bootstrap(
       ctx.body = gitGetCommitResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gitListMatchingRefsParamSchema = z.object({
@@ -33523,7 +33523,7 @@ export function bootstrap(
 
   const gitListMatchingRefsResponseValidator = responseValidationFactory(
     [["200", z.array(s_git_ref)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -33538,13 +33538,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.gitListMatchingRefs(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = gitListMatchingRefsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gitGetRefParamSchema = z.object({
@@ -33558,7 +33558,7 @@ export function bootstrap(
       ["200", s_git_ref],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -33576,7 +33576,7 @@ export function bootstrap(
       ctx.body = gitGetRefResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gitCreateRefParamSchema = z.object({
@@ -33594,7 +33594,7 @@ export function bootstrap(
       ["201", s_git_ref],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -33612,7 +33612,7 @@ export function bootstrap(
       ctx.body = gitCreateRefResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gitUpdateRefParamSchema = z.object({
@@ -33631,7 +33631,7 @@ export function bootstrap(
       ["200", s_git_ref],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -33649,7 +33649,7 @@ export function bootstrap(
       ctx.body = gitUpdateRefResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gitDeleteRefParamSchema = z.object({
@@ -33663,7 +33663,7 @@ export function bootstrap(
       ["204", z.void()],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -33681,7 +33681,7 @@ export function bootstrap(
       ctx.body = gitDeleteRefResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gitCreateTagParamSchema = z.object({
@@ -33708,7 +33708,7 @@ export function bootstrap(
       ["201", s_git_tag],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -33726,7 +33726,7 @@ export function bootstrap(
       ctx.body = gitCreateTagResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gitGetTagParamSchema = z.object({
@@ -33740,7 +33740,7 @@ export function bootstrap(
       ["200", s_git_tag],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -33758,7 +33758,7 @@ export function bootstrap(
       ctx.body = gitGetTagResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gitCreateTreeParamSchema = z.object({
@@ -33776,7 +33776,7 @@ export function bootstrap(
         type: z.enum(["blob", "tree", "commit"]).optional(),
         sha: z.coerce.string().optional().nullable(),
         content: z.coerce.string().optional(),
-      })
+      }),
     ),
     base_tree: z.coerce.string().optional(),
   })
@@ -33788,7 +33788,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -33806,7 +33806,7 @@ export function bootstrap(
       ctx.body = gitCreateTreeResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gitGetTreeParamSchema = z.object({
@@ -33825,7 +33825,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -33843,7 +33843,7 @@ export function bootstrap(
       ctx.body = gitGetTreeResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListWebhooksParamSchema = z.object({
@@ -33861,7 +33861,7 @@ export function bootstrap(
       ["200", z.array(s_hook)],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -33876,13 +33876,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposListWebhooks(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposListWebhooksResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreateWebhookParamSchema = z.object({
@@ -33916,7 +33916,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -33931,13 +33931,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposCreateWebhook(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposCreateWebhookResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetWebhookParamSchema = z.object({
@@ -33951,7 +33951,7 @@ export function bootstrap(
       ["200", s_hook],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -33969,7 +33969,7 @@ export function bootstrap(
       ctx.body = reposGetWebhookResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposUpdateWebhookParamSchema = z.object({
@@ -34001,7 +34001,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -34016,13 +34016,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposUpdateWebhook(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposUpdateWebhookResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDeleteWebhookParamSchema = z.object({
@@ -34036,7 +34036,7 @@ export function bootstrap(
       ["204", z.void()],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -34051,13 +34051,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposDeleteWebhook(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposDeleteWebhookResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetWebhookConfigForRepoParamSchema = z.object({
@@ -34076,7 +34076,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetWebhookConfigForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -34088,7 +34088,7 @@ export function bootstrap(
       ctx.body = reposGetWebhookConfigForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposUpdateWebhookConfigForRepoParamSchema = z.object({
@@ -34116,12 +34116,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposUpdateWebhookConfigForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposUpdateWebhookConfigForRepoBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -34131,7 +34131,7 @@ export function bootstrap(
       ctx.body = reposUpdateWebhookConfigForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListWebhookDeliveriesParamSchema = z.object({
@@ -34152,7 +34152,7 @@ export function bootstrap(
       ["400", s_scim_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -34162,24 +34162,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposListWebhookDeliveriesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           reposListWebhookDeliveriesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.reposListWebhookDeliveries(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposListWebhookDeliveriesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetWebhookDeliveryParamSchema = z.object({
@@ -34195,7 +34195,7 @@ export function bootstrap(
       ["400", s_scim_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -34205,7 +34205,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetWebhookDeliveryParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -34213,13 +34213,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetWebhookDelivery(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetWebhookDeliveryResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposRedeliverWebhookDeliveryParamSchema = z.object({
@@ -34236,7 +34236,7 @@ export function bootstrap(
         ["400", s_scim_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -34246,7 +34246,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposRedeliverWebhookDeliveryParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -34258,7 +34258,7 @@ export function bootstrap(
       ctx.body = reposRedeliverWebhookDeliveryResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposPingWebhookParamSchema = z.object({
@@ -34272,7 +34272,7 @@ export function bootstrap(
       ["204", z.void()],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -34290,7 +34290,7 @@ export function bootstrap(
       ctx.body = reposPingWebhookResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposTestPushWebhookParamSchema = z.object({
@@ -34304,7 +34304,7 @@ export function bootstrap(
       ["204", z.void()],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -34319,13 +34319,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposTestPushWebhook(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposTestPushWebhookResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsGetImportStatusParamSchema = z.object({
@@ -34339,7 +34339,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["503", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -34349,7 +34349,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           migrationsGetImportStatusParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -34357,13 +34357,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.migrationsGetImportStatus(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = migrationsGetImportStatusResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsStartImportParamSchema = z.object({
@@ -34386,7 +34386,7 @@ export function bootstrap(
       ["422", s_validation_error],
       ["503", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.put(
@@ -34398,19 +34398,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           migrationsStartImportBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.migrationsStartImport(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = migrationsStartImportResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsUpdateImportParamSchema = z.object({
@@ -34433,7 +34433,7 @@ export function bootstrap(
       ["200", s_import],
       ["503", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -34443,24 +34443,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           migrationsUpdateImportParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           migrationsUpdateImportBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.migrationsUpdateImport(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = migrationsUpdateImportResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsCancelImportParamSchema = z.object({
@@ -34473,7 +34473,7 @@ export function bootstrap(
       ["204", z.void()],
       ["503", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -34483,7 +34483,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           migrationsCancelImportParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -34491,13 +34491,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.migrationsCancelImport(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = migrationsCancelImportResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsGetCommitAuthorsParamSchema = z.object({
@@ -34515,7 +34515,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["503", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -34525,24 +34525,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           migrationsGetCommitAuthorsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           migrationsGetCommitAuthorsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.migrationsGetCommitAuthors(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = migrationsGetCommitAuthorsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsMapCommitAuthorParamSchema = z.object({
@@ -34565,7 +34565,7 @@ export function bootstrap(
       ["422", s_validation_error],
       ["503", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -34575,24 +34575,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           migrationsMapCommitAuthorParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           migrationsMapCommitAuthorBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.migrationsMapCommitAuthor(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = migrationsMapCommitAuthorResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsGetLargeFilesParamSchema = z.object({
@@ -34605,7 +34605,7 @@ export function bootstrap(
       ["200", z.array(s_porter_large_file)],
       ["503", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -34615,7 +34615,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           migrationsGetLargeFilesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -34623,13 +34623,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.migrationsGetLargeFiles(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = migrationsGetLargeFilesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsSetLfsPreferenceParamSchema = z.object({
@@ -34647,7 +34647,7 @@ export function bootstrap(
       ["422", s_validation_error],
       ["503", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -34657,24 +34657,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           migrationsSetLfsPreferenceParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           migrationsSetLfsPreferenceBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.migrationsSetLfsPreference(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = migrationsSetLfsPreferenceResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsGetRepoInstallationParamSchema = z.object({
@@ -34688,7 +34688,7 @@ export function bootstrap(
       ["301", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -34698,7 +34698,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           appsGetRepoInstallationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -34706,13 +34706,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.appsGetRepoInstallation(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = appsGetRepoInstallationResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const interactionsGetRestrictionsForRepoParamSchema = z.object({
@@ -34723,7 +34723,7 @@ export function bootstrap(
   const interactionsGetRestrictionsForRepoResponseValidator =
     responseValidationFactory(
       [["200", z.union([s_interaction_limit_response, z.object({})])]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -34733,7 +34733,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           interactionsGetRestrictionsForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -34744,11 +34744,11 @@ export function bootstrap(
 
       ctx.body = interactionsGetRestrictionsForRepoResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const interactionsSetRestrictionsForRepoParamSchema = z.object({
@@ -34764,7 +34764,7 @@ export function bootstrap(
         ["200", s_interaction_limit_response],
         ["409", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -34774,12 +34774,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           interactionsSetRestrictionsForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           interactionsSetRestrictionsForRepoBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -34788,11 +34788,11 @@ export function bootstrap(
 
       ctx.body = interactionsSetRestrictionsForRepoResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const interactionsRemoveRestrictionsForRepoParamSchema = z.object({
@@ -34806,7 +34806,7 @@ export function bootstrap(
         ["204", z.void()],
         ["409", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -34816,7 +34816,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           interactionsRemoveRestrictionsForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -34827,11 +34827,11 @@ export function bootstrap(
 
       ctx.body = interactionsRemoveRestrictionsForRepoResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListInvitationsParamSchema = z.object({
@@ -34846,7 +34846,7 @@ export function bootstrap(
 
   const reposListInvitationsResponseValidator = responseValidationFactory(
     [["200", z.array(s_repository_invitation)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -34861,13 +34861,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposListInvitations(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposListInvitationsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposUpdateInvitationParamSchema = z.object({
@@ -34886,7 +34886,7 @@ export function bootstrap(
 
   const reposUpdateInvitationResponseValidator = responseValidationFactory(
     [["200", s_repository_invitation]],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -34898,19 +34898,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposUpdateInvitationBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposUpdateInvitation(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposUpdateInvitationResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDeleteInvitationParamSchema = z.object({
@@ -34921,7 +34921,7 @@ export function bootstrap(
 
   const reposDeleteInvitationResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -34936,13 +34936,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposDeleteInvitation(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposDeleteInvitationResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesListForRepoParamSchema = z.object({
@@ -34971,7 +34971,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -34986,13 +34986,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.issuesListForRepo(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesListForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesCreateParamSchema = z.object({
@@ -35015,7 +35015,7 @@ export function bootstrap(
             description: z.coerce.string().optional().nullable(),
             color: z.coerce.string().optional().nullable(),
           }),
-        ])
+        ]),
       )
       .optional(),
     assignees: z.array(z.coerce.string()).optional(),
@@ -35037,7 +35037,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -35055,7 +35055,7 @@ export function bootstrap(
       ctx.body = issuesCreateResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesListCommentsForRepoParamSchema = z.object({
@@ -35077,7 +35077,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -35087,24 +35087,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           issuesListCommentsForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           issuesListCommentsForRepoQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.issuesListCommentsForRepo(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesListCommentsForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesGetCommentParamSchema = z.object({
@@ -35118,7 +35118,7 @@ export function bootstrap(
       ["200", s_issue_comment],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -35136,7 +35136,7 @@ export function bootstrap(
       ctx.body = issuesGetCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesUpdateCommentParamSchema = z.object({
@@ -35152,7 +35152,7 @@ export function bootstrap(
       ["200", s_issue_comment],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -35164,19 +35164,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           issuesUpdateCommentBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.issuesUpdateComment(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesUpdateCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesDeleteCommentParamSchema = z.object({
@@ -35187,7 +35187,7 @@ export function bootstrap(
 
   const issuesDeleteCommentResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -35202,13 +35202,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.issuesDeleteComment(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesDeleteCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsListForIssueCommentParamSchema = z.object({
@@ -35240,7 +35240,7 @@ export function bootstrap(
         ["200", z.array(s_reaction)],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -35250,11 +35250,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsListForIssueCommentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           reactionsListForIssueCommentQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -35265,7 +35265,7 @@ export function bootstrap(
       ctx.body = reactionsListForIssueCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsCreateForIssueCommentParamSchema = z.object({
@@ -35294,7 +35294,7 @@ export function bootstrap(
         ["201", s_reaction],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -35304,12 +35304,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsCreateForIssueCommentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForIssueCommentBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -35319,7 +35319,7 @@ export function bootstrap(
       ctx.body = reactionsCreateForIssueCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsDeleteForIssueCommentParamSchema = z.object({
@@ -35339,7 +35339,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsDeleteForIssueCommentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -35351,7 +35351,7 @@ export function bootstrap(
       ctx.body = reactionsDeleteForIssueCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesListEventsForRepoParamSchema = z.object({
@@ -35369,7 +35369,7 @@ export function bootstrap(
       ["200", z.array(s_issue_event)],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -35379,7 +35379,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           issuesListEventsForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(issuesListEventsForRepoQuerySchema, ctx.query),
         body: undefined,
@@ -35387,13 +35387,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.issuesListEventsForRepo(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesListEventsForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesGetEventParamSchema = z.object({
@@ -35409,7 +35409,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["410", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -35427,7 +35427,7 @@ export function bootstrap(
       ctx.body = issuesGetEventResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesGetParamSchema = z.object({
@@ -35444,7 +35444,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["410", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -35462,7 +35462,7 @@ export function bootstrap(
       ctx.body = issuesGetResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesUpdateParamSchema = z.object({
@@ -35492,7 +35492,7 @@ export function bootstrap(
               description: z.coerce.string().optional().nullable(),
               color: z.coerce.string().optional().nullable(),
             }),
-          ])
+          ]),
         )
         .optional(),
       assignees: z.array(z.coerce.string()).optional(),
@@ -35516,7 +35516,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -35534,7 +35534,7 @@ export function bootstrap(
       ctx.body = issuesUpdateResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesAddAssigneesParamSchema = z.object({
@@ -35549,7 +35549,7 @@ export function bootstrap(
 
   const issuesAddAssigneesResponseValidator = responseValidationFactory(
     [["201", s_issue]],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -35564,13 +35564,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.issuesAddAssignees(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesAddAssigneesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesRemoveAssigneesParamSchema = z.object({
@@ -35585,7 +35585,7 @@ export function bootstrap(
 
   const issuesRemoveAssigneesResponseValidator = responseValidationFactory(
     [["200", s_issue]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -35597,19 +35597,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           issuesRemoveAssigneesBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.issuesRemoveAssignees(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesRemoveAssigneesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesCheckUserCanBeAssignedToIssueParamSchema = z.object({
@@ -35625,7 +35625,7 @@ export function bootstrap(
         ["204", z.void()],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -35635,7 +35635,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           issuesCheckUserCanBeAssignedToIssueParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -35646,11 +35646,11 @@ export function bootstrap(
 
       ctx.body = issuesCheckUserCanBeAssignedToIssueResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesListCommentsParamSchema = z.object({
@@ -35671,7 +35671,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["410", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -35686,13 +35686,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.issuesListComments(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesListCommentsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesCreateCommentParamSchema = z.object({
@@ -35711,7 +35711,7 @@ export function bootstrap(
       ["410", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -35723,19 +35723,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           issuesCreateCommentBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.issuesCreateComment(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesCreateCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesListEventsParamSchema = z.object({
@@ -35754,7 +35754,7 @@ export function bootstrap(
       ["200", z.array(s_issue_event_for_issue)],
       ["410", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -35772,7 +35772,7 @@ export function bootstrap(
       ctx.body = issuesListEventsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesListLabelsOnIssueParamSchema = z.object({
@@ -35793,7 +35793,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["410", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -35803,7 +35803,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           issuesListLabelsOnIssueParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(issuesListLabelsOnIssueQuerySchema, ctx.query),
         body: undefined,
@@ -35811,13 +35811,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.issuesListLabelsOnIssue(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesListLabelsOnIssueResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesAddLabelsParamSchema = z.object({
@@ -35844,7 +35844,7 @@ export function bootstrap(
       ["410", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -35862,7 +35862,7 @@ export function bootstrap(
       ctx.body = issuesAddLabelsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesSetLabelsParamSchema = z.object({
@@ -35889,7 +35889,7 @@ export function bootstrap(
       ["410", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.put(
@@ -35907,7 +35907,7 @@ export function bootstrap(
       ctx.body = issuesSetLabelsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesRemoveAllLabelsParamSchema = z.object({
@@ -35923,7 +35923,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["410", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -35938,13 +35938,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.issuesRemoveAllLabels(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesRemoveAllLabelsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesRemoveLabelParamSchema = z.object({
@@ -35961,7 +35961,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["410", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -35976,13 +35976,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.issuesRemoveLabel(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesRemoveLabelResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesLockParamSchema = z.object({
@@ -36008,7 +36008,7 @@ export function bootstrap(
       ["410", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.put(
@@ -36026,7 +36026,7 @@ export function bootstrap(
       ctx.body = issuesLockResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesUnlockParamSchema = z.object({
@@ -36041,7 +36041,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -36059,7 +36059,7 @@ export function bootstrap(
       ctx.body = issuesUnlockResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsListForIssueParamSchema = z.object({
@@ -36091,7 +36091,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["410", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -36106,13 +36106,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reactionsListForIssue(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reactionsListForIssueResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsCreateForIssueParamSchema = z.object({
@@ -36140,7 +36140,7 @@ export function bootstrap(
       ["201", s_reaction],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -36150,24 +36150,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsCreateForIssueParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForIssueBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reactionsCreateForIssue(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reactionsCreateForIssueResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsDeleteForIssueParamSchema = z.object({
@@ -36179,7 +36179,7 @@ export function bootstrap(
 
   const reactionsDeleteForIssueResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -36189,7 +36189,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsDeleteForIssueParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -36197,13 +36197,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reactionsDeleteForIssue(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reactionsDeleteForIssueResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesListEventsForTimelineParamSchema = z.object({
@@ -36224,7 +36224,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["410", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -36234,24 +36234,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           issuesListEventsForTimelineParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           issuesListEventsForTimelineQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.issuesListEventsForTimeline(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesListEventsForTimelineResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListDeployKeysParamSchema = z.object({
@@ -36266,7 +36266,7 @@ export function bootstrap(
 
   const reposListDeployKeysResponseValidator = responseValidationFactory(
     [["200", z.array(s_deploy_key)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -36281,13 +36281,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposListDeployKeys(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposListDeployKeysResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreateDeployKeyParamSchema = z.object({
@@ -36306,7 +36306,7 @@ export function bootstrap(
       ["201", s_deploy_key],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -36318,19 +36318,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposCreateDeployKeyBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposCreateDeployKey(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposCreateDeployKeyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetDeployKeyParamSchema = z.object({
@@ -36344,7 +36344,7 @@ export function bootstrap(
       ["200", s_deploy_key],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -36359,13 +36359,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetDeployKey(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetDeployKeyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDeleteDeployKeyParamSchema = z.object({
@@ -36376,7 +36376,7 @@ export function bootstrap(
 
   const reposDeleteDeployKeyResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -36391,13 +36391,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposDeleteDeployKey(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposDeleteDeployKeyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesListLabelsForRepoParamSchema = z.object({
@@ -36415,7 +36415,7 @@ export function bootstrap(
       ["200", z.array(s_label)],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -36425,7 +36425,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           issuesListLabelsForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(issuesListLabelsForRepoQuerySchema, ctx.query),
         body: undefined,
@@ -36433,13 +36433,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.issuesListLabelsForRepo(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesListLabelsForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesCreateLabelParamSchema = z.object({
@@ -36459,7 +36459,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -36474,13 +36474,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.issuesCreateLabel(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesCreateLabelResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesGetLabelParamSchema = z.object({
@@ -36494,7 +36494,7 @@ export function bootstrap(
       ["200", s_label],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -36512,7 +36512,7 @@ export function bootstrap(
       ctx.body = issuesGetLabelResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesUpdateLabelParamSchema = z.object({
@@ -36531,7 +36531,7 @@ export function bootstrap(
 
   const issuesUpdateLabelResponseValidator = responseValidationFactory(
     [["200", s_label]],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -36546,13 +36546,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.issuesUpdateLabel(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesUpdateLabelResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesDeleteLabelParamSchema = z.object({
@@ -36563,7 +36563,7 @@ export function bootstrap(
 
   const issuesDeleteLabelResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -36578,13 +36578,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.issuesDeleteLabel(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesDeleteLabelResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListLanguagesParamSchema = z.object({
@@ -36594,7 +36594,7 @@ export function bootstrap(
 
   const reposListLanguagesResponseValidator = responseValidationFactory(
     [["200", s_language]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -36609,13 +36609,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposListLanguages(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposListLanguagesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposEnableLfsForRepoParamSchema = z.object({
@@ -36628,7 +36628,7 @@ export function bootstrap(
       ["202", z.object({})],
       ["403", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.put(
@@ -36643,13 +36643,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposEnableLfsForRepo(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposEnableLfsForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDisableLfsForRepoParamSchema = z.object({
@@ -36659,7 +36659,7 @@ export function bootstrap(
 
   const reposDisableLfsForRepoResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -36669,7 +36669,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposDisableLfsForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -36677,13 +36677,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposDisableLfsForRepo(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposDisableLfsForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const licensesGetForRepoParamSchema = z.object({
@@ -36693,7 +36693,7 @@ export function bootstrap(
 
   const licensesGetForRepoResponseValidator = responseValidationFactory(
     [["200", s_license_content]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -36708,13 +36708,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.licensesGetForRepo(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = licensesGetForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposMergeUpstreamParamSchema = z.object({
@@ -36730,7 +36730,7 @@ export function bootstrap(
       ["409", z.void()],
       ["422", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -36745,13 +36745,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposMergeUpstream(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposMergeUpstreamResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposMergeParamSchema = z.object({
@@ -36774,7 +36774,7 @@ export function bootstrap(
       ["409", z.void()],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post("reposMerge", "/repos/:owner/:repo/merges", async (ctx, next) => {
@@ -36809,7 +36809,7 @@ export function bootstrap(
       ["200", z.array(s_milestone)],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -36824,13 +36824,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.issuesListMilestones(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesListMilestonesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesCreateMilestoneParamSchema = z.object({
@@ -36851,7 +36851,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -36863,19 +36863,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           issuesCreateMilestoneBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.issuesCreateMilestone(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesCreateMilestoneResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesGetMilestoneParamSchema = z.object({
@@ -36889,7 +36889,7 @@ export function bootstrap(
       ["200", s_milestone],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -36904,13 +36904,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.issuesGetMilestone(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesGetMilestoneResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesUpdateMilestoneParamSchema = z.object({
@@ -36930,7 +36930,7 @@ export function bootstrap(
 
   const issuesUpdateMilestoneResponseValidator = responseValidationFactory(
     [["200", s_milestone]],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -36942,19 +36942,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           issuesUpdateMilestoneBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.issuesUpdateMilestone(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesUpdateMilestoneResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesDeleteMilestoneParamSchema = z.object({
@@ -36968,7 +36968,7 @@ export function bootstrap(
       ["204", z.void()],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -36983,13 +36983,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.issuesDeleteMilestone(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = issuesDeleteMilestoneResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesListLabelsForMilestoneParamSchema = z.object({
@@ -37013,11 +37013,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           issuesListLabelsForMilestoneParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           issuesListLabelsForMilestoneQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -37028,11 +37028,11 @@ export function bootstrap(
       ctx.body = issuesListLabelsForMilestoneResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityListRepoNotificationsForAuthenticatedUserParamSchema = z.object(
-    { owner: z.coerce.string(), repo: z.coerce.string() }
+    { owner: z.coerce.string(), repo: z.coerce.string() },
   )
 
   const activityListRepoNotificationsForAuthenticatedUserQuerySchema = z.object(
@@ -37043,7 +37043,7 @@ export function bootstrap(
       before: z.coerce.string().datetime({ offset: true }).optional(),
       per_page: z.coerce.number().optional(),
       page: z.coerce.number().optional(),
-    }
+    },
   )
 
   const activityListRepoNotificationsForAuthenticatedUserResponseValidator =
@@ -37056,11 +37056,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityListRepoNotificationsForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           activityListRepoNotificationsForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -37068,17 +37068,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.activityListRepoNotificationsForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         activityListRepoNotificationsForAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityMarkRepoNotificationsAsReadParamSchema = z.object({
@@ -37104,7 +37104,7 @@ export function bootstrap(
         ],
         ["205", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -37114,12 +37114,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityMarkRepoNotificationsAsReadParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           activityMarkRepoNotificationsAsReadBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -37128,11 +37128,11 @@ export function bootstrap(
 
       ctx.body = activityMarkRepoNotificationsAsReadResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetPagesParamSchema = z.object({
@@ -37145,7 +37145,7 @@ export function bootstrap(
       ["200", s_page],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -37163,7 +37163,7 @@ export function bootstrap(
       ctx.body = reposGetPagesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreatePagesSiteParamSchema = z.object({
@@ -37189,7 +37189,7 @@ export function bootstrap(
       ["409", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -37201,19 +37201,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposCreatePagesSiteBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposCreatePagesSite(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposCreatePagesSiteResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposUpdateInformationAboutPagesSiteParamSchema = z.object({
@@ -37239,7 +37239,7 @@ export function bootstrap(
         ["409", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -37249,12 +37249,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposUpdateInformationAboutPagesSiteParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposUpdateInformationAboutPagesSiteBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -37263,11 +37263,11 @@ export function bootstrap(
 
       ctx.body = reposUpdateInformationAboutPagesSiteResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDeletePagesSiteParamSchema = z.object({
@@ -37282,7 +37282,7 @@ export function bootstrap(
       ["409", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -37297,13 +37297,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposDeletePagesSite(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposDeletePagesSiteResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListPagesBuildsParamSchema = z.object({
@@ -37318,7 +37318,7 @@ export function bootstrap(
 
   const reposListPagesBuildsResponseValidator = responseValidationFactory(
     [["200", z.array(s_page_build)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -37333,13 +37333,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposListPagesBuilds(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposListPagesBuildsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposRequestPagesBuildParamSchema = z.object({
@@ -37349,7 +37349,7 @@ export function bootstrap(
 
   const reposRequestPagesBuildResponseValidator = responseValidationFactory(
     [["201", s_page_build_status]],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -37359,7 +37359,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposRequestPagesBuildParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -37367,13 +37367,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposRequestPagesBuild(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposRequestPagesBuildResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetLatestPagesBuildParamSchema = z.object({
@@ -37383,7 +37383,7 @@ export function bootstrap(
 
   const reposGetLatestPagesBuildResponseValidator = responseValidationFactory(
     [["200", s_page_build]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -37393,7 +37393,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetLatestPagesBuildParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -37401,13 +37401,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetLatestPagesBuild(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetLatestPagesBuildResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetPagesBuildParamSchema = z.object({
@@ -37418,7 +37418,7 @@ export function bootstrap(
 
   const reposGetPagesBuildResponseValidator = responseValidationFactory(
     [["200", s_page_build]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -37433,13 +37433,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetPagesBuild(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetPagesBuildResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreatePagesDeploymentParamSchema = z.object({
@@ -37461,7 +37461,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -37471,24 +37471,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposCreatePagesDeploymentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreatePagesDeploymentBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposCreatePagesDeployment(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposCreatePagesDeploymentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetPagesHealthCheckParamSchema = z.object({
@@ -37504,7 +37504,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -37514,7 +37514,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetPagesHealthCheckParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -37522,13 +37522,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetPagesHealthCheck(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetPagesHealthCheckResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const projectsListForRepoParamSchema = z.object({
@@ -37551,7 +37551,7 @@ export function bootstrap(
       ["410", s_basic_error],
       ["422", s_validation_error_simple],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -37566,13 +37566,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.projectsListForRepo(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = projectsListForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const projectsCreateForRepoParamSchema = z.object({
@@ -37594,7 +37594,7 @@ export function bootstrap(
       ["410", s_basic_error],
       ["422", s_validation_error_simple],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -37606,19 +37606,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           projectsCreateForRepoBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.projectsCreateForRepo(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = projectsCreateForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsListParamSchema = z.object({
@@ -37644,7 +37644,7 @@ export function bootstrap(
       ["304", z.void()],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("pullsList", "/repos/:owner/:repo/pulls", async (ctx, next) => {
@@ -37683,7 +37683,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post("pullsCreate", "/repos/:owner/:repo/pulls", async (ctx, next) => {
@@ -37716,7 +37716,7 @@ export function bootstrap(
   const pullsListReviewCommentsForRepoResponseValidator =
     responseValidationFactory(
       [["200", z.array(s_pull_request_review_comment)]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -37726,11 +37726,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           pullsListReviewCommentsForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           pullsListReviewCommentsForRepoQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -37741,7 +37741,7 @@ export function bootstrap(
       ctx.body = pullsListReviewCommentsForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsGetReviewCommentParamSchema = z.object({
@@ -37755,7 +37755,7 @@ export function bootstrap(
       ["200", s_pull_request_review_comment],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -37770,13 +37770,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.pullsGetReviewComment(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = pullsGetReviewCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsUpdateReviewCommentParamSchema = z.object({
@@ -37791,7 +37791,7 @@ export function bootstrap(
 
   const pullsUpdateReviewCommentResponseValidator = responseValidationFactory(
     [["200", s_pull_request_review_comment]],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -37801,24 +37801,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           pullsUpdateReviewCommentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           pullsUpdateReviewCommentBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.pullsUpdateReviewComment(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = pullsUpdateReviewCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsDeleteReviewCommentParamSchema = z.object({
@@ -37832,7 +37832,7 @@ export function bootstrap(
       ["204", z.void()],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -37842,7 +37842,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           pullsDeleteReviewCommentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -37850,13 +37850,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.pullsDeleteReviewComment(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = pullsDeleteReviewCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsListForPullRequestReviewCommentParamSchema = z.object({
@@ -37888,7 +37888,7 @@ export function bootstrap(
         ["200", z.array(s_reaction)],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -37898,11 +37898,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsListForPullRequestReviewCommentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           reactionsListForPullRequestReviewCommentQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -37910,16 +37910,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.reactionsListForPullRequestReviewComment(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = reactionsListForPullRequestReviewCommentResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsCreateForPullRequestReviewCommentParamSchema = z.object({
@@ -37948,7 +37948,7 @@ export function bootstrap(
         ["201", s_reaction],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -37958,28 +37958,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsCreateForPullRequestReviewCommentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForPullRequestReviewCommentBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.reactionsCreateForPullRequestReviewComment(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = reactionsCreateForPullRequestReviewCommentResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsDeleteForPullRequestCommentParamSchema = z.object({
@@ -37999,7 +37999,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsDeleteForPullRequestCommentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -38010,11 +38010,11 @@ export function bootstrap(
 
       ctx.body = reactionsDeleteForPullRequestCommentResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsGetParamSchema = z.object({
@@ -38038,7 +38038,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -38056,7 +38056,7 @@ export function bootstrap(
       ctx.body = pullsGetResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsUpdateParamSchema = z.object({
@@ -38081,7 +38081,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -38099,7 +38099,7 @@ export function bootstrap(
       ctx.body = pullsUpdateResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesCreateWithPrForAuthenticatedUserParamSchema = z.object({
@@ -38142,7 +38142,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -38152,28 +38152,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesCreateWithPrForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesCreateWithPrForAuthenticatedUserBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.codespacesCreateWithPrForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = codespacesCreateWithPrForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsListReviewCommentsParamSchema = z.object({
@@ -38192,7 +38192,7 @@ export function bootstrap(
 
   const pullsListReviewCommentsResponseValidator = responseValidationFactory(
     [["200", z.array(s_pull_request_review_comment)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -38202,7 +38202,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           pullsListReviewCommentsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(pullsListReviewCommentsQuerySchema, ctx.query),
         body: undefined,
@@ -38210,13 +38210,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.pullsListReviewComments(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = pullsListReviewCommentsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsCreateReviewCommentParamSchema = z.object({
@@ -38244,7 +38244,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -38254,24 +38254,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           pullsCreateReviewCommentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           pullsCreateReviewCommentBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.pullsCreateReviewComment(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = pullsCreateReviewCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsCreateReplyForReviewCommentParamSchema = z.object({
@@ -38291,7 +38291,7 @@ export function bootstrap(
         ["201", s_pull_request_review_comment],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -38301,12 +38301,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           pullsCreateReplyForReviewCommentParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           pullsCreateReplyForReviewCommentBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -38316,7 +38316,7 @@ export function bootstrap(
       ctx.body = pullsCreateReplyForReviewCommentResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsListCommitsParamSchema = z.object({
@@ -38332,7 +38332,7 @@ export function bootstrap(
 
   const pullsListCommitsResponseValidator = responseValidationFactory(
     [["200", z.array(s_commit)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -38350,7 +38350,7 @@ export function bootstrap(
       ctx.body = pullsListCommitsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsListFilesParamSchema = z.object({
@@ -38378,7 +38378,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -38396,7 +38396,7 @@ export function bootstrap(
       ctx.body = pullsListFilesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsCheckIfMergedParamSchema = z.object({
@@ -38410,7 +38410,7 @@ export function bootstrap(
       ["204", z.void()],
       ["404", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -38425,13 +38425,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.pullsCheckIfMerged(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = pullsCheckIfMergedResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsMergeParamSchema = z.object({
@@ -38471,7 +38471,7 @@ export function bootstrap(
       ],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.put(
@@ -38489,7 +38489,7 @@ export function bootstrap(
       ctx.body = pullsMergeResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsListRequestedReviewersParamSchema = z.object({
@@ -38501,7 +38501,7 @@ export function bootstrap(
   const pullsListRequestedReviewersResponseValidator =
     responseValidationFactory(
       [["200", s_pull_request_review_request]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -38511,7 +38511,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           pullsListRequestedReviewersParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -38519,13 +38519,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.pullsListRequestedReviewers(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = pullsListRequestedReviewersResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsRequestReviewersParamSchema = z.object({
@@ -38547,7 +38547,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["422", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -38559,19 +38559,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           pullsRequestReviewersBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.pullsRequestReviewers(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = pullsRequestReviewersResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsRemoveRequestedReviewersParamSchema = z.object({
@@ -38591,7 +38591,7 @@ export function bootstrap(
         ["200", s_pull_request_simple],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -38601,12 +38601,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           pullsRemoveRequestedReviewersParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           pullsRemoveRequestedReviewersBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -38616,7 +38616,7 @@ export function bootstrap(
       ctx.body = pullsRemoveRequestedReviewersResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsListReviewsParamSchema = z.object({
@@ -38632,7 +38632,7 @@ export function bootstrap(
 
   const pullsListReviewsResponseValidator = responseValidationFactory(
     [["200", z.array(s_pull_request_review)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -38650,7 +38650,7 @@ export function bootstrap(
       ctx.body = pullsListReviewsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsCreateReviewParamSchema = z.object({
@@ -38674,7 +38674,7 @@ export function bootstrap(
             side: z.coerce.string().optional(),
             start_line: z.coerce.number().optional(),
             start_side: z.coerce.string().optional(),
-          })
+          }),
         )
         .optional(),
     })
@@ -38686,7 +38686,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["422", s_validation_error_simple],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -38701,13 +38701,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.pullsCreateReview(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = pullsCreateReviewResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsGetReviewParamSchema = z.object({
@@ -38722,7 +38722,7 @@ export function bootstrap(
       ["200", s_pull_request_review],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -38740,7 +38740,7 @@ export function bootstrap(
       ctx.body = pullsGetReviewResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsUpdateReviewParamSchema = z.object({
@@ -38757,7 +38757,7 @@ export function bootstrap(
       ["200", s_pull_request_review],
       ["422", s_validation_error_simple],
     ],
-    undefined
+    undefined,
   )
 
   router.put(
@@ -38772,13 +38772,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.pullsUpdateReview(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = pullsUpdateReviewResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsDeletePendingReviewParamSchema = z.object({
@@ -38794,7 +38794,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error_simple],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -38804,7 +38804,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           pullsDeletePendingReviewParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -38812,13 +38812,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.pullsDeletePendingReview(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = pullsDeletePendingReviewResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsListCommentsForReviewParamSchema = z.object({
@@ -38838,7 +38838,7 @@ export function bootstrap(
       ["200", z.array(s_review_comment)],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -38848,24 +38848,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           pullsListCommentsForReviewParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           pullsListCommentsForReviewQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.pullsListCommentsForReview(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = pullsListCommentsForReviewResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsDismissReviewParamSchema = z.object({
@@ -38886,7 +38886,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error_simple],
     ],
-    undefined
+    undefined,
   )
 
   router.put(
@@ -38901,13 +38901,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.pullsDismissReview(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = pullsDismissReviewResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsSubmitReviewParamSchema = z.object({
@@ -38929,7 +38929,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error_simple],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -38944,13 +38944,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.pullsSubmitReview(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = pullsSubmitReviewResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const pullsUpdateBranchParamSchema = z.object({
@@ -38976,7 +38976,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.put(
@@ -38991,13 +38991,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.pullsUpdateBranch(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = pullsUpdateBranchResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetReadmeParamSchema = z.object({
@@ -39015,7 +39015,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -39033,7 +39033,7 @@ export function bootstrap(
       ctx.body = reposGetReadmeResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetReadmeInDirectoryParamSchema = z.object({
@@ -39052,7 +39052,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -39062,24 +39062,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetReadmeInDirectoryParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           reposGetReadmeInDirectoryQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.reposGetReadmeInDirectory(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetReadmeInDirectoryResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListReleasesParamSchema = z.object({
@@ -39097,7 +39097,7 @@ export function bootstrap(
       ["200", z.array(s_release)],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -39112,13 +39112,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposListReleases(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposListReleasesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreateReleaseParamSchema = z.object({
@@ -39144,7 +39144,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -39159,13 +39159,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposCreateRelease(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposCreateReleaseResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetReleaseAssetParamSchema = z.object({
@@ -39180,7 +39180,7 @@ export function bootstrap(
       ["302", z.void()],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -39195,13 +39195,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetReleaseAsset(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetReleaseAssetResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposUpdateReleaseAssetParamSchema = z.object({
@@ -39220,7 +39220,7 @@ export function bootstrap(
 
   const reposUpdateReleaseAssetResponseValidator = responseValidationFactory(
     [["200", s_release_asset]],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -39230,24 +39230,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposUpdateReleaseAssetParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposUpdateReleaseAssetBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposUpdateReleaseAsset(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposUpdateReleaseAssetResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDeleteReleaseAssetParamSchema = z.object({
@@ -39258,7 +39258,7 @@ export function bootstrap(
 
   const reposDeleteReleaseAssetResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -39268,7 +39268,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposDeleteReleaseAssetParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -39276,13 +39276,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposDeleteReleaseAsset(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposDeleteReleaseAssetResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGenerateReleaseNotesParamSchema = z.object({
@@ -39302,7 +39302,7 @@ export function bootstrap(
       ["200", s_release_notes_content],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -39312,24 +39312,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGenerateReleaseNotesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposGenerateReleaseNotesBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposGenerateReleaseNotes(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGenerateReleaseNotesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetLatestReleaseParamSchema = z.object({
@@ -39339,7 +39339,7 @@ export function bootstrap(
 
   const reposGetLatestReleaseResponseValidator = responseValidationFactory(
     [["200", s_release]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -39354,13 +39354,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetLatestRelease(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetLatestReleaseResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetReleaseByTagParamSchema = z.object({
@@ -39374,7 +39374,7 @@ export function bootstrap(
       ["200", s_release],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -39389,13 +39389,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetReleaseByTag(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetReleaseByTagResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetReleaseParamSchema = z.object({
@@ -39409,7 +39409,7 @@ export function bootstrap(
       ["200", s_release],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -39427,7 +39427,7 @@ export function bootstrap(
       ctx.body = reposGetReleaseResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposUpdateReleaseParamSchema = z.object({
@@ -39454,7 +39454,7 @@ export function bootstrap(
       ["200", s_release],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -39469,13 +39469,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposUpdateRelease(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposUpdateReleaseResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDeleteReleaseParamSchema = z.object({
@@ -39486,7 +39486,7 @@ export function bootstrap(
 
   const reposDeleteReleaseResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -39501,13 +39501,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposDeleteRelease(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposDeleteReleaseResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListReleaseAssetsParamSchema = z.object({
@@ -39523,7 +39523,7 @@ export function bootstrap(
 
   const reposListReleaseAssetsResponseValidator = responseValidationFactory(
     [["200", z.array(s_release_asset)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -39533,7 +39533,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposListReleaseAssetsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(reposListReleaseAssetsQuerySchema, ctx.query),
         body: undefined,
@@ -39541,13 +39541,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposListReleaseAssets(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposListReleaseAssetsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposUploadReleaseAssetParamSchema = z.object({
@@ -39568,7 +39568,7 @@ export function bootstrap(
       ["201", s_release_asset],
       ["422", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -39578,24 +39578,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposUploadReleaseAssetParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(reposUploadReleaseAssetQuerySchema, ctx.query),
         body: parseRequestInput(
           reposUploadReleaseAssetBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposUploadReleaseAsset(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposUploadReleaseAssetResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsListForReleaseParamSchema = z.object({
@@ -39617,7 +39617,7 @@ export function bootstrap(
       ["200", z.array(s_reaction)],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -39627,7 +39627,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsListForReleaseParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(reactionsListForReleaseQuerySchema, ctx.query),
         body: undefined,
@@ -39635,13 +39635,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reactionsListForRelease(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reactionsListForReleaseResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsCreateForReleaseParamSchema = z.object({
@@ -39660,7 +39660,7 @@ export function bootstrap(
       ["201", s_reaction],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -39670,24 +39670,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsCreateForReleaseParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForReleaseBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reactionsCreateForRelease(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reactionsCreateForReleaseResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsDeleteForReleaseParamSchema = z.object({
@@ -39699,7 +39699,7 @@ export function bootstrap(
 
   const reactionsDeleteForReleaseResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -39709,7 +39709,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsDeleteForReleaseParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -39717,13 +39717,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reactionsDeleteForRelease(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reactionsDeleteForReleaseResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetBranchRulesParamSchema = z.object({
@@ -39734,7 +39734,7 @@ export function bootstrap(
 
   const reposGetBranchRulesResponseValidator = responseValidationFactory(
     [["200", z.array(s_repository_rule)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -39749,13 +39749,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetBranchRules(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetBranchRulesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetRepoRulesetsParamSchema = z.object({
@@ -39773,7 +39773,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["500", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -39788,13 +39788,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetRepoRulesets(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetRepoRulesetsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreateRepoRulesetParamSchema = z.object({
@@ -39818,7 +39818,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["500", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -39828,24 +39828,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposCreateRepoRulesetParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateRepoRulesetBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposCreateRepoRuleset(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposCreateRepoRulesetResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetRepoRulesetParamSchema = z.object({
@@ -39864,7 +39864,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["500", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -39879,13 +39879,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetRepoRuleset(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetRepoRulesetResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposUpdateRepoRulesetParamSchema = z.object({
@@ -39912,7 +39912,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["500", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.put(
@@ -39922,24 +39922,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposUpdateRepoRulesetParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposUpdateRepoRulesetBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposUpdateRepoRuleset(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposUpdateRepoRulesetResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDeleteRepoRulesetParamSchema = z.object({
@@ -39954,7 +39954,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["500", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -39964,7 +39964,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposDeleteRepoRulesetParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -39972,13 +39972,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposDeleteRepoRuleset(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposDeleteRepoRulesetResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const secretScanningListAlertsForRepoParamSchema = z.object({
@@ -40012,7 +40012,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -40022,11 +40022,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           secretScanningListAlertsForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           secretScanningListAlertsForRepoQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -40037,7 +40037,7 @@ export function bootstrap(
       ctx.body = secretScanningListAlertsForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const secretScanningGetAlertParamSchema = z.object({
@@ -40060,7 +40060,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -40070,7 +40070,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           secretScanningGetAlertParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -40078,13 +40078,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.secretScanningGetAlert(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = secretScanningGetAlertResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const secretScanningUpdateAlertParamSchema = z.object({
@@ -40114,7 +40114,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.patch(
@@ -40124,24 +40124,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           secretScanningUpdateAlertParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           secretScanningUpdateAlertBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.secretScanningUpdateAlert(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = secretScanningUpdateAlertResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const secretScanningListLocationsForAlertParamSchema = z.object({
@@ -40169,7 +40169,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -40179,11 +40179,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           secretScanningListLocationsForAlertParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           secretScanningListLocationsForAlertQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -40193,11 +40193,11 @@ export function bootstrap(
 
       ctx.body = secretScanningListLocationsForAlertResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const securityAdvisoriesListRepositoryAdvisoriesParamSchema = z.object({
@@ -40221,7 +40221,7 @@ export function bootstrap(
         ["400", s_scim_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -40231,11 +40231,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           securityAdvisoriesListRepositoryAdvisoriesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           securityAdvisoriesListRepositoryAdvisoriesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -40243,16 +40243,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.securityAdvisoriesListRepositoryAdvisories(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = securityAdvisoriesListRepositoryAdvisoriesResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const securityAdvisoriesCreateRepositoryAdvisoryParamSchema = z.object({
@@ -40271,7 +40271,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -40281,28 +40281,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           securityAdvisoriesCreateRepositoryAdvisoryParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           securityAdvisoriesCreateRepositoryAdvisoryBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.securityAdvisoriesCreateRepositoryAdvisory(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = securityAdvisoriesCreateRepositoryAdvisoryResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const securityAdvisoriesCreatePrivateVulnerabilityReportParamSchema =
@@ -40319,7 +40319,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -40329,29 +40329,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           securityAdvisoriesCreatePrivateVulnerabilityReportParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           securityAdvisoriesCreatePrivateVulnerabilityReportBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.securityAdvisoriesCreatePrivateVulnerabilityReport(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         securityAdvisoriesCreatePrivateVulnerabilityReportResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const securityAdvisoriesGetRepositoryAdvisoryParamSchema = z.object({
@@ -40367,7 +40367,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -40377,7 +40377,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           securityAdvisoriesGetRepositoryAdvisoryParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -40388,11 +40388,11 @@ export function bootstrap(
 
       ctx.body = securityAdvisoriesGetRepositoryAdvisoryResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const securityAdvisoriesUpdateRepositoryAdvisoryParamSchema = z.object({
@@ -40412,7 +40412,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.patch(
@@ -40422,28 +40422,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           securityAdvisoriesUpdateRepositoryAdvisoryParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           securityAdvisoriesUpdateRepositoryAdvisoryBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.securityAdvisoriesUpdateRepositoryAdvisory(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = securityAdvisoriesUpdateRepositoryAdvisoryResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityListStargazersForRepoParamSchema = z.object({
@@ -40462,7 +40462,7 @@ export function bootstrap(
         ["200", z.union([z.array(s_simple_user), z.array(s_stargazer)])],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -40472,11 +40472,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityListStargazersForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           activityListStargazersForRepoQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -40487,7 +40487,7 @@ export function bootstrap(
       ctx.body = activityListStargazersForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetCodeFrequencyStatsParamSchema = z.object({
@@ -40501,7 +40501,7 @@ export function bootstrap(
       ["202", z.object({})],
       ["204", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -40511,7 +40511,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetCodeFrequencyStatsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -40519,13 +40519,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetCodeFrequencyStats(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetCodeFrequencyStatsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetCommitActivityStatsParamSchema = z.object({
@@ -40540,7 +40540,7 @@ export function bootstrap(
         ["202", z.object({})],
         ["204", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -40550,7 +40550,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetCommitActivityStatsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -40558,13 +40558,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetCommitActivityStats(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetCommitActivityStatsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetContributorsStatsParamSchema = z.object({
@@ -40578,7 +40578,7 @@ export function bootstrap(
       ["202", z.object({})],
       ["204", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -40588,7 +40588,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetContributorsStatsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -40596,13 +40596,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetContributorsStats(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetContributorsStatsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetParticipationStatsParamSchema = z.object({
@@ -40615,7 +40615,7 @@ export function bootstrap(
       ["200", s_participation_stats],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -40625,7 +40625,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetParticipationStatsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -40633,13 +40633,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetParticipationStats(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetParticipationStatsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetPunchCardStatsParamSchema = z.object({
@@ -40652,7 +40652,7 @@ export function bootstrap(
       ["200", z.array(s_code_frequency_stat)],
       ["204", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -40662,7 +40662,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposGetPunchCardStatsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -40670,13 +40670,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetPunchCardStats(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetPunchCardStatsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreateCommitStatusParamSchema = z.object({
@@ -40694,7 +40694,7 @@ export function bootstrap(
 
   const reposCreateCommitStatusResponseValidator = responseValidationFactory(
     [["201", s_status]],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -40704,24 +40704,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposCreateCommitStatusParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateCommitStatusBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposCreateCommitStatus(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposCreateCommitStatusResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityListWatchersForRepoParamSchema = z.object({
@@ -40744,24 +40744,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityListWatchersForRepoParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           activityListWatchersForRepoQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.activityListWatchersForRepo(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = activityListWatchersForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityGetRepoSubscriptionParamSchema = z.object({
@@ -40776,7 +40776,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -40786,7 +40786,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityGetRepoSubscriptionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -40794,13 +40794,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.activityGetRepoSubscription(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = activityGetRepoSubscriptionResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activitySetRepoSubscriptionParamSchema = z.object({
@@ -40825,24 +40825,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activitySetRepoSubscriptionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           activitySetRepoSubscriptionBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.activitySetRepoSubscription(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = activitySetRepoSubscriptionResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityDeleteRepoSubscriptionParamSchema = z.object({
@@ -40860,7 +40860,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityDeleteRepoSubscriptionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -40872,7 +40872,7 @@ export function bootstrap(
       ctx.body = activityDeleteRepoSubscriptionResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListTagsParamSchema = z.object({
@@ -40887,7 +40887,7 @@ export function bootstrap(
 
   const reposListTagsResponseValidator = responseValidationFactory(
     [["200", z.array(s_tag)]],
-    undefined
+    undefined,
   )
 
   router.get("reposListTags", "/repos/:owner/:repo/tags", async (ctx, next) => {
@@ -40915,7 +40915,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -40925,7 +40925,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposListTagProtectionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -40933,13 +40933,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposListTagProtection(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposListTagProtectionResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreateTagProtectionParamSchema = z.object({
@@ -40957,7 +40957,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -40967,24 +40967,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposCreateTagProtectionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateTagProtectionBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposCreateTagProtection(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposCreateTagProtectionResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDeleteTagProtectionParamSchema = z.object({
@@ -40999,7 +40999,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -41009,7 +41009,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposDeleteTagProtectionParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -41017,13 +41017,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposDeleteTagProtection(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposDeleteTagProtectionResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDownloadTarballArchiveParamSchema = z.object({
@@ -41042,7 +41042,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposDownloadTarballArchiveParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -41050,13 +41050,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposDownloadTarballArchive(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposDownloadTarballArchiveResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListTeamsParamSchema = z.object({
@@ -41071,7 +41071,7 @@ export function bootstrap(
 
   const reposListTeamsResponseValidator = responseValidationFactory(
     [["200", z.array(s_team)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -41089,7 +41089,7 @@ export function bootstrap(
       ctx.body = reposListTeamsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetAllTopicsParamSchema = z.object({
@@ -41107,7 +41107,7 @@ export function bootstrap(
       ["200", s_topic],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -41122,13 +41122,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetAllTopics(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetAllTopicsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposReplaceAllTopicsParamSchema = z.object({
@@ -41146,7 +41146,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error_simple],
     ],
-    undefined
+    undefined,
   )
 
   router.put(
@@ -41158,19 +41158,19 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposReplaceAllTopicsBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposReplaceAllTopics(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposReplaceAllTopicsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetClonesParamSchema = z.object({
@@ -41187,7 +41187,7 @@ export function bootstrap(
       ["200", s_clone_traffic],
       ["403", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -41205,7 +41205,7 @@ export function bootstrap(
       ctx.body = reposGetClonesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetTopPathsParamSchema = z.object({
@@ -41218,7 +41218,7 @@ export function bootstrap(
       ["200", z.array(s_content_traffic)],
       ["403", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -41236,7 +41236,7 @@ export function bootstrap(
       ctx.body = reposGetTopPathsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetTopReferrersParamSchema = z.object({
@@ -41249,7 +41249,7 @@ export function bootstrap(
       ["200", z.array(s_referrer_traffic)],
       ["403", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -41264,13 +41264,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposGetTopReferrers(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposGetTopReferrersResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposGetViewsParamSchema = z.object({
@@ -41287,7 +41287,7 @@ export function bootstrap(
       ["200", s_view_traffic],
       ["403", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -41305,7 +41305,7 @@ export function bootstrap(
       ctx.body = reposGetViewsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposTransferParamSchema = z.object({
@@ -41321,7 +41321,7 @@ export function bootstrap(
 
   const reposTransferResponseValidator = responseValidationFactory(
     [["202", s_minimal_repository]],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -41339,7 +41339,7 @@ export function bootstrap(
       ctx.body = reposTransferResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCheckVulnerabilityAlertsParamSchema = z.object({
@@ -41353,7 +41353,7 @@ export function bootstrap(
         ["204", z.void()],
         ["404", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -41363,7 +41363,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposCheckVulnerabilityAlertsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -41375,7 +41375,7 @@ export function bootstrap(
       ctx.body = reposCheckVulnerabilityAlertsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposEnableVulnerabilityAlertsParamSchema = z.object({
@@ -41393,7 +41393,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposEnableVulnerabilityAlertsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -41405,7 +41405,7 @@ export function bootstrap(
       ctx.body = reposEnableVulnerabilityAlertsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDisableVulnerabilityAlertsParamSchema = z.object({
@@ -41423,7 +41423,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposDisableVulnerabilityAlertsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -41435,7 +41435,7 @@ export function bootstrap(
       ctx.body = reposDisableVulnerabilityAlertsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDownloadZipballArchiveParamSchema = z.object({
@@ -41454,7 +41454,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposDownloadZipballArchiveParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -41462,13 +41462,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.reposDownloadZipballArchive(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposDownloadZipballArchiveResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreateUsingTemplateParamSchema = z.object({
@@ -41486,7 +41486,7 @@ export function bootstrap(
 
   const reposCreateUsingTemplateResponseValidator = responseValidationFactory(
     [["201", s_repository]],
-    undefined
+    undefined,
   )
 
   router.post(
@@ -41496,24 +41496,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposCreateUsingTemplateParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateUsingTemplateBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.reposCreateUsingTemplate(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = reposCreateUsingTemplateResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListPublicQuerySchema = z.object({
@@ -41526,7 +41526,7 @@ export function bootstrap(
       ["304", z.void()],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("reposListPublic", "/repositories", async (ctx, next) => {
@@ -41564,7 +41564,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -41574,11 +41574,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListEnvironmentSecretsParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsListEnvironmentSecretsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -41589,7 +41589,7 @@ export function bootstrap(
       ctx.body = actionsListEnvironmentSecretsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetEnvironmentPublicKeyParamSchema = z.object({
@@ -41607,7 +41607,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetEnvironmentPublicKeyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -41619,7 +41619,7 @@ export function bootstrap(
       ctx.body = actionsGetEnvironmentPublicKeyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetEnvironmentSecretParamSchema = z.object({
@@ -41638,7 +41638,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetEnvironmentSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -41646,13 +41646,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.actionsGetEnvironmentSecret(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = actionsGetEnvironmentSecretResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsCreateOrUpdateEnvironmentSecretParamSchema = z.object({
@@ -41672,7 +41672,7 @@ export function bootstrap(
         ["201", s_empty_object],
         ["204", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -41682,12 +41682,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsCreateOrUpdateEnvironmentSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsCreateOrUpdateEnvironmentSecretBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -41696,11 +41696,11 @@ export function bootstrap(
 
       ctx.body = actionsCreateOrUpdateEnvironmentSecretResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsDeleteEnvironmentSecretParamSchema = z.object({
@@ -41719,7 +41719,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsDeleteEnvironmentSecretParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -41731,7 +41731,7 @@ export function bootstrap(
       ctx.body = actionsDeleteEnvironmentSecretResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsListEnvironmentVariablesParamSchema = z.object({
@@ -41755,7 +41755,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -41765,11 +41765,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsListEnvironmentVariablesParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           actionsListEnvironmentVariablesQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -41780,7 +41780,7 @@ export function bootstrap(
       ctx.body = actionsListEnvironmentVariablesResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsCreateEnvironmentVariableParamSchema = z.object({
@@ -41803,12 +41803,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsCreateEnvironmentVariableParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsCreateEnvironmentVariableBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -41818,7 +41818,7 @@ export function bootstrap(
       ctx.body = actionsCreateEnvironmentVariableResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsGetEnvironmentVariableParamSchema = z.object({
@@ -41837,7 +41837,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsGetEnvironmentVariableParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -41849,7 +41849,7 @@ export function bootstrap(
       ctx.body = actionsGetEnvironmentVariableResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsUpdateEnvironmentVariableParamSchema = z.object({
@@ -41873,12 +41873,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsUpdateEnvironmentVariableParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsUpdateEnvironmentVariableBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -41888,7 +41888,7 @@ export function bootstrap(
       ctx.body = actionsUpdateEnvironmentVariableResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const actionsDeleteEnvironmentVariableParamSchema = z.object({
@@ -41907,7 +41907,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           actionsDeleteEnvironmentVariableParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -41919,7 +41919,7 @@ export function bootstrap(
       ctx.body = actionsDeleteEnvironmentVariableResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const searchCodeQuerySchema = z.object({
@@ -41952,7 +41952,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get("searchCode", "/search/code", async (ctx, next) => {
@@ -41989,7 +41989,7 @@ export function bootstrap(
       ],
       ["304", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.get("searchCommits", "/search/commits", async (ctx, next) => {
@@ -42051,7 +42051,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -42062,20 +42062,20 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           searchIssuesAndPullRequestsQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.searchIssuesAndPullRequests(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = searchIssuesAndPullRequestsResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const searchLabelsQuerySchema = z.object({
@@ -42102,7 +42102,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("searchLabels", "/search/labels", async (ctx, next) => {
@@ -42150,7 +42150,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get("searchRepos", "/search/repositories", async (ctx, next) => {
@@ -42185,7 +42185,7 @@ export function bootstrap(
       ],
       ["304", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.get("searchTopics", "/search/topics", async (ctx, next) => {
@@ -42231,7 +42231,7 @@ export function bootstrap(
         }),
       ],
     ],
-    undefined
+    undefined,
   )
 
   router.get("searchUsers", "/search/users", async (ctx, next) => {
@@ -42255,7 +42255,7 @@ export function bootstrap(
       ["200", s_team_full],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("teamsGetLegacy", "/teams/:teamId", async (ctx, next) => {
@@ -42293,7 +42293,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.patch("teamsUpdateLegacy", "/teams/:teamId", async (ctx, next) => {
@@ -42318,7 +42318,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete("teamsDeleteLegacy", "/teams/:teamId", async (ctx, next) => {
@@ -42347,7 +42347,7 @@ export function bootstrap(
 
   const teamsListDiscussionsLegacyResponseValidator = responseValidationFactory(
     [["200", z.array(s_team_discussion)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -42357,24 +42357,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsListDiscussionsLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           teamsListDiscussionsLegacyQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.teamsListDiscussionsLegacy(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsListDiscussionsLegacyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsCreateDiscussionLegacyParamSchema = z.object({
@@ -42397,24 +42397,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsCreateDiscussionLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsCreateDiscussionLegacyBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.teamsCreateDiscussionLegacy(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsCreateDiscussionLegacyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsGetDiscussionLegacyParamSchema = z.object({
@@ -42424,7 +42424,7 @@ export function bootstrap(
 
   const teamsGetDiscussionLegacyResponseValidator = responseValidationFactory(
     [["200", s_team_discussion]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -42434,7 +42434,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsGetDiscussionLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -42442,13 +42442,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.teamsGetDiscussionLegacy(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsGetDiscussionLegacyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsUpdateDiscussionLegacyParamSchema = z.object({
@@ -42473,24 +42473,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsUpdateDiscussionLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsUpdateDiscussionLegacyBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } = await implementation.teamsUpdateDiscussionLegacy(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsUpdateDiscussionLegacyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsDeleteDiscussionLegacyParamSchema = z.object({
@@ -42508,7 +42508,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsDeleteDiscussionLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -42516,13 +42516,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.teamsDeleteDiscussionLegacy(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsDeleteDiscussionLegacyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsListDiscussionCommentsLegacyParamSchema = z.object({
@@ -42539,7 +42539,7 @@ export function bootstrap(
   const teamsListDiscussionCommentsLegacyResponseValidator =
     responseValidationFactory(
       [["200", z.array(s_team_discussion_comment)]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -42549,11 +42549,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsListDiscussionCommentsLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           teamsListDiscussionCommentsLegacyQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -42563,11 +42563,11 @@ export function bootstrap(
 
       ctx.body = teamsListDiscussionCommentsLegacyResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsCreateDiscussionCommentLegacyParamSchema = z.object({
@@ -42589,12 +42589,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsCreateDiscussionCommentLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsCreateDiscussionCommentLegacyBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -42603,11 +42603,11 @@ export function bootstrap(
 
       ctx.body = teamsCreateDiscussionCommentLegacyResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsGetDiscussionCommentLegacyParamSchema = z.object({
@@ -42626,7 +42626,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsGetDiscussionCommentLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -42638,7 +42638,7 @@ export function bootstrap(
       ctx.body = teamsGetDiscussionCommentLegacyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsUpdateDiscussionCommentLegacyParamSchema = z.object({
@@ -42661,12 +42661,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsUpdateDiscussionCommentLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsUpdateDiscussionCommentLegacyBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -42675,11 +42675,11 @@ export function bootstrap(
 
       ctx.body = teamsUpdateDiscussionCommentLegacyResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsDeleteDiscussionCommentLegacyParamSchema = z.object({
@@ -42698,7 +42698,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsDeleteDiscussionCommentLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -42709,11 +42709,11 @@ export function bootstrap(
 
       ctx.body = teamsDeleteDiscussionCommentLegacyResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsListForTeamDiscussionCommentLegacyParamSchema = z.object({
@@ -42749,11 +42749,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsListForTeamDiscussionCommentLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           reactionsListForTeamDiscussionCommentLegacyQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -42761,16 +42761,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.reactionsListForTeamDiscussionCommentLegacy(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = reactionsListForTeamDiscussionCommentLegacyResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsCreateForTeamDiscussionCommentLegacyParamSchema = z.object({
@@ -42802,28 +42802,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsCreateForTeamDiscussionCommentLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForTeamDiscussionCommentLegacyBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.reactionsCreateForTeamDiscussionCommentLegacy(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = reactionsCreateForTeamDiscussionCommentLegacyResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsListForTeamDiscussionLegacyParamSchema = z.object({
@@ -42858,11 +42858,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsListForTeamDiscussionLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           reactionsListForTeamDiscussionLegacyQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -42872,11 +42872,11 @@ export function bootstrap(
 
       ctx.body = reactionsListForTeamDiscussionLegacyResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reactionsCreateForTeamDiscussionLegacyParamSchema = z.object({
@@ -42907,12 +42907,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reactionsCreateForTeamDiscussionLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForTeamDiscussionLegacyBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -42921,11 +42921,11 @@ export function bootstrap(
 
       ctx.body = reactionsCreateForTeamDiscussionLegacyResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsListPendingInvitationsLegacyParamSchema = z.object({
@@ -42940,7 +42940,7 @@ export function bootstrap(
   const teamsListPendingInvitationsLegacyResponseValidator =
     responseValidationFactory(
       [["200", z.array(s_organization_invitation)]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -42950,11 +42950,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsListPendingInvitationsLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           teamsListPendingInvitationsLegacyQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -42964,11 +42964,11 @@ export function bootstrap(
 
       ctx.body = teamsListPendingInvitationsLegacyResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsListMembersLegacyParamSchema = z.object({
@@ -42986,7 +42986,7 @@ export function bootstrap(
       ["200", z.array(s_simple_user)],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -42996,7 +42996,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsListMembersLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(teamsListMembersLegacyQuerySchema, ctx.query),
         body: undefined,
@@ -43004,13 +43004,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.teamsListMembersLegacy(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsListMembersLegacyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsGetMemberLegacyParamSchema = z.object({
@@ -43023,7 +43023,7 @@ export function bootstrap(
       ["204", z.void()],
       ["404", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -43038,13 +43038,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.teamsGetMemberLegacy(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsGetMemberLegacyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsAddMemberLegacyParamSchema = z.object({
@@ -43059,7 +43059,7 @@ export function bootstrap(
       ["404", z.void()],
       ["422", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.put(
@@ -43074,13 +43074,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.teamsAddMemberLegacy(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsAddMemberLegacyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsRemoveMemberLegacyParamSchema = z.object({
@@ -43093,7 +43093,7 @@ export function bootstrap(
       ["204", z.void()],
       ["404", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -43103,7 +43103,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsRemoveMemberLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -43111,13 +43111,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.teamsRemoveMemberLegacy(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsRemoveMemberLegacyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsGetMembershipForUserLegacyParamSchema = z.object({
@@ -43131,7 +43131,7 @@ export function bootstrap(
         ["200", s_team_membership],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -43141,7 +43141,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsGetMembershipForUserLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -43153,7 +43153,7 @@ export function bootstrap(
       ctx.body = teamsGetMembershipForUserLegacyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsAddOrUpdateMembershipForUserLegacyParamSchema = z.object({
@@ -43173,7 +43173,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -43183,12 +43183,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsAddOrUpdateMembershipForUserLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateMembershipForUserLegacyBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -43197,11 +43197,11 @@ export function bootstrap(
 
       ctx.body = teamsAddOrUpdateMembershipForUserLegacyResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsRemoveMembershipForUserLegacyParamSchema = z.object({
@@ -43215,7 +43215,7 @@ export function bootstrap(
         ["204", z.void()],
         ["403", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -43225,7 +43225,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsRemoveMembershipForUserLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -43236,11 +43236,11 @@ export function bootstrap(
 
       ctx.body = teamsRemoveMembershipForUserLegacyResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsListProjectsLegacyParamSchema = z.object({
@@ -43257,7 +43257,7 @@ export function bootstrap(
       ["200", z.array(s_team_project)],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -43267,7 +43267,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsListProjectsLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(teamsListProjectsLegacyQuerySchema, ctx.query),
         body: undefined,
@@ -43275,13 +43275,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.teamsListProjectsLegacy(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsListProjectsLegacyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsCheckPermissionsForProjectLegacyParamSchema = z.object({
@@ -43295,7 +43295,7 @@ export function bootstrap(
         ["200", s_team_project],
         ["404", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -43305,7 +43305,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsCheckPermissionsForProjectLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -43316,11 +43316,11 @@ export function bootstrap(
 
       ctx.body = teamsCheckPermissionsForProjectLegacyResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsAddOrUpdateProjectPermissionsLegacyParamSchema = z.object({
@@ -43346,7 +43346,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -43356,28 +43356,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsAddOrUpdateProjectPermissionsLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateProjectPermissionsLegacyBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.teamsAddOrUpdateProjectPermissionsLegacy(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = teamsAddOrUpdateProjectPermissionsLegacyResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsRemoveProjectLegacyParamSchema = z.object({
@@ -43391,7 +43391,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -43401,7 +43401,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsRemoveProjectLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -43409,13 +43409,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.teamsRemoveProjectLegacy(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsRemoveProjectLegacyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsListReposLegacyParamSchema = z.object({
@@ -43432,7 +43432,7 @@ export function bootstrap(
       ["200", z.array(s_minimal_repository)],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -43447,13 +43447,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.teamsListReposLegacy(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsListReposLegacyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsCheckPermissionsForRepoLegacyParamSchema = z.object({
@@ -43469,7 +43469,7 @@ export function bootstrap(
         ["204", z.void()],
         ["404", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -43479,7 +43479,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsCheckPermissionsForRepoLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -43490,11 +43490,11 @@ export function bootstrap(
 
       ctx.body = teamsCheckPermissionsForRepoLegacyResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsAddOrUpdateRepoPermissionsLegacyParamSchema = z.object({
@@ -43514,7 +43514,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -43524,12 +43524,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           teamsAddOrUpdateRepoPermissionsLegacyParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateRepoPermissionsLegacyBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -43538,11 +43538,11 @@ export function bootstrap(
 
       ctx.body = teamsAddOrUpdateRepoPermissionsLegacyResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsRemoveRepoLegacyParamSchema = z.object({
@@ -43553,7 +43553,7 @@ export function bootstrap(
 
   const teamsRemoveRepoLegacyResponseValidator = responseValidationFactory(
     [["204", z.void()]],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -43568,13 +43568,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.teamsRemoveRepoLegacy(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsRemoveRepoLegacyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsListChildLegacyParamSchema = z.object({
@@ -43593,7 +43593,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -43608,13 +43608,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.teamsListChildLegacy(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = teamsListChildLegacyResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersGetAuthenticatedResponseValidator = responseValidationFactory(
@@ -43624,7 +43624,7 @@ export function bootstrap(
       ["401", s_basic_error],
       ["403", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("usersGetAuthenticated", "/user", async (ctx, next) => {
@@ -43636,7 +43636,7 @@ export function bootstrap(
 
     const { status, body } = await implementation.usersGetAuthenticated(
       input,
-      ctx
+      ctx,
     )
 
     ctx.body = usersGetAuthenticatedResponseValidator(status, body)
@@ -43666,7 +43666,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.patch("usersUpdateAuthenticated", "/user", async (ctx, next) => {
@@ -43675,13 +43675,13 @@ export function bootstrap(
       query: undefined,
       body: parseRequestInput(
         usersUpdateAuthenticatedBodySchema,
-        ctx.request.body
+        ctx.request.body,
       ),
     }
 
     const { status, body } = await implementation.usersUpdateAuthenticated(
       input,
-      ctx
+      ctx,
     )
 
     ctx.body = usersUpdateAuthenticatedResponseValidator(status, body)
@@ -43703,7 +43703,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -43714,7 +43714,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           usersListBlockedByAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -43724,11 +43724,11 @@ export function bootstrap(
 
       ctx.body = usersListBlockedByAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersCheckBlockedParamSchema = z.object({ username: z.coerce.string() })
@@ -43741,7 +43741,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -43756,13 +43756,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.usersCheckBlocked(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = usersCheckBlockedResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersBlockParamSchema = z.object({ username: z.coerce.string() })
@@ -43776,7 +43776,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.put("usersBlock", "/user/blocks/:username", async (ctx, next) => {
@@ -43803,7 +43803,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete("usersUnblock", "/user/blocks/:username", async (ctx, next) => {
@@ -43842,7 +43842,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -43853,7 +43853,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           codespacesListForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -43863,11 +43863,11 @@ export function bootstrap(
 
       ctx.body = codespacesListForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesCreateForAuthenticatedUserBodySchema = z.union([
@@ -43920,7 +43920,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -43932,7 +43932,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           codespacesCreateForAuthenticatedUserBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -43941,11 +43941,11 @@ export function bootstrap(
 
       ctx.body = codespacesCreateForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesListSecretsForAuthenticatedUserQuerySchema = z.object({
@@ -43964,7 +43964,7 @@ export function bootstrap(
           }),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -43975,7 +43975,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           codespacesListSecretsForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -43983,22 +43983,22 @@ export function bootstrap(
       const { status, body } =
         await implementation.codespacesListSecretsForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = codespacesListSecretsForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesGetPublicKeyForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [["200", s_codespaces_user_public_key]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -44014,16 +44014,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.codespacesGetPublicKeyForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = codespacesGetPublicKeyForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesGetSecretForAuthenticatedUserParamSchema = z.object({
@@ -44040,7 +44040,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesGetSecretForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -44051,11 +44051,11 @@ export function bootstrap(
 
       ctx.body = codespacesGetSecretForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema =
@@ -44068,7 +44068,7 @@ export function bootstrap(
       selected_repository_ids: z
         .array(z.union([z.coerce.number(), z.coerce.string()]))
         .optional(),
-    }
+    },
   )
 
   const codespacesCreateOrUpdateSecretForAuthenticatedUserResponseValidator =
@@ -44079,7 +44079,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -44089,29 +44089,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.codespacesCreateOrUpdateSecretForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         codespacesCreateOrUpdateSecretForAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesDeleteSecretForAuthenticatedUserParamSchema = z.object({
@@ -44128,7 +44128,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesDeleteSecretForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -44137,16 +44137,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.codespacesDeleteSecretForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = codespacesDeleteSecretForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesListRepositoriesForSecretForAuthenticatedUserParamSchema =
@@ -44167,7 +44167,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -44177,7 +44177,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesListRepositoriesForSecretForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -44186,17 +44186,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.codespacesListRepositoriesForSecretForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         codespacesListRepositoriesForSecretForAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema =
@@ -44214,7 +44214,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -44224,29 +44224,29 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.codespacesSetRepositoriesForSecretForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         codespacesSetRepositoriesForSecretForAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesAddRepositoryForSecretForAuthenticatedUserParamSchema =
@@ -44264,7 +44264,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -44274,7 +44274,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesAddRepositoryForSecretForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -44283,17 +44283,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.codespacesAddRepositoryForSecretForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         codespacesAddRepositoryForSecretForAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesRemoveRepositoryForSecretForAuthenticatedUserParamSchema =
@@ -44311,7 +44311,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -44321,7 +44321,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesRemoveRepositoryForSecretForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -44330,17 +44330,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.codespacesRemoveRepositoryForSecretForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         codespacesRemoveRepositoryForSecretForAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesGetForAuthenticatedUserParamSchema = z.object({
@@ -44357,7 +44357,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -44367,7 +44367,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesGetForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -44378,11 +44378,11 @@ export function bootstrap(
 
       ctx.body = codespacesGetForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesUpdateForAuthenticatedUserParamSchema = z.object({
@@ -44405,7 +44405,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.patch(
@@ -44415,12 +44415,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesUpdateForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesUpdateForAuthenticatedUserBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -44429,11 +44429,11 @@ export function bootstrap(
 
       ctx.body = codespacesUpdateForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesDeleteForAuthenticatedUserParamSchema = z.object({
@@ -44450,7 +44450,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -44460,7 +44460,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesDeleteForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -44471,11 +44471,11 @@ export function bootstrap(
 
       ctx.body = codespacesDeleteForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesExportForAuthenticatedUserParamSchema = z.object({
@@ -44492,7 +44492,7 @@ export function bootstrap(
         ["422", s_validation_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -44502,7 +44502,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesExportForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -44513,11 +44513,11 @@ export function bootstrap(
 
       ctx.body = codespacesExportForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesGetExportDetailsForAuthenticatedUserParamSchema = z.object({
@@ -44531,7 +44531,7 @@ export function bootstrap(
         ["200", s_codespace_export_details],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -44541,7 +44541,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesGetExportDetailsForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -44550,17 +44550,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.codespacesGetExportDetailsForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         codespacesGetExportDetailsForAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesCodespaceMachinesForAuthenticatedUserParamSchema = z.object({
@@ -44583,7 +44583,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -44593,7 +44593,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesCodespaceMachinesForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -44602,17 +44602,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.codespacesCodespaceMachinesForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         codespacesCodespaceMachinesForAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesPublishForAuthenticatedUserParamSchema = z.object({
@@ -44633,7 +44633,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -44643,12 +44643,12 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesPublishForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesPublishForAuthenticatedUserBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -44657,11 +44657,11 @@ export function bootstrap(
 
       ctx.body = codespacesPublishForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesStartForAuthenticatedUserParamSchema = z.object({
@@ -44681,7 +44681,7 @@ export function bootstrap(
         ["409", s_basic_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -44691,7 +44691,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesStartForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -44702,11 +44702,11 @@ export function bootstrap(
 
       ctx.body = codespacesStartForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const codespacesStopForAuthenticatedUserParamSchema = z.object({
@@ -44722,7 +44722,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["500", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -44732,7 +44732,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           codespacesStopForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -44743,11 +44743,11 @@ export function bootstrap(
 
       ctx.body = codespacesStopForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesListDockerMigrationConflictingPackagesForAuthenticatedUserResponseValidator =
@@ -44766,21 +44766,21 @@ export function bootstrap(
       const { status, body } =
         await implementation.packagesListDockerMigrationConflictingPackagesForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         packagesListDockerMigrationConflictingPackagesForAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersSetPrimaryEmailVisibilityForAuthenticatedUserBodySchema = z.object(
-    { visibility: z.enum(["public", "private"]) }
+    { visibility: z.enum(["public", "private"]) },
   )
 
   const usersSetPrimaryEmailVisibilityForAuthenticatedUserResponseValidator =
@@ -44793,7 +44793,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.patch(
@@ -44805,24 +44805,24 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           usersSetPrimaryEmailVisibilityForAuthenticatedUserBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.usersSetPrimaryEmailVisibilityForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         usersSetPrimaryEmailVisibilityForAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersListEmailsForAuthenticatedUserQuerySchema = z.object({
@@ -44839,7 +44839,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -44850,7 +44850,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           usersListEmailsForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -44860,11 +44860,11 @@ export function bootstrap(
 
       ctx.body = usersListEmailsForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersAddEmailForAuthenticatedUserBodySchema = z.union([
@@ -44883,7 +44883,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -44895,7 +44895,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           usersAddEmailForAuthenticatedUserBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -44904,11 +44904,11 @@ export function bootstrap(
 
       ctx.body = usersAddEmailForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersDeleteEmailForAuthenticatedUserBodySchema = z.union([
@@ -44927,7 +44927,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -44939,7 +44939,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           usersDeleteEmailForAuthenticatedUserBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -44948,11 +44948,11 @@ export function bootstrap(
 
       ctx.body = usersDeleteEmailForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersListFollowersForAuthenticatedUserQuerySchema = z.object({
@@ -44968,7 +44968,7 @@ export function bootstrap(
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -44979,7 +44979,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           usersListFollowersForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -44989,11 +44989,11 @@ export function bootstrap(
 
       ctx.body = usersListFollowersForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersListFollowedByAuthenticatedUserQuerySchema = z.object({
@@ -45009,7 +45009,7 @@ export function bootstrap(
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -45020,7 +45020,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           usersListFollowedByAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -45030,11 +45030,11 @@ export function bootstrap(
 
       ctx.body = usersListFollowedByAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersCheckPersonIsFollowedByAuthenticatedParamSchema = z.object({
@@ -45050,7 +45050,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -45060,7 +45060,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           usersCheckPersonIsFollowedByAuthenticatedParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -45069,16 +45069,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.usersCheckPersonIsFollowedByAuthenticated(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = usersCheckPersonIsFollowedByAuthenticatedResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersFollowParamSchema = z.object({ username: z.coerce.string() })
@@ -45091,7 +45091,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.put("usersFollow", "/user/following/:username", async (ctx, next) => {
@@ -45118,7 +45118,7 @@ export function bootstrap(
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.delete(
@@ -45136,7 +45136,7 @@ export function bootstrap(
       ctx.body = usersUnfollowResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersListGpgKeysForAuthenticatedUserQuerySchema = z.object({
@@ -45153,7 +45153,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -45164,7 +45164,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           usersListGpgKeysForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -45174,11 +45174,11 @@ export function bootstrap(
 
       ctx.body = usersListGpgKeysForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersCreateGpgKeyForAuthenticatedUserBodySchema = z.object({
@@ -45196,7 +45196,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -45208,7 +45208,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           usersCreateGpgKeyForAuthenticatedUserBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -45217,11 +45217,11 @@ export function bootstrap(
 
       ctx.body = usersCreateGpgKeyForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersGetGpgKeyForAuthenticatedUserParamSchema = z.object({
@@ -45237,7 +45237,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -45247,7 +45247,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           usersGetGpgKeyForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -45258,11 +45258,11 @@ export function bootstrap(
 
       ctx.body = usersGetGpgKeyForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersDeleteGpgKeyForAuthenticatedUserParamSchema = z.object({
@@ -45279,7 +45279,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -45289,7 +45289,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           usersDeleteGpgKeyForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -45300,11 +45300,11 @@ export function bootstrap(
 
       ctx.body = usersDeleteGpgKeyForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsListInstallationsForAuthenticatedUserQuerySchema = z.object({
@@ -45326,7 +45326,7 @@ export function bootstrap(
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -45337,7 +45337,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           appsListInstallationsForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -45345,16 +45345,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.appsListInstallationsForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = appsListInstallationsForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsListInstallationReposForAuthenticatedUserParamSchema = z.object({
@@ -45381,7 +45381,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -45391,11 +45391,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           appsListInstallationReposForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           appsListInstallationReposForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -45403,16 +45403,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.appsListInstallationReposForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = appsListInstallationReposForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsAddRepoToInstallationForAuthenticatedUserParamSchema = z.object({
@@ -45428,7 +45428,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -45438,7 +45438,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           appsAddRepoToInstallationForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -45447,16 +45447,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.appsAddRepoToInstallationForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = appsAddRepoToInstallationForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsRemoveRepoFromInstallationForAuthenticatedUserParamSchema =
@@ -45473,7 +45473,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -45483,7 +45483,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           appsRemoveRepoFromInstallationForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -45492,17 +45492,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.appsRemoveRepoFromInstallationForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         appsRemoveRepoFromInstallationForAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const interactionsGetRestrictionsForAuthenticatedUserResponseValidator =
@@ -45511,7 +45511,7 @@ export function bootstrap(
         ["200", z.union([s_interaction_limit_response, z.object({})])],
         ["204", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -45527,17 +45527,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.interactionsGetRestrictionsForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         interactionsGetRestrictionsForAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const interactionsSetRestrictionsForAuthenticatedUserBodySchema =
@@ -45549,7 +45549,7 @@ export function bootstrap(
         ["200", s_interaction_limit_response],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -45561,24 +45561,24 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           interactionsSetRestrictionsForAuthenticatedUserBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.interactionsSetRestrictionsForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         interactionsSetRestrictionsForAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const interactionsRemoveRestrictionsForAuthenticatedUserResponseValidator =
@@ -45597,17 +45597,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.interactionsRemoveRestrictionsForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         interactionsRemoveRestrictionsForAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const issuesListForAuthenticatedUserQuerySchema = z.object({
@@ -45630,7 +45630,7 @@ export function bootstrap(
         ["304", z.void()],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -45641,7 +45641,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           issuesListForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -45652,7 +45652,7 @@ export function bootstrap(
       ctx.body = issuesListForAuthenticatedUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersListPublicSshKeysForAuthenticatedUserQuerySchema = z.object({
@@ -45669,7 +45669,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -45680,7 +45680,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           usersListPublicSshKeysForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -45688,16 +45688,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.usersListPublicSshKeysForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = usersListPublicSshKeysForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersCreatePublicSshKeyForAuthenticatedUserBodySchema = z.object({
@@ -45715,7 +45715,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -45727,23 +45727,23 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           usersCreatePublicSshKeyForAuthenticatedUserBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.usersCreatePublicSshKeyForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = usersCreatePublicSshKeyForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersGetPublicSshKeyForAuthenticatedUserParamSchema = z.object({
@@ -45759,7 +45759,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -45769,7 +45769,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           usersGetPublicSshKeyForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -45778,16 +45778,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.usersGetPublicSshKeyForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = usersGetPublicSshKeyForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersDeletePublicSshKeyForAuthenticatedUserParamSchema = z.object({
@@ -45803,7 +45803,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -45813,7 +45813,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           usersDeletePublicSshKeyForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -45822,16 +45822,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.usersDeletePublicSshKeyForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = usersDeletePublicSshKeyForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsListSubscriptionsForAuthenticatedUserQuerySchema = z.object({
@@ -45847,7 +45847,7 @@ export function bootstrap(
         ["401", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -45858,7 +45858,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           appsListSubscriptionsForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -45866,16 +45866,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.appsListSubscriptionsForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = appsListSubscriptionsForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsListSubscriptionsForAuthenticatedUserStubbedQuerySchema = z.object({
@@ -45890,7 +45890,7 @@ export function bootstrap(
         ["304", z.void()],
         ["401", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -45901,7 +45901,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           appsListSubscriptionsForAuthenticatedUserStubbedQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -45909,17 +45909,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.appsListSubscriptionsForAuthenticatedUserStubbed(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         appsListSubscriptionsForAuthenticatedUserStubbedResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsListMembershipsForAuthenticatedUserQuerySchema = z.object({
@@ -45937,7 +45937,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -45948,7 +45948,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           orgsListMembershipsForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -45958,11 +45958,11 @@ export function bootstrap(
 
       ctx.body = orgsListMembershipsForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsGetMembershipForAuthenticatedUserParamSchema = z.object({
@@ -45976,7 +45976,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -45986,7 +45986,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsGetMembershipForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -45997,11 +45997,11 @@ export function bootstrap(
 
       ctx.body = orgsGetMembershipForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsUpdateMembershipForAuthenticatedUserParamSchema = z.object({
@@ -46020,7 +46020,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.patch(
@@ -46030,28 +46030,28 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           orgsUpdateMembershipForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
           orgsUpdateMembershipForAuthenticatedUserBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.orgsUpdateMembershipForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = orgsUpdateMembershipForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsListForAuthenticatedUserQuerySchema = z.object({
@@ -46067,7 +46067,7 @@ export function bootstrap(
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -46078,7 +46078,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           migrationsListForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -46088,11 +46088,11 @@ export function bootstrap(
 
       ctx.body = migrationsListForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsStartForAuthenticatedUserBodySchema = z.object({
@@ -46116,7 +46116,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -46128,7 +46128,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           migrationsStartForAuthenticatedUserBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -46137,11 +46137,11 @@ export function bootstrap(
 
       ctx.body = migrationsStartForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsGetStatusForAuthenticatedUserParamSchema = z.object({
@@ -46161,7 +46161,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -46171,11 +46171,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           migrationsGetStatusForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           migrationsGetStatusForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -46185,11 +46185,11 @@ export function bootstrap(
 
       ctx.body = migrationsGetStatusForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsGetArchiveForAuthenticatedUserParamSchema = z.object({
@@ -46204,7 +46204,7 @@ export function bootstrap(
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -46214,7 +46214,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           migrationsGetArchiveForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -46223,16 +46223,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.migrationsGetArchiveForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = migrationsGetArchiveForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsDeleteArchiveForAuthenticatedUserParamSchema = z.object({
@@ -46248,7 +46248,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -46258,7 +46258,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           migrationsDeleteArchiveForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -46267,16 +46267,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.migrationsDeleteArchiveForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = migrationsDeleteArchiveForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsUnlockRepoForAuthenticatedUserParamSchema = z.object({
@@ -46293,7 +46293,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -46303,7 +46303,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           migrationsUnlockRepoForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -46312,16 +46312,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.migrationsUnlockRepoForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = migrationsUnlockRepoForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const migrationsListReposForAuthenticatedUserParamSchema = z.object({
@@ -46339,7 +46339,7 @@ export function bootstrap(
         ["200", z.array(s_minimal_repository)],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -46349,11 +46349,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           migrationsListReposForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           migrationsListReposForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -46363,11 +46363,11 @@ export function bootstrap(
 
       ctx.body = migrationsListReposForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsListForAuthenticatedUserQuerySchema = z.object({
@@ -46383,7 +46383,7 @@ export function bootstrap(
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -46394,7 +46394,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           orgsListForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -46405,7 +46405,7 @@ export function bootstrap(
       ctx.body = orgsListForAuthenticatedUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesListPackagesForAuthenticatedUserQuerySchema = z.object({
@@ -46428,7 +46428,7 @@ export function bootstrap(
         ["200", z.array(s_package)],
         ["400", z.void()],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -46439,7 +46439,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           packagesListPackagesForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -46447,16 +46447,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.packagesListPackagesForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = packagesListPackagesForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesGetPackageForAuthenticatedUserParamSchema = z.object({
@@ -46481,7 +46481,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesGetPackageForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -46492,11 +46492,11 @@ export function bootstrap(
 
       ctx.body = packagesGetPackageForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesDeletePackageForAuthenticatedUserParamSchema = z.object({
@@ -46519,7 +46519,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -46529,7 +46529,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesDeletePackageForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -46538,16 +46538,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.packagesDeletePackageForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = packagesDeletePackageForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesRestorePackageForAuthenticatedUserParamSchema = z.object({
@@ -46574,7 +46574,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -46584,11 +46584,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesRestorePackageForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           packagesRestorePackageForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -46596,16 +46596,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.packagesRestorePackageForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = packagesRestorePackageForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserParamSchema =
@@ -46636,7 +46636,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -46646,11 +46646,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -46658,17 +46658,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesGetPackageVersionForAuthenticatedUserParamSchema = z.object({
@@ -46694,7 +46694,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesGetPackageVersionForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -46703,16 +46703,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.packagesGetPackageVersionForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = packagesGetPackageVersionForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesDeletePackageVersionForAuthenticatedUserParamSchema = z.object({
@@ -46736,7 +46736,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -46746,7 +46746,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesDeletePackageVersionForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -46755,17 +46755,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.packagesDeletePackageVersionForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         packagesDeletePackageVersionForAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesRestorePackageVersionForAuthenticatedUserParamSchema = z.object(
@@ -46780,7 +46780,7 @@ export function bootstrap(
       ]),
       package_name: z.coerce.string(),
       package_version_id: z.coerce.number(),
-    }
+    },
   )
 
   const packagesRestorePackageVersionForAuthenticatedUserResponseValidator =
@@ -46791,7 +46791,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -46801,7 +46801,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesRestorePackageVersionForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -46810,17 +46810,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.packagesRestorePackageVersionForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         packagesRestorePackageVersionForAuthenticatedUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const projectsCreateForAuthenticatedUserBodySchema = z.object({
@@ -46837,7 +46837,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["422", s_validation_error_simple],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -46849,7 +46849,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           projectsCreateForAuthenticatedUserBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -46858,11 +46858,11 @@ export function bootstrap(
 
       ctx.body = projectsCreateForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersListPublicEmailsForAuthenticatedUserQuerySchema = z.object({
@@ -46879,7 +46879,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -46890,7 +46890,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           usersListPublicEmailsForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -46898,16 +46898,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.usersListPublicEmailsForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = usersListPublicEmailsForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListForAuthenticatedUserQuerySchema = z.object({
@@ -46931,7 +46931,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -46942,7 +46942,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           reposListForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -46953,7 +46953,7 @@ export function bootstrap(
       ctx.body = reposListForAuthenticatedUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposCreateForAuthenticatedUserBodySchema = z.object({
@@ -46997,7 +46997,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -47009,7 +47009,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposCreateForAuthenticatedUserBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
@@ -47019,7 +47019,7 @@ export function bootstrap(
       ctx.body = reposCreateForAuthenticatedUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListInvitationsForAuthenticatedUserQuerySchema = z.object({
@@ -47036,7 +47036,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -47047,7 +47047,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           reposListInvitationsForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -47055,16 +47055,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.reposListInvitationsForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = reposListInvitationsForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposAcceptInvitationForAuthenticatedUserParamSchema = z.object({
@@ -47080,7 +47080,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["409", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.patch(
@@ -47090,7 +47090,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposAcceptInvitationForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -47099,16 +47099,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.reposAcceptInvitationForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = reposAcceptInvitationForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposDeclineInvitationForAuthenticatedUserParamSchema = z.object({
@@ -47124,7 +47124,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["409", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -47134,7 +47134,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           reposDeclineInvitationForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -47143,16 +47143,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.reposDeclineInvitationForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = reposDeclineInvitationForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersListSocialAccountsForAuthenticatedUserQuerySchema = z.object({
@@ -47169,7 +47169,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -47180,7 +47180,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           usersListSocialAccountsForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -47188,16 +47188,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.usersListSocialAccountsForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = usersListSocialAccountsForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersAddSocialAccountForAuthenticatedUserBodySchema = z.object({
@@ -47214,7 +47214,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -47226,23 +47226,23 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           usersAddSocialAccountForAuthenticatedUserBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.usersAddSocialAccountForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = usersAddSocialAccountForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersDeleteSocialAccountForAuthenticatedUserBodySchema = z.object({
@@ -47259,7 +47259,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -47271,23 +47271,23 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           usersDeleteSocialAccountForAuthenticatedUserBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.usersDeleteSocialAccountForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = usersDeleteSocialAccountForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersListSshSigningKeysForAuthenticatedUserQuerySchema = z.object({
@@ -47304,7 +47304,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -47315,7 +47315,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           usersListSshSigningKeysForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -47323,16 +47323,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.usersListSshSigningKeysForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = usersListSshSigningKeysForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersCreateSshSigningKeyForAuthenticatedUserBodySchema = z.object({
@@ -47350,7 +47350,7 @@ export function bootstrap(
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -47362,23 +47362,23 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           usersCreateSshSigningKeyForAuthenticatedUserBodySchema,
-          ctx.request.body
+          ctx.request.body,
         ),
       }
 
       const { status, body } =
         await implementation.usersCreateSshSigningKeyForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = usersCreateSshSigningKeyForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersGetSshSigningKeyForAuthenticatedUserParamSchema = z.object({
@@ -47394,7 +47394,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -47404,7 +47404,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           usersGetSshSigningKeyForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -47413,16 +47413,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.usersGetSshSigningKeyForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = usersGetSshSigningKeyForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersDeleteSshSigningKeyForAuthenticatedUserParamSchema = z.object({
@@ -47438,7 +47438,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -47448,7 +47448,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           usersDeleteSshSigningKeyForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -47457,16 +47457,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.usersDeleteSshSigningKeyForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = usersDeleteSshSigningKeyForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityListReposStarredByAuthenticatedUserQuerySchema = z.object({
@@ -47484,7 +47484,7 @@ export function bootstrap(
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -47495,7 +47495,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           activityListReposStarredByAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -47503,16 +47503,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.activityListReposStarredByAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = activityListReposStarredByAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityCheckRepoIsStarredByAuthenticatedUserParamSchema = z.object({
@@ -47529,7 +47529,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -47539,7 +47539,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityCheckRepoIsStarredByAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -47548,16 +47548,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.activityCheckRepoIsStarredByAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = activityCheckRepoIsStarredByAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityStarRepoForAuthenticatedUserParamSchema = z.object({
@@ -47574,7 +47574,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.put(
@@ -47584,7 +47584,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityStarRepoForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -47595,11 +47595,11 @@ export function bootstrap(
 
       ctx.body = activityStarRepoForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityUnstarRepoForAuthenticatedUserParamSchema = z.object({
@@ -47616,7 +47616,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -47626,7 +47626,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityUnstarRepoForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -47637,11 +47637,11 @@ export function bootstrap(
 
       ctx.body = activityUnstarRepoForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityListWatchedReposForAuthenticatedUserQuerySchema = z.object({
@@ -47657,7 +47657,7 @@ export function bootstrap(
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -47668,7 +47668,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           activityListWatchedReposForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -47676,16 +47676,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.activityListWatchedReposForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = activityListWatchedReposForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const teamsListForAuthenticatedUserQuerySchema = z.object({
@@ -47701,7 +47701,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -47712,7 +47712,7 @@ export function bootstrap(
         params: undefined,
         query: parseRequestInput(
           teamsListForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -47723,7 +47723,7 @@ export function bootstrap(
       ctx.body = teamsListForAuthenticatedUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersListQuerySchema = z.object({
@@ -47736,7 +47736,7 @@ export function bootstrap(
       ["200", z.array(s_simple_user)],
       ["304", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.get("usersList", "/users", async (ctx, next) => {
@@ -47762,7 +47762,7 @@ export function bootstrap(
       ["200", z.union([s_private_user, s_public_user])],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("usersGetByUsername", "/users/:username", async (ctx, next) => {
@@ -47789,7 +47789,7 @@ export function bootstrap(
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -47799,7 +47799,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesListDockerMigrationConflictingPackagesForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -47808,17 +47808,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.packagesListDockerMigrationConflictingPackagesForUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         packagesListDockerMigrationConflictingPackagesForUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityListEventsForAuthenticatedUserParamSchema = z.object({
@@ -47840,11 +47840,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityListEventsForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           activityListEventsForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -47854,11 +47854,11 @@ export function bootstrap(
 
       ctx.body = activityListEventsForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityListOrgEventsForAuthenticatedUserParamSchema = z.object({
@@ -47881,11 +47881,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityListOrgEventsForAuthenticatedUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           activityListOrgEventsForAuthenticatedUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -47893,16 +47893,16 @@ export function bootstrap(
       const { status, body } =
         await implementation.activityListOrgEventsForAuthenticatedUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body = activityListOrgEventsForAuthenticatedUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityListPublicEventsForUserParamSchema = z.object({
@@ -47924,11 +47924,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityListPublicEventsForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           activityListPublicEventsForUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -47939,7 +47939,7 @@ export function bootstrap(
       ctx.body = activityListPublicEventsForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersListFollowersForUserParamSchema = z.object({
@@ -47953,7 +47953,7 @@ export function bootstrap(
 
   const usersListFollowersForUserResponseValidator = responseValidationFactory(
     [["200", z.array(s_simple_user)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -47963,24 +47963,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           usersListFollowersForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           usersListFollowersForUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.usersListFollowersForUser(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = usersListFollowersForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersListFollowingForUserParamSchema = z.object({
@@ -47994,7 +47994,7 @@ export function bootstrap(
 
   const usersListFollowingForUserResponseValidator = responseValidationFactory(
     [["200", z.array(s_simple_user)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -48004,24 +48004,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           usersListFollowingForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           usersListFollowingForUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.usersListFollowingForUser(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = usersListFollowingForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersCheckFollowingForUserParamSchema = z.object({
@@ -48034,7 +48034,7 @@ export function bootstrap(
       ["204", z.void()],
       ["404", z.void()],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -48044,7 +48044,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           usersCheckFollowingForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -48052,13 +48052,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.usersCheckFollowingForUser(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = usersCheckFollowingForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const gistsListForUserParamSchema = z.object({ username: z.coerce.string() })
@@ -48074,7 +48074,7 @@ export function bootstrap(
       ["200", z.array(s_base_gist)],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -48092,7 +48092,7 @@ export function bootstrap(
       ctx.body = gistsListForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersListGpgKeysForUserParamSchema = z.object({
@@ -48106,7 +48106,7 @@ export function bootstrap(
 
   const usersListGpgKeysForUserResponseValidator = responseValidationFactory(
     [["200", z.array(s_gpg_key)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -48116,7 +48116,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           usersListGpgKeysForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(usersListGpgKeysForUserQuerySchema, ctx.query),
         body: undefined,
@@ -48124,13 +48124,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.usersListGpgKeysForUser(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = usersListGpgKeysForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersGetContextForUserParamSchema = z.object({
@@ -48150,7 +48150,7 @@ export function bootstrap(
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -48160,7 +48160,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           usersGetContextForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(usersGetContextForUserQuerySchema, ctx.query),
         body: undefined,
@@ -48168,13 +48168,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.usersGetContextForUser(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = usersGetContextForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const appsGetUserInstallationParamSchema = z.object({
@@ -48183,7 +48183,7 @@ export function bootstrap(
 
   const appsGetUserInstallationResponseValidator = responseValidationFactory(
     [["200", s_installation]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -48193,7 +48193,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           appsGetUserInstallationParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -48201,13 +48201,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.appsGetUserInstallation(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = appsGetUserInstallationResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersListPublicKeysForUserParamSchema = z.object({
@@ -48221,7 +48221,7 @@ export function bootstrap(
 
   const usersListPublicKeysForUserResponseValidator = responseValidationFactory(
     [["200", z.array(s_key_simple)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -48231,24 +48231,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           usersListPublicKeysForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           usersListPublicKeysForUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.usersListPublicKeysForUser(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = usersListPublicKeysForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const orgsListForUserParamSchema = z.object({ username: z.coerce.string() })
@@ -48260,7 +48260,7 @@ export function bootstrap(
 
   const orgsListForUserResponseValidator = responseValidationFactory(
     [["200", z.array(s_organization_simple)]],
-    undefined
+    undefined,
   )
 
   router.get("orgsListForUser", "/users/:username/orgs", async (ctx, next) => {
@@ -48303,7 +48303,7 @@ export function bootstrap(
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -48313,24 +48313,24 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesListPackagesForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           packagesListPackagesForUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
 
       const { status, body } = await implementation.packagesListPackagesForUser(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = packagesListPackagesForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesGetPackageForUserParamSchema = z.object({
@@ -48348,7 +48348,7 @@ export function bootstrap(
 
   const packagesGetPackageForUserResponseValidator = responseValidationFactory(
     [["200", s_package]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -48358,7 +48358,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesGetPackageForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -48366,13 +48366,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.packagesGetPackageForUser(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = packagesGetPackageForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesDeletePackageForUserParamSchema = z.object({
@@ -48396,7 +48396,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -48406,7 +48406,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesDeletePackageForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -48418,7 +48418,7 @@ export function bootstrap(
       ctx.body = packagesDeletePackageForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesRestorePackageForUserParamSchema = z.object({
@@ -48446,7 +48446,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -48456,11 +48456,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesRestorePackageForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           packagesRestorePackageForUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -48471,7 +48471,7 @@ export function bootstrap(
       ctx.body = packagesRestorePackageForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesGetAllPackageVersionsForPackageOwnedByUserParamSchema =
@@ -48496,7 +48496,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -48506,7 +48506,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesGetAllPackageVersionsForPackageOwnedByUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -48515,17 +48515,17 @@ export function bootstrap(
       const { status, body } =
         await implementation.packagesGetAllPackageVersionsForPackageOwnedByUser(
           input,
-          ctx
+          ctx,
         )
 
       ctx.body =
         packagesGetAllPackageVersionsForPackageOwnedByUserResponseValidator(
           status,
-          body
+          body,
         )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesGetPackageVersionForUserParamSchema = z.object({
@@ -48552,7 +48552,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesGetPackageVersionForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -48564,7 +48564,7 @@ export function bootstrap(
       ctx.body = packagesGetPackageVersionForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesDeletePackageVersionForUserParamSchema = z.object({
@@ -48589,7 +48589,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.delete(
@@ -48599,7 +48599,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesDeletePackageVersionForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -48610,11 +48610,11 @@ export function bootstrap(
 
       ctx.body = packagesDeletePackageVersionForUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const packagesRestorePackageVersionForUserParamSchema = z.object({
@@ -48639,7 +48639,7 @@ export function bootstrap(
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
-      undefined
+      undefined,
     )
 
   router.post(
@@ -48649,7 +48649,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           packagesRestorePackageVersionForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -48660,11 +48660,11 @@ export function bootstrap(
 
       ctx.body = packagesRestorePackageVersionForUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const projectsListForUserParamSchema = z.object({
@@ -48682,7 +48682,7 @@ export function bootstrap(
       ["200", z.array(s_project)],
       ["422", s_validation_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -48697,13 +48697,13 @@ export function bootstrap(
 
       const { status, body } = await implementation.projectsListForUser(
         input,
-        ctx
+        ctx,
       )
 
       ctx.body = projectsListForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityListReceivedEventsForUserParamSchema = z.object({
@@ -48725,11 +48725,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityListReceivedEventsForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           activityListReceivedEventsForUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -48739,11 +48739,11 @@ export function bootstrap(
 
       ctx.body = activityListReceivedEventsForUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityListReceivedPublicEventsForUserParamSchema = z.object({
@@ -48765,11 +48765,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityListReceivedPublicEventsForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           activityListReceivedPublicEventsForUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -48779,11 +48779,11 @@ export function bootstrap(
 
       ctx.body = activityListReceivedPublicEventsForUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const reposListForUserParamSchema = z.object({ username: z.coerce.string() })
@@ -48798,7 +48798,7 @@ export function bootstrap(
 
   const reposListForUserResponseValidator = responseValidationFactory(
     [["200", z.array(s_minimal_repository)]],
-    undefined
+    undefined,
   )
 
   router.get(
@@ -48816,7 +48816,7 @@ export function bootstrap(
       ctx.body = reposListForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const billingGetGithubActionsBillingUserParamSchema = z.object({
@@ -48833,7 +48833,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           billingGetGithubActionsBillingUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -48844,11 +48844,11 @@ export function bootstrap(
 
       ctx.body = billingGetGithubActionsBillingUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const billingGetGithubPackagesBillingUserParamSchema = z.object({
@@ -48865,7 +48865,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           billingGetGithubPackagesBillingUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -48876,11 +48876,11 @@ export function bootstrap(
 
       ctx.body = billingGetGithubPackagesBillingUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const billingGetSharedStorageBillingUserParamSchema = z.object({
@@ -48897,7 +48897,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           billingGetSharedStorageBillingUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: undefined,
         body: undefined,
@@ -48908,11 +48908,11 @@ export function bootstrap(
 
       ctx.body = billingGetSharedStorageBillingUserResponseValidator(
         status,
-        body
+        body,
       )
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersListSocialAccountsForUserParamSchema = z.object({
@@ -48934,11 +48934,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           usersListSocialAccountsForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           usersListSocialAccountsForUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -48949,7 +48949,7 @@ export function bootstrap(
       ctx.body = usersListSocialAccountsForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const usersListSshSigningKeysForUserParamSchema = z.object({
@@ -48971,11 +48971,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           usersListSshSigningKeysForUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           usersListSshSigningKeysForUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -48986,7 +48986,7 @@ export function bootstrap(
       ctx.body = usersListSshSigningKeysForUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityListReposStarredByUserParamSchema = z.object({
@@ -49008,7 +49008,7 @@ export function bootstrap(
           z.union([z.array(s_starred_repository), z.array(s_repository)]),
         ],
       ],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -49018,11 +49018,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityListReposStarredByUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           activityListReposStarredByUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -49033,7 +49033,7 @@ export function bootstrap(
       ctx.body = activityListReposStarredByUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const activityListReposWatchedByUserParamSchema = z.object({
@@ -49048,7 +49048,7 @@ export function bootstrap(
   const activityListReposWatchedByUserResponseValidator =
     responseValidationFactory(
       [["200", z.array(s_minimal_repository)]],
-      undefined
+      undefined,
     )
 
   router.get(
@@ -49058,11 +49058,11 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(
           activityListReposWatchedByUserParamSchema,
-          ctx.params
+          ctx.params,
         ),
         query: parseRequestInput(
           activityListReposWatchedByUserQuerySchema,
-          ctx.query
+          ctx.query,
         ),
         body: undefined,
       }
@@ -49073,7 +49073,7 @@ export function bootstrap(
       ctx.body = activityListReposWatchedByUserResponseValidator(status, body)
       ctx.status = status
       return next()
-    }
+    },
   )
 
   const metaGetAllVersionsResponseValidator = responseValidationFactory(
@@ -49081,7 +49081,7 @@ export function bootstrap(
       ["200", z.array(z.coerce.string())],
       ["404", s_basic_error],
     ],
-    undefined
+    undefined,
   )
 
   router.get("metaGetAllVersions", "/versions", async (ctx, next) => {
@@ -49100,7 +49100,7 @@ export function bootstrap(
 
   const metaGetZenResponseValidator = responseValidationFactory(
     [["200", z.coerce.string()]],
-    undefined
+    undefined,
   )
 
   router.get("metaGetZen", "/zen", async (ctx, next) => {

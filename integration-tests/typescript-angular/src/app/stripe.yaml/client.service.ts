@@ -151,7 +151,7 @@ export class ApiClientConfig {
 // from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
 type Enumerate<
   N extends number,
-  Acc extends number[] = []
+  Acc extends number[] = [],
 > = Acc["length"] extends N
   ? Acc[number]
   : Enumerate<N, [...Acc, Acc["length"]]>
@@ -192,16 +192,16 @@ export type QueryParams = {
 export class ApiClient {
   constructor(
     private readonly httpClient: HttpClient,
-    private readonly config: ApiClientConfig
+    private readonly config: ApiClientConfig,
   ) {}
 
   private _headers(
-    headers: Record<string, string | undefined>
+    headers: Record<string, string | undefined>,
   ): Record<string, string> {
     return Object.fromEntries(
       Object.entries({ ...this.config.defaultHeaders, ...headers }).filter(
-        (it): it is [string, string] => it[1] !== undefined
-      )
+        (it): it is [string, string] => it[1] !== undefined,
+      ),
     )
   }
 
@@ -217,7 +217,7 @@ export class ApiClient {
         return result
       }
       throw new Error(
-        `query parameter '${name}' with value '${value}' is not yet supported`
+        `query parameter '${name}' with value '${value}' is not yet supported`,
       )
     }, new HttpParams())
   }
@@ -226,7 +226,7 @@ export class ApiClient {
     p: {
       expand?: string[]
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<t_account> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -247,7 +247,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -278,7 +278,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -297,7 +297,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_account[]
@@ -329,7 +329,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -724,7 +724,7 @@ export class ApiClient {
         }
         type?: "custom" | "express" | "standard"
       }
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<t_account> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -743,7 +743,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -768,7 +768,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -796,7 +796,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -1190,7 +1190,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -1239,7 +1239,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -1266,7 +1266,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -1296,7 +1296,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -1348,7 +1348,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -1381,7 +1381,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -1411,7 +1411,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -1441,7 +1441,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -1482,7 +1482,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -1531,7 +1531,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -1558,7 +1558,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -1588,7 +1588,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -1640,7 +1640,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -1667,7 +1667,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -1715,7 +1715,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -1834,7 +1834,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -1861,7 +1861,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -1891,7 +1891,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2012,7 +2012,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2060,7 +2060,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2179,7 +2179,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2206,7 +2206,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2236,7 +2236,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2357,7 +2357,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2385,7 +2385,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2397,7 +2397,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_apple_pay_domain[]
@@ -2429,7 +2429,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2456,7 +2456,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2481,7 +2481,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2509,7 +2509,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2529,7 +2529,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_application_fee[]
@@ -2562,7 +2562,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2592,7 +2592,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2626,7 +2626,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2654,7 +2654,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2683,7 +2683,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2724,7 +2724,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2755,7 +2755,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2800,7 +2800,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2833,7 +2833,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2864,7 +2864,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2900,7 +2900,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2908,7 +2908,7 @@ export class ApiClient {
     p: {
       expand?: string[]
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<t_balance> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -2929,7 +2929,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -2952,7 +2952,7 @@ export class ApiClient {
       startingAfter?: string
       type?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_balance_transaction[]
@@ -2988,7 +2988,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -3016,7 +3016,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -3039,7 +3039,7 @@ export class ApiClient {
       startingAfter?: string
       type?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_balance_transaction[]
@@ -3075,7 +3075,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -3103,7 +3103,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -3116,7 +3116,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_billing_portal_configuration[]
@@ -3149,7 +3149,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -3237,7 +3237,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -3266,7 +3266,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -3359,7 +3359,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -3452,7 +3452,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -3474,7 +3474,7 @@ export class ApiClient {
       startingAfter?: string
       transferGroup?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_charge[]
@@ -3509,7 +3509,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -3582,7 +3582,7 @@ export class ApiClient {
         }
         transfer_group?: string
       }
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<t_charge> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -3601,7 +3601,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -3643,7 +3643,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -3671,7 +3671,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -3724,7 +3724,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -3761,7 +3761,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -3789,7 +3789,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -3851,7 +3851,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -3878,7 +3878,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -3916,7 +3916,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -3957,7 +3957,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -3998,7 +3998,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -4028,7 +4028,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -4062,7 +4062,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -4080,7 +4080,7 @@ export class ApiClient {
       startingAfter?: string
       subscription?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_checkout_session[]
@@ -4116,7 +4116,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -4806,7 +4806,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -4834,7 +4834,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -4861,7 +4861,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -4902,7 +4902,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -4913,7 +4913,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_country_spec[]
@@ -4944,7 +4944,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -4972,7 +4972,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -4991,7 +4991,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_coupon[]
@@ -5023,7 +5023,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -5054,7 +5054,7 @@ export class ApiClient {
         percent_off?: number
         redeem_by?: number
       }
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<t_coupon> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -5073,7 +5073,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -5098,7 +5098,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -5126,7 +5126,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -5164,7 +5164,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -5177,7 +5177,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_credit_note[]
@@ -5210,7 +5210,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -5264,7 +5264,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -5332,7 +5332,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -5411,7 +5411,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -5452,7 +5452,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -5480,7 +5480,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -5511,7 +5511,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -5538,7 +5538,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -5559,7 +5559,7 @@ export class ApiClient {
       startingAfter?: string
       testClock?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_customer[]
@@ -5593,7 +5593,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -5726,7 +5726,7 @@ export class ApiClient {
         }[]
         test_clock?: string
       }
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<t_customer> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -5745,7 +5745,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -5787,7 +5787,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -5812,7 +5812,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -5840,7 +5840,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -5965,7 +5965,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6007,7 +6007,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6043,7 +6043,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6073,7 +6073,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6108,7 +6108,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6149,7 +6149,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6211,7 +6211,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6242,7 +6242,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6272,7 +6272,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6330,7 +6330,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6360,7 +6360,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6401,7 +6401,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6463,7 +6463,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6493,7 +6493,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6522,7 +6522,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6579,7 +6579,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6607,7 +6607,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6637,7 +6637,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6679,7 +6679,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6709,7 +6709,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6734,7 +6734,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6762,7 +6762,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6803,7 +6803,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6875,7 +6875,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6905,7 +6905,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -6948,7 +6948,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -7010,7 +7010,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -7041,7 +7041,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -7071,7 +7071,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -7129,7 +7129,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -7159,7 +7159,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -7200,7 +7200,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -7405,7 +7405,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -7436,7 +7436,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -7466,7 +7466,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -7697,7 +7697,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -7724,7 +7724,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -7754,7 +7754,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -7795,7 +7795,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -7875,7 +7875,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -7902,7 +7902,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -7932,7 +7932,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -7953,7 +7953,7 @@ export class ApiClient {
       paymentIntent?: string
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_dispute[]
@@ -7987,7 +7987,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8015,7 +8015,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8077,7 +8077,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8104,7 +8104,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8116,7 +8116,7 @@ export class ApiClient {
         issuing_card?: string
         verification_session?: string
       }
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<t_ephemeral_key> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -8135,7 +8135,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8162,7 +8162,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8184,7 +8184,7 @@ export class ApiClient {
       type?: string
       types?: string[]
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_event[]
@@ -8219,7 +8219,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8247,7 +8247,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8258,7 +8258,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_exchange_rate[]
@@ -8289,7 +8289,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8317,7 +8317,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8338,7 +8338,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_file_link[]
@@ -8372,7 +8372,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8405,7 +8405,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8433,7 +8433,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8466,7 +8466,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8501,7 +8501,7 @@ export class ApiClient {
         | "terminal_reader_splashscreen"
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_file[]
@@ -8534,7 +8534,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8579,7 +8579,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8607,7 +8607,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8623,7 +8623,7 @@ export class ApiClient {
       session?: string
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_financial_connections_account[]
@@ -8656,7 +8656,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8685,7 +8685,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8713,7 +8713,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8757,7 +8757,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8786,7 +8786,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8827,7 +8827,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8856,7 +8856,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8877,7 +8877,7 @@ export class ApiClient {
       type?: "document" | "id_number"
       verificationSession?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_identity_verification_report[]
@@ -8911,7 +8911,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8939,7 +8939,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -8959,7 +8959,7 @@ export class ApiClient {
       startingAfter?: string
       status?: "canceled" | "processing" | "requires_input" | "verified"
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_identity_verification_session[]
@@ -8992,7 +8992,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -9033,7 +9033,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -9062,7 +9062,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -9104,7 +9104,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -9132,7 +9132,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -9160,7 +9160,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -9182,7 +9182,7 @@ export class ApiClient {
       pending?: boolean
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_invoiceitem[]
@@ -9217,7 +9217,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -9279,7 +9279,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -9304,7 +9304,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -9332,7 +9332,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -9391,7 +9391,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -9422,7 +9422,7 @@ export class ApiClient {
       status?: "draft" | "open" | "paid" | "uncollectible" | "void"
       subscription?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_invoice[]
@@ -9459,7 +9459,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -9655,7 +9655,7 @@ export class ApiClient {
           destination: string
         }
       }
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<t_invoice> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -9674,7 +9674,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -9716,7 +9716,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -9902,7 +9902,7 @@ export class ApiClient {
       subscriptionTrialEnd?: "now" | number
       subscriptionTrialFromPlan?: boolean
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<t_invoice> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -9946,7 +9946,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -10135,7 +10135,7 @@ export class ApiClient {
       subscriptionTrialEnd?: "now" | number
       subscriptionTrialFromPlan?: boolean
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_line_item[]
@@ -10187,7 +10187,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -10212,7 +10212,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -10240,7 +10240,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -10443,7 +10443,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -10471,7 +10471,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -10512,7 +10512,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -10539,7 +10539,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -10572,7 +10572,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -10599,7 +10599,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -10626,7 +10626,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -10648,7 +10648,7 @@ export class ApiClient {
       startingAfter?: string
       status?: "closed" | "pending" | "reversed"
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_issuing_authorization[]
@@ -10683,7 +10683,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -10711,7 +10711,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -10743,7 +10743,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -10777,7 +10777,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -10810,7 +10810,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -10833,7 +10833,7 @@ export class ApiClient {
       status?: "active" | "blocked" | "inactive"
       type?: "company" | "individual"
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_issuing_cardholder[]
@@ -10869,7 +10869,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -11842,7 +11842,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -11870,7 +11870,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -12842,7 +12842,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -12867,7 +12867,7 @@ export class ApiClient {
       status?: "active" | "canceled" | "inactive"
       type?: "physical" | "virtual"
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_issuing_card[]
@@ -12905,7 +12905,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -13862,7 +13862,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -13890,7 +13890,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -14830,7 +14830,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -14851,7 +14851,7 @@ export class ApiClient {
       status?: "expired" | "lost" | "submitted" | "unsubmitted" | "won"
       transaction?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_issuing_dispute[]
@@ -14885,7 +14885,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -14978,7 +14978,7 @@ export class ApiClient {
           received_debit: string
         }
       }
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<t_issuing_dispute> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -14997,7 +14997,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -15025,7 +15025,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -15134,7 +15134,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -15166,7 +15166,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -15185,7 +15185,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_issuing_settlement[]
@@ -15217,7 +15217,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -15245,7 +15245,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -15275,7 +15275,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -15297,7 +15297,7 @@ export class ApiClient {
       startingAfter?: string
       type?: "capture" | "refund"
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_issuing_transaction[]
@@ -15332,7 +15332,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -15360,7 +15360,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -15392,7 +15392,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -15433,7 +15433,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -15461,7 +15461,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -15477,7 +15477,7 @@ export class ApiClient {
       session?: string
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_financial_connections_account[]
@@ -15510,7 +15510,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -15538,7 +15538,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -15565,7 +15565,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -15608,7 +15608,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -15636,7 +15636,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -15664,7 +15664,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -15684,7 +15684,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_payment_intent[]
@@ -15717,7 +15717,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -16312,7 +16312,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -16354,7 +16354,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -16386,7 +16386,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -16960,7 +16960,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -16990,7 +16990,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -17022,7 +17022,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -17061,7 +17061,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -17649,7 +17649,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -17687,7 +17687,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -17718,7 +17718,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -17730,7 +17730,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_payment_link[]
@@ -17762,7 +17762,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -18170,7 +18170,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -18198,7 +18198,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -18584,7 +18584,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -18625,7 +18625,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -18667,7 +18667,7 @@ export class ApiClient {
         | "us_bank_account"
         | "wechat_pay"
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_payment_method[]
@@ -18700,7 +18700,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -18926,7 +18926,7 @@ export class ApiClient {
         }
         wechat_pay?: EmptyObject
       }
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<t_payment_method> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -18945,7 +18945,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -18973,7 +18973,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19028,7 +19028,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19056,7 +19056,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19083,7 +19083,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19112,7 +19112,7 @@ export class ApiClient {
       startingAfter?: string
       status?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_payout[]
@@ -19147,7 +19147,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19183,7 +19183,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19211,7 +19211,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19243,7 +19243,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19270,7 +19270,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19300,7 +19300,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19321,7 +19321,7 @@ export class ApiClient {
       product?: string
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_plan[]
@@ -19355,7 +19355,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19423,7 +19423,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19448,7 +19448,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19476,7 +19476,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19512,7 +19512,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19540,7 +19540,7 @@ export class ApiClient {
       startingAfter?: string
       type?: "one_time" | "recurring"
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_price[]
@@ -19578,7 +19578,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19672,7 +19672,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19714,7 +19714,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19742,7 +19742,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19801,7 +19801,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19824,7 +19824,7 @@ export class ApiClient {
       startingAfter?: string
       url?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_product[]
@@ -19860,7 +19860,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19935,7 +19935,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -19977,7 +19977,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20002,7 +20002,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20030,7 +20030,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20080,7 +20080,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20103,7 +20103,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_promotion_code[]
@@ -20139,7 +20139,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20184,7 +20184,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20212,7 +20212,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20252,7 +20252,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20266,7 +20266,7 @@ export class ApiClient {
       status?: "accepted" | "canceled" | "draft" | "open"
       testClock?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_quote[]
@@ -20300,7 +20300,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20367,7 +20367,7 @@ export class ApiClient {
             }
           | ""
       }
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<t_quote> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -20386,7 +20386,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20414,7 +20414,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20495,7 +20495,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20522,7 +20522,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20549,7 +20549,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20591,7 +20591,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20619,7 +20619,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20660,7 +20660,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20688,7 +20688,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20701,7 +20701,7 @@ export class ApiClient {
       paymentIntent?: string
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_radar_early_fraud_warning[]
@@ -20734,7 +20734,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20763,7 +20763,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20816,7 +20816,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20844,7 +20844,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20869,7 +20869,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20897,7 +20897,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20918,7 +20918,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_radar_value_list[]
@@ -20952,7 +20952,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -20992,7 +20992,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -21017,7 +21017,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -21045,7 +21045,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -21077,7 +21077,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -21098,7 +21098,7 @@ export class ApiClient {
       paymentIntent?: string
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_refund[]
@@ -21132,7 +21132,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -21156,7 +21156,7 @@ export class ApiClient {
         refund_application_fee?: boolean
         reverse_transfer?: boolean
       }
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<t_refund> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -21175,7 +21175,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -21203,7 +21203,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -21235,7 +21235,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -21262,7 +21262,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -21281,7 +21281,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_reporting_report_run[]
@@ -21313,7 +21313,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -21982,7 +21982,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -22010,7 +22010,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -22018,7 +22018,7 @@ export class ApiClient {
     p: {
       expand?: string[]
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_reporting_report_type[]
@@ -22044,7 +22044,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -22072,7 +22072,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -22091,7 +22091,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_review[]
@@ -22123,7 +22123,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -22151,7 +22151,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -22178,7 +22178,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -22229,7 +22229,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -22251,7 +22251,7 @@ export class ApiClient {
       paymentMethod?: string
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_setup_intent[]
@@ -22286,7 +22286,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -22595,7 +22595,7 @@ export class ApiClient {
         }
         usage?: "off_session" | "on_session"
       }
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<t_setup_intent> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -22614,7 +22614,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -22646,7 +22646,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -22953,7 +22953,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -22981,7 +22981,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -23301,7 +23301,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -23332,7 +23332,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -23353,7 +23353,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_shipping_rate[]
@@ -23387,7 +23387,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -23440,7 +23440,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -23468,7 +23468,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -23510,7 +23510,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -23521,7 +23521,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_scheduled_query_run[]
@@ -23552,7 +23552,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -23581,7 +23581,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -23671,7 +23671,7 @@ export class ApiClient {
         type?: string
         usage?: "reusable" | "single_use"
       }
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<t_source> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -23690,7 +23690,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -23722,7 +23722,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -23818,7 +23818,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -23848,7 +23848,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -23889,7 +23889,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -23919,7 +23919,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -23947,7 +23947,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -23989,7 +23989,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -24045,7 +24045,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -24074,7 +24074,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -24102,7 +24102,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -24161,7 +24161,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -24203,7 +24203,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -24234,7 +24234,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -24279,7 +24279,7 @@ export class ApiClient {
       scheduled?: boolean
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_subscription_schedule[]
@@ -24316,7 +24316,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -24431,7 +24431,7 @@ export class ApiClient {
         }[]
         start_date?: number | "now"
       }
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<t_subscription_schedule> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -24450,7 +24450,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -24478,7 +24478,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -24609,7 +24609,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -24639,7 +24639,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -24668,7 +24668,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -24718,7 +24718,7 @@ export class ApiClient {
         | "unpaid"
       testClock?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_subscription[]
@@ -24757,7 +24757,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -24964,7 +24964,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -25006,7 +25006,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -25048,7 +25048,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -25076,7 +25076,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -25307,7 +25307,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -25333,7 +25333,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -25363,7 +25363,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -25474,7 +25474,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -25516,7 +25516,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -25547,7 +25547,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -25593,7 +25593,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -25621,7 +25621,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -25663,7 +25663,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -25674,7 +25674,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_tax_code[]
@@ -25705,7 +25705,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -25733,7 +25733,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -25754,7 +25754,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_tax_rate[]
@@ -25788,7 +25788,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -25836,7 +25836,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -25864,7 +25864,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -25913,7 +25913,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -25925,7 +25925,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_terminal_configuration[]
@@ -25957,7 +25957,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26046,7 +26046,7 @@ export class ApiClient {
           splashscreen?: string | ""
         }
       }
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<t_terminal_configuration> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -26065,7 +26065,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26091,7 +26091,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26122,7 +26122,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26236,7 +26236,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26246,7 +26246,7 @@ export class ApiClient {
         expand?: string[]
         location?: string
       }
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<t_terminal_connection_token> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -26265,7 +26265,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26276,7 +26276,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_terminal_location[]
@@ -26307,7 +26307,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26348,7 +26348,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26373,7 +26373,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26403,7 +26403,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26447,7 +26447,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26467,7 +26467,7 @@ export class ApiClient {
       startingAfter?: string
       status?: "offline" | "online"
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_terminal_reader[]
@@ -26501,7 +26501,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26535,7 +26535,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26560,7 +26560,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26590,7 +26590,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26625,7 +26625,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26653,7 +26653,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26688,7 +26688,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26718,7 +26718,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26754,7 +26754,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26793,7 +26793,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26824,7 +26824,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26852,7 +26852,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26880,7 +26880,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26908,7 +26908,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26936,7 +26936,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26963,7 +26963,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -26999,7 +26999,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -27010,7 +27010,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_test_helpers_test_clock[]
@@ -27041,7 +27041,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -27069,7 +27069,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -27094,7 +27094,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -27122,7 +27122,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -27151,7 +27151,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -27195,7 +27195,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -27223,7 +27223,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -27251,7 +27251,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -27279,7 +27279,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -27307,7 +27307,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -27348,7 +27348,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -27376,7 +27376,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -27404,7 +27404,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -27445,7 +27445,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -27484,7 +27484,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -27523,7 +27523,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -27813,7 +27813,7 @@ export class ApiClient {
           id_number?: string
         }
       }
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<t_token> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -27832,7 +27832,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -27860,7 +27860,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -27888,7 +27888,7 @@ export class ApiClient {
       startingAfter?: string
       status?: "canceled" | "failed" | "pending" | "succeeded"
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_topup[]
@@ -27922,7 +27922,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -27959,7 +27959,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -27987,7 +27987,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28020,7 +28020,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28047,7 +28047,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28068,7 +28068,7 @@ export class ApiClient {
       startingAfter?: string
       transferGroup?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_transfer[]
@@ -28102,7 +28102,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28138,7 +28138,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28179,7 +28179,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28214,7 +28214,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28242,7 +28242,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28275,7 +28275,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28305,7 +28305,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28339,7 +28339,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28385,7 +28385,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28415,7 +28415,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28444,7 +28444,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28492,7 +28492,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28522,7 +28522,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28551,7 +28551,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28570,7 +28570,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_treasury_financial_account[]
@@ -28602,7 +28602,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28673,7 +28673,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28702,7 +28702,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28774,7 +28774,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28803,7 +28803,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28866,7 +28866,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28910,7 +28910,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28945,7 +28945,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -28973,7 +28973,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -29001,7 +29001,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -29047,7 +29047,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -29123,7 +29123,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -29151,7 +29151,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -29178,7 +29178,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -29222,7 +29222,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -29264,7 +29264,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -29293,7 +29293,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -29321,7 +29321,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -29373,7 +29373,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -29401,7 +29401,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -29445,7 +29445,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -29473,7 +29473,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -29537,7 +29537,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -29565,7 +29565,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -29631,7 +29631,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -29659,7 +29659,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -29670,7 +29670,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       requestBody?: EmptyObject
-    } = {}
+    } = {},
   ): Observable<
     | (HttpResponse<{
         data: t_webhook_endpoint[]
@@ -29701,7 +29701,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -30059,7 +30059,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -30084,7 +30084,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -30112,7 +30112,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 
@@ -30372,7 +30372,7 @@ export class ApiClient {
         body,
         observe: "response",
         reportProgress: false,
-      }
+      },
     )
   }
 }
