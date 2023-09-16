@@ -101,6 +101,23 @@ export type t_actions_workflow_access_to_repository = {
   access_level: "none" | "user" | "organization"
 }
 
+export type t_activity = {
+  activity_type:
+    | "push"
+    | "force_push"
+    | "branch_deletion"
+    | "branch_creation"
+    | "pr_merge"
+    | "merge_queue_merge"
+  actor: t_nullable_simple_user
+  after: string
+  before: string
+  id: number
+  node_id: string
+  ref: string
+  timestamp: string
+}
+
 export type t_actor = {
   avatar_url: string
   display_login?: string
@@ -154,7 +171,14 @@ export type t_api_overview = {
   actions?: string[]
   api?: string[]
   dependabot?: string[]
+  domains?: {
+    codespaces?: string[]
+    copilot?: string[]
+    packages?: string[]
+    website?: string[]
+  }
   git?: string[]
+  github_enterprise_importer?: string[]
   hooks?: string[]
   importer?: string[]
   packages?: string[]
@@ -501,6 +525,11 @@ export type t_check_annotation = {
   title: string | null
 }
 
+export type t_check_automated_security_fixes = {
+  enabled: boolean
+  paused: boolean
+}
+
 export type t_check_run = {
   app: t_nullable_integration
   check_suite: {
@@ -578,6 +607,61 @@ export type t_check_suite_preference = {
     }[]
   }
   repository: t_minimal_repository
+}
+
+export type t_classroom = {
+  archived: boolean
+  id: number
+  name: string
+  organization: t_simple_classroom_organization
+  url: string
+}
+
+export type t_classroom_accepted_assignment = {
+  assignment: t_simple_classroom_assignment
+  commit_count: number
+  grade: string
+  id: number
+  passing: boolean
+  repository: t_simple_classroom_repository
+  students: t_simple_classroom_user[]
+  submitted: boolean
+}
+
+export type t_classroom_assignment = {
+  accepted: number
+  classroom: t_classroom
+  deadline: string | null
+  editor: string
+  feedback_pull_requests_enabled: boolean
+  id: number
+  invitations_enabled: boolean
+  invite_link: string
+  language: string
+  max_members: number | null
+  max_teams: number | null
+  passing: number
+  public_repo: boolean
+  slug: string
+  starter_code_repository: t_simple_classroom_repository
+  students_are_repo_admins: boolean
+  submitted: number
+  title: string
+  type: "individual" | "group"
+}
+
+export type t_classroom_assignment_grade = {
+  assignment_name: string
+  assignment_url: string
+  github_username: string
+  group_name?: string
+  points_available: number
+  points_awarded: number
+  roster_identifier: string
+  starter_code_url: string
+  student_repository_name: string
+  student_repository_url: string
+  submission_timestamp: string
 }
 
 export type t_clone_traffic = {
@@ -711,7 +795,9 @@ export type t_code_scanning_alert_severity =
   | "note"
   | "error"
 
-export type t_code_scanning_alert_state =
+export type t_code_scanning_alert_state = "open" | "dismissed" | "fixed"
+
+export type t_code_scanning_alert_state_query =
   | "open"
   | "closed"
   | "dismissed"
@@ -782,18 +868,19 @@ export type t_code_scanning_codeql_database = {
 
 export type t_code_scanning_default_setup = {
   languages?: (
-    | "c"
-    | "cpp"
+    | "c-cpp"
     | "csharp"
     | "go"
-    | "java"
+    | "java-kotlin"
+    | "javascript-typescript"
     | "javascript"
-    | "kotlin"
     | "python"
     | "ruby"
     | "typescript"
+    | "swift"
   )[]
   query_suite?: "default" | "extended"
+  schedule?: "weekly" | null
   state?: "configured" | "not-configured"
   updated_at?: string | null
 }
@@ -1337,6 +1424,41 @@ export type t_converted_note_to_issue_issue_event = {
     url: string
   }
   url: string
+}
+
+export type t_copilot_organization_details =
+  | {
+      public_code_suggestions: "allow" | "block" | "unconfigured" | "unknown"
+      seat_breakdown: t_copilot_seat_breakdown
+      seat_management_setting:
+        | "assign_all"
+        | "assign_selected"
+        | "disabled"
+        | "unconfigured"
+    }
+  | {
+      [key: string]: unknown
+    }
+
+export type t_copilot_seat_breakdown = {
+  active_this_cycle?: number
+  added_this_cycle?: number
+  inactive_this_cycle?: number
+  pending_cancellation?: number
+  pending_invitation?: number
+  total?: number
+}
+
+export type t_copilot_seat_details = {
+  assignee: {
+    [key: string]: unknown
+  }
+  assigning_team?: t_team | null
+  created_at: string
+  last_activity_at?: string | null
+  last_activity_editor?: string | null
+  pending_cancellation_date?: string | null
+  updated_at?: string
 }
 
 export type t_custom_deployment_rule_app = {
@@ -2118,6 +2240,58 @@ export type t_git_tree = {
 export type t_gitignore_template = {
   name: string
   source: string
+}
+
+export type t_global_advisory = {
+  readonly credits:
+    | {
+        type: t_security_advisory_credit_types
+        user: t_simple_user
+      }[]
+    | null
+  readonly cve_id: string | null
+  cvss: {
+    readonly score: number | null
+    vector_string: string | null
+  } | null
+  cwes:
+    | {
+        cwe_id: string
+        readonly name: string
+      }[]
+    | null
+  description: string | null
+  readonly ghsa_id: string
+  readonly github_reviewed_at: string | null
+  readonly html_url: string
+  readonly identifiers:
+    | {
+        type: "CVE" | "GHSA"
+        value: string
+      }[]
+    | null
+  readonly nvd_published_at: string | null
+  readonly published_at: string
+  references: string[] | null
+  readonly repository_advisory_url: string | null
+  severity: "critical" | "high" | "medium" | "low" | "unknown"
+  source_code_location: string | null
+  summary: string
+  readonly type: "reviewed" | "unreviewed" | "malware"
+  readonly updated_at: string
+  readonly url: string
+  vulnerabilities:
+    | {
+        first_patched_version: string | null
+        package: {
+          ecosystem: t_security_advisory_ecosystems
+          name: string | null
+        } | null
+        readonly vulnerable_functions: string[] | null
+        vulnerable_version_range: string | null
+      }[]
+    | null
+  readonly withdrawn_at: string | null
 }
 
 export type t_gpg_key = {
@@ -3589,8 +3763,11 @@ export type t_org_membership = {
   user: t_nullable_simple_user
 }
 
-export type t_org_ruleset_conditions = t_repository_ruleset_conditions &
-  t_repository_ruleset_conditions_repository_name_target
+export type t_org_ruleset_conditions =
+  | (t_repository_ruleset_conditions &
+      t_repository_ruleset_conditions_repository_name_target)
+  | (t_repository_ruleset_conditions &
+      t_repository_ruleset_conditions_repository_id_target)
 
 export type t_organization_actions_secret = {
   created_at: string
@@ -3619,6 +3796,7 @@ export type t_organization_dependabot_secret = {
 
 export type t_organization_full = {
   advanced_security_enabled_for_new_repositories?: boolean
+  archived_at: string | null
   avatar_url: string
   billing_email?: string | null
   blog?: string
@@ -4757,6 +4935,7 @@ export type t_rate_limit_overview = {
   resources: {
     actions_runner_registration?: t_rate_limit
     code_scanning_upload?: t_rate_limit
+    code_search?: t_rate_limit
     core: t_rate_limit
     dependency_snapshots?: t_rate_limit
     graphql?: t_rate_limit
@@ -4895,20 +5074,6 @@ export type t_repo_codespaces_secret = {
   created_at: string
   name: string
   updated_at: string
-}
-
-export type t_repo_required_workflow = {
-  badge_url: string
-  created_at: string
-  html_url: string
-  id: number
-  name: string
-  node_id: string
-  path: string
-  source_repository: t_minimal_repository
-  state: "active" | "deleted"
-  updated_at: string
-  url: string
 }
 
 export type t_repo_search_result_item = {
@@ -5233,11 +5398,13 @@ export type t_repository = {
 export type t_repository_advisory = {
   readonly author: t_simple_user | null
   readonly closed_at: string | null
+  collaborating_teams: t_team[] | null
+  collaborating_users: t_simple_user[] | null
   readonly created_at: string | null
   credits:
     | {
         login?: string
-        type?: t_repository_advisory_credit_types
+        type?: t_security_advisory_credit_types
       }[]
     | null
   readonly credits_detailed: t_repository_advisory_credit[] | null
@@ -5260,6 +5427,7 @@ export type t_repository_advisory = {
     type: "CVE" | "GHSA"
     value: string
   }[]
+  readonly private_fork: t_simple_repository | null
   readonly published_at: string | null
   readonly publisher: t_simple_user | null
   severity: "critical" | "high" | "medium" | "low" | null
@@ -5276,39 +5444,13 @@ export type t_repository_advisory = {
 
 export type t_repository_advisory_credit = {
   state: "accepted" | "declined" | "pending"
-  type: t_repository_advisory_credit_types
+  type: t_security_advisory_credit_types
   user: t_simple_user
 }
 
-export type t_repository_advisory_credit_types =
-  | "analyst"
-  | "finder"
-  | "reporter"
-  | "coordinator"
-  | "remediation_developer"
-  | "remediation_reviewer"
-  | "remediation_verifier"
-  | "tool"
-  | "sponsor"
-  | "other"
-
-export type t_repository_advisory_ecosystems =
-  | "rubygems"
-  | "npm"
-  | "pip"
-  | "maven"
-  | "nuget"
-  | "composer"
-  | "go"
-  | "rust"
-  | "erlang"
-  | "actions"
-  | "pub"
-  | "other"
-
 export type t_repository_advisory_vulnerability = {
   package: {
-    ecosystem: t_repository_advisory_ecosystems
+    ecosystem: t_security_advisory_ecosystems
     name: string | null
   } | null
   patched_versions: string | null
@@ -5399,6 +5541,23 @@ export type t_repository_rule_deletion = {
   type: "deletion"
 }
 
+export type t_repository_rule_detailed =
+  | (t_repository_rule_creation & t_repository_rule_ruleset_info)
+  | (t_repository_rule_update & t_repository_rule_ruleset_info)
+  | (t_repository_rule_deletion & t_repository_rule_ruleset_info)
+  | (t_repository_rule_required_linear_history & t_repository_rule_ruleset_info)
+  | (t_repository_rule_required_deployments & t_repository_rule_ruleset_info)
+  | (t_repository_rule_required_signatures & t_repository_rule_ruleset_info)
+  | (t_repository_rule_pull_request & t_repository_rule_ruleset_info)
+  | (t_repository_rule_required_status_checks & t_repository_rule_ruleset_info)
+  | (t_repository_rule_non_fast_forward & t_repository_rule_ruleset_info)
+  | (t_repository_rule_commit_message_pattern & t_repository_rule_ruleset_info)
+  | (t_repository_rule_commit_author_email_pattern &
+      t_repository_rule_ruleset_info)
+  | (t_repository_rule_committer_email_pattern & t_repository_rule_ruleset_info)
+  | (t_repository_rule_branch_name_pattern & t_repository_rule_ruleset_info)
+  | (t_repository_rule_tag_name_pattern & t_repository_rule_ruleset_info)
+
 export type t_repository_rule_enforcement = "disabled" | "active" | "evaluate"
 
 export type t_repository_rule_non_fast_forward = {
@@ -5444,6 +5603,12 @@ export type t_repository_rule_required_status_checks = {
   type: "required_status_checks"
 }
 
+export type t_repository_rule_ruleset_info = {
+  ruleset_id?: number
+  ruleset_source?: string
+  ruleset_source_type?: "Repository" | "Organization"
+}
+
 export type t_repository_rule_tag_name_pattern = {
   parameters?: {
     name?: string
@@ -5463,13 +5628,17 @@ export type t_repository_rule_update = {
 
 export type t_repository_ruleset = {
   _links?: {
+    html?: {
+      href?: string
+    }
     self?: {
       href?: string
     }
   }
   bypass_actors?: t_repository_ruleset_bypass_actor[]
-  bypass_mode?: "none" | "repository" | "organization"
   conditions?: t_repository_ruleset_conditions | t_org_ruleset_conditions
+  created_at?: string
+  current_user_can_bypass?: "always" | "pull_requests_only" | "never"
   enforcement: t_repository_rule_enforcement
   id: number
   name: string
@@ -5478,11 +5647,13 @@ export type t_repository_ruleset = {
   source: string
   source_type?: "Repository" | "Organization"
   target?: "branch" | "tag"
+  updated_at?: string
 }
 
 export type t_repository_ruleset_bypass_actor = {
-  actor_id?: number
-  actor_type?: "Team" | "Integration"
+  actor_id: number
+  actor_type: "RepositoryRole" | "Team" | "Integration" | "OrganizationAdmin"
+  bypass_mode: "always" | "pull_request"
 }
 
 export type t_repository_ruleset_conditions = {
@@ -5492,8 +5663,14 @@ export type t_repository_ruleset_conditions = {
   }
 }
 
+export type t_repository_ruleset_conditions_repository_id_target = {
+  repository_id: {
+    repository_ids?: number[]
+  }
+}
+
 export type t_repository_ruleset_conditions_repository_name_target = {
-  repository_name?: {
+  repository_name: {
     exclude?: string[]
     include?: string[]
     protected?: boolean
@@ -5507,19 +5684,6 @@ export type t_repository_subscription = {
   repository_url: string
   subscribed: boolean
   url: string
-}
-
-export type t_required_workflow = {
-  created_at: string
-  id: number
-  name: string
-  path: string
-  ref: string
-  repository: t_minimal_repository
-  scope: "all" | "selected"
-  selected_repositories_url?: string
-  state: "active" | "deleted"
-  updated_at: string
 }
 
 export type t_review_comment = {
@@ -5761,8 +5925,38 @@ export type t_secret_scanning_location_issue_title = {
   issue_title_url: string
 }
 
+export type t_security_advisory_credit_types =
+  | "analyst"
+  | "finder"
+  | "reporter"
+  | "coordinator"
+  | "remediation_developer"
+  | "remediation_reviewer"
+  | "remediation_verifier"
+  | "tool"
+  | "sponsor"
+  | "other"
+
+export type t_security_advisory_ecosystems =
+  | "rubygems"
+  | "npm"
+  | "pip"
+  | "maven"
+  | "nuget"
+  | "composer"
+  | "go"
+  | "rust"
+  | "erlang"
+  | "actions"
+  | "pub"
+  | "other"
+  | "swift"
+
 export type t_security_and_analysis = {
   advanced_security?: {
+    status?: "enabled" | "disabled"
+  }
+  dependabot_security_updates?: {
     status?: "enabled" | "disabled"
   }
   secret_scanning?: {
@@ -5795,6 +5989,59 @@ export type t_short_branch = {
   protected: boolean
   protection?: t_branch_protection
   protection_url?: string
+}
+
+export type t_simple_classroom = {
+  archived: boolean
+  id: number
+  name: string
+  url: string
+}
+
+export type t_simple_classroom_assignment = {
+  accepted: number
+  classroom: t_simple_classroom
+  deadline: string | null
+  editor: string
+  feedback_pull_requests_enabled: boolean
+  id: number
+  invitations_enabled: boolean
+  invite_link: string
+  language: string
+  max_members?: number | null
+  max_teams?: number | null
+  passing: number
+  public_repo: boolean
+  slug: string
+  students_are_repo_admins: boolean
+  submitted: number
+  title: string
+  type: "individual" | "group"
+}
+
+export type t_simple_classroom_organization = {
+  avatar_url: string
+  html_url: string
+  id: number
+  login: string
+  name: string | null
+  node_id: string
+}
+
+export type t_simple_classroom_repository = {
+  default_branch: string
+  full_name: string
+  html_url: string
+  id: number
+  node_id: string
+  private: boolean
+}
+
+export type t_simple_classroom_user = {
+  avatar_url: string
+  html_url: string
+  id: number
+  login: string
 }
 
 export type t_simple_commit = {
@@ -6067,6 +6314,7 @@ export type t_team_membership = {
 }
 
 export type t_team_organization = {
+  archived_at: string | null
   avatar_url: string
   billing_email?: string | null
   blog?: string
@@ -6746,12 +6994,6 @@ export type t_ActionsAddSelectedRepoToOrgVariableParamSchema = {
   repository_id: number
 }
 
-export type t_ActionsAddSelectedRepoToRequiredWorkflowParamSchema = {
-  org: string
-  repository_id: number
-  required_workflow_id: number
-}
-
 export type t_ActionsApproveWorkflowRunParamSchema = {
   owner: string
   repo: string
@@ -6847,17 +7089,6 @@ export type t_ActionsCreateRepoVariableParamSchema = {
   repo: string
 }
 
-export type t_ActionsCreateRequiredWorkflowBodySchema = {
-  repository_id: string
-  scope?: "selected" | "all"
-  selected_repository_ids?: number[]
-  workflow_file_path: string
-}
-
-export type t_ActionsCreateRequiredWorkflowParamSchema = {
-  org: string
-}
-
 export type t_ActionsCreateWorkflowDispatchBodySchema = {
   inputs?: {
     [key: string]: unknown
@@ -6925,11 +7156,6 @@ export type t_ActionsDeleteRepoVariableParamSchema = {
   name: string
   owner: string
   repo: string
-}
-
-export type t_ActionsDeleteRequiredWorkflowParamSchema = {
-  org: string
-  required_workflow_id: number
 }
 
 export type t_ActionsDeleteSelfHostedRunnerFromOrgParamSchema = {
@@ -7003,6 +7229,29 @@ export type t_ActionsEnableWorkflowParamSchema = {
   owner: string
   repo: string
   workflow_id: number | string
+}
+
+export type t_ActionsGenerateRunnerJitconfigForOrgBodySchema = {
+  labels: string[]
+  name: string
+  runner_group_id: number
+  work_folder?: string
+}
+
+export type t_ActionsGenerateRunnerJitconfigForOrgParamSchema = {
+  org: string
+}
+
+export type t_ActionsGenerateRunnerJitconfigForRepoBodySchema = {
+  labels: string[]
+  name: string
+  runner_group_id: number
+  work_folder?: string
+}
+
+export type t_ActionsGenerateRunnerJitconfigForRepoParamSchema = {
+  owner: string
+  repo: string
 }
 
 export type t_ActionsGetActionsCacheListParamSchema = {
@@ -7125,18 +7374,6 @@ export type t_ActionsGetRepoPublicKeyParamSchema = {
   repo: string
 }
 
-export type t_ActionsGetRepoRequiredWorkflowParamSchema = {
-  org: string
-  repo: string
-  required_workflow_id_for_repo: number
-}
-
-export type t_ActionsGetRepoRequiredWorkflowUsageParamSchema = {
-  org: string
-  repo: string
-  required_workflow_id_for_repo: number
-}
-
 export type t_ActionsGetRepoSecretParamSchema = {
   owner: string
   repo: string
@@ -7147,11 +7384,6 @@ export type t_ActionsGetRepoVariableParamSchema = {
   name: string
   owner: string
   repo: string
-}
-
-export type t_ActionsGetRequiredWorkflowParamSchema = {
-  org: string
-  required_workflow_id: number
 }
 
 export type t_ActionsGetReviewsForRunParamSchema = {
@@ -7319,16 +7551,6 @@ export type t_ActionsListRepoOrganizationVariablesQuerySchema = {
   per_page?: number
 }
 
-export type t_ActionsListRepoRequiredWorkflowsParamSchema = {
-  org: string
-  repo: string
-}
-
-export type t_ActionsListRepoRequiredWorkflowsQuerySchema = {
-  page?: number
-  per_page?: number
-}
-
 export type t_ActionsListRepoSecretsParamSchema = {
   owner: string
   repo: string
@@ -7355,48 +7577,6 @@ export type t_ActionsListRepoWorkflowsParamSchema = {
 }
 
 export type t_ActionsListRepoWorkflowsQuerySchema = {
-  page?: number
-  per_page?: number
-}
-
-export type t_ActionsListRequiredWorkflowRunsParamSchema = {
-  owner: string
-  repo: string
-  required_workflow_id_for_repo: number
-}
-
-export type t_ActionsListRequiredWorkflowRunsQuerySchema = {
-  actor?: string
-  branch?: string
-  check_suite_id?: number
-  created?: string
-  event?: string
-  exclude_pull_requests?: boolean
-  head_sha?: string
-  page?: number
-  per_page?: number
-  status?:
-    | "completed"
-    | "action_required"
-    | "cancelled"
-    | "failure"
-    | "neutral"
-    | "skipped"
-    | "stale"
-    | "success"
-    | "timed_out"
-    | "in_progress"
-    | "queued"
-    | "requested"
-    | "waiting"
-    | "pending"
-}
-
-export type t_ActionsListRequiredWorkflowsParamSchema = {
-  org: string
-}
-
-export type t_ActionsListRequiredWorkflowsQuerySchema = {
   page?: number
   per_page?: number
 }
@@ -7441,16 +7621,12 @@ export type t_ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationQue
     per_page?: number
   }
 
-export type t_ActionsListSelectedRepositoriesRequiredWorkflowParamSchema = {
-  org: string
-  required_workflow_id: number
-}
-
 export type t_ActionsListSelfHostedRunnersForOrgParamSchema = {
   org: string
 }
 
 export type t_ActionsListSelfHostedRunnersForOrgQuerySchema = {
+  name?: string
   page?: number
   per_page?: number
 }
@@ -7461,6 +7637,7 @@ export type t_ActionsListSelfHostedRunnersForRepoParamSchema = {
 }
 
 export type t_ActionsListSelfHostedRunnersForRepoQuerySchema = {
+  name?: string
   page?: number
   per_page?: number
 }
@@ -7472,6 +7649,7 @@ export type t_ActionsListWorkflowRunArtifactsParamSchema = {
 }
 
 export type t_ActionsListWorkflowRunArtifactsQuerySchema = {
+  name?: string
   page?: number
   per_page?: number
 }
@@ -7609,12 +7787,6 @@ export type t_ActionsRemoveSelectedRepoFromOrgVariableParamSchema = {
   repository_id: number
 }
 
-export type t_ActionsRemoveSelectedRepoFromRequiredWorkflowParamSchema = {
-  org: string
-  repository_id: number
-  required_workflow_id: number
-}
-
 export type t_ActionsReviewCustomGatesForRunBodySchema =
   | t_review_custom_gates_comment_required
   | t_review_custom_gates_state_required
@@ -7747,15 +7919,6 @@ export type t_ActionsSetSelectedReposForOrgVariableParamSchema = {
   org: string
 }
 
-export type t_ActionsSetSelectedReposToRequiredWorkflowBodySchema = {
-  selected_repository_ids: number[]
-}
-
-export type t_ActionsSetSelectedReposToRequiredWorkflowParamSchema = {
-  org: string
-  required_workflow_id: number
-}
-
 export type t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema =
   {
     selected_repository_ids: number[]
@@ -7807,18 +7970,6 @@ export type t_ActionsUpdateRepoVariableParamSchema = {
   name: string
   owner: string
   repo: string
-}
-
-export type t_ActionsUpdateRequiredWorkflowBodySchema = {
-  repository_id?: string
-  scope?: "selected" | "all"
-  selected_repository_ids?: number[]
-  workflow_file_path?: string
-}
-
-export type t_ActionsUpdateRequiredWorkflowParamSchema = {
-  org: string
-  required_workflow_id: number
 }
 
 export type t_ActivityCheckRepoIsStarredByAuthenticatedUserParamSchema = {
@@ -8441,6 +8592,41 @@ export type t_ChecksUpdateParamSchema = {
   repo: string
 }
 
+export type t_ClassroomGetAClassroomParamSchema = {
+  classroom_id: number
+}
+
+export type t_ClassroomGetAnAssignmentParamSchema = {
+  assignment_id: number
+}
+
+export type t_ClassroomGetAssignmentGradesParamSchema = {
+  assignment_id: number
+}
+
+export type t_ClassroomListAcceptedAssigmentsForAnAssignmentParamSchema = {
+  assignment_id: number
+}
+
+export type t_ClassroomListAcceptedAssigmentsForAnAssignmentQuerySchema = {
+  page?: number
+  per_page?: number
+}
+
+export type t_ClassroomListAssignmentsForAClassroomParamSchema = {
+  classroom_id: number
+}
+
+export type t_ClassroomListAssignmentsForAClassroomQuerySchema = {
+  page?: number
+  per_page?: number
+}
+
+export type t_ClassroomListClassroomsQuerySchema = {
+  page?: number
+  per_page?: number
+}
+
 export type t_CodeScanningDeleteAnalysisParamSchema = {
   analysis_id: number
   owner: string
@@ -8504,7 +8690,7 @@ export type t_CodeScanningListAlertsForOrgQuerySchema = {
   per_page?: number
   severity?: t_code_scanning_alert_severity
   sort?: "created" | "updated"
-  state?: t_code_scanning_alert_state
+  state?: t_code_scanning_alert_state_query
   tool_guid?: t_code_scanning_analysis_tool_guid
   tool_name?: t_code_scanning_analysis_tool_name
 }
@@ -8521,7 +8707,7 @@ export type t_CodeScanningListAlertsForRepoQuerySchema = {
   ref?: t_code_scanning_ref
   severity?: t_code_scanning_alert_severity
   sort?: "created" | "updated"
-  state?: t_code_scanning_alert_state
+  state?: t_code_scanning_alert_state_query
   tool_guid?: t_code_scanning_analysis_tool_guid
   tool_name?: t_code_scanning_analysis_tool_name
 }
@@ -8560,6 +8746,16 @@ export type t_CodeScanningUpdateAlertParamSchema = {
 }
 
 export type t_CodeScanningUpdateDefaultSetupBodySchema = {
+  languages?: (
+    | "c-cpp"
+    | "csharp"
+    | "go"
+    | "java-kotlin"
+    | "javascript-typescript"
+    | "python"
+    | "ruby"
+    | "swift"
+  )[]
   query_suite?: "default" | "extended"
   state: "configured" | "not-configured"
 }
@@ -8703,11 +8899,11 @@ export type t_CodespacesCreateWithRepoForAuthenticatedUserParamSchema = {
   repo: string
 }
 
-export type t_CodespacesDeleteCodespacesBillingUsersBodySchema = {
+export type t_CodespacesDeleteCodespacesAccessUsersBodySchema = {
   selected_usernames: string[]
 }
 
-export type t_CodespacesDeleteCodespacesBillingUsersParamSchema = {
+export type t_CodespacesDeleteCodespacesAccessUsersParamSchema = {
   org: string
 }
 
@@ -8898,9 +9094,10 @@ export type t_CodespacesRepoMachinesForAuthenticatedUserParamSchema = {
 export type t_CodespacesRepoMachinesForAuthenticatedUserQuerySchema = {
   client_ip?: string
   location?: string
+  ref?: string
 }
 
-export type t_CodespacesSetCodespacesBillingBodySchema = {
+export type t_CodespacesSetCodespacesAccessBodySchema = {
   selected_usernames?: string[]
   visibility:
     | "disabled"
@@ -8909,15 +9106,15 @@ export type t_CodespacesSetCodespacesBillingBodySchema = {
     | "all_members_and_outside_collaborators"
 }
 
-export type t_CodespacesSetCodespacesBillingParamSchema = {
+export type t_CodespacesSetCodespacesAccessParamSchema = {
   org: string
 }
 
-export type t_CodespacesSetCodespacesBillingUsersBodySchema = {
+export type t_CodespacesSetCodespacesAccessUsersBodySchema = {
   selected_usernames: string[]
 }
 
-export type t_CodespacesSetCodespacesBillingUsersParamSchema = {
+export type t_CodespacesSetCodespacesAccessUsersParamSchema = {
   org: string
 }
 
@@ -8962,6 +9159,56 @@ export type t_CodespacesUpdateForAuthenticatedUserBodySchema = {
 
 export type t_CodespacesUpdateForAuthenticatedUserParamSchema = {
   codespace_name: string
+}
+
+export type t_CopilotAddCopilotForBusinessSeatsForTeamsBodySchema = {
+  selected_teams: string[]
+}
+
+export type t_CopilotAddCopilotForBusinessSeatsForTeamsParamSchema = {
+  org: string
+}
+
+export type t_CopilotAddCopilotForBusinessSeatsForUsersBodySchema = {
+  selected_usernames: string[]
+}
+
+export type t_CopilotAddCopilotForBusinessSeatsForUsersParamSchema = {
+  org: string
+}
+
+export type t_CopilotCancelCopilotSeatAssignmentForTeamsBodySchema = {
+  selected_teams: string[]
+}
+
+export type t_CopilotCancelCopilotSeatAssignmentForTeamsParamSchema = {
+  org: string
+}
+
+export type t_CopilotCancelCopilotSeatAssignmentForUsersBodySchema = {
+  selected_usernames: string[]
+}
+
+export type t_CopilotCancelCopilotSeatAssignmentForUsersParamSchema = {
+  org: string
+}
+
+export type t_CopilotGetCopilotOrganizationDetailsParamSchema = {
+  org: string
+}
+
+export type t_CopilotGetCopilotSeatAssignmentDetailsForUserParamSchema = {
+  org: string
+  username: string
+}
+
+export type t_CopilotListCopilotSeatsParamSchema = {
+  org: string
+}
+
+export type t_CopilotListCopilotSeatsQuerySchema = {
+  page?: number
+  per_page?: number
 }
 
 export type t_DependabotAddSelectedRepoToOrgSecretParamSchema = {
@@ -9307,7 +9554,10 @@ export type t_GistsUnstarParamSchema = {
 export type t_GistsUpdateBodySchema = {
   description?: string
   files?: {
-    [key: string]: EmptyObject | null
+    [key: string]: {
+      content?: string
+      filename?: string | null
+    } | null
   }
 } | null
 
@@ -10234,6 +10484,10 @@ export type t_OrgsDeleteWebhookParamSchema = {
   org: string
 }
 
+export type t_OrgsEnableOrDisableSecurityProductOnAllOrgReposBodySchema = {
+  query_suite?: "default" | "extended"
+}
+
 export type t_OrgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema = {
   enablement: "enable_all" | "disable_all"
   org: string
@@ -11083,7 +11337,7 @@ export type t_PullsCreateReviewCommentBodySchema = {
   side?: "LEFT" | "RIGHT"
   start_line?: number
   start_side?: "LEFT" | "RIGHT" | "side"
-  subject_type?: "LINE" | "FILE"
+  subject_type?: "line" | "file"
 }
 
 export type t_PullsCreateReviewCommentParamSchema = {
@@ -11759,6 +12013,11 @@ export type t_ReposAddUserAccessRestrictionsParamSchema = {
   repo: string
 }
 
+export type t_ReposCheckAutomatedSecurityFixesParamSchema = {
+  owner: string
+  repo: string
+}
+
 export type t_ReposCheckCollaboratorParamSchema = {
   owner: string
   repo: string
@@ -11888,7 +12147,7 @@ export type t_ReposCreateDeploymentProtectionRuleParamSchema = {
 export type t_ReposCreateDeploymentStatusBodySchema = {
   auto_inactive?: boolean
   description?: string
-  environment?: "production" | "staging" | "qa"
+  environment?: string
   environment_url?: string
   log_url?: string
   state:
@@ -12085,7 +12344,6 @@ export type t_ReposCreateReleaseParamSchema = {
 
 export type t_ReposCreateRepoRulesetBodySchema = {
   bypass_actors?: t_repository_ruleset_bypass_actor[]
-  bypass_mode?: "none" | "repository" | "organization"
   conditions?: t_repository_ruleset_conditions
   enforcement: t_repository_rule_enforcement
   name: string
@@ -12293,7 +12551,7 @@ export type t_ReposDisableDeploymentProtectionRuleParamSchema = {
   repo: string
 }
 
-export type t_ReposDisableLfsForRepoParamSchema = {
+export type t_ReposDisablePrivateVulnerabilityReportingParamSchema = {
   owner: string
   repo: string
 }
@@ -12320,7 +12578,7 @@ export type t_ReposEnableAutomatedSecurityFixesParamSchema = {
   repo: string
 }
 
-export type t_ReposEnableLfsForRepoParamSchema = {
+export type t_ReposEnablePrivateVulnerabilityReportingParamSchema = {
   owner: string
   repo: string
 }
@@ -12419,6 +12677,11 @@ export type t_ReposGetBranchRulesParamSchema = {
   branch: string
   owner: string
   repo: string
+}
+
+export type t_ReposGetBranchRulesQuerySchema = {
+  page?: number
+  per_page?: number
 }
 
 export type t_ReposGetClonesParamSchema = {
@@ -12558,6 +12821,11 @@ export type t_ReposGetOrgRulesetsParamSchema = {
   org: string
 }
 
+export type t_ReposGetOrgRulesetsQuerySchema = {
+  page?: number
+  per_page?: number
+}
+
 export type t_ReposGetPagesParamSchema = {
   owner: string
   repo: string
@@ -12644,6 +12912,8 @@ export type t_ReposGetRepoRulesetsParamSchema = {
 
 export type t_ReposGetRepoRulesetsQuerySchema = {
   includes_parents?: boolean
+  page?: number
+  per_page?: number
 }
 
 export type t_ReposGetStatusChecksProtectionParamSchema = {
@@ -12700,6 +12970,28 @@ export type t_ReposGetWebhookDeliveryParamSchema = {
   hook_id: number
   owner: string
   repo: string
+}
+
+export type t_ReposListActivitiesParamSchema = {
+  owner: string
+  repo: string
+}
+
+export type t_ReposListActivitiesQuerySchema = {
+  activity_type?:
+    | "push"
+    | "force_push"
+    | "branch_creation"
+    | "branch_deletion"
+    | "pr_merge"
+    | "merge_queue_merge"
+  actor?: string
+  after?: string
+  before?: string
+  direction?: "asc" | "desc"
+  per_page?: number
+  ref?: string
+  time_period?: "day" | "week" | "month" | "quarter" | "year"
 }
 
 export type t_ReposListAutolinksParamSchema = {
@@ -13411,7 +13703,6 @@ export type t_ReposUpdateReleaseAssetParamSchema = {
 
 export type t_ReposUpdateRepoRulesetBodySchema = {
   bypass_actors?: t_repository_ruleset_bypass_actor[]
-  bypass_mode?: "none" | "repository" | "organization"
   conditions?: t_repository_ruleset_conditions
   enforcement?: t_repository_rule_enforcement
   name?: string
@@ -13639,7 +13930,7 @@ export type t_SecurityAdvisoriesCreatePrivateVulnerabilityReportBodySchema = {
   vulnerabilities?:
     | {
         package: {
-          ecosystem: t_repository_advisory_ecosystems
+          ecosystem: t_security_advisory_ecosystems
           name?: string | null
         }
         patched_versions?: string | null
@@ -13658,7 +13949,7 @@ export type t_SecurityAdvisoriesCreateRepositoryAdvisoryBodySchema = {
   credits?:
     | {
         login: string
-        type: t_repository_advisory_credit_types
+        type: t_security_advisory_credit_types
       }[]
     | null
   cve_id?: string | null
@@ -13669,7 +13960,7 @@ export type t_SecurityAdvisoriesCreateRepositoryAdvisoryBodySchema = {
   summary: string
   vulnerabilities: {
     package: {
-      ecosystem: t_repository_advisory_ecosystems
+      ecosystem: t_security_advisory_ecosystems
       name?: string | null
     }
     patched_versions?: string | null
@@ -13683,10 +13974,65 @@ export type t_SecurityAdvisoriesCreateRepositoryAdvisoryParamSchema = {
   repo: string
 }
 
+export type t_SecurityAdvisoriesCreateRepositoryAdvisoryCveRequestParamSchema =
+  {
+    ghsa_id: string
+    owner: string
+    repo: string
+  }
+
+export type t_SecurityAdvisoriesGetGlobalAdvisoryParamSchema = {
+  ghsa_id: string
+}
+
 export type t_SecurityAdvisoriesGetRepositoryAdvisoryParamSchema = {
   ghsa_id: string
   owner: string
   repo: string
+}
+
+export type t_SecurityAdvisoriesListGlobalAdvisoriesQuerySchema = {
+  affects?: string | string[]
+  after?: string
+  before?: string
+  cve_id?: string
+  cwes?: string | string[]
+  direction?: "asc" | "desc"
+  ecosystem?:
+    | "actions"
+    | "composer"
+    | "erlang"
+    | "go"
+    | "maven"
+    | "npm"
+    | "nuget"
+    | "other"
+    | "pip"
+    | "pub"
+    | "rubygems"
+    | "rust"
+  ghsa_id?: string
+  is_withdrawn?: boolean
+  modified?: string
+  per_page?: number
+  published?: string
+  severity?: "unknown" | "low" | "medium" | "high" | "critical"
+  sort?: "updated" | "published"
+  type?: "reviewed" | "malware" | "unreviewed"
+  updated?: string
+}
+
+export type t_SecurityAdvisoriesListOrgRepositoryAdvisoriesParamSchema = {
+  org: string
+}
+
+export type t_SecurityAdvisoriesListOrgRepositoryAdvisoriesQuerySchema = {
+  after?: string
+  before?: string
+  direction?: "asc" | "desc"
+  per_page?: number
+  sort?: "created" | "updated" | "published"
+  state?: "triage" | "draft" | "published" | "closed"
 }
 
 export type t_SecurityAdvisoriesListRepositoryAdvisoriesParamSchema = {
@@ -13704,10 +14050,12 @@ export type t_SecurityAdvisoriesListRepositoryAdvisoriesQuerySchema = {
 }
 
 export type t_SecurityAdvisoriesUpdateRepositoryAdvisoryBodySchema = {
+  collaborating_teams?: string[] | null
+  collaborating_users?: string[] | null
   credits?:
     | {
         login: string
-        type: t_repository_advisory_credit_types
+        type: t_security_advisory_credit_types
       }[]
     | null
   cve_id?: string | null
@@ -13719,7 +14067,7 @@ export type t_SecurityAdvisoriesUpdateRepositoryAdvisoryBodySchema = {
   summary?: string
   vulnerabilities?: {
     package: {
-      ecosystem: t_repository_advisory_ecosystems
+      ecosystem: t_security_advisory_ecosystems
       name?: string | null
     }
     patched_versions?: string | null
