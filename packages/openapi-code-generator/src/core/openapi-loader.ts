@@ -42,7 +42,7 @@ export class OpenapiLoader {
   get entryPoint(): OpenapiDocument {
     // This is guaranteed by the combination of a private constructor,
     // and the factory function loading the entry point at this key.
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+     
     return this.library.get(this.entryPointKey)!
   }
 

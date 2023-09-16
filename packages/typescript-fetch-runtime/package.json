@@ -13,9 +13,9 @@
     "test": "jest"
   },
   "dependencies": {
-    "qs": "^6.11.1"
+    "qs": "^6.11.2"
   },
   "devDependencies": {
-    "@types/qs": "^6.9.7"
+    "@types/qs": "^6.9.8"
   }
 }
