@@ -164,7 +164,10 @@ function normalizeRequestBodyObject(requestBodyObject: RequestBody): IRRequestBo
 }
 
 function normalizeMediaType(mediaTypes: {[contentType: string]: MediaType} = {}) {
-  return Object.fromEntries(Object.entries(mediaTypes).map(([contentType, mediaType]) => {
+  return Object.fromEntries(Object.entries(mediaTypes)
+    // Sometimes people pass `{}` as the MediaType for 204 responses, filter these out
+    .filter(([, mediaType]) => Boolean(mediaType.schema))
+    .map(([contentType, mediaType]) => {
     return [
       contentType,
       {
