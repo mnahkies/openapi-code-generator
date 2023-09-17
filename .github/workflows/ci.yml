@@ -36,3 +36,9 @@ jobs:
           echo "Uncommitted changes to repo found!"
           exit 1
         fi
+    - name: Publish to NPM
+      run: echo 'publish release' #yarn lerna publish --no-private --force-publish
+      if: github.ref == 'refs/heads/main'
+    - name: Publish to NPM (Alpha)
+      run: echo 'publish alpha release' #yarn lerna publish --no-private --force-publish --canary
+      if: github.ref != 'refs/heads/main'
