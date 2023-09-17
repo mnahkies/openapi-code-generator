@@ -2,6 +2,7 @@
   "name": "@nahkies/openapi-code-generator",
   "version": "0.0.1",
   "description": "",
+  "bin": "./dist/index.js",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {

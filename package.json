@@ -5,7 +5,7 @@
   "description": "",
   "scripts": {
     "postinstall": "husky install",
-    "docs:generate": "markdown-toc -i --bullets=- ./README.md",
+    "docs:generate": "./scripts/generate-docs.sh",
     "refresh": "./scripts/refresh-data.sh",
     "start": "nodemon",
     "lint": "eslint . --cache --report-unused-disable-directives --fix",
