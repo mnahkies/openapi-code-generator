@@ -22,7 +22,6 @@
     "build": "tsc -p ./tsconfig.json",
     "test": "jest"
   },
-  "dependencies": {},
   "peerDependencies": {
     "@hapi/joi": "^17.1.1",
     "@koa/cors": "^4.0.0",
@@ -39,6 +38,7 @@
     "@types/koa__cors": "^4.0.1",
     "@types/koa__router": "^12.0.1",
     "koa": "^2.14.2",
+    "koa-body": "^6.0.1",
     "zod": "^3.22.2"
   }
 }

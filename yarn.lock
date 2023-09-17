@@ -2727,6 +2727,8 @@ __metadata:
     ts-node: 10.9.1
     tslib: ^2.6.2
     typescript: ~5.1.6
+  bin:
+    openapi-code-generator: ./dist/index.js
   languageName: unknown
   linkType: soft
 
@@ -2754,8 +2756,10 @@ __metadata:
     zod: ^3.22.2
   peerDependencies:
     "@hapi/joi": ^17.1.1
+    "@koa/cors": ^4.0.0
     "@koa/router": ^12.0.0
     koa: ^2.14.1
+    koa-body: ^6.0.1
     zod: ^3.20.6
   languageName: unknown
   linkType: soft
