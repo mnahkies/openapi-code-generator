@@ -10,6 +10,13 @@ Some templates also make use of a runtime library.
 
 <!-- toc -->
 
+- [Core](#core)
+  - [`file-loader`](#file-loader)
+  - [`openapi-validator`](#openapi-validator)
+  - [`openapi-loader`](#openapi-loader)
+  - [`input`](#input)
+- [Templates](#templates)
+
 <!-- tocstop -->
 
 ![architecture](./architecture.svg)

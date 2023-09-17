@@ -8,6 +8,12 @@ We use [Github issues](https://github.com/mnahkies/openapi-code-generator/issues
 
 <!-- toc -->
 
+- [Setup](#setup)
+- [Workflow](#workflow)
+- [Typescript Conventions](#typescript-conventions)
+- [Linting / Formatting](#linting--formatting)
+- [Testing](#testing)
+
 <!-- tocstop -->
 
 ## Setup

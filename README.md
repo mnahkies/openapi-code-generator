@@ -5,6 +5,9 @@ generating a strongly typed client for large/complex definitions like the GitHub
 
 <!-- toc -->
 
+- [Project Structure](#project-structure)
+- [Documentation](#documentation)
+
 <!-- tocstop -->
 
 ## Project Structure
