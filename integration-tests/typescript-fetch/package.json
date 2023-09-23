@@ -11,7 +11,7 @@
     "validate": "tsc -p ./tsconfig.json"
   },
   "dependencies": {
-    "@nahkies/typescript-fetch-runtime": "0.0.1",
+    "@nahkies/typescript-fetch-runtime": "0.0.0",
     "dotenv": "^16.3.1"
   },
   "devDependencies": {

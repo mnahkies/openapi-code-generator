@@ -2732,16 +2732,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@nahkies/typescript-fetch-runtime@npm:0.0.1":
-  version: 0.0.1
-  resolution: "@nahkies/typescript-fetch-runtime@npm:0.0.1"
-  dependencies:
-    qs: ^6.11.2
-  checksum: 2266c15eeb88525d39992dd78fba4b719abee54a8e7ad78b592b5a909ce4a2bd893a86e677aac603f03636f0bd184ce8b88ee15a15b77b64fc5c6329116c3932
-  languageName: node
-  linkType: hard
-
-"@nahkies/typescript-fetch-runtime@workspace:packages/typescript-fetch-runtime":
+"@nahkies/typescript-fetch-runtime@0.0.0, @nahkies/typescript-fetch-runtime@workspace:packages/typescript-fetch-runtime":
   version: 0.0.0-use.local
   resolution: "@nahkies/typescript-fetch-runtime@workspace:packages/typescript-fetch-runtime"
   dependencies:
@@ -2750,21 +2741,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@nahkies/typescript-koa-runtime@npm:0.0.1":
-  version: 0.0.1
-  resolution: "@nahkies/typescript-koa-runtime@npm:0.0.1"
-  peerDependencies:
-    "@hapi/joi": ^17.1.1
-    "@koa/cors": ^4.0.0
-    "@koa/router": ^12.0.0
-    koa: ^2.14.1
-    koa-body: ^6.0.1
-    zod: ^3.20.6
-  checksum: 8f1c674ac1a9a21004bca41f27d996882b205ef1ca5859e2761558fb440a6bbbe63f77ccc50003e22f60072fceb65311679919f6aced1b66a057914bd729c3c2
-  languageName: node
-  linkType: hard
-
-"@nahkies/typescript-koa-runtime@workspace:packages/typescript-koa-runtime":
+"@nahkies/typescript-koa-runtime@0.0.0, @nahkies/typescript-koa-runtime@workspace:packages/typescript-koa-runtime":
   version: 0.0.0-use.local
   resolution: "@nahkies/typescript-koa-runtime@workspace:packages/typescript-koa-runtime"
   dependencies:
@@ -14569,7 +14546,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "typescript-fetch@workspace:integration-tests/typescript-fetch"
   dependencies:
-    "@nahkies/typescript-fetch-runtime": 0.0.1
+    "@nahkies/typescript-fetch-runtime": 0.0.0
     "@types/node": ^20.6.2
     dotenv: ^16.3.1
     typescript: ~5.1.6
@@ -14582,7 +14559,7 @@ __metadata:
   dependencies:
     "@hapi/joi": ^17.1.1
     "@koa/router": ^12.0.0
-    "@nahkies/typescript-koa-runtime": 0.0.1
+    "@nahkies/typescript-koa-runtime": 0.0.0
     "@types/hapi__joi": ^17.1.11
     "@types/koa": ^2.13.9
     "@types/koa__router": ^12.0.1
