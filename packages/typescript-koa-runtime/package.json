@@ -68,5 +68,8 @@
     "runtime",
     "typescript-koa",
     "koa"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
