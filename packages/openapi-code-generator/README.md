@@ -76,8 +76,7 @@ There are two client templates:
 ### Typescript Fetch
 The `typescript-fetch` template outputs a client SDK based on the [fetch api](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) that gives the following:
 - Typed methods to call each endpoint
-- Support for passing a `timeout`
-- ~~Support for cancelling in-flight requests~~ (the types aren't working correctly to destructure to get the `cancelRequest` `AbortController` yet)
+- Support for passing a `timeout`, abort signals are still respected
 
 It does not yet support runtime validation/parsing - compile time type safety only at this stage.
 
@@ -115,7 +114,7 @@ const client = new ApiClient({
 const res = await client.createTodoListItem({
   listId: list.id,
   requestBody: {content: "test item"},
-  // optionally pass a timeout (ms), or any arbitrary fetch options
+  // optionally pass a timeout (ms), or any arbitrary fetch options (eg: an abort signal)
   // timeout?: number,
   // opts?: RequestInit
 })

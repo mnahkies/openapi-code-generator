@@ -37,10 +37,7 @@ export type Res<Status extends StatusCode, Type> = {
 
 export type TypedFetchResponse<R extends Res<any, any>> = Promise<
   Omit<Response, "json" | "status"> & R
-> & {
-  res: Promise<Omit<Response, "json" | "status"> & R>
-  cancelRequest: AbortController
-}
+>
 
 export interface AbstractFetchClientConfig {
   basePath: string
@@ -73,7 +70,7 @@ export abstract class AbstractFetchClient {
     this.defaultTimeout = config.defaultTimeout
   }
 
-  protected _fetch<R extends Res<any, any>>(
+  protected async _fetch<R extends Res<any, any>>(
     url: string,
     opts: RequestInit,
     timeout: number | undefined = this.defaultTimeout,
@@ -100,7 +97,7 @@ export abstract class AbstractFetchClient {
 
     const headers = opts.headers ?? this._headers({})
 
-    const res = fetch(url, {
+    return fetch(url, {
       ...opts,
       headers,
       signal: cancelRequest.signal,
@@ -112,17 +109,7 @@ export abstract class AbstractFetchClient {
       }
       // if not aborted just throw
       throw err
-    })
-
-    // decorate the Promise with itself and the AbortController, this allows the
-    // caller to choose between:
-    // - await the Promise and ignore the AbortController
-    // - destructure the Promise to get the Promise and the AbortController
-    // @ts-ignore decorating with itself
-    res.res = res
-    // @ts-ignore decorating with abort controller
-    res.cancelRequest = cancelRequest
-    return res as any
+    }) as any
   }
 
   protected _query(params: QueryParams): string {
