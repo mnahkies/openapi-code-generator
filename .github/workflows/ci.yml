@@ -31,7 +31,8 @@ jobs:
     - run: yarn ci-format
     - run: yarn integration:generate
     - run: yarn integration:validate
-    - run: |
+    - name: Check for uncommitted changes
+      run: |
         if [ -n "$(git status --porcelain=v1)" ]; then
           echo "Uncommitted changes to repo found!"
           exit 1
