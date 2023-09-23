@@ -33,6 +33,13 @@
   "devDependencies": {
     "@types/qs": "^6.9.8"
   },
+  "files": [
+    "src",
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "tsconfig.json"
+  ],
   "keywords": [
     "@nahkies/openapi-code-generator",
     "runtime",
