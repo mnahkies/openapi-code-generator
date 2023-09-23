@@ -48,12 +48,19 @@ yarn ci-pipeline && git push --force-with-lease
 ```
 
 ## Typescript Conventions
+```shell
+yarn build
+```
 We strive for robust type safety, both in the library and the code it outputs.
 That said we're also pragmatic - if it makes sense to use an `any` we will, but we'll
 limit the scope to avoid its impact. Eg: the brief use of ts-ignore / any in the fetch runtime
 [here](https://github.com/mnahkies/openapi-code-generator/blob/10d7300b48f8eeb82170207a4a61b75b91674f08/packages/typescript-fetch-runtime/src/main.ts#L121-L125)
 
 ## Linting / Formatting
+```shell
+yarn lint
+yarn format
+```
 We use `eslint` for linting, largely sticking to the recommended rules. 
 The config can be seen here [./.eslintrc.js](./.eslintrc.js)
 
@@ -69,6 +76,11 @@ In general new files should include the pragma, and it should be added to
 old files if they undergo significant change.
 
 ## Testing
+```shell
+yarn test
+yarn integration:generate && yarn integration:validate
+```
+
 We have two types of testing in play:
 - Unit tests using `jest`
 - Integration tests

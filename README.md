@@ -7,6 +7,7 @@ generating a strongly typed client for large/complex definitions like the GitHub
 
 - [Project Structure](#project-structure)
 - [Documentation](#documentation)
+- [Contributing](#contributing)
 
 <!-- tocstop -->
 
@@ -28,6 +29,7 @@ Scripts to refresh the test data live in [./scripts](./scripts)
 Please see [./packages/openapi-code-generator](./packages/openapi-code-generator) for the main `README.md`, detailing the **goals**
 of the project and **usage information**.
 
+## Contributing
 Contributing guidelines can be found in [./CONTRIBUTING.md](./CONTRIBUTING.md).
 
 An overview of the codebase architecture is in [./packages/openapi-code-generator/ARCHITECTURE.md](./packages/openapi-code-generator/ARCHITECTURE.md)

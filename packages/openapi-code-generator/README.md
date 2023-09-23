@@ -11,6 +11,12 @@ generating a strongly typed client for large/complex definitions like the GitHub
 
 - [Project Goal](#project-goal)
 - [Usage](#usage)
+- [Client Examples](#client-examples)
+  - [Typescript Fetch](#typescript-fetch)
+  - [Typescript Angular](#typescript-angular)
+- [Server Examples](#server-examples)
+  - [Typescript Koa](#typescript-koa)
+- [More information / contributing](#more-information--contributing)
 
 <!-- tocstop -->
 
@@ -61,3 +67,184 @@ There is an optional parameter `schema-builder` for choosing between:
 - [joi](https://joi.dev/)
 
 For runtime phrasing / validation of schemas (eg: responses, parameters).
+
+## Client Examples
+There are two client templates:
+- `typescript-fetch`
+- `typescript-angular`
+
+### Typescript Fetch
+The `typescript-fetch` template outputs a client SDK based on the [fetch api](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) that gives the following:
+- Typed methods to call each endpoint
+- Support for passing a `timeout`
+- ~~Support for cancelling in-flight requests~~ (the types aren't working correctly to destructure to get the `cancelRequest` `AbortController` yet)
+
+It does not yet support runtime validation/parsing - compile time type safety only at this stage.
+
+See [integration-tests/typescript-fetch](../../integration-tests/typescript-fetch) for more samples.
+
+Running:
+```shell
+yarn openapi-code-generator \
+  --input ./openapi.yaml \
+  --output ./src/clients/some-service \
+  --template typescript-fetch
+```
+
+Will output these files into `./src/clients/some-service`:
+- `./client.ts`: exports a class `ApiClient` that implements methods for calling each endpoint
+- `./models.ts`: exports typescript types
+
+Once generated usage should look something like this:
+
+```typescript
+const client = new ApiClient({
+  basePath: `http://localhost:${address.port}`,
+  defaultHeaders: {
+    "Content-Type": "application/json",
+    "Authorisation": "Bearer: <TOKEN>" // can pass auth headers here
+  },
+})
+
+const res = await client.createTodoListItem({
+  listId: list.id,
+  requestBody: {content: "test item"},
+  // optionally pass a timeout (ms), or any arbitrary fetch options
+  // timeout?: number,
+  // opts?: RequestInit
+})
+
+// checking the status code narrows the response body types (ie: remove error types from the type union)
+if (res.status !== 200) {
+  throw new Error("failed to create item")
+}
+
+// body will be typed correctly
+const body = await res.json()
+console.log(`id is: ${body.id}`)
+```
+
+### Typescript Angular
+**Note: this is the least battle tested of the templates and most likely to have critical bugs**
+
+The `typescript-angular` template outputs a client SDK based on the [Angular HttpClient](https://angular.io/api/common/http/HttpClient) that gives the following:
+- Typed methods to call each endpoint returning an [RxJS Observable](https://rxjs.dev/guide/observable)
+
+It does not yet support runtime validation/parsing - compile time type safety only at this stage.
+
+See [integration-tests/typescript-angular](../../integration-tests/typescript-angular) for more samples.
+
+Running:
+```shell
+yarn openapi-code-generator \
+  --input ./openapi.yaml \
+  --output ./src/app/clients/some-service \
+  --template typescript-angular
+```
+
+Will output these files into `./src/app/clients/some-service`:
+- `./api.module.ts`: exports a class `ApiModule` as an `NgModule`
+- `./client.service.ts`: exports a class `ApiClient` as injectable Angular service
+- `./models.ts`: exports typescript types
+
+Once generated usage should look something like this:
+
+```typescript
+// Root Angular module
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ApiModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {
+}
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
+})
+export class AppComponent {
+
+  // inject into your component
+  constructor(client: ApiClient) {
+
+    client.updateTodoListById({listId: "1", requestBody: {name: "Foo"}})
+      .subscribe(next => {
+        if(next.status === 200){
+          // TODO: body is currently incorrectly `unknown` here
+          console.log(next.body.id)
+        }
+      })
+  }
+}
+```
+
+## Server Examples
+Currently, there is a single server template: `typescript-koa`
+
+Support for `express` or other frameworks may be added in future.
+
+### Typescript Koa
+The `typescript-koa` template outputs scaffolding code that handles the following:
+- Building a [@koa/router](https://www.npmjs.com/package/@koa/router) instance with all routes in the openapi specification
+- Generating types and runtime schema parsers for all request parameters/bodies and response bodies
+- Generating types for route handlers that receive validated inputs, and have return types that are additionally validated at runtime prior to sending the response
+- Actually starting the server and binding to a port
+
+See [integration-tests/typescript-koa](../../integration-tests/typescript-koa) for more samples.
+
+Running:
+```shell
+yarn openapi-code-generator \
+  --input ./openapi.yaml \
+  --output ./src \
+  --template typescript-koa \
+  --schema-builder zod
+```
+
+Will output three files into `./src`:
+- `generated.ts` - exports a single function `bootstrap` and associated types used to start your server
+- `models.ts` - exports typescript types
+- `schemas.ts` - exports runtime schema validators
+
+Once generated usage should look something like this:
+
+```typescript
+import {bootstrap, CreateTodoList, GetTodoLists} from "../generated"
+
+// Define your route implementations as async functions implementing the types
+// exported from generated.ts
+const createTodoList: CreateTodoList = async ({body}) => {
+  const list = await prisma.todoList.create({
+    data: {
+      // body is strongly typed and parsed at runtime
+      name: body.name
+    }
+  })
+
+  // response is strongly typed pattern matching the status code against the response schema,
+  // and doing runtime validation before sending the response
+  return {
+    status: 200 as const,
+    body: dbListToApiList(list)
+  }
+}
+
+const getTodoLists: GetTodoLists = async ({query}) => {
+  // omitted for brevity
+}
+
+// Starts a server listening on `port`
+bootstrap({getTodoLists, createTodoList}, {port: port})
+```
+
+## More information / contributing
+Refer to top level [README.md](../../README.md) / [CONTRIBUTING.md](../../CONTRIBUTING.md)
