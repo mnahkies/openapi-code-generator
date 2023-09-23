@@ -1100,7 +1100,7 @@ import {
   t_checkout_us_bank_account_payment_method_options,
   t_connect_collection_transfer,
   t_connect_embedded_account_session_create_components,
-  t_connect_embedded_base_config,
+  t_connect_embedded_base_config_claim,
   t_country_spec,
   t_country_spec_verification_field_details,
   t_country_spec_verification_fields,
@@ -1222,6 +1222,7 @@ import {
   t_invoice_payment_method_options_konbini,
   t_invoice_payment_method_options_us_bank_account,
   t_invoice_payment_method_options_us_bank_account_linked_account_options,
+  t_invoice_rendering_pdf,
   t_invoice_setting_custom_field,
   t_invoice_setting_customer_setting,
   t_invoice_setting_quote_setting,
@@ -1233,6 +1234,7 @@ import {
   t_invoice_transfer_data,
   t_invoiceitem,
   t_invoices_from_invoice,
+  t_invoices_invoice_rendering,
   t_invoices_payment_method_options,
   t_invoices_payment_settings,
   t_invoices_resource_invoice_tax_id,
@@ -12975,6 +12977,10 @@ export function bootstrap(
           z.object({ message: z.coerce.string() }),
           z.enum([""]),
         ]),
+        terms_of_service_acceptance: z.union([
+          z.object({ message: z.coerce.string() }),
+          z.enum([""]),
+        ]),
       })
       .optional(),
     customer: z.coerce.string().optional(),
@@ -19852,6 +19858,16 @@ export function bootstrap(
       pending_invoice_items_behavior: z
         .enum(["exclude", "include", "include_and_require"])
         .optional(),
+      rendering: z
+        .object({
+          amount_tax_display: z
+            .enum(["", "exclude_tax", "include_inclusive_tax"])
+            .optional(),
+          pdf: z
+            .object({ page_size: z.enum(["a4", "auto", "letter"]).optional() })
+            .optional(),
+        })
+        .optional(),
       rendering_options: z.union([
         z.object({
           amount_tax_display: z
@@ -20746,6 +20762,16 @@ export function bootstrap(
             ),
             z.enum([""]),
           ]),
+        })
+        .optional(),
+      rendering: z
+        .object({
+          amount_tax_display: z
+            .enum(["", "exclude_tax", "include_inclusive_tax"])
+            .optional(),
+          pdf: z
+            .object({ page_size: z.enum(["a4", "auto", "letter"]).optional() })
+            .optional(),
         })
         .optional(),
       rendering_options: z.union([
@@ -29406,6 +29432,10 @@ export function bootstrap(
           z.object({ message: z.coerce.string() }),
           z.enum([""]),
         ]),
+        terms_of_service_acceptance: z.union([
+          z.object({ message: z.coerce.string() }),
+          z.enum([""]),
+        ]),
       })
       .optional(),
     customer_creation: z.enum(["always", "if_required"]).optional(),
@@ -29891,6 +29921,10 @@ export function bootstrap(
             z.enum([""]),
           ]),
           submit: z.union([
+            z.object({ message: z.coerce.string() }),
+            z.enum([""]),
+          ]),
+          terms_of_service_acceptance: z.union([
             z.object({ message: z.coerce.string() }),
             z.enum([""]),
           ]),
@@ -46428,7 +46462,6 @@ export function bootstrap(
         "issuing_transaction.created",
         "issuing_transaction.updated",
         "mandate.updated",
-        "order.created",
         "payment_intent.amount_capturable_updated",
         "payment_intent.canceled",
         "payment_intent.created",
@@ -46469,9 +46502,6 @@ export function bootstrap(
         "quote.finalized",
         "radar.early_fraud_warning.created",
         "radar.early_fraud_warning.updated",
-        "recipient.created",
-        "recipient.deleted",
-        "recipient.updated",
         "refund.created",
         "refund.updated",
         "reporting.report_run.failed",
@@ -46485,9 +46515,6 @@ export function bootstrap(
         "setup_intent.setup_failed",
         "setup_intent.succeeded",
         "sigma.scheduled_query_run.created",
-        "sku.created",
-        "sku.deleted",
-        "sku.updated",
         "source.canceled",
         "source.chargeable",
         "source.failed",
@@ -46781,7 +46808,6 @@ export function bootstrap(
             "issuing_transaction.created",
             "issuing_transaction.updated",
             "mandate.updated",
-            "order.created",
             "payment_intent.amount_capturable_updated",
             "payment_intent.canceled",
             "payment_intent.created",
@@ -46822,9 +46848,6 @@ export function bootstrap(
             "quote.finalized",
             "radar.early_fraud_warning.created",
             "radar.early_fraud_warning.updated",
-            "recipient.created",
-            "recipient.deleted",
-            "recipient.updated",
             "refund.created",
             "refund.updated",
             "reporting.report_run.failed",
@@ -46838,9 +46861,6 @@ export function bootstrap(
             "setup_intent.setup_failed",
             "setup_intent.succeeded",
             "sigma.scheduled_query_run.created",
-            "sku.created",
-            "sku.deleted",
-            "sku.updated",
             "source.canceled",
             "source.chargeable",
             "source.failed",
