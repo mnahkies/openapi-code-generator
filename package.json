@@ -2,7 +2,19 @@
   "name": "openapi-code-generator-root",
   "private": true,
   "version": "0.0.0",
-  "description": "",
+  "description": "Mono repo for @nahkies/openapi-code-generator and supporting packages",
+  "license": "MIT",
+  "author": {
+    "name": "Michael Nahkies",
+    "email": "support@nahkies.co.nz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mnahkies/openapi-code-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mnahkies/openapi-code-generator/issues"
+  },
   "scripts": {
     "postinstall": "husky install",
     "docs:generate": "./scripts/generate-docs.sh",
@@ -20,8 +32,6 @@
     "ci-format": "prettier --list-different .",
     "ci-pipeline": "yarn ci-build && yarn ci-test && yarn lint && yarn format && yarn integration:generate && yarn integration:validate"
   },
-  "author": "Michael Nahkies",
-  "license": "MIT",
   "devDependencies": {
     "@tsconfig/node20": "^20.1.2",
     "@types/node": "^20.6.2",

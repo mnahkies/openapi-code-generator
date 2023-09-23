@@ -1,7 +1,20 @@
 {
   "name": "@nahkies/openapi-code-generator",
   "version": "0.0.1",
-  "description": "",
+  "description": "Typescript client SDK and server stub generator for OpenAPI 3 specifications",
+  "license": "MIT",
+  "author": {
+    "name": "Michael Nahkies",
+    "email": "support@nahkies.co.nz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mnahkies/openapi-code-generator.git",
+    "directory": "packages/openapi-code-generator"
+  },
+  "bugs": {
+    "url": "https://github.com/mnahkies/openapi-code-generator/issues"
+  },
   "bin": "./dist/index.js",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -9,8 +22,6 @@
     "build": "tsc -p ./tsconfig.json",
     "test": "jest"
   },
-  "author": "Michael Nahkies",
-  "license": "MIT",
   "devDependencies": {
     "@types/js-yaml": "^4.0.6",
     "@types/lodash": "^4.14.198",
@@ -30,5 +41,16 @@
     "prettier": "^3.0.3",
     "source-map-support": "^0.5.21",
     "tslib": "^2.6.2"
-  }
+  },
+  "keywords": [
+    "openapi",
+    "openapi3",
+    "typescript",
+    "sdk",
+    "generator",
+    "codegen",
+    "koa",
+    "fetch",
+    "angular"
+  ]
 }
