@@ -43,6 +43,7 @@ const program = new Command()
       .default("zod" as const)
       .makeOptionMandatory(),
   )
+  .showHelpAfterError()
   .parse()
 
 const config = program.opts()
