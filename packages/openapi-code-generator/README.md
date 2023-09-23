@@ -39,7 +39,14 @@ Install as a `devDependency` in the consuming project, or execute using `npx`
 yarn add --dev @nahkies/openapi-code-generator
 ```
 
-Usage like so:
+See available options using:
+```shell
+yarn openapi-code-generator --help
+```
+Or looking at the code defining them in [index.ts](./src/index.ts). 
+All options can be provided as either cli arguments or environment variables.
+
+Example usage:
 ```shell
 yarn openapi-code-generator --input="./openapi.yaml" --out="./src/" --template=typescript-koa
 ```
@@ -53,8 +60,4 @@ There is an optional parameter `schema-builder` for choosing between:
 - [zod](https://zod.dev/) (default)
 - [joi](https://joi.dev/)
 
-For runtime phrasing / validation.
-
-Configuration can be provided as cli arguments or environment variables. See [config.ts](./packages/openapi-code-generator/src/config.ts) for
-exact details.
-
+For runtime phrasing / validation of schemas (eg: responses, parameters).
