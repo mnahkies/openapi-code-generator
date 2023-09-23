@@ -518,7 +518,7 @@ export const s_checkout_sofort_payment_method_options = z.object({
   setup_future_usage: z.enum(["none"]).optional(),
 })
 
-export const s_connect_embedded_base_config = z.object({
+export const s_connect_embedded_base_config_claim = z.object({
   enabled: z.coerce.boolean(),
 })
 
@@ -979,6 +979,10 @@ export const s_invoice_payment_method_options_us_bank_account_linked_account_opt
       .optional()
       .nullable(),
   })
+
+export const s_invoice_rendering_pdf = z.object({
+  page_size: z.enum(["a4", "auto", "letter"]).optional().nullable(),
+})
 
 export const s_invoice_setting_custom_field = z.object({
   name: z.coerce.string(),
@@ -4953,7 +4957,7 @@ export const s_checkout_us_bank_account_payment_method_options = z.object({
 })
 
 export const s_connect_embedded_account_session_create_components = z.object({
-  account_onboarding: s_connect_embedded_base_config,
+  account_onboarding: s_connect_embedded_base_config_claim,
 })
 
 export const s_country_spec_verification_fields = z.object({
@@ -5215,6 +5219,11 @@ export const s_invoice_tax_amount = z.object({
 export const s_invoice_threshold_reason = z.object({
   amount_gte: z.coerce.number().optional().nullable(),
   item_reasons: z.array(s_invoice_item_threshold_reason),
+})
+
+export const s_invoices_invoice_rendering = z.object({
+  amount_tax_display: z.coerce.string().optional().nullable(),
+  pdf: s_invoice_rendering_pdf.nullable(),
 })
 
 export const s_invoices_resource_line_items_proration_details = z.object({
@@ -6634,6 +6643,8 @@ export const s_payment_links_resource_custom_fields_dropdown = z.object({
 export const s_payment_links_resource_custom_text = z.object({
   shipping_address: s_payment_links_resource_custom_text_position.nullable(),
   submit: s_payment_links_resource_custom_text_position.nullable(),
+  terms_of_service_acceptance:
+    s_payment_links_resource_custom_text_position.nullable(),
 })
 
 export const s_payment_method_card_present = z.object({
@@ -6846,6 +6857,8 @@ export const s_payment_pages_checkout_session_custom_text = z.object({
   shipping_address:
     s_payment_pages_checkout_session_custom_text_position.nullable(),
   submit: s_payment_pages_checkout_session_custom_text_position.nullable(),
+  terms_of_service_acceptance:
+    s_payment_pages_checkout_session_custom_text_position.nullable(),
 })
 
 export const s_payment_pages_checkout_session_customer_details = z.object({
@@ -9748,6 +9761,7 @@ export const s_invoice: z.ZodType<t_invoice> = z.object({
   pre_payment_credit_notes_amount: z.coerce.number(),
   quote: z.union([z.coerce.string(), z.lazy(() => s_quote)]).nullable(),
   receipt_number: z.coerce.string().optional().nullable(),
+  rendering: s_invoices_invoice_rendering.nullable(),
   rendering_options: s_invoice_setting_rendering_options.nullable(),
   shipping_cost: s_invoices_shipping_cost.nullable(),
   shipping_details: s_shipping.nullable(),
