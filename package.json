@@ -17,6 +17,7 @@
   },
   "scripts": {
     "postinstall": "husky install",
+    "clean": "lerna run clean --stream",
     "docs:generate": "./scripts/generate-docs.sh",
     "refresh": "./scripts/refresh-data.sh",
     "start": "nodemon",
@@ -30,7 +31,9 @@
     "ci-test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",
     "ci-lint": "eslint . --cache --report-unused-disable-directives",
     "ci-format": "prettier --list-different .",
-    "ci-pipeline": "yarn ci-build && yarn ci-test && yarn lint && yarn format && yarn integration:generate && yarn integration:validate"
+    "ci-pipeline": "./scripts/ci-pipeline.sh",
+    "publish:alpha": "./scripts/publish.alpha.sh",
+    "publish:release": "./scripts/publish.release.sh"
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.2",

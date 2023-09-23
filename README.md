@@ -8,6 +8,7 @@ generating a strongly typed client for large/complex definitions like the GitHub
 - [Project Structure](#project-structure)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
+- [License](#license)
 
 <!-- tocstop -->
 
@@ -33,3 +34,6 @@ of the project and **usage information**.
 Contributing guidelines can be found in [./CONTRIBUTING.md](./CONTRIBUTING.md).
 
 An overview of the codebase architecture is in [./packages/openapi-code-generator/ARCHITECTURE.md](./packages/openapi-code-generator/ARCHITECTURE.md)
+
+## License
+See [./LICENSE](./LICENSE)

@@ -13,6 +13,7 @@ We use [Github issues](https://github.com/mnahkies/openapi-code-generator/issues
 - [Typescript Conventions](#typescript-conventions)
 - [Linting / Formatting](#linting--formatting)
 - [Testing](#testing)
+- [Publishing](#publishing)
 
 <!-- tocstop -->
 
@@ -98,3 +99,16 @@ to run the code generation and check that the result builds, currently this incl
 
 At this stage we don't actually execute the code generated for these API's, but this would be a nice improvement for
 the future. The Github client in particular gets a fair amount of use for automating tasks against my workplaces Github organisation.
+
+## Publishing
+For now, publishing the package is a manual process. There are two scripts to assist:
+```shell
+# Publish a pre-release, eg: 0.0.2-alpha.107 
+yarn publish:alpha
+# Publish a release, eg: 0.0.1
+yarn publish:release
+```
+
+These will build and test before asking for publish confirmation.
+
+After publishing a release, manually create a release in Github.

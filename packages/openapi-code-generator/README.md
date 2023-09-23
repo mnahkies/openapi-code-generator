@@ -83,6 +83,12 @@ It does not yet support runtime validation/parsing - compile time type safety on
 
 See [integration-tests/typescript-fetch](../../integration-tests/typescript-fetch) for more samples.
 
+Dependencies:
+```shell
+yarn add @nahkies/typescript-fetch-runtime
+```
+If you're using a version of NodeJS that doesn't include the `fetch` API, you may need a polyfill like [node-fetch](https://www.npmjs.com/package/node-fetch)
+
 Running:
 ```shell
 yarn openapi-code-generator \
@@ -200,6 +206,12 @@ The `typescript-koa` template outputs scaffolding code that handles the followin
 - Actually starting the server and binding to a port
 
 See [integration-tests/typescript-koa](../../integration-tests/typescript-koa) for more samples.
+
+Dependencies:
+```shell
+yarn add @nahkies/typescript-koa-runtime @koa/cors @koa/router koa koa-body zod
+yarn add --dev @types/koa @types/koa__router
+```
 
 Running:
 ```shell

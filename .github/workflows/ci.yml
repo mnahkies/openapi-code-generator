@@ -18,28 +18,51 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+#      with:
+#        fetch-depth: ''
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
+        registry-url: 'https://registry.npmjs.org'
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
+
     - run: yarn --immutable
+
     - run: yarn ci-build
+
     - run: yarn ci-test
+
     - run: yarn ci-lint
     - run: yarn ci-format
+
     - run: yarn integration:generate
     - run: yarn integration:validate
+
     - name: Check for uncommitted changes
-      run: |
-        if [ -n "$(git status --porcelain=v1)" ]; then
-          echo "Uncommitted changes to repo found!"
-          exit 1
-        fi
-    - name: Publish to NPM
-      run: echo 'publish release' #yarn lerna publish --no-private --force-publish
-      if: github.ref == 'refs/heads/main'
-    - name: Publish to NPM (Alpha)
-      run: echo 'publish alpha release' #yarn lerna publish --no-private --force-publish --canary
-      if: github.ref != 'refs/heads/main'
+      run: ./scripts/assert-clean-working-directory.sh
+
+# TODO: figure out how to do this safely, eg: no risk of external contributors exfiltrating publish secret.
+#    - name: Configure Git User
+#      run: |
+#        git config --global user.email "support@nahkies.co.nz"
+#        git config --global user.name "$GITHUB_ACTOR"
+#
+#    - name: Check if able to publish changes
+#      run: npm whoami
+#      env:
+#        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+#
+#    - name: Publish to NPM
+#      run: echo 'publish release' #yarn lerna publish --no-private --force-publish --yes --conventional-commits
+#      if: github.ref == 'refs/heads/main'
+#      env:
+#        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+#
+#    - name: Publish to NPM (Alpha)
+#      run: echo 'publish alpha release' #yarn lerna publish --no-private --force-publish --yes --conventional-commits --canary
+#      if: github.ref != 'refs/heads/main'
+#      env:
+#        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
