@@ -1810,6 +1810,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@commander-js/extra-typings@npm:^11.0.0":
+  version: 11.0.0
+  resolution: "@commander-js/extra-typings@npm:11.0.0"
+  peerDependencies:
+    commander: 11.0.x
+  checksum: c17c60f5044b8ff8891ee94913c1bec64147895a876b5ebf2f7e960efeab61170ce9122eff0f84688bc9db08b520429cdac6c0f3d627e2ef76ebd010461f66cb
+  languageName: node
+  linkType: hard
+
 "@cspotcode/source-map-support@npm:^0.8.0":
   version: 0.8.1
   resolution: "@cspotcode/source-map-support@npm:0.8.1"
@@ -2702,14 +2711,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@nahkies/openapi-code-generator@workspace:packages/openapi-code-generator"
   dependencies:
-    "@types/convict": ^6.1.4
+    "@commander-js/extra-typings": ^11.0.0
     "@types/js-yaml": ^4.0.6
     "@types/lodash": ^4.14.198
     "@types/prettier": ^3.0.0
     ajv: ^8.12.0
     ajv-draft-04: ^1.0.0
     ajv-formats: ^2.1.1
-    convict: ^6.2.4
+    commander: ^11.0.0
     js-yaml: ^4.1.0
     lodash: ^4.17.21
     nodemon: 3.0.1
@@ -3381,15 +3390,6 @@ __metadata:
   version: 0.5.6
   resolution: "@types/content-disposition@npm:0.5.6"
   checksum: da07798d52cc8fc46a8843d768b48d54c70f1a44c861dc2c73c4c25a1e08af859709629ab0e4d23d5198107b8926bb48c593df436ba68123d87191f5e25fe4bc
-  languageName: node
-  linkType: hard
-
-"@types/convict@npm:^6.1.4":
-  version: 6.1.4
-  resolution: "@types/convict@npm:6.1.4"
-  dependencies:
-    "@types/node": "*"
-  checksum: a4caa79f3f9442d8c2b3d0b823efe9a26e3f6f3345fb1e3bb872b5666faa3d8cac466fdeb9b4187a464a355073b4d252cc0dba74e74b2c38830906b93f1f610c
   languageName: node
   linkType: hard
 
@@ -5477,7 +5477,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:11.0.0":
+"commander@npm:11.0.0, commander@npm:^11.0.0":
   version: 11.0.0
   resolution: "commander@npm:11.0.0"
   checksum: 6621954e1e1d078b4991c1f5bbd9439ad37aa7768d6ab4842de1dbd4d222c8a27e1b8e62108b3a92988614af45031d5bb2a2aaa92951f4d0c934d1a1ac564bb4
@@ -5718,16 +5718,6 @@ __metadata:
   version: 2.0.0
   resolution: "convert-source-map@npm:2.0.0"
   checksum: 63ae9933be5a2b8d4509daca5124e20c14d023c820258e484e32dc324d34c2754e71297c94a05784064ad27615037ef677e3f0c00469fb55f409d2bb21261035
-  languageName: node
-  linkType: hard
-
-"convict@npm:^6.2.4":
-  version: 6.2.4
-  resolution: "convict@npm:6.2.4"
-  dependencies:
-    lodash.clonedeep: ^4.5.0
-    yargs-parser: ^20.2.7
-  checksum: e14da5c359e3b0452d39c005429e5e4ab1192fa94e51824e135ca8e6b921e95dfd803c15993ea6d23837b6cecb5a402e981a5dd37bee52a62a7a0924798eefe0
   languageName: node
   linkType: hard
 
@@ -10412,13 +10402,6 @@ __metadata:
   version: 3.0.0
   resolution: "lodash._reinterpolate@npm:3.0.0"
   checksum: 06d2d5f33169604fa5e9f27b6067ed9fb85d51a84202a656901e5ffb63b426781a601508466f039c720af111b0c685d12f1a5c14ff8df5d5f27e491e562784b2
-  languageName: node
-  linkType: hard
-
-"lodash.clonedeep@npm:^4.5.0":
-  version: 4.5.0
-  resolution: "lodash.clonedeep@npm:4.5.0"
-  checksum: 92c46f094b064e876a23c97f57f81fbffd5d760bf2d8a1c61d85db6d1e488c66b0384c943abee4f6af7debf5ad4e4282e74ff83177c9e63d8ff081a4837c3489
   languageName: node
   linkType: hard
 
@@ -15486,7 +15469,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs-parser@npm:^20.2.2, yargs-parser@npm:^20.2.3, yargs-parser@npm:^20.2.7":
+"yargs-parser@npm:^20.2.2, yargs-parser@npm:^20.2.3":
   version: 20.2.9
   resolution: "yargs-parser@npm:20.2.9"
   checksum: 8bb69015f2b0ff9e17b2c8e6bfe224ab463dd00ca211eece72a4cd8a906224d2703fb8a326d36fdd0e68701e201b2a60ed7cf81ce0fd9b3799f9fe7745977ae3

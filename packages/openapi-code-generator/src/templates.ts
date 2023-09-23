@@ -3,8 +3,8 @@ import {generateTypescriptFetch} from "./typescript/typescript-fetch/typescript-
 import {generateTypescriptKoa} from "./typescript/typescript-koa/typescript-koa.generator"
 import {OpenapiGenerator} from "./templates.types"
 
-export const templates: Record<string, OpenapiGenerator> = {
+export const templates = {
   "typescript-fetch": generateTypescriptFetch,
   "typescript-angular": generateTypescriptAngular,
   "typescript-koa": generateTypescriptKoa,
-}
+} satisfies Record<string, OpenapiGenerator>
