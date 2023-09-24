@@ -49762,7 +49762,7 @@ export function bootstrap(
   })
 
   return startServer({
-    middleware: [],
+    middleware: config.middleware,
     router,
     port: config.port,
   })
