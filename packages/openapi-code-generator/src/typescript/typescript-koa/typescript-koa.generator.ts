@@ -194,7 +194,7 @@ export function bootstrap(implementation: Implementation, config: Omit<ServerCon
   ${routes.join("\n\n")}
 
   return startServer({
-    middleware: [],
+    middleware: config.middleware,
     router,
     port: config.port
   })
