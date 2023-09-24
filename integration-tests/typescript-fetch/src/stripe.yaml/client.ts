@@ -4116,6 +4116,11 @@ export class ApiClient extends AbstractFetchClient {
                 message: string
               }
             | ""
+          terms_of_service_acceptance?:
+            | {
+                message: string
+              }
+            | ""
         }
         customer?: string
         customer_creation?: "always" | "if_required"
@@ -9570,6 +9575,12 @@ export class ApiClient extends AbstractFetchClient {
           | "exclude"
           | "include"
           | "include_and_require"
+        rendering?: {
+          amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax"
+          pdf?: {
+            page_size?: "a4" | "auto" | "letter"
+          }
+        }
         rendering_options?:
           | {
               amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax"
@@ -10364,6 +10375,12 @@ export class ApiClient extends AbstractFetchClient {
                 | "wechat_pay"
               )[]
             | ""
+        }
+        rendering?: {
+          amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax"
+          pdf?: {
+            page_size?: "a4" | "auto" | "letter"
+          }
         }
         rendering_options?:
           | {
@@ -17933,6 +17950,11 @@ export class ApiClient extends AbstractFetchClient {
                 message: string
               }
             | ""
+          terms_of_service_acceptance?:
+            | {
+                message: string
+              }
+            | ""
         }
         customer_creation?: "always" | "if_required"
         expand?: string[]
@@ -18366,6 +18388,11 @@ export class ApiClient extends AbstractFetchClient {
               }
             | ""
           submit?:
+            | {
+                message: string
+              }
+            | ""
+          terms_of_service_acceptance?:
             | {
                 message: string
               }
@@ -31922,7 +31949,6 @@ export class ApiClient extends AbstractFetchClient {
           | "issuing_transaction.created"
           | "issuing_transaction.updated"
           | "mandate.updated"
-          | "order.created"
           | "payment_intent.amount_capturable_updated"
           | "payment_intent.canceled"
           | "payment_intent.created"
@@ -31963,9 +31989,6 @@ export class ApiClient extends AbstractFetchClient {
           | "quote.finalized"
           | "radar.early_fraud_warning.created"
           | "radar.early_fraud_warning.updated"
-          | "recipient.created"
-          | "recipient.deleted"
-          | "recipient.updated"
           | "refund.created"
           | "refund.updated"
           | "reporting.report_run.failed"
@@ -31979,9 +32002,6 @@ export class ApiClient extends AbstractFetchClient {
           | "setup_intent.setup_failed"
           | "setup_intent.succeeded"
           | "sigma.scheduled_query_run.created"
-          | "sku.created"
-          | "sku.deleted"
-          | "sku.updated"
           | "source.canceled"
           | "source.chargeable"
           | "source.failed"
@@ -32230,7 +32250,6 @@ export class ApiClient extends AbstractFetchClient {
           | "issuing_transaction.created"
           | "issuing_transaction.updated"
           | "mandate.updated"
-          | "order.created"
           | "payment_intent.amount_capturable_updated"
           | "payment_intent.canceled"
           | "payment_intent.created"
@@ -32271,9 +32290,6 @@ export class ApiClient extends AbstractFetchClient {
           | "quote.finalized"
           | "radar.early_fraud_warning.created"
           | "radar.early_fraud_warning.updated"
-          | "recipient.created"
-          | "recipient.deleted"
-          | "recipient.updated"
           | "refund.created"
           | "refund.updated"
           | "reporting.report_run.failed"
@@ -32287,9 +32303,6 @@ export class ApiClient extends AbstractFetchClient {
           | "setup_intent.setup_failed"
           | "setup_intent.succeeded"
           | "sigma.scheduled_query_run.created"
-          | "sku.created"
-          | "sku.deleted"
-          | "sku.updated"
           | "source.canceled"
           | "source.chargeable"
           | "source.failed"

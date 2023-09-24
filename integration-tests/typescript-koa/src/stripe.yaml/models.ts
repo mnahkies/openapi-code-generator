@@ -1093,10 +1093,10 @@ export type t_connect_collection_transfer = {
 }
 
 export type t_connect_embedded_account_session_create_components = {
-  account_onboarding: t_connect_embedded_base_config
+  account_onboarding: t_connect_embedded_base_config_claim
 }
 
-export type t_connect_embedded_base_config = {
+export type t_connect_embedded_base_config_claim = {
   enabled: boolean
 }
 
@@ -2230,6 +2230,7 @@ export type t_invoice = {
   pre_payment_credit_notes_amount: number
   quote?: string | t_quote | null
   receipt_number?: string | null
+  rendering?: t_invoices_invoice_rendering | null
   rendering_options?: t_invoice_setting_rendering_options | null
   shipping_cost?: t_invoices_shipping_cost | null
   shipping_details?: t_shipping | null
@@ -2318,6 +2319,10 @@ export type t_invoice_payment_method_options_us_bank_account_linked_account_opti
     permissions?: ("balances" | "payment_method" | "transactions")[]
     prefetch?: "balances"[] | null
   }
+
+export type t_invoice_rendering_pdf = {
+  page_size?: "a4" | "auto" | "letter" | null
+}
 
 export type t_invoice_setting_custom_field = {
   name: string
@@ -2411,6 +2416,11 @@ export type t_invoiceitem = {
 export type t_invoices_from_invoice = {
   action: string
   invoice: string | t_invoice
+}
+
+export type t_invoices_invoice_rendering = {
+  amount_tax_display?: string | null
+  pdf?: t_invoice_rendering_pdf | null
 }
 
 export type t_invoices_payment_method_options = {
@@ -5721,6 +5731,7 @@ export type t_payment_links_resource_custom_fields_text = {
 export type t_payment_links_resource_custom_text = {
   shipping_address?: t_payment_links_resource_custom_text_position | null
   submit?: t_payment_links_resource_custom_text_position | null
+  terms_of_service_acceptance?: t_payment_links_resource_custom_text_position | null
 }
 
 export type t_payment_links_resource_custom_text_position = {
@@ -7281,6 +7292,7 @@ export type t_payment_pages_checkout_session_custom_fields_text = {
 export type t_payment_pages_checkout_session_custom_text = {
   shipping_address?: t_payment_pages_checkout_session_custom_text_position | null
   submit?: t_payment_pages_checkout_session_custom_text_position | null
+  terms_of_service_acceptance?: t_payment_pages_checkout_session_custom_text_position | null
 }
 
 export type t_payment_pages_checkout_session_custom_text_position = {
@@ -16280,6 +16292,11 @@ export type t_PostCheckoutSessionsBodySchema = {
           message: string
         }
       | ""
+    terms_of_service_acceptance?:
+      | {
+          message: string
+        }
+      | ""
   }
   customer?: string
   customer_creation?: "always" | "if_required"
@@ -18501,6 +18518,12 @@ export type t_PostInvoicesBodySchema = {
       | ""
   }
   pending_invoice_items_behavior?: "exclude" | "include" | "include_and_require"
+  rendering?: {
+    amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax"
+    pdf?: {
+      page_size?: "a4" | "auto" | "letter"
+    }
+  }
   rendering_options?:
     | {
         amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax"
@@ -18678,6 +18701,12 @@ export type t_PostInvoicesInvoiceBodySchema = {
           | "wechat_pay"
         )[]
       | ""
+  }
+  rendering?: {
+    amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax"
+    pdf?: {
+      page_size?: "a4" | "auto" | "letter"
+    }
   }
   rendering_options?:
     | {
@@ -24807,6 +24836,11 @@ export type t_PostPaymentLinksBodySchema = {
           message: string
         }
       | ""
+    terms_of_service_acceptance?:
+      | {
+          message: string
+        }
+      | ""
   }
   customer_creation?: "always" | "if_required"
   expand?: string[]
@@ -25191,6 +25225,11 @@ export type t_PostPaymentLinksPaymentLinkBodySchema = {
         }
       | ""
     submit?:
+      | {
+          message: string
+        }
+      | ""
+    terms_of_service_acceptance?:
       | {
           message: string
         }
@@ -32065,7 +32104,6 @@ export type t_PostWebhookEndpointsBodySchema = {
     | "issuing_transaction.created"
     | "issuing_transaction.updated"
     | "mandate.updated"
-    | "order.created"
     | "payment_intent.amount_capturable_updated"
     | "payment_intent.canceled"
     | "payment_intent.created"
@@ -32106,9 +32144,6 @@ export type t_PostWebhookEndpointsBodySchema = {
     | "quote.finalized"
     | "radar.early_fraud_warning.created"
     | "radar.early_fraud_warning.updated"
-    | "recipient.created"
-    | "recipient.deleted"
-    | "recipient.updated"
     | "refund.created"
     | "refund.updated"
     | "reporting.report_run.failed"
@@ -32122,9 +32157,6 @@ export type t_PostWebhookEndpointsBodySchema = {
     | "setup_intent.setup_failed"
     | "setup_intent.succeeded"
     | "sigma.scheduled_query_run.created"
-    | "sku.created"
-    | "sku.deleted"
-    | "sku.updated"
     | "source.canceled"
     | "source.chargeable"
     | "source.failed"
@@ -32302,7 +32334,6 @@ export type t_PostWebhookEndpointsWebhookEndpointBodySchema = {
     | "issuing_transaction.created"
     | "issuing_transaction.updated"
     | "mandate.updated"
-    | "order.created"
     | "payment_intent.amount_capturable_updated"
     | "payment_intent.canceled"
     | "payment_intent.created"
@@ -32343,9 +32374,6 @@ export type t_PostWebhookEndpointsWebhookEndpointBodySchema = {
     | "quote.finalized"
     | "radar.early_fraud_warning.created"
     | "radar.early_fraud_warning.updated"
-    | "recipient.created"
-    | "recipient.deleted"
-    | "recipient.updated"
     | "refund.created"
     | "refund.updated"
     | "reporting.report_run.failed"
@@ -32359,9 +32387,6 @@ export type t_PostWebhookEndpointsWebhookEndpointBodySchema = {
     | "setup_intent.setup_failed"
     | "setup_intent.succeeded"
     | "sigma.scheduled_query_run.created"
-    | "sku.created"
-    | "sku.deleted"
-    | "sku.updated"
     | "source.canceled"
     | "source.chargeable"
     | "source.failed"

@@ -1093,10 +1093,10 @@ export type t_connect_collection_transfer = {
 }
 
 export type t_connect_embedded_account_session_create_components = {
-  account_onboarding: t_connect_embedded_base_config
+  account_onboarding: t_connect_embedded_base_config_claim
 }
 
-export type t_connect_embedded_base_config = {
+export type t_connect_embedded_base_config_claim = {
   enabled: boolean
 }
 
@@ -2230,6 +2230,7 @@ export type t_invoice = {
   pre_payment_credit_notes_amount: number
   quote?: string | t_quote | null
   receipt_number?: string | null
+  rendering?: t_invoices_invoice_rendering | null
   rendering_options?: t_invoice_setting_rendering_options | null
   shipping_cost?: t_invoices_shipping_cost | null
   shipping_details?: t_shipping | null
@@ -2318,6 +2319,10 @@ export type t_invoice_payment_method_options_us_bank_account_linked_account_opti
     permissions?: ("balances" | "payment_method" | "transactions")[]
     prefetch?: "balances"[] | null
   }
+
+export type t_invoice_rendering_pdf = {
+  page_size?: "a4" | "auto" | "letter" | null
+}
 
 export type t_invoice_setting_custom_field = {
   name: string
@@ -2411,6 +2416,11 @@ export type t_invoiceitem = {
 export type t_invoices_from_invoice = {
   action: string
   invoice: string | t_invoice
+}
+
+export type t_invoices_invoice_rendering = {
+  amount_tax_display?: string | null
+  pdf?: t_invoice_rendering_pdf | null
 }
 
 export type t_invoices_payment_method_options = {
@@ -5721,6 +5731,7 @@ export type t_payment_links_resource_custom_fields_text = {
 export type t_payment_links_resource_custom_text = {
   shipping_address?: t_payment_links_resource_custom_text_position | null
   submit?: t_payment_links_resource_custom_text_position | null
+  terms_of_service_acceptance?: t_payment_links_resource_custom_text_position | null
 }
 
 export type t_payment_links_resource_custom_text_position = {
@@ -7281,6 +7292,7 @@ export type t_payment_pages_checkout_session_custom_fields_text = {
 export type t_payment_pages_checkout_session_custom_text = {
   shipping_address?: t_payment_pages_checkout_session_custom_text_position | null
   submit?: t_payment_pages_checkout_session_custom_text_position | null
+  terms_of_service_acceptance?: t_payment_pages_checkout_session_custom_text_position | null
 }
 
 export type t_payment_pages_checkout_session_custom_text_position = {
