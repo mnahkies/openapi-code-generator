@@ -28,6 +28,7 @@ const program = new Command()
       .env("OPENAPI_TEMPLATE")
       .choices([
         "typescript-koa",
+        "typescript-axios",
         "typescript-fetch",
         "typescript-angular",
       ] as const satisfies Readonly<Array<keyof typeof templates>>)
