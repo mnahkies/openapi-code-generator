@@ -6,13 +6,14 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "clean": "rm -rf ./dist",
     "generate": "./generate.sh",
     "validate": "tsc -p ./tsconfig.json"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "@koa/router": "^12.0.0",
-    "@nahkies/typescript-koa-runtime": "0.0.1",
+    "@nahkies/typescript-koa-runtime": "0.0.0",
     "@types/hapi__joi": "^17.1.11",
     "koa": "^2.14.2",
     "zod": "^3.22.2"
