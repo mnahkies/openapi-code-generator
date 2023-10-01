@@ -1,4 +1,6 @@
 # @nahkies/openapi-code-generator
+![CI/CD](https://github.com/mnahkies/openapi-code-generator/actions/workflows/ci.yml/badge.svg)
+[![npm](https://img.shields.io/npm/v/@nahkies/openapi-code-generator.svg)](https://www.npmjs.com/package/@nahkies/openapi-code-generator)
 
 This project should be considered alpha quality. However, as shown by the integration tests, it does a fair job of 
 generating a strongly typed client for large/complex definitions like the GitHub api.
