@@ -229,7 +229,7 @@ Will output three files into `./src`:
 Once generated usage should look something like this:
 
 ```typescript
-import {bootstrap, CreateTodoList, GetTodoLists} from "../generated"
+import {bootstrap, createRouter, CreateTodoList, GetTodoLists} from "../generated"
 
 // Define your route implementations as async functions implementing the types
 // exported from generated.ts
@@ -254,7 +254,10 @@ const getTodoLists: GetTodoLists = async ({query}) => {
 }
 
 // Starts a server listening on `port`
-bootstrap({getTodoLists, createTodoList}, {port: port})
+bootstrap({
+  router: createRouter({getTodoLists, createTodoList}),
+  port: 8080
+})
 ```
 
 ## More information / contributing
