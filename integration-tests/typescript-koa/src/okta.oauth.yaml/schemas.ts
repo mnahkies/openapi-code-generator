@@ -34,36 +34,36 @@ export const s_AmrValue = z.enum([
 export const s_ApplicationType = z.enum(["browser", "native", "service", "web"])
 
 export const s_BackchannelAuthorizeRequest = z.object({
-  binding_message: z.coerce.string().optional(),
-  id_token_hint: z.coerce.string().optional(),
-  login_hint: z.coerce.string().optional(),
-  request: z.coerce.string().optional(),
+  binding_message: z.string().optional(),
+  id_token_hint: z.string().optional(),
+  login_hint: z.string().optional(),
+  request: z.string().optional(),
   request_expiry: z.coerce.number().optional(),
-  scope: z.coerce.string(),
+  scope: z.string(),
 })
 
 export const s_BackchannelAuthorizeResponse = z.object({
-  auth_req_id: z.coerce.string().optional(),
+  auth_req_id: z.string().optional(),
   expires_in: z.coerce.number().optional(),
   interval: z.coerce.number().optional(),
 })
 
-export const s_Claim = z.coerce.string()
+export const s_Claim = z.string()
 
 export const s_CodeChallengeMethod = z.enum(["S256"])
 
 export const s_DeviceAuthorizeRequest = z.object({
-  client_id: z.coerce.string().optional(),
-  scope: z.coerce.string().optional(),
+  client_id: z.string().optional(),
+  scope: z.string().optional(),
 })
 
 export const s_DeviceAuthorizeResponse = z.object({
-  device_code: z.coerce.string().optional(),
+  device_code: z.string().optional(),
   expires_in: z.coerce.number().optional(),
   interval: z.coerce.number().optional(),
-  user_code: z.coerce.string().optional(),
-  verification_uri: z.coerce.string().optional(),
-  verification_uri_complete: z.coerce.string().optional(),
+  user_code: z.string().optional(),
+  verification_uri: z.string().optional(),
+  verification_uri_complete: z.string().optional(),
 })
 
 export const s_EndpointAuthMethod = z.enum([
@@ -76,12 +76,12 @@ export const s_EndpointAuthMethod = z.enum([
 
 export const s_Error = z.object({
   errorCauses: z
-    .array(z.object({ errorSummary: z.coerce.string().optional() }))
+    .array(z.object({ errorSummary: z.string().optional() }))
     .optional(),
-  errorCode: z.coerce.string().optional(),
-  errorId: z.coerce.string().optional(),
-  errorLink: z.coerce.string().optional(),
-  errorSummary: z.coerce.string().optional(),
+  errorCode: z.string().optional(),
+  errorId: z.string().optional(),
+  errorLink: z.string().optional(),
+  errorSummary: z.string().optional(),
 })
 
 export const s_GrantType = z.enum([
@@ -100,19 +100,19 @@ export const s_GrantType = z.enum([
 
 export const s_IntrospectionResponse = z.object({
   active: z.coerce.boolean().optional(),
-  aud: z.coerce.string().optional(),
-  client_id: z.coerce.string().optional(),
-  device_id: z.coerce.string().optional(),
+  aud: z.string().optional(),
+  client_id: z.string().optional(),
+  device_id: z.string().optional(),
   exp: z.coerce.number().optional(),
   iat: z.coerce.number().optional(),
-  iss: z.coerce.string().optional(),
-  jti: z.coerce.string().optional(),
+  iss: z.string().optional(),
+  jti: z.string().optional(),
   nbf: z.coerce.number().optional(),
-  scope: z.coerce.string().optional(),
-  sub: z.coerce.string().optional(),
-  token_type: z.coerce.string().optional(),
-  uid: z.coerce.string().optional(),
-  username: z.coerce.string().optional(),
+  scope: z.string().optional(),
+  sub: z.string().optional(),
+  token_type: z.string().optional(),
+  uid: z.string().optional(),
+  username: z.string().optional(),
 })
 
 export const s_JsonWebKeyStatus = z.enum(["ACTIVE", "EXPIRED", "NEXT"])
@@ -122,33 +122,33 @@ export const s_JsonWebKeyType = z.enum(["EC", "RSA"])
 export const s_JsonWebKeyUse = z.enum(["enc", "sig"])
 
 export const s_OAuthError = z.object({
-  error: z.coerce.string().optional(),
-  error_description: z.coerce.string().optional(),
+  error: z.string().optional(),
+  error_description: z.string().optional(),
 })
 
 export const s_ParRequest = z.object({
-  client_id: z.coerce.string().optional(),
-  code_challenge: z.coerce.string().optional(),
-  code_challenge_method: z.coerce.string().optional(),
-  display: z.coerce.string().optional(),
-  idp: z.coerce.string().optional(),
-  idp_scope: z.coerce.string().optional(),
-  login_hint: z.coerce.string().optional(),
+  client_id: z.string().optional(),
+  code_challenge: z.string().optional(),
+  code_challenge_method: z.string().optional(),
+  display: z.string().optional(),
+  idp: z.string().optional(),
+  idp_scope: z.string().optional(),
+  login_hint: z.string().optional(),
   max_age: z.coerce.number().optional(),
-  nonce: z.coerce.string().optional(),
-  prompt: z.coerce.string().optional(),
-  redirect_uri: z.coerce.string().optional(),
-  request: z.coerce.string().optional(),
-  response_mode: z.coerce.string().optional(),
-  response_type: z.coerce.string().optional(),
-  scope: z.coerce.string().optional(),
-  sessionToken: z.coerce.string().optional(),
-  state: z.coerce.string().optional(),
+  nonce: z.string().optional(),
+  prompt: z.string().optional(),
+  redirect_uri: z.string().optional(),
+  request: z.string().optional(),
+  response_mode: z.string().optional(),
+  response_type: z.string().optional(),
+  scope: z.string().optional(),
+  sessionToken: z.string().optional(),
+  state: z.string().optional(),
 })
 
 export const s_ParResponse = z.object({
   expires_in: z.coerce.number().optional(),
-  request_uri: z.coerce.string().optional(),
+  request_uri: z.string().optional(),
 })
 
 export const s_Prompt = z.enum([
@@ -178,7 +178,7 @@ export const s_ResponseTypesSupported = z.enum([
   "token",
 ])
 
-export const s_Scope = z.coerce.string()
+export const s_Scope = z.string()
 
 export const s_SigningAlgorithm = z.enum([
   "ES256",
@@ -222,23 +222,23 @@ export const s_TokenTypeHintRevoke = z.enum([
   "refresh_token",
 ])
 
-export const s_UserInfo = z.object({ sub: z.coerce.string().optional() })
+export const s_UserInfo = z.object({ sub: z.string().optional() })
 
 export const s_IntrospectionRequest = z.object({
-  token: z.coerce.string().optional(),
+  token: z.string().optional(),
   token_type_hint: s_TokenTypeHintIntrospect,
 })
 
 export const s_JsonWebKey = z.object({
   alg: s_SigningAlgorithm,
-  kid: z.coerce.string().optional(),
+  kid: z.string().optional(),
   kty: s_JsonWebKeyType,
   status: s_JsonWebKeyStatus,
   use: s_JsonWebKeyUse,
 })
 
 export const s_OAuthMetadata = z.object({
-  authorization_endpoint: z.coerce.string().optional(),
+  authorization_endpoint: z.string().optional(),
   backchannel_authentication_request_signing_alg_values_supported: z
     .array(s_SigningAlgorithm)
     .optional(),
@@ -247,72 +247,72 @@ export const s_OAuthMetadata = z.object({
     .optional(),
   claims_supported: z.array(s_Claim).optional(),
   code_challenge_methods_supported: z.array(s_CodeChallengeMethod).optional(),
-  device_authorization_endpoint: z.coerce.string().optional(),
-  end_session_endpoint: z.coerce.string().optional(),
+  device_authorization_endpoint: z.string().optional(),
+  end_session_endpoint: z.string().optional(),
   grant_types_supported: z.array(s_GrantType).optional(),
-  introspection_endpoint: z.coerce.string().optional(),
+  introspection_endpoint: z.string().optional(),
   introspection_endpoint_auth_methods_supported: z
     .array(s_EndpointAuthMethod)
     .optional(),
-  issuer: z.coerce.string().optional(),
-  jwks_uri: z.coerce.string().optional(),
-  pushed_authorization_request_endpoint: z.coerce.string().optional(),
-  registration_endpoint: z.coerce.string().optional(),
+  issuer: z.string().optional(),
+  jwks_uri: z.string().optional(),
+  pushed_authorization_request_endpoint: z.string().optional(),
+  registration_endpoint: z.string().optional(),
   request_object_signing_alg_values_supported: z
     .array(s_SigningAlgorithm)
     .optional(),
   request_parameter_supported: z.coerce.boolean().optional(),
   response_modes_supported: z.array(s_ResponseMode).optional(),
   response_types_supported: z.array(s_ResponseTypesSupported).optional(),
-  revocation_endpoint: z.coerce.string().optional(),
+  revocation_endpoint: z.string().optional(),
   revocation_endpoint_auth_methods_supported: z
     .array(s_EndpointAuthMethod)
     .optional(),
   scopes_supported: z.array(s_Scope).optional(),
   subject_types_supported: z.array(s_SubjectType).optional(),
-  token_endpoint: z.coerce.string().optional(),
+  token_endpoint: z.string().optional(),
   token_endpoint_auth_methods_supported: z
     .array(s_EndpointAuthMethod)
     .optional(),
 })
 
 export const s_RevokeRequest = z.object({
-  token: z.coerce.string().optional(),
+  token: z.string().optional(),
   token_type_hint: s_TokenTypeHintRevoke,
 })
 
 export const s_TokenRequest = z.object({ grant_type: s_GrantType })
 
 export const s_TokenResponse = z.object({
-  access_token: z.coerce.string().optional(),
-  device_secret: z.coerce.string().optional(),
+  access_token: z.string().optional(),
+  device_secret: z.string().optional(),
   expires_in: z.coerce.number().optional(),
-  id_token: z.coerce.string().optional(),
+  id_token: z.string().optional(),
   issued_token_type: s_TokenType,
-  refresh_token: z.coerce.string().optional(),
-  scope: z.coerce.string().optional(),
+  refresh_token: z.string().optional(),
+  scope: z.string().optional(),
   token_type: s_TokenResponseTokenType,
 })
 
 export const s_Client = z.object({
   application_type: s_ApplicationType,
-  client_id: z.coerce.string().optional(),
+  client_id: z.string().optional(),
   client_id_issued_at: z.coerce.number().optional(),
-  client_name: z.coerce.string().optional(),
-  client_secret: z.coerce.string().optional().nullable(),
+  client_name: z.string().optional(),
+  client_secret: z.string().optional().nullable(),
   client_secret_expires_at: z.coerce.number().optional().nullable(),
   grant_types: z.array(s_GrantType).optional(),
-  initiate_login_uri: z.coerce.string().optional(),
+  initiate_login_uri: z.string().optional(),
   jwks: z.array(s_JsonWebKey).optional(),
-  jwks_uri: z.coerce.string().optional(),
-  logo_uri: z.coerce.string().optional().nullable(),
-  policy_uri: z.coerce.string().optional().nullable(),
-  post_logout_redirect_uris: z.coerce.string().optional(),
-  redirect_uris: z.array(z.coerce.string()).optional(),
+  jwks_uri: z.string().optional(),
+  logo_uri: z.string().optional().nullable(),
+  policy_uri: z.string().optional().nullable(),
+  post_logout_redirect_uris: z.string().optional(),
+  redirect_uris: z.array(z.string()).optional(),
   request_object_signing_alg: z.array(s_SigningAlgorithm).optional(),
   response_types: z.array(s_ResponseType).optional(),
   token_endpoint_auth_method: s_EndpointAuthMethod,
-  tos_uri: z.coerce.string().optional().nullable(),
+  tos_uri: z.string().optional().nullable(),
 })
 
 export const s_OAuthKeys = z.object({ keys: z.array(s_JsonWebKey).optional() })
@@ -322,6 +322,6 @@ export const s_OidcMetadata = s_OAuthMetadata.merge(
     id_token_signing_alg_values_supported: z
       .array(s_SigningAlgorithm)
       .optional(),
-    userinfo_endpoint: z.coerce.string().optional(),
+    userinfo_endpoint: z.string().optional(),
   }),
 )

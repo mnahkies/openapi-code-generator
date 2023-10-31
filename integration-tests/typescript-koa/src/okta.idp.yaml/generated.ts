@@ -408,7 +408,7 @@ export function bootstrap(
   )
 
   const verifyAppAuthenticatorPushNotificationChallengeParamSchema = z.object({
-    challengeId: z.coerce.string(),
+    challengeId: z.string(),
   })
 
   const verifyAppAuthenticatorPushNotificationChallengeBodySchema =
@@ -457,7 +457,7 @@ export function bootstrap(
   )
 
   const updateAppAuthenticatorEnrollmentParamSchema = z.object({
-    enrollmentId: z.coerce.string(),
+    enrollmentId: z.string(),
   })
 
   const updateAppAuthenticatorEnrollmentBodySchema =
@@ -500,7 +500,7 @@ export function bootstrap(
   )
 
   const deleteAppAuthenticatorEnrollmentParamSchema = z.object({
-    enrollmentId: z.coerce.string(),
+    enrollmentId: z.string(),
   })
 
   const deleteAppAuthenticatorEnrollmentResponseValidator =
@@ -537,7 +537,7 @@ export function bootstrap(
   )
 
   const listAppAuthenticatorPendingPushNotificationChallengesParamSchema =
-    z.object({ enrollmentId: z.coerce.string() })
+    z.object({ enrollmentId: z.string() })
 
   const listAppAuthenticatorPendingPushNotificationChallengesResponseValidator =
     responseValidationFactory(
@@ -597,9 +597,9 @@ export function bootstrap(
   })
 
   const createEmailBodySchema = z.object({
-    profile: z.object({ email: z.coerce.string().email() }),
+    profile: z.object({ email: z.string().email() }),
     sendEmail: z.coerce.boolean().optional(),
-    state: z.coerce.string().optional(),
+    state: z.string().optional(),
     role: z.enum(["PRIMARY", "SECONDARY"]).optional(),
   })
 
@@ -628,7 +628,7 @@ export function bootstrap(
     return next()
   })
 
-  const getEmailParamSchema = z.object({ id: z.coerce.string() })
+  const getEmailParamSchema = z.object({ id: z.string() })
 
   const getEmailResponseValidator = responseValidationFactory(
     [
@@ -652,7 +652,7 @@ export function bootstrap(
     return next()
   })
 
-  const deleteEmailParamSchema = z.object({ id: z.coerce.string() })
+  const deleteEmailParamSchema = z.object({ id: z.string() })
 
   const deleteEmailResponseValidator = responseValidationFactory(
     [
@@ -683,27 +683,27 @@ export function bootstrap(
     },
   )
 
-  const sendEmailChallengeParamSchema = z.object({ id: z.coerce.string() })
+  const sendEmailChallengeParamSchema = z.object({ id: z.string() })
 
-  const sendEmailChallengeBodySchema = z.object({ state: z.coerce.string() })
+  const sendEmailChallengeBodySchema = z.object({ state: z.string() })
 
   const sendEmailChallengeResponseValidator = responseValidationFactory(
     [
       [
         "201",
         z.object({
-          id: z.coerce.string(),
-          status: z.coerce.string(),
-          expiresAt: z.coerce.string(),
-          profile: z.object({ email: z.coerce.string() }),
+          id: z.string(),
+          status: z.string(),
+          expiresAt: z.string(),
+          profile: z.object({ email: z.string() }),
           _links: z.object({
             verify: z.object({
-              href: z.coerce.string(),
-              hints: z.object({ allow: z.array(z.coerce.string()) }),
+              href: z.string(),
+              hints: z.object({ allow: z.array(z.string()) }),
             }),
             poll: z.object({
-              href: z.coerce.string(),
-              hints: z.object({ allow: z.array(z.coerce.string()) }),
+              href: z.string(),
+              hints: z.object({ allow: z.array(z.string()) }),
             }),
           }),
         }),
@@ -737,8 +737,8 @@ export function bootstrap(
   )
 
   const pollChallengeForEmailMagicLinkParamSchema = z.object({
-    id: z.coerce.string(),
-    challengeId: z.coerce.string(),
+    id: z.string(),
+    challengeId: z.string(),
   })
 
   const pollChallengeForEmailMagicLinkResponseValidator =
@@ -747,18 +747,18 @@ export function bootstrap(
         [
           "200",
           z.object({
-            id: z.coerce.string(),
-            status: z.coerce.string(),
-            expiresAt: z.coerce.string(),
-            profile: z.object({ email: z.coerce.string() }),
+            id: z.string(),
+            status: z.string(),
+            expiresAt: z.string(),
+            profile: z.object({ email: z.string() }),
             _links: z.object({
               verify: z.object({
-                href: z.coerce.string(),
-                hints: z.object({ allow: z.array(z.coerce.string()) }),
+                href: z.string(),
+                hints: z.object({ allow: z.array(z.string()) }),
               }),
               poll: z.object({
-                href: z.coerce.string(),
-                hints: z.object({ allow: z.array(z.coerce.string()) }),
+                href: z.string(),
+                hints: z.object({ allow: z.array(z.string()) }),
               }),
             }),
           }),
@@ -792,13 +792,11 @@ export function bootstrap(
   )
 
   const verifyEmailOtpParamSchema = z.object({
-    id: z.coerce.string(),
-    challengeId: z.coerce.string(),
+    id: z.string(),
+    challengeId: z.string(),
   })
 
-  const verifyEmailOtpBodySchema = z.object({
-    verificationCode: z.coerce.string(),
-  })
+  const verifyEmailOtpBodySchema = z.object({ verificationCode: z.string() })
 
   const verifyEmailOtpResponseValidator = responseValidationFactory(
     [
@@ -851,7 +849,7 @@ export function bootstrap(
   })
 
   const createPhoneBodySchema = z.object({
-    profile: z.object({ phoneNumber: z.coerce.string().optional() }).optional(),
+    profile: z.object({ phoneNumber: z.string().optional() }).optional(),
     sendCode: z.coerce.boolean().optional(),
     method: z.enum(["SMS", "CALL"]).optional(),
   })
@@ -882,7 +880,7 @@ export function bootstrap(
     return next()
   })
 
-  const getPhoneParamSchema = z.object({ id: z.coerce.string() })
+  const getPhoneParamSchema = z.object({ id: z.string() })
 
   const getPhoneResponseValidator = responseValidationFactory(
     [
@@ -907,7 +905,7 @@ export function bootstrap(
     return next()
   })
 
-  const deletePhoneParamSchema = z.object({ id: z.coerce.string() })
+  const deletePhoneParamSchema = z.object({ id: z.string() })
 
   const deletePhoneResponseValidator = responseValidationFactory(
     [
@@ -937,7 +935,7 @@ export function bootstrap(
     },
   )
 
-  const sendPhoneChallengeParamSchema = z.object({ id: z.coerce.string() })
+  const sendPhoneChallengeParamSchema = z.object({ id: z.string() })
 
   const sendPhoneChallengeBodySchema = z.object({
     method: z.enum(["SMS", "CALL"]),
@@ -953,8 +951,8 @@ export function bootstrap(
             .object({
               verify: z
                 .object({
-                  href: z.coerce.string(),
-                  hints: z.object({ allow: z.array(z.coerce.string()) }),
+                  href: z.string(),
+                  hints: z.object({ allow: z.array(z.string()) }),
                 })
                 .optional(),
             })
@@ -991,10 +989,10 @@ export function bootstrap(
     },
   )
 
-  const verifyPhoneChallengeParamSchema = z.object({ id: z.coerce.string() })
+  const verifyPhoneChallengeParamSchema = z.object({ id: z.string() })
 
   const verifyPhoneChallengeBodySchema = z.object({
-    verificationCode: z.coerce.string(),
+    verificationCode: z.string(),
   })
 
   const verifyPhoneChallengeResponseValidator = responseValidationFactory(

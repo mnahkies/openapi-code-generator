@@ -5,24 +5,24 @@
 import { z } from "zod"
 
 export const s_AppAuthenticatorEnrollment = z.object({
-  authenticatorId: z.coerce.string().optional(),
-  createdDate: z.coerce.string().datetime({ offset: true }).optional(),
+  authenticatorId: z.string().optional(),
+  createdDate: z.string().datetime({ offset: true }).optional(),
   device: z
     .object({
-      id: z.coerce.string().optional(),
+      id: z.string().optional(),
       status: z.enum(["ACTIVE"]).optional(),
-      createdDate: z.coerce.string().datetime({ offset: true }).optional(),
-      lastUpdated: z.coerce.string().datetime({ offset: true }).optional(),
-      clientInstanceId: z.coerce.string().optional(),
+      createdDate: z.string().datetime({ offset: true }).optional(),
+      lastUpdated: z.string().datetime({ offset: true }).optional(),
+      clientInstanceId: z.string().optional(),
     })
     .optional(),
-  id: z.coerce.string().optional(),
-  lastUpdated: z.coerce.string().datetime({ offset: true }).optional(),
+  id: z.string().optional(),
+  lastUpdated: z.string().datetime({ offset: true }).optional(),
   links: z
     .object({
       self: z
         .object({
-          href: z.coerce.string().optional(),
+          href: z.string().optional(),
           hints: z
             .object({ allow: z.array(z.enum(["PATCH", "DELETE"])).optional() })
             .optional(),
@@ -32,10 +32,7 @@ export const s_AppAuthenticatorEnrollment = z.object({
     .optional(),
   methods: z.object({ push: z.object({}).optional() }).optional(),
   user: z
-    .object({
-      id: z.coerce.string().optional(),
-      username: z.coerce.string().optional(),
-    })
+    .object({ id: z.string().optional(), username: z.string().optional() })
     .optional(),
 })
 
@@ -44,42 +41,34 @@ export const s_AppAuthenticatorMethodCapabilities = z.object({
 })
 
 export const s_Email = z.object({
-  id: z.coerce.string(),
-  profile: z.object({ email: z.coerce.string() }),
-  roles: z.array(z.coerce.string()),
-  status: z.coerce.string(),
+  id: z.string(),
+  profile: z.object({ email: z.string() }),
+  roles: z.array(z.string()),
+  status: z.string(),
   _links: z
     .object({
       self: z
         .object({
-          href: z.coerce.string().optional(),
-          hints: z
-            .object({ allow: z.array(z.coerce.string()).optional() })
-            .optional(),
+          href: z.string().optional(),
+          hints: z.object({ allow: z.array(z.string()).optional() }).optional(),
         })
         .optional(),
       challenge: z
         .object({
-          href: z.coerce.string().optional(),
-          hints: z
-            .object({ allow: z.array(z.coerce.string()).optional() })
-            .optional(),
+          href: z.string().optional(),
+          hints: z.object({ allow: z.array(z.string()).optional() }).optional(),
         })
         .optional(),
       verify: z
         .object({
-          href: z.coerce.string().optional(),
-          hints: z
-            .object({ allow: z.array(z.coerce.string()).optional() })
-            .optional(),
+          href: z.string().optional(),
+          hints: z.object({ allow: z.array(z.string()).optional() }).optional(),
         })
         .optional(),
       poll: z
         .object({
-          href: z.coerce.string().optional(),
-          hints: z
-            .object({ allow: z.array(z.coerce.string()).optional() })
-            .optional(),
+          href: z.string().optional(),
+          hints: z.object({ allow: z.array(z.string()).optional() }).optional(),
         })
         .optional(),
     })
@@ -88,59 +77,53 @@ export const s_Email = z.object({
 
 export const s_Error = z.object({
   errorCauses: z
-    .array(z.object({ errorSummary: z.coerce.string().optional() }))
+    .array(z.object({ errorSummary: z.string().optional() }))
     .optional(),
-  errorCode: z.coerce.string().optional(),
-  errorId: z.coerce.string().optional(),
-  errorLink: z.coerce.string().optional(),
-  errorSummary: z.coerce.string().optional(),
+  errorCode: z.string().optional(),
+  errorId: z.string().optional(),
+  errorLink: z.string().optional(),
+  errorSummary: z.string().optional(),
 })
 
 export const s_KeyEC = z.object({
   crv: z.enum(["P-256"]),
-  kid: z.coerce.string(),
+  kid: z.string(),
   kty: z.enum(["EC"]),
   "okta:kpr": z.enum(["HARDWARE", "SOFTWARE"]),
-  x: z.coerce.string(),
-  y: z.coerce.string(),
+  x: z.string(),
+  y: z.string(),
 })
 
 export const s_KeyRSA = z.object({
-  e: z.coerce.string(),
-  kid: z.coerce.string(),
+  e: z.string(),
+  kid: z.string(),
   kty: z.enum(["RSA"]),
-  n: z.coerce.string(),
+  n: z.string(),
   "okta:kpr": z.enum(["HARDWARE", "SOFTWARE"]),
 })
 
 export const s_Phone = z.object({
-  id: z.coerce.string(),
-  profile: z.object({ phoneNumber: z.coerce.string() }),
-  status: z.coerce.string(),
+  id: z.string(),
+  profile: z.object({ phoneNumber: z.string() }),
+  status: z.string(),
   _links: z
     .object({
       self: z
         .object({
-          href: z.coerce.string().optional(),
-          hints: z
-            .object({ allow: z.array(z.coerce.string()).optional() })
-            .optional(),
+          href: z.string().optional(),
+          hints: z.object({ allow: z.array(z.string()).optional() }).optional(),
         })
         .optional(),
       challenge: z
         .object({
-          href: z.coerce.string().optional(),
-          hints: z
-            .object({ allow: z.array(z.coerce.string()).optional() })
-            .optional(),
+          href: z.string().optional(),
+          hints: z.object({ allow: z.array(z.string()).optional() }).optional(),
         })
         .optional(),
       verify: z
         .object({
-          href: z.coerce.string().optional(),
-          hints: z
-            .object({ allow: z.array(z.coerce.string()).optional() })
-            .optional(),
+          href: z.string().optional(),
+          hints: z.object({ allow: z.array(z.string()).optional() }).optional(),
         })
         .optional(),
     })
@@ -148,24 +131,24 @@ export const s_Phone = z.object({
 })
 
 export const s_Profile = z.object({
-  createdAt: z.coerce.string().datetime({ offset: true }).optional(),
-  modifiedAt: z.coerce.string().datetime({ offset: true }).optional(),
+  createdAt: z.string().datetime({ offset: true }).optional(),
+  modifiedAt: z.string().datetime({ offset: true }).optional(),
   profile: z.object({}).optional(),
   _links: z
     .object({
-      self: z.object({ href: z.coerce.string().optional() }).optional(),
-      describedBy: z.object({ href: z.coerce.string().optional() }).optional(),
+      self: z.object({ href: z.string().optional() }).optional(),
+      describedBy: z.object({ href: z.string().optional() }).optional(),
     })
     .optional(),
 })
 
 export const s_PushNotificationChallenge = z.object({
-  challenge: z.coerce.string().optional(),
+  challenge: z.string().optional(),
   payloadVersion: z.enum(["IDXv1"]).optional(),
 })
 
 export const s_PushNotificationVerification = z.object({
-  challengeResponse: z.coerce.string().optional(),
+  challengeResponse: z.string().optional(),
   method: z.enum(["push"]).optional(),
 })
 
@@ -173,8 +156,8 @@ export const s_Schema = z.object({
   properties: z.object({}).optional(),
   _links: z
     .object({
-      self: z.object({ href: z.coerce.string().optional() }).optional(),
-      user: z.object({ href: z.coerce.string().optional() }).optional(),
+      self: z.object({ href: z.string().optional() }).optional(),
+      user: z.object({ href: z.string().optional() }).optional(),
     })
     .optional(),
 })
@@ -182,25 +165,25 @@ export const s_Schema = z.object({
 export const s_KeyObject = z.union([s_KeyEC, s_KeyRSA])
 
 export const s_AppAuthenticatorEnrollmentRequest = z.object({
-  authenticatorId: z.coerce.string(),
+  authenticatorId: z.string(),
   device: z.object({
     secureHardwarePresent: z.coerce.boolean().optional(),
     clientInstanceKey: s_KeyObject,
-    osVersion: z.coerce.string(),
-    clientInstanceBundleId: z.coerce.string(),
+    osVersion: z.string(),
+    clientInstanceBundleId: z.string(),
     platform: z.enum(["ANDROID", "IOS"]),
-    manufacturer: z.coerce.string().optional(),
+    manufacturer: z.string().optional(),
     deviceAttestation: z.object({}).optional(),
-    clientInstanceVersion: z.coerce.string(),
-    clientInstanceDeviceSdkVersion: z.coerce.string(),
-    model: z.coerce.string().optional(),
-    displayName: z.coerce.string(),
-    udid: z.coerce.string().optional(),
+    clientInstanceVersion: z.string(),
+    clientInstanceDeviceSdkVersion: z.string(),
+    model: z.string().optional(),
+    displayName: z.string(),
+    udid: z.string().optional(),
   }),
   methods: z.object({
     push: z.object({
       apsEnvironment: z.enum(["PRODUCTION", "DEVELOPMENT"]).optional(),
-      pushToken: z.coerce.string(),
+      pushToken: z.string(),
       keys: z.object({
         proofOfPossession: s_KeyObject,
         userVerification: s_KeyObject,
@@ -215,7 +198,7 @@ export const s_UpdateAppAuthenticatorEnrollmentRequest = z.object({
     .object({
       push: z
         .object({
-          pushToken: z.coerce.string().optional(),
+          pushToken: z.string().optional(),
           keys: z.object({ userVerification: s_KeyObject }).optional(),
           capabilities: s_AppAuthenticatorMethodCapabilities,
         })

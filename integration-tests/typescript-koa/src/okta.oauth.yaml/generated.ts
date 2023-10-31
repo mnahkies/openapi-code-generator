@@ -448,7 +448,7 @@ export function bootstrap(
   const router = new KoaRouter()
 
   const getWellKnownOpenIdConfigurationQuerySchema = z.object({
-    client_id: z.coerce.string().optional(),
+    client_id: z.string().optional(),
   })
 
   const getWellKnownOpenIdConfigurationResponseValidator =
@@ -484,25 +484,25 @@ export function bootstrap(
 
   const authorizeQuerySchema = z.object({
     acr_values: s_AcrValue,
-    client_id: z.coerce.string().optional(),
-    code_challenge: z.coerce.string().optional(),
+    client_id: z.string().optional(),
+    code_challenge: z.string().optional(),
     code_challenge_method: s_CodeChallengeMethod,
-    display: z.coerce.string().optional(),
+    display: z.string().optional(),
     enroll_amr_values: s_AmrValue,
-    idp_scope: z.coerce.string().optional(),
-    idp: z.coerce.string().optional(),
-    login_hint: z.coerce.string().optional(),
+    idp_scope: z.string().optional(),
+    idp: z.string().optional(),
+    login_hint: z.string().optional(),
     max_age: z.coerce.number().optional(),
-    nonce: z.coerce.string().optional(),
+    nonce: z.string().optional(),
     prompt: s_Prompt,
-    redirect_uri: z.coerce.string().optional(),
+    redirect_uri: z.string().optional(),
     response_type: s_ResponseTypesSupported,
     response_mode: s_ResponseMode,
-    request_uri: z.coerce.string().optional(),
-    request: z.coerce.string().optional(),
-    scope: z.coerce.string().optional(),
-    sessionToken: z.coerce.string().optional(),
-    state: z.coerce.string().optional(),
+    request_uri: z.string().optional(),
+    request: z.string().optional(),
+    scope: z.string().optional(),
+    sessionToken: z.string().optional(),
+    state: z.string().optional(),
   })
 
   const authorizeResponseValidator = responseValidationFactory(
@@ -551,9 +551,9 @@ export function bootstrap(
   })
 
   const listClientsQuerySchema = z.object({
-    after: z.coerce.string().optional(),
+    after: z.string().optional(),
     limit: z.coerce.number().optional(),
-    q: z.coerce.string().optional(),
+    q: z.string().optional(),
   })
 
   const listClientsResponseValidator = responseValidationFactory(
@@ -605,7 +605,7 @@ export function bootstrap(
     return next()
   })
 
-  const getClientParamSchema = z.object({ clientId: z.coerce.string() })
+  const getClientParamSchema = z.object({ clientId: z.string() })
 
   const getClientResponseValidator = responseValidationFactory(
     [
@@ -631,7 +631,7 @@ export function bootstrap(
     return next()
   })
 
-  const replaceClientParamSchema = z.object({ clientId: z.coerce.string() })
+  const replaceClientParamSchema = z.object({ clientId: z.string() })
 
   const replaceClientBodySchema = s_Client
 
@@ -664,7 +664,7 @@ export function bootstrap(
     },
   )
 
-  const deleteClientParamSchema = z.object({ clientId: z.coerce.string() })
+  const deleteClientParamSchema = z.object({ clientId: z.string() })
 
   const deleteClientResponseValidator = responseValidationFactory(
     [
@@ -694,9 +694,7 @@ export function bootstrap(
     },
   )
 
-  const generateNewClientSecretParamSchema = z.object({
-    clientId: z.coerce.string(),
-  })
+  const generateNewClientSecretParamSchema = z.object({ clientId: z.string() })
 
   const generateNewClientSecretResponseValidator = responseValidationFactory(
     [
@@ -788,9 +786,7 @@ export function bootstrap(
     return next()
   })
 
-  const oauthKeysQuerySchema = z.object({
-    client_id: z.coerce.string().optional(),
-  })
+  const oauthKeysQuerySchema = z.object({ client_id: z.string().optional() })
 
   const oauthKeysResponseValidator = responseValidationFactory(
     [
@@ -815,9 +811,9 @@ export function bootstrap(
   })
 
   const logoutQuerySchema = z.object({
-    id_token_hint: z.coerce.string(),
-    post_logout_redirect_uri: z.coerce.string().optional(),
-    state: z.coerce.string().optional(),
+    id_token_hint: z.string(),
+    post_logout_redirect_uri: z.string().optional(),
+    state: z.string().optional(),
   })
 
   const logoutResponseValidator = responseValidationFactory(
@@ -943,11 +939,11 @@ export function bootstrap(
   })
 
   const getWellKnownOAuthConfigurationCustomAsParamSchema = z.object({
-    authorizationServerId: z.coerce.string(),
+    authorizationServerId: z.string(),
   })
 
   const getWellKnownOAuthConfigurationCustomAsQuerySchema = z.object({
-    client_id: z.coerce.string().optional(),
+    client_id: z.string().optional(),
   })
 
   const getWellKnownOAuthConfigurationCustomAsResponseValidator =
@@ -989,11 +985,11 @@ export function bootstrap(
   )
 
   const getWellKnownOpenIdConfigurationCustomAsParamSchema = z.object({
-    authorizationServerId: z.coerce.string(),
+    authorizationServerId: z.string(),
   })
 
   const getWellKnownOpenIdConfigurationCustomAsQuerySchema = z.object({
-    client_id: z.coerce.string().optional(),
+    client_id: z.string().optional(),
   })
 
   const getWellKnownOpenIdConfigurationCustomAsResponseValidator =
@@ -1035,30 +1031,30 @@ export function bootstrap(
   )
 
   const authorizeCustomAsParamSchema = z.object({
-    authorizationServerId: z.coerce.string(),
+    authorizationServerId: z.string(),
   })
 
   const authorizeCustomAsQuerySchema = z.object({
     acr_values: s_AcrValue,
-    client_id: z.coerce.string().optional(),
-    code_challenge: z.coerce.string().optional(),
+    client_id: z.string().optional(),
+    code_challenge: z.string().optional(),
     code_challenge_method: s_CodeChallengeMethod,
-    display: z.coerce.string().optional(),
+    display: z.string().optional(),
     enroll_amr_values: s_AmrValue,
-    idp_scope: z.coerce.string().optional(),
-    idp: z.coerce.string().optional(),
-    login_hint: z.coerce.string().optional(),
+    idp_scope: z.string().optional(),
+    idp: z.string().optional(),
+    login_hint: z.string().optional(),
     max_age: z.coerce.number().optional(),
-    nonce: z.coerce.string().optional(),
+    nonce: z.string().optional(),
     prompt: s_Prompt,
-    redirect_uri: z.coerce.string().optional(),
+    redirect_uri: z.string().optional(),
     response_type: s_ResponseTypesSupported,
     response_mode: s_ResponseMode,
-    request_uri: z.coerce.string().optional(),
-    request: z.coerce.string().optional(),
-    scope: z.coerce.string().optional(),
-    sessionToken: z.coerce.string().optional(),
-    state: z.coerce.string().optional(),
+    request_uri: z.string().optional(),
+    request: z.string().optional(),
+    scope: z.string().optional(),
+    sessionToken: z.string().optional(),
+    state: z.string().optional(),
   })
 
   const authorizeCustomAsResponseValidator = responseValidationFactory(
@@ -1088,7 +1084,7 @@ export function bootstrap(
   )
 
   const bcAuthorizeCustomAsParamSchema = z.object({
-    authorizationServerId: z.coerce.string(),
+    authorizationServerId: z.string(),
   })
 
   const bcAuthorizeCustomAsBodySchema = s_BackchannelAuthorizeRequest
@@ -1128,7 +1124,7 @@ export function bootstrap(
   )
 
   const deviceAuthorizeCustomAsParamSchema = z.object({
-    authorizationServerId: z.coerce.string(),
+    authorizationServerId: z.string(),
   })
 
   const deviceAuthorizeCustomAsBodySchema = s_DeviceAuthorizeRequest
@@ -1171,7 +1167,7 @@ export function bootstrap(
   )
 
   const introspectCustomAsParamSchema = z.object({
-    authorizationServerId: z.coerce.string(),
+    authorizationServerId: z.string(),
   })
 
   const introspectCustomAsBodySchema = s_IntrospectionRequest
@@ -1208,7 +1204,7 @@ export function bootstrap(
   )
 
   const oauthKeysCustomAsParamSchema = z.object({
-    authorizationServerId: z.coerce.string(),
+    authorizationServerId: z.string(),
   })
 
   const oauthKeysCustomAsResponseValidator = responseValidationFactory(
@@ -1241,13 +1237,13 @@ export function bootstrap(
   )
 
   const logoutCustomAsParamSchema = z.object({
-    authorizationServerId: z.coerce.string(),
+    authorizationServerId: z.string(),
   })
 
   const logoutCustomAsQuerySchema = z.object({
-    id_token_hint: z.coerce.string(),
-    post_logout_redirect_uri: z.coerce.string().optional(),
-    state: z.coerce.string().optional(),
+    id_token_hint: z.string(),
+    post_logout_redirect_uri: z.string().optional(),
+    state: z.string().optional(),
   })
 
   const logoutCustomAsResponseValidator = responseValidationFactory(
@@ -1273,9 +1269,7 @@ export function bootstrap(
     },
   )
 
-  const parCustomAsParamSchema = z.object({
-    authorizationServerId: z.coerce.string(),
-  })
+  const parCustomAsParamSchema = z.object({ authorizationServerId: z.string() })
 
   const parCustomAsBodySchema = s_ParRequest
 
@@ -1309,7 +1303,7 @@ export function bootstrap(
   )
 
   const revokeCustomAsParamSchema = z.object({
-    authorizationServerId: z.coerce.string(),
+    authorizationServerId: z.string(),
   })
 
   const revokeCustomAsBodySchema = s_RevokeRequest
@@ -1343,7 +1337,7 @@ export function bootstrap(
   )
 
   const tokenCustomAsParamSchema = z.object({
-    authorizationServerId: z.coerce.string(),
+    authorizationServerId: z.string(),
   })
 
   const tokenCustomAsBodySchema = s_TokenRequest
@@ -1377,7 +1371,7 @@ export function bootstrap(
   )
 
   const userinfoCustomAsParamSchema = z.object({
-    authorizationServerId: z.coerce.string(),
+    authorizationServerId: z.string(),
   })
 
   const userinfoCustomAsResponseValidator = responseValidationFactory(
