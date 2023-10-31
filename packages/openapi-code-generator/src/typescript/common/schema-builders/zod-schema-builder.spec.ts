@@ -20,12 +20,12 @@ describe("typescript/common/schema-builders/zod-schema-builder", () => {
       "import { z } from "zod"
 
       export const s_SimpleObject = z.object({
-        str: z.coerce.string(),
+        str: z.string(),
         num: z.coerce.number(),
-        date: z.coerce.string(),
-        datetime: z.coerce.string().datetime({ offset: true }),
-        optional_str: z.coerce.string().optional(),
-        required_nullable: z.coerce.string().nullable(),
+        date: z.string(),
+        datetime: z.string().datetime({ offset: true }),
+        optional_str: z.string().optional(),
+        required_nullable: z.string().nullable(),
       })
       "
     `)
@@ -42,9 +42,9 @@ describe("typescript/common/schema-builders/zod-schema-builder", () => {
       "import { z } from "zod"
 
       export const s_OneOf = z.union([
-        z.object({ strs: z.array(z.coerce.string()) }),
-        z.array(z.coerce.string()),
-        z.coerce.string(),
+        z.object({ strs: z.array(z.string()) }),
+        z.array(z.string()),
+        z.string(),
       ])
       "
     `)
@@ -60,7 +60,7 @@ describe("typescript/common/schema-builders/zod-schema-builder", () => {
     expect(schemas).toMatchInlineSnapshot(`
       "import { z } from "zod"
 
-      export const s_AnyOf = z.union([z.coerce.number(), z.coerce.string()])
+      export const s_AnyOf = z.union([z.coerce.number(), z.string()])
       "
     `)
   })
@@ -76,8 +76,8 @@ describe("typescript/common/schema-builders/zod-schema-builder", () => {
       "import { z } from "zod"
 
       export const s_Base = z.object({
-        name: z.coerce.string(),
-        breed: z.coerce.string().optional(),
+        name: z.string(),
+        breed: z.string().optional(),
       })
 
       export const s_AllOf = s_Base.merge(z.object({ id: z.coerce.number() }))
@@ -113,10 +113,10 @@ describe("typescript/common/schema-builders/zod-schema-builder", () => {
     expect(schemas).toMatchInlineSnapshot(`
       "import { z } from "zod"
 
-      export const s_AOrdering = z.object({ name: z.coerce.string().optional() })
+      export const s_AOrdering = z.object({ name: z.string().optional() })
 
       export const s_ZOrdering = z.object({
-        name: z.coerce.string().optional(),
+        name: z.string().optional(),
         dependency1: s_AOrdering,
       })
 

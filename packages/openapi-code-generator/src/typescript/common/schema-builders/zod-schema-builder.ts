@@ -126,7 +126,7 @@ export class ZodBuilder extends AbstractSchemaBuilder {
 
     return [
       this.zod,
-      "coerce.string()",
+      "string()",
       model.format === "date-time" ? "datetime({offset:true})" : undefined,
       model.format === "email" ? "email()" : undefined,
       required ? undefined : "optional()",
