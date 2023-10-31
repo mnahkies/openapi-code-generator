@@ -70,7 +70,7 @@ export function bootstrap(
   const router = new KoaRouter()
 
   const findPetsQuerySchema = z.object({
-    tags: z.array(z.coerce.string()).optional(),
+    tags: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
   })
 

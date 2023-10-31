@@ -12455,9 +12455,9 @@ export function bootstrap(
   })
 
   const securityAdvisoriesListGlobalAdvisoriesQuerySchema = z.object({
-    ghsa_id: z.coerce.string().optional(),
+    ghsa_id: z.string().optional(),
     type: z.enum(["reviewed", "malware", "unreviewed"]).optional(),
-    cve_id: z.coerce.string().optional(),
+    cve_id: z.string().optional(),
     ecosystem: z
       .enum([
         "actions",
@@ -12477,14 +12477,14 @@ export function bootstrap(
     severity: z
       .enum(["unknown", "low", "medium", "high", "critical"])
       .optional(),
-    cwes: z.union([z.coerce.string(), z.array(z.coerce.string())]),
+    cwes: z.union([z.string(), z.array(z.string())]),
     is_withdrawn: z.coerce.boolean().optional(),
-    affects: z.union([z.coerce.string(), z.array(z.coerce.string())]),
-    published: z.coerce.string().optional(),
-    updated: z.coerce.string().optional(),
-    modified: z.coerce.string().optional(),
-    before: z.coerce.string().optional(),
-    after: z.coerce.string().optional(),
+    affects: z.union([z.string(), z.array(z.string())]),
+    published: z.string().optional(),
+    updated: z.string().optional(),
+    modified: z.string().optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
     direction: z.enum(["asc", "desc"]).optional(),
     per_page: z.coerce.number().optional(),
     sort: z.enum(["updated", "published"]).optional(),
@@ -12526,7 +12526,7 @@ export function bootstrap(
   )
 
   const securityAdvisoriesGetGlobalAdvisoryParamSchema = z.object({
-    ghsa_id: z.coerce.string(),
+    ghsa_id: z.string(),
   })
 
   const securityAdvisoriesGetGlobalAdvisoryResponseValidator =
@@ -12585,9 +12585,7 @@ export function bootstrap(
     return next()
   })
 
-  const appsCreateFromManifestParamSchema = z.object({
-    code: z.coerce.string(),
-  })
+  const appsCreateFromManifestParamSchema = z.object({ code: z.string() })
 
   const appsCreateFromManifestResponseValidator = responseValidationFactory(
     [
@@ -12595,10 +12593,10 @@ export function bootstrap(
         "201",
         s_integration.merge(
           z.object({
-            client_id: z.coerce.string(),
-            client_secret: z.coerce.string(),
-            webhook_secret: z.coerce.string().nullable(),
-            pem: z.coerce.string(),
+            client_id: z.string(),
+            client_secret: z.string(),
+            webhook_secret: z.string().nullable(),
+            pem: z.string(),
           }),
         ),
       ],
@@ -12692,7 +12690,7 @@ export function bootstrap(
 
   const appsListWebhookDeliveriesQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
-    cursor: z.coerce.string().optional(),
+    cursor: z.string().optional(),
     redelivery: z.coerce.boolean().optional(),
   })
 
@@ -12849,8 +12847,8 @@ export function bootstrap(
   const appsListInstallationsQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
-    since: z.coerce.string().datetime({ offset: true }).optional(),
-    outdated: z.coerce.string().optional(),
+    since: z.string().datetime({ offset: true }).optional(),
+    outdated: z.string().optional(),
   })
 
   const appsListInstallationsResponseValidator = responseValidationFactory(
@@ -12954,7 +12952,7 @@ export function bootstrap(
 
   const appsCreateInstallationAccessTokenBodySchema = z
     .object({
-      repositories: z.array(z.coerce.string()).optional(),
+      repositories: z.array(z.string()).optional(),
       repository_ids: z.array(z.coerce.number()).optional(),
       permissions: s_app_permissions,
     })
@@ -13072,12 +13070,10 @@ export function bootstrap(
     },
   )
 
-  const appsDeleteAuthorizationParamSchema = z.object({
-    client_id: z.coerce.string(),
-  })
+  const appsDeleteAuthorizationParamSchema = z.object({ client_id: z.string() })
 
   const appsDeleteAuthorizationBodySchema = z.object({
-    access_token: z.coerce.string(),
+    access_token: z.string(),
   })
 
   const appsDeleteAuthorizationResponseValidator = responseValidationFactory(
@@ -13115,9 +13111,9 @@ export function bootstrap(
     },
   )
 
-  const appsCheckTokenParamSchema = z.object({ client_id: z.coerce.string() })
+  const appsCheckTokenParamSchema = z.object({ client_id: z.string() })
 
-  const appsCheckTokenBodySchema = z.object({ access_token: z.coerce.string() })
+  const appsCheckTokenBodySchema = z.object({ access_token: z.string() })
 
   const appsCheckTokenResponseValidator = responseValidationFactory(
     [
@@ -13146,9 +13142,9 @@ export function bootstrap(
     },
   )
 
-  const appsResetTokenParamSchema = z.object({ client_id: z.coerce.string() })
+  const appsResetTokenParamSchema = z.object({ client_id: z.string() })
 
-  const appsResetTokenBodySchema = z.object({ access_token: z.coerce.string() })
+  const appsResetTokenBodySchema = z.object({ access_token: z.string() })
 
   const appsResetTokenResponseValidator = responseValidationFactory(
     [
@@ -13176,11 +13172,9 @@ export function bootstrap(
     },
   )
 
-  const appsDeleteTokenParamSchema = z.object({ client_id: z.coerce.string() })
+  const appsDeleteTokenParamSchema = z.object({ client_id: z.string() })
 
-  const appsDeleteTokenBodySchema = z.object({
-    access_token: z.coerce.string(),
-  })
+  const appsDeleteTokenBodySchema = z.object({ access_token: z.string() })
 
   const appsDeleteTokenResponseValidator = responseValidationFactory(
     [
@@ -13208,13 +13202,13 @@ export function bootstrap(
     },
   )
 
-  const appsScopeTokenParamSchema = z.object({ client_id: z.coerce.string() })
+  const appsScopeTokenParamSchema = z.object({ client_id: z.string() })
 
   const appsScopeTokenBodySchema = z.object({
-    access_token: z.coerce.string(),
-    target: z.coerce.string().optional(),
+    access_token: z.string(),
+    target: z.string().optional(),
     target_id: z.coerce.number().optional(),
-    repositories: z.array(z.coerce.string()).optional(),
+    repositories: z.array(z.string()).optional(),
     repository_ids: z.array(z.coerce.number()).optional(),
     permissions: s_app_permissions,
   })
@@ -13248,7 +13242,7 @@ export function bootstrap(
     },
   )
 
-  const appsGetBySlugParamSchema = z.object({ app_slug: z.coerce.string() })
+  const appsGetBySlugParamSchema = z.object({ app_slug: z.string() })
 
   const appsGetBySlugResponseValidator = responseValidationFactory(
     [
@@ -13528,9 +13522,7 @@ export function bootstrap(
     },
   )
 
-  const codesOfConductGetConductCodeParamSchema = z.object({
-    key: z.coerce.string(),
-  })
+  const codesOfConductGetConductCodeParamSchema = z.object({ key: z.string() })
 
   const codesOfConductGetConductCodeResponseValidator =
     responseValidationFactory(
@@ -13587,19 +13579,19 @@ export function bootstrap(
   })
 
   const dependabotListAlertsForEnterpriseParamSchema = z.object({
-    enterprise: z.coerce.string(),
+    enterprise: z.string(),
   })
 
   const dependabotListAlertsForEnterpriseQuerySchema = z.object({
-    state: z.coerce.string().optional(),
-    severity: z.coerce.string().optional(),
-    ecosystem: z.coerce.string().optional(),
-    package: z.coerce.string().optional(),
+    state: z.string().optional(),
+    severity: z.string().optional(),
+    ecosystem: z.string().optional(),
+    package: z.string().optional(),
     scope: z.enum(["development", "runtime"]).optional(),
     sort: z.enum(["created", "updated"]).optional(),
     direction: z.enum(["asc", "desc"]).optional(),
-    before: z.coerce.string().optional(),
-    after: z.coerce.string().optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
     first: z.coerce.number().optional(),
     last: z.coerce.number().optional(),
     per_page: z.coerce.number().optional(),
@@ -13646,18 +13638,18 @@ export function bootstrap(
   )
 
   const secretScanningListAlertsForEnterpriseParamSchema = z.object({
-    enterprise: z.coerce.string(),
+    enterprise: z.string(),
   })
 
   const secretScanningListAlertsForEnterpriseQuerySchema = z.object({
     state: z.enum(["open", "resolved"]).optional(),
-    secret_type: z.coerce.string().optional(),
-    resolution: z.coerce.string().optional(),
+    secret_type: z.string().optional(),
+    resolution: z.string().optional(),
     sort: z.enum(["created", "updated"]).optional(),
     direction: z.enum(["asc", "desc"]).optional(),
     per_page: z.coerce.number().optional(),
-    before: z.coerce.string().optional(),
-    after: z.coerce.string().optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
   })
 
   const secretScanningListAlertsForEnterpriseResponseValidator =
@@ -13668,9 +13660,9 @@ export function bootstrap(
         [
           "503",
           z.object({
-            code: z.coerce.string().optional(),
-            message: z.coerce.string().optional(),
-            documentation_url: z.coerce.string().optional(),
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
           }),
         ],
       ],
@@ -13718,9 +13710,9 @@ export function bootstrap(
       [
         "503",
         z.object({
-          code: z.coerce.string().optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
     ],
@@ -13764,7 +13756,7 @@ export function bootstrap(
   })
 
   const gistsListQuerySchema = z.object({
-    since: z.coerce.string().datetime({ offset: true }).optional(),
+    since: z.string().datetime({ offset: true }).optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
   })
@@ -13793,7 +13785,7 @@ export function bootstrap(
   })
 
   const gistsCreateBodySchema = z.object({
-    description: z.coerce.string().optional(),
+    description: z.string().optional(),
     files: z.object({}),
     public: z.union([z.coerce.boolean(), z.enum(["true", "false"])]),
   })
@@ -13824,7 +13816,7 @@ export function bootstrap(
   })
 
   const gistsListPublicQuerySchema = z.object({
-    since: z.coerce.string().datetime({ offset: true }).optional(),
+    since: z.string().datetime({ offset: true }).optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
   })
@@ -13854,7 +13846,7 @@ export function bootstrap(
   })
 
   const gistsListStarredQuerySchema = z.object({
-    since: z.coerce.string().datetime({ offset: true }).optional(),
+    since: z.string().datetime({ offset: true }).optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
   })
@@ -13883,7 +13875,7 @@ export function bootstrap(
     return next()
   })
 
-  const gistsGetParamSchema = z.object({ gist_id: z.coerce.string() })
+  const gistsGetParamSchema = z.object({ gist_id: z.string() })
 
   const gistsGetResponseValidator = responseValidationFactory(
     [
@@ -13894,13 +13886,13 @@ export function bootstrap(
         z.object({
           block: z
             .object({
-              reason: z.coerce.string().optional(),
-              created_at: z.coerce.string().optional(),
-              html_url: z.coerce.string().optional().nullable(),
+              reason: z.string().optional(),
+              created_at: z.string().optional(),
+              html_url: z.string().optional().nullable(),
             })
             .optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
       ["404", s_basic_error],
@@ -13922,11 +13914,11 @@ export function bootstrap(
     return next()
   })
 
-  const gistsUpdateParamSchema = z.object({ gist_id: z.coerce.string() })
+  const gistsUpdateParamSchema = z.object({ gist_id: z.string() })
 
   const gistsUpdateBodySchema = z
     .object({
-      description: z.coerce.string().optional(),
+      description: z.string().optional(),
       files: z.object({}).optional(),
     })
     .nullable()
@@ -13954,7 +13946,7 @@ export function bootstrap(
     return next()
   })
 
-  const gistsDeleteParamSchema = z.object({ gist_id: z.coerce.string() })
+  const gistsDeleteParamSchema = z.object({ gist_id: z.string() })
 
   const gistsDeleteResponseValidator = responseValidationFactory(
     [
@@ -13980,7 +13972,7 @@ export function bootstrap(
     return next()
   })
 
-  const gistsListCommentsParamSchema = z.object({ gist_id: z.coerce.string() })
+  const gistsListCommentsParamSchema = z.object({ gist_id: z.string() })
 
   const gistsListCommentsQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -14018,9 +14010,9 @@ export function bootstrap(
     },
   )
 
-  const gistsCreateCommentParamSchema = z.object({ gist_id: z.coerce.string() })
+  const gistsCreateCommentParamSchema = z.object({ gist_id: z.string() })
 
-  const gistsCreateCommentBodySchema = z.object({ body: z.coerce.string() })
+  const gistsCreateCommentBodySchema = z.object({ body: z.string() })
 
   const gistsCreateCommentResponseValidator = responseValidationFactory(
     [
@@ -14054,7 +14046,7 @@ export function bootstrap(
   )
 
   const gistsGetCommentParamSchema = z.object({
-    gist_id: z.coerce.string(),
+    gist_id: z.string(),
     comment_id: z.coerce.number(),
   })
 
@@ -14067,13 +14059,13 @@ export function bootstrap(
         z.object({
           block: z
             .object({
-              reason: z.coerce.string().optional(),
-              created_at: z.coerce.string().optional(),
-              html_url: z.coerce.string().optional().nullable(),
+              reason: z.string().optional(),
+              created_at: z.string().optional(),
+              html_url: z.string().optional().nullable(),
             })
             .optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
       ["404", s_basic_error],
@@ -14100,11 +14092,11 @@ export function bootstrap(
   )
 
   const gistsUpdateCommentParamSchema = z.object({
-    gist_id: z.coerce.string(),
+    gist_id: z.string(),
     comment_id: z.coerce.number(),
   })
 
-  const gistsUpdateCommentBodySchema = z.object({ body: z.coerce.string() })
+  const gistsUpdateCommentBodySchema = z.object({ body: z.string() })
 
   const gistsUpdateCommentResponseValidator = responseValidationFactory(
     [
@@ -14136,7 +14128,7 @@ export function bootstrap(
   )
 
   const gistsDeleteCommentParamSchema = z.object({
-    gist_id: z.coerce.string(),
+    gist_id: z.string(),
     comment_id: z.coerce.number(),
   })
 
@@ -14171,7 +14163,7 @@ export function bootstrap(
     },
   )
 
-  const gistsListCommitsParamSchema = z.object({ gist_id: z.coerce.string() })
+  const gistsListCommitsParamSchema = z.object({ gist_id: z.string() })
 
   const gistsListCommitsQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -14206,7 +14198,7 @@ export function bootstrap(
     },
   )
 
-  const gistsListForksParamSchema = z.object({ gist_id: z.coerce.string() })
+  const gistsListForksParamSchema = z.object({ gist_id: z.string() })
 
   const gistsListForksQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -14237,7 +14229,7 @@ export function bootstrap(
     return next()
   })
 
-  const gistsForkParamSchema = z.object({ gist_id: z.coerce.string() })
+  const gistsForkParamSchema = z.object({ gist_id: z.string() })
 
   const gistsForkResponseValidator = responseValidationFactory(
     [
@@ -14264,9 +14256,7 @@ export function bootstrap(
     return next()
   })
 
-  const gistsCheckIsStarredParamSchema = z.object({
-    gist_id: z.coerce.string(),
-  })
+  const gistsCheckIsStarredParamSchema = z.object({ gist_id: z.string() })
 
   const gistsCheckIsStarredResponseValidator = responseValidationFactory(
     [
@@ -14299,7 +14289,7 @@ export function bootstrap(
     },
   )
 
-  const gistsStarParamSchema = z.object({ gist_id: z.coerce.string() })
+  const gistsStarParamSchema = z.object({ gist_id: z.string() })
 
   const gistsStarResponseValidator = responseValidationFactory(
     [
@@ -14325,7 +14315,7 @@ export function bootstrap(
     return next()
   })
 
-  const gistsUnstarParamSchema = z.object({ gist_id: z.coerce.string() })
+  const gistsUnstarParamSchema = z.object({ gist_id: z.string() })
 
   const gistsUnstarResponseValidator = responseValidationFactory(
     [
@@ -14352,8 +14342,8 @@ export function bootstrap(
   })
 
   const gistsGetRevisionParamSchema = z.object({
-    gist_id: z.coerce.string(),
-    sha: z.coerce.string(),
+    gist_id: z.string(),
+    sha: z.string(),
   })
 
   const gistsGetRevisionResponseValidator = responseValidationFactory(
@@ -14382,7 +14372,7 @@ export function bootstrap(
 
   const gitignoreGetAllTemplatesResponseValidator = responseValidationFactory(
     [
-      ["200", z.array(z.coerce.string())],
+      ["200", z.array(z.string())],
       ["304", z.void()],
     ],
     undefined,
@@ -14409,7 +14399,7 @@ export function bootstrap(
     },
   )
 
-  const gitignoreGetTemplateParamSchema = z.object({ name: z.coerce.string() })
+  const gitignoreGetTemplateParamSchema = z.object({ name: z.string() })
 
   const gitignoreGetTemplateResponseValidator = responseValidationFactory(
     [
@@ -14453,7 +14443,7 @@ export function bootstrap(
           z.object({
             total_count: z.coerce.number(),
             repositories: z.array(s_repository),
-            repository_selection: z.coerce.string().optional(),
+            repository_selection: z.string().optional(),
           }),
         ],
         ["304", z.void()],
@@ -14518,10 +14508,10 @@ export function bootstrap(
       .enum(["assigned", "created", "mentioned", "subscribed", "repos", "all"])
       .optional(),
     state: z.enum(["open", "closed", "all"]).optional(),
-    labels: z.coerce.string().optional(),
+    labels: z.string().optional(),
     sort: z.enum(["created", "updated", "comments"]).optional(),
     direction: z.enum(["asc", "desc"]).optional(),
-    since: z.coerce.string().datetime({ offset: true }).optional(),
+    since: z.string().datetime({ offset: true }).optional(),
     collab: z.coerce.boolean().optional(),
     orgs: z.coerce.boolean().optional(),
     owned: z.coerce.boolean().optional(),
@@ -14588,7 +14578,7 @@ export function bootstrap(
     return next()
   })
 
-  const licensesGetParamSchema = z.object({ license: z.coerce.string() })
+  const licensesGetParamSchema = z.object({ license: z.string() })
 
   const licensesGetResponseValidator = responseValidationFactory(
     [
@@ -14615,14 +14605,14 @@ export function bootstrap(
   })
 
   const markdownRenderBodySchema = z.object({
-    text: z.coerce.string(),
+    text: z.string(),
     mode: z.enum(["markdown", "gfm"]).optional(),
-    context: z.coerce.string().optional(),
+    context: z.string().optional(),
   })
 
   const markdownRenderResponseValidator = responseValidationFactory(
     [
-      ["200", z.coerce.string()],
+      ["200", z.string()],
       ["304", z.void()],
     ],
     undefined,
@@ -14642,11 +14632,11 @@ export function bootstrap(
     return next()
   })
 
-  const markdownRenderRawBodySchema = z.coerce.string().optional()
+  const markdownRenderRawBodySchema = z.string().optional()
 
   const markdownRenderRawResponseValidator = responseValidationFactory(
     [
-      ["200", z.coerce.string()],
+      ["200", z.string()],
       ["304", z.void()],
     ],
     undefined,
@@ -14926,8 +14916,8 @@ export function bootstrap(
   })
 
   const activityListPublicEventsForRepoNetworkParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const activityListPublicEventsForRepoNetworkQuerySchema = z.object({
@@ -14978,8 +14968,8 @@ export function bootstrap(
   const activityListNotificationsForAuthenticatedUserQuerySchema = z.object({
     all: z.coerce.boolean().optional(),
     participating: z.coerce.boolean().optional(),
-    since: z.coerce.string().datetime({ offset: true }).optional(),
-    before: z.coerce.string().datetime({ offset: true }).optional(),
+    since: z.string().datetime({ offset: true }).optional(),
+    before: z.string().datetime({ offset: true }).optional(),
     page: z.coerce.number().optional(),
     per_page: z.coerce.number().optional(),
   })
@@ -15026,7 +15016,7 @@ export function bootstrap(
 
   const activityMarkNotificationsAsReadBodySchema = z
     .object({
-      last_read_at: z.coerce.string().datetime({ offset: true }).optional(),
+      last_read_at: z.string().datetime({ offset: true }).optional(),
       read: z.coerce.boolean().optional(),
     })
     .optional()
@@ -15034,7 +15024,7 @@ export function bootstrap(
   const activityMarkNotificationsAsReadResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.object({ message: z.coerce.string().optional() })],
+        ["202", z.object({ message: z.string().optional() })],
         ["205", z.void()],
         ["304", z.void()],
         ["401", s_basic_error],
@@ -15262,12 +15252,10 @@ export function bootstrap(
     },
   )
 
-  const metaGetOctocatQuerySchema = z.object({
-    s: z.coerce.string().optional(),
-  })
+  const metaGetOctocatQuerySchema = z.object({ s: z.string().optional() })
 
   const metaGetOctocatResponseValidator = responseValidationFactory(
-    [["200", z.coerce.string()]],
+    [["200", z.string()]],
     undefined,
   )
 
@@ -15312,7 +15300,7 @@ export function bootstrap(
     return next()
   })
 
-  const orgsGetParamSchema = z.object({ org: z.coerce.string() })
+  const orgsGetParamSchema = z.object({ org: z.string() })
 
   const orgsGetResponseValidator = responseValidationFactory(
     [
@@ -15336,17 +15324,17 @@ export function bootstrap(
     return next()
   })
 
-  const orgsUpdateParamSchema = z.object({ org: z.coerce.string() })
+  const orgsUpdateParamSchema = z.object({ org: z.string() })
 
   const orgsUpdateBodySchema = z
     .object({
-      billing_email: z.coerce.string().optional(),
-      company: z.coerce.string().optional(),
-      email: z.coerce.string().optional(),
-      twitter_username: z.coerce.string().optional(),
-      location: z.coerce.string().optional(),
-      name: z.coerce.string().optional(),
-      description: z.coerce.string().optional(),
+      billing_email: z.string().optional(),
+      company: z.string().optional(),
+      email: z.string().optional(),
+      twitter_username: z.string().optional(),
+      location: z.string().optional(),
+      name: z.string().optional(),
+      description: z.string().optional(),
       has_organization_projects: z.coerce.boolean().optional(),
       has_repository_projects: z.coerce.boolean().optional(),
       default_repository_permission: z
@@ -15364,7 +15352,7 @@ export function bootstrap(
       members_can_create_private_pages: z.coerce.boolean().optional(),
       members_can_fork_private_repositories: z.coerce.boolean().optional(),
       web_commit_signoff_required: z.coerce.boolean().optional(),
-      blog: z.coerce.string().optional(),
+      blog: z.string().optional(),
       advanced_security_enabled_for_new_repositories: z.coerce
         .boolean()
         .optional(),
@@ -15386,7 +15374,7 @@ export function bootstrap(
       secret_scanning_push_protection_custom_link_enabled: z.coerce
         .boolean()
         .optional(),
-      secret_scanning_push_protection_custom_link: z.coerce.string().optional(),
+      secret_scanning_push_protection_custom_link: z.string().optional(),
     })
     .optional()
 
@@ -15413,7 +15401,7 @@ export function bootstrap(
     return next()
   })
 
-  const orgsDeleteParamSchema = z.object({ org: z.coerce.string() })
+  const orgsDeleteParamSchema = z.object({ org: z.string() })
 
   const orgsDeleteResponseValidator = responseValidationFactory(
     [
@@ -15439,7 +15427,7 @@ export function bootstrap(
   })
 
   const actionsGetActionsCacheUsageForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const actionsGetActionsCacheUsageForOrgResponseValidator =
@@ -15474,7 +15462,7 @@ export function bootstrap(
   )
 
   const actionsGetActionsCacheUsageByRepoForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const actionsGetActionsCacheUsageByRepoForOrgQuerySchema = z.object({
@@ -15527,7 +15515,7 @@ export function bootstrap(
   )
 
   const oidcGetOidcCustomSubTemplateForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const oidcGetOidcCustomSubTemplateForOrgResponseValidator =
@@ -15559,7 +15547,7 @@ export function bootstrap(
   )
 
   const oidcUpdateOidcCustomSubTemplateForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const oidcUpdateOidcCustomSubTemplateForOrgBodySchema = s_oidc_custom_sub
@@ -15603,7 +15591,7 @@ export function bootstrap(
   )
 
   const actionsGetGithubActionsPermissionsOrganizationParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const actionsGetGithubActionsPermissionsOrganizationResponseValidator =
@@ -15642,7 +15630,7 @@ export function bootstrap(
   )
 
   const actionsSetGithubActionsPermissionsOrganizationParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const actionsSetGithubActionsPermissionsOrganizationBodySchema = z.object({
@@ -15686,7 +15674,7 @@ export function bootstrap(
   )
 
   const actionsListSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema =
-    z.object({ org: z.coerce.string() })
+    z.object({ org: z.string() })
 
   const actionsListSelectedRepositoriesEnabledGithubActionsOrganizationQuerySchema =
     z.object({
@@ -15741,7 +15729,7 @@ export function bootstrap(
   )
 
   const actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema =
-    z.object({ org: z.coerce.string() })
+    z.object({ org: z.string() })
 
   const actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema =
     z.object({ selected_repository_ids: z.array(z.coerce.number()) })
@@ -15782,7 +15770,7 @@ export function bootstrap(
   )
 
   const actionsEnableSelectedRepositoryGithubActionsOrganizationParamSchema =
-    z.object({ org: z.coerce.string(), repository_id: z.coerce.number() })
+    z.object({ org: z.string(), repository_id: z.coerce.number() })
 
   const actionsEnableSelectedRepositoryGithubActionsOrganizationResponseValidator =
     responseValidationFactory([["204", z.void()]], undefined)
@@ -15817,7 +15805,7 @@ export function bootstrap(
   )
 
   const actionsDisableSelectedRepositoryGithubActionsOrganizationParamSchema =
-    z.object({ org: z.coerce.string(), repository_id: z.coerce.number() })
+    z.object({ org: z.string(), repository_id: z.coerce.number() })
 
   const actionsDisableSelectedRepositoryGithubActionsOrganizationResponseValidator =
     responseValidationFactory([["204", z.void()]], undefined)
@@ -15852,7 +15840,7 @@ export function bootstrap(
   )
 
   const actionsGetAllowedActionsOrganizationParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const actionsGetAllowedActionsOrganizationResponseValidator =
@@ -15884,7 +15872,7 @@ export function bootstrap(
   )
 
   const actionsSetAllowedActionsOrganizationParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const actionsSetAllowedActionsOrganizationBodySchema = s_selected_actions
@@ -15921,7 +15909,7 @@ export function bootstrap(
   )
 
   const actionsGetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema =
-    z.object({ org: z.coerce.string() })
+    z.object({ org: z.string() })
 
   const actionsGetGithubActionsDefaultWorkflowPermissionsOrganizationResponseValidator =
     responseValidationFactory(
@@ -15959,7 +15947,7 @@ export function bootstrap(
   )
 
   const actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema =
-    z.object({ org: z.coerce.string() })
+    z.object({ org: z.string() })
 
   const actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema =
     s_actions_set_default_workflow_permissions
@@ -16000,11 +15988,11 @@ export function bootstrap(
   )
 
   const actionsListSelfHostedRunnersForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const actionsListSelfHostedRunnersForOrgQuerySchema = z.object({
-    name: z.coerce.string().optional(),
+    name: z.string().optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
   })
@@ -16052,7 +16040,7 @@ export function bootstrap(
   )
 
   const actionsListRunnerApplicationsForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const actionsListRunnerApplicationsForOrgResponseValidator =
@@ -16087,23 +16075,20 @@ export function bootstrap(
   )
 
   const actionsGenerateRunnerJitconfigForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const actionsGenerateRunnerJitconfigForOrgBodySchema = z.object({
-    name: z.coerce.string(),
+    name: z.string(),
     runner_group_id: z.coerce.number(),
-    labels: z.array(z.coerce.string()),
-    work_folder: z.coerce.string().optional(),
+    labels: z.array(z.string()),
+    work_folder: z.string().optional(),
   })
 
   const actionsGenerateRunnerJitconfigForOrgResponseValidator =
     responseValidationFactory(
       [
-        [
-          "201",
-          z.object({ runner: s_runner, encoded_jit_config: z.coerce.string() }),
-        ],
+        ["201", z.object({ runner: s_runner, encoded_jit_config: z.string() })],
         ["404", s_basic_error],
         ["422", s_validation_error_simple],
       ],
@@ -16139,7 +16124,7 @@ export function bootstrap(
   )
 
   const actionsCreateRegistrationTokenForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const actionsCreateRegistrationTokenForOrgResponseValidator =
@@ -16171,7 +16156,7 @@ export function bootstrap(
   )
 
   const actionsCreateRemoveTokenForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const actionsCreateRemoveTokenForOrgResponseValidator =
@@ -16200,7 +16185,7 @@ export function bootstrap(
   )
 
   const actionsGetSelfHostedRunnerForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     runner_id: z.coerce.number(),
   })
 
@@ -16230,7 +16215,7 @@ export function bootstrap(
   )
 
   const actionsDeleteSelfHostedRunnerFromOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     runner_id: z.coerce.number(),
   })
 
@@ -16263,7 +16248,7 @@ export function bootstrap(
   )
 
   const actionsListLabelsForSelfHostedRunnerForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     runner_id: z.coerce.number(),
   })
 
@@ -16311,12 +16296,12 @@ export function bootstrap(
   )
 
   const actionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     runner_id: z.coerce.number(),
   })
 
   const actionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema = z.object({
-    labels: z.array(z.coerce.string()),
+    labels: z.array(z.string()),
   })
 
   const actionsAddCustomLabelsToSelfHostedRunnerForOrgResponseValidator =
@@ -16368,12 +16353,12 @@ export function bootstrap(
   )
 
   const actionsSetCustomLabelsForSelfHostedRunnerForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     runner_id: z.coerce.number(),
   })
 
   const actionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema = z.object({
-    labels: z.array(z.coerce.string()),
+    labels: z.array(z.string()),
   })
 
   const actionsSetCustomLabelsForSelfHostedRunnerForOrgResponseValidator =
@@ -16425,7 +16410,7 @@ export function bootstrap(
   )
 
   const actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrgParamSchema =
-    z.object({ org: z.coerce.string(), runner_id: z.coerce.number() })
+    z.object({ org: z.string(), runner_id: z.coerce.number() })
 
   const actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrgResponseValidator =
     responseValidationFactory(
@@ -16473,9 +16458,9 @@ export function bootstrap(
 
   const actionsRemoveCustomLabelFromSelfHostedRunnerForOrgParamSchema =
     z.object({
-      org: z.coerce.string(),
+      org: z.string(),
       runner_id: z.coerce.number(),
-      name: z.coerce.string(),
+      name: z.string(),
     })
 
   const actionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponseValidator =
@@ -16523,7 +16508,7 @@ export function bootstrap(
     },
   )
 
-  const actionsListOrgSecretsParamSchema = z.object({ org: z.coerce.string() })
+  const actionsListOrgSecretsParamSchema = z.object({ org: z.string() })
 
   const actionsListOrgSecretsQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -16564,7 +16549,7 @@ export function bootstrap(
     },
   )
 
-  const actionsGetOrgPublicKeyParamSchema = z.object({ org: z.coerce.string() })
+  const actionsGetOrgPublicKeyParamSchema = z.object({ org: z.string() })
 
   const actionsGetOrgPublicKeyResponseValidator = responseValidationFactory(
     [["200", s_actions_public_key]],
@@ -16596,8 +16581,8 @@ export function bootstrap(
   )
 
   const actionsGetOrgSecretParamSchema = z.object({
-    org: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    org: z.string(),
+    secret_name: z.string(),
   })
 
   const actionsGetOrgSecretResponseValidator = responseValidationFactory(
@@ -16627,13 +16612,13 @@ export function bootstrap(
   )
 
   const actionsCreateOrUpdateOrgSecretParamSchema = z.object({
-    org: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    org: z.string(),
+    secret_name: z.string(),
   })
 
   const actionsCreateOrUpdateOrgSecretBodySchema = z.object({
-    encrypted_value: z.coerce.string().optional(),
-    key_id: z.coerce.string().optional(),
+    encrypted_value: z.string().optional(),
+    key_id: z.string().optional(),
     visibility: z.enum(["all", "private", "selected"]),
     selected_repository_ids: z.array(z.coerce.number()).optional(),
   })
@@ -16673,8 +16658,8 @@ export function bootstrap(
   )
 
   const actionsDeleteOrgSecretParamSchema = z.object({
-    org: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    org: z.string(),
+    secret_name: z.string(),
   })
 
   const actionsDeleteOrgSecretResponseValidator = responseValidationFactory(
@@ -16707,8 +16692,8 @@ export function bootstrap(
   )
 
   const actionsListSelectedReposForOrgSecretParamSchema = z.object({
-    org: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    org: z.string(),
+    secret_name: z.string(),
   })
 
   const actionsListSelectedReposForOrgSecretQuerySchema = z.object({
@@ -16759,8 +16744,8 @@ export function bootstrap(
   )
 
   const actionsSetSelectedReposForOrgSecretParamSchema = z.object({
-    org: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    org: z.string(),
+    secret_name: z.string(),
   })
 
   const actionsSetSelectedReposForOrgSecretBodySchema = z.object({
@@ -16799,8 +16784,8 @@ export function bootstrap(
   )
 
   const actionsAddSelectedRepoToOrgSecretParamSchema = z.object({
-    org: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    org: z.string(),
+    secret_name: z.string(),
     repository_id: z.coerce.number(),
   })
 
@@ -16839,8 +16824,8 @@ export function bootstrap(
   )
 
   const actionsRemoveSelectedRepoFromOrgSecretParamSchema = z.object({
-    org: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    org: z.string(),
+    secret_name: z.string(),
     repository_id: z.coerce.number(),
   })
 
@@ -16878,9 +16863,7 @@ export function bootstrap(
     },
   )
 
-  const actionsListOrgVariablesParamSchema = z.object({
-    org: z.coerce.string(),
-  })
+  const actionsListOrgVariablesParamSchema = z.object({ org: z.string() })
 
   const actionsListOrgVariablesQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -16924,13 +16907,11 @@ export function bootstrap(
     },
   )
 
-  const actionsCreateOrgVariableParamSchema = z.object({
-    org: z.coerce.string(),
-  })
+  const actionsCreateOrgVariableParamSchema = z.object({ org: z.string() })
 
   const actionsCreateOrgVariableBodySchema = z.object({
-    name: z.coerce.string(),
-    value: z.coerce.string(),
+    name: z.string(),
+    value: z.string(),
     visibility: z.enum(["all", "private", "selected"]),
     selected_repository_ids: z.array(z.coerce.number()).optional(),
   })
@@ -16968,8 +16949,8 @@ export function bootstrap(
   )
 
   const actionsGetOrgVariableParamSchema = z.object({
-    org: z.coerce.string(),
-    name: z.coerce.string(),
+    org: z.string(),
+    name: z.string(),
   })
 
   const actionsGetOrgVariableResponseValidator = responseValidationFactory(
@@ -16999,13 +16980,13 @@ export function bootstrap(
   )
 
   const actionsUpdateOrgVariableParamSchema = z.object({
-    org: z.coerce.string(),
-    name: z.coerce.string(),
+    org: z.string(),
+    name: z.string(),
   })
 
   const actionsUpdateOrgVariableBodySchema = z.object({
-    name: z.coerce.string().optional(),
-    value: z.coerce.string().optional(),
+    name: z.string().optional(),
+    value: z.string().optional(),
     visibility: z.enum(["all", "private", "selected"]).optional(),
     selected_repository_ids: z.array(z.coerce.number()).optional(),
   })
@@ -17043,8 +17024,8 @@ export function bootstrap(
   )
 
   const actionsDeleteOrgVariableParamSchema = z.object({
-    org: z.coerce.string(),
-    name: z.coerce.string(),
+    org: z.string(),
+    name: z.string(),
   })
 
   const actionsDeleteOrgVariableResponseValidator = responseValidationFactory(
@@ -17077,8 +17058,8 @@ export function bootstrap(
   )
 
   const actionsListSelectedReposForOrgVariableParamSchema = z.object({
-    org: z.coerce.string(),
-    name: z.coerce.string(),
+    org: z.string(),
+    name: z.string(),
   })
 
   const actionsListSelectedReposForOrgVariableQuerySchema = z.object({
@@ -17130,8 +17111,8 @@ export function bootstrap(
   )
 
   const actionsSetSelectedReposForOrgVariableParamSchema = z.object({
-    org: z.coerce.string(),
-    name: z.coerce.string(),
+    org: z.string(),
+    name: z.string(),
   })
 
   const actionsSetSelectedReposForOrgVariableBodySchema = z.object({
@@ -17176,8 +17157,8 @@ export function bootstrap(
   )
 
   const actionsAddSelectedRepoToOrgVariableParamSchema = z.object({
-    org: z.coerce.string(),
-    name: z.coerce.string(),
+    org: z.string(),
+    name: z.string(),
     repository_id: z.coerce.number(),
   })
 
@@ -17216,8 +17197,8 @@ export function bootstrap(
   )
 
   const actionsRemoveSelectedRepoFromOrgVariableParamSchema = z.object({
-    org: z.coerce.string(),
-    name: z.coerce.string(),
+    org: z.string(),
+    name: z.string(),
     repository_id: z.coerce.number(),
   })
 
@@ -17258,7 +17239,7 @@ export function bootstrap(
     },
   )
 
-  const orgsListBlockedUsersParamSchema = z.object({ org: z.coerce.string() })
+  const orgsListBlockedUsersParamSchema = z.object({ org: z.string() })
 
   const orgsListBlockedUsersQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -17288,8 +17269,8 @@ export function bootstrap(
   })
 
   const orgsCheckBlockedUserParamSchema = z.object({
-    org: z.coerce.string(),
-    username: z.coerce.string(),
+    org: z.string(),
+    username: z.string(),
   })
 
   const orgsCheckBlockedUserResponseValidator = responseValidationFactory(
@@ -17322,8 +17303,8 @@ export function bootstrap(
   )
 
   const orgsBlockUserParamSchema = z.object({
-    org: z.coerce.string(),
-    username: z.coerce.string(),
+    org: z.string(),
+    username: z.string(),
   })
 
   const orgsBlockUserResponseValidator = responseValidationFactory(
@@ -17353,8 +17334,8 @@ export function bootstrap(
   )
 
   const orgsUnblockUserParamSchema = z.object({
-    org: z.coerce.string(),
-    username: z.coerce.string(),
+    org: z.string(),
+    username: z.string(),
   })
 
   const orgsUnblockUserResponseValidator = responseValidationFactory(
@@ -17380,15 +17361,13 @@ export function bootstrap(
     },
   )
 
-  const codeScanningListAlertsForOrgParamSchema = z.object({
-    org: z.coerce.string(),
-  })
+  const codeScanningListAlertsForOrgParamSchema = z.object({ org: z.string() })
 
   const codeScanningListAlertsForOrgQuerySchema = z.object({
     tool_name: s_code_scanning_analysis_tool_name,
     tool_guid: s_code_scanning_analysis_tool_guid,
-    before: z.coerce.string().optional(),
-    after: z.coerce.string().optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
     page: z.coerce.number().optional(),
     per_page: z.coerce.number().optional(),
     direction: z.enum(["asc", "desc"]).optional(),
@@ -17405,9 +17384,9 @@ export function bootstrap(
         [
           "503",
           z.object({
-            code: z.coerce.string().optional(),
-            message: z.coerce.string().optional(),
-            documentation_url: z.coerce.string().optional(),
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
           }),
         ],
       ],
@@ -17439,9 +17418,7 @@ export function bootstrap(
     },
   )
 
-  const codespacesListInOrganizationParamSchema = z.object({
-    org: z.coerce.string(),
-  })
+  const codespacesListInOrganizationParamSchema = z.object({ org: z.string() })
 
   const codespacesListInOrganizationQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -17492,9 +17469,7 @@ export function bootstrap(
     },
   )
 
-  const codespacesSetCodespacesAccessParamSchema = z.object({
-    org: z.coerce.string(),
-  })
+  const codespacesSetCodespacesAccessParamSchema = z.object({ org: z.string() })
 
   const codespacesSetCodespacesAccessBodySchema = z.object({
     visibility: z.enum([
@@ -17503,7 +17478,7 @@ export function bootstrap(
       "all_members",
       "all_members_and_outside_collaborators",
     ]),
-    selected_usernames: z.array(z.coerce.string()).optional(),
+    selected_usernames: z.array(z.string()).optional(),
   })
 
   const codespacesSetCodespacesAccessResponseValidator =
@@ -17545,11 +17520,11 @@ export function bootstrap(
   )
 
   const codespacesSetCodespacesAccessUsersParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const codespacesSetCodespacesAccessUsersBodySchema = z.object({
-    selected_usernames: z.array(z.coerce.string()),
+    selected_usernames: z.array(z.string()),
   })
 
   const codespacesSetCodespacesAccessUsersResponseValidator =
@@ -17594,11 +17569,11 @@ export function bootstrap(
   )
 
   const codespacesDeleteCodespacesAccessUsersParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const codespacesDeleteCodespacesAccessUsersBodySchema = z.object({
-    selected_usernames: z.array(z.coerce.string()),
+    selected_usernames: z.array(z.string()),
   })
 
   const codespacesDeleteCodespacesAccessUsersResponseValidator =
@@ -17642,9 +17617,7 @@ export function bootstrap(
     },
   )
 
-  const codespacesListOrgSecretsParamSchema = z.object({
-    org: z.coerce.string(),
-  })
+  const codespacesListOrgSecretsParamSchema = z.object({ org: z.string() })
 
   const codespacesListOrgSecretsQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -17691,9 +17664,7 @@ export function bootstrap(
     },
   )
 
-  const codespacesGetOrgPublicKeyParamSchema = z.object({
-    org: z.coerce.string(),
-  })
+  const codespacesGetOrgPublicKeyParamSchema = z.object({ org: z.string() })
 
   const codespacesGetOrgPublicKeyResponseValidator = responseValidationFactory(
     [["200", s_codespaces_public_key]],
@@ -17725,8 +17696,8 @@ export function bootstrap(
   )
 
   const codespacesGetOrgSecretParamSchema = z.object({
-    org: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    org: z.string(),
+    secret_name: z.string(),
   })
 
   const codespacesGetOrgSecretResponseValidator = responseValidationFactory(
@@ -17759,13 +17730,13 @@ export function bootstrap(
   )
 
   const codespacesCreateOrUpdateOrgSecretParamSchema = z.object({
-    org: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    org: z.string(),
+    secret_name: z.string(),
   })
 
   const codespacesCreateOrUpdateOrgSecretBodySchema = z.object({
-    encrypted_value: z.coerce.string().optional(),
-    key_id: z.coerce.string().optional(),
+    encrypted_value: z.string().optional(),
+    key_id: z.string().optional(),
     visibility: z.enum(["all", "private", "selected"]),
     selected_repository_ids: z.array(z.coerce.number()).optional(),
   })
@@ -17810,8 +17781,8 @@ export function bootstrap(
   )
 
   const codespacesDeleteOrgSecretParamSchema = z.object({
-    org: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    org: z.string(),
+    secret_name: z.string(),
   })
 
   const codespacesDeleteOrgSecretResponseValidator = responseValidationFactory(
@@ -17847,8 +17818,8 @@ export function bootstrap(
   )
 
   const codespacesListSelectedReposForOrgSecretParamSchema = z.object({
-    org: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    org: z.string(),
+    secret_name: z.string(),
   })
 
   const codespacesListSelectedReposForOrgSecretQuerySchema = z.object({
@@ -17900,8 +17871,8 @@ export function bootstrap(
   )
 
   const codespacesSetSelectedReposForOrgSecretParamSchema = z.object({
-    org: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    org: z.string(),
+    secret_name: z.string(),
   })
 
   const codespacesSetSelectedReposForOrgSecretBodySchema = z.object({
@@ -17947,8 +17918,8 @@ export function bootstrap(
   )
 
   const codespacesAddSelectedRepoToOrgSecretParamSchema = z.object({
-    org: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    org: z.string(),
+    secret_name: z.string(),
     repository_id: z.coerce.number(),
   })
 
@@ -17989,8 +17960,8 @@ export function bootstrap(
   )
 
   const codespacesRemoveSelectedRepoFromOrgSecretParamSchema = z.object({
-    org: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    org: z.string(),
+    secret_name: z.string(),
     repository_id: z.coerce.number(),
   })
 
@@ -18034,7 +18005,7 @@ export function bootstrap(
   )
 
   const copilotGetCopilotOrganizationDetailsParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const copilotGetCopilotOrganizationDetailsResponseValidator =
@@ -18074,9 +18045,7 @@ export function bootstrap(
     },
   )
 
-  const copilotListCopilotSeatsParamSchema = z.object({
-    org: z.coerce.string(),
-  })
+  const copilotListCopilotSeatsParamSchema = z.object({ org: z.string() })
 
   const copilotListCopilotSeatsQuerySchema = z.object({
     page: z.coerce.number().optional(),
@@ -18125,11 +18094,11 @@ export function bootstrap(
   )
 
   const copilotAddCopilotForBusinessSeatsForTeamsParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const copilotAddCopilotForBusinessSeatsForTeamsBodySchema = z.object({
-    selected_teams: z.array(z.coerce.string()),
+    selected_teams: z.array(z.string()),
   })
 
   const copilotAddCopilotForBusinessSeatsForTeamsResponseValidator =
@@ -18177,11 +18146,11 @@ export function bootstrap(
   )
 
   const copilotCancelCopilotSeatAssignmentForTeamsParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const copilotCancelCopilotSeatAssignmentForTeamsBodySchema = z.object({
-    selected_teams: z.array(z.coerce.string()),
+    selected_teams: z.array(z.string()),
   })
 
   const copilotCancelCopilotSeatAssignmentForTeamsResponseValidator =
@@ -18229,11 +18198,11 @@ export function bootstrap(
   )
 
   const copilotAddCopilotForBusinessSeatsForUsersParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const copilotAddCopilotForBusinessSeatsForUsersBodySchema = z.object({
-    selected_usernames: z.array(z.coerce.string()),
+    selected_usernames: z.array(z.string()),
   })
 
   const copilotAddCopilotForBusinessSeatsForUsersResponseValidator =
@@ -18281,11 +18250,11 @@ export function bootstrap(
   )
 
   const copilotCancelCopilotSeatAssignmentForUsersParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const copilotCancelCopilotSeatAssignmentForUsersBodySchema = z.object({
-    selected_usernames: z.array(z.coerce.string()),
+    selected_usernames: z.array(z.string()),
   })
 
   const copilotCancelCopilotSeatAssignmentForUsersResponseValidator =
@@ -18332,20 +18301,18 @@ export function bootstrap(
     },
   )
 
-  const dependabotListAlertsForOrgParamSchema = z.object({
-    org: z.coerce.string(),
-  })
+  const dependabotListAlertsForOrgParamSchema = z.object({ org: z.string() })
 
   const dependabotListAlertsForOrgQuerySchema = z.object({
-    state: z.coerce.string().optional(),
-    severity: z.coerce.string().optional(),
-    ecosystem: z.coerce.string().optional(),
-    package: z.coerce.string().optional(),
+    state: z.string().optional(),
+    severity: z.string().optional(),
+    ecosystem: z.string().optional(),
+    package: z.string().optional(),
     scope: z.enum(["development", "runtime"]).optional(),
     sort: z.enum(["created", "updated"]).optional(),
     direction: z.enum(["asc", "desc"]).optional(),
-    before: z.coerce.string().optional(),
-    after: z.coerce.string().optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
     first: z.coerce.number().optional(),
     last: z.coerce.number().optional(),
     per_page: z.coerce.number().optional(),
@@ -18390,9 +18357,7 @@ export function bootstrap(
     },
   )
 
-  const dependabotListOrgSecretsParamSchema = z.object({
-    org: z.coerce.string(),
-  })
+  const dependabotListOrgSecretsParamSchema = z.object({ org: z.string() })
 
   const dependabotListOrgSecretsQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -18439,9 +18404,7 @@ export function bootstrap(
     },
   )
 
-  const dependabotGetOrgPublicKeyParamSchema = z.object({
-    org: z.coerce.string(),
-  })
+  const dependabotGetOrgPublicKeyParamSchema = z.object({ org: z.string() })
 
   const dependabotGetOrgPublicKeyResponseValidator = responseValidationFactory(
     [["200", s_dependabot_public_key]],
@@ -18473,8 +18436,8 @@ export function bootstrap(
   )
 
   const dependabotGetOrgSecretParamSchema = z.object({
-    org: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    org: z.string(),
+    secret_name: z.string(),
   })
 
   const dependabotGetOrgSecretResponseValidator = responseValidationFactory(
@@ -18507,15 +18470,15 @@ export function bootstrap(
   )
 
   const dependabotCreateOrUpdateOrgSecretParamSchema = z.object({
-    org: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    org: z.string(),
+    secret_name: z.string(),
   })
 
   const dependabotCreateOrUpdateOrgSecretBodySchema = z.object({
-    encrypted_value: z.coerce.string().optional(),
-    key_id: z.coerce.string().optional(),
+    encrypted_value: z.string().optional(),
+    key_id: z.string().optional(),
     visibility: z.enum(["all", "private", "selected"]),
-    selected_repository_ids: z.array(z.coerce.string()).optional(),
+    selected_repository_ids: z.array(z.string()).optional(),
   })
 
   const dependabotCreateOrUpdateOrgSecretResponseValidator =
@@ -18556,8 +18519,8 @@ export function bootstrap(
   )
 
   const dependabotDeleteOrgSecretParamSchema = z.object({
-    org: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    org: z.string(),
+    secret_name: z.string(),
   })
 
   const dependabotDeleteOrgSecretResponseValidator = responseValidationFactory(
@@ -18590,8 +18553,8 @@ export function bootstrap(
   )
 
   const dependabotListSelectedReposForOrgSecretParamSchema = z.object({
-    org: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    org: z.string(),
+    secret_name: z.string(),
   })
 
   const dependabotListSelectedReposForOrgSecretQuerySchema = z.object({
@@ -18642,8 +18605,8 @@ export function bootstrap(
   )
 
   const dependabotSetSelectedReposForOrgSecretParamSchema = z.object({
-    org: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    org: z.string(),
+    secret_name: z.string(),
   })
 
   const dependabotSetSelectedReposForOrgSecretBodySchema = z.object({
@@ -18682,8 +18645,8 @@ export function bootstrap(
   )
 
   const dependabotAddSelectedRepoToOrgSecretParamSchema = z.object({
-    org: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    org: z.string(),
+    secret_name: z.string(),
     repository_id: z.coerce.number(),
   })
 
@@ -18722,8 +18685,8 @@ export function bootstrap(
   )
 
   const dependabotRemoveSelectedRepoFromOrgSecretParamSchema = z.object({
-    org: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    org: z.string(),
+    secret_name: z.string(),
     repository_id: z.coerce.number(),
   })
 
@@ -18765,7 +18728,7 @@ export function bootstrap(
   )
 
   const packagesListDockerMigrationConflictingPackagesForOrganizationParamSchema =
-    z.object({ org: z.coerce.string() })
+    z.object({ org: z.string() })
 
   const packagesListDockerMigrationConflictingPackagesForOrganizationResponseValidator =
     responseValidationFactory(
@@ -18806,9 +18769,7 @@ export function bootstrap(
     },
   )
 
-  const activityListPublicOrgEventsParamSchema = z.object({
-    org: z.coerce.string(),
-  })
+  const activityListPublicOrgEventsParamSchema = z.object({ org: z.string() })
 
   const activityListPublicOrgEventsQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -18845,9 +18806,7 @@ export function bootstrap(
     },
   )
 
-  const orgsListFailedInvitationsParamSchema = z.object({
-    org: z.coerce.string(),
-  })
+  const orgsListFailedInvitationsParamSchema = z.object({ org: z.string() })
 
   const orgsListFailedInvitationsQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -18889,7 +18848,7 @@ export function bootstrap(
     },
   )
 
-  const orgsListWebhooksParamSchema = z.object({ org: z.coerce.string() })
+  const orgsListWebhooksParamSchema = z.object({ org: z.string() })
 
   const orgsListWebhooksQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -18918,19 +18877,19 @@ export function bootstrap(
     return next()
   })
 
-  const orgsCreateWebhookParamSchema = z.object({ org: z.coerce.string() })
+  const orgsCreateWebhookParamSchema = z.object({ org: z.string() })
 
   const orgsCreateWebhookBodySchema = z.object({
-    name: z.coerce.string(),
+    name: z.string(),
     config: z.object({
       url: s_webhook_config_url,
       content_type: s_webhook_config_content_type,
       secret: s_webhook_config_secret,
       insecure_ssl: s_webhook_config_insecure_ssl,
-      username: z.coerce.string().optional(),
-      password: z.coerce.string().optional(),
+      username: z.string().optional(),
+      password: z.string().optional(),
     }),
-    events: z.array(z.coerce.string()).optional(),
+    events: z.array(z.string()).optional(),
     active: z.coerce.boolean().optional(),
   })
 
@@ -18958,7 +18917,7 @@ export function bootstrap(
   })
 
   const orgsGetWebhookParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     hook_id: z.coerce.number(),
   })
 
@@ -18989,7 +18948,7 @@ export function bootstrap(
   )
 
   const orgsUpdateWebhookParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     hook_id: z.coerce.number(),
   })
 
@@ -19003,9 +18962,9 @@ export function bootstrap(
           insecure_ssl: s_webhook_config_insecure_ssl,
         })
         .optional(),
-      events: z.array(z.coerce.string()).optional(),
+      events: z.array(z.string()).optional(),
       active: z.coerce.boolean().optional(),
-      name: z.coerce.string().optional(),
+      name: z.string().optional(),
     })
     .optional()
 
@@ -19040,7 +18999,7 @@ export function bootstrap(
   )
 
   const orgsDeleteWebhookParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     hook_id: z.coerce.number(),
   })
 
@@ -19074,7 +19033,7 @@ export function bootstrap(
   )
 
   const orgsGetWebhookConfigForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     hook_id: z.coerce.number(),
   })
 
@@ -19108,7 +19067,7 @@ export function bootstrap(
   )
 
   const orgsUpdateWebhookConfigForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     hook_id: z.coerce.number(),
   })
 
@@ -19150,13 +19109,13 @@ export function bootstrap(
   )
 
   const orgsListWebhookDeliveriesParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     hook_id: z.coerce.number(),
   })
 
   const orgsListWebhookDeliveriesQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
-    cursor: z.coerce.string().optional(),
+    cursor: z.string().optional(),
     redelivery: z.coerce.boolean().optional(),
   })
 
@@ -19197,7 +19156,7 @@ export function bootstrap(
   )
 
   const orgsGetWebhookDeliveryParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     hook_id: z.coerce.number(),
     delivery_id: z.coerce.number(),
   })
@@ -19236,7 +19195,7 @@ export function bootstrap(
   )
 
   const orgsRedeliverWebhookDeliveryParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     hook_id: z.coerce.number(),
     delivery_id: z.coerce.number(),
   })
@@ -19274,7 +19233,7 @@ export function bootstrap(
   )
 
   const orgsPingWebhookParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     hook_id: z.coerce.number(),
   })
 
@@ -19304,7 +19263,7 @@ export function bootstrap(
     },
   )
 
-  const appsGetOrgInstallationParamSchema = z.object({ org: z.coerce.string() })
+  const appsGetOrgInstallationParamSchema = z.object({ org: z.string() })
 
   const appsGetOrgInstallationResponseValidator = responseValidationFactory(
     [["200", s_installation]],
@@ -19335,9 +19294,7 @@ export function bootstrap(
     },
   )
 
-  const orgsListAppInstallationsParamSchema = z.object({
-    org: z.coerce.string(),
-  })
+  const orgsListAppInstallationsParamSchema = z.object({ org: z.string() })
 
   const orgsListAppInstallationsQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -19385,7 +19342,7 @@ export function bootstrap(
   )
 
   const interactionsGetRestrictionsForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const interactionsGetRestrictionsForOrgResponseValidator =
@@ -19420,7 +19377,7 @@ export function bootstrap(
   )
 
   const interactionsSetRestrictionsForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const interactionsSetRestrictionsForOrgBodySchema = s_interaction_limit
@@ -19463,7 +19420,7 @@ export function bootstrap(
   )
 
   const interactionsRemoveRestrictionsForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const interactionsRemoveRestrictionsForOrgResponseValidator =
@@ -19494,9 +19451,7 @@ export function bootstrap(
     },
   )
 
-  const orgsListPendingInvitationsParamSchema = z.object({
-    org: z.coerce.string(),
-  })
+  const orgsListPendingInvitationsParamSchema = z.object({ org: z.string() })
 
   const orgsListPendingInvitationsQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -19548,12 +19503,12 @@ export function bootstrap(
     },
   )
 
-  const orgsCreateInvitationParamSchema = z.object({ org: z.coerce.string() })
+  const orgsCreateInvitationParamSchema = z.object({ org: z.string() })
 
   const orgsCreateInvitationBodySchema = z
     .object({
       invitee_id: z.coerce.number().optional(),
-      email: z.coerce.string().optional(),
+      email: z.string().optional(),
       role: z.enum(["admin", "direct_member", "billing_manager"]).optional(),
       team_ids: z.array(z.coerce.number()).optional(),
     })
@@ -19593,7 +19548,7 @@ export function bootstrap(
   )
 
   const orgsCancelInvitationParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     invitation_id: z.coerce.number(),
   })
 
@@ -19628,7 +19583,7 @@ export function bootstrap(
   )
 
   const orgsListInvitationTeamsParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     invitation_id: z.coerce.number(),
   })
 
@@ -19669,17 +19624,17 @@ export function bootstrap(
     },
   )
 
-  const issuesListForOrgParamSchema = z.object({ org: z.coerce.string() })
+  const issuesListForOrgParamSchema = z.object({ org: z.string() })
 
   const issuesListForOrgQuerySchema = z.object({
     filter: z
       .enum(["assigned", "created", "mentioned", "subscribed", "repos", "all"])
       .optional(),
     state: z.enum(["open", "closed", "all"]).optional(),
-    labels: z.coerce.string().optional(),
+    labels: z.string().optional(),
     sort: z.enum(["created", "updated", "comments"]).optional(),
     direction: z.enum(["asc", "desc"]).optional(),
-    since: z.coerce.string().datetime({ offset: true }).optional(),
+    since: z.string().datetime({ offset: true }).optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
   })
@@ -19706,7 +19661,7 @@ export function bootstrap(
     return next()
   })
 
-  const orgsListMembersParamSchema = z.object({ org: z.coerce.string() })
+  const orgsListMembersParamSchema = z.object({ org: z.string() })
 
   const orgsListMembersQuerySchema = z.object({
     filter: z.enum(["2fa_disabled", "all"]).optional(),
@@ -19738,8 +19693,8 @@ export function bootstrap(
   })
 
   const orgsCheckMembershipForUserParamSchema = z.object({
-    org: z.coerce.string(),
-    username: z.coerce.string(),
+    org: z.string(),
+    username: z.string(),
   })
 
   const orgsCheckMembershipForUserResponseValidator = responseValidationFactory(
@@ -19776,8 +19731,8 @@ export function bootstrap(
   )
 
   const orgsRemoveMemberParamSchema = z.object({
-    org: z.coerce.string(),
-    username: z.coerce.string(),
+    org: z.string(),
+    username: z.string(),
   })
 
   const orgsRemoveMemberResponseValidator = responseValidationFactory(
@@ -19807,8 +19762,8 @@ export function bootstrap(
   )
 
   const codespacesGetCodespacesForUserInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    username: z.coerce.string(),
+    org: z.string(),
+    username: z.string(),
   })
 
   const codespacesGetCodespacesForUserInOrgQuerySchema = z.object({
@@ -19864,9 +19819,9 @@ export function bootstrap(
   )
 
   const codespacesDeleteFromOrganizationParamSchema = z.object({
-    org: z.coerce.string(),
-    username: z.coerce.string(),
-    codespace_name: z.coerce.string(),
+    org: z.string(),
+    username: z.string(),
+    codespace_name: z.string(),
   })
 
   const codespacesDeleteFromOrganizationResponseValidator =
@@ -19905,9 +19860,9 @@ export function bootstrap(
   )
 
   const codespacesStopInOrganizationParamSchema = z.object({
-    org: z.coerce.string(),
-    username: z.coerce.string(),
-    codespace_name: z.coerce.string(),
+    org: z.string(),
+    username: z.string(),
+    codespace_name: z.string(),
   })
 
   const codespacesStopInOrganizationResponseValidator =
@@ -19946,8 +19901,8 @@ export function bootstrap(
   )
 
   const copilotGetCopilotSeatAssignmentDetailsForUserParamSchema = z.object({
-    org: z.coerce.string(),
-    username: z.coerce.string(),
+    org: z.string(),
+    username: z.string(),
   })
 
   const copilotGetCopilotSeatAssignmentDetailsForUserResponseValidator =
@@ -19992,8 +19947,8 @@ export function bootstrap(
   )
 
   const orgsGetMembershipForUserParamSchema = z.object({
-    org: z.coerce.string(),
-    username: z.coerce.string(),
+    org: z.string(),
+    username: z.string(),
   })
 
   const orgsGetMembershipForUserResponseValidator = responseValidationFactory(
@@ -20030,8 +19985,8 @@ export function bootstrap(
   )
 
   const orgsSetMembershipForUserParamSchema = z.object({
-    org: z.coerce.string(),
-    username: z.coerce.string(),
+    org: z.string(),
+    username: z.string(),
   })
 
   const orgsSetMembershipForUserBodySchema = z
@@ -20075,8 +20030,8 @@ export function bootstrap(
   )
 
   const orgsRemoveMembershipForUserParamSchema = z.object({
-    org: z.coerce.string(),
-    username: z.coerce.string(),
+    org: z.string(),
+    username: z.string(),
   })
 
   const orgsRemoveMembershipForUserResponseValidator =
@@ -20113,7 +20068,7 @@ export function bootstrap(
     },
   )
 
-  const migrationsListForOrgParamSchema = z.object({ org: z.coerce.string() })
+  const migrationsListForOrgParamSchema = z.object({ org: z.string() })
 
   const migrationsListForOrgQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -20147,10 +20102,10 @@ export function bootstrap(
     },
   )
 
-  const migrationsStartForOrgParamSchema = z.object({ org: z.coerce.string() })
+  const migrationsStartForOrgParamSchema = z.object({ org: z.string() })
 
   const migrationsStartForOrgBodySchema = z.object({
-    repositories: z.array(z.coerce.string()),
+    repositories: z.array(z.string()),
     lock_repositories: z.coerce.boolean().optional(),
     exclude_metadata: z.coerce.boolean().optional(),
     exclude_git_data: z.coerce.boolean().optional(),
@@ -20195,7 +20150,7 @@ export function bootstrap(
   )
 
   const migrationsGetStatusForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     migration_id: z.coerce.number(),
   })
 
@@ -20239,7 +20194,7 @@ export function bootstrap(
   )
 
   const migrationsDownloadArchiveForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     migration_id: z.coerce.number(),
   })
 
@@ -20275,7 +20230,7 @@ export function bootstrap(
   )
 
   const migrationsDeleteArchiveForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     migration_id: z.coerce.number(),
   })
 
@@ -20311,9 +20266,9 @@ export function bootstrap(
   )
 
   const migrationsUnlockRepoForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     migration_id: z.coerce.number(),
-    repo_name: z.coerce.string(),
+    repo_name: z.string(),
   })
 
   const migrationsUnlockRepoForOrgResponseValidator = responseValidationFactory(
@@ -20349,7 +20304,7 @@ export function bootstrap(
   )
 
   const migrationsListReposForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     migration_id: z.coerce.number(),
   })
 
@@ -20393,9 +20348,7 @@ export function bootstrap(
     },
   )
 
-  const orgsListOutsideCollaboratorsParamSchema = z.object({
-    org: z.coerce.string(),
-  })
+  const orgsListOutsideCollaboratorsParamSchema = z.object({ org: z.string() })
 
   const orgsListOutsideCollaboratorsQuerySchema = z.object({
     filter: z.enum(["2fa_disabled", "all"]).optional(),
@@ -20432,8 +20385,8 @@ export function bootstrap(
   )
 
   const orgsConvertMemberToOutsideCollaboratorParamSchema = z.object({
-    org: z.coerce.string(),
-    username: z.coerce.string(),
+    org: z.string(),
+    username: z.string(),
   })
 
   const orgsConvertMemberToOutsideCollaboratorBodySchema = z
@@ -20480,8 +20433,8 @@ export function bootstrap(
   )
 
   const orgsRemoveOutsideCollaboratorParamSchema = z.object({
-    org: z.coerce.string(),
-    username: z.coerce.string(),
+    org: z.string(),
+    username: z.string(),
   })
 
   const orgsRemoveOutsideCollaboratorResponseValidator =
@@ -20491,8 +20444,8 @@ export function bootstrap(
         [
           "422",
           z.object({
-            message: z.coerce.string().optional(),
-            documentation_url: z.coerce.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
           }),
         ],
       ],
@@ -20522,7 +20475,7 @@ export function bootstrap(
   )
 
   const packagesListPackagesForOrganizationParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const packagesListPackagesForOrganizationQuerySchema = z.object({
@@ -20587,8 +20540,8 @@ export function bootstrap(
       "nuget",
       "container",
     ]),
-    package_name: z.coerce.string(),
-    org: z.coerce.string(),
+    package_name: z.string(),
+    org: z.string(),
   })
 
   const packagesGetPackageForOrganizationResponseValidator =
@@ -20628,8 +20581,8 @@ export function bootstrap(
       "nuget",
       "container",
     ]),
-    package_name: z.coerce.string(),
-    org: z.coerce.string(),
+    package_name: z.string(),
+    org: z.string(),
   })
 
   const packagesDeletePackageForOrgResponseValidator =
@@ -20676,12 +20629,12 @@ export function bootstrap(
       "nuget",
       "container",
     ]),
-    package_name: z.coerce.string(),
-    org: z.coerce.string(),
+    package_name: z.string(),
+    org: z.string(),
   })
 
   const packagesRestorePackageForOrgQuerySchema = z.object({
-    token: z.coerce.string().optional(),
+    token: z.string().optional(),
   })
 
   const packagesRestorePackageForOrgResponseValidator =
@@ -20730,8 +20683,8 @@ export function bootstrap(
         "nuget",
         "container",
       ]),
-      package_name: z.coerce.string(),
-      org: z.coerce.string(),
+      package_name: z.string(),
+      org: z.string(),
     },
   )
 
@@ -20795,8 +20748,8 @@ export function bootstrap(
       "nuget",
       "container",
     ]),
-    package_name: z.coerce.string(),
-    org: z.coerce.string(),
+    package_name: z.string(),
+    org: z.string(),
     package_version_id: z.coerce.number(),
   })
 
@@ -20840,8 +20793,8 @@ export function bootstrap(
       "nuget",
       "container",
     ]),
-    package_name: z.coerce.string(),
-    org: z.coerce.string(),
+    package_name: z.string(),
+    org: z.string(),
     package_version_id: z.coerce.number(),
   })
 
@@ -20890,8 +20843,8 @@ export function bootstrap(
       "nuget",
       "container",
     ]),
-    package_name: z.coerce.string(),
-    org: z.coerce.string(),
+    package_name: z.string(),
+    org: z.string(),
     package_version_id: z.coerce.number(),
   })
 
@@ -20931,20 +20884,18 @@ export function bootstrap(
     },
   )
 
-  const orgsListPatGrantRequestsParamSchema = z.object({
-    org: z.coerce.string(),
-  })
+  const orgsListPatGrantRequestsParamSchema = z.object({ org: z.string() })
 
   const orgsListPatGrantRequestsQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
     sort: z.enum(["created_at"]).optional(),
     direction: z.enum(["asc", "desc"]).optional(),
-    owner: z.array(z.coerce.string()).optional(),
-    repository: z.coerce.string().optional(),
-    permission: z.coerce.string().optional(),
-    last_used_before: z.coerce.string().datetime({ offset: true }).optional(),
-    last_used_after: z.coerce.string().datetime({ offset: true }).optional(),
+    owner: z.array(z.string()).optional(),
+    repository: z.string().optional(),
+    permission: z.string().optional(),
+    last_used_before: z.string().datetime({ offset: true }).optional(),
+    last_used_after: z.string().datetime({ offset: true }).optional(),
   })
 
   const orgsListPatGrantRequestsResponseValidator = responseValidationFactory(
@@ -20986,13 +20937,13 @@ export function bootstrap(
   )
 
   const orgsReviewPatGrantRequestsInBulkParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const orgsReviewPatGrantRequestsInBulkBodySchema = z.object({
     pat_request_ids: z.array(z.coerce.number()).optional(),
     action: z.enum(["approve", "deny"]),
-    reason: z.coerce.string().optional().nullable(),
+    reason: z.string().optional().nullable(),
   })
 
   const orgsReviewPatGrantRequestsInBulkResponseValidator =
@@ -21033,13 +20984,13 @@ export function bootstrap(
   )
 
   const orgsReviewPatGrantRequestParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     pat_request_id: z.coerce.number(),
   })
 
   const orgsReviewPatGrantRequestBodySchema = z.object({
     action: z.enum(["approve", "deny"]),
-    reason: z.coerce.string().optional().nullable(),
+    reason: z.string().optional().nullable(),
   })
 
   const orgsReviewPatGrantRequestResponseValidator = responseValidationFactory(
@@ -21081,7 +21032,7 @@ export function bootstrap(
   )
 
   const orgsListPatGrantRequestRepositoriesParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     pat_request_id: z.coerce.number(),
   })
 
@@ -21129,18 +21080,18 @@ export function bootstrap(
     },
   )
 
-  const orgsListPatGrantsParamSchema = z.object({ org: z.coerce.string() })
+  const orgsListPatGrantsParamSchema = z.object({ org: z.string() })
 
   const orgsListPatGrantsQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
     sort: z.enum(["created_at"]).optional(),
     direction: z.enum(["asc", "desc"]).optional(),
-    owner: z.array(z.coerce.string()).optional(),
-    repository: z.coerce.string().optional(),
-    permission: z.coerce.string().optional(),
-    last_used_before: z.coerce.string().datetime({ offset: true }).optional(),
-    last_used_after: z.coerce.string().datetime({ offset: true }).optional(),
+    owner: z.array(z.string()).optional(),
+    repository: z.string().optional(),
+    permission: z.string().optional(),
+    last_used_before: z.string().datetime({ offset: true }).optional(),
+    last_used_after: z.string().datetime({ offset: true }).optional(),
   })
 
   const orgsListPatGrantsResponseValidator = responseValidationFactory(
@@ -21175,7 +21126,7 @@ export function bootstrap(
     },
   )
 
-  const orgsUpdatePatAccessesParamSchema = z.object({ org: z.coerce.string() })
+  const orgsUpdatePatAccessesParamSchema = z.object({ org: z.string() })
 
   const orgsUpdatePatAccessesBodySchema = z.object({
     action: z.enum(["revoke"]),
@@ -21218,7 +21169,7 @@ export function bootstrap(
   )
 
   const orgsUpdatePatAccessParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     pat_id: z.coerce.number(),
   })
 
@@ -21260,7 +21211,7 @@ export function bootstrap(
   )
 
   const orgsListPatGrantRepositoriesParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     pat_id: z.coerce.number(),
   })
 
@@ -21305,7 +21256,7 @@ export function bootstrap(
     },
   )
 
-  const projectsListForOrgParamSchema = z.object({ org: z.coerce.string() })
+  const projectsListForOrgParamSchema = z.object({ org: z.string() })
 
   const projectsListForOrgQuerySchema = z.object({
     state: z.enum(["open", "closed", "all"]).optional(),
@@ -21335,11 +21286,11 @@ export function bootstrap(
     return next()
   })
 
-  const projectsCreateForOrgParamSchema = z.object({ org: z.coerce.string() })
+  const projectsCreateForOrgParamSchema = z.object({ org: z.string() })
 
   const projectsCreateForOrgBodySchema = z.object({
-    name: z.coerce.string(),
-    body: z.coerce.string().optional(),
+    name: z.string(),
+    body: z.string().optional(),
   })
 
   const projectsCreateForOrgResponseValidator = responseValidationFactory(
@@ -21378,7 +21329,7 @@ export function bootstrap(
     },
   )
 
-  const orgsListPublicMembersParamSchema = z.object({ org: z.coerce.string() })
+  const orgsListPublicMembersParamSchema = z.object({ org: z.string() })
 
   const orgsListPublicMembersQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -21412,8 +21363,8 @@ export function bootstrap(
   )
 
   const orgsCheckPublicMembershipForUserParamSchema = z.object({
-    org: z.coerce.string(),
-    username: z.coerce.string(),
+    org: z.string(),
+    username: z.string(),
   })
 
   const orgsCheckPublicMembershipForUserResponseValidator =
@@ -21448,8 +21399,8 @@ export function bootstrap(
   )
 
   const orgsSetPublicMembershipForAuthenticatedUserParamSchema = z.object({
-    org: z.coerce.string(),
-    username: z.coerce.string(),
+    org: z.string(),
+    username: z.string(),
   })
 
   const orgsSetPublicMembershipForAuthenticatedUserResponseValidator =
@@ -21490,8 +21441,8 @@ export function bootstrap(
   )
 
   const orgsRemovePublicMembershipForAuthenticatedUserParamSchema = z.object({
-    org: z.coerce.string(),
-    username: z.coerce.string(),
+    org: z.string(),
+    username: z.string(),
   })
 
   const orgsRemovePublicMembershipForAuthenticatedUserResponseValidator =
@@ -21526,7 +21477,7 @@ export function bootstrap(
     },
   )
 
-  const reposListForOrgParamSchema = z.object({ org: z.coerce.string() })
+  const reposListForOrgParamSchema = z.object({ org: z.string() })
 
   const reposListForOrgQuerySchema = z.object({
     type: z
@@ -21557,12 +21508,12 @@ export function bootstrap(
     return next()
   })
 
-  const reposCreateInOrgParamSchema = z.object({ org: z.coerce.string() })
+  const reposCreateInOrgParamSchema = z.object({ org: z.string() })
 
   const reposCreateInOrgBodySchema = z.object({
-    name: z.coerce.string(),
-    description: z.coerce.string().optional(),
-    homepage: z.coerce.string().optional(),
+    name: z.string(),
+    description: z.string().optional(),
+    homepage: z.string().optional(),
     private: z.coerce.boolean().optional(),
     visibility: z.enum(["public", "private"]).optional(),
     has_issues: z.coerce.boolean().optional(),
@@ -21572,8 +21523,8 @@ export function bootstrap(
     is_template: z.coerce.boolean().optional(),
     team_id: z.coerce.number().optional(),
     auto_init: z.coerce.boolean().optional(),
-    gitignore_template: z.coerce.string().optional(),
-    license_template: z.coerce.string().optional(),
+    gitignore_template: z.string().optional(),
+    license_template: z.string().optional(),
     allow_squash_merge: z.coerce.boolean().optional(),
     allow_merge_commit: z.coerce.boolean().optional(),
     allow_rebase_merge: z.coerce.boolean().optional(),
@@ -21613,7 +21564,7 @@ export function bootstrap(
     return next()
   })
 
-  const reposGetOrgRulesetsParamSchema = z.object({ org: z.coerce.string() })
+  const reposGetOrgRulesetsParamSchema = z.object({ org: z.string() })
 
   const reposGetOrgRulesetsQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -21650,10 +21601,10 @@ export function bootstrap(
     },
   )
 
-  const reposCreateOrgRulesetParamSchema = z.object({ org: z.coerce.string() })
+  const reposCreateOrgRulesetParamSchema = z.object({ org: z.string() })
 
   const reposCreateOrgRulesetBodySchema = z.object({
-    name: z.coerce.string(),
+    name: z.string(),
     target: z.enum(["branch", "tag"]).optional(),
     enforcement: s_repository_rule_enforcement,
     bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
@@ -21695,7 +21646,7 @@ export function bootstrap(
   )
 
   const reposGetOrgRulesetParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     ruleset_id: z.coerce.number(),
   })
 
@@ -21730,13 +21681,13 @@ export function bootstrap(
   )
 
   const reposUpdateOrgRulesetParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     ruleset_id: z.coerce.number(),
   })
 
   const reposUpdateOrgRulesetBodySchema = z
     .object({
-      name: z.coerce.string().optional(),
+      name: z.string().optional(),
       target: z.enum(["branch", "tag"]).optional(),
       enforcement: s_repository_rule_enforcement,
       bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
@@ -21779,7 +21730,7 @@ export function bootstrap(
   )
 
   const reposDeleteOrgRulesetParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     ruleset_id: z.coerce.number(),
   })
 
@@ -21814,19 +21765,19 @@ export function bootstrap(
   )
 
   const secretScanningListAlertsForOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const secretScanningListAlertsForOrgQuerySchema = z.object({
     state: z.enum(["open", "resolved"]).optional(),
-    secret_type: z.coerce.string().optional(),
-    resolution: z.coerce.string().optional(),
+    secret_type: z.string().optional(),
+    resolution: z.string().optional(),
     sort: z.enum(["created", "updated"]).optional(),
     direction: z.enum(["asc", "desc"]).optional(),
     page: z.coerce.number().optional(),
     per_page: z.coerce.number().optional(),
-    before: z.coerce.string().optional(),
-    after: z.coerce.string().optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
   })
 
   const secretScanningListAlertsForOrgResponseValidator =
@@ -21837,9 +21788,9 @@ export function bootstrap(
         [
           "503",
           z.object({
-            code: z.coerce.string().optional(),
-            message: z.coerce.string().optional(),
-            documentation_url: z.coerce.string().optional(),
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
           }),
         ],
       ],
@@ -21872,14 +21823,14 @@ export function bootstrap(
   )
 
   const securityAdvisoriesListOrgRepositoryAdvisoriesParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const securityAdvisoriesListOrgRepositoryAdvisoriesQuerySchema = z.object({
     direction: z.enum(["asc", "desc"]).optional(),
     sort: z.enum(["created", "updated", "published"]).optional(),
-    before: z.coerce.string().optional(),
-    after: z.coerce.string().optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
     per_page: z.coerce.number().optional(),
     state: z.enum(["triage", "draft", "published", "closed"]).optional(),
   })
@@ -21925,9 +21876,7 @@ export function bootstrap(
     },
   )
 
-  const orgsListSecurityManagerTeamsParamSchema = z.object({
-    org: z.coerce.string(),
-  })
+  const orgsListSecurityManagerTeamsParamSchema = z.object({ org: z.string() })
 
   const orgsListSecurityManagerTeamsResponseValidator =
     responseValidationFactory([["200", z.array(s_team_simple)]], undefined)
@@ -21955,8 +21904,8 @@ export function bootstrap(
   )
 
   const orgsAddSecurityManagerTeamParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
   })
 
   const orgsAddSecurityManagerTeamResponseValidator = responseValidationFactory(
@@ -21992,8 +21941,8 @@ export function bootstrap(
   )
 
   const orgsRemoveSecurityManagerTeamParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
   })
 
   const orgsRemoveSecurityManagerTeamResponseValidator =
@@ -22022,7 +21971,7 @@ export function bootstrap(
   )
 
   const billingGetGithubActionsBillingOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const billingGetGithubActionsBillingOrgResponseValidator =
@@ -22054,7 +22003,7 @@ export function bootstrap(
   )
 
   const billingGetGithubPackagesBillingOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const billingGetGithubPackagesBillingOrgResponseValidator =
@@ -22086,7 +22035,7 @@ export function bootstrap(
   )
 
   const billingGetSharedStorageBillingOrgParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const billingGetSharedStorageBillingOrgResponseValidator =
@@ -22117,7 +22066,7 @@ export function bootstrap(
     },
   )
 
-  const teamsListParamSchema = z.object({ org: z.coerce.string() })
+  const teamsListParamSchema = z.object({ org: z.string() })
 
   const teamsListQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -22146,13 +22095,13 @@ export function bootstrap(
     return next()
   })
 
-  const teamsCreateParamSchema = z.object({ org: z.coerce.string() })
+  const teamsCreateParamSchema = z.object({ org: z.string() })
 
   const teamsCreateBodySchema = z.object({
-    name: z.coerce.string(),
-    description: z.coerce.string().optional(),
-    maintainers: z.array(z.coerce.string()).optional(),
-    repo_names: z.array(z.coerce.string()).optional(),
+    name: z.string(),
+    description: z.string().optional(),
+    maintainers: z.array(z.string()).optional(),
+    repo_names: z.array(z.string()).optional(),
     privacy: z.enum(["secret", "closed"]).optional(),
     notification_setting: z
       .enum(["notifications_enabled", "notifications_disabled"])
@@ -22185,8 +22134,8 @@ export function bootstrap(
   })
 
   const teamsGetByNameParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
   })
 
   const teamsGetByNameResponseValidator = responseValidationFactory(
@@ -22216,14 +22165,14 @@ export function bootstrap(
   )
 
   const teamsUpdateInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
   })
 
   const teamsUpdateInOrgBodySchema = z
     .object({
-      name: z.coerce.string().optional(),
-      description: z.coerce.string().optional(),
+      name: z.string().optional(),
+      description: z.string().optional(),
       privacy: z.enum(["secret", "closed"]).optional(),
       notification_setting: z
         .enum(["notifications_enabled", "notifications_disabled"])
@@ -22263,8 +22212,8 @@ export function bootstrap(
   )
 
   const teamsDeleteInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
   })
 
   const teamsDeleteInOrgResponseValidator = responseValidationFactory(
@@ -22291,15 +22240,15 @@ export function bootstrap(
   )
 
   const teamsListDiscussionsInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
   })
 
   const teamsListDiscussionsInOrgQuerySchema = z.object({
     direction: z.enum(["asc", "desc"]).optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
-    pinned: z.coerce.string().optional(),
+    pinned: z.string().optional(),
   })
 
   const teamsListDiscussionsInOrgResponseValidator = responseValidationFactory(
@@ -22335,13 +22284,13 @@ export function bootstrap(
   )
 
   const teamsCreateDiscussionInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
   })
 
   const teamsCreateDiscussionInOrgBodySchema = z.object({
-    title: z.coerce.string(),
-    body: z.coerce.string(),
+    title: z.string(),
+    body: z.string(),
     private: z.coerce.boolean().optional(),
   })
 
@@ -22378,8 +22327,8 @@ export function bootstrap(
   )
 
   const teamsGetDiscussionInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
     discussion_number: z.coerce.number(),
   })
 
@@ -22413,16 +22362,13 @@ export function bootstrap(
   )
 
   const teamsUpdateDiscussionInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
     discussion_number: z.coerce.number(),
   })
 
   const teamsUpdateDiscussionInOrgBodySchema = z
-    .object({
-      title: z.coerce.string().optional(),
-      body: z.coerce.string().optional(),
-    })
+    .object({ title: z.string().optional(), body: z.string().optional() })
     .optional()
 
   const teamsUpdateDiscussionInOrgResponseValidator = responseValidationFactory(
@@ -22458,8 +22404,8 @@ export function bootstrap(
   )
 
   const teamsDeleteDiscussionInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
     discussion_number: z.coerce.number(),
   })
 
@@ -22493,8 +22439,8 @@ export function bootstrap(
   )
 
   const teamsListDiscussionCommentsInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
     discussion_number: z.coerce.number(),
   })
 
@@ -22536,13 +22482,13 @@ export function bootstrap(
   )
 
   const teamsCreateDiscussionCommentInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
     discussion_number: z.coerce.number(),
   })
 
   const teamsCreateDiscussionCommentInOrgBodySchema = z.object({
-    body: z.coerce.string(),
+    body: z.string(),
   })
 
   const teamsCreateDiscussionCommentInOrgResponseValidator =
@@ -22577,8 +22523,8 @@ export function bootstrap(
   )
 
   const teamsGetDiscussionCommentInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
     discussion_number: z.coerce.number(),
     comment_number: z.coerce.number(),
   })
@@ -22609,14 +22555,14 @@ export function bootstrap(
   )
 
   const teamsUpdateDiscussionCommentInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
     discussion_number: z.coerce.number(),
     comment_number: z.coerce.number(),
   })
 
   const teamsUpdateDiscussionCommentInOrgBodySchema = z.object({
-    body: z.coerce.string(),
+    body: z.string(),
   })
 
   const teamsUpdateDiscussionCommentInOrgResponseValidator =
@@ -22651,8 +22597,8 @@ export function bootstrap(
   )
 
   const teamsDeleteDiscussionCommentInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
     discussion_number: z.coerce.number(),
     comment_number: z.coerce.number(),
   })
@@ -22686,8 +22632,8 @@ export function bootstrap(
   )
 
   const reactionsListForTeamDiscussionCommentInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
     discussion_number: z.coerce.number(),
     comment_number: z.coerce.number(),
   })
@@ -22744,8 +22690,8 @@ export function bootstrap(
   )
 
   const reactionsCreateForTeamDiscussionCommentInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
     discussion_number: z.coerce.number(),
     comment_number: z.coerce.number(),
   })
@@ -22804,8 +22750,8 @@ export function bootstrap(
   )
 
   const reactionsDeleteForTeamDiscussionCommentParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
     discussion_number: z.coerce.number(),
     comment_number: z.coerce.number(),
     reaction_id: z.coerce.number(),
@@ -22840,8 +22786,8 @@ export function bootstrap(
   )
 
   const reactionsListForTeamDiscussionInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
     discussion_number: z.coerce.number(),
   })
 
@@ -22894,8 +22840,8 @@ export function bootstrap(
   )
 
   const reactionsCreateForTeamDiscussionInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
     discussion_number: z.coerce.number(),
   })
 
@@ -22950,8 +22896,8 @@ export function bootstrap(
   )
 
   const reactionsDeleteForTeamDiscussionParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
     discussion_number: z.coerce.number(),
     reaction_id: z.coerce.number(),
   })
@@ -22982,8 +22928,8 @@ export function bootstrap(
   )
 
   const teamsListPendingInvitationsInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
   })
 
   const teamsListPendingInvitationsInOrgQuerySchema = z.object({
@@ -23023,8 +22969,8 @@ export function bootstrap(
   )
 
   const teamsListMembersInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
   })
 
   const teamsListMembersInOrgQuerySchema = z.object({
@@ -23060,9 +23006,9 @@ export function bootstrap(
   )
 
   const teamsGetMembershipForUserInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
-    username: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
+    username: z.string(),
   })
 
   const teamsGetMembershipForUserInOrgResponseValidator =
@@ -23097,9 +23043,9 @@ export function bootstrap(
   )
 
   const teamsAddOrUpdateMembershipForUserInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
-    username: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
+    username: z.string(),
   })
 
   const teamsAddOrUpdateMembershipForUserInOrgBodySchema = z
@@ -23145,9 +23091,9 @@ export function bootstrap(
   )
 
   const teamsRemoveMembershipForUserInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
-    username: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
+    username: z.string(),
   })
 
   const teamsRemoveMembershipForUserInOrgResponseValidator =
@@ -23185,8 +23131,8 @@ export function bootstrap(
   )
 
   const teamsListProjectsInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
   })
 
   const teamsListProjectsInOrgQuerySchema = z.object({
@@ -23224,8 +23170,8 @@ export function bootstrap(
   )
 
   const teamsCheckPermissionsForProjectInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
     project_id: z.coerce.number(),
   })
 
@@ -23264,8 +23210,8 @@ export function bootstrap(
   )
 
   const teamsAddOrUpdateProjectPermissionsInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
     project_id: z.coerce.number(),
   })
 
@@ -23281,8 +23227,8 @@ export function bootstrap(
         [
           "403",
           z.object({
-            message: z.coerce.string().optional(),
-            documentation_url: z.coerce.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
           }),
         ],
       ],
@@ -23318,8 +23264,8 @@ export function bootstrap(
   )
 
   const teamsRemoveProjectInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
     project_id: z.coerce.number(),
   })
 
@@ -23353,8 +23299,8 @@ export function bootstrap(
   )
 
   const teamsListReposInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
   })
 
   const teamsListReposInOrgQuerySchema = z.object({
@@ -23389,10 +23335,10 @@ export function bootstrap(
   )
 
   const teamsCheckPermissionsForRepoInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const teamsCheckPermissionsForRepoInOrgResponseValidator =
@@ -23431,14 +23377,14 @@ export function bootstrap(
   )
 
   const teamsAddOrUpdateRepoPermissionsInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const teamsAddOrUpdateRepoPermissionsInOrgBodySchema = z
-    .object({ permission: z.coerce.string().optional() })
+    .object({ permission: z.string().optional() })
     .optional()
 
   const teamsAddOrUpdateRepoPermissionsInOrgResponseValidator =
@@ -23473,10 +23419,10 @@ export function bootstrap(
   )
 
   const teamsRemoveRepoInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const teamsRemoveRepoInOrgResponseValidator = responseValidationFactory(
@@ -23506,8 +23452,8 @@ export function bootstrap(
   )
 
   const teamsListChildInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    team_slug: z.coerce.string(),
+    org: z.string(),
+    team_slug: z.string(),
   })
 
   const teamsListChildInOrgQuerySchema = z.object({
@@ -23542,7 +23488,7 @@ export function bootstrap(
   )
 
   const orgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
     security_product: z.enum([
       "dependency_graph",
       "dependabot_alerts",
@@ -23635,7 +23581,7 @@ export function bootstrap(
 
   const projectsUpdateCardBodySchema = z
     .object({
-      note: z.coerce.string().optional().nullable(),
+      note: z.string().optional().nullable(),
       archived: z.coerce.boolean().optional(),
     })
     .optional()
@@ -23683,9 +23629,9 @@ export function bootstrap(
       [
         "403",
         z.object({
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
-          errors: z.array(z.coerce.string()).optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
+          errors: z.array(z.string()).optional(),
         }),
       ],
       ["404", s_basic_error],
@@ -23717,7 +23663,7 @@ export function bootstrap(
   const projectsMoveCardParamSchema = z.object({ card_id: z.coerce.number() })
 
   const projectsMoveCardBodySchema = z.object({
-    position: z.coerce.string(),
+    position: z.string(),
     column_id: z.coerce.number().optional(),
   })
 
@@ -23729,15 +23675,15 @@ export function bootstrap(
       [
         "403",
         z.object({
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
           errors: z
             .array(
               z.object({
-                code: z.coerce.string().optional(),
-                message: z.coerce.string().optional(),
-                resource: z.coerce.string().optional(),
-                field: z.coerce.string().optional(),
+                code: z.string().optional(),
+                message: z.string().optional(),
+                resource: z.string().optional(),
+                field: z.string().optional(),
               }),
             )
             .optional(),
@@ -23747,14 +23693,14 @@ export function bootstrap(
       [
         "503",
         z.object({
-          code: z.coerce.string().optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
           errors: z
             .array(
               z.object({
-                code: z.coerce.string().optional(),
-                message: z.coerce.string().optional(),
+                code: z.string().optional(),
+                message: z.string().optional(),
               }),
             )
             .optional(),
@@ -23822,7 +23768,7 @@ export function bootstrap(
     column_id: z.coerce.number(),
   })
 
-  const projectsUpdateColumnBodySchema = z.object({ name: z.coerce.string() })
+  const projectsUpdateColumnBodySchema = z.object({ name: z.string() })
 
   const projectsUpdateColumnResponseValidator = responseValidationFactory(
     [
@@ -23939,11 +23885,8 @@ export function bootstrap(
   })
 
   const projectsCreateCardBodySchema = z.union([
-    z.object({ note: z.coerce.string().nullable() }),
-    z.object({
-      content_id: z.coerce.number(),
-      content_type: z.coerce.string(),
-    }),
+    z.object({ note: z.string().nullable() }),
+    z.object({ content_id: z.coerce.number(), content_type: z.string() }),
   ])
 
   const projectsCreateCardResponseValidator = responseValidationFactory(
@@ -23956,14 +23899,14 @@ export function bootstrap(
       [
         "503",
         z.object({
-          code: z.coerce.string().optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
           errors: z
             .array(
               z.object({
-                code: z.coerce.string().optional(),
-                message: z.coerce.string().optional(),
+                code: z.string().optional(),
+                message: z.string().optional(),
               }),
             )
             .optional(),
@@ -23998,7 +23941,7 @@ export function bootstrap(
     column_id: z.coerce.number(),
   })
 
-  const projectsMoveColumnBodySchema = z.object({ position: z.coerce.string() })
+  const projectsMoveColumnBodySchema = z.object({ position: z.string() })
 
   const projectsMoveColumnResponseValidator = responseValidationFactory(
     [
@@ -24062,9 +24005,9 @@ export function bootstrap(
 
   const projectsUpdateBodySchema = z
     .object({
-      name: z.coerce.string().optional(),
-      body: z.coerce.string().optional().nullable(),
-      state: z.coerce.string().optional(),
+      name: z.string().optional(),
+      body: z.string().optional().nullable(),
+      state: z.string().optional(),
       organization_permission: z
         .enum(["read", "write", "admin", "none"])
         .optional(),
@@ -24080,9 +24023,9 @@ export function bootstrap(
       [
         "403",
         z.object({
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
-          errors: z.array(z.coerce.string()).optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
+          errors: z.array(z.string()).optional(),
         }),
       ],
       ["404", z.void()],
@@ -24116,9 +24059,9 @@ export function bootstrap(
       [
         "403",
         z.object({
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
-          errors: z.array(z.coerce.string()).optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
+          errors: z.array(z.string()).optional(),
         }),
       ],
       ["404", s_basic_error],
@@ -24192,7 +24135,7 @@ export function bootstrap(
 
   const projectsAddCollaboratorParamSchema = z.object({
     project_id: z.coerce.number(),
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const projectsAddCollaboratorBodySchema = z
@@ -24241,7 +24184,7 @@ export function bootstrap(
 
   const projectsRemoveCollaboratorParamSchema = z.object({
     project_id: z.coerce.number(),
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const projectsRemoveCollaboratorResponseValidator = responseValidationFactory(
@@ -24282,7 +24225,7 @@ export function bootstrap(
 
   const projectsGetPermissionForUserParamSchema = z.object({
     project_id: z.coerce.number(),
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const projectsGetPermissionForUserResponseValidator =
@@ -24364,7 +24307,7 @@ export function bootstrap(
     project_id: z.coerce.number(),
   })
 
-  const projectsCreateColumnBodySchema = z.object({ name: z.coerce.string() })
+  const projectsCreateColumnBodySchema = z.object({ name: z.string() })
 
   const projectsCreateColumnResponseValidator = responseValidationFactory(
     [
@@ -24424,10 +24367,7 @@ export function bootstrap(
     return next()
   })
 
-  const reposGetParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-  })
+  const reposGetParamSchema = z.object({ owner: z.string(), repo: z.string() })
 
   const reposGetResponseValidator = responseValidationFactory(
     [
@@ -24454,27 +24394,27 @@ export function bootstrap(
   })
 
   const reposUpdateParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposUpdateBodySchema = z
     .object({
-      name: z.coerce.string().optional(),
-      description: z.coerce.string().optional(),
-      homepage: z.coerce.string().optional(),
+      name: z.string().optional(),
+      description: z.string().optional(),
+      homepage: z.string().optional(),
       private: z.coerce.boolean().optional(),
       visibility: z.enum(["public", "private"]).optional(),
       security_and_analysis: z
         .object({
           advanced_security: z
-            .object({ status: z.coerce.string().optional() })
+            .object({ status: z.string().optional() })
             .optional(),
           secret_scanning: z
-            .object({ status: z.coerce.string().optional() })
+            .object({ status: z.string().optional() })
             .optional(),
           secret_scanning_push_protection: z
-            .object({ status: z.coerce.string().optional() })
+            .object({ status: z.string().optional() })
             .optional(),
         })
         .optional()
@@ -24483,7 +24423,7 @@ export function bootstrap(
       has_projects: z.coerce.boolean().optional(),
       has_wiki: z.coerce.boolean().optional(),
       is_template: z.coerce.boolean().optional(),
-      default_branch: z.coerce.string().optional(),
+      default_branch: z.string().optional(),
       allow_squash_merge: z.coerce.boolean().optional(),
       allow_merge_commit: z.coerce.boolean().optional(),
       allow_rebase_merge: z.coerce.boolean().optional(),
@@ -24531,8 +24471,8 @@ export function bootstrap(
   })
 
   const reposDeleteParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposDeleteResponseValidator = responseValidationFactory(
@@ -24542,8 +24482,8 @@ export function bootstrap(
       [
         "403",
         z.object({
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
       ["404", s_basic_error],
@@ -24566,14 +24506,14 @@ export function bootstrap(
   })
 
   const actionsListArtifactsForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsListArtifactsForRepoQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
-    name: z.coerce.string().optional(),
+    name: z.string().optional(),
   })
 
   const actionsListArtifactsForRepoResponseValidator =
@@ -24618,8 +24558,8 @@ export function bootstrap(
   )
 
   const actionsGetArtifactParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     artifact_id: z.coerce.number(),
   })
 
@@ -24650,8 +24590,8 @@ export function bootstrap(
   )
 
   const actionsDeleteArtifactParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     artifact_id: z.coerce.number(),
   })
 
@@ -24682,10 +24622,10 @@ export function bootstrap(
   )
 
   const actionsDownloadArtifactParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     artifact_id: z.coerce.number(),
-    archive_format: z.coerce.string(),
+    archive_format: z.string(),
   })
 
   const actionsDownloadArtifactResponseValidator = responseValidationFactory(
@@ -24721,8 +24661,8 @@ export function bootstrap(
   )
 
   const actionsGetActionsCacheUsageParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsGetActionsCacheUsageResponseValidator =
@@ -24756,15 +24696,15 @@ export function bootstrap(
   )
 
   const actionsGetActionsCacheListParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsGetActionsCacheListQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
-    ref: z.coerce.string().optional(),
-    key: z.coerce.string().optional(),
+    ref: z.string().optional(),
+    key: z.string().optional(),
     sort: z
       .enum(["created_at", "last_accessed_at", "size_in_bytes"])
       .optional(),
@@ -24804,13 +24744,13 @@ export function bootstrap(
   )
 
   const actionsDeleteActionsCacheByKeyParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsDeleteActionsCacheByKeyQuerySchema = z.object({
-    key: z.coerce.string(),
-    ref: z.coerce.string().optional(),
+    key: z.string(),
+    ref: z.string().optional(),
   })
 
   const actionsDeleteActionsCacheByKeyResponseValidator =
@@ -24842,8 +24782,8 @@ export function bootstrap(
   )
 
   const actionsDeleteActionsCacheByIdParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     cache_id: z.coerce.number(),
   })
 
@@ -24873,8 +24813,8 @@ export function bootstrap(
   )
 
   const actionsGetJobForWorkflowRunParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     job_id: z.coerce.number(),
   })
 
@@ -24906,8 +24846,8 @@ export function bootstrap(
   )
 
   const actionsDownloadJobLogsForWorkflowRunParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     job_id: z.coerce.number(),
   })
 
@@ -24940,8 +24880,8 @@ export function bootstrap(
   )
 
   const actionsReRunJobForWorkflowRunParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     job_id: z.coerce.number(),
   })
 
@@ -24985,8 +24925,8 @@ export function bootstrap(
   )
 
   const actionsGetCustomOidcSubClaimForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsGetCustomOidcSubClaimForRepoResponseValidator =
@@ -25025,13 +24965,13 @@ export function bootstrap(
   )
 
   const actionsSetCustomOidcSubClaimForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsSetCustomOidcSubClaimForRepoBodySchema = z.object({
     use_default: z.coerce.boolean(),
-    include_claim_keys: z.array(z.coerce.string()).optional(),
+    include_claim_keys: z.array(z.string()).optional(),
   })
 
   const actionsSetCustomOidcSubClaimForRepoResponseValidator =
@@ -25074,8 +25014,8 @@ export function bootstrap(
   )
 
   const actionsListRepoOrganizationSecretsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsListRepoOrganizationSecretsQuerySchema = z.object({
@@ -25126,8 +25066,8 @@ export function bootstrap(
   )
 
   const actionsListRepoOrganizationVariablesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsListRepoOrganizationVariablesQuerySchema = z.object({
@@ -25178,8 +25118,8 @@ export function bootstrap(
   )
 
   const actionsGetGithubActionsPermissionsRepositoryParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsGetGithubActionsPermissionsRepositoryResponseValidator =
@@ -25217,8 +25157,8 @@ export function bootstrap(
   )
 
   const actionsSetGithubActionsPermissionsRepositoryParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsSetGithubActionsPermissionsRepositoryBodySchema = z.object({
@@ -25261,8 +25201,8 @@ export function bootstrap(
   )
 
   const actionsGetWorkflowAccessToRepositoryParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsGetWorkflowAccessToRepositoryResponseValidator =
@@ -25297,8 +25237,8 @@ export function bootstrap(
   )
 
   const actionsSetWorkflowAccessToRepositoryParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsSetWorkflowAccessToRepositoryBodySchema =
@@ -25336,8 +25276,8 @@ export function bootstrap(
   )
 
   const actionsGetAllowedActionsRepositoryParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsGetAllowedActionsRepositoryResponseValidator =
@@ -25369,8 +25309,8 @@ export function bootstrap(
   )
 
   const actionsSetAllowedActionsRepositoryParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsSetAllowedActionsRepositoryBodySchema = s_selected_actions
@@ -25407,7 +25347,7 @@ export function bootstrap(
   )
 
   const actionsGetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema =
-    z.object({ owner: z.coerce.string(), repo: z.coerce.string() })
+    z.object({ owner: z.string(), repo: z.string() })
 
   const actionsGetGithubActionsDefaultWorkflowPermissionsRepositoryResponseValidator =
     responseValidationFactory(
@@ -25445,7 +25385,7 @@ export function bootstrap(
   )
 
   const actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema =
-    z.object({ owner: z.coerce.string(), repo: z.coerce.string() })
+    z.object({ owner: z.string(), repo: z.string() })
 
   const actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySchema =
     s_actions_set_default_workflow_permissions
@@ -25492,12 +25432,12 @@ export function bootstrap(
   )
 
   const actionsListSelfHostedRunnersForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsListSelfHostedRunnersForRepoQuerySchema = z.object({
-    name: z.coerce.string().optional(),
+    name: z.string().optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
   })
@@ -25545,8 +25485,8 @@ export function bootstrap(
   )
 
   const actionsListRunnerApplicationsForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsListRunnerApplicationsForRepoResponseValidator =
@@ -25581,24 +25521,21 @@ export function bootstrap(
   )
 
   const actionsGenerateRunnerJitconfigForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsGenerateRunnerJitconfigForRepoBodySchema = z.object({
-    name: z.coerce.string(),
+    name: z.string(),
     runner_group_id: z.coerce.number(),
-    labels: z.array(z.coerce.string()),
-    work_folder: z.coerce.string().optional(),
+    labels: z.array(z.string()),
+    work_folder: z.string().optional(),
   })
 
   const actionsGenerateRunnerJitconfigForRepoResponseValidator =
     responseValidationFactory(
       [
-        [
-          "201",
-          z.object({ runner: s_runner, encoded_jit_config: z.coerce.string() }),
-        ],
+        ["201", z.object({ runner: s_runner, encoded_jit_config: z.string() })],
         ["404", s_basic_error],
         ["422", s_validation_error_simple],
       ],
@@ -25634,8 +25571,8 @@ export function bootstrap(
   )
 
   const actionsCreateRegistrationTokenForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsCreateRegistrationTokenForRepoResponseValidator =
@@ -25667,8 +25604,8 @@ export function bootstrap(
   )
 
   const actionsCreateRemoveTokenForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsCreateRemoveTokenForRepoResponseValidator =
@@ -25697,8 +25634,8 @@ export function bootstrap(
   )
 
   const actionsGetSelfHostedRunnerForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     runner_id: z.coerce.number(),
   })
 
@@ -25731,8 +25668,8 @@ export function bootstrap(
   )
 
   const actionsDeleteSelfHostedRunnerFromRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     runner_id: z.coerce.number(),
   })
 
@@ -25765,8 +25702,8 @@ export function bootstrap(
   )
 
   const actionsListLabelsForSelfHostedRunnerForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     runner_id: z.coerce.number(),
   })
 
@@ -25814,13 +25751,13 @@ export function bootstrap(
   )
 
   const actionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     runner_id: z.coerce.number(),
   })
 
   const actionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema = z.object({
-    labels: z.array(z.coerce.string()),
+    labels: z.array(z.string()),
   })
 
   const actionsAddCustomLabelsToSelfHostedRunnerForRepoResponseValidator =
@@ -25872,13 +25809,13 @@ export function bootstrap(
   )
 
   const actionsSetCustomLabelsForSelfHostedRunnerForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     runner_id: z.coerce.number(),
   })
 
   const actionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema = z.object({
-    labels: z.array(z.coerce.string()),
+    labels: z.array(z.string()),
   })
 
   const actionsSetCustomLabelsForSelfHostedRunnerForRepoResponseValidator =
@@ -25931,8 +25868,8 @@ export function bootstrap(
 
   const actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepoParamSchema =
     z.object({
-      owner: z.coerce.string(),
-      repo: z.coerce.string(),
+      owner: z.string(),
+      repo: z.string(),
       runner_id: z.coerce.number(),
     })
 
@@ -25982,10 +25919,10 @@ export function bootstrap(
 
   const actionsRemoveCustomLabelFromSelfHostedRunnerForRepoParamSchema =
     z.object({
-      owner: z.coerce.string(),
-      repo: z.coerce.string(),
+      owner: z.string(),
+      repo: z.string(),
       runner_id: z.coerce.number(),
-      name: z.coerce.string(),
+      name: z.string(),
     })
 
   const actionsRemoveCustomLabelFromSelfHostedRunnerForRepoResponseValidator =
@@ -26034,14 +25971,14 @@ export function bootstrap(
   )
 
   const actionsListWorkflowRunsForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsListWorkflowRunsForRepoQuerySchema = z.object({
-    actor: z.coerce.string().optional(),
-    branch: z.coerce.string().optional(),
-    event: z.coerce.string().optional(),
+    actor: z.string().optional(),
+    branch: z.string().optional(),
+    event: z.string().optional(),
     status: z
       .enum([
         "completed",
@@ -26062,10 +25999,10 @@ export function bootstrap(
       .optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
-    created: z.coerce.string().datetime({ offset: true }).optional(),
+    created: z.string().datetime({ offset: true }).optional(),
     exclude_pull_requests: z.coerce.boolean().optional(),
     check_suite_id: z.coerce.number().optional(),
-    head_sha: z.coerce.string().optional(),
+    head_sha: z.string().optional(),
   })
 
   const actionsListWorkflowRunsForRepoResponseValidator =
@@ -26108,8 +26045,8 @@ export function bootstrap(
   )
 
   const actionsGetWorkflowRunParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     run_id: z.coerce.number(),
   })
 
@@ -26144,8 +26081,8 @@ export function bootstrap(
   )
 
   const actionsDeleteWorkflowRunParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     run_id: z.coerce.number(),
   })
 
@@ -26179,8 +26116,8 @@ export function bootstrap(
   )
 
   const actionsGetReviewsForRunParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     run_id: z.coerce.number(),
   })
 
@@ -26214,8 +26151,8 @@ export function bootstrap(
   )
 
   const actionsApproveWorkflowRunParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     run_id: z.coerce.number(),
   })
 
@@ -26253,15 +26190,15 @@ export function bootstrap(
   )
 
   const actionsListWorkflowRunArtifactsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     run_id: z.coerce.number(),
   })
 
   const actionsListWorkflowRunArtifactsQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
-    name: z.coerce.string().optional(),
+    name: z.string().optional(),
   })
 
   const actionsListWorkflowRunArtifactsResponseValidator =
@@ -26304,8 +26241,8 @@ export function bootstrap(
   )
 
   const actionsGetWorkflowRunAttemptParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     run_id: z.coerce.number(),
     attempt_number: z.coerce.number(),
   })
@@ -26343,8 +26280,8 @@ export function bootstrap(
   )
 
   const actionsListJobsForWorkflowRunAttemptParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     run_id: z.coerce.number(),
     attempt_number: z.coerce.number(),
   })
@@ -26395,8 +26332,8 @@ export function bootstrap(
   )
 
   const actionsDownloadWorkflowRunAttemptLogsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     run_id: z.coerce.number(),
     attempt_number: z.coerce.number(),
   })
@@ -26430,8 +26367,8 @@ export function bootstrap(
   )
 
   const actionsCancelWorkflowRunParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     run_id: z.coerce.number(),
   })
 
@@ -26468,8 +26405,8 @@ export function bootstrap(
   )
 
   const actionsReviewCustomGatesForRunParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     run_id: z.coerce.number(),
   })
 
@@ -26507,8 +26444,8 @@ export function bootstrap(
   )
 
   const actionsListJobsForWorkflowRunParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     run_id: z.coerce.number(),
   })
 
@@ -26555,8 +26492,8 @@ export function bootstrap(
   )
 
   const actionsDownloadWorkflowRunLogsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     run_id: z.coerce.number(),
   })
 
@@ -26586,8 +26523,8 @@ export function bootstrap(
   )
 
   const actionsDeleteWorkflowRunLogsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     run_id: z.coerce.number(),
   })
 
@@ -26624,8 +26561,8 @@ export function bootstrap(
   )
 
   const actionsGetPendingDeploymentsForRunParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     run_id: z.coerce.number(),
   })
 
@@ -26661,15 +26598,15 @@ export function bootstrap(
   )
 
   const actionsReviewPendingDeploymentsForRunParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     run_id: z.coerce.number(),
   })
 
   const actionsReviewPendingDeploymentsForRunBodySchema = z.object({
     environment_ids: z.array(z.coerce.number()),
     state: z.enum(["approved", "rejected"]),
-    comment: z.coerce.string(),
+    comment: z.string(),
   })
 
   const actionsReviewPendingDeploymentsForRunResponseValidator =
@@ -26704,8 +26641,8 @@ export function bootstrap(
   )
 
   const actionsReRunWorkflowParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     run_id: z.coerce.number(),
   })
 
@@ -26744,8 +26681,8 @@ export function bootstrap(
   )
 
   const actionsReRunWorkflowFailedJobsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     run_id: z.coerce.number(),
   })
 
@@ -26783,8 +26720,8 @@ export function bootstrap(
   )
 
   const actionsGetWorkflowRunUsageParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     run_id: z.coerce.number(),
   })
 
@@ -26818,8 +26755,8 @@ export function bootstrap(
   )
 
   const actionsListRepoSecretsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsListRepoSecretsQuerySchema = z.object({
@@ -26865,8 +26802,8 @@ export function bootstrap(
   )
 
   const actionsGetRepoPublicKeyParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsGetRepoPublicKeyResponseValidator = responseValidationFactory(
@@ -26899,9 +26836,9 @@ export function bootstrap(
   )
 
   const actionsGetRepoSecretParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    secret_name: z.string(),
   })
 
   const actionsGetRepoSecretResponseValidator = responseValidationFactory(
@@ -26931,14 +26868,14 @@ export function bootstrap(
   )
 
   const actionsCreateOrUpdateRepoSecretParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    secret_name: z.string(),
   })
 
   const actionsCreateOrUpdateRepoSecretBodySchema = z.object({
-    encrypted_value: z.coerce.string().optional(),
-    key_id: z.coerce.string().optional(),
+    encrypted_value: z.string().optional(),
+    key_id: z.string().optional(),
   })
 
   const actionsCreateOrUpdateRepoSecretResponseValidator =
@@ -26976,9 +26913,9 @@ export function bootstrap(
   )
 
   const actionsDeleteRepoSecretParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    secret_name: z.string(),
   })
 
   const actionsDeleteRepoSecretResponseValidator = responseValidationFactory(
@@ -27011,8 +26948,8 @@ export function bootstrap(
   )
 
   const actionsListRepoVariablesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsListRepoVariablesQuerySchema = z.object({
@@ -27061,13 +26998,13 @@ export function bootstrap(
   )
 
   const actionsCreateRepoVariableParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsCreateRepoVariableBodySchema = z.object({
-    name: z.coerce.string(),
-    value: z.coerce.string(),
+    name: z.string(),
+    value: z.string(),
   })
 
   const actionsCreateRepoVariableResponseValidator = responseValidationFactory(
@@ -27103,9 +27040,9 @@ export function bootstrap(
   )
 
   const actionsGetRepoVariableParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    name: z.string(),
   })
 
   const actionsGetRepoVariableResponseValidator = responseValidationFactory(
@@ -27138,14 +27075,14 @@ export function bootstrap(
   )
 
   const actionsUpdateRepoVariableParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    name: z.string(),
   })
 
   const actionsUpdateRepoVariableBodySchema = z.object({
-    name: z.coerce.string().optional(),
-    value: z.coerce.string().optional(),
+    name: z.string().optional(),
+    value: z.string().optional(),
   })
 
   const actionsUpdateRepoVariableResponseValidator = responseValidationFactory(
@@ -27181,9 +27118,9 @@ export function bootstrap(
   )
 
   const actionsDeleteRepoVariableParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    name: z.string(),
   })
 
   const actionsDeleteRepoVariableResponseValidator = responseValidationFactory(
@@ -27216,8 +27153,8 @@ export function bootstrap(
   )
 
   const actionsListRepoWorkflowsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const actionsListRepoWorkflowsQuerySchema = z.object({
@@ -27266,9 +27203,9 @@ export function bootstrap(
   )
 
   const actionsGetWorkflowParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    workflow_id: z.union([z.coerce.number(), z.coerce.string()]),
+    owner: z.string(),
+    repo: z.string(),
+    workflow_id: z.union([z.coerce.number(), z.string()]),
   })
 
   const actionsGetWorkflowResponseValidator = responseValidationFactory(
@@ -27298,9 +27235,9 @@ export function bootstrap(
   )
 
   const actionsDisableWorkflowParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    workflow_id: z.union([z.coerce.number(), z.coerce.string()]),
+    owner: z.string(),
+    repo: z.string(),
+    workflow_id: z.union([z.coerce.number(), z.string()]),
   })
 
   const actionsDisableWorkflowResponseValidator = responseValidationFactory(
@@ -27333,13 +27270,13 @@ export function bootstrap(
   )
 
   const actionsCreateWorkflowDispatchParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    workflow_id: z.union([z.coerce.number(), z.coerce.string()]),
+    owner: z.string(),
+    repo: z.string(),
+    workflow_id: z.union([z.coerce.number(), z.string()]),
   })
 
   const actionsCreateWorkflowDispatchBodySchema = z.object({
-    ref: z.coerce.string(),
+    ref: z.string(),
     inputs: z.object({}).optional(),
   })
 
@@ -27372,9 +27309,9 @@ export function bootstrap(
   )
 
   const actionsEnableWorkflowParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    workflow_id: z.union([z.coerce.number(), z.coerce.string()]),
+    owner: z.string(),
+    repo: z.string(),
+    workflow_id: z.union([z.coerce.number(), z.string()]),
   })
 
   const actionsEnableWorkflowResponseValidator = responseValidationFactory(
@@ -27404,15 +27341,15 @@ export function bootstrap(
   )
 
   const actionsListWorkflowRunsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    workflow_id: z.union([z.coerce.number(), z.coerce.string()]),
+    owner: z.string(),
+    repo: z.string(),
+    workflow_id: z.union([z.coerce.number(), z.string()]),
   })
 
   const actionsListWorkflowRunsQuerySchema = z.object({
-    actor: z.coerce.string().optional(),
-    branch: z.coerce.string().optional(),
-    event: z.coerce.string().optional(),
+    actor: z.string().optional(),
+    branch: z.string().optional(),
+    event: z.string().optional(),
     status: z
       .enum([
         "completed",
@@ -27433,10 +27370,10 @@ export function bootstrap(
       .optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
-    created: z.coerce.string().datetime({ offset: true }).optional(),
+    created: z.string().datetime({ offset: true }).optional(),
     exclude_pull_requests: z.coerce.boolean().optional(),
     check_suite_id: z.coerce.number().optional(),
-    head_sha: z.coerce.string().optional(),
+    head_sha: z.string().optional(),
   })
 
   const actionsListWorkflowRunsResponseValidator = responseValidationFactory(
@@ -27477,9 +27414,9 @@ export function bootstrap(
   )
 
   const actionsGetWorkflowUsageParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    workflow_id: z.union([z.coerce.number(), z.coerce.string()]),
+    owner: z.string(),
+    repo: z.string(),
+    workflow_id: z.union([z.coerce.number(), z.string()]),
   })
 
   const actionsGetWorkflowUsageResponseValidator = responseValidationFactory(
@@ -27512,17 +27449,17 @@ export function bootstrap(
   )
 
   const reposListActivitiesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposListActivitiesQuerySchema = z.object({
     direction: z.enum(["asc", "desc"]).optional(),
     per_page: z.coerce.number().optional(),
-    before: z.coerce.string().optional(),
-    after: z.coerce.string().optional(),
-    ref: z.coerce.string().optional(),
-    actor: z.coerce.string().optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+    ref: z.string().optional(),
+    actor: z.string().optional(),
     time_period: z.enum(["day", "week", "month", "quarter", "year"]).optional(),
     activity_type: z
       .enum([
@@ -27566,8 +27503,8 @@ export function bootstrap(
   )
 
   const issuesListAssigneesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const issuesListAssigneesQuerySchema = z.object({
@@ -27605,9 +27542,9 @@ export function bootstrap(
   )
 
   const issuesCheckUserCanBeAssignedParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    assignee: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    assignee: z.string(),
   })
 
   const issuesCheckUserCanBeAssignedResponseValidator =
@@ -27642,8 +27579,8 @@ export function bootstrap(
   )
 
   const reposListAutolinksParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposListAutolinksQuerySchema = z.object({
@@ -27677,13 +27614,13 @@ export function bootstrap(
   )
 
   const reposCreateAutolinkParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposCreateAutolinkBodySchema = z.object({
-    key_prefix: z.coerce.string(),
-    url_template: z.coerce.string(),
+    key_prefix: z.string(),
+    url_template: z.string(),
     is_alphanumeric: z.coerce.boolean().optional(),
   })
 
@@ -27720,8 +27657,8 @@ export function bootstrap(
   )
 
   const reposGetAutolinkParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     autolink_id: z.coerce.number(),
   })
 
@@ -27752,8 +27689,8 @@ export function bootstrap(
   )
 
   const reposDeleteAutolinkParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     autolink_id: z.coerce.number(),
   })
 
@@ -27787,8 +27724,8 @@ export function bootstrap(
   )
 
   const reposCheckAutomatedSecurityFixesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposCheckAutomatedSecurityFixesResponseValidator =
@@ -27823,8 +27760,8 @@ export function bootstrap(
   )
 
   const reposEnableAutomatedSecurityFixesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposEnableAutomatedSecurityFixesResponseValidator =
@@ -27856,8 +27793,8 @@ export function bootstrap(
   )
 
   const reposDisableAutomatedSecurityFixesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposDisableAutomatedSecurityFixesResponseValidator =
@@ -27889,8 +27826,8 @@ export function bootstrap(
   )
 
   const reposListBranchesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposListBranchesQuerySchema = z.object({
@@ -27929,9 +27866,9 @@ export function bootstrap(
   )
 
   const reposGetBranchParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposGetBranchResponseValidator = responseValidationFactory(
@@ -27962,9 +27899,9 @@ export function bootstrap(
   )
 
   const reposGetBranchProtectionParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposGetBranchProtectionResponseValidator = responseValidationFactory(
@@ -28000,20 +27937,20 @@ export function bootstrap(
   )
 
   const reposUpdateBranchProtectionParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposUpdateBranchProtectionBodySchema = z.object({
     required_status_checks: z
       .object({
         strict: z.coerce.boolean(),
-        contexts: z.array(z.coerce.string()),
+        contexts: z.array(z.string()),
         checks: z
           .array(
             z.object({
-              context: z.coerce.string(),
+              context: z.string(),
               app_id: z.coerce.number().optional(),
             }),
           )
@@ -28025,9 +27962,9 @@ export function bootstrap(
       .object({
         dismissal_restrictions: z
           .object({
-            users: z.array(z.coerce.string()).optional(),
-            teams: z.array(z.coerce.string()).optional(),
-            apps: z.array(z.coerce.string()).optional(),
+            users: z.array(z.string()).optional(),
+            teams: z.array(z.string()).optional(),
+            apps: z.array(z.string()).optional(),
           })
           .optional(),
         dismiss_stale_reviews: z.coerce.boolean().optional(),
@@ -28036,18 +27973,18 @@ export function bootstrap(
         require_last_push_approval: z.coerce.boolean().optional(),
         bypass_pull_request_allowances: z
           .object({
-            users: z.array(z.coerce.string()).optional(),
-            teams: z.array(z.coerce.string()).optional(),
-            apps: z.array(z.coerce.string()).optional(),
+            users: z.array(z.string()).optional(),
+            teams: z.array(z.string()).optional(),
+            apps: z.array(z.string()).optional(),
           })
           .optional(),
       })
       .nullable(),
     restrictions: z
       .object({
-        users: z.array(z.coerce.string()),
-        teams: z.array(z.coerce.string()),
-        apps: z.array(z.coerce.string()).optional(),
+        users: z.array(z.string()),
+        teams: z.array(z.string()),
+        apps: z.array(z.string()).optional(),
       })
       .nullable(),
     required_linear_history: z.coerce.boolean().optional(),
@@ -28098,9 +28035,9 @@ export function bootstrap(
   )
 
   const reposDeleteBranchProtectionParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposDeleteBranchProtectionResponseValidator =
@@ -28137,9 +28074,9 @@ export function bootstrap(
   )
 
   const reposGetAdminBranchProtectionParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposGetAdminBranchProtectionResponseValidator =
@@ -28171,9 +28108,9 @@ export function bootstrap(
   )
 
   const reposSetAdminBranchProtectionParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposSetAdminBranchProtectionResponseValidator =
@@ -28205,9 +28142,9 @@ export function bootstrap(
   )
 
   const reposDeleteAdminBranchProtectionParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposDeleteAdminBranchProtectionResponseValidator =
@@ -28242,9 +28179,9 @@ export function bootstrap(
   )
 
   const reposGetPullRequestReviewProtectionParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposGetPullRequestReviewProtectionResponseValidator =
@@ -28279,18 +28216,18 @@ export function bootstrap(
   )
 
   const reposUpdatePullRequestReviewProtectionParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposUpdatePullRequestReviewProtectionBodySchema = z
     .object({
       dismissal_restrictions: z
         .object({
-          users: z.array(z.coerce.string()).optional(),
-          teams: z.array(z.coerce.string()).optional(),
-          apps: z.array(z.coerce.string()).optional(),
+          users: z.array(z.string()).optional(),
+          teams: z.array(z.string()).optional(),
+          apps: z.array(z.string()).optional(),
         })
         .optional(),
       dismiss_stale_reviews: z.coerce.boolean().optional(),
@@ -28299,9 +28236,9 @@ export function bootstrap(
       require_last_push_approval: z.coerce.boolean().optional(),
       bypass_pull_request_allowances: z
         .object({
-          users: z.array(z.coerce.string()).optional(),
-          teams: z.array(z.coerce.string()).optional(),
-          apps: z.array(z.coerce.string()).optional(),
+          users: z.array(z.string()).optional(),
+          teams: z.array(z.string()).optional(),
+          apps: z.array(z.string()).optional(),
         })
         .optional(),
     })
@@ -28345,9 +28282,9 @@ export function bootstrap(
   )
 
   const reposDeletePullRequestReviewProtectionParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposDeletePullRequestReviewProtectionResponseValidator =
@@ -28385,9 +28322,9 @@ export function bootstrap(
   )
 
   const reposGetCommitSignatureProtectionParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposGetCommitSignatureProtectionResponseValidator =
@@ -28425,9 +28362,9 @@ export function bootstrap(
   )
 
   const reposCreateCommitSignatureProtectionParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposCreateCommitSignatureProtectionResponseValidator =
@@ -28465,9 +28402,9 @@ export function bootstrap(
   )
 
   const reposDeleteCommitSignatureProtectionParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposDeleteCommitSignatureProtectionResponseValidator =
@@ -28505,9 +28442,9 @@ export function bootstrap(
   )
 
   const reposGetStatusChecksProtectionParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposGetStatusChecksProtectionResponseValidator =
@@ -28542,19 +28479,19 @@ export function bootstrap(
   )
 
   const reposUpdateStatusCheckProtectionParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposUpdateStatusCheckProtectionBodySchema = z
     .object({
       strict: z.coerce.boolean().optional(),
-      contexts: z.array(z.coerce.string()).optional(),
+      contexts: z.array(z.string()).optional(),
       checks: z
         .array(
           z.object({
-            context: z.coerce.string(),
+            context: z.string(),
             app_id: z.coerce.number().optional(),
           }),
         )
@@ -28598,9 +28535,9 @@ export function bootstrap(
   )
 
   const reposRemoveStatusCheckProtectionParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposRemoveStatusCheckProtectionResponseValidator =
@@ -28629,15 +28566,15 @@ export function bootstrap(
   )
 
   const reposGetAllStatusCheckContextsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposGetAllStatusCheckContextsResponseValidator =
     responseValidationFactory(
       [
-        ["200", z.array(z.coerce.string())],
+        ["200", z.array(z.string())],
         ["404", s_basic_error],
       ],
       undefined,
@@ -28666,20 +28603,20 @@ export function bootstrap(
   )
 
   const reposAddStatusCheckContextsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposAddStatusCheckContextsBodySchema = z.union([
-    z.object({ contexts: z.array(z.coerce.string()) }),
-    z.array(z.coerce.string()),
+    z.object({ contexts: z.array(z.string()) }),
+    z.array(z.string()),
   ])
 
   const reposAddStatusCheckContextsResponseValidator =
     responseValidationFactory(
       [
-        ["200", z.array(z.coerce.string())],
+        ["200", z.array(z.string())],
         ["403", s_basic_error],
         ["404", s_basic_error],
         ["422", s_validation_error],
@@ -28715,20 +28652,20 @@ export function bootstrap(
   )
 
   const reposSetStatusCheckContextsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposSetStatusCheckContextsBodySchema = z.union([
-    z.object({ contexts: z.array(z.coerce.string()) }),
-    z.array(z.coerce.string()),
+    z.object({ contexts: z.array(z.string()) }),
+    z.array(z.string()),
   ])
 
   const reposSetStatusCheckContextsResponseValidator =
     responseValidationFactory(
       [
-        ["200", z.array(z.coerce.string())],
+        ["200", z.array(z.string())],
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
@@ -28763,20 +28700,20 @@ export function bootstrap(
   )
 
   const reposRemoveStatusCheckContextsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposRemoveStatusCheckContextsBodySchema = z.union([
-    z.object({ contexts: z.array(z.coerce.string()) }),
-    z.array(z.coerce.string()),
+    z.object({ contexts: z.array(z.string()) }),
+    z.array(z.string()),
   ])
 
   const reposRemoveStatusCheckContextsResponseValidator =
     responseValidationFactory(
       [
-        ["200", z.array(z.coerce.string())],
+        ["200", z.array(z.string())],
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
@@ -28809,9 +28746,9 @@ export function bootstrap(
   )
 
   const reposGetAccessRestrictionsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposGetAccessRestrictionsResponseValidator = responseValidationFactory(
@@ -28847,9 +28784,9 @@ export function bootstrap(
   )
 
   const reposDeleteAccessRestrictionsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposDeleteAccessRestrictionsResponseValidator =
@@ -28878,9 +28815,9 @@ export function bootstrap(
   )
 
   const reposGetAppsWithAccessToProtectedBranchParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposGetAppsWithAccessToProtectedBranchResponseValidator =
@@ -28918,14 +28855,14 @@ export function bootstrap(
   )
 
   const reposAddAppAccessRestrictionsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposAddAppAccessRestrictionsBodySchema = z.union([
-    z.object({ apps: z.array(z.coerce.string()) }),
-    z.array(z.coerce.string()),
+    z.object({ apps: z.array(z.string()) }),
+    z.array(z.string()),
   ])
 
   const reposAddAppAccessRestrictionsResponseValidator =
@@ -28963,14 +28900,14 @@ export function bootstrap(
   )
 
   const reposSetAppAccessRestrictionsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposSetAppAccessRestrictionsBodySchema = z.union([
-    z.object({ apps: z.array(z.coerce.string()) }),
-    z.array(z.coerce.string()),
+    z.object({ apps: z.array(z.string()) }),
+    z.array(z.string()),
   ])
 
   const reposSetAppAccessRestrictionsResponseValidator =
@@ -29008,14 +28945,14 @@ export function bootstrap(
   )
 
   const reposRemoveAppAccessRestrictionsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposRemoveAppAccessRestrictionsBodySchema = z.union([
-    z.object({ apps: z.array(z.coerce.string()) }),
-    z.array(z.coerce.string()),
+    z.object({ apps: z.array(z.string()) }),
+    z.array(z.string()),
   ])
 
   const reposRemoveAppAccessRestrictionsResponseValidator =
@@ -29053,9 +28990,9 @@ export function bootstrap(
   )
 
   const reposGetTeamsWithAccessToProtectedBranchParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposGetTeamsWithAccessToProtectedBranchResponseValidator =
@@ -29096,14 +29033,14 @@ export function bootstrap(
   )
 
   const reposAddTeamAccessRestrictionsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposAddTeamAccessRestrictionsBodySchema = z.union([
-    z.object({ teams: z.array(z.coerce.string()) }),
-    z.array(z.coerce.string()),
+    z.object({ teams: z.array(z.string()) }),
+    z.array(z.string()),
   ])
 
   const reposAddTeamAccessRestrictionsResponseValidator =
@@ -29141,14 +29078,14 @@ export function bootstrap(
   )
 
   const reposSetTeamAccessRestrictionsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposSetTeamAccessRestrictionsBodySchema = z.union([
-    z.object({ teams: z.array(z.coerce.string()) }),
-    z.array(z.coerce.string()),
+    z.object({ teams: z.array(z.string()) }),
+    z.array(z.string()),
   ])
 
   const reposSetTeamAccessRestrictionsResponseValidator =
@@ -29186,14 +29123,14 @@ export function bootstrap(
   )
 
   const reposRemoveTeamAccessRestrictionsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposRemoveTeamAccessRestrictionsBodySchema = z.union([
-    z.object({ teams: z.array(z.coerce.string()) }),
-    z.array(z.coerce.string()),
+    z.object({ teams: z.array(z.string()) }),
+    z.array(z.string()),
   ])
 
   const reposRemoveTeamAccessRestrictionsResponseValidator =
@@ -29234,9 +29171,9 @@ export function bootstrap(
   )
 
   const reposGetUsersWithAccessToProtectedBranchParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposGetUsersWithAccessToProtectedBranchResponseValidator =
@@ -29277,14 +29214,14 @@ export function bootstrap(
   )
 
   const reposAddUserAccessRestrictionsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposAddUserAccessRestrictionsBodySchema = z.union([
-    z.object({ users: z.array(z.coerce.string()) }),
-    z.array(z.coerce.string()),
+    z.object({ users: z.array(z.string()) }),
+    z.array(z.string()),
   ])
 
   const reposAddUserAccessRestrictionsResponseValidator =
@@ -29322,14 +29259,14 @@ export function bootstrap(
   )
 
   const reposSetUserAccessRestrictionsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposSetUserAccessRestrictionsBodySchema = z.union([
-    z.object({ users: z.array(z.coerce.string()) }),
-    z.array(z.coerce.string()),
+    z.object({ users: z.array(z.string()) }),
+    z.array(z.string()),
   ])
 
   const reposSetUserAccessRestrictionsResponseValidator =
@@ -29367,14 +29304,14 @@ export function bootstrap(
   )
 
   const reposRemoveUserAccessRestrictionsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposRemoveUserAccessRestrictionsBodySchema = z.union([
-    z.object({ users: z.array(z.coerce.string()) }),
-    z.array(z.coerce.string()),
+    z.object({ users: z.array(z.string()) }),
+    z.array(z.string()),
   ])
 
   const reposRemoveUserAccessRestrictionsResponseValidator =
@@ -29415,12 +29352,12 @@ export function bootstrap(
   )
 
   const reposRenameBranchParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
-  const reposRenameBranchBodySchema = z.object({ new_name: z.coerce.string() })
+  const reposRenameBranchBodySchema = z.object({ new_name: z.string() })
 
   const reposRenameBranchResponseValidator = responseValidationFactory(
     [
@@ -29454,8 +29391,8 @@ export function bootstrap(
   )
 
   const checksCreateParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const checksCreateBodySchema = z.union([
@@ -29487,8 +29424,8 @@ export function bootstrap(
   )
 
   const checksGetParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     check_run_id: z.coerce.number(),
   })
 
@@ -29516,16 +29453,16 @@ export function bootstrap(
   )
 
   const checksUpdateParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     check_run_id: z.coerce.number(),
   })
 
   const checksUpdateBodySchema = z.object({
-    name: z.coerce.string().optional(),
-    details_url: z.coerce.string().optional(),
-    external_id: z.coerce.string().optional(),
-    started_at: z.coerce.string().datetime({ offset: true }).optional(),
+    name: z.string().optional(),
+    details_url: z.string().optional(),
+    external_id: z.string().optional(),
+    started_at: z.string().datetime({ offset: true }).optional(),
     status: z.enum(["queued", "in_progress", "completed"]).optional(),
     conclusion: z
       .enum([
@@ -29539,33 +29476,33 @@ export function bootstrap(
         "timed_out",
       ])
       .optional(),
-    completed_at: z.coerce.string().datetime({ offset: true }).optional(),
+    completed_at: z.string().datetime({ offset: true }).optional(),
     output: z
       .object({
-        title: z.coerce.string().optional(),
-        summary: z.coerce.string(),
-        text: z.coerce.string().optional(),
+        title: z.string().optional(),
+        summary: z.string(),
+        text: z.string().optional(),
         annotations: z
           .array(
             z.object({
-              path: z.coerce.string(),
+              path: z.string(),
               start_line: z.coerce.number(),
               end_line: z.coerce.number(),
               start_column: z.coerce.number().optional(),
               end_column: z.coerce.number().optional(),
               annotation_level: z.enum(["notice", "warning", "failure"]),
-              message: z.coerce.string(),
-              title: z.coerce.string().optional(),
-              raw_details: z.coerce.string().optional(),
+              message: z.string(),
+              title: z.string().optional(),
+              raw_details: z.string().optional(),
             }),
           )
           .optional(),
         images: z
           .array(
             z.object({
-              alt: z.coerce.string(),
-              image_url: z.coerce.string(),
-              caption: z.coerce.string().optional(),
+              alt: z.string(),
+              image_url: z.string(),
+              caption: z.string().optional(),
             }),
           )
           .optional(),
@@ -29574,9 +29511,9 @@ export function bootstrap(
     actions: z
       .array(
         z.object({
-          label: z.coerce.string(),
-          description: z.coerce.string(),
-          identifier: z.coerce.string(),
+          label: z.string(),
+          description: z.string(),
+          identifier: z.string(),
         }),
       )
       .optional(),
@@ -29606,8 +29543,8 @@ export function bootstrap(
   )
 
   const checksListAnnotationsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     check_run_id: z.coerce.number(),
   })
 
@@ -29643,8 +29580,8 @@ export function bootstrap(
   )
 
   const checksRerequestRunParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     check_run_id: z.coerce.number(),
   })
 
@@ -29680,11 +29617,11 @@ export function bootstrap(
   )
 
   const checksCreateSuiteParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
-  const checksCreateSuiteBodySchema = z.object({ head_sha: z.coerce.string() })
+  const checksCreateSuiteBodySchema = z.object({ head_sha: z.string() })
 
   const checksCreateSuiteResponseValidator = responseValidationFactory(
     [
@@ -29716,8 +29653,8 @@ export function bootstrap(
   )
 
   const checksSetSuitesPreferencesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const checksSetSuitesPreferencesBodySchema = z.object({
@@ -29761,8 +29698,8 @@ export function bootstrap(
   )
 
   const checksGetSuiteParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     check_suite_id: z.coerce.number(),
   })
 
@@ -29790,13 +29727,13 @@ export function bootstrap(
   )
 
   const checksListForSuiteParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     check_suite_id: z.coerce.number(),
   })
 
   const checksListForSuiteQuerySchema = z.object({
-    check_name: z.coerce.string().optional(),
+    check_name: z.string().optional(),
     status: z.enum(["queued", "in_progress", "completed"]).optional(),
     filter: z.enum(["latest", "all"]).optional(),
     per_page: z.coerce.number().optional(),
@@ -29838,8 +29775,8 @@ export function bootstrap(
   )
 
   const checksRerequestSuiteParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     check_suite_id: z.coerce.number(),
   })
 
@@ -29870,8 +29807,8 @@ export function bootstrap(
   )
 
   const codeScanningListAlertsForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const codeScanningListAlertsForRepoQuerySchema = z.object({
@@ -29896,9 +29833,9 @@ export function bootstrap(
         [
           "503",
           z.object({
-            code: z.coerce.string().optional(),
-            message: z.coerce.string().optional(),
-            documentation_url: z.coerce.string().optional(),
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
           }),
         ],
       ],
@@ -29931,8 +29868,8 @@ export function bootstrap(
   )
 
   const codeScanningGetAlertParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     alert_number: s_alert_number,
   })
 
@@ -29945,9 +29882,9 @@ export function bootstrap(
       [
         "503",
         z.object({
-          code: z.coerce.string().optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
     ],
@@ -29976,8 +29913,8 @@ export function bootstrap(
   )
 
   const codeScanningUpdateAlertParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     alert_number: s_alert_number,
   })
 
@@ -29995,9 +29932,9 @@ export function bootstrap(
       [
         "503",
         z.object({
-          code: z.coerce.string().optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
     ],
@@ -30032,8 +29969,8 @@ export function bootstrap(
   )
 
   const codeScanningListAlertInstancesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     alert_number: s_alert_number,
   })
 
@@ -30052,9 +29989,9 @@ export function bootstrap(
         [
           "503",
           z.object({
-            code: z.coerce.string().optional(),
-            message: z.coerce.string().optional(),
-            documentation_url: z.coerce.string().optional(),
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
           }),
         ],
       ],
@@ -30087,8 +30024,8 @@ export function bootstrap(
   )
 
   const codeScanningListRecentAnalysesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const codeScanningListRecentAnalysesQuerySchema = z.object({
@@ -30111,9 +30048,9 @@ export function bootstrap(
         [
           "503",
           z.object({
-            code: z.coerce.string().optional(),
-            message: z.coerce.string().optional(),
-            documentation_url: z.coerce.string().optional(),
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
           }),
         ],
       ],
@@ -30146,8 +30083,8 @@ export function bootstrap(
   )
 
   const codeScanningGetAnalysisParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     analysis_id: z.coerce.number(),
   })
 
@@ -30159,9 +30096,9 @@ export function bootstrap(
       [
         "503",
         z.object({
-          code: z.coerce.string().optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
     ],
@@ -30193,13 +30130,13 @@ export function bootstrap(
   )
 
   const codeScanningDeleteAnalysisParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     analysis_id: z.coerce.number(),
   })
 
   const codeScanningDeleteAnalysisQuerySchema = z.object({
-    confirm_delete: z.coerce.string().optional().nullable(),
+    confirm_delete: z.string().optional().nullable(),
   })
 
   const codeScanningDeleteAnalysisResponseValidator = responseValidationFactory(
@@ -30211,9 +30148,9 @@ export function bootstrap(
       [
         "503",
         z.object({
-          code: z.coerce.string().optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
     ],
@@ -30248,8 +30185,8 @@ export function bootstrap(
   )
 
   const codeScanningListCodeqlDatabasesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const codeScanningListCodeqlDatabasesResponseValidator =
@@ -30261,9 +30198,9 @@ export function bootstrap(
         [
           "503",
           z.object({
-            code: z.coerce.string().optional(),
-            message: z.coerce.string().optional(),
-            documentation_url: z.coerce.string().optional(),
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
           }),
         ],
       ],
@@ -30293,9 +30230,9 @@ export function bootstrap(
   )
 
   const codeScanningGetCodeqlDatabaseParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    language: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    language: z.string(),
   })
 
   const codeScanningGetCodeqlDatabaseResponseValidator =
@@ -30308,9 +30245,9 @@ export function bootstrap(
         [
           "503",
           z.object({
-            code: z.coerce.string().optional(),
-            message: z.coerce.string().optional(),
-            documentation_url: z.coerce.string().optional(),
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
           }),
         ],
       ],
@@ -30340,8 +30277,8 @@ export function bootstrap(
   )
 
   const codeScanningGetDefaultSetupParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const codeScanningGetDefaultSetupResponseValidator =
@@ -30353,9 +30290,9 @@ export function bootstrap(
         [
           "503",
           z.object({
-            code: z.coerce.string().optional(),
-            message: z.coerce.string().optional(),
-            documentation_url: z.coerce.string().optional(),
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
           }),
         ],
       ],
@@ -30387,8 +30324,8 @@ export function bootstrap(
   )
 
   const codeScanningUpdateDefaultSetupParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const codeScanningUpdateDefaultSetupBodySchema =
@@ -30405,9 +30342,9 @@ export function bootstrap(
         [
           "503",
           z.object({
-            code: z.coerce.string().optional(),
-            message: z.coerce.string().optional(),
-            documentation_url: z.coerce.string().optional(),
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
           }),
         ],
       ],
@@ -30440,17 +30377,17 @@ export function bootstrap(
   )
 
   const codeScanningUploadSarifParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const codeScanningUploadSarifBodySchema = z.object({
     commit_sha: s_code_scanning_analysis_commit_sha,
     ref: s_code_scanning_ref,
     sarif: s_code_scanning_analysis_sarif_file,
-    checkout_uri: z.coerce.string().optional(),
-    started_at: z.coerce.string().datetime({ offset: true }).optional(),
-    tool_name: z.coerce.string().optional(),
+    checkout_uri: z.string().optional(),
+    started_at: z.string().datetime({ offset: true }).optional(),
+    tool_name: z.string().optional(),
     validate: z.coerce.boolean().optional(),
   })
 
@@ -30464,9 +30401,9 @@ export function bootstrap(
       [
         "503",
         z.object({
-          code: z.coerce.string().optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
     ],
@@ -30501,9 +30438,9 @@ export function bootstrap(
   )
 
   const codeScanningGetSarifParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    sarif_id: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    sarif_id: z.string(),
   })
 
   const codeScanningGetSarifResponseValidator = responseValidationFactory(
@@ -30514,9 +30451,9 @@ export function bootstrap(
       [
         "503",
         z.object({
-          code: z.coerce.string().optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
     ],
@@ -30545,12 +30482,12 @@ export function bootstrap(
   )
 
   const reposCodeownersErrorsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposCodeownersErrorsQuerySchema = z.object({
-    ref: z.coerce.string().optional(),
+    ref: z.string().optional(),
   })
 
   const reposCodeownersErrorsResponseValidator = responseValidationFactory(
@@ -30583,8 +30520,8 @@ export function bootstrap(
   )
 
   const codespacesListInRepositoryForAuthenticatedUserParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const codespacesListInRepositoryForAuthenticatedUserQuerySchema = z.object({
@@ -30643,24 +30580,24 @@ export function bootstrap(
   )
 
   const codespacesCreateWithRepoForAuthenticatedUserParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const codespacesCreateWithRepoForAuthenticatedUserBodySchema = z
     .object({
-      ref: z.coerce.string().optional(),
-      location: z.coerce.string().optional(),
+      ref: z.string().optional(),
+      location: z.string().optional(),
       geo: z
         .enum(["EuropeWest", "SoutheastAsia", "UsEast", "UsWest"])
         .optional(),
-      client_ip: z.coerce.string().optional(),
-      machine: z.coerce.string().optional(),
-      devcontainer_path: z.coerce.string().optional(),
+      client_ip: z.string().optional(),
+      machine: z.string().optional(),
+      devcontainer_path: z.string().optional(),
       multi_repo_permissions_opt_out: z.coerce.boolean().optional(),
-      working_directory: z.coerce.string().optional(),
+      working_directory: z.string().optional(),
       idle_timeout_minutes: z.coerce.number().optional(),
-      display_name: z.coerce.string().optional(),
+      display_name: z.string().optional(),
       retention_period_minutes: z.coerce.number().optional(),
     })
     .nullable()
@@ -30677,9 +30614,9 @@ export function bootstrap(
         [
           "503",
           z.object({
-            code: z.coerce.string().optional(),
-            message: z.coerce.string().optional(),
-            documentation_url: z.coerce.string().optional(),
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
           }),
         ],
       ],
@@ -30718,7 +30655,7 @@ export function bootstrap(
   )
 
   const codespacesListDevcontainersInRepositoryForAuthenticatedUserParamSchema =
-    z.object({ owner: z.coerce.string(), repo: z.coerce.string() })
+    z.object({ owner: z.string(), repo: z.string() })
 
   const codespacesListDevcontainersInRepositoryForAuthenticatedUserQuerySchema =
     z.object({
@@ -30735,9 +30672,9 @@ export function bootstrap(
             total_count: z.coerce.number(),
             devcontainers: z.array(
               z.object({
-                path: z.coerce.string(),
-                name: z.coerce.string().optional(),
-                display_name: z.coerce.string().optional(),
+                path: z.string(),
+                name: z.string().optional(),
+                display_name: z.string().optional(),
               }),
             ),
           }),
@@ -30784,14 +30721,14 @@ export function bootstrap(
   )
 
   const codespacesRepoMachinesForAuthenticatedUserParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const codespacesRepoMachinesForAuthenticatedUserQuerySchema = z.object({
-    location: z.coerce.string().optional(),
-    client_ip: z.coerce.string().optional(),
-    ref: z.coerce.string().optional(),
+    location: z.string().optional(),
+    client_ip: z.string().optional(),
+    ref: z.string().optional(),
   })
 
   const codespacesRepoMachinesForAuthenticatedUserResponseValidator =
@@ -30845,13 +30782,13 @@ export function bootstrap(
   )
 
   const codespacesPreFlightWithRepoForAuthenticatedUserParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const codespacesPreFlightWithRepoForAuthenticatedUserQuerySchema = z.object({
-    ref: z.coerce.string().optional(),
-    client_ip: z.coerce.string().optional(),
+    ref: z.string().optional(),
+    client_ip: z.string().optional(),
   })
 
   const codespacesPreFlightWithRepoForAuthenticatedUserResponseValidator =
@@ -30863,8 +30800,8 @@ export function bootstrap(
             billable_owner: s_simple_user,
             defaults: z
               .object({
-                location: z.coerce.string(),
-                devcontainer_path: z.coerce.string().nullable(),
+                location: z.string(),
+                devcontainer_path: z.string().nullable(),
               })
               .optional(),
           }),
@@ -30909,8 +30846,8 @@ export function bootstrap(
   )
 
   const codespacesListRepoSecretsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const codespacesListRepoSecretsQuerySchema = z.object({
@@ -30959,8 +30896,8 @@ export function bootstrap(
   )
 
   const codespacesGetRepoPublicKeyParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const codespacesGetRepoPublicKeyResponseValidator = responseValidationFactory(
@@ -30993,9 +30930,9 @@ export function bootstrap(
   )
 
   const codespacesGetRepoSecretParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    secret_name: z.string(),
   })
 
   const codespacesGetRepoSecretResponseValidator = responseValidationFactory(
@@ -31028,14 +30965,14 @@ export function bootstrap(
   )
 
   const codespacesCreateOrUpdateRepoSecretParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    secret_name: z.string(),
   })
 
   const codespacesCreateOrUpdateRepoSecretBodySchema = z.object({
-    encrypted_value: z.coerce.string().optional(),
-    key_id: z.coerce.string().optional(),
+    encrypted_value: z.string().optional(),
+    key_id: z.string().optional(),
   })
 
   const codespacesCreateOrUpdateRepoSecretResponseValidator =
@@ -31076,9 +31013,9 @@ export function bootstrap(
   )
 
   const codespacesDeleteRepoSecretParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    secret_name: z.string(),
   })
 
   const codespacesDeleteRepoSecretResponseValidator = responseValidationFactory(
@@ -31111,8 +31048,8 @@ export function bootstrap(
   )
 
   const reposListCollaboratorsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposListCollaboratorsQuerySchema = z.object({
@@ -31157,9 +31094,9 @@ export function bootstrap(
   )
 
   const reposCheckCollaboratorParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    username: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    username: z.string(),
   })
 
   const reposCheckCollaboratorResponseValidator = responseValidationFactory(
@@ -31195,13 +31132,13 @@ export function bootstrap(
   )
 
   const reposAddCollaboratorParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    username: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    username: z.string(),
   })
 
   const reposAddCollaboratorBodySchema = z
-    .object({ permission: z.coerce.string().optional() })
+    .object({ permission: z.string().optional() })
     .optional()
 
   const reposAddCollaboratorResponseValidator = responseValidationFactory(
@@ -31239,9 +31176,9 @@ export function bootstrap(
   )
 
   const reposRemoveCollaboratorParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    username: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    username: z.string(),
   })
 
   const reposRemoveCollaboratorResponseValidator = responseValidationFactory(
@@ -31278,9 +31215,9 @@ export function bootstrap(
   )
 
   const reposGetCollaboratorPermissionLevelParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    username: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    username: z.string(),
   })
 
   const reposGetCollaboratorPermissionLevelResponseValidator =
@@ -31318,8 +31255,8 @@ export function bootstrap(
   )
 
   const reposListCommitCommentsForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposListCommitCommentsForRepoQuerySchema = z.object({
@@ -31356,8 +31293,8 @@ export function bootstrap(
   )
 
   const reposGetCommitCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     comment_id: z.coerce.number(),
   })
 
@@ -31391,14 +31328,12 @@ export function bootstrap(
   )
 
   const reposUpdateCommitCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     comment_id: z.coerce.number(),
   })
 
-  const reposUpdateCommitCommentBodySchema = z.object({
-    body: z.coerce.string(),
-  })
+  const reposUpdateCommitCommentBodySchema = z.object({ body: z.string() })
 
   const reposUpdateCommitCommentResponseValidator = responseValidationFactory(
     [
@@ -31436,8 +31371,8 @@ export function bootstrap(
   )
 
   const reposDeleteCommitCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     comment_id: z.coerce.number(),
   })
 
@@ -31474,8 +31409,8 @@ export function bootstrap(
   )
 
   const reactionsListForCommitCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     comment_id: z.coerce.number(),
   })
 
@@ -31531,8 +31466,8 @@ export function bootstrap(
   )
 
   const reactionsCreateForCommitCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     comment_id: z.coerce.number(),
   })
 
@@ -31585,8 +31520,8 @@ export function bootstrap(
   )
 
   const reactionsDeleteForCommitCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     comment_id: z.coerce.number(),
     reaction_id: z.coerce.number(),
   })
@@ -31617,17 +31552,17 @@ export function bootstrap(
   )
 
   const reposListCommitsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposListCommitsQuerySchema = z.object({
-    sha: z.coerce.string().optional(),
-    path: z.coerce.string().optional(),
-    author: z.coerce.string().optional(),
-    committer: z.coerce.string().optional(),
-    since: z.coerce.string().datetime({ offset: true }).optional(),
-    until: z.coerce.string().datetime({ offset: true }).optional(),
+    sha: z.string().optional(),
+    path: z.string().optional(),
+    author: z.string().optional(),
+    committer: z.string().optional(),
+    since: z.string().datetime({ offset: true }).optional(),
+    until: z.string().datetime({ offset: true }).optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
   })
@@ -31662,9 +31597,9 @@ export function bootstrap(
   )
 
   const reposListBranchesForHeadCommitParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    commit_sha: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    commit_sha: z.string(),
   })
 
   const reposListBranchesForHeadCommitResponseValidator =
@@ -31699,9 +31634,9 @@ export function bootstrap(
   )
 
   const reposListCommentsForCommitParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    commit_sha: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    commit_sha: z.string(),
   })
 
   const reposListCommentsForCommitQuerySchema = z.object({
@@ -31742,14 +31677,14 @@ export function bootstrap(
   )
 
   const reposCreateCommitCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    commit_sha: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    commit_sha: z.string(),
   })
 
   const reposCreateCommitCommentBodySchema = z.object({
-    body: z.coerce.string(),
-    path: z.coerce.string().optional(),
+    body: z.string(),
+    path: z.string().optional(),
     position: z.coerce.number().optional(),
     line: z.coerce.number().optional(),
   })
@@ -31791,9 +31726,9 @@ export function bootstrap(
   )
 
   const reposListPullRequestsAssociatedWithCommitParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    commit_sha: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    commit_sha: z.string(),
   })
 
   const reposListPullRequestsAssociatedWithCommitQuerySchema = z.object({
@@ -31839,9 +31774,9 @@ export function bootstrap(
   )
 
   const reposGetCommitParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    ref: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    ref: z.string(),
   })
 
   const reposGetCommitQuerySchema = z.object({
@@ -31858,9 +31793,9 @@ export function bootstrap(
       [
         "503",
         z.object({
-          code: z.coerce.string().optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
     ],
@@ -31886,13 +31821,13 @@ export function bootstrap(
   )
 
   const checksListForRefParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    ref: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    ref: z.string(),
   })
 
   const checksListForRefQuerySchema = z.object({
-    check_name: z.coerce.string().optional(),
+    check_name: z.string().optional(),
     status: z.enum(["queued", "in_progress", "completed"]).optional(),
     filter: z.enum(["latest", "all"]).optional(),
     per_page: z.coerce.number().optional(),
@@ -31932,14 +31867,14 @@ export function bootstrap(
   )
 
   const checksListSuitesForRefParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    ref: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    ref: z.string(),
   })
 
   const checksListSuitesForRefQuerySchema = z.object({
     app_id: z.coerce.number().optional(),
-    check_name: z.coerce.string().optional(),
+    check_name: z.string().optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
   })
@@ -31982,9 +31917,9 @@ export function bootstrap(
   )
 
   const reposGetCombinedStatusForRefParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    ref: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    ref: z.string(),
   })
 
   const reposGetCombinedStatusForRefQuerySchema = z.object({
@@ -32027,9 +31962,9 @@ export function bootstrap(
   )
 
   const reposListCommitStatusesForRefParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    ref: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    ref: z.string(),
   })
 
   const reposListCommitStatusesForRefQuerySchema = z.object({
@@ -32072,8 +32007,8 @@ export function bootstrap(
   )
 
   const reposGetCommunityProfileMetricsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposGetCommunityProfileMetricsResponseValidator =
@@ -32102,9 +32037,9 @@ export function bootstrap(
   )
 
   const reposCompareCommitsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    basehead: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    basehead: z.string(),
   })
 
   const reposCompareCommitsQuerySchema = z.object({
@@ -32120,9 +32055,9 @@ export function bootstrap(
       [
         "503",
         z.object({
-          code: z.coerce.string().optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
     ],
@@ -32151,14 +32086,12 @@ export function bootstrap(
   )
 
   const reposGetContentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    path: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    path: z.string(),
   })
 
-  const reposGetContentQuerySchema = z.object({
-    ref: z.coerce.string().optional(),
-  })
+  const reposGetContentQuerySchema = z.object({ ref: z.string().optional() })
 
   const reposGetContentResponseValidator = responseValidationFactory(
     [
@@ -32197,28 +32130,28 @@ export function bootstrap(
   )
 
   const reposCreateOrUpdateFileContentsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    path: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    path: z.string(),
   })
 
   const reposCreateOrUpdateFileContentsBodySchema = z.object({
-    message: z.coerce.string(),
-    content: z.coerce.string(),
-    sha: z.coerce.string().optional(),
-    branch: z.coerce.string().optional(),
+    message: z.string(),
+    content: z.string(),
+    sha: z.string().optional(),
+    branch: z.string().optional(),
     committer: z
       .object({
-        name: z.coerce.string(),
-        email: z.coerce.string(),
-        date: z.coerce.string().optional(),
+        name: z.string(),
+        email: z.string(),
+        date: z.string().optional(),
       })
       .optional(),
     author: z
       .object({
-        name: z.coerce.string(),
-        email: z.coerce.string(),
-        date: z.coerce.string().optional(),
+        name: z.string(),
+        email: z.string(),
+        date: z.string().optional(),
       })
       .optional(),
   })
@@ -32261,26 +32194,20 @@ export function bootstrap(
   )
 
   const reposDeleteFileParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    path: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    path: z.string(),
   })
 
   const reposDeleteFileBodySchema = z.object({
-    message: z.coerce.string(),
-    sha: z.coerce.string(),
-    branch: z.coerce.string().optional(),
+    message: z.string(),
+    sha: z.string(),
+    branch: z.string().optional(),
     committer: z
-      .object({
-        name: z.coerce.string().optional(),
-        email: z.coerce.string().optional(),
-      })
+      .object({ name: z.string().optional(), email: z.string().optional() })
       .optional(),
     author: z
-      .object({
-        name: z.coerce.string().optional(),
-        email: z.coerce.string().optional(),
-      })
+      .object({ name: z.string().optional(), email: z.string().optional() })
       .optional(),
   })
 
@@ -32293,9 +32220,9 @@ export function bootstrap(
       [
         "503",
         z.object({
-          code: z.coerce.string().optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
     ],
@@ -32321,12 +32248,12 @@ export function bootstrap(
   )
 
   const reposListContributorsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposListContributorsQuerySchema = z.object({
-    anon: z.coerce.string().optional(),
+    anon: z.string().optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
   })
@@ -32363,23 +32290,23 @@ export function bootstrap(
   )
 
   const dependabotListAlertsForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const dependabotListAlertsForRepoQuerySchema = z.object({
-    state: z.coerce.string().optional(),
-    severity: z.coerce.string().optional(),
-    ecosystem: z.coerce.string().optional(),
-    package: z.coerce.string().optional(),
-    manifest: z.coerce.string().optional(),
+    state: z.string().optional(),
+    severity: z.string().optional(),
+    ecosystem: z.string().optional(),
+    package: z.string().optional(),
+    manifest: z.string().optional(),
     scope: z.enum(["development", "runtime"]).optional(),
     sort: z.enum(["created", "updated"]).optional(),
     direction: z.enum(["asc", "desc"]).optional(),
     page: z.coerce.number().optional(),
     per_page: z.coerce.number().optional(),
-    before: z.coerce.string().optional(),
-    after: z.coerce.string().optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
     first: z.coerce.number().optional(),
     last: z.coerce.number().optional(),
   })
@@ -32425,8 +32352,8 @@ export function bootstrap(
   )
 
   const dependabotGetAlertParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     alert_number: s_alert_number,
   })
 
@@ -32462,8 +32389,8 @@ export function bootstrap(
   )
 
   const dependabotUpdateAlertParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     alert_number: s_alert_number,
   })
 
@@ -32478,7 +32405,7 @@ export function bootstrap(
         "tolerable_risk",
       ])
       .optional(),
-    dismissed_comment: z.coerce.string().optional(),
+    dismissed_comment: z.string().optional(),
   })
 
   const dependabotUpdateAlertResponseValidator = responseValidationFactory(
@@ -32518,8 +32445,8 @@ export function bootstrap(
   )
 
   const dependabotListRepoSecretsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const dependabotListRepoSecretsQuerySchema = z.object({
@@ -32568,8 +32495,8 @@ export function bootstrap(
   )
 
   const dependabotGetRepoPublicKeyParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const dependabotGetRepoPublicKeyResponseValidator = responseValidationFactory(
@@ -32602,9 +32529,9 @@ export function bootstrap(
   )
 
   const dependabotGetRepoSecretParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    secret_name: z.string(),
   })
 
   const dependabotGetRepoSecretResponseValidator = responseValidationFactory(
@@ -32637,14 +32564,14 @@ export function bootstrap(
   )
 
   const dependabotCreateOrUpdateRepoSecretParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    secret_name: z.string(),
   })
 
   const dependabotCreateOrUpdateRepoSecretBodySchema = z.object({
-    encrypted_value: z.coerce.string().optional(),
-    key_id: z.coerce.string().optional(),
+    encrypted_value: z.string().optional(),
+    key_id: z.string().optional(),
   })
 
   const dependabotCreateOrUpdateRepoSecretResponseValidator =
@@ -32685,9 +32612,9 @@ export function bootstrap(
   )
 
   const dependabotDeleteRepoSecretParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    secret_name: z.string(),
   })
 
   const dependabotDeleteRepoSecretResponseValidator = responseValidationFactory(
@@ -32720,13 +32647,13 @@ export function bootstrap(
   )
 
   const dependencyGraphDiffRangeParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    basehead: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    basehead: z.string(),
   })
 
   const dependencyGraphDiffRangeQuerySchema = z.object({
-    name: z.coerce.string().optional(),
+    name: z.string().optional(),
   })
 
   const dependencyGraphDiffRangeResponseValidator = responseValidationFactory(
@@ -32766,8 +32693,8 @@ export function bootstrap(
   )
 
   const dependencyGraphExportSbomParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const dependencyGraphExportSbomResponseValidator = responseValidationFactory(
@@ -32804,8 +32731,8 @@ export function bootstrap(
   )
 
   const dependencyGraphCreateRepositorySnapshotParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const dependencyGraphCreateRepositorySnapshotBodySchema = s_snapshot
@@ -32817,9 +32744,9 @@ export function bootstrap(
           "201",
           z.object({
             id: z.coerce.number(),
-            created_at: z.coerce.string(),
-            result: z.coerce.string(),
-            message: z.coerce.string(),
+            created_at: z.string(),
+            result: z.string(),
+            message: z.string(),
           }),
         ],
       ],
@@ -32855,15 +32782,15 @@ export function bootstrap(
   )
 
   const reposListDeploymentsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposListDeploymentsQuerySchema = z.object({
-    sha: z.coerce.string().optional(),
-    ref: z.coerce.string().optional(),
-    task: z.coerce.string().optional(),
-    environment: z.coerce.string().optional().nullable(),
+    sha: z.string().optional(),
+    ref: z.string().optional(),
+    task: z.string().optional(),
+    environment: z.string().optional().nullable(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
   })
@@ -32895,18 +32822,18 @@ export function bootstrap(
   )
 
   const reposCreateDeploymentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposCreateDeploymentBodySchema = z.object({
-    ref: z.coerce.string(),
-    task: z.coerce.string().optional(),
+    ref: z.string(),
+    task: z.string().optional(),
     auto_merge: z.coerce.boolean().optional(),
-    required_contexts: z.array(z.coerce.string()).optional(),
-    payload: z.union([z.object({}), z.coerce.string()]),
-    environment: z.coerce.string().optional(),
-    description: z.coerce.string().optional().nullable(),
+    required_contexts: z.array(z.string()).optional(),
+    payload: z.union([z.object({}), z.string()]),
+    environment: z.string().optional(),
+    description: z.string().optional().nullable(),
     transient_environment: z.coerce.boolean().optional(),
     production_environment: z.coerce.boolean().optional(),
   })
@@ -32914,7 +32841,7 @@ export function bootstrap(
   const reposCreateDeploymentResponseValidator = responseValidationFactory(
     [
       ["201", s_deployment],
-      ["202", z.object({ message: z.coerce.string().optional() })],
+      ["202", z.object({ message: z.string().optional() })],
       ["409", z.void()],
       ["422", s_validation_error],
     ],
@@ -32946,8 +32873,8 @@ export function bootstrap(
   )
 
   const reposGetDeploymentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     deployment_id: z.coerce.number(),
   })
 
@@ -32981,8 +32908,8 @@ export function bootstrap(
   )
 
   const reposDeleteDeploymentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     deployment_id: z.coerce.number(),
   })
 
@@ -33017,8 +32944,8 @@ export function bootstrap(
   )
 
   const reposListDeploymentStatusesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     deployment_id: z.coerce.number(),
   })
 
@@ -33064,8 +32991,8 @@ export function bootstrap(
   )
 
   const reposCreateDeploymentStatusParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     deployment_id: z.coerce.number(),
   })
 
@@ -33079,11 +33006,11 @@ export function bootstrap(
       "pending",
       "success",
     ]),
-    target_url: z.coerce.string().optional(),
-    log_url: z.coerce.string().optional(),
-    description: z.coerce.string().optional(),
-    environment: z.coerce.string().optional(),
-    environment_url: z.coerce.string().optional(),
+    target_url: z.string().optional(),
+    log_url: z.string().optional(),
+    description: z.string().optional(),
+    environment: z.string().optional(),
+    environment_url: z.string().optional(),
     auto_inactive: z.coerce.boolean().optional(),
   })
 
@@ -33124,8 +33051,8 @@ export function bootstrap(
   )
 
   const reposGetDeploymentStatusParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     deployment_id: z.coerce.number(),
     status_id: z.coerce.number(),
   })
@@ -33163,12 +33090,12 @@ export function bootstrap(
   )
 
   const reposCreateDispatchEventParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposCreateDispatchEventBodySchema = z.object({
-    event_type: z.coerce.string(),
+    event_type: z.string(),
     client_payload: z.object({}).optional(),
   })
 
@@ -33208,8 +33135,8 @@ export function bootstrap(
   )
 
   const reposGetAllEnvironmentsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposGetAllEnvironmentsQuerySchema = z.object({
@@ -33255,9 +33182,9 @@ export function bootstrap(
   )
 
   const reposGetEnvironmentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    environment_name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    environment_name: z.string(),
   })
 
   const reposGetEnvironmentResponseValidator = responseValidationFactory(
@@ -33287,9 +33214,9 @@ export function bootstrap(
   )
 
   const reposCreateOrUpdateEnvironmentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    environment_name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    environment_name: z.string(),
   })
 
   const reposCreateOrUpdateEnvironmentBodySchema = z
@@ -33344,9 +33271,9 @@ export function bootstrap(
   )
 
   const reposDeleteAnEnvironmentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    environment_name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    environment_name: z.string(),
   })
 
   const reposDeleteAnEnvironmentResponseValidator = responseValidationFactory(
@@ -33379,9 +33306,9 @@ export function bootstrap(
   )
 
   const reposListDeploymentBranchPoliciesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    environment_name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    environment_name: z.string(),
   })
 
   const reposListDeploymentBranchPoliciesQuerySchema = z.object({
@@ -33432,9 +33359,9 @@ export function bootstrap(
   )
 
   const reposCreateDeploymentBranchPolicyParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    environment_name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    environment_name: z.string(),
   })
 
   const reposCreateDeploymentBranchPolicyBodySchema =
@@ -33479,9 +33406,9 @@ export function bootstrap(
   )
 
   const reposGetDeploymentBranchPolicyParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    environment_name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    environment_name: z.string(),
     branch_policy_id: z.coerce.number(),
   })
 
@@ -33511,9 +33438,9 @@ export function bootstrap(
   )
 
   const reposUpdateDeploymentBranchPolicyParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    environment_name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    environment_name: z.string(),
     branch_policy_id: z.coerce.number(),
   })
 
@@ -33552,9 +33479,9 @@ export function bootstrap(
   )
 
   const reposDeleteDeploymentBranchPolicyParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    environment_name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    environment_name: z.string(),
     branch_policy_id: z.coerce.number(),
   })
 
@@ -33587,9 +33514,9 @@ export function bootstrap(
   )
 
   const reposGetAllDeploymentProtectionRulesParamSchema = z.object({
-    environment_name: z.coerce.string(),
-    repo: z.coerce.string(),
-    owner: z.coerce.string(),
+    environment_name: z.string(),
+    repo: z.string(),
+    owner: z.string(),
   })
 
   const reposGetAllDeploymentProtectionRulesResponseValidator =
@@ -33634,9 +33561,9 @@ export function bootstrap(
   )
 
   const reposCreateDeploymentProtectionRuleParamSchema = z.object({
-    environment_name: z.coerce.string(),
-    repo: z.coerce.string(),
-    owner: z.coerce.string(),
+    environment_name: z.string(),
+    repo: z.string(),
+    owner: z.string(),
   })
 
   const reposCreateDeploymentProtectionRuleBodySchema = z.object({
@@ -33678,9 +33605,9 @@ export function bootstrap(
   )
 
   const reposListCustomDeploymentRuleIntegrationsParamSchema = z.object({
-    environment_name: z.coerce.string(),
-    repo: z.coerce.string(),
-    owner: z.coerce.string(),
+    environment_name: z.string(),
+    repo: z.string(),
+    owner: z.string(),
   })
 
   const reposListCustomDeploymentRuleIntegrationsQuerySchema = z.object({
@@ -33736,9 +33663,9 @@ export function bootstrap(
   )
 
   const reposGetCustomDeploymentProtectionRuleParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    environment_name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    environment_name: z.string(),
     protection_rule_id: z.coerce.number(),
   })
 
@@ -33774,9 +33701,9 @@ export function bootstrap(
   )
 
   const reposDisableDeploymentProtectionRuleParamSchema = z.object({
-    environment_name: z.coerce.string(),
-    repo: z.coerce.string(),
-    owner: z.coerce.string(),
+    environment_name: z.string(),
+    repo: z.string(),
+    owner: z.string(),
     protection_rule_id: z.coerce.number(),
   })
 
@@ -33809,8 +33736,8 @@ export function bootstrap(
   )
 
   const activityListRepoEventsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const activityListRepoEventsQuerySchema = z.object({
@@ -33848,8 +33775,8 @@ export function bootstrap(
   )
 
   const reposListForksParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposListForksQuerySchema = z.object({
@@ -33885,14 +33812,14 @@ export function bootstrap(
   )
 
   const reposCreateForkParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposCreateForkBodySchema = z
     .object({
-      organization: z.coerce.string().optional(),
-      name: z.coerce.string().optional(),
+      organization: z.string().optional(),
+      name: z.string().optional(),
       default_branch_only: z.coerce.boolean().optional(),
     })
     .optional()
@@ -33928,13 +33855,13 @@ export function bootstrap(
   )
 
   const gitCreateBlobParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const gitCreateBlobBodySchema = z.object({
-    content: z.coerce.string(),
-    encoding: z.coerce.string().optional(),
+    content: z.string(),
+    encoding: z.string().optional(),
   })
 
   const gitCreateBlobResponseValidator = responseValidationFactory(
@@ -33967,9 +33894,9 @@ export function bootstrap(
   )
 
   const gitGetBlobParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    file_sha: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    file_sha: z.string(),
   })
 
   const gitGetBlobResponseValidator = responseValidationFactory(
@@ -34001,29 +33928,29 @@ export function bootstrap(
   )
 
   const gitCreateCommitParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const gitCreateCommitBodySchema = z.object({
-    message: z.coerce.string(),
-    tree: z.coerce.string(),
-    parents: z.array(z.coerce.string()).optional(),
+    message: z.string(),
+    tree: z.string(),
+    parents: z.array(z.string()).optional(),
     author: z
       .object({
-        name: z.coerce.string(),
-        email: z.coerce.string(),
-        date: z.coerce.string().datetime({ offset: true }).optional(),
+        name: z.string(),
+        email: z.string(),
+        date: z.string().datetime({ offset: true }).optional(),
       })
       .optional(),
     committer: z
       .object({
-        name: z.coerce.string().optional(),
-        email: z.coerce.string().optional(),
-        date: z.coerce.string().datetime({ offset: true }).optional(),
+        name: z.string().optional(),
+        email: z.string().optional(),
+        date: z.string().datetime({ offset: true }).optional(),
       })
       .optional(),
-    signature: z.coerce.string().optional(),
+    signature: z.string().optional(),
   })
 
   const gitCreateCommitResponseValidator = responseValidationFactory(
@@ -34054,9 +33981,9 @@ export function bootstrap(
   )
 
   const gitGetCommitParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    commit_sha: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    commit_sha: z.string(),
   })
 
   const gitGetCommitResponseValidator = responseValidationFactory(
@@ -34086,9 +34013,9 @@ export function bootstrap(
   )
 
   const gitListMatchingRefsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    ref: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    ref: z.string(),
   })
 
   const gitListMatchingRefsResponseValidator = responseValidationFactory(
@@ -34118,9 +34045,9 @@ export function bootstrap(
   )
 
   const gitGetRefParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    ref: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    ref: z.string(),
   })
 
   const gitGetRefResponseValidator = responseValidationFactory(
@@ -34150,14 +34077,11 @@ export function bootstrap(
   )
 
   const gitCreateRefParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
-  const gitCreateRefBodySchema = z.object({
-    ref: z.coerce.string(),
-    sha: z.coerce.string(),
-  })
+  const gitCreateRefBodySchema = z.object({ ref: z.string(), sha: z.string() })
 
   const gitCreateRefResponseValidator = responseValidationFactory(
     [
@@ -34186,13 +34110,13 @@ export function bootstrap(
   )
 
   const gitUpdateRefParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    ref: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    ref: z.string(),
   })
 
   const gitUpdateRefBodySchema = z.object({
-    sha: z.coerce.string(),
+    sha: z.string(),
     force: z.coerce.boolean().optional(),
   })
 
@@ -34223,9 +34147,9 @@ export function bootstrap(
   )
 
   const gitDeleteRefParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    ref: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    ref: z.string(),
   })
 
   const gitDeleteRefResponseValidator = responseValidationFactory(
@@ -34255,20 +34179,20 @@ export function bootstrap(
   )
 
   const gitCreateTagParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const gitCreateTagBodySchema = z.object({
-    tag: z.coerce.string(),
-    message: z.coerce.string(),
-    object: z.coerce.string(),
+    tag: z.string(),
+    message: z.string(),
+    object: z.string(),
     type: z.enum(["commit", "tree", "blob"]),
     tagger: z
       .object({
-        name: z.coerce.string(),
-        email: z.coerce.string(),
-        date: z.coerce.string().datetime({ offset: true }).optional(),
+        name: z.string(),
+        email: z.string(),
+        date: z.string().datetime({ offset: true }).optional(),
       })
       .optional(),
   })
@@ -34300,9 +34224,9 @@ export function bootstrap(
   )
 
   const gitGetTagParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    tag_sha: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    tag_sha: z.string(),
   })
 
   const gitGetTagResponseValidator = responseValidationFactory(
@@ -34332,23 +34256,23 @@ export function bootstrap(
   )
 
   const gitCreateTreeParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const gitCreateTreeBodySchema = z.object({
     tree: z.array(
       z.object({
-        path: z.coerce.string().optional(),
+        path: z.string().optional(),
         mode: z
           .enum(["100644", "100755", "040000", "160000", "120000"])
           .optional(),
         type: z.enum(["blob", "tree", "commit"]).optional(),
-        sha: z.coerce.string().optional().nullable(),
-        content: z.coerce.string().optional(),
+        sha: z.string().optional().nullable(),
+        content: z.string().optional(),
       }),
     ),
-    base_tree: z.coerce.string().optional(),
+    base_tree: z.string().optional(),
   })
 
   const gitCreateTreeResponseValidator = responseValidationFactory(
@@ -34380,14 +34304,12 @@ export function bootstrap(
   )
 
   const gitGetTreeParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    tree_sha: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    tree_sha: z.string(),
   })
 
-  const gitGetTreeQuerySchema = z.object({
-    recursive: z.coerce.string().optional(),
-  })
+  const gitGetTreeQuerySchema = z.object({ recursive: z.string().optional() })
 
   const gitGetTreeResponseValidator = responseValidationFactory(
     [
@@ -34417,8 +34339,8 @@ export function bootstrap(
   )
 
   const reposListWebhooksParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposListWebhooksQuerySchema = z.object({
@@ -34456,24 +34378,24 @@ export function bootstrap(
   )
 
   const reposCreateWebhookParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposCreateWebhookBodySchema = z
     .object({
-      name: z.coerce.string().optional(),
+      name: z.string().optional(),
       config: z
         .object({
           url: s_webhook_config_url,
           content_type: s_webhook_config_content_type,
           secret: s_webhook_config_secret,
           insecure_ssl: s_webhook_config_insecure_ssl,
-          token: z.coerce.string().optional(),
-          digest: z.coerce.string().optional(),
+          token: z.string().optional(),
+          digest: z.string().optional(),
         })
         .optional(),
-      events: z.array(z.coerce.string()).optional(),
+      events: z.array(z.string()).optional(),
       active: z.coerce.boolean().optional(),
     })
     .optional()
@@ -34511,8 +34433,8 @@ export function bootstrap(
   )
 
   const reposGetWebhookParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     hook_id: z.coerce.number(),
   })
 
@@ -34543,8 +34465,8 @@ export function bootstrap(
   )
 
   const reposUpdateWebhookParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     hook_id: z.coerce.number(),
   })
 
@@ -34555,13 +34477,13 @@ export function bootstrap(
         content_type: s_webhook_config_content_type,
         secret: s_webhook_config_secret,
         insecure_ssl: s_webhook_config_insecure_ssl,
-        address: z.coerce.string().optional(),
-        room: z.coerce.string().optional(),
+        address: z.string().optional(),
+        room: z.string().optional(),
       })
       .optional(),
-    events: z.array(z.coerce.string()).optional(),
-    add_events: z.array(z.coerce.string()).optional(),
-    remove_events: z.array(z.coerce.string()).optional(),
+    events: z.array(z.string()).optional(),
+    add_events: z.array(z.string()).optional(),
+    remove_events: z.array(z.string()).optional(),
     active: z.coerce.boolean().optional(),
   })
 
@@ -34596,8 +34518,8 @@ export function bootstrap(
   )
 
   const reposDeleteWebhookParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     hook_id: z.coerce.number(),
   })
 
@@ -34631,8 +34553,8 @@ export function bootstrap(
   )
 
   const reposGetWebhookConfigForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     hook_id: z.coerce.number(),
   })
 
@@ -34662,8 +34584,8 @@ export function bootstrap(
   )
 
   const reposUpdateWebhookConfigForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     hook_id: z.coerce.number(),
   })
 
@@ -34705,14 +34627,14 @@ export function bootstrap(
   )
 
   const reposListWebhookDeliveriesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     hook_id: z.coerce.number(),
   })
 
   const reposListWebhookDeliveriesQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
-    cursor: z.coerce.string().optional(),
+    cursor: z.string().optional(),
     redelivery: z.coerce.boolean().optional(),
   })
 
@@ -34753,8 +34675,8 @@ export function bootstrap(
   )
 
   const reposGetWebhookDeliveryParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     hook_id: z.coerce.number(),
     delivery_id: z.coerce.number(),
   })
@@ -34793,8 +34715,8 @@ export function bootstrap(
   )
 
   const reposRedeliverWebhookDeliveryParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     hook_id: z.coerce.number(),
     delivery_id: z.coerce.number(),
   })
@@ -34832,8 +34754,8 @@ export function bootstrap(
   )
 
   const reposPingWebhookParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     hook_id: z.coerce.number(),
   })
 
@@ -34864,8 +34786,8 @@ export function bootstrap(
   )
 
   const reposTestPushWebhookParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     hook_id: z.coerce.number(),
   })
 
@@ -34899,8 +34821,8 @@ export function bootstrap(
   )
 
   const migrationsGetImportStatusParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const migrationsGetImportStatusResponseValidator = responseValidationFactory(
@@ -34937,16 +34859,16 @@ export function bootstrap(
   )
 
   const migrationsStartImportParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const migrationsStartImportBodySchema = z.object({
-    vcs_url: z.coerce.string(),
+    vcs_url: z.string(),
     vcs: z.enum(["subversion", "git", "mercurial", "tfvc"]).optional(),
-    vcs_username: z.coerce.string().optional(),
-    vcs_password: z.coerce.string().optional(),
-    tfvc_project: z.coerce.string().optional(),
+    vcs_username: z.string().optional(),
+    vcs_password: z.string().optional(),
+    tfvc_project: z.string().optional(),
   })
 
   const migrationsStartImportResponseValidator = responseValidationFactory(
@@ -34984,16 +34906,16 @@ export function bootstrap(
   )
 
   const migrationsUpdateImportParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const migrationsUpdateImportBodySchema = z
     .object({
-      vcs_username: z.coerce.string().optional(),
-      vcs_password: z.coerce.string().optional(),
+      vcs_username: z.string().optional(),
+      vcs_password: z.string().optional(),
       vcs: z.enum(["subversion", "tfvc", "git", "mercurial"]).optional(),
-      tfvc_project: z.coerce.string().optional(),
+      tfvc_project: z.string().optional(),
     })
     .optional()
     .nullable()
@@ -35034,8 +34956,8 @@ export function bootstrap(
   )
 
   const migrationsCancelImportParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const migrationsCancelImportResponseValidator = responseValidationFactory(
@@ -35071,8 +34993,8 @@ export function bootstrap(
   )
 
   const migrationsGetCommitAuthorsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const migrationsGetCommitAuthorsQuerySchema = z.object({
@@ -35116,16 +35038,13 @@ export function bootstrap(
   )
 
   const migrationsMapCommitAuthorParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     author_id: z.coerce.number(),
   })
 
   const migrationsMapCommitAuthorBodySchema = z
-    .object({
-      email: z.coerce.string().optional(),
-      name: z.coerce.string().optional(),
-    })
+    .object({ email: z.string().optional(), name: z.string().optional() })
     .optional()
 
   const migrationsMapCommitAuthorResponseValidator = responseValidationFactory(
@@ -35166,8 +35085,8 @@ export function bootstrap(
   )
 
   const migrationsGetLargeFilesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const migrationsGetLargeFilesResponseValidator = responseValidationFactory(
@@ -35203,8 +35122,8 @@ export function bootstrap(
   )
 
   const migrationsSetLfsPreferenceParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const migrationsSetLfsPreferenceBodySchema = z.object({
@@ -35248,8 +35167,8 @@ export function bootstrap(
   )
 
   const appsGetRepoInstallationParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const appsGetRepoInstallationResponseValidator = responseValidationFactory(
@@ -35286,8 +35205,8 @@ export function bootstrap(
   )
 
   const interactionsGetRestrictionsForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const interactionsGetRestrictionsForRepoResponseValidator =
@@ -35322,8 +35241,8 @@ export function bootstrap(
   )
 
   const interactionsSetRestrictionsForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const interactionsSetRestrictionsForRepoBodySchema = s_interaction_limit
@@ -35366,8 +35285,8 @@ export function bootstrap(
   )
 
   const interactionsRemoveRestrictionsForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const interactionsRemoveRestrictionsForRepoResponseValidator =
@@ -35405,8 +35324,8 @@ export function bootstrap(
   )
 
   const reposListInvitationsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposListInvitationsQuerySchema = z.object({
@@ -35441,8 +35360,8 @@ export function bootstrap(
   )
 
   const reposUpdateInvitationParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     invitation_id: z.coerce.number(),
   })
 
@@ -35484,8 +35403,8 @@ export function bootstrap(
   )
 
   const reposDeleteInvitationParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     invitation_id: z.coerce.number(),
   })
 
@@ -35516,20 +35435,20 @@ export function bootstrap(
   )
 
   const issuesListForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const issuesListForRepoQuerySchema = z.object({
-    milestone: z.coerce.string().optional(),
+    milestone: z.string().optional(),
     state: z.enum(["open", "closed", "all"]).optional(),
-    assignee: z.coerce.string().optional(),
-    creator: z.coerce.string().optional(),
-    mentioned: z.coerce.string().optional(),
-    labels: z.coerce.string().optional(),
+    assignee: z.string().optional(),
+    creator: z.string().optional(),
+    mentioned: z.string().optional(),
+    labels: z.string().optional(),
     sort: z.enum(["created", "updated", "comments"]).optional(),
     direction: z.enum(["asc", "desc"]).optional(),
-    since: z.coerce.string().datetime({ offset: true }).optional(),
+    since: z.string().datetime({ offset: true }).optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
   })
@@ -35566,29 +35485,29 @@ export function bootstrap(
   )
 
   const issuesCreateParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const issuesCreateBodySchema = z.object({
-    title: z.union([z.coerce.string(), z.coerce.number()]),
-    body: z.coerce.string().optional(),
-    assignee: z.coerce.string().optional().nullable(),
-    milestone: z.union([z.coerce.string(), z.coerce.number()]).nullable(),
+    title: z.union([z.string(), z.coerce.number()]),
+    body: z.string().optional(),
+    assignee: z.string().optional().nullable(),
+    milestone: z.union([z.string(), z.coerce.number()]).nullable(),
     labels: z
       .array(
         z.union([
-          z.coerce.string(),
+          z.string(),
           z.object({
             id: z.coerce.number().optional(),
-            name: z.coerce.string().optional(),
-            description: z.coerce.string().optional().nullable(),
-            color: z.coerce.string().optional().nullable(),
+            name: z.string().optional(),
+            description: z.string().optional().nullable(),
+            color: z.string().optional().nullable(),
           }),
         ]),
       )
       .optional(),
-    assignees: z.array(z.coerce.string()).optional(),
+    assignees: z.array(z.string()).optional(),
   })
 
   const issuesCreateResponseValidator = responseValidationFactory(
@@ -35602,9 +35521,9 @@ export function bootstrap(
       [
         "503",
         z.object({
-          code: z.coerce.string().optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
     ],
@@ -35630,14 +35549,14 @@ export function bootstrap(
   )
 
   const issuesListCommentsForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const issuesListCommentsForRepoQuerySchema = z.object({
     sort: z.enum(["created", "updated"]).optional(),
     direction: z.enum(["asc", "desc"]).optional(),
-    since: z.coerce.string().datetime({ offset: true }).optional(),
+    since: z.string().datetime({ offset: true }).optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
   })
@@ -35679,8 +35598,8 @@ export function bootstrap(
   )
 
   const issuesGetCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     comment_id: z.coerce.number(),
   })
 
@@ -35711,12 +35630,12 @@ export function bootstrap(
   )
 
   const issuesUpdateCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     comment_id: z.coerce.number(),
   })
 
-  const issuesUpdateCommentBodySchema = z.object({ body: z.coerce.string() })
+  const issuesUpdateCommentBodySchema = z.object({ body: z.string() })
 
   const issuesUpdateCommentResponseValidator = responseValidationFactory(
     [
@@ -35751,8 +35670,8 @@ export function bootstrap(
   )
 
   const issuesDeleteCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     comment_id: z.coerce.number(),
   })
 
@@ -35783,8 +35702,8 @@ export function bootstrap(
   )
 
   const reactionsListForIssueCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     comment_id: z.coerce.number(),
   })
 
@@ -35840,8 +35759,8 @@ export function bootstrap(
   )
 
   const reactionsCreateForIssueCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     comment_id: z.coerce.number(),
   })
 
@@ -35894,8 +35813,8 @@ export function bootstrap(
   )
 
   const reactionsDeleteForIssueCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     comment_id: z.coerce.number(),
     reaction_id: z.coerce.number(),
   })
@@ -35926,8 +35845,8 @@ export function bootstrap(
   )
 
   const issuesListEventsForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const issuesListEventsForRepoQuerySchema = z.object({
@@ -35968,8 +35887,8 @@ export function bootstrap(
   )
 
   const issuesGetEventParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     event_id: z.coerce.number(),
   })
 
@@ -36002,8 +35921,8 @@ export function bootstrap(
   )
 
   const issuesGetParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     issue_number: z.coerce.number(),
   })
 
@@ -36037,36 +35956,36 @@ export function bootstrap(
   )
 
   const issuesUpdateParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     issue_number: z.coerce.number(),
   })
 
   const issuesUpdateBodySchema = z
     .object({
-      title: z.union([z.coerce.string(), z.coerce.number()]).nullable(),
-      body: z.coerce.string().optional().nullable(),
-      assignee: z.coerce.string().optional().nullable(),
+      title: z.union([z.string(), z.coerce.number()]).nullable(),
+      body: z.string().optional().nullable(),
+      assignee: z.string().optional().nullable(),
       state: z.enum(["open", "closed"]).optional(),
       state_reason: z
         .enum(["completed", "not_planned", "reopened"])
         .optional()
         .nullable(),
-      milestone: z.union([z.coerce.string(), z.coerce.number()]).nullable(),
+      milestone: z.union([z.string(), z.coerce.number()]).nullable(),
       labels: z
         .array(
           z.union([
-            z.coerce.string(),
+            z.string(),
             z.object({
               id: z.coerce.number().optional(),
-              name: z.coerce.string().optional(),
-              description: z.coerce.string().optional().nullable(),
-              color: z.coerce.string().optional().nullable(),
+              name: z.string().optional(),
+              description: z.string().optional().nullable(),
+              color: z.string().optional().nullable(),
             }),
           ]),
         )
         .optional(),
-      assignees: z.array(z.coerce.string()).optional(),
+      assignees: z.array(z.string()).optional(),
     })
     .optional()
 
@@ -36081,9 +36000,9 @@ export function bootstrap(
       [
         "503",
         z.object({
-          code: z.coerce.string().optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
     ],
@@ -36109,13 +36028,13 @@ export function bootstrap(
   )
 
   const issuesAddAssigneesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     issue_number: z.coerce.number(),
   })
 
   const issuesAddAssigneesBodySchema = z
-    .object({ assignees: z.array(z.coerce.string()).optional() })
+    .object({ assignees: z.array(z.string()).optional() })
     .optional()
 
   const issuesAddAssigneesResponseValidator = responseValidationFactory(
@@ -36145,13 +36064,13 @@ export function bootstrap(
   )
 
   const issuesRemoveAssigneesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     issue_number: z.coerce.number(),
   })
 
   const issuesRemoveAssigneesBodySchema = z.object({
-    assignees: z.array(z.coerce.string()).optional(),
+    assignees: z.array(z.string()).optional(),
   })
 
   const issuesRemoveAssigneesResponseValidator = responseValidationFactory(
@@ -36184,10 +36103,10 @@ export function bootstrap(
   )
 
   const issuesCheckUserCanBeAssignedToIssueParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     issue_number: z.coerce.number(),
-    assignee: z.coerce.string(),
+    assignee: z.string(),
   })
 
   const issuesCheckUserCanBeAssignedToIssueResponseValidator =
@@ -36225,13 +36144,13 @@ export function bootstrap(
   )
 
   const issuesListCommentsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     issue_number: z.coerce.number(),
   })
 
   const issuesListCommentsQuerySchema = z.object({
-    since: z.coerce.string().datetime({ offset: true }).optional(),
+    since: z.string().datetime({ offset: true }).optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
   })
@@ -36267,12 +36186,12 @@ export function bootstrap(
   )
 
   const issuesCreateCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     issue_number: z.coerce.number(),
   })
 
-  const issuesCreateCommentBodySchema = z.object({ body: z.coerce.string() })
+  const issuesCreateCommentBodySchema = z.object({ body: z.string() })
 
   const issuesCreateCommentResponseValidator = responseValidationFactory(
     [
@@ -36310,8 +36229,8 @@ export function bootstrap(
   )
 
   const issuesListEventsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     issue_number: z.coerce.number(),
   })
 
@@ -36347,8 +36266,8 @@ export function bootstrap(
   )
 
   const issuesListLabelsOnIssueParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     issue_number: z.coerce.number(),
   })
 
@@ -36392,19 +36311,17 @@ export function bootstrap(
   )
 
   const issuesAddLabelsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     issue_number: z.coerce.number(),
   })
 
   const issuesAddLabelsBodySchema = z.union([
-    z.object({ labels: z.array(z.coerce.string()).optional() }),
-    z.array(z.coerce.string()),
-    z.object({
-      labels: z.array(z.object({ name: z.coerce.string() })).optional(),
-    }),
-    z.array(z.object({ name: z.coerce.string() })),
-    z.coerce.string(),
+    z.object({ labels: z.array(z.string()).optional() }),
+    z.array(z.string()),
+    z.object({ labels: z.array(z.object({ name: z.string() })).optional() }),
+    z.array(z.object({ name: z.string() })),
+    z.string(),
   ])
 
   const issuesAddLabelsResponseValidator = responseValidationFactory(
@@ -36437,19 +36354,17 @@ export function bootstrap(
   )
 
   const issuesSetLabelsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     issue_number: z.coerce.number(),
   })
 
   const issuesSetLabelsBodySchema = z.union([
-    z.object({ labels: z.array(z.coerce.string()).optional() }),
-    z.array(z.coerce.string()),
-    z.object({
-      labels: z.array(z.object({ name: z.coerce.string() })).optional(),
-    }),
-    z.array(z.object({ name: z.coerce.string() })),
-    z.coerce.string(),
+    z.object({ labels: z.array(z.string()).optional() }),
+    z.array(z.string()),
+    z.object({ labels: z.array(z.object({ name: z.string() })).optional() }),
+    z.array(z.object({ name: z.string() })),
+    z.string(),
   ])
 
   const issuesSetLabelsResponseValidator = responseValidationFactory(
@@ -36482,8 +36397,8 @@ export function bootstrap(
   )
 
   const issuesRemoveAllLabelsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     issue_number: z.coerce.number(),
   })
 
@@ -36519,10 +36434,10 @@ export function bootstrap(
   )
 
   const issuesRemoveLabelParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     issue_number: z.coerce.number(),
-    name: z.coerce.string(),
+    name: z.string(),
   })
 
   const issuesRemoveLabelResponseValidator = responseValidationFactory(
@@ -36557,8 +36472,8 @@ export function bootstrap(
   )
 
   const issuesLockParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     issue_number: z.coerce.number(),
   })
 
@@ -36601,8 +36516,8 @@ export function bootstrap(
   )
 
   const issuesUnlockParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     issue_number: z.coerce.number(),
   })
 
@@ -36634,8 +36549,8 @@ export function bootstrap(
   )
 
   const reactionsListForIssueParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     issue_number: z.coerce.number(),
   })
 
@@ -36687,8 +36602,8 @@ export function bootstrap(
   )
 
   const reactionsCreateForIssueParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     issue_number: z.coerce.number(),
   })
 
@@ -36742,8 +36657,8 @@ export function bootstrap(
   )
 
   const reactionsDeleteForIssueParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     issue_number: z.coerce.number(),
     reaction_id: z.coerce.number(),
   })
@@ -36778,8 +36693,8 @@ export function bootstrap(
   )
 
   const issuesListEventsForTimelineParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     issue_number: z.coerce.number(),
   })
 
@@ -36826,8 +36741,8 @@ export function bootstrap(
   )
 
   const reposListDeployKeysParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposListDeployKeysQuerySchema = z.object({
@@ -36862,13 +36777,13 @@ export function bootstrap(
   )
 
   const reposCreateDeployKeyParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposCreateDeployKeyBodySchema = z.object({
-    title: z.coerce.string().optional(),
-    key: z.coerce.string(),
+    title: z.string().optional(),
+    key: z.string(),
     read_only: z.coerce.boolean().optional(),
   })
 
@@ -36905,8 +36820,8 @@ export function bootstrap(
   )
 
   const reposGetDeployKeyParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     key_id: z.coerce.number(),
   })
 
@@ -36940,8 +36855,8 @@ export function bootstrap(
   )
 
   const reposDeleteDeployKeyParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     key_id: z.coerce.number(),
   })
 
@@ -36972,8 +36887,8 @@ export function bootstrap(
   )
 
   const issuesListLabelsForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const issuesListLabelsForRepoQuerySchema = z.object({
@@ -37014,14 +36929,14 @@ export function bootstrap(
   )
 
   const issuesCreateLabelParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const issuesCreateLabelBodySchema = z.object({
-    name: z.coerce.string(),
-    color: z.coerce.string().optional(),
-    description: z.coerce.string().optional(),
+    name: z.string(),
+    color: z.string().optional(),
+    description: z.string().optional(),
   })
 
   const issuesCreateLabelResponseValidator = responseValidationFactory(
@@ -37055,9 +36970,9 @@ export function bootstrap(
   )
 
   const issuesGetLabelParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    name: z.string(),
   })
 
   const issuesGetLabelResponseValidator = responseValidationFactory(
@@ -37087,16 +37002,16 @@ export function bootstrap(
   )
 
   const issuesUpdateLabelParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    name: z.string(),
   })
 
   const issuesUpdateLabelBodySchema = z
     .object({
-      new_name: z.coerce.string().optional(),
-      color: z.coerce.string().optional(),
-      description: z.coerce.string().optional(),
+      new_name: z.string().optional(),
+      color: z.string().optional(),
+      description: z.string().optional(),
     })
     .optional()
 
@@ -37127,9 +37042,9 @@ export function bootstrap(
   )
 
   const issuesDeleteLabelParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    name: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    name: z.string(),
   })
 
   const issuesDeleteLabelResponseValidator = responseValidationFactory(
@@ -37159,8 +37074,8 @@ export function bootstrap(
   )
 
   const reposListLanguagesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposListLanguagesResponseValidator = responseValidationFactory(
@@ -37190,8 +37105,8 @@ export function bootstrap(
   )
 
   const licensesGetForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const licensesGetForRepoResponseValidator = responseValidationFactory(
@@ -37221,11 +37136,11 @@ export function bootstrap(
   )
 
   const reposMergeUpstreamParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
-  const reposMergeUpstreamBodySchema = z.object({ branch: z.coerce.string() })
+  const reposMergeUpstreamBodySchema = z.object({ branch: z.string() })
 
   const reposMergeUpstreamResponseValidator = responseValidationFactory(
     [
@@ -37258,14 +37173,14 @@ export function bootstrap(
   )
 
   const reposMergeParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposMergeBodySchema = z.object({
-    base: z.coerce.string(),
-    head: z.coerce.string(),
-    commit_message: z.coerce.string().optional(),
+    base: z.string(),
+    head: z.string(),
+    commit_message: z.string().optional(),
   })
 
   const reposMergeResponseValidator = responseValidationFactory(
@@ -37295,8 +37210,8 @@ export function bootstrap(
   })
 
   const issuesListMilestonesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const issuesListMilestonesQuerySchema = z.object({
@@ -37337,15 +37252,15 @@ export function bootstrap(
   )
 
   const issuesCreateMilestoneParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const issuesCreateMilestoneBodySchema = z.object({
-    title: z.coerce.string(),
+    title: z.string(),
     state: z.enum(["open", "closed"]).optional(),
-    description: z.coerce.string().optional(),
-    due_on: z.coerce.string().datetime({ offset: true }).optional(),
+    description: z.string().optional(),
+    due_on: z.string().datetime({ offset: true }).optional(),
   })
 
   const issuesCreateMilestoneResponseValidator = responseValidationFactory(
@@ -37382,8 +37297,8 @@ export function bootstrap(
   )
 
   const issuesGetMilestoneParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     milestone_number: z.coerce.number(),
   })
 
@@ -37417,17 +37332,17 @@ export function bootstrap(
   )
 
   const issuesUpdateMilestoneParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     milestone_number: z.coerce.number(),
   })
 
   const issuesUpdateMilestoneBodySchema = z
     .object({
-      title: z.coerce.string().optional(),
+      title: z.string().optional(),
       state: z.enum(["open", "closed"]).optional(),
-      description: z.coerce.string().optional(),
-      due_on: z.coerce.string().datetime({ offset: true }).optional(),
+      description: z.string().optional(),
+      due_on: z.string().datetime({ offset: true }).optional(),
     })
     .optional()
 
@@ -37461,8 +37376,8 @@ export function bootstrap(
   )
 
   const issuesDeleteMilestoneParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     milestone_number: z.coerce.number(),
   })
 
@@ -37496,8 +37411,8 @@ export function bootstrap(
   )
 
   const issuesListLabelsForMilestoneParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     milestone_number: z.coerce.number(),
   })
 
@@ -37535,15 +37450,15 @@ export function bootstrap(
   )
 
   const activityListRepoNotificationsForAuthenticatedUserParamSchema = z.object(
-    { owner: z.coerce.string(), repo: z.coerce.string() },
+    { owner: z.string(), repo: z.string() },
   )
 
   const activityListRepoNotificationsForAuthenticatedUserQuerySchema = z.object(
     {
       all: z.coerce.boolean().optional(),
       participating: z.coerce.boolean().optional(),
-      since: z.coerce.string().datetime({ offset: true }).optional(),
-      before: z.coerce.string().datetime({ offset: true }).optional(),
+      since: z.string().datetime({ offset: true }).optional(),
+      before: z.string().datetime({ offset: true }).optional(),
       per_page: z.coerce.number().optional(),
       page: z.coerce.number().optional(),
     },
@@ -37585,14 +37500,12 @@ export function bootstrap(
   )
 
   const activityMarkRepoNotificationsAsReadParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const activityMarkRepoNotificationsAsReadBodySchema = z
-    .object({
-      last_read_at: z.coerce.string().datetime({ offset: true }).optional(),
-    })
+    .object({ last_read_at: z.string().datetime({ offset: true }).optional() })
     .optional()
 
   const activityMarkRepoNotificationsAsReadResponseValidator =
@@ -37601,8 +37514,8 @@ export function bootstrap(
         [
           "202",
           z.object({
-            message: z.coerce.string().optional(),
-            url: z.coerce.string().optional(),
+            message: z.string().optional(),
+            url: z.string().optional(),
           }),
         ],
         ["205", z.void()],
@@ -37639,8 +37552,8 @@ export function bootstrap(
   )
 
   const reposGetPagesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposGetPagesResponseValidator = responseValidationFactory(
@@ -37670,18 +37583,15 @@ export function bootstrap(
   )
 
   const reposCreatePagesSiteParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposCreatePagesSiteBodySchema = z
     .object({
       build_type: z.enum(["legacy", "workflow"]).optional(),
       source: z
-        .object({
-          branch: z.coerce.string(),
-          path: z.enum(["/", "/docs"]).optional(),
-        })
+        .object({ branch: z.string(), path: z.enum(["/", "/docs"]).optional() })
         .optional(),
     })
     .nullable()
@@ -37720,17 +37630,17 @@ export function bootstrap(
   )
 
   const reposUpdateInformationAboutPagesSiteParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposUpdateInformationAboutPagesSiteBodySchema = z.object({
-    cname: z.coerce.string().optional().nullable(),
+    cname: z.string().optional().nullable(),
     https_enforced: z.coerce.boolean().optional(),
     build_type: z.enum(["legacy", "workflow"]).optional(),
     source: z.union([
       z.enum(["gh-pages", "master", "master /docs"]),
-      z.object({ branch: z.coerce.string(), path: z.enum(["/", "/docs"]) }),
+      z.object({ branch: z.string(), path: z.enum(["/", "/docs"]) }),
     ]),
   })
 
@@ -37774,8 +37684,8 @@ export function bootstrap(
   )
 
   const reposDeletePagesSiteParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposDeletePagesSiteResponseValidator = responseValidationFactory(
@@ -37810,8 +37720,8 @@ export function bootstrap(
   )
 
   const reposListPagesBuildsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposListPagesBuildsQuerySchema = z.object({
@@ -37846,8 +37756,8 @@ export function bootstrap(
   )
 
   const reposRequestPagesBuildParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposRequestPagesBuildResponseValidator = responseValidationFactory(
@@ -37880,8 +37790,8 @@ export function bootstrap(
   )
 
   const reposGetLatestPagesBuildParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposGetLatestPagesBuildResponseValidator = responseValidationFactory(
@@ -37914,8 +37824,8 @@ export function bootstrap(
   )
 
   const reposGetPagesBuildParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     build_id: z.coerce.number(),
   })
 
@@ -37946,15 +37856,15 @@ export function bootstrap(
   )
 
   const reposCreatePagesDeploymentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposCreatePagesDeploymentBodySchema = z.object({
-    artifact_url: z.coerce.string(),
-    environment: z.coerce.string().optional(),
-    pages_build_version: z.coerce.string(),
-    oidc_token: z.coerce.string(),
+    artifact_url: z.string(),
+    environment: z.string().optional(),
+    pages_build_version: z.string(),
+    oidc_token: z.string(),
   })
 
   const reposCreatePagesDeploymentResponseValidator = responseValidationFactory(
@@ -37995,8 +37905,8 @@ export function bootstrap(
   )
 
   const reposGetPagesHealthCheckParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposGetPagesHealthCheckResponseValidator = responseValidationFactory(
@@ -38035,8 +37945,8 @@ export function bootstrap(
   )
 
   const reposEnablePrivateVulnerabilityReportingParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposEnablePrivateVulnerabilityReportingResponseValidator =
@@ -38077,8 +37987,8 @@ export function bootstrap(
   )
 
   const reposDisablePrivateVulnerabilityReportingParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposDisablePrivateVulnerabilityReportingResponseValidator =
@@ -38119,8 +38029,8 @@ export function bootstrap(
   )
 
   const projectsListForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const projectsListForRepoQuerySchema = z.object({
@@ -38163,13 +38073,13 @@ export function bootstrap(
   )
 
   const projectsCreateForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const projectsCreateForRepoBodySchema = z.object({
-    name: z.coerce.string(),
-    body: z.coerce.string().optional(),
+    name: z.string(),
+    body: z.string().optional(),
   })
 
   const projectsCreateForRepoResponseValidator = responseValidationFactory(
@@ -38208,15 +38118,12 @@ export function bootstrap(
     },
   )
 
-  const pullsListParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-  })
+  const pullsListParamSchema = z.object({ owner: z.string(), repo: z.string() })
 
   const pullsListQuerySchema = z.object({
     state: z.enum(["open", "closed", "all"]).optional(),
-    head: z.coerce.string().optional(),
-    base: z.coerce.string().optional(),
+    head: z.string().optional(),
+    base: z.string().optional(),
     sort: z
       .enum(["created", "updated", "popularity", "long-running"])
       .optional(),
@@ -38249,16 +38156,16 @@ export function bootstrap(
   })
 
   const pullsCreateParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const pullsCreateBodySchema = z.object({
-    title: z.coerce.string().optional(),
-    head: z.coerce.string(),
-    head_repo: z.coerce.string().optional(),
-    base: z.coerce.string(),
-    body: z.coerce.string().optional(),
+    title: z.string().optional(),
+    head: z.string(),
+    head_repo: z.string().optional(),
+    base: z.string(),
+    body: z.string().optional(),
     maintainer_can_modify: z.coerce.boolean().optional(),
     draft: z.coerce.boolean().optional(),
     issue: z.coerce.number().optional(),
@@ -38288,14 +38195,14 @@ export function bootstrap(
   })
 
   const pullsListReviewCommentsForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const pullsListReviewCommentsForRepoQuerySchema = z.object({
     sort: z.enum(["created", "updated", "created_at"]).optional(),
     direction: z.enum(["asc", "desc"]).optional(),
-    since: z.coerce.string().datetime({ offset: true }).optional(),
+    since: z.string().datetime({ offset: true }).optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
   })
@@ -38332,8 +38239,8 @@ export function bootstrap(
   )
 
   const pullsGetReviewCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     comment_id: z.coerce.number(),
   })
 
@@ -38367,14 +38274,12 @@ export function bootstrap(
   )
 
   const pullsUpdateReviewCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     comment_id: z.coerce.number(),
   })
 
-  const pullsUpdateReviewCommentBodySchema = z.object({
-    body: z.coerce.string(),
-  })
+  const pullsUpdateReviewCommentBodySchema = z.object({ body: z.string() })
 
   const pullsUpdateReviewCommentResponseValidator = responseValidationFactory(
     [["200", s_pull_request_review_comment]],
@@ -38409,8 +38314,8 @@ export function bootstrap(
   )
 
   const pullsDeleteReviewCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     comment_id: z.coerce.number(),
   })
 
@@ -38447,8 +38352,8 @@ export function bootstrap(
   )
 
   const reactionsListForPullRequestReviewCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     comment_id: z.coerce.number(),
   })
 
@@ -38510,8 +38415,8 @@ export function bootstrap(
   )
 
   const reactionsCreateForPullRequestReviewCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     comment_id: z.coerce.number(),
   })
 
@@ -38570,8 +38475,8 @@ export function bootstrap(
   )
 
   const reactionsDeleteForPullRequestCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     comment_id: z.coerce.number(),
     reaction_id: z.coerce.number(),
   })
@@ -38605,8 +38510,8 @@ export function bootstrap(
   )
 
   const pullsGetParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
   })
 
@@ -38619,9 +38524,9 @@ export function bootstrap(
       [
         "503",
         z.object({
-          code: z.coerce.string().optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
     ],
@@ -38647,17 +38552,17 @@ export function bootstrap(
   )
 
   const pullsUpdateParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
   })
 
   const pullsUpdateBodySchema = z
     .object({
-      title: z.coerce.string().optional(),
-      body: z.coerce.string().optional(),
+      title: z.string().optional(),
+      body: z.string().optional(),
       state: z.enum(["open", "closed"]).optional(),
-      base: z.coerce.string().optional(),
+      base: z.string().optional(),
       maintainer_can_modify: z.coerce.boolean().optional(),
     })
     .optional()
@@ -38690,24 +38595,24 @@ export function bootstrap(
   )
 
   const codespacesCreateWithPrForAuthenticatedUserParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
   })
 
   const codespacesCreateWithPrForAuthenticatedUserBodySchema = z
     .object({
-      location: z.coerce.string().optional(),
+      location: z.string().optional(),
       geo: z
         .enum(["EuropeWest", "SoutheastAsia", "UsEast", "UsWest"])
         .optional(),
-      client_ip: z.coerce.string().optional(),
-      machine: z.coerce.string().optional(),
-      devcontainer_path: z.coerce.string().optional(),
+      client_ip: z.string().optional(),
+      machine: z.string().optional(),
+      devcontainer_path: z.string().optional(),
       multi_repo_permissions_opt_out: z.coerce.boolean().optional(),
-      working_directory: z.coerce.string().optional(),
+      working_directory: z.string().optional(),
       idle_timeout_minutes: z.coerce.number().optional(),
-      display_name: z.coerce.string().optional(),
+      display_name: z.string().optional(),
       retention_period_minutes: z.coerce.number().optional(),
     })
     .nullable()
@@ -38723,9 +38628,9 @@ export function bootstrap(
         [
           "503",
           z.object({
-            code: z.coerce.string().optional(),
-            message: z.coerce.string().optional(),
-            documentation_url: z.coerce.string().optional(),
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
           }),
         ],
       ],
@@ -38764,15 +38669,15 @@ export function bootstrap(
   )
 
   const pullsListReviewCommentsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
   })
 
   const pullsListReviewCommentsQuerySchema = z.object({
     sort: z.enum(["created", "updated"]).optional(),
     direction: z.enum(["asc", "desc"]).optional(),
-    since: z.coerce.string().datetime({ offset: true }).optional(),
+    since: z.string().datetime({ offset: true }).optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
   })
@@ -38807,15 +38712,15 @@ export function bootstrap(
   )
 
   const pullsCreateReviewCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
   })
 
   const pullsCreateReviewCommentBodySchema = z.object({
-    body: z.coerce.string(),
-    commit_id: z.coerce.string(),
-    path: z.coerce.string(),
+    body: z.string(),
+    commit_id: z.string(),
+    path: z.string(),
     position: z.coerce.number().optional(),
     side: z.enum(["LEFT", "RIGHT"]).optional(),
     line: z.coerce.number().optional(),
@@ -38862,14 +38767,14 @@ export function bootstrap(
   )
 
   const pullsCreateReplyForReviewCommentParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
     comment_id: z.coerce.number(),
   })
 
   const pullsCreateReplyForReviewCommentBodySchema = z.object({
-    body: z.coerce.string(),
+    body: z.string(),
   })
 
   const pullsCreateReplyForReviewCommentResponseValidator =
@@ -38907,8 +38812,8 @@ export function bootstrap(
   )
 
   const pullsListCommitsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
   })
 
@@ -38941,8 +38846,8 @@ export function bootstrap(
   )
 
   const pullsListFilesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
   })
 
@@ -38959,9 +38864,9 @@ export function bootstrap(
       [
         "503",
         z.object({
-          code: z.coerce.string().optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
     ],
@@ -38987,8 +38892,8 @@ export function bootstrap(
   )
 
   const pullsCheckIfMergedParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
   })
 
@@ -39022,16 +38927,16 @@ export function bootstrap(
   )
 
   const pullsMergeParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
   })
 
   const pullsMergeBodySchema = z
     .object({
-      commit_title: z.coerce.string().optional(),
-      commit_message: z.coerce.string().optional(),
-      sha: z.coerce.string().optional(),
+      commit_title: z.string().optional(),
+      commit_message: z.string().optional(),
+      sha: z.string().optional(),
       merge_method: z.enum(["merge", "squash", "rebase"]).optional(),
     })
     .optional()
@@ -39045,15 +38950,15 @@ export function bootstrap(
       [
         "405",
         z.object({
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
       [
         "409",
         z.object({
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
       ["422", s_validation_error],
@@ -39080,8 +38985,8 @@ export function bootstrap(
   )
 
   const pullsListRequestedReviewersParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
   })
 
@@ -39116,15 +39021,15 @@ export function bootstrap(
   )
 
   const pullsRequestReviewersParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
   })
 
   const pullsRequestReviewersBodySchema = z
     .object({
-      reviewers: z.array(z.coerce.string()).optional(),
-      team_reviewers: z.array(z.coerce.string()).optional(),
+      reviewers: z.array(z.string()).optional(),
+      team_reviewers: z.array(z.string()).optional(),
     })
     .optional()
 
@@ -39162,14 +39067,14 @@ export function bootstrap(
   )
 
   const pullsRemoveRequestedReviewersParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
   })
 
   const pullsRemoveRequestedReviewersBodySchema = z.object({
-    reviewers: z.array(z.coerce.string()),
-    team_reviewers: z.array(z.coerce.string()).optional(),
+    reviewers: z.array(z.string()),
+    team_reviewers: z.array(z.string()).optional(),
   })
 
   const pullsRemoveRequestedReviewersResponseValidator =
@@ -39207,8 +39112,8 @@ export function bootstrap(
   )
 
   const pullsListReviewsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
   })
 
@@ -39241,26 +39146,26 @@ export function bootstrap(
   )
 
   const pullsCreateReviewParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
   })
 
   const pullsCreateReviewBodySchema = z
     .object({
-      commit_id: z.coerce.string().optional(),
-      body: z.coerce.string().optional(),
+      commit_id: z.string().optional(),
+      body: z.string().optional(),
       event: z.enum(["APPROVE", "REQUEST_CHANGES", "COMMENT"]).optional(),
       comments: z
         .array(
           z.object({
-            path: z.coerce.string(),
+            path: z.string(),
             position: z.coerce.number().optional(),
-            body: z.coerce.string(),
+            body: z.string(),
             line: z.coerce.number().optional(),
-            side: z.coerce.string().optional(),
+            side: z.string().optional(),
             start_line: z.coerce.number().optional(),
-            start_side: z.coerce.string().optional(),
+            start_side: z.string().optional(),
           }),
         )
         .optional(),
@@ -39298,8 +39203,8 @@ export function bootstrap(
   )
 
   const pullsGetReviewParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
     review_id: z.coerce.number(),
   })
@@ -39331,13 +39236,13 @@ export function bootstrap(
   )
 
   const pullsUpdateReviewParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
     review_id: z.coerce.number(),
   })
 
-  const pullsUpdateReviewBodySchema = z.object({ body: z.coerce.string() })
+  const pullsUpdateReviewBodySchema = z.object({ body: z.string() })
 
   const pullsUpdateReviewResponseValidator = responseValidationFactory(
     [
@@ -39369,8 +39274,8 @@ export function bootstrap(
   )
 
   const pullsDeletePendingReviewParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
     review_id: z.coerce.number(),
   })
@@ -39409,8 +39314,8 @@ export function bootstrap(
   )
 
   const pullsListCommentsForReviewParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
     review_id: z.coerce.number(),
   })
@@ -39456,14 +39361,14 @@ export function bootstrap(
   )
 
   const pullsDismissReviewParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
     review_id: z.coerce.number(),
   })
 
   const pullsDismissReviewBodySchema = z.object({
-    message: z.coerce.string(),
+    message: z.string(),
     event: z.enum(["DISMISS"]).optional(),
   })
 
@@ -39498,14 +39403,14 @@ export function bootstrap(
   )
 
   const pullsSubmitReviewParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
     review_id: z.coerce.number(),
   })
 
   const pullsSubmitReviewBodySchema = z.object({
-    body: z.coerce.string().optional(),
+    body: z.string().optional(),
     event: z.enum(["APPROVE", "REQUEST_CHANGES", "COMMENT"]),
   })
 
@@ -39541,13 +39446,13 @@ export function bootstrap(
   )
 
   const pullsUpdateBranchParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     pull_number: z.coerce.number(),
   })
 
   const pullsUpdateBranchBodySchema = z
-    .object({ expected_head_sha: z.coerce.string().optional() })
+    .object({ expected_head_sha: z.string().optional() })
     .optional()
     .nullable()
 
@@ -39556,8 +39461,8 @@ export function bootstrap(
       [
         "202",
         z.object({
-          message: z.coerce.string().optional(),
-          url: z.coerce.string().optional(),
+          message: z.string().optional(),
+          url: z.string().optional(),
         }),
       ],
       ["403", s_basic_error],
@@ -39588,13 +39493,11 @@ export function bootstrap(
   )
 
   const reposGetReadmeParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
-  const reposGetReadmeQuerySchema = z.object({
-    ref: z.coerce.string().optional(),
-  })
+  const reposGetReadmeQuerySchema = z.object({ ref: z.string().optional() })
 
   const reposGetReadmeResponseValidator = responseValidationFactory(
     [
@@ -39624,13 +39527,13 @@ export function bootstrap(
   )
 
   const reposGetReadmeInDirectoryParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    dir: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    dir: z.string(),
   })
 
   const reposGetReadmeInDirectoryQuerySchema = z.object({
-    ref: z.coerce.string().optional(),
+    ref: z.string().optional(),
   })
 
   const reposGetReadmeInDirectoryResponseValidator = responseValidationFactory(
@@ -39670,8 +39573,8 @@ export function bootstrap(
   )
 
   const reposListReleasesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposListReleasesQuerySchema = z.object({
@@ -39709,18 +39612,18 @@ export function bootstrap(
   )
 
   const reposCreateReleaseParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposCreateReleaseBodySchema = z.object({
-    tag_name: z.coerce.string(),
-    target_commitish: z.coerce.string().optional(),
-    name: z.coerce.string().optional(),
-    body: z.coerce.string().optional(),
+    tag_name: z.string(),
+    target_commitish: z.string().optional(),
+    name: z.string().optional(),
+    body: z.string().optional(),
     draft: z.coerce.boolean().optional(),
     prerelease: z.coerce.boolean().optional(),
-    discussion_category_name: z.coerce.string().optional(),
+    discussion_category_name: z.string().optional(),
     generate_release_notes: z.coerce.boolean().optional(),
     make_latest: z.enum(["true", "false", "legacy"]).optional(),
   })
@@ -39756,8 +39659,8 @@ export function bootstrap(
   )
 
   const reposGetReleaseAssetParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     asset_id: z.coerce.number(),
   })
 
@@ -39792,16 +39695,16 @@ export function bootstrap(
   )
 
   const reposUpdateReleaseAssetParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     asset_id: z.coerce.number(),
   })
 
   const reposUpdateReleaseAssetBodySchema = z
     .object({
-      name: z.coerce.string().optional(),
-      label: z.coerce.string().optional(),
-      state: z.coerce.string().optional(),
+      name: z.string().optional(),
+      label: z.string().optional(),
+      state: z.string().optional(),
     })
     .optional()
 
@@ -39838,8 +39741,8 @@ export function bootstrap(
   )
 
   const reposDeleteReleaseAssetParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     asset_id: z.coerce.number(),
   })
 
@@ -39873,15 +39776,15 @@ export function bootstrap(
   )
 
   const reposGenerateReleaseNotesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposGenerateReleaseNotesBodySchema = z.object({
-    tag_name: z.coerce.string(),
-    target_commitish: z.coerce.string().optional(),
-    previous_tag_name: z.coerce.string().optional(),
-    configuration_file_path: z.coerce.string().optional(),
+    tag_name: z.string(),
+    target_commitish: z.string().optional(),
+    previous_tag_name: z.string().optional(),
+    configuration_file_path: z.string().optional(),
   })
 
   const reposGenerateReleaseNotesResponseValidator = responseValidationFactory(
@@ -39920,8 +39823,8 @@ export function bootstrap(
   )
 
   const reposGetLatestReleaseParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposGetLatestReleaseResponseValidator = responseValidationFactory(
@@ -39951,9 +39854,9 @@ export function bootstrap(
   )
 
   const reposGetReleaseByTagParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    tag: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    tag: z.string(),
   })
 
   const reposGetReleaseByTagResponseValidator = responseValidationFactory(
@@ -39986,8 +39889,8 @@ export function bootstrap(
   )
 
   const reposGetReleaseParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     release_id: z.coerce.number(),
   })
 
@@ -40018,21 +39921,21 @@ export function bootstrap(
   )
 
   const reposUpdateReleaseParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     release_id: z.coerce.number(),
   })
 
   const reposUpdateReleaseBodySchema = z
     .object({
-      tag_name: z.coerce.string().optional(),
-      target_commitish: z.coerce.string().optional(),
-      name: z.coerce.string().optional(),
-      body: z.coerce.string().optional(),
+      tag_name: z.string().optional(),
+      target_commitish: z.string().optional(),
+      name: z.string().optional(),
+      body: z.string().optional(),
       draft: z.coerce.boolean().optional(),
       prerelease: z.coerce.boolean().optional(),
       make_latest: z.enum(["true", "false", "legacy"]).optional(),
-      discussion_category_name: z.coerce.string().optional(),
+      discussion_category_name: z.string().optional(),
     })
     .optional()
 
@@ -40066,8 +39969,8 @@ export function bootstrap(
   )
 
   const reposDeleteReleaseParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     release_id: z.coerce.number(),
   })
 
@@ -40098,8 +40001,8 @@ export function bootstrap(
   )
 
   const reposListReleaseAssetsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     release_id: z.coerce.number(),
   })
 
@@ -40138,17 +40041,17 @@ export function bootstrap(
   )
 
   const reposUploadReleaseAssetParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     release_id: z.coerce.number(),
   })
 
   const reposUploadReleaseAssetQuerySchema = z.object({
-    name: z.coerce.string(),
-    label: z.coerce.string().optional(),
+    name: z.string(),
+    label: z.string().optional(),
   })
 
-  const reposUploadReleaseAssetBodySchema = z.coerce.string().optional()
+  const reposUploadReleaseAssetBodySchema = z.string().optional()
 
   const reposUploadReleaseAssetResponseValidator = responseValidationFactory(
     [
@@ -40186,8 +40089,8 @@ export function bootstrap(
   )
 
   const reactionsListForReleaseParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     release_id: z.coerce.number(),
   })
 
@@ -40232,8 +40135,8 @@ export function bootstrap(
   )
 
   const reactionsCreateForReleaseParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     release_id: z.coerce.number(),
   })
 
@@ -40278,8 +40181,8 @@ export function bootstrap(
   )
 
   const reactionsDeleteForReleaseParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     release_id: z.coerce.number(),
     reaction_id: z.coerce.number(),
   })
@@ -40314,9 +40217,9 @@ export function bootstrap(
   )
 
   const reposGetBranchRulesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    branch: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    branch: z.string(),
   })
 
   const reposGetBranchRulesQuerySchema = z.object({
@@ -40351,8 +40254,8 @@ export function bootstrap(
   )
 
   const reposGetRepoRulesetsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposGetRepoRulesetsQuerySchema = z.object({
@@ -40392,12 +40295,12 @@ export function bootstrap(
   )
 
   const reposCreateRepoRulesetParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposCreateRepoRulesetBodySchema = z.object({
-    name: z.coerce.string(),
+    name: z.string(),
     target: z.enum(["branch", "tag"]).optional(),
     enforcement: s_repository_rule_enforcement,
     bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
@@ -40442,8 +40345,8 @@ export function bootstrap(
   )
 
   const reposGetRepoRulesetParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     ruleset_id: z.coerce.number(),
   })
 
@@ -40482,14 +40385,14 @@ export function bootstrap(
   )
 
   const reposUpdateRepoRulesetParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     ruleset_id: z.coerce.number(),
   })
 
   const reposUpdateRepoRulesetBodySchema = z
     .object({
-      name: z.coerce.string().optional(),
+      name: z.string().optional(),
       target: z.enum(["branch", "tag"]).optional(),
       enforcement: s_repository_rule_enforcement,
       bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
@@ -40535,8 +40438,8 @@ export function bootstrap(
   )
 
   const reposDeleteRepoRulesetParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     ruleset_id: z.coerce.number(),
   })
 
@@ -40574,20 +40477,20 @@ export function bootstrap(
   )
 
   const secretScanningListAlertsForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const secretScanningListAlertsForRepoQuerySchema = z.object({
     state: z.enum(["open", "resolved"]).optional(),
-    secret_type: z.coerce.string().optional(),
-    resolution: z.coerce.string().optional(),
+    secret_type: z.string().optional(),
+    resolution: z.string().optional(),
     sort: z.enum(["created", "updated"]).optional(),
     direction: z.enum(["asc", "desc"]).optional(),
     page: z.coerce.number().optional(),
     per_page: z.coerce.number().optional(),
-    before: z.coerce.string().optional(),
-    after: z.coerce.string().optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
   })
 
   const secretScanningListAlertsForRepoResponseValidator =
@@ -40598,9 +40501,9 @@ export function bootstrap(
         [
           "503",
           z.object({
-            code: z.coerce.string().optional(),
-            message: z.coerce.string().optional(),
-            documentation_url: z.coerce.string().optional(),
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
           }),
         ],
       ],
@@ -40633,8 +40536,8 @@ export function bootstrap(
   )
 
   const secretScanningGetAlertParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     alert_number: s_alert_number,
   })
 
@@ -40646,9 +40549,9 @@ export function bootstrap(
       [
         "503",
         z.object({
-          code: z.coerce.string().optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
     ],
@@ -40680,8 +40583,8 @@ export function bootstrap(
   )
 
   const secretScanningUpdateAlertParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     alert_number: s_alert_number,
   })
 
@@ -40700,9 +40603,9 @@ export function bootstrap(
       [
         "503",
         z.object({
-          code: z.coerce.string().optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
     ],
@@ -40737,8 +40640,8 @@ export function bootstrap(
   )
 
   const secretScanningListLocationsForAlertParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     alert_number: s_alert_number,
   })
 
@@ -40755,9 +40658,9 @@ export function bootstrap(
         [
           "503",
           z.object({
-            code: z.coerce.string().optional(),
-            message: z.coerce.string().optional(),
-            documentation_url: z.coerce.string().optional(),
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
           }),
         ],
       ],
@@ -40793,15 +40696,15 @@ export function bootstrap(
   )
 
   const securityAdvisoriesListRepositoryAdvisoriesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const securityAdvisoriesListRepositoryAdvisoriesQuerySchema = z.object({
     direction: z.enum(["asc", "desc"]).optional(),
     sort: z.enum(["created", "updated", "published"]).optional(),
-    before: z.coerce.string().optional(),
-    after: z.coerce.string().optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
     per_page: z.coerce.number().optional(),
     state: z.enum(["triage", "draft", "published", "closed"]).optional(),
   })
@@ -40848,8 +40751,8 @@ export function bootstrap(
   )
 
   const securityAdvisoriesCreateRepositoryAdvisoryParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const securityAdvisoriesCreateRepositoryAdvisoryBodySchema =
@@ -40898,7 +40801,7 @@ export function bootstrap(
   )
 
   const securityAdvisoriesCreatePrivateVulnerabilityReportParamSchema =
-    z.object({ owner: z.coerce.string(), repo: z.coerce.string() })
+    z.object({ owner: z.string(), repo: z.string() })
 
   const securityAdvisoriesCreatePrivateVulnerabilityReportBodySchema =
     s_private_vulnerability_report_create
@@ -40947,9 +40850,9 @@ export function bootstrap(
   )
 
   const securityAdvisoriesGetRepositoryAdvisoryParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    ghsa_id: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    ghsa_id: z.string(),
   })
 
   const securityAdvisoriesGetRepositoryAdvisoryResponseValidator =
@@ -40988,9 +40891,9 @@ export function bootstrap(
   )
 
   const securityAdvisoriesUpdateRepositoryAdvisoryParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    ghsa_id: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    ghsa_id: z.string(),
   })
 
   const securityAdvisoriesUpdateRepositoryAdvisoryBodySchema =
@@ -41039,11 +40942,7 @@ export function bootstrap(
   )
 
   const securityAdvisoriesCreateRepositoryAdvisoryCveRequestParamSchema =
-    z.object({
-      owner: z.coerce.string(),
-      repo: z.coerce.string(),
-      ghsa_id: z.coerce.string(),
-    })
+    z.object({ owner: z.string(), repo: z.string(), ghsa_id: z.string() })
 
   const securityAdvisoriesCreateRepositoryAdvisoryCveRequestResponseValidator =
     responseValidationFactory(
@@ -41087,8 +40986,8 @@ export function bootstrap(
   )
 
   const activityListStargazersForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const activityListStargazersForRepoQuerySchema = z.object({
@@ -41131,8 +41030,8 @@ export function bootstrap(
   )
 
   const reposGetCodeFrequencyStatsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposGetCodeFrequencyStatsResponseValidator = responseValidationFactory(
@@ -41169,8 +41068,8 @@ export function bootstrap(
   )
 
   const reposGetCommitActivityStatsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposGetCommitActivityStatsResponseValidator =
@@ -41208,8 +41107,8 @@ export function bootstrap(
   )
 
   const reposGetContributorsStatsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposGetContributorsStatsResponseValidator = responseValidationFactory(
@@ -41246,8 +41145,8 @@ export function bootstrap(
   )
 
   const reposGetParticipationStatsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposGetParticipationStatsResponseValidator = responseValidationFactory(
@@ -41283,8 +41182,8 @@ export function bootstrap(
   )
 
   const reposGetPunchCardStatsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposGetPunchCardStatsResponseValidator = responseValidationFactory(
@@ -41320,16 +41219,16 @@ export function bootstrap(
   )
 
   const reposCreateCommitStatusParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    sha: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    sha: z.string(),
   })
 
   const reposCreateCommitStatusBodySchema = z.object({
     state: z.enum(["error", "failure", "pending", "success"]),
-    target_url: z.coerce.string().optional().nullable(),
-    description: z.coerce.string().optional().nullable(),
-    context: z.coerce.string().optional(),
+    target_url: z.string().optional().nullable(),
+    description: z.string().optional().nullable(),
+    context: z.string().optional(),
   })
 
   const reposCreateCommitStatusResponseValidator = responseValidationFactory(
@@ -41365,8 +41264,8 @@ export function bootstrap(
   )
 
   const activityListWatchersForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const activityListWatchersForRepoQuerySchema = z.object({
@@ -41405,8 +41304,8 @@ export function bootstrap(
   )
 
   const activityGetRepoSubscriptionParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const activityGetRepoSubscriptionResponseValidator =
@@ -41444,8 +41343,8 @@ export function bootstrap(
   )
 
   const activitySetRepoSubscriptionParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const activitySetRepoSubscriptionBodySchema = z
@@ -41486,8 +41385,8 @@ export function bootstrap(
   )
 
   const activityDeleteRepoSubscriptionParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const activityDeleteRepoSubscriptionResponseValidator =
@@ -41516,8 +41415,8 @@ export function bootstrap(
   )
 
   const reposListTagsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposListTagsQuerySchema = z.object({
@@ -41545,8 +41444,8 @@ export function bootstrap(
   })
 
   const reposListTagProtectionParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposListTagProtectionResponseValidator = responseValidationFactory(
@@ -41583,13 +41482,11 @@ export function bootstrap(
   )
 
   const reposCreateTagProtectionParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
-  const reposCreateTagProtectionBodySchema = z.object({
-    pattern: z.coerce.string(),
-  })
+  const reposCreateTagProtectionBodySchema = z.object({ pattern: z.string() })
 
   const reposCreateTagProtectionResponseValidator = responseValidationFactory(
     [
@@ -41628,8 +41525,8 @@ export function bootstrap(
   )
 
   const reposDeleteTagProtectionParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
     tag_protection_id: z.coerce.number(),
   })
 
@@ -41667,9 +41564,9 @@ export function bootstrap(
   )
 
   const reposDownloadTarballArchiveParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    ref: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    ref: z.string(),
   })
 
   const reposDownloadTarballArchiveResponseValidator =
@@ -41700,8 +41597,8 @@ export function bootstrap(
   )
 
   const reposListTeamsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposListTeamsQuerySchema = z.object({
@@ -41736,8 +41633,8 @@ export function bootstrap(
   )
 
   const reposGetAllTopicsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposGetAllTopicsQuerySchema = z.object({
@@ -41775,12 +41672,12 @@ export function bootstrap(
   )
 
   const reposReplaceAllTopicsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposReplaceAllTopicsBodySchema = z.object({
-    names: z.array(z.coerce.string()),
+    names: z.array(z.string()),
   })
 
   const reposReplaceAllTopicsResponseValidator = responseValidationFactory(
@@ -41817,8 +41714,8 @@ export function bootstrap(
   )
 
   const reposGetClonesParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposGetClonesQuerySchema = z.object({
@@ -41852,8 +41749,8 @@ export function bootstrap(
   )
 
   const reposGetTopPathsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposGetTopPathsResponseValidator = responseValidationFactory(
@@ -41883,8 +41780,8 @@ export function bootstrap(
   )
 
   const reposGetTopReferrersParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposGetTopReferrersResponseValidator = responseValidationFactory(
@@ -41917,8 +41814,8 @@ export function bootstrap(
   )
 
   const reposGetViewsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposGetViewsQuerySchema = z.object({
@@ -41952,13 +41849,13 @@ export function bootstrap(
   )
 
   const reposTransferParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposTransferBodySchema = z.object({
-    new_owner: z.coerce.string(),
-    new_name: z.coerce.string().optional(),
+    new_owner: z.string(),
+    new_name: z.string().optional(),
     team_ids: z.array(z.coerce.number()).optional(),
   })
 
@@ -41986,8 +41883,8 @@ export function bootstrap(
   )
 
   const reposCheckVulnerabilityAlertsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposCheckVulnerabilityAlertsResponseValidator =
@@ -42022,8 +41919,8 @@ export function bootstrap(
   )
 
   const reposEnableVulnerabilityAlertsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposEnableVulnerabilityAlertsResponseValidator =
@@ -42052,8 +41949,8 @@ export function bootstrap(
   )
 
   const reposDisableVulnerabilityAlertsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const reposDisableVulnerabilityAlertsResponseValidator =
@@ -42082,9 +41979,9 @@ export function bootstrap(
   )
 
   const reposDownloadZipballArchiveParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    ref: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
+    ref: z.string(),
   })
 
   const reposDownloadZipballArchiveResponseValidator =
@@ -42115,14 +42012,14 @@ export function bootstrap(
   )
 
   const reposCreateUsingTemplateParamSchema = z.object({
-    template_owner: z.coerce.string(),
-    template_repo: z.coerce.string(),
+    template_owner: z.string(),
+    template_repo: z.string(),
   })
 
   const reposCreateUsingTemplateBodySchema = z.object({
-    owner: z.coerce.string().optional(),
-    name: z.coerce.string(),
-    description: z.coerce.string().optional(),
+    owner: z.string().optional(),
+    name: z.string(),
+    description: z.string().optional(),
     include_all_branches: z.coerce.boolean().optional(),
     private: z.coerce.boolean().optional(),
   })
@@ -42188,7 +42085,7 @@ export function bootstrap(
 
   const actionsListEnvironmentSecretsParamSchema = z.object({
     repository_id: z.coerce.number(),
-    environment_name: z.coerce.string(),
+    environment_name: z.string(),
   })
 
   const actionsListEnvironmentSecretsQuerySchema = z.object({
@@ -42237,7 +42134,7 @@ export function bootstrap(
 
   const actionsGetEnvironmentPublicKeyParamSchema = z.object({
     repository_id: z.coerce.number(),
-    environment_name: z.coerce.string(),
+    environment_name: z.string(),
   })
 
   const actionsGetEnvironmentPublicKeyResponseValidator =
@@ -42267,8 +42164,8 @@ export function bootstrap(
 
   const actionsGetEnvironmentSecretParamSchema = z.object({
     repository_id: z.coerce.number(),
-    environment_name: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    environment_name: z.string(),
+    secret_name: z.string(),
   })
 
   const actionsGetEnvironmentSecretResponseValidator =
@@ -42300,13 +42197,13 @@ export function bootstrap(
 
   const actionsCreateOrUpdateEnvironmentSecretParamSchema = z.object({
     repository_id: z.coerce.number(),
-    environment_name: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    environment_name: z.string(),
+    secret_name: z.string(),
   })
 
   const actionsCreateOrUpdateEnvironmentSecretBodySchema = z.object({
-    encrypted_value: z.coerce.string(),
-    key_id: z.coerce.string(),
+    encrypted_value: z.string(),
+    key_id: z.string(),
   })
 
   const actionsCreateOrUpdateEnvironmentSecretResponseValidator =
@@ -42348,8 +42245,8 @@ export function bootstrap(
 
   const actionsDeleteEnvironmentSecretParamSchema = z.object({
     repository_id: z.coerce.number(),
-    environment_name: z.coerce.string(),
-    secret_name: z.coerce.string(),
+    environment_name: z.string(),
+    secret_name: z.string(),
   })
 
   const actionsDeleteEnvironmentSecretResponseValidator =
@@ -42379,7 +42276,7 @@ export function bootstrap(
 
   const actionsListEnvironmentVariablesParamSchema = z.object({
     repository_id: z.coerce.number(),
-    environment_name: z.coerce.string(),
+    environment_name: z.string(),
   })
 
   const actionsListEnvironmentVariablesQuerySchema = z.object({
@@ -42428,12 +42325,12 @@ export function bootstrap(
 
   const actionsCreateEnvironmentVariableParamSchema = z.object({
     repository_id: z.coerce.number(),
-    environment_name: z.coerce.string(),
+    environment_name: z.string(),
   })
 
   const actionsCreateEnvironmentVariableBodySchema = z.object({
-    name: z.coerce.string(),
-    value: z.coerce.string(),
+    name: z.string(),
+    value: z.string(),
   })
 
   const actionsCreateEnvironmentVariableResponseValidator =
@@ -42466,8 +42363,8 @@ export function bootstrap(
 
   const actionsGetEnvironmentVariableParamSchema = z.object({
     repository_id: z.coerce.number(),
-    environment_name: z.coerce.string(),
-    name: z.coerce.string(),
+    environment_name: z.string(),
+    name: z.string(),
   })
 
   const actionsGetEnvironmentVariableResponseValidator =
@@ -42497,13 +42394,13 @@ export function bootstrap(
 
   const actionsUpdateEnvironmentVariableParamSchema = z.object({
     repository_id: z.coerce.number(),
-    name: z.coerce.string(),
-    environment_name: z.coerce.string(),
+    name: z.string(),
+    environment_name: z.string(),
   })
 
   const actionsUpdateEnvironmentVariableBodySchema = z.object({
-    name: z.coerce.string().optional(),
-    value: z.coerce.string().optional(),
+    name: z.string().optional(),
+    value: z.string().optional(),
   })
 
   const actionsUpdateEnvironmentVariableResponseValidator =
@@ -42536,8 +42433,8 @@ export function bootstrap(
 
   const actionsDeleteEnvironmentVariableParamSchema = z.object({
     repository_id: z.coerce.number(),
-    name: z.coerce.string(),
-    environment_name: z.coerce.string(),
+    name: z.string(),
+    environment_name: z.string(),
   })
 
   const actionsDeleteEnvironmentVariableResponseValidator =
@@ -42566,7 +42463,7 @@ export function bootstrap(
   )
 
   const searchCodeQuerySchema = z.object({
-    q: z.coerce.string(),
+    q: z.string(),
     sort: z.enum(["indexed"]).optional(),
     order: z.enum(["desc", "asc"]).optional(),
     per_page: z.coerce.number().optional(),
@@ -42589,9 +42486,9 @@ export function bootstrap(
       [
         "503",
         z.object({
-          code: z.coerce.string().optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
     ],
@@ -42613,7 +42510,7 @@ export function bootstrap(
   })
 
   const searchCommitsQuerySchema = z.object({
-    q: z.coerce.string(),
+    q: z.string(),
     sort: z.enum(["author-date", "committer-date"]).optional(),
     order: z.enum(["desc", "asc"]).optional(),
     per_page: z.coerce.number().optional(),
@@ -42650,7 +42547,7 @@ export function bootstrap(
   })
 
   const searchIssuesAndPullRequestsQuerySchema = z.object({
-    q: z.coerce.string(),
+    q: z.string(),
     sort: z
       .enum([
         "comments",
@@ -42688,9 +42585,9 @@ export function bootstrap(
         [
           "503",
           z.object({
-            code: z.coerce.string().optional(),
-            message: z.coerce.string().optional(),
-            documentation_url: z.coerce.string().optional(),
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
           }),
         ],
       ],
@@ -42723,7 +42620,7 @@ export function bootstrap(
 
   const searchLabelsQuerySchema = z.object({
     repository_id: z.coerce.number(),
-    q: z.coerce.string(),
+    q: z.string(),
     sort: z.enum(["created", "updated"]).optional(),
     order: z.enum(["desc", "asc"]).optional(),
     per_page: z.coerce.number().optional(),
@@ -42763,7 +42660,7 @@ export function bootstrap(
   })
 
   const searchReposQuerySchema = z.object({
-    q: z.coerce.string(),
+    q: z.string(),
     sort: z
       .enum(["stars", "forks", "help-wanted-issues", "updated"])
       .optional(),
@@ -42787,9 +42684,9 @@ export function bootstrap(
       [
         "503",
         z.object({
-          code: z.coerce.string().optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
     ],
@@ -42811,7 +42708,7 @@ export function bootstrap(
   })
 
   const searchTopicsQuerySchema = z.object({
-    q: z.coerce.string(),
+    q: z.string(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
   })
@@ -42846,7 +42743,7 @@ export function bootstrap(
   })
 
   const searchUsersQuerySchema = z.object({
-    q: z.coerce.string(),
+    q: z.string(),
     sort: z.enum(["followers", "repositories", "joined"]).optional(),
     order: z.enum(["desc", "asc"]).optional(),
     per_page: z.coerce.number().optional(),
@@ -42868,9 +42765,9 @@ export function bootstrap(
       [
         "503",
         z.object({
-          code: z.coerce.string().optional(),
-          message: z.coerce.string().optional(),
-          documentation_url: z.coerce.string().optional(),
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
         }),
       ],
     ],
@@ -42918,8 +42815,8 @@ export function bootstrap(
   const teamsUpdateLegacyParamSchema = z.object({ team_id: z.coerce.number() })
 
   const teamsUpdateLegacyBodySchema = z.object({
-    name: z.coerce.string(),
-    description: z.coerce.string().optional(),
+    name: z.string(),
+    description: z.string().optional(),
     privacy: z.enum(["secret", "closed"]).optional(),
     notification_setting: z
       .enum(["notifications_enabled", "notifications_disabled"])
@@ -43025,8 +42922,8 @@ export function bootstrap(
   })
 
   const teamsCreateDiscussionLegacyBodySchema = z.object({
-    title: z.coerce.string(),
-    body: z.coerce.string(),
+    title: z.string(),
+    body: z.string(),
     private: z.coerce.boolean().optional(),
   })
 
@@ -43100,10 +42997,7 @@ export function bootstrap(
   })
 
   const teamsUpdateDiscussionLegacyBodySchema = z
-    .object({
-      title: z.coerce.string().optional(),
-      body: z.coerce.string().optional(),
-    })
+    .object({ title: z.string().optional(), body: z.string().optional() })
     .optional()
 
   const teamsUpdateDiscussionLegacyResponseValidator =
@@ -43219,7 +43113,7 @@ export function bootstrap(
   })
 
   const teamsCreateDiscussionCommentLegacyBodySchema = z.object({
-    body: z.coerce.string(),
+    body: z.string(),
   })
 
   const teamsCreateDiscussionCommentLegacyResponseValidator =
@@ -43291,7 +43185,7 @@ export function bootstrap(
   })
 
   const teamsUpdateDiscussionCommentLegacyBodySchema = z.object({
-    body: z.coerce.string(),
+    body: z.string(),
   })
 
   const teamsUpdateDiscussionCommentLegacyResponseValidator =
@@ -43658,7 +43552,7 @@ export function bootstrap(
 
   const teamsGetMemberLegacyParamSchema = z.object({
     team_id: z.coerce.number(),
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const teamsGetMemberLegacyResponseValidator = responseValidationFactory(
@@ -43692,7 +43586,7 @@ export function bootstrap(
 
   const teamsAddMemberLegacyParamSchema = z.object({
     team_id: z.coerce.number(),
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const teamsAddMemberLegacyResponseValidator = responseValidationFactory(
@@ -43728,7 +43622,7 @@ export function bootstrap(
 
   const teamsRemoveMemberLegacyParamSchema = z.object({
     team_id: z.coerce.number(),
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const teamsRemoveMemberLegacyResponseValidator = responseValidationFactory(
@@ -43765,7 +43659,7 @@ export function bootstrap(
 
   const teamsGetMembershipForUserLegacyParamSchema = z.object({
     team_id: z.coerce.number(),
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const teamsGetMembershipForUserLegacyResponseValidator =
@@ -43801,7 +43695,7 @@ export function bootstrap(
 
   const teamsAddOrUpdateMembershipForUserLegacyParamSchema = z.object({
     team_id: z.coerce.number(),
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const teamsAddOrUpdateMembershipForUserLegacyBodySchema = z
@@ -43849,7 +43743,7 @@ export function bootstrap(
 
   const teamsRemoveMembershipForUserLegacyParamSchema = z.object({
     team_id: z.coerce.number(),
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const teamsRemoveMembershipForUserLegacyResponseValidator =
@@ -43982,8 +43876,8 @@ export function bootstrap(
         [
           "403",
           z.object({
-            message: z.coerce.string().optional(),
-            documentation_url: z.coerce.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
           }),
         ],
         ["404", s_basic_error],
@@ -44101,8 +43995,8 @@ export function bootstrap(
 
   const teamsCheckPermissionsForRepoLegacyParamSchema = z.object({
     team_id: z.coerce.number(),
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const teamsCheckPermissionsForRepoLegacyResponseValidator =
@@ -44142,8 +44036,8 @@ export function bootstrap(
 
   const teamsAddOrUpdateRepoPermissionsLegacyParamSchema = z.object({
     team_id: z.coerce.number(),
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const teamsAddOrUpdateRepoPermissionsLegacyBodySchema = z
@@ -44190,8 +44084,8 @@ export function bootstrap(
 
   const teamsRemoveRepoLegacyParamSchema = z.object({
     team_id: z.coerce.number(),
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const teamsRemoveRepoLegacyResponseValidator = responseValidationFactory(
@@ -44289,14 +44183,14 @@ export function bootstrap(
 
   const usersUpdateAuthenticatedBodySchema = z
     .object({
-      name: z.coerce.string().optional(),
-      email: z.coerce.string().optional(),
-      blog: z.coerce.string().optional(),
-      twitter_username: z.coerce.string().optional().nullable(),
-      company: z.coerce.string().optional(),
-      location: z.coerce.string().optional(),
+      name: z.string().optional(),
+      email: z.string().optional(),
+      blog: z.string().optional(),
+      twitter_username: z.string().optional().nullable(),
+      company: z.string().optional(),
+      location: z.string().optional(),
       hireable: z.coerce.boolean().optional(),
-      bio: z.coerce.string().optional(),
+      bio: z.string().optional(),
     })
     .optional()
 
@@ -44374,7 +44268,7 @@ export function bootstrap(
     },
   )
 
-  const usersCheckBlockedParamSchema = z.object({ username: z.coerce.string() })
+  const usersCheckBlockedParamSchema = z.object({ username: z.string() })
 
   const usersCheckBlockedResponseValidator = responseValidationFactory(
     [
@@ -44408,7 +44302,7 @@ export function bootstrap(
     },
   )
 
-  const usersBlockParamSchema = z.object({ username: z.coerce.string() })
+  const usersBlockParamSchema = z.object({ username: z.string() })
 
   const usersBlockResponseValidator = responseValidationFactory(
     [
@@ -44436,7 +44330,7 @@ export function bootstrap(
     return next()
   })
 
-  const usersUnblockParamSchema = z.object({ username: z.coerce.string() })
+  const usersUnblockParamSchema = z.object({ username: z.string() })
 
   const usersUnblockResponseValidator = responseValidationFactory(
     [
@@ -44516,18 +44410,18 @@ export function bootstrap(
   const codespacesCreateForAuthenticatedUserBodySchema = z.union([
     z.object({
       repository_id: z.coerce.number(),
-      ref: z.coerce.string().optional(),
-      location: z.coerce.string().optional(),
+      ref: z.string().optional(),
+      location: z.string().optional(),
       geo: z
         .enum(["EuropeWest", "SoutheastAsia", "UsEast", "UsWest"])
         .optional(),
-      client_ip: z.coerce.string().optional(),
-      machine: z.coerce.string().optional(),
-      devcontainer_path: z.coerce.string().optional(),
+      client_ip: z.string().optional(),
+      machine: z.string().optional(),
+      devcontainer_path: z.string().optional(),
       multi_repo_permissions_opt_out: z.coerce.boolean().optional(),
-      working_directory: z.coerce.string().optional(),
+      working_directory: z.string().optional(),
       idle_timeout_minutes: z.coerce.number().optional(),
-      display_name: z.coerce.string().optional(),
+      display_name: z.string().optional(),
       retention_period_minutes: z.coerce.number().optional(),
     }),
     z.object({
@@ -44535,13 +44429,13 @@ export function bootstrap(
         pull_request_number: z.coerce.number(),
         repository_id: z.coerce.number(),
       }),
-      location: z.coerce.string().optional(),
+      location: z.string().optional(),
       geo: z
         .enum(["EuropeWest", "SoutheastAsia", "UsEast", "UsWest"])
         .optional(),
-      machine: z.coerce.string().optional(),
-      devcontainer_path: z.coerce.string().optional(),
-      working_directory: z.coerce.string().optional(),
+      machine: z.string().optional(),
+      devcontainer_path: z.string().optional(),
+      working_directory: z.string().optional(),
       idle_timeout_minutes: z.coerce.number().optional(),
     }),
   ])
@@ -44557,9 +44451,9 @@ export function bootstrap(
         [
           "503",
           z.object({
-            code: z.coerce.string().optional(),
-            message: z.coerce.string().optional(),
-            documentation_url: z.coerce.string().optional(),
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
           }),
         ],
       ],
@@ -44670,7 +44564,7 @@ export function bootstrap(
   )
 
   const codespacesGetSecretForAuthenticatedUserParamSchema = z.object({
-    secret_name: z.coerce.string(),
+    secret_name: z.string(),
   })
 
   const codespacesGetSecretForAuthenticatedUserResponseValidator =
@@ -44702,14 +44596,14 @@ export function bootstrap(
   )
 
   const codespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema =
-    z.object({ secret_name: z.coerce.string() })
+    z.object({ secret_name: z.string() })
 
   const codespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema = z.object(
     {
-      encrypted_value: z.coerce.string().optional(),
-      key_id: z.coerce.string(),
+      encrypted_value: z.string().optional(),
+      key_id: z.string(),
       selected_repository_ids: z
-        .array(z.union([z.coerce.number(), z.coerce.string()]))
+        .array(z.union([z.coerce.number(), z.string()]))
         .optional(),
     },
   )
@@ -44758,7 +44652,7 @@ export function bootstrap(
   )
 
   const codespacesDeleteSecretForAuthenticatedUserParamSchema = z.object({
-    secret_name: z.coerce.string(),
+    secret_name: z.string(),
   })
 
   const codespacesDeleteSecretForAuthenticatedUserResponseValidator =
@@ -44793,7 +44687,7 @@ export function bootstrap(
   )
 
   const codespacesListRepositoriesForSecretForAuthenticatedUserParamSchema =
-    z.object({ secret_name: z.coerce.string() })
+    z.object({ secret_name: z.string() })
 
   const codespacesListRepositoriesForSecretForAuthenticatedUserResponseValidator =
     responseValidationFactory(
@@ -44843,7 +44737,7 @@ export function bootstrap(
   )
 
   const codespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema =
-    z.object({ secret_name: z.coerce.string() })
+    z.object({ secret_name: z.string() })
 
   const codespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema =
     z.object({ selected_repository_ids: z.array(z.coerce.number()) })
@@ -44893,10 +44787,7 @@ export function bootstrap(
   )
 
   const codespacesAddRepositoryForSecretForAuthenticatedUserParamSchema =
-    z.object({
-      secret_name: z.coerce.string(),
-      repository_id: z.coerce.number(),
-    })
+    z.object({ secret_name: z.string(), repository_id: z.coerce.number() })
 
   const codespacesAddRepositoryForSecretForAuthenticatedUserResponseValidator =
     responseValidationFactory(
@@ -44940,10 +44831,7 @@ export function bootstrap(
   )
 
   const codespacesRemoveRepositoryForSecretForAuthenticatedUserParamSchema =
-    z.object({
-      secret_name: z.coerce.string(),
-      repository_id: z.coerce.number(),
-    })
+    z.object({ secret_name: z.string(), repository_id: z.coerce.number() })
 
   const codespacesRemoveRepositoryForSecretForAuthenticatedUserResponseValidator =
     responseValidationFactory(
@@ -44987,7 +44875,7 @@ export function bootstrap(
   )
 
   const codespacesGetForAuthenticatedUserParamSchema = z.object({
-    codespace_name: z.coerce.string(),
+    codespace_name: z.string(),
   })
 
   const codespacesGetForAuthenticatedUserResponseValidator =
@@ -45029,14 +44917,14 @@ export function bootstrap(
   )
 
   const codespacesUpdateForAuthenticatedUserParamSchema = z.object({
-    codespace_name: z.coerce.string(),
+    codespace_name: z.string(),
   })
 
   const codespacesUpdateForAuthenticatedUserBodySchema = z
     .object({
-      machine: z.coerce.string().optional(),
-      display_name: z.coerce.string().optional(),
-      recent_folders: z.array(z.coerce.string()).optional(),
+      machine: z.string().optional(),
+      display_name: z.string().optional(),
+      recent_folders: z.array(z.string()).optional(),
     })
     .optional()
 
@@ -45080,7 +44968,7 @@ export function bootstrap(
   )
 
   const codespacesDeleteForAuthenticatedUserParamSchema = z.object({
-    codespace_name: z.coerce.string(),
+    codespace_name: z.string(),
   })
 
   const codespacesDeleteForAuthenticatedUserResponseValidator =
@@ -45122,7 +45010,7 @@ export function bootstrap(
   )
 
   const codespacesExportForAuthenticatedUserParamSchema = z.object({
-    codespace_name: z.coerce.string(),
+    codespace_name: z.string(),
   })
 
   const codespacesExportForAuthenticatedUserResponseValidator =
@@ -45164,8 +45052,8 @@ export function bootstrap(
   )
 
   const codespacesGetExportDetailsForAuthenticatedUserParamSchema = z.object({
-    codespace_name: z.coerce.string(),
-    export_id: z.coerce.string(),
+    codespace_name: z.string(),
+    export_id: z.string(),
   })
 
   const codespacesGetExportDetailsForAuthenticatedUserResponseValidator =
@@ -45207,7 +45095,7 @@ export function bootstrap(
   )
 
   const codespacesCodespaceMachinesForAuthenticatedUserParamSchema = z.object({
-    codespace_name: z.coerce.string(),
+    codespace_name: z.string(),
   })
 
   const codespacesCodespaceMachinesForAuthenticatedUserResponseValidator =
@@ -45259,11 +45147,11 @@ export function bootstrap(
   )
 
   const codespacesPublishForAuthenticatedUserParamSchema = z.object({
-    codespace_name: z.coerce.string(),
+    codespace_name: z.string(),
   })
 
   const codespacesPublishForAuthenticatedUserBodySchema = z.object({
-    name: z.coerce.string().optional(),
+    name: z.string().optional(),
     private: z.coerce.boolean().optional(),
   })
 
@@ -45308,7 +45196,7 @@ export function bootstrap(
   )
 
   const codespacesStartForAuthenticatedUserParamSchema = z.object({
-    codespace_name: z.coerce.string(),
+    codespace_name: z.string(),
   })
 
   const codespacesStartForAuthenticatedUserResponseValidator =
@@ -45353,7 +45241,7 @@ export function bootstrap(
   )
 
   const codespacesStopForAuthenticatedUserParamSchema = z.object({
-    codespace_name: z.coerce.string(),
+    codespace_name: z.string(),
   })
 
   const codespacesStopForAuthenticatedUserResponseValidator =
@@ -45511,9 +45399,9 @@ export function bootstrap(
   )
 
   const usersAddEmailForAuthenticatedUserBodySchema = z.union([
-    z.object({ emails: z.array(z.coerce.string()) }),
-    z.array(z.coerce.string()),
-    z.coerce.string(),
+    z.object({ emails: z.array(z.string()) }),
+    z.array(z.string()),
+    z.string(),
   ])
 
   const usersAddEmailForAuthenticatedUserResponseValidator =
@@ -45555,9 +45443,9 @@ export function bootstrap(
   )
 
   const usersDeleteEmailForAuthenticatedUserBodySchema = z.union([
-    z.object({ emails: z.array(z.coerce.string()) }),
-    z.array(z.coerce.string()),
-    z.coerce.string(),
+    z.object({ emails: z.array(z.string()) }),
+    z.array(z.string()),
+    z.string(),
   ])
 
   const usersDeleteEmailForAuthenticatedUserResponseValidator =
@@ -45681,7 +45569,7 @@ export function bootstrap(
   )
 
   const usersCheckPersonIsFollowedByAuthenticatedParamSchema = z.object({
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const usersCheckPersonIsFollowedByAuthenticatedResponseValidator =
@@ -45724,7 +45612,7 @@ export function bootstrap(
     },
   )
 
-  const usersFollowParamSchema = z.object({ username: z.coerce.string() })
+  const usersFollowParamSchema = z.object({ username: z.string() })
 
   const usersFollowResponseValidator = responseValidationFactory(
     [
@@ -45751,7 +45639,7 @@ export function bootstrap(
     return next()
   })
 
-  const usersUnfollowParamSchema = z.object({ username: z.coerce.string() })
+  const usersUnfollowParamSchema = z.object({ username: z.string() })
 
   const usersUnfollowResponseValidator = responseValidationFactory(
     [
@@ -45825,8 +45713,8 @@ export function bootstrap(
   )
 
   const usersCreateGpgKeyForAuthenticatedUserBodySchema = z.object({
-    name: z.coerce.string().optional(),
-    armored_public_key: z.coerce.string(),
+    name: z.string().optional(),
+    armored_public_key: z.string(),
   })
 
   const usersCreateGpgKeyForAuthenticatedUserResponseValidator =
@@ -46016,7 +45904,7 @@ export function bootstrap(
           "200",
           z.object({
             total_count: z.coerce.number(),
-            repository_selection: z.coerce.string().optional(),
+            repository_selection: z.string().optional(),
             repositories: z.array(s_repository),
           }),
         ],
@@ -46259,10 +46147,10 @@ export function bootstrap(
       .enum(["assigned", "created", "mentioned", "subscribed", "repos", "all"])
       .optional(),
     state: z.enum(["open", "closed", "all"]).optional(),
-    labels: z.coerce.string().optional(),
+    labels: z.string().optional(),
     sort: z.enum(["created", "updated", "comments"]).optional(),
     direction: z.enum(["asc", "desc"]).optional(),
-    since: z.coerce.string().datetime({ offset: true }).optional(),
+    since: z.string().datetime({ offset: true }).optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
   })
@@ -46345,8 +46233,8 @@ export function bootstrap(
   )
 
   const usersCreatePublicSshKeyForAuthenticatedUserBodySchema = z.object({
-    title: z.coerce.string().optional(),
-    key: z.coerce.string(),
+    title: z.string().optional(),
+    key: z.string(),
   })
 
   const usersCreatePublicSshKeyForAuthenticatedUserResponseValidator =
@@ -46610,7 +46498,7 @@ export function bootstrap(
   )
 
   const orgsGetMembershipForAuthenticatedUserParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const orgsGetMembershipForAuthenticatedUserResponseValidator =
@@ -46649,7 +46537,7 @@ export function bootstrap(
   )
 
   const orgsUpdateMembershipForAuthenticatedUserParamSchema = z.object({
-    org: z.coerce.string(),
+    org: z.string(),
   })
 
   const orgsUpdateMembershipForAuthenticatedUserBodySchema = z.object({
@@ -46748,7 +46636,7 @@ export function bootstrap(
     exclude_owner_projects: z.coerce.boolean().optional(),
     org_metadata_only: z.coerce.boolean().optional(),
     exclude: z.array(z.enum(["repositories"])).optional(),
-    repositories: z.array(z.coerce.string()),
+    repositories: z.array(z.string()),
   })
 
   const migrationsStartForAuthenticatedUserResponseValidator =
@@ -46793,7 +46681,7 @@ export function bootstrap(
   })
 
   const migrationsGetStatusForAuthenticatedUserQuerySchema = z.object({
-    exclude: z.array(z.coerce.string()).optional(),
+    exclude: z.array(z.string()).optional(),
   })
 
   const migrationsGetStatusForAuthenticatedUserResponseValidator =
@@ -46925,7 +46813,7 @@ export function bootstrap(
 
   const migrationsUnlockRepoForAuthenticatedUserParamSchema = z.object({
     migration_id: z.coerce.number(),
-    repo_name: z.coerce.string(),
+    repo_name: z.string(),
   })
 
   const migrationsUnlockRepoForAuthenticatedUserResponseValidator =
@@ -47112,7 +47000,7 @@ export function bootstrap(
       "nuget",
       "container",
     ]),
-    package_name: z.coerce.string(),
+    package_name: z.string(),
   })
 
   const packagesGetPackageForAuthenticatedUserResponseValidator =
@@ -47152,7 +47040,7 @@ export function bootstrap(
       "nuget",
       "container",
     ]),
-    package_name: z.coerce.string(),
+    package_name: z.string(),
   })
 
   const packagesDeletePackageForAuthenticatedUserResponseValidator =
@@ -47203,11 +47091,11 @@ export function bootstrap(
       "nuget",
       "container",
     ]),
-    package_name: z.coerce.string(),
+    package_name: z.string(),
   })
 
   const packagesRestorePackageForAuthenticatedUserQuerySchema = z.object({
-    token: z.coerce.string().optional(),
+    token: z.string().optional(),
   })
 
   const packagesRestorePackageForAuthenticatedUserResponseValidator =
@@ -47262,7 +47150,7 @@ export function bootstrap(
         "nuget",
         "container",
       ]),
-      package_name: z.coerce.string(),
+      package_name: z.string(),
     })
 
   const packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserQuerySchema =
@@ -47324,7 +47212,7 @@ export function bootstrap(
       "nuget",
       "container",
     ]),
-    package_name: z.coerce.string(),
+    package_name: z.string(),
     package_version_id: z.coerce.number(),
   })
 
@@ -47368,7 +47256,7 @@ export function bootstrap(
       "nuget",
       "container",
     ]),
-    package_name: z.coerce.string(),
+    package_name: z.string(),
     package_version_id: z.coerce.number(),
   })
 
@@ -47422,7 +47310,7 @@ export function bootstrap(
         "nuget",
         "container",
       ]),
-      package_name: z.coerce.string(),
+      package_name: z.string(),
       package_version_id: z.coerce.number(),
     },
   )
@@ -47468,8 +47356,8 @@ export function bootstrap(
   )
 
   const projectsCreateForAuthenticatedUserBodySchema = z.object({
-    name: z.coerce.string(),
-    body: z.coerce.string().optional().nullable(),
+    name: z.string(),
+    body: z.string().optional().nullable(),
   })
 
   const projectsCreateForAuthenticatedUserResponseValidator =
@@ -47556,14 +47444,14 @@ export function bootstrap(
 
   const reposListForAuthenticatedUserQuerySchema = z.object({
     visibility: z.enum(["all", "public", "private"]).optional(),
-    affiliation: z.coerce.string().optional(),
+    affiliation: z.string().optional(),
     type: z.enum(["all", "owner", "public", "private", "member"]).optional(),
     sort: z.enum(["created", "updated", "pushed", "full_name"]).optional(),
     direction: z.enum(["asc", "desc"]).optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
-    since: z.coerce.string().datetime({ offset: true }).optional(),
-    before: z.coerce.string().datetime({ offset: true }).optional(),
+    since: z.string().datetime({ offset: true }).optional(),
+    before: z.string().datetime({ offset: true }).optional(),
   })
 
   const reposListForAuthenticatedUserResponseValidator =
@@ -47601,9 +47489,9 @@ export function bootstrap(
   )
 
   const reposCreateForAuthenticatedUserBodySchema = z.object({
-    name: z.coerce.string(),
-    description: z.coerce.string().optional(),
-    homepage: z.coerce.string().optional(),
+    name: z.string(),
+    description: z.string().optional(),
+    homepage: z.string().optional(),
     private: z.coerce.boolean().optional(),
     has_issues: z.coerce.boolean().optional(),
     has_projects: z.coerce.boolean().optional(),
@@ -47611,8 +47499,8 @@ export function bootstrap(
     has_discussions: z.coerce.boolean().optional(),
     team_id: z.coerce.number().optional(),
     auto_init: z.coerce.boolean().optional(),
-    gitignore_template: z.coerce.string().optional(),
-    license_template: z.coerce.string().optional(),
+    gitignore_template: z.string().optional(),
+    license_template: z.string().optional(),
     allow_squash_merge: z.coerce.boolean().optional(),
     allow_merge_commit: z.coerce.boolean().optional(),
     allow_rebase_merge: z.coerce.boolean().optional(),
@@ -47845,7 +47733,7 @@ export function bootstrap(
   )
 
   const usersAddSocialAccountForAuthenticatedUserBodySchema = z.object({
-    account_urls: z.array(z.coerce.string()),
+    account_urls: z.array(z.string()),
   })
 
   const usersAddSocialAccountForAuthenticatedUserResponseValidator =
@@ -47890,7 +47778,7 @@ export function bootstrap(
   )
 
   const usersDeleteSocialAccountForAuthenticatedUserBodySchema = z.object({
-    account_urls: z.array(z.coerce.string()),
+    account_urls: z.array(z.string()),
   })
 
   const usersDeleteSocialAccountForAuthenticatedUserResponseValidator =
@@ -47980,8 +47868,8 @@ export function bootstrap(
   )
 
   const usersCreateSshSigningKeyForAuthenticatedUserBodySchema = z.object({
-    title: z.coerce.string().optional(),
-    key: z.coerce.string(),
+    title: z.string().optional(),
+    key: z.string(),
   })
 
   const usersCreateSshSigningKeyForAuthenticatedUserResponseValidator =
@@ -48160,8 +48048,8 @@ export function bootstrap(
   )
 
   const activityCheckRepoIsStarredByAuthenticatedUserParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const activityCheckRepoIsStarredByAuthenticatedUserResponseValidator =
@@ -48205,8 +48093,8 @@ export function bootstrap(
   )
 
   const activityStarRepoForAuthenticatedUserParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const activityStarRepoForAuthenticatedUserResponseValidator =
@@ -48247,8 +48135,8 @@ export function bootstrap(
   )
 
   const activityUnstarRepoForAuthenticatedUserParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
+    owner: z.string(),
+    repo: z.string(),
   })
 
   const activityUnstarRepoForAuthenticatedUserResponseValidator =
@@ -48397,9 +48285,7 @@ export function bootstrap(
     return next()
   })
 
-  const usersGetByUsernameParamSchema = z.object({
-    username: z.coerce.string(),
-  })
+  const usersGetByUsernameParamSchema = z.object({ username: z.string() })
 
   const usersGetByUsernameResponseValidator = responseValidationFactory(
     [
@@ -48424,7 +48310,7 @@ export function bootstrap(
   })
 
   const packagesListDockerMigrationConflictingPackagesForUserParamSchema =
-    z.object({ username: z.coerce.string() })
+    z.object({ username: z.string() })
 
   const packagesListDockerMigrationConflictingPackagesForUserResponseValidator =
     responseValidationFactory(
@@ -48466,7 +48352,7 @@ export function bootstrap(
   )
 
   const activityListEventsForAuthenticatedUserParamSchema = z.object({
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const activityListEventsForAuthenticatedUserQuerySchema = z.object({
@@ -48506,8 +48392,8 @@ export function bootstrap(
   )
 
   const activityListOrgEventsForAuthenticatedUserParamSchema = z.object({
-    username: z.coerce.string(),
-    org: z.coerce.string(),
+    username: z.string(),
+    org: z.string(),
   })
 
   const activityListOrgEventsForAuthenticatedUserQuerySchema = z.object({
@@ -48550,7 +48436,7 @@ export function bootstrap(
   )
 
   const activityListPublicEventsForUserParamSchema = z.object({
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const activityListPublicEventsForUserQuerySchema = z.object({
@@ -48587,7 +48473,7 @@ export function bootstrap(
   )
 
   const usersListFollowersForUserParamSchema = z.object({
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const usersListFollowersForUserQuerySchema = z.object({
@@ -48628,7 +48514,7 @@ export function bootstrap(
   )
 
   const usersListFollowingForUserParamSchema = z.object({
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const usersListFollowingForUserQuerySchema = z.object({
@@ -48669,8 +48555,8 @@ export function bootstrap(
   )
 
   const usersCheckFollowingForUserParamSchema = z.object({
-    username: z.coerce.string(),
-    target_user: z.coerce.string(),
+    username: z.string(),
+    target_user: z.string(),
   })
 
   const usersCheckFollowingForUserResponseValidator = responseValidationFactory(
@@ -48705,10 +48591,10 @@ export function bootstrap(
     },
   )
 
-  const gistsListForUserParamSchema = z.object({ username: z.coerce.string() })
+  const gistsListForUserParamSchema = z.object({ username: z.string() })
 
   const gistsListForUserQuerySchema = z.object({
-    since: z.coerce.string().datetime({ offset: true }).optional(),
+    since: z.string().datetime({ offset: true }).optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
   })
@@ -48739,9 +48625,7 @@ export function bootstrap(
     },
   )
 
-  const usersListGpgKeysForUserParamSchema = z.object({
-    username: z.coerce.string(),
-  })
+  const usersListGpgKeysForUserParamSchema = z.object({ username: z.string() })
 
   const usersListGpgKeysForUserQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -48777,15 +48661,13 @@ export function bootstrap(
     },
   )
 
-  const usersGetContextForUserParamSchema = z.object({
-    username: z.coerce.string(),
-  })
+  const usersGetContextForUserParamSchema = z.object({ username: z.string() })
 
   const usersGetContextForUserQuerySchema = z.object({
     subject_type: z
       .enum(["organization", "repository", "issue", "pull_request"])
       .optional(),
-    subject_id: z.coerce.string().optional(),
+    subject_id: z.string().optional(),
   })
 
   const usersGetContextForUserResponseValidator = responseValidationFactory(
@@ -48821,9 +48703,7 @@ export function bootstrap(
     },
   )
 
-  const appsGetUserInstallationParamSchema = z.object({
-    username: z.coerce.string(),
-  })
+  const appsGetUserInstallationParamSchema = z.object({ username: z.string() })
 
   const appsGetUserInstallationResponseValidator = responseValidationFactory(
     [["200", s_installation]],
@@ -48855,7 +48735,7 @@ export function bootstrap(
   )
 
   const usersListPublicKeysForUserParamSchema = z.object({
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const usersListPublicKeysForUserQuerySchema = z.object({
@@ -48895,7 +48775,7 @@ export function bootstrap(
     },
   )
 
-  const orgsListForUserParamSchema = z.object({ username: z.coerce.string() })
+  const orgsListForUserParamSchema = z.object({ username: z.string() })
 
   const orgsListForUserQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -48922,7 +48802,7 @@ export function bootstrap(
   })
 
   const packagesListPackagesForUserParamSchema = z.object({
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const packagesListPackagesForUserQuerySchema = z.object({
@@ -48986,8 +48866,8 @@ export function bootstrap(
       "nuget",
       "container",
     ]),
-    package_name: z.coerce.string(),
-    username: z.coerce.string(),
+    package_name: z.string(),
+    username: z.string(),
   })
 
   const packagesGetPackageForUserResponseValidator = responseValidationFactory(
@@ -49028,8 +48908,8 @@ export function bootstrap(
       "nuget",
       "container",
     ]),
-    package_name: z.coerce.string(),
-    username: z.coerce.string(),
+    package_name: z.string(),
+    username: z.string(),
   })
 
   const packagesDeletePackageForUserResponseValidator =
@@ -49074,12 +48954,12 @@ export function bootstrap(
       "nuget",
       "container",
     ]),
-    package_name: z.coerce.string(),
-    username: z.coerce.string(),
+    package_name: z.string(),
+    username: z.string(),
   })
 
   const packagesRestorePackageForUserQuerySchema = z.object({
-    token: z.coerce.string().optional(),
+    token: z.string().optional(),
   })
 
   const packagesRestorePackageForUserResponseValidator =
@@ -49128,8 +49008,8 @@ export function bootstrap(
         "nuget",
         "container",
       ]),
-      package_name: z.coerce.string(),
-      username: z.coerce.string(),
+      package_name: z.string(),
+      username: z.string(),
     })
 
   const packagesGetAllPackageVersionsForPackageOwnedByUserResponseValidator =
@@ -49181,9 +49061,9 @@ export function bootstrap(
       "nuget",
       "container",
     ]),
-    package_name: z.coerce.string(),
+    package_name: z.string(),
     package_version_id: z.coerce.number(),
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const packagesGetPackageVersionForUserResponseValidator =
@@ -49220,8 +49100,8 @@ export function bootstrap(
       "nuget",
       "container",
     ]),
-    package_name: z.coerce.string(),
-    username: z.coerce.string(),
+    package_name: z.string(),
+    username: z.string(),
     package_version_id: z.coerce.number(),
   })
 
@@ -49270,8 +49150,8 @@ export function bootstrap(
       "nuget",
       "container",
     ]),
-    package_name: z.coerce.string(),
-    username: z.coerce.string(),
+    package_name: z.string(),
+    username: z.string(),
     package_version_id: z.coerce.number(),
   })
 
@@ -49311,9 +49191,7 @@ export function bootstrap(
     },
   )
 
-  const projectsListForUserParamSchema = z.object({
-    username: z.coerce.string(),
-  })
+  const projectsListForUserParamSchema = z.object({ username: z.string() })
 
   const projectsListForUserQuerySchema = z.object({
     state: z.enum(["open", "closed", "all"]).optional(),
@@ -49351,7 +49229,7 @@ export function bootstrap(
   )
 
   const activityListReceivedEventsForUserParamSchema = z.object({
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const activityListReceivedEventsForUserQuerySchema = z.object({
@@ -49391,7 +49269,7 @@ export function bootstrap(
   )
 
   const activityListReceivedPublicEventsForUserParamSchema = z.object({
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const activityListReceivedPublicEventsForUserQuerySchema = z.object({
@@ -49430,7 +49308,7 @@ export function bootstrap(
     },
   )
 
-  const reposListForUserParamSchema = z.object({ username: z.coerce.string() })
+  const reposListForUserParamSchema = z.object({ username: z.string() })
 
   const reposListForUserQuerySchema = z.object({
     type: z.enum(["all", "owner", "member"]).optional(),
@@ -49464,7 +49342,7 @@ export function bootstrap(
   )
 
   const billingGetGithubActionsBillingUserParamSchema = z.object({
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const billingGetGithubActionsBillingUserResponseValidator =
@@ -49496,7 +49374,7 @@ export function bootstrap(
   )
 
   const billingGetGithubPackagesBillingUserParamSchema = z.object({
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const billingGetGithubPackagesBillingUserResponseValidator =
@@ -49528,7 +49406,7 @@ export function bootstrap(
   )
 
   const billingGetSharedStorageBillingUserParamSchema = z.object({
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const billingGetSharedStorageBillingUserResponseValidator =
@@ -49560,7 +49438,7 @@ export function bootstrap(
   )
 
   const usersListSocialAccountsForUserParamSchema = z.object({
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const usersListSocialAccountsForUserQuerySchema = z.object({
@@ -49597,7 +49475,7 @@ export function bootstrap(
   )
 
   const usersListSshSigningKeysForUserParamSchema = z.object({
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const usersListSshSigningKeysForUserQuerySchema = z.object({
@@ -49634,7 +49512,7 @@ export function bootstrap(
   )
 
   const activityListReposStarredByUserParamSchema = z.object({
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const activityListReposStarredByUserQuerySchema = z.object({
@@ -49681,7 +49559,7 @@ export function bootstrap(
   )
 
   const activityListReposWatchedByUserParamSchema = z.object({
-    username: z.coerce.string(),
+    username: z.string(),
   })
 
   const activityListReposWatchedByUserQuerySchema = z.object({
@@ -49722,7 +49600,7 @@ export function bootstrap(
 
   const metaGetAllVersionsResponseValidator = responseValidationFactory(
     [
-      ["200", z.array(z.coerce.string())],
+      ["200", z.array(z.string())],
       ["404", s_basic_error],
     ],
     undefined,
@@ -49743,7 +49621,7 @@ export function bootstrap(
   })
 
   const metaGetZenResponseValidator = responseValidationFactory(
-    [["200", z.coerce.string()]],
+    [["200", z.string()]],
     undefined,
   )
 

@@ -4,18 +4,18 @@
 
 import { z } from "zod"
 
-export const s_CreateUpdateTodoList = z.object({ name: z.coerce.string() })
+export const s_CreateUpdateTodoList = z.object({ name: z.string() })
 
 export const s_TodoList = z.object({
-  id: z.coerce.string(),
-  name: z.coerce.string(),
+  id: z.string(),
+  name: z.string(),
   totalItemCount: z.coerce.number(),
   incompleteItemCount: z.coerce.number(),
-  created: z.coerce.string().datetime({ offset: true }),
-  updated: z.coerce.string().datetime({ offset: true }),
+  created: z.string().datetime({ offset: true }),
+  updated: z.string().datetime({ offset: true }),
 })
 
 export const s_Error = z.object({
-  message: z.coerce.string().optional(),
+  message: z.string().optional(),
   code: z.coerce.number().optional(),
 })

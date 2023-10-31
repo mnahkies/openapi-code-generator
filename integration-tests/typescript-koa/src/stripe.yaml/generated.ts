@@ -7985,7 +7985,7 @@ export function bootstrap(
   const router = new KoaRouter()
 
   const getAccountQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getAccountBodySchema = z.object({}).optional()
@@ -8010,11 +8010,11 @@ export function bootstrap(
   })
 
   const postAccountLinksBodySchema = z.object({
-    account: z.coerce.string(),
+    account: z.string(),
     collect: z.enum(["currently_due", "eventually_due"]).optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    refresh_url: z.coerce.string().optional(),
-    return_url: z.coerce.string().optional(),
+    expand: z.array(z.string()).optional(),
+    refresh_url: z.string().optional(),
+    return_url: z.string().optional(),
     type: z.enum(["account_onboarding", "account_update"]),
   })
 
@@ -8038,11 +8038,11 @@ export function bootstrap(
   })
 
   const postAccountSessionsBodySchema = z.object({
-    account: z.coerce.string(),
+    account: z.string(),
     components: z.object({
       account_onboarding: z.object({ enabled: z.coerce.boolean() }).optional(),
     }),
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const postAccountSessionsResponseValidator = responseValidationFactory(
@@ -8084,10 +8084,10 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getAccountsBodySchema = z.object({}).optional()
@@ -8100,7 +8100,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_account)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -8123,51 +8123,51 @@ export function bootstrap(
 
   const postAccountsBodySchema = z
     .object({
-      account_token: z.coerce.string().optional(),
+      account_token: z.string().optional(),
       bank_account: z.union([
         z.object({
-          account_holder_name: z.coerce.string().optional(),
+          account_holder_name: z.string().optional(),
           account_holder_type: z.enum(["company", "individual"]).optional(),
-          account_number: z.coerce.string(),
+          account_number: z.string(),
           account_type: z
             .enum(["checking", "futsu", "savings", "toza"])
             .optional(),
-          country: z.coerce.string(),
-          currency: z.coerce.string().optional(),
+          country: z.string(),
+          currency: z.string().optional(),
           documents: z
             .object({
               bank_account_ownership_verification: z
-                .object({ files: z.array(z.coerce.string()).optional() })
+                .object({ files: z.array(z.string()).optional() })
                 .optional(),
             })
             .optional(),
           object: z.enum(["bank_account"]).optional(),
-          routing_number: z.coerce.string().optional(),
+          routing_number: z.string().optional(),
         }),
-        z.coerce.string(),
+        z.string(),
       ]),
       business_profile: z
         .object({
-          mcc: z.coerce.string().optional(),
+          mcc: z.string().optional(),
           monthly_estimated_revenue: z
-            .object({ amount: z.coerce.number(), currency: z.coerce.string() })
+            .object({ amount: z.coerce.number(), currency: z.string() })
             .optional(),
-          name: z.coerce.string().optional(),
-          product_description: z.coerce.string().optional(),
+          name: z.string().optional(),
+          product_description: z.string().optional(),
           support_address: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
             })
             .optional(),
-          support_email: z.coerce.string().optional(),
-          support_phone: z.coerce.string().optional(),
-          support_url: z.union([z.coerce.string(), z.enum([""])]),
-          url: z.coerce.string().optional(),
+          support_email: z.string().optional(),
+          support_phone: z.string().optional(),
+          support_url: z.union([z.string(), z.enum([""])]),
+          url: z.string().optional(),
         })
         .optional(),
       business_type: z
@@ -8289,53 +8289,53 @@ export function bootstrap(
         .object({
           address: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
             })
             .optional(),
           address_kana: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
-              town: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
+              town: z.string().optional(),
             })
             .optional(),
           address_kanji: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
-              town: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
+              town: z.string().optional(),
             })
             .optional(),
           directors_provided: z.coerce.boolean().optional(),
           executives_provided: z.coerce.boolean().optional(),
-          export_license_id: z.coerce.string().optional(),
-          export_purpose_code: z.coerce.string().optional(),
-          name: z.coerce.string().optional(),
-          name_kana: z.coerce.string().optional(),
-          name_kanji: z.coerce.string().optional(),
+          export_license_id: z.string().optional(),
+          export_purpose_code: z.string().optional(),
+          name: z.string().optional(),
+          name_kana: z.string().optional(),
+          name_kanji: z.string().optional(),
           owners_provided: z.coerce.boolean().optional(),
           ownership_declaration: z
             .object({
               date: z.coerce.number().optional(),
-              ip: z.coerce.string().optional(),
-              user_agent: z.coerce.string().optional(),
+              ip: z.string().optional(),
+              user_agent: z.string().optional(),
             })
             .optional(),
-          phone: z.coerce.string().optional(),
-          registration_number: z.coerce.string().optional(),
+          phone: z.string().optional(),
+          registration_number: z.string().optional(),
           structure: z
             .enum([
               "",
@@ -8363,83 +8363,83 @@ export function bootstrap(
               "unincorporated_partnership",
             ])
             .optional(),
-          tax_id: z.coerce.string().optional(),
-          tax_id_registrar: z.coerce.string().optional(),
-          vat_id: z.coerce.string().optional(),
+          tax_id: z.string().optional(),
+          tax_id_registrar: z.string().optional(),
+          vat_id: z.string().optional(),
           verification: z
             .object({
               document: z
                 .object({
-                  back: z.coerce.string().optional(),
-                  front: z.coerce.string().optional(),
+                  back: z.string().optional(),
+                  front: z.string().optional(),
                 })
                 .optional(),
             })
             .optional(),
         })
         .optional(),
-      country: z.coerce.string().optional(),
-      default_currency: z.coerce.string().optional(),
+      country: z.string().optional(),
+      default_currency: z.string().optional(),
       documents: z
         .object({
           bank_account_ownership_verification: z
-            .object({ files: z.array(z.coerce.string()).optional() })
+            .object({ files: z.array(z.string()).optional() })
             .optional(),
           company_license: z
-            .object({ files: z.array(z.coerce.string()).optional() })
+            .object({ files: z.array(z.string()).optional() })
             .optional(),
           company_memorandum_of_association: z
-            .object({ files: z.array(z.coerce.string()).optional() })
+            .object({ files: z.array(z.string()).optional() })
             .optional(),
           company_ministerial_decree: z
-            .object({ files: z.array(z.coerce.string()).optional() })
+            .object({ files: z.array(z.string()).optional() })
             .optional(),
           company_registration_verification: z
-            .object({ files: z.array(z.coerce.string()).optional() })
+            .object({ files: z.array(z.string()).optional() })
             .optional(),
           company_tax_id_verification: z
-            .object({ files: z.array(z.coerce.string()).optional() })
+            .object({ files: z.array(z.string()).optional() })
             .optional(),
           proof_of_registration: z
-            .object({ files: z.array(z.coerce.string()).optional() })
+            .object({ files: z.array(z.string()).optional() })
             .optional(),
         })
         .optional(),
-      email: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
-      external_account: z.coerce.string().optional(),
+      email: z.string().optional(),
+      expand: z.array(z.string()).optional(),
+      external_account: z.string().optional(),
       individual: z
         .object({
           address: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
             })
             .optional(),
           address_kana: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
-              town: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
+              town: z.string().optional(),
             })
             .optional(),
           address_kanji: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
-              town: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
+              town: z.string().optional(),
             })
             .optional(),
           dob: z.union([
@@ -8450,47 +8450,44 @@ export function bootstrap(
             }),
             z.enum([""]),
           ]),
-          email: z.coerce.string().optional(),
-          first_name: z.coerce.string().optional(),
-          first_name_kana: z.coerce.string().optional(),
-          first_name_kanji: z.coerce.string().optional(),
-          full_name_aliases: z.union([
-            z.array(z.coerce.string()),
-            z.enum([""]),
-          ]),
-          gender: z.coerce.string().optional(),
-          id_number: z.coerce.string().optional(),
-          id_number_secondary: z.coerce.string().optional(),
-          last_name: z.coerce.string().optional(),
-          last_name_kana: z.coerce.string().optional(),
-          last_name_kanji: z.coerce.string().optional(),
-          maiden_name: z.coerce.string().optional(),
+          email: z.string().optional(),
+          first_name: z.string().optional(),
+          first_name_kana: z.string().optional(),
+          first_name_kanji: z.string().optional(),
+          full_name_aliases: z.union([z.array(z.string()), z.enum([""])]),
+          gender: z.string().optional(),
+          id_number: z.string().optional(),
+          id_number_secondary: z.string().optional(),
+          last_name: z.string().optional(),
+          last_name_kana: z.string().optional(),
+          last_name_kanji: z.string().optional(),
+          maiden_name: z.string().optional(),
           metadata: z.union([z.object({}), z.enum([""])]),
-          phone: z.coerce.string().optional(),
+          phone: z.string().optional(),
           political_exposure: z.enum(["existing", "none"]).optional(),
           registered_address: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
             })
             .optional(),
-          ssn_last_4: z.coerce.string().optional(),
+          ssn_last_4: z.string().optional(),
           verification: z
             .object({
               additional_document: z
                 .object({
-                  back: z.coerce.string().optional(),
-                  front: z.coerce.string().optional(),
+                  back: z.string().optional(),
+                  front: z.string().optional(),
                 })
                 .optional(),
               document: z
                 .object({
-                  back: z.coerce.string().optional(),
-                  front: z.coerce.string().optional(),
+                  back: z.string().optional(),
+                  front: z.string().optional(),
                 })
                 .optional(),
             })
@@ -8502,10 +8499,10 @@ export function bootstrap(
         .object({
           branding: z
             .object({
-              icon: z.coerce.string().optional(),
-              logo: z.coerce.string().optional(),
-              primary_color: z.coerce.string().optional(),
-              secondary_color: z.coerce.string().optional(),
+              icon: z.string().optional(),
+              logo: z.string().optional(),
+              primary_color: z.string().optional(),
+              secondary_color: z.string().optional(),
             })
             .optional(),
           card_issuing: z
@@ -8513,8 +8510,8 @@ export function bootstrap(
               tos_acceptance: z
                 .object({
                   date: z.coerce.number().optional(),
-                  ip: z.coerce.string().optional(),
-                  user_agent: z.union([z.coerce.string(), z.enum([""])]),
+                  ip: z.string().optional(),
+                  user_agent: z.union([z.string(), z.enum([""])]),
                 })
                 .optional(),
             })
@@ -8527,22 +8524,22 @@ export function bootstrap(
                   cvc_failure: z.coerce.boolean().optional(),
                 })
                 .optional(),
-              statement_descriptor_prefix: z.coerce.string().optional(),
+              statement_descriptor_prefix: z.string().optional(),
               statement_descriptor_prefix_kana: z.union([
-                z.coerce.string(),
+                z.string(),
                 z.enum([""]),
               ]),
               statement_descriptor_prefix_kanji: z.union([
-                z.coerce.string(),
+                z.string(),
                 z.enum([""]),
               ]),
             })
             .optional(),
           payments: z
             .object({
-              statement_descriptor: z.coerce.string().optional(),
-              statement_descriptor_kana: z.coerce.string().optional(),
-              statement_descriptor_kanji: z.coerce.string().optional(),
+              statement_descriptor: z.string().optional(),
+              statement_descriptor_kana: z.string().optional(),
+              statement_descriptor_kanji: z.string().optional(),
             })
             .optional(),
           payouts: z
@@ -8568,7 +8565,7 @@ export function bootstrap(
                     .optional(),
                 })
                 .optional(),
-              statement_descriptor: z.coerce.string().optional(),
+              statement_descriptor: z.string().optional(),
             })
             .optional(),
           treasury: z
@@ -8576,8 +8573,8 @@ export function bootstrap(
               tos_acceptance: z
                 .object({
                   date: z.coerce.number().optional(),
-                  ip: z.coerce.string().optional(),
-                  user_agent: z.union([z.coerce.string(), z.enum([""])]),
+                  ip: z.string().optional(),
+                  user_agent: z.union([z.string(), z.enum([""])]),
                 })
                 .optional(),
             })
@@ -8587,9 +8584,9 @@ export function bootstrap(
       tos_acceptance: z
         .object({
           date: z.coerce.number().optional(),
-          ip: z.coerce.string().optional(),
-          service_agreement: z.coerce.string().optional(),
-          user_agent: z.coerce.string().optional(),
+          ip: z.string().optional(),
+          service_agreement: z.string().optional(),
+          user_agent: z.string().optional(),
         })
         .optional(),
       type: z.enum(["custom", "express", "standard"]).optional(),
@@ -8615,9 +8612,7 @@ export function bootstrap(
     return next()
   })
 
-  const deleteAccountsAccountParamSchema = z.object({
-    account: z.coerce.string(),
-  })
+  const deleteAccountsAccountParamSchema = z.object({ account: z.string() })
 
   const deleteAccountsAccountBodySchema = z.object({}).optional()
 
@@ -8650,10 +8645,10 @@ export function bootstrap(
     },
   )
 
-  const getAccountsAccountParamSchema = z.object({ account: z.coerce.string() })
+  const getAccountsAccountParamSchema = z.object({ account: z.string() })
 
   const getAccountsAccountQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getAccountsAccountBodySchema = z.object({}).optional()
@@ -8684,35 +8679,33 @@ export function bootstrap(
     },
   )
 
-  const postAccountsAccountParamSchema = z.object({
-    account: z.coerce.string(),
-  })
+  const postAccountsAccountParamSchema = z.object({ account: z.string() })
 
   const postAccountsAccountBodySchema = z
     .object({
-      account_token: z.coerce.string().optional(),
+      account_token: z.string().optional(),
       business_profile: z
         .object({
-          mcc: z.coerce.string().optional(),
+          mcc: z.string().optional(),
           monthly_estimated_revenue: z
-            .object({ amount: z.coerce.number(), currency: z.coerce.string() })
+            .object({ amount: z.coerce.number(), currency: z.string() })
             .optional(),
-          name: z.coerce.string().optional(),
-          product_description: z.coerce.string().optional(),
+          name: z.string().optional(),
+          product_description: z.string().optional(),
           support_address: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
             })
             .optional(),
-          support_email: z.coerce.string().optional(),
-          support_phone: z.coerce.string().optional(),
-          support_url: z.union([z.coerce.string(), z.enum([""])]),
-          url: z.coerce.string().optional(),
+          support_email: z.string().optional(),
+          support_phone: z.string().optional(),
+          support_url: z.union([z.string(), z.enum([""])]),
+          url: z.string().optional(),
         })
         .optional(),
       business_type: z
@@ -8834,53 +8827,53 @@ export function bootstrap(
         .object({
           address: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
             })
             .optional(),
           address_kana: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
-              town: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
+              town: z.string().optional(),
             })
             .optional(),
           address_kanji: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
-              town: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
+              town: z.string().optional(),
             })
             .optional(),
           directors_provided: z.coerce.boolean().optional(),
           executives_provided: z.coerce.boolean().optional(),
-          export_license_id: z.coerce.string().optional(),
-          export_purpose_code: z.coerce.string().optional(),
-          name: z.coerce.string().optional(),
-          name_kana: z.coerce.string().optional(),
-          name_kanji: z.coerce.string().optional(),
+          export_license_id: z.string().optional(),
+          export_purpose_code: z.string().optional(),
+          name: z.string().optional(),
+          name_kana: z.string().optional(),
+          name_kanji: z.string().optional(),
           owners_provided: z.coerce.boolean().optional(),
           ownership_declaration: z
             .object({
               date: z.coerce.number().optional(),
-              ip: z.coerce.string().optional(),
-              user_agent: z.coerce.string().optional(),
+              ip: z.string().optional(),
+              user_agent: z.string().optional(),
             })
             .optional(),
-          phone: z.coerce.string().optional(),
-          registration_number: z.coerce.string().optional(),
+          phone: z.string().optional(),
+          registration_number: z.string().optional(),
           structure: z
             .enum([
               "",
@@ -8908,82 +8901,82 @@ export function bootstrap(
               "unincorporated_partnership",
             ])
             .optional(),
-          tax_id: z.coerce.string().optional(),
-          tax_id_registrar: z.coerce.string().optional(),
-          vat_id: z.coerce.string().optional(),
+          tax_id: z.string().optional(),
+          tax_id_registrar: z.string().optional(),
+          vat_id: z.string().optional(),
           verification: z
             .object({
               document: z
                 .object({
-                  back: z.coerce.string().optional(),
-                  front: z.coerce.string().optional(),
+                  back: z.string().optional(),
+                  front: z.string().optional(),
                 })
                 .optional(),
             })
             .optional(),
         })
         .optional(),
-      default_currency: z.coerce.string().optional(),
+      default_currency: z.string().optional(),
       documents: z
         .object({
           bank_account_ownership_verification: z
-            .object({ files: z.array(z.coerce.string()).optional() })
+            .object({ files: z.array(z.string()).optional() })
             .optional(),
           company_license: z
-            .object({ files: z.array(z.coerce.string()).optional() })
+            .object({ files: z.array(z.string()).optional() })
             .optional(),
           company_memorandum_of_association: z
-            .object({ files: z.array(z.coerce.string()).optional() })
+            .object({ files: z.array(z.string()).optional() })
             .optional(),
           company_ministerial_decree: z
-            .object({ files: z.array(z.coerce.string()).optional() })
+            .object({ files: z.array(z.string()).optional() })
             .optional(),
           company_registration_verification: z
-            .object({ files: z.array(z.coerce.string()).optional() })
+            .object({ files: z.array(z.string()).optional() })
             .optional(),
           company_tax_id_verification: z
-            .object({ files: z.array(z.coerce.string()).optional() })
+            .object({ files: z.array(z.string()).optional() })
             .optional(),
           proof_of_registration: z
-            .object({ files: z.array(z.coerce.string()).optional() })
+            .object({ files: z.array(z.string()).optional() })
             .optional(),
         })
         .optional(),
-      email: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
-      external_account: z.coerce.string().optional(),
+      email: z.string().optional(),
+      expand: z.array(z.string()).optional(),
+      external_account: z.string().optional(),
       individual: z
         .object({
           address: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
             })
             .optional(),
           address_kana: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
-              town: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
+              town: z.string().optional(),
             })
             .optional(),
           address_kanji: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
-              town: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
+              town: z.string().optional(),
             })
             .optional(),
           dob: z.union([
@@ -8994,47 +8987,44 @@ export function bootstrap(
             }),
             z.enum([""]),
           ]),
-          email: z.coerce.string().optional(),
-          first_name: z.coerce.string().optional(),
-          first_name_kana: z.coerce.string().optional(),
-          first_name_kanji: z.coerce.string().optional(),
-          full_name_aliases: z.union([
-            z.array(z.coerce.string()),
-            z.enum([""]),
-          ]),
-          gender: z.coerce.string().optional(),
-          id_number: z.coerce.string().optional(),
-          id_number_secondary: z.coerce.string().optional(),
-          last_name: z.coerce.string().optional(),
-          last_name_kana: z.coerce.string().optional(),
-          last_name_kanji: z.coerce.string().optional(),
-          maiden_name: z.coerce.string().optional(),
+          email: z.string().optional(),
+          first_name: z.string().optional(),
+          first_name_kana: z.string().optional(),
+          first_name_kanji: z.string().optional(),
+          full_name_aliases: z.union([z.array(z.string()), z.enum([""])]),
+          gender: z.string().optional(),
+          id_number: z.string().optional(),
+          id_number_secondary: z.string().optional(),
+          last_name: z.string().optional(),
+          last_name_kana: z.string().optional(),
+          last_name_kanji: z.string().optional(),
+          maiden_name: z.string().optional(),
           metadata: z.union([z.object({}), z.enum([""])]),
-          phone: z.coerce.string().optional(),
+          phone: z.string().optional(),
           political_exposure: z.enum(["existing", "none"]).optional(),
           registered_address: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
             })
             .optional(),
-          ssn_last_4: z.coerce.string().optional(),
+          ssn_last_4: z.string().optional(),
           verification: z
             .object({
               additional_document: z
                 .object({
-                  back: z.coerce.string().optional(),
-                  front: z.coerce.string().optional(),
+                  back: z.string().optional(),
+                  front: z.string().optional(),
                 })
                 .optional(),
               document: z
                 .object({
-                  back: z.coerce.string().optional(),
-                  front: z.coerce.string().optional(),
+                  back: z.string().optional(),
+                  front: z.string().optional(),
                 })
                 .optional(),
             })
@@ -9046,10 +9036,10 @@ export function bootstrap(
         .object({
           branding: z
             .object({
-              icon: z.coerce.string().optional(),
-              logo: z.coerce.string().optional(),
-              primary_color: z.coerce.string().optional(),
-              secondary_color: z.coerce.string().optional(),
+              icon: z.string().optional(),
+              logo: z.string().optional(),
+              primary_color: z.string().optional(),
+              secondary_color: z.string().optional(),
             })
             .optional(),
           card_issuing: z
@@ -9057,8 +9047,8 @@ export function bootstrap(
               tos_acceptance: z
                 .object({
                   date: z.coerce.number().optional(),
-                  ip: z.coerce.string().optional(),
-                  user_agent: z.union([z.coerce.string(), z.enum([""])]),
+                  ip: z.string().optional(),
+                  user_agent: z.union([z.string(), z.enum([""])]),
                 })
                 .optional(),
             })
@@ -9071,22 +9061,22 @@ export function bootstrap(
                   cvc_failure: z.coerce.boolean().optional(),
                 })
                 .optional(),
-              statement_descriptor_prefix: z.coerce.string().optional(),
+              statement_descriptor_prefix: z.string().optional(),
               statement_descriptor_prefix_kana: z.union([
-                z.coerce.string(),
+                z.string(),
                 z.enum([""]),
               ]),
               statement_descriptor_prefix_kanji: z.union([
-                z.coerce.string(),
+                z.string(),
                 z.enum([""]),
               ]),
             })
             .optional(),
           payments: z
             .object({
-              statement_descriptor: z.coerce.string().optional(),
-              statement_descriptor_kana: z.coerce.string().optional(),
-              statement_descriptor_kanji: z.coerce.string().optional(),
+              statement_descriptor: z.string().optional(),
+              statement_descriptor_kana: z.string().optional(),
+              statement_descriptor_kanji: z.string().optional(),
             })
             .optional(),
           payouts: z
@@ -9112,7 +9102,7 @@ export function bootstrap(
                     .optional(),
                 })
                 .optional(),
-              statement_descriptor: z.coerce.string().optional(),
+              statement_descriptor: z.string().optional(),
             })
             .optional(),
           treasury: z
@@ -9120,8 +9110,8 @@ export function bootstrap(
               tos_acceptance: z
                 .object({
                   date: z.coerce.number().optional(),
-                  ip: z.coerce.string().optional(),
-                  user_agent: z.union([z.coerce.string(), z.enum([""])]),
+                  ip: z.string().optional(),
+                  user_agent: z.union([z.string(), z.enum([""])]),
                 })
                 .optional(),
             })
@@ -9131,9 +9121,9 @@ export function bootstrap(
       tos_acceptance: z
         .object({
           date: z.coerce.number().optional(),
-          ip: z.coerce.string().optional(),
-          service_agreement: z.coerce.string().optional(),
-          user_agent: z.coerce.string().optional(),
+          ip: z.string().optional(),
+          service_agreement: z.string().optional(),
+          user_agent: z.string().optional(),
         })
         .optional(),
     })
@@ -9169,36 +9159,36 @@ export function bootstrap(
   )
 
   const postAccountsAccountBankAccountsParamSchema = z.object({
-    account: z.coerce.string(),
+    account: z.string(),
   })
 
   const postAccountsAccountBankAccountsBodySchema = z
     .object({
       bank_account: z.union([
         z.object({
-          account_holder_name: z.coerce.string().optional(),
+          account_holder_name: z.string().optional(),
           account_holder_type: z.enum(["company", "individual"]).optional(),
-          account_number: z.coerce.string(),
+          account_number: z.string(),
           account_type: z
             .enum(["checking", "futsu", "savings", "toza"])
             .optional(),
-          country: z.coerce.string(),
-          currency: z.coerce.string().optional(),
+          country: z.string(),
+          currency: z.string().optional(),
           documents: z
             .object({
               bank_account_ownership_verification: z
-                .object({ files: z.array(z.coerce.string()).optional() })
+                .object({ files: z.array(z.string()).optional() })
                 .optional(),
             })
             .optional(),
           object: z.enum(["bank_account"]).optional(),
-          routing_number: z.coerce.string().optional(),
+          routing_number: z.string().optional(),
         }),
-        z.coerce.string(),
+        z.string(),
       ]),
       default_for_currency: z.coerce.boolean().optional(),
-      expand: z.array(z.coerce.string()).optional(),
-      external_account: z.coerce.string().optional(),
+      expand: z.array(z.string()).optional(),
+      external_account: z.string().optional(),
       metadata: z.object({}).optional(),
     })
     .optional()
@@ -9232,8 +9222,8 @@ export function bootstrap(
   )
 
   const deleteAccountsAccountBankAccountsIdParamSchema = z.object({
-    account: z.coerce.string(),
-    id: z.coerce.string(),
+    account: z.string(),
+    id: z.string(),
   })
 
   const deleteAccountsAccountBankAccountsIdBodySchema = z.object({}).optional()
@@ -9270,12 +9260,12 @@ export function bootstrap(
   )
 
   const getAccountsAccountBankAccountsIdParamSchema = z.object({
-    account: z.coerce.string(),
-    id: z.coerce.string(),
+    account: z.string(),
+    id: z.string(),
   })
 
   const getAccountsAccountBankAccountsIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getAccountsAccountBankAccountsIdBodySchema = z.object({}).optional()
@@ -9312,34 +9302,34 @@ export function bootstrap(
   )
 
   const postAccountsAccountBankAccountsIdParamSchema = z.object({
-    account: z.coerce.string(),
-    id: z.coerce.string(),
+    account: z.string(),
+    id: z.string(),
   })
 
   const postAccountsAccountBankAccountsIdBodySchema = z
     .object({
-      account_holder_name: z.coerce.string().optional(),
+      account_holder_name: z.string().optional(),
       account_holder_type: z.enum(["", "company", "individual"]).optional(),
       account_type: z.enum(["checking", "futsu", "savings", "toza"]).optional(),
-      address_city: z.coerce.string().optional(),
-      address_country: z.coerce.string().optional(),
-      address_line1: z.coerce.string().optional(),
-      address_line2: z.coerce.string().optional(),
-      address_state: z.coerce.string().optional(),
-      address_zip: z.coerce.string().optional(),
+      address_city: z.string().optional(),
+      address_country: z.string().optional(),
+      address_line1: z.string().optional(),
+      address_line2: z.string().optional(),
+      address_state: z.string().optional(),
+      address_zip: z.string().optional(),
       default_for_currency: z.coerce.boolean().optional(),
       documents: z
         .object({
           bank_account_ownership_verification: z
-            .object({ files: z.array(z.coerce.string()).optional() })
+            .object({ files: z.array(z.string()).optional() })
             .optional(),
         })
         .optional(),
-      exp_month: z.coerce.string().optional(),
-      exp_year: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      exp_month: z.string().optional(),
+      exp_year: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      name: z.coerce.string().optional(),
+      name: z.string().optional(),
     })
     .optional()
 
@@ -9375,11 +9365,11 @@ export function bootstrap(
   )
 
   const getAccountsAccountCapabilitiesParamSchema = z.object({
-    account: z.coerce.string(),
+    account: z.string(),
   })
 
   const getAccountsAccountCapabilitiesQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getAccountsAccountCapabilitiesBodySchema = z.object({}).optional()
@@ -9393,7 +9383,7 @@ export function bootstrap(
             data: z.array(z.lazy(() => s_capability)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -9429,12 +9419,12 @@ export function bootstrap(
   )
 
   const getAccountsAccountCapabilitiesCapabilityParamSchema = z.object({
-    account: z.coerce.string(),
-    capability: z.coerce.string(),
+    account: z.string(),
+    capability: z.string(),
   })
 
   const getAccountsAccountCapabilitiesCapabilityQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getAccountsAccountCapabilitiesCapabilityBodySchema = z
@@ -9479,13 +9469,13 @@ export function bootstrap(
   )
 
   const postAccountsAccountCapabilitiesCapabilityParamSchema = z.object({
-    account: z.coerce.string(),
-    capability: z.coerce.string(),
+    account: z.string(),
+    capability: z.string(),
   })
 
   const postAccountsAccountCapabilitiesCapabilityBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       requested: z.coerce.boolean().optional(),
     })
     .optional()
@@ -9525,14 +9515,14 @@ export function bootstrap(
   )
 
   const getAccountsAccountExternalAccountsParamSchema = z.object({
-    account: z.coerce.string(),
+    account: z.string(),
   })
 
   const getAccountsAccountExternalAccountsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getAccountsAccountExternalAccountsBodySchema = z.object({}).optional()
@@ -9548,7 +9538,7 @@ export function bootstrap(
             ),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -9587,36 +9577,36 @@ export function bootstrap(
   )
 
   const postAccountsAccountExternalAccountsParamSchema = z.object({
-    account: z.coerce.string(),
+    account: z.string(),
   })
 
   const postAccountsAccountExternalAccountsBodySchema = z
     .object({
       bank_account: z.union([
         z.object({
-          account_holder_name: z.coerce.string().optional(),
+          account_holder_name: z.string().optional(),
           account_holder_type: z.enum(["company", "individual"]).optional(),
-          account_number: z.coerce.string(),
+          account_number: z.string(),
           account_type: z
             .enum(["checking", "futsu", "savings", "toza"])
             .optional(),
-          country: z.coerce.string(),
-          currency: z.coerce.string().optional(),
+          country: z.string(),
+          currency: z.string().optional(),
           documents: z
             .object({
               bank_account_ownership_verification: z
-                .object({ files: z.array(z.coerce.string()).optional() })
+                .object({ files: z.array(z.string()).optional() })
                 .optional(),
             })
             .optional(),
           object: z.enum(["bank_account"]).optional(),
-          routing_number: z.coerce.string().optional(),
+          routing_number: z.string().optional(),
         }),
-        z.coerce.string(),
+        z.string(),
       ]),
       default_for_currency: z.coerce.boolean().optional(),
-      expand: z.array(z.coerce.string()).optional(),
-      external_account: z.coerce.string().optional(),
+      expand: z.array(z.string()).optional(),
+      external_account: z.string().optional(),
       metadata: z.object({}).optional(),
     })
     .optional()
@@ -9653,8 +9643,8 @@ export function bootstrap(
   )
 
   const deleteAccountsAccountExternalAccountsIdParamSchema = z.object({
-    account: z.coerce.string(),
-    id: z.coerce.string(),
+    account: z.string(),
+    id: z.string(),
   })
 
   const deleteAccountsAccountExternalAccountsIdBodySchema = z
@@ -9693,12 +9683,12 @@ export function bootstrap(
   )
 
   const getAccountsAccountExternalAccountsIdParamSchema = z.object({
-    account: z.coerce.string(),
-    id: z.coerce.string(),
+    account: z.string(),
+    id: z.string(),
   })
 
   const getAccountsAccountExternalAccountsIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getAccountsAccountExternalAccountsIdBodySchema = z.object({}).optional()
@@ -9738,34 +9728,34 @@ export function bootstrap(
   )
 
   const postAccountsAccountExternalAccountsIdParamSchema = z.object({
-    account: z.coerce.string(),
-    id: z.coerce.string(),
+    account: z.string(),
+    id: z.string(),
   })
 
   const postAccountsAccountExternalAccountsIdBodySchema = z
     .object({
-      account_holder_name: z.coerce.string().optional(),
+      account_holder_name: z.string().optional(),
       account_holder_type: z.enum(["", "company", "individual"]).optional(),
       account_type: z.enum(["checking", "futsu", "savings", "toza"]).optional(),
-      address_city: z.coerce.string().optional(),
-      address_country: z.coerce.string().optional(),
-      address_line1: z.coerce.string().optional(),
-      address_line2: z.coerce.string().optional(),
-      address_state: z.coerce.string().optional(),
-      address_zip: z.coerce.string().optional(),
+      address_city: z.string().optional(),
+      address_country: z.string().optional(),
+      address_line1: z.string().optional(),
+      address_line2: z.string().optional(),
+      address_state: z.string().optional(),
+      address_zip: z.string().optional(),
       default_for_currency: z.coerce.boolean().optional(),
       documents: z
         .object({
           bank_account_ownership_verification: z
-            .object({ files: z.array(z.coerce.string()).optional() })
+            .object({ files: z.array(z.string()).optional() })
             .optional(),
         })
         .optional(),
-      exp_month: z.coerce.string().optional(),
-      exp_year: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      exp_month: z.string().optional(),
+      exp_year: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      name: z.coerce.string().optional(),
+      name: z.string().optional(),
     })
     .optional()
 
@@ -9801,11 +9791,11 @@ export function bootstrap(
   )
 
   const postAccountsAccountLoginLinksParamSchema = z.object({
-    account: z.coerce.string(),
+    account: z.string(),
   })
 
   const postAccountsAccountLoginLinksBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postAccountsAccountLoginLinksResponseValidator =
@@ -9836,13 +9826,11 @@ export function bootstrap(
     },
   )
 
-  const getAccountsAccountPeopleParamSchema = z.object({
-    account: z.coerce.string(),
-  })
+  const getAccountsAccountPeopleParamSchema = z.object({ account: z.string() })
 
   const getAccountsAccountPeopleQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
     relationship: z
       .object({
@@ -9852,7 +9840,7 @@ export function bootstrap(
         representative: z.coerce.boolean().optional(),
       })
       .optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getAccountsAccountPeopleBodySchema = z.object({}).optional()
@@ -9865,7 +9853,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_person)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -9902,42 +9890,40 @@ export function bootstrap(
     },
   )
 
-  const postAccountsAccountPeopleParamSchema = z.object({
-    account: z.coerce.string(),
-  })
+  const postAccountsAccountPeopleParamSchema = z.object({ account: z.string() })
 
   const postAccountsAccountPeopleBodySchema = z
     .object({
       address: z
         .object({
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          line1: z.coerce.string().optional(),
-          line2: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          line1: z.string().optional(),
+          line2: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
         })
         .optional(),
       address_kana: z
         .object({
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          line1: z.coerce.string().optional(),
-          line2: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
-          town: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          line1: z.string().optional(),
+          line2: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
+          town: z.string().optional(),
         })
         .optional(),
       address_kanji: z
         .object({
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          line1: z.coerce.string().optional(),
-          line2: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
-          town: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          line1: z.string().optional(),
+          line2: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
+          town: z.string().optional(),
         })
         .optional(),
       dob: z.union([
@@ -9952,53 +9938,47 @@ export function bootstrap(
         .object({
           company_authorization: z
             .object({
-              files: z
-                .array(z.union([z.coerce.string(), z.enum([""])]))
-                .optional(),
+              files: z.array(z.union([z.string(), z.enum([""])])).optional(),
             })
             .optional(),
           passport: z
             .object({
-              files: z
-                .array(z.union([z.coerce.string(), z.enum([""])]))
-                .optional(),
+              files: z.array(z.union([z.string(), z.enum([""])])).optional(),
             })
             .optional(),
           visa: z
             .object({
-              files: z
-                .array(z.union([z.coerce.string(), z.enum([""])]))
-                .optional(),
+              files: z.array(z.union([z.string(), z.enum([""])])).optional(),
             })
             .optional(),
         })
         .optional(),
-      email: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
-      first_name: z.coerce.string().optional(),
-      first_name_kana: z.coerce.string().optional(),
-      first_name_kanji: z.coerce.string().optional(),
-      full_name_aliases: z.union([z.array(z.coerce.string()), z.enum([""])]),
-      gender: z.coerce.string().optional(),
-      id_number: z.coerce.string().optional(),
-      id_number_secondary: z.coerce.string().optional(),
-      last_name: z.coerce.string().optional(),
-      last_name_kana: z.coerce.string().optional(),
-      last_name_kanji: z.coerce.string().optional(),
-      maiden_name: z.coerce.string().optional(),
+      email: z.string().optional(),
+      expand: z.array(z.string()).optional(),
+      first_name: z.string().optional(),
+      first_name_kana: z.string().optional(),
+      first_name_kanji: z.string().optional(),
+      full_name_aliases: z.union([z.array(z.string()), z.enum([""])]),
+      gender: z.string().optional(),
+      id_number: z.string().optional(),
+      id_number_secondary: z.string().optional(),
+      last_name: z.string().optional(),
+      last_name_kana: z.string().optional(),
+      last_name_kanji: z.string().optional(),
+      maiden_name: z.string().optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      nationality: z.coerce.string().optional(),
-      person_token: z.coerce.string().optional(),
-      phone: z.coerce.string().optional(),
-      political_exposure: z.coerce.string().optional(),
+      nationality: z.string().optional(),
+      person_token: z.string().optional(),
+      phone: z.string().optional(),
+      political_exposure: z.string().optional(),
       registered_address: z
         .object({
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          line1: z.coerce.string().optional(),
-          line2: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          line1: z.string().optional(),
+          line2: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
         })
         .optional(),
       relationship: z
@@ -10008,22 +9988,22 @@ export function bootstrap(
           owner: z.coerce.boolean().optional(),
           percent_ownership: z.union([z.coerce.number(), z.enum([""])]),
           representative: z.coerce.boolean().optional(),
-          title: z.coerce.string().optional(),
+          title: z.string().optional(),
         })
         .optional(),
-      ssn_last_4: z.coerce.string().optional(),
+      ssn_last_4: z.string().optional(),
       verification: z
         .object({
           additional_document: z
             .object({
-              back: z.coerce.string().optional(),
-              front: z.coerce.string().optional(),
+              back: z.string().optional(),
+              front: z.string().optional(),
             })
             .optional(),
           document: z
             .object({
-              back: z.coerce.string().optional(),
-              front: z.coerce.string().optional(),
+              back: z.string().optional(),
+              front: z.string().optional(),
             })
             .optional(),
         })
@@ -10064,8 +10044,8 @@ export function bootstrap(
   )
 
   const deleteAccountsAccountPeoplePersonParamSchema = z.object({
-    account: z.coerce.string(),
-    person: z.coerce.string(),
+    account: z.string(),
+    person: z.string(),
   })
 
   const deleteAccountsAccountPeoplePersonBodySchema = z.object({}).optional()
@@ -10102,12 +10082,12 @@ export function bootstrap(
   )
 
   const getAccountsAccountPeoplePersonParamSchema = z.object({
-    account: z.coerce.string(),
-    person: z.coerce.string(),
+    account: z.string(),
+    person: z.string(),
   })
 
   const getAccountsAccountPeoplePersonQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getAccountsAccountPeoplePersonBodySchema = z.object({}).optional()
@@ -10144,42 +10124,42 @@ export function bootstrap(
   )
 
   const postAccountsAccountPeoplePersonParamSchema = z.object({
-    account: z.coerce.string(),
-    person: z.coerce.string(),
+    account: z.string(),
+    person: z.string(),
   })
 
   const postAccountsAccountPeoplePersonBodySchema = z
     .object({
       address: z
         .object({
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          line1: z.coerce.string().optional(),
-          line2: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          line1: z.string().optional(),
+          line2: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
         })
         .optional(),
       address_kana: z
         .object({
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          line1: z.coerce.string().optional(),
-          line2: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
-          town: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          line1: z.string().optional(),
+          line2: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
+          town: z.string().optional(),
         })
         .optional(),
       address_kanji: z
         .object({
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          line1: z.coerce.string().optional(),
-          line2: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
-          town: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          line1: z.string().optional(),
+          line2: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
+          town: z.string().optional(),
         })
         .optional(),
       dob: z.union([
@@ -10194,53 +10174,47 @@ export function bootstrap(
         .object({
           company_authorization: z
             .object({
-              files: z
-                .array(z.union([z.coerce.string(), z.enum([""])]))
-                .optional(),
+              files: z.array(z.union([z.string(), z.enum([""])])).optional(),
             })
             .optional(),
           passport: z
             .object({
-              files: z
-                .array(z.union([z.coerce.string(), z.enum([""])]))
-                .optional(),
+              files: z.array(z.union([z.string(), z.enum([""])])).optional(),
             })
             .optional(),
           visa: z
             .object({
-              files: z
-                .array(z.union([z.coerce.string(), z.enum([""])]))
-                .optional(),
+              files: z.array(z.union([z.string(), z.enum([""])])).optional(),
             })
             .optional(),
         })
         .optional(),
-      email: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
-      first_name: z.coerce.string().optional(),
-      first_name_kana: z.coerce.string().optional(),
-      first_name_kanji: z.coerce.string().optional(),
-      full_name_aliases: z.union([z.array(z.coerce.string()), z.enum([""])]),
-      gender: z.coerce.string().optional(),
-      id_number: z.coerce.string().optional(),
-      id_number_secondary: z.coerce.string().optional(),
-      last_name: z.coerce.string().optional(),
-      last_name_kana: z.coerce.string().optional(),
-      last_name_kanji: z.coerce.string().optional(),
-      maiden_name: z.coerce.string().optional(),
+      email: z.string().optional(),
+      expand: z.array(z.string()).optional(),
+      first_name: z.string().optional(),
+      first_name_kana: z.string().optional(),
+      first_name_kanji: z.string().optional(),
+      full_name_aliases: z.union([z.array(z.string()), z.enum([""])]),
+      gender: z.string().optional(),
+      id_number: z.string().optional(),
+      id_number_secondary: z.string().optional(),
+      last_name: z.string().optional(),
+      last_name_kana: z.string().optional(),
+      last_name_kanji: z.string().optional(),
+      maiden_name: z.string().optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      nationality: z.coerce.string().optional(),
-      person_token: z.coerce.string().optional(),
-      phone: z.coerce.string().optional(),
-      political_exposure: z.coerce.string().optional(),
+      nationality: z.string().optional(),
+      person_token: z.string().optional(),
+      phone: z.string().optional(),
+      political_exposure: z.string().optional(),
       registered_address: z
         .object({
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          line1: z.coerce.string().optional(),
-          line2: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          line1: z.string().optional(),
+          line2: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
         })
         .optional(),
       relationship: z
@@ -10250,22 +10224,22 @@ export function bootstrap(
           owner: z.coerce.boolean().optional(),
           percent_ownership: z.union([z.coerce.number(), z.enum([""])]),
           representative: z.coerce.boolean().optional(),
-          title: z.coerce.string().optional(),
+          title: z.string().optional(),
         })
         .optional(),
-      ssn_last_4: z.coerce.string().optional(),
+      ssn_last_4: z.string().optional(),
       verification: z
         .object({
           additional_document: z
             .object({
-              back: z.coerce.string().optional(),
-              front: z.coerce.string().optional(),
+              back: z.string().optional(),
+              front: z.string().optional(),
             })
             .optional(),
           document: z
             .object({
-              back: z.coerce.string().optional(),
-              front: z.coerce.string().optional(),
+              back: z.string().optional(),
+              front: z.string().optional(),
             })
             .optional(),
         })
@@ -10301,13 +10275,11 @@ export function bootstrap(
     },
   )
 
-  const getAccountsAccountPersonsParamSchema = z.object({
-    account: z.coerce.string(),
-  })
+  const getAccountsAccountPersonsParamSchema = z.object({ account: z.string() })
 
   const getAccountsAccountPersonsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
     relationship: z
       .object({
@@ -10317,7 +10289,7 @@ export function bootstrap(
         representative: z.coerce.boolean().optional(),
       })
       .optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getAccountsAccountPersonsBodySchema = z.object({}).optional()
@@ -10330,7 +10302,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_person)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -10368,41 +10340,41 @@ export function bootstrap(
   )
 
   const postAccountsAccountPersonsParamSchema = z.object({
-    account: z.coerce.string(),
+    account: z.string(),
   })
 
   const postAccountsAccountPersonsBodySchema = z
     .object({
       address: z
         .object({
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          line1: z.coerce.string().optional(),
-          line2: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          line1: z.string().optional(),
+          line2: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
         })
         .optional(),
       address_kana: z
         .object({
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          line1: z.coerce.string().optional(),
-          line2: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
-          town: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          line1: z.string().optional(),
+          line2: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
+          town: z.string().optional(),
         })
         .optional(),
       address_kanji: z
         .object({
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          line1: z.coerce.string().optional(),
-          line2: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
-          town: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          line1: z.string().optional(),
+          line2: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
+          town: z.string().optional(),
         })
         .optional(),
       dob: z.union([
@@ -10417,53 +10389,47 @@ export function bootstrap(
         .object({
           company_authorization: z
             .object({
-              files: z
-                .array(z.union([z.coerce.string(), z.enum([""])]))
-                .optional(),
+              files: z.array(z.union([z.string(), z.enum([""])])).optional(),
             })
             .optional(),
           passport: z
             .object({
-              files: z
-                .array(z.union([z.coerce.string(), z.enum([""])]))
-                .optional(),
+              files: z.array(z.union([z.string(), z.enum([""])])).optional(),
             })
             .optional(),
           visa: z
             .object({
-              files: z
-                .array(z.union([z.coerce.string(), z.enum([""])]))
-                .optional(),
+              files: z.array(z.union([z.string(), z.enum([""])])).optional(),
             })
             .optional(),
         })
         .optional(),
-      email: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
-      first_name: z.coerce.string().optional(),
-      first_name_kana: z.coerce.string().optional(),
-      first_name_kanji: z.coerce.string().optional(),
-      full_name_aliases: z.union([z.array(z.coerce.string()), z.enum([""])]),
-      gender: z.coerce.string().optional(),
-      id_number: z.coerce.string().optional(),
-      id_number_secondary: z.coerce.string().optional(),
-      last_name: z.coerce.string().optional(),
-      last_name_kana: z.coerce.string().optional(),
-      last_name_kanji: z.coerce.string().optional(),
-      maiden_name: z.coerce.string().optional(),
+      email: z.string().optional(),
+      expand: z.array(z.string()).optional(),
+      first_name: z.string().optional(),
+      first_name_kana: z.string().optional(),
+      first_name_kanji: z.string().optional(),
+      full_name_aliases: z.union([z.array(z.string()), z.enum([""])]),
+      gender: z.string().optional(),
+      id_number: z.string().optional(),
+      id_number_secondary: z.string().optional(),
+      last_name: z.string().optional(),
+      last_name_kana: z.string().optional(),
+      last_name_kanji: z.string().optional(),
+      maiden_name: z.string().optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      nationality: z.coerce.string().optional(),
-      person_token: z.coerce.string().optional(),
-      phone: z.coerce.string().optional(),
-      political_exposure: z.coerce.string().optional(),
+      nationality: z.string().optional(),
+      person_token: z.string().optional(),
+      phone: z.string().optional(),
+      political_exposure: z.string().optional(),
       registered_address: z
         .object({
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          line1: z.coerce.string().optional(),
-          line2: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          line1: z.string().optional(),
+          line2: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
         })
         .optional(),
       relationship: z
@@ -10473,22 +10439,22 @@ export function bootstrap(
           owner: z.coerce.boolean().optional(),
           percent_ownership: z.union([z.coerce.number(), z.enum([""])]),
           representative: z.coerce.boolean().optional(),
-          title: z.coerce.string().optional(),
+          title: z.string().optional(),
         })
         .optional(),
-      ssn_last_4: z.coerce.string().optional(),
+      ssn_last_4: z.string().optional(),
       verification: z
         .object({
           additional_document: z
             .object({
-              back: z.coerce.string().optional(),
-              front: z.coerce.string().optional(),
+              back: z.string().optional(),
+              front: z.string().optional(),
             })
             .optional(),
           document: z
             .object({
-              back: z.coerce.string().optional(),
-              front: z.coerce.string().optional(),
+              back: z.string().optional(),
+              front: z.string().optional(),
             })
             .optional(),
         })
@@ -10529,8 +10495,8 @@ export function bootstrap(
   )
 
   const deleteAccountsAccountPersonsPersonParamSchema = z.object({
-    account: z.coerce.string(),
-    person: z.coerce.string(),
+    account: z.string(),
+    person: z.string(),
   })
 
   const deleteAccountsAccountPersonsPersonBodySchema = z.object({}).optional()
@@ -10567,12 +10533,12 @@ export function bootstrap(
   )
 
   const getAccountsAccountPersonsPersonParamSchema = z.object({
-    account: z.coerce.string(),
-    person: z.coerce.string(),
+    account: z.string(),
+    person: z.string(),
   })
 
   const getAccountsAccountPersonsPersonQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getAccountsAccountPersonsPersonBodySchema = z.object({}).optional()
@@ -10609,42 +10575,42 @@ export function bootstrap(
   )
 
   const postAccountsAccountPersonsPersonParamSchema = z.object({
-    account: z.coerce.string(),
-    person: z.coerce.string(),
+    account: z.string(),
+    person: z.string(),
   })
 
   const postAccountsAccountPersonsPersonBodySchema = z
     .object({
       address: z
         .object({
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          line1: z.coerce.string().optional(),
-          line2: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          line1: z.string().optional(),
+          line2: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
         })
         .optional(),
       address_kana: z
         .object({
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          line1: z.coerce.string().optional(),
-          line2: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
-          town: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          line1: z.string().optional(),
+          line2: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
+          town: z.string().optional(),
         })
         .optional(),
       address_kanji: z
         .object({
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          line1: z.coerce.string().optional(),
-          line2: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
-          town: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          line1: z.string().optional(),
+          line2: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
+          town: z.string().optional(),
         })
         .optional(),
       dob: z.union([
@@ -10659,53 +10625,47 @@ export function bootstrap(
         .object({
           company_authorization: z
             .object({
-              files: z
-                .array(z.union([z.coerce.string(), z.enum([""])]))
-                .optional(),
+              files: z.array(z.union([z.string(), z.enum([""])])).optional(),
             })
             .optional(),
           passport: z
             .object({
-              files: z
-                .array(z.union([z.coerce.string(), z.enum([""])]))
-                .optional(),
+              files: z.array(z.union([z.string(), z.enum([""])])).optional(),
             })
             .optional(),
           visa: z
             .object({
-              files: z
-                .array(z.union([z.coerce.string(), z.enum([""])]))
-                .optional(),
+              files: z.array(z.union([z.string(), z.enum([""])])).optional(),
             })
             .optional(),
         })
         .optional(),
-      email: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
-      first_name: z.coerce.string().optional(),
-      first_name_kana: z.coerce.string().optional(),
-      first_name_kanji: z.coerce.string().optional(),
-      full_name_aliases: z.union([z.array(z.coerce.string()), z.enum([""])]),
-      gender: z.coerce.string().optional(),
-      id_number: z.coerce.string().optional(),
-      id_number_secondary: z.coerce.string().optional(),
-      last_name: z.coerce.string().optional(),
-      last_name_kana: z.coerce.string().optional(),
-      last_name_kanji: z.coerce.string().optional(),
-      maiden_name: z.coerce.string().optional(),
+      email: z.string().optional(),
+      expand: z.array(z.string()).optional(),
+      first_name: z.string().optional(),
+      first_name_kana: z.string().optional(),
+      first_name_kanji: z.string().optional(),
+      full_name_aliases: z.union([z.array(z.string()), z.enum([""])]),
+      gender: z.string().optional(),
+      id_number: z.string().optional(),
+      id_number_secondary: z.string().optional(),
+      last_name: z.string().optional(),
+      last_name_kana: z.string().optional(),
+      last_name_kanji: z.string().optional(),
+      maiden_name: z.string().optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      nationality: z.coerce.string().optional(),
-      person_token: z.coerce.string().optional(),
-      phone: z.coerce.string().optional(),
-      political_exposure: z.coerce.string().optional(),
+      nationality: z.string().optional(),
+      person_token: z.string().optional(),
+      phone: z.string().optional(),
+      political_exposure: z.string().optional(),
       registered_address: z
         .object({
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          line1: z.coerce.string().optional(),
-          line2: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          line1: z.string().optional(),
+          line2: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
         })
         .optional(),
       relationship: z
@@ -10715,22 +10675,22 @@ export function bootstrap(
           owner: z.coerce.boolean().optional(),
           percent_ownership: z.union([z.coerce.number(), z.enum([""])]),
           representative: z.coerce.boolean().optional(),
-          title: z.coerce.string().optional(),
+          title: z.string().optional(),
         })
         .optional(),
-      ssn_last_4: z.coerce.string().optional(),
+      ssn_last_4: z.string().optional(),
       verification: z
         .object({
           additional_document: z
             .object({
-              back: z.coerce.string().optional(),
-              front: z.coerce.string().optional(),
+              back: z.string().optional(),
+              front: z.string().optional(),
             })
             .optional(),
           document: z
             .object({
-              back: z.coerce.string().optional(),
-              front: z.coerce.string().optional(),
+              back: z.string().optional(),
+              front: z.string().optional(),
             })
             .optional(),
         })
@@ -10766,13 +10726,11 @@ export function bootstrap(
     },
   )
 
-  const postAccountsAccountRejectParamSchema = z.object({
-    account: z.coerce.string(),
-  })
+  const postAccountsAccountRejectParamSchema = z.object({ account: z.string() })
 
   const postAccountsAccountRejectBodySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
-    reason: z.coerce.string(),
+    expand: z.array(z.string()).optional(),
+    reason: z.string(),
   })
 
   const postAccountsAccountRejectResponseValidator = responseValidationFactory(
@@ -10808,11 +10766,11 @@ export function bootstrap(
   )
 
   const getApplePayDomainsQuerySchema = z.object({
-    domain_name: z.coerce.string().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    domain_name: z.string().optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getApplePayDomainsBodySchema = z.object({}).optional()
@@ -10825,7 +10783,7 @@ export function bootstrap(
           data: z.array(s_apple_pay_domain),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -10854,8 +10812,8 @@ export function bootstrap(
   )
 
   const postApplePayDomainsBodySchema = z.object({
-    domain_name: z.coerce.string(),
-    expand: z.array(z.coerce.string()).optional(),
+    domain_name: z.string(),
+    expand: z.array(z.string()).optional(),
   })
 
   const postApplePayDomainsResponseValidator = responseValidationFactory(
@@ -10888,7 +10846,7 @@ export function bootstrap(
   )
 
   const deleteApplePayDomainsDomainParamSchema = z.object({
-    domain: z.coerce.string(),
+    domain: z.string(),
   })
 
   const deleteApplePayDomainsDomainBodySchema = z.object({}).optional()
@@ -10923,12 +10881,10 @@ export function bootstrap(
     },
   )
 
-  const getApplePayDomainsDomainParamSchema = z.object({
-    domain: z.coerce.string(),
-  })
+  const getApplePayDomainsDomainParamSchema = z.object({ domain: z.string() })
 
   const getApplePayDomainsDomainQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getApplePayDomainsDomainBodySchema = z.object({}).optional()
@@ -10969,7 +10925,7 @@ export function bootstrap(
   )
 
   const getApplicationFeesQuerySchema = z.object({
-    charge: z.coerce.string().optional(),
+    charge: z.string().optional(),
     created: z.union([
       z.object({
         gt: z.coerce.number().optional(),
@@ -10979,10 +10935,10 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getApplicationFeesBodySchema = z.object({}).optional()
@@ -10995,7 +10951,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_application_fee)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -11024,12 +10980,12 @@ export function bootstrap(
   )
 
   const getApplicationFeesFeeRefundsIdParamSchema = z.object({
-    fee: z.coerce.string(),
-    id: z.coerce.string(),
+    fee: z.string(),
+    id: z.string(),
   })
 
   const getApplicationFeesFeeRefundsIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getApplicationFeesFeeRefundsIdBodySchema = z.object({}).optional()
@@ -11066,13 +11022,13 @@ export function bootstrap(
   )
 
   const postApplicationFeesFeeRefundsIdParamSchema = z.object({
-    fee: z.coerce.string(),
-    id: z.coerce.string(),
+    fee: z.string(),
+    id: z.string(),
   })
 
   const postApplicationFeesFeeRefundsIdBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
@@ -11105,10 +11061,10 @@ export function bootstrap(
     },
   )
 
-  const getApplicationFeesIdParamSchema = z.object({ id: z.coerce.string() })
+  const getApplicationFeesIdParamSchema = z.object({ id: z.string() })
 
   const getApplicationFeesIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getApplicationFeesIdBodySchema = z.object({}).optional()
@@ -11142,15 +11098,13 @@ export function bootstrap(
     },
   )
 
-  const postApplicationFeesIdRefundParamSchema = z.object({
-    id: z.coerce.string(),
-  })
+  const postApplicationFeesIdRefundParamSchema = z.object({ id: z.string() })
 
   const postApplicationFeesIdRefundBodySchema = z
     .object({
       amount: z.coerce.number().optional(),
-      directive: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      directive: z.string().optional(),
+      expand: z.array(z.string()).optional(),
     })
     .optional()
 
@@ -11184,15 +11138,13 @@ export function bootstrap(
     },
   )
 
-  const getApplicationFeesIdRefundsParamSchema = z.object({
-    id: z.coerce.string(),
-  })
+  const getApplicationFeesIdRefundsParamSchema = z.object({ id: z.string() })
 
   const getApplicationFeesIdRefundsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getApplicationFeesIdRefundsBodySchema = z.object({}).optional()
@@ -11206,7 +11158,7 @@ export function bootstrap(
             data: z.array(z.lazy(() => s_fee_refund)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -11243,14 +11195,12 @@ export function bootstrap(
     },
   )
 
-  const postApplicationFeesIdRefundsParamSchema = z.object({
-    id: z.coerce.string(),
-  })
+  const postApplicationFeesIdRefundsParamSchema = z.object({ id: z.string() })
 
   const postApplicationFeesIdRefundsBodySchema = z
     .object({
       amount: z.coerce.number().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.object({}).optional(),
     })
     .optional()
@@ -11284,14 +11234,14 @@ export function bootstrap(
   )
 
   const getAppsSecretsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
     scope: z.object({
       type: z.enum(["account", "user"]),
-      user: z.coerce.string().optional(),
+      user: z.string().optional(),
     }),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getAppsSecretsBodySchema = z.object({}).optional()
@@ -11304,7 +11254,7 @@ export function bootstrap(
           data: z.array(s_apps_secret),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -11326,13 +11276,13 @@ export function bootstrap(
   })
 
   const postAppsSecretsBodySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     expires_at: z.coerce.number().optional(),
-    name: z.coerce.string(),
-    payload: z.coerce.string(),
+    name: z.string(),
+    payload: z.string(),
     scope: z.object({
       type: z.enum(["account", "user"]),
-      user: z.coerce.string().optional(),
+      user: z.string().optional(),
     }),
   })
 
@@ -11356,11 +11306,11 @@ export function bootstrap(
   })
 
   const postAppsSecretsDeleteBodySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
-    name: z.coerce.string(),
+    expand: z.array(z.string()).optional(),
+    name: z.string(),
     scope: z.object({
       type: z.enum(["account", "user"]),
-      user: z.coerce.string().optional(),
+      user: z.string().optional(),
     }),
   })
 
@@ -11394,11 +11344,11 @@ export function bootstrap(
   )
 
   const getAppsSecretsFindQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
-    name: z.coerce.string(),
+    expand: z.array(z.string()).optional(),
+    name: z.string(),
     scope: z.object({
       type: z.enum(["account", "user"]),
-      user: z.coerce.string().optional(),
+      user: z.string().optional(),
     }),
   })
 
@@ -11431,7 +11381,7 @@ export function bootstrap(
   )
 
   const getBalanceQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getBalanceBodySchema = z.object({}).optional()
@@ -11465,14 +11415,14 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    currency: z.coerce.string().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    currency: z.string().optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    payout: z.coerce.string().optional(),
-    source: z.coerce.string().optional(),
-    starting_after: z.coerce.string().optional(),
-    type: z.coerce.string().optional(),
+    payout: z.string().optional(),
+    source: z.string().optional(),
+    starting_after: z.string().optional(),
+    type: z.string().optional(),
   })
 
   const getBalanceHistoryBodySchema = z.object({}).optional()
@@ -11485,7 +11435,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_balance_transaction)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -11506,10 +11456,10 @@ export function bootstrap(
     return next()
   })
 
-  const getBalanceHistoryIdParamSchema = z.object({ id: z.coerce.string() })
+  const getBalanceHistoryIdParamSchema = z.object({ id: z.string() })
 
   const getBalanceHistoryIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getBalanceHistoryIdBodySchema = z.object({}).optional()
@@ -11553,14 +11503,14 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    currency: z.coerce.string().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    currency: z.string().optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    payout: z.coerce.string().optional(),
-    source: z.coerce.string().optional(),
-    starting_after: z.coerce.string().optional(),
-    type: z.coerce.string().optional(),
+    payout: z.string().optional(),
+    source: z.string().optional(),
+    starting_after: z.string().optional(),
+    type: z.string().optional(),
   })
 
   const getBalanceTransactionsBodySchema = z.object({}).optional()
@@ -11573,7 +11523,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_balance_transaction)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -11604,12 +11554,10 @@ export function bootstrap(
     },
   )
 
-  const getBalanceTransactionsIdParamSchema = z.object({
-    id: z.coerce.string(),
-  })
+  const getBalanceTransactionsIdParamSchema = z.object({ id: z.string() })
 
   const getBalanceTransactionsIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getBalanceTransactionsIdBodySchema = z.object({}).optional()
@@ -11651,11 +11599,11 @@ export function bootstrap(
 
   const getBillingPortalConfigurationsQuerySchema = z.object({
     active: z.coerce.boolean().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     is_default: z.coerce.boolean().optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getBillingPortalConfigurationsBodySchema = z.object({}).optional()
@@ -11669,7 +11617,7 @@ export function bootstrap(
             data: z.array(s_billing_portal_configuration),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -11703,12 +11651,12 @@ export function bootstrap(
 
   const postBillingPortalConfigurationsBodySchema = z.object({
     business_profile: z.object({
-      headline: z.union([z.coerce.string(), z.enum([""])]),
-      privacy_policy_url: z.coerce.string().optional(),
-      terms_of_service_url: z.coerce.string().optional(),
+      headline: z.union([z.string(), z.enum([""])]),
+      privacy_policy_url: z.string().optional(),
+      terms_of_service_url: z.string().optional(),
     }),
-    default_return_url: z.union([z.coerce.string(), z.enum([""])]),
-    expand: z.array(z.coerce.string()).optional(),
+    default_return_url: z.union([z.string(), z.enum([""])]),
+    expand: z.array(z.string()).optional(),
     features: z.object({
       customer_update: z
         .object({
@@ -11773,10 +11721,7 @@ export function bootstrap(
           enabled: z.coerce.boolean(),
           products: z.union([
             z.array(
-              z.object({
-                prices: z.array(z.coerce.string()),
-                product: z.coerce.string(),
-              }),
+              z.object({ prices: z.array(z.string()), product: z.string() }),
             ),
             z.enum([""]),
           ]),
@@ -11819,11 +11764,11 @@ export function bootstrap(
   )
 
   const getBillingPortalConfigurationsConfigurationParamSchema = z.object({
-    configuration: z.coerce.string(),
+    configuration: z.string(),
   })
 
   const getBillingPortalConfigurationsConfigurationQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getBillingPortalConfigurationsConfigurationBodySchema = z
@@ -11871,7 +11816,7 @@ export function bootstrap(
   )
 
   const postBillingPortalConfigurationsConfigurationParamSchema = z.object({
-    configuration: z.coerce.string(),
+    configuration: z.string(),
   })
 
   const postBillingPortalConfigurationsConfigurationBodySchema = z
@@ -11879,13 +11824,13 @@ export function bootstrap(
       active: z.coerce.boolean().optional(),
       business_profile: z
         .object({
-          headline: z.union([z.coerce.string(), z.enum([""])]),
-          privacy_policy_url: z.union([z.coerce.string(), z.enum([""])]),
-          terms_of_service_url: z.union([z.coerce.string(), z.enum([""])]),
+          headline: z.union([z.string(), z.enum([""])]),
+          privacy_policy_url: z.union([z.string(), z.enum([""])]),
+          terms_of_service_url: z.union([z.string(), z.enum([""])]),
         })
         .optional(),
-      default_return_url: z.union([z.coerce.string(), z.enum([""])]),
-      expand: z.array(z.coerce.string()).optional(),
+      default_return_url: z.union([z.string(), z.enum([""])]),
+      expand: z.array(z.string()).optional(),
       features: z
         .object({
           customer_update: z
@@ -11952,8 +11897,8 @@ export function bootstrap(
               products: z.union([
                 z.array(
                   z.object({
-                    prices: z.array(z.coerce.string()),
-                    product: z.coerce.string(),
+                    prices: z.array(z.string()),
+                    product: z.string(),
                   }),
                 ),
                 z.enum([""]),
@@ -12008,17 +11953,17 @@ export function bootstrap(
   )
 
   const postBillingPortalSessionsBodySchema = z.object({
-    configuration: z.coerce.string().optional(),
-    customer: z.coerce.string(),
-    expand: z.array(z.coerce.string()).optional(),
+    configuration: z.string().optional(),
+    customer: z.string(),
+    expand: z.array(z.string()).optional(),
     flow_data: z
       .object({
         after_completion: z
           .object({
             hosted_confirmation: z
-              .object({ custom_message: z.coerce.string().optional() })
+              .object({ custom_message: z.string().optional() })
               .optional(),
-            redirect: z.object({ return_url: z.coerce.string() }).optional(),
+            redirect: z.object({ return_url: z.string() }).optional(),
             type: z.enum([
               "hosted_confirmation",
               "portal_homepage",
@@ -12030,34 +11975,32 @@ export function bootstrap(
           .object({
             retention: z
               .object({
-                coupon_offer: z.object({ coupon: z.coerce.string() }),
+                coupon_offer: z.object({ coupon: z.string() }),
                 type: z.enum(["coupon_offer"]),
               })
               .optional(),
-            subscription: z.coerce.string(),
+            subscription: z.string(),
           })
           .optional(),
-        subscription_update: z
-          .object({ subscription: z.coerce.string() })
-          .optional(),
+        subscription_update: z.object({ subscription: z.string() }).optional(),
         subscription_update_confirm: z
           .object({
             discounts: z
               .array(
                 z.object({
-                  coupon: z.coerce.string().optional(),
-                  promotion_code: z.coerce.string().optional(),
+                  coupon: z.string().optional(),
+                  promotion_code: z.string().optional(),
                 }),
               )
               .optional(),
             items: z.array(
               z.object({
-                id: z.coerce.string(),
-                price: z.coerce.string().optional(),
+                id: z.string(),
+                price: z.string().optional(),
                 quantity: z.coerce.number().optional(),
               }),
             ),
-            subscription: z.coerce.string(),
+            subscription: z.string(),
           })
           .optional(),
         type: z.enum([
@@ -12119,8 +12062,8 @@ export function bootstrap(
         "zh-TW",
       ])
       .optional(),
-    on_behalf_of: z.coerce.string().optional(),
-    return_url: z.coerce.string().optional(),
+    on_behalf_of: z.string().optional(),
+    return_url: z.string().optional(),
   })
 
   const postBillingPortalSessionsResponseValidator = responseValidationFactory(
@@ -12162,13 +12105,13 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    customer: z.coerce.string().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    customer: z.string().optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    payment_intent: z.coerce.string().optional(),
-    starting_after: z.coerce.string().optional(),
-    transfer_group: z.coerce.string().optional(),
+    payment_intent: z.string().optional(),
+    starting_after: z.string().optional(),
+    transfer_group: z.string().optional(),
   })
 
   const getChargesBodySchema = z.object({}).optional()
@@ -12181,7 +12124,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_charge)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -12210,65 +12153,60 @@ export function bootstrap(
       capture: z.coerce.boolean().optional(),
       card: z.union([
         z.object({
-          address_city: z.coerce.string().optional(),
-          address_country: z.coerce.string().optional(),
-          address_line1: z.coerce.string().optional(),
-          address_line2: z.coerce.string().optional(),
-          address_state: z.coerce.string().optional(),
-          address_zip: z.coerce.string().optional(),
-          cvc: z.coerce.string().optional(),
+          address_city: z.string().optional(),
+          address_country: z.string().optional(),
+          address_line1: z.string().optional(),
+          address_line2: z.string().optional(),
+          address_state: z.string().optional(),
+          address_zip: z.string().optional(),
+          cvc: z.string().optional(),
           exp_month: z.coerce.number(),
           exp_year: z.coerce.number(),
           metadata: z.object({}).optional(),
-          name: z.coerce.string().optional(),
-          number: z.coerce.string(),
+          name: z.string().optional(),
+          number: z.string(),
           object: z.enum(["card"]).optional(),
         }),
-        z.coerce.string(),
+        z.string(),
       ]),
-      currency: z.coerce.string().optional(),
-      customer: z.coerce.string().optional(),
-      description: z.coerce.string().optional(),
+      currency: z.string().optional(),
+      customer: z.string().optional(),
+      description: z.string().optional(),
       destination: z.union([
-        z.object({
-          account: z.coerce.string(),
-          amount: z.coerce.number().optional(),
-        }),
-        z.coerce.string(),
+        z.object({ account: z.string(), amount: z.coerce.number().optional() }),
+        z.string(),
       ]),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      on_behalf_of: z.coerce.string().optional(),
-      radar_options: z
-        .object({ session: z.coerce.string().optional() })
-        .optional(),
-      receipt_email: z.coerce.string().optional(),
+      on_behalf_of: z.string().optional(),
+      radar_options: z.object({ session: z.string().optional() }).optional(),
+      receipt_email: z.string().optional(),
       shipping: z
         .object({
           address: z.object({
-            city: z.coerce.string().optional(),
-            country: z.coerce.string().optional(),
-            line1: z.coerce.string().optional(),
-            line2: z.coerce.string().optional(),
-            postal_code: z.coerce.string().optional(),
-            state: z.coerce.string().optional(),
+            city: z.string().optional(),
+            country: z.string().optional(),
+            line1: z.string().optional(),
+            line2: z.string().optional(),
+            postal_code: z.string().optional(),
+            state: z.string().optional(),
           }),
-          carrier: z.coerce.string().optional(),
-          name: z.coerce.string(),
-          phone: z.coerce.string().optional(),
-          tracking_number: z.coerce.string().optional(),
+          carrier: z.string().optional(),
+          name: z.string(),
+          phone: z.string().optional(),
+          tracking_number: z.string().optional(),
         })
         .optional(),
-      source: z.coerce.string().optional(),
-      statement_descriptor: z.coerce.string().optional(),
-      statement_descriptor_suffix: z.coerce.string().optional(),
+      source: z.string().optional(),
+      statement_descriptor: z.string().optional(),
+      statement_descriptor_suffix: z.string().optional(),
       transfer_data: z
         .object({
           amount: z.coerce.number().optional(),
-          destination: z.coerce.string(),
+          destination: z.string(),
         })
         .optional(),
-      transfer_group: z.coerce.string().optional(),
+      transfer_group: z.string().optional(),
     })
     .optional()
 
@@ -12292,10 +12230,10 @@ export function bootstrap(
   })
 
   const getChargesSearchQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    page: z.coerce.string().optional(),
-    query: z.coerce.string(),
+    page: z.string().optional(),
+    query: z.string(),
   })
 
   const getChargesSearchBodySchema = z.object({}).optional()
@@ -12307,10 +12245,10 @@ export function bootstrap(
         z.object({
           data: z.array(z.lazy(() => s_charge)),
           has_more: z.coerce.boolean(),
-          next_page: z.coerce.string().optional().nullable(),
+          next_page: z.string().optional().nullable(),
           object: z.enum(["search_result"]),
           total_count: z.coerce.number().optional(),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -12331,10 +12269,10 @@ export function bootstrap(
     return next()
   })
 
-  const getChargesChargeParamSchema = z.object({ charge: z.coerce.string() })
+  const getChargesChargeParamSchema = z.object({ charge: z.string() })
 
   const getChargesChargeQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getChargesChargeBodySchema = z.object({}).optional()
@@ -12358,35 +12296,35 @@ export function bootstrap(
     return next()
   })
 
-  const postChargesChargeParamSchema = z.object({ charge: z.coerce.string() })
+  const postChargesChargeParamSchema = z.object({ charge: z.string() })
 
   const postChargesChargeBodySchema = z
     .object({
-      customer: z.coerce.string().optional(),
-      description: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      customer: z.string().optional(),
+      description: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       fraud_details: z
         .object({ user_report: z.enum(["", "fraudulent", "safe"]) })
         .optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      receipt_email: z.coerce.string().optional(),
+      receipt_email: z.string().optional(),
       shipping: z
         .object({
           address: z.object({
-            city: z.coerce.string().optional(),
-            country: z.coerce.string().optional(),
-            line1: z.coerce.string().optional(),
-            line2: z.coerce.string().optional(),
-            postal_code: z.coerce.string().optional(),
-            state: z.coerce.string().optional(),
+            city: z.string().optional(),
+            country: z.string().optional(),
+            line1: z.string().optional(),
+            line2: z.string().optional(),
+            postal_code: z.string().optional(),
+            state: z.string().optional(),
           }),
-          carrier: z.coerce.string().optional(),
-          name: z.coerce.string(),
-          phone: z.coerce.string().optional(),
-          tracking_number: z.coerce.string().optional(),
+          carrier: z.string().optional(),
+          name: z.string(),
+          phone: z.string().optional(),
+          tracking_number: z.string().optional(),
         })
         .optional(),
-      transfer_group: z.coerce.string().optional(),
+      transfer_group: z.string().optional(),
     })
     .optional()
 
@@ -12409,23 +12347,21 @@ export function bootstrap(
     return next()
   })
 
-  const postChargesChargeCaptureParamSchema = z.object({
-    charge: z.coerce.string(),
-  })
+  const postChargesChargeCaptureParamSchema = z.object({ charge: z.string() })
 
   const postChargesChargeCaptureBodySchema = z
     .object({
       amount: z.coerce.number().optional(),
       application_fee: z.coerce.number().optional(),
       application_fee_amount: z.coerce.number().optional(),
-      expand: z.array(z.coerce.string()).optional(),
-      receipt_email: z.coerce.string().optional(),
-      statement_descriptor: z.coerce.string().optional(),
-      statement_descriptor_suffix: z.coerce.string().optional(),
+      expand: z.array(z.string()).optional(),
+      receipt_email: z.string().optional(),
+      statement_descriptor: z.string().optional(),
+      statement_descriptor_suffix: z.string().optional(),
       transfer_data: z
         .object({ amount: z.coerce.number().optional() })
         .optional(),
-      transfer_group: z.coerce.string().optional(),
+      transfer_group: z.string().optional(),
     })
     .optional()
 
@@ -12461,12 +12397,10 @@ export function bootstrap(
     },
   )
 
-  const getChargesChargeDisputeParamSchema = z.object({
-    charge: z.coerce.string(),
-  })
+  const getChargesChargeDisputeParamSchema = z.object({ charge: z.string() })
 
   const getChargesChargeDisputeQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getChargesChargeDisputeBodySchema = z.object({}).optional()
@@ -12503,44 +12437,42 @@ export function bootstrap(
     },
   )
 
-  const postChargesChargeDisputeParamSchema = z.object({
-    charge: z.coerce.string(),
-  })
+  const postChargesChargeDisputeParamSchema = z.object({ charge: z.string() })
 
   const postChargesChargeDisputeBodySchema = z
     .object({
       evidence: z
         .object({
-          access_activity_log: z.coerce.string().optional(),
-          billing_address: z.coerce.string().optional(),
-          cancellation_policy: z.coerce.string().optional(),
-          cancellation_policy_disclosure: z.coerce.string().optional(),
-          cancellation_rebuttal: z.coerce.string().optional(),
-          customer_communication: z.coerce.string().optional(),
-          customer_email_address: z.coerce.string().optional(),
-          customer_name: z.coerce.string().optional(),
-          customer_purchase_ip: z.coerce.string().optional(),
-          customer_signature: z.coerce.string().optional(),
-          duplicate_charge_documentation: z.coerce.string().optional(),
-          duplicate_charge_explanation: z.coerce.string().optional(),
-          duplicate_charge_id: z.coerce.string().optional(),
-          product_description: z.coerce.string().optional(),
-          receipt: z.coerce.string().optional(),
-          refund_policy: z.coerce.string().optional(),
-          refund_policy_disclosure: z.coerce.string().optional(),
-          refund_refusal_explanation: z.coerce.string().optional(),
-          service_date: z.coerce.string().optional(),
-          service_documentation: z.coerce.string().optional(),
-          shipping_address: z.coerce.string().optional(),
-          shipping_carrier: z.coerce.string().optional(),
-          shipping_date: z.coerce.string().optional(),
-          shipping_documentation: z.coerce.string().optional(),
-          shipping_tracking_number: z.coerce.string().optional(),
-          uncategorized_file: z.coerce.string().optional(),
-          uncategorized_text: z.coerce.string().optional(),
+          access_activity_log: z.string().optional(),
+          billing_address: z.string().optional(),
+          cancellation_policy: z.string().optional(),
+          cancellation_policy_disclosure: z.string().optional(),
+          cancellation_rebuttal: z.string().optional(),
+          customer_communication: z.string().optional(),
+          customer_email_address: z.string().optional(),
+          customer_name: z.string().optional(),
+          customer_purchase_ip: z.string().optional(),
+          customer_signature: z.string().optional(),
+          duplicate_charge_documentation: z.string().optional(),
+          duplicate_charge_explanation: z.string().optional(),
+          duplicate_charge_id: z.string().optional(),
+          product_description: z.string().optional(),
+          receipt: z.string().optional(),
+          refund_policy: z.string().optional(),
+          refund_policy_disclosure: z.string().optional(),
+          refund_refusal_explanation: z.string().optional(),
+          service_date: z.string().optional(),
+          service_documentation: z.string().optional(),
+          shipping_address: z.string().optional(),
+          shipping_carrier: z.string().optional(),
+          shipping_date: z.string().optional(),
+          shipping_documentation: z.string().optional(),
+          shipping_tracking_number: z.string().optional(),
+          uncategorized_file: z.string().optional(),
+          uncategorized_text: z.string().optional(),
         })
         .optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
       submit: z.coerce.boolean().optional(),
     })
@@ -12579,11 +12511,11 @@ export function bootstrap(
   )
 
   const postChargesChargeDisputeCloseParamSchema = z.object({
-    charge: z.coerce.string(),
+    charge: z.string(),
   })
 
   const postChargesChargeDisputeCloseBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postChargesChargeDisputeCloseResponseValidator =
@@ -12614,17 +12546,15 @@ export function bootstrap(
     },
   )
 
-  const postChargesChargeRefundParamSchema = z.object({
-    charge: z.coerce.string(),
-  })
+  const postChargesChargeRefundParamSchema = z.object({ charge: z.string() })
 
   const postChargesChargeRefundBodySchema = z
     .object({
       amount: z.coerce.number().optional(),
-      expand: z.array(z.coerce.string()).optional(),
-      instructions_email: z.coerce.string().optional(),
+      expand: z.array(z.string()).optional(),
+      instructions_email: z.string().optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      payment_intent: z.coerce.string().optional(),
+      payment_intent: z.string().optional(),
       reason: z
         .enum(["duplicate", "fraudulent", "requested_by_customer"])
         .optional(),
@@ -12665,15 +12595,13 @@ export function bootstrap(
     },
   )
 
-  const getChargesChargeRefundsParamSchema = z.object({
-    charge: z.coerce.string(),
-  })
+  const getChargesChargeRefundsParamSchema = z.object({ charge: z.string() })
 
   const getChargesChargeRefundsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getChargesChargeRefundsBodySchema = z.object({}).optional()
@@ -12686,7 +12614,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_refund)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -12720,20 +12648,18 @@ export function bootstrap(
     },
   )
 
-  const postChargesChargeRefundsParamSchema = z.object({
-    charge: z.coerce.string(),
-  })
+  const postChargesChargeRefundsParamSchema = z.object({ charge: z.string() })
 
   const postChargesChargeRefundsBodySchema = z
     .object({
       amount: z.coerce.number().optional(),
-      currency: z.coerce.string().optional(),
-      customer: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
-      instructions_email: z.coerce.string().optional(),
+      currency: z.string().optional(),
+      customer: z.string().optional(),
+      expand: z.array(z.string()).optional(),
+      instructions_email: z.string().optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
       origin: z.enum(["customer_balance"]).optional(),
-      payment_intent: z.coerce.string().optional(),
+      payment_intent: z.string().optional(),
       reason: z
         .enum(["duplicate", "fraudulent", "requested_by_customer"])
         .optional(),
@@ -12775,12 +12701,12 @@ export function bootstrap(
   )
 
   const getChargesChargeRefundsRefundParamSchema = z.object({
-    charge: z.coerce.string(),
-    refund: z.coerce.string(),
+    charge: z.string(),
+    refund: z.string(),
   })
 
   const getChargesChargeRefundsRefundQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getChargesChargeRefundsRefundBodySchema = z.object({}).optional()
@@ -12817,13 +12743,13 @@ export function bootstrap(
   )
 
   const postChargesChargeRefundsRefundParamSchema = z.object({
-    charge: z.coerce.string(),
-    refund: z.coerce.string(),
+    charge: z.string(),
+    refund: z.string(),
   })
 
   const postChargesChargeRefundsRefundBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
@@ -12857,15 +12783,15 @@ export function bootstrap(
   )
 
   const getCheckoutSessionsQuerySchema = z.object({
-    customer: z.coerce.string().optional(),
-    customer_details: z.object({ email: z.coerce.string() }).optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    customer: z.string().optional(),
+    customer_details: z.object({ email: z.string() }).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    payment_intent: z.coerce.string().optional(),
-    payment_link: z.coerce.string().optional(),
-    starting_after: z.coerce.string().optional(),
-    subscription: z.coerce.string().optional(),
+    payment_intent: z.string().optional(),
+    payment_link: z.string().optional(),
+    starting_after: z.string().optional(),
+    subscription: z.string().optional(),
   })
 
   const getCheckoutSessionsBodySchema = z.object({}).optional()
@@ -12878,7 +12804,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_checkout_session)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -12923,33 +12849,27 @@ export function bootstrap(
     allow_promotion_codes: z.coerce.boolean().optional(),
     automatic_tax: z.object({ enabled: z.coerce.boolean() }).optional(),
     billing_address_collection: z.enum(["auto", "required"]).optional(),
-    cancel_url: z.coerce.string().optional(),
-    client_reference_id: z.coerce.string().optional(),
+    cancel_url: z.string().optional(),
+    client_reference_id: z.string().optional(),
     consent_collection: z
       .object({
         promotions: z.enum(["auto", "none"]).optional(),
         terms_of_service: z.enum(["none", "required"]).optional(),
       })
       .optional(),
-    currency: z.coerce.string().optional(),
+    currency: z.string().optional(),
     custom_fields: z
       .array(
         z.object({
           dropdown: z
             .object({
               options: z.array(
-                z.object({
-                  label: z.coerce.string(),
-                  value: z.coerce.string(),
-                }),
+                z.object({ label: z.string(), value: z.string() }),
               ),
             })
             .optional(),
-          key: z.coerce.string(),
-          label: z.object({
-            custom: z.coerce.string(),
-            type: z.enum(["custom"]),
-          }),
+          key: z.string(),
+          label: z.object({ custom: z.string(), type: z.enum(["custom"]) }),
           numeric: z
             .object({
               maximum_length: z.coerce.number().optional(),
@@ -12970,22 +12890,19 @@ export function bootstrap(
     custom_text: z
       .object({
         shipping_address: z.union([
-          z.object({ message: z.coerce.string() }),
+          z.object({ message: z.string() }),
           z.enum([""]),
         ]),
-        submit: z.union([
-          z.object({ message: z.coerce.string() }),
-          z.enum([""]),
-        ]),
+        submit: z.union([z.object({ message: z.string() }), z.enum([""])]),
         terms_of_service_acceptance: z.union([
-          z.object({ message: z.coerce.string() }),
+          z.object({ message: z.string() }),
           z.enum([""]),
         ]),
       })
       .optional(),
-    customer: z.coerce.string().optional(),
+    customer: z.string().optional(),
     customer_creation: z.enum(["always", "if_required"]).optional(),
-    customer_email: z.coerce.string().optional(),
+    customer_email: z.string().optional(),
     customer_update: z
       .object({
         address: z.enum(["auto", "never"]).optional(),
@@ -12996,30 +12913,25 @@ export function bootstrap(
     discounts: z
       .array(
         z.object({
-          coupon: z.coerce.string().optional(),
-          promotion_code: z.coerce.string().optional(),
+          coupon: z.string().optional(),
+          promotion_code: z.string().optional(),
         }),
       )
       .optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     expires_at: z.coerce.number().optional(),
     invoice_creation: z
       .object({
         enabled: z.coerce.boolean(),
         invoice_data: z
           .object({
-            account_tax_ids: z.union([
-              z.array(z.coerce.string()),
-              z.enum([""]),
-            ]),
+            account_tax_ids: z.union([z.array(z.string()), z.enum([""])]),
             custom_fields: z.union([
-              z.array(
-                z.object({ name: z.coerce.string(), value: z.coerce.string() }),
-              ),
+              z.array(z.object({ name: z.string(), value: z.string() })),
               z.enum([""]),
             ]),
-            description: z.coerce.string().optional(),
-            footer: z.coerce.string().optional(),
+            description: z.string().optional(),
+            footer: z.string().optional(),
             metadata: z.object({}).optional(),
             rendering_options: z.union([
               z.object({
@@ -13043,19 +12955,19 @@ export function bootstrap(
               minimum: z.coerce.number().optional(),
             })
             .optional(),
-          dynamic_tax_rates: z.array(z.coerce.string()).optional(),
-          price: z.coerce.string().optional(),
+          dynamic_tax_rates: z.array(z.string()).optional(),
+          price: z.string().optional(),
           price_data: z
             .object({
-              currency: z.coerce.string(),
-              product: z.coerce.string().optional(),
+              currency: z.string(),
+              product: z.string().optional(),
               product_data: z
                 .object({
-                  description: z.coerce.string().optional(),
-                  images: z.array(z.coerce.string()).optional(),
+                  description: z.string().optional(),
+                  images: z.array(z.string()).optional(),
                   metadata: z.object({}).optional(),
-                  name: z.coerce.string(),
-                  tax_code: z.coerce.string().optional(),
+                  name: z.string(),
+                  tax_code: z.string().optional(),
                 })
                 .optional(),
               recurring: z
@@ -13068,11 +12980,11 @@ export function bootstrap(
                 .enum(["exclusive", "inclusive", "unspecified"])
                 .optional(),
               unit_amount: z.coerce.number().optional(),
-              unit_amount_decimal: z.coerce.string().optional(),
+              unit_amount_decimal: z.string().optional(),
             })
             .optional(),
           quantity: z.coerce.number().optional(),
-          tax_rates: z.array(z.coerce.string()).optional(),
+          tax_rates: z.array(z.string()).optional(),
         }),
       )
       .optional(),
@@ -13129,40 +13041,40 @@ export function bootstrap(
         capture_method: z
           .enum(["automatic", "automatic_async", "manual"])
           .optional(),
-        description: z.coerce.string().optional(),
+        description: z.string().optional(),
         metadata: z.object({}).optional(),
-        on_behalf_of: z.coerce.string().optional(),
-        receipt_email: z.coerce.string().optional(),
+        on_behalf_of: z.string().optional(),
+        receipt_email: z.string().optional(),
         setup_future_usage: z.enum(["off_session", "on_session"]).optional(),
         shipping: z
           .object({
             address: z.object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
             }),
-            carrier: z.coerce.string().optional(),
-            name: z.coerce.string(),
-            phone: z.coerce.string().optional(),
-            tracking_number: z.coerce.string().optional(),
+            carrier: z.string().optional(),
+            name: z.string(),
+            phone: z.string().optional(),
+            tracking_number: z.string().optional(),
           })
           .optional(),
-        statement_descriptor: z.coerce.string().optional(),
-        statement_descriptor_suffix: z.coerce.string().optional(),
+        statement_descriptor: z.string().optional(),
+        statement_descriptor_suffix: z.string().optional(),
         transfer_data: z
           .object({
             amount: z.coerce.number().optional(),
-            destination: z.coerce.string(),
+            destination: z.string(),
           })
           .optional(),
-        transfer_group: z.coerce.string().optional(),
+        transfer_group: z.string().optional(),
       })
       .optional(),
     payment_method_collection: z.enum(["always", "if_required"]).optional(),
-    payment_method_configuration: z.coerce.string().optional(),
+    payment_method_configuration: z.string().optional(),
     payment_method_options: z
       .object({
         acss_debit: z
@@ -13170,11 +13082,11 @@ export function bootstrap(
             currency: z.enum(["cad", "usd"]).optional(),
             mandate_options: z
               .object({
-                custom_mandate_url: z.union([z.coerce.string(), z.enum([""])]),
+                custom_mandate_url: z.union([z.string(), z.enum([""])]),
                 default_for: z
                   .array(z.enum(["invoice", "subscription"]))
                   .optional(),
-                interval_description: z.coerce.string().optional(),
+                interval_description: z.string().optional(),
                 payment_schedule: z
                   .enum(["combined", "interval", "sporadic"])
                   .optional(),
@@ -13227,8 +13139,8 @@ export function bootstrap(
             setup_future_usage: z
               .enum(["off_session", "on_session"])
               .optional(),
-            statement_descriptor_suffix_kana: z.coerce.string().optional(),
-            statement_descriptor_suffix_kanji: z.coerce.string().optional(),
+            statement_descriptor_suffix_kana: z.string().optional(),
+            statement_descriptor_suffix_kanji: z.string().optional(),
           })
           .optional(),
         cashapp: z
@@ -13242,9 +13154,7 @@ export function bootstrap(
           .object({
             bank_transfer: z
               .object({
-                eu_bank_transfer: z
-                  .object({ country: z.coerce.string() })
-                  .optional(),
+                eu_bank_transfer: z.object({ country: z.string() }).optional(),
                 requested_address_types: z
                   .array(
                     z.enum([
@@ -13343,8 +13253,8 @@ export function bootstrap(
                 "sv-SE",
               ])
               .optional(),
-            reference: z.coerce.string().optional(),
-            risk_correlation_id: z.coerce.string().optional(),
+            reference: z.string().optional(),
+            risk_correlation_id: z.string().optional(),
             setup_future_usage: z.enum(["", "none", "off_session"]).optional(),
           })
           .optional(),
@@ -13386,7 +13296,7 @@ export function bootstrap(
           .optional(),
         wechat_pay: z
           .object({
-            app_id: z.coerce.string().optional(),
+            app_id: z.string().optional(),
             client: z.enum(["android", "ios", "web"]),
             setup_future_usage: z.enum(["none"]).optional(),
           })
@@ -13435,9 +13345,9 @@ export function bootstrap(
       .optional(),
     setup_intent_data: z
       .object({
-        description: z.coerce.string().optional(),
+        description: z.string().optional(),
         metadata: z.object({}).optional(),
-        on_behalf_of: z.coerce.string().optional(),
+        on_behalf_of: z.string().optional(),
       })
       .optional(),
     shipping_address_collection: z
@@ -13688,7 +13598,7 @@ export function bootstrap(
     shipping_options: z
       .array(
         z.object({
-          shipping_rate: z.coerce.string().optional(),
+          shipping_rate: z.string().optional(),
           shipping_rate_data: z
             .object({
               delivery_estimate: z
@@ -13719,11 +13629,11 @@ export function bootstrap(
                     .optional(),
                 })
                 .optional(),
-              display_name: z.coerce.string(),
+              display_name: z.string(),
               fixed_amount: z
                 .object({
                   amount: z.coerce.number(),
-                  currency: z.coerce.string(),
+                  currency: z.string(),
                   currency_options: z.object({}).optional(),
                 })
                 .optional(),
@@ -13731,7 +13641,7 @@ export function bootstrap(
               tax_behavior: z
                 .enum(["exclusive", "inclusive", "unspecified"])
                 .optional(),
-              tax_code: z.coerce.string().optional(),
+              tax_code: z.string().optional(),
               type: z.enum(["fixed_amount"]).optional(),
             })
             .optional(),
@@ -13743,15 +13653,15 @@ export function bootstrap(
       .object({
         application_fee_percent: z.coerce.number().optional(),
         billing_cycle_anchor: z.coerce.number().optional(),
-        default_tax_rates: z.array(z.coerce.string()).optional(),
-        description: z.coerce.string().optional(),
+        default_tax_rates: z.array(z.string()).optional(),
+        description: z.string().optional(),
         metadata: z.object({}).optional(),
-        on_behalf_of: z.coerce.string().optional(),
+        on_behalf_of: z.string().optional(),
         proration_behavior: z.enum(["create_prorations", "none"]).optional(),
         transfer_data: z
           .object({
             amount_percent: z.coerce.number().optional(),
-            destination: z.coerce.string(),
+            destination: z.string(),
           })
           .optional(),
         trial_end: z.coerce.number().optional(),
@@ -13769,7 +13679,7 @@ export function bootstrap(
           .optional(),
       })
       .optional(),
-    success_url: z.coerce.string(),
+    success_url: z.string(),
     tax_id_collection: z.object({ enabled: z.coerce.boolean() }).optional(),
   })
 
@@ -13803,11 +13713,11 @@ export function bootstrap(
   )
 
   const getCheckoutSessionsSessionParamSchema = z.object({
-    session: z.coerce.string(),
+    session: z.string(),
   })
 
   const getCheckoutSessionsSessionQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getCheckoutSessionsSessionBodySchema = z.object({}).optional()
@@ -13848,11 +13758,11 @@ export function bootstrap(
   )
 
   const postCheckoutSessionsSessionExpireParamSchema = z.object({
-    session: z.coerce.string(),
+    session: z.string(),
   })
 
   const postCheckoutSessionsSessionExpireBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postCheckoutSessionsSessionExpireResponseValidator =
@@ -13887,14 +13797,14 @@ export function bootstrap(
   )
 
   const getCheckoutSessionsSessionLineItemsParamSchema = z.object({
-    session: z.coerce.string(),
+    session: z.string(),
   })
 
   const getCheckoutSessionsSessionLineItemsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getCheckoutSessionsSessionLineItemsBodySchema = z.object({}).optional()
@@ -13908,7 +13818,7 @@ export function bootstrap(
             data: z.array(z.lazy(() => s_item)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -13947,10 +13857,10 @@ export function bootstrap(
   )
 
   const getCountrySpecsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getCountrySpecsBodySchema = z.object({}).optional()
@@ -13963,7 +13873,7 @@ export function bootstrap(
           data: z.array(s_country_spec),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -13984,12 +13894,10 @@ export function bootstrap(
     return next()
   })
 
-  const getCountrySpecsCountryParamSchema = z.object({
-    country: z.coerce.string(),
-  })
+  const getCountrySpecsCountryParamSchema = z.object({ country: z.string() })
 
   const getCountrySpecsCountryQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getCountrySpecsCountryBodySchema = z.object({}).optional()
@@ -14036,10 +13944,10 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getCouponsBodySchema = z.object({}).optional()
@@ -14052,7 +13960,7 @@ export function bootstrap(
           data: z.array(s_coupon),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -14077,17 +13985,17 @@ export function bootstrap(
     .object({
       amount_off: z.coerce.number().optional(),
       applies_to: z
-        .object({ products: z.array(z.coerce.string()).optional() })
+        .object({ products: z.array(z.string()).optional() })
         .optional(),
-      currency: z.coerce.string().optional(),
+      currency: z.string().optional(),
       currency_options: z.object({}).optional(),
       duration: z.enum(["forever", "once", "repeating"]).optional(),
       duration_in_months: z.coerce.number().optional(),
-      expand: z.array(z.coerce.string()).optional(),
-      id: z.coerce.string().optional(),
+      expand: z.array(z.string()).optional(),
+      id: z.string().optional(),
       max_redemptions: z.coerce.number().optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      name: z.coerce.string().optional(),
+      name: z.string().optional(),
       percent_off: z.coerce.number().optional(),
       redeem_by: z.coerce.number().optional(),
     })
@@ -14112,7 +14020,7 @@ export function bootstrap(
     return next()
   })
 
-  const deleteCouponsCouponParamSchema = z.object({ coupon: z.coerce.string() })
+  const deleteCouponsCouponParamSchema = z.object({ coupon: z.string() })
 
   const deleteCouponsCouponBodySchema = z.object({}).optional()
 
@@ -14145,10 +14053,10 @@ export function bootstrap(
     },
   )
 
-  const getCouponsCouponParamSchema = z.object({ coupon: z.coerce.string() })
+  const getCouponsCouponParamSchema = z.object({ coupon: z.string() })
 
   const getCouponsCouponQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getCouponsCouponBodySchema = z.object({}).optional()
@@ -14172,14 +14080,14 @@ export function bootstrap(
     return next()
   })
 
-  const postCouponsCouponParamSchema = z.object({ coupon: z.coerce.string() })
+  const postCouponsCouponParamSchema = z.object({ coupon: z.string() })
 
   const postCouponsCouponBodySchema = z
     .object({
       currency_options: z.object({}).optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      name: z.coerce.string().optional(),
+      name: z.string().optional(),
     })
     .optional()
 
@@ -14203,12 +14111,12 @@ export function bootstrap(
   })
 
   const getCreditNotesQuerySchema = z.object({
-    customer: z.coerce.string().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    invoice: z.coerce.string().optional(),
+    customer: z.string().optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
+    invoice: z.string().optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getCreditNotesBodySchema = z.object({}).optional()
@@ -14221,7 +14129,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_credit_note)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -14246,23 +14154,23 @@ export function bootstrap(
     amount: z.coerce.number().optional(),
     credit_amount: z.coerce.number().optional(),
     effective_at: z.coerce.number().optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    invoice: z.coerce.string(),
+    expand: z.array(z.string()).optional(),
+    invoice: z.string(),
     lines: z
       .array(
         z.object({
           amount: z.coerce.number().optional(),
-          description: z.coerce.string().optional(),
-          invoice_line_item: z.coerce.string().optional(),
+          description: z.string().optional(),
+          invoice_line_item: z.string().optional(),
           quantity: z.coerce.number().optional(),
-          tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+          tax_rates: z.union([z.array(z.string()), z.enum([""])]),
           type: z.enum(["custom_line_item", "invoice_line_item"]),
           unit_amount: z.coerce.number().optional(),
-          unit_amount_decimal: z.coerce.string().optional(),
+          unit_amount_decimal: z.string().optional(),
         }),
       )
       .optional(),
-    memo: z.coerce.string().optional(),
+    memo: z.string().optional(),
     metadata: z.object({}).optional(),
     out_of_band_amount: z.coerce.number().optional(),
     reason: z
@@ -14273,10 +14181,10 @@ export function bootstrap(
         "product_unsatisfactory",
       ])
       .optional(),
-    refund: z.coerce.string().optional(),
+    refund: z.string().optional(),
     refund_amount: z.coerce.number().optional(),
     shipping_cost: z
-      .object({ shipping_rate: z.coerce.string().optional() })
+      .object({ shipping_rate: z.string().optional() })
       .optional(),
   })
 
@@ -14303,23 +14211,23 @@ export function bootstrap(
     amount: z.coerce.number().optional(),
     credit_amount: z.coerce.number().optional(),
     effective_at: z.coerce.number().optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    invoice: z.coerce.string(),
+    expand: z.array(z.string()).optional(),
+    invoice: z.string(),
     lines: z
       .array(
         z.object({
           amount: z.coerce.number().optional(),
-          description: z.coerce.string().optional(),
-          invoice_line_item: z.coerce.string().optional(),
+          description: z.string().optional(),
+          invoice_line_item: z.string().optional(),
           quantity: z.coerce.number().optional(),
-          tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+          tax_rates: z.union([z.array(z.string()), z.enum([""])]),
           type: z.enum(["custom_line_item", "invoice_line_item"]),
           unit_amount: z.coerce.number().optional(),
-          unit_amount_decimal: z.coerce.string().optional(),
+          unit_amount_decimal: z.string().optional(),
         }),
       )
       .optional(),
-    memo: z.coerce.string().optional(),
+    memo: z.string().optional(),
     metadata: z.object({}).optional(),
     out_of_band_amount: z.coerce.number().optional(),
     reason: z
@@ -14330,10 +14238,10 @@ export function bootstrap(
         "product_unsatisfactory",
       ])
       .optional(),
-    refund: z.coerce.string().optional(),
+    refund: z.string().optional(),
     refund_amount: z.coerce.number().optional(),
     shipping_cost: z
-      .object({ shipping_rate: z.coerce.string().optional() })
+      .object({ shipping_rate: z.string().optional() })
       .optional(),
   })
 
@@ -14372,25 +14280,25 @@ export function bootstrap(
     amount: z.coerce.number().optional(),
     credit_amount: z.coerce.number().optional(),
     effective_at: z.coerce.number().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    invoice: z.coerce.string(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
+    invoice: z.string(),
     limit: z.coerce.number().optional(),
     lines: z
       .array(
         z.object({
           amount: z.coerce.number().optional(),
-          description: z.coerce.string().optional(),
-          invoice_line_item: z.coerce.string().optional(),
+          description: z.string().optional(),
+          invoice_line_item: z.string().optional(),
           quantity: z.coerce.number().optional(),
-          tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+          tax_rates: z.union([z.array(z.string()), z.enum([""])]),
           type: z.enum(["custom_line_item", "invoice_line_item"]),
           unit_amount: z.coerce.number().optional(),
-          unit_amount_decimal: z.coerce.string().optional(),
+          unit_amount_decimal: z.string().optional(),
         }),
       )
       .optional(),
-    memo: z.coerce.string().optional(),
+    memo: z.string().optional(),
     metadata: z.object({}).optional(),
     out_of_band_amount: z.coerce.number().optional(),
     reason: z
@@ -14401,12 +14309,12 @@ export function bootstrap(
         "product_unsatisfactory",
       ])
       .optional(),
-    refund: z.coerce.string().optional(),
+    refund: z.string().optional(),
     refund_amount: z.coerce.number().optional(),
     shipping_cost: z
-      .object({ shipping_rate: z.coerce.string().optional() })
+      .object({ shipping_rate: z.string().optional() })
       .optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getCreditNotesPreviewLinesBodySchema = z.object({}).optional()
@@ -14419,7 +14327,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_credit_note_line_item)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -14454,14 +14362,14 @@ export function bootstrap(
   )
 
   const getCreditNotesCreditNoteLinesParamSchema = z.object({
-    credit_note: z.coerce.string(),
+    credit_note: z.string(),
   })
 
   const getCreditNotesCreditNoteLinesQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getCreditNotesCreditNoteLinesBodySchema = z.object({}).optional()
@@ -14475,7 +14383,7 @@ export function bootstrap(
             data: z.array(z.lazy(() => s_credit_note_line_item)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -14510,10 +14418,10 @@ export function bootstrap(
     },
   )
 
-  const getCreditNotesIdParamSchema = z.object({ id: z.coerce.string() })
+  const getCreditNotesIdParamSchema = z.object({ id: z.string() })
 
   const getCreditNotesIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getCreditNotesIdBodySchema = z.object({}).optional()
@@ -14537,12 +14445,12 @@ export function bootstrap(
     return next()
   })
 
-  const postCreditNotesIdParamSchema = z.object({ id: z.coerce.string() })
+  const postCreditNotesIdParamSchema = z.object({ id: z.string() })
 
   const postCreditNotesIdBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
-      memo: z.coerce.string().optional(),
+      expand: z.array(z.string()).optional(),
+      memo: z.string().optional(),
       metadata: z.object({}).optional(),
     })
     .optional()
@@ -14573,10 +14481,10 @@ export function bootstrap(
     },
   )
 
-  const postCreditNotesIdVoidParamSchema = z.object({ id: z.coerce.string() })
+  const postCreditNotesIdVoidParamSchema = z.object({ id: z.string() })
 
   const postCreditNotesIdVoidBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postCreditNotesIdVoidResponseValidator = responseValidationFactory(
@@ -14618,12 +14526,12 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    email: z.coerce.string().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    email: z.string().optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
-    test_clock: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
+    test_clock: z.string().optional(),
   })
 
   const getCustomersBodySchema = z.object({}).optional()
@@ -14636,7 +14544,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_customer)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -14661,12 +14569,12 @@ export function bootstrap(
     .object({
       address: z.union([
         z.object({
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          line1: z.coerce.string().optional(),
-          line2: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          line1: z.string().optional(),
+          line2: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
         }),
         z.enum([""]),
       ]),
@@ -14682,21 +14590,19 @@ export function bootstrap(
             .optional(),
         })
         .optional(),
-      coupon: z.coerce.string().optional(),
-      description: z.coerce.string().optional(),
-      email: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
-      invoice_prefix: z.coerce.string().optional(),
+      coupon: z.string().optional(),
+      description: z.string().optional(),
+      email: z.string().optional(),
+      expand: z.array(z.string()).optional(),
+      invoice_prefix: z.string().optional(),
       invoice_settings: z
         .object({
           custom_fields: z.union([
-            z.array(
-              z.object({ name: z.coerce.string(), value: z.coerce.string() }),
-            ),
+            z.array(z.object({ name: z.string(), value: z.string() })),
             z.enum([""]),
           ]),
-          default_payment_method: z.coerce.string().optional(),
-          footer: z.coerce.string().optional(),
+          default_payment_method: z.string().optional(),
+          footer: z.string().optional(),
           rendering_options: z.union([
             z.object({
               amount_tax_display: z
@@ -14708,30 +14614,30 @@ export function bootstrap(
         })
         .optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      name: z.coerce.string().optional(),
+      name: z.string().optional(),
       next_invoice_sequence: z.coerce.number().optional(),
-      payment_method: z.coerce.string().optional(),
-      phone: z.coerce.string().optional(),
-      preferred_locales: z.array(z.coerce.string()).optional(),
-      promotion_code: z.coerce.string().optional(),
+      payment_method: z.string().optional(),
+      phone: z.string().optional(),
+      preferred_locales: z.array(z.string()).optional(),
+      promotion_code: z.string().optional(),
       shipping: z.union([
         z.object({
           address: z.object({
-            city: z.coerce.string().optional(),
-            country: z.coerce.string().optional(),
-            line1: z.coerce.string().optional(),
-            line2: z.coerce.string().optional(),
-            postal_code: z.coerce.string().optional(),
-            state: z.coerce.string().optional(),
+            city: z.string().optional(),
+            country: z.string().optional(),
+            line1: z.string().optional(),
+            line2: z.string().optional(),
+            postal_code: z.string().optional(),
+            state: z.string().optional(),
           }),
-          name: z.coerce.string(),
-          phone: z.coerce.string().optional(),
+          name: z.string(),
+          phone: z.string().optional(),
         }),
         z.enum([""]),
       ]),
-      source: z.coerce.string().optional(),
+      source: z.string().optional(),
       tax: z
-        .object({ ip_address: z.union([z.coerce.string(), z.enum([""])]) })
+        .object({ ip_address: z.union([z.string(), z.enum([""])]) })
         .optional(),
       tax_exempt: z.enum(["", "exempt", "none", "reverse"]).optional(),
       tax_id_data: z
@@ -14805,11 +14711,11 @@ export function bootstrap(
               "vn_tin",
               "za_vat",
             ]),
-            value: z.coerce.string(),
+            value: z.string(),
           }),
         )
         .optional(),
-      test_clock: z.coerce.string().optional(),
+      test_clock: z.string().optional(),
     })
     .optional()
 
@@ -14833,10 +14739,10 @@ export function bootstrap(
   })
 
   const getCustomersSearchQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    page: z.coerce.string().optional(),
-    query: z.coerce.string(),
+    page: z.string().optional(),
+    query: z.string(),
   })
 
   const getCustomersSearchBodySchema = z.object({}).optional()
@@ -14848,10 +14754,10 @@ export function bootstrap(
         z.object({
           data: z.array(z.lazy(() => s_customer)),
           has_more: z.coerce.boolean(),
-          next_page: z.coerce.string().optional().nullable(),
+          next_page: z.string().optional().nullable(),
           object: z.enum(["search_result"]),
           total_count: z.coerce.number().optional(),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -14879,9 +14785,7 @@ export function bootstrap(
     },
   )
 
-  const deleteCustomersCustomerParamSchema = z.object({
-    customer: z.coerce.string(),
-  })
+  const deleteCustomersCustomerParamSchema = z.object({ customer: z.string() })
 
   const deleteCustomersCustomerBodySchema = z.object({}).optional()
 
@@ -14917,12 +14821,10 @@ export function bootstrap(
     },
   )
 
-  const getCustomersCustomerParamSchema = z.object({
-    customer: z.coerce.string(),
-  })
+  const getCustomersCustomerParamSchema = z.object({ customer: z.string() })
 
   const getCustomersCustomerQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getCustomersCustomerBodySchema = z.object({}).optional()
@@ -14956,53 +14858,51 @@ export function bootstrap(
     },
   )
 
-  const postCustomersCustomerParamSchema = z.object({
-    customer: z.coerce.string(),
-  })
+  const postCustomersCustomerParamSchema = z.object({ customer: z.string() })
 
   const postCustomersCustomerBodySchema = z
     .object({
       address: z.union([
         z.object({
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          line1: z.coerce.string().optional(),
-          line2: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          line1: z.string().optional(),
+          line2: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
         }),
         z.enum([""]),
       ]),
       balance: z.coerce.number().optional(),
       bank_account: z.union([
         z.object({
-          account_holder_name: z.coerce.string().optional(),
+          account_holder_name: z.string().optional(),
           account_holder_type: z.enum(["company", "individual"]).optional(),
-          account_number: z.coerce.string(),
-          country: z.coerce.string(),
-          currency: z.coerce.string().optional(),
+          account_number: z.string(),
+          country: z.string(),
+          currency: z.string().optional(),
           object: z.enum(["bank_account"]).optional(),
-          routing_number: z.coerce.string().optional(),
+          routing_number: z.string().optional(),
         }),
-        z.coerce.string(),
+        z.string(),
       ]),
       card: z.union([
         z.object({
-          address_city: z.coerce.string().optional(),
-          address_country: z.coerce.string().optional(),
-          address_line1: z.coerce.string().optional(),
-          address_line2: z.coerce.string().optional(),
-          address_state: z.coerce.string().optional(),
-          address_zip: z.coerce.string().optional(),
-          cvc: z.coerce.string().optional(),
+          address_city: z.string().optional(),
+          address_country: z.string().optional(),
+          address_line1: z.string().optional(),
+          address_line2: z.string().optional(),
+          address_state: z.string().optional(),
+          address_zip: z.string().optional(),
+          cvc: z.string().optional(),
           exp_month: z.coerce.number(),
           exp_year: z.coerce.number(),
           metadata: z.object({}).optional(),
-          name: z.coerce.string().optional(),
-          number: z.coerce.string(),
+          name: z.string().optional(),
+          number: z.string(),
           object: z.enum(["card"]).optional(),
         }),
-        z.coerce.string(),
+        z.string(),
       ]),
       cash_balance: z
         .object({
@@ -15015,25 +14915,23 @@ export function bootstrap(
             .optional(),
         })
         .optional(),
-      coupon: z.coerce.string().optional(),
-      default_alipay_account: z.coerce.string().optional(),
-      default_bank_account: z.coerce.string().optional(),
-      default_card: z.coerce.string().optional(),
-      default_source: z.coerce.string().optional(),
-      description: z.coerce.string().optional(),
-      email: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
-      invoice_prefix: z.coerce.string().optional(),
+      coupon: z.string().optional(),
+      default_alipay_account: z.string().optional(),
+      default_bank_account: z.string().optional(),
+      default_card: z.string().optional(),
+      default_source: z.string().optional(),
+      description: z.string().optional(),
+      email: z.string().optional(),
+      expand: z.array(z.string()).optional(),
+      invoice_prefix: z.string().optional(),
       invoice_settings: z
         .object({
           custom_fields: z.union([
-            z.array(
-              z.object({ name: z.coerce.string(), value: z.coerce.string() }),
-            ),
+            z.array(z.object({ name: z.string(), value: z.string() })),
             z.enum([""]),
           ]),
-          default_payment_method: z.coerce.string().optional(),
-          footer: z.coerce.string().optional(),
+          default_payment_method: z.string().optional(),
+          footer: z.string().optional(),
           rendering_options: z.union([
             z.object({
               amount_tax_display: z
@@ -15045,29 +14943,29 @@ export function bootstrap(
         })
         .optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      name: z.coerce.string().optional(),
+      name: z.string().optional(),
       next_invoice_sequence: z.coerce.number().optional(),
-      phone: z.coerce.string().optional(),
-      preferred_locales: z.array(z.coerce.string()).optional(),
-      promotion_code: z.coerce.string().optional(),
+      phone: z.string().optional(),
+      preferred_locales: z.array(z.string()).optional(),
+      promotion_code: z.string().optional(),
       shipping: z.union([
         z.object({
           address: z.object({
-            city: z.coerce.string().optional(),
-            country: z.coerce.string().optional(),
-            line1: z.coerce.string().optional(),
-            line2: z.coerce.string().optional(),
-            postal_code: z.coerce.string().optional(),
-            state: z.coerce.string().optional(),
+            city: z.string().optional(),
+            country: z.string().optional(),
+            line1: z.string().optional(),
+            line2: z.string().optional(),
+            postal_code: z.string().optional(),
+            state: z.string().optional(),
           }),
-          name: z.coerce.string(),
-          phone: z.coerce.string().optional(),
+          name: z.string(),
+          phone: z.string().optional(),
         }),
         z.enum([""]),
       ]),
-      source: z.coerce.string().optional(),
+      source: z.string().optional(),
       tax: z
-        .object({ ip_address: z.union([z.coerce.string(), z.enum([""])]) })
+        .object({ ip_address: z.union([z.string(), z.enum([""])]) })
         .optional(),
       tax_exempt: z.enum(["", "exempt", "none", "reverse"]).optional(),
     })
@@ -15103,14 +15001,14 @@ export function bootstrap(
   )
 
   const getCustomersCustomerBalanceTransactionsParamSchema = z.object({
-    customer: z.coerce.string(),
+    customer: z.string(),
   })
 
   const getCustomersCustomerBalanceTransactionsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getCustomersCustomerBalanceTransactionsBodySchema = z
@@ -15126,7 +15024,7 @@ export function bootstrap(
             data: z.array(z.lazy(() => s_customer_balance_transaction)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -15165,14 +15063,14 @@ export function bootstrap(
   )
 
   const postCustomersCustomerBalanceTransactionsParamSchema = z.object({
-    customer: z.coerce.string(),
+    customer: z.string(),
   })
 
   const postCustomersCustomerBalanceTransactionsBodySchema = z.object({
     amount: z.coerce.number(),
-    currency: z.coerce.string(),
-    description: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    currency: z.string(),
+    description: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     metadata: z.union([z.object({}), z.enum([""])]),
   })
 
@@ -15214,10 +15112,10 @@ export function bootstrap(
   )
 
   const getCustomersCustomerBalanceTransactionsTransactionParamSchema =
-    z.object({ customer: z.coerce.string(), transaction: z.coerce.string() })
+    z.object({ customer: z.string(), transaction: z.string() })
 
   const getCustomersCustomerBalanceTransactionsTransactionQuerySchema =
-    z.object({ expand: z.array(z.coerce.string()).optional() })
+    z.object({ expand: z.array(z.string()).optional() })
 
   const getCustomersCustomerBalanceTransactionsTransactionBodySchema = z
     .object({})
@@ -15265,12 +15163,12 @@ export function bootstrap(
   )
 
   const postCustomersCustomerBalanceTransactionsTransactionParamSchema =
-    z.object({ customer: z.coerce.string(), transaction: z.coerce.string() })
+    z.object({ customer: z.string(), transaction: z.string() })
 
   const postCustomersCustomerBalanceTransactionsTransactionBodySchema = z
     .object({
-      description: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      description: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
@@ -15314,14 +15212,14 @@ export function bootstrap(
   )
 
   const getCustomersCustomerBankAccountsParamSchema = z.object({
-    customer: z.coerce.string(),
+    customer: z.string(),
   })
 
   const getCustomersCustomerBankAccountsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getCustomersCustomerBankAccountsBodySchema = z.object({}).optional()
@@ -15335,7 +15233,7 @@ export function bootstrap(
             data: z.array(z.lazy(() => s_bank_account)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -15371,45 +15269,45 @@ export function bootstrap(
   )
 
   const postCustomersCustomerBankAccountsParamSchema = z.object({
-    customer: z.coerce.string(),
+    customer: z.string(),
   })
 
   const postCustomersCustomerBankAccountsBodySchema = z
     .object({
-      alipay_account: z.coerce.string().optional(),
+      alipay_account: z.string().optional(),
       bank_account: z.union([
         z.object({
-          account_holder_name: z.coerce.string().optional(),
+          account_holder_name: z.string().optional(),
           account_holder_type: z.enum(["company", "individual"]).optional(),
-          account_number: z.coerce.string(),
-          country: z.coerce.string(),
-          currency: z.coerce.string().optional(),
+          account_number: z.string(),
+          country: z.string(),
+          currency: z.string().optional(),
           object: z.enum(["bank_account"]).optional(),
-          routing_number: z.coerce.string().optional(),
+          routing_number: z.string().optional(),
         }),
-        z.coerce.string(),
+        z.string(),
       ]),
       card: z.union([
         z.object({
-          address_city: z.coerce.string().optional(),
-          address_country: z.coerce.string().optional(),
-          address_line1: z.coerce.string().optional(),
-          address_line2: z.coerce.string().optional(),
-          address_state: z.coerce.string().optional(),
-          address_zip: z.coerce.string().optional(),
-          cvc: z.coerce.string().optional(),
+          address_city: z.string().optional(),
+          address_country: z.string().optional(),
+          address_line1: z.string().optional(),
+          address_line2: z.string().optional(),
+          address_state: z.string().optional(),
+          address_zip: z.string().optional(),
+          cvc: z.string().optional(),
           exp_month: z.coerce.number(),
           exp_year: z.coerce.number(),
           metadata: z.object({}).optional(),
-          name: z.coerce.string().optional(),
-          number: z.coerce.string(),
+          name: z.string().optional(),
+          number: z.string(),
           object: z.enum(["card"]).optional(),
         }),
-        z.coerce.string(),
+        z.string(),
       ]),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.object({}).optional(),
-      source: z.coerce.string().optional(),
+      source: z.string().optional(),
     })
     .optional()
 
@@ -15445,12 +15343,12 @@ export function bootstrap(
   )
 
   const deleteCustomersCustomerBankAccountsIdParamSchema = z.object({
-    customer: z.coerce.string(),
-    id: z.coerce.string(),
+    customer: z.string(),
+    id: z.string(),
   })
 
   const deleteCustomersCustomerBankAccountsIdBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const deleteCustomersCustomerBankAccountsIdResponseValidator =
@@ -15493,12 +15391,12 @@ export function bootstrap(
   )
 
   const getCustomersCustomerBankAccountsIdParamSchema = z.object({
-    customer: z.coerce.string(),
-    id: z.coerce.string(),
+    customer: z.string(),
+    id: z.string(),
   })
 
   const getCustomersCustomerBankAccountsIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getCustomersCustomerBankAccountsIdBodySchema = z.object({}).optional()
@@ -15538,40 +15436,40 @@ export function bootstrap(
   )
 
   const postCustomersCustomerBankAccountsIdParamSchema = z.object({
-    customer: z.coerce.string(),
-    id: z.coerce.string(),
+    customer: z.string(),
+    id: z.string(),
   })
 
   const postCustomersCustomerBankAccountsIdBodySchema = z
     .object({
-      account_holder_name: z.coerce.string().optional(),
+      account_holder_name: z.string().optional(),
       account_holder_type: z.enum(["company", "individual"]).optional(),
-      address_city: z.coerce.string().optional(),
-      address_country: z.coerce.string().optional(),
-      address_line1: z.coerce.string().optional(),
-      address_line2: z.coerce.string().optional(),
-      address_state: z.coerce.string().optional(),
-      address_zip: z.coerce.string().optional(),
-      exp_month: z.coerce.string().optional(),
-      exp_year: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      address_city: z.string().optional(),
+      address_country: z.string().optional(),
+      address_line1: z.string().optional(),
+      address_line2: z.string().optional(),
+      address_state: z.string().optional(),
+      address_zip: z.string().optional(),
+      exp_month: z.string().optional(),
+      exp_year: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      name: z.coerce.string().optional(),
+      name: z.string().optional(),
       owner: z
         .object({
           address: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
             })
             .optional(),
-          email: z.coerce.string().optional(),
-          name: z.coerce.string().optional(),
-          phone: z.coerce.string().optional(),
+          email: z.string().optional(),
+          name: z.string().optional(),
+          phone: z.string().optional(),
         })
         .optional(),
     })
@@ -15621,14 +15519,14 @@ export function bootstrap(
   )
 
   const postCustomersCustomerBankAccountsIdVerifyParamSchema = z.object({
-    customer: z.coerce.string(),
-    id: z.coerce.string(),
+    customer: z.string(),
+    id: z.string(),
   })
 
   const postCustomersCustomerBankAccountsIdVerifyBodySchema = z
     .object({
       amounts: z.array(z.coerce.number()).optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
     })
     .optional()
 
@@ -15667,14 +15565,14 @@ export function bootstrap(
   )
 
   const getCustomersCustomerCardsParamSchema = z.object({
-    customer: z.coerce.string(),
+    customer: z.string(),
   })
 
   const getCustomersCustomerCardsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getCustomersCustomerCardsBodySchema = z.object({}).optional()
@@ -15687,7 +15585,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_card)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -15725,45 +15623,45 @@ export function bootstrap(
   )
 
   const postCustomersCustomerCardsParamSchema = z.object({
-    customer: z.coerce.string(),
+    customer: z.string(),
   })
 
   const postCustomersCustomerCardsBodySchema = z
     .object({
-      alipay_account: z.coerce.string().optional(),
+      alipay_account: z.string().optional(),
       bank_account: z.union([
         z.object({
-          account_holder_name: z.coerce.string().optional(),
+          account_holder_name: z.string().optional(),
           account_holder_type: z.enum(["company", "individual"]).optional(),
-          account_number: z.coerce.string(),
-          country: z.coerce.string(),
-          currency: z.coerce.string().optional(),
+          account_number: z.string(),
+          country: z.string(),
+          currency: z.string().optional(),
           object: z.enum(["bank_account"]).optional(),
-          routing_number: z.coerce.string().optional(),
+          routing_number: z.string().optional(),
         }),
-        z.coerce.string(),
+        z.string(),
       ]),
       card: z.union([
         z.object({
-          address_city: z.coerce.string().optional(),
-          address_country: z.coerce.string().optional(),
-          address_line1: z.coerce.string().optional(),
-          address_line2: z.coerce.string().optional(),
-          address_state: z.coerce.string().optional(),
-          address_zip: z.coerce.string().optional(),
-          cvc: z.coerce.string().optional(),
+          address_city: z.string().optional(),
+          address_country: z.string().optional(),
+          address_line1: z.string().optional(),
+          address_line2: z.string().optional(),
+          address_state: z.string().optional(),
+          address_zip: z.string().optional(),
+          cvc: z.string().optional(),
           exp_month: z.coerce.number(),
           exp_year: z.coerce.number(),
           metadata: z.object({}).optional(),
-          name: z.coerce.string().optional(),
-          number: z.coerce.string(),
+          name: z.string().optional(),
+          number: z.string(),
           object: z.enum(["card"]).optional(),
         }),
-        z.coerce.string(),
+        z.string(),
       ]),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.object({}).optional(),
-      source: z.coerce.string().optional(),
+      source: z.string().optional(),
     })
     .optional()
 
@@ -15800,12 +15698,12 @@ export function bootstrap(
   )
 
   const deleteCustomersCustomerCardsIdParamSchema = z.object({
-    customer: z.coerce.string(),
-    id: z.coerce.string(),
+    customer: z.string(),
+    id: z.string(),
   })
 
   const deleteCustomersCustomerCardsIdBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const deleteCustomersCustomerCardsIdResponseValidator =
@@ -15845,12 +15743,12 @@ export function bootstrap(
   )
 
   const getCustomersCustomerCardsIdParamSchema = z.object({
-    customer: z.coerce.string(),
-    id: z.coerce.string(),
+    customer: z.string(),
+    id: z.string(),
   })
 
   const getCustomersCustomerCardsIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getCustomersCustomerCardsIdBodySchema = z.object({}).optional()
@@ -15889,40 +15787,40 @@ export function bootstrap(
   )
 
   const postCustomersCustomerCardsIdParamSchema = z.object({
-    customer: z.coerce.string(),
-    id: z.coerce.string(),
+    customer: z.string(),
+    id: z.string(),
   })
 
   const postCustomersCustomerCardsIdBodySchema = z
     .object({
-      account_holder_name: z.coerce.string().optional(),
+      account_holder_name: z.string().optional(),
       account_holder_type: z.enum(["company", "individual"]).optional(),
-      address_city: z.coerce.string().optional(),
-      address_country: z.coerce.string().optional(),
-      address_line1: z.coerce.string().optional(),
-      address_line2: z.coerce.string().optional(),
-      address_state: z.coerce.string().optional(),
-      address_zip: z.coerce.string().optional(),
-      exp_month: z.coerce.string().optional(),
-      exp_year: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      address_city: z.string().optional(),
+      address_country: z.string().optional(),
+      address_line1: z.string().optional(),
+      address_line2: z.string().optional(),
+      address_state: z.string().optional(),
+      address_zip: z.string().optional(),
+      exp_month: z.string().optional(),
+      exp_year: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      name: z.coerce.string().optional(),
+      name: z.string().optional(),
       owner: z
         .object({
           address: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
             })
             .optional(),
-          email: z.coerce.string().optional(),
-          name: z.coerce.string().optional(),
-          phone: z.coerce.string().optional(),
+          email: z.string().optional(),
+          name: z.string().optional(),
+          phone: z.string().optional(),
         })
         .optional(),
     })
@@ -15969,11 +15867,11 @@ export function bootstrap(
   )
 
   const getCustomersCustomerCashBalanceParamSchema = z.object({
-    customer: z.coerce.string(),
+    customer: z.string(),
   })
 
   const getCustomersCustomerCashBalanceQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getCustomersCustomerCashBalanceBodySchema = z.object({}).optional()
@@ -16010,12 +15908,12 @@ export function bootstrap(
   )
 
   const postCustomersCustomerCashBalanceParamSchema = z.object({
-    customer: z.coerce.string(),
+    customer: z.string(),
   })
 
   const postCustomersCustomerCashBalanceBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       settings: z
         .object({
           reconciliation_mode: z
@@ -16055,14 +15953,14 @@ export function bootstrap(
   )
 
   const getCustomersCustomerCashBalanceTransactionsParamSchema = z.object({
-    customer: z.coerce.string(),
+    customer: z.string(),
   })
 
   const getCustomersCustomerCashBalanceTransactionsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getCustomersCustomerCashBalanceTransactionsBodySchema = z
@@ -16078,7 +15976,7 @@ export function bootstrap(
             data: z.array(z.lazy(() => s_customer_cash_balance_transaction)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -16120,10 +16018,10 @@ export function bootstrap(
   )
 
   const getCustomersCustomerCashBalanceTransactionsTransactionParamSchema =
-    z.object({ customer: z.coerce.string(), transaction: z.coerce.string() })
+    z.object({ customer: z.string(), transaction: z.string() })
 
   const getCustomersCustomerCashBalanceTransactionsTransactionQuerySchema =
-    z.object({ expand: z.array(z.coerce.string()).optional() })
+    z.object({ expand: z.array(z.string()).optional() })
 
   const getCustomersCustomerCashBalanceTransactionsTransactionBodySchema = z
     .object({})
@@ -16171,7 +16069,7 @@ export function bootstrap(
   )
 
   const deleteCustomersCustomerDiscountParamSchema = z.object({
-    customer: z.coerce.string(),
+    customer: z.string(),
   })
 
   const deleteCustomersCustomerDiscountBodySchema = z.object({}).optional()
@@ -16205,11 +16103,11 @@ export function bootstrap(
   )
 
   const getCustomersCustomerDiscountParamSchema = z.object({
-    customer: z.coerce.string(),
+    customer: z.string(),
   })
 
   const getCustomersCustomerDiscountQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getCustomersCustomerDiscountBodySchema = z.object({}).optional()
@@ -16246,12 +16144,12 @@ export function bootstrap(
   )
 
   const postCustomersCustomerFundingInstructionsParamSchema = z.object({
-    customer: z.coerce.string(),
+    customer: z.string(),
   })
 
   const postCustomersCustomerFundingInstructionsBodySchema = z.object({
     bank_transfer: z.object({
-      eu_bank_transfer: z.object({ country: z.coerce.string() }).optional(),
+      eu_bank_transfer: z.object({ country: z.string() }).optional(),
       requested_address_types: z
         .array(z.enum(["iban", "sort_code", "spei", "zengin"]))
         .optional(),
@@ -16263,8 +16161,8 @@ export function bootstrap(
         "us_bank_transfer",
       ]),
     }),
-    currency: z.coerce.string(),
-    expand: z.array(z.coerce.string()).optional(),
+    currency: z.string(),
+    expand: z.array(z.string()).optional(),
     funding_type: z.enum(["bank_transfer"]),
   })
 
@@ -16303,14 +16201,14 @@ export function bootstrap(
   )
 
   const getCustomersCustomerPaymentMethodsParamSchema = z.object({
-    customer: z.coerce.string(),
+    customer: z.string(),
   })
 
   const getCustomersCustomerPaymentMethodsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
     type: z
       .enum([
         "acss_debit",
@@ -16359,7 +16257,7 @@ export function bootstrap(
             data: z.array(z.lazy(() => s_payment_method)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -16398,12 +16296,12 @@ export function bootstrap(
   )
 
   const getCustomersCustomerPaymentMethodsPaymentMethodParamSchema = z.object({
-    customer: z.coerce.string(),
-    payment_method: z.coerce.string(),
+    customer: z.string(),
+    payment_method: z.string(),
   })
 
   const getCustomersCustomerPaymentMethodsPaymentMethodQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getCustomersCustomerPaymentMethodsPaymentMethodBodySchema = z
@@ -16449,15 +16347,15 @@ export function bootstrap(
   )
 
   const getCustomersCustomerSourcesParamSchema = z.object({
-    customer: z.coerce.string(),
+    customer: z.string(),
   })
 
   const getCustomersCustomerSourcesQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    object: z.coerce.string().optional(),
-    starting_after: z.coerce.string().optional(),
+    object: z.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getCustomersCustomerSourcesBodySchema = z.object({}).optional()
@@ -16477,7 +16375,7 @@ export function bootstrap(
             ),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -16515,45 +16413,45 @@ export function bootstrap(
   )
 
   const postCustomersCustomerSourcesParamSchema = z.object({
-    customer: z.coerce.string(),
+    customer: z.string(),
   })
 
   const postCustomersCustomerSourcesBodySchema = z
     .object({
-      alipay_account: z.coerce.string().optional(),
+      alipay_account: z.string().optional(),
       bank_account: z.union([
         z.object({
-          account_holder_name: z.coerce.string().optional(),
+          account_holder_name: z.string().optional(),
           account_holder_type: z.enum(["company", "individual"]).optional(),
-          account_number: z.coerce.string(),
-          country: z.coerce.string(),
-          currency: z.coerce.string().optional(),
+          account_number: z.string(),
+          country: z.string(),
+          currency: z.string().optional(),
           object: z.enum(["bank_account"]).optional(),
-          routing_number: z.coerce.string().optional(),
+          routing_number: z.string().optional(),
         }),
-        z.coerce.string(),
+        z.string(),
       ]),
       card: z.union([
         z.object({
-          address_city: z.coerce.string().optional(),
-          address_country: z.coerce.string().optional(),
-          address_line1: z.coerce.string().optional(),
-          address_line2: z.coerce.string().optional(),
-          address_state: z.coerce.string().optional(),
-          address_zip: z.coerce.string().optional(),
-          cvc: z.coerce.string().optional(),
+          address_city: z.string().optional(),
+          address_country: z.string().optional(),
+          address_line1: z.string().optional(),
+          address_line2: z.string().optional(),
+          address_state: z.string().optional(),
+          address_zip: z.string().optional(),
+          cvc: z.string().optional(),
           exp_month: z.coerce.number(),
           exp_year: z.coerce.number(),
           metadata: z.object({}).optional(),
-          name: z.coerce.string().optional(),
-          number: z.coerce.string(),
+          name: z.string().optional(),
+          number: z.string(),
           object: z.enum(["card"]).optional(),
         }),
-        z.coerce.string(),
+        z.string(),
       ]),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.object({}).optional(),
-      source: z.coerce.string().optional(),
+      source: z.string().optional(),
     })
     .optional()
 
@@ -16586,12 +16484,12 @@ export function bootstrap(
   )
 
   const deleteCustomersCustomerSourcesIdParamSchema = z.object({
-    customer: z.coerce.string(),
-    id: z.coerce.string(),
+    customer: z.string(),
+    id: z.string(),
   })
 
   const deleteCustomersCustomerSourcesIdBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const deleteCustomersCustomerSourcesIdResponseValidator =
@@ -16631,12 +16529,12 @@ export function bootstrap(
   )
 
   const getCustomersCustomerSourcesIdParamSchema = z.object({
-    customer: z.coerce.string(),
-    id: z.coerce.string(),
+    customer: z.string(),
+    id: z.string(),
   })
 
   const getCustomersCustomerSourcesIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getCustomersCustomerSourcesIdBodySchema = z.object({}).optional()
@@ -16673,40 +16571,40 @@ export function bootstrap(
   )
 
   const postCustomersCustomerSourcesIdParamSchema = z.object({
-    customer: z.coerce.string(),
-    id: z.coerce.string(),
+    customer: z.string(),
+    id: z.string(),
   })
 
   const postCustomersCustomerSourcesIdBodySchema = z
     .object({
-      account_holder_name: z.coerce.string().optional(),
+      account_holder_name: z.string().optional(),
       account_holder_type: z.enum(["company", "individual"]).optional(),
-      address_city: z.coerce.string().optional(),
-      address_country: z.coerce.string().optional(),
-      address_line1: z.coerce.string().optional(),
-      address_line2: z.coerce.string().optional(),
-      address_state: z.coerce.string().optional(),
-      address_zip: z.coerce.string().optional(),
-      exp_month: z.coerce.string().optional(),
-      exp_year: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      address_city: z.string().optional(),
+      address_country: z.string().optional(),
+      address_line1: z.string().optional(),
+      address_line2: z.string().optional(),
+      address_state: z.string().optional(),
+      address_zip: z.string().optional(),
+      exp_month: z.string().optional(),
+      exp_year: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      name: z.coerce.string().optional(),
+      name: z.string().optional(),
       owner: z
         .object({
           address: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
             })
             .optional(),
-          email: z.coerce.string().optional(),
-          name: z.coerce.string().optional(),
-          phone: z.coerce.string().optional(),
+          email: z.string().optional(),
+          name: z.string().optional(),
+          phone: z.string().optional(),
         })
         .optional(),
     })
@@ -16753,14 +16651,14 @@ export function bootstrap(
   )
 
   const postCustomersCustomerSourcesIdVerifyParamSchema = z.object({
-    customer: z.coerce.string(),
-    id: z.coerce.string(),
+    customer: z.string(),
+    id: z.string(),
   })
 
   const postCustomersCustomerSourcesIdVerifyBodySchema = z
     .object({
       amounts: z.array(z.coerce.number()).optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
     })
     .optional()
 
@@ -16796,14 +16694,14 @@ export function bootstrap(
   )
 
   const getCustomersCustomerSubscriptionsParamSchema = z.object({
-    customer: z.coerce.string(),
+    customer: z.string(),
   })
 
   const getCustomersCustomerSubscriptionsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getCustomersCustomerSubscriptionsBodySchema = z.object({}).optional()
@@ -16817,7 +16715,7 @@ export function bootstrap(
             data: z.array(z.lazy(() => s_subscription)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -16856,7 +16754,7 @@ export function bootstrap(
   )
 
   const postCustomersCustomerSubscriptionsParamSchema = z.object({
-    customer: z.coerce.string(),
+    customer: z.string(),
   })
 
   const postCustomersCustomerSubscriptionsBodySchema = z
@@ -16864,20 +16762,20 @@ export function bootstrap(
       add_invoice_items: z
         .array(
           z.object({
-            price: z.coerce.string().optional(),
+            price: z.string().optional(),
             price_data: z
               .object({
-                currency: z.coerce.string(),
-                product: z.coerce.string(),
+                currency: z.string(),
+                product: z.string(),
                 tax_behavior: z
                   .enum(["exclusive", "inclusive", "unspecified"])
                   .optional(),
                 unit_amount: z.coerce.number().optional(),
-                unit_amount_decimal: z.coerce.string().optional(),
+                unit_amount_decimal: z.string().optional(),
               })
               .optional(),
             quantity: z.coerce.number().optional(),
-            tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+            tax_rates: z.union([z.array(z.string()), z.enum([""])]),
           }),
         )
         .optional(),
@@ -16897,13 +16795,13 @@ export function bootstrap(
       collection_method: z
         .enum(["charge_automatically", "send_invoice"])
         .optional(),
-      coupon: z.coerce.string().optional(),
-      currency: z.coerce.string().optional(),
+      coupon: z.string().optional(),
+      currency: z.string().optional(),
       days_until_due: z.coerce.number().optional(),
-      default_payment_method: z.coerce.string().optional(),
-      default_source: z.coerce.string().optional(),
-      default_tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
-      expand: z.array(z.coerce.string()).optional(),
+      default_payment_method: z.string().optional(),
+      default_source: z.string().optional(),
+      default_tax_rates: z.union([z.array(z.string()), z.enum([""])]),
+      expand: z.array(z.string()).optional(),
       items: z
         .array(
           z.object({
@@ -16912,11 +16810,11 @@ export function bootstrap(
               z.enum([""]),
             ]),
             metadata: z.object({}).optional(),
-            price: z.coerce.string().optional(),
+            price: z.string().optional(),
             price_data: z
               .object({
-                currency: z.coerce.string(),
-                product: z.coerce.string(),
+                currency: z.string(),
+                product: z.string(),
                 recurring: z.object({
                   interval: z.enum(["day", "month", "week", "year"]),
                   interval_count: z.coerce.number().optional(),
@@ -16925,11 +16823,11 @@ export function bootstrap(
                   .enum(["exclusive", "inclusive", "unspecified"])
                   .optional(),
                 unit_amount: z.coerce.number().optional(),
-                unit_amount_decimal: z.coerce.string().optional(),
+                unit_amount_decimal: z.string().optional(),
               })
               .optional(),
             quantity: z.coerce.number().optional(),
-            tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+            tax_rates: z.union([z.array(z.string()), z.enum([""])]),
           }),
         )
         .optional(),
@@ -16976,7 +16874,7 @@ export function bootstrap(
                     .object({
                       amount: z.coerce.number().optional(),
                       amount_type: z.enum(["fixed", "maximum"]).optional(),
-                      description: z.coerce.string().optional(),
+                      description: z.string().optional(),
                     })
                     .optional(),
                   network: z
@@ -17005,12 +16903,12 @@ export function bootstrap(
                   bank_transfer: z
                     .object({
                       eu_bank_transfer: z
-                        .object({ country: z.coerce.string() })
+                        .object({ country: z.string() })
                         .optional(),
-                      type: z.coerce.string().optional(),
+                      type: z.string().optional(),
                     })
                     .optional(),
-                  funding_type: z.coerce.string().optional(),
+                  funding_type: z.string().optional(),
                 }),
                 z.enum([""]),
               ]),
@@ -17082,14 +16980,14 @@ export function bootstrap(
         }),
         z.enum([""]),
       ]),
-      promotion_code: z.coerce.string().optional(),
+      promotion_code: z.string().optional(),
       proration_behavior: z
         .enum(["always_invoice", "create_prorations", "none"])
         .optional(),
       transfer_data: z
         .object({
           amount_percent: z.coerce.number().optional(),
-          destination: z.coerce.string(),
+          destination: z.string(),
         })
         .optional(),
       trial_end: z.union([z.enum(["now"]), z.coerce.number()]),
@@ -17141,14 +17039,11 @@ export function bootstrap(
   )
 
   const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema =
-    z.object({
-      customer: z.coerce.string(),
-      subscription_exposed_id: z.coerce.string(),
-    })
+    z.object({ customer: z.string(), subscription_exposed_id: z.string() })
 
   const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       invoice_now: z.coerce.boolean().optional(),
       prorate: z.coerce.boolean().optional(),
     })
@@ -17190,13 +17085,10 @@ export function bootstrap(
   )
 
   const getCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema =
-    z.object({
-      customer: z.coerce.string(),
-      subscription_exposed_id: z.coerce.string(),
-    })
+    z.object({ customer: z.string(), subscription_exposed_id: z.string() })
 
   const getCustomersCustomerSubscriptionsSubscriptionExposedIdQuerySchema =
-    z.object({ expand: z.array(z.coerce.string()).optional() })
+    z.object({ expand: z.array(z.string()).optional() })
 
   const getCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema = z
     .object({})
@@ -17241,30 +17133,27 @@ export function bootstrap(
   )
 
   const postCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema =
-    z.object({
-      customer: z.coerce.string(),
-      subscription_exposed_id: z.coerce.string(),
-    })
+    z.object({ customer: z.string(), subscription_exposed_id: z.string() })
 
   const postCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema = z
     .object({
       add_invoice_items: z
         .array(
           z.object({
-            price: z.coerce.string().optional(),
+            price: z.string().optional(),
             price_data: z
               .object({
-                currency: z.coerce.string(),
-                product: z.coerce.string(),
+                currency: z.string(),
+                product: z.string(),
                 tax_behavior: z
                   .enum(["exclusive", "inclusive", "unspecified"])
                   .optional(),
                 unit_amount: z.coerce.number().optional(),
-                unit_amount_decimal: z.coerce.string().optional(),
+                unit_amount_decimal: z.string().optional(),
               })
               .optional(),
             quantity: z.coerce.number().optional(),
-            tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+            tax_rates: z.union([z.array(z.string()), z.enum([""])]),
           }),
         )
         .optional(),
@@ -17282,7 +17171,7 @@ export function bootstrap(
       cancel_at_period_end: z.coerce.boolean().optional(),
       cancellation_details: z
         .object({
-          comment: z.union([z.coerce.string(), z.enum([""])]),
+          comment: z.union([z.string(), z.enum([""])]),
           feedback: z
             .enum([
               "",
@@ -17301,12 +17190,12 @@ export function bootstrap(
       collection_method: z
         .enum(["charge_automatically", "send_invoice"])
         .optional(),
-      coupon: z.coerce.string().optional(),
+      coupon: z.string().optional(),
       days_until_due: z.coerce.number().optional(),
-      default_payment_method: z.coerce.string().optional(),
-      default_source: z.union([z.coerce.string(), z.enum([""])]),
-      default_tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
-      expand: z.array(z.coerce.string()).optional(),
+      default_payment_method: z.string().optional(),
+      default_source: z.union([z.string(), z.enum([""])]),
+      default_tax_rates: z.union([z.array(z.string()), z.enum([""])]),
+      expand: z.array(z.string()).optional(),
       items: z
         .array(
           z.object({
@@ -17316,13 +17205,13 @@ export function bootstrap(
             ]),
             clear_usage: z.coerce.boolean().optional(),
             deleted: z.coerce.boolean().optional(),
-            id: z.coerce.string().optional(),
+            id: z.string().optional(),
             metadata: z.union([z.object({}), z.enum([""])]),
-            price: z.coerce.string().optional(),
+            price: z.string().optional(),
             price_data: z
               .object({
-                currency: z.coerce.string(),
-                product: z.coerce.string(),
+                currency: z.string(),
+                product: z.string(),
                 recurring: z.object({
                   interval: z.enum(["day", "month", "week", "year"]),
                   interval_count: z.coerce.number().optional(),
@@ -17331,11 +17220,11 @@ export function bootstrap(
                   .enum(["exclusive", "inclusive", "unspecified"])
                   .optional(),
                 unit_amount: z.coerce.number().optional(),
-                unit_amount_decimal: z.coerce.string().optional(),
+                unit_amount_decimal: z.string().optional(),
               })
               .optional(),
             quantity: z.coerce.number().optional(),
-            tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+            tax_rates: z.union([z.array(z.string()), z.enum([""])]),
           }),
         )
         .optional(),
@@ -17389,7 +17278,7 @@ export function bootstrap(
                     .object({
                       amount: z.coerce.number().optional(),
                       amount_type: z.enum(["fixed", "maximum"]).optional(),
-                      description: z.coerce.string().optional(),
+                      description: z.string().optional(),
                     })
                     .optional(),
                   network: z
@@ -17418,12 +17307,12 @@ export function bootstrap(
                   bank_transfer: z
                     .object({
                       eu_bank_transfer: z
-                        .object({ country: z.coerce.string() })
+                        .object({ country: z.string() })
                         .optional(),
-                      type: z.coerce.string().optional(),
+                      type: z.string().optional(),
                     })
                     .optional(),
-                  funding_type: z.coerce.string().optional(),
+                  funding_type: z.string().optional(),
                 }),
                 z.enum([""]),
               ]),
@@ -17495,7 +17384,7 @@ export function bootstrap(
         }),
         z.enum([""]),
       ]),
-      promotion_code: z.coerce.string().optional(),
+      promotion_code: z.string().optional(),
       proration_behavior: z
         .enum(["always_invoice", "create_prorations", "none"])
         .optional(),
@@ -17503,7 +17392,7 @@ export function bootstrap(
       transfer_data: z.union([
         z.object({
           amount_percent: z.coerce.number().optional(),
-          destination: z.coerce.string(),
+          destination: z.string(),
         }),
         z.enum([""]),
       ]),
@@ -17559,10 +17448,7 @@ export function bootstrap(
   )
 
   const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema =
-    z.object({
-      customer: z.coerce.string(),
-      subscription_exposed_id: z.coerce.string(),
-    })
+    z.object({ customer: z.string(), subscription_exposed_id: z.string() })
 
   const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountBodySchema =
     z.object({}).optional()
@@ -17603,13 +17489,10 @@ export function bootstrap(
   )
 
   const getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema =
-    z.object({
-      customer: z.coerce.string(),
-      subscription_exposed_id: z.coerce.string(),
-    })
+    z.object({ customer: z.string(), subscription_exposed_id: z.string() })
 
   const getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountQuerySchema =
-    z.object({ expand: z.array(z.coerce.string()).optional() })
+    z.object({ expand: z.array(z.string()).optional() })
 
   const getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountBodySchema =
     z.object({}).optional()
@@ -17653,14 +17536,14 @@ export function bootstrap(
   )
 
   const getCustomersCustomerTaxIdsParamSchema = z.object({
-    customer: z.coerce.string(),
+    customer: z.string(),
   })
 
   const getCustomersCustomerTaxIdsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getCustomersCustomerTaxIdsBodySchema = z.object({}).optional()
@@ -17673,7 +17556,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_tax_id)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -17711,11 +17594,11 @@ export function bootstrap(
   )
 
   const postCustomersCustomerTaxIdsParamSchema = z.object({
-    customer: z.coerce.string(),
+    customer: z.string(),
   })
 
   const postCustomersCustomerTaxIdsBodySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     type: z.enum([
       "ad_nrt",
       "ae_trn",
@@ -17784,7 +17667,7 @@ export function bootstrap(
       "vn_tin",
       "za_vat",
     ]),
-    value: z.coerce.string(),
+    value: z.string(),
   })
 
   const postCustomersCustomerTaxIdsResponseValidator =
@@ -17818,8 +17701,8 @@ export function bootstrap(
   )
 
   const deleteCustomersCustomerTaxIdsIdParamSchema = z.object({
-    customer: z.coerce.string(),
-    id: z.coerce.string(),
+    customer: z.string(),
+    id: z.string(),
   })
 
   const deleteCustomersCustomerTaxIdsIdBodySchema = z.object({}).optional()
@@ -17853,12 +17736,12 @@ export function bootstrap(
   )
 
   const getCustomersCustomerTaxIdsIdParamSchema = z.object({
-    customer: z.coerce.string(),
-    id: z.coerce.string(),
+    customer: z.string(),
+    id: z.string(),
   })
 
   const getCustomersCustomerTaxIdsIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getCustomersCustomerTaxIdsIdBodySchema = z.object({}).optional()
@@ -17895,7 +17778,7 @@ export function bootstrap(
   )
 
   const getDisputesQuerySchema = z.object({
-    charge: z.coerce.string().optional(),
+    charge: z.string().optional(),
     created: z.union([
       z.object({
         gt: z.coerce.number().optional(),
@@ -17905,11 +17788,11 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    payment_intent: z.coerce.string().optional(),
-    starting_after: z.coerce.string().optional(),
+    payment_intent: z.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getDisputesBodySchema = z.object({}).optional()
@@ -17922,7 +17805,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_dispute)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -17943,10 +17826,10 @@ export function bootstrap(
     return next()
   })
 
-  const getDisputesDisputeParamSchema = z.object({ dispute: z.coerce.string() })
+  const getDisputesDisputeParamSchema = z.object({ dispute: z.string() })
 
   const getDisputesDisputeQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getDisputesDisputeBodySchema = z.object({}).optional()
@@ -17977,44 +17860,42 @@ export function bootstrap(
     },
   )
 
-  const postDisputesDisputeParamSchema = z.object({
-    dispute: z.coerce.string(),
-  })
+  const postDisputesDisputeParamSchema = z.object({ dispute: z.string() })
 
   const postDisputesDisputeBodySchema = z
     .object({
       evidence: z
         .object({
-          access_activity_log: z.coerce.string().optional(),
-          billing_address: z.coerce.string().optional(),
-          cancellation_policy: z.coerce.string().optional(),
-          cancellation_policy_disclosure: z.coerce.string().optional(),
-          cancellation_rebuttal: z.coerce.string().optional(),
-          customer_communication: z.coerce.string().optional(),
-          customer_email_address: z.coerce.string().optional(),
-          customer_name: z.coerce.string().optional(),
-          customer_purchase_ip: z.coerce.string().optional(),
-          customer_signature: z.coerce.string().optional(),
-          duplicate_charge_documentation: z.coerce.string().optional(),
-          duplicate_charge_explanation: z.coerce.string().optional(),
-          duplicate_charge_id: z.coerce.string().optional(),
-          product_description: z.coerce.string().optional(),
-          receipt: z.coerce.string().optional(),
-          refund_policy: z.coerce.string().optional(),
-          refund_policy_disclosure: z.coerce.string().optional(),
-          refund_refusal_explanation: z.coerce.string().optional(),
-          service_date: z.coerce.string().optional(),
-          service_documentation: z.coerce.string().optional(),
-          shipping_address: z.coerce.string().optional(),
-          shipping_carrier: z.coerce.string().optional(),
-          shipping_date: z.coerce.string().optional(),
-          shipping_documentation: z.coerce.string().optional(),
-          shipping_tracking_number: z.coerce.string().optional(),
-          uncategorized_file: z.coerce.string().optional(),
-          uncategorized_text: z.coerce.string().optional(),
+          access_activity_log: z.string().optional(),
+          billing_address: z.string().optional(),
+          cancellation_policy: z.string().optional(),
+          cancellation_policy_disclosure: z.string().optional(),
+          cancellation_rebuttal: z.string().optional(),
+          customer_communication: z.string().optional(),
+          customer_email_address: z.string().optional(),
+          customer_name: z.string().optional(),
+          customer_purchase_ip: z.string().optional(),
+          customer_signature: z.string().optional(),
+          duplicate_charge_documentation: z.string().optional(),
+          duplicate_charge_explanation: z.string().optional(),
+          duplicate_charge_id: z.string().optional(),
+          product_description: z.string().optional(),
+          receipt: z.string().optional(),
+          refund_policy: z.string().optional(),
+          refund_policy_disclosure: z.string().optional(),
+          refund_refusal_explanation: z.string().optional(),
+          service_date: z.string().optional(),
+          service_documentation: z.string().optional(),
+          shipping_address: z.string().optional(),
+          shipping_carrier: z.string().optional(),
+          shipping_date: z.string().optional(),
+          shipping_documentation: z.string().optional(),
+          shipping_tracking_number: z.string().optional(),
+          uncategorized_file: z.string().optional(),
+          uncategorized_text: z.string().optional(),
         })
         .optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
       submit: z.coerce.boolean().optional(),
     })
@@ -18049,12 +17930,10 @@ export function bootstrap(
     },
   )
 
-  const postDisputesDisputeCloseParamSchema = z.object({
-    dispute: z.coerce.string(),
-  })
+  const postDisputesDisputeCloseParamSchema = z.object({ dispute: z.string() })
 
   const postDisputesDisputeCloseBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postDisputesDisputeCloseResponseValidator = responseValidationFactory(
@@ -18091,11 +17970,11 @@ export function bootstrap(
 
   const postEphemeralKeysBodySchema = z
     .object({
-      customer: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
-      issuing_card: z.coerce.string().optional(),
-      nonce: z.coerce.string().optional(),
-      verification_session: z.coerce.string().optional(),
+      customer: z.string().optional(),
+      expand: z.array(z.string()).optional(),
+      issuing_card: z.string().optional(),
+      nonce: z.string().optional(),
+      verification_session: z.string().optional(),
     })
     .optional()
 
@@ -18118,10 +17997,10 @@ export function bootstrap(
     return next()
   })
 
-  const deleteEphemeralKeysKeyParamSchema = z.object({ key: z.coerce.string() })
+  const deleteEphemeralKeysKeyParamSchema = z.object({ key: z.string() })
 
   const deleteEphemeralKeysKeyBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const deleteEphemeralKeysKeyResponseValidator = responseValidationFactory(
@@ -18167,12 +18046,12 @@ export function bootstrap(
       z.coerce.number(),
     ]),
     delivery_success: z.coerce.boolean().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
-    type: z.coerce.string().optional(),
-    types: z.array(z.coerce.string()).optional(),
+    starting_after: z.string().optional(),
+    type: z.string().optional(),
+    types: z.array(z.string()).optional(),
   })
 
   const getEventsBodySchema = z.object({}).optional()
@@ -18185,7 +18064,7 @@ export function bootstrap(
           data: z.array(s_event),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -18206,10 +18085,10 @@ export function bootstrap(
     return next()
   })
 
-  const getEventsIdParamSchema = z.object({ id: z.coerce.string() })
+  const getEventsIdParamSchema = z.object({ id: z.string() })
 
   const getEventsIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getEventsIdBodySchema = z.object({}).optional()
@@ -18234,10 +18113,10 @@ export function bootstrap(
   })
 
   const getExchangeRatesQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getExchangeRatesBodySchema = z.object({}).optional()
@@ -18250,7 +18129,7 @@ export function bootstrap(
           data: z.array(s_exchange_rate),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -18271,12 +18150,10 @@ export function bootstrap(
     return next()
   })
 
-  const getExchangeRatesRateIdParamSchema = z.object({
-    rate_id: z.coerce.string(),
-  })
+  const getExchangeRatesRateIdParamSchema = z.object({ rate_id: z.string() })
 
   const getExchangeRatesRateIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getExchangeRatesRateIdBodySchema = z.object({}).optional()
@@ -18323,12 +18200,12 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     expired: z.coerce.boolean().optional(),
-    file: z.coerce.string().optional(),
+    file: z.string().optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getFileLinksBodySchema = z.object({}).optional()
@@ -18341,7 +18218,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_file_link)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -18363,9 +18240,9 @@ export function bootstrap(
   })
 
   const postFileLinksBodySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     expires_at: z.coerce.number().optional(),
-    file: z.coerce.string(),
+    file: z.string(),
     metadata: z.union([z.object({}), z.enum([""])]),
   })
 
@@ -18388,10 +18265,10 @@ export function bootstrap(
     return next()
   })
 
-  const getFileLinksLinkParamSchema = z.object({ link: z.coerce.string() })
+  const getFileLinksLinkParamSchema = z.object({ link: z.string() })
 
   const getFileLinksLinkQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getFileLinksLinkBodySchema = z.object({}).optional()
@@ -18415,11 +18292,11 @@ export function bootstrap(
     return next()
   })
 
-  const postFileLinksLinkParamSchema = z.object({ link: z.coerce.string() })
+  const postFileLinksLinkParamSchema = z.object({ link: z.string() })
 
   const postFileLinksLinkBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       expires_at: z.union([z.enum(["now"]), z.coerce.number(), z.enum([""])]),
       metadata: z.union([z.object({}), z.enum([""])]),
     })
@@ -18461,8 +18338,8 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
     purpose: z
       .enum([
@@ -18483,7 +18360,7 @@ export function bootstrap(
         "terminal_reader_splashscreen",
       ])
       .optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getFilesBodySchema = z.object({}).optional()
@@ -18496,7 +18373,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_file)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -18518,8 +18395,8 @@ export function bootstrap(
   })
 
   const postFilesBodySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
-    file: z.coerce.string(),
+    expand: z.array(z.string()).optional(),
+    file: z.string(),
     file_link_data: z
       .object({
         create: z.coerce.boolean(),
@@ -18560,10 +18437,10 @@ export function bootstrap(
     return next()
   })
 
-  const getFilesFileParamSchema = z.object({ file: z.coerce.string() })
+  const getFilesFileParamSchema = z.object({ file: z.string() })
 
   const getFilesFileQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getFilesFileBodySchema = z.object({}).optional()
@@ -18590,15 +18467,15 @@ export function bootstrap(
   const getFinancialConnectionsAccountsQuerySchema = z.object({
     account_holder: z
       .object({
-        account: z.coerce.string().optional(),
-        customer: z.coerce.string().optional(),
+        account: z.string().optional(),
+        customer: z.string().optional(),
       })
       .optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    session: z.coerce.string().optional(),
-    starting_after: z.coerce.string().optional(),
+    session: z.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getFinancialConnectionsAccountsBodySchema = z.object({}).optional()
@@ -18612,7 +18489,7 @@ export function bootstrap(
             data: z.array(z.lazy(() => s_financial_connections_account)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -18645,11 +18522,11 @@ export function bootstrap(
   )
 
   const getFinancialConnectionsAccountsAccountParamSchema = z.object({
-    account: z.coerce.string(),
+    account: z.string(),
   })
 
   const getFinancialConnectionsAccountsAccountQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getFinancialConnectionsAccountsAccountBodySchema = z
@@ -18694,11 +18571,11 @@ export function bootstrap(
   )
 
   const postFinancialConnectionsAccountsAccountDisconnectParamSchema = z.object(
-    { account: z.coerce.string() },
+    { account: z.string() },
   )
 
   const postFinancialConnectionsAccountsAccountDisconnectBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postFinancialConnectionsAccountsAccountDisconnectResponseValidator =
@@ -18740,15 +18617,15 @@ export function bootstrap(
   )
 
   const getFinancialConnectionsAccountsAccountOwnersParamSchema = z.object({
-    account: z.coerce.string(),
+    account: z.string(),
   })
 
   const getFinancialConnectionsAccountsAccountOwnersQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    ownership: z.coerce.string(),
-    starting_after: z.coerce.string().optional(),
+    ownership: z.string(),
+    starting_after: z.string().optional(),
   })
 
   const getFinancialConnectionsAccountsAccountOwnersBodySchema = z
@@ -18764,7 +18641,7 @@ export function bootstrap(
             data: z.array(s_financial_connections_account_owner),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -18806,11 +18683,11 @@ export function bootstrap(
   )
 
   const postFinancialConnectionsAccountsAccountRefreshParamSchema = z.object({
-    account: z.coerce.string(),
+    account: z.string(),
   })
 
   const postFinancialConnectionsAccountsAccountRefreshBodySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     features: z.array(z.enum(["balance", "ownership"])),
   })
 
@@ -18854,17 +18731,17 @@ export function bootstrap(
 
   const postFinancialConnectionsSessionsBodySchema = z.object({
     account_holder: z.object({
-      account: z.coerce.string().optional(),
-      customer: z.coerce.string().optional(),
+      account: z.string().optional(),
+      customer: z.string().optional(),
       type: z.enum(["account", "customer"]),
     }),
-    expand: z.array(z.coerce.string()).optional(),
-    filters: z.object({ countries: z.array(z.coerce.string()) }).optional(),
+    expand: z.array(z.string()).optional(),
+    filters: z.object({ countries: z.array(z.string()) }).optional(),
     permissions: z.array(
       z.enum(["balances", "ownership", "payment_method", "transactions"]),
     ),
     prefetch: z.array(z.enum(["balances", "ownership"])).optional(),
-    return_url: z.coerce.string().optional(),
+    return_url: z.string().optional(),
   })
 
   const postFinancialConnectionsSessionsResponseValidator =
@@ -18896,11 +18773,11 @@ export function bootstrap(
   )
 
   const getFinancialConnectionsSessionsSessionParamSchema = z.object({
-    session: z.coerce.string(),
+    session: z.string(),
   })
 
   const getFinancialConnectionsSessionsSessionQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getFinancialConnectionsSessionsSessionBodySchema = z
@@ -18954,12 +18831,12 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
     type: z.enum(["document", "id_number"]).optional(),
-    verification_session: z.coerce.string().optional(),
+    verification_session: z.string().optional(),
   })
 
   const getIdentityVerificationReportsBodySchema = z.object({}).optional()
@@ -18973,7 +18850,7 @@ export function bootstrap(
             data: z.array(s_identity_verification_report),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -19006,11 +18883,11 @@ export function bootstrap(
   )
 
   const getIdentityVerificationReportsReportParamSchema = z.object({
-    report: z.coerce.string(),
+    report: z.string(),
   })
 
   const getIdentityVerificationReportsReportQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getIdentityVerificationReportsReportBodySchema = z.object({}).optional()
@@ -19062,10 +18939,10 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
     status: z
       .enum(["canceled", "processing", "requires_input", "verified"])
       .optional(),
@@ -19082,7 +18959,7 @@ export function bootstrap(
             data: z.array(s_identity_verification_session),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -19115,7 +18992,7 @@ export function bootstrap(
   )
 
   const postIdentityVerificationSessionsBodySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     metadata: z.object({}).optional(),
     options: z
       .object({
@@ -19132,7 +19009,7 @@ export function bootstrap(
         ]),
       })
       .optional(),
-    return_url: z.coerce.string().optional(),
+    return_url: z.string().optional(),
     type: z.enum(["document", "id_number"]),
   })
 
@@ -19165,11 +19042,11 @@ export function bootstrap(
   )
 
   const getIdentityVerificationSessionsSessionParamSchema = z.object({
-    session: z.coerce.string(),
+    session: z.string(),
   })
 
   const getIdentityVerificationSessionsSessionQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getIdentityVerificationSessionsSessionBodySchema = z
@@ -19214,12 +19091,12 @@ export function bootstrap(
   )
 
   const postIdentityVerificationSessionsSessionParamSchema = z.object({
-    session: z.coerce.string(),
+    session: z.string(),
   })
 
   const postIdentityVerificationSessionsSessionBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.object({}).optional(),
       options: z
         .object({
@@ -19275,11 +19152,11 @@ export function bootstrap(
   )
 
   const postIdentityVerificationSessionsSessionCancelParamSchema = z.object({
-    session: z.coerce.string(),
+    session: z.string(),
   })
 
   const postIdentityVerificationSessionsSessionCancelBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postIdentityVerificationSessionsSessionCancelResponseValidator =
@@ -19320,11 +19197,11 @@ export function bootstrap(
   )
 
   const postIdentityVerificationSessionsSessionRedactParamSchema = z.object({
-    session: z.coerce.string(),
+    session: z.string(),
   })
 
   const postIdentityVerificationSessionsSessionRedactBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postIdentityVerificationSessionsSessionRedactResponseValidator =
@@ -19374,13 +19251,13 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    customer: z.coerce.string().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    invoice: z.coerce.string().optional(),
+    customer: z.string().optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
+    invoice: z.string().optional(),
     limit: z.coerce.number().optional(),
     pending: z.coerce.boolean().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getInvoiceitemsBodySchema = z.object({}).optional()
@@ -19393,7 +19270,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_invoiceitem)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -19416,44 +19293,44 @@ export function bootstrap(
 
   const postInvoiceitemsBodySchema = z.object({
     amount: z.coerce.number().optional(),
-    currency: z.coerce.string().optional(),
-    customer: z.coerce.string(),
-    description: z.coerce.string().optional(),
+    currency: z.string().optional(),
+    customer: z.string(),
+    description: z.string().optional(),
     discountable: z.coerce.boolean().optional(),
     discounts: z.union([
       z.array(
         z.object({
-          coupon: z.coerce.string().optional(),
-          discount: z.coerce.string().optional(),
+          coupon: z.string().optional(),
+          discount: z.string().optional(),
         }),
       ),
       z.enum([""]),
     ]),
-    expand: z.array(z.coerce.string()).optional(),
-    invoice: z.coerce.string().optional(),
+    expand: z.array(z.string()).optional(),
+    invoice: z.string().optional(),
     metadata: z.union([z.object({}), z.enum([""])]),
     period: z
       .object({ end: z.coerce.number(), start: z.coerce.number() })
       .optional(),
-    price: z.coerce.string().optional(),
+    price: z.string().optional(),
     price_data: z
       .object({
-        currency: z.coerce.string(),
-        product: z.coerce.string(),
+        currency: z.string(),
+        product: z.string(),
         tax_behavior: z
           .enum(["exclusive", "inclusive", "unspecified"])
           .optional(),
         unit_amount: z.coerce.number().optional(),
-        unit_amount_decimal: z.coerce.string().optional(),
+        unit_amount_decimal: z.string().optional(),
       })
       .optional(),
     quantity: z.coerce.number().optional(),
-    subscription: z.coerce.string().optional(),
+    subscription: z.string().optional(),
     tax_behavior: z.enum(["exclusive", "inclusive", "unspecified"]).optional(),
-    tax_code: z.union([z.coerce.string(), z.enum([""])]),
-    tax_rates: z.array(z.coerce.string()).optional(),
+    tax_code: z.union([z.string(), z.enum([""])]),
+    tax_rates: z.array(z.string()).optional(),
     unit_amount: z.coerce.number().optional(),
-    unit_amount_decimal: z.coerce.string().optional(),
+    unit_amount_decimal: z.string().optional(),
   })
 
   const postInvoiceitemsResponseValidator = responseValidationFactory(
@@ -19476,7 +19353,7 @@ export function bootstrap(
   })
 
   const deleteInvoiceitemsInvoiceitemParamSchema = z.object({
-    invoiceitem: z.coerce.string(),
+    invoiceitem: z.string(),
   })
 
   const deleteInvoiceitemsInvoiceitemBodySchema = z.object({}).optional()
@@ -19510,11 +19387,11 @@ export function bootstrap(
   )
 
   const getInvoiceitemsInvoiceitemParamSchema = z.object({
-    invoiceitem: z.coerce.string(),
+    invoiceitem: z.string(),
   })
 
   const getInvoiceitemsInvoiceitemQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getInvoiceitemsInvoiceitemBodySchema = z.object({}).optional()
@@ -19555,48 +19432,48 @@ export function bootstrap(
   )
 
   const postInvoiceitemsInvoiceitemParamSchema = z.object({
-    invoiceitem: z.coerce.string(),
+    invoiceitem: z.string(),
   })
 
   const postInvoiceitemsInvoiceitemBodySchema = z
     .object({
       amount: z.coerce.number().optional(),
-      description: z.coerce.string().optional(),
+      description: z.string().optional(),
       discountable: z.coerce.boolean().optional(),
       discounts: z.union([
         z.array(
           z.object({
-            coupon: z.coerce.string().optional(),
-            discount: z.coerce.string().optional(),
+            coupon: z.string().optional(),
+            discount: z.string().optional(),
           }),
         ),
         z.enum([""]),
       ]),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
       period: z
         .object({ end: z.coerce.number(), start: z.coerce.number() })
         .optional(),
-      price: z.coerce.string().optional(),
+      price: z.string().optional(),
       price_data: z
         .object({
-          currency: z.coerce.string(),
-          product: z.coerce.string(),
+          currency: z.string(),
+          product: z.string(),
           tax_behavior: z
             .enum(["exclusive", "inclusive", "unspecified"])
             .optional(),
           unit_amount: z.coerce.number().optional(),
-          unit_amount_decimal: z.coerce.string().optional(),
+          unit_amount_decimal: z.string().optional(),
         })
         .optional(),
       quantity: z.coerce.number().optional(),
       tax_behavior: z
         .enum(["exclusive", "inclusive", "unspecified"])
         .optional(),
-      tax_code: z.union([z.coerce.string(), z.enum([""])]),
-      tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+      tax_code: z.union([z.string(), z.enum([""])]),
+      tax_rates: z.union([z.array(z.string()), z.enum([""])]),
       unit_amount: z.coerce.number().optional(),
-      unit_amount_decimal: z.coerce.string().optional(),
+      unit_amount_decimal: z.string().optional(),
     })
     .optional()
 
@@ -19643,7 +19520,7 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    customer: z.coerce.string().optional(),
+    customer: z.string().optional(),
     due_date: z.union([
       z.object({
         gt: z.coerce.number().optional(),
@@ -19653,14 +19530,14 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
     status: z
       .enum(["draft", "open", "paid", "uncollectible", "void"])
       .optional(),
-    subscription: z.coerce.string().optional(),
+    subscription: z.string().optional(),
   })
 
   const getInvoicesBodySchema = z.object({}).optional()
@@ -19673,7 +19550,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_invoice)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -19696,47 +19573,45 @@ export function bootstrap(
 
   const postInvoicesBodySchema = z
     .object({
-      account_tax_ids: z.union([z.array(z.coerce.string()), z.enum([""])]),
+      account_tax_ids: z.union([z.array(z.string()), z.enum([""])]),
       application_fee_amount: z.coerce.number().optional(),
       auto_advance: z.coerce.boolean().optional(),
       automatic_tax: z.object({ enabled: z.coerce.boolean() }).optional(),
       collection_method: z
         .enum(["charge_automatically", "send_invoice"])
         .optional(),
-      currency: z.coerce.string().optional(),
+      currency: z.string().optional(),
       custom_fields: z.union([
-        z.array(
-          z.object({ name: z.coerce.string(), value: z.coerce.string() }),
-        ),
+        z.array(z.object({ name: z.string(), value: z.string() })),
         z.enum([""]),
       ]),
-      customer: z.coerce.string().optional(),
+      customer: z.string().optional(),
       days_until_due: z.coerce.number().optional(),
-      default_payment_method: z.coerce.string().optional(),
-      default_source: z.coerce.string().optional(),
-      default_tax_rates: z.array(z.coerce.string()).optional(),
-      description: z.coerce.string().optional(),
+      default_payment_method: z.string().optional(),
+      default_source: z.string().optional(),
+      default_tax_rates: z.array(z.string()).optional(),
+      description: z.string().optional(),
       discounts: z.union([
         z.array(
           z.object({
-            coupon: z.coerce.string().optional(),
-            discount: z.coerce.string().optional(),
+            coupon: z.string().optional(),
+            discount: z.string().optional(),
           }),
         ),
         z.enum([""]),
       ]),
       due_date: z.coerce.number().optional(),
       effective_at: z.coerce.number().optional(),
-      expand: z.array(z.coerce.string()).optional(),
-      footer: z.coerce.string().optional(),
+      expand: z.array(z.string()).optional(),
+      footer: z.string().optional(),
       from_invoice: z
-        .object({ action: z.enum(["revision"]), invoice: z.coerce.string() })
+        .object({ action: z.enum(["revision"]), invoice: z.string() })
         .optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      on_behalf_of: z.coerce.string().optional(),
+      on_behalf_of: z.string().optional(),
       payment_settings: z
         .object({
-          default_mandate: z.union([z.coerce.string(), z.enum([""])]),
+          default_mandate: z.union([z.string(), z.enum([""])]),
           payment_method_options: z
             .object({
               acss_debit: z.union([
@@ -19788,12 +19663,12 @@ export function bootstrap(
                   bank_transfer: z
                     .object({
                       eu_bank_transfer: z
-                        .object({ country: z.coerce.string() })
+                        .object({ country: z.string() })
                         .optional(),
-                      type: z.coerce.string().optional(),
+                      type: z.string().optional(),
                     })
                     .optional(),
-                  funding_type: z.coerce.string().optional(),
+                  funding_type: z.string().optional(),
                 }),
                 z.enum([""]),
               ]),
@@ -19878,7 +19753,7 @@ export function bootstrap(
       ]),
       shipping_cost: z
         .object({
-          shipping_rate: z.coerce.string().optional(),
+          shipping_rate: z.string().optional(),
           shipping_rate_data: z
             .object({
               delivery_estimate: z
@@ -19909,11 +19784,11 @@ export function bootstrap(
                     .optional(),
                 })
                 .optional(),
-              display_name: z.coerce.string(),
+              display_name: z.string(),
               fixed_amount: z
                 .object({
                   amount: z.coerce.number(),
-                  currency: z.coerce.string(),
+                  currency: z.string(),
                   currency_options: z.object({}).optional(),
                 })
                 .optional(),
@@ -19921,7 +19796,7 @@ export function bootstrap(
               tax_behavior: z
                 .enum(["exclusive", "inclusive", "unspecified"])
                 .optional(),
-              tax_code: z.coerce.string().optional(),
+              tax_code: z.string().optional(),
               type: z.enum(["fixed_amount"]).optional(),
             })
             .optional(),
@@ -19930,23 +19805,23 @@ export function bootstrap(
       shipping_details: z
         .object({
           address: z.object({
-            city: z.coerce.string().optional(),
-            country: z.coerce.string().optional(),
-            line1: z.coerce.string().optional(),
-            line2: z.coerce.string().optional(),
-            postal_code: z.coerce.string().optional(),
-            state: z.coerce.string().optional(),
+            city: z.string().optional(),
+            country: z.string().optional(),
+            line1: z.string().optional(),
+            line2: z.string().optional(),
+            postal_code: z.string().optional(),
+            state: z.string().optional(),
           }),
-          name: z.coerce.string(),
-          phone: z.union([z.coerce.string(), z.enum([""])]),
+          name: z.string(),
+          phone: z.union([z.string(), z.enum([""])]),
         })
         .optional(),
-      statement_descriptor: z.coerce.string().optional(),
-      subscription: z.coerce.string().optional(),
+      statement_descriptor: z.string().optional(),
+      subscription: z.string().optional(),
       transfer_data: z
         .object({
           amount: z.coerce.number().optional(),
-          destination: z.coerce.string(),
+          destination: z.string(),
         })
         .optional(),
     })
@@ -19972,10 +19847,10 @@ export function bootstrap(
   })
 
   const getInvoicesSearchQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    page: z.coerce.string().optional(),
-    query: z.coerce.string(),
+    page: z.string().optional(),
+    query: z.string(),
   })
 
   const getInvoicesSearchBodySchema = z.object({}).optional()
@@ -19987,10 +19862,10 @@ export function bootstrap(
         z.object({
           data: z.array(z.lazy(() => s_invoice)),
           has_more: z.coerce.boolean(),
-          next_page: z.coerce.string().optional().nullable(),
+          next_page: z.string().optional().nullable(),
           object: z.enum(["search_result"]),
           total_count: z.coerce.number().optional(),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -20013,39 +19888,39 @@ export function bootstrap(
 
   const getInvoicesUpcomingQuerySchema = z.object({
     automatic_tax: z.object({ enabled: z.coerce.boolean() }).optional(),
-    coupon: z.coerce.string().optional(),
-    currency: z.coerce.string().optional(),
-    customer: z.coerce.string().optional(),
+    coupon: z.string().optional(),
+    currency: z.string().optional(),
+    customer: z.string().optional(),
     customer_details: z
       .object({
         address: z.union([
           z.object({
-            city: z.coerce.string().optional(),
-            country: z.coerce.string().optional(),
-            line1: z.coerce.string().optional(),
-            line2: z.coerce.string().optional(),
-            postal_code: z.coerce.string().optional(),
-            state: z.coerce.string().optional(),
+            city: z.string().optional(),
+            country: z.string().optional(),
+            line1: z.string().optional(),
+            line2: z.string().optional(),
+            postal_code: z.string().optional(),
+            state: z.string().optional(),
           }),
           z.enum([""]),
         ]),
         shipping: z.union([
           z.object({
             address: z.object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
             }),
-            name: z.coerce.string(),
-            phone: z.coerce.string().optional(),
+            name: z.string(),
+            phone: z.string().optional(),
           }),
           z.enum([""]),
         ]),
         tax: z
-          .object({ ip_address: z.union([z.coerce.string(), z.enum([""])]) })
+          .object({ ip_address: z.union([z.string(), z.enum([""])]) })
           .optional(),
         tax_exempt: z.enum(["", "exempt", "none", "reverse"]).optional(),
         tax_ids: z
@@ -20119,7 +19994,7 @@ export function bootstrap(
                 "vn_tin",
                 "za_vat",
               ]),
-              value: z.coerce.string(),
+              value: z.string(),
             }),
           )
           .optional(),
@@ -20128,59 +20003,59 @@ export function bootstrap(
     discounts: z.union([
       z.array(
         z.object({
-          coupon: z.coerce.string().optional(),
-          discount: z.coerce.string().optional(),
+          coupon: z.string().optional(),
+          discount: z.string().optional(),
         }),
       ),
       z.enum([""]),
     ]),
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     invoice_items: z
       .array(
         z.object({
           amount: z.coerce.number().optional(),
-          currency: z.coerce.string().optional(),
-          description: z.coerce.string().optional(),
+          currency: z.string().optional(),
+          description: z.string().optional(),
           discountable: z.coerce.boolean().optional(),
           discounts: z.union([
             z.array(
               z.object({
-                coupon: z.coerce.string().optional(),
-                discount: z.coerce.string().optional(),
+                coupon: z.string().optional(),
+                discount: z.string().optional(),
               }),
             ),
             z.enum([""]),
           ]),
-          invoiceitem: z.coerce.string().optional(),
+          invoiceitem: z.string().optional(),
           metadata: z.union([z.object({}), z.enum([""])]),
           period: z
             .object({ end: z.coerce.number(), start: z.coerce.number() })
             .optional(),
-          price: z.coerce.string().optional(),
+          price: z.string().optional(),
           price_data: z
             .object({
-              currency: z.coerce.string(),
-              product: z.coerce.string(),
+              currency: z.string(),
+              product: z.string(),
               tax_behavior: z
                 .enum(["exclusive", "inclusive", "unspecified"])
                 .optional(),
               unit_amount: z.coerce.number().optional(),
-              unit_amount_decimal: z.coerce.string().optional(),
+              unit_amount_decimal: z.string().optional(),
             })
             .optional(),
           quantity: z.coerce.number().optional(),
           tax_behavior: z
             .enum(["exclusive", "inclusive", "unspecified"])
             .optional(),
-          tax_code: z.union([z.coerce.string(), z.enum([""])]),
-          tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+          tax_code: z.union([z.string(), z.enum([""])]),
+          tax_rates: z.union([z.array(z.string()), z.enum([""])]),
           unit_amount: z.coerce.number().optional(),
-          unit_amount_decimal: z.coerce.string().optional(),
+          unit_amount_decimal: z.string().optional(),
         }),
       )
       .optional(),
-    schedule: z.coerce.string().optional(),
-    subscription: z.coerce.string().optional(),
+    schedule: z.string().optional(),
+    subscription: z.string().optional(),
     subscription_billing_cycle_anchor: z.union([
       z.enum(["now", "unchanged"]),
       z.coerce.number(),
@@ -20189,7 +20064,7 @@ export function bootstrap(
     subscription_cancel_at_period_end: z.coerce.boolean().optional(),
     subscription_cancel_now: z.coerce.boolean().optional(),
     subscription_default_tax_rates: z.union([
-      z.array(z.coerce.string()),
+      z.array(z.string()),
       z.enum([""]),
     ]),
     subscription_items: z
@@ -20201,13 +20076,13 @@ export function bootstrap(
           ]),
           clear_usage: z.coerce.boolean().optional(),
           deleted: z.coerce.boolean().optional(),
-          id: z.coerce.string().optional(),
+          id: z.string().optional(),
           metadata: z.union([z.object({}), z.enum([""])]),
-          price: z.coerce.string().optional(),
+          price: z.string().optional(),
           price_data: z
             .object({
-              currency: z.coerce.string(),
-              product: z.coerce.string(),
+              currency: z.string(),
+              product: z.string(),
               recurring: z.object({
                 interval: z.enum(["day", "month", "week", "year"]),
                 interval_count: z.coerce.number().optional(),
@@ -20216,11 +20091,11 @@ export function bootstrap(
                 .enum(["exclusive", "inclusive", "unspecified"])
                 .optional(),
               unit_amount: z.coerce.number().optional(),
-              unit_amount_decimal: z.coerce.string().optional(),
+              unit_amount_decimal: z.string().optional(),
             })
             .optional(),
           quantity: z.coerce.number().optional(),
-          tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+          tax_rates: z.union([z.array(z.string()), z.enum([""])]),
         }),
       )
       .optional(),
@@ -20267,39 +20142,39 @@ export function bootstrap(
 
   const getInvoicesUpcomingLinesQuerySchema = z.object({
     automatic_tax: z.object({ enabled: z.coerce.boolean() }).optional(),
-    coupon: z.coerce.string().optional(),
-    currency: z.coerce.string().optional(),
-    customer: z.coerce.string().optional(),
+    coupon: z.string().optional(),
+    currency: z.string().optional(),
+    customer: z.string().optional(),
     customer_details: z
       .object({
         address: z.union([
           z.object({
-            city: z.coerce.string().optional(),
-            country: z.coerce.string().optional(),
-            line1: z.coerce.string().optional(),
-            line2: z.coerce.string().optional(),
-            postal_code: z.coerce.string().optional(),
-            state: z.coerce.string().optional(),
+            city: z.string().optional(),
+            country: z.string().optional(),
+            line1: z.string().optional(),
+            line2: z.string().optional(),
+            postal_code: z.string().optional(),
+            state: z.string().optional(),
           }),
           z.enum([""]),
         ]),
         shipping: z.union([
           z.object({
             address: z.object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
             }),
-            name: z.coerce.string(),
-            phone: z.coerce.string().optional(),
+            name: z.string(),
+            phone: z.string().optional(),
           }),
           z.enum([""]),
         ]),
         tax: z
-          .object({ ip_address: z.union([z.coerce.string(), z.enum([""])]) })
+          .object({ ip_address: z.union([z.string(), z.enum([""])]) })
           .optional(),
         tax_exempt: z.enum(["", "exempt", "none", "reverse"]).optional(),
         tax_ids: z
@@ -20373,7 +20248,7 @@ export function bootstrap(
                 "vn_tin",
                 "za_vat",
               ]),
-              value: z.coerce.string(),
+              value: z.string(),
             }),
           )
           .optional(),
@@ -20382,62 +20257,62 @@ export function bootstrap(
     discounts: z.union([
       z.array(
         z.object({
-          coupon: z.coerce.string().optional(),
-          discount: z.coerce.string().optional(),
+          coupon: z.string().optional(),
+          discount: z.string().optional(),
         }),
       ),
       z.enum([""]),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     invoice_items: z
       .array(
         z.object({
           amount: z.coerce.number().optional(),
-          currency: z.coerce.string().optional(),
-          description: z.coerce.string().optional(),
+          currency: z.string().optional(),
+          description: z.string().optional(),
           discountable: z.coerce.boolean().optional(),
           discounts: z.union([
             z.array(
               z.object({
-                coupon: z.coerce.string().optional(),
-                discount: z.coerce.string().optional(),
+                coupon: z.string().optional(),
+                discount: z.string().optional(),
               }),
             ),
             z.enum([""]),
           ]),
-          invoiceitem: z.coerce.string().optional(),
+          invoiceitem: z.string().optional(),
           metadata: z.union([z.object({}), z.enum([""])]),
           period: z
             .object({ end: z.coerce.number(), start: z.coerce.number() })
             .optional(),
-          price: z.coerce.string().optional(),
+          price: z.string().optional(),
           price_data: z
             .object({
-              currency: z.coerce.string(),
-              product: z.coerce.string(),
+              currency: z.string(),
+              product: z.string(),
               tax_behavior: z
                 .enum(["exclusive", "inclusive", "unspecified"])
                 .optional(),
               unit_amount: z.coerce.number().optional(),
-              unit_amount_decimal: z.coerce.string().optional(),
+              unit_amount_decimal: z.string().optional(),
             })
             .optional(),
           quantity: z.coerce.number().optional(),
           tax_behavior: z
             .enum(["exclusive", "inclusive", "unspecified"])
             .optional(),
-          tax_code: z.union([z.coerce.string(), z.enum([""])]),
-          tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+          tax_code: z.union([z.string(), z.enum([""])]),
+          tax_rates: z.union([z.array(z.string()), z.enum([""])]),
           unit_amount: z.coerce.number().optional(),
-          unit_amount_decimal: z.coerce.string().optional(),
+          unit_amount_decimal: z.string().optional(),
         }),
       )
       .optional(),
     limit: z.coerce.number().optional(),
-    schedule: z.coerce.string().optional(),
-    starting_after: z.coerce.string().optional(),
-    subscription: z.coerce.string().optional(),
+    schedule: z.string().optional(),
+    starting_after: z.string().optional(),
+    subscription: z.string().optional(),
     subscription_billing_cycle_anchor: z.union([
       z.enum(["now", "unchanged"]),
       z.coerce.number(),
@@ -20446,7 +20321,7 @@ export function bootstrap(
     subscription_cancel_at_period_end: z.coerce.boolean().optional(),
     subscription_cancel_now: z.coerce.boolean().optional(),
     subscription_default_tax_rates: z.union([
-      z.array(z.coerce.string()),
+      z.array(z.string()),
       z.enum([""]),
     ]),
     subscription_items: z
@@ -20458,13 +20333,13 @@ export function bootstrap(
           ]),
           clear_usage: z.coerce.boolean().optional(),
           deleted: z.coerce.boolean().optional(),
-          id: z.coerce.string().optional(),
+          id: z.string().optional(),
           metadata: z.union([z.object({}), z.enum([""])]),
-          price: z.coerce.string().optional(),
+          price: z.string().optional(),
           price_data: z
             .object({
-              currency: z.coerce.string(),
-              product: z.coerce.string(),
+              currency: z.string(),
+              product: z.string(),
               recurring: z.object({
                 interval: z.enum(["day", "month", "week", "year"]),
                 interval_count: z.coerce.number().optional(),
@@ -20473,11 +20348,11 @@ export function bootstrap(
                 .enum(["exclusive", "inclusive", "unspecified"])
                 .optional(),
               unit_amount: z.coerce.number().optional(),
-              unit_amount_decimal: z.coerce.string().optional(),
+              unit_amount_decimal: z.string().optional(),
             })
             .optional(),
           quantity: z.coerce.number().optional(),
-          tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+          tax_rates: z.union([z.array(z.string()), z.enum([""])]),
         }),
       )
       .optional(),
@@ -20501,7 +20376,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_line_item)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -20535,9 +20410,7 @@ export function bootstrap(
     },
   )
 
-  const deleteInvoicesInvoiceParamSchema = z.object({
-    invoice: z.coerce.string(),
-  })
+  const deleteInvoicesInvoiceParamSchema = z.object({ invoice: z.string() })
 
   const deleteInvoicesInvoiceBodySchema = z.object({}).optional()
 
@@ -20570,10 +20443,10 @@ export function bootstrap(
     },
   )
 
-  const getInvoicesInvoiceParamSchema = z.object({ invoice: z.coerce.string() })
+  const getInvoicesInvoiceParamSchema = z.object({ invoice: z.string() })
 
   const getInvoicesInvoiceQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getInvoicesInvoiceBodySchema = z.object({}).optional()
@@ -20604,13 +20477,11 @@ export function bootstrap(
     },
   )
 
-  const postInvoicesInvoiceParamSchema = z.object({
-    invoice: z.coerce.string(),
-  })
+  const postInvoicesInvoiceParamSchema = z.object({ invoice: z.string() })
 
   const postInvoicesInvoiceBodySchema = z
     .object({
-      account_tax_ids: z.union([z.array(z.coerce.string()), z.enum([""])]),
+      account_tax_ids: z.union([z.array(z.string()), z.enum([""])]),
       application_fee_amount: z.coerce.number().optional(),
       auto_advance: z.coerce.boolean().optional(),
       automatic_tax: z.object({ enabled: z.coerce.boolean() }).optional(),
@@ -20618,34 +20489,32 @@ export function bootstrap(
         .enum(["charge_automatically", "send_invoice"])
         .optional(),
       custom_fields: z.union([
-        z.array(
-          z.object({ name: z.coerce.string(), value: z.coerce.string() }),
-        ),
+        z.array(z.object({ name: z.string(), value: z.string() })),
         z.enum([""]),
       ]),
       days_until_due: z.coerce.number().optional(),
-      default_payment_method: z.coerce.string().optional(),
-      default_source: z.union([z.coerce.string(), z.enum([""])]),
-      default_tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
-      description: z.coerce.string().optional(),
+      default_payment_method: z.string().optional(),
+      default_source: z.union([z.string(), z.enum([""])]),
+      default_tax_rates: z.union([z.array(z.string()), z.enum([""])]),
+      description: z.string().optional(),
       discounts: z.union([
         z.array(
           z.object({
-            coupon: z.coerce.string().optional(),
-            discount: z.coerce.string().optional(),
+            coupon: z.string().optional(),
+            discount: z.string().optional(),
           }),
         ),
         z.enum([""]),
       ]),
       due_date: z.coerce.number().optional(),
       effective_at: z.union([z.coerce.number(), z.enum([""])]),
-      expand: z.array(z.coerce.string()).optional(),
-      footer: z.coerce.string().optional(),
+      expand: z.array(z.string()).optional(),
+      footer: z.string().optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      on_behalf_of: z.union([z.coerce.string(), z.enum([""])]),
+      on_behalf_of: z.union([z.string(), z.enum([""])]),
       payment_settings: z
         .object({
-          default_mandate: z.union([z.coerce.string(), z.enum([""])]),
+          default_mandate: z.union([z.string(), z.enum([""])]),
           payment_method_options: z
             .object({
               acss_debit: z.union([
@@ -20697,12 +20566,12 @@ export function bootstrap(
                   bank_transfer: z
                     .object({
                       eu_bank_transfer: z
-                        .object({ country: z.coerce.string() })
+                        .object({ country: z.string() })
                         .optional(),
-                      type: z.coerce.string().optional(),
+                      type: z.string().optional(),
                     })
                     .optional(),
-                  funding_type: z.coerce.string().optional(),
+                  funding_type: z.string().optional(),
                 }),
                 z.enum([""]),
               ]),
@@ -20784,7 +20653,7 @@ export function bootstrap(
       ]),
       shipping_cost: z.union([
         z.object({
-          shipping_rate: z.coerce.string().optional(),
+          shipping_rate: z.string().optional(),
           shipping_rate_data: z
             .object({
               delivery_estimate: z
@@ -20815,11 +20684,11 @@ export function bootstrap(
                     .optional(),
                 })
                 .optional(),
-              display_name: z.coerce.string(),
+              display_name: z.string(),
               fixed_amount: z
                 .object({
                   amount: z.coerce.number(),
-                  currency: z.coerce.string(),
+                  currency: z.string(),
                   currency_options: z.object({}).optional(),
                 })
                 .optional(),
@@ -20827,7 +20696,7 @@ export function bootstrap(
               tax_behavior: z
                 .enum(["exclusive", "inclusive", "unspecified"])
                 .optional(),
-              tax_code: z.coerce.string().optional(),
+              tax_code: z.string().optional(),
               type: z.enum(["fixed_amount"]).optional(),
             })
             .optional(),
@@ -20837,23 +20706,23 @@ export function bootstrap(
       shipping_details: z.union([
         z.object({
           address: z.object({
-            city: z.coerce.string().optional(),
-            country: z.coerce.string().optional(),
-            line1: z.coerce.string().optional(),
-            line2: z.coerce.string().optional(),
-            postal_code: z.coerce.string().optional(),
-            state: z.coerce.string().optional(),
+            city: z.string().optional(),
+            country: z.string().optional(),
+            line1: z.string().optional(),
+            line2: z.string().optional(),
+            postal_code: z.string().optional(),
+            state: z.string().optional(),
           }),
-          name: z.coerce.string(),
-          phone: z.union([z.coerce.string(), z.enum([""])]),
+          name: z.string(),
+          phone: z.union([z.string(), z.enum([""])]),
         }),
         z.enum([""]),
       ]),
-      statement_descriptor: z.coerce.string().optional(),
+      statement_descriptor: z.string().optional(),
       transfer_data: z.union([
         z.object({
           amount: z.coerce.number().optional(),
-          destination: z.coerce.string(),
+          destination: z.string(),
         }),
         z.enum([""]),
       ]),
@@ -20890,13 +20759,13 @@ export function bootstrap(
   )
 
   const postInvoicesInvoiceFinalizeParamSchema = z.object({
-    invoice: z.coerce.string(),
+    invoice: z.string(),
   })
 
   const postInvoicesInvoiceFinalizeBodySchema = z
     .object({
       auto_advance: z.coerce.boolean().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
     })
     .optional()
 
@@ -20930,15 +20799,13 @@ export function bootstrap(
     },
   )
 
-  const getInvoicesInvoiceLinesParamSchema = z.object({
-    invoice: z.coerce.string(),
-  })
+  const getInvoicesInvoiceLinesParamSchema = z.object({ invoice: z.string() })
 
   const getInvoicesInvoiceLinesQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getInvoicesInvoiceLinesBodySchema = z.object({}).optional()
@@ -20951,7 +20818,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_line_item)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -20986,11 +20853,11 @@ export function bootstrap(
   )
 
   const postInvoicesInvoiceMarkUncollectibleParamSchema = z.object({
-    invoice: z.coerce.string(),
+    invoice: z.string(),
   })
 
   const postInvoicesInvoiceMarkUncollectibleBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postInvoicesInvoiceMarkUncollectibleResponseValidator =
@@ -21024,19 +20891,17 @@ export function bootstrap(
     },
   )
 
-  const postInvoicesInvoicePayParamSchema = z.object({
-    invoice: z.coerce.string(),
-  })
+  const postInvoicesInvoicePayParamSchema = z.object({ invoice: z.string() })
 
   const postInvoicesInvoicePayBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       forgive: z.coerce.boolean().optional(),
-      mandate: z.union([z.coerce.string(), z.enum([""])]),
+      mandate: z.union([z.string(), z.enum([""])]),
       off_session: z.coerce.boolean().optional(),
       paid_out_of_band: z.coerce.boolean().optional(),
-      payment_method: z.coerce.string().optional(),
-      source: z.coerce.string().optional(),
+      payment_method: z.string().optional(),
+      source: z.string().optional(),
     })
     .optional()
 
@@ -21072,12 +20937,10 @@ export function bootstrap(
     },
   )
 
-  const postInvoicesInvoiceSendParamSchema = z.object({
-    invoice: z.coerce.string(),
-  })
+  const postInvoicesInvoiceSendParamSchema = z.object({ invoice: z.string() })
 
   const postInvoicesInvoiceSendBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postInvoicesInvoiceSendResponseValidator = responseValidationFactory(
@@ -21112,12 +20975,10 @@ export function bootstrap(
     },
   )
 
-  const postInvoicesInvoiceVoidParamSchema = z.object({
-    invoice: z.coerce.string(),
-  })
+  const postInvoicesInvoiceVoidParamSchema = z.object({ invoice: z.string() })
 
   const postInvoicesInvoiceVoidBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postInvoicesInvoiceVoidResponseValidator = responseValidationFactory(
@@ -21153,8 +21014,8 @@ export function bootstrap(
   )
 
   const getIssuingAuthorizationsQuerySchema = z.object({
-    card: z.coerce.string().optional(),
-    cardholder: z.coerce.string().optional(),
+    card: z.string().optional(),
+    cardholder: z.string().optional(),
     created: z.union([
       z.object({
         gt: z.coerce.number().optional(),
@@ -21164,10 +21025,10 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
     status: z.enum(["closed", "pending", "reversed"]).optional(),
   })
 
@@ -21181,7 +21042,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_issuing_authorization)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -21216,11 +21077,11 @@ export function bootstrap(
   )
 
   const getIssuingAuthorizationsAuthorizationParamSchema = z.object({
-    authorization: z.coerce.string(),
+    authorization: z.string(),
   })
 
   const getIssuingAuthorizationsAuthorizationQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getIssuingAuthorizationsAuthorizationBodySchema = z
@@ -21262,12 +21123,12 @@ export function bootstrap(
   )
 
   const postIssuingAuthorizationsAuthorizationParamSchema = z.object({
-    authorization: z.coerce.string(),
+    authorization: z.string(),
   })
 
   const postIssuingAuthorizationsAuthorizationBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
@@ -21304,13 +21165,13 @@ export function bootstrap(
   )
 
   const postIssuingAuthorizationsAuthorizationApproveParamSchema = z.object({
-    authorization: z.coerce.string(),
+    authorization: z.string(),
   })
 
   const postIssuingAuthorizationsAuthorizationApproveBodySchema = z
     .object({
       amount: z.coerce.number().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
@@ -21350,12 +21211,12 @@ export function bootstrap(
   )
 
   const postIssuingAuthorizationsAuthorizationDeclineParamSchema = z.object({
-    authorization: z.coerce.string(),
+    authorization: z.string(),
   })
 
   const postIssuingAuthorizationsAuthorizationDeclineBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
@@ -21404,12 +21265,12 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    email: z.coerce.string().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    email: z.string().optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    phone_number: z.coerce.string().optional(),
-    starting_after: z.coerce.string().optional(),
+    phone_number: z.string().optional(),
+    starting_after: z.string().optional(),
     status: z.enum(["active", "blocked", "inactive"]).optional(),
     type: z.enum(["company", "individual"]).optional(),
   })
@@ -21424,7 +21285,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_issuing_cardholder)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -21458,17 +21319,17 @@ export function bootstrap(
   const postIssuingCardholdersBodySchema = z.object({
     billing: z.object({
       address: z.object({
-        city: z.coerce.string(),
-        country: z.coerce.string(),
-        line1: z.coerce.string(),
-        line2: z.coerce.string().optional(),
-        postal_code: z.coerce.string(),
-        state: z.coerce.string().optional(),
+        city: z.string(),
+        country: z.string(),
+        line1: z.string(),
+        line2: z.string().optional(),
+        postal_code: z.string(),
+        state: z.string().optional(),
       }),
     }),
-    company: z.object({ tax_id: z.coerce.string().optional() }).optional(),
-    email: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    company: z.object({ tax_id: z.string().optional() }).optional(),
+    email: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     individual: z
       .object({
         card_issuing: z
@@ -21476,8 +21337,8 @@ export function bootstrap(
             user_terms_acceptance: z
               .object({
                 date: z.coerce.number().optional(),
-                ip: z.coerce.string().optional(),
-                user_agent: z.union([z.coerce.string(), z.enum([""])]),
+                ip: z.string().optional(),
+                user_agent: z.union([z.string(), z.enum([""])]),
               })
               .optional(),
           })
@@ -21489,14 +21350,14 @@ export function bootstrap(
             year: z.coerce.number(),
           })
           .optional(),
-        first_name: z.coerce.string().optional(),
-        last_name: z.coerce.string().optional(),
+        first_name: z.string().optional(),
+        last_name: z.string().optional(),
         verification: z
           .object({
             document: z
               .object({
-                back: z.coerce.string().optional(),
-                front: z.coerce.string().optional(),
+                back: z.string().optional(),
+                front: z.string().optional(),
               })
               .optional(),
           })
@@ -21504,8 +21365,8 @@ export function bootstrap(
       })
       .optional(),
     metadata: z.object({}).optional(),
-    name: z.coerce.string(),
-    phone_number: z.coerce.string().optional(),
+    name: z.string(),
+    phone_number: z.string().optional(),
     preferred_locales: z
       .array(z.enum(["de", "en", "es", "fr", "it"]))
       .optional(),
@@ -22429,7 +22290,7 @@ export function bootstrap(
             }),
           )
           .optional(),
-        spending_limits_currency: z.coerce.string().optional(),
+        spending_limits_currency: z.string().optional(),
       })
       .optional(),
     status: z.enum(["active", "inactive"]).optional(),
@@ -22466,11 +22327,11 @@ export function bootstrap(
   )
 
   const getIssuingCardholdersCardholderParamSchema = z.object({
-    cardholder: z.coerce.string(),
+    cardholder: z.string(),
   })
 
   const getIssuingCardholdersCardholderQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getIssuingCardholdersCardholderBodySchema = z.object({}).optional()
@@ -22507,7 +22368,7 @@ export function bootstrap(
   )
 
   const postIssuingCardholdersCardholderParamSchema = z.object({
-    cardholder: z.coerce.string(),
+    cardholder: z.string(),
   })
 
   const postIssuingCardholdersCardholderBodySchema = z
@@ -22515,18 +22376,18 @@ export function bootstrap(
       billing: z
         .object({
           address: z.object({
-            city: z.coerce.string(),
-            country: z.coerce.string(),
-            line1: z.coerce.string(),
-            line2: z.coerce.string().optional(),
-            postal_code: z.coerce.string(),
-            state: z.coerce.string().optional(),
+            city: z.string(),
+            country: z.string(),
+            line1: z.string(),
+            line2: z.string().optional(),
+            postal_code: z.string(),
+            state: z.string().optional(),
           }),
         })
         .optional(),
-      company: z.object({ tax_id: z.coerce.string().optional() }).optional(),
-      email: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      company: z.object({ tax_id: z.string().optional() }).optional(),
+      email: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       individual: z
         .object({
           card_issuing: z
@@ -22534,8 +22395,8 @@ export function bootstrap(
               user_terms_acceptance: z
                 .object({
                   date: z.coerce.number().optional(),
-                  ip: z.coerce.string().optional(),
-                  user_agent: z.union([z.coerce.string(), z.enum([""])]),
+                  ip: z.string().optional(),
+                  user_agent: z.union([z.string(), z.enum([""])]),
                 })
                 .optional(),
             })
@@ -22547,14 +22408,14 @@ export function bootstrap(
               year: z.coerce.number(),
             })
             .optional(),
-          first_name: z.coerce.string().optional(),
-          last_name: z.coerce.string().optional(),
+          first_name: z.string().optional(),
+          last_name: z.string().optional(),
           verification: z
             .object({
               document: z
                 .object({
-                  back: z.coerce.string().optional(),
-                  front: z.coerce.string().optional(),
+                  back: z.string().optional(),
+                  front: z.string().optional(),
                 })
                 .optional(),
             })
@@ -22562,7 +22423,7 @@ export function bootstrap(
         })
         .optional(),
       metadata: z.object({}).optional(),
-      phone_number: z.coerce.string().optional(),
+      phone_number: z.string().optional(),
       preferred_locales: z
         .array(z.enum(["de", "en", "es", "fr", "it"]))
         .optional(),
@@ -23486,7 +23347,7 @@ export function bootstrap(
               }),
             )
             .optional(),
-          spending_limits_currency: z.coerce.string().optional(),
+          spending_limits_currency: z.string().optional(),
         })
         .optional(),
       status: z.enum(["active", "inactive"]).optional(),
@@ -23522,7 +23383,7 @@ export function bootstrap(
   )
 
   const getIssuingCardsQuerySchema = z.object({
-    cardholder: z.coerce.string().optional(),
+    cardholder: z.string().optional(),
     created: z.union([
       z.object({
         gt: z.coerce.number().optional(),
@@ -23532,13 +23393,13 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
+    ending_before: z.string().optional(),
     exp_month: z.coerce.number().optional(),
     exp_year: z.coerce.number().optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    last4: z.coerce.string().optional(),
+    expand: z.array(z.string()).optional(),
+    last4: z.string().optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
     status: z.enum(["active", "canceled", "inactive"]).optional(),
     type: z.enum(["physical", "virtual"]).optional(),
   })
@@ -23553,7 +23414,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_issuing_card)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -23575,30 +23436,28 @@ export function bootstrap(
   })
 
   const postIssuingCardsBodySchema = z.object({
-    cardholder: z.coerce.string().optional(),
-    currency: z.coerce.string(),
-    expand: z.array(z.coerce.string()).optional(),
-    financial_account: z.coerce.string().optional(),
+    cardholder: z.string().optional(),
+    currency: z.string(),
+    expand: z.array(z.string()).optional(),
+    financial_account: z.string().optional(),
     metadata: z.object({}).optional(),
-    replacement_for: z.coerce.string().optional(),
+    replacement_for: z.string().optional(),
     replacement_reason: z
       .enum(["damaged", "expired", "lost", "stolen"])
       .optional(),
     shipping: z
       .object({
         address: z.object({
-          city: z.coerce.string(),
-          country: z.coerce.string(),
-          line1: z.coerce.string(),
-          line2: z.coerce.string().optional(),
-          postal_code: z.coerce.string(),
-          state: z.coerce.string().optional(),
+          city: z.string(),
+          country: z.string(),
+          line1: z.string(),
+          line2: z.string().optional(),
+          postal_code: z.string(),
+          state: z.string().optional(),
         }),
-        customs: z
-          .object({ eori_number: z.coerce.string().optional() })
-          .optional(),
-        name: z.coerce.string(),
-        phone_number: z.coerce.string().optional(),
+        customs: z.object({ eori_number: z.string().optional() }).optional(),
+        name: z.string(),
+        phone_number: z.string().optional(),
         require_signature: z.coerce.boolean().optional(),
         service: z.enum(["express", "priority", "standard"]).optional(),
         type: z.enum(["bulk", "individual"]).optional(),
@@ -24549,10 +24408,10 @@ export function bootstrap(
     return next()
   })
 
-  const getIssuingCardsCardParamSchema = z.object({ card: z.coerce.string() })
+  const getIssuingCardsCardParamSchema = z.object({ card: z.string() })
 
   const getIssuingCardsCardQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getIssuingCardsCardBodySchema = z.object({}).optional()
@@ -24586,16 +24445,14 @@ export function bootstrap(
     },
   )
 
-  const postIssuingCardsCardParamSchema = z.object({ card: z.coerce.string() })
+  const postIssuingCardsCardParamSchema = z.object({ card: z.string() })
 
   const postIssuingCardsCardBodySchema = z
     .object({
       cancellation_reason: z.enum(["lost", "stolen"]).optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      pin: z
-        .object({ encrypted_number: z.coerce.string().optional() })
-        .optional(),
+      pin: z.object({ encrypted_number: z.string().optional() }).optional(),
       spending_controls: z
         .object({
           allowed_categories: z
@@ -25561,14 +25418,14 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
     status: z
       .enum(["expired", "lost", "submitted", "unsubmitted", "won"])
       .optional(),
-    transaction: z.coerce.string().optional(),
+    transaction: z.string().optional(),
   })
 
   const getIssuingDisputesBodySchema = z.object({}).optional()
@@ -25581,7 +25438,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_issuing_dispute)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -25616,19 +25473,16 @@ export function bootstrap(
         .object({
           canceled: z.union([
             z.object({
-              additional_documentation: z.union([
-                z.coerce.string(),
-                z.enum([""]),
-              ]),
+              additional_documentation: z.union([z.string(), z.enum([""])]),
               canceled_at: z.union([z.coerce.number(), z.enum([""])]),
               cancellation_policy_provided: z.union([
                 z.coerce.boolean(),
                 z.enum([""]),
               ]),
-              cancellation_reason: z.union([z.coerce.string(), z.enum([""])]),
+              cancellation_reason: z.union([z.string(), z.enum([""])]),
               expected_at: z.union([z.coerce.number(), z.enum([""])]),
-              explanation: z.union([z.coerce.string(), z.enum([""])]),
-              product_description: z.union([z.coerce.string(), z.enum([""])]),
+              explanation: z.union([z.string(), z.enum([""])]),
+              product_description: z.union([z.string(), z.enum([""])]),
               product_type: z.enum(["", "merchandise", "service"]).optional(),
               return_status: z
                 .enum(["", "merchant_rejected", "successful"])
@@ -25639,37 +25493,28 @@ export function bootstrap(
           ]),
           duplicate: z.union([
             z.object({
-              additional_documentation: z.union([
-                z.coerce.string(),
-                z.enum([""]),
-              ]),
-              card_statement: z.union([z.coerce.string(), z.enum([""])]),
-              cash_receipt: z.union([z.coerce.string(), z.enum([""])]),
-              check_image: z.union([z.coerce.string(), z.enum([""])]),
-              explanation: z.union([z.coerce.string(), z.enum([""])]),
-              original_transaction: z.coerce.string().optional(),
+              additional_documentation: z.union([z.string(), z.enum([""])]),
+              card_statement: z.union([z.string(), z.enum([""])]),
+              cash_receipt: z.union([z.string(), z.enum([""])]),
+              check_image: z.union([z.string(), z.enum([""])]),
+              explanation: z.union([z.string(), z.enum([""])]),
+              original_transaction: z.string().optional(),
             }),
             z.enum([""]),
           ]),
           fraudulent: z.union([
             z.object({
-              additional_documentation: z.union([
-                z.coerce.string(),
-                z.enum([""]),
-              ]),
-              explanation: z.union([z.coerce.string(), z.enum([""])]),
+              additional_documentation: z.union([z.string(), z.enum([""])]),
+              explanation: z.union([z.string(), z.enum([""])]),
             }),
             z.enum([""]),
           ]),
           merchandise_not_as_described: z.union([
             z.object({
-              additional_documentation: z.union([
-                z.coerce.string(),
-                z.enum([""]),
-              ]),
-              explanation: z.union([z.coerce.string(), z.enum([""])]),
+              additional_documentation: z.union([z.string(), z.enum([""])]),
+              explanation: z.union([z.string(), z.enum([""])]),
               received_at: z.union([z.coerce.number(), z.enum([""])]),
-              return_description: z.union([z.coerce.string(), z.enum([""])]),
+              return_description: z.union([z.string(), z.enum([""])]),
               return_status: z
                 .enum(["", "merchant_rejected", "successful"])
                 .optional(),
@@ -25679,25 +25524,19 @@ export function bootstrap(
           ]),
           not_received: z.union([
             z.object({
-              additional_documentation: z.union([
-                z.coerce.string(),
-                z.enum([""]),
-              ]),
+              additional_documentation: z.union([z.string(), z.enum([""])]),
               expected_at: z.union([z.coerce.number(), z.enum([""])]),
-              explanation: z.union([z.coerce.string(), z.enum([""])]),
-              product_description: z.union([z.coerce.string(), z.enum([""])]),
+              explanation: z.union([z.string(), z.enum([""])]),
+              product_description: z.union([z.string(), z.enum([""])]),
               product_type: z.enum(["", "merchandise", "service"]).optional(),
             }),
             z.enum([""]),
           ]),
           other: z.union([
             z.object({
-              additional_documentation: z.union([
-                z.coerce.string(),
-                z.enum([""]),
-              ]),
-              explanation: z.union([z.coerce.string(), z.enum([""])]),
-              product_description: z.union([z.coerce.string(), z.enum([""])]),
+              additional_documentation: z.union([z.string(), z.enum([""])]),
+              explanation: z.union([z.string(), z.enum([""])]),
+              product_description: z.union([z.string(), z.enum([""])]),
               product_type: z.enum(["", "merchandise", "service"]).optional(),
             }),
             z.enum([""]),
@@ -25715,23 +25554,20 @@ export function bootstrap(
             .optional(),
           service_not_as_described: z.union([
             z.object({
-              additional_documentation: z.union([
-                z.coerce.string(),
-                z.enum([""]),
-              ]),
+              additional_documentation: z.union([z.string(), z.enum([""])]),
               canceled_at: z.union([z.coerce.number(), z.enum([""])]),
-              cancellation_reason: z.union([z.coerce.string(), z.enum([""])]),
-              explanation: z.union([z.coerce.string(), z.enum([""])]),
+              cancellation_reason: z.union([z.string(), z.enum([""])]),
+              explanation: z.union([z.string(), z.enum([""])]),
               received_at: z.union([z.coerce.number(), z.enum([""])]),
             }),
             z.enum([""]),
           ]),
         })
         .optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.object({}).optional(),
-      transaction: z.coerce.string().optional(),
-      treasury: z.object({ received_debit: z.coerce.string() }).optional(),
+      transaction: z.string().optional(),
+      treasury: z.object({ received_debit: z.string() }).optional(),
     })
     .optional()
 
@@ -25764,12 +25600,10 @@ export function bootstrap(
     },
   )
 
-  const getIssuingDisputesDisputeParamSchema = z.object({
-    dispute: z.coerce.string(),
-  })
+  const getIssuingDisputesDisputeParamSchema = z.object({ dispute: z.string() })
 
   const getIssuingDisputesDisputeQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getIssuingDisputesDisputeBodySchema = z.object({}).optional()
@@ -25810,7 +25644,7 @@ export function bootstrap(
   )
 
   const postIssuingDisputesDisputeParamSchema = z.object({
-    dispute: z.coerce.string(),
+    dispute: z.string(),
   })
 
   const postIssuingDisputesDisputeBodySchema = z
@@ -25820,19 +25654,16 @@ export function bootstrap(
         .object({
           canceled: z.union([
             z.object({
-              additional_documentation: z.union([
-                z.coerce.string(),
-                z.enum([""]),
-              ]),
+              additional_documentation: z.union([z.string(), z.enum([""])]),
               canceled_at: z.union([z.coerce.number(), z.enum([""])]),
               cancellation_policy_provided: z.union([
                 z.coerce.boolean(),
                 z.enum([""]),
               ]),
-              cancellation_reason: z.union([z.coerce.string(), z.enum([""])]),
+              cancellation_reason: z.union([z.string(), z.enum([""])]),
               expected_at: z.union([z.coerce.number(), z.enum([""])]),
-              explanation: z.union([z.coerce.string(), z.enum([""])]),
-              product_description: z.union([z.coerce.string(), z.enum([""])]),
+              explanation: z.union([z.string(), z.enum([""])]),
+              product_description: z.union([z.string(), z.enum([""])]),
               product_type: z.enum(["", "merchandise", "service"]).optional(),
               return_status: z
                 .enum(["", "merchant_rejected", "successful"])
@@ -25843,37 +25674,28 @@ export function bootstrap(
           ]),
           duplicate: z.union([
             z.object({
-              additional_documentation: z.union([
-                z.coerce.string(),
-                z.enum([""]),
-              ]),
-              card_statement: z.union([z.coerce.string(), z.enum([""])]),
-              cash_receipt: z.union([z.coerce.string(), z.enum([""])]),
-              check_image: z.union([z.coerce.string(), z.enum([""])]),
-              explanation: z.union([z.coerce.string(), z.enum([""])]),
-              original_transaction: z.coerce.string().optional(),
+              additional_documentation: z.union([z.string(), z.enum([""])]),
+              card_statement: z.union([z.string(), z.enum([""])]),
+              cash_receipt: z.union([z.string(), z.enum([""])]),
+              check_image: z.union([z.string(), z.enum([""])]),
+              explanation: z.union([z.string(), z.enum([""])]),
+              original_transaction: z.string().optional(),
             }),
             z.enum([""]),
           ]),
           fraudulent: z.union([
             z.object({
-              additional_documentation: z.union([
-                z.coerce.string(),
-                z.enum([""]),
-              ]),
-              explanation: z.union([z.coerce.string(), z.enum([""])]),
+              additional_documentation: z.union([z.string(), z.enum([""])]),
+              explanation: z.union([z.string(), z.enum([""])]),
             }),
             z.enum([""]),
           ]),
           merchandise_not_as_described: z.union([
             z.object({
-              additional_documentation: z.union([
-                z.coerce.string(),
-                z.enum([""]),
-              ]),
-              explanation: z.union([z.coerce.string(), z.enum([""])]),
+              additional_documentation: z.union([z.string(), z.enum([""])]),
+              explanation: z.union([z.string(), z.enum([""])]),
               received_at: z.union([z.coerce.number(), z.enum([""])]),
-              return_description: z.union([z.coerce.string(), z.enum([""])]),
+              return_description: z.union([z.string(), z.enum([""])]),
               return_status: z
                 .enum(["", "merchant_rejected", "successful"])
                 .optional(),
@@ -25883,25 +25705,19 @@ export function bootstrap(
           ]),
           not_received: z.union([
             z.object({
-              additional_documentation: z.union([
-                z.coerce.string(),
-                z.enum([""]),
-              ]),
+              additional_documentation: z.union([z.string(), z.enum([""])]),
               expected_at: z.union([z.coerce.number(), z.enum([""])]),
-              explanation: z.union([z.coerce.string(), z.enum([""])]),
-              product_description: z.union([z.coerce.string(), z.enum([""])]),
+              explanation: z.union([z.string(), z.enum([""])]),
+              product_description: z.union([z.string(), z.enum([""])]),
               product_type: z.enum(["", "merchandise", "service"]).optional(),
             }),
             z.enum([""]),
           ]),
           other: z.union([
             z.object({
-              additional_documentation: z.union([
-                z.coerce.string(),
-                z.enum([""]),
-              ]),
-              explanation: z.union([z.coerce.string(), z.enum([""])]),
-              product_description: z.union([z.coerce.string(), z.enum([""])]),
+              additional_documentation: z.union([z.string(), z.enum([""])]),
+              explanation: z.union([z.string(), z.enum([""])]),
+              product_description: z.union([z.string(), z.enum([""])]),
               product_type: z.enum(["", "merchandise", "service"]).optional(),
             }),
             z.enum([""]),
@@ -25919,20 +25735,17 @@ export function bootstrap(
             .optional(),
           service_not_as_described: z.union([
             z.object({
-              additional_documentation: z.union([
-                z.coerce.string(),
-                z.enum([""]),
-              ]),
+              additional_documentation: z.union([z.string(), z.enum([""])]),
               canceled_at: z.union([z.coerce.number(), z.enum([""])]),
-              cancellation_reason: z.union([z.coerce.string(), z.enum([""])]),
-              explanation: z.union([z.coerce.string(), z.enum([""])]),
+              cancellation_reason: z.union([z.string(), z.enum([""])]),
+              explanation: z.union([z.string(), z.enum([""])]),
               received_at: z.union([z.coerce.number(), z.enum([""])]),
             }),
             z.enum([""]),
           ]),
         })
         .optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
@@ -25970,12 +25783,12 @@ export function bootstrap(
   )
 
   const postIssuingDisputesDisputeSubmitParamSchema = z.object({
-    dispute: z.coerce.string(),
+    dispute: z.string(),
   })
 
   const postIssuingDisputesDisputeSubmitBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
@@ -26018,10 +25831,10 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getIssuingSettlementsBodySchema = z.object({}).optional()
@@ -26034,7 +25847,7 @@ export function bootstrap(
           data: z.array(s_issuing_settlement),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -26066,11 +25879,11 @@ export function bootstrap(
   )
 
   const getIssuingSettlementsSettlementParamSchema = z.object({
-    settlement: z.coerce.string(),
+    settlement: z.string(),
   })
 
   const getIssuingSettlementsSettlementQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getIssuingSettlementsSettlementBodySchema = z.object({}).optional()
@@ -26107,12 +25920,12 @@ export function bootstrap(
   )
 
   const postIssuingSettlementsSettlementParamSchema = z.object({
-    settlement: z.coerce.string(),
+    settlement: z.string(),
   })
 
   const postIssuingSettlementsSettlementBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.object({}).optional(),
     })
     .optional()
@@ -26146,8 +25959,8 @@ export function bootstrap(
   )
 
   const getIssuingTransactionsQuerySchema = z.object({
-    card: z.coerce.string().optional(),
-    cardholder: z.coerce.string().optional(),
+    card: z.string().optional(),
+    cardholder: z.string().optional(),
     created: z.union([
       z.object({
         gt: z.coerce.number().optional(),
@@ -26157,10 +25970,10 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
     type: z.enum(["capture", "refund"]).optional(),
   })
 
@@ -26174,7 +25987,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_issuing_transaction)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -26206,11 +26019,11 @@ export function bootstrap(
   )
 
   const getIssuingTransactionsTransactionParamSchema = z.object({
-    transaction: z.coerce.string(),
+    transaction: z.string(),
   })
 
   const getIssuingTransactionsTransactionQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getIssuingTransactionsTransactionBodySchema = z.object({}).optional()
@@ -26250,12 +26063,12 @@ export function bootstrap(
   )
 
   const postIssuingTransactionsTransactionParamSchema = z.object({
-    transaction: z.coerce.string(),
+    transaction: z.string(),
   })
 
   const postIssuingTransactionsTransactionBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
@@ -26293,17 +26106,17 @@ export function bootstrap(
 
   const postLinkAccountSessionsBodySchema = z.object({
     account_holder: z.object({
-      account: z.coerce.string().optional(),
-      customer: z.coerce.string().optional(),
+      account: z.string().optional(),
+      customer: z.string().optional(),
       type: z.enum(["account", "customer"]),
     }),
-    expand: z.array(z.coerce.string()).optional(),
-    filters: z.object({ countries: z.array(z.coerce.string()) }).optional(),
+    expand: z.array(z.string()).optional(),
+    filters: z.object({ countries: z.array(z.string()) }).optional(),
     permissions: z.array(
       z.enum(["balances", "ownership", "payment_method", "transactions"]),
     ),
     prefetch: z.array(z.enum(["balances", "ownership"])).optional(),
-    return_url: z.coerce.string().optional(),
+    return_url: z.string().optional(),
   })
 
   const postLinkAccountSessionsResponseValidator = responseValidationFactory(
@@ -26336,11 +26149,11 @@ export function bootstrap(
   )
 
   const getLinkAccountSessionsSessionParamSchema = z.object({
-    session: z.coerce.string(),
+    session: z.string(),
   })
 
   const getLinkAccountSessionsSessionQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getLinkAccountSessionsSessionBodySchema = z.object({}).optional()
@@ -26382,15 +26195,15 @@ export function bootstrap(
   const getLinkedAccountsQuerySchema = z.object({
     account_holder: z
       .object({
-        account: z.coerce.string().optional(),
-        customer: z.coerce.string().optional(),
+        account: z.string().optional(),
+        customer: z.string().optional(),
       })
       .optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    session: z.coerce.string().optional(),
-    starting_after: z.coerce.string().optional(),
+    session: z.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getLinkedAccountsBodySchema = z.object({}).optional()
@@ -26403,7 +26216,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_financial_connections_account)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -26424,12 +26237,10 @@ export function bootstrap(
     return next()
   })
 
-  const getLinkedAccountsAccountParamSchema = z.object({
-    account: z.coerce.string(),
-  })
+  const getLinkedAccountsAccountParamSchema = z.object({ account: z.string() })
 
   const getLinkedAccountsAccountQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getLinkedAccountsAccountBodySchema = z.object({}).optional()
@@ -26470,11 +26281,11 @@ export function bootstrap(
   )
 
   const postLinkedAccountsAccountDisconnectParamSchema = z.object({
-    account: z.coerce.string(),
+    account: z.string(),
   })
 
   const postLinkedAccountsAccountDisconnectBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postLinkedAccountsAccountDisconnectResponseValidator =
@@ -26512,15 +26323,15 @@ export function bootstrap(
   )
 
   const getLinkedAccountsAccountOwnersParamSchema = z.object({
-    account: z.coerce.string(),
+    account: z.string(),
   })
 
   const getLinkedAccountsAccountOwnersQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    ownership: z.coerce.string(),
-    starting_after: z.coerce.string().optional(),
+    ownership: z.string(),
+    starting_after: z.string().optional(),
   })
 
   const getLinkedAccountsAccountOwnersBodySchema = z.object({}).optional()
@@ -26534,7 +26345,7 @@ export function bootstrap(
             data: z.array(s_financial_connections_account_owner),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -26570,11 +26381,11 @@ export function bootstrap(
   )
 
   const postLinkedAccountsAccountRefreshParamSchema = z.object({
-    account: z.coerce.string(),
+    account: z.string(),
   })
 
   const postLinkedAccountsAccountRefreshBodySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     features: z.array(z.enum(["balance", "ownership"])),
   })
 
@@ -26609,10 +26420,10 @@ export function bootstrap(
     },
   )
 
-  const getMandatesMandateParamSchema = z.object({ mandate: z.coerce.string() })
+  const getMandatesMandateParamSchema = z.object({ mandate: z.string() })
 
   const getMandatesMandateQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getMandatesMandateBodySchema = z.object({}).optional()
@@ -26653,11 +26464,11 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    customer: z.coerce.string().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    customer: z.string().optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getPaymentIntentsBodySchema = z.object({}).optional()
@@ -26670,7 +26481,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_payment_intent)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -26705,22 +26516,19 @@ export function bootstrap(
       .optional(),
     confirm: z.coerce.boolean().optional(),
     confirmation_method: z.enum(["automatic", "manual"]).optional(),
-    currency: z.coerce.string(),
-    customer: z.coerce.string().optional(),
-    description: z.coerce.string().optional(),
+    currency: z.string(),
+    customer: z.string().optional(),
+    description: z.string().optional(),
     error_on_requires_action: z.coerce.boolean().optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    mandate: z.coerce.string().optional(),
+    expand: z.array(z.string()).optional(),
+    mandate: z.string().optional(),
     mandate_data: z.union([
       z.object({
         customer_acceptance: z.object({
           accepted_at: z.coerce.number().optional(),
           offline: z.object({}).optional(),
           online: z
-            .object({
-              ip_address: z.coerce.string(),
-              user_agent: z.coerce.string(),
-            })
+            .object({ ip_address: z.string(), user_agent: z.string() })
             .optional(),
           type: z.enum(["offline", "online"]),
         }),
@@ -26732,31 +26540,28 @@ export function bootstrap(
       z.coerce.boolean(),
       z.enum(["one_off", "recurring"]),
     ]),
-    on_behalf_of: z.coerce.string().optional(),
-    payment_method: z.coerce.string().optional(),
-    payment_method_configuration: z.coerce.string().optional(),
+    on_behalf_of: z.string().optional(),
+    payment_method: z.string().optional(),
+    payment_method_configuration: z.string().optional(),
     payment_method_data: z
       .object({
         acss_debit: z
           .object({
-            account_number: z.coerce.string(),
-            institution_number: z.coerce.string(),
-            transit_number: z.coerce.string(),
+            account_number: z.string(),
+            institution_number: z.string(),
+            transit_number: z.string(),
           })
           .optional(),
         affirm: z.object({}).optional(),
         afterpay_clearpay: z.object({}).optional(),
         alipay: z.object({}).optional(),
         au_becs_debit: z
-          .object({
-            account_number: z.coerce.string(),
-            bsb_number: z.coerce.string(),
-          })
+          .object({ account_number: z.string(), bsb_number: z.string() })
           .optional(),
         bacs_debit: z
           .object({
-            account_number: z.coerce.string().optional(),
-            sort_code: z.coerce.string().optional(),
+            account_number: z.string().optional(),
+            sort_code: z.string().optional(),
           })
           .optional(),
         bancontact: z.object({}).optional(),
@@ -26764,22 +26569,22 @@ export function bootstrap(
           .object({
             address: z.union([
               z.object({
-                city: z.coerce.string().optional(),
-                country: z.coerce.string().optional(),
-                line1: z.coerce.string().optional(),
-                line2: z.coerce.string().optional(),
-                postal_code: z.coerce.string().optional(),
-                state: z.coerce.string().optional(),
+                city: z.string().optional(),
+                country: z.string().optional(),
+                line1: z.string().optional(),
+                line2: z.string().optional(),
+                postal_code: z.string().optional(),
+                state: z.string().optional(),
               }),
               z.enum([""]),
             ]),
-            email: z.union([z.coerce.string(), z.enum([""])]),
-            name: z.union([z.coerce.string(), z.enum([""])]),
-            phone: z.union([z.coerce.string(), z.enum([""])]),
+            email: z.union([z.string(), z.enum([""])]),
+            name: z.union([z.string(), z.enum([""])]),
+            phone: z.union([z.string(), z.enum([""])]),
           })
           .optional(),
         blik: z.object({}).optional(),
-        boleto: z.object({ tax_id: z.coerce.string() }).optional(),
+        boleto: z.object({ tax_id: z.string() }).optional(),
         cashapp: z.object({}).optional(),
         customer_balance: z.object({}).optional(),
         eps: z
@@ -26924,10 +26729,8 @@ export function bootstrap(
         paypal: z.object({}).optional(),
         pix: z.object({}).optional(),
         promptpay: z.object({}).optional(),
-        radar_options: z
-          .object({ session: z.coerce.string().optional() })
-          .optional(),
-        sepa_debit: z.object({ iban: z.coerce.string() }).optional(),
+        radar_options: z.object({ session: z.string().optional() }).optional(),
+        sepa_debit: z.object({ iban: z.string() }).optional(),
         sofort: z
           .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
           .optional(),
@@ -26966,10 +26769,10 @@ export function bootstrap(
         us_bank_account: z
           .object({
             account_holder_type: z.enum(["company", "individual"]).optional(),
-            account_number: z.coerce.string().optional(),
+            account_number: z.string().optional(),
             account_type: z.enum(["checking", "savings"]).optional(),
-            financial_connections_account: z.coerce.string().optional(),
-            routing_number: z.coerce.string().optional(),
+            financial_connections_account: z.string().optional(),
+            routing_number: z.string().optional(),
           })
           .optional(),
         wechat_pay: z.object({}).optional(),
@@ -26982,8 +26785,8 @@ export function bootstrap(
           z.object({
             mandate_options: z
               .object({
-                custom_mandate_url: z.union([z.coerce.string(), z.enum([""])]),
-                interval_description: z.coerce.string().optional(),
+                custom_mandate_url: z.union([z.string(), z.enum([""])]),
+                interval_description: z.string().optional(),
                 payment_schedule: z
                   .enum(["combined", "interval", "sporadic"])
                   .optional(),
@@ -27002,7 +26805,7 @@ export function bootstrap(
         affirm: z.union([
           z.object({
             capture_method: z.enum(["", "manual"]).optional(),
-            preferred_locale: z.coerce.string().optional(),
+            preferred_locale: z.string().optional(),
             setup_future_usage: z.enum(["none"]).optional(),
           }),
           z.enum([""]),
@@ -27010,7 +26813,7 @@ export function bootstrap(
         afterpay_clearpay: z.union([
           z.object({
             capture_method: z.enum(["", "manual"]).optional(),
-            reference: z.coerce.string().optional(),
+            reference: z.string().optional(),
             setup_future_usage: z.enum(["none"]).optional(),
           }),
           z.enum([""]),
@@ -27045,7 +26848,7 @@ export function bootstrap(
           z.enum([""]),
         ]),
         blik: z.union([
-          z.object({ code: z.coerce.string().optional() }),
+          z.object({ code: z.string().optional() }),
           z.enum([""]),
         ]),
         boleto: z.union([
@@ -27060,7 +26863,7 @@ export function bootstrap(
         card: z.union([
           z.object({
             capture_method: z.enum(["", "manual"]).optional(),
-            cvc_token: z.coerce.string().optional(),
+            cvc_token: z.string().optional(),
             installments: z
               .object({
                 enabled: z.coerce.boolean().optional(),
@@ -27078,11 +26881,11 @@ export function bootstrap(
               .object({
                 amount: z.coerce.number(),
                 amount_type: z.enum(["fixed", "maximum"]),
-                description: z.coerce.string().optional(),
+                description: z.string().optional(),
                 end_date: z.coerce.number().optional(),
                 interval: z.enum(["day", "month", "sporadic", "week", "year"]),
                 interval_count: z.coerce.number().optional(),
-                reference: z.coerce.string(),
+                reference: z.string(),
                 start_date: z.coerce.number(),
                 supported_types: z.array(z.enum(["india"])).optional(),
               })
@@ -27107,11 +26910,11 @@ export function bootstrap(
               .enum(["", "none", "off_session", "on_session"])
               .optional(),
             statement_descriptor_suffix_kana: z.union([
-              z.coerce.string(),
+              z.string(),
               z.enum([""]),
             ]),
             statement_descriptor_suffix_kanji: z.union([
-              z.coerce.string(),
+              z.string(),
               z.enum([""]),
             ]),
           }),
@@ -27139,9 +26942,7 @@ export function bootstrap(
           z.object({
             bank_transfer: z
               .object({
-                eu_bank_transfer: z
-                  .object({ country: z.coerce.string() })
-                  .optional(),
+                eu_bank_transfer: z.object({ country: z.string() }).optional(),
                 requested_address_types: z
                   .array(
                     z.enum([
@@ -27249,10 +27050,10 @@ export function bootstrap(
         ]),
         konbini: z.union([
           z.object({
-            confirmation_number: z.union([z.coerce.string(), z.enum([""])]),
+            confirmation_number: z.union([z.string(), z.enum([""])]),
             expires_after_days: z.union([z.coerce.number(), z.enum([""])]),
             expires_at: z.union([z.coerce.number(), z.enum([""])]),
-            product_description: z.union([z.coerce.string(), z.enum([""])]),
+            product_description: z.union([z.string(), z.enum([""])]),
             setup_future_usage: z.enum(["none"]).optional(),
           }),
           z.enum([""]),
@@ -27310,8 +27111,8 @@ export function bootstrap(
                 "sv-SE",
               ])
               .optional(),
-            reference: z.coerce.string().optional(),
-            risk_correlation_id: z.coerce.string().optional(),
+            reference: z.string().optional(),
+            risk_correlation_id: z.string().optional(),
             setup_future_usage: z.enum(["", "none", "off_session"]).optional(),
           }),
           z.enum([""]),
@@ -27361,7 +27162,7 @@ export function bootstrap(
                   )
                   .optional(),
                 prefetch: z.array(z.enum(["balances"])).optional(),
-                return_url: z.coerce.string().optional(),
+                return_url: z.string().optional(),
               })
               .optional(),
             networks: z
@@ -27385,7 +27186,7 @@ export function bootstrap(
         ]),
         wechat_pay: z.union([
           z.object({
-            app_id: z.coerce.string().optional(),
+            app_id: z.string().optional(),
             client: z.enum(["android", "ios", "web"]),
             setup_future_usage: z.enum(["none"]).optional(),
           }),
@@ -27397,38 +27198,33 @@ export function bootstrap(
         ]),
       })
       .optional(),
-    payment_method_types: z.array(z.coerce.string()).optional(),
-    radar_options: z
-      .object({ session: z.coerce.string().optional() })
-      .optional(),
-    receipt_email: z.coerce.string().optional(),
-    return_url: z.coerce.string().optional(),
+    payment_method_types: z.array(z.string()).optional(),
+    radar_options: z.object({ session: z.string().optional() }).optional(),
+    receipt_email: z.string().optional(),
+    return_url: z.string().optional(),
     setup_future_usage: z.enum(["off_session", "on_session"]).optional(),
     shipping: z
       .object({
         address: z.object({
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          line1: z.coerce.string().optional(),
-          line2: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          line1: z.string().optional(),
+          line2: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
         }),
-        carrier: z.coerce.string().optional(),
-        name: z.coerce.string(),
-        phone: z.coerce.string().optional(),
-        tracking_number: z.coerce.string().optional(),
+        carrier: z.string().optional(),
+        name: z.string(),
+        phone: z.string().optional(),
+        tracking_number: z.string().optional(),
       })
       .optional(),
-    statement_descriptor: z.coerce.string().optional(),
-    statement_descriptor_suffix: z.coerce.string().optional(),
+    statement_descriptor: z.string().optional(),
+    statement_descriptor_suffix: z.string().optional(),
     transfer_data: z
-      .object({
-        amount: z.coerce.number().optional(),
-        destination: z.coerce.string(),
-      })
+      .object({ amount: z.coerce.number().optional(), destination: z.string() })
       .optional(),
-    transfer_group: z.coerce.string().optional(),
+    transfer_group: z.string().optional(),
     use_stripe_sdk: z.coerce.boolean().optional(),
   })
 
@@ -27459,10 +27255,10 @@ export function bootstrap(
   )
 
   const getPaymentIntentsSearchQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    page: z.coerce.string().optional(),
-    query: z.coerce.string(),
+    page: z.string().optional(),
+    query: z.string(),
   })
 
   const getPaymentIntentsSearchBodySchema = z.object({}).optional()
@@ -27474,10 +27270,10 @@ export function bootstrap(
         z.object({
           data: z.array(z.lazy(() => s_payment_intent)),
           has_more: z.coerce.boolean(),
-          next_page: z.coerce.string().optional().nullable(),
+          next_page: z.string().optional().nullable(),
           object: z.enum(["search_result"]),
           total_count: z.coerce.number().optional(),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -27508,13 +27304,11 @@ export function bootstrap(
     },
   )
 
-  const getPaymentIntentsIntentParamSchema = z.object({
-    intent: z.coerce.string(),
-  })
+  const getPaymentIntentsIntentParamSchema = z.object({ intent: z.string() })
 
   const getPaymentIntentsIntentQuerySchema = z.object({
-    client_secret: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    client_secret: z.string().optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getPaymentIntentsIntentBodySchema = z.object({}).optional()
@@ -27551,9 +27345,7 @@ export function bootstrap(
     },
   )
 
-  const postPaymentIntentsIntentParamSchema = z.object({
-    intent: z.coerce.string(),
-  })
+  const postPaymentIntentsIntentParamSchema = z.object({ intent: z.string() })
 
   const postPaymentIntentsIntentBodySchema = z
     .object({
@@ -27562,35 +27354,32 @@ export function bootstrap(
       capture_method: z
         .enum(["automatic", "automatic_async", "manual"])
         .optional(),
-      currency: z.coerce.string().optional(),
-      customer: z.coerce.string().optional(),
-      description: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      currency: z.string().optional(),
+      customer: z.string().optional(),
+      description: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      payment_method: z.coerce.string().optional(),
-      payment_method_configuration: z.coerce.string().optional(),
+      payment_method: z.string().optional(),
+      payment_method_configuration: z.string().optional(),
       payment_method_data: z
         .object({
           acss_debit: z
             .object({
-              account_number: z.coerce.string(),
-              institution_number: z.coerce.string(),
-              transit_number: z.coerce.string(),
+              account_number: z.string(),
+              institution_number: z.string(),
+              transit_number: z.string(),
             })
             .optional(),
           affirm: z.object({}).optional(),
           afterpay_clearpay: z.object({}).optional(),
           alipay: z.object({}).optional(),
           au_becs_debit: z
-            .object({
-              account_number: z.coerce.string(),
-              bsb_number: z.coerce.string(),
-            })
+            .object({ account_number: z.string(), bsb_number: z.string() })
             .optional(),
           bacs_debit: z
             .object({
-              account_number: z.coerce.string().optional(),
-              sort_code: z.coerce.string().optional(),
+              account_number: z.string().optional(),
+              sort_code: z.string().optional(),
             })
             .optional(),
           bancontact: z.object({}).optional(),
@@ -27598,22 +27387,22 @@ export function bootstrap(
             .object({
               address: z.union([
                 z.object({
-                  city: z.coerce.string().optional(),
-                  country: z.coerce.string().optional(),
-                  line1: z.coerce.string().optional(),
-                  line2: z.coerce.string().optional(),
-                  postal_code: z.coerce.string().optional(),
-                  state: z.coerce.string().optional(),
+                  city: z.string().optional(),
+                  country: z.string().optional(),
+                  line1: z.string().optional(),
+                  line2: z.string().optional(),
+                  postal_code: z.string().optional(),
+                  state: z.string().optional(),
                 }),
                 z.enum([""]),
               ]),
-              email: z.union([z.coerce.string(), z.enum([""])]),
-              name: z.union([z.coerce.string(), z.enum([""])]),
-              phone: z.union([z.coerce.string(), z.enum([""])]),
+              email: z.union([z.string(), z.enum([""])]),
+              name: z.union([z.string(), z.enum([""])]),
+              phone: z.union([z.string(), z.enum([""])]),
             })
             .optional(),
           blik: z.object({}).optional(),
-          boleto: z.object({ tax_id: z.coerce.string() }).optional(),
+          boleto: z.object({ tax_id: z.string() }).optional(),
           cashapp: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
           eps: z
@@ -27759,9 +27548,9 @@ export function bootstrap(
           pix: z.object({}).optional(),
           promptpay: z.object({}).optional(),
           radar_options: z
-            .object({ session: z.coerce.string().optional() })
+            .object({ session: z.string().optional() })
             .optional(),
-          sepa_debit: z.object({ iban: z.coerce.string() }).optional(),
+          sepa_debit: z.object({ iban: z.string() }).optional(),
           sofort: z
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
             .optional(),
@@ -27800,10 +27589,10 @@ export function bootstrap(
           us_bank_account: z
             .object({
               account_holder_type: z.enum(["company", "individual"]).optional(),
-              account_number: z.coerce.string().optional(),
+              account_number: z.string().optional(),
               account_type: z.enum(["checking", "savings"]).optional(),
-              financial_connections_account: z.coerce.string().optional(),
-              routing_number: z.coerce.string().optional(),
+              financial_connections_account: z.string().optional(),
+              routing_number: z.string().optional(),
             })
             .optional(),
           wechat_pay: z.object({}).optional(),
@@ -27816,11 +27605,8 @@ export function bootstrap(
             z.object({
               mandate_options: z
                 .object({
-                  custom_mandate_url: z.union([
-                    z.coerce.string(),
-                    z.enum([""]),
-                  ]),
-                  interval_description: z.coerce.string().optional(),
+                  custom_mandate_url: z.union([z.string(), z.enum([""])]),
+                  interval_description: z.string().optional(),
                   payment_schedule: z
                     .enum(["combined", "interval", "sporadic"])
                     .optional(),
@@ -27839,7 +27625,7 @@ export function bootstrap(
           affirm: z.union([
             z.object({
               capture_method: z.enum(["", "manual"]).optional(),
-              preferred_locale: z.coerce.string().optional(),
+              preferred_locale: z.string().optional(),
               setup_future_usage: z.enum(["none"]).optional(),
             }),
             z.enum([""]),
@@ -27847,7 +27633,7 @@ export function bootstrap(
           afterpay_clearpay: z.union([
             z.object({
               capture_method: z.enum(["", "manual"]).optional(),
-              reference: z.coerce.string().optional(),
+              reference: z.string().optional(),
               setup_future_usage: z.enum(["none"]).optional(),
             }),
             z.enum([""]),
@@ -27886,7 +27672,7 @@ export function bootstrap(
             z.enum([""]),
           ]),
           blik: z.union([
-            z.object({ code: z.coerce.string().optional() }),
+            z.object({ code: z.string().optional() }),
             z.enum([""]),
           ]),
           boleto: z.union([
@@ -27901,7 +27687,7 @@ export function bootstrap(
           card: z.union([
             z.object({
               capture_method: z.enum(["", "manual"]).optional(),
-              cvc_token: z.coerce.string().optional(),
+              cvc_token: z.string().optional(),
               installments: z
                 .object({
                   enabled: z.coerce.boolean().optional(),
@@ -27919,7 +27705,7 @@ export function bootstrap(
                 .object({
                   amount: z.coerce.number(),
                   amount_type: z.enum(["fixed", "maximum"]),
-                  description: z.coerce.string().optional(),
+                  description: z.string().optional(),
                   end_date: z.coerce.number().optional(),
                   interval: z.enum([
                     "day",
@@ -27929,7 +27715,7 @@ export function bootstrap(
                     "year",
                   ]),
                   interval_count: z.coerce.number().optional(),
-                  reference: z.coerce.string(),
+                  reference: z.string(),
                   start_date: z.coerce.number(),
                   supported_types: z.array(z.enum(["india"])).optional(),
                 })
@@ -27954,11 +27740,11 @@ export function bootstrap(
                 .enum(["", "none", "off_session", "on_session"])
                 .optional(),
               statement_descriptor_suffix_kana: z.union([
-                z.coerce.string(),
+                z.string(),
                 z.enum([""]),
               ]),
               statement_descriptor_suffix_kanji: z.union([
-                z.coerce.string(),
+                z.string(),
                 z.enum([""]),
               ]),
             }),
@@ -27987,7 +27773,7 @@ export function bootstrap(
               bank_transfer: z
                 .object({
                   eu_bank_transfer: z
-                    .object({ country: z.coerce.string() })
+                    .object({ country: z.string() })
                     .optional(),
                   requested_address_types: z
                     .array(
@@ -28098,10 +27884,10 @@ export function bootstrap(
           ]),
           konbini: z.union([
             z.object({
-              confirmation_number: z.union([z.coerce.string(), z.enum([""])]),
+              confirmation_number: z.union([z.string(), z.enum([""])]),
               expires_after_days: z.union([z.coerce.number(), z.enum([""])]),
               expires_at: z.union([z.coerce.number(), z.enum([""])]),
-              product_description: z.union([z.coerce.string(), z.enum([""])]),
+              product_description: z.union([z.string(), z.enum([""])]),
               setup_future_usage: z.enum(["none"]).optional(),
             }),
             z.enum([""]),
@@ -28161,8 +27947,8 @@ export function bootstrap(
                   "sv-SE",
                 ])
                 .optional(),
-              reference: z.coerce.string().optional(),
-              risk_correlation_id: z.coerce.string().optional(),
+              reference: z.string().optional(),
+              risk_correlation_id: z.string().optional(),
               setup_future_usage: z
                 .enum(["", "none", "off_session"])
                 .optional(),
@@ -28216,7 +28002,7 @@ export function bootstrap(
                     )
                     .optional(),
                   prefetch: z.array(z.enum(["balances"])).optional(),
-                  return_url: z.coerce.string().optional(),
+                  return_url: z.string().optional(),
                 })
                 .optional(),
               networks: z
@@ -28240,7 +28026,7 @@ export function bootstrap(
           ]),
           wechat_pay: z.union([
             z.object({
-              app_id: z.coerce.string().optional(),
+              app_id: z.string().optional(),
               client: z.enum(["android", "ios", "web"]),
               setup_future_usage: z.enum(["none"]).optional(),
             }),
@@ -28252,32 +28038,32 @@ export function bootstrap(
           ]),
         })
         .optional(),
-      payment_method_types: z.array(z.coerce.string()).optional(),
-      receipt_email: z.union([z.coerce.string(), z.enum([""])]),
+      payment_method_types: z.array(z.string()).optional(),
+      receipt_email: z.union([z.string(), z.enum([""])]),
       setup_future_usage: z.enum(["", "off_session", "on_session"]).optional(),
       shipping: z.union([
         z.object({
           address: z.object({
-            city: z.coerce.string().optional(),
-            country: z.coerce.string().optional(),
-            line1: z.coerce.string().optional(),
-            line2: z.coerce.string().optional(),
-            postal_code: z.coerce.string().optional(),
-            state: z.coerce.string().optional(),
+            city: z.string().optional(),
+            country: z.string().optional(),
+            line1: z.string().optional(),
+            line2: z.string().optional(),
+            postal_code: z.string().optional(),
+            state: z.string().optional(),
           }),
-          carrier: z.coerce.string().optional(),
-          name: z.coerce.string(),
-          phone: z.coerce.string().optional(),
-          tracking_number: z.coerce.string().optional(),
+          carrier: z.string().optional(),
+          name: z.string(),
+          phone: z.string().optional(),
+          tracking_number: z.string().optional(),
         }),
         z.enum([""]),
       ]),
-      statement_descriptor: z.coerce.string().optional(),
-      statement_descriptor_suffix: z.coerce.string().optional(),
+      statement_descriptor: z.string().optional(),
+      statement_descriptor_suffix: z.string().optional(),
       transfer_data: z
         .object({ amount: z.coerce.number().optional() })
         .optional(),
-      transfer_group: z.coerce.string().optional(),
+      transfer_group: z.string().optional(),
     })
     .optional()
 
@@ -28314,14 +28100,14 @@ export function bootstrap(
   )
 
   const postPaymentIntentsIntentApplyCustomerBalanceParamSchema = z.object({
-    intent: z.coerce.string(),
+    intent: z.string(),
   })
 
   const postPaymentIntentsIntentApplyCustomerBalanceBodySchema = z
     .object({
       amount: z.coerce.number().optional(),
-      currency: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      currency: z.string().optional(),
+      expand: z.array(z.string()).optional(),
     })
     .optional()
 
@@ -28360,7 +28146,7 @@ export function bootstrap(
   )
 
   const postPaymentIntentsIntentCancelParamSchema = z.object({
-    intent: z.coerce.string(),
+    intent: z.string(),
   })
 
   const postPaymentIntentsIntentCancelBodySchema = z
@@ -28368,7 +28154,7 @@ export function bootstrap(
       cancellation_reason: z
         .enum(["abandoned", "duplicate", "fraudulent", "requested_by_customer"])
         .optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
     })
     .optional()
 
@@ -28401,17 +28187,17 @@ export function bootstrap(
   )
 
   const postPaymentIntentsIntentCaptureParamSchema = z.object({
-    intent: z.coerce.string(),
+    intent: z.string(),
   })
 
   const postPaymentIntentsIntentCaptureBodySchema = z
     .object({
       amount_to_capture: z.coerce.number().optional(),
       application_fee_amount: z.coerce.number().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      statement_descriptor: z.coerce.string().optional(),
-      statement_descriptor_suffix: z.coerce.string().optional(),
+      statement_descriptor: z.string().optional(),
+      statement_descriptor_suffix: z.string().optional(),
       transfer_data: z
         .object({ amount: z.coerce.number().optional() })
         .optional(),
@@ -28447,7 +28233,7 @@ export function bootstrap(
   )
 
   const postPaymentIntentsIntentConfirmParamSchema = z.object({
-    intent: z.coerce.string(),
+    intent: z.string(),
   })
 
   const postPaymentIntentsIntentConfirmBodySchema = z
@@ -28455,20 +28241,17 @@ export function bootstrap(
       capture_method: z
         .enum(["automatic", "automatic_async", "manual"])
         .optional(),
-      client_secret: z.coerce.string().optional(),
+      client_secret: z.string().optional(),
       error_on_requires_action: z.coerce.boolean().optional(),
-      expand: z.array(z.coerce.string()).optional(),
-      mandate: z.coerce.string().optional(),
+      expand: z.array(z.string()).optional(),
+      mandate: z.string().optional(),
       mandate_data: z.union([
         z.object({
           customer_acceptance: z.object({
             accepted_at: z.coerce.number().optional(),
             offline: z.object({}).optional(),
             online: z
-              .object({
-                ip_address: z.coerce.string(),
-                user_agent: z.coerce.string(),
-              })
+              .object({ ip_address: z.string(), user_agent: z.string() })
               .optional(),
             type: z.enum(["offline", "online"]),
           }),
@@ -28477,8 +28260,8 @@ export function bootstrap(
         z.object({
           customer_acceptance: z.object({
             online: z.object({
-              ip_address: z.coerce.string().optional(),
-              user_agent: z.coerce.string().optional(),
+              ip_address: z.string().optional(),
+              user_agent: z.string().optional(),
             }),
             type: z.enum(["online"]),
           }),
@@ -28488,29 +28271,26 @@ export function bootstrap(
         z.coerce.boolean(),
         z.enum(["one_off", "recurring"]),
       ]),
-      payment_method: z.coerce.string().optional(),
+      payment_method: z.string().optional(),
       payment_method_data: z
         .object({
           acss_debit: z
             .object({
-              account_number: z.coerce.string(),
-              institution_number: z.coerce.string(),
-              transit_number: z.coerce.string(),
+              account_number: z.string(),
+              institution_number: z.string(),
+              transit_number: z.string(),
             })
             .optional(),
           affirm: z.object({}).optional(),
           afterpay_clearpay: z.object({}).optional(),
           alipay: z.object({}).optional(),
           au_becs_debit: z
-            .object({
-              account_number: z.coerce.string(),
-              bsb_number: z.coerce.string(),
-            })
+            .object({ account_number: z.string(), bsb_number: z.string() })
             .optional(),
           bacs_debit: z
             .object({
-              account_number: z.coerce.string().optional(),
-              sort_code: z.coerce.string().optional(),
+              account_number: z.string().optional(),
+              sort_code: z.string().optional(),
             })
             .optional(),
           bancontact: z.object({}).optional(),
@@ -28518,22 +28298,22 @@ export function bootstrap(
             .object({
               address: z.union([
                 z.object({
-                  city: z.coerce.string().optional(),
-                  country: z.coerce.string().optional(),
-                  line1: z.coerce.string().optional(),
-                  line2: z.coerce.string().optional(),
-                  postal_code: z.coerce.string().optional(),
-                  state: z.coerce.string().optional(),
+                  city: z.string().optional(),
+                  country: z.string().optional(),
+                  line1: z.string().optional(),
+                  line2: z.string().optional(),
+                  postal_code: z.string().optional(),
+                  state: z.string().optional(),
                 }),
                 z.enum([""]),
               ]),
-              email: z.union([z.coerce.string(), z.enum([""])]),
-              name: z.union([z.coerce.string(), z.enum([""])]),
-              phone: z.union([z.coerce.string(), z.enum([""])]),
+              email: z.union([z.string(), z.enum([""])]),
+              name: z.union([z.string(), z.enum([""])]),
+              phone: z.union([z.string(), z.enum([""])]),
             })
             .optional(),
           blik: z.object({}).optional(),
-          boleto: z.object({ tax_id: z.coerce.string() }).optional(),
+          boleto: z.object({ tax_id: z.string() }).optional(),
           cashapp: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
           eps: z
@@ -28679,9 +28459,9 @@ export function bootstrap(
           pix: z.object({}).optional(),
           promptpay: z.object({}).optional(),
           radar_options: z
-            .object({ session: z.coerce.string().optional() })
+            .object({ session: z.string().optional() })
             .optional(),
-          sepa_debit: z.object({ iban: z.coerce.string() }).optional(),
+          sepa_debit: z.object({ iban: z.string() }).optional(),
           sofort: z
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
             .optional(),
@@ -28720,10 +28500,10 @@ export function bootstrap(
           us_bank_account: z
             .object({
               account_holder_type: z.enum(["company", "individual"]).optional(),
-              account_number: z.coerce.string().optional(),
+              account_number: z.string().optional(),
               account_type: z.enum(["checking", "savings"]).optional(),
-              financial_connections_account: z.coerce.string().optional(),
-              routing_number: z.coerce.string().optional(),
+              financial_connections_account: z.string().optional(),
+              routing_number: z.string().optional(),
             })
             .optional(),
           wechat_pay: z.object({}).optional(),
@@ -28736,11 +28516,8 @@ export function bootstrap(
             z.object({
               mandate_options: z
                 .object({
-                  custom_mandate_url: z.union([
-                    z.coerce.string(),
-                    z.enum([""]),
-                  ]),
-                  interval_description: z.coerce.string().optional(),
+                  custom_mandate_url: z.union([z.string(), z.enum([""])]),
+                  interval_description: z.string().optional(),
                   payment_schedule: z
                     .enum(["combined", "interval", "sporadic"])
                     .optional(),
@@ -28759,7 +28536,7 @@ export function bootstrap(
           affirm: z.union([
             z.object({
               capture_method: z.enum(["", "manual"]).optional(),
-              preferred_locale: z.coerce.string().optional(),
+              preferred_locale: z.string().optional(),
               setup_future_usage: z.enum(["none"]).optional(),
             }),
             z.enum([""]),
@@ -28767,7 +28544,7 @@ export function bootstrap(
           afterpay_clearpay: z.union([
             z.object({
               capture_method: z.enum(["", "manual"]).optional(),
-              reference: z.coerce.string().optional(),
+              reference: z.string().optional(),
               setup_future_usage: z.enum(["none"]).optional(),
             }),
             z.enum([""]),
@@ -28806,7 +28583,7 @@ export function bootstrap(
             z.enum([""]),
           ]),
           blik: z.union([
-            z.object({ code: z.coerce.string().optional() }),
+            z.object({ code: z.string().optional() }),
             z.enum([""]),
           ]),
           boleto: z.union([
@@ -28821,7 +28598,7 @@ export function bootstrap(
           card: z.union([
             z.object({
               capture_method: z.enum(["", "manual"]).optional(),
-              cvc_token: z.coerce.string().optional(),
+              cvc_token: z.string().optional(),
               installments: z
                 .object({
                   enabled: z.coerce.boolean().optional(),
@@ -28839,7 +28616,7 @@ export function bootstrap(
                 .object({
                   amount: z.coerce.number(),
                   amount_type: z.enum(["fixed", "maximum"]),
-                  description: z.coerce.string().optional(),
+                  description: z.string().optional(),
                   end_date: z.coerce.number().optional(),
                   interval: z.enum([
                     "day",
@@ -28849,7 +28626,7 @@ export function bootstrap(
                     "year",
                   ]),
                   interval_count: z.coerce.number().optional(),
-                  reference: z.coerce.string(),
+                  reference: z.string(),
                   start_date: z.coerce.number(),
                   supported_types: z.array(z.enum(["india"])).optional(),
                 })
@@ -28874,11 +28651,11 @@ export function bootstrap(
                 .enum(["", "none", "off_session", "on_session"])
                 .optional(),
               statement_descriptor_suffix_kana: z.union([
-                z.coerce.string(),
+                z.string(),
                 z.enum([""]),
               ]),
               statement_descriptor_suffix_kanji: z.union([
-                z.coerce.string(),
+                z.string(),
                 z.enum([""]),
               ]),
             }),
@@ -28907,7 +28684,7 @@ export function bootstrap(
               bank_transfer: z
                 .object({
                   eu_bank_transfer: z
-                    .object({ country: z.coerce.string() })
+                    .object({ country: z.string() })
                     .optional(),
                   requested_address_types: z
                     .array(
@@ -29018,10 +28795,10 @@ export function bootstrap(
           ]),
           konbini: z.union([
             z.object({
-              confirmation_number: z.union([z.coerce.string(), z.enum([""])]),
+              confirmation_number: z.union([z.string(), z.enum([""])]),
               expires_after_days: z.union([z.coerce.number(), z.enum([""])]),
               expires_at: z.union([z.coerce.number(), z.enum([""])]),
-              product_description: z.union([z.coerce.string(), z.enum([""])]),
+              product_description: z.union([z.string(), z.enum([""])]),
               setup_future_usage: z.enum(["none"]).optional(),
             }),
             z.enum([""]),
@@ -29081,8 +28858,8 @@ export function bootstrap(
                   "sv-SE",
                 ])
                 .optional(),
-              reference: z.coerce.string().optional(),
-              risk_correlation_id: z.coerce.string().optional(),
+              reference: z.string().optional(),
+              risk_correlation_id: z.string().optional(),
               setup_future_usage: z
                 .enum(["", "none", "off_session"])
                 .optional(),
@@ -29136,7 +28913,7 @@ export function bootstrap(
                     )
                     .optional(),
                   prefetch: z.array(z.enum(["balances"])).optional(),
-                  return_url: z.coerce.string().optional(),
+                  return_url: z.string().optional(),
                 })
                 .optional(),
               networks: z
@@ -29160,7 +28937,7 @@ export function bootstrap(
           ]),
           wechat_pay: z.union([
             z.object({
-              app_id: z.coerce.string().optional(),
+              app_id: z.string().optional(),
               client: z.enum(["android", "ios", "web"]),
               setup_future_usage: z.enum(["none"]).optional(),
             }),
@@ -29172,27 +28949,25 @@ export function bootstrap(
           ]),
         })
         .optional(),
-      payment_method_types: z.array(z.coerce.string()).optional(),
-      radar_options: z
-        .object({ session: z.coerce.string().optional() })
-        .optional(),
-      receipt_email: z.union([z.coerce.string(), z.enum([""])]),
-      return_url: z.coerce.string().optional(),
+      payment_method_types: z.array(z.string()).optional(),
+      radar_options: z.object({ session: z.string().optional() }).optional(),
+      receipt_email: z.union([z.string(), z.enum([""])]),
+      return_url: z.string().optional(),
       setup_future_usage: z.enum(["", "off_session", "on_session"]).optional(),
       shipping: z.union([
         z.object({
           address: z.object({
-            city: z.coerce.string().optional(),
-            country: z.coerce.string().optional(),
-            line1: z.coerce.string().optional(),
-            line2: z.coerce.string().optional(),
-            postal_code: z.coerce.string().optional(),
-            state: z.coerce.string().optional(),
+            city: z.string().optional(),
+            country: z.string().optional(),
+            line1: z.string().optional(),
+            line2: z.string().optional(),
+            postal_code: z.string().optional(),
+            state: z.string().optional(),
           }),
-          carrier: z.coerce.string().optional(),
-          name: z.coerce.string(),
-          phone: z.coerce.string().optional(),
-          tracking_number: z.coerce.string().optional(),
+          carrier: z.string().optional(),
+          name: z.string(),
+          phone: z.string().optional(),
+          tracking_number: z.string().optional(),
         }),
         z.enum([""]),
       ]),
@@ -29229,16 +29004,16 @@ export function bootstrap(
   )
 
   const postPaymentIntentsIntentIncrementAuthorizationParamSchema = z.object({
-    intent: z.coerce.string(),
+    intent: z.string(),
   })
 
   const postPaymentIntentsIntentIncrementAuthorizationBodySchema = z.object({
     amount: z.coerce.number(),
     application_fee_amount: z.coerce.number().optional(),
-    description: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    description: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     metadata: z.object({}).optional(),
-    statement_descriptor: z.coerce.string().optional(),
+    statement_descriptor: z.string().optional(),
     transfer_data: z
       .object({ amount: z.coerce.number().optional() })
       .optional(),
@@ -29280,15 +29055,15 @@ export function bootstrap(
   )
 
   const postPaymentIntentsIntentVerifyMicrodepositsParamSchema = z.object({
-    intent: z.coerce.string(),
+    intent: z.string(),
   })
 
   const postPaymentIntentsIntentVerifyMicrodepositsBodySchema = z
     .object({
       amounts: z.array(z.coerce.number()).optional(),
-      client_secret: z.coerce.string().optional(),
-      descriptor_code: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      client_secret: z.string().optional(),
+      descriptor_code: z.string().optional(),
+      expand: z.array(z.string()).optional(),
     })
     .optional()
 
@@ -29328,10 +29103,10 @@ export function bootstrap(
 
   const getPaymentLinksQuerySchema = z.object({
     active: z.coerce.boolean().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getPaymentLinksBodySchema = z.object({}).optional()
@@ -29344,7 +29119,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_payment_link)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -29369,9 +29144,9 @@ export function bootstrap(
     after_completion: z
       .object({
         hosted_confirmation: z
-          .object({ custom_message: z.coerce.string().optional() })
+          .object({ custom_message: z.string().optional() })
           .optional(),
-        redirect: z.object({ url: z.coerce.string() }).optional(),
+        redirect: z.object({ url: z.string() }).optional(),
         type: z.enum(["hosted_confirmation", "redirect"]),
       })
       .optional(),
@@ -29386,25 +29161,19 @@ export function bootstrap(
         terms_of_service: z.enum(["none", "required"]).optional(),
       })
       .optional(),
-    currency: z.coerce.string().optional(),
+    currency: z.string().optional(),
     custom_fields: z
       .array(
         z.object({
           dropdown: z
             .object({
               options: z.array(
-                z.object({
-                  label: z.coerce.string(),
-                  value: z.coerce.string(),
-                }),
+                z.object({ label: z.string(), value: z.string() }),
               ),
             })
             .optional(),
-          key: z.coerce.string(),
-          label: z.object({
-            custom: z.coerce.string(),
-            type: z.enum(["custom"]),
-          }),
+          key: z.string(),
+          label: z.object({ custom: z.string(), type: z.enum(["custom"]) }),
           numeric: z
             .object({
               maximum_length: z.coerce.number().optional(),
@@ -29425,38 +29194,30 @@ export function bootstrap(
     custom_text: z
       .object({
         shipping_address: z.union([
-          z.object({ message: z.coerce.string() }),
+          z.object({ message: z.string() }),
           z.enum([""]),
         ]),
-        submit: z.union([
-          z.object({ message: z.coerce.string() }),
-          z.enum([""]),
-        ]),
+        submit: z.union([z.object({ message: z.string() }), z.enum([""])]),
         terms_of_service_acceptance: z.union([
-          z.object({ message: z.coerce.string() }),
+          z.object({ message: z.string() }),
           z.enum([""]),
         ]),
       })
       .optional(),
     customer_creation: z.enum(["always", "if_required"]).optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     invoice_creation: z
       .object({
         enabled: z.coerce.boolean(),
         invoice_data: z
           .object({
-            account_tax_ids: z.union([
-              z.array(z.coerce.string()),
-              z.enum([""]),
-            ]),
+            account_tax_ids: z.union([z.array(z.string()), z.enum([""])]),
             custom_fields: z.union([
-              z.array(
-                z.object({ name: z.coerce.string(), value: z.coerce.string() }),
-              ),
+              z.array(z.object({ name: z.string(), value: z.string() })),
               z.enum([""]),
             ]),
-            description: z.coerce.string().optional(),
-            footer: z.coerce.string().optional(),
+            description: z.string().optional(),
+            footer: z.string().optional(),
             metadata: z.union([z.object({}), z.enum([""])]),
             rendering_options: z.union([
               z.object({
@@ -29479,12 +29240,12 @@ export function bootstrap(
             minimum: z.coerce.number().optional(),
           })
           .optional(),
-        price: z.coerce.string(),
+        price: z.string(),
         quantity: z.coerce.number(),
       }),
     ),
     metadata: z.object({}).optional(),
-    on_behalf_of: z.coerce.string().optional(),
+    on_behalf_of: z.string().optional(),
     payment_intent_data: z
       .object({
         capture_method: z
@@ -29777,21 +29538,18 @@ export function bootstrap(
       })
       .optional(),
     shipping_options: z
-      .array(z.object({ shipping_rate: z.coerce.string().optional() }))
+      .array(z.object({ shipping_rate: z.string().optional() }))
       .optional(),
     submit_type: z.enum(["auto", "book", "donate", "pay"]).optional(),
     subscription_data: z
       .object({
-        description: z.coerce.string().optional(),
+        description: z.string().optional(),
         trial_period_days: z.coerce.number().optional(),
       })
       .optional(),
     tax_id_collection: z.object({ enabled: z.coerce.boolean() }).optional(),
     transfer_data: z
-      .object({
-        amount: z.coerce.number().optional(),
-        destination: z.coerce.string(),
-      })
+      .object({ amount: z.coerce.number().optional(), destination: z.string() })
       .optional(),
   })
 
@@ -29815,11 +29573,11 @@ export function bootstrap(
   })
 
   const getPaymentLinksPaymentLinkParamSchema = z.object({
-    payment_link: z.coerce.string(),
+    payment_link: z.string(),
   })
 
   const getPaymentLinksPaymentLinkQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getPaymentLinksPaymentLinkBodySchema = z.object({}).optional()
@@ -29860,7 +29618,7 @@ export function bootstrap(
   )
 
   const postPaymentLinksPaymentLinkParamSchema = z.object({
-    payment_link: z.coerce.string(),
+    payment_link: z.string(),
   })
 
   const postPaymentLinksPaymentLinkBodySchema = z
@@ -29869,9 +29627,9 @@ export function bootstrap(
       after_completion: z
         .object({
           hosted_confirmation: z
-            .object({ custom_message: z.coerce.string().optional() })
+            .object({ custom_message: z.string().optional() })
             .optional(),
-          redirect: z.object({ url: z.coerce.string() }).optional(),
+          redirect: z.object({ url: z.string() }).optional(),
           type: z.enum(["hosted_confirmation", "redirect"]),
         })
         .optional(),
@@ -29884,18 +29642,12 @@ export function bootstrap(
             dropdown: z
               .object({
                 options: z.array(
-                  z.object({
-                    label: z.coerce.string(),
-                    value: z.coerce.string(),
-                  }),
+                  z.object({ label: z.string(), value: z.string() }),
                 ),
               })
               .optional(),
-            key: z.coerce.string(),
-            label: z.object({
-              custom: z.coerce.string(),
-              type: z.enum(["custom"]),
-            }),
+            key: z.string(),
+            label: z.object({ custom: z.string(), type: z.enum(["custom"]) }),
             numeric: z
               .object({
                 maximum_length: z.coerce.number().optional(),
@@ -29917,41 +29669,30 @@ export function bootstrap(
       custom_text: z
         .object({
           shipping_address: z.union([
-            z.object({ message: z.coerce.string() }),
+            z.object({ message: z.string() }),
             z.enum([""]),
           ]),
-          submit: z.union([
-            z.object({ message: z.coerce.string() }),
-            z.enum([""]),
-          ]),
+          submit: z.union([z.object({ message: z.string() }), z.enum([""])]),
           terms_of_service_acceptance: z.union([
-            z.object({ message: z.coerce.string() }),
+            z.object({ message: z.string() }),
             z.enum([""]),
           ]),
         })
         .optional(),
       customer_creation: z.enum(["always", "if_required"]).optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       invoice_creation: z
         .object({
           enabled: z.coerce.boolean(),
           invoice_data: z
             .object({
-              account_tax_ids: z.union([
-                z.array(z.coerce.string()),
-                z.enum([""]),
-              ]),
+              account_tax_ids: z.union([z.array(z.string()), z.enum([""])]),
               custom_fields: z.union([
-                z.array(
-                  z.object({
-                    name: z.coerce.string(),
-                    value: z.coerce.string(),
-                  }),
-                ),
+                z.array(z.object({ name: z.string(), value: z.string() })),
                 z.enum([""]),
               ]),
-              description: z.coerce.string().optional(),
-              footer: z.coerce.string().optional(),
+              description: z.string().optional(),
+              footer: z.string().optional(),
               metadata: z.union([z.object({}), z.enum([""])]),
               rendering_options: z.union([
                 z.object({
@@ -29975,7 +29716,7 @@ export function bootstrap(
                 minimum: z.coerce.number().optional(),
               })
               .optional(),
-            id: z.coerce.string(),
+            id: z.string(),
             quantity: z.coerce.number().optional(),
           }),
         )
@@ -30297,14 +30038,14 @@ export function bootstrap(
   )
 
   const getPaymentLinksPaymentLinkLineItemsParamSchema = z.object({
-    payment_link: z.coerce.string(),
+    payment_link: z.string(),
   })
 
   const getPaymentLinksPaymentLinkLineItemsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getPaymentLinksPaymentLinkLineItemsBodySchema = z.object({}).optional()
@@ -30318,7 +30059,7 @@ export function bootstrap(
             data: z.array(z.lazy(() => s_item)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -30357,8 +30098,8 @@ export function bootstrap(
   )
 
   const getPaymentMethodConfigurationsQuerySchema = z.object({
-    application: z.union([z.coerce.string(), z.enum([""])]),
-    expand: z.array(z.coerce.string()).optional(),
+    application: z.union([z.string(), z.enum([""])]),
+    expand: z.array(z.string()).optional(),
   })
 
   const getPaymentMethodConfigurationsBodySchema = z.object({}).optional()
@@ -30372,7 +30113,7 @@ export function bootstrap(
             data: z.array(s_payment_method_configuration),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -30511,7 +30252,7 @@ export function bootstrap(
             .optional(),
         })
         .optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       fpx: z
         .object({
           display_preference: z
@@ -30575,7 +30316,7 @@ export function bootstrap(
             .optional(),
         })
         .optional(),
-      name: z.coerce.string().optional(),
+      name: z.string().optional(),
       oxxo: z
         .object({
           display_preference: z
@@ -30590,7 +30331,7 @@ export function bootstrap(
             .optional(),
         })
         .optional(),
-      parent: z.coerce.string().optional(),
+      parent: z.string().optional(),
       paynow: z
         .object({
           display_preference: z
@@ -30672,11 +30413,11 @@ export function bootstrap(
   )
 
   const getPaymentMethodConfigurationsConfigurationParamSchema = z.object({
-    configuration: z.coerce.string(),
+    configuration: z.string(),
   })
 
   const getPaymentMethodConfigurationsConfigurationQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getPaymentMethodConfigurationsConfigurationBodySchema = z
@@ -30724,7 +30465,7 @@ export function bootstrap(
   )
 
   const postPaymentMethodConfigurationsConfigurationParamSchema = z.object({
-    configuration: z.coerce.string(),
+    configuration: z.string(),
   })
 
   const postPaymentMethodConfigurationsConfigurationBodySchema = z
@@ -30835,7 +30576,7 @@ export function bootstrap(
             .optional(),
         })
         .optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       fpx: z
         .object({
           display_preference: z
@@ -30899,7 +30640,7 @@ export function bootstrap(
             .optional(),
         })
         .optional(),
-      name: z.coerce.string().optional(),
+      name: z.string().optional(),
       oxxo: z
         .object({
           display_preference: z
@@ -31004,12 +30745,12 @@ export function bootstrap(
   )
 
   const getPaymentMethodDomainsQuerySchema = z.object({
-    domain_name: z.coerce.string().optional(),
+    domain_name: z.string().optional(),
     enabled: z.coerce.boolean().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getPaymentMethodDomainsBodySchema = z.object({}).optional()
@@ -31022,7 +30763,7 @@ export function bootstrap(
           data: z.array(s_payment_method_domain),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -31054,9 +30795,9 @@ export function bootstrap(
   )
 
   const postPaymentMethodDomainsBodySchema = z.object({
-    domain_name: z.coerce.string(),
+    domain_name: z.string(),
     enabled: z.coerce.boolean().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const postPaymentMethodDomainsResponseValidator = responseValidationFactory(
@@ -31089,11 +30830,11 @@ export function bootstrap(
   )
 
   const getPaymentMethodDomainsPaymentMethodDomainParamSchema = z.object({
-    payment_method_domain: z.coerce.string(),
+    payment_method_domain: z.string(),
   })
 
   const getPaymentMethodDomainsPaymentMethodDomainQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getPaymentMethodDomainsPaymentMethodDomainBodySchema = z
@@ -31138,13 +30879,13 @@ export function bootstrap(
   )
 
   const postPaymentMethodDomainsPaymentMethodDomainParamSchema = z.object({
-    payment_method_domain: z.coerce.string(),
+    payment_method_domain: z.string(),
   })
 
   const postPaymentMethodDomainsPaymentMethodDomainBodySchema = z
     .object({
       enabled: z.coerce.boolean().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
     })
     .optional()
 
@@ -31183,10 +30924,10 @@ export function bootstrap(
   )
 
   const postPaymentMethodDomainsPaymentMethodDomainValidateParamSchema =
-    z.object({ payment_method_domain: z.coerce.string() })
+    z.object({ payment_method_domain: z.string() })
 
   const postPaymentMethodDomainsPaymentMethodDomainValidateBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postPaymentMethodDomainsPaymentMethodDomainValidateResponseValidator =
@@ -31225,11 +30966,11 @@ export function bootstrap(
   )
 
   const getPaymentMethodsQuerySchema = z.object({
-    customer: z.coerce.string().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    customer: z.string().optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
     type: z
       .enum([
         "acss_debit",
@@ -31277,7 +31018,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_payment_method)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -31302,24 +31043,21 @@ export function bootstrap(
     .object({
       acss_debit: z
         .object({
-          account_number: z.coerce.string(),
-          institution_number: z.coerce.string(),
-          transit_number: z.coerce.string(),
+          account_number: z.string(),
+          institution_number: z.string(),
+          transit_number: z.string(),
         })
         .optional(),
       affirm: z.object({}).optional(),
       afterpay_clearpay: z.object({}).optional(),
       alipay: z.object({}).optional(),
       au_becs_debit: z
-        .object({
-          account_number: z.coerce.string(),
-          bsb_number: z.coerce.string(),
-        })
+        .object({ account_number: z.string(), bsb_number: z.string() })
         .optional(),
       bacs_debit: z
         .object({
-          account_number: z.coerce.string().optional(),
-          sort_code: z.coerce.string().optional(),
+          account_number: z.string().optional(),
+          sort_code: z.string().optional(),
         })
         .optional(),
       bancontact: z.object({}).optional(),
@@ -31327,33 +31065,33 @@ export function bootstrap(
         .object({
           address: z.union([
             z.object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
             }),
             z.enum([""]),
           ]),
-          email: z.union([z.coerce.string(), z.enum([""])]),
-          name: z.union([z.coerce.string(), z.enum([""])]),
-          phone: z.union([z.coerce.string(), z.enum([""])]),
+          email: z.union([z.string(), z.enum([""])]),
+          name: z.union([z.string(), z.enum([""])]),
+          phone: z.union([z.string(), z.enum([""])]),
         })
         .optional(),
       blik: z.object({}).optional(),
-      boleto: z.object({ tax_id: z.coerce.string() }).optional(),
+      boleto: z.object({ tax_id: z.string() }).optional(),
       card: z.union([
         z.object({
-          cvc: z.coerce.string().optional(),
+          cvc: z.string().optional(),
           exp_month: z.coerce.number(),
           exp_year: z.coerce.number(),
-          number: z.coerce.string(),
+          number: z.string(),
         }),
-        z.object({ token: z.coerce.string() }),
+        z.object({ token: z.string() }),
       ]),
       cashapp: z.object({}).optional(),
-      customer: z.coerce.string().optional(),
+      customer: z.string().optional(),
       customer_balance: z.object({}).optional(),
       eps: z
         .object({
@@ -31391,7 +31129,7 @@ export function bootstrap(
             .optional(),
         })
         .optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       fpx: z
         .object({
           bank: z.enum([
@@ -31494,15 +31232,13 @@ export function bootstrap(
             .optional(),
         })
         .optional(),
-      payment_method: z.coerce.string().optional(),
+      payment_method: z.string().optional(),
       paynow: z.object({}).optional(),
       paypal: z.object({}).optional(),
       pix: z.object({}).optional(),
       promptpay: z.object({}).optional(),
-      radar_options: z
-        .object({ session: z.coerce.string().optional() })
-        .optional(),
-      sepa_debit: z.object({ iban: z.coerce.string() }).optional(),
+      radar_options: z.object({ session: z.string().optional() }).optional(),
+      sepa_debit: z.object({ iban: z.string() }).optional(),
       sofort: z
         .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
         .optional(),
@@ -31544,10 +31280,10 @@ export function bootstrap(
       us_bank_account: z
         .object({
           account_holder_type: z.enum(["company", "individual"]).optional(),
-          account_number: z.coerce.string().optional(),
+          account_number: z.string().optional(),
           account_type: z.enum(["checking", "savings"]).optional(),
-          financial_connections_account: z.coerce.string().optional(),
-          routing_number: z.coerce.string().optional(),
+          financial_connections_account: z.string().optional(),
+          routing_number: z.string().optional(),
         })
         .optional(),
       wechat_pay: z.object({}).optional(),
@@ -31582,11 +31318,11 @@ export function bootstrap(
   )
 
   const getPaymentMethodsPaymentMethodParamSchema = z.object({
-    payment_method: z.coerce.string(),
+    payment_method: z.string(),
   })
 
   const getPaymentMethodsPaymentMethodQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getPaymentMethodsPaymentMethodBodySchema = z.object({}).optional()
@@ -31623,7 +31359,7 @@ export function bootstrap(
   )
 
   const postPaymentMethodsPaymentMethodParamSchema = z.object({
-    payment_method: z.coerce.string(),
+    payment_method: z.string(),
   })
 
   const postPaymentMethodsPaymentMethodBodySchema = z
@@ -31632,18 +31368,18 @@ export function bootstrap(
         .object({
           address: z.union([
             z.object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
             }),
             z.enum([""]),
           ]),
-          email: z.union([z.coerce.string(), z.enum([""])]),
-          name: z.union([z.coerce.string(), z.enum([""])]),
-          phone: z.union([z.coerce.string(), z.enum([""])]),
+          email: z.union([z.string(), z.enum([""])]),
+          name: z.union([z.string(), z.enum([""])]),
+          phone: z.union([z.string(), z.enum([""])]),
         })
         .optional(),
       card: z
@@ -31652,7 +31388,7 @@ export function bootstrap(
           exp_year: z.coerce.number().optional(),
         })
         .optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       link: z.object({}).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
       us_bank_account: z
@@ -31692,12 +31428,12 @@ export function bootstrap(
   )
 
   const postPaymentMethodsPaymentMethodAttachParamSchema = z.object({
-    payment_method: z.coerce.string(),
+    payment_method: z.string(),
   })
 
   const postPaymentMethodsPaymentMethodAttachBodySchema = z.object({
-    customer: z.coerce.string(),
-    expand: z.array(z.coerce.string()).optional(),
+    customer: z.string(),
+    expand: z.array(z.string()).optional(),
   })
 
   const postPaymentMethodsPaymentMethodAttachResponseValidator =
@@ -31732,11 +31468,11 @@ export function bootstrap(
   )
 
   const postPaymentMethodsPaymentMethodDetachParamSchema = z.object({
-    payment_method: z.coerce.string(),
+    payment_method: z.string(),
   })
 
   const postPaymentMethodsPaymentMethodDetachBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postPaymentMethodsPaymentMethodDetachResponseValidator =
@@ -31789,12 +31525,12 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    destination: z.coerce.string().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    destination: z.string().optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
-    status: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
+    status: z.string().optional(),
   })
 
   const getPayoutsBodySchema = z.object({}).optional()
@@ -31807,7 +31543,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_payout)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -31830,14 +31566,14 @@ export function bootstrap(
 
   const postPayoutsBodySchema = z.object({
     amount: z.coerce.number(),
-    currency: z.coerce.string(),
-    description: z.coerce.string().optional(),
-    destination: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    currency: z.string(),
+    description: z.string().optional(),
+    destination: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     metadata: z.object({}).optional(),
     method: z.enum(["instant", "standard"]).optional(),
     source_type: z.enum(["bank_account", "card", "fpx"]).optional(),
-    statement_descriptor: z.coerce.string().optional(),
+    statement_descriptor: z.string().optional(),
   })
 
   const postPayoutsResponseValidator = responseValidationFactory(
@@ -31859,10 +31595,10 @@ export function bootstrap(
     return next()
   })
 
-  const getPayoutsPayoutParamSchema = z.object({ payout: z.coerce.string() })
+  const getPayoutsPayoutParamSchema = z.object({ payout: z.string() })
 
   const getPayoutsPayoutQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getPayoutsPayoutBodySchema = z.object({}).optional()
@@ -31886,11 +31622,11 @@ export function bootstrap(
     return next()
   })
 
-  const postPayoutsPayoutParamSchema = z.object({ payout: z.coerce.string() })
+  const postPayoutsPayoutParamSchema = z.object({ payout: z.string() })
 
   const postPayoutsPayoutBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
@@ -31914,12 +31650,10 @@ export function bootstrap(
     return next()
   })
 
-  const postPayoutsPayoutCancelParamSchema = z.object({
-    payout: z.coerce.string(),
-  })
+  const postPayoutsPayoutCancelParamSchema = z.object({ payout: z.string() })
 
   const postPayoutsPayoutCancelBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postPayoutsPayoutCancelResponseValidator = responseValidationFactory(
@@ -31954,13 +31688,11 @@ export function bootstrap(
     },
   )
 
-  const postPayoutsPayoutReverseParamSchema = z.object({
-    payout: z.coerce.string(),
-  })
+  const postPayoutsPayoutReverseParamSchema = z.object({ payout: z.string() })
 
   const postPayoutsPayoutReverseBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.object({}).optional(),
     })
     .optional()
@@ -32008,11 +31740,11 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    product: z.coerce.string().optional(),
-    starting_after: z.coerce.string().optional(),
+    product: z.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getPlansBodySchema = z.object({}).optional()
@@ -32025,7 +31757,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_plan)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -32052,34 +31784,34 @@ export function bootstrap(
       .enum(["last_during_period", "last_ever", "max", "sum"])
       .optional(),
     amount: z.coerce.number().optional(),
-    amount_decimal: z.coerce.string().optional(),
+    amount_decimal: z.string().optional(),
     billing_scheme: z.enum(["per_unit", "tiered"]).optional(),
-    currency: z.coerce.string(),
-    expand: z.array(z.coerce.string()).optional(),
-    id: z.coerce.string().optional(),
+    currency: z.string(),
+    expand: z.array(z.string()).optional(),
+    id: z.string().optional(),
     interval: z.enum(["day", "month", "week", "year"]),
     interval_count: z.coerce.number().optional(),
     metadata: z.union([z.object({}), z.enum([""])]),
-    nickname: z.coerce.string().optional(),
+    nickname: z.string().optional(),
     product: z.union([
       z.object({
         active: z.coerce.boolean().optional(),
-        id: z.coerce.string().optional(),
+        id: z.string().optional(),
         metadata: z.object({}).optional(),
-        name: z.coerce.string(),
-        statement_descriptor: z.coerce.string().optional(),
-        tax_code: z.coerce.string().optional(),
-        unit_label: z.coerce.string().optional(),
+        name: z.string(),
+        statement_descriptor: z.string().optional(),
+        tax_code: z.string().optional(),
+        unit_label: z.string().optional(),
       }),
-      z.coerce.string(),
+      z.string(),
     ]),
     tiers: z
       .array(
         z.object({
           flat_amount: z.coerce.number().optional(),
-          flat_amount_decimal: z.coerce.string().optional(),
+          flat_amount_decimal: z.string().optional(),
           unit_amount: z.coerce.number().optional(),
-          unit_amount_decimal: z.coerce.string().optional(),
+          unit_amount_decimal: z.string().optional(),
           up_to: z.union([z.enum(["inf"]), z.coerce.number()]),
         }),
       )
@@ -32111,7 +31843,7 @@ export function bootstrap(
     return next()
   })
 
-  const deletePlansPlanParamSchema = z.object({ plan: z.coerce.string() })
+  const deletePlansPlanParamSchema = z.object({ plan: z.string() })
 
   const deletePlansPlanBodySchema = z.object({}).optional()
 
@@ -32134,10 +31866,10 @@ export function bootstrap(
     return next()
   })
 
-  const getPlansPlanParamSchema = z.object({ plan: z.coerce.string() })
+  const getPlansPlanParamSchema = z.object({ plan: z.string() })
 
   const getPlansPlanQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getPlansPlanBodySchema = z.object({}).optional()
@@ -32161,15 +31893,15 @@ export function bootstrap(
     return next()
   })
 
-  const postPlansPlanParamSchema = z.object({ plan: z.coerce.string() })
+  const postPlansPlanParamSchema = z.object({ plan: z.string() })
 
   const postPlansPlanBodySchema = z
     .object({
       active: z.coerce.boolean().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      nickname: z.coerce.string().optional(),
-      product: z.coerce.string().optional(),
+      nickname: z.string().optional(),
+      product: z.string().optional(),
       trial_period_days: z.coerce.number().optional(),
     })
     .optional()
@@ -32204,19 +31936,19 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    currency: z.coerce.string().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    currency: z.string().optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    lookup_keys: z.array(z.coerce.string()).optional(),
-    product: z.coerce.string().optional(),
+    lookup_keys: z.array(z.string()).optional(),
+    product: z.string().optional(),
     recurring: z
       .object({
         interval: z.enum(["day", "month", "week", "year"]).optional(),
         usage_type: z.enum(["licensed", "metered"]).optional(),
       })
       .optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
     type: z.enum(["one_time", "recurring"]).optional(),
   })
 
@@ -32230,7 +31962,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_price)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -32254,7 +31986,7 @@ export function bootstrap(
   const postPricesBodySchema = z.object({
     active: z.coerce.boolean().optional(),
     billing_scheme: z.enum(["per_unit", "tiered"]).optional(),
-    currency: z.coerce.string(),
+    currency: z.string(),
     currency_options: z.object({}).optional(),
     custom_unit_amount: z
       .object({
@@ -32264,20 +31996,20 @@ export function bootstrap(
         preset: z.coerce.number().optional(),
       })
       .optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    lookup_key: z.coerce.string().optional(),
+    expand: z.array(z.string()).optional(),
+    lookup_key: z.string().optional(),
     metadata: z.object({}).optional(),
-    nickname: z.coerce.string().optional(),
-    product: z.coerce.string().optional(),
+    nickname: z.string().optional(),
+    product: z.string().optional(),
     product_data: z
       .object({
         active: z.coerce.boolean().optional(),
-        id: z.coerce.string().optional(),
+        id: z.string().optional(),
         metadata: z.object({}).optional(),
-        name: z.coerce.string(),
-        statement_descriptor: z.coerce.string().optional(),
-        tax_code: z.coerce.string().optional(),
-        unit_label: z.coerce.string().optional(),
+        name: z.string(),
+        statement_descriptor: z.string().optional(),
+        tax_code: z.string().optional(),
+        unit_label: z.string().optional(),
       })
       .optional(),
     recurring: z
@@ -32295,9 +32027,9 @@ export function bootstrap(
       .array(
         z.object({
           flat_amount: z.coerce.number().optional(),
-          flat_amount_decimal: z.coerce.string().optional(),
+          flat_amount_decimal: z.string().optional(),
           unit_amount: z.coerce.number().optional(),
-          unit_amount_decimal: z.coerce.string().optional(),
+          unit_amount_decimal: z.string().optional(),
           up_to: z.union([z.enum(["inf"]), z.coerce.number()]),
         }),
       )
@@ -32308,7 +32040,7 @@ export function bootstrap(
       .object({ divide_by: z.coerce.number(), round: z.enum(["down", "up"]) })
       .optional(),
     unit_amount: z.coerce.number().optional(),
-    unit_amount_decimal: z.coerce.string().optional(),
+    unit_amount_decimal: z.string().optional(),
   })
 
   const postPricesResponseValidator = responseValidationFactory(
@@ -32331,10 +32063,10 @@ export function bootstrap(
   })
 
   const getPricesSearchQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    page: z.coerce.string().optional(),
-    query: z.coerce.string(),
+    page: z.string().optional(),
+    query: z.string(),
   })
 
   const getPricesSearchBodySchema = z.object({}).optional()
@@ -32346,10 +32078,10 @@ export function bootstrap(
         z.object({
           data: z.array(z.lazy(() => s_price)),
           has_more: z.coerce.boolean(),
-          next_page: z.coerce.string().optional().nullable(),
+          next_page: z.string().optional().nullable(),
           object: z.enum(["search_result"]),
           total_count: z.coerce.number().optional(),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -32370,10 +32102,10 @@ export function bootstrap(
     return next()
   })
 
-  const getPricesPriceParamSchema = z.object({ price: z.coerce.string() })
+  const getPricesPriceParamSchema = z.object({ price: z.string() })
 
   const getPricesPriceQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getPricesPriceBodySchema = z.object({}).optional()
@@ -32397,16 +32129,16 @@ export function bootstrap(
     return next()
   })
 
-  const postPricesPriceParamSchema = z.object({ price: z.coerce.string() })
+  const postPricesPriceParamSchema = z.object({ price: z.string() })
 
   const postPricesPriceBodySchema = z
     .object({
       active: z.coerce.boolean().optional(),
       currency_options: z.union([z.object({}), z.enum([""])]),
-      expand: z.array(z.coerce.string()).optional(),
-      lookup_key: z.coerce.string().optional(),
+      expand: z.array(z.string()).optional(),
+      lookup_key: z.string().optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      nickname: z.coerce.string().optional(),
+      nickname: z.string().optional(),
       tax_behavior: z
         .enum(["exclusive", "inclusive", "unspecified"])
         .optional(),
@@ -32444,13 +32176,13 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    ids: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
+    ids: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
     shippable: z.coerce.boolean().optional(),
-    starting_after: z.coerce.string().optional(),
-    url: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
+    url: z.string().optional(),
   })
 
   const getProductsBodySchema = z.object({}).optional()
@@ -32463,7 +32195,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_product)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -32488,7 +32220,7 @@ export function bootstrap(
     active: z.coerce.boolean().optional(),
     default_price_data: z
       .object({
-        currency: z.coerce.string(),
+        currency: z.string(),
         currency_options: z.object({}).optional(),
         recurring: z
           .object({
@@ -32500,16 +32232,16 @@ export function bootstrap(
           .enum(["exclusive", "inclusive", "unspecified"])
           .optional(),
         unit_amount: z.coerce.number().optional(),
-        unit_amount_decimal: z.coerce.string().optional(),
+        unit_amount_decimal: z.string().optional(),
       })
       .optional(),
-    description: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    features: z.array(z.object({ name: z.coerce.string() })).optional(),
-    id: z.coerce.string().optional(),
-    images: z.array(z.coerce.string()).optional(),
+    description: z.string().optional(),
+    expand: z.array(z.string()).optional(),
+    features: z.array(z.object({ name: z.string() })).optional(),
+    id: z.string().optional(),
+    images: z.array(z.string()).optional(),
     metadata: z.object({}).optional(),
-    name: z.coerce.string(),
+    name: z.string(),
     package_dimensions: z
       .object({
         height: z.coerce.number(),
@@ -32519,10 +32251,10 @@ export function bootstrap(
       })
       .optional(),
     shippable: z.coerce.boolean().optional(),
-    statement_descriptor: z.coerce.string().optional(),
-    tax_code: z.coerce.string().optional(),
-    unit_label: z.coerce.string().optional(),
-    url: z.coerce.string().optional(),
+    statement_descriptor: z.string().optional(),
+    tax_code: z.string().optional(),
+    unit_label: z.string().optional(),
+    url: z.string().optional(),
   })
 
   const postProductsResponseValidator = responseValidationFactory(
@@ -32545,10 +32277,10 @@ export function bootstrap(
   })
 
   const getProductsSearchQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    page: z.coerce.string().optional(),
-    query: z.coerce.string(),
+    page: z.string().optional(),
+    query: z.string(),
   })
 
   const getProductsSearchBodySchema = z.object({}).optional()
@@ -32560,10 +32292,10 @@ export function bootstrap(
         z.object({
           data: z.array(z.lazy(() => s_product)),
           has_more: z.coerce.boolean(),
-          next_page: z.coerce.string().optional().nullable(),
+          next_page: z.string().optional().nullable(),
           object: z.enum(["search_result"]),
           total_count: z.coerce.number().optional(),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -32584,7 +32316,7 @@ export function bootstrap(
     return next()
   })
 
-  const deleteProductsIdParamSchema = z.object({ id: z.coerce.string() })
+  const deleteProductsIdParamSchema = z.object({ id: z.string() })
 
   const deleteProductsIdBodySchema = z.object({}).optional()
 
@@ -32607,10 +32339,10 @@ export function bootstrap(
     return next()
   })
 
-  const getProductsIdParamSchema = z.object({ id: z.coerce.string() })
+  const getProductsIdParamSchema = z.object({ id: z.string() })
 
   const getProductsIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getProductsIdBodySchema = z.object({}).optional()
@@ -32634,21 +32366,21 @@ export function bootstrap(
     return next()
   })
 
-  const postProductsIdParamSchema = z.object({ id: z.coerce.string() })
+  const postProductsIdParamSchema = z.object({ id: z.string() })
 
   const postProductsIdBodySchema = z
     .object({
       active: z.coerce.boolean().optional(),
-      default_price: z.coerce.string().optional(),
-      description: z.union([z.coerce.string(), z.enum([""])]),
-      expand: z.array(z.coerce.string()).optional(),
+      default_price: z.string().optional(),
+      description: z.union([z.string(), z.enum([""])]),
+      expand: z.array(z.string()).optional(),
       features: z.union([
-        z.array(z.object({ name: z.coerce.string() })),
+        z.array(z.object({ name: z.string() })),
         z.enum([""]),
       ]),
-      images: z.union([z.array(z.coerce.string()), z.enum([""])]),
+      images: z.union([z.array(z.string()), z.enum([""])]),
       metadata: z.union([z.object({}), z.enum([""])]),
-      name: z.coerce.string().optional(),
+      name: z.string().optional(),
       package_dimensions: z.union([
         z.object({
           height: z.coerce.number(),
@@ -32659,10 +32391,10 @@ export function bootstrap(
         z.enum([""]),
       ]),
       shippable: z.coerce.boolean().optional(),
-      statement_descriptor: z.coerce.string().optional(),
-      tax_code: z.union([z.coerce.string(), z.enum([""])]),
-      unit_label: z.union([z.coerce.string(), z.enum([""])]),
-      url: z.union([z.coerce.string(), z.enum([""])]),
+      statement_descriptor: z.string().optional(),
+      tax_code: z.union([z.string(), z.enum([""])]),
+      unit_label: z.union([z.string(), z.enum([""])]),
+      url: z.union([z.string(), z.enum([""])]),
     })
     .optional()
 
@@ -32687,8 +32419,8 @@ export function bootstrap(
 
   const getPromotionCodesQuerySchema = z.object({
     active: z.coerce.boolean().optional(),
-    code: z.coerce.string().optional(),
-    coupon: z.coerce.string().optional(),
+    code: z.string().optional(),
+    coupon: z.string().optional(),
     created: z.union([
       z.object({
         gt: z.coerce.number().optional(),
@@ -32698,11 +32430,11 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    customer: z.coerce.string().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    customer: z.string().optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getPromotionCodesBodySchema = z.object({}).optional()
@@ -32715,7 +32447,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_promotion_code)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -32738,10 +32470,10 @@ export function bootstrap(
 
   const postPromotionCodesBodySchema = z.object({
     active: z.coerce.boolean().optional(),
-    code: z.coerce.string().optional(),
-    coupon: z.coerce.string(),
-    customer: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    code: z.string().optional(),
+    coupon: z.string(),
+    customer: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     expires_at: z.coerce.number().optional(),
     max_redemptions: z.coerce.number().optional(),
     metadata: z.object({}).optional(),
@@ -32750,7 +32482,7 @@ export function bootstrap(
         currency_options: z.object({}).optional(),
         first_time_transaction: z.coerce.boolean().optional(),
         minimum_amount: z.coerce.number().optional(),
-        minimum_amount_currency: z.coerce.string().optional(),
+        minimum_amount_currency: z.string().optional(),
       })
       .optional(),
   })
@@ -32782,11 +32514,11 @@ export function bootstrap(
   )
 
   const getPromotionCodesPromotionCodeParamSchema = z.object({
-    promotion_code: z.coerce.string(),
+    promotion_code: z.string(),
   })
 
   const getPromotionCodesPromotionCodeQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getPromotionCodesPromotionCodeBodySchema = z.object({}).optional()
@@ -32823,13 +32555,13 @@ export function bootstrap(
   )
 
   const postPromotionCodesPromotionCodeParamSchema = z.object({
-    promotion_code: z.coerce.string(),
+    promotion_code: z.string(),
   })
 
   const postPromotionCodesPromotionCodeBodySchema = z
     .object({
       active: z.coerce.boolean().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
       restrictions: z
         .object({ currency_options: z.object({}).optional() })
@@ -32866,13 +32598,13 @@ export function bootstrap(
   )
 
   const getQuotesQuerySchema = z.object({
-    customer: z.coerce.string().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    customer: z.string().optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
     status: z.enum(["accepted", "canceled", "draft", "open"]).optional(),
-    test_clock: z.coerce.string().optional(),
+    test_clock: z.string().optional(),
   })
 
   const getQuotesBodySchema = z.object({}).optional()
@@ -32885,7 +32617,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_quote)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -32914,39 +32646,39 @@ export function bootstrap(
       collection_method: z
         .enum(["charge_automatically", "send_invoice"])
         .optional(),
-      customer: z.coerce.string().optional(),
-      default_tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
-      description: z.union([z.coerce.string(), z.enum([""])]),
+      customer: z.string().optional(),
+      default_tax_rates: z.union([z.array(z.string()), z.enum([""])]),
+      description: z.union([z.string(), z.enum([""])]),
       discounts: z.union([
         z.array(
           z.object({
-            coupon: z.coerce.string().optional(),
-            discount: z.coerce.string().optional(),
+            coupon: z.string().optional(),
+            discount: z.string().optional(),
           }),
         ),
         z.enum([""]),
       ]),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       expires_at: z.coerce.number().optional(),
-      footer: z.union([z.coerce.string(), z.enum([""])]),
+      footer: z.union([z.string(), z.enum([""])]),
       from_quote: z
         .object({
           is_revision: z.coerce.boolean().optional(),
-          quote: z.coerce.string(),
+          quote: z.string(),
         })
         .optional(),
-      header: z.union([z.coerce.string(), z.enum([""])]),
+      header: z.union([z.string(), z.enum([""])]),
       invoice_settings: z
         .object({ days_until_due: z.coerce.number().optional() })
         .optional(),
       line_items: z
         .array(
           z.object({
-            price: z.coerce.string().optional(),
+            price: z.string().optional(),
             price_data: z
               .object({
-                currency: z.coerce.string(),
-                product: z.coerce.string(),
+                currency: z.string(),
+                product: z.string(),
                 recurring: z
                   .object({
                     interval: z.enum(["day", "month", "week", "year"]),
@@ -32957,19 +32689,19 @@ export function bootstrap(
                   .enum(["exclusive", "inclusive", "unspecified"])
                   .optional(),
                 unit_amount: z.coerce.number().optional(),
-                unit_amount_decimal: z.coerce.string().optional(),
+                unit_amount_decimal: z.string().optional(),
               })
               .optional(),
             quantity: z.coerce.number().optional(),
-            tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+            tax_rates: z.union([z.array(z.string()), z.enum([""])]),
           }),
         )
         .optional(),
       metadata: z.object({}).optional(),
-      on_behalf_of: z.union([z.coerce.string(), z.enum([""])]),
+      on_behalf_of: z.union([z.string(), z.enum([""])]),
       subscription_data: z
         .object({
-          description: z.coerce.string().optional(),
+          description: z.string().optional(),
           effective_date: z.union([
             z.enum(["current_period_end"]),
             z.coerce.number(),
@@ -32978,12 +32710,12 @@ export function bootstrap(
           trial_period_days: z.union([z.coerce.number(), z.enum([""])]),
         })
         .optional(),
-      test_clock: z.coerce.string().optional(),
+      test_clock: z.string().optional(),
       transfer_data: z.union([
         z.object({
           amount: z.coerce.number().optional(),
           amount_percent: z.coerce.number().optional(),
-          destination: z.coerce.string(),
+          destination: z.string(),
         }),
         z.enum([""]),
       ]),
@@ -33009,10 +32741,10 @@ export function bootstrap(
     return next()
   })
 
-  const getQuotesQuoteParamSchema = z.object({ quote: z.coerce.string() })
+  const getQuotesQuoteParamSchema = z.object({ quote: z.string() })
 
   const getQuotesQuoteQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getQuotesQuoteBodySchema = z.object({}).optional()
@@ -33036,7 +32768,7 @@ export function bootstrap(
     return next()
   })
 
-  const postQuotesQuoteParamSchema = z.object({ quote: z.coerce.string() })
+  const postQuotesQuoteParamSchema = z.object({ quote: z.string() })
 
   const postQuotesQuoteBodySchema = z
     .object({
@@ -33046,34 +32778,34 @@ export function bootstrap(
       collection_method: z
         .enum(["charge_automatically", "send_invoice"])
         .optional(),
-      customer: z.coerce.string().optional(),
-      default_tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
-      description: z.union([z.coerce.string(), z.enum([""])]),
+      customer: z.string().optional(),
+      default_tax_rates: z.union([z.array(z.string()), z.enum([""])]),
+      description: z.union([z.string(), z.enum([""])]),
       discounts: z.union([
         z.array(
           z.object({
-            coupon: z.coerce.string().optional(),
-            discount: z.coerce.string().optional(),
+            coupon: z.string().optional(),
+            discount: z.string().optional(),
           }),
         ),
         z.enum([""]),
       ]),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       expires_at: z.coerce.number().optional(),
-      footer: z.union([z.coerce.string(), z.enum([""])]),
-      header: z.union([z.coerce.string(), z.enum([""])]),
+      footer: z.union([z.string(), z.enum([""])]),
+      header: z.union([z.string(), z.enum([""])]),
       invoice_settings: z
         .object({ days_until_due: z.coerce.number().optional() })
         .optional(),
       line_items: z
         .array(
           z.object({
-            id: z.coerce.string().optional(),
-            price: z.coerce.string().optional(),
+            id: z.string().optional(),
+            price: z.string().optional(),
             price_data: z
               .object({
-                currency: z.coerce.string(),
-                product: z.coerce.string(),
+                currency: z.string(),
+                product: z.string(),
                 recurring: z
                   .object({
                     interval: z.enum(["day", "month", "week", "year"]),
@@ -33084,19 +32816,19 @@ export function bootstrap(
                   .enum(["exclusive", "inclusive", "unspecified"])
                   .optional(),
                 unit_amount: z.coerce.number().optional(),
-                unit_amount_decimal: z.coerce.string().optional(),
+                unit_amount_decimal: z.string().optional(),
               })
               .optional(),
             quantity: z.coerce.number().optional(),
-            tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+            tax_rates: z.union([z.array(z.string()), z.enum([""])]),
           }),
         )
         .optional(),
       metadata: z.object({}).optional(),
-      on_behalf_of: z.union([z.coerce.string(), z.enum([""])]),
+      on_behalf_of: z.union([z.string(), z.enum([""])]),
       subscription_data: z
         .object({
-          description: z.union([z.coerce.string(), z.enum([""])]),
+          description: z.union([z.string(), z.enum([""])]),
           effective_date: z.union([
             z.enum(["current_period_end"]),
             z.coerce.number(),
@@ -33109,7 +32841,7 @@ export function bootstrap(
         z.object({
           amount: z.coerce.number().optional(),
           amount_percent: z.coerce.number().optional(),
-          destination: z.coerce.string(),
+          destination: z.string(),
         }),
         z.enum([""]),
       ]),
@@ -33135,12 +32867,10 @@ export function bootstrap(
     return next()
   })
 
-  const postQuotesQuoteAcceptParamSchema = z.object({
-    quote: z.coerce.string(),
-  })
+  const postQuotesQuoteAcceptParamSchema = z.object({ quote: z.string() })
 
   const postQuotesQuoteAcceptBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postQuotesQuoteAcceptResponseValidator = responseValidationFactory(
@@ -33172,12 +32902,10 @@ export function bootstrap(
     },
   )
 
-  const postQuotesQuoteCancelParamSchema = z.object({
-    quote: z.coerce.string(),
-  })
+  const postQuotesQuoteCancelParamSchema = z.object({ quote: z.string() })
 
   const postQuotesQuoteCancelBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postQuotesQuoteCancelResponseValidator = responseValidationFactory(
@@ -33210,14 +32938,14 @@ export function bootstrap(
   )
 
   const getQuotesQuoteComputedUpfrontLineItemsParamSchema = z.object({
-    quote: z.coerce.string(),
+    quote: z.string(),
   })
 
   const getQuotesQuoteComputedUpfrontLineItemsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getQuotesQuoteComputedUpfrontLineItemsBodySchema = z
@@ -33233,7 +32961,7 @@ export function bootstrap(
             data: z.array(z.lazy(() => s_item)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -33271,13 +32999,11 @@ export function bootstrap(
     },
   )
 
-  const postQuotesQuoteFinalizeParamSchema = z.object({
-    quote: z.coerce.string(),
-  })
+  const postQuotesQuoteFinalizeParamSchema = z.object({ quote: z.string() })
 
   const postQuotesQuoteFinalizeBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       expires_at: z.coerce.number().optional(),
     })
     .optional()
@@ -33314,15 +33040,13 @@ export function bootstrap(
     },
   )
 
-  const getQuotesQuoteLineItemsParamSchema = z.object({
-    quote: z.coerce.string(),
-  })
+  const getQuotesQuoteLineItemsParamSchema = z.object({ quote: z.string() })
 
   const getQuotesQuoteLineItemsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getQuotesQuoteLineItemsBodySchema = z.object({}).optional()
@@ -33335,7 +33059,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_item)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -33369,16 +33093,16 @@ export function bootstrap(
     },
   )
 
-  const getQuotesQuotePdfParamSchema = z.object({ quote: z.coerce.string() })
+  const getQuotesQuotePdfParamSchema = z.object({ quote: z.string() })
 
   const getQuotesQuotePdfQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getQuotesQuotePdfBodySchema = z.object({}).optional()
 
   const getQuotesQuotePdfResponseValidator = responseValidationFactory(
-    [["200", z.coerce.string()]],
+    [["200", z.string()]],
     s_error,
   )
 
@@ -33404,12 +33128,12 @@ export function bootstrap(
   )
 
   const getRadarEarlyFraudWarningsQuerySchema = z.object({
-    charge: z.coerce.string().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    charge: z.string().optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    payment_intent: z.coerce.string().optional(),
-    starting_after: z.coerce.string().optional(),
+    payment_intent: z.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getRadarEarlyFraudWarningsBodySchema = z.object({}).optional()
@@ -33422,7 +33146,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_radar_early_fraud_warning)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -33457,11 +33181,11 @@ export function bootstrap(
   )
 
   const getRadarEarlyFraudWarningsEarlyFraudWarningParamSchema = z.object({
-    early_fraud_warning: z.coerce.string(),
+    early_fraud_warning: z.string(),
   })
 
   const getRadarEarlyFraudWarningsEarlyFraudWarningQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getRadarEarlyFraudWarningsEarlyFraudWarningBodySchema = z
@@ -33515,12 +33239,12 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
-    value: z.coerce.string().optional(),
-    value_list: z.coerce.string(),
+    starting_after: z.string().optional(),
+    value: z.string().optional(),
+    value_list: z.string(),
   })
 
   const getRadarValueListItemsBodySchema = z.object({}).optional()
@@ -33533,7 +33257,7 @@ export function bootstrap(
           data: z.array(s_radar_value_list_item),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -33565,9 +33289,9 @@ export function bootstrap(
   )
 
   const postRadarValueListItemsBodySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
-    value: z.coerce.string(),
-    value_list: z.coerce.string(),
+    expand: z.array(z.string()).optional(),
+    value: z.string(),
+    value_list: z.string(),
   })
 
   const postRadarValueListItemsResponseValidator = responseValidationFactory(
@@ -33600,7 +33324,7 @@ export function bootstrap(
   )
 
   const deleteRadarValueListItemsItemParamSchema = z.object({
-    item: z.coerce.string(),
+    item: z.string(),
   })
 
   const deleteRadarValueListItemsItemBodySchema = z.object({}).optional()
@@ -33636,12 +33360,10 @@ export function bootstrap(
     },
   )
 
-  const getRadarValueListItemsItemParamSchema = z.object({
-    item: z.coerce.string(),
-  })
+  const getRadarValueListItemsItemParamSchema = z.object({ item: z.string() })
 
   const getRadarValueListItemsItemQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getRadarValueListItemsItemBodySchema = z.object({}).optional()
@@ -33682,8 +33404,8 @@ export function bootstrap(
   )
 
   const getRadarValueListsQuerySchema = z.object({
-    alias: z.coerce.string().optional(),
-    contains: z.coerce.string().optional(),
+    alias: z.string().optional(),
+    contains: z.string().optional(),
     created: z.union([
       z.object({
         gt: z.coerce.number().optional(),
@@ -33693,10 +33415,10 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getRadarValueListsBodySchema = z.object({}).optional()
@@ -33709,7 +33431,7 @@ export function bootstrap(
           data: z.array(s_radar_value_list),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -33738,8 +33460,8 @@ export function bootstrap(
   )
 
   const postRadarValueListsBodySchema = z.object({
-    alias: z.coerce.string(),
-    expand: z.array(z.coerce.string()).optional(),
+    alias: z.string(),
+    expand: z.array(z.string()).optional(),
     item_type: z
       .enum([
         "card_bin",
@@ -33755,7 +33477,7 @@ export function bootstrap(
       ])
       .optional(),
     metadata: z.object({}).optional(),
-    name: z.coerce.string(),
+    name: z.string(),
   })
 
   const postRadarValueListsResponseValidator = responseValidationFactory(
@@ -33788,7 +33510,7 @@ export function bootstrap(
   )
 
   const deleteRadarValueListsValueListParamSchema = z.object({
-    value_list: z.coerce.string(),
+    value_list: z.string(),
   })
 
   const deleteRadarValueListsValueListBodySchema = z.object({}).optional()
@@ -33822,11 +33544,11 @@ export function bootstrap(
   )
 
   const getRadarValueListsValueListParamSchema = z.object({
-    value_list: z.coerce.string(),
+    value_list: z.string(),
   })
 
   const getRadarValueListsValueListQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getRadarValueListsValueListBodySchema = z.object({}).optional()
@@ -33865,15 +33587,15 @@ export function bootstrap(
   )
 
   const postRadarValueListsValueListParamSchema = z.object({
-    value_list: z.coerce.string(),
+    value_list: z.string(),
   })
 
   const postRadarValueListsValueListBodySchema = z
     .object({
-      alias: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      alias: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.object({}).optional(),
-      name: z.coerce.string().optional(),
+      name: z.string().optional(),
     })
     .optional()
 
@@ -33906,7 +33628,7 @@ export function bootstrap(
   )
 
   const getRefundsQuerySchema = z.object({
-    charge: z.coerce.string().optional(),
+    charge: z.string().optional(),
     created: z.union([
       z.object({
         gt: z.coerce.number().optional(),
@@ -33916,11 +33638,11 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    payment_intent: z.coerce.string().optional(),
-    starting_after: z.coerce.string().optional(),
+    payment_intent: z.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getRefundsBodySchema = z.object({}).optional()
@@ -33933,7 +33655,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_refund)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -33957,14 +33679,14 @@ export function bootstrap(
   const postRefundsBodySchema = z
     .object({
       amount: z.coerce.number().optional(),
-      charge: z.coerce.string().optional(),
-      currency: z.coerce.string().optional(),
-      customer: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
-      instructions_email: z.coerce.string().optional(),
+      charge: z.string().optional(),
+      currency: z.string().optional(),
+      customer: z.string().optional(),
+      expand: z.array(z.string()).optional(),
+      instructions_email: z.string().optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
       origin: z.enum(["customer_balance"]).optional(),
-      payment_intent: z.coerce.string().optional(),
+      payment_intent: z.string().optional(),
       reason: z
         .enum(["duplicate", "fraudulent", "requested_by_customer"])
         .optional(),
@@ -33992,10 +33714,10 @@ export function bootstrap(
     return next()
   })
 
-  const getRefundsRefundParamSchema = z.object({ refund: z.coerce.string() })
+  const getRefundsRefundParamSchema = z.object({ refund: z.string() })
 
   const getRefundsRefundQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getRefundsRefundBodySchema = z.object({}).optional()
@@ -34019,11 +33741,11 @@ export function bootstrap(
     return next()
   })
 
-  const postRefundsRefundParamSchema = z.object({ refund: z.coerce.string() })
+  const postRefundsRefundParamSchema = z.object({ refund: z.string() })
 
   const postRefundsRefundBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
@@ -34047,12 +33769,10 @@ export function bootstrap(
     return next()
   })
 
-  const postRefundsRefundCancelParamSchema = z.object({
-    refund: z.coerce.string(),
-  })
+  const postRefundsRefundCancelParamSchema = z.object({ refund: z.string() })
 
   const postRefundsRefundCancelBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postRefundsRefundCancelResponseValidator = responseValidationFactory(
@@ -34097,10 +33817,10 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getReportingReportRunsBodySchema = z.object({}).optional()
@@ -34113,7 +33833,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_reporting_report_run)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -34145,15 +33865,15 @@ export function bootstrap(
   )
 
   const postReportingReportRunsBodySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     parameters: z
       .object({
-        columns: z.array(z.coerce.string()).optional(),
-        connected_account: z.coerce.string().optional(),
-        currency: z.coerce.string().optional(),
+        columns: z.array(z.string()).optional(),
+        connected_account: z.string().optional(),
+        currency: z.string().optional(),
         interval_end: z.coerce.number().optional(),
         interval_start: z.coerce.number().optional(),
-        payout: z.coerce.string().optional(),
+        payout: z.string().optional(),
         reporting_category: z
           .enum([
             "advance",
@@ -34797,7 +34517,7 @@ export function bootstrap(
           .optional(),
       })
       .optional(),
-    report_type: z.coerce.string(),
+    report_type: z.string(),
   })
 
   const postReportingReportRunsResponseValidator = responseValidationFactory(
@@ -34830,11 +34550,11 @@ export function bootstrap(
   )
 
   const getReportingReportRunsReportRunParamSchema = z.object({
-    report_run: z.coerce.string(),
+    report_run: z.string(),
   })
 
   const getReportingReportRunsReportRunQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getReportingReportRunsReportRunBodySchema = z.object({}).optional()
@@ -34871,7 +34591,7 @@ export function bootstrap(
   )
 
   const getReportingReportTypesQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getReportingReportTypesBodySchema = z.object({}).optional()
@@ -34884,7 +34604,7 @@ export function bootstrap(
           data: z.array(s_reporting_report_type),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -34916,11 +34636,11 @@ export function bootstrap(
   )
 
   const getReportingReportTypesReportTypeParamSchema = z.object({
-    report_type: z.coerce.string(),
+    report_type: z.string(),
   })
 
   const getReportingReportTypesReportTypeQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getReportingReportTypesReportTypeBodySchema = z.object({}).optional()
@@ -34969,10 +34689,10 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getReviewsBodySchema = z.object({}).optional()
@@ -34985,7 +34705,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_review)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -35006,10 +34726,10 @@ export function bootstrap(
     return next()
   })
 
-  const getReviewsReviewParamSchema = z.object({ review: z.coerce.string() })
+  const getReviewsReviewParamSchema = z.object({ review: z.string() })
 
   const getReviewsReviewQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getReviewsReviewBodySchema = z.object({}).optional()
@@ -35033,12 +34753,10 @@ export function bootstrap(
     return next()
   })
 
-  const postReviewsReviewApproveParamSchema = z.object({
-    review: z.coerce.string(),
-  })
+  const postReviewsReviewApproveParamSchema = z.object({ review: z.string() })
 
   const postReviewsReviewApproveBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postReviewsReviewApproveResponseValidator = responseValidationFactory(
@@ -35083,11 +34801,11 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    setup_intent: z.coerce.string(),
-    starting_after: z.coerce.string().optional(),
+    setup_intent: z.string(),
+    starting_after: z.string().optional(),
   })
 
   const getSetupAttemptsBodySchema = z.object({}).optional()
@@ -35100,7 +34818,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_setup_attempt)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -35132,12 +34850,12 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    customer: z.coerce.string().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    customer: z.string().optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    payment_method: z.coerce.string().optional(),
-    starting_after: z.coerce.string().optional(),
+    payment_method: z.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getSetupIntentsBodySchema = z.object({}).optional()
@@ -35150,7 +34868,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_setup_intent)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -35181,9 +34899,9 @@ export function bootstrap(
         })
         .optional(),
       confirm: z.coerce.boolean().optional(),
-      customer: z.coerce.string().optional(),
-      description: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      customer: z.string().optional(),
+      description: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       flow_directions: z.array(z.enum(["inbound", "outbound"])).optional(),
       mandate_data: z.union([
         z.object({
@@ -35191,10 +34909,7 @@ export function bootstrap(
             accepted_at: z.coerce.number().optional(),
             offline: z.object({}).optional(),
             online: z
-              .object({
-                ip_address: z.coerce.string(),
-                user_agent: z.coerce.string(),
-              })
+              .object({ ip_address: z.string(), user_agent: z.string() })
               .optional(),
             type: z.enum(["offline", "online"]),
           }),
@@ -35202,31 +34917,28 @@ export function bootstrap(
         z.enum([""]),
       ]),
       metadata: z.object({}).optional(),
-      on_behalf_of: z.coerce.string().optional(),
-      payment_method: z.coerce.string().optional(),
-      payment_method_configuration: z.coerce.string().optional(),
+      on_behalf_of: z.string().optional(),
+      payment_method: z.string().optional(),
+      payment_method_configuration: z.string().optional(),
       payment_method_data: z
         .object({
           acss_debit: z
             .object({
-              account_number: z.coerce.string(),
-              institution_number: z.coerce.string(),
-              transit_number: z.coerce.string(),
+              account_number: z.string(),
+              institution_number: z.string(),
+              transit_number: z.string(),
             })
             .optional(),
           affirm: z.object({}).optional(),
           afterpay_clearpay: z.object({}).optional(),
           alipay: z.object({}).optional(),
           au_becs_debit: z
-            .object({
-              account_number: z.coerce.string(),
-              bsb_number: z.coerce.string(),
-            })
+            .object({ account_number: z.string(), bsb_number: z.string() })
             .optional(),
           bacs_debit: z
             .object({
-              account_number: z.coerce.string().optional(),
-              sort_code: z.coerce.string().optional(),
+              account_number: z.string().optional(),
+              sort_code: z.string().optional(),
             })
             .optional(),
           bancontact: z.object({}).optional(),
@@ -35234,22 +34946,22 @@ export function bootstrap(
             .object({
               address: z.union([
                 z.object({
-                  city: z.coerce.string().optional(),
-                  country: z.coerce.string().optional(),
-                  line1: z.coerce.string().optional(),
-                  line2: z.coerce.string().optional(),
-                  postal_code: z.coerce.string().optional(),
-                  state: z.coerce.string().optional(),
+                  city: z.string().optional(),
+                  country: z.string().optional(),
+                  line1: z.string().optional(),
+                  line2: z.string().optional(),
+                  postal_code: z.string().optional(),
+                  state: z.string().optional(),
                 }),
                 z.enum([""]),
               ]),
-              email: z.union([z.coerce.string(), z.enum([""])]),
-              name: z.union([z.coerce.string(), z.enum([""])]),
-              phone: z.union([z.coerce.string(), z.enum([""])]),
+              email: z.union([z.string(), z.enum([""])]),
+              name: z.union([z.string(), z.enum([""])]),
+              phone: z.union([z.string(), z.enum([""])]),
             })
             .optional(),
           blik: z.object({}).optional(),
-          boleto: z.object({ tax_id: z.coerce.string() }).optional(),
+          boleto: z.object({ tax_id: z.string() }).optional(),
           cashapp: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
           eps: z
@@ -35395,9 +35107,9 @@ export function bootstrap(
           pix: z.object({}).optional(),
           promptpay: z.object({}).optional(),
           radar_options: z
-            .object({ session: z.coerce.string().optional() })
+            .object({ session: z.string().optional() })
             .optional(),
-          sepa_debit: z.object({ iban: z.coerce.string() }).optional(),
+          sepa_debit: z.object({ iban: z.string() }).optional(),
           sofort: z
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
             .optional(),
@@ -35436,10 +35148,10 @@ export function bootstrap(
           us_bank_account: z
             .object({
               account_holder_type: z.enum(["company", "individual"]).optional(),
-              account_number: z.coerce.string().optional(),
+              account_number: z.string().optional(),
               account_type: z.enum(["checking", "savings"]).optional(),
-              financial_connections_account: z.coerce.string().optional(),
-              routing_number: z.coerce.string().optional(),
+              financial_connections_account: z.string().optional(),
+              routing_number: z.string().optional(),
             })
             .optional(),
           wechat_pay: z.object({}).optional(),
@@ -35453,14 +35165,11 @@ export function bootstrap(
               currency: z.enum(["cad", "usd"]).optional(),
               mandate_options: z
                 .object({
-                  custom_mandate_url: z.union([
-                    z.coerce.string(),
-                    z.enum([""]),
-                  ]),
+                  custom_mandate_url: z.union([z.string(), z.enum([""])]),
                   default_for: z
                     .array(z.enum(["invoice", "subscription"]))
                     .optional(),
-                  interval_description: z.coerce.string().optional(),
+                  interval_description: z.string().optional(),
                   payment_schedule: z
                     .enum(["combined", "interval", "sporadic"])
                     .optional(),
@@ -35478,8 +35187,8 @@ export function bootstrap(
                 .object({
                   amount: z.coerce.number(),
                   amount_type: z.enum(["fixed", "maximum"]),
-                  currency: z.coerce.string(),
-                  description: z.coerce.string().optional(),
+                  currency: z.string(),
+                  description: z.string().optional(),
                   end_date: z.coerce.number().optional(),
                   interval: z.enum([
                     "day",
@@ -35489,7 +35198,7 @@ export function bootstrap(
                     "year",
                   ]),
                   interval_count: z.coerce.number().optional(),
-                  reference: z.coerce.string(),
+                  reference: z.string(),
                   start_date: z.coerce.number(),
                   supported_types: z.array(z.enum(["india"])).optional(),
                 })
@@ -35514,7 +35223,7 @@ export function bootstrap(
             .optional(),
           link: z.object({}).optional(),
           paypal: z
-            .object({ billing_agreement_id: z.coerce.string().optional() })
+            .object({ billing_agreement_id: z.string().optional() })
             .optional(),
           sepa_debit: z
             .object({ mandate_options: z.object({}).optional() })
@@ -35534,7 +35243,7 @@ export function bootstrap(
                     )
                     .optional(),
                   prefetch: z.array(z.enum(["balances"])).optional(),
-                  return_url: z.coerce.string().optional(),
+                  return_url: z.string().optional(),
                 })
                 .optional(),
               networks: z
@@ -35551,10 +35260,10 @@ export function bootstrap(
             .optional(),
         })
         .optional(),
-      payment_method_types: z.array(z.coerce.string()).optional(),
-      return_url: z.coerce.string().optional(),
+      payment_method_types: z.array(z.string()).optional(),
+      return_url: z.string().optional(),
       single_use: z
-        .object({ amount: z.coerce.number(), currency: z.coerce.string() })
+        .object({ amount: z.coerce.number(), currency: z.string() })
         .optional(),
       usage: z.enum(["off_session", "on_session"]).optional(),
       use_stripe_sdk: z.coerce.boolean().optional(),
@@ -35580,13 +35289,11 @@ export function bootstrap(
     return next()
   })
 
-  const getSetupIntentsIntentParamSchema = z.object({
-    intent: z.coerce.string(),
-  })
+  const getSetupIntentsIntentParamSchema = z.object({ intent: z.string() })
 
   const getSetupIntentsIntentQuerySchema = z.object({
-    client_secret: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    client_secret: z.string().optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getSetupIntentsIntentBodySchema = z.object({}).optional()
@@ -35620,42 +35327,37 @@ export function bootstrap(
     },
   )
 
-  const postSetupIntentsIntentParamSchema = z.object({
-    intent: z.coerce.string(),
-  })
+  const postSetupIntentsIntentParamSchema = z.object({ intent: z.string() })
 
   const postSetupIntentsIntentBodySchema = z
     .object({
       attach_to_self: z.coerce.boolean().optional(),
-      customer: z.coerce.string().optional(),
-      description: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      customer: z.string().optional(),
+      description: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       flow_directions: z.array(z.enum(["inbound", "outbound"])).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      payment_method: z.coerce.string().optional(),
-      payment_method_configuration: z.coerce.string().optional(),
+      payment_method: z.string().optional(),
+      payment_method_configuration: z.string().optional(),
       payment_method_data: z
         .object({
           acss_debit: z
             .object({
-              account_number: z.coerce.string(),
-              institution_number: z.coerce.string(),
-              transit_number: z.coerce.string(),
+              account_number: z.string(),
+              institution_number: z.string(),
+              transit_number: z.string(),
             })
             .optional(),
           affirm: z.object({}).optional(),
           afterpay_clearpay: z.object({}).optional(),
           alipay: z.object({}).optional(),
           au_becs_debit: z
-            .object({
-              account_number: z.coerce.string(),
-              bsb_number: z.coerce.string(),
-            })
+            .object({ account_number: z.string(), bsb_number: z.string() })
             .optional(),
           bacs_debit: z
             .object({
-              account_number: z.coerce.string().optional(),
-              sort_code: z.coerce.string().optional(),
+              account_number: z.string().optional(),
+              sort_code: z.string().optional(),
             })
             .optional(),
           bancontact: z.object({}).optional(),
@@ -35663,22 +35365,22 @@ export function bootstrap(
             .object({
               address: z.union([
                 z.object({
-                  city: z.coerce.string().optional(),
-                  country: z.coerce.string().optional(),
-                  line1: z.coerce.string().optional(),
-                  line2: z.coerce.string().optional(),
-                  postal_code: z.coerce.string().optional(),
-                  state: z.coerce.string().optional(),
+                  city: z.string().optional(),
+                  country: z.string().optional(),
+                  line1: z.string().optional(),
+                  line2: z.string().optional(),
+                  postal_code: z.string().optional(),
+                  state: z.string().optional(),
                 }),
                 z.enum([""]),
               ]),
-              email: z.union([z.coerce.string(), z.enum([""])]),
-              name: z.union([z.coerce.string(), z.enum([""])]),
-              phone: z.union([z.coerce.string(), z.enum([""])]),
+              email: z.union([z.string(), z.enum([""])]),
+              name: z.union([z.string(), z.enum([""])]),
+              phone: z.union([z.string(), z.enum([""])]),
             })
             .optional(),
           blik: z.object({}).optional(),
-          boleto: z.object({ tax_id: z.coerce.string() }).optional(),
+          boleto: z.object({ tax_id: z.string() }).optional(),
           cashapp: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
           eps: z
@@ -35824,9 +35526,9 @@ export function bootstrap(
           pix: z.object({}).optional(),
           promptpay: z.object({}).optional(),
           radar_options: z
-            .object({ session: z.coerce.string().optional() })
+            .object({ session: z.string().optional() })
             .optional(),
-          sepa_debit: z.object({ iban: z.coerce.string() }).optional(),
+          sepa_debit: z.object({ iban: z.string() }).optional(),
           sofort: z
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
             .optional(),
@@ -35865,10 +35567,10 @@ export function bootstrap(
           us_bank_account: z
             .object({
               account_holder_type: z.enum(["company", "individual"]).optional(),
-              account_number: z.coerce.string().optional(),
+              account_number: z.string().optional(),
               account_type: z.enum(["checking", "savings"]).optional(),
-              financial_connections_account: z.coerce.string().optional(),
-              routing_number: z.coerce.string().optional(),
+              financial_connections_account: z.string().optional(),
+              routing_number: z.string().optional(),
             })
             .optional(),
           wechat_pay: z.object({}).optional(),
@@ -35882,14 +35584,11 @@ export function bootstrap(
               currency: z.enum(["cad", "usd"]).optional(),
               mandate_options: z
                 .object({
-                  custom_mandate_url: z.union([
-                    z.coerce.string(),
-                    z.enum([""]),
-                  ]),
+                  custom_mandate_url: z.union([z.string(), z.enum([""])]),
                   default_for: z
                     .array(z.enum(["invoice", "subscription"]))
                     .optional(),
-                  interval_description: z.coerce.string().optional(),
+                  interval_description: z.string().optional(),
                   payment_schedule: z
                     .enum(["combined", "interval", "sporadic"])
                     .optional(),
@@ -35907,8 +35606,8 @@ export function bootstrap(
                 .object({
                   amount: z.coerce.number(),
                   amount_type: z.enum(["fixed", "maximum"]),
-                  currency: z.coerce.string(),
-                  description: z.coerce.string().optional(),
+                  currency: z.string(),
+                  description: z.string().optional(),
                   end_date: z.coerce.number().optional(),
                   interval: z.enum([
                     "day",
@@ -35918,7 +35617,7 @@ export function bootstrap(
                     "year",
                   ]),
                   interval_count: z.coerce.number().optional(),
-                  reference: z.coerce.string(),
+                  reference: z.string(),
                   start_date: z.coerce.number(),
                   supported_types: z.array(z.enum(["india"])).optional(),
                 })
@@ -35943,7 +35642,7 @@ export function bootstrap(
             .optional(),
           link: z.object({}).optional(),
           paypal: z
-            .object({ billing_agreement_id: z.coerce.string().optional() })
+            .object({ billing_agreement_id: z.string().optional() })
             .optional(),
           sepa_debit: z
             .object({ mandate_options: z.object({}).optional() })
@@ -35963,7 +35662,7 @@ export function bootstrap(
                     )
                     .optional(),
                   prefetch: z.array(z.enum(["balances"])).optional(),
-                  return_url: z.coerce.string().optional(),
+                  return_url: z.string().optional(),
                 })
                 .optional(),
               networks: z
@@ -35980,7 +35679,7 @@ export function bootstrap(
             .optional(),
         })
         .optional(),
-      payment_method_types: z.array(z.coerce.string()).optional(),
+      payment_method_types: z.array(z.string()).optional(),
     })
     .optional()
 
@@ -36017,7 +35716,7 @@ export function bootstrap(
   )
 
   const postSetupIntentsIntentCancelParamSchema = z.object({
-    intent: z.coerce.string(),
+    intent: z.string(),
   })
 
   const postSetupIntentsIntentCancelBodySchema = z
@@ -36025,7 +35724,7 @@ export function bootstrap(
       cancellation_reason: z
         .enum(["abandoned", "duplicate", "requested_by_customer"])
         .optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
     })
     .optional()
 
@@ -36058,23 +35757,20 @@ export function bootstrap(
   )
 
   const postSetupIntentsIntentConfirmParamSchema = z.object({
-    intent: z.coerce.string(),
+    intent: z.string(),
   })
 
   const postSetupIntentsIntentConfirmBodySchema = z
     .object({
-      client_secret: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      client_secret: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       mandate_data: z.union([
         z.object({
           customer_acceptance: z.object({
             accepted_at: z.coerce.number().optional(),
             offline: z.object({}).optional(),
             online: z
-              .object({
-                ip_address: z.coerce.string(),
-                user_agent: z.coerce.string(),
-              })
+              .object({ ip_address: z.string(), user_agent: z.string() })
               .optional(),
             type: z.enum(["offline", "online"]),
           }),
@@ -36083,36 +35779,33 @@ export function bootstrap(
         z.object({
           customer_acceptance: z.object({
             online: z.object({
-              ip_address: z.coerce.string().optional(),
-              user_agent: z.coerce.string().optional(),
+              ip_address: z.string().optional(),
+              user_agent: z.string().optional(),
             }),
             type: z.enum(["online"]),
           }),
         }),
       ]),
-      payment_method: z.coerce.string().optional(),
+      payment_method: z.string().optional(),
       payment_method_data: z
         .object({
           acss_debit: z
             .object({
-              account_number: z.coerce.string(),
-              institution_number: z.coerce.string(),
-              transit_number: z.coerce.string(),
+              account_number: z.string(),
+              institution_number: z.string(),
+              transit_number: z.string(),
             })
             .optional(),
           affirm: z.object({}).optional(),
           afterpay_clearpay: z.object({}).optional(),
           alipay: z.object({}).optional(),
           au_becs_debit: z
-            .object({
-              account_number: z.coerce.string(),
-              bsb_number: z.coerce.string(),
-            })
+            .object({ account_number: z.string(), bsb_number: z.string() })
             .optional(),
           bacs_debit: z
             .object({
-              account_number: z.coerce.string().optional(),
-              sort_code: z.coerce.string().optional(),
+              account_number: z.string().optional(),
+              sort_code: z.string().optional(),
             })
             .optional(),
           bancontact: z.object({}).optional(),
@@ -36120,22 +35813,22 @@ export function bootstrap(
             .object({
               address: z.union([
                 z.object({
-                  city: z.coerce.string().optional(),
-                  country: z.coerce.string().optional(),
-                  line1: z.coerce.string().optional(),
-                  line2: z.coerce.string().optional(),
-                  postal_code: z.coerce.string().optional(),
-                  state: z.coerce.string().optional(),
+                  city: z.string().optional(),
+                  country: z.string().optional(),
+                  line1: z.string().optional(),
+                  line2: z.string().optional(),
+                  postal_code: z.string().optional(),
+                  state: z.string().optional(),
                 }),
                 z.enum([""]),
               ]),
-              email: z.union([z.coerce.string(), z.enum([""])]),
-              name: z.union([z.coerce.string(), z.enum([""])]),
-              phone: z.union([z.coerce.string(), z.enum([""])]),
+              email: z.union([z.string(), z.enum([""])]),
+              name: z.union([z.string(), z.enum([""])]),
+              phone: z.union([z.string(), z.enum([""])]),
             })
             .optional(),
           blik: z.object({}).optional(),
-          boleto: z.object({ tax_id: z.coerce.string() }).optional(),
+          boleto: z.object({ tax_id: z.string() }).optional(),
           cashapp: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
           eps: z
@@ -36281,9 +35974,9 @@ export function bootstrap(
           pix: z.object({}).optional(),
           promptpay: z.object({}).optional(),
           radar_options: z
-            .object({ session: z.coerce.string().optional() })
+            .object({ session: z.string().optional() })
             .optional(),
-          sepa_debit: z.object({ iban: z.coerce.string() }).optional(),
+          sepa_debit: z.object({ iban: z.string() }).optional(),
           sofort: z
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
             .optional(),
@@ -36322,10 +36015,10 @@ export function bootstrap(
           us_bank_account: z
             .object({
               account_holder_type: z.enum(["company", "individual"]).optional(),
-              account_number: z.coerce.string().optional(),
+              account_number: z.string().optional(),
               account_type: z.enum(["checking", "savings"]).optional(),
-              financial_connections_account: z.coerce.string().optional(),
-              routing_number: z.coerce.string().optional(),
+              financial_connections_account: z.string().optional(),
+              routing_number: z.string().optional(),
             })
             .optional(),
           wechat_pay: z.object({}).optional(),
@@ -36339,14 +36032,11 @@ export function bootstrap(
               currency: z.enum(["cad", "usd"]).optional(),
               mandate_options: z
                 .object({
-                  custom_mandate_url: z.union([
-                    z.coerce.string(),
-                    z.enum([""]),
-                  ]),
+                  custom_mandate_url: z.union([z.string(), z.enum([""])]),
                   default_for: z
                     .array(z.enum(["invoice", "subscription"]))
                     .optional(),
-                  interval_description: z.coerce.string().optional(),
+                  interval_description: z.string().optional(),
                   payment_schedule: z
                     .enum(["combined", "interval", "sporadic"])
                     .optional(),
@@ -36364,8 +36054,8 @@ export function bootstrap(
                 .object({
                   amount: z.coerce.number(),
                   amount_type: z.enum(["fixed", "maximum"]),
-                  currency: z.coerce.string(),
-                  description: z.coerce.string().optional(),
+                  currency: z.string(),
+                  description: z.string().optional(),
                   end_date: z.coerce.number().optional(),
                   interval: z.enum([
                     "day",
@@ -36375,7 +36065,7 @@ export function bootstrap(
                     "year",
                   ]),
                   interval_count: z.coerce.number().optional(),
-                  reference: z.coerce.string(),
+                  reference: z.string(),
                   start_date: z.coerce.number(),
                   supported_types: z.array(z.enum(["india"])).optional(),
                 })
@@ -36400,7 +36090,7 @@ export function bootstrap(
             .optional(),
           link: z.object({}).optional(),
           paypal: z
-            .object({ billing_agreement_id: z.coerce.string().optional() })
+            .object({ billing_agreement_id: z.string().optional() })
             .optional(),
           sepa_debit: z
             .object({ mandate_options: z.object({}).optional() })
@@ -36420,7 +36110,7 @@ export function bootstrap(
                     )
                     .optional(),
                   prefetch: z.array(z.enum(["balances"])).optional(),
-                  return_url: z.coerce.string().optional(),
+                  return_url: z.string().optional(),
                 })
                 .optional(),
               networks: z
@@ -36437,7 +36127,7 @@ export function bootstrap(
             .optional(),
         })
         .optional(),
-      return_url: z.coerce.string().optional(),
+      return_url: z.string().optional(),
       use_stripe_sdk: z.coerce.boolean().optional(),
     })
     .optional()
@@ -36471,15 +36161,15 @@ export function bootstrap(
   )
 
   const postSetupIntentsIntentVerifyMicrodepositsParamSchema = z.object({
-    intent: z.coerce.string(),
+    intent: z.string(),
   })
 
   const postSetupIntentsIntentVerifyMicrodepositsBodySchema = z
     .object({
       amounts: z.array(z.coerce.number()).optional(),
-      client_secret: z.coerce.string().optional(),
-      descriptor_code: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      client_secret: z.string().optional(),
+      descriptor_code: z.string().optional(),
+      expand: z.array(z.string()).optional(),
     })
     .optional()
 
@@ -36528,11 +36218,11 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    currency: z.coerce.string().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    currency: z.string().optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getShippingRatesBodySchema = z.object({}).optional()
@@ -36545,7 +36235,7 @@ export function bootstrap(
           data: z.array(s_shipping_rate),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -36583,18 +36273,18 @@ export function bootstrap(
           .optional(),
       })
       .optional(),
-    display_name: z.coerce.string(),
-    expand: z.array(z.coerce.string()).optional(),
+    display_name: z.string(),
+    expand: z.array(z.string()).optional(),
     fixed_amount: z
       .object({
         amount: z.coerce.number(),
-        currency: z.coerce.string(),
+        currency: z.string(),
         currency_options: z.object({}).optional(),
       })
       .optional(),
     metadata: z.object({}).optional(),
     tax_behavior: z.enum(["exclusive", "inclusive", "unspecified"]).optional(),
-    tax_code: z.coerce.string().optional(),
+    tax_code: z.string().optional(),
     type: z.enum(["fixed_amount"]).optional(),
   })
 
@@ -36618,11 +36308,11 @@ export function bootstrap(
   })
 
   const getShippingRatesShippingRateTokenParamSchema = z.object({
-    shipping_rate_token: z.coerce.string(),
+    shipping_rate_token: z.string(),
   })
 
   const getShippingRatesShippingRateTokenQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getShippingRatesShippingRateTokenBodySchema = z.object({}).optional()
@@ -36662,13 +36352,13 @@ export function bootstrap(
   )
 
   const postShippingRatesShippingRateTokenParamSchema = z.object({
-    shipping_rate_token: z.coerce.string(),
+    shipping_rate_token: z.string(),
   })
 
   const postShippingRatesShippingRateTokenBodySchema = z
     .object({
       active: z.coerce.boolean().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       fixed_amount: z
         .object({ currency_options: z.object({}).optional() })
         .optional(),
@@ -36711,10 +36401,10 @@ export function bootstrap(
   )
 
   const getSigmaScheduledQueryRunsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getSigmaScheduledQueryRunsBodySchema = z.object({}).optional()
@@ -36727,7 +36417,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_scheduled_query_run)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -36762,11 +36452,11 @@ export function bootstrap(
   )
 
   const getSigmaScheduledQueryRunsScheduledQueryRunParamSchema = z.object({
-    scheduled_query_run: z.coerce.string(),
+    scheduled_query_run: z.string(),
   })
 
   const getSigmaScheduledQueryRunsScheduledQueryRunQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getSigmaScheduledQueryRunsScheduledQueryRunBodySchema = z
@@ -36813,9 +36503,9 @@ export function bootstrap(
   const postSourcesBodySchema = z
     .object({
       amount: z.coerce.number().optional(),
-      currency: z.coerce.string().optional(),
-      customer: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      currency: z.string().optional(),
+      customer: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       flow: z
         .enum(["code_verification", "none", "receiver", "redirect"])
         .optional(),
@@ -36824,24 +36514,22 @@ export function bootstrap(
           acceptance: z
             .object({
               date: z.coerce.number().optional(),
-              ip: z.coerce.string().optional(),
-              offline: z
-                .object({ contact_email: z.coerce.string() })
-                .optional(),
+              ip: z.string().optional(),
+              offline: z.object({ contact_email: z.string() }).optional(),
               online: z
                 .object({
                   date: z.coerce.number().optional(),
-                  ip: z.coerce.string().optional(),
-                  user_agent: z.coerce.string().optional(),
+                  ip: z.string().optional(),
+                  user_agent: z.string().optional(),
                 })
                 .optional(),
               status: z.enum(["accepted", "pending", "refused", "revoked"]),
               type: z.enum(["offline", "online"]).optional(),
-              user_agent: z.coerce.string().optional(),
+              user_agent: z.string().optional(),
             })
             .optional(),
           amount: z.union([z.coerce.number(), z.enum([""])]),
-          currency: z.coerce.string().optional(),
+          currency: z.string().optional(),
           interval: z.enum(["one_time", "scheduled", "variable"]).optional(),
           notification_method: z
             .enum([
@@ -36855,22 +36543,22 @@ export function bootstrap(
         })
         .optional(),
       metadata: z.object({}).optional(),
-      original_source: z.coerce.string().optional(),
+      original_source: z.string().optional(),
       owner: z
         .object({
           address: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
             })
             .optional(),
-          email: z.coerce.string().optional(),
-          name: z.coerce.string().optional(),
-          phone: z.coerce.string().optional(),
+          email: z.string().optional(),
+          name: z.string().optional(),
+          phone: z.string().optional(),
         })
         .optional(),
       receiver: z
@@ -36880,16 +36568,16 @@ export function bootstrap(
             .optional(),
         })
         .optional(),
-      redirect: z.object({ return_url: z.coerce.string() }).optional(),
+      redirect: z.object({ return_url: z.string() }).optional(),
       source_order: z
         .object({
           items: z
             .array(
               z.object({
                 amount: z.coerce.number().optional(),
-                currency: z.coerce.string().optional(),
-                description: z.coerce.string().optional(),
-                parent: z.coerce.string().optional(),
+                currency: z.string().optional(),
+                description: z.string().optional(),
+                parent: z.string().optional(),
                 quantity: z.coerce.number().optional(),
                 type: z.enum(["discount", "shipping", "sku", "tax"]).optional(),
               }),
@@ -36898,24 +36586,24 @@ export function bootstrap(
           shipping: z
             .object({
               address: z.object({
-                city: z.coerce.string().optional(),
-                country: z.coerce.string().optional(),
-                line1: z.coerce.string(),
-                line2: z.coerce.string().optional(),
-                postal_code: z.coerce.string().optional(),
-                state: z.coerce.string().optional(),
+                city: z.string().optional(),
+                country: z.string().optional(),
+                line1: z.string(),
+                line2: z.string().optional(),
+                postal_code: z.string().optional(),
+                state: z.string().optional(),
               }),
-              carrier: z.coerce.string().optional(),
-              name: z.coerce.string().optional(),
-              phone: z.coerce.string().optional(),
-              tracking_number: z.coerce.string().optional(),
+              carrier: z.string().optional(),
+              name: z.string().optional(),
+              phone: z.string().optional(),
+              tracking_number: z.string().optional(),
             })
             .optional(),
         })
         .optional(),
-      statement_descriptor: z.coerce.string().optional(),
-      token: z.coerce.string().optional(),
-      type: z.coerce.string().optional(),
+      statement_descriptor: z.string().optional(),
+      token: z.string().optional(),
+      type: z.string().optional(),
       usage: z.enum(["reusable", "single_use"]).optional(),
     })
     .optional()
@@ -36939,11 +36627,11 @@ export function bootstrap(
     return next()
   })
 
-  const getSourcesSourceParamSchema = z.object({ source: z.coerce.string() })
+  const getSourcesSourceParamSchema = z.object({ source: z.string() })
 
   const getSourcesSourceQuerySchema = z.object({
-    client_secret: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    client_secret: z.string().optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getSourcesSourceBodySchema = z.object({}).optional()
@@ -36967,35 +36655,33 @@ export function bootstrap(
     return next()
   })
 
-  const postSourcesSourceParamSchema = z.object({ source: z.coerce.string() })
+  const postSourcesSourceParamSchema = z.object({ source: z.string() })
 
   const postSourcesSourceBodySchema = z
     .object({
       amount: z.coerce.number().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       mandate: z
         .object({
           acceptance: z
             .object({
               date: z.coerce.number().optional(),
-              ip: z.coerce.string().optional(),
-              offline: z
-                .object({ contact_email: z.coerce.string() })
-                .optional(),
+              ip: z.string().optional(),
+              offline: z.object({ contact_email: z.string() }).optional(),
               online: z
                 .object({
                   date: z.coerce.number().optional(),
-                  ip: z.coerce.string().optional(),
-                  user_agent: z.coerce.string().optional(),
+                  ip: z.string().optional(),
+                  user_agent: z.string().optional(),
                 })
                 .optional(),
               status: z.enum(["accepted", "pending", "refused", "revoked"]),
               type: z.enum(["offline", "online"]).optional(),
-              user_agent: z.coerce.string().optional(),
+              user_agent: z.string().optional(),
             })
             .optional(),
           amount: z.union([z.coerce.number(), z.enum([""])]),
-          currency: z.coerce.string().optional(),
+          currency: z.string().optional(),
           interval: z.enum(["one_time", "scheduled", "variable"]).optional(),
           notification_method: z
             .enum([
@@ -37013,17 +36699,17 @@ export function bootstrap(
         .object({
           address: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
             })
             .optional(),
-          email: z.coerce.string().optional(),
-          name: z.coerce.string().optional(),
-          phone: z.coerce.string().optional(),
+          email: z.string().optional(),
+          name: z.string().optional(),
+          phone: z.string().optional(),
         })
         .optional(),
       source_order: z
@@ -37032,9 +36718,9 @@ export function bootstrap(
             .array(
               z.object({
                 amount: z.coerce.number().optional(),
-                currency: z.coerce.string().optional(),
-                description: z.coerce.string().optional(),
-                parent: z.coerce.string().optional(),
+                currency: z.string().optional(),
+                description: z.string().optional(),
+                parent: z.string().optional(),
                 quantity: z.coerce.number().optional(),
                 type: z.enum(["discount", "shipping", "sku", "tax"]).optional(),
               }),
@@ -37043,17 +36729,17 @@ export function bootstrap(
           shipping: z
             .object({
               address: z.object({
-                city: z.coerce.string().optional(),
-                country: z.coerce.string().optional(),
-                line1: z.coerce.string(),
-                line2: z.coerce.string().optional(),
-                postal_code: z.coerce.string().optional(),
-                state: z.coerce.string().optional(),
+                city: z.string().optional(),
+                country: z.string().optional(),
+                line1: z.string(),
+                line2: z.string().optional(),
+                postal_code: z.string().optional(),
+                state: z.string().optional(),
               }),
-              carrier: z.coerce.string().optional(),
-              name: z.coerce.string().optional(),
-              phone: z.coerce.string().optional(),
-              tracking_number: z.coerce.string().optional(),
+              carrier: z.string().optional(),
+              name: z.string().optional(),
+              phone: z.string().optional(),
+              tracking_number: z.string().optional(),
             })
             .optional(),
         })
@@ -37081,13 +36767,10 @@ export function bootstrap(
   })
 
   const getSourcesSourceMandateNotificationsMandateNotificationParamSchema =
-    z.object({
-      mandate_notification: z.coerce.string(),
-      source: z.coerce.string(),
-    })
+    z.object({ mandate_notification: z.string(), source: z.string() })
 
   const getSourcesSourceMandateNotificationsMandateNotificationQuerySchema =
-    z.object({ expand: z.array(z.coerce.string()).optional() })
+    z.object({ expand: z.array(z.string()).optional() })
 
   const getSourcesSourceMandateNotificationsMandateNotificationBodySchema = z
     .object({})
@@ -37132,14 +36815,14 @@ export function bootstrap(
   )
 
   const getSourcesSourceSourceTransactionsParamSchema = z.object({
-    source: z.coerce.string(),
+    source: z.string(),
   })
 
   const getSourcesSourceSourceTransactionsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getSourcesSourceSourceTransactionsBodySchema = z.object({}).optional()
@@ -37153,7 +36836,7 @@ export function bootstrap(
             data: z.array(s_source_transaction),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -37192,13 +36875,10 @@ export function bootstrap(
   )
 
   const getSourcesSourceSourceTransactionsSourceTransactionParamSchema =
-    z.object({
-      source: z.coerce.string(),
-      source_transaction: z.coerce.string(),
-    })
+    z.object({ source: z.string(), source_transaction: z.string() })
 
   const getSourcesSourceSourceTransactionsSourceTransactionQuerySchema =
-    z.object({ expand: z.array(z.coerce.string()).optional() })
+    z.object({ expand: z.array(z.string()).optional() })
 
   const getSourcesSourceSourceTransactionsSourceTransactionBodySchema = z
     .object({})
@@ -37242,13 +36922,11 @@ export function bootstrap(
     },
   )
 
-  const postSourcesSourceVerifyParamSchema = z.object({
-    source: z.coerce.string(),
-  })
+  const postSourcesSourceVerifyParamSchema = z.object({ source: z.string() })
 
   const postSourcesSourceVerifyBodySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
-    values: z.array(z.coerce.string()),
+    expand: z.array(z.string()).optional(),
+    values: z.array(z.string()),
   })
 
   const postSourcesSourceVerifyResponseValidator = responseValidationFactory(
@@ -37284,11 +36962,11 @@ export function bootstrap(
   )
 
   const getSubscriptionItemsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
-    subscription: z.coerce.string(),
+    starting_after: z.string().optional(),
+    subscription: z.string(),
   })
 
   const getSubscriptionItemsBodySchema = z.object({}).optional()
@@ -37301,7 +36979,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_subscription_item)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -37337,7 +37015,7 @@ export function bootstrap(
       z.object({ usage_gte: z.coerce.number() }),
       z.enum([""]),
     ]),
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     metadata: z.object({}).optional(),
     payment_behavior: z
       .enum([
@@ -37347,11 +37025,11 @@ export function bootstrap(
         "pending_if_incomplete",
       ])
       .optional(),
-    price: z.coerce.string().optional(),
+    price: z.string().optional(),
     price_data: z
       .object({
-        currency: z.coerce.string(),
-        product: z.coerce.string(),
+        currency: z.string(),
+        product: z.string(),
         recurring: z.object({
           interval: z.enum(["day", "month", "week", "year"]),
           interval_count: z.coerce.number().optional(),
@@ -37360,7 +37038,7 @@ export function bootstrap(
           .enum(["exclusive", "inclusive", "unspecified"])
           .optional(),
         unit_amount: z.coerce.number().optional(),
-        unit_amount_decimal: z.coerce.string().optional(),
+        unit_amount_decimal: z.string().optional(),
       })
       .optional(),
     proration_behavior: z
@@ -37368,8 +37046,8 @@ export function bootstrap(
       .optional(),
     proration_date: z.coerce.number().optional(),
     quantity: z.coerce.number().optional(),
-    subscription: z.coerce.string(),
-    tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+    subscription: z.string(),
+    tax_rates: z.union([z.array(z.string()), z.enum([""])]),
   })
 
   const postSubscriptionItemsResponseValidator = responseValidationFactory(
@@ -37401,9 +37079,7 @@ export function bootstrap(
     },
   )
 
-  const deleteSubscriptionItemsItemParamSchema = z.object({
-    item: z.coerce.string(),
-  })
+  const deleteSubscriptionItemsItemParamSchema = z.object({ item: z.string() })
 
   const deleteSubscriptionItemsItemBodySchema = z
     .object({
@@ -37445,12 +37121,10 @@ export function bootstrap(
     },
   )
 
-  const getSubscriptionItemsItemParamSchema = z.object({
-    item: z.coerce.string(),
-  })
+  const getSubscriptionItemsItemParamSchema = z.object({ item: z.string() })
 
   const getSubscriptionItemsItemQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getSubscriptionItemsItemBodySchema = z.object({}).optional()
@@ -37490,9 +37164,7 @@ export function bootstrap(
     },
   )
 
-  const postSubscriptionItemsItemParamSchema = z.object({
-    item: z.coerce.string(),
-  })
+  const postSubscriptionItemsItemParamSchema = z.object({ item: z.string() })
 
   const postSubscriptionItemsItemBodySchema = z
     .object({
@@ -37500,7 +37172,7 @@ export function bootstrap(
         z.object({ usage_gte: z.coerce.number() }),
         z.enum([""]),
       ]),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
       off_session: z.coerce.boolean().optional(),
       payment_behavior: z
@@ -37511,11 +37183,11 @@ export function bootstrap(
           "pending_if_incomplete",
         ])
         .optional(),
-      price: z.coerce.string().optional(),
+      price: z.string().optional(),
       price_data: z
         .object({
-          currency: z.coerce.string(),
-          product: z.coerce.string(),
+          currency: z.string(),
+          product: z.string(),
           recurring: z.object({
             interval: z.enum(["day", "month", "week", "year"]),
             interval_count: z.coerce.number().optional(),
@@ -37524,7 +37196,7 @@ export function bootstrap(
             .enum(["exclusive", "inclusive", "unspecified"])
             .optional(),
           unit_amount: z.coerce.number().optional(),
-          unit_amount_decimal: z.coerce.string().optional(),
+          unit_amount_decimal: z.string().optional(),
         })
         .optional(),
       proration_behavior: z
@@ -37532,7 +37204,7 @@ export function bootstrap(
         .optional(),
       proration_date: z.coerce.number().optional(),
       quantity: z.coerce.number().optional(),
-      tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+      tax_rates: z.union([z.array(z.string()), z.enum([""])]),
     })
     .optional()
 
@@ -37569,14 +37241,14 @@ export function bootstrap(
   )
 
   const getSubscriptionItemsSubscriptionItemUsageRecordSummariesParamSchema =
-    z.object({ subscription_item: z.coerce.string() })
+    z.object({ subscription_item: z.string() })
 
   const getSubscriptionItemsSubscriptionItemUsageRecordSummariesQuerySchema =
     z.object({
-      ending_before: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      ending_before: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       limit: z.coerce.number().optional(),
-      starting_after: z.coerce.string().optional(),
+      starting_after: z.string().optional(),
     })
 
   const getSubscriptionItemsSubscriptionItemUsageRecordSummariesBodySchema = z
@@ -37592,7 +37264,7 @@ export function bootstrap(
             data: z.array(s_usage_record_summary),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -37635,12 +37307,12 @@ export function bootstrap(
   )
 
   const postSubscriptionItemsSubscriptionItemUsageRecordsParamSchema = z.object(
-    { subscription_item: z.coerce.string() },
+    { subscription_item: z.string() },
   )
 
   const postSubscriptionItemsSubscriptionItemUsageRecordsBodySchema = z.object({
     action: z.enum(["increment", "set"]).optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     quantity: z.coerce.number(),
     timestamp: z.union([z.enum(["now"]), z.coerce.number()]),
   })
@@ -37708,9 +37380,9 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    customer: z.coerce.string().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    customer: z.string().optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
     released_at: z.union([
       z.object({
@@ -37722,7 +37394,7 @@ export function bootstrap(
       z.coerce.number(),
     ]),
     scheduled: z.coerce.boolean().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getSubscriptionSchedulesBodySchema = z.object({}).optional()
@@ -37735,7 +37407,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_subscription_schedule)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -37771,7 +37443,7 @@ export function bootstrap(
 
   const postSubscriptionSchedulesBodySchema = z
     .object({
-      customer: z.coerce.string().optional(),
+      customer: z.string().optional(),
       default_settings: z
         .object({
           application_fee_percent: z.coerce.number().optional(),
@@ -37787,24 +37459,24 @@ export function bootstrap(
           collection_method: z
             .enum(["charge_automatically", "send_invoice"])
             .optional(),
-          default_payment_method: z.coerce.string().optional(),
-          description: z.union([z.coerce.string(), z.enum([""])]),
+          default_payment_method: z.string().optional(),
+          description: z.union([z.string(), z.enum([""])]),
           invoice_settings: z
             .object({ days_until_due: z.coerce.number().optional() })
             .optional(),
-          on_behalf_of: z.union([z.coerce.string(), z.enum([""])]),
+          on_behalf_of: z.union([z.string(), z.enum([""])]),
           transfer_data: z.union([
             z.object({
               amount_percent: z.coerce.number().optional(),
-              destination: z.coerce.string(),
+              destination: z.string(),
             }),
             z.enum([""]),
           ]),
         })
         .optional(),
       end_behavior: z.enum(["cancel", "none", "release", "renew"]).optional(),
-      expand: z.array(z.coerce.string()).optional(),
-      from_subscription: z.coerce.string().optional(),
+      expand: z.array(z.string()).optional(),
+      from_subscription: z.string().optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
       phases: z
         .array(
@@ -37812,23 +37484,20 @@ export function bootstrap(
             add_invoice_items: z
               .array(
                 z.object({
-                  price: z.coerce.string().optional(),
+                  price: z.string().optional(),
                   price_data: z
                     .object({
-                      currency: z.coerce.string(),
-                      product: z.coerce.string(),
+                      currency: z.string(),
+                      product: z.string(),
                       tax_behavior: z
                         .enum(["exclusive", "inclusive", "unspecified"])
                         .optional(),
                       unit_amount: z.coerce.number().optional(),
-                      unit_amount_decimal: z.coerce.string().optional(),
+                      unit_amount_decimal: z.string().optional(),
                     })
                     .optional(),
                   quantity: z.coerce.number().optional(),
-                  tax_rates: z.union([
-                    z.array(z.coerce.string()),
-                    z.enum([""]),
-                  ]),
+                  tax_rates: z.union([z.array(z.string()), z.enum([""])]),
                 }),
               )
               .optional(),
@@ -37847,14 +37516,11 @@ export function bootstrap(
             collection_method: z
               .enum(["charge_automatically", "send_invoice"])
               .optional(),
-            coupon: z.coerce.string().optional(),
-            currency: z.coerce.string().optional(),
-            default_payment_method: z.coerce.string().optional(),
-            default_tax_rates: z.union([
-              z.array(z.coerce.string()),
-              z.enum([""]),
-            ]),
-            description: z.union([z.coerce.string(), z.enum([""])]),
+            coupon: z.string().optional(),
+            currency: z.string().optional(),
+            default_payment_method: z.string().optional(),
+            default_tax_rates: z.union([z.array(z.string()), z.enum([""])]),
+            description: z.union([z.string(), z.enum([""])]),
             end_date: z.coerce.number().optional(),
             invoice_settings: z
               .object({ days_until_due: z.coerce.number().optional() })
@@ -37866,11 +37532,11 @@ export function bootstrap(
                   z.enum([""]),
                 ]),
                 metadata: z.object({}).optional(),
-                price: z.coerce.string().optional(),
+                price: z.string().optional(),
                 price_data: z
                   .object({
-                    currency: z.coerce.string(),
-                    product: z.coerce.string(),
+                    currency: z.string(),
+                    product: z.string(),
                     recurring: z.object({
                       interval: z.enum(["day", "month", "week", "year"]),
                       interval_count: z.coerce.number().optional(),
@@ -37879,23 +37545,23 @@ export function bootstrap(
                       .enum(["exclusive", "inclusive", "unspecified"])
                       .optional(),
                     unit_amount: z.coerce.number().optional(),
-                    unit_amount_decimal: z.coerce.string().optional(),
+                    unit_amount_decimal: z.string().optional(),
                   })
                   .optional(),
                 quantity: z.coerce.number().optional(),
-                tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+                tax_rates: z.union([z.array(z.string()), z.enum([""])]),
               }),
             ),
             iterations: z.coerce.number().optional(),
             metadata: z.object({}).optional(),
-            on_behalf_of: z.coerce.string().optional(),
+            on_behalf_of: z.string().optional(),
             proration_behavior: z
               .enum(["always_invoice", "create_prorations", "none"])
               .optional(),
             transfer_data: z
               .object({
                 amount_percent: z.coerce.number().optional(),
-                destination: z.coerce.string(),
+                destination: z.string(),
               })
               .optional(),
             trial: z.coerce.boolean().optional(),
@@ -37937,11 +37603,11 @@ export function bootstrap(
   )
 
   const getSubscriptionSchedulesScheduleParamSchema = z.object({
-    schedule: z.coerce.string(),
+    schedule: z.string(),
   })
 
   const getSubscriptionSchedulesScheduleQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getSubscriptionSchedulesScheduleBodySchema = z.object({}).optional()
@@ -37978,7 +37644,7 @@ export function bootstrap(
   )
 
   const postSubscriptionSchedulesScheduleParamSchema = z.object({
-    schedule: z.coerce.string(),
+    schedule: z.string(),
   })
 
   const postSubscriptionSchedulesScheduleBodySchema = z
@@ -37998,23 +37664,23 @@ export function bootstrap(
           collection_method: z
             .enum(["charge_automatically", "send_invoice"])
             .optional(),
-          default_payment_method: z.coerce.string().optional(),
-          description: z.union([z.coerce.string(), z.enum([""])]),
+          default_payment_method: z.string().optional(),
+          description: z.union([z.string(), z.enum([""])]),
           invoice_settings: z
             .object({ days_until_due: z.coerce.number().optional() })
             .optional(),
-          on_behalf_of: z.union([z.coerce.string(), z.enum([""])]),
+          on_behalf_of: z.union([z.string(), z.enum([""])]),
           transfer_data: z.union([
             z.object({
               amount_percent: z.coerce.number().optional(),
-              destination: z.coerce.string(),
+              destination: z.string(),
             }),
             z.enum([""]),
           ]),
         })
         .optional(),
       end_behavior: z.enum(["cancel", "none", "release", "renew"]).optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
       phases: z
         .array(
@@ -38022,23 +37688,20 @@ export function bootstrap(
             add_invoice_items: z
               .array(
                 z.object({
-                  price: z.coerce.string().optional(),
+                  price: z.string().optional(),
                   price_data: z
                     .object({
-                      currency: z.coerce.string(),
-                      product: z.coerce.string(),
+                      currency: z.string(),
+                      product: z.string(),
                       tax_behavior: z
                         .enum(["exclusive", "inclusive", "unspecified"])
                         .optional(),
                       unit_amount: z.coerce.number().optional(),
-                      unit_amount_decimal: z.coerce.string().optional(),
+                      unit_amount_decimal: z.string().optional(),
                     })
                     .optional(),
                   quantity: z.coerce.number().optional(),
-                  tax_rates: z.union([
-                    z.array(z.coerce.string()),
-                    z.enum([""]),
-                  ]),
+                  tax_rates: z.union([z.array(z.string()), z.enum([""])]),
                 }),
               )
               .optional(),
@@ -38057,13 +37720,10 @@ export function bootstrap(
             collection_method: z
               .enum(["charge_automatically", "send_invoice"])
               .optional(),
-            coupon: z.coerce.string().optional(),
-            default_payment_method: z.coerce.string().optional(),
-            default_tax_rates: z.union([
-              z.array(z.coerce.string()),
-              z.enum([""]),
-            ]),
-            description: z.union([z.coerce.string(), z.enum([""])]),
+            coupon: z.string().optional(),
+            default_payment_method: z.string().optional(),
+            default_tax_rates: z.union([z.array(z.string()), z.enum([""])]),
+            description: z.union([z.string(), z.enum([""])]),
             end_date: z.union([z.coerce.number(), z.enum(["now"])]),
             invoice_settings: z
               .object({ days_until_due: z.coerce.number().optional() })
@@ -38075,11 +37735,11 @@ export function bootstrap(
                   z.enum([""]),
                 ]),
                 metadata: z.object({}).optional(),
-                price: z.coerce.string().optional(),
+                price: z.string().optional(),
                 price_data: z
                   .object({
-                    currency: z.coerce.string(),
-                    product: z.coerce.string(),
+                    currency: z.string(),
+                    product: z.string(),
                     recurring: z.object({
                       interval: z.enum(["day", "month", "week", "year"]),
                       interval_count: z.coerce.number().optional(),
@@ -38088,16 +37748,16 @@ export function bootstrap(
                       .enum(["exclusive", "inclusive", "unspecified"])
                       .optional(),
                     unit_amount: z.coerce.number().optional(),
-                    unit_amount_decimal: z.coerce.string().optional(),
+                    unit_amount_decimal: z.string().optional(),
                   })
                   .optional(),
                 quantity: z.coerce.number().optional(),
-                tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+                tax_rates: z.union([z.array(z.string()), z.enum([""])]),
               }),
             ),
             iterations: z.coerce.number().optional(),
             metadata: z.object({}).optional(),
-            on_behalf_of: z.coerce.string().optional(),
+            on_behalf_of: z.string().optional(),
             proration_behavior: z
               .enum(["always_invoice", "create_prorations", "none"])
               .optional(),
@@ -38105,7 +37765,7 @@ export function bootstrap(
             transfer_data: z
               .object({
                 amount_percent: z.coerce.number().optional(),
-                destination: z.coerce.string(),
+                destination: z.string(),
               })
               .optional(),
             trial: z.coerce.boolean().optional(),
@@ -38151,12 +37811,12 @@ export function bootstrap(
   )
 
   const postSubscriptionSchedulesScheduleCancelParamSchema = z.object({
-    schedule: z.coerce.string(),
+    schedule: z.string(),
   })
 
   const postSubscriptionSchedulesScheduleCancelBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       invoice_now: z.coerce.boolean().optional(),
       prorate: z.coerce.boolean().optional(),
     })
@@ -38194,12 +37854,12 @@ export function bootstrap(
   )
 
   const postSubscriptionSchedulesScheduleReleaseParamSchema = z.object({
-    schedule: z.coerce.string(),
+    schedule: z.string(),
   })
 
   const postSubscriptionSchedulesScheduleReleaseBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       preserve_cancel_date: z.coerce.boolean().optional(),
     })
     .optional()
@@ -38270,12 +37930,12 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    customer: z.coerce.string().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    customer: z.string().optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    price: z.coerce.string().optional(),
-    starting_after: z.coerce.string().optional(),
+    price: z.string().optional(),
+    starting_after: z.string().optional(),
     status: z
       .enum([
         "active",
@@ -38290,7 +37950,7 @@ export function bootstrap(
         "unpaid",
       ])
       .optional(),
-    test_clock: z.coerce.string().optional(),
+    test_clock: z.string().optional(),
   })
 
   const getSubscriptionsBodySchema = z.object({}).optional()
@@ -38303,7 +37963,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_subscription)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -38328,20 +37988,20 @@ export function bootstrap(
     add_invoice_items: z
       .array(
         z.object({
-          price: z.coerce.string().optional(),
+          price: z.string().optional(),
           price_data: z
             .object({
-              currency: z.coerce.string(),
-              product: z.coerce.string(),
+              currency: z.string(),
+              product: z.string(),
               tax_behavior: z
                 .enum(["exclusive", "inclusive", "unspecified"])
                 .optional(),
               unit_amount: z.coerce.number().optional(),
-              unit_amount_decimal: z.coerce.string().optional(),
+              unit_amount_decimal: z.string().optional(),
             })
             .optional(),
           quantity: z.coerce.number().optional(),
-          tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+          tax_rates: z.union([z.array(z.string()), z.enum([""])]),
         }),
       )
       .optional(),
@@ -38361,15 +38021,15 @@ export function bootstrap(
     collection_method: z
       .enum(["charge_automatically", "send_invoice"])
       .optional(),
-    coupon: z.coerce.string().optional(),
-    currency: z.coerce.string().optional(),
-    customer: z.coerce.string(),
+    coupon: z.string().optional(),
+    currency: z.string().optional(),
+    customer: z.string(),
     days_until_due: z.coerce.number().optional(),
-    default_payment_method: z.coerce.string().optional(),
-    default_source: z.coerce.string().optional(),
-    default_tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
-    description: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    default_payment_method: z.string().optional(),
+    default_source: z.string().optional(),
+    default_tax_rates: z.union([z.array(z.string()), z.enum([""])]),
+    description: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     items: z
       .array(
         z.object({
@@ -38378,11 +38038,11 @@ export function bootstrap(
             z.enum([""]),
           ]),
           metadata: z.object({}).optional(),
-          price: z.coerce.string().optional(),
+          price: z.string().optional(),
           price_data: z
             .object({
-              currency: z.coerce.string(),
-              product: z.coerce.string(),
+              currency: z.string(),
+              product: z.string(),
               recurring: z.object({
                 interval: z.enum(["day", "month", "week", "year"]),
                 interval_count: z.coerce.number().optional(),
@@ -38391,17 +38051,17 @@ export function bootstrap(
                 .enum(["exclusive", "inclusive", "unspecified"])
                 .optional(),
               unit_amount: z.coerce.number().optional(),
-              unit_amount_decimal: z.coerce.string().optional(),
+              unit_amount_decimal: z.string().optional(),
             })
             .optional(),
           quantity: z.coerce.number().optional(),
-          tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+          tax_rates: z.union([z.array(z.string()), z.enum([""])]),
         }),
       )
       .optional(),
     metadata: z.union([z.object({}), z.enum([""])]),
     off_session: z.coerce.boolean().optional(),
-    on_behalf_of: z.union([z.coerce.string(), z.enum([""])]),
+    on_behalf_of: z.union([z.string(), z.enum([""])]),
     payment_behavior: z
       .enum([
         "allow_incomplete",
@@ -38441,7 +38101,7 @@ export function bootstrap(
                   .object({
                     amount: z.coerce.number().optional(),
                     amount_type: z.enum(["fixed", "maximum"]).optional(),
-                    description: z.coerce.string().optional(),
+                    description: z.string().optional(),
                   })
                   .optional(),
                 network: z
@@ -38468,12 +38128,12 @@ export function bootstrap(
                 bank_transfer: z
                   .object({
                     eu_bank_transfer: z
-                      .object({ country: z.coerce.string() })
+                      .object({ country: z.string() })
                       .optional(),
-                    type: z.coerce.string().optional(),
+                    type: z.string().optional(),
                   })
                   .optional(),
-                funding_type: z.coerce.string().optional(),
+                funding_type: z.string().optional(),
               }),
               z.enum([""]),
             ]),
@@ -38545,14 +38205,14 @@ export function bootstrap(
       }),
       z.enum([""]),
     ]),
-    promotion_code: z.coerce.string().optional(),
+    promotion_code: z.string().optional(),
     proration_behavior: z
       .enum(["always_invoice", "create_prorations", "none"])
       .optional(),
     transfer_data: z
       .object({
         amount_percent: z.coerce.number().optional(),
-        destination: z.coerce.string(),
+        destination: z.string(),
       })
       .optional(),
     trial_end: z.union([z.enum(["now"]), z.coerce.number()]),
@@ -38587,10 +38247,10 @@ export function bootstrap(
   })
 
   const getSubscriptionsSearchQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    page: z.coerce.string().optional(),
-    query: z.coerce.string(),
+    page: z.string().optional(),
+    query: z.string(),
   })
 
   const getSubscriptionsSearchBodySchema = z.object({}).optional()
@@ -38602,10 +38262,10 @@ export function bootstrap(
         z.object({
           data: z.array(z.lazy(() => s_subscription)),
           has_more: z.coerce.boolean(),
-          next_page: z.coerce.string().optional().nullable(),
+          next_page: z.string().optional().nullable(),
           object: z.enum(["search_result"]),
           total_count: z.coerce.number().optional(),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -38637,14 +38297,14 @@ export function bootstrap(
   )
 
   const deleteSubscriptionsSubscriptionExposedIdParamSchema = z.object({
-    subscription_exposed_id: z.coerce.string(),
+    subscription_exposed_id: z.string(),
   })
 
   const deleteSubscriptionsSubscriptionExposedIdBodySchema = z
     .object({
       cancellation_details: z
         .object({
-          comment: z.union([z.coerce.string(), z.enum([""])]),
+          comment: z.union([z.string(), z.enum([""])]),
           feedback: z
             .enum([
               "",
@@ -38660,7 +38320,7 @@ export function bootstrap(
             .optional(),
         })
         .optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       invoice_now: z.coerce.boolean().optional(),
       prorate: z.coerce.boolean().optional(),
     })
@@ -38701,11 +38361,11 @@ export function bootstrap(
   )
 
   const getSubscriptionsSubscriptionExposedIdParamSchema = z.object({
-    subscription_exposed_id: z.coerce.string(),
+    subscription_exposed_id: z.string(),
   })
 
   const getSubscriptionsSubscriptionExposedIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getSubscriptionsSubscriptionExposedIdBodySchema = z
@@ -38747,7 +38407,7 @@ export function bootstrap(
   )
 
   const postSubscriptionsSubscriptionExposedIdParamSchema = z.object({
-    subscription_exposed_id: z.coerce.string(),
+    subscription_exposed_id: z.string(),
   })
 
   const postSubscriptionsSubscriptionExposedIdBodySchema = z
@@ -38755,20 +38415,20 @@ export function bootstrap(
       add_invoice_items: z
         .array(
           z.object({
-            price: z.coerce.string().optional(),
+            price: z.string().optional(),
             price_data: z
               .object({
-                currency: z.coerce.string(),
-                product: z.coerce.string(),
+                currency: z.string(),
+                product: z.string(),
                 tax_behavior: z
                   .enum(["exclusive", "inclusive", "unspecified"])
                   .optional(),
                 unit_amount: z.coerce.number().optional(),
-                unit_amount_decimal: z.coerce.string().optional(),
+                unit_amount_decimal: z.string().optional(),
               })
               .optional(),
             quantity: z.coerce.number().optional(),
-            tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+            tax_rates: z.union([z.array(z.string()), z.enum([""])]),
           }),
         )
         .optional(),
@@ -38786,7 +38446,7 @@ export function bootstrap(
       cancel_at_period_end: z.coerce.boolean().optional(),
       cancellation_details: z
         .object({
-          comment: z.union([z.coerce.string(), z.enum([""])]),
+          comment: z.union([z.string(), z.enum([""])]),
           feedback: z
             .enum([
               "",
@@ -38805,13 +38465,13 @@ export function bootstrap(
       collection_method: z
         .enum(["charge_automatically", "send_invoice"])
         .optional(),
-      coupon: z.coerce.string().optional(),
+      coupon: z.string().optional(),
       days_until_due: z.coerce.number().optional(),
-      default_payment_method: z.coerce.string().optional(),
-      default_source: z.union([z.coerce.string(), z.enum([""])]),
-      default_tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
-      description: z.union([z.coerce.string(), z.enum([""])]),
-      expand: z.array(z.coerce.string()).optional(),
+      default_payment_method: z.string().optional(),
+      default_source: z.union([z.string(), z.enum([""])]),
+      default_tax_rates: z.union([z.array(z.string()), z.enum([""])]),
+      description: z.union([z.string(), z.enum([""])]),
+      expand: z.array(z.string()).optional(),
       items: z
         .array(
           z.object({
@@ -38821,13 +38481,13 @@ export function bootstrap(
             ]),
             clear_usage: z.coerce.boolean().optional(),
             deleted: z.coerce.boolean().optional(),
-            id: z.coerce.string().optional(),
+            id: z.string().optional(),
             metadata: z.union([z.object({}), z.enum([""])]),
-            price: z.coerce.string().optional(),
+            price: z.string().optional(),
             price_data: z
               .object({
-                currency: z.coerce.string(),
-                product: z.coerce.string(),
+                currency: z.string(),
+                product: z.string(),
                 recurring: z.object({
                   interval: z.enum(["day", "month", "week", "year"]),
                   interval_count: z.coerce.number().optional(),
@@ -38836,17 +38496,17 @@ export function bootstrap(
                   .enum(["exclusive", "inclusive", "unspecified"])
                   .optional(),
                 unit_amount: z.coerce.number().optional(),
-                unit_amount_decimal: z.coerce.string().optional(),
+                unit_amount_decimal: z.string().optional(),
               })
               .optional(),
             quantity: z.coerce.number().optional(),
-            tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
+            tax_rates: z.union([z.array(z.string()), z.enum([""])]),
           }),
         )
         .optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
       off_session: z.coerce.boolean().optional(),
-      on_behalf_of: z.union([z.coerce.string(), z.enum([""])]),
+      on_behalf_of: z.union([z.string(), z.enum([""])]),
       pause_collection: z.union([
         z.object({
           behavior: z.enum(["keep_as_draft", "mark_uncollectible", "void"]),
@@ -38895,7 +38555,7 @@ export function bootstrap(
                     .object({
                       amount: z.coerce.number().optional(),
                       amount_type: z.enum(["fixed", "maximum"]).optional(),
-                      description: z.coerce.string().optional(),
+                      description: z.string().optional(),
                     })
                     .optional(),
                   network: z
@@ -38924,12 +38584,12 @@ export function bootstrap(
                   bank_transfer: z
                     .object({
                       eu_bank_transfer: z
-                        .object({ country: z.coerce.string() })
+                        .object({ country: z.string() })
                         .optional(),
-                      type: z.coerce.string().optional(),
+                      type: z.string().optional(),
                     })
                     .optional(),
-                  funding_type: z.coerce.string().optional(),
+                  funding_type: z.string().optional(),
                 }),
                 z.enum([""]),
               ]),
@@ -39001,7 +38661,7 @@ export function bootstrap(
         }),
         z.enum([""]),
       ]),
-      promotion_code: z.coerce.string().optional(),
+      promotion_code: z.string().optional(),
       proration_behavior: z
         .enum(["always_invoice", "create_prorations", "none"])
         .optional(),
@@ -39009,7 +38669,7 @@ export function bootstrap(
       transfer_data: z.union([
         z.object({
           amount_percent: z.coerce.number().optional(),
-          destination: z.coerce.string(),
+          destination: z.string(),
         }),
         z.enum([""]),
       ]),
@@ -39061,7 +38721,7 @@ export function bootstrap(
   )
 
   const deleteSubscriptionsSubscriptionExposedIdDiscountParamSchema = z.object({
-    subscription_exposed_id: z.coerce.string(),
+    subscription_exposed_id: z.string(),
   })
 
   const deleteSubscriptionsSubscriptionExposedIdDiscountBodySchema = z
@@ -39104,13 +38764,13 @@ export function bootstrap(
   )
 
   const postSubscriptionsSubscriptionResumeParamSchema = z.object({
-    subscription: z.coerce.string(),
+    subscription: z.string(),
   })
 
   const postSubscriptionsSubscriptionResumeBodySchema = z
     .object({
       billing_cycle_anchor: z.enum(["now", "unchanged"]).optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       proration_behavior: z
         .enum(["always_invoice", "create_prorations", "none"])
         .optional(),
@@ -39150,22 +38810,22 @@ export function bootstrap(
   )
 
   const postTaxCalculationsBodySchema = z.object({
-    currency: z.coerce.string(),
-    customer: z.coerce.string().optional(),
+    currency: z.string(),
+    customer: z.string().optional(),
     customer_details: z
       .object({
         address: z
           .object({
-            city: z.union([z.coerce.string(), z.enum([""])]),
-            country: z.coerce.string(),
-            line1: z.union([z.coerce.string(), z.enum([""])]),
-            line2: z.union([z.coerce.string(), z.enum([""])]),
-            postal_code: z.union([z.coerce.string(), z.enum([""])]),
-            state: z.union([z.coerce.string(), z.enum([""])]),
+            city: z.union([z.string(), z.enum([""])]),
+            country: z.string(),
+            line1: z.union([z.string(), z.enum([""])]),
+            line2: z.union([z.string(), z.enum([""])]),
+            postal_code: z.union([z.string(), z.enum([""])]),
+            state: z.union([z.string(), z.enum([""])]),
           })
           .optional(),
         address_source: z.enum(["billing", "shipping"]).optional(),
-        ip_address: z.coerce.string().optional(),
+        ip_address: z.string().optional(),
         tax_ids: z
           .array(
             z.object({
@@ -39237,7 +38897,7 @@ export function bootstrap(
                 "vn_tin",
                 "za_vat",
               ]),
-              value: z.coerce.string(),
+              value: z.string(),
             }),
           )
           .optional(),
@@ -39246,23 +38906,23 @@ export function bootstrap(
           .optional(),
       })
       .optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     line_items: z.array(
       z.object({
         amount: z.coerce.number(),
-        product: z.coerce.string().optional(),
+        product: z.string().optional(),
         quantity: z.coerce.number().optional(),
-        reference: z.coerce.string().optional(),
+        reference: z.string().optional(),
         tax_behavior: z.enum(["exclusive", "inclusive"]).optional(),
-        tax_code: z.coerce.string().optional(),
+        tax_code: z.string().optional(),
       }),
     ),
     shipping_cost: z
       .object({
         amount: z.coerce.number().optional(),
-        shipping_rate: z.coerce.string().optional(),
+        shipping_rate: z.string().optional(),
         tax_behavior: z.enum(["exclusive", "inclusive"]).optional(),
-        tax_code: z.coerce.string().optional(),
+        tax_code: z.string().optional(),
       })
       .optional(),
     tax_date: z.coerce.number().optional(),
@@ -39298,14 +38958,14 @@ export function bootstrap(
   )
 
   const getTaxCalculationsCalculationLineItemsParamSchema = z.object({
-    calculation: z.coerce.string(),
+    calculation: z.string(),
   })
 
   const getTaxCalculationsCalculationLineItemsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getTaxCalculationsCalculationLineItemsBodySchema = z
@@ -39321,7 +38981,7 @@ export function bootstrap(
             data: z.array(s_tax_calculation_line_item),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -39360,7 +39020,7 @@ export function bootstrap(
   )
 
   const getTaxSettingsQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTaxSettingsBodySchema = z.object({}).optional()
@@ -39391,19 +39051,19 @@ export function bootstrap(
           tax_behavior: z
             .enum(["exclusive", "inclusive", "inferred_by_currency"])
             .optional(),
-          tax_code: z.coerce.string().optional(),
+          tax_code: z.string().optional(),
         })
         .optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       head_office: z
         .object({
           address: z.object({
-            city: z.coerce.string().optional(),
-            country: z.coerce.string().optional(),
-            line1: z.coerce.string().optional(),
-            line2: z.coerce.string().optional(),
-            postal_code: z.coerce.string().optional(),
-            state: z.coerce.string().optional(),
+            city: z.string().optional(),
+            country: z.string().optional(),
+            line1: z.string().optional(),
+            line2: z.string().optional(),
+            postal_code: z.string().optional(),
+            state: z.string().optional(),
           }),
         })
         .optional(),
@@ -39430,10 +39090,10 @@ export function bootstrap(
   })
 
   const postTaxTransactionsCreateFromCalculationBodySchema = z.object({
-    calculation: z.coerce.string(),
-    expand: z.array(z.coerce.string()).optional(),
+    calculation: z.string(),
+    expand: z.array(z.string()).optional(),
     metadata: z.object({}).optional(),
-    reference: z.coerce.string(),
+    reference: z.string(),
   })
 
   const postTaxTransactionsCreateFromCalculationResponseValidator =
@@ -39468,7 +39128,7 @@ export function bootstrap(
   )
 
   const postTaxTransactionsCreateReversalBodySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     flat_amount: z.coerce.number().optional(),
     line_items: z
       .array(
@@ -39476,16 +39136,16 @@ export function bootstrap(
           amount: z.coerce.number(),
           amount_tax: z.coerce.number(),
           metadata: z.object({}).optional(),
-          original_line_item: z.coerce.string(),
+          original_line_item: z.string(),
           quantity: z.coerce.number().optional(),
-          reference: z.coerce.string(),
+          reference: z.string(),
         }),
       )
       .optional(),
     metadata: z.object({}).optional(),
     mode: z.enum(["full", "partial"]),
-    original_transaction: z.coerce.string(),
-    reference: z.coerce.string(),
+    original_transaction: z.string(),
+    reference: z.string(),
     shipping_cost: z
       .object({ amount: z.coerce.number(), amount_tax: z.coerce.number() })
       .optional(),
@@ -39520,11 +39180,11 @@ export function bootstrap(
   )
 
   const getTaxTransactionsTransactionParamSchema = z.object({
-    transaction: z.coerce.string(),
+    transaction: z.string(),
   })
 
   const getTaxTransactionsTransactionQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTaxTransactionsTransactionBodySchema = z.object({}).optional()
@@ -39561,14 +39221,14 @@ export function bootstrap(
   )
 
   const getTaxTransactionsTransactionLineItemsParamSchema = z.object({
-    transaction: z.coerce.string(),
+    transaction: z.string(),
   })
 
   const getTaxTransactionsTransactionLineItemsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getTaxTransactionsTransactionLineItemsBodySchema = z
@@ -39584,7 +39244,7 @@ export function bootstrap(
             data: z.array(s_tax_transaction_line_item),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -39623,10 +39283,10 @@ export function bootstrap(
   )
 
   const getTaxCodesQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getTaxCodesBodySchema = z.object({}).optional()
@@ -39639,7 +39299,7 @@ export function bootstrap(
           data: z.array(s_tax_code),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -39660,10 +39320,10 @@ export function bootstrap(
     return next()
   })
 
-  const getTaxCodesIdParamSchema = z.object({ id: z.coerce.string() })
+  const getTaxCodesIdParamSchema = z.object({ id: z.string() })
 
   const getTaxCodesIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTaxCodesIdBodySchema = z.object({}).optional()
@@ -39698,11 +39358,11 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     inclusive: z.coerce.boolean().optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getTaxRatesBodySchema = z.object({}).optional()
@@ -39715,7 +39375,7 @@ export function bootstrap(
           data: z.array(s_tax_rate),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -39738,15 +39398,15 @@ export function bootstrap(
 
   const postTaxRatesBodySchema = z.object({
     active: z.coerce.boolean().optional(),
-    country: z.coerce.string().optional(),
-    description: z.coerce.string().optional(),
-    display_name: z.coerce.string(),
-    expand: z.array(z.coerce.string()).optional(),
+    country: z.string().optional(),
+    description: z.string().optional(),
+    display_name: z.string(),
+    expand: z.array(z.string()).optional(),
     inclusive: z.coerce.boolean(),
-    jurisdiction: z.coerce.string().optional(),
+    jurisdiction: z.string().optional(),
     metadata: z.object({}).optional(),
     percentage: z.coerce.number(),
-    state: z.coerce.string().optional(),
+    state: z.string().optional(),
     tax_type: z
       .enum([
         "amusement_tax",
@@ -39785,12 +39445,10 @@ export function bootstrap(
     return next()
   })
 
-  const getTaxRatesTaxRateParamSchema = z.object({
-    tax_rate: z.coerce.string(),
-  })
+  const getTaxRatesTaxRateParamSchema = z.object({ tax_rate: z.string() })
 
   const getTaxRatesTaxRateQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTaxRatesTaxRateBodySchema = z.object({}).optional()
@@ -39821,20 +39479,18 @@ export function bootstrap(
     },
   )
 
-  const postTaxRatesTaxRateParamSchema = z.object({
-    tax_rate: z.coerce.string(),
-  })
+  const postTaxRatesTaxRateParamSchema = z.object({ tax_rate: z.string() })
 
   const postTaxRatesTaxRateBodySchema = z
     .object({
       active: z.coerce.boolean().optional(),
-      country: z.coerce.string().optional(),
-      description: z.coerce.string().optional(),
-      display_name: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
-      jurisdiction: z.coerce.string().optional(),
+      country: z.string().optional(),
+      description: z.string().optional(),
+      display_name: z.string().optional(),
+      expand: z.array(z.string()).optional(),
+      jurisdiction: z.string().optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      state: z.coerce.string().optional(),
+      state: z.string().optional(),
       tax_type: z
         .enum([
           "amusement_tax",
@@ -39885,11 +39541,11 @@ export function bootstrap(
   )
 
   const getTerminalConfigurationsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     is_account_default: z.coerce.boolean().optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getTerminalConfigurationsBodySchema = z.object({}).optional()
@@ -39902,7 +39558,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_terminal_configuration)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -39939,9 +39595,9 @@ export function bootstrap(
   const postTerminalConfigurationsBodySchema = z
     .object({
       bbpos_wisepos_e: z
-        .object({ splashscreen: z.union([z.coerce.string(), z.enum([""])]) })
+        .object({ splashscreen: z.union([z.string(), z.enum([""])]) })
         .optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       tipping: z.union([
         z.object({
           aud: z
@@ -40046,7 +39702,7 @@ export function bootstrap(
         z.enum([""]),
       ]),
       verifone_p400: z
-        .object({ splashscreen: z.union([z.coerce.string(), z.enum([""])]) })
+        .object({ splashscreen: z.union([z.string(), z.enum([""])]) })
         .optional(),
     })
     .optional()
@@ -40081,7 +39737,7 @@ export function bootstrap(
   )
 
   const deleteTerminalConfigurationsConfigurationParamSchema = z.object({
-    configuration: z.coerce.string(),
+    configuration: z.string(),
   })
 
   const deleteTerminalConfigurationsConfigurationBodySchema = z
@@ -40126,11 +39782,11 @@ export function bootstrap(
   )
 
   const getTerminalConfigurationsConfigurationParamSchema = z.object({
-    configuration: z.coerce.string(),
+    configuration: z.string(),
   })
 
   const getTerminalConfigurationsConfigurationQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTerminalConfigurationsConfigurationBodySchema = z
@@ -40183,16 +39839,16 @@ export function bootstrap(
   )
 
   const postTerminalConfigurationsConfigurationParamSchema = z.object({
-    configuration: z.coerce.string(),
+    configuration: z.string(),
   })
 
   const postTerminalConfigurationsConfigurationBodySchema = z
     .object({
       bbpos_wisepos_e: z.union([
-        z.object({ splashscreen: z.union([z.coerce.string(), z.enum([""])]) }),
+        z.object({ splashscreen: z.union([z.string(), z.enum([""])]) }),
         z.enum([""]),
       ]),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       tipping: z.union([
         z.object({
           aud: z
@@ -40297,7 +39953,7 @@ export function bootstrap(
         z.enum([""]),
       ]),
       verifone_p400: z.union([
-        z.object({ splashscreen: z.union([z.coerce.string(), z.enum([""])]) }),
+        z.object({ splashscreen: z.union([z.string(), z.enum([""])]) }),
         z.enum([""]),
       ]),
     })
@@ -40347,8 +40003,8 @@ export function bootstrap(
 
   const postTerminalConnectionTokensBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
-      location: z.coerce.string().optional(),
+      expand: z.array(z.string()).optional(),
+      location: z.string().optional(),
     })
     .optional()
 
@@ -40378,10 +40034,10 @@ export function bootstrap(
   )
 
   const getTerminalLocationsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getTerminalLocationsBodySchema = z.object({}).optional()
@@ -40394,7 +40050,7 @@ export function bootstrap(
           data: z.array(s_terminal_location),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -40427,16 +40083,16 @@ export function bootstrap(
 
   const postTerminalLocationsBodySchema = z.object({
     address: z.object({
-      city: z.coerce.string().optional(),
-      country: z.coerce.string(),
-      line1: z.coerce.string().optional(),
-      line2: z.coerce.string().optional(),
-      postal_code: z.coerce.string().optional(),
-      state: z.coerce.string().optional(),
+      city: z.string().optional(),
+      country: z.string(),
+      line1: z.string().optional(),
+      line2: z.string().optional(),
+      postal_code: z.string().optional(),
+      state: z.string().optional(),
     }),
-    configuration_overrides: z.coerce.string().optional(),
-    display_name: z.coerce.string(),
-    expand: z.array(z.coerce.string()).optional(),
+    configuration_overrides: z.string().optional(),
+    display_name: z.string(),
+    expand: z.array(z.string()).optional(),
     metadata: z.union([z.object({}), z.enum([""])]),
   })
 
@@ -40470,7 +40126,7 @@ export function bootstrap(
   )
 
   const deleteTerminalLocationsLocationParamSchema = z.object({
-    location: z.coerce.string(),
+    location: z.string(),
   })
 
   const deleteTerminalLocationsLocationBodySchema = z.object({}).optional()
@@ -40504,11 +40160,11 @@ export function bootstrap(
   )
 
   const getTerminalLocationsLocationParamSchema = z.object({
-    location: z.coerce.string(),
+    location: z.string(),
   })
 
   const getTerminalLocationsLocationQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTerminalLocationsLocationBodySchema = z.object({}).optional()
@@ -40548,24 +40204,24 @@ export function bootstrap(
   )
 
   const postTerminalLocationsLocationParamSchema = z.object({
-    location: z.coerce.string(),
+    location: z.string(),
   })
 
   const postTerminalLocationsLocationBodySchema = z
     .object({
       address: z
         .object({
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          line1: z.coerce.string().optional(),
-          line2: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          line1: z.string().optional(),
+          line2: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
         })
         .optional(),
-      configuration_overrides: z.union([z.coerce.string(), z.enum([""])]),
-      display_name: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      configuration_overrides: z.union([z.string(), z.enum([""])]),
+      display_name: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
@@ -40612,12 +40268,12 @@ export function bootstrap(
         "verifone_P400",
       ])
       .optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    location: z.coerce.string().optional(),
-    serial_number: z.coerce.string().optional(),
-    starting_after: z.coerce.string().optional(),
+    location: z.string().optional(),
+    serial_number: z.string().optional(),
+    starting_after: z.string().optional(),
     status: z.enum(["offline", "online"]).optional(),
   })
 
@@ -40631,7 +40287,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_terminal_reader)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -40660,11 +40316,11 @@ export function bootstrap(
   )
 
   const postTerminalReadersBodySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
-    label: z.coerce.string().optional(),
-    location: z.coerce.string().optional(),
+    expand: z.array(z.string()).optional(),
+    label: z.string().optional(),
+    location: z.string().optional(),
     metadata: z.union([z.object({}), z.enum([""])]),
-    registration_code: z.coerce.string(),
+    registration_code: z.string(),
   })
 
   const postTerminalReadersResponseValidator = responseValidationFactory(
@@ -40697,7 +40353,7 @@ export function bootstrap(
   )
 
   const deleteTerminalReadersReaderParamSchema = z.object({
-    reader: z.coerce.string(),
+    reader: z.string(),
   })
 
   const deleteTerminalReadersReaderBodySchema = z.object({}).optional()
@@ -40732,12 +40388,10 @@ export function bootstrap(
     },
   )
 
-  const getTerminalReadersReaderParamSchema = z.object({
-    reader: z.coerce.string(),
-  })
+  const getTerminalReadersReaderParamSchema = z.object({ reader: z.string() })
 
   const getTerminalReadersReaderQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTerminalReadersReaderBodySchema = z.object({}).optional()
@@ -40782,14 +40436,12 @@ export function bootstrap(
     },
   )
 
-  const postTerminalReadersReaderParamSchema = z.object({
-    reader: z.coerce.string(),
-  })
+  const postTerminalReadersReaderParamSchema = z.object({ reader: z.string() })
 
   const postTerminalReadersReaderBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
-      label: z.union([z.coerce.string(), z.enum([""])]),
+      expand: z.array(z.string()).optional(),
+      label: z.union([z.string(), z.enum([""])]),
       metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
@@ -40832,11 +40484,11 @@ export function bootstrap(
   )
 
   const postTerminalReadersReaderCancelActionParamSchema = z.object({
-    reader: z.coerce.string(),
+    reader: z.string(),
   })
 
   const postTerminalReadersReaderCancelActionBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postTerminalReadersReaderCancelActionResponseValidator =
@@ -40871,12 +40523,12 @@ export function bootstrap(
   )
 
   const postTerminalReadersReaderProcessPaymentIntentParamSchema = z.object({
-    reader: z.coerce.string(),
+    reader: z.string(),
   })
 
   const postTerminalReadersReaderProcessPaymentIntentBodySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
-    payment_intent: z.coerce.string(),
+    expand: z.array(z.string()).optional(),
+    payment_intent: z.string(),
     process_config: z
       .object({
         skip_tipping: z.coerce.boolean().optional(),
@@ -40922,14 +40574,14 @@ export function bootstrap(
   )
 
   const postTerminalReadersReaderProcessSetupIntentParamSchema = z.object({
-    reader: z.coerce.string(),
+    reader: z.string(),
   })
 
   const postTerminalReadersReaderProcessSetupIntentBodySchema = z.object({
     customer_consent_collected: z.coerce.boolean(),
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     process_config: z.object({}).optional(),
-    setup_intent: z.coerce.string(),
+    setup_intent: z.string(),
   })
 
   const postTerminalReadersReaderProcessSetupIntentResponseValidator =
@@ -40967,16 +40619,16 @@ export function bootstrap(
   )
 
   const postTerminalReadersReaderRefundPaymentParamSchema = z.object({
-    reader: z.coerce.string(),
+    reader: z.string(),
   })
 
   const postTerminalReadersReaderRefundPaymentBodySchema = z
     .object({
       amount: z.coerce.number().optional(),
-      charge: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      charge: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.object({}).optional(),
-      payment_intent: z.coerce.string().optional(),
+      payment_intent: z.string().optional(),
       refund_application_fee: z.coerce.boolean().optional(),
       reverse_transfer: z.coerce.boolean().optional(),
     })
@@ -41014,17 +40666,17 @@ export function bootstrap(
   )
 
   const postTerminalReadersReaderSetReaderDisplayParamSchema = z.object({
-    reader: z.coerce.string(),
+    reader: z.string(),
   })
 
   const postTerminalReadersReaderSetReaderDisplayBodySchema = z.object({
     cart: z
       .object({
-        currency: z.coerce.string(),
+        currency: z.string(),
         line_items: z.array(
           z.object({
             amount: z.coerce.number(),
-            description: z.coerce.string(),
+            description: z.string(),
             quantity: z.coerce.number(),
           }),
         ),
@@ -41032,7 +40684,7 @@ export function bootstrap(
         total: z.coerce.number(),
       })
       .optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     type: z.enum(["cart"]),
   })
 
@@ -41071,14 +40723,14 @@ export function bootstrap(
   )
 
   const postTestHelpersCustomersCustomerFundCashBalanceParamSchema = z.object({
-    customer: z.coerce.string(),
+    customer: z.string(),
   })
 
   const postTestHelpersCustomersCustomerFundCashBalanceBodySchema = z.object({
     amount: z.coerce.number(),
-    currency: z.coerce.string(),
-    expand: z.array(z.coerce.string()).optional(),
-    reference: z.coerce.string().optional(),
+    currency: z.string(),
+    expand: z.array(z.string()).optional(),
+    reference: z.string().optional(),
   })
 
   const postTestHelpersCustomersCustomerFundCashBalanceResponseValidator =
@@ -41130,9 +40782,9 @@ export function bootstrap(
     authorization_method: z
       .enum(["chip", "contactless", "keyed_in", "online", "swipe"])
       .optional(),
-    card: z.coerce.string(),
-    currency: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    card: z.string(),
+    currency: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     is_amount_controllable: z.coerce.boolean().optional(),
     merchant_data: z
       .object({
@@ -41434,17 +41086,17 @@ export function bootstrap(
             "wrecking_and_salvage_yards",
           ])
           .optional(),
-        city: z.coerce.string().optional(),
-        country: z.coerce.string().optional(),
-        name: z.coerce.string().optional(),
-        network_id: z.coerce.string().optional(),
-        postal_code: z.coerce.string().optional(),
-        state: z.coerce.string().optional(),
-        terminal_id: z.coerce.string().optional(),
+        city: z.string().optional(),
+        country: z.string().optional(),
+        name: z.string().optional(),
+        network_id: z.string().optional(),
+        postal_code: z.string().optional(),
+        state: z.string().optional(),
+        terminal_id: z.string().optional(),
       })
       .optional(),
     network_data: z
-      .object({ acquiring_institution_id: z.coerce.string().optional() })
+      .object({ acquiring_institution_id: z.string().optional() })
       .optional(),
     verification_data: z
       .object({
@@ -41490,33 +41142,33 @@ export function bootstrap(
   )
 
   const postTestHelpersIssuingAuthorizationsAuthorizationCaptureParamSchema =
-    z.object({ authorization: z.coerce.string() })
+    z.object({ authorization: z.string() })
 
   const postTestHelpersIssuingAuthorizationsAuthorizationCaptureBodySchema = z
     .object({
       capture_amount: z.coerce.number().optional(),
       close_authorization: z.coerce.boolean().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       purchase_details: z
         .object({
           flight: z
             .object({
               departure_at: z.coerce.number().optional(),
-              passenger_name: z.coerce.string().optional(),
+              passenger_name: z.string().optional(),
               refundable: z.coerce.boolean().optional(),
               segments: z
                 .array(
                   z.object({
-                    arrival_airport_code: z.coerce.string().optional(),
-                    carrier: z.coerce.string().optional(),
-                    departure_airport_code: z.coerce.string().optional(),
-                    flight_number: z.coerce.string().optional(),
-                    service_class: z.coerce.string().optional(),
+                    arrival_airport_code: z.string().optional(),
+                    carrier: z.string().optional(),
+                    departure_airport_code: z.string().optional(),
+                    flight_number: z.string().optional(),
+                    service_class: z.string().optional(),
                     stopover_allowed: z.coerce.boolean().optional(),
                   }),
                 )
                 .optional(),
-              travel_agency: z.coerce.string().optional(),
+              travel_agency: z.string().optional(),
             })
             .optional(),
           fuel: z
@@ -41531,8 +41183,8 @@ export function bootstrap(
                 ])
                 .optional(),
               unit: z.enum(["liter", "us_gallon"]).optional(),
-              unit_cost_decimal: z.coerce.string().optional(),
-              volume_decimal: z.coerce.string().optional(),
+              unit_cost_decimal: z.string().optional(),
+              volume_decimal: z.string().optional(),
             })
             .optional(),
           lodging: z
@@ -41544,14 +41196,14 @@ export function bootstrap(
           receipt: z
             .array(
               z.object({
-                description: z.coerce.string().optional(),
-                quantity: z.coerce.string().optional(),
+                description: z.string().optional(),
+                quantity: z.string().optional(),
                 total: z.coerce.number().optional(),
                 unit_cost: z.coerce.number().optional(),
               }),
             )
             .optional(),
-          reference: z.coerce.string().optional(),
+          reference: z.string().optional(),
         })
         .optional(),
     })
@@ -41593,10 +41245,10 @@ export function bootstrap(
   )
 
   const postTestHelpersIssuingAuthorizationsAuthorizationExpireParamSchema =
-    z.object({ authorization: z.coerce.string() })
+    z.object({ authorization: z.string() })
 
   const postTestHelpersIssuingAuthorizationsAuthorizationExpireBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postTestHelpersIssuingAuthorizationsAuthorizationExpireResponseValidator =
@@ -41635,11 +41287,11 @@ export function bootstrap(
   )
 
   const postTestHelpersIssuingAuthorizationsAuthorizationIncrementParamSchema =
-    z.object({ authorization: z.coerce.string() })
+    z.object({ authorization: z.string() })
 
   const postTestHelpersIssuingAuthorizationsAuthorizationIncrementBodySchema =
     z.object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       increment_amount: z.coerce.number(),
       is_amount_controllable: z.coerce.boolean().optional(),
     })
@@ -41680,11 +41332,11 @@ export function bootstrap(
   )
 
   const postTestHelpersIssuingAuthorizationsAuthorizationReverseParamSchema =
-    z.object({ authorization: z.coerce.string() })
+    z.object({ authorization: z.string() })
 
   const postTestHelpersIssuingAuthorizationsAuthorizationReverseBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       reverse_amount: z.coerce.number().optional(),
     })
     .optional()
@@ -41725,11 +41377,11 @@ export function bootstrap(
   )
 
   const postTestHelpersIssuingCardsCardShippingDeliverParamSchema = z.object({
-    card: z.coerce.string(),
+    card: z.string(),
   })
 
   const postTestHelpersIssuingCardsCardShippingDeliverBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postTestHelpersIssuingCardsCardShippingDeliverResponseValidator =
@@ -41768,11 +41420,11 @@ export function bootstrap(
   )
 
   const postTestHelpersIssuingCardsCardShippingFailParamSchema = z.object({
-    card: z.coerce.string(),
+    card: z.string(),
   })
 
   const postTestHelpersIssuingCardsCardShippingFailBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postTestHelpersIssuingCardsCardShippingFailResponseValidator =
@@ -41810,11 +41462,11 @@ export function bootstrap(
   )
 
   const postTestHelpersIssuingCardsCardShippingReturnParamSchema = z.object({
-    card: z.coerce.string(),
+    card: z.string(),
   })
 
   const postTestHelpersIssuingCardsCardShippingReturnBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postTestHelpersIssuingCardsCardShippingReturnResponseValidator =
@@ -41852,11 +41504,11 @@ export function bootstrap(
   )
 
   const postTestHelpersIssuingCardsCardShippingShipParamSchema = z.object({
-    card: z.coerce.string(),
+    card: z.string(),
   })
 
   const postTestHelpersIssuingCardsCardShippingShipBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postTestHelpersIssuingCardsCardShippingShipResponseValidator =
@@ -41896,9 +41548,9 @@ export function bootstrap(
   const postTestHelpersIssuingTransactionsCreateForceCaptureBodySchema =
     z.object({
       amount: z.coerce.number(),
-      card: z.coerce.string(),
-      currency: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      card: z.string(),
+      currency: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       merchant_data: z
         .object({
           category: z
@@ -42199,13 +41851,13 @@ export function bootstrap(
               "wrecking_and_salvage_yards",
             ])
             .optional(),
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          name: z.coerce.string().optional(),
-          network_id: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
-          terminal_id: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          name: z.string().optional(),
+          network_id: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
+          terminal_id: z.string().optional(),
         })
         .optional(),
       purchase_details: z
@@ -42213,21 +41865,21 @@ export function bootstrap(
           flight: z
             .object({
               departure_at: z.coerce.number().optional(),
-              passenger_name: z.coerce.string().optional(),
+              passenger_name: z.string().optional(),
               refundable: z.coerce.boolean().optional(),
               segments: z
                 .array(
                   z.object({
-                    arrival_airport_code: z.coerce.string().optional(),
-                    carrier: z.coerce.string().optional(),
-                    departure_airport_code: z.coerce.string().optional(),
-                    flight_number: z.coerce.string().optional(),
-                    service_class: z.coerce.string().optional(),
+                    arrival_airport_code: z.string().optional(),
+                    carrier: z.string().optional(),
+                    departure_airport_code: z.string().optional(),
+                    flight_number: z.string().optional(),
+                    service_class: z.string().optional(),
                     stopover_allowed: z.coerce.boolean().optional(),
                   }),
                 )
                 .optional(),
-              travel_agency: z.coerce.string().optional(),
+              travel_agency: z.string().optional(),
             })
             .optional(),
           fuel: z
@@ -42242,8 +41894,8 @@ export function bootstrap(
                 ])
                 .optional(),
               unit: z.enum(["liter", "us_gallon"]).optional(),
-              unit_cost_decimal: z.coerce.string().optional(),
-              volume_decimal: z.coerce.string().optional(),
+              unit_cost_decimal: z.string().optional(),
+              volume_decimal: z.string().optional(),
             })
             .optional(),
           lodging: z
@@ -42255,14 +41907,14 @@ export function bootstrap(
           receipt: z
             .array(
               z.object({
-                description: z.coerce.string().optional(),
-                quantity: z.coerce.string().optional(),
+                description: z.string().optional(),
+                quantity: z.string().optional(),
                 total: z.coerce.number().optional(),
                 unit_cost: z.coerce.number().optional(),
               }),
             )
             .optional(),
-          reference: z.coerce.string().optional(),
+          reference: z.string().optional(),
         })
         .optional(),
     })
@@ -42302,9 +41954,9 @@ export function bootstrap(
   const postTestHelpersIssuingTransactionsCreateUnlinkedRefundBodySchema =
     z.object({
       amount: z.coerce.number(),
-      card: z.coerce.string(),
-      currency: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      card: z.string(),
+      currency: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       merchant_data: z
         .object({
           category: z
@@ -42605,13 +42257,13 @@ export function bootstrap(
               "wrecking_and_salvage_yards",
             ])
             .optional(),
-          city: z.coerce.string().optional(),
-          country: z.coerce.string().optional(),
-          name: z.coerce.string().optional(),
-          network_id: z.coerce.string().optional(),
-          postal_code: z.coerce.string().optional(),
-          state: z.coerce.string().optional(),
-          terminal_id: z.coerce.string().optional(),
+          city: z.string().optional(),
+          country: z.string().optional(),
+          name: z.string().optional(),
+          network_id: z.string().optional(),
+          postal_code: z.string().optional(),
+          state: z.string().optional(),
+          terminal_id: z.string().optional(),
         })
         .optional(),
       purchase_details: z
@@ -42619,21 +42271,21 @@ export function bootstrap(
           flight: z
             .object({
               departure_at: z.coerce.number().optional(),
-              passenger_name: z.coerce.string().optional(),
+              passenger_name: z.string().optional(),
               refundable: z.coerce.boolean().optional(),
               segments: z
                 .array(
                   z.object({
-                    arrival_airport_code: z.coerce.string().optional(),
-                    carrier: z.coerce.string().optional(),
-                    departure_airport_code: z.coerce.string().optional(),
-                    flight_number: z.coerce.string().optional(),
-                    service_class: z.coerce.string().optional(),
+                    arrival_airport_code: z.string().optional(),
+                    carrier: z.string().optional(),
+                    departure_airport_code: z.string().optional(),
+                    flight_number: z.string().optional(),
+                    service_class: z.string().optional(),
                     stopover_allowed: z.coerce.boolean().optional(),
                   }),
                 )
                 .optional(),
-              travel_agency: z.coerce.string().optional(),
+              travel_agency: z.string().optional(),
             })
             .optional(),
           fuel: z
@@ -42648,8 +42300,8 @@ export function bootstrap(
                 ])
                 .optional(),
               unit: z.enum(["liter", "us_gallon"]).optional(),
-              unit_cost_decimal: z.coerce.string().optional(),
-              volume_decimal: z.coerce.string().optional(),
+              unit_cost_decimal: z.string().optional(),
+              volume_decimal: z.string().optional(),
             })
             .optional(),
           lodging: z
@@ -42661,14 +42313,14 @@ export function bootstrap(
           receipt: z
             .array(
               z.object({
-                description: z.coerce.string().optional(),
-                quantity: z.coerce.string().optional(),
+                description: z.string().optional(),
+                quantity: z.string().optional(),
                 total: z.coerce.number().optional(),
                 unit_cost: z.coerce.number().optional(),
               }),
             )
             .optional(),
-          reference: z.coerce.string().optional(),
+          reference: z.string().optional(),
         })
         .optional(),
     })
@@ -42706,11 +42358,11 @@ export function bootstrap(
   )
 
   const postTestHelpersIssuingTransactionsTransactionRefundParamSchema =
-    z.object({ transaction: z.coerce.string() })
+    z.object({ transaction: z.string() })
 
   const postTestHelpersIssuingTransactionsTransactionRefundBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       refund_amount: z.coerce.number().optional(),
     })
     .optional()
@@ -42751,11 +42403,11 @@ export function bootstrap(
   )
 
   const postTestHelpersRefundsRefundExpireParamSchema = z.object({
-    refund: z.coerce.string(),
+    refund: z.string(),
   })
 
   const postTestHelpersRefundsRefundExpireBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postTestHelpersRefundsRefundExpireResponseValidator =
@@ -42790,18 +42442,14 @@ export function bootstrap(
   )
 
   const postTestHelpersTerminalReadersReaderPresentPaymentMethodParamSchema =
-    z.object({ reader: z.coerce.string() })
+    z.object({ reader: z.string() })
 
   const postTestHelpersTerminalReadersReaderPresentPaymentMethodBodySchema = z
     .object({
       amount_tip: z.coerce.number().optional(),
-      card_present: z
-        .object({ number: z.coerce.string().optional() })
-        .optional(),
-      expand: z.array(z.coerce.string()).optional(),
-      interac_present: z
-        .object({ number: z.coerce.string().optional() })
-        .optional(),
+      card_present: z.object({ number: z.string().optional() }).optional(),
+      expand: z.array(z.string()).optional(),
+      interac_present: z.object({ number: z.string().optional() }).optional(),
       type: z.enum(["card_present", "interac_present"]).optional(),
     })
     .optional()
@@ -42842,10 +42490,10 @@ export function bootstrap(
   )
 
   const getTestHelpersTestClocksQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getTestHelpersTestClocksBodySchema = z.object({}).optional()
@@ -42858,7 +42506,7 @@ export function bootstrap(
           data: z.array(s_test_helpers_test_clock),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -42893,9 +42541,9 @@ export function bootstrap(
   )
 
   const postTestHelpersTestClocksBodySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     frozen_time: z.coerce.number(),
-    name: z.coerce.string().optional(),
+    name: z.string().optional(),
   })
 
   const postTestHelpersTestClocksResponseValidator = responseValidationFactory(
@@ -42928,7 +42576,7 @@ export function bootstrap(
   )
 
   const deleteTestHelpersTestClocksTestClockParamSchema = z.object({
-    test_clock: z.coerce.string(),
+    test_clock: z.string(),
   })
 
   const deleteTestHelpersTestClocksTestClockBodySchema = z.object({}).optional()
@@ -42968,11 +42616,11 @@ export function bootstrap(
   )
 
   const getTestHelpersTestClocksTestClockParamSchema = z.object({
-    test_clock: z.coerce.string(),
+    test_clock: z.string(),
   })
 
   const getTestHelpersTestClocksTestClockQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTestHelpersTestClocksTestClockBodySchema = z.object({}).optional()
@@ -43012,11 +42660,11 @@ export function bootstrap(
   )
 
   const postTestHelpersTestClocksTestClockAdvanceParamSchema = z.object({
-    test_clock: z.coerce.string(),
+    test_clock: z.string(),
   })
 
   const postTestHelpersTestClocksTestClockAdvanceBodySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     frozen_time: z.coerce.number(),
   })
 
@@ -43055,12 +42703,12 @@ export function bootstrap(
   )
 
   const postTestHelpersTreasuryInboundTransfersIdFailParamSchema = z.object({
-    id: z.coerce.string(),
+    id: z.string(),
   })
 
   const postTestHelpersTreasuryInboundTransfersIdFailBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       failure_details: z
         .object({
           code: z
@@ -43120,11 +42768,11 @@ export function bootstrap(
   )
 
   const postTestHelpersTreasuryInboundTransfersIdReturnParamSchema = z.object({
-    id: z.coerce.string(),
+    id: z.string(),
   })
 
   const postTestHelpersTreasuryInboundTransfersIdReturnBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postTestHelpersTreasuryInboundTransfersIdReturnResponseValidator =
@@ -43163,11 +42811,11 @@ export function bootstrap(
   )
 
   const postTestHelpersTreasuryInboundTransfersIdSucceedParamSchema = z.object({
-    id: z.coerce.string(),
+    id: z.string(),
   })
 
   const postTestHelpersTreasuryInboundTransfersIdSucceedBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postTestHelpersTreasuryInboundTransfersIdSucceedResponseValidator =
@@ -43206,11 +42854,11 @@ export function bootstrap(
   )
 
   const postTestHelpersTreasuryOutboundPaymentsIdFailParamSchema = z.object({
-    id: z.coerce.string(),
+    id: z.string(),
   })
 
   const postTestHelpersTreasuryOutboundPaymentsIdFailBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postTestHelpersTreasuryOutboundPaymentsIdFailResponseValidator =
@@ -43248,11 +42896,11 @@ export function bootstrap(
   )
 
   const postTestHelpersTreasuryOutboundPaymentsIdPostParamSchema = z.object({
-    id: z.coerce.string(),
+    id: z.string(),
   })
 
   const postTestHelpersTreasuryOutboundPaymentsIdPostBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postTestHelpersTreasuryOutboundPaymentsIdPostResponseValidator =
@@ -43290,12 +42938,12 @@ export function bootstrap(
   )
 
   const postTestHelpersTreasuryOutboundPaymentsIdReturnParamSchema = z.object({
-    id: z.coerce.string(),
+    id: z.string(),
   })
 
   const postTestHelpersTreasuryOutboundPaymentsIdReturnBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       returned_details: z
         .object({
           code: z
@@ -43353,10 +43001,10 @@ export function bootstrap(
   )
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailParamSchema =
-    z.object({ outbound_transfer: z.coerce.string() })
+    z.object({ outbound_transfer: z.string() })
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailBodySchema =
-    z.object({ expand: z.array(z.coerce.string()).optional() }).optional()
+    z.object({ expand: z.array(z.string()).optional() }).optional()
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponseValidator =
     responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
@@ -43394,10 +43042,10 @@ export function bootstrap(
   )
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostParamSchema =
-    z.object({ outbound_transfer: z.coerce.string() })
+    z.object({ outbound_transfer: z.string() })
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostBodySchema =
-    z.object({ expand: z.array(z.coerce.string()).optional() }).optional()
+    z.object({ expand: z.array(z.string()).optional() }).optional()
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponseValidator =
     responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
@@ -43435,12 +43083,12 @@ export function bootstrap(
   )
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnParamSchema =
-    z.object({ outbound_transfer: z.coerce.string() })
+    z.object({ outbound_transfer: z.string() })
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnBodySchema =
     z
       .object({
-        expand: z.array(z.coerce.string()).optional(),
+        expand: z.array(z.string()).optional(),
         returned_details: z
           .object({
             code: z
@@ -43499,18 +43147,18 @@ export function bootstrap(
 
   const postTestHelpersTreasuryReceivedCreditsBodySchema = z.object({
     amount: z.coerce.number(),
-    currency: z.coerce.string(),
-    description: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    financial_account: z.coerce.string(),
+    currency: z.string(),
+    description: z.string().optional(),
+    expand: z.array(z.string()).optional(),
+    financial_account: z.string(),
     initiating_payment_method_details: z
       .object({
         type: z.enum(["us_bank_account"]),
         us_bank_account: z
           .object({
-            account_holder_name: z.coerce.string().optional(),
-            account_number: z.coerce.string().optional(),
-            routing_number: z.coerce.string().optional(),
+            account_holder_name: z.string().optional(),
+            account_number: z.string().optional(),
+            routing_number: z.string().optional(),
           })
           .optional(),
       })
@@ -43548,18 +43196,18 @@ export function bootstrap(
 
   const postTestHelpersTreasuryReceivedDebitsBodySchema = z.object({
     amount: z.coerce.number(),
-    currency: z.coerce.string(),
-    description: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    financial_account: z.coerce.string(),
+    currency: z.string(),
+    description: z.string().optional(),
+    expand: z.array(z.string()).optional(),
+    financial_account: z.string(),
     initiating_payment_method_details: z
       .object({
         type: z.enum(["us_bank_account"]),
         us_bank_account: z
           .object({
-            account_holder_name: z.coerce.string().optional(),
-            account_number: z.coerce.string().optional(),
-            routing_number: z.coerce.string().optional(),
+            account_holder_name: z.string().optional(),
+            account_number: z.string().optional(),
+            routing_number: z.string().optional(),
           })
           .optional(),
       })
@@ -43606,56 +43254,56 @@ export function bootstrap(
             .object({
               address: z
                 .object({
-                  city: z.coerce.string().optional(),
-                  country: z.coerce.string().optional(),
-                  line1: z.coerce.string().optional(),
-                  line2: z.coerce.string().optional(),
-                  postal_code: z.coerce.string().optional(),
-                  state: z.coerce.string().optional(),
+                  city: z.string().optional(),
+                  country: z.string().optional(),
+                  line1: z.string().optional(),
+                  line2: z.string().optional(),
+                  postal_code: z.string().optional(),
+                  state: z.string().optional(),
                 })
                 .optional(),
               address_kana: z
                 .object({
-                  city: z.coerce.string().optional(),
-                  country: z.coerce.string().optional(),
-                  line1: z.coerce.string().optional(),
-                  line2: z.coerce.string().optional(),
-                  postal_code: z.coerce.string().optional(),
-                  state: z.coerce.string().optional(),
-                  town: z.coerce.string().optional(),
+                  city: z.string().optional(),
+                  country: z.string().optional(),
+                  line1: z.string().optional(),
+                  line2: z.string().optional(),
+                  postal_code: z.string().optional(),
+                  state: z.string().optional(),
+                  town: z.string().optional(),
                 })
                 .optional(),
               address_kanji: z
                 .object({
-                  city: z.coerce.string().optional(),
-                  country: z.coerce.string().optional(),
-                  line1: z.coerce.string().optional(),
-                  line2: z.coerce.string().optional(),
-                  postal_code: z.coerce.string().optional(),
-                  state: z.coerce.string().optional(),
-                  town: z.coerce.string().optional(),
+                  city: z.string().optional(),
+                  country: z.string().optional(),
+                  line1: z.string().optional(),
+                  line2: z.string().optional(),
+                  postal_code: z.string().optional(),
+                  state: z.string().optional(),
+                  town: z.string().optional(),
                 })
                 .optional(),
               directors_provided: z.coerce.boolean().optional(),
               executives_provided: z.coerce.boolean().optional(),
-              export_license_id: z.coerce.string().optional(),
-              export_purpose_code: z.coerce.string().optional(),
-              name: z.coerce.string().optional(),
-              name_kana: z.coerce.string().optional(),
-              name_kanji: z.coerce.string().optional(),
+              export_license_id: z.string().optional(),
+              export_purpose_code: z.string().optional(),
+              name: z.string().optional(),
+              name_kana: z.string().optional(),
+              name_kanji: z.string().optional(),
               owners_provided: z.coerce.boolean().optional(),
               ownership_declaration: z
                 .object({
                   date: z.coerce.number().optional(),
-                  ip: z.coerce.string().optional(),
-                  user_agent: z.coerce.string().optional(),
+                  ip: z.string().optional(),
+                  user_agent: z.string().optional(),
                 })
                 .optional(),
               ownership_declaration_shown_and_signed: z.coerce
                 .boolean()
                 .optional(),
-              phone: z.coerce.string().optional(),
-              registration_number: z.coerce.string().optional(),
+              phone: z.string().optional(),
+              registration_number: z.string().optional(),
               structure: z
                 .enum([
                   "",
@@ -43683,15 +43331,15 @@ export function bootstrap(
                   "unincorporated_partnership",
                 ])
                 .optional(),
-              tax_id: z.coerce.string().optional(),
-              tax_id_registrar: z.coerce.string().optional(),
-              vat_id: z.coerce.string().optional(),
+              tax_id: z.string().optional(),
+              tax_id_registrar: z.string().optional(),
+              vat_id: z.string().optional(),
               verification: z
                 .object({
                   document: z
                     .object({
-                      back: z.coerce.string().optional(),
-                      front: z.coerce.string().optional(),
+                      back: z.string().optional(),
+                      front: z.string().optional(),
                     })
                     .optional(),
                 })
@@ -43702,34 +43350,34 @@ export function bootstrap(
             .object({
               address: z
                 .object({
-                  city: z.coerce.string().optional(),
-                  country: z.coerce.string().optional(),
-                  line1: z.coerce.string().optional(),
-                  line2: z.coerce.string().optional(),
-                  postal_code: z.coerce.string().optional(),
-                  state: z.coerce.string().optional(),
+                  city: z.string().optional(),
+                  country: z.string().optional(),
+                  line1: z.string().optional(),
+                  line2: z.string().optional(),
+                  postal_code: z.string().optional(),
+                  state: z.string().optional(),
                 })
                 .optional(),
               address_kana: z
                 .object({
-                  city: z.coerce.string().optional(),
-                  country: z.coerce.string().optional(),
-                  line1: z.coerce.string().optional(),
-                  line2: z.coerce.string().optional(),
-                  postal_code: z.coerce.string().optional(),
-                  state: z.coerce.string().optional(),
-                  town: z.coerce.string().optional(),
+                  city: z.string().optional(),
+                  country: z.string().optional(),
+                  line1: z.string().optional(),
+                  line2: z.string().optional(),
+                  postal_code: z.string().optional(),
+                  state: z.string().optional(),
+                  town: z.string().optional(),
                 })
                 .optional(),
               address_kanji: z
                 .object({
-                  city: z.coerce.string().optional(),
-                  country: z.coerce.string().optional(),
-                  line1: z.coerce.string().optional(),
-                  line2: z.coerce.string().optional(),
-                  postal_code: z.coerce.string().optional(),
-                  state: z.coerce.string().optional(),
-                  town: z.coerce.string().optional(),
+                  city: z.string().optional(),
+                  country: z.string().optional(),
+                  line1: z.string().optional(),
+                  line2: z.string().optional(),
+                  postal_code: z.string().optional(),
+                  state: z.string().optional(),
+                  town: z.string().optional(),
                 })
                 .optional(),
               dob: z.union([
@@ -43740,47 +43388,44 @@ export function bootstrap(
                 }),
                 z.enum([""]),
               ]),
-              email: z.coerce.string().optional(),
-              first_name: z.coerce.string().optional(),
-              first_name_kana: z.coerce.string().optional(),
-              first_name_kanji: z.coerce.string().optional(),
-              full_name_aliases: z.union([
-                z.array(z.coerce.string()),
-                z.enum([""]),
-              ]),
-              gender: z.coerce.string().optional(),
-              id_number: z.coerce.string().optional(),
-              id_number_secondary: z.coerce.string().optional(),
-              last_name: z.coerce.string().optional(),
-              last_name_kana: z.coerce.string().optional(),
-              last_name_kanji: z.coerce.string().optional(),
-              maiden_name: z.coerce.string().optional(),
+              email: z.string().optional(),
+              first_name: z.string().optional(),
+              first_name_kana: z.string().optional(),
+              first_name_kanji: z.string().optional(),
+              full_name_aliases: z.union([z.array(z.string()), z.enum([""])]),
+              gender: z.string().optional(),
+              id_number: z.string().optional(),
+              id_number_secondary: z.string().optional(),
+              last_name: z.string().optional(),
+              last_name_kana: z.string().optional(),
+              last_name_kanji: z.string().optional(),
+              maiden_name: z.string().optional(),
               metadata: z.union([z.object({}), z.enum([""])]),
-              phone: z.coerce.string().optional(),
+              phone: z.string().optional(),
               political_exposure: z.enum(["existing", "none"]).optional(),
               registered_address: z
                 .object({
-                  city: z.coerce.string().optional(),
-                  country: z.coerce.string().optional(),
-                  line1: z.coerce.string().optional(),
-                  line2: z.coerce.string().optional(),
-                  postal_code: z.coerce.string().optional(),
-                  state: z.coerce.string().optional(),
+                  city: z.string().optional(),
+                  country: z.string().optional(),
+                  line1: z.string().optional(),
+                  line2: z.string().optional(),
+                  postal_code: z.string().optional(),
+                  state: z.string().optional(),
                 })
                 .optional(),
-              ssn_last_4: z.coerce.string().optional(),
+              ssn_last_4: z.string().optional(),
               verification: z
                 .object({
                   additional_document: z
                     .object({
-                      back: z.coerce.string().optional(),
-                      front: z.coerce.string().optional(),
+                      back: z.string().optional(),
+                      front: z.string().optional(),
                     })
                     .optional(),
                   document: z
                     .object({
-                      back: z.coerce.string().optional(),
-                      front: z.coerce.string().optional(),
+                      back: z.string().optional(),
+                      front: z.string().optional(),
                     })
                     .optional(),
                 })
@@ -43792,69 +43437,69 @@ export function bootstrap(
         .optional(),
       bank_account: z
         .object({
-          account_holder_name: z.coerce.string().optional(),
+          account_holder_name: z.string().optional(),
           account_holder_type: z.enum(["company", "individual"]).optional(),
-          account_number: z.coerce.string(),
+          account_number: z.string(),
           account_type: z
             .enum(["checking", "futsu", "savings", "toza"])
             .optional(),
-          country: z.coerce.string(),
-          currency: z.coerce.string().optional(),
-          routing_number: z.coerce.string().optional(),
+          country: z.string(),
+          currency: z.string().optional(),
+          routing_number: z.string().optional(),
         })
         .optional(),
       card: z.union([
         z.object({
-          address_city: z.coerce.string().optional(),
-          address_country: z.coerce.string().optional(),
-          address_line1: z.coerce.string().optional(),
-          address_line2: z.coerce.string().optional(),
-          address_state: z.coerce.string().optional(),
-          address_zip: z.coerce.string().optional(),
-          currency: z.coerce.string().optional(),
-          cvc: z.coerce.string().optional(),
-          exp_month: z.coerce.string(),
-          exp_year: z.coerce.string(),
-          name: z.coerce.string().optional(),
-          number: z.coerce.string(),
+          address_city: z.string().optional(),
+          address_country: z.string().optional(),
+          address_line1: z.string().optional(),
+          address_line2: z.string().optional(),
+          address_state: z.string().optional(),
+          address_zip: z.string().optional(),
+          currency: z.string().optional(),
+          cvc: z.string().optional(),
+          exp_month: z.string(),
+          exp_year: z.string(),
+          name: z.string().optional(),
+          number: z.string(),
         }),
-        z.coerce.string(),
+        z.string(),
       ]),
-      customer: z.coerce.string().optional(),
-      cvc_update: z.object({ cvc: z.coerce.string() }).optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      customer: z.string().optional(),
+      cvc_update: z.object({ cvc: z.string() }).optional(),
+      expand: z.array(z.string()).optional(),
       person: z
         .object({
           address: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
             })
             .optional(),
           address_kana: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
-              town: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
+              town: z.string().optional(),
             })
             .optional(),
           address_kanji: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
-              town: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
+              town: z.string().optional(),
             })
             .optional(),
           dob: z.union([
@@ -43870,53 +43515,50 @@ export function bootstrap(
               company_authorization: z
                 .object({
                   files: z
-                    .array(z.union([z.coerce.string(), z.enum([""])]))
+                    .array(z.union([z.string(), z.enum([""])]))
                     .optional(),
                 })
                 .optional(),
               passport: z
                 .object({
                   files: z
-                    .array(z.union([z.coerce.string(), z.enum([""])]))
+                    .array(z.union([z.string(), z.enum([""])]))
                     .optional(),
                 })
                 .optional(),
               visa: z
                 .object({
                   files: z
-                    .array(z.union([z.coerce.string(), z.enum([""])]))
+                    .array(z.union([z.string(), z.enum([""])]))
                     .optional(),
                 })
                 .optional(),
             })
             .optional(),
-          email: z.coerce.string().optional(),
-          first_name: z.coerce.string().optional(),
-          first_name_kana: z.coerce.string().optional(),
-          first_name_kanji: z.coerce.string().optional(),
-          full_name_aliases: z.union([
-            z.array(z.coerce.string()),
-            z.enum([""]),
-          ]),
-          gender: z.coerce.string().optional(),
-          id_number: z.coerce.string().optional(),
-          id_number_secondary: z.coerce.string().optional(),
-          last_name: z.coerce.string().optional(),
-          last_name_kana: z.coerce.string().optional(),
-          last_name_kanji: z.coerce.string().optional(),
-          maiden_name: z.coerce.string().optional(),
+          email: z.string().optional(),
+          first_name: z.string().optional(),
+          first_name_kana: z.string().optional(),
+          first_name_kanji: z.string().optional(),
+          full_name_aliases: z.union([z.array(z.string()), z.enum([""])]),
+          gender: z.string().optional(),
+          id_number: z.string().optional(),
+          id_number_secondary: z.string().optional(),
+          last_name: z.string().optional(),
+          last_name_kana: z.string().optional(),
+          last_name_kanji: z.string().optional(),
+          maiden_name: z.string().optional(),
           metadata: z.union([z.object({}), z.enum([""])]),
-          nationality: z.coerce.string().optional(),
-          phone: z.coerce.string().optional(),
-          political_exposure: z.coerce.string().optional(),
+          nationality: z.string().optional(),
+          phone: z.string().optional(),
+          political_exposure: z.string().optional(),
           registered_address: z
             .object({
-              city: z.coerce.string().optional(),
-              country: z.coerce.string().optional(),
-              line1: z.coerce.string().optional(),
-              line2: z.coerce.string().optional(),
-              postal_code: z.coerce.string().optional(),
-              state: z.coerce.string().optional(),
+              city: z.string().optional(),
+              country: z.string().optional(),
+              line1: z.string().optional(),
+              line2: z.string().optional(),
+              postal_code: z.string().optional(),
+              state: z.string().optional(),
             })
             .optional(),
           relationship: z
@@ -43926,29 +43568,29 @@ export function bootstrap(
               owner: z.coerce.boolean().optional(),
               percent_ownership: z.union([z.coerce.number(), z.enum([""])]),
               representative: z.coerce.boolean().optional(),
-              title: z.coerce.string().optional(),
+              title: z.string().optional(),
             })
             .optional(),
-          ssn_last_4: z.coerce.string().optional(),
+          ssn_last_4: z.string().optional(),
           verification: z
             .object({
               additional_document: z
                 .object({
-                  back: z.coerce.string().optional(),
-                  front: z.coerce.string().optional(),
+                  back: z.string().optional(),
+                  front: z.string().optional(),
                 })
                 .optional(),
               document: z
                 .object({
-                  back: z.coerce.string().optional(),
-                  front: z.coerce.string().optional(),
+                  back: z.string().optional(),
+                  front: z.string().optional(),
                 })
                 .optional(),
             })
             .optional(),
         })
         .optional(),
-      pii: z.object({ id_number: z.coerce.string().optional() }).optional(),
+      pii: z.object({ id_number: z.string().optional() }).optional(),
     })
     .optional()
 
@@ -43971,10 +43613,10 @@ export function bootstrap(
     return next()
   })
 
-  const getTokensTokenParamSchema = z.object({ token: z.coerce.string() })
+  const getTokensTokenParamSchema = z.object({ token: z.string() })
 
   const getTokensTokenQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTokensTokenBodySchema = z.object({}).optional()
@@ -44017,10 +43659,10 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
     status: z.enum(["canceled", "failed", "pending", "succeeded"]).optional(),
   })
 
@@ -44034,7 +43676,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_topup)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -44057,13 +43699,13 @@ export function bootstrap(
 
   const postTopupsBodySchema = z.object({
     amount: z.coerce.number(),
-    currency: z.coerce.string(),
-    description: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    currency: z.string(),
+    description: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     metadata: z.union([z.object({}), z.enum([""])]),
-    source: z.coerce.string().optional(),
-    statement_descriptor: z.coerce.string().optional(),
-    transfer_group: z.coerce.string().optional(),
+    source: z.string().optional(),
+    statement_descriptor: z.string().optional(),
+    transfer_group: z.string().optional(),
   })
 
   const postTopupsResponseValidator = responseValidationFactory(
@@ -44085,10 +43727,10 @@ export function bootstrap(
     return next()
   })
 
-  const getTopupsTopupParamSchema = z.object({ topup: z.coerce.string() })
+  const getTopupsTopupParamSchema = z.object({ topup: z.string() })
 
   const getTopupsTopupQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTopupsTopupBodySchema = z.object({}).optional()
@@ -44112,12 +43754,12 @@ export function bootstrap(
     return next()
   })
 
-  const postTopupsTopupParamSchema = z.object({ topup: z.coerce.string() })
+  const postTopupsTopupParamSchema = z.object({ topup: z.string() })
 
   const postTopupsTopupBodySchema = z
     .object({
-      description: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      description: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
@@ -44141,12 +43783,10 @@ export function bootstrap(
     return next()
   })
 
-  const postTopupsTopupCancelParamSchema = z.object({
-    topup: z.coerce.string(),
-  })
+  const postTopupsTopupCancelParamSchema = z.object({ topup: z.string() })
 
   const postTopupsTopupCancelBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postTopupsTopupCancelResponseValidator = responseValidationFactory(
@@ -44188,12 +43828,12 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    destination: z.coerce.string().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    destination: z.string().optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
-    transfer_group: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
+    transfer_group: z.string().optional(),
   })
 
   const getTransfersBodySchema = z.object({}).optional()
@@ -44206,7 +43846,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_transfer)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -44229,14 +43869,14 @@ export function bootstrap(
 
   const postTransfersBodySchema = z.object({
     amount: z.coerce.number().optional(),
-    currency: z.coerce.string(),
-    description: z.coerce.string().optional(),
-    destination: z.coerce.string(),
-    expand: z.array(z.coerce.string()).optional(),
+    currency: z.string(),
+    description: z.string().optional(),
+    destination: z.string(),
+    expand: z.array(z.string()).optional(),
     metadata: z.object({}).optional(),
-    source_transaction: z.coerce.string().optional(),
+    source_transaction: z.string().optional(),
     source_type: z.enum(["bank_account", "card", "fpx"]).optional(),
-    transfer_group: z.coerce.string().optional(),
+    transfer_group: z.string().optional(),
   })
 
   const postTransfersResponseValidator = responseValidationFactory(
@@ -44258,13 +43898,13 @@ export function bootstrap(
     return next()
   })
 
-  const getTransfersIdReversalsParamSchema = z.object({ id: z.coerce.string() })
+  const getTransfersIdReversalsParamSchema = z.object({ id: z.string() })
 
   const getTransfersIdReversalsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getTransfersIdReversalsBodySchema = z.object({}).optional()
@@ -44277,7 +43917,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_transfer_reversal)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -44311,15 +43951,13 @@ export function bootstrap(
     },
   )
 
-  const postTransfersIdReversalsParamSchema = z.object({
-    id: z.coerce.string(),
-  })
+  const postTransfersIdReversalsParamSchema = z.object({ id: z.string() })
 
   const postTransfersIdReversalsBodySchema = z
     .object({
       amount: z.coerce.number().optional(),
-      description: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      description: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
       refund_application_fee: z.coerce.boolean().optional(),
     })
@@ -44357,12 +43995,10 @@ export function bootstrap(
     },
   )
 
-  const getTransfersTransferParamSchema = z.object({
-    transfer: z.coerce.string(),
-  })
+  const getTransfersTransferParamSchema = z.object({ transfer: z.string() })
 
   const getTransfersTransferQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTransfersTransferBodySchema = z.object({}).optional()
@@ -44396,14 +44032,12 @@ export function bootstrap(
     },
   )
 
-  const postTransfersTransferParamSchema = z.object({
-    transfer: z.coerce.string(),
-  })
+  const postTransfersTransferParamSchema = z.object({ transfer: z.string() })
 
   const postTransfersTransferBodySchema = z
     .object({
-      description: z.coerce.string().optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      description: z.string().optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
@@ -44438,12 +44072,12 @@ export function bootstrap(
   )
 
   const getTransfersTransferReversalsIdParamSchema = z.object({
-    id: z.coerce.string(),
-    transfer: z.coerce.string(),
+    id: z.string(),
+    transfer: z.string(),
   })
 
   const getTransfersTransferReversalsIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTransfersTransferReversalsIdBodySchema = z.object({}).optional()
@@ -44480,13 +44114,13 @@ export function bootstrap(
   )
 
   const postTransfersTransferReversalsIdParamSchema = z.object({
-    id: z.coerce.string(),
-    transfer: z.coerce.string(),
+    id: z.string(),
+    transfer: z.string(),
   })
 
   const postTransfersTransferReversalsIdBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
@@ -44520,12 +44154,12 @@ export function bootstrap(
   )
 
   const getTreasuryCreditReversalsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    financial_account: z.coerce.string(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
+    financial_account: z.string(),
     limit: z.coerce.number().optional(),
-    received_credit: z.coerce.string().optional(),
-    starting_after: z.coerce.string().optional(),
+    received_credit: z.string().optional(),
+    starting_after: z.string().optional(),
     status: z.enum(["canceled", "posted", "processing"]).optional(),
   })
 
@@ -44539,7 +44173,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_treasury_credit_reversal)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -44574,9 +44208,9 @@ export function bootstrap(
   )
 
   const postTreasuryCreditReversalsBodySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     metadata: z.object({}).optional(),
-    received_credit: z.coerce.string(),
+    received_credit: z.string(),
   })
 
   const postTreasuryCreditReversalsResponseValidator =
@@ -44607,11 +44241,11 @@ export function bootstrap(
   )
 
   const getTreasuryCreditReversalsCreditReversalParamSchema = z.object({
-    credit_reversal: z.coerce.string(),
+    credit_reversal: z.string(),
   })
 
   const getTreasuryCreditReversalsCreditReversalQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTreasuryCreditReversalsCreditReversalBodySchema = z
@@ -44656,13 +44290,13 @@ export function bootstrap(
   )
 
   const getTreasuryDebitReversalsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    financial_account: z.coerce.string(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
+    financial_account: z.string(),
     limit: z.coerce.number().optional(),
-    received_debit: z.coerce.string().optional(),
+    received_debit: z.string().optional(),
     resolution: z.enum(["lost", "won"]).optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
     status: z.enum(["canceled", "completed", "processing"]).optional(),
   })
 
@@ -44676,7 +44310,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_treasury_debit_reversal)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -44711,9 +44345,9 @@ export function bootstrap(
   )
 
   const postTreasuryDebitReversalsBodySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     metadata: z.object({}).optional(),
-    received_debit: z.coerce.string(),
+    received_debit: z.string(),
   })
 
   const postTreasuryDebitReversalsResponseValidator = responseValidationFactory(
@@ -44746,11 +44380,11 @@ export function bootstrap(
   )
 
   const getTreasuryDebitReversalsDebitReversalParamSchema = z.object({
-    debit_reversal: z.coerce.string(),
+    debit_reversal: z.string(),
   })
 
   const getTreasuryDebitReversalsDebitReversalQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTreasuryDebitReversalsDebitReversalBodySchema = z
@@ -44801,10 +44435,10 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getTreasuryFinancialAccountsBodySchema = z.object({}).optional()
@@ -44818,7 +44452,7 @@ export function bootstrap(
             data: z.array(s_treasury_financial_account),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -44851,7 +44485,7 @@ export function bootstrap(
   )
 
   const postTreasuryFinancialAccountsBodySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     features: z
       .object({
         card_issuing: z.object({ requested: z.coerce.boolean() }).optional(),
@@ -44896,7 +44530,7 @@ export function bootstrap(
         outbound_flows: z.enum(["restricted", "unrestricted"]).optional(),
       })
       .optional(),
-    supported_currencies: z.array(z.coerce.string()),
+    supported_currencies: z.array(z.string()),
   })
 
   const postTreasuryFinancialAccountsResponseValidator =
@@ -44925,11 +44559,11 @@ export function bootstrap(
   )
 
   const getTreasuryFinancialAccountsFinancialAccountParamSchema = z.object({
-    financial_account: z.coerce.string(),
+    financial_account: z.string(),
   })
 
   const getTreasuryFinancialAccountsFinancialAccountQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTreasuryFinancialAccountsFinancialAccountBodySchema = z
@@ -44974,12 +44608,12 @@ export function bootstrap(
   )
 
   const postTreasuryFinancialAccountsFinancialAccountParamSchema = z.object({
-    financial_account: z.coerce.string(),
+    financial_account: z.string(),
   })
 
   const postTreasuryFinancialAccountsFinancialAccountBodySchema = z
     .object({
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       features: z
         .object({
           card_issuing: z.object({ requested: z.coerce.boolean() }).optional(),
@@ -45062,10 +44696,10 @@ export function bootstrap(
   )
 
   const getTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema =
-    z.object({ financial_account: z.coerce.string() })
+    z.object({ financial_account: z.string() })
 
   const getTreasuryFinancialAccountsFinancialAccountFeaturesQuerySchema =
-    z.object({ expand: z.array(z.coerce.string()).optional() })
+    z.object({ expand: z.array(z.string()).optional() })
 
   const getTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema = z
     .object({})
@@ -45113,13 +44747,13 @@ export function bootstrap(
   )
 
   const postTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema =
-    z.object({ financial_account: z.coerce.string() })
+    z.object({ financial_account: z.string() })
 
   const postTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema = z
     .object({
       card_issuing: z.object({ requested: z.coerce.boolean() }).optional(),
       deposit_insurance: z.object({ requested: z.coerce.boolean() }).optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       financial_addresses: z
         .object({ aba: z.object({ requested: z.coerce.boolean() }).optional() })
         .optional(),
@@ -45187,11 +44821,11 @@ export function bootstrap(
   )
 
   const getTreasuryInboundTransfersQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    financial_account: z.coerce.string(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
+    financial_account: z.string(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
     status: z
       .enum(["canceled", "failed", "processing", "succeeded"])
       .optional(),
@@ -45208,7 +44842,7 @@ export function bootstrap(
             data: z.array(z.lazy(() => s_treasury_inbound_transfer)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -45244,13 +44878,13 @@ export function bootstrap(
 
   const postTreasuryInboundTransfersBodySchema = z.object({
     amount: z.coerce.number(),
-    currency: z.coerce.string(),
-    description: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    financial_account: z.coerce.string(),
+    currency: z.string(),
+    description: z.string().optional(),
+    expand: z.array(z.string()).optional(),
+    financial_account: z.string(),
     metadata: z.object({}).optional(),
-    origin_payment_method: z.coerce.string(),
-    statement_descriptor: z.coerce.string().optional(),
+    origin_payment_method: z.string(),
+    statement_descriptor: z.string().optional(),
   })
 
   const postTreasuryInboundTransfersResponseValidator =
@@ -45278,12 +44912,10 @@ export function bootstrap(
     },
   )
 
-  const getTreasuryInboundTransfersIdParamSchema = z.object({
-    id: z.coerce.string(),
-  })
+  const getTreasuryInboundTransfersIdParamSchema = z.object({ id: z.string() })
 
   const getTreasuryInboundTransfersIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTreasuryInboundTransfersIdBodySchema = z.object({}).optional()
@@ -45320,11 +44952,11 @@ export function bootstrap(
   )
 
   const postTreasuryInboundTransfersInboundTransferCancelParamSchema = z.object(
-    { inbound_transfer: z.coerce.string() },
+    { inbound_transfer: z.string() },
   )
 
   const postTreasuryInboundTransfersInboundTransferCancelBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postTreasuryInboundTransfersInboundTransferCancelResponseValidator =
@@ -45363,12 +44995,12 @@ export function bootstrap(
   )
 
   const getTreasuryOutboundPaymentsQuerySchema = z.object({
-    customer: z.coerce.string().optional(),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    financial_account: z.coerce.string(),
+    customer: z.string().optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
+    financial_account: z.string(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
     status: z
       .enum(["canceled", "failed", "posted", "processing", "returned"])
       .optional(),
@@ -45385,7 +45017,7 @@ export function bootstrap(
             data: z.array(z.lazy(() => s_treasury_outbound_payment)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -45421,40 +45053,40 @@ export function bootstrap(
 
   const postTreasuryOutboundPaymentsBodySchema = z.object({
     amount: z.coerce.number(),
-    currency: z.coerce.string(),
-    customer: z.coerce.string().optional(),
-    description: z.coerce.string().optional(),
-    destination_payment_method: z.coerce.string().optional(),
+    currency: z.string(),
+    customer: z.string().optional(),
+    description: z.string().optional(),
+    destination_payment_method: z.string().optional(),
     destination_payment_method_data: z
       .object({
         billing_details: z
           .object({
             address: z.union([
               z.object({
-                city: z.coerce.string().optional(),
-                country: z.coerce.string().optional(),
-                line1: z.coerce.string().optional(),
-                line2: z.coerce.string().optional(),
-                postal_code: z.coerce.string().optional(),
-                state: z.coerce.string().optional(),
+                city: z.string().optional(),
+                country: z.string().optional(),
+                line1: z.string().optional(),
+                line2: z.string().optional(),
+                postal_code: z.string().optional(),
+                state: z.string().optional(),
               }),
               z.enum([""]),
             ]),
-            email: z.union([z.coerce.string(), z.enum([""])]),
-            name: z.union([z.coerce.string(), z.enum([""])]),
-            phone: z.union([z.coerce.string(), z.enum([""])]),
+            email: z.union([z.string(), z.enum([""])]),
+            name: z.union([z.string(), z.enum([""])]),
+            phone: z.union([z.string(), z.enum([""])]),
           })
           .optional(),
-        financial_account: z.coerce.string().optional(),
+        financial_account: z.string().optional(),
         metadata: z.object({}).optional(),
         type: z.enum(["financial_account", "us_bank_account"]),
         us_bank_account: z
           .object({
             account_holder_type: z.enum(["company", "individual"]).optional(),
-            account_number: z.coerce.string().optional(),
+            account_number: z.string().optional(),
             account_type: z.enum(["checking", "savings"]).optional(),
-            financial_connections_account: z.coerce.string().optional(),
-            routing_number: z.coerce.string().optional(),
+            financial_connections_account: z.string().optional(),
+            routing_number: z.string().optional(),
           })
           .optional(),
       })
@@ -45469,14 +45101,14 @@ export function bootstrap(
       .optional(),
     end_user_details: z
       .object({
-        ip_address: z.coerce.string().optional(),
+        ip_address: z.string().optional(),
         present: z.coerce.boolean(),
       })
       .optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    financial_account: z.coerce.string(),
+    expand: z.array(z.string()).optional(),
+    financial_account: z.string(),
     metadata: z.object({}).optional(),
-    statement_descriptor: z.coerce.string().optional(),
+    statement_descriptor: z.string().optional(),
   })
 
   const postTreasuryOutboundPaymentsResponseValidator =
@@ -45504,12 +45136,10 @@ export function bootstrap(
     },
   )
 
-  const getTreasuryOutboundPaymentsIdParamSchema = z.object({
-    id: z.coerce.string(),
-  })
+  const getTreasuryOutboundPaymentsIdParamSchema = z.object({ id: z.string() })
 
   const getTreasuryOutboundPaymentsIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTreasuryOutboundPaymentsIdBodySchema = z.object({}).optional()
@@ -45546,11 +45176,11 @@ export function bootstrap(
   )
 
   const postTreasuryOutboundPaymentsIdCancelParamSchema = z.object({
-    id: z.coerce.string(),
+    id: z.string(),
   })
 
   const postTreasuryOutboundPaymentsIdCancelBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postTreasuryOutboundPaymentsIdCancelResponseValidator =
@@ -45585,11 +45215,11 @@ export function bootstrap(
   )
 
   const getTreasuryOutboundTransfersQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    financial_account: z.coerce.string(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
+    financial_account: z.string(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
     status: z
       .enum(["canceled", "failed", "posted", "processing", "returned"])
       .optional(),
@@ -45606,7 +45236,7 @@ export function bootstrap(
             data: z.array(z.lazy(() => s_treasury_outbound_transfer)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -45640,9 +45270,9 @@ export function bootstrap(
 
   const postTreasuryOutboundTransfersBodySchema = z.object({
     amount: z.coerce.number(),
-    currency: z.coerce.string(),
-    description: z.coerce.string().optional(),
-    destination_payment_method: z.coerce.string().optional(),
+    currency: z.string(),
+    description: z.string().optional(),
+    destination_payment_method: z.string().optional(),
     destination_payment_method_options: z
       .object({
         us_bank_account: z.union([
@@ -45651,10 +45281,10 @@ export function bootstrap(
         ]),
       })
       .optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    financial_account: z.coerce.string(),
+    expand: z.array(z.string()).optional(),
+    financial_account: z.string(),
     metadata: z.object({}).optional(),
-    statement_descriptor: z.coerce.string().optional(),
+    statement_descriptor: z.string().optional(),
   })
 
   const postTreasuryOutboundTransfersResponseValidator =
@@ -45683,11 +45313,11 @@ export function bootstrap(
   )
 
   const getTreasuryOutboundTransfersOutboundTransferParamSchema = z.object({
-    outbound_transfer: z.coerce.string(),
+    outbound_transfer: z.string(),
   })
 
   const getTreasuryOutboundTransfersOutboundTransferQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTreasuryOutboundTransfersOutboundTransferBodySchema = z
@@ -45732,10 +45362,10 @@ export function bootstrap(
   )
 
   const postTreasuryOutboundTransfersOutboundTransferCancelParamSchema =
-    z.object({ outbound_transfer: z.coerce.string() })
+    z.object({ outbound_transfer: z.string() })
 
   const postTreasuryOutboundTransfersOutboundTransferCancelBodySchema = z
-    .object({ expand: z.array(z.coerce.string()).optional() })
+    .object({ expand: z.array(z.string()).optional() })
     .optional()
 
   const postTreasuryOutboundTransfersOutboundTransferCancelResponseValidator =
@@ -45774,9 +45404,9 @@ export function bootstrap(
   )
 
   const getTreasuryReceivedCreditsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    financial_account: z.coerce.string(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
+    financial_account: z.string(),
     limit: z.coerce.number().optional(),
     linked_flows: z
       .object({
@@ -45788,7 +45418,7 @@ export function bootstrap(
         ]),
       })
       .optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
     status: z.enum(["failed", "succeeded"]).optional(),
   })
 
@@ -45802,7 +45432,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_treasury_received_credit)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -45836,12 +45466,10 @@ export function bootstrap(
     },
   )
 
-  const getTreasuryReceivedCreditsIdParamSchema = z.object({
-    id: z.coerce.string(),
-  })
+  const getTreasuryReceivedCreditsIdParamSchema = z.object({ id: z.string() })
 
   const getTreasuryReceivedCreditsIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTreasuryReceivedCreditsIdBodySchema = z.object({}).optional()
@@ -45878,11 +45506,11 @@ export function bootstrap(
   )
 
   const getTreasuryReceivedDebitsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    financial_account: z.coerce.string(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
+    financial_account: z.string(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
     status: z.enum(["failed", "succeeded"]).optional(),
   })
 
@@ -45896,7 +45524,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_treasury_received_debit)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -45930,12 +45558,10 @@ export function bootstrap(
     },
   )
 
-  const getTreasuryReceivedDebitsIdParamSchema = z.object({
-    id: z.coerce.string(),
-  })
+  const getTreasuryReceivedDebitsIdParamSchema = z.object({ id: z.string() })
 
   const getTreasuryReceivedDebitsIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTreasuryReceivedDebitsIdBodySchema = z.object({}).optional()
@@ -45992,13 +45618,13 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    financial_account: z.coerce.string(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
+    financial_account: z.string(),
     limit: z.coerce.number().optional(),
     order_by: z.enum(["created", "effective_at"]).optional(),
-    starting_after: z.coerce.string().optional(),
-    transaction: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
+    transaction: z.string().optional(),
   })
 
   const getTreasuryTransactionEntriesBodySchema = z.object({}).optional()
@@ -46012,7 +45638,7 @@ export function bootstrap(
             data: z.array(z.lazy(() => s_treasury_transaction_entry)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
-            url: z.coerce.string(),
+            url: z.string(),
           }),
         ],
       ],
@@ -46045,11 +45671,11 @@ export function bootstrap(
   )
 
   const getTreasuryTransactionEntriesIdParamSchema = z.object({
-    id: z.coerce.string(),
+    id: z.string(),
   })
 
   const getTreasuryTransactionEntriesIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTreasuryTransactionEntriesIdBodySchema = z.object({}).optional()
@@ -46095,12 +45721,12 @@ export function bootstrap(
       }),
       z.coerce.number(),
     ]),
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
-    financial_account: z.coerce.string(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
+    financial_account: z.string(),
     limit: z.coerce.number().optional(),
     order_by: z.enum(["created", "posted_at"]).optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
     status: z.enum(["open", "posted", "void"]).optional(),
     status_transitions: z
       .object({
@@ -46127,7 +45753,7 @@ export function bootstrap(
           data: z.array(z.lazy(() => s_treasury_transaction)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -46158,12 +45784,10 @@ export function bootstrap(
     },
   )
 
-  const getTreasuryTransactionsIdParamSchema = z.object({
-    id: z.coerce.string(),
-  })
+  const getTreasuryTransactionsIdParamSchema = z.object({ id: z.string() })
 
   const getTreasuryTransactionsIdQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getTreasuryTransactionsIdBodySchema = z.object({}).optional()
@@ -46204,10 +45828,10 @@ export function bootstrap(
   )
 
   const getWebhookEndpointsQuerySchema = z.object({
-    ending_before: z.coerce.string().optional(),
-    expand: z.array(z.coerce.string()).optional(),
+    ending_before: z.string().optional(),
+    expand: z.array(z.string()).optional(),
     limit: z.coerce.number().optional(),
-    starting_after: z.coerce.string().optional(),
+    starting_after: z.string().optional(),
   })
 
   const getWebhookEndpointsBodySchema = z.object({}).optional()
@@ -46220,7 +45844,7 @@ export function bootstrap(
           data: z.array(s_webhook_endpoint),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
-          url: z.coerce.string(),
+          url: z.string(),
         }),
       ],
     ],
@@ -46356,7 +45980,7 @@ export function bootstrap(
       ])
       .optional(),
     connect: z.coerce.boolean().optional(),
-    description: z.union([z.coerce.string(), z.enum([""])]),
+    description: z.union([z.string(), z.enum([""])]),
     enabled_events: z.array(
       z.enum([
         "*",
@@ -46577,9 +46201,9 @@ export function bootstrap(
         "treasury.received_debit.created",
       ]),
     ),
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
     metadata: z.union([z.object({}), z.enum([""])]),
-    url: z.coerce.string(),
+    url: z.string(),
   })
 
   const postWebhookEndpointsResponseValidator = responseValidationFactory(
@@ -46612,7 +46236,7 @@ export function bootstrap(
   )
 
   const deleteWebhookEndpointsWebhookEndpointParamSchema = z.object({
-    webhook_endpoint: z.coerce.string(),
+    webhook_endpoint: z.string(),
   })
 
   const deleteWebhookEndpointsWebhookEndpointBodySchema = z
@@ -46651,11 +46275,11 @@ export function bootstrap(
   )
 
   const getWebhookEndpointsWebhookEndpointParamSchema = z.object({
-    webhook_endpoint: z.coerce.string(),
+    webhook_endpoint: z.string(),
   })
 
   const getWebhookEndpointsWebhookEndpointQuerySchema = z.object({
-    expand: z.array(z.coerce.string()).optional(),
+    expand: z.array(z.string()).optional(),
   })
 
   const getWebhookEndpointsWebhookEndpointBodySchema = z.object({}).optional()
@@ -46695,12 +46319,12 @@ export function bootstrap(
   )
 
   const postWebhookEndpointsWebhookEndpointParamSchema = z.object({
-    webhook_endpoint: z.coerce.string(),
+    webhook_endpoint: z.string(),
   })
 
   const postWebhookEndpointsWebhookEndpointBodySchema = z
     .object({
-      description: z.union([z.coerce.string(), z.enum([""])]),
+      description: z.union([z.string(), z.enum([""])]),
       disabled: z.coerce.boolean().optional(),
       enabled_events: z
         .array(
@@ -46924,9 +46548,9 @@ export function bootstrap(
           ]),
         )
         .optional(),
-      expand: z.array(z.coerce.string()).optional(),
+      expand: z.array(z.string()).optional(),
       metadata: z.union([z.object({}), z.enum([""])]),
-      url: z.coerce.string().optional(),
+      url: z.string().optional(),
     })
     .optional()
 

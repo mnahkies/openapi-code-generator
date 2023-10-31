@@ -86,7 +86,7 @@ export function bootstrap(
   const router = new KoaRouter()
 
   const getTodoListsQuerySchema = z.object({
-    created: z.coerce.string().datetime({ offset: true }).optional(),
+    created: z.string().datetime({ offset: true }).optional(),
     status: z.enum(["incomplete", "complete"]).optional(),
   })
 
@@ -109,7 +109,7 @@ export function bootstrap(
     return next()
   })
 
-  const getTodoListByIdParamSchema = z.object({ listId: z.coerce.string() })
+  const getTodoListByIdParamSchema = z.object({ listId: z.string() })
 
   const getTodoListByIdResponseValidator = responseValidationFactory(
     [
@@ -133,7 +133,7 @@ export function bootstrap(
     return next()
   })
 
-  const updateTodoListByIdParamSchema = z.object({ listId: z.coerce.string() })
+  const updateTodoListByIdParamSchema = z.object({ listId: z.string() })
 
   const updateTodoListByIdBodySchema = s_CreateUpdateTodoList
 
@@ -159,7 +159,7 @@ export function bootstrap(
     return next()
   })
 
-  const deleteTodoListByIdParamSchema = z.object({ listId: z.coerce.string() })
+  const deleteTodoListByIdParamSchema = z.object({ listId: z.string() })
 
   const deleteTodoListByIdResponseValidator = responseValidationFactory(
     [
