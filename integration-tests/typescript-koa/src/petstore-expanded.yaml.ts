@@ -1,13 +1,16 @@
-import { bootstrap, FindPetById } from "./generated/petstore-expanded.yaml/generated"
+/**
+ * @prettier
+ */
+import { bootstrap, createRouter, FindPetById } from "./generated/petstore-expanded.yaml/generated"
 
 const notImplemented = async () => {
   return {
     status: 501 as const,
-    body: { code: 1, message: "not implemented" },
+    body: {code: 1, message: "not implemented"},
   }
 }
 
-const findPetById: FindPetById = async ({ params }, ctx) => {
+const findPetById: FindPetById = async ({params}, ctx) => {
   switch (params.id) {
     case 1:
       return {
@@ -40,12 +43,12 @@ const findPetById: FindPetById = async ({ params }, ctx) => {
   }
 }
 
-bootstrap(
-  {
+bootstrap({
+  router: createRouter({
     findPets: notImplemented,
     findPetById,
     addPet: notImplemented,
     deletePet: notImplemented,
-  },
-  { port: 3000 }
-)
+  }),
+  port: 3000,
+})

@@ -109,5 +109,5 @@ dist
 .yarn/*
 
 *.json
-*.yaml
-integration-tests
+integration-tests-definitions/
+integration-tests-definitions-shared/
