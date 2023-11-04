@@ -12,15 +12,15 @@
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
-    "@koa/router": "^12.0.0",
+    "@koa/router": "^12.0.1",
     "@nahkies/typescript-koa-runtime": "*",
-    "@types/hapi__joi": "^17.1.11",
+    "@types/hapi__joi": "^17.1.12",
     "koa": "^2.14.2",
-    "zod": "^3.22.2"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@types/koa": "^2.13.9",
-    "@types/koa__router": "^12.0.1",
+    "@types/koa": "^2.13.10",
+    "@types/koa__router": "^12.0.3",
     "typescript": "~5.1.6"
   }
 }

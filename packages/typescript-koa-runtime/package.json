@@ -48,13 +48,13 @@
   "devDependencies": {
     "@hapi/joi": "^17.1.1",
     "@koa/cors": "^4.0.0",
-    "@koa/router": "^12.0.0",
-    "@types/koa": "^2.13.9",
-    "@types/koa__cors": "^4.0.1",
-    "@types/koa__router": "^12.0.1",
+    "@koa/router": "^12.0.1",
+    "@types/koa": "^2.13.10",
+    "@types/koa__cors": "^4.0.2",
+    "@types/koa__router": "^12.0.3",
     "koa": "^2.14.2",
     "koa-body": "^6.0.1",
-    "zod": "^3.22.2"
+    "zod": "^3.22.4"
   },
   "files": [
     "src",

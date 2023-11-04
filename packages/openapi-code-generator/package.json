@@ -24,19 +24,19 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@types/js-yaml": "^4.0.6",
-    "@types/lodash": "^4.14.198",
+    "@types/js-yaml": "^4.0.8",
+    "@types/lodash": "^4.14.200",
     "@types/prettier": "^3.0.0",
     "nodemon": "3.0.1",
     "ts-node": "10.9.1",
     "typescript": "~5.1.6"
   },
   "dependencies": {
-    "@commander-js/extra-typings": "^11.0.0",
+    "@commander-js/extra-typings": "^11.1.0",
     "ajv": "^8.12.0",
     "ajv-draft-04": "^1.0.0",
     "ajv-formats": "^2.1.1",
-    "commander": "^11.0.0",
+    "commander": "^11.1.0",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
     "prettier": "^3.0.3",
