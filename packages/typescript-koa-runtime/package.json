@@ -16,6 +16,11 @@
     "url": "https://github.com/mnahkies/openapi-code-generator/issues"
   },
   "exports": {
+    "./errors": {
+      "require": "./dist/errors.js",
+      "import": "./dist/errors.js",
+      "types": "./dist/errors.d.ts"
+    },
     "./server": {
       "require": "./dist/server.js",
       "import": "./dist/server.js",
