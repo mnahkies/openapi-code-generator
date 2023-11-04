@@ -3,10 +3,10 @@ import {BrowserModule} from "@angular/platform-browser"
 
 import {AppRoutingModule} from "./app-routing.module"
 import {AppComponent} from "./app.component"
-import {ApiModule as GhApiModule} from "./api.github.com.yaml/api.module"
-import {ApiModule as PetStoreApiModule} from "./petstore-expanded.yaml/api.module"
-import {ApiModule as StripeApiModule} from "./stripe.yaml/api.module"
-import {ApiModule as TodoListsApiModule} from "./todo-lists.yaml/api.module"
+import {ApiModule as GhApiModule} from "../generated/api.github.com.yaml/api.module"
+import {ApiModule as PetStoreApiModule} from "../generated/petstore-expanded.yaml/api.module"
+import {ApiModule as StripeApiModule} from "../generated/stripe.yaml/api.module"
+import {ApiModule as TodoListsApiModule} from "../generated/todo-lists.yaml/api.module"
 
 @NgModule({
   declarations: [
