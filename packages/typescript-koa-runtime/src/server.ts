@@ -105,8 +105,6 @@ export async function startServer({
         throw new Error("failed to bind port")
       }
 
-      console.info("server listening", {address})
-
       resolve({app, server, address})
     })
   })
