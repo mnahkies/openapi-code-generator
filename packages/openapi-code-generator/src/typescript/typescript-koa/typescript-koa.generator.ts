@@ -187,7 +187,7 @@ ${buildExport({
       kind: "type",
     })}
 
-export function createRouter(implementation: Implementation) {
+export function createRouter(implementation: Implementation): KoaRouter {
   const router = new KoaRouter()
 
   ${routes.join("\n\n")}
