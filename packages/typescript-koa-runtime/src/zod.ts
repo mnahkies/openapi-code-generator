@@ -12,7 +12,7 @@ export function parseRequestInput(
 ): undefined;
 export function parseRequestInput<Schema extends z.ZodTypeAny>(
   schema: Schema | undefined,
-  input: unknown
+  input: unknown,
 ): z.infer<Schema> | undefined {
   return schema?.parse(input)
 }

@@ -86,7 +86,7 @@ export class ClientOperationBuilder {
       .map(it => {
         return {
           statusType: statusStringToType(it.status),
-          responseType: it.definition ? models.schemaObjectToType(it.definition) : "void"
+          responseType: it.definition ? models.schemaObjectToType(it.definition) : "void",
         }
       })
   }

@@ -16,6 +16,7 @@ module.exports = {
     indent: "off",
     "linebreak-style": ["error", "unix"],
     quotes: ["error", "double", {avoidEscape: true}],
+    "comma-dangle": ["error", "always-multiline"],
     semi: ["error", "never"],
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "error",
@@ -29,21 +30,21 @@ module.exports = {
         minimumDescriptionLength: 3,
       },
     ],
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/no-explicit-any": "off",
   },
   overrides: [
     {
       files: "**/*.spec.ts",
       extends: [
         "plugin:jest/recommended",
-        "plugin:jest/style"
+        "plugin:jest/style",
       ],
       env: {
-        jest: true
+        jest: true,
       },
       rules: {
-        "prefer-arrow-callback": "error"
-      }
-    }
+        "prefer-arrow-callback": "error",
+      },
+    },
   ],
 }

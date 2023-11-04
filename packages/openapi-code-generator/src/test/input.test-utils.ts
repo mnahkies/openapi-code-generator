@@ -20,7 +20,7 @@ export async function unitTestInput(skipValidation = false) {
 
 export async function createTestInputFromYamlString(
   str: string,
-  skipValidation = true
+  skipValidation = true,
 ): Promise<Input> {
   const spec = yaml.load(str)
 

@@ -31,7 +31,7 @@ export function combineParams(parameters: MethodParameterDefinition[], name = "p
     }
     }`,
     required: true, // avoid "TS1015: Parameter cannot have question mark and initializer."
-    default: !required ? "{}" : undefined
+    default: !required ? "{}" : undefined,
   }
 }
 
@@ -51,7 +51,7 @@ export function combineAndDestructureParams(parameters: MethodParameterDefinitio
     ${
       params(parameters)
     }
-    }`
+    }`,
   }
 }
 
@@ -123,8 +123,8 @@ export function requestBodyAsParameter(operation: IROperation): {
         required: requestBody.required,
         schema: definition.schema,
         allowEmptyValue: false,
-        deprecated: false
-      }
+        deprecated: false,
+      },
     }
   }
 

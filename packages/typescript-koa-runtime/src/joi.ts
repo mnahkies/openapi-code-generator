@@ -14,7 +14,7 @@ export function parseRequestInput(
 ): undefined;
 export function parseRequestInput<Schema extends JoiSchema>(
   schema: Schema | undefined,
-  input: unknown
+  input: unknown,
 ): any {
 
   if (!schema) {
