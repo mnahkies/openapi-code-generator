@@ -21,7 +21,7 @@ describe("main", () => {
 
     it("returns the defined params in a simple case", () => {
       expect(
-        client.query({ foo: undefined, bar: "baz", foobar: "value" })
+        client.query({ foo: undefined, bar: "baz", foobar: "value" }),
       ).toBe("?bar=baz&foobar=value")
     })
 
@@ -31,7 +31,7 @@ describe("main", () => {
 
     it("handles objects", () => {
       expect(client.query({ foo: { bar: "baz" } })).toBe(
-        `?${encodeURIComponent("foo[bar]")}=baz`
+        `?${encodeURIComponent("foo[bar]")}=baz`,
       )
     })
 
@@ -45,13 +45,13 @@ describe("main", () => {
           limit: 10,
           undefined: undefined,
           includeSomething: false,
-        })
+        }),
       ).toBe(
         `?${encodeURIComponent("foo[prop1]")}=one&${encodeURIComponent(
-          "foo[prop2]"
+          "foo[prop2]",
         )}=two&${encodeURIComponent("foo[prop1]")}=foo&${encodeURIComponent(
-          "foo[prop2]"
-        )}=bar&limit=10&includeSomething=false`
+          "foo[prop2]",
+        )}=bar&limit=10&includeSomething=false`,
       )
     })
   })

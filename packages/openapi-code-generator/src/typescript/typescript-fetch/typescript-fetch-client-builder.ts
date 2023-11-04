@@ -54,7 +54,7 @@ const url = this.basePath + \`${routeToTemplateString(route)}\`
         `method: "${method}",`,
         headers ? "headers," : "",
         requestBodyParameter ? "body," : "",
-        "...(opts ?? {})"
+        "...(opts ?? {})",
       ]
         .filter(Boolean)
         .join("\n")

@@ -28,7 +28,7 @@ function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
     anyOf: [],
     additionalProperties: false,
     nullable: false,
-    readOnly: false
+    readOnly: false,
   } as IRModelObject)
 }
 
@@ -138,11 +138,11 @@ export class ServerBuilder {
 ) => Promise<${
           [
             ...responseSchemas.specific.map(it => `Response<${it.statusType}, ${it.type}>`),
-            responseSchemas.defaultResponse && `Response<StatusCode, ${responseSchemas.defaultResponse.type}>`
+            responseSchemas.defaultResponse && `Response<StatusCode, ${responseSchemas.defaultResponse.type}>`,
           ]
             .filter(isDefined).join(" | ")
         }>`,
-        kind: "type"
+        kind: "type",
       })
 
     this.statements.push([
@@ -184,7 +184,7 @@ ${Object.values(this.operationTypeMap).join("\n\n")}
 ${buildExport({
       name: "Implementation",
       value: object(Object.keys(this.operationTypeMap).map((key) => `${key}: ${titleCase(key)}`).join(",")),
-      kind: "type"
+      kind: "type",
     })}
 
 export function bootstrap(implementation: Implementation, config: Omit<ServerConfig, "router">){
@@ -225,7 +225,7 @@ export async function generateTypescriptKoa(config: OpenapiGeneratorConfig): Pro
     imports,
     types,
     schemaBuilder,
-    loadExistingImplementations(await loadPreviousResult(config.dest, {filename: "index.ts"}))
+    loadExistingImplementations(await loadPreviousResult(config.dest, {filename: "index.ts"})),
   )
 
   input.allOperations()
