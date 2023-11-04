@@ -8,7 +8,7 @@ import {isDefined, titleCase} from "../../core/utils"
 import {SchemaBuilder, schemaBuilderFactory} from "../common/schema-builders/schema-builder"
 import {buildExport, requestBodyAsParameter, statusStringToType} from "../common/typescript-common"
 import {OpenapiGeneratorConfig} from "../../templates.types"
-import {object} from "../common/type-utils"
+import {intersect, object} from "../common/type-utils"
 import {ZodBuilder} from "../common/schema-builders/zod-schema-builder"
 import {JoiBuilder} from "../common/schema-builders/joi-schema-builder"
 
@@ -36,7 +36,10 @@ function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
 
 export class ServerBuilder {
   private readonly statements: string[] = []
-  private readonly operationTypeMap: Record<string, string> = {}
+  private readonly operationTypes: {
+    operationId: string,
+    statements: string[]
+  }[] = []
 
   constructor(
     public readonly filename: string,
@@ -45,7 +48,9 @@ export class ServerBuilder {
     private readonly imports: ImportBuilder,
     public readonly types: TypeBuilder,
     public readonly schemaBuilder: SchemaBuilder,
-    private existingRegions: { [operationId: string]: string },
+    private existingRegions: {
+      [operationId: string]: string
+    },
   ) {
     // todo: unsure why, but adding an export at `.` of index.ts doesn't work properly
     this.imports.from("@nahkies/typescript-koa-runtime/server")
@@ -53,6 +58,8 @@ export class ServerBuilder {
         "startServer",
         "ServerConfig",
         "Response",
+        "KoaRuntimeResponse",
+        "KoaRuntimeResponder",
         "StatusCode2xx",
         "StatusCode3xx",
         "StatusCode4xx",
@@ -136,32 +143,55 @@ export class ServerBuilder {
           statusType: statusStringToType(status),
           type: content ? types.schemaObjectToType(content.schema) : "void",
           schema: content ? schemaBuilder.fromModel(content.schema, true, true) : schemaBuilder.void(),
+          isWildCard: /^\d[xX]{2}$/.test(status),
         })
       }
 
       return acc
     }, {specific: [], defaultResponse: undefined} as {
-      specific: { statusString: string, statusType: string, schema: string, type: string }[], defaultResponse?: {
-        type: string, schema: string
+      specific: {
+        statusString: string,
+        statusType: string,
+        schema: string,
+        type: string,
+        isWildCard: boolean,
+      }[],
+      defaultResponse?: {
+        type: string,
+        schema: string
       }
     })
 
-    this.operationTypeMap[operation.operationId] =
-      buildExport({
-        name: titleCase(operation.operationId),
-        value: `
-(
-  params: Params<${pathParamsType}, ${queryParamsType}, ${bodyParamsType + (bodyParamsType === "void" || bodyParamIsRequired ? "" : " | undefined")}>,
-  ctx: Context
-) => Promise<${
-          [
+    this.operationTypes.push({
+      operationId: operation.operationId,
+      statements: [
+        buildExport({
+          name: titleCase(operation.operationId) + "Responder",
+          value: intersect(object([
+              ...responseSchemas.specific.map(it => it.isWildCard ?
+                `with${it.statusType}(status: ${it.statusType}): KoaRuntimeResponse<${it.type}>`
+                : `with${it.statusType}(): KoaRuntimeResponse<${it.type}>`),
+              responseSchemas.defaultResponse && `withDefault(status: StatusCode): KoaRuntimeResponse<${responseSchemas.defaultResponse.type}>`,
+            ],
+          ), "KoaRuntimeResponder"),
+          kind: "type",
+        }),
+        buildExport({
+          name: titleCase(operation.operationId),
+          value: `(
+                    params: Params<${pathParamsType}, ${queryParamsType}, ${bodyParamsType + (bodyParamsType === "void" || bodyParamIsRequired ? "" : " | undefined")}>,
+                    respond: ${titleCase(operation.operationId) + "Responder"},
+                    ctx: Context
+                  ) => Promise<KoaRuntimeResponse<unknown> | ${[
             ...responseSchemas.specific.map(it => `Response<${it.statusType}, ${it.type}>`),
             responseSchemas.defaultResponse && `Response<StatusCode, ${responseSchemas.defaultResponse.type}>`,
           ]
             .filter(isDefined).join(" | ")
-        }>`,
-        kind: "type",
-      })
+          }>`,
+          kind: "type",
+        }),
+      ],
+    })
 
     this.statements.push([
       `const ${operation.operationId}ResponseValidator = responseValidationFactory([${
@@ -177,8 +207,24 @@ export class ServerBuilder {
         body: ${bodyParamSchema ? `parseRequestInput(${operation.operationId}BodySchema, ctx.request.body, RequestInputType.RequestBody)` : "undefined"},
        }
 
-          const {status, body} = await implementation.${operation.operationId}(input, ctx)
-            .catch(err => { throw KoaRuntimeError.HandlerError(err) })
+      const responder = {${
+        [
+          ...responseSchemas.specific.map(it => it.isWildCard ?
+            `with${it.statusType}(status: ${it.statusType}) {return new KoaRuntimeResponse<${it.type}>(status) }`
+            : `with${it.statusType}() {return new KoaRuntimeResponse<${it.type}>(${it.statusType}) }`),
+          responseSchemas.defaultResponse && `withDefault(status: StatusCode) { return new KoaRuntimeResponse<${responseSchemas.defaultResponse.type}>(status) }`,
+          "withStatus(status: StatusCode) { return new KoaRuntimeResponse(status)}",
+        ].filter(Boolean).join(",\n")
+      }}
+
+      const response = await implementation.${operation.operationId}(input, responder, ctx)
+        .catch(err => { throw KoaRuntimeError.HandlerError(err) })
+
+
+      const {
+        status,
+        body,
+      } = response instanceof KoaRuntimeResponse ? response.unpack() : response
 
         ctx.body = ${operation.operationId}ResponseValidator(status, body)
         ctx.status = status
@@ -198,11 +244,16 @@ ${imports.toString()}
 //region safe-edit-region-header
 ${this.existingRegions["header"] ?? ""}
 //endregion safe-edit-region-header
-${Object.values(this.operationTypeMap).join("\n\n")}
+${this.operationTypes.flatMap(it => it.statements).join("\n\n")}
 
 ${buildExport({
       name: "Implementation",
-      value: object(Object.keys(this.operationTypeMap).map((key) => `${key}: ${titleCase(key)}`).join(",")),
+      value: object(
+        this.operationTypes
+          .map(it => it.operationId)
+          .map((key) => `${key}: ${titleCase(key)}`)
+          .join(","),
+      ),
       kind: "type",
     })}
 
