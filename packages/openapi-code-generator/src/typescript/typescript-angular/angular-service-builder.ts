@@ -59,7 +59,7 @@ return this.httpClient.request<any>(
         [
             queryString ? "params," : "",
             headers ? "headers," : "",
-            requestBodyParameter ? "body," : ""
+            requestBodyParameter ? "body," : "",
         ]
             .filter(Boolean)
             .join("\n")

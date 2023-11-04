@@ -8,7 +8,7 @@ const {name: displayName} = require("./package.json")
  */
 const config = {
   ...base,
-  displayName
+  displayName,
 }
 
 module.exports = config

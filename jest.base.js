@@ -7,7 +7,7 @@ const config = {
     "^.+\\.(t|j)sx?$": "@swc/jest",
   },
   resetMocks: true,
-  testMatch: ["**/*.spec.ts"]
+  testMatch: ["**/*.spec.ts"],
 }
 
 module.exports = config
