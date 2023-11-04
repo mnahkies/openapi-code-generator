@@ -6,8 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "clean": "rm -rf ./dist",
-    "generate": "./generate.sh",
+    "clean": "rm -rf ./dist && rm -rf ./src/generated",
     "validate": "tsc -p ./tsconfig.json"
   },
   "dependencies": {

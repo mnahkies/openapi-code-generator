@@ -24,7 +24,7 @@
     "format": "prettier --write .",
     "build": "lerna run build --scope '@nahkies/*'",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
-    "integration:generate": "lerna run generate --stream --concurrency 1",
+    "integration:generate": "./scripts/generate.all.sh",
     "integration:validate": "lerna run validate --stream",
     "ci-build": "lerna run build --stream",
     "ci-test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",
