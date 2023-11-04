@@ -2,8 +2,8 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-import {ApiClient} from "../api.github.com.yaml/client";
-import {t_repository} from "../api.github.com.yaml/models";
+import {ApiClient} from "./generated/api.github.com.yaml/client";
+import {t_repository} from "./generated/api.github.com.yaml/models";
 
 const { writeHeapSnapshot } = require('node:v8');
 

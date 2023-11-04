@@ -2,11 +2,10 @@
   "name": "typescript-angular",
   "version": "0.0.0",
   "scripts": {
-    "clean": "rm -rf ./dist",
+    "clean": "rm -rf ./dist && rm -rf ./src/generated",
     "ng": "ng",
     "start": "ng serve",
     "test": "ng test",
-    "generate": "./generate.sh",
     "validate": "ng build --configuration production"
   },
   "private": true,

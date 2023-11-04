@@ -1,4 +1,4 @@
-import { bootstrap, FindPetById } from "./generated"
+import { bootstrap, FindPetById } from "./generated/petstore-expanded.yaml/generated"
 
 const notImplemented = async () => {
   return {
