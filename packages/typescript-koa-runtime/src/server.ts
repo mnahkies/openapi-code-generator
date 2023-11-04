@@ -42,6 +42,28 @@ export type Response<Status extends StatusCode, Type> = {
   body: Type
 }
 
+export class KoaRuntimeResponse<Type> {
+  private _body?: Type
+
+  constructor(private readonly status: StatusCode) {}
+
+  body(body: Type): this {
+    this._body = body
+    return this
+  }
+
+  unpack(): Response<StatusCode, Type | undefined> {
+    return {status: this.status, body: this._body}
+  }
+}
+
+export type KoaRuntimeResponder<
+  Status extends StatusCode = StatusCode,
+  Type = any,
+> = {
+  withStatus: (status: Status) => KoaRuntimeResponse<Type>
+}
+
 export type ServerConfig = {
   /** set to "disabled" to disable cors middleware, omit or pass undefined for defaults */
   cors?: "disabled" | Cors.Options | undefined
