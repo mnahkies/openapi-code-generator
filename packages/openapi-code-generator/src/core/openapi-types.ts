@@ -193,37 +193,39 @@ export interface Parameter {
 }
 
 export interface Schema {
-  title?: string
-  multipleOf?: number
-  maximum?: number
-  exclusiveMaximum?: boolean
-  minimum?: number
-  exclusiveMinimum?: boolean
-  maxLength?: number
-  minLength?: number
-  pattern?: string
-  maxItems?: number
-  minItems?: number
-  uniqueItems?: boolean
-  maxProperties?: number
-  minProperties?: number
-  required?: string[] /* [] */
-  enum?: string[] | number[]
+  title?: string | undefined
+  multipleOf?: number | undefined
+  maximum?: number | undefined
+  exclusiveMaximum?: boolean | undefined
+  minimum?: number | undefined
+  exclusiveMinimum?: boolean | undefined
+  maxLength?: number | undefined
+  minLength?: number | undefined
+  pattern?: string | undefined
+  maxItems?: number | undefined
+  minItems?: number | undefined
+  uniqueItems?: boolean | undefined
+  maxProperties?: number | undefined
+  minProperties?: number | undefined
+  required?: string[] /* [] */ | undefined
+  enum?: string[] | number[] | undefined
   type?:
-    | "null"
     | "integer"
     | "number"
     | "string"
     | "boolean"
     | "object"
-    | "array" /* object */
-  not?: Schema | Reference
-  allOf?: (Schema | Reference)[]
-  oneOf?: (Schema | Reference)[]
-  anyOf?: (Schema | Reference)[]
-  items?: Schema | Reference
-  properties?: {[propertyName: string]: Schema | Reference}
-  additionalProperties?: boolean | Schema | Reference
+    | "array"
+    | "null" // only valid in OA 3.1
+    | string
+    | undefined
+  not?: Schema | Reference | undefined
+  allOf?: (Schema | Reference)[] | undefined
+  oneOf?: (Schema | Reference)[] | undefined
+  anyOf?: (Schema | Reference)[] | undefined
+  items?: Schema | Reference | undefined
+  properties?: {[propertyName: string]: Schema | Reference} | undefined
+  additionalProperties?: boolean | Schema | Reference | undefined
   format?:
     | "int32"
     | "int64"
@@ -235,15 +237,17 @@ export interface Schema {
     | "date-time"
     | "password"
     | "email"
-  default?: unknown
-  nullable?: boolean /* false */
-  discriminator?: Discriminator
-  readOnly?: boolean /* false */
-  writeOnly?: boolean
-  example?: unknown
-  externalDocs?: ExternalDocumentation
-  deprecated?: boolean
-  // xml?: XML;
+    | string
+    | undefined
+  default?: unknown | undefined
+  nullable?: boolean | undefined
+  discriminator?: Discriminator | undefined
+  readOnly?: boolean | undefined
+  writeOnly?: boolean | undefined
+  example?: unknown | undefined
+  externalDocs?: ExternalDocumentation | undefined
+  deprecated?: boolean | undefined
+  // xml?: XML | undefined
 }
 
 export interface Discriminator {

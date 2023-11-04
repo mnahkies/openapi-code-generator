@@ -72,7 +72,7 @@ export class OpenapiLoader {
   private $ref<T>({$ref}: Reference): T {
     const [key, objPath] = $ref.split("#")
 
-    const obj = this.library.get(key)
+    const obj = key && this.library.get(key)
 
     if (!obj) {
       throw new Error(`could not load $ref, key not loaded. $ref: '${$ref}'`)
@@ -134,8 +134,8 @@ export class OpenapiLoader {
       }
 
       if (key === "$ref") {
-        obj[key] = normalizeRef(obj[key])
-        await this.loadFile(pathFromRef(obj[key]))
+        const $ref = (obj[key] = normalizeRef(obj[key]))
+        await this.loadFile(pathFromRef($ref))
       } else if (typeof obj[key] === "object" && !!obj[key]) {
         await this.normalizeRefs(loadedFrom, obj[key])
       }
@@ -147,6 +147,10 @@ export class OpenapiLoader {
 
       if (file === "") {
         return objPath ? `${loadedFrom}#${objPath}` : `${loadedFrom}`
+      }
+
+      if (!file) {
+        throw new Error(`invalid $ref '${$ref}`)
       }
 
       if (isRemote(file)) {
@@ -163,7 +167,13 @@ export class OpenapiLoader {
     }
 
     function pathFromRef($ref: string) {
-      return $ref.split("#")[0]
+      const path = $ref.split("#")[0]
+
+      if (!path) {
+        throw new Error(`invalid $ref '${$ref}'`)
+      }
+
+      return path
     }
   }
 

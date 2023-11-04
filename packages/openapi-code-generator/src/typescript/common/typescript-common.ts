@@ -7,7 +7,7 @@ export type MethodParameterDefinition = {
   name: string
   type: string
   required?: boolean
-  default?: string
+  default?: string | undefined
 }
 
 export type MethodDefinition = {

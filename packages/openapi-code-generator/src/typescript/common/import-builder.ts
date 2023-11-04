@@ -25,12 +25,13 @@ export class ImportBuilder {
 
   private add(name: string, from: string, isAll: boolean): void {
     from = this.normalizeFrom(from)
-    this.imports[from] = this.imports[from] ?? new Set<string>()
+    const imports = (this.imports[from] =
+      this.imports[from] ?? new Set<string>())
 
     if (isAll) {
       this.importAll[from] = name
     } else {
-      this.imports[from].add(name)
+      imports.add(name)
     }
   }
 
@@ -50,12 +51,12 @@ export class ImportBuilder {
     )
       .sort()
       .map((from) => {
-        const individualImports = Array.from(this.imports[from].values())
+        const individualImports = Array.from(this.imports[from]!.values())
           .sort()
           .join(", ")
 
         return `import ${[
-          this.importAll[from] ? this.importAll[from] : "",
+          this.importAll[from] ?? "",
           individualImports.length > 0 ? `{${individualImports}}` : "",
         ]
           .filter((it) => it.length)

@@ -197,10 +197,12 @@ export class ServerBuilder {
           type: string
           isWildCard: boolean
         }[]
-        defaultResponse?: {
-          type: string
-          schema: string
-        }
+        defaultResponse?:
+          | {
+              type: string
+              schema: string
+            }
+          | undefined
       },
     )
 
@@ -407,7 +409,7 @@ function loadExistingImplementations(data: string): Record<string, string> {
         safeRegionName = ""
       } else {
         // this is safe because we tested that the regex matched prior to
-        safeRegionName = match[1]
+        safeRegionName = match[1]!
       }
     } else if (safeRegionName) {
       buffer.push(line)

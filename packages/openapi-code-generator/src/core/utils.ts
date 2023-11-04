@@ -36,5 +36,5 @@ export function mediaTypeToIdentifier(mediaType: string): string {
     return "Text"
   }
 
-  return [type, subType].map(titleCase).join("")
+  return [type, subType].filter(isDefined).map(titleCase).join("")
 }

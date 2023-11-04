@@ -8,10 +8,12 @@ export interface IRModelBase {
   readOnly: boolean /* false */
 }
 
+export type IRModelNumericFormat = "int32" | "int64" | "float" | "double"
+
 export interface IRModelNumeric extends IRModelBase {
   type: "number"
-  format?: "int32" | "int64" | "float" | "double" /* | string */
-  enum?: number[]
+  format?: IRModelNumericFormat | string | undefined
+  enum?: number[] | undefined
 }
 
 export type IRModelStringFormat =
@@ -24,8 +26,8 @@ export type IRModelStringFormat =
 
 export interface IRModelString extends IRModelBase {
   type: "string"
-  format?: IRModelStringFormat
-  enum?: string[]
+  format?: IRModelStringFormat | string | undefined
+  enum?: string[] | undefined
 }
 
 export interface IRModelBoolean extends IRModelBase {
@@ -60,7 +62,7 @@ export interface IRParameter {
   name: string
   in: "path" | "query" | "header" | "cookie" | "body"
   schema: MaybeIRModel
-  description?: string
+  description: string | undefined
   required: boolean
   deprecated: boolean
   allowEmptyValue: boolean
@@ -83,7 +85,7 @@ export interface IROperation {
 }
 
 export interface IRRequestBody {
-  description?: string
+  description: string | undefined
   required: boolean
   content: {
     [contentType: string]: IRMediaType
@@ -93,7 +95,7 @@ export interface IRRequestBody {
 export interface IRResponse {
   // todo: https://github.com/mnahkies/openapi-code-generator/issues/45
   headers: unknown
-  description?: string
+  description: string | undefined
   content?: {
     [contentType: string]: IRMediaType
   }

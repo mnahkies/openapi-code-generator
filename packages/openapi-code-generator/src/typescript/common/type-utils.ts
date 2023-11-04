@@ -28,7 +28,7 @@ export const union = wrap((types: MaybeString[]): string => {
 
   if (!distinctTypes.length) {
     return ""
-  } else if (distinctTypes.length === 1) {
+  } else if (distinctTypes.length === 1 && distinctTypes[0]) {
     return distinctTypes[0]
   }
 
@@ -40,7 +40,7 @@ export const intersect = wrap((types: MaybeString[]): string => {
 
   if (!distinctTypes.length) {
     return ""
-  } else if (distinctTypes.length === 1) {
+  } else if (distinctTypes.length === 1 && distinctTypes[0]) {
     return distinctTypes[0]
   }
 

@@ -22,10 +22,12 @@ export type ClientOperationResponseSchemas = {
     schema: string
     type: string
   }[]
-  defaultResponse?: {
-    type: string
-    schema: string
-  }
+  defaultResponse?:
+    | {
+        type: string
+        schema: string
+      }
+    | undefined
 }
 
 export class ClientOperationBuilder {
