@@ -2886,12 +2886,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@nahkies/typescript-axios-runtime@npm:0.0.0, @nahkies/typescript-axios-runtime@workspace:packages/typescript-axios-runtime":
+"@nahkies/typescript-axios-runtime@npm:*, @nahkies/typescript-axios-runtime@workspace:packages/typescript-axios-runtime":
   version: 0.0.0-use.local
   resolution: "@nahkies/typescript-axios-runtime@workspace:packages/typescript-axios-runtime"
   dependencies:
     "@types/qs": "npm:^6.9.8"
+    axios: "npm:^1.6.0"
     qs: "npm:^6.11.2"
+  peerDependencies:
+    axios: ^1.6.0
   languageName: unknown
   linkType: soft
 
@@ -4026,12 +4029,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.6.2":
-  version: 20.10.0
-  resolution: "@types/node@npm:20.10.0"
+"@types/node@npm:^20.8.10":
+  version: 20.8.10
+  resolution: "@types/node@npm:20.8.10"
   dependencies:
     undici-types: "npm:~5.26.4"
-  checksum: c7d5ddbdbf3491e2363135c9611eb6bfae90eda2957279237fa232bcb29cd0df1cc3ee149d6de9915b754262a531ee2d57d33c9ecd58d763e8ad4856113822f3
+  checksum: 8930039077c8ad74de74c724909412bea8110c3f8892bcef8dda3e9629073bed65632ee755f94b252bcdae8ca71cf83e89a4a440a105e2b1b7c9797b43483049
   languageName: node
   linkType: hard
 
@@ -5126,7 +5129,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.0.0, axios@npm:^1.5.0":
+"axios@npm:^1.0.0":
   version: 1.5.0
   resolution: "axios@npm:1.5.0"
   dependencies:
@@ -5134,6 +5137,17 @@ __metadata:
     form-data: "npm:^4.0.0"
     proxy-from-env: "npm:^1.1.0"
   checksum: 128433020b1fe9a460121735016f377adc6109a1f62b61795b1a80704de0a70affb0d580c8abd057e28af5f343cb4fb9a17a0b2512ea7f314578bbe492851a23
+  languageName: node
+  linkType: hard
+
+"axios@npm:^1.6.0":
+  version: 1.6.0
+  resolution: "axios@npm:1.6.0"
+  dependencies:
+    follow-redirects: "npm:^1.15.0"
+    form-data: "npm:^4.0.0"
+    proxy-from-env: "npm:^1.1.0"
+  checksum: f069d938a05d2293e27c7cd6f0c08a1cb764f7cc43a1e637572f8d5928837ecd735890ad67a867d696094ee4b8b4dfdb3727a57aae600845e4c295581cb32f9a
   languageName: node
   linkType: hard
 
@@ -15218,9 +15232,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "typescript-axios@workspace:integration-tests/typescript-axios"
   dependencies:
-    "@nahkies/typescript-axios-runtime": "npm:0.0.0"
-    "@types/node": "npm:^20.6.2"
-    axios: "npm:^1.5.0"
+    "@nahkies/typescript-axios-runtime": "npm:*"
+    "@types/node": "npm:^20.8.10"
+    axios: "npm:^1.6.0"
     dotenv: "npm:^16.3.1"
     typescript: "npm:~5.1.6"
   languageName: unknown

@@ -2,6 +2,7 @@
  * @prettier
  */
 import qs from "qs"
+import axios, {AxiosInstance} from "axios"
 
 // from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
 type Enumerate<
@@ -49,17 +50,20 @@ export type QueryParams = {
 export type HeaderParams = Record<string, string | undefined>
 
 export interface AbstractAxiosConfig {
+  axios?: AxiosInstance
   basePath: string
   defaultHeaders: Record<string, string>
   defaultTimeout?: number
 }
 
 export abstract class AbstractAxiosClient {
+  protected readonly axios: AxiosInstance
   protected readonly basePath: string
   protected readonly defaultHeaders: Record<string, string>
   protected readonly defaultTimeout?: number
 
   protected constructor(config: AbstractAxiosConfig) {
+    this.axios = config.axios ?? axios
     this.basePath = config.basePath
     this.defaultHeaders = config.defaultHeaders
     this.defaultTimeout = config.defaultTimeout

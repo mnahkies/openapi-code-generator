@@ -30,8 +30,12 @@
   "dependencies": {
     "qs": "^6.11.2"
   },
+  "peerDependencies": {
+    "axios": "^1.6.0"
+  },
   "devDependencies": {
-    "@types/qs": "^6.9.8"
+    "@types/qs": "^6.9.8",
+    "axios": "^1.6.0"
   },
   "files": [
     "src",

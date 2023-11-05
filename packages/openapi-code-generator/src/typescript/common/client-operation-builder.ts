@@ -81,7 +81,7 @@ export class ClientOperationBuilder {
       .find(it => it.in === "header" && it.name.toLowerCase() === name.toLowerCase()) !== null
   }
 
-  returnType(): { statusType: string, responseType: string }[] {
+  returnType(): { statusType: string, responseType: string, isDefault: boolean }[] {
     const models = this.models
 
     return this.responsesToArray()
@@ -89,6 +89,7 @@ export class ClientOperationBuilder {
         return {
           statusType: statusStringToType(it.status),
           responseType: it.definition ? models.schemaObjectToType(it.definition) : "void",
+          isDefault: it.status === "default",
         }
       })
   }

@@ -33,10 +33,15 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
         builder
           .returnType()
           .filter(({statusType}) => statusType.startsWith("2"))
-          .map(({responseType}) => {
-            return `AxiosResponse<${responseType}>`
-          }),
-      ) || "never"
+          .map(({responseType}) => `AxiosResponse<${responseType}>`),
+      ) ||
+      union(
+        builder
+          .returnType()
+          .filter((it) => it.isDefault)
+          .map(({responseType}) => `AxiosResponse<${responseType}>`),
+      ) ||
+      "never"
 
     const body = `
 const url = \`${routeToTemplateString(route)}\`
@@ -48,7 +53,7 @@ const url = \`${routeToTemplateString(route)}\`
       .filter(Boolean)
       .join("\n")}
 
-    return axios.request({${[
+    return this.axios.request({${[
       `url: url ${queryString ? "+ query" : ""}`,
       "baseURL: this.basePath",
       `method: "${method}"`,
