@@ -31,7 +31,7 @@
     "qs": "^6.11.2"
   },
   "devDependencies": {
-    "@types/qs": "^6.9.9"
+    "@types/qs": "^6.9.10"
   },
   "files": [
     "src",

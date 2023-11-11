@@ -24,8 +24,8 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@types/js-yaml": "^4.0.8",
-    "@types/lodash": "^4.14.200",
+    "@types/js-yaml": "^4.0.9",
+    "@types/lodash": "^4.14.201",
     "@types/prettier": "^3.0.0",
     "nodemon": "3.0.1",
     "ts-node": "10.9.1",
