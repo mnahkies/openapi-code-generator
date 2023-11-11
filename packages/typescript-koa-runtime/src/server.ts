@@ -42,19 +42,19 @@ export type Response<Status extends StatusCode, Type> = {
 }
 
 export type ServerConfig = {
-  /** set to false to disable cors middleware, pass undefined for defaults */
-  cors?: false | Cors.Options | undefined
+  /** set to "disabled" to disable cors middleware, omit or pass undefined for defaults */
+  cors?: "disabled" | Cors.Options | undefined
 
   /**
-   * set to false to disable body parsing middleware, pass undefined for defaults.
+   * set to "disabled" to disable body parsing middleware, omit or pass undefined for defaults.
    *
    * if disabling, ensure you pass a body parsing middlware that places the parsed
    * body on `ctx.body` for request body processing to work.
    **/
-  body?: false | KoaBodyMiddlewareOptions | undefined
+  body?: "disabled" | KoaBodyMiddlewareOptions | undefined
 
   /**
-   * optional array of arbitrary middleware to be mounted before the Router,
+   *
    * useful for mounting logging, alternative body parsers, etc
    */
   middleware?: Middleware[]
@@ -71,6 +71,15 @@ export type ServerConfig = {
   port?: number
 }
 
+/**
+ * Starts a Koa server and listens on `port` or a randomly allocated port if none provided.
+ * Enables CORS and body parsing by default. It's recommended to customize the CORS options
+ * for production usage.
+ *
+ * If you need more control over your Koa server you should avoid calling this function,
+ * and instead mount the router from your generated codes `createRouter` call directly
+ * onto a server you have constructed.
+ */
 export async function startServer({
   middleware = [],
   cors = undefined,
@@ -84,11 +93,11 @@ export async function startServer({
 }> {
   const app = new Koa()
 
-  if (cors !== false) {
+  if (cors !== "disabled") {
     app.use(Cors(cors))
   }
 
-  if (body !== false) {
+  if (body !== "disabled") {
     app.use(KoaBody(body))
   }
 
