@@ -111,7 +111,9 @@ export async function startServer({
 
   return new Promise((resolve, reject) => {
     try {
-      const server = app.listen(port, () => {
+      const server = app.listen(port)
+
+      server.once("listening", () => {
         try {
           const address = server.address()
 
@@ -123,6 +125,10 @@ export async function startServer({
         } catch (err) {
           reject(err)
         }
+      })
+
+      server.once("error", (err) => {
+        reject(err)
       })
     } catch (err) {
       reject(err)
