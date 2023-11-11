@@ -13,4 +13,5 @@ yarn ci-pipeline
 yarn lerna publish \
   --no-private \
   --force-publish \
-  --canary
+  --canary \
+  --pre-dist-tag "$(git branch --show-current)"
