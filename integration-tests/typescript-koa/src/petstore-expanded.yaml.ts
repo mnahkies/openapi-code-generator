@@ -57,7 +57,7 @@ async function main() {
       addPet: notImplemented,
       deletePet: notImplemented,
     }),
-    port: 3000,
+    port: {port: 3000, host: "127.0.0.1"},
   })
 
   console.info(`listening on ${address.address}:${address.port}`)

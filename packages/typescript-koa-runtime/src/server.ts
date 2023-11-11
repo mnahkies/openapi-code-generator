@@ -9,6 +9,7 @@ import Router from "@koa/router"
 import {Server} from "http"
 import {KoaBodyMiddlewareOptions} from "koa-body/lib/types"
 import {AddressInfo} from "node:net"
+import {ListenOptions} from "net"
 
 // from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
 type Enumerate<
@@ -67,8 +68,10 @@ export type ServerConfig = {
 
   /**
    * the port to listen on, a randomly allocated port will be used if none passed
+   * alternatively ListenOptions can be passed to control the network interface
+   * bound to.
    */
-  port?: number
+  port?: number | ListenOptions
 }
 
 /**

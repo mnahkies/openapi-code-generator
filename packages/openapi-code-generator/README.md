@@ -289,8 +289,8 @@ bootstrap({
 
 #### Custom Koa app / configuration
 
-The provided `bootstrap` function has a limited range of options. For more advanced use-cases, eg: `https`, or binding to a
-specific ip address you will need to construct your own Koa `app`.
+The provided `bootstrap` function has a limited range of options. For more advanced use-cases,
+such as `https` you will need to construct your own Koa `app`.
 
 The only real requirement is that you provide a body parsing middleware before the `router` that places a parsed request body
 on the `ctx.body` property.
@@ -300,6 +300,7 @@ Eg:
 ```typescript
 import {createRouter} from "../generated"
 import KoaBody from "koa-body"
+import https from "https"
 
 // ...implement routes where
 
@@ -313,9 +314,14 @@ const router = createRouter({getTodoLists, createTodoList})
 app.use(router.allowedMethods())
 app.use(router.routes())
 
-app.listen(8080, '127.0.0.1', () => {
-  console.info("listening")
-})
+https
+  .createServer({
+      key: "...",
+      cert: "...",
+    },
+    app.callback(),
+  )
+  .listen(433)
 ```
 
 ## More information / contributing
