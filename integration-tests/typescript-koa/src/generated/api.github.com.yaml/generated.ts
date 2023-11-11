@@ -12428,11 +12428,7 @@ export type Implementation = {
   metaGetZen: MetaGetZen
 }
 
-export function bootstrap(
-  implementation: Implementation,
-  config: Omit<ServerConfig, "router">,
-) {
-  // ApiClient
+export function createRouter(implementation: Implementation): KoaRouter {
   const router = new KoaRouter()
 
   const metaRootResponseValidator = responseValidationFactory(
@@ -49639,9 +49635,10 @@ export function bootstrap(
     return next()
   })
 
-  return startServer({
-    middleware: config.middleware,
-    router,
-    port: config.port,
-  })
+  return router
+}
+
+export async function bootstrap(config: ServerConfig) {
+  // ApiClient
+  return startServer(config)
 }

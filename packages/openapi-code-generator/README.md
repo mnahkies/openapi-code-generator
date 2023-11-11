@@ -1,4 +1,5 @@
 # @nahkies/openapi-code-generator
+
 ![CI/CD](https://github.com/mnahkies/openapi-code-generator/actions/workflows/ci.yml/badge.svg)
 [![npm](https://img.shields.io/npm/v/@nahkies/openapi-code-generator.svg)](https://www.npmjs.com/package/@nahkies/openapi-code-generator)
 
@@ -16,11 +17,13 @@ generating a strongly typed client for large/complex definitions like the GitHub
   - [Typescript Angular](#typescript-angular)
 - [Server Examples](#server-examples)
   - [Typescript Koa](#typescript-koa)
+    - [Custom Koa app / configuration](#custom-koa-app--configuration)
 - [More information / contributing](#more-information--contributing)
 
 <!-- tocstop -->
 
 ## Project Goal
+
 To make it fun, easy and productive to generate both client and server "glue"
 code from openapi 3 definitions. This is code that is tedious and error prone to maintain by hand,
 by automating it we can reduce toil and frustration.
@@ -39,6 +42,7 @@ The initial focus on `typescript`, with an intention to later support other lang
 most likely candidate for a second language.
 
 ## Usage
+
 Install as a `devDependency` in the consuming project, or execute using `npx`
 
 ```shell
@@ -46,35 +50,44 @@ yarn add --dev @nahkies/openapi-code-generator
 ```
 
 See available options using:
+
 ```shell
 yarn openapi-code-generator --help
 ```
-Or looking at the code defining them in [index.ts](./src/index.ts). 
+
+Or looking at the code defining them in [index.ts](./src/index.ts).
 All options can be provided as either cli arguments or environment variables.
 
 Example usage:
+
 ```shell
 yarn openapi-code-generator --input="./openapi.yaml" --out="./src/" --template=typescript-koa
 ```
 
 Where template is one of:
+
 - typescript-angular
 - typescript-fetch
 - typescript-koa
 
 There is an optional parameter `schema-builder` for choosing between:
+
 - [zod](https://zod.dev/) (default)
 - [joi](https://joi.dev/)
 
 For runtime phrasing / validation of schemas (eg: responses, parameters).
 
 ## Client Examples
+
 There are two client templates:
+
 - `typescript-fetch`
 - `typescript-angular`
 
 ### Typescript Fetch
+
 The `typescript-fetch` template outputs a client SDK based on the [fetch api](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) that gives the following:
+
 - Typed methods to call each endpoint
 - Support for passing a `timeout`, abort signals are still respected
 
@@ -83,12 +96,15 @@ It does not yet support runtime validation/parsing - compile time type safety on
 See [integration-tests/typescript-fetch](../../integration-tests/typescript-fetch) for more samples.
 
 Dependencies:
+
 ```shell
 yarn add @nahkies/typescript-fetch-runtime
 ```
+
 If you're using a version of NodeJS that doesn't include the `fetch` API, you may need a polyfill like [node-fetch](https://www.npmjs.com/package/node-fetch)
 
 Running:
+
 ```shell
 yarn openapi-code-generator \
   --input ./openapi.yaml \
@@ -97,6 +113,7 @@ yarn openapi-code-generator \
 ```
 
 Will output these files into `./src/clients/some-service`:
+
 - `./client.ts`: exports a class `ApiClient` that implements methods for calling each endpoint
 - `./models.ts`: exports typescript types
 
@@ -130,9 +147,11 @@ console.log(`id is: ${body.id}`)
 ```
 
 ### Typescript Angular
+
 **Note: this is the least battle tested of the templates and most likely to have critical bugs**
 
 The `typescript-angular` template outputs a client SDK based on the [Angular HttpClient](https://angular.io/api/common/http/HttpClient) that gives the following:
+
 - Typed methods to call each endpoint returning an [RxJS Observable](https://rxjs.dev/guide/observable)
 
 It does not yet support runtime validation/parsing - compile time type safety only at this stage.
@@ -140,6 +159,7 @@ It does not yet support runtime validation/parsing - compile time type safety on
 See [integration-tests/typescript-angular](../../integration-tests/typescript-angular) for more samples.
 
 Running:
+
 ```shell
 yarn openapi-code-generator \
   --input ./openapi.yaml \
@@ -148,6 +168,7 @@ yarn openapi-code-generator \
 ```
 
 Will output these files into `./src/app/clients/some-service`:
+
 - `./api.module.ts`: exports a class `ApiModule` as an `NgModule`
 - `./client.service.ts`: exports a class `ApiClient` as injectable Angular service
 - `./models.ts`: exports typescript types
@@ -183,7 +204,7 @@ export class AppComponent {
 
     client.updateTodoListById({listId: "1", requestBody: {name: "Foo"}})
       .subscribe(next => {
-        if(next.status === 200){
+        if (next.status === 200) {
           // TODO: body is currently incorrectly `unknown` here
           console.log(next.body.id)
         }
@@ -193,26 +214,31 @@ export class AppComponent {
 ```
 
 ## Server Examples
+
 Currently, there is a single server template: `typescript-koa`
 
 Support for `express` or other frameworks may be added in future.
 
 ### Typescript Koa
+
 The `typescript-koa` template outputs scaffolding code that handles the following:
+
 - Building a [@koa/router](https://www.npmjs.com/package/@koa/router) instance with all routes in the openapi specification
 - Generating types and runtime schema parsers for all request parameters/bodies and response bodies
 - Generating types for route handlers that receive validated inputs, and have return types that are additionally validated at runtime prior to sending the response
-- Actually starting the server and binding to a port
+- (Optionally) Actually starting the server and binding to a port
 
 See [integration-tests/typescript-koa](../../integration-tests/typescript-koa) for more samples.
 
 Dependencies:
+
 ```shell
 yarn add @nahkies/typescript-koa-runtime @koa/cors @koa/router koa koa-body zod
 yarn add --dev @types/koa @types/koa__router
 ```
 
 Running:
+
 ```shell
 yarn openapi-code-generator \
   --input ./openapi.yaml \
@@ -222,14 +248,15 @@ yarn openapi-code-generator \
 ```
 
 Will output three files into `./src`:
-- `generated.ts` - exports a single function `bootstrap` and associated types used to start your server
-- `models.ts` - exports typescript types
+
+- `generated.ts` - exports a `createRouter` and `bootstrap` function, along with associated types used to create your server
+- `models.ts` - exports typescript types for schemas
 - `schemas.ts` - exports runtime schema validators
 
 Once generated usage should look something like this:
 
 ```typescript
-import {bootstrap, CreateTodoList, GetTodoLists} from "../generated"
+import {bootstrap, createRouter, CreateTodoList, GetTodoLists} from "../generated"
 
 // Define your route implementations as async functions implementing the types
 // exported from generated.ts
@@ -254,8 +281,49 @@ const getTodoLists: GetTodoLists = async ({query}) => {
 }
 
 // Starts a server listening on `port`
-bootstrap({getTodoLists, createTodoList}, {port: port})
+bootstrap({
+  router: createRouter({getTodoLists, createTodoList}),
+  port: 8080
+})
+```
+
+#### Custom Koa app / configuration
+
+The provided `bootstrap` function has a limited range of options. For more advanced use-cases,
+such as `https` you will need to construct your own Koa `app`.
+
+The only real requirement is that you provide a body parsing middleware before the `router` that places a parsed request body
+on the `ctx.body` property.
+
+Eg:
+
+```typescript
+import {createRouter} from "../generated"
+import KoaBody from "koa-body"
+import https from "https"
+
+// ...implement routes where
+
+const app = new Koa()
+
+// it doesn't have to be koa-body, but it does need to put the parsed body on `ctx.body`
+app.use(KoaBody())
+
+// mount the generated router
+const router = createRouter({getTodoLists, createTodoList})
+app.use(router.allowedMethods())
+app.use(router.routes())
+
+https
+  .createServer({
+      key: "...",
+      cert: "...",
+    },
+    app.callback(),
+  )
+  .listen(433)
 ```
 
 ## More information / contributing
+
 Refer to top level [README.md](../../README.md) / [CONTRIBUTING.md](../../CONTRIBUTING.md)

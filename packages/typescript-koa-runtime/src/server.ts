@@ -1,51 +1,137 @@
-import cors from "@koa/cors"
+/**
+ * @prettier
+ */
+
+import Cors from "@koa/cors"
 import Koa, {Middleware} from "koa"
-import koaBody from "koa-body"
+import KoaBody from "koa-body"
 import Router from "@koa/router"
 import {Server} from "http"
+import {KoaBodyMiddlewareOptions} from "koa-body/lib/types"
+import {AddressInfo} from "node:net"
+import {ListenOptions} from "net"
 
 // from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
-type Enumerate<N extends number, Acc extends number[] = []> = Acc["length"] extends N
+type Enumerate<
+  N extends number,
+  Acc extends number[] = [],
+> = Acc["length"] extends N
   ? Acc[number]
   : Enumerate<N, [...Acc, Acc["length"]]>
 
-type IntRange<F extends number, T extends number> = F extends T ?
-  F :
-  Exclude<Enumerate<T>, Enumerate<F>> extends never ?
-    never :
-    Exclude<Enumerate<T>, Enumerate<F>> | T
+type IntRange<F extends number, T extends number> = F extends T
+  ? F
+  : Exclude<Enumerate<T>, Enumerate<F>> extends never
+  ? never
+  : Exclude<Enumerate<T>, Enumerate<F>> | T
 
 export type StatusCode1xx = IntRange<100, 199> // `1${number}${number}`
 export type StatusCode2xx = IntRange<200, 299> // `2${number}${number}`
 export type StatusCode3xx = IntRange<300, 399> // `3${number}${number}`
 export type StatusCode4xx = IntRange<400, 499> // `4${number}${number}`
 export type StatusCode5xx = IntRange<500, 599> // `5${number}${number}`
-export type StatusCode = StatusCode1xx | StatusCode2xx | StatusCode3xx | StatusCode4xx | StatusCode5xx
+export type StatusCode =
+  | StatusCode1xx
+  | StatusCode2xx
+  | StatusCode3xx
+  | StatusCode4xx
+  | StatusCode5xx
 
-export type Response<Status extends StatusCode, Type> = { status: Status, body: Type }
-
-export type ServerConfig = {
-  middleware?: Middleware[]
-  router: Router
-  port: number
+export type Response<Status extends StatusCode, Type> = {
+  status: Status
+  body: Type
 }
 
-export function startServer(config: ServerConfig): Server {
+export type ServerConfig = {
+  /** set to "disabled" to disable cors middleware, omit or pass undefined for defaults */
+  cors?: "disabled" | Cors.Options | undefined
+
+  /**
+   * set to "disabled" to disable body parsing middleware, omit or pass undefined for defaults.
+   *
+   * if disabling, ensure you pass a body parsing middlware that places the parsed
+   * body on `ctx.body` for request body processing to work.
+   **/
+  body?: "disabled" | KoaBodyMiddlewareOptions | undefined
+
+  /**
+   *
+   * useful for mounting logging, alternative body parsers, etc
+   */
+  middleware?: Middleware[]
+
+  /**
+   * the router to use, normally obtained by calling the generated `createRouter`
+   * function
+   */
+  router: Router
+
+  /**
+   * the port to listen on, a randomly allocated port will be used if none passed
+   * alternatively ListenOptions can be passed to control the network interface
+   * bound to.
+   */
+  port?: number | ListenOptions
+}
+
+/**
+ * Starts a Koa server and listens on `port` or a randomly allocated port if none provided.
+ * Enables CORS and body parsing by default. It's recommended to customize the CORS options
+ * for production usage.
+ *
+ * If you need more control over your Koa server you should avoid calling this function,
+ * and instead mount the router from your generated codes `createRouter` call directly
+ * onto a server you have constructed.
+ */
+export async function startServer({
+  middleware = [],
+  cors = undefined,
+  body = undefined,
+  port = 0,
+  router,
+}: ServerConfig): Promise<{
+  app: Koa
+  server: Server
+  address: AddressInfo
+}> {
   const app = new Koa()
 
-  app.use(cors())
-  app.use(koaBody())
+  if (cors !== "disabled") {
+    app.use(Cors(cors))
+  }
 
-  const middleware = config.middleware ?? []
-  middleware.forEach(it => app.use(it))
+  if (body !== "disabled") {
+    app.use(KoaBody(body))
+  }
 
-  app.use(config.router.allowedMethods())
-  app.use(config.router.routes())
+  middleware.forEach((it) => app.use(it))
 
-  const server = app.listen(config.port, () => {
-    const address = server.address()
-    console.info("server listening", {address})
+  app.use(router.allowedMethods())
+  app.use(router.routes())
+
+  return new Promise((resolve, reject) => {
+    try {
+      const server = app.listen(port)
+
+      server.once("listening", () => {
+        try {
+          const address = server.address()
+
+          if (!address || typeof address !== "object") {
+            throw new Error("failed to bind port")
+          }
+
+          resolve({app, server, address})
+        } catch (err) {
+          reject(err)
+        }
+      })
+
+      server.once("error", (err) => {
+        reject(err)
+      })
+    } catch (err) {
+      reject(err)
+    }
   })
-
-  return server
 }

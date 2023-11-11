@@ -7977,11 +7977,7 @@ export type Implementation = {
   postWebhookEndpointsWebhookEndpoint: PostWebhookEndpointsWebhookEndpoint
 }
 
-export function bootstrap(
-  implementation: Implementation,
-  config: Omit<ServerConfig, "router">,
-) {
-  // ApiClient
+export function createRouter(implementation: Implementation): KoaRouter {
   const router = new KoaRouter()
 
   const getAccountQuerySchema = z.object({
@@ -46585,9 +46581,10 @@ export function bootstrap(
     },
   )
 
-  return startServer({
-    middleware: config.middleware,
-    router,
-    port: config.port,
-  })
+  return router
+}
+
+export async function bootstrap(config: ServerConfig) {
+  // ApiClient
+  return startServer(config)
 }

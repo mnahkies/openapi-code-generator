@@ -187,17 +187,17 @@ ${buildExport({
       kind: "type",
     })}
 
-export function bootstrap(implementation: Implementation, config: Omit<ServerConfig, "router">){
-  // ${clientName}
+export function createRouter(implementation: Implementation): KoaRouter {
   const router = new KoaRouter()
 
   ${routes.join("\n\n")}
 
-  return startServer({
-    middleware: config.middleware,
-    router,
-    port: config.port
-  })
+  return router
+}
+
+export async function bootstrap(config: ServerConfig) {
+  // ${clientName}
+  return startServer(config)
 }
 `
   }
