@@ -97,15 +97,23 @@ export async function startServer({
   app.use(router.allowedMethods())
   app.use(router.routes())
 
-  return new Promise((resolve) => {
-    const server = app.listen(port, () => {
-      const address = server.address()
+  return new Promise((resolve, reject) => {
+    try {
+      const server = app.listen(port, () => {
+        try {
+          const address = server.address()
 
-      if (!address || typeof address !== "object") {
-        throw new Error("failed to bind port")
-      }
+          if (!address || typeof address !== "object") {
+            throw new Error("failed to bind port")
+          }
 
-      resolve({app, server, address})
-    })
+          resolve({app, server, address})
+        } catch (err) {
+          reject(err)
+        }
+      })
+    } catch (err) {
+      reject(err)
+    }
   })
 }
