@@ -2126,6 +2126,10 @@ import {
 } from "./schemas"
 import KoaRouter from "@koa/router"
 import {
+  KoaRuntimeError,
+  RequestInputType,
+} from "@nahkies/typescript-koa-runtime/errors"
+import {
   Response,
   ServerConfig,
   StatusCode,
@@ -12574,7 +12578,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: undefined,
     }
 
-    const { status, body } = await implementation.metaRoot(input, ctx)
+    const { status, body } = await implementation
+      .metaRoot(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = metaRootResponseValidator(status, body)
     ctx.status = status
@@ -12636,12 +12644,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           securityAdvisoriesListGlobalAdvisoriesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.securityAdvisoriesListGlobalAdvisories(input, ctx)
+      const { status, body } = await implementation
+        .securityAdvisoriesListGlobalAdvisories(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = securityAdvisoriesListGlobalAdvisoriesResponseValidator(
         status,
@@ -12673,13 +12685,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           securityAdvisoriesGetGlobalAdvisoryParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.securityAdvisoriesGetGlobalAdvisory(input, ctx)
+      const { status, body } = await implementation
+        .securityAdvisoriesGetGlobalAdvisory(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = securityAdvisoriesGetGlobalAdvisoryResponseValidator(
         status,
@@ -12702,10 +12718,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: undefined,
     }
 
-    const { status, body } = await implementation.appsGetAuthenticated(
-      input,
-      ctx,
-    )
+    const { status, body } = await implementation
+      .appsGetAuthenticated(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = appsGetAuthenticatedResponseValidator(status, body)
     ctx.status = status
@@ -12741,15 +12758,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           appsCreateFromManifestParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.appsCreateFromManifest(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .appsCreateFromManifest(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsCreateFromManifestResponseValidator(status, body)
       ctx.status = status
@@ -12772,10 +12791,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: undefined,
       }
 
-      const { status, body } = await implementation.appsGetWebhookConfigForApp(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .appsGetWebhookConfigForApp(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsGetWebhookConfigForAppResponseValidator(status, body)
       ctx.status = status
@@ -12803,11 +12823,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           appsUpdateWebhookConfigForAppBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.appsUpdateWebhookConfigForApp(input, ctx)
+      const { status, body } = await implementation
+        .appsUpdateWebhookConfigForApp(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsUpdateWebhookConfigForAppResponseValidator(status, body)
       ctx.status = status
@@ -12839,14 +12863,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           appsListWebhookDeliveriesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.appsListWebhookDeliveries(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .appsListWebhookDeliveries(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsListWebhookDeliveriesResponseValidator(status, body)
       ctx.status = status
@@ -12875,15 +12901,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           appsGetWebhookDeliveryParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.appsGetWebhookDelivery(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .appsGetWebhookDelivery(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsGetWebhookDeliveryResponseValidator(status, body)
       ctx.status = status
@@ -12913,13 +12941,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           appsRedeliverWebhookDeliveryParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.appsRedeliverWebhookDelivery(input, ctx)
+      const { status, body } = await implementation
+        .appsRedeliverWebhookDelivery(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsRedeliverWebhookDeliveryResponseValidator(status, body)
       ctx.status = status
@@ -12951,15 +12983,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           appsListInstallationRequestsForAuthenticatedAppQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.appsListInstallationRequestsForAuthenticatedApp(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .appsListInstallationRequestsForAuthenticatedApp(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         appsListInstallationRequestsForAuthenticatedAppResponseValidator(
@@ -12989,14 +13022,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(appsListInstallationsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          appsListInstallationsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.appsListInstallations(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .appsListInstallations(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsListInstallationsResponseValidator(status, body)
       ctx.status = status
@@ -13021,15 +13059,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/app/installations/:installationId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(appsGetInstallationParamSchema, ctx.params),
+        params: parseRequestInput(
+          appsGetInstallationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.appsGetInstallation(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .appsGetInstallation(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsGetInstallationResponseValidator(status, body)
       ctx.status = status
@@ -13057,15 +13100,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           appsDeleteInstallationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.appsDeleteInstallation(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .appsDeleteInstallation(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsDeleteInstallationResponseValidator(status, body)
       ctx.status = status
@@ -13105,16 +13150,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           appsCreateInstallationAccessTokenParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           appsCreateInstallationAccessTokenBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.appsCreateInstallationAccessToken(input, ctx)
+      const { status, body } = await implementation
+        .appsCreateInstallationAccessToken(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsCreateInstallationAccessTokenResponseValidator(
         status,
@@ -13145,15 +13195,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           appsSuspendInstallationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.appsSuspendInstallation(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .appsSuspendInstallation(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsSuspendInstallationResponseValidator(status, body)
       ctx.status = status
@@ -13181,15 +13233,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           appsUnsuspendInstallationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.appsUnsuspendInstallation(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .appsUnsuspendInstallation(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsUnsuspendInstallationResponseValidator(status, body)
       ctx.status = status
@@ -13219,18 +13273,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           appsDeleteAuthorizationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           appsDeleteAuthorizationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.appsDeleteAuthorization(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .appsDeleteAuthorization(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsDeleteAuthorizationResponseValidator(status, body)
       ctx.status = status
@@ -13256,12 +13313,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/applications/:clientId/token",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(appsCheckTokenParamSchema, ctx.params),
+        params: parseRequestInput(
+          appsCheckTokenParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(appsCheckTokenBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          appsCheckTokenBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.appsCheckToken(input, ctx)
+      const { status, body } = await implementation
+        .appsCheckToken(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsCheckTokenResponseValidator(status, body)
       ctx.status = status
@@ -13286,12 +13355,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/applications/:clientId/token",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(appsResetTokenParamSchema, ctx.params),
+        params: parseRequestInput(
+          appsResetTokenParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(appsResetTokenBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          appsResetTokenBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.appsResetToken(input, ctx)
+      const { status, body } = await implementation
+        .appsResetToken(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsResetTokenResponseValidator(status, body)
       ctx.status = status
@@ -13316,12 +13397,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/applications/:clientId/token",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(appsDeleteTokenParamSchema, ctx.params),
+        params: parseRequestInput(
+          appsDeleteTokenParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(appsDeleteTokenBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          appsDeleteTokenBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.appsDeleteToken(input, ctx)
+      const { status, body } = await implementation
+        .appsDeleteToken(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsDeleteTokenResponseValidator(status, body)
       ctx.status = status
@@ -13356,12 +13449,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/applications/:clientId/token/scoped",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(appsScopeTokenParamSchema, ctx.params),
+        params: parseRequestInput(
+          appsScopeTokenParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(appsScopeTokenBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          appsScopeTokenBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.appsScopeToken(input, ctx)
+      const { status, body } = await implementation
+        .appsScopeToken(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsScopeTokenResponseValidator(status, body)
       ctx.status = status
@@ -13382,12 +13487,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("appsGetBySlug", "/apps/:appSlug", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(appsGetBySlugParamSchema, ctx.params),
+      params: parseRequestInput(
+        appsGetBySlugParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.appsGetBySlug(input, ctx)
+    const { status, body } = await implementation
+      .appsGetBySlug(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = appsGetBySlugResponseValidator(status, body)
     ctx.status = status
@@ -13414,15 +13527,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           classroomGetAnAssignmentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.classroomGetAnAssignment(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .classroomGetAnAssignment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = classroomGetAnAssignmentResponseValidator(status, body)
       ctx.status = status
@@ -13453,19 +13568,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           classroomListAcceptedAssigmentsForAnAssignmentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           classroomListAcceptedAssigmentsForAnAssignmentQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.classroomListAcceptedAssigmentsForAnAssignment(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .classroomListAcceptedAssigmentsForAnAssignment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         classroomListAcceptedAssigmentsForAnAssignmentResponseValidator(
@@ -13498,13 +13615,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           classroomGetAssignmentGradesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.classroomGetAssignmentGrades(input, ctx)
+      const { status, body } = await implementation
+        .classroomGetAssignmentGrades(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = classroomGetAssignmentGradesResponseValidator(status, body)
       ctx.status = status
@@ -13525,14 +13646,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("classroomListClassrooms", "/classrooms", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(classroomListClassroomsQuerySchema, ctx.query),
+      query: parseRequestInput(
+        classroomListClassroomsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.classroomListClassrooms(
-      input,
-      ctx,
-    )
+    const { status, body } = await implementation
+      .classroomListClassrooms(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = classroomListClassroomsResponseValidator(status, body)
     ctx.status = status
@@ -13559,15 +13685,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           classroomGetAClassroomParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.classroomGetAClassroom(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .classroomGetAClassroom(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = classroomGetAClassroomResponseValidator(status, body)
       ctx.status = status
@@ -13598,16 +13726,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           classroomListAssignmentsForAClassroomParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           classroomListAssignmentsForAClassroomQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.classroomListAssignmentsForAClassroom(input, ctx)
+      const { status, body } = await implementation
+        .classroomListAssignmentsForAClassroom(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = classroomListAssignmentsForAClassroomResponseValidator(
         status,
@@ -13637,8 +13770,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codesOfConductGetAllCodesOfConduct(input, ctx)
+      const { status, body } = await implementation
+        .codesOfConductGetAllCodesOfConduct(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codesOfConductGetAllCodesOfConductResponseValidator(
         status,
@@ -13669,13 +13805,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codesOfConductGetConductCodeParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codesOfConductGetConductCode(input, ctx)
+      const { status, body } = await implementation
+        .codesOfConductGetConductCode(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codesOfConductGetConductCodeResponseValidator(status, body)
       ctx.status = status
@@ -13698,7 +13838,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: undefined,
     }
 
-    const { status, body } = await implementation.emojisGet(input, ctx)
+    const { status, body } = await implementation
+      .emojisGet(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = emojisGetResponseValidator(status, body)
     ctx.status = status
@@ -13744,16 +13888,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           dependabotListAlertsForEnterpriseParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           dependabotListAlertsForEnterpriseQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.dependabotListAlertsForEnterprise(input, ctx)
+      const { status, body } = await implementation
+        .dependabotListAlertsForEnterprise(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependabotListAlertsForEnterpriseResponseValidator(
         status,
@@ -13804,16 +13953,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           secretScanningListAlertsForEnterpriseParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           secretScanningListAlertsForEnterpriseQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.secretScanningListAlertsForEnterprise(input, ctx)
+      const { status, body } = await implementation
+        .secretScanningListAlertsForEnterprise(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = secretScanningListAlertsForEnterpriseResponseValidator(
         status,
@@ -13849,14 +14003,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("activityListPublicEvents", "/events", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(activityListPublicEventsQuerySchema, ctx.query),
+      query: parseRequestInput(
+        activityListPublicEventsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.activityListPublicEvents(
-      input,
-      ctx,
-    )
+    const { status, body } = await implementation
+      .activityListPublicEvents(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = activityListPublicEventsResponseValidator(status, body)
     ctx.status = status
@@ -13875,7 +14034,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: undefined,
     }
 
-    const { status, body } = await implementation.activityGetFeeds(input, ctx)
+    const { status, body } = await implementation
+      .activityGetFeeds(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = activityGetFeedsResponseValidator(status, body)
     ctx.status = status
@@ -13900,11 +14063,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("gistsList", "/gists", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(gistsListQuerySchema, ctx.query),
+      query: parseRequestInput(
+        gistsListQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.gistsList(input, ctx)
+    const { status, body } = await implementation
+      .gistsList(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = gistsListResponseValidator(status, body)
     ctx.status = status
@@ -13932,10 +14103,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(gistsCreateBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        gistsCreateBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.gistsCreate(input, ctx)
+    const { status, body } = await implementation
+      .gistsCreate(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = gistsCreateResponseValidator(status, body)
     ctx.status = status
@@ -13961,11 +14140,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("gistsListPublic", "/gists/public", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(gistsListPublicQuerySchema, ctx.query),
+      query: parseRequestInput(
+        gistsListPublicQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.gistsListPublic(input, ctx)
+    const { status, body } = await implementation
+      .gistsListPublic(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = gistsListPublicResponseValidator(status, body)
     ctx.status = status
@@ -13991,11 +14178,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("gistsListStarred", "/gists/starred", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(gistsListStarredQuerySchema, ctx.query),
+      query: parseRequestInput(
+        gistsListStarredQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.gistsListStarred(input, ctx)
+    const { status, body } = await implementation
+      .gistsListStarred(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = gistsListStarredResponseValidator(status, body)
     ctx.status = status
@@ -14029,12 +14224,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("gistsGet", "/gists/:gistId", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(gistsGetParamSchema, ctx.params),
+      params: parseRequestInput(
+        gistsGetParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.gistsGet(input, ctx)
+    const { status, body } = await implementation
+      .gistsGet(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = gistsGetResponseValidator(status, body)
     ctx.status = status
@@ -14061,12 +14264,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch("gistsUpdate", "/gists/:gistId", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(gistsUpdateParamSchema, ctx.params),
+      params: parseRequestInput(
+        gistsUpdateParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(gistsUpdateBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        gistsUpdateBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.gistsUpdate(input, ctx)
+    const { status, body } = await implementation
+      .gistsUpdate(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = gistsUpdateResponseValidator(status, body)
     ctx.status = status
@@ -14087,12 +14302,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete("gistsDelete", "/gists/:gistId", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(gistsDeleteParamSchema, ctx.params),
+      params: parseRequestInput(
+        gistsDeleteParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.gistsDelete(input, ctx)
+    const { status, body } = await implementation
+      .gistsDelete(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = gistsDeleteResponseValidator(status, body)
     ctx.status = status
@@ -14121,15 +14344,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/gists/:gistId/comments",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gistsListCommentsParamSchema, ctx.params),
-        query: parseRequestInput(gistsListCommentsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          gistsListCommentsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          gistsListCommentsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.gistsListComments(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .gistsListComments(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gistsListCommentsResponseValidator(status, body)
       ctx.status = status
@@ -14156,15 +14388,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/gists/:gistId/comments",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gistsCreateCommentParamSchema, ctx.params),
+        params: parseRequestInput(
+          gistsCreateCommentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(gistsCreateCommentBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          gistsCreateCommentBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.gistsCreateComment(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .gistsCreateComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gistsCreateCommentResponseValidator(status, body)
       ctx.status = status
@@ -14205,12 +14446,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/gists/:gistId/comments/:commentId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gistsGetCommentParamSchema, ctx.params),
+        params: parseRequestInput(
+          gistsGetCommentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.gistsGetComment(input, ctx)
+      const { status, body } = await implementation
+        .gistsGetComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gistsGetCommentResponseValidator(status, body)
       ctx.status = status
@@ -14238,15 +14487,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/gists/:gistId/comments/:commentId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gistsUpdateCommentParamSchema, ctx.params),
+        params: parseRequestInput(
+          gistsUpdateCommentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(gistsUpdateCommentBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          gistsUpdateCommentBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.gistsUpdateComment(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .gistsUpdateComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gistsUpdateCommentResponseValidator(status, body)
       ctx.status = status
@@ -14274,15 +14532,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/gists/:gistId/comments/:commentId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gistsDeleteCommentParamSchema, ctx.params),
+        params: parseRequestInput(
+          gistsDeleteCommentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.gistsDeleteComment(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .gistsDeleteComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gistsDeleteCommentResponseValidator(status, body)
       ctx.status = status
@@ -14312,12 +14575,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/gists/:gistId/commits",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gistsListCommitsParamSchema, ctx.params),
-        query: parseRequestInput(gistsListCommitsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          gistsListCommitsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          gistsListCommitsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.gistsListCommits(input, ctx)
+      const { status, body } = await implementation
+        .gistsListCommits(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gistsListCommitsResponseValidator(status, body)
       ctx.status = status
@@ -14344,12 +14619,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("gistsListForks", "/gists/:gistId/forks", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(gistsListForksParamSchema, ctx.params),
-      query: parseRequestInput(gistsListForksQuerySchema, ctx.query),
+      params: parseRequestInput(
+        gistsListForksParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        gistsListForksQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.gistsListForks(input, ctx)
+    const { status, body } = await implementation
+      .gistsListForks(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = gistsListForksResponseValidator(status, body)
     ctx.status = status
@@ -14371,12 +14658,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post("gistsFork", "/gists/:gistId/forks", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(gistsForkParamSchema, ctx.params),
+      params: parseRequestInput(
+        gistsForkParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.gistsFork(input, ctx)
+    const { status, body } = await implementation
+      .gistsFork(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = gistsForkResponseValidator(status, body)
     ctx.status = status
@@ -14400,15 +14695,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/gists/:gistId/star",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gistsCheckIsStarredParamSchema, ctx.params),
+        params: parseRequestInput(
+          gistsCheckIsStarredParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.gistsCheckIsStarred(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .gistsCheckIsStarred(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gistsCheckIsStarredResponseValidator(status, body)
       ctx.status = status
@@ -14430,12 +14730,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put("gistsStar", "/gists/:gistId/star", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(gistsStarParamSchema, ctx.params),
+      params: parseRequestInput(
+        gistsStarParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.gistsStar(input, ctx)
+    const { status, body } = await implementation
+      .gistsStar(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = gistsStarResponseValidator(status, body)
     ctx.status = status
@@ -14456,12 +14764,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete("gistsUnstar", "/gists/:gistId/star", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(gistsUnstarParamSchema, ctx.params),
+      params: parseRequestInput(
+        gistsUnstarParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.gistsUnstar(input, ctx)
+    const { status, body } = await implementation
+      .gistsUnstar(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = gistsUnstarResponseValidator(status, body)
     ctx.status = status
@@ -14485,12 +14801,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("gistsGetRevision", "/gists/:gistId/:sha", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(gistsGetRevisionParamSchema, ctx.params),
+      params: parseRequestInput(
+        gistsGetRevisionParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.gistsGetRevision(input, ctx)
+    const { status, body } = await implementation
+      .gistsGetRevision(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = gistsGetRevisionResponseValidator(status, body)
     ctx.status = status
@@ -14515,10 +14839,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: undefined,
       }
 
-      const { status, body } = await implementation.gitignoreGetAllTemplates(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .gitignoreGetAllTemplates(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gitignoreGetAllTemplatesResponseValidator(status, body)
       ctx.status = status
@@ -14541,15 +14866,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/gitignore/templates/:name",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gitignoreGetTemplateParamSchema, ctx.params),
+        params: parseRequestInput(
+          gitignoreGetTemplateParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.gitignoreGetTemplate(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .gitignoreGetTemplate(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gitignoreGetTemplateResponseValidator(status, body)
       ctx.status = status
@@ -14589,12 +14919,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           appsListReposAccessibleToInstallationQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.appsListReposAccessibleToInstallation(input, ctx)
+      const { status, body } = await implementation
+        .appsListReposAccessibleToInstallation(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsListReposAccessibleToInstallationResponseValidator(
         status,
@@ -14618,8 +14952,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.appsRevokeInstallationAccessToken(input, ctx)
+      const { status, body } = await implementation
+        .appsRevokeInstallationAccessToken(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsRevokeInstallationAccessTokenResponseValidator(
         status,
@@ -14660,11 +14997,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("issuesList", "/issues", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(issuesListQuerySchema, ctx.query),
+      query: parseRequestInput(
+        issuesListQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.issuesList(input, ctx)
+    const { status, body } = await implementation
+      .issuesList(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = issuesListResponseValidator(status, body)
     ctx.status = status
@@ -14691,14 +15036,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: parseRequestInput(
         licensesGetAllCommonlyUsedQuerySchema,
         ctx.query,
+        RequestInputType.QueryString,
       ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.licensesGetAllCommonlyUsed(
-      input,
-      ctx,
-    )
+    const { status, body } = await implementation
+      .licensesGetAllCommonlyUsed(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = licensesGetAllCommonlyUsedResponseValidator(status, body)
     ctx.status = status
@@ -14719,12 +15066,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("licensesGet", "/licenses/:license", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(licensesGetParamSchema, ctx.params),
+      params: parseRequestInput(
+        licensesGetParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.licensesGet(input, ctx)
+    const { status, body } = await implementation
+      .licensesGet(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = licensesGetResponseValidator(status, body)
     ctx.status = status
@@ -14749,10 +15104,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(markdownRenderBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        markdownRenderBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.markdownRender(input, ctx)
+    const { status, body } = await implementation
+      .markdownRender(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = markdownRenderResponseValidator(status, body)
     ctx.status = status
@@ -14773,10 +15136,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(markdownRenderRawBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        markdownRenderRawBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.markdownRenderRaw(input, ctx)
+    const { status, body } = await implementation
+      .markdownRenderRaw(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = markdownRenderRawResponseValidator(status, body)
     ctx.status = status
@@ -14805,13 +15176,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           appsGetSubscriptionPlanForAccountParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.appsGetSubscriptionPlanForAccount(input, ctx)
+      const { status, body } = await implementation
+        .appsGetSubscriptionPlanForAccount(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsGetSubscriptionPlanForAccountResponseValidator(
         status,
@@ -14842,11 +15217,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(appsListPlansQuerySchema, ctx.query),
+        query: parseRequestInput(
+          appsListPlansQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.appsListPlans(input, ctx)
+      const { status, body } = await implementation
+        .appsListPlans(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsListPlansResponseValidator(status, body)
       ctx.status = status
@@ -14883,15 +15266,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           appsListAccountsForPlanParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(appsListAccountsForPlanQuerySchema, ctx.query),
+        query: parseRequestInput(
+          appsListAccountsForPlanQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.appsListAccountsForPlan(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .appsListAccountsForPlan(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsListAccountsForPlanResponseValidator(status, body)
       ctx.status = status
@@ -14921,16 +15310,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           appsGetSubscriptionPlanForAccountStubbedParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.appsGetSubscriptionPlanForAccountStubbed(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .appsGetSubscriptionPlanForAccountStubbed(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsGetSubscriptionPlanForAccountStubbedResponseValidator(
         status,
@@ -14960,14 +15350,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(appsListPlansStubbedQuerySchema, ctx.query),
+        query: parseRequestInput(
+          appsListPlansStubbedQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.appsListPlansStubbed(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .appsListPlansStubbed(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsListPlansStubbedResponseValidator(status, body)
       ctx.status = status
@@ -15003,16 +15398,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           appsListAccountsForPlanStubbedParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           appsListAccountsForPlanStubbedQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.appsListAccountsForPlanStubbed(input, ctx)
+      const { status, body } = await implementation
+        .appsListAccountsForPlanStubbed(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsListAccountsForPlanStubbedResponseValidator(status, body)
       ctx.status = status
@@ -15035,7 +15435,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: undefined,
     }
 
-    const { status, body } = await implementation.metaGet(input, ctx)
+    const { status, body } = await implementation
+      .metaGet(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = metaGetResponseValidator(status, body)
     ctx.status = status
@@ -15072,16 +15476,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityListPublicEventsForRepoNetworkParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           activityListPublicEventsForRepoNetworkQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.activityListPublicEventsForRepoNetwork(input, ctx)
+      const { status, body } = await implementation
+        .activityListPublicEventsForRepoNetwork(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityListPublicEventsForRepoNetworkResponseValidator(
         status,
@@ -15122,15 +15531,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           activityListNotificationsForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.activityListNotificationsForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .activityListNotificationsForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityListNotificationsForAuthenticatedUserResponseValidator(
         status,
@@ -15170,11 +15580,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           activityMarkNotificationsAsReadBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.activityMarkNotificationsAsRead(input, ctx)
+      const { status, body } = await implementation
+        .activityMarkNotificationsAsRead(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityMarkNotificationsAsReadResponseValidator(status, body)
       ctx.status = status
@@ -15201,15 +15615,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/notifications/threads/:threadId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(activityGetThreadParamSchema, ctx.params),
+        params: parseRequestInput(
+          activityGetThreadParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.activityGetThread(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .activityGetThread(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityGetThreadResponseValidator(status, body)
       ctx.status = status
@@ -15238,15 +15657,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityMarkThreadAsReadParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.activityMarkThreadAsRead(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .activityMarkThreadAsRead(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityMarkThreadAsReadResponseValidator(status, body)
       ctx.status = status
@@ -15277,16 +15698,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityGetThreadSubscriptionForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.activityGetThreadSubscriptionForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .activityGetThreadSubscriptionForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         activityGetThreadSubscriptionForAuthenticatedUserResponseValidator(
@@ -15325,16 +15747,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activitySetThreadSubscriptionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           activitySetThreadSubscriptionBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.activitySetThreadSubscription(input, ctx)
+      const { status, body } = await implementation
+        .activitySetThreadSubscription(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activitySetThreadSubscriptionResponseValidator(status, body)
       ctx.status = status
@@ -15365,13 +15792,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityDeleteThreadSubscriptionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.activityDeleteThreadSubscription(input, ctx)
+      const { status, body } = await implementation
+        .activityDeleteThreadSubscription(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityDeleteThreadSubscriptionResponseValidator(status, body)
       ctx.status = status
@@ -15389,11 +15820,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("metaGetOctocat", "/octocat", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(metaGetOctocatQuerySchema, ctx.query),
+      query: parseRequestInput(
+        metaGetOctocatQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.metaGetOctocat(input, ctx)
+    const { status, body } = await implementation
+      .metaGetOctocat(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = metaGetOctocatResponseValidator(status, body)
     ctx.status = status
@@ -15416,11 +15855,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("orgsList", "/organizations", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(orgsListQuerySchema, ctx.query),
+      query: parseRequestInput(
+        orgsListQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.orgsList(input, ctx)
+    const { status, body } = await implementation
+      .orgsList(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = orgsListResponseValidator(status, body)
     ctx.status = status
@@ -15439,12 +15886,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("orgsGet", "/orgs/:org", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(orgsGetParamSchema, ctx.params),
+      params: parseRequestInput(
+        orgsGetParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.orgsGet(input, ctx)
+    const { status, body } = await implementation
+      .orgsGet(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = orgsGetResponseValidator(status, body)
     ctx.status = status
@@ -15516,12 +15971,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch("orgsUpdate", "/orgs/:org", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(orgsUpdateParamSchema, ctx.params),
+      params: parseRequestInput(
+        orgsUpdateParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(orgsUpdateBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        orgsUpdateBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.orgsUpdate(input, ctx)
+    const { status, body } = await implementation
+      .orgsUpdate(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = orgsUpdateResponseValidator(status, body)
     ctx.status = status
@@ -15541,12 +16008,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete("orgsDelete", "/orgs/:org", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(orgsDeleteParamSchema, ctx.params),
+      params: parseRequestInput(
+        orgsDeleteParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.orgsDelete(input, ctx)
+    const { status, body } = await implementation
+      .orgsDelete(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = orgsDeleteResponseValidator(status, body)
     ctx.status = status
@@ -15571,13 +16046,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetActionsCacheUsageForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsGetActionsCacheUsageForOrg(input, ctx)
+      const { status, body } = await implementation
+        .actionsGetActionsCacheUsageForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetActionsCacheUsageForOrgResponseValidator(
         status,
@@ -15621,16 +16100,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetActionsCacheUsageByRepoForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           actionsGetActionsCacheUsageByRepoForOrgQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsGetActionsCacheUsageByRepoForOrg(input, ctx)
+      const { status, body } = await implementation
+        .actionsGetActionsCacheUsageByRepoForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetActionsCacheUsageByRepoForOrgResponseValidator(
         status,
@@ -15656,13 +16140,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           oidcGetOidcCustomSubTemplateForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.oidcGetOidcCustomSubTemplateForOrg(input, ctx)
+      const { status, body } = await implementation
+        .oidcGetOidcCustomSubTemplateForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = oidcGetOidcCustomSubTemplateForOrgResponseValidator(
         status,
@@ -15697,16 +16185,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           oidcUpdateOidcCustomSubTemplateForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           oidcUpdateOidcCustomSubTemplateForOrgBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.oidcUpdateOidcCustomSubTemplateForOrg(input, ctx)
+      const { status, body } = await implementation
+        .oidcUpdateOidcCustomSubTemplateForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = oidcUpdateOidcCustomSubTemplateForOrgResponseValidator(
         status,
@@ -15735,16 +16228,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetGithubActionsPermissionsOrganizationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsGetGithubActionsPermissionsOrganization(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .actionsGetGithubActionsPermissionsOrganization(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         actionsGetGithubActionsPermissionsOrganizationResponseValidator(
@@ -15776,19 +16270,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsSetGithubActionsPermissionsOrganizationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetGithubActionsPermissionsOrganizationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsSetGithubActionsPermissionsOrganization(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .actionsSetGithubActionsPermissionsOrganization(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         actionsSetGithubActionsPermissionsOrganizationResponseValidator(
@@ -15831,19 +16327,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           actionsListSelectedRepositoriesEnabledGithubActionsOrganizationQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsListSelectedRepositoriesEnabledGithubActionsOrganization(
+      const { status, body } = await implementation
+        .actionsListSelectedRepositoriesEnabledGithubActionsOrganization(
           input,
           ctx,
         )
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         actionsListSelectedRepositoriesEnabledGithubActionsOrganizationResponseValidator(
@@ -15872,19 +16373,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsSetSelectedRepositoriesEnabledGithubActionsOrganization(
+      const { status, body } = await implementation
+        .actionsSetSelectedRepositoriesEnabledGithubActionsOrganization(
           input,
           ctx,
         )
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationResponseValidator(
@@ -15910,16 +16416,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsEnableSelectedRepositoryGithubActionsOrganizationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsEnableSelectedRepositoryGithubActionsOrganization(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .actionsEnableSelectedRepositoryGithubActionsOrganization(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         actionsEnableSelectedRepositoryGithubActionsOrganizationResponseValidator(
@@ -15945,16 +16452,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsDisableSelectedRepositoryGithubActionsOrganizationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsDisableSelectedRepositoryGithubActionsOrganization(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .actionsDisableSelectedRepositoryGithubActionsOrganization(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         actionsDisableSelectedRepositoryGithubActionsOrganizationResponseValidator(
@@ -15981,13 +16489,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetAllowedActionsOrganizationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsGetAllowedActionsOrganization(input, ctx)
+      const { status, body } = await implementation
+        .actionsGetAllowedActionsOrganization(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetAllowedActionsOrganizationResponseValidator(
         status,
@@ -16016,16 +16528,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsSetAllowedActionsOrganizationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetAllowedActionsOrganizationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsSetAllowedActionsOrganization(input, ctx)
+      const { status, body } = await implementation
+        .actionsSetAllowedActionsOrganization(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsSetAllowedActionsOrganizationResponseValidator(
         status,
@@ -16053,16 +16570,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsGetGithubActionsDefaultWorkflowPermissionsOrganization(
+      const { status, body } = await implementation
+        .actionsGetGithubActionsDefaultWorkflowPermissionsOrganization(
           input,
           ctx,
         )
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         actionsGetGithubActionsDefaultWorkflowPermissionsOrganizationResponseValidator(
@@ -16091,19 +16612,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsSetGithubActionsDefaultWorkflowPermissionsOrganization(
+      const { status, body } = await implementation
+        .actionsSetGithubActionsDefaultWorkflowPermissionsOrganization(
           input,
           ctx,
         )
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationResponseValidator(
@@ -16147,16 +16673,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListSelfHostedRunnersForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           actionsListSelfHostedRunnersForOrgQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsListSelfHostedRunnersForOrg(input, ctx)
+      const { status, body } = await implementation
+        .actionsListSelfHostedRunnersForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListSelfHostedRunnersForOrgResponseValidator(
         status,
@@ -16185,13 +16716,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListRunnerApplicationsForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsListRunnerApplicationsForOrg(input, ctx)
+      const { status, body } = await implementation
+        .actionsListRunnerApplicationsForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListRunnerApplicationsForOrgResponseValidator(
         status,
@@ -16231,16 +16766,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGenerateRunnerJitconfigForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsGenerateRunnerJitconfigForOrgBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsGenerateRunnerJitconfigForOrg(input, ctx)
+      const { status, body } = await implementation
+        .actionsGenerateRunnerJitconfigForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGenerateRunnerJitconfigForOrgResponseValidator(
         status,
@@ -16266,13 +16806,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsCreateRegistrationTokenForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsCreateRegistrationTokenForOrg(input, ctx)
+      const { status, body } = await implementation
+        .actionsCreateRegistrationTokenForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsCreateRegistrationTokenForOrgResponseValidator(
         status,
@@ -16298,13 +16842,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsCreateRemoveTokenForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsCreateRemoveTokenForOrg(input, ctx)
+      const { status, body } = await implementation
+        .actionsCreateRemoveTokenForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsCreateRemoveTokenForOrgResponseValidator(status, body)
       ctx.status = status
@@ -16328,13 +16876,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetSelfHostedRunnerForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsGetSelfHostedRunnerForOrg(input, ctx)
+      const { status, body } = await implementation
+        .actionsGetSelfHostedRunnerForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetSelfHostedRunnerForOrgResponseValidator(status, body)
       ctx.status = status
@@ -16358,13 +16910,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsDeleteSelfHostedRunnerFromOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsDeleteSelfHostedRunnerFromOrg(input, ctx)
+      const { status, body } = await implementation
+        .actionsDeleteSelfHostedRunnerFromOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsDeleteSelfHostedRunnerFromOrgResponseValidator(
         status,
@@ -16403,16 +16959,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListLabelsForSelfHostedRunnerForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsListLabelsForSelfHostedRunnerForOrg(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .actionsListLabelsForSelfHostedRunnerForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListLabelsForSelfHostedRunnerForOrgResponseValidator(
         status,
@@ -16456,19 +17013,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsAddCustomLabelsToSelfHostedRunnerForOrg(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .actionsAddCustomLabelsToSelfHostedRunnerForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         actionsAddCustomLabelsToSelfHostedRunnerForOrgResponseValidator(
@@ -16513,19 +17072,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsSetCustomLabelsForSelfHostedRunnerForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsSetCustomLabelsForSelfHostedRunnerForOrg(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .actionsSetCustomLabelsForSelfHostedRunnerForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         actionsSetCustomLabelsForSelfHostedRunnerForOrgResponseValidator(
@@ -16563,16 +17124,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrg(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrgResponseValidator(
@@ -16615,16 +17177,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsRemoveCustomLabelFromSelfHostedRunnerForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsRemoveCustomLabelFromSelfHostedRunnerForOrg(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .actionsRemoveCustomLabelFromSelfHostedRunnerForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         actionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponseValidator(
@@ -16661,15 +17224,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/actions/secrets",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(actionsListOrgSecretsParamSchema, ctx.params),
-        query: parseRequestInput(actionsListOrgSecretsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          actionsListOrgSecretsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          actionsListOrgSecretsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsListOrgSecrets(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsListOrgSecrets(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListOrgSecretsResponseValidator(status, body)
       ctx.status = status
@@ -16692,15 +17264,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetOrgPublicKeyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsGetOrgPublicKey(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsGetOrgPublicKey(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetOrgPublicKeyResponseValidator(status, body)
       ctx.status = status
@@ -16723,15 +17297,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/actions/secrets/:secretName",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(actionsGetOrgSecretParamSchema, ctx.params),
+        params: parseRequestInput(
+          actionsGetOrgSecretParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsGetOrgSecret(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsGetOrgSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetOrgSecretResponseValidator(status, body)
       ctx.status = status
@@ -16768,16 +17347,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsCreateOrUpdateOrgSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsCreateOrUpdateOrgSecretBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsCreateOrUpdateOrgSecret(input, ctx)
+      const { status, body } = await implementation
+        .actionsCreateOrUpdateOrgSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsCreateOrUpdateOrgSecretResponseValidator(status, body)
       ctx.status = status
@@ -16803,15 +17387,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsDeleteOrgSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsDeleteOrgSecret(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsDeleteOrgSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsDeleteOrgSecretResponseValidator(status, body)
       ctx.status = status
@@ -16851,16 +17437,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListSelectedReposForOrgSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           actionsListSelectedReposForOrgSecretQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsListSelectedReposForOrgSecret(input, ctx)
+      const { status, body } = await implementation
+        .actionsListSelectedReposForOrgSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListSelectedReposForOrgSecretResponseValidator(
         status,
@@ -16891,16 +17482,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsSetSelectedReposForOrgSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetSelectedReposForOrgSecretBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsSetSelectedReposForOrgSecret(input, ctx)
+      const { status, body } = await implementation
+        .actionsSetSelectedReposForOrgSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsSetSelectedReposForOrgSecretResponseValidator(
         status,
@@ -16934,13 +17530,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsAddSelectedRepoToOrgSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsAddSelectedRepoToOrgSecret(input, ctx)
+      const { status, body } = await implementation
+        .actionsAddSelectedRepoToOrgSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsAddSelectedRepoToOrgSecretResponseValidator(
         status,
@@ -16974,13 +17574,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsRemoveSelectedRepoFromOrgSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsRemoveSelectedRepoFromOrgSecret(input, ctx)
+      const { status, body } = await implementation
+        .actionsRemoveSelectedRepoFromOrgSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsRemoveSelectedRepoFromOrgSecretResponseValidator(
         status,
@@ -17019,15 +17623,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListOrgVariablesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(actionsListOrgVariablesQuerySchema, ctx.query),
+        query: parseRequestInput(
+          actionsListOrgVariablesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsListOrgVariables(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsListOrgVariables(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListOrgVariablesResponseValidator(status, body)
       ctx.status = status
@@ -17057,18 +17667,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsCreateOrgVariableParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsCreateOrgVariableBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.actionsCreateOrgVariable(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsCreateOrgVariable(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsCreateOrgVariableResponseValidator(status, body)
       ctx.status = status
@@ -17091,15 +17704,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/actions/variables/:name",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(actionsGetOrgVariableParamSchema, ctx.params),
+        params: parseRequestInput(
+          actionsGetOrgVariableParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsGetOrgVariable(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsGetOrgVariable(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetOrgVariableResponseValidator(status, body)
       ctx.status = status
@@ -17132,18 +17750,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsUpdateOrgVariableParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsUpdateOrgVariableBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.actionsUpdateOrgVariable(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsUpdateOrgVariable(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsUpdateOrgVariableResponseValidator(status, body)
       ctx.status = status
@@ -17169,15 +17790,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsDeleteOrgVariableParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsDeleteOrgVariable(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsDeleteOrgVariable(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsDeleteOrgVariableResponseValidator(status, body)
       ctx.status = status
@@ -17218,16 +17841,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListSelectedReposForOrgVariableParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           actionsListSelectedReposForOrgVariableQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsListSelectedReposForOrgVariable(input, ctx)
+      const { status, body } = await implementation
+        .actionsListSelectedReposForOrgVariable(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListSelectedReposForOrgVariableResponseValidator(
         status,
@@ -17264,16 +17892,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsSetSelectedReposForOrgVariableParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetSelectedReposForOrgVariableBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsSetSelectedReposForOrgVariable(input, ctx)
+      const { status, body } = await implementation
+        .actionsSetSelectedReposForOrgVariable(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsSetSelectedReposForOrgVariableResponseValidator(
         status,
@@ -17307,13 +17940,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsAddSelectedRepoToOrgVariableParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsAddSelectedRepoToOrgVariable(input, ctx)
+      const { status, body } = await implementation
+        .actionsAddSelectedRepoToOrgVariable(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsAddSelectedRepoToOrgVariableResponseValidator(
         status,
@@ -17347,16 +17984,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsRemoveSelectedRepoFromOrgVariableParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsRemoveSelectedRepoFromOrgVariable(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .actionsRemoveSelectedRepoFromOrgVariable(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsRemoveSelectedRepoFromOrgVariableResponseValidator(
         status,
@@ -17381,15 +18019,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("orgsListBlockedUsers", "/orgs/:org/blocks", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(orgsListBlockedUsersParamSchema, ctx.params),
-      query: parseRequestInput(orgsListBlockedUsersQuerySchema, ctx.query),
+      params: parseRequestInput(
+        orgsListBlockedUsersParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        orgsListBlockedUsersQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.orgsListBlockedUsers(
-      input,
-      ctx,
-    )
+    const { status, body } = await implementation
+      .orgsListBlockedUsers(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = orgsListBlockedUsersResponseValidator(status, body)
     ctx.status = status
@@ -17414,15 +18061,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/blocks/:username",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(orgsCheckBlockedUserParamSchema, ctx.params),
+        params: parseRequestInput(
+          orgsCheckBlockedUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsCheckBlockedUser(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsCheckBlockedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsCheckBlockedUserResponseValidator(status, body)
       ctx.status = status
@@ -17448,12 +18100,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/blocks/:username",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(orgsBlockUserParamSchema, ctx.params),
+        params: parseRequestInput(
+          orgsBlockUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsBlockUser(input, ctx)
+      const { status, body } = await implementation
+        .orgsBlockUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsBlockUserResponseValidator(status, body)
       ctx.status = status
@@ -17476,12 +18136,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/blocks/:username",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(orgsUnblockUserParamSchema, ctx.params),
+        params: parseRequestInput(
+          orgsUnblockUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsUnblockUser(input, ctx)
+      const { status, body } = await implementation
+        .orgsUnblockUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsUnblockUserResponseValidator(status, body)
       ctx.status = status
@@ -17529,16 +18197,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codeScanningListAlertsForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           codeScanningListAlertsForOrgQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codeScanningListAlertsForOrg(input, ctx)
+      const { status, body } = await implementation
+        .codeScanningListAlertsForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codeScanningListAlertsForOrgResponseValidator(status, body)
       ctx.status = status
@@ -17580,16 +18253,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesListInOrganizationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           codespacesListInOrganizationQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesListInOrganization(input, ctx)
+      const { status, body } = await implementation
+        .codespacesListInOrganization(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesListInOrganizationResponseValidator(status, body)
       ctx.status = status
@@ -17630,16 +18308,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesSetCodespacesAccessParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesSetCodespacesAccessBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.codespacesSetCodespacesAccess(input, ctx)
+      const { status, body } = await implementation
+        .codespacesSetCodespacesAccess(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesSetCodespacesAccessResponseValidator(status, body)
       ctx.status = status
@@ -17676,16 +18359,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesSetCodespacesAccessUsersParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesSetCodespacesAccessUsersBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.codespacesSetCodespacesAccessUsers(input, ctx)
+      const { status, body } = await implementation
+        .codespacesSetCodespacesAccessUsers(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesSetCodespacesAccessUsersResponseValidator(
         status,
@@ -17725,16 +18413,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesDeleteCodespacesAccessUsersParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesDeleteCodespacesAccessUsersBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.codespacesDeleteCodespacesAccessUsers(input, ctx)
+      const { status, body } = await implementation
+        .codespacesDeleteCodespacesAccessUsers(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesDeleteCodespacesAccessUsersResponseValidator(
         status,
@@ -17773,18 +18466,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesListOrgSecretsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           codespacesListOrgSecretsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.codespacesListOrgSecrets(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .codespacesListOrgSecrets(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesListOrgSecretsResponseValidator(status, body)
       ctx.status = status
@@ -17807,15 +18503,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesGetOrgPublicKeyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.codespacesGetOrgPublicKey(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .codespacesGetOrgPublicKey(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesGetOrgPublicKeyResponseValidator(status, body)
       ctx.status = status
@@ -17841,15 +18539,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesGetOrgSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.codespacesGetOrgSecret(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .codespacesGetOrgSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesGetOrgSecretResponseValidator(status, body)
       ctx.status = status
@@ -17888,16 +18588,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesCreateOrUpdateOrgSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesCreateOrUpdateOrgSecretBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.codespacesCreateOrUpdateOrgSecret(input, ctx)
+      const { status, body } = await implementation
+        .codespacesCreateOrUpdateOrgSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesCreateOrUpdateOrgSecretResponseValidator(
         status,
@@ -17929,15 +18634,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesDeleteOrgSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.codespacesDeleteOrgSecret(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .codespacesDeleteOrgSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesDeleteOrgSecretResponseValidator(status, body)
       ctx.status = status
@@ -17978,16 +18685,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesListSelectedReposForOrgSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           codespacesListSelectedReposForOrgSecretQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesListSelectedReposForOrgSecret(input, ctx)
+      const { status, body } = await implementation
+        .codespacesListSelectedReposForOrgSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesListSelectedReposForOrgSecretResponseValidator(
         status,
@@ -18025,16 +18737,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesSetSelectedReposForOrgSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesSetSelectedReposForOrgSecretBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.codespacesSetSelectedReposForOrgSecret(input, ctx)
+      const { status, body } = await implementation
+        .codespacesSetSelectedReposForOrgSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesSetSelectedReposForOrgSecretResponseValidator(
         status,
@@ -18070,13 +18787,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesAddSelectedRepoToOrgSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesAddSelectedRepoToOrgSecret(input, ctx)
+      const { status, body } = await implementation
+        .codespacesAddSelectedRepoToOrgSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesAddSelectedRepoToOrgSecretResponseValidator(
         status,
@@ -18112,16 +18833,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesRemoveSelectedRepoFromOrgSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesRemoveSelectedRepoFromOrgSecret(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .codespacesRemoveSelectedRepoFromOrgSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesRemoveSelectedRepoFromOrgSecretResponseValidator(
         status,
@@ -18156,13 +18878,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           copilotGetCopilotOrganizationDetailsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.copilotGetCopilotOrganizationDetails(input, ctx)
+      const { status, body } = await implementation
+        .copilotGetCopilotOrganizationDetails(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = copilotGetCopilotOrganizationDetailsResponseValidator(
         status,
@@ -18205,15 +18931,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           copilotListCopilotSeatsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(copilotListCopilotSeatsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          copilotListCopilotSeatsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.copilotListCopilotSeats(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .copilotListCopilotSeats(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = copilotListCopilotSeatsResponseValidator(status, body)
       ctx.status = status
@@ -18250,19 +18982,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           copilotAddCopilotForBusinessSeatsForTeamsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           copilotAddCopilotForBusinessSeatsForTeamsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.copilotAddCopilotForBusinessSeatsForTeams(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .copilotAddCopilotForBusinessSeatsForTeams(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = copilotAddCopilotForBusinessSeatsForTeamsResponseValidator(
         status,
@@ -18302,19 +19036,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           copilotCancelCopilotSeatAssignmentForTeamsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           copilotCancelCopilotSeatAssignmentForTeamsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.copilotCancelCopilotSeatAssignmentForTeams(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .copilotCancelCopilotSeatAssignmentForTeams(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = copilotCancelCopilotSeatAssignmentForTeamsResponseValidator(
         status,
@@ -18354,19 +19090,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           copilotAddCopilotForBusinessSeatsForUsersParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           copilotAddCopilotForBusinessSeatsForUsersBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.copilotAddCopilotForBusinessSeatsForUsers(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .copilotAddCopilotForBusinessSeatsForUsers(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = copilotAddCopilotForBusinessSeatsForUsersResponseValidator(
         status,
@@ -18406,19 +19144,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           copilotCancelCopilotSeatAssignmentForUsersParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           copilotCancelCopilotSeatAssignmentForUsersBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.copilotCancelCopilotSeatAssignmentForUsers(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .copilotCancelCopilotSeatAssignmentForUsers(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = copilotCancelCopilotSeatAssignmentForUsersResponseValidator(
         status,
@@ -18466,18 +19206,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           dependabotListAlertsForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           dependabotListAlertsForOrgQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.dependabotListAlertsForOrg(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .dependabotListAlertsForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependabotListAlertsForOrgResponseValidator(status, body)
       ctx.status = status
@@ -18513,18 +19256,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           dependabotListOrgSecretsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           dependabotListOrgSecretsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.dependabotListOrgSecrets(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .dependabotListOrgSecrets(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependabotListOrgSecretsResponseValidator(status, body)
       ctx.status = status
@@ -18547,15 +19293,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           dependabotGetOrgPublicKeyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.dependabotGetOrgPublicKey(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .dependabotGetOrgPublicKey(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependabotGetOrgPublicKeyResponseValidator(status, body)
       ctx.status = status
@@ -18581,15 +19329,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           dependabotGetOrgSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.dependabotGetOrgSecret(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .dependabotGetOrgSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependabotGetOrgSecretResponseValidator(status, body)
       ctx.status = status
@@ -18626,16 +19376,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           dependabotCreateOrUpdateOrgSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           dependabotCreateOrUpdateOrgSecretBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.dependabotCreateOrUpdateOrgSecret(input, ctx)
+      const { status, body } = await implementation
+        .dependabotCreateOrUpdateOrgSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependabotCreateOrUpdateOrgSecretResponseValidator(
         status,
@@ -18664,15 +19419,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           dependabotDeleteOrgSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.dependabotDeleteOrgSecret(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .dependabotDeleteOrgSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependabotDeleteOrgSecretResponseValidator(status, body)
       ctx.status = status
@@ -18712,16 +19469,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           dependabotListSelectedReposForOrgSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           dependabotListSelectedReposForOrgSecretQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.dependabotListSelectedReposForOrgSecret(input, ctx)
+      const { status, body } = await implementation
+        .dependabotListSelectedReposForOrgSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependabotListSelectedReposForOrgSecretResponseValidator(
         status,
@@ -18752,16 +19514,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           dependabotSetSelectedReposForOrgSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           dependabotSetSelectedReposForOrgSecretBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.dependabotSetSelectedReposForOrgSecret(input, ctx)
+      const { status, body } = await implementation
+        .dependabotSetSelectedReposForOrgSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependabotSetSelectedReposForOrgSecretResponseValidator(
         status,
@@ -18795,13 +19562,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           dependabotAddSelectedRepoToOrgSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.dependabotAddSelectedRepoToOrgSecret(input, ctx)
+      const { status, body } = await implementation
+        .dependabotAddSelectedRepoToOrgSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependabotAddSelectedRepoToOrgSecretResponseValidator(
         status,
@@ -18835,16 +19606,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           dependabotRemoveSelectedRepoFromOrgSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.dependabotRemoveSelectedRepoFromOrgSecret(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .dependabotRemoveSelectedRepoFromOrgSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependabotRemoveSelectedRepoFromOrgSecretResponseValidator(
         status,
@@ -18876,16 +19648,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesListDockerMigrationConflictingPackagesForOrganizationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesListDockerMigrationConflictingPackagesForOrganization(
+      const { status, body } = await implementation
+        .packagesListDockerMigrationConflictingPackagesForOrganization(
           input,
           ctx,
         )
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         packagesListDockerMigrationConflictingPackagesForOrganizationResponseValidator(
@@ -18915,18 +19691,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityListPublicOrgEventsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           activityListPublicOrgEventsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.activityListPublicOrgEvents(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .activityListPublicOrgEvents(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityListPublicOrgEventsResponseValidator(status, body)
       ctx.status = status
@@ -18957,18 +19736,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsListFailedInvitationsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           orgsListFailedInvitationsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsListFailedInvitations(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsListFailedInvitations(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsListFailedInvitationsResponseValidator(status, body)
       ctx.status = status
@@ -18993,12 +19775,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("orgsListWebhooks", "/orgs/:org/hooks", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(orgsListWebhooksParamSchema, ctx.params),
-      query: parseRequestInput(orgsListWebhooksQuerySchema, ctx.query),
+      params: parseRequestInput(
+        orgsListWebhooksParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        orgsListWebhooksQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.orgsListWebhooks(input, ctx)
+    const { status, body } = await implementation
+      .orgsListWebhooks(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = orgsListWebhooksResponseValidator(status, body)
     ctx.status = status
@@ -19032,12 +19826,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post("orgsCreateWebhook", "/orgs/:org/hooks", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(orgsCreateWebhookParamSchema, ctx.params),
+      params: parseRequestInput(
+        orgsCreateWebhookParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(orgsCreateWebhookBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        orgsCreateWebhookBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.orgsCreateWebhook(input, ctx)
+    const { status, body } = await implementation
+      .orgsCreateWebhook(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = orgsCreateWebhookResponseValidator(status, body)
     ctx.status = status
@@ -19062,12 +19868,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/hooks/:hookId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(orgsGetWebhookParamSchema, ctx.params),
+        params: parseRequestInput(
+          orgsGetWebhookParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsGetWebhook(input, ctx)
+      const { status, body } = await implementation
+        .orgsGetWebhook(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsGetWebhookResponseValidator(status, body)
       ctx.status = status
@@ -19110,15 +19924,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/hooks/:hookId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(orgsUpdateWebhookParamSchema, ctx.params),
+        params: parseRequestInput(
+          orgsUpdateWebhookParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(orgsUpdateWebhookBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          orgsUpdateWebhookBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.orgsUpdateWebhook(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsUpdateWebhook(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsUpdateWebhookResponseValidator(status, body)
       ctx.status = status
@@ -19144,15 +19967,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/hooks/:hookId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(orgsDeleteWebhookParamSchema, ctx.params),
+        params: parseRequestInput(
+          orgsDeleteWebhookParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsDeleteWebhook(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsDeleteWebhook(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsDeleteWebhookResponseValidator(status, body)
       ctx.status = status
@@ -19178,15 +20006,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsGetWebhookConfigForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsGetWebhookConfigForOrg(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsGetWebhookConfigForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsGetWebhookConfigForOrgResponseValidator(status, body)
       ctx.status = status
@@ -19219,16 +20049,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsUpdateWebhookConfigForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           orgsUpdateWebhookConfigForOrgBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.orgsUpdateWebhookConfigForOrg(input, ctx)
+      const { status, body } = await implementation
+        .orgsUpdateWebhookConfigForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsUpdateWebhookConfigForOrgResponseValidator(status, body)
       ctx.status = status
@@ -19264,18 +20099,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsListWebhookDeliveriesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           orgsListWebhookDeliveriesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsListWebhookDeliveries(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsListWebhookDeliveries(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsListWebhookDeliveriesResponseValidator(status, body)
       ctx.status = status
@@ -19306,15 +20144,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsGetWebhookDeliveryParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsGetWebhookDelivery(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsGetWebhookDelivery(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsGetWebhookDeliveryResponseValidator(status, body)
       ctx.status = status
@@ -19346,13 +20186,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsRedeliverWebhookDeliveryParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.orgsRedeliverWebhookDelivery(input, ctx)
+      const { status, body } = await implementation
+        .orgsRedeliverWebhookDelivery(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsRedeliverWebhookDeliveryResponseValidator(status, body)
       ctx.status = status
@@ -19378,12 +20222,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/hooks/:hookId/pings",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(orgsPingWebhookParamSchema, ctx.params),
+        params: parseRequestInput(
+          orgsPingWebhookParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsPingWebhook(input, ctx)
+      const { status, body } = await implementation
+        .orgsPingWebhook(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsPingWebhookResponseValidator(status, body)
       ctx.status = status
@@ -19406,15 +20258,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           appsGetOrgInstallationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.appsGetOrgInstallation(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .appsGetOrgInstallation(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsGetOrgInstallationResponseValidator(status, body)
       ctx.status = status
@@ -19450,18 +20304,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsListAppInstallationsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           orgsListAppInstallationsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsListAppInstallations(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsListAppInstallations(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsListAppInstallationsResponseValidator(status, body)
       ctx.status = status
@@ -19487,13 +20344,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           interactionsGetRestrictionsForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.interactionsGetRestrictionsForOrg(input, ctx)
+      const { status, body } = await implementation
+        .interactionsGetRestrictionsForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = interactionsGetRestrictionsForOrgResponseValidator(
         status,
@@ -19527,16 +20388,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           interactionsSetRestrictionsForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           interactionsSetRestrictionsForOrgBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.interactionsSetRestrictionsForOrg(input, ctx)
+      const { status, body } = await implementation
+        .interactionsSetRestrictionsForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = interactionsSetRestrictionsForOrgResponseValidator(
         status,
@@ -19562,13 +20428,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           interactionsRemoveRestrictionsForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.interactionsRemoveRestrictionsForOrg(input, ctx)
+      const { status, body } = await implementation
+        .interactionsRemoveRestrictionsForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = interactionsRemoveRestrictionsForOrgResponseValidator(
         status,
@@ -19612,18 +20482,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsListPendingInvitationsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           orgsListPendingInvitationsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsListPendingInvitations(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsListPendingInvitations(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsListPendingInvitationsResponseValidator(status, body)
       ctx.status = status
@@ -19656,18 +20529,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/invitations",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(orgsCreateInvitationParamSchema, ctx.params),
+        params: parseRequestInput(
+          orgsCreateInvitationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           orgsCreateInvitationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.orgsCreateInvitation(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsCreateInvitation(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsCreateInvitationResponseValidator(status, body)
       ctx.status = status
@@ -19694,15 +20573,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/invitations/:invitationId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(orgsCancelInvitationParamSchema, ctx.params),
+        params: parseRequestInput(
+          orgsCancelInvitationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsCancelInvitation(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsCancelInvitation(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsCancelInvitationResponseValidator(status, body)
       ctx.status = status
@@ -19736,15 +20620,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsListInvitationTeamsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(orgsListInvitationTeamsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          orgsListInvitationTeamsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsListInvitationTeams(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsListInvitationTeams(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsListInvitationTeamsResponseValidator(status, body)
       ctx.status = status
@@ -19777,12 +20667,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("issuesListForOrg", "/orgs/:org/issues", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(issuesListForOrgParamSchema, ctx.params),
-      query: parseRequestInput(issuesListForOrgQuerySchema, ctx.query),
+      params: parseRequestInput(
+        issuesListForOrgParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        issuesListForOrgQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.issuesListForOrg(input, ctx)
+    const { status, body } = await implementation
+      .issuesListForOrg(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = issuesListForOrgResponseValidator(status, body)
     ctx.status = status
@@ -19808,12 +20710,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("orgsListMembers", "/orgs/:org/members", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(orgsListMembersParamSchema, ctx.params),
-      query: parseRequestInput(orgsListMembersQuerySchema, ctx.query),
+      params: parseRequestInput(
+        orgsListMembersParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        orgsListMembersQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.orgsListMembers(input, ctx)
+    const { status, body } = await implementation
+      .orgsListMembers(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = orgsListMembersResponseValidator(status, body)
     ctx.status = status
@@ -19842,15 +20756,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsCheckMembershipForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsCheckMembershipForUser(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsCheckMembershipForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsCheckMembershipForUserResponseValidator(status, body)
       ctx.status = status
@@ -19876,12 +20792,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/members/:username",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(orgsRemoveMemberParamSchema, ctx.params),
+        params: parseRequestInput(
+          orgsRemoveMemberParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsRemoveMember(input, ctx)
+      const { status, body } = await implementation
+        .orgsRemoveMember(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsRemoveMemberResponseValidator(status, body)
       ctx.status = status
@@ -19926,16 +20850,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesGetCodespacesForUserInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           codespacesGetCodespacesForUserInOrgQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesGetCodespacesForUserInOrg(input, ctx)
+      const { status, body } = await implementation
+        .codespacesGetCodespacesForUserInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesGetCodespacesForUserInOrgResponseValidator(
         status,
@@ -19973,13 +20902,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesDeleteFromOrganizationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesDeleteFromOrganization(input, ctx)
+      const { status, body } = await implementation
+        .codespacesDeleteFromOrganization(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesDeleteFromOrganizationResponseValidator(status, body)
       ctx.status = status
@@ -20014,13 +20947,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesStopInOrganizationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesStopInOrganization(input, ctx)
+      const { status, body } = await implementation
+        .codespacesStopInOrganization(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesStopInOrganizationResponseValidator(status, body)
       ctx.status = status
@@ -20054,16 +20991,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           copilotGetCopilotSeatAssignmentDetailsForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.copilotGetCopilotSeatAssignmentDetailsForUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .copilotGetCopilotSeatAssignmentDetailsForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = copilotGetCopilotSeatAssignmentDetailsForUserResponseValidator(
         status,
@@ -20096,15 +21034,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsGetMembershipForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsGetMembershipForUser(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsGetMembershipForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsGetMembershipForUserResponseValidator(status, body)
       ctx.status = status
@@ -20138,18 +21078,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsSetMembershipForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           orgsSetMembershipForUserBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.orgsSetMembershipForUser(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsSetMembershipForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsSetMembershipForUserResponseValidator(status, body)
       ctx.status = status
@@ -20180,15 +21123,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsRemoveMembershipForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsRemoveMembershipForUser(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsRemoveMembershipForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsRemoveMembershipForUserResponseValidator(status, body)
       ctx.status = status
@@ -20214,15 +21159,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/migrations",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(migrationsListForOrgParamSchema, ctx.params),
-        query: parseRequestInput(migrationsListForOrgQuerySchema, ctx.query),
+        params: parseRequestInput(
+          migrationsListForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          migrationsListForOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.migrationsListForOrg(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .migrationsListForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsListForOrgResponseValidator(status, body)
       ctx.status = status
@@ -20258,18 +21212,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/migrations",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(migrationsStartForOrgParamSchema, ctx.params),
+        params: parseRequestInput(
+          migrationsStartForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           migrationsStartForOrgBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.migrationsStartForOrg(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .migrationsStartForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsStartForOrgResponseValidator(status, body)
       ctx.status = status
@@ -20302,18 +21262,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           migrationsGetStatusForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           migrationsGetStatusForOrgQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.migrationsGetStatusForOrg(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .migrationsGetStatusForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsGetStatusForOrgResponseValidator(status, body)
       ctx.status = status
@@ -20343,13 +21306,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           migrationsDownloadArchiveForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.migrationsDownloadArchiveForOrg(input, ctx)
+      const { status, body } = await implementation
+        .migrationsDownloadArchiveForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsDownloadArchiveForOrgResponseValidator(status, body)
       ctx.status = status
@@ -20379,13 +21346,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           migrationsDeleteArchiveForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.migrationsDeleteArchiveForOrg(input, ctx)
+      const { status, body } = await implementation
+        .migrationsDeleteArchiveForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsDeleteArchiveForOrgResponseValidator(status, body)
       ctx.status = status
@@ -20415,15 +21386,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           migrationsUnlockRepoForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.migrationsUnlockRepoForOrg(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .migrationsUnlockRepoForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsUnlockRepoForOrgResponseValidator(status, body)
       ctx.status = status
@@ -20457,18 +21430,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           migrationsListReposForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           migrationsListReposForOrgQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.migrationsListReposForOrg(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .migrationsListReposForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsListReposForOrgResponseValidator(status, body)
       ctx.status = status
@@ -20495,16 +21471,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsListOutsideCollaboratorsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           orgsListOutsideCollaboratorsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.orgsListOutsideCollaborators(input, ctx)
+      const { status, body } = await implementation
+        .orgsListOutsideCollaborators(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsListOutsideCollaboratorsResponseValidator(status, body)
       ctx.status = status
@@ -20540,16 +21521,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsConvertMemberToOutsideCollaboratorParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           orgsConvertMemberToOutsideCollaboratorBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.orgsConvertMemberToOutsideCollaborator(input, ctx)
+      const { status, body } = await implementation
+        .orgsConvertMemberToOutsideCollaborator(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsConvertMemberToOutsideCollaboratorResponseValidator(
         status,
@@ -20588,13 +21574,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsRemoveOutsideCollaboratorParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.orgsRemoveOutsideCollaborator(input, ctx)
+      const { status, body } = await implementation
+        .orgsRemoveOutsideCollaborator(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsRemoveOutsideCollaboratorResponseValidator(status, body)
       ctx.status = status
@@ -20639,16 +21629,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesListPackagesForOrganizationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           packagesListPackagesForOrganizationQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesListPackagesForOrganization(input, ctx)
+      const { status, body } = await implementation
+        .packagesListPackagesForOrganization(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = packagesListPackagesForOrganizationResponseValidator(
         status,
@@ -20683,13 +21678,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesGetPackageForOrganizationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesGetPackageForOrganization(input, ctx)
+      const { status, body } = await implementation
+        .packagesGetPackageForOrganization(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = packagesGetPackageForOrganizationResponseValidator(
         status,
@@ -20732,15 +21731,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesDeletePackageForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.packagesDeletePackageForOrg(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .packagesDeletePackageForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = packagesDeletePackageForOrgResponseValidator(status, body)
       ctx.status = status
@@ -20784,16 +21785,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesRestorePackageForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           packagesRestorePackageForOrgQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesRestorePackageForOrg(input, ctx)
+      const { status, body } = await implementation
+        .packagesRestorePackageForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = packagesRestorePackageForOrgResponseValidator(status, body)
       ctx.status = status
@@ -20843,19 +21849,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesGetAllPackageVersionsForPackageOwnedByOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           packagesGetAllPackageVersionsForPackageOwnedByOrgQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesGetAllPackageVersionsForPackageOwnedByOrg(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .packagesGetAllPackageVersionsForPackageOwnedByOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         packagesGetAllPackageVersionsForPackageOwnedByOrgResponseValidator(
@@ -20892,16 +21900,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesGetPackageVersionForOrganizationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesGetPackageVersionForOrganization(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .packagesGetPackageVersionForOrganization(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = packagesGetPackageVersionForOrganizationResponseValidator(
         status,
@@ -20945,13 +21954,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesDeletePackageVersionForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesDeletePackageVersionForOrg(input, ctx)
+      const { status, body } = await implementation
+        .packagesDeletePackageVersionForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = packagesDeletePackageVersionForOrgResponseValidator(
         status,
@@ -20995,13 +22008,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesRestorePackageVersionForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesRestorePackageVersionForOrg(input, ctx)
+      const { status, body } = await implementation
+        .packagesRestorePackageVersionForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = packagesRestorePackageVersionForOrgResponseValidator(
         status,
@@ -21045,18 +22062,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsListPatGrantRequestsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           orgsListPatGrantRequestsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsListPatGrantRequests(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsListPatGrantRequests(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsListPatGrantRequestsResponseValidator(status, body)
       ctx.status = status
@@ -21094,16 +22114,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsReviewPatGrantRequestsInBulkParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           orgsReviewPatGrantRequestsInBulkBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.orgsReviewPatGrantRequestsInBulk(input, ctx)
+      const { status, body } = await implementation
+        .orgsReviewPatGrantRequestsInBulk(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsReviewPatGrantRequestsInBulkResponseValidator(status, body)
       ctx.status = status
@@ -21140,18 +22165,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsReviewPatGrantRequestParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           orgsReviewPatGrantRequestBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.orgsReviewPatGrantRequest(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsReviewPatGrantRequest(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsReviewPatGrantRequestResponseValidator(status, body)
       ctx.status = status
@@ -21188,16 +22216,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsListPatGrantRequestRepositoriesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           orgsListPatGrantRequestRepositoriesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.orgsListPatGrantRequestRepositories(input, ctx)
+      const { status, body } = await implementation
+        .orgsListPatGrantRequestRepositories(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsListPatGrantRequestRepositoriesResponseValidator(
         status,
@@ -21238,15 +22271,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/personal-access-tokens",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(orgsListPatGrantsParamSchema, ctx.params),
-        query: parseRequestInput(orgsListPatGrantsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          orgsListPatGrantsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          orgsListPatGrantsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsListPatGrants(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsListPatGrants(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsListPatGrantsResponseValidator(status, body)
       ctx.status = status
@@ -21277,18 +22319,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/personal-access-tokens",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(orgsUpdatePatAccessesParamSchema, ctx.params),
+        params: parseRequestInput(
+          orgsUpdatePatAccessesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           orgsUpdatePatAccessesBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.orgsUpdatePatAccesses(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsUpdatePatAccesses(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsUpdatePatAccessesResponseValidator(status, body)
       ctx.status = status
@@ -21319,18 +22367,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/personal-access-tokens/:patId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(orgsUpdatePatAccessParamSchema, ctx.params),
+        params: parseRequestInput(
+          orgsUpdatePatAccessParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           orgsUpdatePatAccessBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.orgsUpdatePatAccess(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsUpdatePatAccess(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsUpdatePatAccessResponseValidator(status, body)
       ctx.status = status
@@ -21367,16 +22421,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsListPatGrantRepositoriesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           orgsListPatGrantRepositoriesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.orgsListPatGrantRepositories(input, ctx)
+      const { status, body } = await implementation
+        .orgsListPatGrantRepositories(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsListPatGrantRepositoriesResponseValidator(status, body)
       ctx.status = status
@@ -21402,12 +22461,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("projectsListForOrg", "/orgs/:org/projects", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(projectsListForOrgParamSchema, ctx.params),
-      query: parseRequestInput(projectsListForOrgQuerySchema, ctx.query),
+      params: parseRequestInput(
+        projectsListForOrgParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        projectsListForOrgQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.projectsListForOrg(input, ctx)
+    const { status, body } = await implementation
+      .projectsListForOrg(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = projectsListForOrgResponseValidator(status, body)
     ctx.status = status
@@ -21438,18 +22509,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/projects",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(projectsCreateForOrgParamSchema, ctx.params),
+        params: parseRequestInput(
+          projectsCreateForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           projectsCreateForOrgBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.projectsCreateForOrg(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .projectsCreateForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = projectsCreateForOrgResponseValidator(status, body)
       ctx.status = status
@@ -21474,15 +22551,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/public_members",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(orgsListPublicMembersParamSchema, ctx.params),
-        query: parseRequestInput(orgsListPublicMembersQuerySchema, ctx.query),
+        params: parseRequestInput(
+          orgsListPublicMembersParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          orgsListPublicMembersQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsListPublicMembers(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsListPublicMembers(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsListPublicMembersResponseValidator(status, body)
       ctx.status = status
@@ -21512,13 +22598,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsCheckPublicMembershipForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.orgsCheckPublicMembershipForUser(input, ctx)
+      const { status, body } = await implementation
+        .orgsCheckPublicMembershipForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsCheckPublicMembershipForUserResponseValidator(status, body)
       ctx.status = status
@@ -21548,16 +22638,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsSetPublicMembershipForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.orgsSetPublicMembershipForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .orgsSetPublicMembershipForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsSetPublicMembershipForAuthenticatedUserResponseValidator(
         status,
@@ -21584,16 +22675,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsRemovePublicMembershipForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.orgsRemovePublicMembershipForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .orgsRemovePublicMembershipForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         orgsRemovePublicMembershipForAuthenticatedUserResponseValidator(
@@ -21624,12 +22716,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("reposListForOrg", "/orgs/:org/repos", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(reposListForOrgParamSchema, ctx.params),
-      query: parseRequestInput(reposListForOrgQuerySchema, ctx.query),
+      params: parseRequestInput(
+        reposListForOrgParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        reposListForOrgQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.reposListForOrg(input, ctx)
+    const { status, body } = await implementation
+      .reposListForOrg(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = reposListForOrgResponseValidator(status, body)
     ctx.status = status
@@ -21680,12 +22784,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post("reposCreateInOrg", "/orgs/:org/repos", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(reposCreateInOrgParamSchema, ctx.params),
+      params: parseRequestInput(
+        reposCreateInOrgParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(reposCreateInOrgBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        reposCreateInOrgBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.reposCreateInOrg(input, ctx)
+    const { status, body } = await implementation
+      .reposCreateInOrg(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = reposCreateInOrgResponseValidator(status, body)
     ctx.status = status
@@ -21713,15 +22829,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/rulesets",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetOrgRulesetsParamSchema, ctx.params),
-        query: parseRequestInput(reposGetOrgRulesetsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposGetOrgRulesetsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposGetOrgRulesetsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetOrgRulesets(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetOrgRulesets(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetOrgRulesetsResponseValidator(status, body)
       ctx.status = status
@@ -21754,18 +22879,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/rulesets",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposCreateOrgRulesetParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposCreateOrgRulesetParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           reposCreateOrgRulesetBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposCreateOrgRuleset(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposCreateOrgRuleset(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreateOrgRulesetResponseValidator(status, body)
       ctx.status = status
@@ -21792,15 +22923,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/rulesets/:rulesetId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetOrgRulesetParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposGetOrgRulesetParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetOrgRuleset(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetOrgRuleset(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetOrgRulesetResponseValidator(status, body)
       ctx.status = status
@@ -21838,18 +22974,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/rulesets/:rulesetId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposUpdateOrgRulesetParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposUpdateOrgRulesetParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           reposUpdateOrgRulesetBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposUpdateOrgRuleset(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposUpdateOrgRuleset(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposUpdateOrgRulesetResponseValidator(status, body)
       ctx.status = status
@@ -21876,15 +23018,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/rulesets/:rulesetId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposDeleteOrgRulesetParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposDeleteOrgRulesetParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposDeleteOrgRuleset(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposDeleteOrgRuleset(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDeleteOrgRulesetResponseValidator(status, body)
       ctx.status = status
@@ -21933,16 +23080,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           secretScanningListAlertsForOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           secretScanningListAlertsForOrgQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.secretScanningListAlertsForOrg(input, ctx)
+      const { status, body } = await implementation
+        .secretScanningListAlertsForOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = secretScanningListAlertsForOrgResponseValidator(status, body)
       ctx.status = status
@@ -21981,19 +23133,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           securityAdvisoriesListOrgRepositoryAdvisoriesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           securityAdvisoriesListOrgRepositoryAdvisoriesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.securityAdvisoriesListOrgRepositoryAdvisories(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .securityAdvisoriesListOrgRepositoryAdvisories(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = securityAdvisoriesListOrgRepositoryAdvisoriesResponseValidator(
         status,
@@ -22017,13 +23171,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsListSecurityManagerTeamsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.orgsListSecurityManagerTeams(input, ctx)
+      const { status, body } = await implementation
+        .orgsListSecurityManagerTeams(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsListSecurityManagerTeamsResponseValidator(status, body)
       ctx.status = status
@@ -22052,15 +23210,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsAddSecurityManagerTeamParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.orgsAddSecurityManagerTeam(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .orgsAddSecurityManagerTeam(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsAddSecurityManagerTeamResponseValidator(status, body)
       ctx.status = status
@@ -22084,13 +23244,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsRemoveSecurityManagerTeamParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.orgsRemoveSecurityManagerTeam(input, ctx)
+      const { status, body } = await implementation
+        .orgsRemoveSecurityManagerTeam(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsRemoveSecurityManagerTeamResponseValidator(status, body)
       ctx.status = status
@@ -22113,13 +23277,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           billingGetGithubActionsBillingOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.billingGetGithubActionsBillingOrg(input, ctx)
+      const { status, body } = await implementation
+        .billingGetGithubActionsBillingOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = billingGetGithubActionsBillingOrgResponseValidator(
         status,
@@ -22145,13 +23313,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           billingGetGithubPackagesBillingOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.billingGetGithubPackagesBillingOrg(input, ctx)
+      const { status, body } = await implementation
+        .billingGetGithubPackagesBillingOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = billingGetGithubPackagesBillingOrgResponseValidator(
         status,
@@ -22177,13 +23349,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           billingGetSharedStorageBillingOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.billingGetSharedStorageBillingOrg(input, ctx)
+      const { status, body } = await implementation
+        .billingGetSharedStorageBillingOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = billingGetSharedStorageBillingOrgResponseValidator(
         status,
@@ -22211,12 +23387,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("teamsList", "/orgs/:org/teams", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(teamsListParamSchema, ctx.params),
-      query: parseRequestInput(teamsListQuerySchema, ctx.query),
+      params: parseRequestInput(
+        teamsListParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        teamsListQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.teamsList(input, ctx)
+    const { status, body } = await implementation
+      .teamsList(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = teamsListResponseValidator(status, body)
     ctx.status = status
@@ -22249,12 +23437,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post("teamsCreate", "/orgs/:org/teams", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(teamsCreateParamSchema, ctx.params),
+      params: parseRequestInput(
+        teamsCreateParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(teamsCreateBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        teamsCreateBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.teamsCreate(input, ctx)
+    const { status, body } = await implementation
+      .teamsCreate(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = teamsCreateResponseValidator(status, body)
     ctx.status = status
@@ -22279,12 +23479,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/teams/:teamSlug",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(teamsGetByNameParamSchema, ctx.params),
+        params: parseRequestInput(
+          teamsGetByNameParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsGetByName(input, ctx)
+      const { status, body } = await implementation
+        .teamsGetByName(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsGetByNameResponseValidator(status, body)
       ctx.status = status
@@ -22326,12 +23534,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/teams/:teamSlug",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(teamsUpdateInOrgParamSchema, ctx.params),
+        params: parseRequestInput(
+          teamsUpdateInOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(teamsUpdateInOrgBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          teamsUpdateInOrgBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.teamsUpdateInOrg(input, ctx)
+      const { status, body } = await implementation
+        .teamsUpdateInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsUpdateInOrgResponseValidator(status, body)
       ctx.status = status
@@ -22354,12 +23574,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/teams/:teamSlug",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(teamsDeleteInOrgParamSchema, ctx.params),
+        params: parseRequestInput(
+          teamsDeleteInOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsDeleteInOrg(input, ctx)
+      const { status, body } = await implementation
+        .teamsDeleteInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsDeleteInOrgResponseValidator(status, body)
       ctx.status = status
@@ -22392,18 +23620,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsListDiscussionsInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           teamsListDiscussionsInOrgQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsListDiscussionsInOrg(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsListDiscussionsInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsListDiscussionsInOrgResponseValidator(status, body)
       ctx.status = status
@@ -22435,18 +23666,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsCreateDiscussionInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsCreateDiscussionInOrgBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.teamsCreateDiscussionInOrg(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsCreateDiscussionInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsCreateDiscussionInOrgResponseValidator(status, body)
       ctx.status = status
@@ -22473,15 +23707,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsGetDiscussionInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsGetDiscussionInOrg(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsGetDiscussionInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsGetDiscussionInOrgResponseValidator(status, body)
       ctx.status = status
@@ -22512,18 +23748,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsUpdateDiscussionInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsUpdateDiscussionInOrgBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.teamsUpdateDiscussionInOrg(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsUpdateDiscussionInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsUpdateDiscussionInOrgResponseValidator(status, body)
       ctx.status = status
@@ -22550,15 +23789,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsDeleteDiscussionInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsDeleteDiscussionInOrg(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsDeleteDiscussionInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsDeleteDiscussionInOrgResponseValidator(status, body)
       ctx.status = status
@@ -22592,16 +23833,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsListDiscussionCommentsInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           teamsListDiscussionCommentsInOrgQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.teamsListDiscussionCommentsInOrg(input, ctx)
+      const { status, body } = await implementation
+        .teamsListDiscussionCommentsInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsListDiscussionCommentsInOrgResponseValidator(status, body)
       ctx.status = status
@@ -22630,16 +23876,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsCreateDiscussionCommentInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsCreateDiscussionCommentInOrgBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.teamsCreateDiscussionCommentInOrg(input, ctx)
+      const { status, body } = await implementation
+        .teamsCreateDiscussionCommentInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsCreateDiscussionCommentInOrgResponseValidator(
         status,
@@ -22668,13 +23919,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsGetDiscussionCommentInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.teamsGetDiscussionCommentInOrg(input, ctx)
+      const { status, body } = await implementation
+        .teamsGetDiscussionCommentInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsGetDiscussionCommentInOrgResponseValidator(status, body)
       ctx.status = status
@@ -22704,16 +23959,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsUpdateDiscussionCommentInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsUpdateDiscussionCommentInOrgBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.teamsUpdateDiscussionCommentInOrg(input, ctx)
+      const { status, body } = await implementation
+        .teamsUpdateDiscussionCommentInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsUpdateDiscussionCommentInOrgResponseValidator(
         status,
@@ -22742,13 +24002,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsDeleteDiscussionCommentInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.teamsDeleteDiscussionCommentInOrg(input, ctx)
+      const { status, body } = await implementation
+        .teamsDeleteDiscussionCommentInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsDeleteDiscussionCommentInOrgResponseValidator(
         status,
@@ -22794,19 +24058,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsListForTeamDiscussionCommentInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           reactionsListForTeamDiscussionCommentInOrgQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reactionsListForTeamDiscussionCommentInOrg(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .reactionsListForTeamDiscussionCommentInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsListForTeamDiscussionCommentInOrgResponseValidator(
         status,
@@ -22854,19 +24120,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsCreateForTeamDiscussionCommentInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForTeamDiscussionCommentInOrgBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reactionsCreateForTeamDiscussionCommentInOrg(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .reactionsCreateForTeamDiscussionCommentInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsCreateForTeamDiscussionCommentInOrgResponseValidator(
         status,
@@ -22896,13 +24164,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsDeleteForTeamDiscussionCommentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reactionsDeleteForTeamDiscussionComment(input, ctx)
+      const { status, body } = await implementation
+        .reactionsDeleteForTeamDiscussionComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsDeleteForTeamDiscussionCommentResponseValidator(
         status,
@@ -22947,16 +24219,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsListForTeamDiscussionInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           reactionsListForTeamDiscussionInOrgQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reactionsListForTeamDiscussionInOrg(input, ctx)
+      const { status, body } = await implementation
+        .reactionsListForTeamDiscussionInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsListForTeamDiscussionInOrgResponseValidator(
         status,
@@ -23003,16 +24280,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsCreateForTeamDiscussionInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForTeamDiscussionInOrgBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reactionsCreateForTeamDiscussionInOrg(input, ctx)
+      const { status, body } = await implementation
+        .reactionsCreateForTeamDiscussionInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsCreateForTeamDiscussionInOrgResponseValidator(
         status,
@@ -23041,13 +24323,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsDeleteForTeamDiscussionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reactionsDeleteForTeamDiscussion(input, ctx)
+      const { status, body } = await implementation
+        .reactionsDeleteForTeamDiscussion(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsDeleteForTeamDiscussionResponseValidator(status, body)
       ctx.status = status
@@ -23079,16 +24365,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsListPendingInvitationsInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           teamsListPendingInvitationsInOrgQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.teamsListPendingInvitationsInOrg(input, ctx)
+      const { status, body } = await implementation
+        .teamsListPendingInvitationsInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsListPendingInvitationsInOrgResponseValidator(status, body)
       ctx.status = status
@@ -23117,15 +24408,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/teams/:teamSlug/members",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(teamsListMembersInOrgParamSchema, ctx.params),
-        query: parseRequestInput(teamsListMembersInOrgQuerySchema, ctx.query),
+        params: parseRequestInput(
+          teamsListMembersInOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          teamsListMembersInOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsListMembersInOrg(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsListMembersInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsListMembersInOrgResponseValidator(status, body)
       ctx.status = status
@@ -23156,13 +24456,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsGetMembershipForUserInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.teamsGetMembershipForUserInOrg(input, ctx)
+      const { status, body } = await implementation
+        .teamsGetMembershipForUserInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsGetMembershipForUserInOrgResponseValidator(status, body)
       ctx.status = status
@@ -23198,16 +24502,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsAddOrUpdateMembershipForUserInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateMembershipForUserInOrgBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.teamsAddOrUpdateMembershipForUserInOrg(input, ctx)
+      const { status, body } = await implementation
+        .teamsAddOrUpdateMembershipForUserInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsAddOrUpdateMembershipForUserInOrgResponseValidator(
         status,
@@ -23241,13 +24550,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsRemoveMembershipForUserInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.teamsRemoveMembershipForUserInOrg(input, ctx)
+      const { status, body } = await implementation
+        .teamsRemoveMembershipForUserInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsRemoveMembershipForUserInOrgResponseValidator(
         status,
@@ -23281,15 +24594,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsListProjectsInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(teamsListProjectsInOrgQuerySchema, ctx.query),
+        query: parseRequestInput(
+          teamsListProjectsInOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsListProjectsInOrg(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsListProjectsInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsListProjectsInOrgResponseValidator(status, body)
       ctx.status = status
@@ -23320,13 +24639,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsCheckPermissionsForProjectInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.teamsCheckPermissionsForProjectInOrg(input, ctx)
+      const { status, body } = await implementation
+        .teamsCheckPermissionsForProjectInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsCheckPermissionsForProjectInOrgResponseValidator(
         status,
@@ -23371,16 +24694,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsAddOrUpdateProjectPermissionsInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateProjectPermissionsInOrgBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.teamsAddOrUpdateProjectPermissionsInOrg(input, ctx)
+      const { status, body } = await implementation
+        .teamsAddOrUpdateProjectPermissionsInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsAddOrUpdateProjectPermissionsInOrgResponseValidator(
         status,
@@ -23410,15 +24738,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsRemoveProjectInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsRemoveProjectInOrg(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsRemoveProjectInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsRemoveProjectInOrgResponseValidator(status, body)
       ctx.status = status
@@ -23446,15 +24776,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/teams/:teamSlug/repos",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(teamsListReposInOrgParamSchema, ctx.params),
-        query: parseRequestInput(teamsListReposInOrgQuerySchema, ctx.query),
+        params: parseRequestInput(
+          teamsListReposInOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          teamsListReposInOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsListReposInOrg(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsListReposInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsListReposInOrgResponseValidator(status, body)
       ctx.status = status
@@ -23487,13 +24826,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsCheckPermissionsForRepoInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.teamsCheckPermissionsForRepoInOrg(input, ctx)
+      const { status, body } = await implementation
+        .teamsCheckPermissionsForRepoInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsCheckPermissionsForRepoInOrgResponseValidator(
         status,
@@ -23526,16 +24869,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsAddOrUpdateRepoPermissionsInOrgParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateRepoPermissionsInOrgBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.teamsAddOrUpdateRepoPermissionsInOrg(input, ctx)
+      const { status, body } = await implementation
+        .teamsAddOrUpdateRepoPermissionsInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsAddOrUpdateRepoPermissionsInOrgResponseValidator(
         status,
@@ -23563,15 +24911,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(teamsRemoveRepoInOrgParamSchema, ctx.params),
+        params: parseRequestInput(
+          teamsRemoveRepoInOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsRemoveRepoInOrg(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsRemoveRepoInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsRemoveRepoInOrgResponseValidator(status, body)
       ctx.status = status
@@ -23599,15 +24952,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/orgs/:org/teams/:teamSlug/teams",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(teamsListChildInOrgParamSchema, ctx.params),
-        query: parseRequestInput(teamsListChildInOrgQuerySchema, ctx.query),
+        params: parseRequestInput(
+          teamsListChildInOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          teamsListChildInOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsListChildInOrg(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsListChildInOrg(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsListChildInOrgResponseValidator(status, body)
       ctx.status = status
@@ -23650,19 +25012,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           orgsEnableOrDisableSecurityProductOnAllOrgReposBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.orgsEnableOrDisableSecurityProductOnAllOrgRepos(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .orgsEnableOrDisableSecurityProductOnAllOrgRepos(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         orgsEnableOrDisableSecurityProductOnAllOrgReposResponseValidator(
@@ -23692,12 +25056,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/projects/columns/cards/:cardId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(projectsGetCardParamSchema, ctx.params),
+        params: parseRequestInput(
+          projectsGetCardParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.projectsGetCard(input, ctx)
+      const { status, body } = await implementation
+        .projectsGetCard(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = projectsGetCardResponseValidator(status, body)
       ctx.status = status
@@ -23731,15 +25103,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/projects/columns/cards/:cardId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(projectsUpdateCardParamSchema, ctx.params),
+        params: parseRequestInput(
+          projectsUpdateCardParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(projectsUpdateCardBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          projectsUpdateCardBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.projectsUpdateCard(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .projectsUpdateCard(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = projectsUpdateCardResponseValidator(status, body)
       ctx.status = status
@@ -23772,15 +25153,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/projects/columns/cards/:cardId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(projectsDeleteCardParamSchema, ctx.params),
+        params: parseRequestInput(
+          projectsDeleteCardParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.projectsDeleteCard(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .projectsDeleteCard(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = projectsDeleteCardResponseValidator(status, body)
       ctx.status = status
@@ -23843,12 +25229,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/projects/columns/cards/:cardId/moves",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(projectsMoveCardParamSchema, ctx.params),
+        params: parseRequestInput(
+          projectsMoveCardParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(projectsMoveCardBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          projectsMoveCardBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.projectsMoveCard(input, ctx)
+      const { status, body } = await implementation
+        .projectsMoveCard(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = projectsMoveCardResponseValidator(status, body)
       ctx.status = status
@@ -23876,15 +25274,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/projects/columns/:columnId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(projectsGetColumnParamSchema, ctx.params),
+        params: parseRequestInput(
+          projectsGetColumnParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.projectsGetColumn(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .projectsGetColumn(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = projectsGetColumnResponseValidator(status, body)
       ctx.status = status
@@ -23913,18 +25316,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/projects/columns/:columnId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(projectsUpdateColumnParamSchema, ctx.params),
+        params: parseRequestInput(
+          projectsUpdateColumnParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           projectsUpdateColumnBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.projectsUpdateColumn(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .projectsUpdateColumn(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = projectsUpdateColumnResponseValidator(status, body)
       ctx.status = status
@@ -23951,15 +25360,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/projects/columns/:columnId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(projectsDeleteColumnParamSchema, ctx.params),
+        params: parseRequestInput(
+          projectsDeleteColumnParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.projectsDeleteColumn(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .projectsDeleteColumn(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = projectsDeleteColumnResponseValidator(status, body)
       ctx.status = status
@@ -23992,15 +25406,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/projects/columns/:columnId/cards",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(projectsListCardsParamSchema, ctx.params),
-        query: parseRequestInput(projectsListCardsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          projectsListCardsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          projectsListCardsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.projectsListCards(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .projectsListCards(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = projectsListCardsResponseValidator(status, body)
       ctx.status = status
@@ -24049,15 +25472,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/projects/columns/:columnId/cards",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(projectsCreateCardParamSchema, ctx.params),
+        params: parseRequestInput(
+          projectsCreateCardParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(projectsCreateCardBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          projectsCreateCardBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.projectsCreateCard(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .projectsCreateCard(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = projectsCreateCardResponseValidator(status, body)
       ctx.status = status
@@ -24087,15 +25519,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/projects/columns/:columnId/moves",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(projectsMoveColumnParamSchema, ctx.params),
+        params: parseRequestInput(
+          projectsMoveColumnParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(projectsMoveColumnBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          projectsMoveColumnBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.projectsMoveColumn(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .projectsMoveColumn(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = projectsMoveColumnResponseValidator(status, body)
       ctx.status = status
@@ -24117,12 +25558,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("projectsGet", "/projects/:projectId", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(projectsGetParamSchema, ctx.params),
+      params: parseRequestInput(
+        projectsGetParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.projectsGet(input, ctx)
+    const { status, body } = await implementation
+      .projectsGet(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = projectsGetResponseValidator(status, body)
     ctx.status = status
@@ -24165,12 +25614,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch("projectsUpdate", "/projects/:projectId", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(projectsUpdateParamSchema, ctx.params),
+      params: parseRequestInput(
+        projectsUpdateParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(projectsUpdateBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        projectsUpdateBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.projectsUpdate(input, ctx)
+    const { status, body } = await implementation
+      .projectsUpdate(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = projectsUpdateResponseValidator(status, body)
     ctx.status = status
@@ -24200,12 +25661,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete("projectsDelete", "/projects/:projectId", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(projectsDeleteParamSchema, ctx.params),
+      params: parseRequestInput(
+        projectsDeleteParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.projectsDelete(input, ctx)
+    const { status, body } = await implementation
+      .projectsDelete(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = projectsDeleteResponseValidator(status, body)
     ctx.status = status
@@ -24242,18 +25711,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           projectsListCollaboratorsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           projectsListCollaboratorsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.projectsListCollaborators(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .projectsListCollaborators(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = projectsListCollaboratorsResponseValidator(status, body)
       ctx.status = status
@@ -24291,18 +25763,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           projectsAddCollaboratorParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           projectsAddCollaboratorBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.projectsAddCollaborator(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .projectsAddCollaborator(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = projectsAddCollaboratorResponseValidator(status, body)
       ctx.status = status
@@ -24335,15 +25810,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           projectsRemoveCollaboratorParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.projectsRemoveCollaborator(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .projectsRemoveCollaborator(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = projectsRemoveCollaboratorResponseValidator(status, body)
       ctx.status = status
@@ -24377,13 +25854,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           projectsGetPermissionForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.projectsGetPermissionForUser(input, ctx)
+      const { status, body } = await implementation
+        .projectsGetPermissionForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = projectsGetPermissionForUserResponseValidator(status, body)
       ctx.status = status
@@ -24415,15 +25896,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/projects/:projectId/columns",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(projectsListColumnsParamSchema, ctx.params),
-        query: parseRequestInput(projectsListColumnsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          projectsListColumnsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          projectsListColumnsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.projectsListColumns(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .projectsListColumns(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = projectsListColumnsResponseValidator(status, body)
       ctx.status = status
@@ -24453,18 +25943,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/projects/:projectId/columns",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(projectsCreateColumnParamSchema, ctx.params),
+        params: parseRequestInput(
+          projectsCreateColumnParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           projectsCreateColumnBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.projectsCreateColumn(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .projectsCreateColumn(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = projectsCreateColumnResponseValidator(status, body)
       ctx.status = status
@@ -24488,7 +25984,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: undefined,
     }
 
-    const { status, body } = await implementation.rateLimitGet(input, ctx)
+    const { status, body } = await implementation
+      .rateLimitGet(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = rateLimitGetResponseValidator(status, body)
     ctx.status = status
@@ -24509,12 +26009,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("reposGet", "/repos/:owner/:repo", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(reposGetParamSchema, ctx.params),
+      params: parseRequestInput(
+        reposGetParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.reposGet(input, ctx)
+    const { status, body } = await implementation
+      .reposGet(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = reposGetResponseValidator(status, body)
     ctx.status = status
@@ -24586,12 +26094,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch("reposUpdate", "/repos/:owner/:repo", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(reposUpdateParamSchema, ctx.params),
+      params: parseRequestInput(
+        reposUpdateParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(reposUpdateBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        reposUpdateBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.reposUpdate(input, ctx)
+    const { status, body } = await implementation
+      .reposUpdate(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = reposUpdateResponseValidator(status, body)
     ctx.status = status
@@ -24621,12 +26141,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete("reposDelete", "/repos/:owner/:repo", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(reposDeleteParamSchema, ctx.params),
+      params: parseRequestInput(
+        reposDeleteParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.reposDelete(input, ctx)
+    const { status, body } = await implementation
+      .reposDelete(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = reposDeleteResponseValidator(status, body)
     ctx.status = status
@@ -24666,18 +26194,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListArtifactsForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           actionsListArtifactsForRepoQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsListArtifactsForRepo(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsListArtifactsForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListArtifactsForRepoResponseValidator(status, body)
       ctx.status = status
@@ -24701,15 +26232,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/actions/artifacts/:artifactId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(actionsGetArtifactParamSchema, ctx.params),
+        params: parseRequestInput(
+          actionsGetArtifactParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsGetArtifact(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsGetArtifact(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetArtifactResponseValidator(status, body)
       ctx.status = status
@@ -24733,15 +26269,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/actions/artifacts/:artifactId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(actionsDeleteArtifactParamSchema, ctx.params),
+        params: parseRequestInput(
+          actionsDeleteArtifactParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsDeleteArtifact(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsDeleteArtifact(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsDeleteArtifactResponseValidator(status, body)
       ctx.status = status
@@ -24772,15 +26313,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsDownloadArtifactParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsDownloadArtifact(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsDownloadArtifact(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsDownloadArtifactResponseValidator(status, body)
       ctx.status = status
@@ -24807,15 +26350,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetActionsCacheUsageParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsGetActionsCacheUsage(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsGetActionsCacheUsage(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetActionsCacheUsageResponseValidator(status, body)
       ctx.status = status
@@ -24852,18 +26397,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetActionsCacheListParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           actionsGetActionsCacheListQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsGetActionsCacheList(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsGetActionsCacheList(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetActionsCacheListResponseValidator(status, body)
       ctx.status = status
@@ -24892,16 +26440,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsDeleteActionsCacheByKeyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           actionsDeleteActionsCacheByKeyQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsDeleteActionsCacheByKey(input, ctx)
+      const { status, body } = await implementation
+        .actionsDeleteActionsCacheByKey(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsDeleteActionsCacheByKeyResponseValidator(status, body)
       ctx.status = status
@@ -24926,13 +26479,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsDeleteActionsCacheByIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsDeleteActionsCacheById(input, ctx)
+      const { status, body } = await implementation
+        .actionsDeleteActionsCacheById(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsDeleteActionsCacheByIdResponseValidator(status, body)
       ctx.status = status
@@ -24957,15 +26514,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetJobForWorkflowRunParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsGetJobForWorkflowRun(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsGetJobForWorkflowRun(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetJobForWorkflowRunResponseValidator(status, body)
       ctx.status = status
@@ -24990,13 +26549,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsDownloadJobLogsForWorkflowRunParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsDownloadJobLogsForWorkflowRun(input, ctx)
+      const { status, body } = await implementation
+        .actionsDownloadJobLogsForWorkflowRun(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsDownloadJobLogsForWorkflowRunResponseValidator(
         status,
@@ -25035,16 +26598,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsReRunJobForWorkflowRunParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsReRunJobForWorkflowRunBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsReRunJobForWorkflowRun(input, ctx)
+      const { status, body } = await implementation
+        .actionsReRunJobForWorkflowRun(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsReRunJobForWorkflowRunResponseValidator(status, body)
       ctx.status = status
@@ -25075,13 +26643,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetCustomOidcSubClaimForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsGetCustomOidcSubClaimForRepo(input, ctx)
+      const { status, body } = await implementation
+        .actionsGetCustomOidcSubClaimForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetCustomOidcSubClaimForRepoResponseValidator(
         status,
@@ -25121,16 +26693,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsSetCustomOidcSubClaimForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetCustomOidcSubClaimForRepoBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsSetCustomOidcSubClaimForRepo(input, ctx)
+      const { status, body } = await implementation
+        .actionsSetCustomOidcSubClaimForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsSetCustomOidcSubClaimForRepoResponseValidator(
         status,
@@ -25173,16 +26750,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListRepoOrganizationSecretsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           actionsListRepoOrganizationSecretsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsListRepoOrganizationSecrets(input, ctx)
+      const { status, body } = await implementation
+        .actionsListRepoOrganizationSecrets(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListRepoOrganizationSecretsResponseValidator(
         status,
@@ -25225,16 +26807,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListRepoOrganizationVariablesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           actionsListRepoOrganizationVariablesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsListRepoOrganizationVariables(input, ctx)
+      const { status, body } = await implementation
+        .actionsListRepoOrganizationVariables(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListRepoOrganizationVariablesResponseValidator(
         status,
@@ -25264,16 +26851,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetGithubActionsPermissionsRepositoryParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsGetGithubActionsPermissionsRepository(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .actionsGetGithubActionsPermissionsRepository(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetGithubActionsPermissionsRepositoryResponseValidator(
         status,
@@ -25305,19 +26893,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsSetGithubActionsPermissionsRepositoryParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetGithubActionsPermissionsRepositoryBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsSetGithubActionsPermissionsRepository(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .actionsSetGithubActionsPermissionsRepository(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsSetGithubActionsPermissionsRepositoryResponseValidator(
         status,
@@ -25347,13 +26937,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetWorkflowAccessToRepositoryParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsGetWorkflowAccessToRepository(input, ctx)
+      const { status, body } = await implementation
+        .actionsGetWorkflowAccessToRepository(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetWorkflowAccessToRepositoryResponseValidator(
         status,
@@ -25383,16 +26977,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsSetWorkflowAccessToRepositoryParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetWorkflowAccessToRepositoryBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsSetWorkflowAccessToRepository(input, ctx)
+      const { status, body } = await implementation
+        .actionsSetWorkflowAccessToRepository(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsSetWorkflowAccessToRepositoryResponseValidator(
         status,
@@ -25419,13 +27018,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetAllowedActionsRepositoryParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsGetAllowedActionsRepository(input, ctx)
+      const { status, body } = await implementation
+        .actionsGetAllowedActionsRepository(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetAllowedActionsRepositoryResponseValidator(
         status,
@@ -25455,16 +27058,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsSetAllowedActionsRepositoryParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetAllowedActionsRepositoryBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsSetAllowedActionsRepository(input, ctx)
+      const { status, body } = await implementation
+        .actionsSetAllowedActionsRepository(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsSetAllowedActionsRepositoryResponseValidator(
         status,
@@ -25492,16 +27100,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsGetGithubActionsDefaultWorkflowPermissionsRepository(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .actionsGetGithubActionsDefaultWorkflowPermissionsRepository(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         actionsGetGithubActionsDefaultWorkflowPermissionsRepositoryResponseValidator(
@@ -25536,19 +27145,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsSetGithubActionsDefaultWorkflowPermissionsRepository(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .actionsSetGithubActionsDefaultWorkflowPermissionsRepository(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryResponseValidator(
@@ -25593,16 +27204,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListSelfHostedRunnersForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           actionsListSelfHostedRunnersForRepoQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsListSelfHostedRunnersForRepo(input, ctx)
+      const { status, body } = await implementation
+        .actionsListSelfHostedRunnersForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListSelfHostedRunnersForRepoResponseValidator(
         status,
@@ -25632,13 +27248,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListRunnerApplicationsForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsListRunnerApplicationsForRepo(input, ctx)
+      const { status, body } = await implementation
+        .actionsListRunnerApplicationsForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListRunnerApplicationsForRepoResponseValidator(
         status,
@@ -25679,16 +27299,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGenerateRunnerJitconfigForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsGenerateRunnerJitconfigForRepoBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsGenerateRunnerJitconfigForRepo(input, ctx)
+      const { status, body } = await implementation
+        .actionsGenerateRunnerJitconfigForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGenerateRunnerJitconfigForRepoResponseValidator(
         status,
@@ -25715,13 +27340,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsCreateRegistrationTokenForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsCreateRegistrationTokenForRepo(input, ctx)
+      const { status, body } = await implementation
+        .actionsCreateRegistrationTokenForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsCreateRegistrationTokenForRepoResponseValidator(
         status,
@@ -25748,13 +27377,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsCreateRemoveTokenForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsCreateRemoveTokenForRepo(input, ctx)
+      const { status, body } = await implementation
+        .actionsCreateRemoveTokenForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsCreateRemoveTokenForRepoResponseValidator(status, body)
       ctx.status = status
@@ -25779,13 +27412,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetSelfHostedRunnerForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsGetSelfHostedRunnerForRepo(input, ctx)
+      const { status, body } = await implementation
+        .actionsGetSelfHostedRunnerForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetSelfHostedRunnerForRepoResponseValidator(
         status,
@@ -25813,13 +27450,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsDeleteSelfHostedRunnerFromRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsDeleteSelfHostedRunnerFromRepo(input, ctx)
+      const { status, body } = await implementation
+        .actionsDeleteSelfHostedRunnerFromRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsDeleteSelfHostedRunnerFromRepoResponseValidator(
         status,
@@ -25859,16 +27500,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListLabelsForSelfHostedRunnerForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsListLabelsForSelfHostedRunnerForRepo(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .actionsListLabelsForSelfHostedRunnerForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListLabelsForSelfHostedRunnerForRepoResponseValidator(
         status,
@@ -25913,19 +27555,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsAddCustomLabelsToSelfHostedRunnerForRepo(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .actionsAddCustomLabelsToSelfHostedRunnerForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         actionsAddCustomLabelsToSelfHostedRunnerForRepoResponseValidator(
@@ -25971,19 +27615,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsSetCustomLabelsForSelfHostedRunnerForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsSetCustomLabelsForSelfHostedRunnerForRepo(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .actionsSetCustomLabelsForSelfHostedRunnerForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         actionsSetCustomLabelsForSelfHostedRunnerForRepoResponseValidator(
@@ -26025,16 +27671,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepo(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepoResponseValidator(
@@ -26078,16 +27725,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsRemoveCustomLabelFromSelfHostedRunnerForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsRemoveCustomLabelFromSelfHostedRunnerForRepo(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .actionsRemoveCustomLabelFromSelfHostedRunnerForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         actionsRemoveCustomLabelFromSelfHostedRunnerForRepoResponseValidator(
@@ -26156,16 +27804,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListWorkflowRunsForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           actionsListWorkflowRunsForRepoQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsListWorkflowRunsForRepo(input, ctx)
+      const { status, body } = await implementation
+        .actionsListWorkflowRunsForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListWorkflowRunsForRepoResponseValidator(status, body)
       ctx.status = status
@@ -26193,15 +27846,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/actions/runs/:runId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(actionsGetWorkflowRunParamSchema, ctx.params),
-        query: parseRequestInput(actionsGetWorkflowRunQuerySchema, ctx.query),
+        params: parseRequestInput(
+          actionsGetWorkflowRunParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          actionsGetWorkflowRunQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsGetWorkflowRun(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsGetWorkflowRun(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetWorkflowRunResponseValidator(status, body)
       ctx.status = status
@@ -26228,15 +27890,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsDeleteWorkflowRunParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsDeleteWorkflowRun(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsDeleteWorkflowRun(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsDeleteWorkflowRunResponseValidator(status, body)
       ctx.status = status
@@ -26263,15 +27927,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetReviewsForRunParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsGetReviewsForRun(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsGetReviewsForRun(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetReviewsForRunResponseValidator(status, body)
       ctx.status = status
@@ -26302,15 +27968,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsApproveWorkflowRunParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsApproveWorkflowRun(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsApproveWorkflowRun(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsApproveWorkflowRunResponseValidator(status, body)
       ctx.status = status
@@ -26352,16 +28020,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListWorkflowRunArtifactsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           actionsListWorkflowRunArtifactsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsListWorkflowRunArtifacts(input, ctx)
+      const { status, body } = await implementation
+        .actionsListWorkflowRunArtifacts(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListWorkflowRunArtifactsResponseValidator(status, body)
       ctx.status = status
@@ -26391,16 +28064,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetWorkflowRunAttemptParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           actionsGetWorkflowRunAttemptQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsGetWorkflowRunAttempt(input, ctx)
+      const { status, body } = await implementation
+        .actionsGetWorkflowRunAttempt(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetWorkflowRunAttemptResponseValidator(status, body)
       ctx.status = status
@@ -26440,16 +28118,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListJobsForWorkflowRunAttemptParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           actionsListJobsForWorkflowRunAttemptQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsListJobsForWorkflowRunAttempt(input, ctx)
+      const { status, body } = await implementation
+        .actionsListJobsForWorkflowRunAttempt(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListJobsForWorkflowRunAttemptResponseValidator(
         status,
@@ -26478,13 +28161,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsDownloadWorkflowRunAttemptLogsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsDownloadWorkflowRunAttemptLogs(input, ctx)
+      const { status, body } = await implementation
+        .actionsDownloadWorkflowRunAttemptLogs(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsDownloadWorkflowRunAttemptLogsResponseValidator(
         status,
@@ -26517,15 +28204,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsCancelWorkflowRunParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsCancelWorkflowRun(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsCancelWorkflowRun(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsCancelWorkflowRunResponseValidator(status, body)
       ctx.status = status
@@ -26555,16 +28244,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsReviewCustomGatesForRunParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsReviewCustomGatesForRunBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsReviewCustomGatesForRun(input, ctx)
+      const { status, body } = await implementation
+        .actionsReviewCustomGatesForRun(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsReviewCustomGatesForRunResponseValidator(status, body)
       ctx.status = status
@@ -26603,16 +28297,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListJobsForWorkflowRunParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           actionsListJobsForWorkflowRunQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsListJobsForWorkflowRun(input, ctx)
+      const { status, body } = await implementation
+        .actionsListJobsForWorkflowRun(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListJobsForWorkflowRunResponseValidator(status, body)
       ctx.status = status
@@ -26637,13 +28336,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsDownloadWorkflowRunLogsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsDownloadWorkflowRunLogs(input, ctx)
+      const { status, body } = await implementation
+        .actionsDownloadWorkflowRunLogs(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsDownloadWorkflowRunLogsResponseValidator(status, body)
       ctx.status = status
@@ -26675,13 +28378,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsDeleteWorkflowRunLogsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsDeleteWorkflowRunLogs(input, ctx)
+      const { status, body } = await implementation
+        .actionsDeleteWorkflowRunLogs(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsDeleteWorkflowRunLogsResponseValidator(status, body)
       ctx.status = status
@@ -26709,13 +28416,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetPendingDeploymentsForRunParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsGetPendingDeploymentsForRun(input, ctx)
+      const { status, body } = await implementation
+        .actionsGetPendingDeploymentsForRun(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetPendingDeploymentsForRunResponseValidator(
         status,
@@ -26749,16 +28460,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsReviewPendingDeploymentsForRunParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsReviewPendingDeploymentsForRunBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsReviewPendingDeploymentsForRun(input, ctx)
+      const { status, body } = await implementation
+        .actionsReviewPendingDeploymentsForRun(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsReviewPendingDeploymentsForRunResponseValidator(
         status,
@@ -26790,18 +28506,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/actions/runs/:runId/rerun",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(actionsReRunWorkflowParamSchema, ctx.params),
+        params: parseRequestInput(
+          actionsReRunWorkflowParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           actionsReRunWorkflowBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.actionsReRunWorkflow(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsReRunWorkflow(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsReRunWorkflowResponseValidator(status, body)
       ctx.status = status
@@ -26831,16 +28553,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsReRunWorkflowFailedJobsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsReRunWorkflowFailedJobsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsReRunWorkflowFailedJobs(input, ctx)
+      const { status, body } = await implementation
+        .actionsReRunWorkflowFailedJobs(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsReRunWorkflowFailedJobsResponseValidator(status, body)
       ctx.status = status
@@ -26867,15 +28594,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetWorkflowRunUsageParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsGetWorkflowRunUsage(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsGetWorkflowRunUsage(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetWorkflowRunUsageResponseValidator(status, body)
       ctx.status = status
@@ -26914,15 +28643,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListRepoSecretsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(actionsListRepoSecretsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          actionsListRepoSecretsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsListRepoSecrets(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsListRepoSecrets(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListRepoSecretsResponseValidator(status, body)
       ctx.status = status
@@ -26948,15 +28683,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetRepoPublicKeyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsGetRepoPublicKey(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsGetRepoPublicKey(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetRepoPublicKeyResponseValidator(status, body)
       ctx.status = status
@@ -26980,15 +28717,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/actions/secrets/:secretName",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(actionsGetRepoSecretParamSchema, ctx.params),
+        params: parseRequestInput(
+          actionsGetRepoSecretParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsGetRepoSecret(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsGetRepoSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetRepoSecretResponseValidator(status, body)
       ctx.status = status
@@ -27024,16 +28766,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsCreateOrUpdateRepoSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsCreateOrUpdateRepoSecretBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsCreateOrUpdateRepoSecret(input, ctx)
+      const { status, body } = await implementation
+        .actionsCreateOrUpdateRepoSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsCreateOrUpdateRepoSecretResponseValidator(status, body)
       ctx.status = status
@@ -27060,15 +28807,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsDeleteRepoSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsDeleteRepoSecret(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsDeleteRepoSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsDeleteRepoSecretResponseValidator(status, body)
       ctx.status = status
@@ -27107,18 +28856,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListRepoVariablesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           actionsListRepoVariablesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsListRepoVariables(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsListRepoVariables(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListRepoVariablesResponseValidator(status, body)
       ctx.status = status
@@ -27149,18 +28901,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsCreateRepoVariableParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsCreateRepoVariableBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.actionsCreateRepoVariable(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsCreateRepoVariable(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsCreateRepoVariableResponseValidator(status, body)
       ctx.status = status
@@ -27187,15 +28942,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetRepoVariableParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsGetRepoVariable(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsGetRepoVariable(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetRepoVariableResponseValidator(status, body)
       ctx.status = status
@@ -27227,18 +28984,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsUpdateRepoVariableParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsUpdateRepoVariableBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.actionsUpdateRepoVariable(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsUpdateRepoVariable(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsUpdateRepoVariableResponseValidator(status, body)
       ctx.status = status
@@ -27265,15 +29025,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsDeleteRepoVariableParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsDeleteRepoVariable(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsDeleteRepoVariable(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsDeleteRepoVariableResponseValidator(status, body)
       ctx.status = status
@@ -27312,18 +29074,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListRepoWorkflowsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           actionsListRepoWorkflowsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsListRepoWorkflows(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsListRepoWorkflows(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListRepoWorkflowsResponseValidator(status, body)
       ctx.status = status
@@ -27347,15 +29112,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/actions/workflows/:workflowId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(actionsGetWorkflowParamSchema, ctx.params),
+        params: parseRequestInput(
+          actionsGetWorkflowParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsGetWorkflow(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsGetWorkflow(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetWorkflowResponseValidator(status, body)
       ctx.status = status
@@ -27382,15 +29152,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsDisableWorkflowParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsDisableWorkflow(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsDisableWorkflow(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsDisableWorkflowResponseValidator(status, body)
       ctx.status = status
@@ -27420,16 +29192,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsCreateWorkflowDispatchParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsCreateWorkflowDispatchBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsCreateWorkflowDispatch(input, ctx)
+      const { status, body } = await implementation
+        .actionsCreateWorkflowDispatch(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsCreateWorkflowDispatchResponseValidator(status, body)
       ctx.status = status
@@ -27453,15 +29230,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/actions/workflows/:workflowId/enable",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(actionsEnableWorkflowParamSchema, ctx.params),
+        params: parseRequestInput(
+          actionsEnableWorkflowParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsEnableWorkflow(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsEnableWorkflow(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsEnableWorkflowResponseValidator(status, body)
       ctx.status = status
@@ -27526,15 +29308,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListWorkflowRunsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(actionsListWorkflowRunsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          actionsListWorkflowRunsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsListWorkflowRuns(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsListWorkflowRuns(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListWorkflowRunsResponseValidator(status, body)
       ctx.status = status
@@ -27561,15 +29349,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetWorkflowUsageParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsGetWorkflowUsage(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsGetWorkflowUsage(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetWorkflowUsageResponseValidator(status, body)
       ctx.status = status
@@ -27615,15 +29405,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/activity",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposListActivitiesParamSchema, ctx.params),
-        query: parseRequestInput(reposListActivitiesQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposListActivitiesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposListActivitiesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposListActivities(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposListActivities(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListActivitiesResponseValidator(status, body)
       ctx.status = status
@@ -27654,15 +29453,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/assignees",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesListAssigneesParamSchema, ctx.params),
-        query: parseRequestInput(issuesListAssigneesQuerySchema, ctx.query),
+        params: parseRequestInput(
+          issuesListAssigneesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          issuesListAssigneesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.issuesListAssignees(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesListAssignees(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesListAssigneesResponseValidator(status, body)
       ctx.status = status
@@ -27693,13 +29501,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           issuesCheckUserCanBeAssignedParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.issuesCheckUserCanBeAssigned(input, ctx)
+      const { status, body } = await implementation
+        .issuesCheckUserCanBeAssigned(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesCheckUserCanBeAssignedResponseValidator(status, body)
       ctx.status = status
@@ -27726,15 +29538,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/autolinks",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposListAutolinksParamSchema, ctx.params),
-        query: parseRequestInput(reposListAutolinksQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposListAutolinksParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposListAutolinksQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposListAutolinks(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposListAutolinks(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListAutolinksResponseValidator(status, body)
       ctx.status = status
@@ -27766,18 +29587,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/autolinks",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposCreateAutolinkParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposCreateAutolinkParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           reposCreateAutolinkBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposCreateAutolink(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposCreateAutolink(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreateAutolinkResponseValidator(status, body)
       ctx.status = status
@@ -27804,12 +29631,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/autolinks/:autolinkId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetAutolinkParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposGetAutolinkParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetAutolink(input, ctx)
+      const { status, body } = await implementation
+        .reposGetAutolink(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetAutolinkResponseValidator(status, body)
       ctx.status = status
@@ -27836,15 +29671,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/autolinks/:autolinkId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposDeleteAutolinkParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposDeleteAutolinkParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposDeleteAutolink(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposDeleteAutolink(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDeleteAutolinkResponseValidator(status, body)
       ctx.status = status
@@ -27874,13 +29714,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposCheckAutomatedSecurityFixesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposCheckAutomatedSecurityFixes(input, ctx)
+      const { status, body } = await implementation
+        .reposCheckAutomatedSecurityFixes(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCheckAutomatedSecurityFixesResponseValidator(status, body)
       ctx.status = status
@@ -27904,13 +29748,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposEnableAutomatedSecurityFixesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposEnableAutomatedSecurityFixes(input, ctx)
+      const { status, body } = await implementation
+        .reposEnableAutomatedSecurityFixes(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposEnableAutomatedSecurityFixesResponseValidator(
         status,
@@ -27937,13 +29785,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposDisableAutomatedSecurityFixesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposDisableAutomatedSecurityFixes(input, ctx)
+      const { status, body } = await implementation
+        .reposDisableAutomatedSecurityFixes(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDisableAutomatedSecurityFixesResponseValidator(
         status,
@@ -27978,15 +29830,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/branches",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposListBranchesParamSchema, ctx.params),
-        query: parseRequestInput(reposListBranchesQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposListBranchesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposListBranchesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposListBranches(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposListBranches(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListBranchesResponseValidator(status, body)
       ctx.status = status
@@ -28014,12 +29875,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/branches/:branch",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetBranchParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposGetBranchParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetBranch(input, ctx)
+      const { status, body } = await implementation
+        .reposGetBranch(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetBranchResponseValidator(status, body)
       ctx.status = status
@@ -28049,15 +29918,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetBranchProtectionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetBranchProtection(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetBranchProtection(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetBranchProtectionResponseValidator(status, body)
       ctx.status = status
@@ -28144,18 +30015,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposUpdateBranchProtectionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposUpdateBranchProtectionBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposUpdateBranchProtection(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposUpdateBranchProtection(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposUpdateBranchProtectionResponseValidator(status, body)
       ctx.status = status
@@ -28186,15 +30060,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposDeleteBranchProtectionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposDeleteBranchProtection(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposDeleteBranchProtection(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDeleteBranchProtectionResponseValidator(status, body)
       ctx.status = status
@@ -28222,13 +30098,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetAdminBranchProtectionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposGetAdminBranchProtection(input, ctx)
+      const { status, body } = await implementation
+        .reposGetAdminBranchProtection(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetAdminBranchProtectionResponseValidator(status, body)
       ctx.status = status
@@ -28256,13 +30136,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposSetAdminBranchProtectionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposSetAdminBranchProtection(input, ctx)
+      const { status, body } = await implementation
+        .reposSetAdminBranchProtection(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposSetAdminBranchProtectionResponseValidator(status, body)
       ctx.status = status
@@ -28293,13 +30177,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposDeleteAdminBranchProtectionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposDeleteAdminBranchProtection(input, ctx)
+      const { status, body } = await implementation
+        .reposDeleteAdminBranchProtection(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDeleteAdminBranchProtectionResponseValidator(status, body)
       ctx.status = status
@@ -28327,13 +30215,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetPullRequestReviewProtectionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposGetPullRequestReviewProtection(input, ctx)
+      const { status, body } = await implementation
+        .reposGetPullRequestReviewProtection(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetPullRequestReviewProtectionResponseValidator(
         status,
@@ -28390,16 +30282,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposUpdatePullRequestReviewProtectionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposUpdatePullRequestReviewProtectionBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reposUpdatePullRequestReviewProtection(input, ctx)
+      const { status, body } = await implementation
+        .reposUpdatePullRequestReviewProtection(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposUpdatePullRequestReviewProtectionResponseValidator(
         status,
@@ -28433,13 +30330,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposDeletePullRequestReviewProtectionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposDeletePullRequestReviewProtection(input, ctx)
+      const { status, body } = await implementation
+        .reposDeletePullRequestReviewProtection(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDeletePullRequestReviewProtectionResponseValidator(
         status,
@@ -28473,13 +30374,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetCommitSignatureProtectionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposGetCommitSignatureProtection(input, ctx)
+      const { status, body } = await implementation
+        .reposGetCommitSignatureProtection(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetCommitSignatureProtectionResponseValidator(
         status,
@@ -28513,13 +30418,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposCreateCommitSignatureProtectionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposCreateCommitSignatureProtection(input, ctx)
+      const { status, body } = await implementation
+        .reposCreateCommitSignatureProtection(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreateCommitSignatureProtectionResponseValidator(
         status,
@@ -28553,13 +30462,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposDeleteCommitSignatureProtectionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposDeleteCommitSignatureProtection(input, ctx)
+      const { status, body } = await implementation
+        .reposDeleteCommitSignatureProtection(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDeleteCommitSignatureProtectionResponseValidator(
         status,
@@ -28593,13 +30506,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetStatusChecksProtectionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposGetStatusChecksProtection(input, ctx)
+      const { status, body } = await implementation
+        .reposGetStatusChecksProtection(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetStatusChecksProtectionResponseValidator(status, body)
       ctx.status = status
@@ -28646,16 +30563,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposUpdateStatusCheckProtectionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposUpdateStatusCheckProtectionBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reposUpdateStatusCheckProtection(input, ctx)
+      const { status, body } = await implementation
+        .reposUpdateStatusCheckProtection(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposUpdateStatusCheckProtectionResponseValidator(status, body)
       ctx.status = status
@@ -28680,13 +30602,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposRemoveStatusCheckProtectionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposRemoveStatusCheckProtection(input, ctx)
+      const { status, body } = await implementation
+        .reposRemoveStatusCheckProtection(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposRemoveStatusCheckProtectionResponseValidator(status, body)
       ctx.status = status
@@ -28717,13 +30643,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetAllStatusCheckContextsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposGetAllStatusCheckContexts(input, ctx)
+      const { status, body } = await implementation
+        .reposGetAllStatusCheckContexts(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetAllStatusCheckContextsResponseValidator(status, body)
       ctx.status = status
@@ -28760,18 +30690,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposAddStatusCheckContextsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposAddStatusCheckContextsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposAddStatusCheckContexts(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposAddStatusCheckContexts(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposAddStatusCheckContextsResponseValidator(status, body)
       ctx.status = status
@@ -28807,18 +30740,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposSetStatusCheckContextsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposSetStatusCheckContextsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposSetStatusCheckContexts(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposSetStatusCheckContexts(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposSetStatusCheckContextsResponseValidator(status, body)
       ctx.status = status
@@ -28855,16 +30791,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposRemoveStatusCheckContextsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposRemoveStatusCheckContextsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reposRemoveStatusCheckContexts(input, ctx)
+      const { status, body } = await implementation
+        .reposRemoveStatusCheckContexts(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposRemoveStatusCheckContextsResponseValidator(status, body)
       ctx.status = status
@@ -28894,15 +30835,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetAccessRestrictionsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetAccessRestrictions(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetAccessRestrictions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetAccessRestrictionsResponseValidator(status, body)
       ctx.status = status
@@ -28927,13 +30870,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposDeleteAccessRestrictionsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposDeleteAccessRestrictions(input, ctx)
+      const { status, body } = await implementation
+        .reposDeleteAccessRestrictions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDeleteAccessRestrictionsResponseValidator(status, body)
       ctx.status = status
@@ -28964,13 +30911,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetAppsWithAccessToProtectedBranchParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposGetAppsWithAccessToProtectedBranch(input, ctx)
+      const { status, body } = await implementation
+        .reposGetAppsWithAccessToProtectedBranch(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetAppsWithAccessToProtectedBranchResponseValidator(
         status,
@@ -29008,16 +30959,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposAddAppAccessRestrictionsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposAddAppAccessRestrictionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reposAddAppAccessRestrictions(input, ctx)
+      const { status, body } = await implementation
+        .reposAddAppAccessRestrictions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposAddAppAccessRestrictionsResponseValidator(status, body)
       ctx.status = status
@@ -29052,16 +31008,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposSetAppAccessRestrictionsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposSetAppAccessRestrictionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reposSetAppAccessRestrictions(input, ctx)
+      const { status, body } = await implementation
+        .reposSetAppAccessRestrictions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposSetAppAccessRestrictionsResponseValidator(status, body)
       ctx.status = status
@@ -29097,16 +31058,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposRemoveAppAccessRestrictionsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposRemoveAppAccessRestrictionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reposRemoveAppAccessRestrictions(input, ctx)
+      const { status, body } = await implementation
+        .reposRemoveAppAccessRestrictions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposRemoveAppAccessRestrictionsResponseValidator(status, body)
       ctx.status = status
@@ -29137,16 +31103,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetTeamsWithAccessToProtectedBranchParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposGetTeamsWithAccessToProtectedBranch(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .reposGetTeamsWithAccessToProtectedBranch(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetTeamsWithAccessToProtectedBranchResponseValidator(
         status,
@@ -29184,16 +31151,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposAddTeamAccessRestrictionsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposAddTeamAccessRestrictionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reposAddTeamAccessRestrictions(input, ctx)
+      const { status, body } = await implementation
+        .reposAddTeamAccessRestrictions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposAddTeamAccessRestrictionsResponseValidator(status, body)
       ctx.status = status
@@ -29228,16 +31200,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposSetTeamAccessRestrictionsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposSetTeamAccessRestrictionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reposSetTeamAccessRestrictions(input, ctx)
+      const { status, body } = await implementation
+        .reposSetTeamAccessRestrictions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposSetTeamAccessRestrictionsResponseValidator(status, body)
       ctx.status = status
@@ -29273,16 +31250,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposRemoveTeamAccessRestrictionsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposRemoveTeamAccessRestrictionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reposRemoveTeamAccessRestrictions(input, ctx)
+      const { status, body } = await implementation
+        .reposRemoveTeamAccessRestrictions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposRemoveTeamAccessRestrictionsResponseValidator(
         status,
@@ -29316,16 +31298,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetUsersWithAccessToProtectedBranchParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposGetUsersWithAccessToProtectedBranch(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .reposGetUsersWithAccessToProtectedBranch(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetUsersWithAccessToProtectedBranchResponseValidator(
         status,
@@ -29363,16 +31346,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposAddUserAccessRestrictionsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposAddUserAccessRestrictionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reposAddUserAccessRestrictions(input, ctx)
+      const { status, body } = await implementation
+        .reposAddUserAccessRestrictions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposAddUserAccessRestrictionsResponseValidator(status, body)
       ctx.status = status
@@ -29407,16 +31395,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposSetUserAccessRestrictionsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposSetUserAccessRestrictionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reposSetUserAccessRestrictions(input, ctx)
+      const { status, body } = await implementation
+        .reposSetUserAccessRestrictions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposSetUserAccessRestrictionsResponseValidator(status, body)
       ctx.status = status
@@ -29452,16 +31445,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposRemoveUserAccessRestrictionsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposRemoveUserAccessRestrictionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reposRemoveUserAccessRestrictions(input, ctx)
+      const { status, body } = await implementation
+        .reposRemoveUserAccessRestrictions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposRemoveUserAccessRestrictionsResponseValidator(
         status,
@@ -29495,15 +31493,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/branches/:branch/rename",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposRenameBranchParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposRenameBranchParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(reposRenameBranchBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          reposRenameBranchBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.reposRenameBranch(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposRenameBranch(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposRenameBranchResponseValidator(status, body)
       ctx.status = status
@@ -29531,12 +31538,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/check-runs",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(checksCreateParamSchema, ctx.params),
+        params: parseRequestInput(
+          checksCreateParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(checksCreateBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          checksCreateBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.checksCreate(input, ctx)
+      const { status, body } = await implementation
+        .checksCreate(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = checksCreateResponseValidator(status, body)
       ctx.status = status
@@ -29560,12 +31579,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/check-runs/:checkRunId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(checksGetParamSchema, ctx.params),
+        params: parseRequestInput(
+          checksGetParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.checksGet(input, ctx)
+      const { status, body } = await implementation
+        .checksGet(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = checksGetResponseValidator(status, body)
       ctx.status = status
@@ -29650,12 +31677,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/check-runs/:checkRunId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(checksUpdateParamSchema, ctx.params),
+        params: parseRequestInput(
+          checksUpdateParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(checksUpdateBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          checksUpdateBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.checksUpdate(input, ctx)
+      const { status, body } = await implementation
+        .checksUpdate(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = checksUpdateResponseValidator(status, body)
       ctx.status = status
@@ -29684,15 +31723,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/check-runs/:checkRunId/annotations",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(checksListAnnotationsParamSchema, ctx.params),
-        query: parseRequestInput(checksListAnnotationsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          checksListAnnotationsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          checksListAnnotationsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.checksListAnnotations(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .checksListAnnotations(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = checksListAnnotationsResponseValidator(status, body)
       ctx.status = status
@@ -29721,15 +31769,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/check-runs/:checkRunId/rerequest",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(checksRerequestRunParamSchema, ctx.params),
+        params: parseRequestInput(
+          checksRerequestRunParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.checksRerequestRun(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .checksRerequestRun(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = checksRerequestRunResponseValidator(status, body)
       ctx.status = status
@@ -29757,15 +31810,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/check-suites",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(checksCreateSuiteParamSchema, ctx.params),
+        params: parseRequestInput(
+          checksCreateSuiteParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(checksCreateSuiteBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          checksCreateSuiteBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.checksCreateSuite(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .checksCreateSuite(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = checksCreateSuiteResponseValidator(status, body)
       ctx.status = status
@@ -29799,18 +31861,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           checksSetSuitesPreferencesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           checksSetSuitesPreferencesBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.checksSetSuitesPreferences(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .checksSetSuitesPreferences(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = checksSetSuitesPreferencesResponseValidator(status, body)
       ctx.status = status
@@ -29834,12 +31899,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/check-suites/:checkSuiteId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(checksGetSuiteParamSchema, ctx.params),
+        params: parseRequestInput(
+          checksGetSuiteParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.checksGetSuite(input, ctx)
+      const { status, body } = await implementation
+        .checksGetSuite(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = checksGetSuiteResponseValidator(status, body)
       ctx.status = status
@@ -29879,15 +31952,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/check-suites/:checkSuiteId/check-runs",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(checksListForSuiteParamSchema, ctx.params),
-        query: parseRequestInput(checksListForSuiteQuerySchema, ctx.query),
+        params: parseRequestInput(
+          checksListForSuiteParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          checksListForSuiteQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.checksListForSuite(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .checksListForSuite(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = checksListForSuiteResponseValidator(status, body)
       ctx.status = status
@@ -29911,15 +31993,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/check-suites/:checkSuiteId/rerequest",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(checksRerequestSuiteParamSchema, ctx.params),
+        params: parseRequestInput(
+          checksRerequestSuiteParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.checksRerequestSuite(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .checksRerequestSuite(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = checksRerequestSuiteResponseValidator(status, body)
       ctx.status = status
@@ -29971,16 +32058,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codeScanningListAlertsForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           codeScanningListAlertsForRepoQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codeScanningListAlertsForRepo(input, ctx)
+      const { status, body } = await implementation
+        .codeScanningListAlertsForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codeScanningListAlertsForRepoResponseValidator(status, body)
       ctx.status = status
@@ -30017,15 +32109,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/code-scanning/alerts/:alertNumber",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(codeScanningGetAlertParamSchema, ctx.params),
+        params: parseRequestInput(
+          codeScanningGetAlertParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.codeScanningGetAlert(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .codeScanningGetAlert(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codeScanningGetAlertResponseValidator(status, body)
       ctx.status = status
@@ -30070,18 +32167,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codeScanningUpdateAlertParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           codeScanningUpdateAlertBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.codeScanningUpdateAlert(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .codeScanningUpdateAlert(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codeScanningUpdateAlertResponseValidator(status, body)
       ctx.status = status
@@ -30127,16 +32227,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codeScanningListAlertInstancesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           codeScanningListAlertInstancesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codeScanningListAlertInstances(input, ctx)
+      const { status, body } = await implementation
+        .codeScanningListAlertInstances(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codeScanningListAlertInstancesResponseValidator(status, body)
       ctx.status = status
@@ -30186,16 +32291,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codeScanningListRecentAnalysesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           codeScanningListRecentAnalysesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codeScanningListRecentAnalyses(input, ctx)
+      const { status, body } = await implementation
+        .codeScanningListRecentAnalyses(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codeScanningListRecentAnalysesResponseValidator(status, body)
       ctx.status = status
@@ -30234,15 +32344,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codeScanningGetAnalysisParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.codeScanningGetAnalysis(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .codeScanningGetAnalysis(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codeScanningGetAnalysisResponseValidator(status, body)
       ctx.status = status
@@ -30286,18 +32398,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codeScanningDeleteAnalysisParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           codeScanningDeleteAnalysisQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.codeScanningDeleteAnalysis(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .codeScanningDeleteAnalysis(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codeScanningDeleteAnalysisResponseValidator(status, body)
       ctx.status = status
@@ -30336,13 +32451,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codeScanningListCodeqlDatabasesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codeScanningListCodeqlDatabases(input, ctx)
+      const { status, body } = await implementation
+        .codeScanningListCodeqlDatabases(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codeScanningListCodeqlDatabasesResponseValidator(status, body)
       ctx.status = status
@@ -30383,13 +32502,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codeScanningGetCodeqlDatabaseParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codeScanningGetCodeqlDatabase(input, ctx)
+      const { status, body } = await implementation
+        .codeScanningGetCodeqlDatabase(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codeScanningGetCodeqlDatabaseResponseValidator(status, body)
       ctx.status = status
@@ -30428,15 +32551,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codeScanningGetDefaultSetupParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.codeScanningGetDefaultSetup(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .codeScanningGetDefaultSetup(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codeScanningGetDefaultSetupResponseValidator(status, body)
       ctx.status = status
@@ -30480,16 +32605,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codeScanningUpdateDefaultSetupParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           codeScanningUpdateDefaultSetupBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.codeScanningUpdateDefaultSetup(input, ctx)
+      const { status, body } = await implementation
+        .codeScanningUpdateDefaultSetup(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codeScanningUpdateDefaultSetupResponseValidator(status, body)
       ctx.status = status
@@ -30539,18 +32669,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codeScanningUploadSarifParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           codeScanningUploadSarifBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.codeScanningUploadSarif(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .codeScanningUploadSarif(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codeScanningUploadSarifResponseValidator(status, body)
       ctx.status = status
@@ -30586,15 +32719,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/code-scanning/sarifs/:sarifId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(codeScanningGetSarifParamSchema, ctx.params),
+        params: parseRequestInput(
+          codeScanningGetSarifParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.codeScanningGetSarif(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .codeScanningGetSarif(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codeScanningGetSarifResponseValidator(status, body)
       ctx.status = status
@@ -30624,15 +32762,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/codeowners/errors",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposCodeownersErrorsParamSchema, ctx.params),
-        query: parseRequestInput(reposCodeownersErrorsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposCodeownersErrorsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposCodeownersErrorsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposCodeownersErrors(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposCodeownersErrors(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCodeownersErrorsResponseValidator(status, body)
       ctx.status = status
@@ -30676,19 +32823,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesListInRepositoryForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           codespacesListInRepositoryForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesListInRepositoryForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .codespacesListInRepositoryForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         codespacesListInRepositoryForAuthenticatedUserResponseValidator(
@@ -30752,19 +32901,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesCreateWithRepoForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesCreateWithRepoForAuthenticatedUserBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.codespacesCreateWithRepoForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .codespacesCreateWithRepoForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesCreateWithRepoForAuthenticatedUserResponseValidator(
         status,
@@ -30817,19 +32968,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesListDevcontainersInRepositoryForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           codespacesListDevcontainersInRepositoryForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesListDevcontainersInRepositoryForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .codespacesListDevcontainersInRepositoryForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         codespacesListDevcontainersInRepositoryForAuthenticatedUserResponseValidator(
@@ -30879,19 +33032,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesRepoMachinesForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           codespacesRepoMachinesForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesRepoMachinesForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .codespacesRepoMachinesForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesRepoMachinesForAuthenticatedUserResponseValidator(
         status,
@@ -30942,19 +33097,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesPreFlightWithRepoForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           codespacesPreFlightWithRepoForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesPreFlightWithRepoForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .codespacesPreFlightWithRepoForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         codespacesPreFlightWithRepoForAuthenticatedUserResponseValidator(
@@ -30997,18 +33154,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesListRepoSecretsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           codespacesListRepoSecretsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.codespacesListRepoSecrets(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .codespacesListRepoSecrets(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesListRepoSecretsResponseValidator(status, body)
       ctx.status = status
@@ -31034,15 +33194,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesGetRepoPublicKeyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.codespacesGetRepoPublicKey(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .codespacesGetRepoPublicKey(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesGetRepoPublicKeyResponseValidator(status, body)
       ctx.status = status
@@ -31069,15 +33231,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesGetRepoSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.codespacesGetRepoSecret(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .codespacesGetRepoSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesGetRepoSecretResponseValidator(status, body)
       ctx.status = status
@@ -31113,16 +33277,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesCreateOrUpdateRepoSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesCreateOrUpdateRepoSecretBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.codespacesCreateOrUpdateRepoSecret(input, ctx)
+      const { status, body } = await implementation
+        .codespacesCreateOrUpdateRepoSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesCreateOrUpdateRepoSecretResponseValidator(
         status,
@@ -31152,15 +33321,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesDeleteRepoSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.codespacesDeleteRepoSecret(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .codespacesDeleteRepoSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesDeleteRepoSecretResponseValidator(status, body)
       ctx.status = status
@@ -31198,15 +33369,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposListCollaboratorsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(reposListCollaboratorsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          reposListCollaboratorsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposListCollaborators(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposListCollaborators(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListCollaboratorsResponseValidator(status, body)
       ctx.status = status
@@ -31236,15 +33413,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposCheckCollaboratorParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposCheckCollaborator(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposCheckCollaborator(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCheckCollaboratorResponseValidator(status, body)
       ctx.status = status
@@ -31277,18 +33456,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/collaborators/:username",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposAddCollaboratorParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposAddCollaboratorParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           reposAddCollaboratorBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposAddCollaborator(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposAddCollaborator(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposAddCollaboratorResponseValidator(status, body)
       ctx.status = status
@@ -31319,15 +33504,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposRemoveCollaboratorParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposRemoveCollaborator(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposRemoveCollaborator(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposRemoveCollaboratorResponseValidator(status, body)
       ctx.status = status
@@ -31358,13 +33545,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetCollaboratorPermissionLevelParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposGetCollaboratorPermissionLevel(input, ctx)
+      const { status, body } = await implementation
+        .reposGetCollaboratorPermissionLevel(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetCollaboratorPermissionLevelResponseValidator(
         status,
@@ -31396,16 +33587,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposListCommitCommentsForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           reposListCommitCommentsForRepoQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposListCommitCommentsForRepo(input, ctx)
+      const { status, body } = await implementation
+        .reposListCommitCommentsForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListCommitCommentsForRepoResponseValidator(status, body)
       ctx.status = status
@@ -31432,15 +33628,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/comments/:commentId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetCommitCommentParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposGetCommitCommentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetCommitComment(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetCommitComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetCommitCommentResponseValidator(status, body)
       ctx.status = status
@@ -31472,18 +33673,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposUpdateCommitCommentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposUpdateCommitCommentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposUpdateCommitComment(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposUpdateCommitComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposUpdateCommitCommentResponseValidator(status, body)
       ctx.status = status
@@ -31513,15 +33717,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposDeleteCommitCommentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposDeleteCommitComment(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposDeleteCommitComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDeleteCommitCommentResponseValidator(status, body)
       ctx.status = status
@@ -31569,16 +33775,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsListForCommitCommentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           reactionsListForCommitCommentQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reactionsListForCommitComment(input, ctx)
+      const { status, body } = await implementation
+        .reactionsListForCommitComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsListForCommitCommentResponseValidator(status, body)
       ctx.status = status
@@ -31623,16 +33834,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsCreateForCommitCommentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForCommitCommentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reactionsCreateForCommitComment(input, ctx)
+      const { status, body } = await implementation
+        .reactionsCreateForCommitComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsCreateForCommitCommentResponseValidator(status, body)
       ctx.status = status
@@ -31658,13 +33874,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsDeleteForCommitCommentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reactionsDeleteForCommitComment(input, ctx)
+      const { status, body } = await implementation
+        .reactionsDeleteForCommitComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsDeleteForCommitCommentResponseValidator(status, body)
       ctx.status = status
@@ -31704,12 +33924,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/commits",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposListCommitsParamSchema, ctx.params),
-        query: parseRequestInput(reposListCommitsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposListCommitsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposListCommitsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposListCommits(input, ctx)
+      const { status, body } = await implementation
+        .reposListCommits(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListCommitsResponseValidator(status, body)
       ctx.status = status
@@ -31740,13 +33972,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposListBranchesForHeadCommitParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposListBranchesForHeadCommit(input, ctx)
+      const { status, body } = await implementation
+        .reposListBranchesForHeadCommit(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListBranchesForHeadCommitResponseValidator(status, body)
       ctx.status = status
@@ -31778,18 +34014,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposListCommentsForCommitParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           reposListCommentsForCommitQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposListCommentsForCommit(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposListCommentsForCommit(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListCommentsForCommitResponseValidator(status, body)
       ctx.status = status
@@ -31827,18 +34066,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposCreateCommitCommentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateCommitCommentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposCreateCommitComment(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposCreateCommitComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreateCommitCommentResponseValidator(status, body)
       ctx.status = status
@@ -31871,19 +34113,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposListPullRequestsAssociatedWithCommitParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           reposListPullRequestsAssociatedWithCommitQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposListPullRequestsAssociatedWithCommit(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .reposListPullRequestsAssociatedWithCommit(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListPullRequestsAssociatedWithCommitResponseValidator(
         status,
@@ -31928,12 +34172,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/commits/:ref",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetCommitParamSchema, ctx.params),
-        query: parseRequestInput(reposGetCommitQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposGetCommitParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposGetCommitQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetCommit(input, ctx)
+      const { status, body } = await implementation
+        .reposGetCommit(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetCommitResponseValidator(status, body)
       ctx.status = status
@@ -31974,12 +34230,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/commits/:ref/check-runs",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(checksListForRefParamSchema, ctx.params),
-        query: parseRequestInput(checksListForRefQuerySchema, ctx.query),
+        params: parseRequestInput(
+          checksListForRefParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          checksListForRefQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.checksListForRef(input, ctx)
+      const { status, body } = await implementation
+        .checksListForRef(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = checksListForRefResponseValidator(status, body)
       ctx.status = status
@@ -32021,15 +34289,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           checksListSuitesForRefParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(checksListSuitesForRefQuerySchema, ctx.query),
+        query: parseRequestInput(
+          checksListSuitesForRefQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.checksListSuitesForRef(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .checksListSuitesForRef(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = checksListSuitesForRefResponseValidator(status, body)
       ctx.status = status
@@ -32065,16 +34339,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetCombinedStatusForRefParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           reposGetCombinedStatusForRefQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposGetCombinedStatusForRef(input, ctx)
+      const { status, body } = await implementation
+        .reposGetCombinedStatusForRef(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetCombinedStatusForRefResponseValidator(status, body)
       ctx.status = status
@@ -32110,16 +34389,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposListCommitStatusesForRefParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           reposListCommitStatusesForRefQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposListCommitStatusesForRef(input, ctx)
+      const { status, body } = await implementation
+        .reposListCommitStatusesForRef(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListCommitStatusesForRefResponseValidator(status, body)
       ctx.status = status
@@ -32143,13 +34427,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetCommunityProfileMetricsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposGetCommunityProfileMetrics(input, ctx)
+      const { status, body } = await implementation
+        .reposGetCommunityProfileMetrics(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetCommunityProfileMetricsResponseValidator(status, body)
       ctx.status = status
@@ -32190,15 +34478,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/compare/:basehead",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposCompareCommitsParamSchema, ctx.params),
-        query: parseRequestInput(reposCompareCommitsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposCompareCommitsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposCompareCommitsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposCompareCommits(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposCompareCommits(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCompareCommitsResponseValidator(status, body)
       ctx.status = status
@@ -32237,12 +34534,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/contents/:path",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetContentParamSchema, ctx.params),
-        query: parseRequestInput(reposGetContentQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposGetContentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposGetContentQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetContent(input, ctx)
+      const { status, body } = await implementation
+        .reposGetContent(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetContentResponseValidator(status, body)
       ctx.status = status
@@ -32297,16 +34606,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposCreateOrUpdateFileContentsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateOrUpdateFileContentsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reposCreateOrUpdateFileContents(input, ctx)
+      const { status, body } = await implementation
+        .reposCreateOrUpdateFileContents(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreateOrUpdateFileContentsResponseValidator(status, body)
       ctx.status = status
@@ -32355,12 +34669,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/contents/:path",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposDeleteFileParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposDeleteFileParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(reposDeleteFileBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          reposDeleteFileBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.reposDeleteFile(input, ctx)
+      const { status, body } = await implementation
+        .reposDeleteFile(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDeleteFileResponseValidator(status, body)
       ctx.status = status
@@ -32394,15 +34720,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/contributors",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposListContributorsParamSchema, ctx.params),
-        query: parseRequestInput(reposListContributorsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposListContributorsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposListContributorsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposListContributors(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposListContributors(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListContributorsResponseValidator(status, body)
       ctx.status = status
@@ -32453,18 +34788,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           dependabotListAlertsForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           dependabotListAlertsForRepoQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.dependabotListAlertsForRepo(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .dependabotListAlertsForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependabotListAlertsForRepoResponseValidator(status, body)
       ctx.status = status
@@ -32493,15 +34831,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/dependabot/alerts/:alertNumber",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(dependabotGetAlertParamSchema, ctx.params),
+        params: parseRequestInput(
+          dependabotGetAlertParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.dependabotGetAlert(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .dependabotGetAlert(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependabotGetAlertResponseValidator(status, body)
       ctx.status = status
@@ -32546,18 +34889,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/dependabot/alerts/:alertNumber",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(dependabotUpdateAlertParamSchema, ctx.params),
+        params: parseRequestInput(
+          dependabotUpdateAlertParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           dependabotUpdateAlertBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.dependabotUpdateAlert(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .dependabotUpdateAlert(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependabotUpdateAlertResponseValidator(status, body)
       ctx.status = status
@@ -32596,18 +34945,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           dependabotListRepoSecretsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           dependabotListRepoSecretsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.dependabotListRepoSecrets(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .dependabotListRepoSecrets(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependabotListRepoSecretsResponseValidator(status, body)
       ctx.status = status
@@ -32633,15 +34985,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           dependabotGetRepoPublicKeyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.dependabotGetRepoPublicKey(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .dependabotGetRepoPublicKey(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependabotGetRepoPublicKeyResponseValidator(status, body)
       ctx.status = status
@@ -32668,15 +35022,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           dependabotGetRepoSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.dependabotGetRepoSecret(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .dependabotGetRepoSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependabotGetRepoSecretResponseValidator(status, body)
       ctx.status = status
@@ -32712,16 +35068,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           dependabotCreateOrUpdateRepoSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           dependabotCreateOrUpdateRepoSecretBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.dependabotCreateOrUpdateRepoSecret(input, ctx)
+      const { status, body } = await implementation
+        .dependabotCreateOrUpdateRepoSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependabotCreateOrUpdateRepoSecretResponseValidator(
         status,
@@ -32751,15 +35112,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           dependabotDeleteRepoSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.dependabotDeleteRepoSecret(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .dependabotDeleteRepoSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependabotDeleteRepoSecretResponseValidator(status, body)
       ctx.status = status
@@ -32794,18 +35157,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           dependencyGraphDiffRangeParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           dependencyGraphDiffRangeQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.dependencyGraphDiffRange(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .dependencyGraphDiffRange(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependencyGraphDiffRangeResponseValidator(status, body)
       ctx.status = status
@@ -32835,15 +35201,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           dependencyGraphExportSbomParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.dependencyGraphExportSbom(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .dependencyGraphExportSbom(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependencyGraphExportSbomResponseValidator(status, body)
       ctx.status = status
@@ -32882,16 +35250,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           dependencyGraphCreateRepositorySnapshotParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           dependencyGraphCreateRepositorySnapshotBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.dependencyGraphCreateRepositorySnapshot(input, ctx)
+      const { status, body } = await implementation
+        .dependencyGraphCreateRepositorySnapshot(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = dependencyGraphCreateRepositorySnapshotResponseValidator(
         status,
@@ -32926,15 +35299,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/deployments",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposListDeploymentsParamSchema, ctx.params),
-        query: parseRequestInput(reposListDeploymentsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposListDeploymentsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposListDeploymentsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposListDeployments(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposListDeployments(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListDeploymentsResponseValidator(status, body)
       ctx.status = status
@@ -32974,18 +35356,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/deployments",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposCreateDeploymentParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposCreateDeploymentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           reposCreateDeploymentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposCreateDeployment(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposCreateDeployment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreateDeploymentResponseValidator(status, body)
       ctx.status = status
@@ -33012,15 +35400,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/deployments/:deploymentId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetDeploymentParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposGetDeploymentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetDeployment(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetDeployment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetDeploymentResponseValidator(status, body)
       ctx.status = status
@@ -33048,15 +35441,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/deployments/:deploymentId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposDeleteDeploymentParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposDeleteDeploymentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposDeleteDeployment(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposDeleteDeployment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDeleteDeploymentResponseValidator(status, body)
       ctx.status = status
@@ -33092,18 +35490,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposListDeploymentStatusesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           reposListDeploymentStatusesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposListDeploymentStatuses(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposListDeploymentStatuses(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListDeploymentStatusesResponseValidator(status, body)
       ctx.status = status
@@ -33152,18 +35553,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposCreateDeploymentStatusParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateDeploymentStatusBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposCreateDeploymentStatus(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposCreateDeploymentStatus(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreateDeploymentStatusResponseValidator(status, body)
       ctx.status = status
@@ -33194,15 +35598,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetDeploymentStatusParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetDeploymentStatus(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetDeploymentStatus(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetDeploymentStatusResponseValidator(status, body)
       ctx.status = status
@@ -33236,18 +35642,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposCreateDispatchEventParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateDispatchEventBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposCreateDispatchEvent(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposCreateDispatchEvent(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreateDispatchEventResponseValidator(status, body)
       ctx.status = status
@@ -33286,15 +35695,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetAllEnvironmentsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(reposGetAllEnvironmentsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          reposGetAllEnvironmentsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetAllEnvironments(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetAllEnvironments(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetAllEnvironmentsResponseValidator(status, body)
       ctx.status = status
@@ -33318,15 +35733,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/environments/:environmentName",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetEnvironmentParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposGetEnvironmentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetEnvironment(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetEnvironment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetEnvironmentResponseValidator(status, body)
       ctx.status = status
@@ -33374,16 +35794,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposCreateOrUpdateEnvironmentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateOrUpdateEnvironmentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reposCreateOrUpdateEnvironment(input, ctx)
+      const { status, body } = await implementation
+        .reposCreateOrUpdateEnvironment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreateOrUpdateEnvironmentResponseValidator(status, body)
       ctx.status = status
@@ -33410,15 +35835,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposDeleteAnEnvironmentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposDeleteAnEnvironment(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposDeleteAnEnvironment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDeleteAnEnvironmentResponseValidator(status, body)
       ctx.status = status
@@ -33459,16 +35886,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposListDeploymentBranchPoliciesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           reposListDeploymentBranchPoliciesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposListDeploymentBranchPolicies(input, ctx)
+      const { status, body } = await implementation
+        .reposListDeploymentBranchPolicies(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListDeploymentBranchPoliciesResponseValidator(
         status,
@@ -33506,16 +35938,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposCreateDeploymentBranchPolicyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateDeploymentBranchPolicyBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reposCreateDeploymentBranchPolicy(input, ctx)
+      const { status, body } = await implementation
+        .reposCreateDeploymentBranchPolicy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreateDeploymentBranchPolicyResponseValidator(
         status,
@@ -33544,13 +35981,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetDeploymentBranchPolicyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposGetDeploymentBranchPolicy(input, ctx)
+      const { status, body } = await implementation
+        .reposGetDeploymentBranchPolicy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetDeploymentBranchPolicyResponseValidator(status, body)
       ctx.status = status
@@ -33579,16 +36020,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposUpdateDeploymentBranchPolicyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposUpdateDeploymentBranchPolicyBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reposUpdateDeploymentBranchPolicy(input, ctx)
+      const { status, body } = await implementation
+        .reposUpdateDeploymentBranchPolicy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposUpdateDeploymentBranchPolicyResponseValidator(
         status,
@@ -33617,13 +36063,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposDeleteDeploymentBranchPolicyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposDeleteDeploymentBranchPolicy(input, ctx)
+      const { status, body } = await implementation
+        .reposDeleteDeploymentBranchPolicy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDeleteDeploymentBranchPolicyResponseValidator(
         status,
@@ -33664,13 +36114,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetAllDeploymentProtectionRulesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposGetAllDeploymentProtectionRules(input, ctx)
+      const { status, body } = await implementation
+        .reposGetAllDeploymentProtectionRules(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetAllDeploymentProtectionRulesResponseValidator(
         status,
@@ -33705,16 +36159,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposCreateDeploymentProtectionRuleParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateDeploymentProtectionRuleBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reposCreateDeploymentProtectionRule(input, ctx)
+      const { status, body } = await implementation
+        .reposCreateDeploymentProtectionRule(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreateDeploymentProtectionRuleResponseValidator(
         status,
@@ -33760,19 +36219,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposListCustomDeploymentRuleIntegrationsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           reposListCustomDeploymentRuleIntegrationsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposListCustomDeploymentRuleIntegrations(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .reposListCustomDeploymentRuleIntegrations(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListCustomDeploymentRuleIntegrationsResponseValidator(
         status,
@@ -33804,13 +36265,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetCustomDeploymentProtectionRuleParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposGetCustomDeploymentProtectionRule(input, ctx)
+      const { status, body } = await implementation
+        .reposGetCustomDeploymentProtectionRule(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetCustomDeploymentProtectionRuleResponseValidator(
         status,
@@ -33839,13 +36304,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposDisableDeploymentProtectionRuleParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposDisableDeploymentProtectionRule(input, ctx)
+      const { status, body } = await implementation
+        .reposDisableDeploymentProtectionRule(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDisableDeploymentProtectionRuleResponseValidator(
         status,
@@ -33879,15 +36348,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityListRepoEventsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(activityListRepoEventsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          activityListRepoEventsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.activityListRepoEvents(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .activityListRepoEvents(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityListRepoEventsResponseValidator(status, body)
       ctx.status = status
@@ -33919,12 +36394,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/forks",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposListForksParamSchema, ctx.params),
-        query: parseRequestInput(reposListForksQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposListForksParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposListForksQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposListForks(input, ctx)
+      const { status, body } = await implementation
+        .reposListForks(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListForksResponseValidator(status, body)
       ctx.status = status
@@ -33962,12 +36449,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/forks",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposCreateForkParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposCreateForkParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(reposCreateForkBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          reposCreateForkBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.reposCreateFork(input, ctx)
+      const { status, body } = await implementation
+        .reposCreateFork(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreateForkResponseValidator(status, body)
       ctx.status = status
@@ -34001,12 +36500,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/git/blobs",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gitCreateBlobParamSchema, ctx.params),
+        params: parseRequestInput(
+          gitCreateBlobParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(gitCreateBlobBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          gitCreateBlobBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.gitCreateBlob(input, ctx)
+      const { status, body } = await implementation
+        .gitCreateBlob(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gitCreateBlobResponseValidator(status, body)
       ctx.status = status
@@ -34035,12 +36546,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/git/blobs/:fileSha",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gitGetBlobParamSchema, ctx.params),
+        params: parseRequestInput(
+          gitGetBlobParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.gitGetBlob(input, ctx)
+      const { status, body } = await implementation
+        .gitGetBlob(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gitGetBlobResponseValidator(status, body)
       ctx.status = status
@@ -34088,12 +36607,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/git/commits",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gitCreateCommitParamSchema, ctx.params),
+        params: parseRequestInput(
+          gitCreateCommitParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(gitCreateCommitBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          gitCreateCommitBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.gitCreateCommit(input, ctx)
+      const { status, body } = await implementation
+        .gitCreateCommit(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gitCreateCommitResponseValidator(status, body)
       ctx.status = status
@@ -34120,12 +36651,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/git/commits/:commitSha",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gitGetCommitParamSchema, ctx.params),
+        params: parseRequestInput(
+          gitGetCommitParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.gitGetCommit(input, ctx)
+      const { status, body } = await implementation
+        .gitGetCommit(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gitGetCommitResponseValidator(status, body)
       ctx.status = status
@@ -34149,15 +36688,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/git/matching-refs/:ref",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gitListMatchingRefsParamSchema, ctx.params),
+        params: parseRequestInput(
+          gitListMatchingRefsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.gitListMatchingRefs(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .gitListMatchingRefs(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gitListMatchingRefsResponseValidator(status, body)
       ctx.status = status
@@ -34184,12 +36728,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/git/ref/:ref",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gitGetRefParamSchema, ctx.params),
+        params: parseRequestInput(
+          gitGetRefParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.gitGetRef(input, ctx)
+      const { status, body } = await implementation
+        .gitGetRef(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gitGetRefResponseValidator(status, body)
       ctx.status = status
@@ -34217,12 +36769,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/git/refs",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gitCreateRefParamSchema, ctx.params),
+        params: parseRequestInput(
+          gitCreateRefParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(gitCreateRefBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          gitCreateRefBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.gitCreateRef(input, ctx)
+      const { status, body } = await implementation
+        .gitCreateRef(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gitCreateRefResponseValidator(status, body)
       ctx.status = status
@@ -34254,12 +36818,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/git/refs/:ref",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gitUpdateRefParamSchema, ctx.params),
+        params: parseRequestInput(
+          gitUpdateRefParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(gitUpdateRefBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          gitUpdateRefBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.gitUpdateRef(input, ctx)
+      const { status, body } = await implementation
+        .gitUpdateRef(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gitUpdateRefResponseValidator(status, body)
       ctx.status = status
@@ -34286,12 +36862,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/git/refs/:ref",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gitDeleteRefParamSchema, ctx.params),
+        params: parseRequestInput(
+          gitDeleteRefParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.gitDeleteRef(input, ctx)
+      const { status, body } = await implementation
+        .gitDeleteRef(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gitDeleteRefResponseValidator(status, body)
       ctx.status = status
@@ -34331,12 +36915,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/git/tags",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gitCreateTagParamSchema, ctx.params),
+        params: parseRequestInput(
+          gitCreateTagParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(gitCreateTagBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          gitCreateTagBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.gitCreateTag(input, ctx)
+      const { status, body } = await implementation
+        .gitCreateTag(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gitCreateTagResponseValidator(status, body)
       ctx.status = status
@@ -34363,12 +36959,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/git/tags/:tagSha",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gitGetTagParamSchema, ctx.params),
+        params: parseRequestInput(
+          gitGetTagParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.gitGetTag(input, ctx)
+      const { status, body } = await implementation
+        .gitGetTag(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gitGetTagResponseValidator(status, body)
       ctx.status = status
@@ -34411,12 +37015,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/git/trees",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gitCreateTreeParamSchema, ctx.params),
+        params: parseRequestInput(
+          gitCreateTreeParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(gitCreateTreeBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          gitCreateTreeBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.gitCreateTree(input, ctx)
+      const { status, body } = await implementation
+        .gitCreateTree(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gitCreateTreeResponseValidator(status, body)
       ctx.status = status
@@ -34446,12 +37062,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/git/trees/:treeSha",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gitGetTreeParamSchema, ctx.params),
-        query: parseRequestInput(gitGetTreeQuerySchema, ctx.query),
+        params: parseRequestInput(
+          gitGetTreeParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          gitGetTreeQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.gitGetTree(input, ctx)
+      const { status, body } = await implementation
+        .gitGetTree(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gitGetTreeResponseValidator(status, body)
       ctx.status = status
@@ -34482,15 +37110,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/hooks",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposListWebhooksParamSchema, ctx.params),
-        query: parseRequestInput(reposListWebhooksQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposListWebhooksParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposListWebhooksQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposListWebhooks(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposListWebhooks(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListWebhooksResponseValidator(status, body)
       ctx.status = status
@@ -34537,15 +37174,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/hooks",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposCreateWebhookParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposCreateWebhookParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(reposCreateWebhookBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          reposCreateWebhookBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.reposCreateWebhook(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposCreateWebhook(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreateWebhookResponseValidator(status, body)
       ctx.status = status
@@ -34572,12 +37218,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/hooks/:hookId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetWebhookParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposGetWebhookParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetWebhook(input, ctx)
+      const { status, body } = await implementation
+        .reposGetWebhook(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetWebhookResponseValidator(status, body)
       ctx.status = status
@@ -34622,15 +37276,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/hooks/:hookId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposUpdateWebhookParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposUpdateWebhookParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(reposUpdateWebhookBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          reposUpdateWebhookBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.reposUpdateWebhook(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposUpdateWebhook(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposUpdateWebhookResponseValidator(status, body)
       ctx.status = status
@@ -34657,15 +37320,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/hooks/:hookId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposDeleteWebhookParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposDeleteWebhookParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposDeleteWebhook(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposDeleteWebhook(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDeleteWebhookResponseValidator(status, body)
       ctx.status = status
@@ -34690,13 +37358,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetWebhookConfigForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposGetWebhookConfigForRepo(input, ctx)
+      const { status, body } = await implementation
+        .reposGetWebhookConfigForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetWebhookConfigForRepoResponseValidator(status, body)
       ctx.status = status
@@ -34730,16 +37402,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposUpdateWebhookConfigForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposUpdateWebhookConfigForRepoBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reposUpdateWebhookConfigForRepo(input, ctx)
+      const { status, body } = await implementation
+        .reposUpdateWebhookConfigForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposUpdateWebhookConfigForRepoResponseValidator(status, body)
       ctx.status = status
@@ -34776,18 +37453,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposListWebhookDeliveriesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           reposListWebhookDeliveriesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposListWebhookDeliveries(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposListWebhookDeliveries(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListWebhookDeliveriesResponseValidator(status, body)
       ctx.status = status
@@ -34819,15 +37499,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetWebhookDeliveryParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetWebhookDelivery(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetWebhookDelivery(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetWebhookDeliveryResponseValidator(status, body)
       ctx.status = status
@@ -34860,13 +37542,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposRedeliverWebhookDeliveryParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposRedeliverWebhookDelivery(input, ctx)
+      const { status, body } = await implementation
+        .reposRedeliverWebhookDelivery(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposRedeliverWebhookDeliveryResponseValidator(status, body)
       ctx.status = status
@@ -34893,12 +37579,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/hooks/:hookId/pings",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposPingWebhookParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposPingWebhookParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposPingWebhook(input, ctx)
+      const { status, body } = await implementation
+        .reposPingWebhook(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposPingWebhookResponseValidator(status, body)
       ctx.status = status
@@ -34925,15 +37619,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/hooks/:hookId/tests",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposTestPushWebhookParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposTestPushWebhookParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposTestPushWebhook(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposTestPushWebhook(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposTestPushWebhookResponseValidator(status, body)
       ctx.status = status
@@ -34963,15 +37662,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           migrationsGetImportStatusParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.migrationsGetImportStatus(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .migrationsGetImportStatus(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsGetImportStatusResponseValidator(status, body)
       ctx.status = status
@@ -35007,18 +37708,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/import",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(migrationsStartImportParamSchema, ctx.params),
+        params: parseRequestInput(
+          migrationsStartImportParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           migrationsStartImportBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.migrationsStartImport(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .migrationsStartImport(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsStartImportResponseValidator(status, body)
       ctx.status = status
@@ -35057,18 +37764,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           migrationsUpdateImportParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           migrationsUpdateImportBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.migrationsUpdateImport(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .migrationsUpdateImport(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsUpdateImportResponseValidator(status, body)
       ctx.status = status
@@ -35097,15 +37807,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           migrationsCancelImportParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.migrationsCancelImport(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .migrationsCancelImport(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsCancelImportResponseValidator(status, body)
       ctx.status = status
@@ -35139,18 +37851,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           migrationsGetCommitAuthorsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           migrationsGetCommitAuthorsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.migrationsGetCommitAuthors(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .migrationsGetCommitAuthors(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsGetCommitAuthorsResponseValidator(status, body)
       ctx.status = status
@@ -35186,18 +37901,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           migrationsMapCommitAuthorParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           migrationsMapCommitAuthorBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.migrationsMapCommitAuthor(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .migrationsMapCommitAuthor(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsMapCommitAuthorResponseValidator(status, body)
       ctx.status = status
@@ -35226,15 +37944,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           migrationsGetLargeFilesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.migrationsGetLargeFiles(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .migrationsGetLargeFiles(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsGetLargeFilesResponseValidator(status, body)
       ctx.status = status
@@ -35268,18 +37988,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           migrationsSetLfsPreferenceParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           migrationsSetLfsPreferenceBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.migrationsSetLfsPreference(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .migrationsSetLfsPreference(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsSetLfsPreferenceResponseValidator(status, body)
       ctx.status = status
@@ -35309,15 +38032,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           appsGetRepoInstallationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.appsGetRepoInstallation(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .appsGetRepoInstallation(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsGetRepoInstallationResponseValidator(status, body)
       ctx.status = status
@@ -35344,13 +38069,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           interactionsGetRestrictionsForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.interactionsGetRestrictionsForRepo(input, ctx)
+      const { status, body } = await implementation
+        .interactionsGetRestrictionsForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = interactionsGetRestrictionsForRepoResponseValidator(
         status,
@@ -35385,16 +38114,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           interactionsSetRestrictionsForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           interactionsSetRestrictionsForRepoBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.interactionsSetRestrictionsForRepo(input, ctx)
+      const { status, body } = await implementation
+        .interactionsSetRestrictionsForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = interactionsSetRestrictionsForRepoResponseValidator(
         status,
@@ -35427,13 +38161,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           interactionsRemoveRestrictionsForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.interactionsRemoveRestrictionsForRepo(input, ctx)
+      const { status, body } = await implementation
+        .interactionsRemoveRestrictionsForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = interactionsRemoveRestrictionsForRepoResponseValidator(
         status,
@@ -35464,15 +38202,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/invitations",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposListInvitationsParamSchema, ctx.params),
-        query: parseRequestInput(reposListInvitationsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposListInvitationsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposListInvitationsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposListInvitations(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposListInvitations(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListInvitationsResponseValidator(status, body)
       ctx.status = status
@@ -35504,18 +38251,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/invitations/:invitationId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposUpdateInvitationParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposUpdateInvitationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           reposUpdateInvitationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposUpdateInvitation(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposUpdateInvitation(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposUpdateInvitationResponseValidator(status, body)
       ctx.status = status
@@ -35539,15 +38292,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/invitations/:invitationId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposDeleteInvitationParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposDeleteInvitationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposDeleteInvitation(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposDeleteInvitation(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDeleteInvitationResponseValidator(status, body)
       ctx.status = status
@@ -35589,15 +38347,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/issues",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesListForRepoParamSchema, ctx.params),
-        query: parseRequestInput(issuesListForRepoQuerySchema, ctx.query),
+        params: parseRequestInput(
+          issuesListForRepoParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          issuesListForRepoQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.issuesListForRepo(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesListForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesListForRepoResponseValidator(status, body)
       ctx.status = status
@@ -35656,12 +38423,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/issues",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesCreateParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesCreateParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(issuesCreateBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          issuesCreateBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.issuesCreate(input, ctx)
+      const { status, body } = await implementation
+        .issuesCreate(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesCreateResponseValidator(status, body)
       ctx.status = status
@@ -35699,18 +38478,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           issuesListCommentsForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           issuesListCommentsForRepoQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.issuesListCommentsForRepo(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesListCommentsForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesListCommentsForRepoResponseValidator(status, body)
       ctx.status = status
@@ -35737,12 +38519,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/issues/comments/:commentId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesGetCommentParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesGetCommentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.issuesGetComment(input, ctx)
+      const { status, body } = await implementation
+        .issuesGetComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesGetCommentResponseValidator(status, body)
       ctx.status = status
@@ -35771,18 +38561,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/issues/comments/:commentId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesUpdateCommentParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesUpdateCommentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           issuesUpdateCommentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.issuesUpdateComment(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesUpdateComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesUpdateCommentResponseValidator(status, body)
       ctx.status = status
@@ -35806,15 +38602,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/issues/comments/:commentId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesDeleteCommentParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesDeleteCommentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.issuesDeleteComment(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesDeleteComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesDeleteCommentResponseValidator(status, body)
       ctx.status = status
@@ -35862,16 +38663,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsListForIssueCommentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           reactionsListForIssueCommentQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reactionsListForIssueComment(input, ctx)
+      const { status, body } = await implementation
+        .reactionsListForIssueComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsListForIssueCommentResponseValidator(status, body)
       ctx.status = status
@@ -35916,16 +38722,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsCreateForIssueCommentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForIssueCommentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reactionsCreateForIssueComment(input, ctx)
+      const { status, body } = await implementation
+        .reactionsCreateForIssueComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsCreateForIssueCommentResponseValidator(status, body)
       ctx.status = status
@@ -35951,13 +38762,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsDeleteForIssueCommentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reactionsDeleteForIssueComment(input, ctx)
+      const { status, body } = await implementation
+        .reactionsDeleteForIssueComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsDeleteForIssueCommentResponseValidator(status, body)
       ctx.status = status
@@ -35991,15 +38806,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           issuesListEventsForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(issuesListEventsForRepoQuerySchema, ctx.query),
+        query: parseRequestInput(
+          issuesListEventsForRepoQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.issuesListEventsForRepo(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesListEventsForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesListEventsForRepoResponseValidator(status, body)
       ctx.status = status
@@ -36028,12 +38849,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/issues/events/:eventId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesGetEventParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesGetEventParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.issuesGetEvent(input, ctx)
+      const { status, body } = await implementation
+        .issuesGetEvent(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesGetEventResponseValidator(status, body)
       ctx.status = status
@@ -36063,12 +38892,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/issues/:issueNumber",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesGetParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesGetParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.issuesGet(input, ctx)
+      const { status, body } = await implementation
+        .issuesGet(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesGetResponseValidator(status, body)
       ctx.status = status
@@ -36135,12 +38972,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/issues/:issueNumber",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesUpdateParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesUpdateParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(issuesUpdateBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          issuesUpdateBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.issuesUpdate(input, ctx)
+      const { status, body } = await implementation
+        .issuesUpdate(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesUpdateResponseValidator(status, body)
       ctx.status = status
@@ -36168,15 +39017,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/issues/:issueNumber/assignees",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesAddAssigneesParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesAddAssigneesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(issuesAddAssigneesBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          issuesAddAssigneesBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.issuesAddAssignees(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesAddAssignees(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesAddAssigneesResponseValidator(status, body)
       ctx.status = status
@@ -36204,18 +39062,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/issues/:issueNumber/assignees",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesRemoveAssigneesParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesRemoveAssigneesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           issuesRemoveAssigneesBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.issuesRemoveAssignees(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesRemoveAssignees(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesRemoveAssigneesResponseValidator(status, body)
       ctx.status = status
@@ -36247,13 +39111,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           issuesCheckUserCanBeAssignedToIssueParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.issuesCheckUserCanBeAssignedToIssue(input, ctx)
+      const { status, body } = await implementation
+        .issuesCheckUserCanBeAssignedToIssue(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesCheckUserCanBeAssignedToIssueResponseValidator(
         status,
@@ -36290,15 +39158,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/issues/:issueNumber/comments",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesListCommentsParamSchema, ctx.params),
-        query: parseRequestInput(issuesListCommentsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          issuesListCommentsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          issuesListCommentsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.issuesListComments(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesListComments(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesListCommentsResponseValidator(status, body)
       ctx.status = status
@@ -36330,18 +39207,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/issues/:issueNumber/comments",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesCreateCommentParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesCreateCommentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           issuesCreateCommentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.issuesCreateComment(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesCreateComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesCreateCommentResponseValidator(status, body)
       ctx.status = status
@@ -36373,12 +39256,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/issues/:issueNumber/events",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesListEventsParamSchema, ctx.params),
-        query: parseRequestInput(issuesListEventsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          issuesListEventsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          issuesListEventsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.issuesListEvents(input, ctx)
+      const { status, body } = await implementation
+        .issuesListEvents(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesListEventsResponseValidator(status, body)
       ctx.status = status
@@ -36415,15 +39310,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           issuesListLabelsOnIssueParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(issuesListLabelsOnIssueQuerySchema, ctx.query),
+        query: parseRequestInput(
+          issuesListLabelsOnIssueQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.issuesListLabelsOnIssue(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesListLabelsOnIssue(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesListLabelsOnIssueResponseValidator(status, body)
       ctx.status = status
@@ -36463,12 +39364,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/issues/:issueNumber/labels",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesAddLabelsParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesAddLabelsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(issuesAddLabelsBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          issuesAddLabelsBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.issuesAddLabels(input, ctx)
+      const { status, body } = await implementation
+        .issuesAddLabels(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesAddLabelsResponseValidator(status, body)
       ctx.status = status
@@ -36508,12 +39421,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/issues/:issueNumber/labels",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesSetLabelsParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesSetLabelsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(issuesSetLabelsBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          issuesSetLabelsBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.issuesSetLabels(input, ctx)
+      const { status, body } = await implementation
+        .issuesSetLabels(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesSetLabelsResponseValidator(status, body)
       ctx.status = status
@@ -36542,15 +39467,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/issues/:issueNumber/labels",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesRemoveAllLabelsParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesRemoveAllLabelsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.issuesRemoveAllLabels(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesRemoveAllLabels(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesRemoveAllLabelsResponseValidator(status, body)
       ctx.status = status
@@ -36580,15 +39510,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/issues/:issueNumber/labels/:name",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesRemoveLabelParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesRemoveLabelParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.issuesRemoveLabel(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesRemoveLabel(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesRemoveLabelResponseValidator(status, body)
       ctx.status = status
@@ -36627,12 +39562,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/issues/:issueNumber/lock",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesLockParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesLockParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(issuesLockBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          issuesLockBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.issuesLock(input, ctx)
+      const { status, body } = await implementation
+        .issuesLock(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesLockResponseValidator(status, body)
       ctx.status = status
@@ -36660,12 +39607,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/issues/:issueNumber/lock",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesUnlockParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesUnlockParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.issuesUnlock(input, ctx)
+      const { status, body } = await implementation
+        .issuesUnlock(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesUnlockResponseValidator(status, body)
       ctx.status = status
@@ -36710,15 +39665,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/issues/:issueNumber/reactions",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reactionsListForIssueParamSchema, ctx.params),
-        query: parseRequestInput(reactionsListForIssueQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reactionsListForIssueParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reactionsListForIssueQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reactionsListForIssue(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reactionsListForIssue(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsListForIssueResponseValidator(status, body)
       ctx.status = status
@@ -36762,18 +39726,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsCreateForIssueParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForIssueBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reactionsCreateForIssue(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reactionsCreateForIssue(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsCreateForIssueResponseValidator(status, body)
       ctx.status = status
@@ -36801,15 +39768,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsDeleteForIssueParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reactionsDeleteForIssue(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reactionsDeleteForIssue(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsDeleteForIssueResponseValidator(status, body)
       ctx.status = status
@@ -36846,18 +39815,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           issuesListEventsForTimelineParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           issuesListEventsForTimelineQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.issuesListEventsForTimeline(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesListEventsForTimeline(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesListEventsForTimelineResponseValidator(status, body)
       ctx.status = status
@@ -36885,15 +39857,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/keys",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposListDeployKeysParamSchema, ctx.params),
-        query: parseRequestInput(reposListDeployKeysQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposListDeployKeysParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposListDeployKeysQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposListDeployKeys(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposListDeployKeys(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListDeployKeysResponseValidator(status, body)
       ctx.status = status
@@ -36925,18 +39906,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/keys",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposCreateDeployKeyParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposCreateDeployKeyParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           reposCreateDeployKeyBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposCreateDeployKey(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposCreateDeployKey(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreateDeployKeyResponseValidator(status, body)
       ctx.status = status
@@ -36963,15 +39950,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/keys/:keyId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetDeployKeyParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposGetDeployKeyParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetDeployKey(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetDeployKey(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetDeployKeyResponseValidator(status, body)
       ctx.status = status
@@ -36995,15 +39987,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/keys/:keyId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposDeleteDeployKeyParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposDeleteDeployKeyParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposDeleteDeployKey(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposDeleteDeployKey(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDeleteDeployKeyResponseValidator(status, body)
       ctx.status = status
@@ -37037,15 +40034,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           issuesListLabelsForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(issuesListLabelsForRepoQuerySchema, ctx.query),
+        query: parseRequestInput(
+          issuesListLabelsForRepoQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.issuesListLabelsForRepo(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesListLabelsForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesListLabelsForRepoResponseValidator(status, body)
       ctx.status = status
@@ -37078,15 +40081,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/labels",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesCreateLabelParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesCreateLabelParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(issuesCreateLabelBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          issuesCreateLabelBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.issuesCreateLabel(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesCreateLabel(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesCreateLabelResponseValidator(status, body)
       ctx.status = status
@@ -37113,12 +40125,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/labels/:name",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesGetLabelParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesGetLabelParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.issuesGetLabel(input, ctx)
+      const { status, body } = await implementation
+        .issuesGetLabel(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesGetLabelResponseValidator(status, body)
       ctx.status = status
@@ -37150,15 +40170,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/labels/:name",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesUpdateLabelParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesUpdateLabelParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(issuesUpdateLabelBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          issuesUpdateLabelBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.issuesUpdateLabel(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesUpdateLabel(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesUpdateLabelResponseValidator(status, body)
       ctx.status = status
@@ -37182,15 +40211,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/labels/:name",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesDeleteLabelParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesDeleteLabelParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.issuesDeleteLabel(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesDeleteLabel(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesDeleteLabelResponseValidator(status, body)
       ctx.status = status
@@ -37213,15 +40247,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/languages",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposListLanguagesParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposListLanguagesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposListLanguages(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposListLanguages(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListLanguagesResponseValidator(status, body)
       ctx.status = status
@@ -37244,15 +40283,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/license",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(licensesGetForRepoParamSchema, ctx.params),
+        params: parseRequestInput(
+          licensesGetForRepoParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.licensesGetForRepo(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .licensesGetForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = licensesGetForRepoResponseValidator(status, body)
       ctx.status = status
@@ -37281,15 +40325,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/merge-upstream",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposMergeUpstreamParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposMergeUpstreamParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(reposMergeUpstreamBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          reposMergeUpstreamBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.reposMergeUpstream(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposMergeUpstream(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposMergeUpstreamResponseValidator(status, body)
       ctx.status = status
@@ -37322,12 +40375,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post("reposMerge", "/repos/:owner/:repo/merges", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(reposMergeParamSchema, ctx.params),
+      params: parseRequestInput(
+        reposMergeParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(reposMergeBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        reposMergeBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.reposMerge(input, ctx)
+    const { status, body } = await implementation
+      .reposMerge(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = reposMergeResponseValidator(status, body)
     ctx.status = status
@@ -37360,15 +40425,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/milestones",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesListMilestonesParamSchema, ctx.params),
-        query: parseRequestInput(issuesListMilestonesQuerySchema, ctx.query),
+        params: parseRequestInput(
+          issuesListMilestonesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          issuesListMilestonesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.issuesListMilestones(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesListMilestones(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesListMilestonesResponseValidator(status, body)
       ctx.status = status
@@ -37402,18 +40476,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/milestones",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesCreateMilestoneParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesCreateMilestoneParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           issuesCreateMilestoneBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.issuesCreateMilestone(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesCreateMilestone(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesCreateMilestoneResponseValidator(status, body)
       ctx.status = status
@@ -37440,15 +40520,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/milestones/:milestoneNumber",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesGetMilestoneParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesGetMilestoneParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.issuesGetMilestone(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesGetMilestone(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesGetMilestoneResponseValidator(status, body)
       ctx.status = status
@@ -37481,18 +40566,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/milestones/:milestoneNumber",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesUpdateMilestoneParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesUpdateMilestoneParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           issuesUpdateMilestoneBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.issuesUpdateMilestone(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesUpdateMilestone(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesUpdateMilestoneResponseValidator(status, body)
       ctx.status = status
@@ -37519,15 +40610,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/milestones/:milestoneNumber",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(issuesDeleteMilestoneParamSchema, ctx.params),
+        params: parseRequestInput(
+          issuesDeleteMilestoneParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.issuesDeleteMilestone(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .issuesDeleteMilestone(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesDeleteMilestoneResponseValidator(status, body)
       ctx.status = status
@@ -37557,16 +40653,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           issuesListLabelsForMilestoneParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           issuesListLabelsForMilestoneQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.issuesListLabelsForMilestone(input, ctx)
+      const { status, body } = await implementation
+        .issuesListLabelsForMilestone(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesListLabelsForMilestoneResponseValidator(status, body)
       ctx.status = status
@@ -37600,19 +40701,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityListRepoNotificationsForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           activityListRepoNotificationsForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.activityListRepoNotificationsForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .activityListRepoNotificationsForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         activityListRepoNotificationsForAuthenticatedUserResponseValidator(
@@ -37656,16 +40759,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityMarkRepoNotificationsAsReadParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           activityMarkRepoNotificationsAsReadBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.activityMarkRepoNotificationsAsRead(input, ctx)
+      const { status, body } = await implementation
+        .activityMarkRepoNotificationsAsRead(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityMarkRepoNotificationsAsReadResponseValidator(
         status,
@@ -37694,12 +40802,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/pages",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetPagesParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposGetPagesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetPages(input, ctx)
+      const { status, body } = await implementation
+        .reposGetPages(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetPagesResponseValidator(status, body)
       ctx.status = status
@@ -37735,18 +40851,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/pages",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposCreatePagesSiteParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposCreatePagesSiteParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           reposCreatePagesSiteBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposCreatePagesSite(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposCreatePagesSite(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreatePagesSiteResponseValidator(status, body)
       ctx.status = status
@@ -37790,16 +40912,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposUpdateInformationAboutPagesSiteParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposUpdateInformationAboutPagesSiteBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reposUpdateInformationAboutPagesSite(input, ctx)
+      const { status, body } = await implementation
+        .reposUpdateInformationAboutPagesSite(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposUpdateInformationAboutPagesSiteResponseValidator(
         status,
@@ -37830,15 +40957,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/pages",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposDeletePagesSiteParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposDeletePagesSiteParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposDeletePagesSite(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposDeletePagesSite(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDeletePagesSiteResponseValidator(status, body)
       ctx.status = status
@@ -37866,15 +40998,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/pages/builds",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposListPagesBuildsParamSchema, ctx.params),
-        query: parseRequestInput(reposListPagesBuildsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposListPagesBuildsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposListPagesBuildsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposListPagesBuilds(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposListPagesBuilds(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListPagesBuildsResponseValidator(status, body)
       ctx.status = status
@@ -37900,15 +41041,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposRequestPagesBuildParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposRequestPagesBuild(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposRequestPagesBuild(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposRequestPagesBuildResponseValidator(status, body)
       ctx.status = status
@@ -37934,15 +41077,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetLatestPagesBuildParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetLatestPagesBuild(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetLatestPagesBuild(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetLatestPagesBuildResponseValidator(status, body)
       ctx.status = status
@@ -37966,15 +41111,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/pages/builds/:buildId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetPagesBuildParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposGetPagesBuildParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetPagesBuild(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetPagesBuild(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetPagesBuildResponseValidator(status, body)
       ctx.status = status
@@ -38012,18 +41162,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposCreatePagesDeploymentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreatePagesDeploymentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposCreatePagesDeployment(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposCreatePagesDeployment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreatePagesDeploymentResponseValidator(status, body)
       ctx.status = status
@@ -38055,15 +41208,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetPagesHealthCheckParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetPagesHealthCheck(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetPagesHealthCheck(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetPagesHealthCheckResponseValidator(status, body)
       ctx.status = status
@@ -38093,16 +41248,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposEnablePrivateVulnerabilityReportingParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposEnablePrivateVulnerabilityReporting(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .reposEnablePrivateVulnerabilityReporting(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposEnablePrivateVulnerabilityReportingResponseValidator(
         status,
@@ -38135,16 +41291,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposDisablePrivateVulnerabilityReportingParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposDisablePrivateVulnerabilityReporting(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .reposDisablePrivateVulnerabilityReporting(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDisablePrivateVulnerabilityReportingResponseValidator(
         status,
@@ -38183,15 +41340,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/projects",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(projectsListForRepoParamSchema, ctx.params),
-        query: parseRequestInput(projectsListForRepoQuerySchema, ctx.query),
+        params: parseRequestInput(
+          projectsListForRepoParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          projectsListForRepoQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.projectsListForRepo(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .projectsListForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = projectsListForRepoResponseValidator(status, body)
       ctx.status = status
@@ -38226,18 +41392,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/projects",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(projectsCreateForRepoParamSchema, ctx.params),
+        params: parseRequestInput(
+          projectsCreateForRepoParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           projectsCreateForRepoBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.projectsCreateForRepo(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .projectsCreateForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = projectsCreateForRepoResponseValidator(status, body)
       ctx.status = status
@@ -38270,12 +41442,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("pullsList", "/repos/:owner/:repo/pulls", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(pullsListParamSchema, ctx.params),
-      query: parseRequestInput(pullsListQuerySchema, ctx.query),
+      params: parseRequestInput(
+        pullsListParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        pullsListQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.pullsList(input, ctx)
+    const { status, body } = await implementation
+      .pullsList(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = pullsListResponseValidator(status, body)
     ctx.status = status
@@ -38309,12 +41493,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post("pullsCreate", "/repos/:owner/:repo/pulls", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(pullsCreateParamSchema, ctx.params),
+      params: parseRequestInput(
+        pullsCreateParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(pullsCreateBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        pullsCreateBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.pullsCreate(input, ctx)
+    const { status, body } = await implementation
+      .pullsCreate(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = pullsCreateResponseValidator(status, body)
     ctx.status = status
@@ -38348,16 +41544,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           pullsListReviewCommentsForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           pullsListReviewCommentsForRepoQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.pullsListReviewCommentsForRepo(input, ctx)
+      const { status, body } = await implementation
+        .pullsListReviewCommentsForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsListReviewCommentsForRepoResponseValidator(status, body)
       ctx.status = status
@@ -38384,15 +41585,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/pulls/comments/:commentId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(pullsGetReviewCommentParamSchema, ctx.params),
+        params: parseRequestInput(
+          pullsGetReviewCommentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.pullsGetReviewComment(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .pullsGetReviewComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsGetReviewCommentResponseValidator(status, body)
       ctx.status = status
@@ -38421,18 +41627,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           pullsUpdateReviewCommentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           pullsUpdateReviewCommentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.pullsUpdateReviewComment(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .pullsUpdateReviewComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsUpdateReviewCommentResponseValidator(status, body)
       ctx.status = status
@@ -38462,15 +41671,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           pullsDeleteReviewCommentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.pullsDeleteReviewComment(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .pullsDeleteReviewComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsDeleteReviewCommentResponseValidator(status, body)
       ctx.status = status
@@ -38518,19 +41729,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsListForPullRequestReviewCommentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           reactionsListForPullRequestReviewCommentQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reactionsListForPullRequestReviewComment(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .reactionsListForPullRequestReviewComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsListForPullRequestReviewCommentResponseValidator(
         status,
@@ -38578,19 +41791,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsCreateForPullRequestReviewCommentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForPullRequestReviewCommentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reactionsCreateForPullRequestReviewComment(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .reactionsCreateForPullRequestReviewComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsCreateForPullRequestReviewCommentResponseValidator(
         status,
@@ -38619,13 +41834,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsDeleteForPullRequestCommentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reactionsDeleteForPullRequestComment(input, ctx)
+      const { status, body } = await implementation
+        .reactionsDeleteForPullRequestComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsDeleteForPullRequestCommentResponseValidator(
         status,
@@ -38665,12 +41884,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/pulls/:pullNumber",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(pullsGetParamSchema, ctx.params),
+        params: parseRequestInput(
+          pullsGetParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.pullsGet(input, ctx)
+      const { status, body } = await implementation
+        .pullsGet(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsGetResponseValidator(status, body)
       ctx.status = status
@@ -38708,12 +41935,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/pulls/:pullNumber",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(pullsUpdateParamSchema, ctx.params),
+        params: parseRequestInput(
+          pullsUpdateParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(pullsUpdateBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          pullsUpdateBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.pullsUpdate(input, ctx)
+      const { status, body } = await implementation
+        .pullsUpdate(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsUpdateResponseValidator(status, body)
       ctx.status = status
@@ -38772,19 +42011,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesCreateWithPrForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesCreateWithPrForAuthenticatedUserBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.codespacesCreateWithPrForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .codespacesCreateWithPrForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesCreateWithPrForAuthenticatedUserResponseValidator(
         status,
@@ -38822,15 +42063,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           pullsListReviewCommentsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(pullsListReviewCommentsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          pullsListReviewCommentsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.pullsListReviewComments(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .pullsListReviewComments(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsListReviewCommentsResponseValidator(status, body)
       ctx.status = status
@@ -38874,18 +42121,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           pullsCreateReviewCommentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           pullsCreateReviewCommentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.pullsCreateReviewComment(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .pullsCreateReviewComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsCreateReviewCommentResponseValidator(status, body)
       ctx.status = status
@@ -38921,16 +42171,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           pullsCreateReplyForReviewCommentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           pullsCreateReplyForReviewCommentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.pullsCreateReplyForReviewComment(input, ctx)
+      const { status, body } = await implementation
+        .pullsCreateReplyForReviewComment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsCreateReplyForReviewCommentResponseValidator(status, body)
       ctx.status = status
@@ -38959,12 +42214,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/pulls/:pullNumber/commits",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(pullsListCommitsParamSchema, ctx.params),
-        query: parseRequestInput(pullsListCommitsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          pullsListCommitsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          pullsListCommitsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.pullsListCommits(input, ctx)
+      const { status, body } = await implementation
+        .pullsListCommits(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsListCommitsResponseValidator(status, body)
       ctx.status = status
@@ -39005,12 +42272,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/pulls/:pullNumber/files",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(pullsListFilesParamSchema, ctx.params),
-        query: parseRequestInput(pullsListFilesQuerySchema, ctx.query),
+        params: parseRequestInput(
+          pullsListFilesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          pullsListFilesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.pullsListFiles(input, ctx)
+      const { status, body } = await implementation
+        .pullsListFiles(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsListFilesResponseValidator(status, body)
       ctx.status = status
@@ -39037,15 +42316,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/pulls/:pullNumber/merge",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(pullsCheckIfMergedParamSchema, ctx.params),
+        params: parseRequestInput(
+          pullsCheckIfMergedParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.pullsCheckIfMerged(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .pullsCheckIfMerged(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsCheckIfMergedResponseValidator(status, body)
       ctx.status = status
@@ -39098,12 +42382,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/pulls/:pullNumber/merge",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(pullsMergeParamSchema, ctx.params),
+        params: parseRequestInput(
+          pullsMergeParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(pullsMergeBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          pullsMergeBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.pullsMerge(input, ctx)
+      const { status, body } = await implementation
+        .pullsMerge(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsMergeResponseValidator(status, body)
       ctx.status = status
@@ -39131,15 +42427,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           pullsListRequestedReviewersParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.pullsListRequestedReviewers(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .pullsListRequestedReviewers(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsListRequestedReviewersResponseValidator(status, body)
       ctx.status = status
@@ -39174,18 +42472,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/pulls/:pullNumber/requested_reviewers",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(pullsRequestReviewersParamSchema, ctx.params),
+        params: parseRequestInput(
+          pullsRequestReviewersParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           pullsRequestReviewersBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.pullsRequestReviewers(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .pullsRequestReviewers(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsRequestReviewersResponseValidator(status, body)
       ctx.status = status
@@ -39221,16 +42525,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           pullsRemoveRequestedReviewersParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           pullsRemoveRequestedReviewersBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.pullsRemoveRequestedReviewers(input, ctx)
+      const { status, body } = await implementation
+        .pullsRemoveRequestedReviewers(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsRemoveRequestedReviewersResponseValidator(status, body)
       ctx.status = status
@@ -39259,12 +42568,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/pulls/:pullNumber/reviews",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(pullsListReviewsParamSchema, ctx.params),
-        query: parseRequestInput(pullsListReviewsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          pullsListReviewsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          pullsListReviewsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.pullsListReviews(input, ctx)
+      const { status, body } = await implementation
+        .pullsListReviews(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsListReviewsResponseValidator(status, body)
       ctx.status = status
@@ -39313,15 +42634,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/pulls/:pullNumber/reviews",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(pullsCreateReviewParamSchema, ctx.params),
+        params: parseRequestInput(
+          pullsCreateReviewParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(pullsCreateReviewBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          pullsCreateReviewBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.pullsCreateReview(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .pullsCreateReview(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsCreateReviewResponseValidator(status, body)
       ctx.status = status
@@ -39349,12 +42679,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(pullsGetReviewParamSchema, ctx.params),
+        params: parseRequestInput(
+          pullsGetReviewParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.pullsGetReview(input, ctx)
+      const { status, body } = await implementation
+        .pullsGetReview(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsGetReviewResponseValidator(status, body)
       ctx.status = status
@@ -39384,15 +42722,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(pullsUpdateReviewParamSchema, ctx.params),
+        params: parseRequestInput(
+          pullsUpdateReviewParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(pullsUpdateReviewBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          pullsUpdateReviewBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.pullsUpdateReview(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .pullsUpdateReview(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsUpdateReviewResponseValidator(status, body)
       ctx.status = status
@@ -39424,15 +42771,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           pullsDeletePendingReviewParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.pullsDeletePendingReview(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .pullsDeletePendingReview(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsDeletePendingReviewResponseValidator(status, body)
       ctx.status = status
@@ -39468,18 +42817,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           pullsListCommentsForReviewParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           pullsListCommentsForReviewQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.pullsListCommentsForReview(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .pullsListCommentsForReview(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsListCommentsForReviewResponseValidator(status, body)
       ctx.status = status
@@ -39513,15 +42865,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/dismissals",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(pullsDismissReviewParamSchema, ctx.params),
+        params: parseRequestInput(
+          pullsDismissReviewParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(pullsDismissReviewBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          pullsDismissReviewBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.pullsDismissReview(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .pullsDismissReview(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsDismissReviewResponseValidator(status, body)
       ctx.status = status
@@ -39556,15 +42917,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/events",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(pullsSubmitReviewParamSchema, ctx.params),
+        params: parseRequestInput(
+          pullsSubmitReviewParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(pullsSubmitReviewBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          pullsSubmitReviewBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.pullsSubmitReview(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .pullsSubmitReview(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsSubmitReviewResponseValidator(status, body)
       ctx.status = status
@@ -39603,15 +42973,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/pulls/:pullNumber/update-branch",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(pullsUpdateBranchParamSchema, ctx.params),
+        params: parseRequestInput(
+          pullsUpdateBranchParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(pullsUpdateBranchBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          pullsUpdateBranchBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.pullsUpdateBranch(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .pullsUpdateBranch(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pullsUpdateBranchResponseValidator(status, body)
       ctx.status = status
@@ -39640,12 +43019,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/readme",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetReadmeParamSchema, ctx.params),
-        query: parseRequestInput(reposGetReadmeQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposGetReadmeParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposGetReadmeQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetReadme(input, ctx)
+      const { status, body } = await implementation
+        .reposGetReadme(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetReadmeResponseValidator(status, body)
       ctx.status = status
@@ -39680,18 +43071,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetReadmeInDirectoryParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           reposGetReadmeInDirectoryQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetReadmeInDirectory(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetReadmeInDirectory(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetReadmeInDirectoryResponseValidator(status, body)
       ctx.status = status
@@ -39722,15 +43116,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/releases",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposListReleasesParamSchema, ctx.params),
-        query: parseRequestInput(reposListReleasesQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposListReleasesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposListReleasesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposListReleases(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposListReleases(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListReleasesResponseValidator(status, body)
       ctx.status = status
@@ -39769,15 +43172,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/releases",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposCreateReleaseParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposCreateReleaseParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(reposCreateReleaseBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          reposCreateReleaseBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.reposCreateRelease(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposCreateRelease(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreateReleaseResponseValidator(status, body)
       ctx.status = status
@@ -39805,15 +43217,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/releases/assets/:assetId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetReleaseAssetParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposGetReleaseAssetParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetReleaseAsset(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetReleaseAsset(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetReleaseAssetResponseValidator(status, body)
       ctx.status = status
@@ -39848,18 +43265,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposUpdateReleaseAssetParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposUpdateReleaseAssetBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposUpdateReleaseAsset(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposUpdateReleaseAsset(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposUpdateReleaseAssetResponseValidator(status, body)
       ctx.status = status
@@ -39886,15 +43306,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposDeleteReleaseAssetParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposDeleteReleaseAsset(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposDeleteReleaseAsset(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDeleteReleaseAssetResponseValidator(status, body)
       ctx.status = status
@@ -39930,18 +43352,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGenerateReleaseNotesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposGenerateReleaseNotesBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposGenerateReleaseNotes(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGenerateReleaseNotes(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGenerateReleaseNotesResponseValidator(status, body)
       ctx.status = status
@@ -39964,15 +43389,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/releases/latest",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetLatestReleaseParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposGetLatestReleaseParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetLatestRelease(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetLatestRelease(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetLatestReleaseResponseValidator(status, body)
       ctx.status = status
@@ -39999,15 +43429,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/releases/tags/:tag",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetReleaseByTagParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposGetReleaseByTagParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetReleaseByTag(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetReleaseByTag(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetReleaseByTagResponseValidator(status, body)
       ctx.status = status
@@ -40034,12 +43469,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/releases/:releaseId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetReleaseParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposGetReleaseParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetRelease(input, ctx)
+      const { status, body } = await implementation
+        .reposGetRelease(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetReleaseResponseValidator(status, body)
       ctx.status = status
@@ -40079,15 +43522,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/releases/:releaseId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposUpdateReleaseParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposUpdateReleaseParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(reposUpdateReleaseBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          reposUpdateReleaseBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.reposUpdateRelease(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposUpdateRelease(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposUpdateReleaseResponseValidator(status, body)
       ctx.status = status
@@ -40111,15 +43563,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/releases/:releaseId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposDeleteReleaseParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposDeleteReleaseParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposDeleteRelease(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposDeleteRelease(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDeleteReleaseResponseValidator(status, body)
       ctx.status = status
@@ -40151,15 +43608,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposListReleaseAssetsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(reposListReleaseAssetsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          reposListReleaseAssetsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposListReleaseAssets(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposListReleaseAssets(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListReleaseAssetsResponseValidator(status, body)
       ctx.status = status
@@ -40196,18 +43659,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposUploadReleaseAssetParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(reposUploadReleaseAssetQuerySchema, ctx.query),
+        query: parseRequestInput(
+          reposUploadReleaseAssetQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           reposUploadReleaseAssetBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposUploadReleaseAsset(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposUploadReleaseAsset(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposUploadReleaseAssetResponseValidator(status, body)
       ctx.status = status
@@ -40245,15 +43715,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsListForReleaseParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(reactionsListForReleaseQuerySchema, ctx.query),
+        query: parseRequestInput(
+          reactionsListForReleaseQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reactionsListForRelease(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reactionsListForRelease(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsListForReleaseResponseValidator(status, body)
       ctx.status = status
@@ -40288,18 +43764,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsCreateForReleaseParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForReleaseBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reactionsCreateForRelease(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reactionsCreateForRelease(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsCreateForReleaseResponseValidator(status, body)
       ctx.status = status
@@ -40327,15 +43806,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsDeleteForReleaseParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reactionsDeleteForRelease(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reactionsDeleteForRelease(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsDeleteForReleaseResponseValidator(status, body)
       ctx.status = status
@@ -40364,15 +43845,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/rules/branches/:branch",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetBranchRulesParamSchema, ctx.params),
-        query: parseRequestInput(reposGetBranchRulesQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposGetBranchRulesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposGetBranchRulesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetBranchRules(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetBranchRules(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetBranchRulesResponseValidator(status, body)
       ctx.status = status
@@ -40405,15 +43895,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/rulesets",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetRepoRulesetsParamSchema, ctx.params),
-        query: parseRequestInput(reposGetRepoRulesetsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposGetRepoRulesetsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposGetRepoRulesetsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetRepoRulesets(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetRepoRulesets(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetRepoRulesetsResponseValidator(status, body)
       ctx.status = status
@@ -40452,18 +43951,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposCreateRepoRulesetParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateRepoRulesetBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposCreateRepoRuleset(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposCreateRepoRuleset(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreateRepoRulesetResponseValidator(status, body)
       ctx.status = status
@@ -40495,15 +43997,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/rulesets/:rulesetId",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetRepoRulesetParamSchema, ctx.params),
-        query: parseRequestInput(reposGetRepoRulesetQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposGetRepoRulesetParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposGetRepoRulesetQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetRepoRuleset(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetRepoRuleset(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetRepoRulesetResponseValidator(status, body)
       ctx.status = status
@@ -40545,18 +44056,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposUpdateRepoRulesetParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposUpdateRepoRulesetBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposUpdateRepoRuleset(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposUpdateRepoRuleset(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposUpdateRepoRulesetResponseValidator(status, body)
       ctx.status = status
@@ -40587,15 +44101,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposDeleteRepoRulesetParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposDeleteRepoRuleset(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposDeleteRepoRuleset(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDeleteRepoRulesetResponseValidator(status, body)
       ctx.status = status
@@ -40645,16 +44161,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           secretScanningListAlertsForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           secretScanningListAlertsForRepoQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.secretScanningListAlertsForRepo(input, ctx)
+      const { status, body } = await implementation
+        .secretScanningListAlertsForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = secretScanningListAlertsForRepoResponseValidator(status, body)
       ctx.status = status
@@ -40693,15 +44214,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           secretScanningGetAlertParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.secretScanningGetAlert(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .secretScanningGetAlert(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = secretScanningGetAlertResponseValidator(status, body)
       ctx.status = status
@@ -40747,18 +44270,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           secretScanningUpdateAlertParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           secretScanningUpdateAlertBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.secretScanningUpdateAlert(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .secretScanningUpdateAlert(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = secretScanningUpdateAlertResponseValidator(status, body)
       ctx.status = status
@@ -40802,16 +44328,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           secretScanningListLocationsForAlertParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           secretScanningListLocationsForAlertQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.secretScanningListLocationsForAlert(input, ctx)
+      const { status, body } = await implementation
+        .secretScanningListLocationsForAlert(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = secretScanningListLocationsForAlertResponseValidator(
         status,
@@ -40854,19 +44385,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           securityAdvisoriesListRepositoryAdvisoriesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           securityAdvisoriesListRepositoryAdvisoriesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.securityAdvisoriesListRepositoryAdvisories(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .securityAdvisoriesListRepositoryAdvisories(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = securityAdvisoriesListRepositoryAdvisoriesResponseValidator(
         status,
@@ -40904,19 +44437,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           securityAdvisoriesCreateRepositoryAdvisoryParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           securityAdvisoriesCreateRepositoryAdvisoryBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.securityAdvisoriesCreateRepositoryAdvisory(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .securityAdvisoriesCreateRepositoryAdvisory(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = securityAdvisoriesCreateRepositoryAdvisoryResponseValidator(
         status,
@@ -40952,19 +44487,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           securityAdvisoriesCreatePrivateVulnerabilityReportParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           securityAdvisoriesCreatePrivateVulnerabilityReportBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.securityAdvisoriesCreatePrivateVulnerabilityReport(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .securityAdvisoriesCreatePrivateVulnerabilityReport(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         securityAdvisoriesCreatePrivateVulnerabilityReportResponseValidator(
@@ -41000,13 +44537,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           securityAdvisoriesGetRepositoryAdvisoryParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.securityAdvisoriesGetRepositoryAdvisory(input, ctx)
+      const { status, body } = await implementation
+        .securityAdvisoriesGetRepositoryAdvisory(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = securityAdvisoriesGetRepositoryAdvisoryResponseValidator(
         status,
@@ -41045,19 +44586,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           securityAdvisoriesUpdateRepositoryAdvisoryParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           securityAdvisoriesUpdateRepositoryAdvisoryBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.securityAdvisoriesUpdateRepositoryAdvisory(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .securityAdvisoriesUpdateRepositoryAdvisory(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = securityAdvisoriesUpdateRepositoryAdvisoryResponseValidator(
         status,
@@ -41091,16 +44634,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           securityAdvisoriesCreateRepositoryAdvisoryCveRequestParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.securityAdvisoriesCreateRepositoryAdvisoryCveRequest(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .securityAdvisoriesCreateRepositoryAdvisoryCveRequest(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         securityAdvisoriesCreateRepositoryAdvisoryCveRequestResponseValidator(
@@ -41139,16 +44683,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityListStargazersForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           activityListStargazersForRepoQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.activityListStargazersForRepo(input, ctx)
+      const { status, body } = await implementation
+        .activityListStargazersForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityListStargazersForRepoResponseValidator(status, body)
       ctx.status = status
@@ -41178,15 +44727,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetCodeFrequencyStatsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetCodeFrequencyStats(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetCodeFrequencyStats(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetCodeFrequencyStatsResponseValidator(status, body)
       ctx.status = status
@@ -41217,15 +44768,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetCommitActivityStatsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetCommitActivityStats(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetCommitActivityStats(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetCommitActivityStatsResponseValidator(status, body)
       ctx.status = status
@@ -41255,15 +44808,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetContributorsStatsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetContributorsStats(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetContributorsStats(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetContributorsStatsResponseValidator(status, body)
       ctx.status = status
@@ -41292,15 +44847,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetParticipationStatsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetParticipationStats(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetParticipationStats(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetParticipationStatsResponseValidator(status, body)
       ctx.status = status
@@ -41329,15 +44886,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposGetPunchCardStatsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetPunchCardStats(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetPunchCardStats(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetPunchCardStatsResponseValidator(status, body)
       ctx.status = status
@@ -41371,18 +44930,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposCreateCommitStatusParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateCommitStatusBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposCreateCommitStatus(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposCreateCommitStatus(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreateCommitStatusResponseValidator(status, body)
       ctx.status = status
@@ -41411,18 +44973,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityListWatchersForRepoParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           activityListWatchersForRepoQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.activityListWatchersForRepo(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .activityListWatchersForRepo(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityListWatchersForRepoResponseValidator(status, body)
       ctx.status = status
@@ -41453,15 +45018,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityGetRepoSubscriptionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.activityGetRepoSubscription(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .activityGetRepoSubscription(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityGetRepoSubscriptionResponseValidator(status, body)
       ctx.status = status
@@ -41492,18 +45059,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activitySetRepoSubscriptionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           activitySetRepoSubscriptionBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.activitySetRepoSubscription(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .activitySetRepoSubscription(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activitySetRepoSubscriptionResponseValidator(status, body)
       ctx.status = status
@@ -41527,13 +45097,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityDeleteRepoSubscriptionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.activityDeleteRepoSubscription(input, ctx)
+      const { status, body } = await implementation
+        .activityDeleteRepoSubscription(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityDeleteRepoSubscriptionResponseValidator(status, body)
       ctx.status = status
@@ -41558,12 +45132,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("reposListTags", "/repos/:owner/:repo/tags", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(reposListTagsParamSchema, ctx.params),
-      query: parseRequestInput(reposListTagsQuerySchema, ctx.query),
+      params: parseRequestInput(
+        reposListTagsParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        reposListTagsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.reposListTags(input, ctx)
+    const { status, body } = await implementation
+      .reposListTags(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = reposListTagsResponseValidator(status, body)
     ctx.status = status
@@ -41592,15 +45178,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposListTagProtectionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposListTagProtection(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposListTagProtection(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListTagProtectionResponseValidator(status, body)
       ctx.status = status
@@ -41632,18 +45220,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposCreateTagProtectionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateTagProtectionBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposCreateTagProtection(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposCreateTagProtection(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreateTagProtectionResponseValidator(status, body)
       ctx.status = status
@@ -41674,15 +45265,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposDeleteTagProtectionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposDeleteTagProtection(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposDeleteTagProtection(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDeleteTagProtectionResponseValidator(status, body)
       ctx.status = status
@@ -41707,15 +45300,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposDownloadTarballArchiveParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposDownloadTarballArchive(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposDownloadTarballArchive(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDownloadTarballArchiveResponseValidator(status, body)
       ctx.status = status
@@ -41746,12 +45341,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/teams",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposListTeamsParamSchema, ctx.params),
-        query: parseRequestInput(reposListTeamsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposListTeamsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposListTeamsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposListTeams(input, ctx)
+      const { status, body } = await implementation
+        .reposListTeams(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListTeamsResponseValidator(status, body)
       ctx.status = status
@@ -41782,15 +45389,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/topics",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetAllTopicsParamSchema, ctx.params),
-        query: parseRequestInput(reposGetAllTopicsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposGetAllTopicsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposGetAllTopicsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetAllTopics(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetAllTopics(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetAllTopicsResponseValidator(status, body)
       ctx.status = status
@@ -41821,18 +45437,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/topics",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposReplaceAllTopicsParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposReplaceAllTopicsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           reposReplaceAllTopicsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposReplaceAllTopics(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposReplaceAllTopics(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposReplaceAllTopicsResponseValidator(status, body)
       ctx.status = status
@@ -41862,12 +45484,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/traffic/clones",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetClonesParamSchema, ctx.params),
-        query: parseRequestInput(reposGetClonesQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposGetClonesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposGetClonesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetClones(input, ctx)
+      const { status, body } = await implementation
+        .reposGetClones(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetClonesResponseValidator(status, body)
       ctx.status = status
@@ -41893,12 +45527,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/traffic/popular/paths",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetTopPathsParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposGetTopPathsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetTopPaths(input, ctx)
+      const { status, body } = await implementation
+        .reposGetTopPaths(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetTopPathsResponseValidator(status, body)
       ctx.status = status
@@ -41924,15 +45566,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/traffic/popular/referrers",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetTopReferrersParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposGetTopReferrersParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetTopReferrers(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposGetTopReferrers(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetTopReferrersResponseValidator(status, body)
       ctx.status = status
@@ -41962,12 +45609,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/traffic/views",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposGetViewsParamSchema, ctx.params),
-        query: parseRequestInput(reposGetViewsQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposGetViewsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposGetViewsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposGetViews(input, ctx)
+      const { status, body } = await implementation
+        .reposGetViews(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposGetViewsResponseValidator(status, body)
       ctx.status = status
@@ -41996,12 +45655,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/repos/:owner/:repo/transfer",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposTransferParamSchema, ctx.params),
+        params: parseRequestInput(
+          reposTransferParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(reposTransferBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          reposTransferBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.reposTransfer(input, ctx)
+      const { status, body } = await implementation
+        .reposTransfer(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposTransferResponseValidator(status, body)
       ctx.status = status
@@ -42031,13 +45702,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposCheckVulnerabilityAlertsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposCheckVulnerabilityAlerts(input, ctx)
+      const { status, body } = await implementation
+        .reposCheckVulnerabilityAlerts(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCheckVulnerabilityAlertsResponseValidator(status, body)
       ctx.status = status
@@ -42061,13 +45736,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposEnableVulnerabilityAlertsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposEnableVulnerabilityAlerts(input, ctx)
+      const { status, body } = await implementation
+        .reposEnableVulnerabilityAlerts(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposEnableVulnerabilityAlertsResponseValidator(status, body)
       ctx.status = status
@@ -42091,13 +45770,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposDisableVulnerabilityAlertsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposDisableVulnerabilityAlerts(input, ctx)
+      const { status, body } = await implementation
+        .reposDisableVulnerabilityAlerts(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDisableVulnerabilityAlertsResponseValidator(status, body)
       ctx.status = status
@@ -42122,15 +45805,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposDownloadZipballArchiveParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposDownloadZipballArchive(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposDownloadZipballArchive(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDownloadZipballArchiveResponseValidator(status, body)
       ctx.status = status
@@ -42164,18 +45849,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposCreateUsingTemplateParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reposCreateUsingTemplateBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.reposCreateUsingTemplate(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .reposCreateUsingTemplate(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreateUsingTemplateResponseValidator(status, body)
       ctx.status = status
@@ -42199,11 +45887,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("reposListPublic", "/repositories", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(reposListPublicQuerySchema, ctx.query),
+      query: parseRequestInput(
+        reposListPublicQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.reposListPublic(input, ctx)
+    const { status, body } = await implementation
+      .reposListPublic(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = reposListPublicResponseValidator(status, body)
     ctx.status = status
@@ -42242,16 +45938,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListEnvironmentSecretsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           actionsListEnvironmentSecretsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsListEnvironmentSecrets(input, ctx)
+      const { status, body } = await implementation
+        .actionsListEnvironmentSecrets(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListEnvironmentSecretsResponseValidator(status, body)
       ctx.status = status
@@ -42275,13 +45976,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetEnvironmentPublicKeyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsGetEnvironmentPublicKey(input, ctx)
+      const { status, body } = await implementation
+        .actionsGetEnvironmentPublicKey(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetEnvironmentPublicKeyResponseValidator(status, body)
       ctx.status = status
@@ -42306,15 +46011,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetEnvironmentSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.actionsGetEnvironmentSecret(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .actionsGetEnvironmentSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetEnvironmentSecretResponseValidator(status, body)
       ctx.status = status
@@ -42350,16 +46057,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsCreateOrUpdateEnvironmentSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsCreateOrUpdateEnvironmentSecretBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsCreateOrUpdateEnvironmentSecret(input, ctx)
+      const { status, body } = await implementation
+        .actionsCreateOrUpdateEnvironmentSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsCreateOrUpdateEnvironmentSecretResponseValidator(
         status,
@@ -42387,13 +46099,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsDeleteEnvironmentSecretParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsDeleteEnvironmentSecret(input, ctx)
+      const { status, body } = await implementation
+        .actionsDeleteEnvironmentSecret(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsDeleteEnvironmentSecretResponseValidator(status, body)
       ctx.status = status
@@ -42433,16 +46149,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsListEnvironmentVariablesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           actionsListEnvironmentVariablesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsListEnvironmentVariables(input, ctx)
+      const { status, body } = await implementation
+        .actionsListEnvironmentVariables(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsListEnvironmentVariablesResponseValidator(status, body)
       ctx.status = status
@@ -42471,16 +46192,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsCreateEnvironmentVariableParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsCreateEnvironmentVariableBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsCreateEnvironmentVariable(input, ctx)
+      const { status, body } = await implementation
+        .actionsCreateEnvironmentVariable(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsCreateEnvironmentVariableResponseValidator(status, body)
       ctx.status = status
@@ -42505,13 +46231,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsGetEnvironmentVariableParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsGetEnvironmentVariable(input, ctx)
+      const { status, body } = await implementation
+        .actionsGetEnvironmentVariable(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsGetEnvironmentVariableResponseValidator(status, body)
       ctx.status = status
@@ -42541,16 +46271,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsUpdateEnvironmentVariableParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           actionsUpdateEnvironmentVariableBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.actionsUpdateEnvironmentVariable(input, ctx)
+      const { status, body } = await implementation
+        .actionsUpdateEnvironmentVariable(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsUpdateEnvironmentVariableResponseValidator(status, body)
       ctx.status = status
@@ -42575,13 +46310,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           actionsDeleteEnvironmentVariableParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.actionsDeleteEnvironmentVariable(input, ctx)
+      const { status, body } = await implementation
+        .actionsDeleteEnvironmentVariable(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = actionsDeleteEnvironmentVariableResponseValidator(status, body)
       ctx.status = status
@@ -42625,11 +46364,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("searchCode", "/search/code", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(searchCodeQuerySchema, ctx.query),
+      query: parseRequestInput(
+        searchCodeQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.searchCode(input, ctx)
+    const { status, body } = await implementation
+      .searchCode(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = searchCodeResponseValidator(status, body)
     ctx.status = status
@@ -42662,11 +46409,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("searchCommits", "/search/commits", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(searchCommitsQuerySchema, ctx.query),
+      query: parseRequestInput(
+        searchCommitsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.searchCommits(input, ctx)
+    const { status, body } = await implementation
+      .searchCommits(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = searchCommitsResponseValidator(status, body)
     ctx.status = status
@@ -42730,14 +46485,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           searchIssuesAndPullRequestsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.searchIssuesAndPullRequests(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .searchIssuesAndPullRequests(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = searchIssuesAndPullRequestsResponseValidator(status, body)
       ctx.status = status
@@ -42775,11 +46532,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("searchLabels", "/search/labels", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(searchLabelsQuerySchema, ctx.query),
+      query: parseRequestInput(
+        searchLabelsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.searchLabels(input, ctx)
+    const { status, body } = await implementation
+      .searchLabels(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = searchLabelsResponseValidator(status, body)
     ctx.status = status
@@ -42823,11 +46588,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("searchRepos", "/search/repositories", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(searchReposQuerySchema, ctx.query),
+      query: parseRequestInput(
+        searchReposQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.searchRepos(input, ctx)
+    const { status, body } = await implementation
+      .searchRepos(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = searchReposResponseValidator(status, body)
     ctx.status = status
@@ -42858,11 +46631,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("searchTopics", "/search/topics", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(searchTopicsQuerySchema, ctx.query),
+      query: parseRequestInput(
+        searchTopicsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.searchTopics(input, ctx)
+    const { status, body } = await implementation
+      .searchTopics(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = searchTopicsResponseValidator(status, body)
     ctx.status = status
@@ -42904,11 +46685,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("searchUsers", "/search/users", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(searchUsersQuerySchema, ctx.query),
+      query: parseRequestInput(
+        searchUsersQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.searchUsers(input, ctx)
+    const { status, body } = await implementation
+      .searchUsers(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = searchUsersResponseValidator(status, body)
     ctx.status = status
@@ -42927,12 +46716,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("teamsGetLegacy", "/teams/:teamId", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(teamsGetLegacyParamSchema, ctx.params),
+      params: parseRequestInput(
+        teamsGetLegacyParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.teamsGetLegacy(input, ctx)
+    const { status, body } = await implementation
+      .teamsGetLegacy(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = teamsGetLegacyResponseValidator(status, body)
     ctx.status = status
@@ -42965,12 +46762,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch("teamsUpdateLegacy", "/teams/:teamId", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(teamsUpdateLegacyParamSchema, ctx.params),
+      params: parseRequestInput(
+        teamsUpdateLegacyParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(teamsUpdateLegacyBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        teamsUpdateLegacyBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.teamsUpdateLegacy(input, ctx)
+    const { status, body } = await implementation
+      .teamsUpdateLegacy(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = teamsUpdateLegacyResponseValidator(status, body)
     ctx.status = status
@@ -42990,12 +46799,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete("teamsDeleteLegacy", "/teams/:teamId", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(teamsDeleteLegacyParamSchema, ctx.params),
+      params: parseRequestInput(
+        teamsDeleteLegacyParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.teamsDeleteLegacy(input, ctx)
+    const { status, body } = await implementation
+      .teamsDeleteLegacy(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = teamsDeleteLegacyResponseValidator(status, body)
     ctx.status = status
@@ -43025,18 +46842,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsListDiscussionsLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           teamsListDiscussionsLegacyQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsListDiscussionsLegacy(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsListDiscussionsLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsListDiscussionsLegacyResponseValidator(status, body)
       ctx.status = status
@@ -43065,18 +46885,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsCreateDiscussionLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsCreateDiscussionLegacyBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.teamsCreateDiscussionLegacy(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsCreateDiscussionLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsCreateDiscussionLegacyResponseValidator(status, body)
       ctx.status = status
@@ -43102,15 +46925,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsGetDiscussionLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsGetDiscussionLegacy(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsGetDiscussionLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsGetDiscussionLegacyResponseValidator(status, body)
       ctx.status = status
@@ -43138,18 +46963,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsUpdateDiscussionLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsUpdateDiscussionLegacyBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.teamsUpdateDiscussionLegacy(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsUpdateDiscussionLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsUpdateDiscussionLegacyResponseValidator(status, body)
       ctx.status = status
@@ -43173,15 +47001,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsDeleteDiscussionLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsDeleteDiscussionLegacy(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsDeleteDiscussionLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsDeleteDiscussionLegacyResponseValidator(status, body)
       ctx.status = status
@@ -43214,16 +47044,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsListDiscussionCommentsLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           teamsListDiscussionCommentsLegacyQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.teamsListDiscussionCommentsLegacy(input, ctx)
+      const { status, body } = await implementation
+        .teamsListDiscussionCommentsLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsListDiscussionCommentsLegacyResponseValidator(
         status,
@@ -43254,16 +47089,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsCreateDiscussionCommentLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsCreateDiscussionCommentLegacyBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.teamsCreateDiscussionCommentLegacy(input, ctx)
+      const { status, body } = await implementation
+        .teamsCreateDiscussionCommentLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsCreateDiscussionCommentLegacyResponseValidator(
         status,
@@ -43291,13 +47131,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsGetDiscussionCommentLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.teamsGetDiscussionCommentLegacy(input, ctx)
+      const { status, body } = await implementation
+        .teamsGetDiscussionCommentLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsGetDiscussionCommentLegacyResponseValidator(status, body)
       ctx.status = status
@@ -43326,16 +47170,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsUpdateDiscussionCommentLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsUpdateDiscussionCommentLegacyBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.teamsUpdateDiscussionCommentLegacy(input, ctx)
+      const { status, body } = await implementation
+        .teamsUpdateDiscussionCommentLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsUpdateDiscussionCommentLegacyResponseValidator(
         status,
@@ -43363,13 +47212,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsDeleteDiscussionCommentLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.teamsDeleteDiscussionCommentLegacy(input, ctx)
+      const { status, body } = await implementation
+        .teamsDeleteDiscussionCommentLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsDeleteDiscussionCommentLegacyResponseValidator(
         status,
@@ -43414,19 +47267,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsListForTeamDiscussionCommentLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           reactionsListForTeamDiscussionCommentLegacyQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reactionsListForTeamDiscussionCommentLegacy(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .reactionsListForTeamDiscussionCommentLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsListForTeamDiscussionCommentLegacyResponseValidator(
         status,
@@ -43467,19 +47322,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsCreateForTeamDiscussionCommentLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForTeamDiscussionCommentLegacyBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reactionsCreateForTeamDiscussionCommentLegacy(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .reactionsCreateForTeamDiscussionCommentLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsCreateForTeamDiscussionCommentLegacyResponseValidator(
         status,
@@ -43523,16 +47380,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsListForTeamDiscussionLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           reactionsListForTeamDiscussionLegacyQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reactionsListForTeamDiscussionLegacy(input, ctx)
+      const { status, body } = await implementation
+        .reactionsListForTeamDiscussionLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsListForTeamDiscussionLegacyResponseValidator(
         status,
@@ -43572,16 +47434,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reactionsCreateForTeamDiscussionLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForTeamDiscussionLegacyBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reactionsCreateForTeamDiscussionLegacy(input, ctx)
+      const { status, body } = await implementation
+        .reactionsCreateForTeamDiscussionLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reactionsCreateForTeamDiscussionLegacyResponseValidator(
         status,
@@ -43615,16 +47482,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsListPendingInvitationsLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           teamsListPendingInvitationsLegacyQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.teamsListPendingInvitationsLegacy(input, ctx)
+      const { status, body } = await implementation
+        .teamsListPendingInvitationsLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsListPendingInvitationsLegacyResponseValidator(
         status,
@@ -43661,15 +47533,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsListMembersLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(teamsListMembersLegacyQuerySchema, ctx.query),
+        query: parseRequestInput(
+          teamsListMembersLegacyQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsListMembersLegacy(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsListMembersLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsListMembersLegacyResponseValidator(status, body)
       ctx.status = status
@@ -43695,15 +47573,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/teams/:teamId/members/:username",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(teamsGetMemberLegacyParamSchema, ctx.params),
+        params: parseRequestInput(
+          teamsGetMemberLegacyParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsGetMemberLegacy(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsGetMemberLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsGetMemberLegacyResponseValidator(status, body)
       ctx.status = status
@@ -43731,15 +47614,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/teams/:teamId/members/:username",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(teamsAddMemberLegacyParamSchema, ctx.params),
+        params: parseRequestInput(
+          teamsAddMemberLegacyParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsAddMemberLegacy(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsAddMemberLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsAddMemberLegacyResponseValidator(status, body)
       ctx.status = status
@@ -43768,15 +47656,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsRemoveMemberLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsRemoveMemberLegacy(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsRemoveMemberLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsRemoveMemberLegacyResponseValidator(status, body)
       ctx.status = status
@@ -43806,13 +47696,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsGetMembershipForUserLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.teamsGetMembershipForUserLegacy(input, ctx)
+      const { status, body } = await implementation
+        .teamsGetMembershipForUserLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsGetMembershipForUserLegacyResponseValidator(status, body)
       ctx.status = status
@@ -43848,16 +47742,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsAddOrUpdateMembershipForUserLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateMembershipForUserLegacyBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.teamsAddOrUpdateMembershipForUserLegacy(input, ctx)
+      const { status, body } = await implementation
+        .teamsAddOrUpdateMembershipForUserLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsAddOrUpdateMembershipForUserLegacyResponseValidator(
         status,
@@ -43890,13 +47789,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsRemoveMembershipForUserLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.teamsRemoveMembershipForUserLegacy(input, ctx)
+      const { status, body } = await implementation
+        .teamsRemoveMembershipForUserLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsRemoveMembershipForUserLegacyResponseValidator(
         status,
@@ -43932,15 +47835,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsListProjectsLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(teamsListProjectsLegacyQuerySchema, ctx.query),
+        query: parseRequestInput(
+          teamsListProjectsLegacyQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsListProjectsLegacy(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsListProjectsLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsListProjectsLegacyResponseValidator(status, body)
       ctx.status = status
@@ -43970,13 +47879,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsCheckPermissionsForProjectLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.teamsCheckPermissionsForProjectLegacy(input, ctx)
+      const { status, body } = await implementation
+        .teamsCheckPermissionsForProjectLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsCheckPermissionsForProjectLegacyResponseValidator(
         status,
@@ -44021,19 +47934,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsAddOrUpdateProjectPermissionsLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateProjectPermissionsLegacyBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.teamsAddOrUpdateProjectPermissionsLegacy(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .teamsAddOrUpdateProjectPermissionsLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsAddOrUpdateProjectPermissionsLegacyResponseValidator(
         status,
@@ -44066,15 +47981,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsRemoveProjectLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsRemoveProjectLegacy(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsRemoveProjectLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsRemoveProjectLegacyResponseValidator(status, body)
       ctx.status = status
@@ -44104,15 +48021,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/teams/:teamId/repos",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(teamsListReposLegacyParamSchema, ctx.params),
-        query: parseRequestInput(teamsListReposLegacyQuerySchema, ctx.query),
+        params: parseRequestInput(
+          teamsListReposLegacyParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          teamsListReposLegacyQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsListReposLegacy(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsListReposLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsListReposLegacyResponseValidator(status, body)
       ctx.status = status
@@ -44144,13 +48070,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsCheckPermissionsForRepoLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.teamsCheckPermissionsForRepoLegacy(input, ctx)
+      const { status, body } = await implementation
+        .teamsCheckPermissionsForRepoLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsCheckPermissionsForRepoLegacyResponseValidator(
         status,
@@ -44189,16 +48119,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           teamsAddOrUpdateRepoPermissionsLegacyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateRepoPermissionsLegacyBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.teamsAddOrUpdateRepoPermissionsLegacy(input, ctx)
+      const { status, body } = await implementation
+        .teamsAddOrUpdateRepoPermissionsLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsAddOrUpdateRepoPermissionsLegacyResponseValidator(
         status,
@@ -44225,15 +48160,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/teams/:teamId/repos/:owner/:repo",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(teamsRemoveRepoLegacyParamSchema, ctx.params),
+        params: parseRequestInput(
+          teamsRemoveRepoLegacyParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsRemoveRepoLegacy(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsRemoveRepoLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsRemoveRepoLegacyResponseValidator(status, body)
       ctx.status = status
@@ -44265,15 +48205,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/teams/:teamId/teams",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(teamsListChildLegacyParamSchema, ctx.params),
-        query: parseRequestInput(teamsListChildLegacyQuerySchema, ctx.query),
+        params: parseRequestInput(
+          teamsListChildLegacyParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          teamsListChildLegacyQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.teamsListChildLegacy(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .teamsListChildLegacy(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsListChildLegacyResponseValidator(status, body)
       ctx.status = status
@@ -44298,10 +48247,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: undefined,
     }
 
-    const { status, body } = await implementation.usersGetAuthenticated(
-      input,
-      ctx,
-    )
+    const { status, body } = await implementation
+      .usersGetAuthenticated(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = usersGetAuthenticatedResponseValidator(status, body)
     ctx.status = status
@@ -44340,13 +48290,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: parseRequestInput(
         usersUpdateAuthenticatedBodySchema,
         ctx.request.body,
+        RequestInputType.RequestBody,
       ),
     }
 
-    const { status, body } = await implementation.usersUpdateAuthenticated(
-      input,
-      ctx,
-    )
+    const { status, body } = await implementation
+      .usersUpdateAuthenticated(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = usersUpdateAuthenticatedResponseValidator(status, body)
     ctx.status = status
@@ -44379,12 +48331,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           usersListBlockedByAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.usersListBlockedByAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .usersListBlockedByAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersListBlockedByAuthenticatedUserResponseValidator(
         status,
@@ -44413,15 +48369,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/user/blocks/:username",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(usersCheckBlockedParamSchema, ctx.params),
+        params: parseRequestInput(
+          usersCheckBlockedParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.usersCheckBlocked(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .usersCheckBlocked(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersCheckBlockedResponseValidator(status, body)
       ctx.status = status
@@ -44445,12 +48406,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put("usersBlock", "/user/blocks/:username", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(usersBlockParamSchema, ctx.params),
+      params: parseRequestInput(
+        usersBlockParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.usersBlock(input, ctx)
+    const { status, body } = await implementation
+      .usersBlock(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = usersBlockResponseValidator(status, body)
     ctx.status = status
@@ -44472,12 +48441,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete("usersUnblock", "/user/blocks/:username", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(usersUnblockParamSchema, ctx.params),
+      params: parseRequestInput(
+        usersUnblockParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.usersUnblock(input, ctx)
+    const { status, body } = await implementation
+      .usersUnblock(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = usersUnblockResponseValidator(status, body)
     ctx.status = status
@@ -44518,12 +48495,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           codespacesListForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesListForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .codespacesListForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesListForAuthenticatedUserResponseValidator(
         status,
@@ -44597,11 +48578,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           codespacesCreateForAuthenticatedUserBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.codespacesCreateForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .codespacesCreateForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesCreateForAuthenticatedUserResponseValidator(
         status,
@@ -44640,15 +48625,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           codespacesListSecretsForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesListSecretsForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .codespacesListSecretsForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesListSecretsForAuthenticatedUserResponseValidator(
         status,
@@ -44675,11 +48661,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesGetPublicKeyForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .codespacesGetPublicKeyForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesGetPublicKeyForAuthenticatedUserResponseValidator(
         status,
@@ -44705,13 +48691,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesGetSecretForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesGetSecretForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .codespacesGetSecretForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesGetSecretForAuthenticatedUserResponseValidator(
         status,
@@ -44754,19 +48744,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.codespacesCreateOrUpdateSecretForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .codespacesCreateOrUpdateSecretForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         codespacesCreateOrUpdateSecretForAuthenticatedUserResponseValidator(
@@ -44793,16 +48785,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesDeleteSecretForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesDeleteSecretForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .codespacesDeleteSecretForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesDeleteSecretForAuthenticatedUserResponseValidator(
         status,
@@ -44842,16 +48835,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesListRepositoriesForSecretForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesListRepositoriesForSecretForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .codespacesListRepositoriesForSecretForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         codespacesListRepositoriesForSecretForAuthenticatedUserResponseValidator(
@@ -44889,19 +48883,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.codespacesSetRepositoriesForSecretForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .codespacesSetRepositoriesForSecretForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         codespacesSetRepositoriesForSecretForAuthenticatedUserResponseValidator(
@@ -44936,16 +48932,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesAddRepositoryForSecretForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesAddRepositoryForSecretForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .codespacesAddRepositoryForSecretForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         codespacesAddRepositoryForSecretForAuthenticatedUserResponseValidator(
@@ -44980,16 +48977,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesRemoveRepositoryForSecretForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesRemoveRepositoryForSecretForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .codespacesRemoveRepositoryForSecretForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         codespacesRemoveRepositoryForSecretForAuthenticatedUserResponseValidator(
@@ -45026,13 +49024,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesGetForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesGetForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .codespacesGetForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesGetForAuthenticatedUserResponseValidator(
         status,
@@ -45074,16 +49076,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesUpdateForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesUpdateForAuthenticatedUserBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.codespacesUpdateForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .codespacesUpdateForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesUpdateForAuthenticatedUserResponseValidator(
         status,
@@ -45119,13 +49126,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesDeleteForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesDeleteForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .codespacesDeleteForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesDeleteForAuthenticatedUserResponseValidator(
         status,
@@ -45161,13 +49172,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesExportForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesExportForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .codespacesExportForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesExportForAuthenticatedUserResponseValidator(
         status,
@@ -45200,16 +49215,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesGetExportDetailsForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesGetExportDetailsForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .codespacesGetExportDetailsForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         codespacesGetExportDetailsForAuthenticatedUserResponseValidator(
@@ -45252,16 +49268,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesCodespaceMachinesForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesCodespaceMachinesForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .codespacesCodespaceMachinesForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         codespacesCodespaceMachinesForAuthenticatedUserResponseValidator(
@@ -45302,16 +49319,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesPublishForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           codespacesPublishForAuthenticatedUserBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.codespacesPublishForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .codespacesPublishForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesPublishForAuthenticatedUserResponseValidator(
         status,
@@ -45350,13 +49372,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesStartForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesStartForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .codespacesStartForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesStartForAuthenticatedUserResponseValidator(
         status,
@@ -45391,13 +49417,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           codespacesStopForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.codespacesStopForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .codespacesStopForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = codespacesStopForAuthenticatedUserResponseValidator(
         status,
@@ -45421,11 +49451,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesListDockerMigrationConflictingPackagesForAuthenticatedUser(
+      const { status, body } = await implementation
+        .packagesListDockerMigrationConflictingPackagesForAuthenticatedUser(
           input,
           ctx,
         )
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         packagesListDockerMigrationConflictingPackagesForAuthenticatedUserResponseValidator(
@@ -45464,14 +49497,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           usersSetPrimaryEmailVisibilityForAuthenticatedUserBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.usersSetPrimaryEmailVisibilityForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .usersSetPrimaryEmailVisibilityForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         usersSetPrimaryEmailVisibilityForAuthenticatedUserResponseValidator(
@@ -45509,12 +49543,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           usersListEmailsForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.usersListEmailsForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .usersListEmailsForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersListEmailsForAuthenticatedUserResponseValidator(
         status,
@@ -45556,11 +49594,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           usersAddEmailForAuthenticatedUserBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.usersAddEmailForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .usersAddEmailForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersAddEmailForAuthenticatedUserResponseValidator(
         status,
@@ -45600,11 +49642,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           usersDeleteEmailForAuthenticatedUserBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.usersDeleteEmailForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .usersDeleteEmailForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersDeleteEmailForAuthenticatedUserResponseValidator(
         status,
@@ -45640,12 +49686,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           usersListFollowersForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.usersListFollowersForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .usersListFollowersForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersListFollowersForAuthenticatedUserResponseValidator(
         status,
@@ -45681,12 +49731,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           usersListFollowedByAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.usersListFollowedByAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .usersListFollowedByAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersListFollowedByAuthenticatedUserResponseValidator(
         status,
@@ -45721,16 +49775,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           usersCheckPersonIsFollowedByAuthenticatedParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.usersCheckPersonIsFollowedByAuthenticated(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .usersCheckPersonIsFollowedByAuthenticated(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersCheckPersonIsFollowedByAuthenticatedResponseValidator(
         status,
@@ -45756,12 +49811,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put("usersFollow", "/user/following/:username", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(usersFollowParamSchema, ctx.params),
+      params: parseRequestInput(
+        usersFollowParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.usersFollow(input, ctx)
+    const { status, body } = await implementation
+      .usersFollow(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = usersFollowResponseValidator(status, body)
     ctx.status = status
@@ -45786,12 +49849,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/user/following/:username",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(usersUnfollowParamSchema, ctx.params),
+        params: parseRequestInput(
+          usersUnfollowParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.usersUnfollow(input, ctx)
+      const { status, body } = await implementation
+        .usersUnfollow(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersUnfollowResponseValidator(status, body)
       ctx.status = status
@@ -45825,12 +49896,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           usersListGpgKeysForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.usersListGpgKeysForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .usersListGpgKeysForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersListGpgKeysForAuthenticatedUserResponseValidator(
         status,
@@ -45869,11 +49944,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           usersCreateGpgKeyForAuthenticatedUserBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.usersCreateGpgKeyForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .usersCreateGpgKeyForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersCreateGpgKeyForAuthenticatedUserResponseValidator(
         status,
@@ -45908,13 +49987,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           usersGetGpgKeyForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.usersGetGpgKeyForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .usersGetGpgKeyForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersGetGpgKeyForAuthenticatedUserResponseValidator(
         status,
@@ -45950,13 +50033,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           usersDeleteGpgKeyForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.usersDeleteGpgKeyForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .usersDeleteGpgKeyForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersDeleteGpgKeyForAuthenticatedUserResponseValidator(
         status,
@@ -45998,15 +50085,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           appsListInstallationsForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.appsListInstallationsForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .appsListInstallationsForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsListInstallationsForAuthenticatedUserResponseValidator(
         status,
@@ -46052,19 +50140,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           appsListInstallationReposForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           appsListInstallationReposForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.appsListInstallationReposForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .appsListInstallationReposForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsListInstallationReposForAuthenticatedUserResponseValidator(
         status,
@@ -46099,16 +50189,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           appsAddRepoToInstallationForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.appsAddRepoToInstallationForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .appsAddRepoToInstallationForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsAddRepoToInstallationForAuthenticatedUserResponseValidator(
         status,
@@ -46145,16 +50236,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           appsRemoveRepoFromInstallationForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.appsRemoveRepoFromInstallationForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .appsRemoveRepoFromInstallationForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         appsRemoveRepoFromInstallationForAuthenticatedUserResponseValidator(
@@ -46185,11 +50277,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.interactionsGetRestrictionsForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .interactionsGetRestrictionsForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         interactionsGetRestrictionsForAuthenticatedUserResponseValidator(
@@ -46223,14 +50315,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           interactionsSetRestrictionsForAuthenticatedUserBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.interactionsSetRestrictionsForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .interactionsSetRestrictionsForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         interactionsSetRestrictionsForAuthenticatedUserResponseValidator(
@@ -46255,11 +50348,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.interactionsRemoveRestrictionsForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .interactionsRemoveRestrictionsForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         interactionsRemoveRestrictionsForAuthenticatedUserResponseValidator(
@@ -46303,12 +50396,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           issuesListForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.issuesListForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .issuesListForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = issuesListForAuthenticatedUserResponseValidator(status, body)
       ctx.status = status
@@ -46342,15 +50439,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           usersListPublicSshKeysForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.usersListPublicSshKeysForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .usersListPublicSshKeysForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersListPublicSshKeysForAuthenticatedUserResponseValidator(
         status,
@@ -46389,14 +50487,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           usersCreatePublicSshKeyForAuthenticatedUserBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.usersCreatePublicSshKeyForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .usersCreatePublicSshKeyForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersCreatePublicSshKeyForAuthenticatedUserResponseValidator(
         status,
@@ -46431,16 +50530,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           usersGetPublicSshKeyForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.usersGetPublicSshKeyForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .usersGetPublicSshKeyForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersGetPublicSshKeyForAuthenticatedUserResponseValidator(
         status,
@@ -46475,16 +50575,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           usersDeletePublicSshKeyForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.usersDeletePublicSshKeyForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .usersDeletePublicSshKeyForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersDeletePublicSshKeyForAuthenticatedUserResponseValidator(
         status,
@@ -46520,15 +50621,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           appsListSubscriptionsForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.appsListSubscriptionsForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .appsListSubscriptionsForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsListSubscriptionsForAuthenticatedUserResponseValidator(
         status,
@@ -46563,15 +50665,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           appsListSubscriptionsForAuthenticatedUserStubbedQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.appsListSubscriptionsForAuthenticatedUserStubbed(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .appsListSubscriptionsForAuthenticatedUserStubbed(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         appsListSubscriptionsForAuthenticatedUserStubbedResponseValidator(
@@ -46610,12 +50713,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           orgsListMembershipsForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.orgsListMembershipsForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .orgsListMembershipsForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsListMembershipsForAuthenticatedUserResponseValidator(
         status,
@@ -46648,13 +50755,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsGetMembershipForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.orgsGetMembershipForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .orgsGetMembershipForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsGetMembershipForAuthenticatedUserResponseValidator(
         status,
@@ -46692,19 +50803,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           orgsUpdateMembershipForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           orgsUpdateMembershipForAuthenticatedUserBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.orgsUpdateMembershipForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .orgsUpdateMembershipForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsUpdateMembershipForAuthenticatedUserResponseValidator(
         status,
@@ -46740,12 +50853,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           migrationsListForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.migrationsListForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .migrationsListForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsListForAuthenticatedUserResponseValidator(
         status,
@@ -46790,11 +50907,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           migrationsStartForAuthenticatedUserBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.migrationsStartForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .migrationsStartForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsStartForAuthenticatedUserResponseValidator(
         status,
@@ -46833,16 +50954,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           migrationsGetStatusForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           migrationsGetStatusForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.migrationsGetStatusForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .migrationsGetStatusForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsGetStatusForAuthenticatedUserResponseValidator(
         status,
@@ -46876,16 +51002,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           migrationsGetArchiveForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.migrationsGetArchiveForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .migrationsGetArchiveForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsGetArchiveForAuthenticatedUserResponseValidator(
         status,
@@ -46920,16 +51047,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           migrationsDeleteArchiveForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.migrationsDeleteArchiveForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .migrationsDeleteArchiveForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsDeleteArchiveForAuthenticatedUserResponseValidator(
         status,
@@ -46965,16 +51093,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           migrationsUnlockRepoForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.migrationsUnlockRepoForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .migrationsUnlockRepoForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsUnlockRepoForAuthenticatedUserResponseValidator(
         status,
@@ -47011,16 +51140,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           migrationsListReposForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           migrationsListReposForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.migrationsListReposForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .migrationsListReposForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = migrationsListReposForAuthenticatedUserResponseValidator(
         status,
@@ -47056,12 +51190,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           orgsListForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.orgsListForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .orgsListForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = orgsListForAuthenticatedUserResponseValidator(status, body)
       ctx.status = status
@@ -47101,15 +51239,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           packagesListPackagesForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesListPackagesForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .packagesListPackagesForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = packagesListPackagesForAuthenticatedUserResponseValidator(
         status,
@@ -47143,13 +51282,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesGetPackageForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesGetPackageForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .packagesGetPackageForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = packagesGetPackageForAuthenticatedUserResponseValidator(
         status,
@@ -47191,16 +51334,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesDeletePackageForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesDeletePackageForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .packagesDeletePackageForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = packagesDeletePackageForAuthenticatedUserResponseValidator(
         status,
@@ -47246,19 +51390,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesRestorePackageForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           packagesRestorePackageForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesRestorePackageForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .packagesRestorePackageForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = packagesRestorePackageForAuthenticatedUserResponseValidator(
         status,
@@ -47308,19 +51454,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUser(
+      const { status, body } = await implementation
+        .packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUser(
           input,
           ctx,
         )
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserResponseValidator(
@@ -47356,16 +51507,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesGetPackageVersionForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesGetPackageVersionForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .packagesGetPackageVersionForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = packagesGetPackageVersionForAuthenticatedUserResponseValidator(
         status,
@@ -47408,16 +51560,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesDeletePackageVersionForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesDeletePackageVersionForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .packagesDeletePackageVersionForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         packagesDeletePackageVersionForAuthenticatedUserResponseValidator(
@@ -47463,16 +51616,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesRestorePackageVersionForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesRestorePackageVersionForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .packagesRestorePackageVersionForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         packagesRestorePackageVersionForAuthenticatedUserResponseValidator(
@@ -47511,11 +51665,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           projectsCreateForAuthenticatedUserBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.projectsCreateForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .projectsCreateForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = projectsCreateForAuthenticatedUserResponseValidator(
         status,
@@ -47552,15 +51710,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           usersListPublicEmailsForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.usersListPublicEmailsForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .usersListPublicEmailsForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersListPublicEmailsForAuthenticatedUserResponseValidator(
         status,
@@ -47604,12 +51763,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           reposListForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposListForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .reposListForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListForAuthenticatedUserResponseValidator(status, body)
       ctx.status = status
@@ -47671,11 +51834,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           reposCreateForAuthenticatedUserBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.reposCreateForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .reposCreateForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposCreateForAuthenticatedUserResponseValidator(status, body)
       ctx.status = status
@@ -47709,15 +51876,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           reposListInvitationsForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposListInvitationsForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .reposListInvitationsForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListInvitationsForAuthenticatedUserResponseValidator(
         status,
@@ -47752,16 +51920,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposAcceptInvitationForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposAcceptInvitationForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .reposAcceptInvitationForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposAcceptInvitationForAuthenticatedUserResponseValidator(
         status,
@@ -47796,16 +51965,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           reposDeclineInvitationForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.reposDeclineInvitationForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .reposDeclineInvitationForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposDeclineInvitationForAuthenticatedUserResponseValidator(
         status,
@@ -47842,15 +52012,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           usersListSocialAccountsForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.usersListSocialAccountsForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .usersListSocialAccountsForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersListSocialAccountsForAuthenticatedUserResponseValidator(
         status,
@@ -47888,14 +52059,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           usersAddSocialAccountForAuthenticatedUserBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.usersAddSocialAccountForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .usersAddSocialAccountForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersAddSocialAccountForAuthenticatedUserResponseValidator(
         status,
@@ -47933,14 +52105,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           usersDeleteSocialAccountForAuthenticatedUserBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.usersDeleteSocialAccountForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .usersDeleteSocialAccountForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersDeleteSocialAccountForAuthenticatedUserResponseValidator(
         status,
@@ -47977,15 +52150,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           usersListSshSigningKeysForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.usersListSshSigningKeysForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .usersListSshSigningKeysForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersListSshSigningKeysForAuthenticatedUserResponseValidator(
         status,
@@ -48024,14 +52198,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           usersCreateSshSigningKeyForAuthenticatedUserBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.usersCreateSshSigningKeyForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .usersCreateSshSigningKeyForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersCreateSshSigningKeyForAuthenticatedUserResponseValidator(
         status,
@@ -48066,16 +52241,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           usersGetSshSigningKeyForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.usersGetSshSigningKeyForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .usersGetSshSigningKeyForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersGetSshSigningKeyForAuthenticatedUserResponseValidator(
         status,
@@ -48110,16 +52286,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           usersDeleteSshSigningKeyForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.usersDeleteSshSigningKeyForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .usersDeleteSshSigningKeyForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersDeleteSshSigningKeyForAuthenticatedUserResponseValidator(
         status,
@@ -48157,15 +52334,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           activityListReposStarredByAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.activityListReposStarredByAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .activityListReposStarredByAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityListReposStarredByAuthenticatedUserResponseValidator(
         status,
@@ -48201,16 +52379,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityCheckRepoIsStarredByAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.activityCheckRepoIsStarredByAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .activityCheckRepoIsStarredByAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityCheckRepoIsStarredByAuthenticatedUserResponseValidator(
         status,
@@ -48246,13 +52425,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityStarRepoForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.activityStarRepoForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .activityStarRepoForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityStarRepoForAuthenticatedUserResponseValidator(
         status,
@@ -48288,13 +52471,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityUnstarRepoForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.activityUnstarRepoForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .activityUnstarRepoForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityUnstarRepoForAuthenticatedUserResponseValidator(
         status,
@@ -48330,15 +52517,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           activityListWatchedReposForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.activityListWatchedReposForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .activityListWatchedReposForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityListWatchedReposForAuthenticatedUserResponseValidator(
         status,
@@ -48374,12 +52562,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           teamsListForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.teamsListForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .teamsListForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = teamsListForAuthenticatedUserResponseValidator(status, body)
       ctx.status = status
@@ -48403,11 +52595,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("usersList", "/users", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(usersListQuerySchema, ctx.query),
+      query: parseRequestInput(
+        usersListQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.usersList(input, ctx)
+    const { status, body } = await implementation
+      .usersList(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = usersListResponseValidator(status, body)
     ctx.status = status
@@ -48426,12 +52626,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("usersGetByUsername", "/users/:username", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(usersGetByUsernameParamSchema, ctx.params),
+      params: parseRequestInput(
+        usersGetByUsernameParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.usersGetByUsername(input, ctx)
+    const { status, body } = await implementation
+      .usersGetByUsername(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = usersGetByUsernameResponseValidator(status, body)
     ctx.status = status
@@ -48459,16 +52667,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesListDockerMigrationConflictingPackagesForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesListDockerMigrationConflictingPackagesForUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .packagesListDockerMigrationConflictingPackagesForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         packagesListDockerMigrationConflictingPackagesForUserResponseValidator(
@@ -48500,16 +52709,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityListEventsForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           activityListEventsForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.activityListEventsForAuthenticatedUser(input, ctx)
+      const { status, body } = await implementation
+        .activityListEventsForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityListEventsForAuthenticatedUserResponseValidator(
         status,
@@ -48541,19 +52755,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityListOrgEventsForAuthenticatedUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           activityListOrgEventsForAuthenticatedUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.activityListOrgEventsForAuthenticatedUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .activityListOrgEventsForAuthenticatedUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityListOrgEventsForAuthenticatedUserResponseValidator(
         status,
@@ -48584,16 +52800,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityListPublicEventsForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           activityListPublicEventsForUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.activityListPublicEventsForUser(input, ctx)
+      const { status, body } = await implementation
+        .activityListPublicEventsForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityListPublicEventsForUserResponseValidator(status, body)
       ctx.status = status
@@ -48623,18 +52844,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           usersListFollowersForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           usersListFollowersForUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.usersListFollowersForUser(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .usersListFollowersForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersListFollowersForUserResponseValidator(status, body)
       ctx.status = status
@@ -48664,18 +52888,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           usersListFollowingForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           usersListFollowingForUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.usersListFollowingForUser(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .usersListFollowingForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersListFollowingForUserResponseValidator(status, body)
       ctx.status = status
@@ -48704,15 +52931,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           usersCheckFollowingForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.usersCheckFollowingForUser(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .usersCheckFollowingForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersCheckFollowingForUserResponseValidator(status, body)
       ctx.status = status
@@ -48741,12 +52970,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/users/:username/gists",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(gistsListForUserParamSchema, ctx.params),
-        query: parseRequestInput(gistsListForUserQuerySchema, ctx.query),
+        params: parseRequestInput(
+          gistsListForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          gistsListForUserQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.gistsListForUser(input, ctx)
+      const { status, body } = await implementation
+        .gistsListForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = gistsListForUserResponseValidator(status, body)
       ctx.status = status
@@ -48774,15 +53015,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           usersListGpgKeysForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(usersListGpgKeysForUserQuerySchema, ctx.query),
+        query: parseRequestInput(
+          usersListGpgKeysForUserQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.usersListGpgKeysForUser(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .usersListGpgKeysForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersListGpgKeysForUserResponseValidator(status, body)
       ctx.status = status
@@ -48816,15 +53063,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           usersGetContextForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(usersGetContextForUserQuerySchema, ctx.query),
+        query: parseRequestInput(
+          usersGetContextForUserQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.usersGetContextForUser(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .usersGetContextForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersGetContextForUserResponseValidator(status, body)
       ctx.status = status
@@ -48847,15 +53100,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           appsGetUserInstallationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.appsGetUserInstallation(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .appsGetUserInstallation(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = appsGetUserInstallationResponseValidator(status, body)
       ctx.status = status
@@ -48885,18 +53140,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           usersListPublicKeysForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           usersListPublicKeysForUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.usersListPublicKeysForUser(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .usersListPublicKeysForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersListPublicKeysForUserResponseValidator(status, body)
       ctx.status = status
@@ -48918,12 +53176,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("orgsListForUser", "/users/:username/orgs", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(orgsListForUserParamSchema, ctx.params),
-      query: parseRequestInput(orgsListForUserQuerySchema, ctx.query),
+      params: parseRequestInput(
+        orgsListForUserParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        orgsListForUserQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.orgsListForUser(input, ctx)
+    const { status, body } = await implementation
+      .orgsListForUser(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = orgsListForUserResponseValidator(status, body)
     ctx.status = status
@@ -48967,18 +53237,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesListPackagesForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           packagesListPackagesForUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.packagesListPackagesForUser(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .packagesListPackagesForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = packagesListPackagesForUserResponseValidator(status, body)
       ctx.status = status
@@ -49012,15 +53285,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesGetPackageForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.packagesGetPackageForUser(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .packagesGetPackageForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = packagesGetPackageForUserResponseValidator(status, body)
       ctx.status = status
@@ -49060,13 +53335,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesDeletePackageForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesDeletePackageForUser(input, ctx)
+      const { status, body } = await implementation
+        .packagesDeletePackageForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = packagesDeletePackageForUserResponseValidator(status, body)
       ctx.status = status
@@ -49110,16 +53389,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesRestorePackageForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           packagesRestorePackageForUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesRestorePackageForUser(input, ctx)
+      const { status, body } = await implementation
+        .packagesRestorePackageForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = packagesRestorePackageForUserResponseValidator(status, body)
       ctx.status = status
@@ -49160,16 +53444,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesGetAllPackageVersionsForPackageOwnedByUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesGetAllPackageVersionsForPackageOwnedByUser(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .packagesGetAllPackageVersionsForPackageOwnedByUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         packagesGetAllPackageVersionsForPackageOwnedByUserResponseValidator(
@@ -49206,13 +53491,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesGetPackageVersionForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesGetPackageVersionForUser(input, ctx)
+      const { status, body } = await implementation
+        .packagesGetPackageVersionForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = packagesGetPackageVersionForUserResponseValidator(status, body)
       ctx.status = status
@@ -49253,13 +53542,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesDeletePackageVersionForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesDeletePackageVersionForUser(input, ctx)
+      const { status, body } = await implementation
+        .packagesDeletePackageVersionForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = packagesDeletePackageVersionForUserResponseValidator(
         status,
@@ -49303,13 +53596,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           packagesRestorePackageVersionForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.packagesRestorePackageVersionForUser(input, ctx)
+      const { status, body } = await implementation
+        .packagesRestorePackageVersionForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = packagesRestorePackageVersionForUserResponseValidator(
         status,
@@ -49341,15 +53638,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/users/:username/projects",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(projectsListForUserParamSchema, ctx.params),
-        query: parseRequestInput(projectsListForUserQuerySchema, ctx.query),
+        params: parseRequestInput(
+          projectsListForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          projectsListForUserQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.projectsListForUser(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .projectsListForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = projectsListForUserResponseValidator(status, body)
       ctx.status = status
@@ -49377,16 +53683,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityListReceivedEventsForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           activityListReceivedEventsForUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.activityListReceivedEventsForUser(input, ctx)
+      const { status, body } = await implementation
+        .activityListReceivedEventsForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityListReceivedEventsForUserResponseValidator(
         status,
@@ -49417,16 +53728,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityListReceivedPublicEventsForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           activityListReceivedPublicEventsForUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.activityListReceivedPublicEventsForUser(input, ctx)
+      const { status, body } = await implementation
+        .activityListReceivedPublicEventsForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityListReceivedPublicEventsForUserResponseValidator(
         status,
@@ -49457,12 +53773,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/users/:username/repos",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(reposListForUserParamSchema, ctx.params),
-        query: parseRequestInput(reposListForUserQuerySchema, ctx.query),
+        params: parseRequestInput(
+          reposListForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposListForUserQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
       }
 
-      const { status, body } = await implementation.reposListForUser(input, ctx)
+      const { status, body } = await implementation
+        .reposListForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = reposListForUserResponseValidator(status, body)
       ctx.status = status
@@ -49485,13 +53813,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           billingGetGithubActionsBillingUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.billingGetGithubActionsBillingUser(input, ctx)
+      const { status, body } = await implementation
+        .billingGetGithubActionsBillingUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = billingGetGithubActionsBillingUserResponseValidator(
         status,
@@ -49517,13 +53849,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           billingGetGithubPackagesBillingUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.billingGetGithubPackagesBillingUser(input, ctx)
+      const { status, body } = await implementation
+        .billingGetGithubPackagesBillingUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = billingGetGithubPackagesBillingUserResponseValidator(
         status,
@@ -49549,13 +53885,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           billingGetSharedStorageBillingUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.billingGetSharedStorageBillingUser(input, ctx)
+      const { status, body } = await implementation
+        .billingGetSharedStorageBillingUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = billingGetSharedStorageBillingUserResponseValidator(
         status,
@@ -49586,16 +53926,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           usersListSocialAccountsForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           usersListSocialAccountsForUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.usersListSocialAccountsForUser(input, ctx)
+      const { status, body } = await implementation
+        .usersListSocialAccountsForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersListSocialAccountsForUserResponseValidator(status, body)
       ctx.status = status
@@ -49623,16 +53968,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           usersListSshSigningKeysForUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           usersListSshSigningKeysForUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.usersListSshSigningKeysForUser(input, ctx)
+      const { status, body } = await implementation
+        .usersListSshSigningKeysForUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = usersListSshSigningKeysForUserResponseValidator(status, body)
       ctx.status = status
@@ -49670,16 +54020,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityListReposStarredByUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           activityListReposStarredByUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.activityListReposStarredByUser(input, ctx)
+      const { status, body } = await implementation
+        .activityListReposStarredByUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityListReposStarredByUserResponseValidator(status, body)
       ctx.status = status
@@ -49710,16 +54065,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           activityListReposWatchedByUserParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           activityListReposWatchedByUserQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.activityListReposWatchedByUser(input, ctx)
+      const { status, body } = await implementation
+        .activityListReposWatchedByUser(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = activityListReposWatchedByUserResponseValidator(status, body)
       ctx.status = status
@@ -49742,7 +54102,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: undefined,
     }
 
-    const { status, body } = await implementation.metaGetAllVersions(input, ctx)
+    const { status, body } = await implementation
+      .metaGetAllVersions(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = metaGetAllVersionsResponseValidator(status, body)
     ctx.status = status
@@ -49761,7 +54125,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: undefined,
     }
 
-    const { status, body } = await implementation.metaGetZen(input, ctx)
+    const { status, body } = await implementation
+      .metaGetZen(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = metaGetZenResponseValidator(status, body)
     ctx.status = status
