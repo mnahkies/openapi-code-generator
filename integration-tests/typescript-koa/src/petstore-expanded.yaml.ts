@@ -6,8 +6,6 @@ import {
   createRouter,
   FindPetById,
 } from "./generated/petstore-expanded.yaml/generated"
-import {add} from "husky"
-import {s_review} from "./generated/stripe.yaml/schemas"
 
 const notImplemented = async () => {
   return {
