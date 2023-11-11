@@ -1,7 +1,13 @@
 /**
  * @prettier
  */
-import { bootstrap, createRouter, FindPetById } from "./generated/petstore-expanded.yaml/generated"
+import {
+  bootstrap,
+  createRouter,
+  FindPetById,
+} from "./generated/petstore-expanded.yaml/generated"
+import {add} from "husky"
+import {s_review} from "./generated/stripe.yaml/schemas"
 
 const notImplemented = async () => {
   return {
@@ -43,12 +49,28 @@ const findPetById: FindPetById = async ({params}, ctx) => {
   }
 }
 
-bootstrap({
-  router: createRouter({
-    findPets: notImplemented,
-    findPetById,
-    addPet: notImplemented,
-    deletePet: notImplemented,
-  }),
-  port: 3000,
-})
+async function main() {
+  const {server, address} = await bootstrap({
+    router: createRouter({
+      findPets: notImplemented,
+      findPetById,
+      addPet: notImplemented,
+      deletePet: notImplemented,
+    }),
+    port: 3000,
+  })
+
+  console.info(`listening on ${address.address}:${address.port}`)
+
+  process.on("SIGTERM", () => {
+    console.info("sigterm received, closing server")
+    server.close()
+  })
+}
+
+if (require.main === module) {
+  main().catch((err) => {
+    console.error("unhandled exception", err)
+    process.exit(1)
+  })
+}
