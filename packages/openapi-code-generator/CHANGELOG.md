@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.1](https://github.com/mnahkies/openapi-code-generator/compare/v0.1.0...v0.1.1) (2023-11-11)
+
+
+### Bug Fixes
+
+* don't coerce strings ([e579295](https://github.com/mnahkies/openapi-code-generator/commit/e57929559a351f3c48590e19c4be8b115ba6de8d))
+
+
+
+
+
 # 0.1.0 (2023-10-01)
 
 

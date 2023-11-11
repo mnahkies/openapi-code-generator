@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.1](https://github.com/mnahkies/openapi-code-generator/compare/v0.1.0...v0.1.1) (2023-11-11)
+
+
+### Bug Fixes
+
+* avoid warning for non-nullable paths ([#90](https://github.com/mnahkies/openapi-code-generator/issues/90)) ([b857182](https://github.com/mnahkies/openapi-code-generator/commit/b8571820109ca31e836b7141f5aac5a88919096b))
+* delete files missed in [#92](https://github.com/mnahkies/openapi-code-generator/issues/92) ([#93](https://github.com/mnahkies/openapi-code-generator/issues/93)) ([9ccdd50](https://github.com/mnahkies/openapi-code-generator/commit/9ccdd50a30e6b726ea59c46396929fd0220a3aa6))
+* don't coerce strings ([e579295](https://github.com/mnahkies/openapi-code-generator/commit/e57929559a351f3c48590e19c4be8b115ba6de8d))
+* unused imports ([#97](https://github.com/mnahkies/openapi-code-generator/issues/97)) ([c2a0ae5](https://github.com/mnahkies/openapi-code-generator/commit/c2a0ae50e2ff9e81181f032ca514a1e974f08321))
+
+
+
+
+
 # 0.1.0 (2023-10-01)
 
 
