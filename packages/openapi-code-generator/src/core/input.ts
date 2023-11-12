@@ -247,10 +247,14 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
     }
     case "number":
     case "integer": {
-      const enumValues = ((schemaObject.enum ?? []) as any[])
-        .filter((it): it is number => isFinite(it))
+      const schemaObjectEnum = ((schemaObject.enum ?? []) as any[])
+      const nullable = schemaObjectEnum.includes(null)
+      const enumValues = schemaObjectEnum
+        .filter((it): it is number => Number.isFinite(it))
+
       return {
         ...base,
+        nullable: nullable || base.nullable,
         type: "number",
         // todo: https://github.com/mnahkies/openapi-code-generator/issues/51
         format: schemaObject.format as any,
@@ -258,10 +262,15 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
       } satisfies IRModelNumeric
     }
     case "string": {
-      const enumValues = ((schemaObject.enum ?? []) as any[])
+      const schemaObjectEnum = ((schemaObject.enum ?? []) as any[])
+      const nullable = schemaObjectEnum.includes(null)
+      const enumValues = schemaObjectEnum
+        .filter((it) => it !== undefined && it !== null)
         .map((it) => String(it))
+
       return {
         ...base,
+        nullable: nullable || base.nullable,
         type: schemaObject.type,
         format: schemaObject.format as any,
         enum: enumValues.length ? enumValues : undefined,
