@@ -57,7 +57,7 @@ export type QueryParams = {
     | QueryParams[]
 }
 
-export type HeaderParams = Record<string, string | undefined>
+export type HeaderParams = Record<string, string | number | undefined>
 
 export abstract class AbstractFetchClient {
   protected readonly basePath: string
@@ -128,9 +128,9 @@ export abstract class AbstractFetchClient {
 
   protected _headers(headers: HeaderParams): Record<string, string> {
     return Object.fromEntries(
-      Object.entries({...this.defaultHeaders, ...headers}).filter(
-        (it): it is [string, string] => it[1] !== undefined,
-      ),
+      Object.entries({...this.defaultHeaders, ...headers})
+        .filter((it): it is [string, string | number] => it[1] !== undefined)
+        .map((it): [string, string] => [it[0], String(it[1])]),
     )
   }
 }
