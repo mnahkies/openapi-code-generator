@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.1.1...v0.2.0) (2023-11-12)
+
+
+### Bug Fixes
+
+* handle `"` in string enum values ([#107](https://github.com/mnahkies/openapi-code-generator/issues/107)) ([5b2c341](https://github.com/mnahkies/openapi-code-generator/commit/5b2c341a9a240a62e66c3eda49e80fd36b7c50a1)), closes [/github.com/APIs-guru/openapi-directory/blob/dec74da7a6785d5d5b83bc6a4cebc07336d67ec9/APIs/vercel.com/0.0.1/openapi.yaml#L4810](https://github.com//github.com/APIs-guru/openapi-directory/blob/dec74da7a6785d5d5b83bc6a4cebc07336d67ec9/APIs/vercel.com/0.0.1/openapi.yaml/issues/L4810)
+* handle null in enums ([#106](https://github.com/mnahkies/openapi-code-generator/issues/106)) ([b235a7e](https://github.com/mnahkies/openapi-code-generator/commit/b235a7ead75a7655073e67b30a94c980eb9c81ef)), closes [/github.com/APIs-guru/openapi-directory/blob/dec74da7a6785d5d5b83bc6a4cebc07336d67ec9/APIs/vercel.com/0.0.1/openapi.yaml#L4648-L4655](https://github.com//github.com/APIs-guru/openapi-directory/blob/dec74da7a6785d5d5b83bc6a4cebc07336d67ec9/APIs/vercel.com/0.0.1/openapi.yaml/issues/L4648-L4655)
+* optional oneOf / allOf / anyOf / $ref's ([#110](https://github.com/mnahkies/openapi-code-generator/issues/110)) ([2ff114a](https://github.com/mnahkies/openapi-code-generator/commit/2ff114ad60df1ab24085d4d6f9ab23e11c2fdd0c))
+* skip broken openapi 3.1 validation for now ([#104](https://github.com/mnahkies/openapi-code-generator/issues/104)) ([f6e7956](https://github.com/mnahkies/openapi-code-generator/commit/f6e795629caa2adf9b00d53b2a771134135afdc8)), closes [#103](https://github.com/mnahkies/openapi-code-generator/issues/103)
+* use numerical enums when creating zod schema ([#108](https://github.com/mnahkies/openapi-code-generator/issues/108)) ([7564c10](https://github.com/mnahkies/openapi-code-generator/commit/7564c10c730d008629a45f46d1cc074ba225e429)), closes [/github.com/colinhacks/zod/issues/2686#issuecomment-1807096385](https://github.com//github.com/colinhacks/zod/issues/2686/issues/issuecomment-1807096385)
+
+
+### Features
+
+* basic support for openapi 3.1 ([#109](https://github.com/mnahkies/openapi-code-generator/issues/109)) ([60838d9](https://github.com/mnahkies/openapi-code-generator/commit/60838d93ac8e672f2227d399b3926da17073385e))
+
+
+
+
+
 ## [0.1.1](https://github.com/mnahkies/openapi-code-generator/compare/v0.1.0...v0.1.1) (2023-11-11)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.1.1...v0.2.0) (2023-11-12)
+
+
+### Bug Fixes
+
+* allow numeric header values ([#105](https://github.com/mnahkies/openapi-code-generator/issues/105)) ([7feab98](https://github.com/mnahkies/openapi-code-generator/commit/7feab98733584221c28dd1f9b8e1f3097d58e28f))
+
+
+
+
+
 ## [0.1.1](https://github.com/mnahkies/openapi-code-generator/compare/v0.1.0...v0.1.1) (2023-11-11)
 
 **Note:** Version bump only for package @nahkies/typescript-fetch-runtime
