@@ -581,7 +581,6 @@ export type t_check_suite = {
     | "action_required"
     | "startup_failure"
     | "stale"
-    | "null"
     | null
   created_at: string | null
   head_branch: string | null
@@ -715,7 +714,6 @@ export type t_code_scanning_alert_classification =
 export type t_code_scanning_alert_dismissed_comment = string | null
 
 export type t_code_scanning_alert_dismissed_reason =
-  | "null"
   | "false positive"
   | "won't fix"
   | "used in tests"
