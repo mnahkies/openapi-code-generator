@@ -226,15 +226,15 @@ export const s_UserInfo = z.object({ sub: z.string().optional() })
 
 export const s_IntrospectionRequest = z.object({
   token: z.string().optional(),
-  token_type_hint: s_TokenTypeHintIntrospect,
+  token_type_hint: s_TokenTypeHintIntrospect.optional(),
 })
 
 export const s_JsonWebKey = z.object({
-  alg: s_SigningAlgorithm,
+  alg: s_SigningAlgorithm.optional(),
   kid: z.string().optional(),
-  kty: s_JsonWebKeyType,
-  status: s_JsonWebKeyStatus,
-  use: s_JsonWebKeyUse,
+  kty: s_JsonWebKeyType.optional(),
+  status: s_JsonWebKeyStatus.optional(),
+  use: s_JsonWebKeyUse.optional(),
 })
 
 export const s_OAuthMetadata = z.object({
@@ -278,41 +278,41 @@ export const s_OAuthMetadata = z.object({
 
 export const s_RevokeRequest = z.object({
   token: z.string().optional(),
-  token_type_hint: s_TokenTypeHintRevoke,
+  token_type_hint: s_TokenTypeHintRevoke.optional(),
 })
 
-export const s_TokenRequest = z.object({ grant_type: s_GrantType })
+export const s_TokenRequest = z.object({ grant_type: s_GrantType.optional() })
 
 export const s_TokenResponse = z.object({
   access_token: z.string().optional(),
   device_secret: z.string().optional(),
   expires_in: z.coerce.number().optional(),
   id_token: z.string().optional(),
-  issued_token_type: s_TokenType,
+  issued_token_type: s_TokenType.optional(),
   refresh_token: z.string().optional(),
   scope: z.string().optional(),
-  token_type: s_TokenResponseTokenType,
+  token_type: s_TokenResponseTokenType.optional(),
 })
 
 export const s_Client = z.object({
-  application_type: s_ApplicationType,
+  application_type: s_ApplicationType.optional(),
   client_id: z.string().optional(),
   client_id_issued_at: z.coerce.number().optional(),
   client_name: z.string().optional(),
-  client_secret: z.string().optional().nullable(),
-  client_secret_expires_at: z.coerce.number().optional().nullable(),
+  client_secret: z.string().nullable().optional(),
+  client_secret_expires_at: z.coerce.number().nullable().optional(),
   grant_types: z.array(s_GrantType).optional(),
   initiate_login_uri: z.string().optional(),
   jwks: z.array(s_JsonWebKey).optional(),
   jwks_uri: z.string().optional(),
-  logo_uri: z.string().optional().nullable(),
-  policy_uri: z.string().optional().nullable(),
+  logo_uri: z.string().nullable().optional(),
+  policy_uri: z.string().nullable().optional(),
   post_logout_redirect_uris: z.string().optional(),
   redirect_uris: z.array(z.string()).optional(),
   request_object_signing_alg: z.array(s_SigningAlgorithm).optional(),
   response_types: z.array(s_ResponseType).optional(),
-  token_endpoint_auth_method: s_EndpointAuthMethod,
-  tos_uri: z.string().optional().nullable(),
+  token_endpoint_auth_method: s_EndpointAuthMethod.optional(),
+  tos_uri: z.string().nullable().optional(),
 })
 
 export const s_OAuthKeys = z.object({ keys: z.array(s_JsonWebKey).optional() })

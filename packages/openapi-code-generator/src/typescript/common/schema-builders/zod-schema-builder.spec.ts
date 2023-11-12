@@ -31,6 +31,34 @@ describe("typescript/common/schema-builders/zod-schema-builder", () => {
     `)
   })
 
+  it("supports the ObjectWithComplexProperties", async () => {
+    const {model, schemas} = await getActual(
+      "components/schemas/ObjectWithComplexProperties",
+    )
+
+    expect(model).toMatchInlineSnapshot(`
+      "s_ObjectWithComplexProperties
+      "
+    `)
+    expect(schemas).toMatchInlineSnapshot(`
+      "import { z } from "zod"
+
+      export const s_OneOf = z.union([
+        z.object({ strs: z.array(z.string()) }),
+        z.array(z.string()),
+        z.string(),
+      ])
+
+      export const s_ObjectWithComplexProperties = z.object({
+        requiredOneOf: z.union([z.string(), z.coerce.number()]),
+        requiredOneOfRef: s_OneOf,
+        optionalOneOf: z.union([z.string(), z.coerce.number()]).optional(),
+        optionalOneOfRef: s_OneOf.optional(),
+      })
+      "
+    `)
+  })
+
   it("supports unions / oneOf", async () => {
     const {model, schemas} = await getActual("components/schemas/OneOf")
 
@@ -97,7 +125,7 @@ describe("typescript/common/schema-builders/zod-schema-builder", () => {
       import { z } from "zod"
 
       export const s_Recursive: z.ZodType<t_Recursive> = z.object({
-        child: z.lazy(() => s_Recursive),
+        child: z.lazy(() => s_Recursive.optional()),
       })
       "
     `)
@@ -139,8 +167,11 @@ describe("typescript/common/schema-builders/zod-schema-builder", () => {
       "import { z } from "zod"
 
       export const s_Enums = z.object({
-        str: z.enum(["foo", "bar"]).optional().nullable(),
-        num: z.union([z.literal(10), z.literal(20)]).nullable(),
+        str: z.enum(["foo", "bar"]).nullable().optional(),
+        num: z
+          .union([z.literal(10), z.literal(20)])
+          .nullable()
+          .optional(),
       })
       "
     `)

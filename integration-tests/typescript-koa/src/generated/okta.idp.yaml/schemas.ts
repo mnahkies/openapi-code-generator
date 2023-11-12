@@ -186,8 +186,8 @@ export const s_AppAuthenticatorEnrollmentRequest = z.object({
       pushToken: z.string(),
       keys: z.object({
         proofOfPossession: s_KeyObject,
-        userVerification: s_KeyObject,
-        capabilities: s_AppAuthenticatorMethodCapabilities,
+        userVerification: s_KeyObject.optional(),
+        capabilities: s_AppAuthenticatorMethodCapabilities.optional(),
       }),
     }),
   }),
@@ -199,8 +199,10 @@ export const s_UpdateAppAuthenticatorEnrollmentRequest = z.object({
       push: z
         .object({
           pushToken: z.string().optional(),
-          keys: z.object({ userVerification: s_KeyObject }).optional(),
-          capabilities: s_AppAuthenticatorMethodCapabilities,
+          keys: z
+            .object({ userVerification: s_KeyObject.optional() })
+            .optional(),
+          capabilities: s_AppAuthenticatorMethodCapabilities.optional(),
         })
         .optional(),
     })

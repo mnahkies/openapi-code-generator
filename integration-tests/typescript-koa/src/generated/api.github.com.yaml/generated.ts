@@ -12473,9 +12473,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     severity: z
       .enum(["unknown", "low", "medium", "high", "critical"])
       .optional(),
-    cwes: z.union([z.string(), z.array(z.string())]),
+    cwes: z.union([z.string(), z.array(z.string())]).optional(),
     is_withdrawn: z.coerce.boolean().optional(),
-    affects: z.union([z.string(), z.array(z.string())]),
+    affects: z.union([z.string(), z.array(z.string())]).optional(),
     published: z.string().optional(),
     updated: z.string().optional(),
     modified: z.string().optional(),
@@ -12653,10 +12653,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const appsUpdateWebhookConfigForAppBodySchema = z.object({
-    url: s_webhook_config_url,
-    content_type: s_webhook_config_content_type,
-    secret: s_webhook_config_secret,
-    insecure_ssl: s_webhook_config_insecure_ssl,
+    url: s_webhook_config_url.optional(),
+    content_type: s_webhook_config_content_type.optional(),
+    secret: s_webhook_config_secret.optional(),
+    insecure_ssl: s_webhook_config_insecure_ssl.optional(),
   })
 
   const appsUpdateWebhookConfigForAppResponseValidator =
@@ -12950,7 +12950,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .object({
       repositories: z.array(z.string()).optional(),
       repository_ids: z.array(z.coerce.number()).optional(),
-      permissions: s_app_permissions,
+      permissions: s_app_permissions.optional(),
     })
     .optional()
 
@@ -13206,7 +13206,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     target_id: z.coerce.number().optional(),
     repositories: z.array(z.string()).optional(),
     repository_ids: z.array(z.coerce.number()).optional(),
-    permissions: s_app_permissions,
+    permissions: s_app_permissions.optional(),
   })
 
   const appsScopeTokenResponseValidator = responseValidationFactory(
@@ -13783,7 +13783,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const gistsCreateBodySchema = z.object({
     description: z.string().optional(),
     files: z.object({}),
-    public: z.union([z.coerce.boolean(), z.enum(["true", "false"])]),
+    public: z.union([z.coerce.boolean(), z.enum(["true", "false"])]).optional(),
   })
 
   const gistsCreateResponseValidator = responseValidationFactory(
@@ -13884,7 +13884,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({
               reason: z.string().optional(),
               created_at: z.string().optional(),
-              html_url: z.string().optional().nullable(),
+              html_url: z.string().nullable().optional(),
             })
             .optional(),
           message: z.string().optional(),
@@ -14057,7 +14057,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({
               reason: z.string().optional(),
               created_at: z.string().optional(),
-              html_url: z.string().optional().nullable(),
+              html_url: z.string().nullable().optional(),
             })
             .optional(),
           message: z.string().optional(),
@@ -15631,7 +15631,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const actionsSetGithubActionsPermissionsOrganizationBodySchema = z.object({
     enabled_repositories: s_enabled_repositories,
-    allowed_actions: s_allowed_actions,
+    allowed_actions: s_allowed_actions.optional(),
   })
 
   const actionsSetGithubActionsPermissionsOrganizationResponseValidator =
@@ -15871,7 +15871,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const actionsSetAllowedActionsOrganizationBodySchema = s_selected_actions
+  const actionsSetAllowedActionsOrganizationBodySchema =
+    s_selected_actions.optional()
 
   const actionsSetAllowedActionsOrganizationResponseValidator =
     responseValidationFactory([["204", z.void()]], undefined)
@@ -15946,7 +15947,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.object({ org: z.string() })
 
   const actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema =
-    s_actions_set_default_workflow_permissions
+    s_actions_set_default_workflow_permissions.optional()
 
   const actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationResponseValidator =
     responseValidationFactory([["204", z.void()]], undefined)
@@ -17360,16 +17361,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codeScanningListAlertsForOrgParamSchema = z.object({ org: z.string() })
 
   const codeScanningListAlertsForOrgQuerySchema = z.object({
-    tool_name: s_code_scanning_analysis_tool_name,
-    tool_guid: s_code_scanning_analysis_tool_guid,
+    tool_name: s_code_scanning_analysis_tool_name.optional(),
+    tool_guid: s_code_scanning_analysis_tool_guid.optional(),
     before: z.string().optional(),
     after: z.string().optional(),
     page: z.coerce.number().optional(),
     per_page: z.coerce.number().optional(),
     direction: z.enum(["asc", "desc"]).optional(),
-    state: s_code_scanning_alert_state_query,
+    state: s_code_scanning_alert_state_query.optional(),
     sort: z.enum(["created", "updated"]).optional(),
-    severity: s_code_scanning_alert_severity,
+    severity: s_code_scanning_alert_severity.optional(),
   })
 
   const codeScanningListAlertsForOrgResponseValidator =
@@ -18879,9 +18880,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     name: z.string(),
     config: z.object({
       url: s_webhook_config_url,
-      content_type: s_webhook_config_content_type,
-      secret: s_webhook_config_secret,
-      insecure_ssl: s_webhook_config_insecure_ssl,
+      content_type: s_webhook_config_content_type.optional(),
+      secret: s_webhook_config_secret.optional(),
+      insecure_ssl: s_webhook_config_insecure_ssl.optional(),
       username: z.string().optional(),
       password: z.string().optional(),
     }),
@@ -18953,9 +18954,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       config: z
         .object({
           url: s_webhook_config_url,
-          content_type: s_webhook_config_content_type,
-          secret: s_webhook_config_secret,
-          insecure_ssl: s_webhook_config_insecure_ssl,
+          content_type: s_webhook_config_content_type.optional(),
+          secret: s_webhook_config_secret.optional(),
+          insecure_ssl: s_webhook_config_insecure_ssl.optional(),
         })
         .optional(),
       events: z.array(z.string()).optional(),
@@ -19069,10 +19070,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsUpdateWebhookConfigForOrgBodySchema = z
     .object({
-      url: s_webhook_config_url,
-      content_type: s_webhook_config_content_type,
-      secret: s_webhook_config_secret,
-      insecure_ssl: s_webhook_config_insecure_ssl,
+      url: s_webhook_config_url.optional(),
+      content_type: s_webhook_config_content_type.optional(),
+      secret: s_webhook_config_secret.optional(),
+      insecure_ssl: s_webhook_config_insecure_ssl.optional(),
     })
     .optional()
 
@@ -20939,7 +20940,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const orgsReviewPatGrantRequestsInBulkBodySchema = z.object({
     pat_request_ids: z.array(z.coerce.number()).optional(),
     action: z.enum(["approve", "deny"]),
-    reason: z.string().optional().nullable(),
+    reason: z.string().nullable().optional(),
   })
 
   const orgsReviewPatGrantRequestsInBulkResponseValidator =
@@ -20986,7 +20987,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsReviewPatGrantRequestBodySchema = z.object({
     action: z.enum(["approve", "deny"]),
-    reason: z.string().optional().nullable(),
+    reason: z.string().nullable().optional(),
   })
 
   const orgsReviewPatGrantRequestResponseValidator = responseValidationFactory(
@@ -21604,7 +21605,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     target: z.enum(["branch", "tag"]).optional(),
     enforcement: s_repository_rule_enforcement,
     bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
-    conditions: s_org_ruleset_conditions,
+    conditions: s_org_ruleset_conditions.optional(),
     rules: z.array(s_repository_rule).optional(),
   })
 
@@ -21685,9 +21686,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .object({
       name: z.string().optional(),
       target: z.enum(["branch", "tag"]).optional(),
-      enforcement: s_repository_rule_enforcement,
+      enforcement: s_repository_rule_enforcement.optional(),
       bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
-      conditions: s_org_ruleset_conditions,
+      conditions: s_org_ruleset_conditions.optional(),
       rules: z.array(s_repository_rule).optional(),
     })
     .optional()
@@ -22174,7 +22175,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .enum(["notifications_enabled", "notifications_disabled"])
         .optional(),
       permission: z.enum(["pull", "push", "admin"]).optional(),
-      parent_team_id: z.coerce.number().optional().nullable(),
+      parent_team_id: z.coerce.number().nullable().optional(),
     })
     .optional()
 
@@ -23213,8 +23214,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const teamsAddOrUpdateProjectPermissionsInOrgBodySchema = z
     .object({ permission: z.enum(["read", "write", "admin"]).optional() })
-    .optional()
     .nullable()
+    .optional()
 
   const teamsAddOrUpdateProjectPermissionsInOrgResponseValidator =
     responseValidationFactory(
@@ -23577,7 +23578,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const projectsUpdateCardBodySchema = z
     .object({
-      note: z.string().optional().nullable(),
+      note: z.string().nullable().optional(),
       archived: z.coerce.boolean().optional(),
     })
     .optional()
@@ -24002,7 +24003,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const projectsUpdateBodySchema = z
     .object({
       name: z.string().optional(),
-      body: z.string().optional().nullable(),
+      body: z.string().nullable().optional(),
       state: z.string().optional(),
       organization_permission: z
         .enum(["read", "write", "admin", "none"])
@@ -24136,8 +24137,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const projectsAddCollaboratorBodySchema = z
     .object({ permission: z.enum(["read", "write", "admin"]).optional() })
-    .optional()
     .nullable()
+    .optional()
 
   const projectsAddCollaboratorResponseValidator = responseValidationFactory(
     [
@@ -24413,8 +24414,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({ status: z.string().optional() })
             .optional(),
         })
-        .optional()
-        .nullable(),
+        .nullable()
+        .optional(),
       has_issues: z.coerce.boolean().optional(),
       has_projects: z.coerce.boolean().optional(),
       has_wiki: z.coerce.boolean().optional(),
@@ -24883,8 +24884,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const actionsReRunJobForWorkflowRunBodySchema = z
     .object({ enable_debug_logging: z.coerce.boolean().optional() })
-    .optional()
     .nullable()
+    .optional()
 
   const actionsReRunJobForWorkflowRunResponseValidator =
     responseValidationFactory(
@@ -25159,7 +25160,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const actionsSetGithubActionsPermissionsRepositoryBodySchema = z.object({
     enabled: s_actions_enabled,
-    allowed_actions: s_allowed_actions,
+    allowed_actions: s_allowed_actions.optional(),
   })
 
   const actionsSetGithubActionsPermissionsRepositoryResponseValidator =
@@ -25309,7 +25310,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const actionsSetAllowedActionsRepositoryBodySchema = s_selected_actions
+  const actionsSetAllowedActionsRepositoryBodySchema =
+    s_selected_actions.optional()
 
   const actionsSetAllowedActionsRepositoryResponseValidator =
     responseValidationFactory([["204", z.void()]], undefined)
@@ -26644,8 +26646,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const actionsReRunWorkflowBodySchema = z
     .object({ enable_debug_logging: z.coerce.boolean().optional() })
-    .optional()
     .nullable()
+    .optional()
 
   const actionsReRunWorkflowResponseValidator = responseValidationFactory(
     [["201", s_empty_object]],
@@ -26684,8 +26686,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const actionsReRunWorkflowFailedJobsBodySchema = z
     .object({ enable_debug_logging: z.coerce.boolean().optional() })
-    .optional()
     .nullable()
+    .optional()
 
   const actionsReRunWorkflowFailedJobsResponseValidator =
     responseValidationFactory([["201", s_empty_object]], undefined)
@@ -27984,7 +27986,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       })
       .nullable(),
     required_linear_history: z.coerce.boolean().optional(),
-    allow_force_pushes: z.coerce.boolean().optional().nullable(),
+    allow_force_pushes: z.coerce.boolean().nullable().optional(),
     allow_deletions: z.coerce.boolean().optional(),
     block_creations: z.coerce.boolean().optional(),
     required_conversation_resolution: z.coerce.boolean().optional(),
@@ -28604,10 +28606,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposAddStatusCheckContextsBodySchema = z.union([
-    z.object({ contexts: z.array(z.string()) }),
-    z.array(z.string()),
-  ])
+  const reposAddStatusCheckContextsBodySchema = z
+    .union([z.object({ contexts: z.array(z.string()) }), z.array(z.string())])
+    .optional()
 
   const reposAddStatusCheckContextsResponseValidator =
     responseValidationFactory(
@@ -28653,10 +28654,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposSetStatusCheckContextsBodySchema = z.union([
-    z.object({ contexts: z.array(z.string()) }),
-    z.array(z.string()),
-  ])
+  const reposSetStatusCheckContextsBodySchema = z
+    .union([z.object({ contexts: z.array(z.string()) }), z.array(z.string())])
+    .optional()
 
   const reposSetStatusCheckContextsResponseValidator =
     responseValidationFactory(
@@ -28856,10 +28856,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposAddAppAccessRestrictionsBodySchema = z.union([
-    z.object({ apps: z.array(z.string()) }),
-    z.array(z.string()),
-  ])
+  const reposAddAppAccessRestrictionsBodySchema = z
+    .union([z.object({ apps: z.array(z.string()) }), z.array(z.string())])
+    .optional()
 
   const reposAddAppAccessRestrictionsResponseValidator =
     responseValidationFactory(
@@ -28901,10 +28900,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposSetAppAccessRestrictionsBodySchema = z.union([
-    z.object({ apps: z.array(z.string()) }),
-    z.array(z.string()),
-  ])
+  const reposSetAppAccessRestrictionsBodySchema = z
+    .union([z.object({ apps: z.array(z.string()) }), z.array(z.string())])
+    .optional()
 
   const reposSetAppAccessRestrictionsResponseValidator =
     responseValidationFactory(
@@ -29034,10 +29032,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposAddTeamAccessRestrictionsBodySchema = z.union([
-    z.object({ teams: z.array(z.string()) }),
-    z.array(z.string()),
-  ])
+  const reposAddTeamAccessRestrictionsBodySchema = z
+    .union([z.object({ teams: z.array(z.string()) }), z.array(z.string())])
+    .optional()
 
   const reposAddTeamAccessRestrictionsResponseValidator =
     responseValidationFactory(
@@ -29079,10 +29076,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposSetTeamAccessRestrictionsBodySchema = z.union([
-    z.object({ teams: z.array(z.string()) }),
-    z.array(z.string()),
-  ])
+  const reposSetTeamAccessRestrictionsBodySchema = z
+    .union([z.object({ teams: z.array(z.string()) }), z.array(z.string())])
+    .optional()
 
   const reposSetTeamAccessRestrictionsResponseValidator =
     responseValidationFactory(
@@ -29215,10 +29211,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposAddUserAccessRestrictionsBodySchema = z.union([
-    z.object({ users: z.array(z.string()) }),
-    z.array(z.string()),
-  ])
+  const reposAddUserAccessRestrictionsBodySchema = z
+    .union([z.object({ users: z.array(z.string()) }), z.array(z.string())])
+    .optional()
 
   const reposAddUserAccessRestrictionsResponseValidator =
     responseValidationFactory(
@@ -29260,10 +29255,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposSetUserAccessRestrictionsBodySchema = z.union([
-    z.object({ users: z.array(z.string()) }),
-    z.array(z.string()),
-  ])
+  const reposSetUserAccessRestrictionsBodySchema = z
+    .union([z.object({ users: z.array(z.string()) }), z.array(z.string())])
+    .optional()
 
   const reposSetUserAccessRestrictionsResponseValidator =
     responseValidationFactory(
@@ -29808,15 +29802,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const codeScanningListAlertsForRepoQuerySchema = z.object({
-    tool_name: s_code_scanning_analysis_tool_name,
-    tool_guid: s_code_scanning_analysis_tool_guid,
+    tool_name: s_code_scanning_analysis_tool_name.optional(),
+    tool_guid: s_code_scanning_analysis_tool_guid.optional(),
     page: z.coerce.number().optional(),
     per_page: z.coerce.number().optional(),
-    ref: s_code_scanning_ref,
+    ref: s_code_scanning_ref.optional(),
     direction: z.enum(["asc", "desc"]).optional(),
     sort: z.enum(["created", "updated"]).optional(),
-    state: s_code_scanning_alert_state_query,
-    severity: s_code_scanning_alert_severity,
+    state: s_code_scanning_alert_state_query.optional(),
+    severity: s_code_scanning_alert_severity.optional(),
   })
 
   const codeScanningListAlertsForRepoResponseValidator =
@@ -29916,8 +29910,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const codeScanningUpdateAlertBodySchema = z.object({
     state: s_code_scanning_alert_set_state,
-    dismissed_reason: s_code_scanning_alert_dismissed_reason,
-    dismissed_comment: s_code_scanning_alert_dismissed_comment,
+    dismissed_reason: s_code_scanning_alert_dismissed_reason.optional(),
+    dismissed_comment: s_code_scanning_alert_dismissed_comment.optional(),
   })
 
   const codeScanningUpdateAlertResponseValidator = responseValidationFactory(
@@ -29973,7 +29967,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codeScanningListAlertInstancesQuerySchema = z.object({
     page: z.coerce.number().optional(),
     per_page: z.coerce.number().optional(),
-    ref: s_code_scanning_ref,
+    ref: s_code_scanning_ref.optional(),
   })
 
   const codeScanningListAlertInstancesResponseValidator =
@@ -30025,12 +30019,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const codeScanningListRecentAnalysesQuerySchema = z.object({
-    tool_name: s_code_scanning_analysis_tool_name,
-    tool_guid: s_code_scanning_analysis_tool_guid,
+    tool_name: s_code_scanning_analysis_tool_name.optional(),
+    tool_guid: s_code_scanning_analysis_tool_guid.optional(),
     page: z.coerce.number().optional(),
     per_page: z.coerce.number().optional(),
-    ref: s_code_scanning_ref,
-    sarif_id: s_code_scanning_analysis_sarif_id,
+    ref: s_code_scanning_ref.optional(),
+    sarif_id: s_code_scanning_analysis_sarif_id.optional(),
     direction: z.enum(["asc", "desc"]).optional(),
     sort: z.enum(["created"]).optional(),
   })
@@ -30132,7 +30126,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const codeScanningDeleteAnalysisQuerySchema = z.object({
-    confirm_delete: z.string().optional().nullable(),
+    confirm_delete: z.string().nullable().optional(),
   })
 
   const codeScanningDeleteAnalysisResponseValidator = responseValidationFactory(
@@ -30793,7 +30787,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         [
           "200",
           z.object({
-            billable_owner: s_simple_user,
+            billable_owner: s_simple_user.optional(),
             defaults: z
               .object({
                 location: z.string(),
@@ -32786,7 +32780,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     sha: z.string().optional(),
     ref: z.string().optional(),
     task: z.string().optional(),
-    environment: z.string().optional().nullable(),
+    environment: z.string().nullable().optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
   })
@@ -32827,9 +32821,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     task: z.string().optional(),
     auto_merge: z.coerce.boolean().optional(),
     required_contexts: z.array(z.string()).optional(),
-    payload: z.union([z.object({}), z.string()]),
+    payload: z.union([z.object({}), z.string()]).optional(),
     environment: z.string().optional(),
-    description: z.string().optional().nullable(),
+    description: z.string().nullable().optional(),
     transient_environment: z.coerce.boolean().optional(),
     production_environment: z.coerce.boolean().optional(),
   })
@@ -33217,20 +33211,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposCreateOrUpdateEnvironmentBodySchema = z
     .object({
-      wait_timer: s_wait_timer,
+      wait_timer: s_wait_timer.optional(),
       reviewers: z
         .array(
           z.object({
-            type: s_deployment_reviewer_type,
+            type: s_deployment_reviewer_type.optional(),
             id: z.coerce.number().optional(),
           }),
         )
-        .optional()
-        .nullable(),
-      deployment_branch_policy: s_deployment_branch_policy_settings,
+        .nullable()
+        .optional(),
+      deployment_branch_policy: s_deployment_branch_policy_settings.optional(),
     })
-    .optional()
     .nullable()
+    .optional()
 
   const reposCreateOrUpdateEnvironmentResponseValidator =
     responseValidationFactory(
@@ -33818,8 +33812,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
       name: z.string().optional(),
       default_branch_only: z.coerce.boolean().optional(),
     })
-    .optional()
     .nullable()
+    .optional()
 
   const reposCreateForkResponseValidator = responseValidationFactory(
     [
@@ -34264,7 +34258,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .enum(["100644", "100755", "040000", "160000", "120000"])
           .optional(),
         type: z.enum(["blob", "tree", "commit"]).optional(),
-        sha: z.string().optional().nullable(),
+        sha: z.string().nullable().optional(),
         content: z.string().optional(),
       }),
     ),
@@ -34383,10 +34377,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       name: z.string().optional(),
       config: z
         .object({
-          url: s_webhook_config_url,
-          content_type: s_webhook_config_content_type,
-          secret: s_webhook_config_secret,
-          insecure_ssl: s_webhook_config_insecure_ssl,
+          url: s_webhook_config_url.optional(),
+          content_type: s_webhook_config_content_type.optional(),
+          secret: s_webhook_config_secret.optional(),
+          insecure_ssl: s_webhook_config_insecure_ssl.optional(),
           token: z.string().optional(),
           digest: z.string().optional(),
         })
@@ -34394,8 +34388,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
       events: z.array(z.string()).optional(),
       active: z.coerce.boolean().optional(),
     })
-    .optional()
     .nullable()
+    .optional()
 
   const reposCreateWebhookResponseValidator = responseValidationFactory(
     [
@@ -34470,9 +34464,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     config: z
       .object({
         url: s_webhook_config_url,
-        content_type: s_webhook_config_content_type,
-        secret: s_webhook_config_secret,
-        insecure_ssl: s_webhook_config_insecure_ssl,
+        content_type: s_webhook_config_content_type.optional(),
+        secret: s_webhook_config_secret.optional(),
+        insecure_ssl: s_webhook_config_insecure_ssl.optional(),
         address: z.string().optional(),
         room: z.string().optional(),
       })
@@ -34587,10 +34581,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposUpdateWebhookConfigForRepoBodySchema = z
     .object({
-      url: s_webhook_config_url,
-      content_type: s_webhook_config_content_type,
-      secret: s_webhook_config_secret,
-      insecure_ssl: s_webhook_config_insecure_ssl,
+      url: s_webhook_config_url.optional(),
+      content_type: s_webhook_config_content_type.optional(),
+      secret: s_webhook_config_secret.optional(),
+      insecure_ssl: s_webhook_config_insecure_ssl.optional(),
     })
     .optional()
 
@@ -34913,8 +34907,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
       vcs: z.enum(["subversion", "tfvc", "git", "mercurial"]).optional(),
       tfvc_project: z.string().optional(),
     })
-    .optional()
     .nullable()
+    .optional()
 
   const migrationsUpdateImportResponseValidator = responseValidationFactory(
     [
@@ -35488,8 +35482,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const issuesCreateBodySchema = z.object({
     title: z.union([z.string(), z.coerce.number()]),
     body: z.string().optional(),
-    assignee: z.string().optional().nullable(),
-    milestone: z.union([z.string(), z.coerce.number()]).nullable(),
+    assignee: z.string().nullable().optional(),
+    milestone: z.union([z.string(), z.coerce.number()]).nullable().optional(),
     labels: z
       .array(
         z.union([
@@ -35497,8 +35491,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
           z.object({
             id: z.coerce.number().optional(),
             name: z.string().optional(),
-            description: z.string().optional().nullable(),
-            color: z.string().optional().nullable(),
+            description: z.string().nullable().optional(),
+            color: z.string().nullable().optional(),
           }),
         ]),
       )
@@ -35959,15 +35953,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const issuesUpdateBodySchema = z
     .object({
-      title: z.union([z.string(), z.coerce.number()]).nullable(),
-      body: z.string().optional().nullable(),
-      assignee: z.string().optional().nullable(),
+      title: z.union([z.string(), z.coerce.number()]).nullable().optional(),
+      body: z.string().nullable().optional(),
+      assignee: z.string().nullable().optional(),
       state: z.enum(["open", "closed"]).optional(),
       state_reason: z
         .enum(["completed", "not_planned", "reopened"])
-        .optional()
-        .nullable(),
-      milestone: z.union([z.string(), z.coerce.number()]).nullable(),
+        .nullable()
+        .optional(),
+      milestone: z.union([z.string(), z.coerce.number()]).nullable().optional(),
       labels: z
         .array(
           z.union([
@@ -35975,8 +35969,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
             z.object({
               id: z.coerce.number().optional(),
               name: z.string().optional(),
-              description: z.string().optional().nullable(),
-              color: z.string().optional().nullable(),
+              description: z.string().nullable().optional(),
+              color: z.string().nullable().optional(),
             }),
           ]),
         )
@@ -36312,13 +36306,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesAddLabelsBodySchema = z.union([
-    z.object({ labels: z.array(z.string()).optional() }),
-    z.array(z.string()),
-    z.object({ labels: z.array(z.object({ name: z.string() })).optional() }),
-    z.array(z.object({ name: z.string() })),
-    z.string(),
-  ])
+  const issuesAddLabelsBodySchema = z
+    .union([
+      z.object({ labels: z.array(z.string()).optional() }),
+      z.array(z.string()),
+      z.object({ labels: z.array(z.object({ name: z.string() })).optional() }),
+      z.array(z.object({ name: z.string() })),
+      z.string(),
+    ])
+    .optional()
 
   const issuesAddLabelsResponseValidator = responseValidationFactory(
     [
@@ -36355,13 +36351,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesSetLabelsBodySchema = z.union([
-    z.object({ labels: z.array(z.string()).optional() }),
-    z.array(z.string()),
-    z.object({ labels: z.array(z.object({ name: z.string() })).optional() }),
-    z.array(z.object({ name: z.string() })),
-    z.string(),
-  ])
+  const issuesSetLabelsBodySchema = z
+    .union([
+      z.object({ labels: z.array(z.string()).optional() }),
+      z.array(z.string()),
+      z.object({ labels: z.array(z.object({ name: z.string() })).optional() }),
+      z.array(z.object({ name: z.string() })),
+      z.string(),
+    ])
+    .optional()
 
   const issuesSetLabelsResponseValidator = responseValidationFactory(
     [
@@ -36479,8 +36477,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .enum(["off-topic", "too heated", "resolved", "spam"])
         .optional(),
     })
-    .optional()
     .nullable()
+    .optional()
 
   const issuesLockResponseValidator = responseValidationFactory(
     [
@@ -37631,13 +37629,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reposUpdateInformationAboutPagesSiteBodySchema = z.object({
-    cname: z.string().optional().nullable(),
+    cname: z.string().nullable().optional(),
     https_enforced: z.coerce.boolean().optional(),
     build_type: z.enum(["legacy", "workflow"]).optional(),
-    source: z.union([
-      z.enum(["gh-pages", "master", "master /docs"]),
-      z.object({ branch: z.string(), path: z.enum(["/", "/docs"]) }),
-    ]),
+    source: z
+      .union([
+        z.enum(["gh-pages", "master", "master /docs"]),
+        z.object({ branch: z.string(), path: z.enum(["/", "/docs"]) }),
+      ])
+      .optional(),
   })
 
   const reposUpdateInformationAboutPagesSiteResponseValidator =
@@ -38935,8 +38935,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
       sha: z.string().optional(),
       merge_method: z.enum(["merge", "squash", "rebase"]).optional(),
     })
-    .optional()
     .nullable()
+    .optional()
 
   const pullsMergeResponseValidator = responseValidationFactory(
     [
@@ -39449,8 +39449,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const pullsUpdateBranchBodySchema = z
     .object({ expected_head_sha: z.string().optional() })
-    .optional()
     .nullable()
+    .optional()
 
   const pullsUpdateBranchResponseValidator = responseValidationFactory(
     [
@@ -40300,7 +40300,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     target: z.enum(["branch", "tag"]).optional(),
     enforcement: s_repository_rule_enforcement,
     bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
-    conditions: s_repository_ruleset_conditions,
+    conditions: s_repository_ruleset_conditions.optional(),
     rules: z.array(s_repository_rule).optional(),
   })
 
@@ -40390,9 +40390,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .object({
       name: z.string().optional(),
       target: z.enum(["branch", "tag"]).optional(),
-      enforcement: s_repository_rule_enforcement,
+      enforcement: s_repository_rule_enforcement.optional(),
       bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
-      conditions: s_repository_ruleset_conditions,
+      conditions: s_repository_ruleset_conditions.optional(),
       rules: z.array(s_repository_rule).optional(),
     })
     .optional()
@@ -40586,8 +40586,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const secretScanningUpdateAlertBodySchema = z.object({
     state: s_secret_scanning_alert_state,
-    resolution: s_secret_scanning_alert_resolution,
-    resolution_comment: s_secret_scanning_alert_resolution_comment,
+    resolution: s_secret_scanning_alert_resolution.optional(),
+    resolution_comment: s_secret_scanning_alert_resolution_comment.optional(),
   })
 
   const secretScanningUpdateAlertResponseValidator = responseValidationFactory(
@@ -41222,8 +41222,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposCreateCommitStatusBodySchema = z.object({
     state: z.enum(["error", "failure", "pending", "success"]),
-    target_url: z.string().optional().nullable(),
-    description: z.string().optional().nullable(),
+    target_url: z.string().nullable().optional(),
+    description: z.string().nullable().optional(),
     context: z.string().optional(),
   })
 
@@ -42818,7 +42818,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .enum(["notifications_enabled", "notifications_disabled"])
       .optional(),
     permission: z.enum(["pull", "push", "admin"]).optional(),
-    parent_team_id: z.coerce.number().optional().nullable(),
+    parent_team_id: z.coerce.number().nullable().optional(),
   })
 
   const teamsUpdateLegacyResponseValidator = responseValidationFactory(
@@ -44182,7 +44182,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       name: z.string().optional(),
       email: z.string().optional(),
       blog: z.string().optional(),
-      twitter_username: z.string().optional().nullable(),
+      twitter_username: z.string().nullable().optional(),
       company: z.string().optional(),
       location: z.string().optional(),
       hireable: z.coerce.boolean().optional(),
@@ -45394,11 +45394,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const usersAddEmailForAuthenticatedUserBodySchema = z.union([
-    z.object({ emails: z.array(z.string()) }),
-    z.array(z.string()),
-    z.string(),
-  ])
+  const usersAddEmailForAuthenticatedUserBodySchema = z
+    .union([
+      z.object({ emails: z.array(z.string()) }),
+      z.array(z.string()),
+      z.string(),
+    ])
+    .optional()
 
   const usersAddEmailForAuthenticatedUserResponseValidator =
     responseValidationFactory(
@@ -47353,7 +47355,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const projectsCreateForAuthenticatedUserBodySchema = z.object({
     name: z.string(),
-    body: z.string().optional().nullable(),
+    body: z.string().nullable().optional(),
   })
 
   const projectsCreateForAuthenticatedUserResponseValidator =

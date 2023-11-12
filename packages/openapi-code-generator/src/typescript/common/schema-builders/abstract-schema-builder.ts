@@ -122,10 +122,12 @@ export abstract class AbstractSchemaBuilder {
     if (isRef(maybeModel)) {
       const name = this.add(maybeModel)
 
+      const result = required ? this.required(name) : this.optional(name)
+
       if (this.graph.circular.has(name) && !isAnonymous) {
-        return this.lazy(name)
+        return this.lazy(result)
       } else {
-        return name
+        return result
       }
     }
 
@@ -135,16 +137,16 @@ export abstract class AbstractSchemaBuilder {
 
     switch (model.type) {
       case "string":
-        result = this.string(model, required)
+        result = this.string(model)
         break
       case "number":
-        result = this.number(model, required)
+        result = this.number(model)
         break
       case "boolean":
-        result = this.boolean(required)
+        result = this.boolean()
         break
       case "array":
-        result = this.array([this.fromModel(model.items, true)], required)
+        result = this.array([this.fromModel(model.items, true)])
         break
       case "object":
         // todo: additionalProperties support
@@ -173,8 +175,10 @@ export abstract class AbstractSchemaBuilder {
     }
 
     if (model.nullable) {
-      return this.nullable(result)
+      result = this.nullable(result)
     }
+
+    result = required ? this.required(result) : this.optional(result)
 
     return result
   }
@@ -191,16 +195,20 @@ export abstract class AbstractSchemaBuilder {
 
   protected abstract nullable(schema: string): string
 
+  protected abstract optional(schema: string): string
+
+  protected abstract required(schema: string): string
+
   protected abstract object(
     keys: Record<string, string>,
     required: boolean,
   ): string
 
-  protected abstract array(items: string[], required: boolean): string
+  protected abstract array(items: string[]): string
 
-  protected abstract number(model: IRModelNumeric, required: boolean): string
+  protected abstract number(model: IRModelNumeric): string
 
-  protected abstract string(model: IRModelString, required: boolean): string
+  protected abstract string(model: IRModelString): string
 
-  protected abstract boolean(required: boolean): string
+  protected abstract boolean(): string
 }
