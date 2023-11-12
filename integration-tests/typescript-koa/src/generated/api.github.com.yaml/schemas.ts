@@ -405,7 +405,7 @@ export const s_code_scanning_alert_classification = z
 export const s_code_scanning_alert_dismissed_comment = z.string().nullable()
 
 export const s_code_scanning_alert_dismissed_reason = z
-  .enum(["null", "false positive", "won't fix", "used in tests"])
+  .enum(["false positive", "won't fix", "used in tests"])
   .nullable()
 
 export const s_code_scanning_alert_environment = z.string()
@@ -4998,7 +4998,6 @@ export const s_check_suite = z.object({
       "action_required",
       "startup_failure",
       "stale",
-      "null",
     ])
     .nullable(),
   url: z.string().nullable(),

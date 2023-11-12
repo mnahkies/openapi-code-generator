@@ -31,6 +31,19 @@ module.exports = {
       },
     ],
     "@typescript-eslint/no-explicit-any": "off",
+    "no-restricted-globals": [
+      "error",
+      {
+        name: "isFinite",
+        message:
+          "Use Number.isFinite",
+      },
+      {
+        name: "isNaN",
+        message:
+          "Use Number.isNaN",
+      },
+    ],
   },
   overrides: [
     {
