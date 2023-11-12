@@ -3,6 +3,7 @@
  */
 
 import {
+  IRModelNumeric,
   IRModelObject,
   IRModelString,
   IRParameter,
@@ -137,7 +138,7 @@ export abstract class AbstractSchemaBuilder {
         result = this.string(model, required)
         break
       case "number":
-        result = this.number(required)
+        result = this.number(model, required)
         break
       case "boolean":
         result = this.boolean(required)
@@ -197,7 +198,7 @@ export abstract class AbstractSchemaBuilder {
 
   protected abstract array(items: string[], required: boolean): string
 
-  protected abstract number(required: boolean): string
+  protected abstract number(model: IRModelNumeric, required: boolean): string
 
   protected abstract string(model: IRModelString, required: boolean): string
 

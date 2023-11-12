@@ -3,7 +3,10 @@
  */
 
 import {Input} from "../../../core/input"
-import {IRModelString} from "../../../core/openapi-types-normalized"
+import {
+  IRModelNumeric,
+  IRModelString,
+} from "../../../core/openapi-types-normalized"
 import {isDefined} from "../../../core/utils"
 import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 import {ImportBuilder} from "../import-builder"
@@ -114,7 +117,14 @@ export class ZodBuilder extends AbstractSchemaBuilder {
       .join(".")
   }
 
-  protected number(required: boolean) {
+  protected number(model: IRModelNumeric, required: boolean) {
+    if (model.enum) {
+      // TODO: replace with enum after https://github.com/colinhacks/zod/issues/2686
+      return this.union(
+        model.enum.map((it) => [this.zod, `literal(${it})`].join(".")),
+      )
+    }
+
     return [this.zod, "coerce.number()", required ? undefined : "optional()"]
       .filter(isDefined)
       .join(".")

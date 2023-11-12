@@ -128,6 +128,24 @@ describe("typescript/common/schema-builders/zod-schema-builder", () => {
     `)
   })
 
+  it("supports string and numeric enums", async () => {
+    const {model, schemas} = await getActual("components/schemas/Enums")
+
+    expect(model).toMatchInlineSnapshot(`
+      "s_Enums
+      "
+    `)
+    expect(schemas).toMatchInlineSnapshot(`
+      "import { z } from "zod"
+
+      export const s_Enums = z.object({
+        str: z.enum(["foo", "bar"]).optional().nullable(),
+        num: z.union([z.literal(10), z.literal(20)]).nullable(),
+      })
+      "
+    `)
+  })
+
   async function getActual(path: string) {
     const {input, file} = await unitTestInput()
 

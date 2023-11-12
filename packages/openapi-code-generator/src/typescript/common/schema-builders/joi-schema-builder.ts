@@ -3,7 +3,10 @@
  */
 
 import {Input} from "../../../core/input"
-import {IRModelString} from "../../../core/openapi-types-normalized"
+import {
+  IRModelNumeric,
+  IRModelString,
+} from "../../../core/openapi-types-normalized"
 import {isDefined} from "../../../core/utils"
 import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 import {ImportBuilder} from "../import-builder"
@@ -116,7 +119,9 @@ export class JoiBuilder extends AbstractSchemaBuilder {
       .join(".")
   }
 
-  protected number(required: boolean) {
+  protected number(model: IRModelNumeric, required: boolean) {
+    // todo: enum support
+
     return [this.joi, JoiFn.Number, required ? JoiFn.Required : undefined]
       .filter(isDefined)
       .join(".")
