@@ -45,6 +45,24 @@ components:
         requiredObject:
           $ref: '#/components/schemas/SimpleObject'
 
+    ObjectWithComplexProperties:
+      required:
+        - requiredOneOf
+        - requiredOneOfRef
+      properties:
+        requiredOneOf:
+          oneOf:
+            - type: string
+            - type: number
+        requiredOneOfRef:
+          $ref: '#/components/schemas/OneOf'
+        optionalOneOf:
+          oneOf:
+            - type: string
+            - type: number
+        optionalOneOfRef:
+          $ref: '#/components/schemas/OneOf'
+
     OneOf:
       oneOf:
         - type: object
@@ -89,6 +107,9 @@ components:
 
     Ordering:
       type: object
+      required:
+        - dependency1
+        - dependency2
       properties:
         dependency1:
           $ref: "#/components/schemas/ZOrdering"
@@ -97,6 +118,8 @@ components:
 
     ZOrdering:
       type: object
+      required:
+        - dependency1
       properties:
         name:
           type: string

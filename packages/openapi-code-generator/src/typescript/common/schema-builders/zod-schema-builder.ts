@@ -95,44 +95,47 @@ export class ZodBuilder extends AbstractSchemaBuilder {
     return [schema, "nullable()"].filter(isDefined).join(".")
   }
 
-  protected object(keys: Record<string, string>, required: boolean): string {
+  protected optional(schema: string): string {
+    return [schema, "optional()"].filter(isDefined).join(".")
+  }
+
+  protected required(schema: string): string {
+    return schema
+  }
+
+  protected object(keys: Record<string, string>): string {
     return [
       this.zod,
       `object({${Object.entries(keys)
         .map(([key, value]) => `"${key}": ${value}`)
         .join(",")}})`,
-      required ? undefined : "optional()",
     ]
       .filter(isDefined)
       .join(".")
   }
 
-  protected array(items: string[], required: boolean): string {
-    return [
-      this.zod,
-      `array(${items.join(",")})`,
-      required ? undefined : "optional()",
-    ]
-      .filter(isDefined)
-      .join(".")
+  protected array(items: string[]): string {
+    return [this.zod, `array(${items.join(",")})`].filter(isDefined).join(".")
   }
 
-  protected number(model: IRModelNumeric, required: boolean) {
+  protected number(model: IRModelNumeric) {
     if (model.enum) {
       // TODO: replace with enum after https://github.com/colinhacks/zod/issues/2686
-      return this.union(
-        model.enum.map((it) => [this.zod, `literal(${it})`].join(".")),
-      )
+      return [
+        this.union(
+          model.enum.map((it) => [this.zod, `literal(${it})`].join(".")),
+        ),
+      ]
+        .filter(isDefined)
+        .join(".")
     }
 
-    return [this.zod, "coerce.number()", required ? undefined : "optional()"]
-      .filter(isDefined)
-      .join(".")
+    return [this.zod, "coerce.number()"].filter(isDefined).join(".")
   }
 
-  protected string(model: IRModelString, required: boolean) {
+  protected string(model: IRModelString) {
     if (model.enum) {
-      return this.enum(model, required)
+      return this.enum(model)
     }
 
     return [
@@ -140,13 +143,12 @@ export class ZodBuilder extends AbstractSchemaBuilder {
       "string()",
       model.format === "date-time" ? "datetime({offset:true})" : undefined,
       model.format === "email" ? "email()" : undefined,
-      required ? undefined : "optional()",
     ]
       .filter(isDefined)
       .join(".")
   }
 
-  protected enum(model: IRModelString, required: boolean) {
+  protected enum(model: IRModelString) {
     if (!model.enum) {
       throw new Error("model is not an enum")
     }
@@ -154,18 +156,16 @@ export class ZodBuilder extends AbstractSchemaBuilder {
     return [
       this.zod,
       `enum([${model.enum.map(quotedStringLiteral).join(",")}])`,
-      required ? undefined : "optional()",
     ]
       .filter(isDefined)
       .join(".")
   }
 
-  protected boolean(required: boolean) {
+  protected boolean() {
     return [
       this.zod,
       // todo: this would mean the literal string "false" as a query parameter is coerced to true
       "coerce.boolean()",
-      required ? undefined : "optional()",
     ]
       .filter(isDefined)
       .join(".")

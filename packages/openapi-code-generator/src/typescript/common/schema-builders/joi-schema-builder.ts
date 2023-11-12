@@ -3,10 +3,6 @@
  */
 
 import {Input} from "../../../core/input"
-import {
-  IRModelNumeric,
-  IRModelString,
-} from "../../../core/openapi-types-normalized"
 import {isDefined} from "../../../core/utils"
 import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 import {ImportBuilder} from "../import-builder"
@@ -95,49 +91,45 @@ export class JoiBuilder extends AbstractSchemaBuilder {
     return [schema, "allow(null)"].join(".")
   }
 
-  protected object(keys: Record<string, string>, required: boolean): string {
+  protected optional(schema: string): string {
+    return schema
+  }
+
+  protected required(schema: string): string {
+    return [schema, JoiFn.Required].join(".")
+  }
+
+  protected object(keys: Record<string, string>): string {
     return [
       this.joi,
       JoiFn.Object,
       `keys({${Object.entries(keys)
         .map(([key, value]) => `"${key}": ${value}`)
         .join(",")} })`,
-      required ? JoiFn.Required : undefined,
     ]
       .filter(isDefined)
       .join(".")
   }
 
-  protected array(items: string[], required: boolean): string {
-    return [
-      this.joi,
-      JoiFn.Array,
-      `items(${items.join(",")})`,
-      required ? JoiFn.Required : undefined,
-    ]
+  protected array(items: string[]): string {
+    return [this.joi, JoiFn.Array, `items(${items.join(",")})`]
       .filter(isDefined)
       .join(".")
   }
 
-  protected number(model: IRModelNumeric, required: boolean) {
+  protected number() {
     // todo: enum support
 
-    return [this.joi, JoiFn.Number, required ? JoiFn.Required : undefined]
-      .filter(isDefined)
-      .join(".")
+    return [this.joi, JoiFn.Number].filter(isDefined).join(".")
   }
 
-  protected string(model: IRModelString, required: boolean) {
+  protected string() {
     // todo: enum support
 
-    return [this.joi, JoiFn.String, required ? JoiFn.Required : undefined]
-      .filter(isDefined)
-      .join(".")
+    return [this.joi, JoiFn.String].filter(isDefined).join(".")
   }
 
-  protected boolean(required: boolean) {
-    return [this.joi, JoiFn.Boolean, required ? JoiFn.Required : undefined]
-      .filter(isDefined)
-      .join(".")
+  protected boolean() {
+    return [this.joi, JoiFn.Boolean].filter(isDefined).join(".")
   }
 }
