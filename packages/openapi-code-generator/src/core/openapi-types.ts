@@ -209,7 +209,7 @@ export interface Schema {
   minProperties?: number
   required?: string[] /* [] */
   enum?: string[] | number[]
-  type?: "integer" | "number" | "string" | "boolean" | "object" | "array" /* object */
+  type?: "null" | "integer" | "number" | "string" | "boolean" | "object" | "array" /* object */
   not?: Schema | Reference
   allOf?: (Schema | Reference)[]
   oneOf?: (Schema | Reference)[]
