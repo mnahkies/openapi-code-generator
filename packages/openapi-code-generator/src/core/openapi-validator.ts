@@ -1,33 +1,25 @@
 import Ajv2020, {ValidateFunction} from "ajv/dist/2020"
 import addFormats from "ajv-formats"
 import {promptContinue} from "./cli-utils"
-import openapi3_1_specification = require("./schemas/openapi-3.1-specification.json")
+import openapi3_1_specification = require("./schemas/openapi-3.1-specification-base.json")
 import openapi3_0_specification = require("./schemas/openapi-3.0-specification.json")
 import {logger} from "./logger"
 import AjvDraft04 from "ajv-draft-04"
 
 export class OpenapiValidator {
 
-  private readonly validate3_1: ValidateFunction
-  private readonly validate3_0: ValidateFunction
-
-  private constructor() {
-    const ajv2020 = new Ajv2020({strict: false})
-    addFormats(ajv2020)
-    ajv2020.addFormat("media-range", true)
-
-    this.validate3_1 = ajv2020.compile(openapi3_1_specification)
-
-    const ajv4 = new AjvDraft04({strict: false})
-    addFormats(ajv4)
-
-    this.validate3_0 = ajv4.compile(openapi3_0_specification)
+  private constructor(
+    private readonly validate3_1: ValidateFunction,
+    private readonly validate3_0: ValidateFunction,
+  ) {
   }
 
-  private validationFunction(version: string) {
+  private validationFunction(version: string): ValidateFunction {
     if (version.startsWith("3.0")) {
+      logger.info("Validating against 3.0")
       return this.validate3_0
     } else if (version.startsWith("3.1")) {
+      logger.info("Validating against 3.1")
       return this.validate3_1
     }
 
@@ -55,6 +47,35 @@ export class OpenapiValidator {
   }
 
   static async create(): Promise<OpenapiValidator> {
-    return new OpenapiValidator()
+    const loadSchema = async (uri: string): Promise<any> => {
+      const res = await fetch(uri)
+      return await res.json() as any
+    }
+
+    const ajv2020 = new Ajv2020({
+      strict: false,
+      verbose: true,
+      loadSchema,
+    })
+    addFormats(ajv2020)
+    ajv2020.addFormat("media-range", true)
+
+    const validate3_1 = await ajv2020.compileAsync(openapi3_1_specification)
+
+    const skipValidation: ValidateFunction = (() => {
+      logger.warn("Skipping validation due to https://github.com/mnahkies/openapi-code-generator/issues/103")
+      return true
+    }) as any
+
+
+    const ajv4 = new AjvDraft04({
+      strict: false,
+      loadSchema,
+    })
+    addFormats(ajv4)
+
+    const validate3_0 = await ajv4.compileAsync(openapi3_0_specification)
+
+    return new OpenapiValidator(skipValidation || validate3_1, validate3_0)
   }
 }
