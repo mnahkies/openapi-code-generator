@@ -87,4 +87,6 @@ export const array = (type: string): string => `(${type})[]`
 
 export const toString = (it: string | number): string => it.toString()
 
-export const quotedValue = (it: string): string => `"${it}"`
+// TODO: more comprehensive escaping? Eg: `\n`
+export const quotedStringLiteral = (it: string): string =>
+  `"${it.replaceAll('"', '\\"')}"`

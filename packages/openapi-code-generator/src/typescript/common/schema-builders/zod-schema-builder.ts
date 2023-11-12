@@ -13,6 +13,7 @@ import {
   getTypeNameFromRef,
 } from "../../../core/openapi-utils"
 import {ExportDefinition} from "../typescript-common"
+import {quotedStringLiteral} from "../type-utils"
 
 // todo: coerce is cool for input where everything starts as strings,
 //       but for output we probably don't want that as its more likely
@@ -142,7 +143,7 @@ export class ZodBuilder extends AbstractSchemaBuilder {
 
     return [
       this.zod,
-      `enum([${model.enum.map((it) => `"${it}"`).join(",")}])`,
+      `enum([${model.enum.map(quotedStringLiteral).join(",")}])`,
       required ? undefined : "optional()",
     ]
       .filter(isDefined)
