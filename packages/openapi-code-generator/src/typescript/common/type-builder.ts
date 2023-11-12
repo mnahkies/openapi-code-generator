@@ -12,7 +12,7 @@ import {
   intersect,
   object,
   objectProperty,
-  quotedValue,
+  quotedStringLiteral,
   toString,
   union,
 } from "./type-utils"
@@ -144,7 +144,9 @@ export class TypeBuilder {
         }
 
         case "string": {
-          result.push(...(schemaObject.enum?.map(quotedValue) ?? ["string"]))
+          result.push(
+            ...(schemaObject.enum?.map(quotedStringLiteral) ?? ["string"]),
+          )
           break
         }
 
