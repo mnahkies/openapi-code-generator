@@ -133,4 +133,20 @@ components:
             - $ref: '#/components/schemas/AOrdering'
             - $ref: '#/components/schemas/ZOrdering'
 
+    Enums:
+      properties:
+        str:
+          type: string
+          enum:
+            - null
+            - "foo"
+            - "bar"
+        num:
+          type: number
+          enum:
+            - null
+            - "ignored"
+            - 10
+            - 20
+
   parameters: { }
