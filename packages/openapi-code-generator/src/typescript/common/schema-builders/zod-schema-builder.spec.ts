@@ -4,19 +4,23 @@
 
 import {describe, it, expect} from "@jest/globals"
 import {ZodBuilder} from "./zod-schema-builder"
-import {unitTestInput} from "../../../test/input.test-utils"
+import {testVersions, unitTestInput} from "../../../test/input.test-utils"
 import {ImportBuilder} from "../import-builder"
 import {formatOutput} from "../output-utils"
 
-describe("typescript/common/schema-builders/zod-schema-builder", () => {
-  it("supports the SimpleObject", async () => {
-    const {model, schemas} = await getActual("components/schemas/SimpleObject")
+describe.each(testVersions)(
+  "%s - typescript/common/schema-builders/zod-schema-builder",
+  (version) => {
+    it("supports the SimpleObject", async () => {
+      const {model, schemas} = await getActual(
+        "components/schemas/SimpleObject",
+      )
 
-    expect(model).toMatchInlineSnapshot(`
+      expect(model).toMatchInlineSnapshot(`
       "s_SimpleObject
       "
     `)
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
       "import { z } from "zod"
 
       export const s_SimpleObject = z.object({
@@ -29,18 +33,18 @@ describe("typescript/common/schema-builders/zod-schema-builder", () => {
       })
       "
     `)
-  })
+    })
 
-  it("supports the ObjectWithComplexProperties", async () => {
-    const {model, schemas} = await getActual(
-      "components/schemas/ObjectWithComplexProperties",
-    )
+    it("supports the ObjectWithComplexProperties", async () => {
+      const {model, schemas} = await getActual(
+        "components/schemas/ObjectWithComplexProperties",
+      )
 
-    expect(model).toMatchInlineSnapshot(`
+      expect(model).toMatchInlineSnapshot(`
       "s_ObjectWithComplexProperties
       "
     `)
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
       "import { z } from "zod"
 
       export const s_OneOf = z.union([
@@ -57,16 +61,16 @@ describe("typescript/common/schema-builders/zod-schema-builder", () => {
       })
       "
     `)
-  })
+    })
 
-  it("supports unions / oneOf", async () => {
-    const {model, schemas} = await getActual("components/schemas/OneOf")
+    it("supports unions / oneOf", async () => {
+      const {model, schemas} = await getActual("components/schemas/OneOf")
 
-    expect(model).toMatchInlineSnapshot(`
+      expect(model).toMatchInlineSnapshot(`
       "s_OneOf
       "
     `)
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
       "import { z } from "zod"
 
       export const s_OneOf = z.union([
@@ -76,31 +80,31 @@ describe("typescript/common/schema-builders/zod-schema-builder", () => {
       ])
       "
     `)
-  })
+    })
 
-  it("supports unions / anyOf", async () => {
-    const {model, schemas} = await getActual("components/schemas/AnyOf")
+    it("supports unions / anyOf", async () => {
+      const {model, schemas} = await getActual("components/schemas/AnyOf")
 
-    expect(model).toMatchInlineSnapshot(`
+      expect(model).toMatchInlineSnapshot(`
       "s_AnyOf
       "
     `)
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
       "import { z } from "zod"
 
       export const s_AnyOf = z.union([z.coerce.number(), z.string()])
       "
     `)
-  })
+    })
 
-  it("supports allOf", async () => {
-    const {model, schemas} = await getActual("components/schemas/AllOf")
+    it("supports allOf", async () => {
+      const {model, schemas} = await getActual("components/schemas/AllOf")
 
-    expect(model).toMatchInlineSnapshot(`
+      expect(model).toMatchInlineSnapshot(`
       "s_AllOf
       "
     `)
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
       "import { z } from "zod"
 
       export const s_Base = z.object({
@@ -111,16 +115,16 @@ describe("typescript/common/schema-builders/zod-schema-builder", () => {
       export const s_AllOf = s_Base.merge(z.object({ id: z.coerce.number() }))
       "
     `)
-  })
+    })
 
-  it("supports recursion", async () => {
-    const {model, schemas} = await getActual("components/schemas/Recursive")
+    it("supports recursion", async () => {
+      const {model, schemas} = await getActual("components/schemas/Recursive")
 
-    expect(model).toMatchInlineSnapshot(`
+      expect(model).toMatchInlineSnapshot(`
       "z.lazy(() => s_Recursive)
       "
     `)
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
       "import { t_Recursive } from "./models"
       import { z } from "zod"
 
@@ -129,16 +133,16 @@ describe("typescript/common/schema-builders/zod-schema-builder", () => {
       })
       "
     `)
-  })
+    })
 
-  it("orders schemas such that dependencies are defined first", async () => {
-    const {model, schemas} = await getActual("components/schemas/Ordering")
+    it("orders schemas such that dependencies are defined first", async () => {
+      const {model, schemas} = await getActual("components/schemas/Ordering")
 
-    expect(model).toMatchInlineSnapshot(`
+      expect(model).toMatchInlineSnapshot(`
       "s_Ordering
       "
     `)
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
       "import { z } from "zod"
 
       export const s_AOrdering = z.object({ name: z.string().optional() })
@@ -154,16 +158,16 @@ describe("typescript/common/schema-builders/zod-schema-builder", () => {
       })
       "
     `)
-  })
+    })
 
-  it("supports string and numeric enums", async () => {
-    const {model, schemas} = await getActual("components/schemas/Enums")
+    it("supports string and numeric enums", async () => {
+      const {model, schemas} = await getActual("components/schemas/Enums")
 
-    expect(model).toMatchInlineSnapshot(`
+      expect(model).toMatchInlineSnapshot(`
       "s_Enums
       "
     `)
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
       "import { z } from "zod"
 
       export const s_Enums = z.object({
@@ -175,23 +179,24 @@ describe("typescript/common/schema-builders/zod-schema-builder", () => {
       })
       "
     `)
-  })
+    })
 
-  async function getActual(path: string) {
-    const {input, file} = await unitTestInput()
+    async function getActual(path: string) {
+      const {input, file} = await unitTestInput(version)
 
-    const builder = new ZodBuilder(
-      "z",
-      "schemas.ts",
-      input,
-      new ImportBuilder(),
-    )
+      const builder = new ZodBuilder(
+        "z",
+        "schemas.ts",
+        input,
+        new ImportBuilder(),
+      )
 
-    const model = builder.fromModel({$ref: `${file}#${path}`}, true)
+      const model = builder.fromModel({$ref: `${file}#${path}`}, true)
 
-    return {
-      model: await formatOutput(model),
-      schemas: await formatOutput(builder.toString()),
+      return {
+        model: await formatOutput(model),
+        schemas: await formatOutput(builder.toString()),
+      }
     }
-  }
-})
+  },
+)

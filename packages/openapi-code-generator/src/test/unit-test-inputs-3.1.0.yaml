@@ -1,0 +1,179 @@
+openapi: "3.1.0"
+info:
+  title: unit-test-inputs
+  version: '0.0.1'
+components:
+  schemas:
+    SimpleObject:
+      required:
+        - str
+        - num
+        - date
+        - datetime
+        - required_nullable
+      properties:
+        str:
+          type: string
+        num:
+          type: number
+        date:
+          type: string
+          format: date
+        datetime:
+          type: string
+          format: date-time
+        optional_str:
+          type: string
+        required_nullable:
+          type:
+            - string
+            - "null"
+    NamedNullableStringEnum:
+      type:
+        - string
+        - "null"
+      enum:
+        - ''
+        - one
+        - two
+        - three
+        - null
+    ObjectWithRefs:
+      required:
+        - requiredObject
+      properties:
+        optionalObject:
+          $ref: '#/components/schemas/SimpleObject'
+        requiredObject:
+          $ref: '#/components/schemas/SimpleObject'
+
+    ObjectWithComplexProperties:
+      required:
+        - requiredOneOf
+        - requiredOneOfRef
+      properties:
+        requiredOneOf:
+          oneOf:
+            - type: string
+            - type: number
+        requiredOneOfRef:
+          $ref: '#/components/schemas/OneOf'
+        optionalOneOf:
+          oneOf:
+            - type: string
+            - type: number
+        optionalOneOfRef:
+          $ref: '#/components/schemas/OneOf'
+
+    OneOf:
+      oneOf:
+        - type: object
+          properties:
+            strs:
+              type: array
+              items:
+                type: string
+                minItems: 1
+          required:
+            - strs
+        - type: array
+          items:
+            type: string
+            minItems: 1
+        - type: string
+
+    AnyOf:
+      type:
+        - number
+        - string
+
+    AllOf:
+      allOf:
+        - $ref: '#/components/schemas/Base'
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: integer
+              format: int64
+    Base:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        breed:
+          type: string
+
+    Ordering:
+      type: object
+      required:
+        - dependency1
+        - dependency2
+      properties:
+        dependency1:
+          $ref: "#/components/schemas/ZOrdering"
+        dependency2:
+          $ref: "#/components/schemas/AOrdering"
+
+    ZOrdering:
+      type: object
+      required:
+        - dependency1
+      properties:
+        name:
+          type: string
+        dependency1:
+          $ref: "#/components/schemas/AOrdering"
+    AOrdering:
+      type: object
+      properties:
+        name:
+          type: string
+
+    AdditionalPropertiesBool:
+      type: object
+      additionalProperties: true
+
+    AdditionalPropertiesSchema:
+      type: object
+      properties:
+        name:
+          type: string
+      additionalProperties:
+        $ref: "#/components/schemas/NamedNullableStringEnum"
+
+    Recursive:
+      type: object
+      properties:
+        child:
+          $ref: "#/components/schemas/Recursive"
+
+    OneOfAllOf:
+      type: object
+      oneOf:
+        - allOf:
+            - $ref: '#/components/schemas/AOrdering'
+            - $ref: '#/components/schemas/ZOrdering'
+
+    Enums:
+      properties:
+        str:
+          type:
+            - string
+            - "null"
+          enum:
+            - null
+            - "foo"
+            - "bar"
+        num:
+          type:
+            - number
+            - "null"
+          enum:
+            - null
+            - "ignored"
+            - 10
+            - 20

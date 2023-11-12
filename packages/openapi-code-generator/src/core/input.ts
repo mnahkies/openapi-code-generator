@@ -168,14 +168,14 @@ function normalizeMediaType(mediaTypes: {[contentType: string]: MediaType} = {})
     // Sometimes people pass `{}` as the MediaType for 204 responses, filter these out
     .filter(([, mediaType]) => Boolean(mediaType.schema))
     .map(([contentType, mediaType]) => {
-    return [
-      contentType,
-      {
-        schema: normalizeSchemaObject(mediaType.schema),
-        encoding: mediaType.encoding,
-      },
-    ]
-  }))
+      return [
+        contentType,
+        {
+          schema: normalizeSchemaObject(mediaType.schema),
+          encoding: mediaType.encoding,
+        },
+      ]
+    }))
 }
 
 function normalizeParameterObject(parameterObject: Parameter): IRParameter {
@@ -195,6 +195,22 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
     return schemaObject satisfies IRRef
   }
 
+  // TODO: HACK: translates a type array into a a oneOf - unsure if this makes sense,
+  //             or is the cleanest way to do it. I'm fairly sure this will work fine
+  //             for most things though.
+  if (Array.isArray(schemaObject.type)) {
+    const nullable = Boolean(schemaObject.type.find(it => it === "null"))
+    return normalizeSchemaObject({
+      oneOf: schemaObject.type
+        .filter(it => it !== "null")
+        .map(it => normalizeSchemaObject({
+          ...schemaObject,
+          type: it,
+          nullable,
+        })),
+    })
+  }
+
   const base: IRModelBase = {
     nullable: schemaObject.nullable || false,
     readOnly: schemaObject.readOnly || false,
@@ -202,6 +218,7 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
 
   switch (schemaObject.type) {
     case undefined:
+    case "null": // TODO: HACK
     case "object": {
       const properties = normalizeProperties(schemaObject.properties)
       const allOf = normalizeAllOf(schemaObject.allOf)
@@ -222,6 +239,8 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
 
       return {
         ...base,
+        // TODO: HACK
+        nullable: base.nullable || schemaObject.type === "null",
         type: "object",
         allOf,
         oneOf,

@@ -3,13 +3,13 @@
  */
 
 import {describe, it, expect} from "@jest/globals"
-import {unitTestInput} from "../test/input.test-utils"
+import {testVersions, unitTestInput} from "../test/input.test-utils"
 import {buildDependencyGraph} from "./dependency-graph"
 import {getSchemaNameFromRef} from "./openapi-utils"
 
-describe("core/dependency-graph", () => {
+describe.each(testVersions)("%s - core/dependency-graph", (version) => {
   it("works", async () => {
-    const {input} = await unitTestInput()
+    const {input} = await unitTestInput(version)
 
     const graph = buildDependencyGraph(input, getSchemaNameFromRef)
 

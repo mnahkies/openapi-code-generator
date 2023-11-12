@@ -5,14 +5,28 @@ import {Input} from "../core/input"
 import path from "path"
 import yaml from "js-yaml"
 
-export async function unitTestInput(skipValidation = false) {
+type Version = "3.0.x" | "3.1.x"
+
+export const testVersions = ["3.0.x", "3.1.x"] satisfies Version[]
+
+function fileForVersion(version: Version) {
+  switch (version) {
+    case "3.0.x":
+      return path.join(__dirname, "unit-test-inputs-3.0.3.yaml")
+    case "3.1.x":
+      return path.join(__dirname, "unit-test-inputs-3.1.0.yaml")
+    default: throw new Error(`unsupported test version '${version}'`)
+  }
+}
+
+export async function unitTestInput(version: Version, skipValidation = false) {
   const validator = await OpenapiValidator.create()
 
   if (skipValidation) {
     jest.spyOn(validator, "validate").mockResolvedValue()
   }
 
-  const file = path.join(__dirname, "unit-test-inputs.yaml")
+  const file = fileForVersion(version)
   const loader = await OpenapiLoader.create(file, validator)
 
   return {input: new Input(loader), file}
