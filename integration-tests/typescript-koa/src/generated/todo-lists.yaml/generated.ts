@@ -222,7 +222,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ["200", s_TodoList],
       ["4XX", s_Error],
     ],
-    z.void(),
+    z.undefined(),
   )
 
   router.get("getTodoListById", "/list/:listId", async (ctx, next) => {
@@ -274,7 +274,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ["200", s_TodoList],
       ["4XX", s_Error],
     ],
-    z.void(),
+    z.undefined(),
   )
 
   router.put("updateTodoListById", "/list/:listId", async (ctx, next) => {
@@ -325,10 +325,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const deleteTodoListByIdResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["4XX", s_Error],
     ],
-    z.void(),
+    z.undefined(),
   )
 
   router.delete("deleteTodoListById", "/list/:listId", async (ctx, next) => {
@@ -443,7 +443,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const createTodoListItemResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 

@@ -171,6 +171,6 @@ export class ZodBuilder extends AbstractSchemaBuilder {
   }
 
   public void(): string {
-    return [this.zod, "void()"].filter(isDefined).join(".")
+    return [this.zod, "undefined()"].filter(isDefined).join(".")
   }
 }

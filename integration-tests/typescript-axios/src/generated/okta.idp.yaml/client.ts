@@ -20,6 +20,20 @@ import {
   t_UpdateAppAuthenticatorEnrollmentRequest,
 } from "./models"
 import {
+  s_AppAuthenticatorEnrollment,
+  s_AppAuthenticatorMethodCapabilities,
+  s_Email,
+  s_Error,
+  s_KeyEC,
+  s_KeyObject,
+  s_KeyRSA,
+  s_Phone,
+  s_Profile,
+  s_PushNotificationChallenge,
+  s_Schema,
+  s_UpdateAppAuthenticatorEnrollmentRequest,
+} from "./schemas"
+import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
 } from "@nahkies/typescript-axios-runtime/main"
@@ -42,7 +56,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -51,6 +65,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_AppAuthenticatorEnrollment.parse(res.data) }
   }
 
   async verifyAppAuthenticatorPushNotificationChallenge(
@@ -65,7 +81,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -74,6 +90,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async updateAppAuthenticatorEnrollment(
@@ -88,7 +106,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -97,6 +115,11 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: s_UpdateAppAuthenticatorEnrollmentRequest.parse(res.data),
+    }
   }
 
   async deleteAppAuthenticatorEnrollment(
@@ -108,13 +131,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/app-authenticators/${p["enrollmentId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async listAppAuthenticatorPendingPushNotificationChallenges(
@@ -126,13 +151,18 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_PushNotificationChallenge[]>> {
     const url = `/idp/myaccount/app-authenticators/${p["enrollmentId"]}/push/notifications`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.array(s_PushNotificationChallenge).parse(res.data),
+    }
   }
 
   async listEmails(
@@ -141,13 +171,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Email[]>> {
     const url = `/idp/myaccount/emails`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_Email).parse(res.data) }
   }
 
   async createEmail(
@@ -168,7 +200,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -177,6 +209,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_Email.parse(res.data) }
   }
 
   async getEmail(
@@ -188,13 +222,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Email>> {
     const url = `/idp/myaccount/emails/${p["id"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_Email.parse(res.data) }
   }
 
   async deleteEmail(
@@ -206,13 +242,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/emails/${p["id"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async sendEmailChallenge(
@@ -252,7 +290,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -261,6 +299,28 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          id: z.string(),
+          status: z.string(),
+          expiresAt: z.string(),
+          profile: z.object({ email: z.string() }),
+          _links: z.object({
+            verify: z.object({
+              href: z.string(),
+              hints: z.object({ allow: z.array(z.string()) }),
+            }),
+            poll: z.object({
+              href: z.string(),
+              hints: z.object({ allow: z.array(z.string()) }),
+            }),
+          }),
+        })
+        .parse(res.data),
+    }
   }
 
   async pollChallengeForEmailMagicLink(
@@ -296,13 +356,35 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/idp/myaccount/emails/${p["id"]}/challenge/${p["challengeId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          id: z.string(),
+          status: z.string(),
+          expiresAt: z.string(),
+          profile: z.object({ email: z.string() }),
+          _links: z.object({
+            verify: z.object({
+              href: z.string(),
+              hints: z.object({ allow: z.array(z.string()) }),
+            }),
+            poll: z.object({
+              href: z.string(),
+              hints: z.object({ allow: z.array(z.string()) }),
+            }),
+          }),
+        })
+        .parse(res.data),
+    }
   }
 
   async verifyEmailOtp(
@@ -320,7 +402,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -329,6 +411,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async listPhones(
@@ -337,13 +421,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Phone[]>> {
     const url = `/idp/myaccount/phones`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_Phone).parse(res.data) }
   }
 
   async createPhone(
@@ -363,7 +449,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -372,6 +458,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_Phone.parse(res.data) }
   }
 
   async getPhone(
@@ -383,13 +471,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Phone>> {
     const url = `/idp/myaccount/phones/${p["id"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_Phone.parse(res.data) }
   }
 
   async deletePhone(
@@ -401,13 +491,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/phones/${p["id"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async sendPhoneChallenge(
@@ -436,7 +528,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -445,6 +537,24 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          _links: z
+            .object({
+              verify: z
+                .object({
+                  href: z.string(),
+                  hints: z.object({ allow: z.array(z.string()) }),
+                })
+                .optional(),
+            })
+            .optional(),
+        })
+        .parse(res.data),
+    }
   }
 
   async verifyPhoneChallenge(
@@ -461,7 +571,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -470,6 +580,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async getProfile(
@@ -478,13 +590,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Profile>> {
     const url = `/idp/myaccount/profile`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_Profile.parse(res.data) }
   }
 
   async replaceProfile(
@@ -500,7 +614,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -509,6 +623,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_Profile.parse(res.data) }
   }
 
   async getProfileSchema(
@@ -517,12 +633,14 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Schema>> {
     const url = `/idp/myaccount/profile/schema`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_Schema.parse(res.data) }
   }
 }

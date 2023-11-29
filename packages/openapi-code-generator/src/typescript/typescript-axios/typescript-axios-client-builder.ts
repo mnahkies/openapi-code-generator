@@ -35,6 +35,8 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
           .filter(({statusType}) => statusType.startsWith("2"))
           .map(({responseType}) => `AxiosResponse<${responseType}>`),
       ) ||
+      (builder.returnType()[0] &&
+        `AxiosResponse<${builder.returnType()[0].responseType}>`) ||
       union(
         builder
           .returnType()
@@ -42,6 +44,10 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
           .map(({responseType}) => `AxiosResponse<${responseType}>`),
       ) ||
       "never"
+
+    const responseSchema =
+      builder.responseSchemas().specific[0] ??
+      builder.responseSchemas().defaultResponse
 
     const body = `
 const url = \`${routeToTemplateString(route)}\`
@@ -53,7 +59,7 @@ const url = \`${routeToTemplateString(route)}\`
       .filter(Boolean)
       .join("\n")}
 
-    return this.axios.request({${[
+    const res = await this.axios.request({${[
       `url: url ${queryString ? "+ query" : ""}`,
       "baseURL: this.basePath",
       `method: "${method}"`,
@@ -64,6 +70,8 @@ const url = \`${routeToTemplateString(route)}\`
     ]
       .filter(Boolean)
       .join(",\n")}})
+
+   return {...res, data: ${responseSchema.schema}.parse(res.data)}
 `
     return asyncMethod({
       name: operationId,

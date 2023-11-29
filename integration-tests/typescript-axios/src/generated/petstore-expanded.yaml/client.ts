@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 import { t_Error, t_NewPet, t_Pet } from "./models"
+import { s_Error, s_NewPet, s_Pet } from "./schemas"
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
@@ -26,13 +27,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/pets`
     const query = this._query({ tags: p["tags"], limit: p["limit"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_Pet).parse(res.data) }
   }
 
   async addPet(
@@ -46,7 +49,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -55,6 +58,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_Pet.parse(res.data) }
   }
 
   async findPetById(
@@ -66,13 +71,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Pet>> {
     const url = `/pets/${p["id"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_Pet.parse(res.data) }
   }
 
   async deletePet(
@@ -84,12 +91,14 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/pets/${p["id"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 }

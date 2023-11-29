@@ -20810,7 +20810,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_integration_installation_request)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
       ],
       undefined,
@@ -20975,7 +20975,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const appsDeleteInstallationResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
     ],
     undefined,
@@ -21109,7 +21109,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const appsSuspendInstallationResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
     ],
     undefined,
@@ -21162,7 +21162,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const appsUnsuspendInstallationResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
     ],
     undefined,
@@ -21217,7 +21217,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const appsDeleteAuthorizationResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["422", s_validation_error],
     ],
     undefined,
@@ -21392,7 +21392,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const appsDeleteTokenResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["422", s_validation_error],
     ],
     undefined,
@@ -21899,7 +21899,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_code_of_conduct)],
-        ["304", z.void()],
+        ["304", z.undefined()],
       ],
       undefined,
     )
@@ -21950,7 +21950,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_code_of_conduct],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["404", s_basic_error],
       ],
       undefined,
@@ -22003,7 +22003,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const emojisGetResponseValidator = responseValidationFactory(
     [
       ["200", z.object({})],
-      ["304", z.void()],
+      ["304", z.undefined()],
     ],
     undefined,
   )
@@ -22066,7 +22066,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_dependabot_alert_with_repository)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["403", s_basic_error],
         ["404", s_basic_error],
         ["422", s_validation_error_simple],
@@ -22230,7 +22230,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const activityListPublicEventsResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_event)],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["403", s_basic_error],
       [
         "503",
@@ -22335,7 +22335,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const gistsListResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_base_gist)],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["403", s_basic_error],
     ],
     undefined,
@@ -22390,7 +22390,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const gistsCreateResponseValidator = responseValidationFactory(
     [
       ["201", s_gist_simple],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
       ["422", s_validation_error],
@@ -22453,7 +22453,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const gistsListPublicResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_base_gist)],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["403", s_basic_error],
       ["422", s_validation_error],
     ],
@@ -22512,7 +22512,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const gistsListStarredResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_base_gist)],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
     ],
@@ -22567,7 +22567,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const gistsGetResponseValidator = responseValidationFactory(
     [
       ["200", s_gist_simple],
-      ["304", z.void()],
+      ["304", z.undefined()],
       [
         "403",
         z.object({
@@ -22704,8 +22704,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const gistsDeleteResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["304", z.void()],
+      ["204", z.undefined()],
+      ["304", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
@@ -22765,7 +22765,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const gistsListCommentsResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_gist_comment)],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
@@ -22830,7 +22830,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const gistsCreateCommentResponseValidator = responseValidationFactory(
     [
       ["201", s_gist_comment],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
@@ -22896,7 +22896,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const gistsGetCommentResponseValidator = responseValidationFactory(
     [
       ["200", s_gist_comment],
-      ["304", z.void()],
+      ["304", z.undefined()],
       [
         "403",
         z.object({
@@ -23038,8 +23038,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const gistsDeleteCommentResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["304", z.void()],
+      ["204", z.undefined()],
+      ["304", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
@@ -23103,7 +23103,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const gistsListCommitsResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_gist_commit)],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
@@ -23171,7 +23171,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const gistsListForksResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_gist_simple)],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
@@ -23230,7 +23230,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const gistsForkResponseValidator = responseValidationFactory(
     [
       ["201", s_base_gist],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
       ["422", s_validation_error],
@@ -23288,8 +23288,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const gistsCheckIsStarredResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["304", z.void()],
+      ["204", z.undefined()],
+      ["304", z.undefined()],
       ["403", s_basic_error],
       ["404", z.object({})],
     ],
@@ -23347,8 +23347,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const gistsStarResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["304", z.void()],
+      ["204", z.undefined()],
+      ["304", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
@@ -23402,8 +23402,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const gistsUnstarResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["304", z.void()],
+      ["204", z.undefined()],
+      ["304", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
@@ -23514,7 +23514,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const gitignoreGetAllTemplatesResponseValidator = responseValidationFactory(
     [
       ["200", z.array(z.string())],
-      ["304", z.void()],
+      ["304", z.undefined()],
     ],
     undefined,
   )
@@ -23561,7 +23561,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const gitignoreGetTemplateResponseValidator = responseValidationFactory(
     [
       ["200", s_gitignore_template],
-      ["304", z.void()],
+      ["304", z.undefined()],
     ],
     undefined,
   )
@@ -23623,7 +23623,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             repository_selection: z.string().optional(),
           }),
         ],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
@@ -23685,7 +23685,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const appsRevokeInstallationAccessTokenResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "appsRevokeInstallationAccessToken",
@@ -23744,7 +23744,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const issuesListResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_issue)],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
@@ -23803,7 +23803,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const licensesGetAllCommonlyUsedResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_license_simple)],
-      ["304", z.void()],
+      ["304", z.undefined()],
     ],
     undefined,
   )
@@ -23850,7 +23850,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const licensesGetResponseValidator = responseValidationFactory(
     [
       ["200", s_license],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
@@ -23909,7 +23909,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const markdownRenderResponseValidator = responseValidationFactory(
     [
       ["200", z.string()],
-      ["304", z.void()],
+      ["304", z.undefined()],
     ],
     undefined,
   )
@@ -23956,7 +23956,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const markdownRenderRawResponseValidator = responseValidationFactory(
     [
       ["200", z.string()],
-      ["304", z.void()],
+      ["304", z.undefined()],
     ],
     undefined,
   )
@@ -24198,7 +24198,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       [
         ["200", s_marketplace_purchase],
         ["401", s_basic_error],
-        ["404", z.void()],
+        ["404", z.undefined()],
       ],
       undefined,
     )
@@ -24372,7 +24372,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const metaGetResponseValidator = responseValidationFactory(
     [
       ["200", s_api_overview],
-      ["304", z.void()],
+      ["304", z.undefined()],
     ],
     undefined,
   )
@@ -24425,7 +24425,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       [
         ["200", z.array(s_event)],
         ["301", s_basic_error],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
@@ -24502,7 +24502,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_thread)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["422", s_validation_error],
@@ -24574,8 +24574,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["202", z.object({ message: z.string().optional() })],
-        ["205", z.void()],
-        ["304", z.void()],
+        ["205", z.undefined()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
@@ -24641,7 +24641,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const activityGetThreadResponseValidator = responseValidationFactory(
     [
       ["200", s_thread],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
     ],
@@ -24701,8 +24701,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const activityMarkThreadAsReadResponseValidator = responseValidationFactory(
     [
-      ["205", z.void()],
-      ["304", z.void()],
+      ["205", z.undefined()],
+      ["304", z.undefined()],
       ["403", s_basic_error],
     ],
     undefined,
@@ -24760,7 +24760,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_thread_subscription],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
@@ -24834,7 +24834,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_thread_subscription],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
@@ -24899,8 +24899,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const activityDeleteThreadSubscriptionResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["304", z.void()],
+        ["204", z.undefined()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
@@ -25003,7 +25003,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const orgsListResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_organization_simple)],
-      ["304", z.void()],
+      ["304", z.undefined()],
     ],
     undefined,
   )
@@ -25555,7 +25555,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsSetGithubActionsPermissionsOrganizationResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.put(
     "actionsSetGithubActionsPermissionsOrganization",
@@ -25686,7 +25686,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.object({ selected_repository_ids: z.array(z.coerce.number()) })
 
   const actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.put(
     "actionsSetSelectedRepositoriesEnabledGithubActionsOrganization",
@@ -25742,7 +25742,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.object({ org: z.string(), repository_id: z.coerce.number() })
 
   const actionsEnableSelectedRepositoryGithubActionsOrganizationResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.put(
     "actionsEnableSelectedRepositoryGithubActionsOrganization",
@@ -25794,7 +25794,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.object({ org: z.string(), repository_id: z.coerce.number() })
 
   const actionsDisableSelectedRepositoryGithubActionsOrganizationResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "actionsDisableSelectedRepositoryGithubActionsOrganization",
@@ -25898,7 +25898,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_selected_actions.optional()
 
   const actionsSetAllowedActionsOrganizationResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.put(
     "actionsSetAllowedActionsOrganization",
@@ -26009,7 +26009,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_actions_set_default_workflow_permissions.optional()
 
   const actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.put(
     "actionsSetGithubActionsDefaultWorkflowPermissionsOrganization",
@@ -26404,7 +26404,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsDeleteSelfHostedRunnerFromOrgResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "actionsDeleteSelfHostedRunnerFromOrg",
@@ -26996,7 +26996,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["201", s_empty_object],
-        ["204", z.void()],
+        ["204", z.undefined()],
       ],
       undefined,
     )
@@ -27052,7 +27052,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsDeleteOrgSecretResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -27176,7 +27176,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsSetSelectedReposForOrgSecretResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.put(
     "actionsSetSelectedReposForOrgSecret",
@@ -27232,8 +27232,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const actionsAddSelectedRepoToOrgSecretResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["409", z.void()],
+        ["204", z.undefined()],
+        ["409", z.undefined()],
       ],
       undefined,
     )
@@ -27291,8 +27291,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const actionsRemoveSelectedRepoFromOrgSecretResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["409", z.void()],
+        ["204", z.undefined()],
+        ["409", z.undefined()],
       ],
       undefined,
     )
@@ -27523,7 +27523,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsUpdateOrgVariableResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -27575,7 +27575,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsDeleteOrgVariableResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -27637,7 +27637,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             repositories: z.array(s_minimal_repository),
           }),
         ],
-        ["409", z.void()],
+        ["409", z.undefined()],
       ],
       undefined,
     )
@@ -27705,8 +27705,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const actionsSetSelectedReposForOrgVariableResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["409", z.void()],
+        ["204", z.undefined()],
+        ["409", z.undefined()],
       ],
       undefined,
     )
@@ -27768,8 +27768,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const actionsAddSelectedRepoToOrgVariableResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["409", z.void()],
+        ["204", z.undefined()],
+        ["409", z.undefined()],
       ],
       undefined,
     )
@@ -27827,8 +27827,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const actionsRemoveSelectedRepoFromOrgVariableResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["409", z.void()],
+        ["204", z.undefined()],
+        ["409", z.undefined()],
       ],
       undefined,
     )
@@ -27934,7 +27934,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsCheckBlockedUserResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
     ],
     undefined,
@@ -27988,7 +27988,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsBlockUserResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["422", s_validation_error],
     ],
     undefined,
@@ -28041,7 +28041,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const orgsUnblockUserResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -28186,7 +28186,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             codespaces: z.array(s_codespace),
           }),
         ],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -28270,9 +28270,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codespacesSetCodespacesAccessResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["304", z.void()],
-        ["400", z.void()],
+        ["204", z.undefined()],
+        ["304", z.undefined()],
+        ["400", z.undefined()],
         ["404", s_basic_error],
         ["422", s_validation_error],
         ["500", s_basic_error],
@@ -28348,9 +28348,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codespacesSetCodespacesAccessUsersResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["304", z.void()],
-        ["400", z.void()],
+        ["204", z.undefined()],
+        ["304", z.undefined()],
+        ["400", z.undefined()],
         ["404", s_basic_error],
         ["422", s_validation_error],
         ["500", s_basic_error],
@@ -28429,9 +28429,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codespacesDeleteCodespacesAccessUsersResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["304", z.void()],
-        ["400", z.void()],
+        ["204", z.undefined()],
+        ["304", z.undefined()],
+        ["400", z.undefined()],
         ["404", s_basic_error],
         ["422", s_validation_error],
         ["500", s_basic_error],
@@ -28673,7 +28673,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["201", s_empty_object],
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
@@ -28741,7 +28741,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const codespacesDeleteOrgSecretResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
     ],
     undefined,
@@ -28876,9 +28876,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codespacesSetSelectedReposForOrgSecretResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["404", s_basic_error],
-        ["409", z.void()],
+        ["409", z.undefined()],
       ],
       undefined,
     )
@@ -28943,9 +28943,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codespacesAddSelectedRepoToOrgSecretResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["404", s_basic_error],
-        ["409", z.void()],
+        ["409", z.undefined()],
         ["422", s_validation_error],
       ],
       undefined,
@@ -29010,9 +29010,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codespacesRemoveSelectedRepoFromOrgSecretResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["404", s_basic_error],
-        ["409", z.void()],
+        ["409", z.undefined()],
         ["422", s_validation_error],
       ],
       undefined,
@@ -29233,7 +29233,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
-        ["422", z.void()],
+        ["422", z.undefined()],
         ["500", s_basic_error],
       ],
       undefined,
@@ -29316,7 +29316,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
-        ["422", z.void()],
+        ["422", z.undefined()],
         ["500", s_basic_error],
       ],
       undefined,
@@ -29399,7 +29399,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
-        ["422", z.void()],
+        ["422", z.undefined()],
         ["500", s_basic_error],
       ],
       undefined,
@@ -29482,7 +29482,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
-        ["422", z.void()],
+        ["422", z.undefined()],
         ["500", s_basic_error],
       ],
       undefined,
@@ -29570,7 +29570,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const dependabotListAlertsForOrgResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_dependabot_alert_with_repository)],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["400", s_scim_error],
       ["403", s_basic_error],
       ["404", s_basic_error],
@@ -29812,7 +29812,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["201", s_empty_object],
-        ["204", z.void()],
+        ["204", z.undefined()],
       ],
       undefined,
     )
@@ -29871,7 +29871,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const dependabotDeleteOrgSecretResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -29995,7 +29995,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const dependabotSetSelectedReposForOrgSecretResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.put(
     "dependabotSetSelectedReposForOrgSecret",
@@ -30051,8 +30051,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const dependabotAddSelectedRepoToOrgSecretResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["409", z.void()],
+        ["204", z.undefined()],
+        ["409", z.undefined()],
       ],
       undefined,
     )
@@ -30110,8 +30110,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const dependabotRemoveSelectedRepoFromOrgSecretResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["409", z.void()],
+        ["204", z.undefined()],
+        ["409", z.undefined()],
       ],
       undefined,
     )
@@ -30601,7 +30601,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsDeleteWebhookResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
     ],
     undefined,
@@ -30949,7 +30949,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsPingWebhookResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
     ],
     undefined,
@@ -31227,7 +31227,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const interactionsRemoveRestrictionsForOrgResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "interactionsRemoveRestrictionsForOrg",
@@ -31415,7 +31415,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsCancelInvitationResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
@@ -31658,9 +31658,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsCheckMembershipForUserResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["302", z.void()],
-      ["404", z.void()],
+      ["204", z.undefined()],
+      ["302", z.undefined()],
+      ["404", z.undefined()],
     ],
     undefined,
   )
@@ -31716,7 +31716,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsRemoveMemberResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["403", s_basic_error],
     ],
     undefined,
@@ -31783,7 +31783,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             codespaces: z.array(s_codespace),
           }),
         ],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -31865,7 +31865,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["202", z.object({})],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -31937,7 +31937,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_codespace],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -32011,7 +32011,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
-        ["422", z.void()],
+        ["422", z.undefined()],
         ["500", s_basic_error],
       ],
       undefined,
@@ -32205,7 +32205,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const orgsRemoveMembershipForUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
@@ -32452,7 +32452,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const migrationsDownloadArchiveForOrgResponseValidator =
     responseValidationFactory(
       [
-        ["302", z.void()],
+        ["302", z.undefined()],
         ["404", s_basic_error],
       ],
       undefined,
@@ -32507,7 +32507,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const migrationsDeleteArchiveForOrgResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["404", s_basic_error],
       ],
       undefined,
@@ -32562,7 +32562,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const migrationsUnlockRepoForOrgResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
     ],
     undefined,
@@ -32738,8 +32738,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["202", z.object({})],
-        ["204", z.void()],
-        ["403", z.void()],
+        ["204", z.undefined()],
+        ["403", z.undefined()],
         ["404", s_basic_error],
       ],
       undefined,
@@ -32807,7 +32807,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const orgsRemoveOutsideCollaboratorResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         [
           "422",
           z.object({
@@ -32885,7 +32885,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_package)],
-        ["400", z.void()],
+        ["400", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
@@ -33019,7 +33019,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const packagesDeletePackageForOrgResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -33094,7 +33094,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const packagesRestorePackageForOrgResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -33321,7 +33321,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const packagesDeletePackageVersionForOrgResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -33396,7 +33396,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const packagesRestorePackageVersionForOrgResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -33623,7 +33623,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsReviewPatGrantRequestResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
       ["422", s_validation_error],
@@ -33923,7 +33923,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsUpdatePatAccessResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
       ["422", s_validation_error],
@@ -34253,8 +34253,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const orgsCheckPublicMembershipForUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["404", z.void()],
+        ["204", z.undefined()],
+        ["404", z.undefined()],
       ],
       undefined,
     )
@@ -34308,7 +34308,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const orgsSetPublicMembershipForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["403", s_basic_error],
       ],
       undefined,
@@ -34364,7 +34364,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const orgsRemovePublicMembershipForAuthenticatedUserResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "orgsRemovePublicMembershipForAuthenticatedUser",
@@ -34819,7 +34819,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposDeleteOrgRulesetResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
       ["500", s_basic_error],
     ],
@@ -35081,8 +35081,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsAddSecurityManagerTeamResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["409", z.void()],
+      ["204", z.undefined()],
+      ["409", z.undefined()],
     ],
     undefined,
   )
@@ -35134,7 +35134,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const orgsRemoveSecurityManagerTeamResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "orgsRemoveSecurityManagerTeam",
@@ -35585,7 +35585,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const teamsDeleteInOrgResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -35857,7 +35857,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const teamsDeleteDiscussionInOrgResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -36132,7 +36132,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const teamsDeleteDiscussionCommentInOrgResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "teamsDeleteDiscussionCommentInOrg",
@@ -36333,7 +36333,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reactionsDeleteForTeamDiscussionCommentResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "reactionsDeleteForTeamDiscussionComment",
@@ -36531,7 +36531,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reactionsDeleteForTeamDiscussionResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "reactionsDeleteForTeamDiscussion",
@@ -36697,7 +36697,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_team_membership],
-        ["404", z.void()],
+        ["404", z.undefined()],
       ],
       undefined,
     )
@@ -36757,8 +36757,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_team_membership],
-        ["403", z.void()],
-        ["422", z.void()],
+        ["403", z.undefined()],
+        ["422", z.undefined()],
       ],
       undefined,
     )
@@ -36823,8 +36823,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const teamsRemoveMembershipForUserInOrgResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["403", z.void()],
+        ["204", z.undefined()],
+        ["403", z.undefined()],
       ],
       undefined,
     )
@@ -36940,7 +36940,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_team_project],
-        ["404", z.void()],
+        ["404", z.undefined()],
       ],
       undefined,
     )
@@ -37003,7 +37003,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const teamsAddOrUpdateProjectPermissionsInOrgResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         [
           "403",
           z.object({
@@ -37073,7 +37073,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const teamsRemoveProjectInOrgResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -37183,8 +37183,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_team_repository],
-        ["204", z.void()],
-        ["404", z.void()],
+        ["204", z.undefined()],
+        ["404", z.undefined()],
       ],
       undefined,
     )
@@ -37248,7 +37248,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .optional()
 
   const teamsAddOrUpdateRepoPermissionsInOrgResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.put(
     "teamsAddOrUpdateRepoPermissionsInOrg",
@@ -37303,7 +37303,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const teamsRemoveRepoInOrgResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -37423,8 +37423,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const orgsEnableOrDisableSecurityProductOnAllOrgReposResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["422", z.void()],
+        ["204", z.undefined()],
+        ["422", z.undefined()],
       ],
       undefined,
     )
@@ -37483,7 +37483,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const projectsGetCardResponseValidator = responseValidationFactory(
     [
       ["200", s_project_card],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
       ["404", s_basic_error],
@@ -37553,7 +37553,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const projectsUpdateCardResponseValidator = responseValidationFactory(
     [
       ["200", s_project_card],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
       ["404", s_basic_error],
@@ -37623,8 +37623,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const projectsDeleteCardResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["304", z.void()],
+      ["204", z.undefined()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       [
         "403",
@@ -37703,7 +37703,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const projectsMoveCardResponseValidator = responseValidationFactory(
     [
       ["201", z.object({})],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       [
         "403",
@@ -37824,7 +37824,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const projectsGetColumnResponseValidator = responseValidationFactory(
     [
       ["200", s_project_column],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
       ["404", s_basic_error],
@@ -37891,7 +37891,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const projectsUpdateColumnResponseValidator = responseValidationFactory(
     [
       ["200", s_project_column],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
     ],
@@ -37955,8 +37955,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const projectsDeleteColumnResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["304", z.void()],
+      ["204", z.undefined()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
     ],
@@ -38023,7 +38023,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const projectsListCardsResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_project_card)],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
     ],
@@ -38093,7 +38093,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const projectsCreateCardResponseValidator = responseValidationFactory(
     [
       ["201", s_project_card],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
       ["422", z.union([s_validation_error, s_validation_error_simple])],
@@ -38193,7 +38193,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const projectsMoveColumnResponseValidator = responseValidationFactory(
     [
       ["201", z.object({})],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
       ["422", s_validation_error_simple],
@@ -38260,7 +38260,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const projectsGetResponseValidator = responseValidationFactory(
     [
       ["200", s_project],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
     ],
@@ -38327,7 +38327,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const projectsUpdateResponseValidator = responseValidationFactory(
     [
       ["200", s_project],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       [
         "403",
@@ -38337,7 +38337,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           errors: z.array(z.string()).optional(),
         }),
       ],
-      ["404", z.void()],
+      ["404", z.undefined()],
       ["410", s_basic_error],
       ["422", s_validation_error_simple],
     ],
@@ -38408,8 +38408,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const projectsDeleteResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["304", z.void()],
+      ["204", z.undefined()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       [
         "403",
@@ -38495,7 +38495,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const projectsListCollaboratorsResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_simple_user)],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
       ["404", s_basic_error],
@@ -38573,8 +38573,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const projectsAddCollaboratorResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["304", z.void()],
+      ["204", z.undefined()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
       ["404", s_basic_error],
@@ -38647,8 +38647,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const projectsRemoveCollaboratorResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["304", z.void()],
+      ["204", z.undefined()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
       ["404", s_basic_error],
@@ -38719,7 +38719,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_project_collaborator_permission],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -38793,7 +38793,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const projectsListColumnsResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_project_column)],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
     ],
@@ -38860,7 +38860,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const projectsCreateColumnResponseValidator = responseValidationFactory(
     [
       ["201", s_project_column],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
       ["422", s_validation_error_simple],
@@ -38925,7 +38925,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const rateLimitGetResponseValidator = responseValidationFactory(
     [
       ["200", s_rate_limit_overview],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["404", s_basic_error],
     ],
     undefined,
@@ -39142,7 +39142,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposDeleteResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["307", s_basic_error],
       [
         "403",
@@ -39328,7 +39328,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsDeleteArtifactResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -39379,7 +39379,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const actionsDownloadArtifactResponseValidator = responseValidationFactory(
     [
-      ["302", z.void()],
+      ["302", z.undefined()],
       ["410", s_basic_error],
     ],
     undefined,
@@ -39602,7 +39602,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsDeleteActionsCacheByIdResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "actionsDeleteActionsCacheById",
@@ -39696,7 +39696,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsDownloadJobLogsForWorkflowRunResponseValidator =
-    responseValidationFactory([["302", z.void()]], undefined)
+    responseValidationFactory([["302", z.undefined()]], undefined)
 
   router.get(
     "actionsDownloadJobLogsForWorkflowRun",
@@ -40148,7 +40148,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsSetGithubActionsPermissionsRepositoryResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.put(
     "actionsSetGithubActionsPermissionsRepository",
@@ -40258,7 +40258,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_actions_workflow_access_to_repository
 
   const actionsSetWorkflowAccessToRepositoryResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.put(
     "actionsSetWorkflowAccessToRepository",
@@ -40363,7 +40363,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_selected_actions.optional()
 
   const actionsSetAllowedActionsRepositoryResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.put(
     "actionsSetAllowedActionsRepository",
@@ -40476,8 +40476,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["409", z.void()],
+        ["204", z.undefined()],
+        ["409", z.undefined()],
       ],
       undefined,
     )
@@ -40888,7 +40888,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsDeleteSelfHostedRunnerFromRepoResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "actionsDeleteSelfHostedRunnerFromRepo",
@@ -41472,7 +41472,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsDeleteWorkflowRunResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -41832,7 +41832,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsDownloadWorkflowRunAttemptLogsResponseValidator =
-    responseValidationFactory([["302", z.void()]], undefined)
+    responseValidationFactory([["302", z.undefined()]], undefined)
 
   router.get(
     "actionsDownloadWorkflowRunAttemptLogs",
@@ -41942,7 +41942,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   ])
 
   const actionsReviewCustomGatesForRunResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.post(
     "actionsReviewCustomGatesForRun",
@@ -42061,7 +42061,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsDownloadWorkflowRunLogsResponseValidator =
-    responseValidationFactory([["302", z.void()]], undefined)
+    responseValidationFactory([["302", z.undefined()]], undefined)
 
   router.get(
     "actionsDownloadWorkflowRunLogs",
@@ -42110,7 +42110,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const actionsDeleteWorkflowRunLogsResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["403", s_basic_error],
         ["500", s_basic_error],
       ],
@@ -42617,7 +42617,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["201", s_empty_object],
-        ["204", z.void()],
+        ["204", z.undefined()],
       ],
       undefined,
     )
@@ -42674,7 +42674,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsDeleteRepoSecretResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -42902,7 +42902,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsUpdateRepoVariableResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -42955,7 +42955,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsDeleteRepoVariableResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -43121,7 +43121,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsDisableWorkflowResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -43175,7 +43175,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsCreateWorkflowDispatchResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.post(
     "actionsCreateWorkflowDispatch",
@@ -43226,7 +43226,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsEnableWorkflowResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -43561,7 +43561,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const issuesCheckUserCanBeAssignedResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["404", s_basic_error],
       ],
       undefined,
@@ -43791,7 +43791,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposDeleteAutolinkResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
     ],
     undefined,
@@ -43847,7 +43847,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_check_automated_security_fixes],
-        ["404", z.void()],
+        ["404", z.undefined()],
       ],
       undefined,
     )
@@ -43899,7 +43899,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reposEnableAutomatedSecurityFixesResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.put(
     "reposEnableAutomatedSecurityFixes",
@@ -43948,7 +43948,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reposDisableAutomatedSecurityFixesResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "reposDisableAutomatedSecurityFixes",
@@ -44300,7 +44300,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposDeleteBranchProtectionResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["403", s_basic_error],
       ],
       undefined,
@@ -44456,7 +44456,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposDeleteAdminBranchProtectionResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["404", s_basic_error],
       ],
       undefined,
@@ -44655,7 +44655,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposDeletePullRequestReviewProtectionResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["404", s_basic_error],
       ],
       undefined,
@@ -44832,7 +44832,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposDeleteCommitSignatureProtectionResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["404", s_basic_error],
       ],
       undefined,
@@ -45024,7 +45024,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reposRemoveStatusCheckProtectionResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "reposRemoveStatusCheckProtection",
@@ -45391,7 +45391,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reposDeleteAccessRestrictionsResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "reposDeleteAccessRestrictions",
@@ -46914,7 +46914,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_code_scanning_alert_items)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["403", s_basic_error],
         ["404", s_basic_error],
         [
@@ -46996,7 +46996,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codeScanningGetAlertResponseValidator = responseValidationFactory(
     [
       ["200", s_code_scanning_alert],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
       [
@@ -47569,7 +47569,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_code_scanning_codeql_database],
-        ["302", z.void()],
+        ["302", z.undefined()],
         ["403", s_basic_error],
         ["404", s_basic_error],
         [
@@ -47821,10 +47821,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codeScanningUploadSarifResponseValidator = responseValidationFactory(
     [
       ["202", s_code_scanning_sarifs_receipt],
-      ["400", z.void()],
+      ["400", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
-      ["413", z.void()],
+      ["413", z.undefined()],
       [
         "503",
         z.object({
@@ -47908,7 +47908,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     [
       ["200", s_code_scanning_sarifs_status],
       ["403", s_basic_error],
-      ["404", z.void()],
+      ["404", z.undefined()],
       [
         "503",
         z.object({
@@ -47984,7 +47984,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposCodeownersErrorsResponseValidator = responseValidationFactory(
     [
       ["200", s_codeowners_errors],
-      ["404", z.void()],
+      ["404", z.undefined()],
     ],
     undefined,
   )
@@ -48361,7 +48361,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             machines: z.array(s_codespace_machine),
           }),
         ],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -48706,7 +48706,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["201", s_empty_object],
-        ["204", z.void()],
+        ["204", z.undefined()],
       ],
       undefined,
     )
@@ -48766,7 +48766,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const codespacesDeleteRepoSecretResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -48883,8 +48883,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposCheckCollaboratorResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["404", z.void()],
+      ["204", z.undefined()],
+      ["404", z.undefined()],
     ],
     undefined,
   )
@@ -48943,7 +48943,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposAddCollaboratorResponseValidator = responseValidationFactory(
     [
       ["201", s_repository_invitation],
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["403", s_basic_error],
       ["422", s_validation_error],
     ],
@@ -49009,7 +49009,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposRemoveCollaboratorResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["403", s_basic_error],
       ["422", s_validation_error],
     ],
@@ -49300,7 +49300,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposDeleteCommitCommentResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
     ],
     undefined,
@@ -49509,7 +49509,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reactionsDeleteForCommitCommentResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "reactionsDeleteForCommitComment",
@@ -50385,7 +50385,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           s_content_submodule,
         ]),
       ],
-      ["302", z.void()],
+      ["302", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
@@ -50649,7 +50649,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposListContributorsResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_contributor)],
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
@@ -50733,7 +50733,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_dependabot_alert)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["400", s_scim_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -50808,7 +50808,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const dependabotGetAlertResponseValidator = responseValidationFactory(
     [
       ["200", s_dependabot_alert],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
@@ -51131,7 +51131,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["201", s_empty_object],
-        ["204", z.void()],
+        ["204", z.undefined()],
       ],
       undefined,
     )
@@ -51191,7 +51191,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const dependabotDeleteRepoSecretResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -51513,7 +51513,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     [
       ["201", s_deployment],
       ["202", z.object({ message: z.string().optional() })],
-      ["409", z.void()],
+      ["409", z.undefined()],
       ["422", s_validation_error],
     ],
     undefined,
@@ -51635,7 +51635,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposDeleteDeploymentResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
       ["422", s_validation_error_simple],
     ],
@@ -51897,7 +51897,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposCreateDispatchEventResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["422", s_validation_error],
     ],
     undefined,
@@ -52149,7 +52149,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reposDeleteAnEnvironmentResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -52277,8 +52277,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_deployment_branch_policy],
-        ["303", z.void()],
-        ["404", z.void()],
+        ["303", z.undefined()],
+        ["404", z.undefined()],
       ],
       undefined,
     )
@@ -52448,7 +52448,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reposDeleteDeploymentBranchPolicyResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "reposDeleteDeploymentBranchPolicy",
@@ -52755,7 +52755,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reposDisableDeploymentProtectionRuleResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "reposDisableDeploymentProtectionRule",
@@ -53510,7 +53510,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const gitDeleteRefResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["422", s_validation_error],
     ],
     undefined,
@@ -54121,7 +54121,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposDeleteWebhookResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
     ],
     undefined,
@@ -54473,7 +54473,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposPingWebhookResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
     ],
     undefined,
@@ -54528,7 +54528,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposTestPushWebhookResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
     ],
     undefined,
@@ -54782,7 +54782,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const migrationsCancelImportResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["503", s_basic_error],
     ],
     undefined,
@@ -55209,7 +55209,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_interaction_limit_response],
-        ["409", z.void()],
+        ["409", z.undefined()],
       ],
       undefined,
     )
@@ -55270,8 +55270,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const interactionsRemoveRestrictionsForRepoResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["409", z.void()],
+        ["204", z.undefined()],
+        ["409", z.undefined()],
       ],
       undefined,
     )
@@ -55445,7 +55445,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reposDeleteInvitationResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -55870,7 +55870,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const issuesDeleteCommentResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -56074,7 +56074,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reactionsDeleteForIssueCommentResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "reactionsDeleteForIssueComment",
@@ -56250,7 +56250,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     [
       ["200", s_issue],
       ["301", s_basic_error],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["404", s_basic_error],
       ["410", s_basic_error],
     ],
@@ -56549,7 +56549,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const issuesCheckUserCanBeAssignedToIssueResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["404", s_basic_error],
       ],
       undefined,
@@ -57047,7 +57047,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const issuesRemoveAllLabelsResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["301", s_basic_error],
       ["404", s_basic_error],
       ["410", s_basic_error],
@@ -57183,7 +57183,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const issuesLockResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
       ["410", s_basic_error],
@@ -57254,7 +57254,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const issuesUnlockResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
@@ -57469,7 +57469,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reactionsDeleteForIssueResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -57763,7 +57763,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reposDeleteDeployKeyResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -58059,7 +58059,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const issuesDeleteLabelResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -58207,8 +58207,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposMergeUpstreamResponseValidator = responseValidationFactory(
     [
       ["200", s_merged_upstream],
-      ["409", z.void()],
-      ["422", z.void()],
+      ["409", z.undefined()],
+      ["422", z.undefined()],
     ],
     undefined,
   )
@@ -58275,10 +58275,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposMergeResponseValidator = responseValidationFactory(
     [
       ["201", s_commit],
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["403", s_basic_error],
-      ["404", z.void()],
-      ["409", z.void()],
+      ["404", z.undefined()],
+      ["409", z.undefined()],
       ["422", s_validation_error],
     ],
     undefined,
@@ -58597,7 +58597,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const issuesDeleteMilestoneResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
     ],
     undefined,
@@ -58787,7 +58787,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             url: z.string().optional(),
           }),
         ],
-        ["205", z.void()],
+        ["205", z.undefined()],
       ],
       undefined,
     )
@@ -58988,7 +58988,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposUpdateInformationAboutPagesSiteResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["400", s_scim_error],
         ["409", s_basic_error],
         ["422", s_validation_error],
@@ -59057,7 +59057,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposDeletePagesSiteResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
       ["409", s_basic_error],
       ["422", s_validation_error],
@@ -59396,9 +59396,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     [
       ["200", s_pages_health_check],
       ["202", s_empty_object],
-      ["400", z.void()],
+      ["400", z.undefined()],
       ["404", s_basic_error],
-      ["422", z.void()],
+      ["422", z.undefined()],
     ],
     undefined,
   )
@@ -59461,7 +59461,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposEnablePrivateVulnerabilityReportingResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["422", s_scim_error],
       ],
       undefined,
@@ -59519,7 +59519,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposDisablePrivateVulnerabilityReportingResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["422", s_scim_error],
       ],
       undefined,
@@ -59745,7 +59745,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const pullsListResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_pull_request_simple)],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["422", s_validation_error],
     ],
     undefined,
@@ -60043,7 +60043,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const pullsDeleteReviewCommentResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
     ],
     undefined,
@@ -60258,7 +60258,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reactionsDeleteForPullRequestCommentResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "reactionsDeleteForPullRequestComment",
@@ -60310,7 +60310,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const pullsGetResponseValidator = responseValidationFactory(
     [
       ["200", s_pull_request],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["404", s_basic_error],
       ["500", s_basic_error],
       [
@@ -60910,8 +60910,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const pullsCheckIfMergedResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["404", z.void()],
+      ["204", z.undefined()],
+      ["404", z.undefined()],
     ],
     undefined,
   )
@@ -61127,7 +61127,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     [
       ["201", s_pull_request_simple],
       ["403", s_basic_error],
-      ["422", z.void()],
+      ["422", z.undefined()],
     ],
     undefined,
   )
@@ -62126,7 +62126,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposGetReleaseAssetResponseValidator = responseValidationFactory(
     [
       ["200", s_release_asset],
-      ["302", z.void()],
+      ["302", z.undefined()],
       ["404", s_basic_error],
     ],
     undefined,
@@ -62244,7 +62244,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reposDeleteReleaseAssetResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -62463,7 +62463,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposGetReleaseResponseValidator = responseValidationFactory(
     [
       ["200", s_release],
-      ["401", z.void()],
+      ["401", z.undefined()],
     ],
     undefined,
   )
@@ -62588,7 +62588,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reposDeleteReleaseResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -62704,7 +62704,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposUploadReleaseAssetResponseValidator = responseValidationFactory(
     [
       ["201", s_release_asset],
-      ["422", z.void()],
+      ["422", z.undefined()],
     ],
     undefined,
   )
@@ -62900,7 +62900,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reactionsDeleteForReleaseResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -63288,7 +63288,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposDeleteRepoRulesetResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
       ["500", s_basic_error],
     ],
@@ -63360,7 +63360,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_secret_scanning_alert)],
-        ["404", z.void()],
+        ["404", z.undefined()],
         [
           "503",
           z.object({
@@ -63434,8 +63434,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const secretScanningGetAlertResponseValidator = responseValidationFactory(
     [
       ["200", s_secret_scanning_alert],
-      ["304", z.void()],
-      ["404", z.void()],
+      ["304", z.undefined()],
+      ["404", z.undefined()],
       [
         "503",
         z.object({
@@ -63514,9 +63514,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const secretScanningUpdateAlertResponseValidator = responseValidationFactory(
     [
       ["200", s_secret_scanning_alert],
-      ["400", z.void()],
-      ["404", z.void()],
-      ["422", z.void()],
+      ["400", z.undefined()],
+      ["404", z.undefined()],
+      ["422", z.undefined()],
       [
         "503",
         z.object({
@@ -63602,7 +63602,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_secret_scanning_location)],
-        ["404", z.void()],
+        ["404", z.undefined()],
         [
           "503",
           z.object({
@@ -64177,7 +64177,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     [
       ["200", z.array(s_code_frequency_stat)],
       ["202", z.object({})],
-      ["204", z.void()],
+      ["204", z.undefined()],
     ],
     undefined,
   )
@@ -64236,7 +64236,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       [
         ["200", z.array(s_commit_activity)],
         ["202", z.object({})],
-        ["204", z.void()],
+        ["204", z.undefined()],
       ],
       undefined,
     )
@@ -64294,7 +64294,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     [
       ["200", z.array(s_contributor_activity)],
       ["202", z.object({})],
-      ["204", z.void()],
+      ["204", z.undefined()],
     ],
     undefined,
   )
@@ -64405,7 +64405,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposGetPunchCardStatsResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_code_frequency_stat)],
-      ["204", z.void()],
+      ["204", z.undefined()],
     ],
     undefined,
   )
@@ -64576,7 +64576,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       [
         ["200", s_repository_subscription],
         ["403", s_basic_error],
-        ["404", z.void()],
+        ["404", z.undefined()],
       ],
       undefined,
     )
@@ -64688,7 +64688,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const activityDeleteRepoSubscriptionResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "activityDeleteRepoSubscription",
@@ -64911,7 +64911,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposDeleteTagProtectionResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
@@ -64969,7 +64969,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reposDownloadTarballArchiveResponseValidator =
-    responseValidationFactory([["302", z.void()]], undefined)
+    responseValidationFactory([["302", z.undefined()]], undefined)
 
   router.get(
     "reposDownloadTarballArchive",
@@ -65499,8 +65499,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposCheckVulnerabilityAlertsResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["404", z.void()],
+        ["204", z.undefined()],
+        ["404", z.undefined()],
       ],
       undefined,
     )
@@ -65552,7 +65552,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reposEnableVulnerabilityAlertsResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.put(
     "reposEnableVulnerabilityAlerts",
@@ -65598,7 +65598,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reposDisableVulnerabilityAlertsResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "reposDisableVulnerabilityAlerts",
@@ -65645,7 +65645,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reposDownloadZipballArchiveResponseValidator =
-    responseValidationFactory([["302", z.void()]], undefined)
+    responseValidationFactory([["302", z.undefined()]], undefined)
 
   router.get(
     "reposDownloadZipballArchive",
@@ -65752,7 +65752,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposListPublicResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_minimal_repository)],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["422", s_validation_error],
     ],
     undefined,
@@ -65975,7 +65975,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["201", s_empty_object],
-        ["204", z.void()],
+        ["204", z.undefined()],
       ],
       undefined,
     )
@@ -66035,7 +66035,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsDeleteEnvironmentSecretResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "actionsDeleteEnvironmentSecret",
@@ -66258,7 +66258,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsUpdateEnvironmentVariableResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.patch(
     "actionsUpdateEnvironmentVariable",
@@ -66309,7 +66309,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsDeleteEnvironmentVariableResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "actionsDeleteEnvironmentVariable",
@@ -66367,7 +66367,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           items: z.array(s_code_search_result_item),
         }),
       ],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["403", s_basic_error],
       ["422", s_validation_error],
       [
@@ -66454,7 +66454,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           items: z.array(s_commit_search_result_item),
         }),
       ],
-      ["304", z.void()],
+      ["304", z.undefined()],
     ],
     undefined,
   )
@@ -66533,7 +66533,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             items: z.array(s_issue_search_result_item),
           }),
         ],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["403", s_basic_error],
         ["422", s_validation_error],
         [
@@ -66625,7 +66625,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           items: z.array(s_label_search_result_item),
         }),
       ],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
       ["422", s_validation_error],
@@ -66703,7 +66703,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           items: z.array(s_repo_search_result_item),
         }),
       ],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["422", s_validation_error],
       [
         "503",
@@ -66784,7 +66784,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           items: z.array(s_topic_search_result_item),
         }),
       ],
-      ["304", z.void()],
+      ["304", z.undefined()],
     ],
     undefined,
   )
@@ -66848,7 +66848,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           items: z.array(s_user_search_result_item),
         }),
       ],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["422", s_validation_error],
       [
         "503",
@@ -67038,7 +67038,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const teamsDeleteLegacyResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
@@ -67305,7 +67305,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const teamsDeleteDiscussionLegacyResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "teamsDeleteDiscussionLegacy",
@@ -67576,7 +67576,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const teamsDeleteDiscussionCommentLegacyResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "teamsDeleteDiscussionCommentLegacy",
@@ -68023,8 +68023,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const teamsGetMemberLegacyResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["404", z.void()],
+      ["204", z.undefined()],
+      ["404", z.undefined()],
     ],
     undefined,
   )
@@ -68077,10 +68077,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const teamsAddMemberLegacyResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["403", s_basic_error],
-      ["404", z.void()],
-      ["422", z.void()],
+      ["404", z.undefined()],
+      ["422", z.undefined()],
     ],
     undefined,
   )
@@ -68139,8 +68139,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const teamsRemoveMemberLegacyResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["404", z.void()],
+      ["204", z.undefined()],
+      ["404", z.undefined()],
     ],
     undefined,
   )
@@ -68254,9 +68254,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_team_membership],
-        ["403", z.void()],
+        ["403", z.undefined()],
         ["404", s_basic_error],
-        ["422", z.void()],
+        ["422", z.undefined()],
       ],
       undefined,
     )
@@ -68323,8 +68323,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const teamsRemoveMembershipForUserLegacyResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["403", z.void()],
+        ["204", z.undefined()],
+        ["403", z.undefined()],
       ],
       undefined,
     )
@@ -68444,7 +68444,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_team_project],
-        ["404", z.void()],
+        ["404", z.undefined()],
       ],
       undefined,
     )
@@ -68505,7 +68505,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const teamsAddOrUpdateProjectPermissionsLegacyResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         [
           "403",
           z.object({
@@ -68583,7 +68583,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const teamsRemoveProjectLegacyResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
+      ["204", z.undefined()],
       ["404", s_basic_error],
       ["422", s_validation_error],
     ],
@@ -68706,8 +68706,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_team_repository],
-        ["204", z.void()],
-        ["404", z.void()],
+        ["204", z.undefined()],
+        ["404", z.undefined()],
       ],
       undefined,
     )
@@ -68772,7 +68772,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const teamsAddOrUpdateRepoPermissionsLegacyResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["403", s_basic_error],
         ["422", s_validation_error],
       ],
@@ -68837,7 +68837,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const teamsRemoveRepoLegacyResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     undefined,
   )
 
@@ -68952,7 +68952,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const usersGetAuthenticatedResponseValidator = responseValidationFactory(
     [
       ["200", z.union([s_private_user, s_public_user])],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
     ],
@@ -69014,7 +69014,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const usersUpdateAuthenticatedResponseValidator = responseValidationFactory(
     [
       ["200", s_private_user],
-      ["304", z.void()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
       ["404", s_basic_error],
@@ -69081,7 +69081,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_simple_user)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -69146,8 +69146,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const usersCheckBlockedResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["304", z.void()],
+      ["204", z.undefined()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
       ["404", s_basic_error],
@@ -69209,8 +69209,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const usersBlockResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["304", z.void()],
+      ["204", z.undefined()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
       ["404", s_basic_error],
@@ -69272,8 +69272,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const usersUnblockResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["304", z.void()],
+      ["204", z.undefined()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
       ["404", s_basic_error],
@@ -69343,7 +69343,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             codespaces: z.array(s_codespace),
           }),
         ],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -69695,7 +69695,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["201", s_empty_object],
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["404", s_basic_error],
         ["422", s_validation_error],
       ],
@@ -69766,7 +69766,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const codespacesDeleteSecretForAuthenticatedUserResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "codespacesDeleteSecretForAuthenticatedUser",
@@ -69900,7 +69900,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codespacesSetRepositoriesForSecretForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -69977,7 +69977,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codespacesAddRepositoryForSecretForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -70050,7 +70050,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codespacesRemoveRepositoryForSecretForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -70125,7 +70125,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_codespace],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -70275,7 +70275,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["202", z.object({})],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -70486,7 +70486,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             machines: z.array(s_codespace_machine),
           }),
         ],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -70641,7 +70641,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_codespace],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["400", s_scim_error],
         ["401", s_basic_error],
         ["402", s_basic_error],
@@ -70840,7 +70840,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_email)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -70919,7 +70919,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_email)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -70992,7 +70992,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["201", z.array(s_email)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -71066,8 +71066,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const usersDeleteEmailForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["304", z.void()],
+        ["204", z.undefined()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -71141,7 +71141,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_simple_user)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
@@ -71207,7 +71207,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_simple_user)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
@@ -71271,8 +71271,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const usersCheckPersonIsFollowedByAuthenticatedResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["304", z.void()],
+        ["204", z.undefined()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -71337,8 +71337,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const usersFollowResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["304", z.void()],
+      ["204", z.undefined()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
       ["404", s_basic_error],
@@ -71396,8 +71396,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const usersUnfollowResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["304", z.void()],
+      ["204", z.undefined()],
+      ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
       ["404", s_basic_error],
@@ -71464,7 +71464,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_gpg_key)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -71534,7 +71534,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["201", s_gpg_key],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -71607,7 +71607,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_gpg_key],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -71675,8 +71675,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const usersDeleteGpgKeyForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["304", z.void()],
+        ["204", z.undefined()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -71756,7 +71756,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             installations: z.array(s_installation),
           }),
         ],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
@@ -71836,7 +71836,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             repositories: z.array(s_repository),
           }),
         ],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
@@ -71909,8 +71909,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const appsAddRepoToInstallationForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["304", z.void()],
+        ["204", z.undefined()],
+        ["304", z.undefined()],
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
@@ -71976,11 +71976,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const appsRemoveRepoFromInstallationForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["304", z.void()],
+        ["204", z.undefined()],
+        ["304", z.undefined()],
         ["403", s_basic_error],
         ["404", s_basic_error],
-        ["422", z.void()],
+        ["422", z.undefined()],
       ],
       undefined,
     )
@@ -72047,7 +72047,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.union([s_interaction_limit_response, z.object({})])],
-        ["204", z.void()],
+        ["204", z.undefined()],
       ],
       undefined,
     )
@@ -72153,7 +72153,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const interactionsRemoveRestrictionsForAuthenticatedUserResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
   router.delete(
     "interactionsRemoveRestrictionsForAuthenticatedUser",
@@ -72214,7 +72214,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_issue)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["404", s_basic_error],
       ],
       undefined,
@@ -72273,7 +72273,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_key)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -72343,7 +72343,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["201", s_key],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -72416,7 +72416,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_key],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -72484,8 +72484,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const usersDeletePublicSshKeyForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["304", z.void()],
+        ["204", z.undefined()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -72555,7 +72555,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_user_marketplace_purchase)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["404", s_basic_error],
       ],
@@ -72621,7 +72621,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_user_marketplace_purchase)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
       ],
       undefined,
@@ -72685,7 +72685,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_org_membership)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["422", s_validation_error],
@@ -72889,7 +72889,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_migration)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
@@ -72962,7 +72962,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["201", s_migration],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["422", s_validation_error],
@@ -73035,7 +73035,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_migration],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -73107,8 +73107,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const migrationsGetArchiveForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["302", z.void()],
-        ["304", z.void()],
+        ["302", z.undefined()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
@@ -73172,8 +73172,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const migrationsDeleteArchiveForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["304", z.void()],
+        ["204", z.undefined()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -73242,8 +73242,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const migrationsUnlockRepoForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["304", z.void()],
+        ["204", z.undefined()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -73379,7 +73379,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_organization_simple)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
@@ -73451,7 +73451,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_package)],
-        ["400", z.void()],
+        ["400", z.undefined()],
       ],
       undefined,
     )
@@ -73571,7 +73571,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const packagesDeletePackageForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -73648,7 +73648,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const packagesRestorePackageForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -73873,7 +73873,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const packagesDeletePackageVersionForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -73950,7 +73950,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const packagesRestorePackageVersionForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -74022,7 +74022,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["201", s_project],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["422", s_validation_error_simple],
@@ -74092,7 +74092,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_email)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -74169,7 +74169,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_repository)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["422", s_validation_error],
@@ -74261,7 +74261,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["201", s_repository],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["400", s_scim_error],
         ["401", s_basic_error],
         ["403", s_basic_error],
@@ -74336,7 +74336,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_repository_invitation)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -74404,8 +74404,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposAcceptInvitationForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["304", z.void()],
+        ["204", z.undefined()],
+        ["304", z.undefined()],
         ["403", s_basic_error],
         ["404", s_basic_error],
         ["409", s_basic_error],
@@ -74473,8 +74473,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposDeclineInvitationForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["304", z.void()],
+        ["204", z.undefined()],
+        ["304", z.undefined()],
         ["403", s_basic_error],
         ["404", s_basic_error],
         ["409", s_basic_error],
@@ -74544,7 +74544,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_social_account)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -74613,7 +74613,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["201", z.array(s_social_account)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -74685,8 +74685,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const usersDeleteSocialAccountForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["304", z.void()],
+        ["204", z.undefined()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -74760,7 +74760,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_ssh_signing_key)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -74830,7 +74830,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["201", s_ssh_signing_key],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -74903,7 +74903,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", s_ssh_signing_key],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -74971,8 +74971,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const usersDeleteSshSigningKeyForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["304", z.void()],
+        ["204", z.undefined()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -75044,7 +75044,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_starred_repository)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
@@ -75109,8 +75109,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const activityCheckRepoIsStarredByAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["304", z.void()],
+        ["204", z.undefined()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -75179,8 +75179,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const activityStarRepoForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["304", z.void()],
+        ["204", z.undefined()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -75249,8 +75249,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const activityUnstarRepoForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
-        ["304", z.void()],
+        ["204", z.undefined()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -75320,7 +75320,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_minimal_repository)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
@@ -75386,7 +75386,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_team_full)],
-        ["304", z.void()],
+        ["304", z.undefined()],
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
@@ -75448,7 +75448,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const usersListResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_simple_user)],
-      ["304", z.void()],
+      ["304", z.undefined()],
     ],
     undefined,
   )
@@ -75890,8 +75890,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const usersCheckFollowingForUserResponseValidator = responseValidationFactory(
     [
-      ["204", z.void()],
-      ["404", z.void()],
+      ["204", z.undefined()],
+      ["404", z.undefined()],
     ],
     undefined,
   )
@@ -76291,7 +76291,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_package)],
-        ["400", z.void()],
+        ["400", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
@@ -76421,7 +76421,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const packagesDeletePackageForUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -76496,7 +76496,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const packagesRestorePackageForUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -76707,7 +76707,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const packagesDeletePackageVersionForUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -76782,7 +76782,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const packagesRestorePackageVersionForUserResponseValidator =
     responseValidationFactory(
       [
-        ["204", z.void()],
+        ["204", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
         ["404", s_basic_error],

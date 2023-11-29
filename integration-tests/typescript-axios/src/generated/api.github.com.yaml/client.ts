@@ -416,6 +416,399 @@ import {
   t_workflow_usage,
 } from "./models"
 import {
+  s_actions_billing_usage,
+  s_actions_cache_list,
+  s_actions_cache_usage_by_repository,
+  s_actions_cache_usage_org_enterprise,
+  s_actions_can_approve_pull_request_reviews,
+  s_actions_default_workflow_permissions,
+  s_actions_enabled,
+  s_actions_get_default_workflow_permissions,
+  s_actions_organization_permissions,
+  s_actions_public_key,
+  s_actions_repository_permissions,
+  s_actions_secret,
+  s_actions_variable,
+  s_actions_workflow_access_to_repository,
+  s_activity,
+  s_actor,
+  s_added_to_project_issue_event,
+  s_alert_auto_dismissed_at,
+  s_alert_created_at,
+  s_alert_dismissed_at,
+  s_alert_fixed_at,
+  s_alert_html_url,
+  s_alert_instances_url,
+  s_alert_number,
+  s_alert_updated_at,
+  s_alert_url,
+  s_allowed_actions,
+  s_api_overview,
+  s_app_permissions,
+  s_artifact,
+  s_assigned_issue_event,
+  s_authentication_token,
+  s_author_association,
+  s_authorization,
+  s_auto_merge,
+  s_autolink,
+  s_base_gist,
+  s_basic_error,
+  s_blob,
+  s_branch_protection,
+  s_branch_restriction_policy,
+  s_branch_short,
+  s_branch_with_protection,
+  s_check_annotation,
+  s_check_automated_security_fixes,
+  s_check_run,
+  s_check_suite,
+  s_check_suite_preference,
+  s_classroom,
+  s_classroom_accepted_assignment,
+  s_classroom_assignment,
+  s_classroom_assignment_grade,
+  s_clone_traffic,
+  s_code_frequency_stat,
+  s_code_of_conduct,
+  s_code_of_conduct_simple,
+  s_code_scanning_alert,
+  s_code_scanning_alert_classification,
+  s_code_scanning_alert_dismissed_comment,
+  s_code_scanning_alert_dismissed_reason,
+  s_code_scanning_alert_environment,
+  s_code_scanning_alert_instance,
+  s_code_scanning_alert_items,
+  s_code_scanning_alert_location,
+  s_code_scanning_alert_rule,
+  s_code_scanning_alert_rule_summary,
+  s_code_scanning_alert_state,
+  s_code_scanning_analysis,
+  s_code_scanning_analysis_analysis_key,
+  s_code_scanning_analysis_category,
+  s_code_scanning_analysis_commit_sha,
+  s_code_scanning_analysis_created_at,
+  s_code_scanning_analysis_deletion,
+  s_code_scanning_analysis_environment,
+  s_code_scanning_analysis_sarif_id,
+  s_code_scanning_analysis_tool,
+  s_code_scanning_analysis_tool_guid,
+  s_code_scanning_analysis_tool_name,
+  s_code_scanning_analysis_tool_version,
+  s_code_scanning_analysis_url,
+  s_code_scanning_codeql_database,
+  s_code_scanning_default_setup,
+  s_code_scanning_default_setup_update_response,
+  s_code_scanning_organization_alert_items,
+  s_code_scanning_ref,
+  s_code_scanning_sarifs_receipt,
+  s_code_scanning_sarifs_status,
+  s_code_search_result_item,
+  s_codeowners_errors,
+  s_codespace,
+  s_codespace_export_details,
+  s_codespace_machine,
+  s_codespace_with_full_repository,
+  s_codespaces_org_secret,
+  s_codespaces_public_key,
+  s_codespaces_secret,
+  s_codespaces_user_public_key,
+  s_collaborator,
+  s_combined_billing_usage,
+  s_combined_commit_status,
+  s_commit,
+  s_commit_activity,
+  s_commit_comment,
+  s_commit_comparison,
+  s_commit_search_result_item,
+  s_community_profile,
+  s_content_directory,
+  s_content_file,
+  s_content_submodule,
+  s_content_symlink,
+  s_content_traffic,
+  s_contributor,
+  s_contributor_activity,
+  s_converted_note_to_issue_issue_event,
+  s_copilot_organization_details,
+  s_copilot_seat_breakdown,
+  s_copilot_seat_details,
+  s_custom_deployment_rule_app,
+  s_demilestoned_issue_event,
+  s_dependabot_alert,
+  s_dependabot_alert_package,
+  s_dependabot_alert_security_advisory,
+  s_dependabot_alert_security_vulnerability,
+  s_dependabot_alert_with_repository,
+  s_dependabot_public_key,
+  s_dependabot_secret,
+  s_dependency_graph_diff,
+  s_dependency_graph_spdx_sbom,
+  s_deploy_key,
+  s_deployment,
+  s_deployment_branch_policy,
+  s_deployment_branch_policy_settings,
+  s_deployment_protection_rule,
+  s_deployment_reviewer_type,
+  s_deployment_simple,
+  s_deployment_status,
+  s_diff_entry,
+  s_email,
+  s_empty_object,
+  s_enabled_repositories,
+  s_enterprise,
+  s_environment,
+  s_environment_approvals,
+  s_event,
+  s_feed,
+  s_file_commit,
+  s_full_repository,
+  s_gist_comment,
+  s_gist_commit,
+  s_gist_history,
+  s_gist_simple,
+  s_git_commit,
+  s_git_ref,
+  s_git_tag,
+  s_git_tree,
+  s_gitignore_template,
+  s_global_advisory,
+  s_gpg_key,
+  s_hook,
+  s_hook_delivery,
+  s_hook_delivery_item,
+  s_hook_response,
+  s_hovercard,
+  s_import,
+  s_installation,
+  s_installation_token,
+  s_integration,
+  s_integration_installation_request,
+  s_interaction_group,
+  s_interaction_limit_response,
+  s_issue,
+  s_issue_comment,
+  s_issue_event,
+  s_issue_event_dismissed_review,
+  s_issue_event_for_issue,
+  s_issue_event_label,
+  s_issue_event_milestone,
+  s_issue_event_project_card,
+  s_issue_event_rename,
+  s_issue_search_result_item,
+  s_job,
+  s_key,
+  s_key_simple,
+  s_label,
+  s_label_search_result_item,
+  s_labeled_issue_event,
+  s_language,
+  s_license,
+  s_license_content,
+  s_license_simple,
+  s_link,
+  s_link_with_type,
+  s_locked_issue_event,
+  s_marketplace_account,
+  s_marketplace_listing_plan,
+  s_marketplace_purchase,
+  s_merged_upstream,
+  s_migration,
+  s_milestone,
+  s_milestoned_issue_event,
+  s_minimal_repository,
+  s_moved_column_in_project_issue_event,
+  s_nullable_alert_updated_at,
+  s_nullable_code_of_conduct_simple,
+  s_nullable_codespace_machine,
+  s_nullable_collaborator,
+  s_nullable_community_health_file,
+  s_nullable_git_user,
+  s_nullable_integration,
+  s_nullable_issue,
+  s_nullable_license_simple,
+  s_nullable_milestone,
+  s_nullable_minimal_repository,
+  s_nullable_repository,
+  s_nullable_scoped_installation,
+  s_nullable_simple_commit,
+  s_nullable_simple_user,
+  s_nullable_team_simple,
+  s_oidc_custom_sub,
+  s_oidc_custom_sub_repo,
+  s_org_hook,
+  s_org_membership,
+  s_org_ruleset_conditions,
+  s_organization_actions_secret,
+  s_organization_actions_variable,
+  s_organization_dependabot_secret,
+  s_organization_full,
+  s_organization_invitation,
+  s_organization_programmatic_access_grant,
+  s_organization_programmatic_access_grant_request,
+  s_organization_secret_scanning_alert,
+  s_organization_simple,
+  s_package,
+  s_package_version,
+  s_packages_billing_usage,
+  s_page,
+  s_page_build,
+  s_page_build_status,
+  s_page_deployment,
+  s_pages_health_check,
+  s_pages_https_certificate,
+  s_pages_source_hash,
+  s_participation_stats,
+  s_pending_deployment,
+  s_porter_author,
+  s_porter_large_file,
+  s_private_user,
+  s_project,
+  s_project_card,
+  s_project_collaborator_permission,
+  s_project_column,
+  s_protected_branch,
+  s_protected_branch_admin_enforced,
+  s_protected_branch_pull_request_review,
+  s_protected_branch_required_status_check,
+  s_public_user,
+  s_pull_request,
+  s_pull_request_merge_result,
+  s_pull_request_minimal,
+  s_pull_request_review,
+  s_pull_request_review_comment,
+  s_pull_request_review_request,
+  s_pull_request_simple,
+  s_rate_limit,
+  s_rate_limit_overview,
+  s_reaction,
+  s_reaction_rollup,
+  s_referenced_workflow,
+  s_referrer_traffic,
+  s_release,
+  s_release_asset,
+  s_release_notes_content,
+  s_removed_from_project_issue_event,
+  s_renamed_issue_event,
+  s_repo_codespaces_secret,
+  s_repo_search_result_item,
+  s_repository,
+  s_repository_advisory,
+  s_repository_advisory_credit,
+  s_repository_advisory_vulnerability,
+  s_repository_collaborator_permission,
+  s_repository_invitation,
+  s_repository_rule,
+  s_repository_rule_branch_name_pattern,
+  s_repository_rule_commit_author_email_pattern,
+  s_repository_rule_commit_message_pattern,
+  s_repository_rule_committer_email_pattern,
+  s_repository_rule_creation,
+  s_repository_rule_deletion,
+  s_repository_rule_detailed,
+  s_repository_rule_enforcement,
+  s_repository_rule_non_fast_forward,
+  s_repository_rule_params_status_check_configuration,
+  s_repository_rule_pull_request,
+  s_repository_rule_required_deployments,
+  s_repository_rule_required_linear_history,
+  s_repository_rule_required_signatures,
+  s_repository_rule_required_status_checks,
+  s_repository_rule_ruleset_info,
+  s_repository_rule_tag_name_pattern,
+  s_repository_rule_update,
+  s_repository_ruleset,
+  s_repository_ruleset_bypass_actor,
+  s_repository_ruleset_conditions,
+  s_repository_ruleset_conditions_repository_id_target,
+  s_repository_ruleset_conditions_repository_name_target,
+  s_repository_subscription,
+  s_review_comment,
+  s_review_dismissed_issue_event,
+  s_review_request_removed_issue_event,
+  s_review_requested_issue_event,
+  s_root,
+  s_runner,
+  s_runner_application,
+  s_runner_label,
+  s_scim_error,
+  s_search_result_text_matches,
+  s_secret_scanning_alert,
+  s_secret_scanning_alert_resolution,
+  s_secret_scanning_alert_state,
+  s_secret_scanning_location,
+  s_secret_scanning_location_commit,
+  s_secret_scanning_location_issue_body,
+  s_secret_scanning_location_issue_comment,
+  s_secret_scanning_location_issue_title,
+  s_security_advisory_credit_types,
+  s_security_advisory_ecosystems,
+  s_security_and_analysis,
+  s_selected_actions,
+  s_selected_actions_url,
+  s_short_blob,
+  s_short_branch,
+  s_simple_classroom,
+  s_simple_classroom_assignment,
+  s_simple_classroom_organization,
+  s_simple_classroom_repository,
+  s_simple_classroom_user,
+  s_simple_commit,
+  s_simple_commit_status,
+  s_simple_repository,
+  s_simple_user,
+  s_social_account,
+  s_ssh_signing_key,
+  s_stargazer,
+  s_starred_repository,
+  s_state_change_issue_event,
+  s_status,
+  s_status_check_policy,
+  s_tag,
+  s_tag_protection,
+  s_team,
+  s_team_discussion,
+  s_team_discussion_comment,
+  s_team_full,
+  s_team_membership,
+  s_team_organization,
+  s_team_project,
+  s_team_repository,
+  s_team_simple,
+  s_thread,
+  s_thread_subscription,
+  s_timeline_assigned_issue_event,
+  s_timeline_comment_event,
+  s_timeline_commit_commented_event,
+  s_timeline_committed_event,
+  s_timeline_cross_referenced_event,
+  s_timeline_issue_events,
+  s_timeline_line_commented_event,
+  s_timeline_reviewed_event,
+  s_timeline_unassigned_issue_event,
+  s_topic,
+  s_topic_search_result_item,
+  s_traffic,
+  s_unassigned_issue_event,
+  s_unlabeled_issue_event,
+  s_user_marketplace_purchase,
+  s_user_search_result_item,
+  s_validation_error,
+  s_validation_error_simple,
+  s_verification,
+  s_view_traffic,
+  s_wait_timer,
+  s_webhook_config,
+  s_webhook_config_content_type,
+  s_webhook_config_insecure_ssl,
+  s_webhook_config_secret,
+  s_webhook_config_url,
+  s_workflow,
+  s_workflow_run,
+  s_workflow_run_usage,
+  s_workflow_usage,
+} from "./schemas"
+import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
 } from "@nahkies/typescript-axios-runtime/main"
@@ -433,13 +826,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_root>> {
     const url = `/`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_root.parse(res.data) }
   }
 
   async securityAdvisoriesListGlobalAdvisories(
@@ -496,13 +891,15 @@ export class ApiClient extends AbstractAxiosClient {
       sort: p["sort"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_global_advisory).parse(res.data) }
   }
 
   async securityAdvisoriesGetGlobalAdvisory(
@@ -514,13 +911,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_global_advisory>> {
     const url = `/advisories/${p["ghsaId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_global_advisory.parse(res.data) }
   }
 
   async appsGetAuthenticated(
@@ -529,13 +928,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_integration>> {
     const url = `/app`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_integration.parse(res.data) }
   }
 
   async appsCreateFromManifest(
@@ -562,13 +963,27 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/app-manifests/${p["code"]}/conversions`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: s_integration
+        .merge(
+          z.object({
+            client_id: z.string(),
+            client_secret: z.string(),
+            webhook_secret: z.string().nullable(),
+            pem: z.string(),
+          }),
+        )
+        .parse(res.data),
+    }
   }
 
   async appsGetWebhookConfigForApp(
@@ -577,13 +992,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_webhook_config>> {
     const url = `/app/hook/config`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_webhook_config.parse(res.data) }
   }
 
   async appsUpdateWebhookConfigForApp(
@@ -602,7 +1019,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -611,6 +1028,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_webhook_config.parse(res.data) }
   }
 
   async appsListWebhookDeliveries(
@@ -629,13 +1048,15 @@ export class ApiClient extends AbstractAxiosClient {
       redelivery: p["redelivery"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_hook_delivery_item).parse(res.data) }
   }
 
   async appsGetWebhookDelivery(
@@ -647,13 +1068,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook_delivery>> {
     const url = `/app/hook/deliveries/${p["deliveryId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_hook_delivery.parse(res.data) }
   }
 
   async appsRedeliverWebhookDelivery(
@@ -665,13 +1088,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<EmptyObject>> {
     const url = `/app/hook/deliveries/${p["deliveryId"]}/attempts`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.object({}).parse(res.data) }
   }
 
   async appsListInstallationRequestsForAuthenticatedApp(
@@ -685,13 +1110,18 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/app/installation-requests`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.array(s_integration_installation_request).parse(res.data),
+    }
   }
 
   async appsListInstallations(
@@ -712,13 +1142,15 @@ export class ApiClient extends AbstractAxiosClient {
       outdated: p["outdated"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_installation).parse(res.data) }
   }
 
   async appsGetInstallation(
@@ -730,13 +1162,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_installation>> {
     const url = `/app/installations/${p["installationId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_installation.parse(res.data) }
   }
 
   async appsDeleteInstallation(
@@ -748,13 +1182,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/app/installations/${p["installationId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async appsCreateInstallationAccessToken(
@@ -773,7 +1209,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -782,6 +1218,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_installation_token.parse(res.data) }
   }
 
   async appsSuspendInstallation(
@@ -793,13 +1231,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/app/installations/${p["installationId"]}/suspended`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async appsUnsuspendInstallation(
@@ -811,13 +1251,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/app/installations/${p["installationId"]}/suspended`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async appsDeleteAuthorization(
@@ -834,7 +1276,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -843,6 +1285,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async appsCheckToken(
@@ -859,7 +1303,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -868,6 +1312,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_authorization.parse(res.data) }
   }
 
   async appsResetToken(
@@ -884,7 +1330,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -893,6 +1339,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_authorization.parse(res.data) }
   }
 
   async appsDeleteToken(
@@ -909,7 +1357,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -918,6 +1366,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async appsScopeToken(
@@ -939,7 +1389,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -948,6 +1398,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_authorization.parse(res.data) }
   }
 
   async appsGetBySlug(
@@ -959,13 +1411,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_integration>> {
     const url = `/apps/${p["appSlug"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_integration.parse(res.data) }
   }
 
   async classroomGetAnAssignment(
@@ -977,13 +1431,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_classroom_assignment>> {
     const url = `/assignments/${p["assignmentId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_classroom_assignment.parse(res.data) }
   }
 
   async classroomListAcceptedAssigmentsForAnAssignment(
@@ -998,13 +1454,18 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/assignments/${p["assignmentId"]}/accepted_assignments`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.array(s_classroom_accepted_assignment).parse(res.data),
+    }
   }
 
   async classroomGetAssignmentGrades(
@@ -1016,13 +1477,18 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_classroom_assignment_grade[]>> {
     const url = `/assignments/${p["assignmentId"]}/grades`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.array(s_classroom_assignment_grade).parse(res.data),
+    }
   }
 
   async classroomListClassrooms(
@@ -1036,13 +1502,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/classrooms`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_simple_classroom).parse(res.data) }
   }
 
   async classroomGetAClassroom(
@@ -1054,13 +1522,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_classroom>> {
     const url = `/classrooms/${p["classroomId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_classroom.parse(res.data) }
   }
 
   async classroomListAssignmentsForAClassroom(
@@ -1075,13 +1545,18 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/classrooms/${p["classroomId"]}/assignments`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.array(s_simple_classroom_assignment).parse(res.data),
+    }
   }
 
   async codesOfConductGetAllCodesOfConduct(
@@ -1090,13 +1565,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_of_conduct[]>> {
     const url = `/codes_of_conduct`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_code_of_conduct).parse(res.data) }
   }
 
   async codesOfConductGetConductCode(
@@ -1108,13 +1585,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_of_conduct>> {
     const url = `/codes_of_conduct/${p["key"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_code_of_conduct.parse(res.data) }
   }
 
   async emojisGet(
@@ -1127,13 +1606,15 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/emojis`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.object({}).parse(res.data) }
   }
 
   async dependabotListAlertsForEnterprise(
@@ -1171,13 +1652,18 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.array(s_dependabot_alert_with_repository).parse(res.data),
+    }
   }
 
   async secretScanningListAlertsForEnterprise(
@@ -1207,13 +1693,18 @@ export class ApiClient extends AbstractAxiosClient {
       after: p["after"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.array(s_organization_secret_scanning_alert).parse(res.data),
+    }
   }
 
   async activityListPublicEvents(
@@ -1227,13 +1718,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_event).parse(res.data) }
   }
 
   async activityGetFeeds(
@@ -1242,13 +1735,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_feed>> {
     const url = `/feeds`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_feed.parse(res.data) }
   }
 
   async gistsList(
@@ -1267,13 +1762,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_base_gist).parse(res.data) }
   }
 
   async gistsCreate(
@@ -1295,7 +1792,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -1304,6 +1801,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_gist_simple.parse(res.data) }
   }
 
   async gistsListPublic(
@@ -1322,13 +1821,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_base_gist).parse(res.data) }
   }
 
   async gistsListStarred(
@@ -1347,13 +1848,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_base_gist).parse(res.data) }
   }
 
   async gistsGet(
@@ -1365,13 +1868,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gist_simple>> {
     const url = `/gists/${p["gistId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_gist_simple.parse(res.data) }
   }
 
   async gistsUpdate(
@@ -1394,7 +1899,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -1403,6 +1908,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_gist_simple.parse(res.data) }
   }
 
   async gistsDelete(
@@ -1414,13 +1921,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/gists/${p["gistId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async gistsListComments(
@@ -1435,13 +1944,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/gists/${p["gistId"]}/comments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_gist_comment).parse(res.data) }
   }
 
   async gistsCreateComment(
@@ -1458,7 +1969,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -1467,6 +1978,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_gist_comment.parse(res.data) }
   }
 
   async gistsGetComment(
@@ -1479,13 +1992,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gist_comment>> {
     const url = `/gists/${p["gistId"]}/comments/${p["commentId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_gist_comment.parse(res.data) }
   }
 
   async gistsUpdateComment(
@@ -1503,7 +2018,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -1512,6 +2027,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_gist_comment.parse(res.data) }
   }
 
   async gistsDeleteComment(
@@ -1524,13 +2041,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/gists/${p["gistId"]}/comments/${p["commentId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async gistsListCommits(
@@ -1545,13 +2064,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/gists/${p["gistId"]}/commits`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_gist_commit).parse(res.data) }
   }
 
   async gistsListForks(
@@ -1566,13 +2087,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/gists/${p["gistId"]}/forks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_gist_simple).parse(res.data) }
   }
 
   async gistsFork(
@@ -1584,13 +2107,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_base_gist>> {
     const url = `/gists/${p["gistId"]}/forks`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_base_gist.parse(res.data) }
   }
 
   async gistsCheckIsStarred(
@@ -1602,13 +2127,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/gists/${p["gistId"]}/star`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async gistsStar(
@@ -1620,13 +2147,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/gists/${p["gistId"]}/star`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async gistsUnstar(
@@ -1638,13 +2167,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/gists/${p["gistId"]}/star`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async gistsGetRevision(
@@ -1657,13 +2188,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gist_simple>> {
     const url = `/gists/${p["gistId"]}/${p["sha"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_gist_simple.parse(res.data) }
   }
 
   async gitignoreGetAllTemplates(
@@ -1672,13 +2205,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string[]>> {
     const url = `/gitignore/templates`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(z.string()).parse(res.data) }
   }
 
   async gitignoreGetTemplate(
@@ -1690,13 +2225,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gitignore_template>> {
     const url = `/gitignore/templates/${p["name"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_gitignore_template.parse(res.data) }
   }
 
   async appsListReposAccessibleToInstallation(
@@ -1716,13 +2253,24 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/installation/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          repositories: z.array(s_repository),
+          repository_selection: z.string().optional(),
+        })
+        .parse(res.data),
+    }
   }
 
   async appsRevokeInstallationAccessToken(
@@ -1731,13 +2279,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/installation/token`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async issuesList(
@@ -1780,13 +2330,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_issue).parse(res.data) }
   }
 
   async licensesGetAllCommonlyUsed(
@@ -1805,13 +2357,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_license_simple).parse(res.data) }
   }
 
   async licensesGet(
@@ -1823,13 +2377,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_license>> {
     const url = `/licenses/${p["license"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_license.parse(res.data) }
   }
 
   async markdownRender(
@@ -1847,7 +2403,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -1856,6 +2412,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.string().parse(res.data) }
   }
 
   async markdownRenderRaw(
@@ -1869,7 +2427,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "text/plain" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -1878,6 +2436,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.string().parse(res.data) }
   }
 
   async appsGetSubscriptionPlanForAccount(
@@ -1889,13 +2449,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_marketplace_purchase>> {
     const url = `/marketplace_listing/accounts/${p["accountId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_marketplace_purchase.parse(res.data) }
   }
 
   async appsListPlans(
@@ -1909,13 +2471,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/marketplace_listing/plans`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_marketplace_listing_plan).parse(res.data) }
   }
 
   async appsListAccountsForPlan(
@@ -1937,13 +2501,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_marketplace_purchase).parse(res.data) }
   }
 
   async appsGetSubscriptionPlanForAccountStubbed(
@@ -1955,13 +2521,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_marketplace_purchase>> {
     const url = `/marketplace_listing/stubbed/accounts/${p["accountId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_marketplace_purchase.parse(res.data) }
   }
 
   async appsListPlansStubbed(
@@ -1975,13 +2543,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/marketplace_listing/stubbed/plans`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_marketplace_listing_plan).parse(res.data) }
   }
 
   async appsListAccountsForPlanStubbed(
@@ -2003,13 +2573,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_marketplace_purchase).parse(res.data) }
   }
 
   async metaGet(
@@ -2018,13 +2590,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_api_overview>> {
     const url = `/meta`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_api_overview.parse(res.data) }
   }
 
   async activityListPublicEventsForRepoNetwork(
@@ -2040,13 +2614,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/networks/${p["owner"]}/${p["repo"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_event).parse(res.data) }
   }
 
   async activityListNotificationsForAuthenticatedUser(
@@ -2071,13 +2647,15 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_thread).parse(res.data) }
   }
 
   async activityMarkNotificationsAsRead(
@@ -2099,7 +2677,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -2108,6 +2686,11 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.object({ message: z.string().optional() }).parse(res.data),
+    }
   }
 
   async activityGetThread(
@@ -2119,13 +2702,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_thread>> {
     const url = `/notifications/threads/${p["threadId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_thread.parse(res.data) }
   }
 
   async activityMarkThreadAsRead(
@@ -2137,13 +2722,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/notifications/threads/${p["threadId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async activityGetThreadSubscriptionForAuthenticatedUser(
@@ -2155,13 +2742,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_thread_subscription>> {
     const url = `/notifications/threads/${p["threadId"]}/subscription`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_thread_subscription.parse(res.data) }
   }
 
   async activitySetThreadSubscription(
@@ -2178,7 +2767,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -2187,6 +2776,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_thread_subscription.parse(res.data) }
   }
 
   async activityDeleteThreadSubscription(
@@ -2198,13 +2789,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/notifications/threads/${p["threadId"]}/subscription`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async metaGetOctocat(
@@ -2217,13 +2810,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/octocat`
     const query = this._query({ s: p["s"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.string().parse(res.data) }
   }
 
   async orgsList(
@@ -2237,13 +2832,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/organizations`
     const query = this._query({ since: p["since"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_organization_simple).parse(res.data) }
   }
 
   async orgsGet(
@@ -2255,13 +2852,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_full>> {
     const url = `/orgs/${p["org"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_organization_full.parse(res.data) }
   }
 
   async orgsUpdate(
@@ -2306,7 +2905,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -2315,6 +2914,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_organization_full.parse(res.data) }
   }
 
   async orgsDelete(
@@ -2326,13 +2927,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<EmptyObject>> {
     const url = `/orgs/${p["org"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.object({}).parse(res.data) }
   }
 
   async actionsGetActionsCacheUsageForOrg(
@@ -2344,13 +2947,18 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_cache_usage_org_enterprise>> {
     const url = `/orgs/${p["org"]}/actions/cache/usage`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: s_actions_cache_usage_org_enterprise.parse(res.data),
+    }
   }
 
   async actionsGetActionsCacheUsageByRepoForOrg(
@@ -2370,13 +2978,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/actions/cache/usage-by-repository`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          repository_cache_usages: z.array(s_actions_cache_usage_by_repository),
+        })
+        .parse(res.data),
+    }
   }
 
   async oidcGetOidcCustomSubTemplateForOrg(
@@ -2388,13 +3006,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_oidc_custom_sub>> {
     const url = `/orgs/${p["org"]}/actions/oidc/customization/sub`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_oidc_custom_sub.parse(res.data) }
   }
 
   async oidcUpdateOidcCustomSubTemplateForOrg(
@@ -2409,7 +3029,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -2418,6 +3038,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_empty_object.parse(res.data) }
   }
 
   async actionsGetGithubActionsPermissionsOrganization(
@@ -2429,13 +3051,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_organization_permissions>> {
     const url = `/orgs/${p["org"]}/actions/permissions`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_actions_organization_permissions.parse(res.data) }
   }
 
   async actionsSetGithubActionsPermissionsOrganization(
@@ -2453,7 +3077,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -2462,6 +3086,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsListSelectedRepositoriesEnabledGithubActionsOrganization(
@@ -2481,13 +3107,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/actions/permissions/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          repositories: z.array(s_repository),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsSetSelectedRepositoriesEnabledGithubActionsOrganization(
@@ -2504,7 +3140,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -2513,6 +3149,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsEnableSelectedRepositoryGithubActionsOrganization(
@@ -2525,13 +3163,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/permissions/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsDisableSelectedRepositoryGithubActionsOrganization(
@@ -2544,13 +3184,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/permissions/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsGetAllowedActionsOrganization(
@@ -2562,13 +3204,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_selected_actions>> {
     const url = `/orgs/${p["org"]}/actions/permissions/selected-actions`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_selected_actions.parse(res.data) }
   }
 
   async actionsSetAllowedActionsOrganization(
@@ -2583,7 +3227,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -2592,6 +3236,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsGetGithubActionsDefaultWorkflowPermissionsOrganization(
@@ -2603,13 +3249,18 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_get_default_workflow_permissions>> {
     const url = `/orgs/${p["org"]}/actions/permissions/workflow`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: s_actions_get_default_workflow_permissions.parse(res.data),
+    }
   }
 
   async actionsSetGithubActionsDefaultWorkflowPermissionsOrganization(
@@ -2624,7 +3275,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -2633,6 +3284,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsListSelfHostedRunnersForOrg(
@@ -2657,13 +3310,20 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({ total_count: z.coerce.number(), runners: z.array(s_runner) })
+        .parse(res.data),
+    }
   }
 
   async actionsListRunnerApplicationsForOrg(
@@ -2675,13 +3335,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_runner_application[]>> {
     const url = `/orgs/${p["org"]}/actions/runners/downloads`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_runner_application).parse(res.data) }
   }
 
   async actionsGenerateRunnerJitconfigForOrg(
@@ -2706,7 +3368,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -2715,6 +3377,13 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({ runner: s_runner, encoded_jit_config: z.string() })
+        .parse(res.data),
+    }
   }
 
   async actionsCreateRegistrationTokenForOrg(
@@ -2726,13 +3395,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_authentication_token>> {
     const url = `/orgs/${p["org"]}/actions/runners/registration-token`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_authentication_token.parse(res.data) }
   }
 
   async actionsCreateRemoveTokenForOrg(
@@ -2744,13 +3415,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_authentication_token>> {
     const url = `/orgs/${p["org"]}/actions/runners/remove-token`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_authentication_token.parse(res.data) }
   }
 
   async actionsGetSelfHostedRunnerForOrg(
@@ -2763,13 +3436,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_runner>> {
     const url = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_runner.parse(res.data) }
   }
 
   async actionsDeleteSelfHostedRunnerFromOrg(
@@ -2782,13 +3457,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsListLabelsForSelfHostedRunnerForOrg(
@@ -2806,13 +3483,23 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          labels: z.array(s_runner_label),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsAddCustomLabelsToSelfHostedRunnerForOrg(
@@ -2835,7 +3522,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -2844,6 +3531,16 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          labels: z.array(s_runner_label),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsSetCustomLabelsForSelfHostedRunnerForOrg(
@@ -2866,7 +3563,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -2875,6 +3572,16 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          labels: z.array(s_runner_label),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrg(
@@ -2892,13 +3599,23 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          labels: z.array(s_runner_label),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsRemoveCustomLabelFromSelfHostedRunnerForOrg(
@@ -2917,13 +3634,23 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels/${p["name"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          labels: z.array(s_runner_label),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsListOrgSecrets(
@@ -2943,13 +3670,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/actions/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          secrets: z.array(s_organization_actions_secret),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsGetOrgPublicKey(
@@ -2961,13 +3698,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_public_key>> {
     const url = `/orgs/${p["org"]}/actions/secrets/public-key`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_actions_public_key.parse(res.data) }
   }
 
   async actionsGetOrgSecret(
@@ -2980,13 +3719,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_actions_secret>> {
     const url = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_organization_actions_secret.parse(res.data) }
   }
 
   async actionsCreateOrUpdateOrgSecret(
@@ -3007,7 +3748,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -3016,6 +3757,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_empty_object.parse(res.data) }
   }
 
   async actionsDeleteOrgSecret(
@@ -3028,13 +3771,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsListSelectedReposForOrgSecret(
@@ -3055,13 +3800,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          repositories: z.array(s_minimal_repository),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsSetSelectedReposForOrgSecret(
@@ -3079,7 +3834,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -3088,6 +3843,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsAddSelectedRepoToOrgSecret(
@@ -3101,13 +3858,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsRemoveSelectedRepoFromOrgSecret(
@@ -3121,13 +3880,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsListOrgVariables(
@@ -3147,13 +3908,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/actions/variables`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          variables: z.array(s_organization_actions_variable),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsCreateOrgVariable(
@@ -3173,7 +3944,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3182,6 +3953,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_empty_object.parse(res.data) }
   }
 
   async actionsGetOrgVariable(
@@ -3194,13 +3967,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_actions_variable>> {
     const url = `/orgs/${p["org"]}/actions/variables/${p["name"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_organization_actions_variable.parse(res.data) }
   }
 
   async actionsUpdateOrgVariable(
@@ -3221,7 +3996,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -3230,6 +4005,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsDeleteOrgVariable(
@@ -3242,13 +4019,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/variables/${p["name"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsListSelectedReposForOrgVariable(
@@ -3269,13 +4048,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          repositories: z.array(s_minimal_repository),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsSetSelectedReposForOrgVariable(
@@ -3293,7 +4082,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -3302,6 +4091,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsAddSelectedRepoToOrgVariable(
@@ -3315,13 +4106,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsRemoveSelectedRepoFromOrgVariable(
@@ -3335,13 +4128,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async orgsListBlockedUsers(
@@ -3356,13 +4151,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/blocks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_simple_user).parse(res.data) }
   }
 
   async orgsCheckBlockedUser(
@@ -3375,13 +4172,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/blocks/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async orgsBlockUser(
@@ -3394,13 +4193,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/blocks/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async orgsUnblockUser(
@@ -3413,13 +4214,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/blocks/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async codeScanningListAlertsForOrg(
@@ -3453,13 +4256,18 @@ export class ApiClient extends AbstractAxiosClient {
       severity: p["severity"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.array(s_code_scanning_organization_alert_items).parse(res.data),
+    }
   }
 
   async codespacesListInOrganization(
@@ -3479,13 +4287,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/codespaces`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          codespaces: z.array(s_codespace),
+        })
+        .parse(res.data),
+    }
   }
 
   async codespacesSetCodespacesAccess(
@@ -3507,7 +4325,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -3516,6 +4334,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async codespacesSetCodespacesAccessUsers(
@@ -3532,7 +4352,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3541,6 +4361,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async codespacesDeleteCodespacesAccessUsers(
@@ -3557,7 +4379,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -3566,6 +4388,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async codespacesListOrgSecrets(
@@ -3585,13 +4409,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/codespaces/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          secrets: z.array(s_codespaces_org_secret),
+        })
+        .parse(res.data),
+    }
   }
 
   async codespacesGetOrgPublicKey(
@@ -3603,13 +4437,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespaces_public_key>> {
     const url = `/orgs/${p["org"]}/codespaces/secrets/public-key`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_codespaces_public_key.parse(res.data) }
   }
 
   async codespacesGetOrgSecret(
@@ -3622,13 +4458,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespaces_org_secret>> {
     const url = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_codespaces_org_secret.parse(res.data) }
   }
 
   async codespacesCreateOrUpdateOrgSecret(
@@ -3649,7 +4487,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -3658,6 +4496,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_empty_object.parse(res.data) }
   }
 
   async codespacesDeleteOrgSecret(
@@ -3670,13 +4510,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async codespacesListSelectedReposForOrgSecret(
@@ -3697,13 +4539,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          repositories: z.array(s_minimal_repository),
+        })
+        .parse(res.data),
+    }
   }
 
   async codespacesSetSelectedReposForOrgSecret(
@@ -3721,7 +4573,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -3730,6 +4582,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async codespacesAddSelectedRepoToOrgSecret(
@@ -3743,13 +4597,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async codespacesRemoveSelectedRepoFromOrgSecret(
@@ -3763,13 +4619,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async copilotGetCopilotOrganizationDetails(
@@ -3781,13 +4639,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_copilot_organization_details>> {
     const url = `/orgs/${p["org"]}/copilot/billing`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_copilot_organization_details.parse(res.data) }
   }
 
   async copilotListCopilotSeats(
@@ -3807,13 +4667,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/copilot/billing/seats`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_seats: z.coerce.number().optional(),
+          seats: z.array(s_copilot_seat_details).optional(),
+        })
+        .parse(res.data),
+    }
   }
 
   async copilotAddCopilotForBusinessSeatsForTeams(
@@ -3834,7 +4704,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3843,6 +4713,11 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.object({ seats_created: z.coerce.number() }).parse(res.data),
+    }
   }
 
   async copilotCancelCopilotSeatAssignmentForTeams(
@@ -3863,7 +4738,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -3872,6 +4747,11 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.object({ seats_cancelled: z.coerce.number() }).parse(res.data),
+    }
   }
 
   async copilotAddCopilotForBusinessSeatsForUsers(
@@ -3892,7 +4772,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3901,6 +4781,11 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.object({ seats_created: z.coerce.number() }).parse(res.data),
+    }
   }
 
   async copilotCancelCopilotSeatAssignmentForUsers(
@@ -3921,7 +4806,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -3930,6 +4815,11 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.object({ seats_cancelled: z.coerce.number() }).parse(res.data),
+    }
   }
 
   async dependabotListAlertsForOrg(
@@ -3967,13 +4857,18 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.array(s_dependabot_alert_with_repository).parse(res.data),
+    }
   }
 
   async dependabotListOrgSecrets(
@@ -3993,13 +4888,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/dependabot/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          secrets: z.array(s_organization_dependabot_secret),
+        })
+        .parse(res.data),
+    }
   }
 
   async dependabotGetOrgPublicKey(
@@ -4011,13 +4916,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependabot_public_key>> {
     const url = `/orgs/${p["org"]}/dependabot/secrets/public-key`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_dependabot_public_key.parse(res.data) }
   }
 
   async dependabotGetOrgSecret(
@@ -4030,13 +4937,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_dependabot_secret>> {
     const url = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_organization_dependabot_secret.parse(res.data) }
   }
 
   async dependabotCreateOrUpdateOrgSecret(
@@ -4057,7 +4966,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -4066,6 +4975,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_empty_object.parse(res.data) }
   }
 
   async dependabotDeleteOrgSecret(
@@ -4078,13 +4989,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async dependabotListSelectedReposForOrgSecret(
@@ -4105,13 +5018,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          repositories: z.array(s_minimal_repository),
+        })
+        .parse(res.data),
+    }
   }
 
   async dependabotSetSelectedReposForOrgSecret(
@@ -4129,7 +5052,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -4138,6 +5061,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async dependabotAddSelectedRepoToOrgSecret(
@@ -4151,13 +5076,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async dependabotRemoveSelectedRepoFromOrgSecret(
@@ -4171,13 +5098,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async packagesListDockerMigrationConflictingPackagesForOrganization(
@@ -4189,13 +5118,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package[]>> {
     const url = `/orgs/${p["org"]}/docker/conflicts`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_package).parse(res.data) }
   }
 
   async activityListPublicOrgEvents(
@@ -4210,13 +5141,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_event).parse(res.data) }
   }
 
   async orgsListFailedInvitations(
@@ -4231,13 +5164,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/failed_invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_organization_invitation).parse(res.data) }
   }
 
   async orgsListWebhooks(
@@ -4252,13 +5187,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/hooks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_org_hook).parse(res.data) }
   }
 
   async orgsCreateWebhook(
@@ -4285,7 +5222,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4294,6 +5231,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_org_hook.parse(res.data) }
   }
 
   async orgsGetWebhook(
@@ -4306,13 +5245,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_org_hook>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_org_hook.parse(res.data) }
   }
 
   async orgsUpdateWebhook(
@@ -4338,7 +5279,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -4347,6 +5288,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_org_hook.parse(res.data) }
   }
 
   async orgsDeleteWebhook(
@@ -4359,13 +5302,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async orgsGetWebhookConfigForOrg(
@@ -4378,13 +5323,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_webhook_config>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}/config`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_webhook_config.parse(res.data) }
   }
 
   async orgsUpdateWebhookConfigForOrg(
@@ -4405,7 +5352,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -4414,6 +5361,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_webhook_config.parse(res.data) }
   }
 
   async orgsListWebhookDeliveries(
@@ -4434,13 +5383,15 @@ export class ApiClient extends AbstractAxiosClient {
       redelivery: p["redelivery"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_hook_delivery_item).parse(res.data) }
   }
 
   async orgsGetWebhookDelivery(
@@ -4454,13 +5405,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook_delivery>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_hook_delivery.parse(res.data) }
   }
 
   async orgsRedeliverWebhookDelivery(
@@ -4474,13 +5427,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<EmptyObject>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.object({}).parse(res.data) }
   }
 
   async orgsPingWebhook(
@@ -4493,13 +5448,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}/pings`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async appsGetOrgInstallation(
@@ -4511,13 +5468,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_installation>> {
     const url = `/orgs/${p["org"]}/installation`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_installation.parse(res.data) }
   }
 
   async orgsListAppInstallations(
@@ -4537,13 +5496,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/installations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          installations: z.array(s_installation),
+        })
+        .parse(res.data),
+    }
   }
 
   async interactionsGetRestrictionsForOrg(
@@ -4555,13 +5524,20 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_interaction_limit_response | EmptyObject>> {
     const url = `/orgs/${p["org"]}/interaction-limits`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .union([s_interaction_limit_response, z.object({})])
+        .parse(res.data),
+    }
   }
 
   async interactionsSetRestrictionsForOrg(
@@ -4576,7 +5552,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -4585,6 +5561,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_interaction_limit_response.parse(res.data) }
   }
 
   async interactionsRemoveRestrictionsForOrg(
@@ -4596,13 +5574,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/interaction-limits`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async orgsListPendingInvitations(
@@ -4629,13 +5609,15 @@ export class ApiClient extends AbstractAxiosClient {
       invitation_source: p["invitationSource"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_organization_invitation).parse(res.data) }
   }
 
   async orgsCreateInvitation(
@@ -4655,7 +5637,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4664,6 +5646,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_organization_invitation.parse(res.data) }
   }
 
   async orgsCancelInvitation(
@@ -4676,13 +5660,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/invitations/${p["invitationId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async orgsListInvitationTeams(
@@ -4698,13 +5684,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/invitations/${p["invitationId"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_team).parse(res.data) }
   }
 
   async issuesListForOrg(
@@ -4740,13 +5728,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_issue).parse(res.data) }
   }
 
   async orgsListMembers(
@@ -4768,13 +5758,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_simple_user).parse(res.data) }
   }
 
   async orgsCheckMembershipForUser(
@@ -4787,13 +5779,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/members/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async orgsRemoveMember(
@@ -4806,13 +5800,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/members/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async codespacesGetCodespacesForUserInOrg(
@@ -4833,13 +5829,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/members/${p["username"]}/codespaces`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          codespaces: z.array(s_codespace),
+        })
+        .parse(res.data),
+    }
   }
 
   async codespacesDeleteFromOrganization(
@@ -4853,13 +5859,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<EmptyObject>> {
     const url = `/orgs/${p["org"]}/members/${p["username"]}/codespaces/${p["codespaceName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.object({}).parse(res.data) }
   }
 
   async codespacesStopInOrganization(
@@ -4873,13 +5881,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace>> {
     const url = `/orgs/${p["org"]}/members/${p["username"]}/codespaces/${p["codespaceName"]}/stop`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_codespace.parse(res.data) }
   }
 
   async copilotGetCopilotSeatAssignmentDetailsForUser(
@@ -4892,13 +5902,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_copilot_seat_details>> {
     const url = `/orgs/${p["org"]}/members/${p["username"]}/copilot`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_copilot_seat_details.parse(res.data) }
   }
 
   async orgsGetMembershipForUser(
@@ -4911,13 +5923,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_org_membership>> {
     const url = `/orgs/${p["org"]}/memberships/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_org_membership.parse(res.data) }
   }
 
   async orgsSetMembershipForUser(
@@ -4935,7 +5949,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -4944,6 +5958,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_org_membership.parse(res.data) }
   }
 
   async orgsRemoveMembershipForUser(
@@ -4956,13 +5972,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/memberships/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async migrationsListForOrg(
@@ -4982,13 +6000,15 @@ export class ApiClient extends AbstractAxiosClient {
       exclude: p["exclude"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_migration).parse(res.data) }
   }
 
   async migrationsStartForOrg(
@@ -5013,7 +6033,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -5022,6 +6042,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_migration.parse(res.data) }
   }
 
   async migrationsGetStatusForOrg(
@@ -5036,13 +6058,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/migrations/${p["migrationId"]}`
     const query = this._query({ exclude: p["exclude"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_migration.parse(res.data) }
   }
 
   async migrationsDownloadArchiveForOrg(
@@ -5052,16 +6076,18 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<never> {
+  ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async migrationsDeleteArchiveForOrg(
@@ -5074,13 +6100,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async migrationsUnlockRepoForOrg(
@@ -5094,13 +6122,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async migrationsListReposForOrg(
@@ -5116,13 +6146,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
   }
 
   async orgsListOutsideCollaborators(
@@ -5142,13 +6174,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_simple_user).parse(res.data) }
   }
 
   async orgsConvertMemberToOutsideCollaborator(
@@ -5166,7 +6200,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -5175,6 +6209,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.object({}).parse(res.data) }
   }
 
   async orgsRemoveOutsideCollaborator(
@@ -5187,13 +6223,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async packagesListPackagesForOrganization(
@@ -5221,13 +6259,15 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_package).parse(res.data) }
   }
 
   async packagesGetPackageForOrganization(
@@ -5247,13 +6287,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package>> {
     const url = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_package.parse(res.data) }
   }
 
   async packagesDeletePackageForOrg(
@@ -5273,13 +6315,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async packagesRestorePackageForOrg(
@@ -5301,13 +6345,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const query = this._query({ token: p["token"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async packagesGetAllPackageVersionsForPackageOwnedByOrg(
@@ -5335,13 +6381,15 @@ export class ApiClient extends AbstractAxiosClient {
       state: p["state"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_package_version).parse(res.data) }
   }
 
   async packagesGetPackageVersionForOrganization(
@@ -5362,13 +6410,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package_version>> {
     const url = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_package_version.parse(res.data) }
   }
 
   async packagesDeletePackageVersionForOrg(
@@ -5389,13 +6439,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async packagesRestorePackageVersionForOrg(
@@ -5416,13 +6468,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async orgsListPatGrantRequests(
@@ -5456,13 +6510,20 @@ export class ApiClient extends AbstractAxiosClient {
       last_used_after: p["lastUsedAfter"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .array(s_organization_programmatic_access_grant_request)
+        .parse(res.data),
+    }
   }
 
   async orgsReviewPatGrantRequestsInBulk(
@@ -5481,7 +6542,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -5490,6 +6551,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.object({}).parse(res.data) }
   }
 
   async orgsReviewPatGrantRequest(
@@ -5508,7 +6571,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -5517,6 +6580,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async orgsListPatGrantRequestRepositories(
@@ -5532,13 +6597,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/personal-access-token-requests/${p["patRequestId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
   }
 
   async orgsListPatGrants(
@@ -5570,13 +6637,18 @@ export class ApiClient extends AbstractAxiosClient {
       last_used_after: p["lastUsedAfter"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.array(s_organization_programmatic_access_grant).parse(res.data),
+    }
   }
 
   async orgsUpdatePatAccesses(
@@ -5594,7 +6666,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -5603,6 +6675,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.object({}).parse(res.data) }
   }
 
   async orgsUpdatePatAccess(
@@ -5620,7 +6694,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -5629,6 +6703,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async orgsListPatGrantRepositories(
@@ -5644,13 +6720,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/personal-access-tokens/${p["patId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
   }
 
   async projectsListForOrg(
@@ -5670,13 +6748,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_project).parse(res.data) }
   }
 
   async projectsCreateForOrg(
@@ -5694,7 +6774,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -5703,6 +6783,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_project.parse(res.data) }
   }
 
   async orgsListPublicMembers(
@@ -5717,13 +6799,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/public_members`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_simple_user).parse(res.data) }
   }
 
   async orgsCheckPublicMembershipForUser(
@@ -5736,13 +6820,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/public_members/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async orgsSetPublicMembershipForAuthenticatedUser(
@@ -5755,13 +6841,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/public_members/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async orgsRemovePublicMembershipForAuthenticatedUser(
@@ -5774,13 +6862,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/public_members/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposListForOrg(
@@ -5804,13 +6894,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
   }
 
   async reposCreateInOrg(
@@ -5850,7 +6942,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -5859,6 +6951,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_repository.parse(res.data) }
   }
 
   async reposGetOrgRulesets(
@@ -5873,13 +6967,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/rulesets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_repository_ruleset).parse(res.data) }
   }
 
   async reposCreateOrgRuleset(
@@ -5901,7 +6997,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -5910,6 +7006,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_repository_ruleset.parse(res.data) }
   }
 
   async reposGetOrgRuleset(
@@ -5922,13 +7020,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_ruleset>> {
     const url = `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_repository_ruleset.parse(res.data) }
   }
 
   async reposUpdateOrgRuleset(
@@ -5951,7 +7051,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -5960,6 +7060,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_repository_ruleset.parse(res.data) }
   }
 
   async reposDeleteOrgRuleset(
@@ -5972,13 +7074,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async secretScanningListAlertsForOrg(
@@ -6010,13 +7114,18 @@ export class ApiClient extends AbstractAxiosClient {
       after: p["after"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.array(s_organization_secret_scanning_alert).parse(res.data),
+    }
   }
 
   async securityAdvisoriesListOrgRepositoryAdvisories(
@@ -6042,13 +7151,15 @@ export class ApiClient extends AbstractAxiosClient {
       state: p["state"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_repository_advisory).parse(res.data) }
   }
 
   async orgsListSecurityManagerTeams(
@@ -6060,13 +7171,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_simple[]>> {
     const url = `/orgs/${p["org"]}/security-managers`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_team_simple).parse(res.data) }
   }
 
   async orgsAddSecurityManagerTeam(
@@ -6079,13 +7192,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/security-managers/teams/${p["teamSlug"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async orgsRemoveSecurityManagerTeam(
@@ -6098,13 +7213,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/security-managers/teams/${p["teamSlug"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async billingGetGithubActionsBillingOrg(
@@ -6116,13 +7233,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_billing_usage>> {
     const url = `/orgs/${p["org"]}/settings/billing/actions`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_actions_billing_usage.parse(res.data) }
   }
 
   async billingGetGithubPackagesBillingOrg(
@@ -6134,13 +7253,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_packages_billing_usage>> {
     const url = `/orgs/${p["org"]}/settings/billing/packages`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_packages_billing_usage.parse(res.data) }
   }
 
   async billingGetSharedStorageBillingOrg(
@@ -6152,13 +7273,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_combined_billing_usage>> {
     const url = `/orgs/${p["org"]}/settings/billing/shared-storage`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_combined_billing_usage.parse(res.data) }
   }
 
   async teamsList(
@@ -6173,13 +7296,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_team).parse(res.data) }
   }
 
   async teamsCreate(
@@ -6205,7 +7330,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6214,6 +7339,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_full.parse(res.data) }
   }
 
   async teamsGetByName(
@@ -6226,13 +7353,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_full>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_full.parse(res.data) }
   }
 
   async teamsUpdateInOrg(
@@ -6257,7 +7386,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -6266,6 +7395,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_full.parse(res.data) }
   }
 
   async teamsDeleteInOrg(
@@ -6278,13 +7409,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async teamsListDiscussionsInOrg(
@@ -6307,13 +7440,15 @@ export class ApiClient extends AbstractAxiosClient {
       pinned: p["pinned"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_team_discussion).parse(res.data) }
   }
 
   async teamsCreateDiscussionInOrg(
@@ -6333,7 +7468,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6342,6 +7477,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_discussion.parse(res.data) }
   }
 
   async teamsGetDiscussionInOrg(
@@ -6355,13 +7492,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_discussion.parse(res.data) }
   }
 
   async teamsUpdateDiscussionInOrg(
@@ -6381,7 +7520,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -6390,6 +7529,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_discussion.parse(res.data) }
   }
 
   async teamsDeleteDiscussionInOrg(
@@ -6403,13 +7544,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async teamsListDiscussionCommentsInOrg(
@@ -6431,13 +7574,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_team_discussion_comment).parse(res.data) }
   }
 
   async teamsCreateDiscussionCommentInOrg(
@@ -6456,7 +7601,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6465,6 +7610,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_discussion_comment.parse(res.data) }
   }
 
   async teamsGetDiscussionCommentInOrg(
@@ -6479,13 +7626,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion_comment>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_discussion_comment.parse(res.data) }
   }
 
   async teamsUpdateDiscussionCommentInOrg(
@@ -6505,7 +7654,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -6514,6 +7663,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_discussion_comment.parse(res.data) }
   }
 
   async teamsDeleteDiscussionCommentInOrg(
@@ -6528,13 +7679,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reactionsListForTeamDiscussionCommentInOrg(
@@ -6565,13 +7718,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_reaction).parse(res.data) }
   }
 
   async reactionsCreateForTeamDiscussionCommentInOrg(
@@ -6599,7 +7754,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6608,6 +7763,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_reaction.parse(res.data) }
   }
 
   async reactionsDeleteForTeamDiscussionComment(
@@ -6623,13 +7780,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions/${p["reactionId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reactionsListForTeamDiscussionInOrg(
@@ -6659,13 +7818,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_reaction).parse(res.data) }
   }
 
   async reactionsCreateForTeamDiscussionInOrg(
@@ -6692,7 +7853,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6701,6 +7862,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_reaction.parse(res.data) }
   }
 
   async reactionsDeleteForTeamDiscussion(
@@ -6715,13 +7878,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions/${p["reactionId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async teamsListPendingInvitationsInOrg(
@@ -6737,13 +7902,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_organization_invitation).parse(res.data) }
   }
 
   async teamsListMembersInOrg(
@@ -6764,13 +7931,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_simple_user).parse(res.data) }
   }
 
   async teamsGetMembershipForUserInOrg(
@@ -6784,13 +7953,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_membership>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_membership.parse(res.data) }
   }
 
   async teamsAddOrUpdateMembershipForUserInOrg(
@@ -6809,7 +7980,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -6818,6 +7989,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_membership.parse(res.data) }
   }
 
   async teamsRemoveMembershipForUserInOrg(
@@ -6831,13 +8004,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async teamsListProjectsInOrg(
@@ -6853,13 +8028,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_team_project).parse(res.data) }
   }
 
   async teamsCheckPermissionsForProjectInOrg(
@@ -6873,13 +8050,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_project>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_project.parse(res.data) }
   }
 
   async teamsAddOrUpdateProjectPermissionsInOrg(
@@ -6898,7 +8077,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -6907,6 +8086,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async teamsRemoveProjectInOrg(
@@ -6920,13 +8101,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async teamsListReposInOrg(
@@ -6942,13 +8125,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
   }
 
   async teamsCheckPermissionsForRepoInOrg(
@@ -6963,13 +8148,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_repository> | AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_repository.parse(res.data) }
   }
 
   async teamsAddOrUpdateRepoPermissionsInOrg(
@@ -6989,7 +8176,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -6998,6 +8185,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async teamsRemoveRepoInOrg(
@@ -7012,13 +8201,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async teamsListChildInOrg(
@@ -7034,13 +8225,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_team).parse(res.data) }
   }
 
   async orgsEnableOrDisableSecurityProductOnAllOrgRepos(
@@ -7066,7 +8259,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7075,6 +8268,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async projectsGetCard(
@@ -7086,13 +8281,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project_card>> {
     const url = `/projects/columns/cards/${p["cardId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_project_card.parse(res.data) }
   }
 
   async projectsUpdateCard(
@@ -7110,7 +8307,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -7119,6 +8316,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_project_card.parse(res.data) }
   }
 
   async projectsDeleteCard(
@@ -7130,13 +8329,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/projects/columns/cards/${p["cardId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async projectsMoveCard(
@@ -7154,7 +8355,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7163,6 +8364,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.object({}).parse(res.data) }
   }
 
   async projectsGetColumn(
@@ -7174,13 +8377,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project_column>> {
     const url = `/projects/columns/${p["columnId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_project_column.parse(res.data) }
   }
 
   async projectsUpdateColumn(
@@ -7197,7 +8402,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -7206,6 +8411,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_project_column.parse(res.data) }
   }
 
   async projectsDeleteColumn(
@@ -7217,13 +8424,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/projects/columns/${p["columnId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async projectsListCards(
@@ -7243,13 +8452,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_project_card).parse(res.data) }
   }
 
   async projectsCreateCard(
@@ -7271,7 +8482,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7280,6 +8491,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_project_card.parse(res.data) }
   }
 
   async projectsMoveColumn(
@@ -7296,7 +8509,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7305,6 +8518,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.object({}).parse(res.data) }
   }
 
   async projectsGet(
@@ -7316,13 +8531,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project>> {
     const url = `/projects/${p["projectId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_project.parse(res.data) }
   }
 
   async projectsUpdate(
@@ -7343,7 +8560,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -7352,6 +8569,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_project.parse(res.data) }
   }
 
   async projectsDelete(
@@ -7363,13 +8582,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/projects/${p["projectId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async projectsListCollaborators(
@@ -7389,13 +8610,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_simple_user).parse(res.data) }
   }
 
   async projectsAddCollaborator(
@@ -7413,7 +8636,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -7422,6 +8645,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async projectsRemoveCollaborator(
@@ -7434,13 +8659,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/projects/${p["projectId"]}/collaborators/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async projectsGetPermissionForUser(
@@ -7453,13 +8680,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project_collaborator_permission>> {
     const url = `/projects/${p["projectId"]}/collaborators/${p["username"]}/permission`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_project_collaborator_permission.parse(res.data) }
   }
 
   async projectsListColumns(
@@ -7474,13 +8703,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/projects/${p["projectId"]}/columns`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_project_column).parse(res.data) }
   }
 
   async projectsCreateColumn(
@@ -7497,7 +8728,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7506,6 +8737,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_project_column.parse(res.data) }
   }
 
   async rateLimitGet(
@@ -7514,13 +8747,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_rate_limit_overview>> {
     const url = `/rate_limit`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_rate_limit_overview.parse(res.data) }
   }
 
   async reposGet(
@@ -7533,13 +8768,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_full_repository>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_full_repository.parse(res.data) }
   }
 
   async reposUpdate(
@@ -7591,7 +8828,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -7600,6 +8837,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_full_repository.parse(res.data) }
   }
 
   async reposDelete(
@@ -7612,13 +8851,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsListArtifactsForRepo(
@@ -7644,13 +8885,23 @@ export class ApiClient extends AbstractAxiosClient {
       name: p["name"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          artifacts: z.array(s_artifact),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsGetArtifact(
@@ -7664,13 +8915,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_artifact>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_artifact.parse(res.data) }
   }
 
   async actionsDeleteArtifact(
@@ -7684,13 +8937,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsDownloadArtifact(
@@ -7702,16 +8957,18 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<never> {
+  ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}/${p["archiveFormat"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsGetActionsCacheUsage(
@@ -7724,13 +8981,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_cache_usage_by_repository>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/cache/usage`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_actions_cache_usage_by_repository.parse(res.data) }
   }
 
   async actionsGetActionsCacheList(
@@ -7757,13 +9016,15 @@ export class ApiClient extends AbstractAxiosClient {
       direction: p["direction"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_actions_cache_list.parse(res.data) }
   }
 
   async actionsDeleteActionsCacheByKey(
@@ -7779,13 +9040,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/caches`
     const query = this._query({ key: p["key"], ref: p["ref"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_actions_cache_list.parse(res.data) }
   }
 
   async actionsDeleteActionsCacheById(
@@ -7799,13 +9062,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/caches/${p["cacheId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsGetJobForWorkflowRun(
@@ -7819,13 +9084,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_job>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_job.parse(res.data) }
   }
 
   async actionsDownloadJobLogsForWorkflowRun(
@@ -7836,16 +9103,18 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<never> {
+  ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}/logs`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsReRunJobForWorkflowRun(
@@ -7864,7 +9133,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7873,6 +9142,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_empty_object.parse(res.data) }
   }
 
   async actionsGetCustomOidcSubClaimForRepo(
@@ -7885,13 +9156,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_oidc_custom_sub_repo>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/oidc/customization/sub`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_oidc_custom_sub_repo.parse(res.data) }
   }
 
   async actionsSetCustomOidcSubClaimForRepo(
@@ -7910,7 +9183,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -7919,6 +9192,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_empty_object.parse(res.data) }
   }
 
   async actionsListRepoOrganizationSecrets(
@@ -7939,13 +9214,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/organization-secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          secrets: z.array(s_actions_secret),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsListRepoOrganizationVariables(
@@ -7966,13 +9251,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/organization-variables`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          variables: z.array(s_actions_variable),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsGetGithubActionsPermissionsRepository(
@@ -7985,13 +9280,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_repository_permissions>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_actions_repository_permissions.parse(res.data) }
   }
 
   async actionsSetGithubActionsPermissionsRepository(
@@ -8010,7 +9307,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -8019,6 +9316,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsGetWorkflowAccessToRepository(
@@ -8031,13 +9330,18 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_workflow_access_to_repository>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/access`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: s_actions_workflow_access_to_repository.parse(res.data),
+    }
   }
 
   async actionsSetWorkflowAccessToRepository(
@@ -8053,7 +9357,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -8062,6 +9366,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsGetAllowedActionsRepository(
@@ -8074,13 +9380,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_selected_actions>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/selected-actions`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_selected_actions.parse(res.data) }
   }
 
   async actionsSetAllowedActionsRepository(
@@ -8096,7 +9404,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -8105,6 +9413,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsGetGithubActionsDefaultWorkflowPermissionsRepository(
@@ -8117,13 +9427,18 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_get_default_workflow_permissions>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/workflow`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: s_actions_get_default_workflow_permissions.parse(res.data),
+    }
   }
 
   async actionsSetGithubActionsDefaultWorkflowPermissionsRepository(
@@ -8139,7 +9454,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -8148,6 +9463,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsListSelfHostedRunnersForRepo(
@@ -8173,13 +9490,20 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({ total_count: z.coerce.number(), runners: z.array(s_runner) })
+        .parse(res.data),
+    }
   }
 
   async actionsListRunnerApplicationsForRepo(
@@ -8192,13 +9516,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_runner_application[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/downloads`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_runner_application).parse(res.data) }
   }
 
   async actionsGenerateRunnerJitconfigForRepo(
@@ -8224,7 +9550,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -8233,6 +9559,13 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({ runner: s_runner, encoded_jit_config: z.string() })
+        .parse(res.data),
+    }
   }
 
   async actionsCreateRegistrationTokenForRepo(
@@ -8245,13 +9578,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_authentication_token>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/registration-token`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_authentication_token.parse(res.data) }
   }
 
   async actionsCreateRemoveTokenForRepo(
@@ -8264,13 +9599,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_authentication_token>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/remove-token`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_authentication_token.parse(res.data) }
   }
 
   async actionsGetSelfHostedRunnerForRepo(
@@ -8284,13 +9621,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_runner>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_runner.parse(res.data) }
   }
 
   async actionsDeleteSelfHostedRunnerFromRepo(
@@ -8304,13 +9643,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsListLabelsForSelfHostedRunnerForRepo(
@@ -8329,13 +9670,23 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          labels: z.array(s_runner_label),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsAddCustomLabelsToSelfHostedRunnerForRepo(
@@ -8359,7 +9710,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -8368,6 +9719,16 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          labels: z.array(s_runner_label),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsSetCustomLabelsForSelfHostedRunnerForRepo(
@@ -8391,7 +9752,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -8400,6 +9761,16 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          labels: z.array(s_runner_label),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepo(
@@ -8418,13 +9789,23 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          labels: z.array(s_runner_label),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsRemoveCustomLabelFromSelfHostedRunnerForRepo(
@@ -8444,13 +9825,23 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels/${p["name"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          labels: z.array(s_runner_label),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsListWorkflowRunsForRepo(
@@ -8504,13 +9895,23 @@ export class ApiClient extends AbstractAxiosClient {
       head_sha: p["headSha"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          workflow_runs: z.array(s_workflow_run),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsGetWorkflowRun(
@@ -8528,13 +9929,15 @@ export class ApiClient extends AbstractAxiosClient {
       exclude_pull_requests: p["excludePullRequests"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_workflow_run.parse(res.data) }
   }
 
   async actionsDeleteWorkflowRun(
@@ -8548,13 +9951,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsGetReviewsForRun(
@@ -8568,13 +9973,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_environment_approvals[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/approvals`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_environment_approvals).parse(res.data) }
   }
 
   async actionsApproveWorkflowRun(
@@ -8588,13 +9995,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/approve`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_empty_object.parse(res.data) }
   }
 
   async actionsListWorkflowRunArtifacts(
@@ -8621,13 +10030,23 @@ export class ApiClient extends AbstractAxiosClient {
       name: p["name"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          artifacts: z.array(s_artifact),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsGetWorkflowRunAttempt(
@@ -8646,13 +10065,15 @@ export class ApiClient extends AbstractAxiosClient {
       exclude_pull_requests: p["excludePullRequests"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_workflow_run.parse(res.data) }
   }
 
   async actionsListJobsForWorkflowRunAttempt(
@@ -8675,13 +10096,20 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/jobs`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({ total_count: z.coerce.number(), jobs: z.array(s_job) })
+        .parse(res.data),
+    }
   }
 
   async actionsDownloadWorkflowRunAttemptLogs(
@@ -8693,16 +10121,18 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<never> {
+  ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/logs`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsCancelWorkflowRun(
@@ -8716,13 +10146,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/cancel`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_empty_object.parse(res.data) }
   }
 
   async actionsReviewCustomGatesForRun(
@@ -8741,7 +10173,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -8750,6 +10182,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsListJobsForWorkflowRun(
@@ -8776,13 +10210,20 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({ total_count: z.coerce.number(), jobs: z.array(s_job) })
+        .parse(res.data),
+    }
   }
 
   async actionsDownloadWorkflowRunLogs(
@@ -8793,16 +10234,18 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<never> {
+  ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsDeleteWorkflowRunLogs(
@@ -8816,13 +10259,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsGetPendingDeploymentsForRun(
@@ -8836,13 +10281,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pending_deployment[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/pending_deployments`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_pending_deployment).parse(res.data) }
   }
 
   async actionsReviewPendingDeploymentsForRun(
@@ -8863,7 +10310,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -8872,6 +10319,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_deployment).parse(res.data) }
   }
 
   async actionsReRunWorkflow(
@@ -8890,7 +10339,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -8899,6 +10348,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_empty_object.parse(res.data) }
   }
 
   async actionsReRunWorkflowFailedJobs(
@@ -8917,7 +10368,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -8926,6 +10377,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_empty_object.parse(res.data) }
   }
 
   async actionsGetWorkflowRunUsage(
@@ -8939,13 +10392,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_workflow_run_usage>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/timing`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_workflow_run_usage.parse(res.data) }
   }
 
   async actionsListRepoSecrets(
@@ -8966,13 +10421,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          secrets: z.array(s_actions_secret),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsGetRepoPublicKey(
@@ -8985,13 +10450,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_public_key>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/public-key`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_actions_public_key.parse(res.data) }
   }
 
   async actionsGetRepoSecret(
@@ -9005,13 +10472,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_secret>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_actions_secret.parse(res.data) }
   }
 
   async actionsCreateOrUpdateRepoSecret(
@@ -9031,7 +10500,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -9040,6 +10509,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_empty_object.parse(res.data) }
   }
 
   async actionsDeleteRepoSecret(
@@ -9053,13 +10524,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsListRepoVariables(
@@ -9080,13 +10553,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/variables`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          variables: z.array(s_actions_variable),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsCreateRepoVariable(
@@ -9105,7 +10588,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9114,6 +10597,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_empty_object.parse(res.data) }
   }
 
   async actionsGetRepoVariable(
@@ -9127,13 +10612,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_variable>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_actions_variable.parse(res.data) }
   }
 
   async actionsUpdateRepoVariable(
@@ -9153,7 +10640,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -9162,6 +10649,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsDeleteRepoVariable(
@@ -9175,13 +10664,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsListRepoWorkflows(
@@ -9202,13 +10693,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          workflows: z.array(s_workflow),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsGetWorkflow(
@@ -9222,13 +10723,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_workflow>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_workflow.parse(res.data) }
   }
 
   async actionsDisableWorkflow(
@@ -9242,13 +10745,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/disable`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsCreateWorkflowDispatch(
@@ -9270,7 +10775,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9279,6 +10784,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsEnableWorkflow(
@@ -9292,13 +10799,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/enable`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsListWorkflowRuns(
@@ -9353,13 +10862,23 @@ export class ApiClient extends AbstractAxiosClient {
       head_sha: p["headSha"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          workflow_runs: z.array(s_workflow_run),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsGetWorkflowUsage(
@@ -9373,13 +10892,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_workflow_usage>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/timing`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_workflow_usage.parse(res.data) }
   }
 
   async reposListActivities(
@@ -9416,13 +10937,15 @@ export class ApiClient extends AbstractAxiosClient {
       activity_type: p["activityType"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_activity).parse(res.data) }
   }
 
   async issuesListAssignees(
@@ -9438,13 +10961,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/assignees`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_simple_user).parse(res.data) }
   }
 
   async issuesCheckUserCanBeAssigned(
@@ -9458,13 +10983,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/assignees/${p["assignee"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposListAutolinks(
@@ -9479,13 +11006,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/autolinks`
     const query = this._query({ page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_autolink).parse(res.data) }
   }
 
   async reposCreateAutolink(
@@ -9505,7 +11034,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9514,6 +11043,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_autolink.parse(res.data) }
   }
 
   async reposGetAutolink(
@@ -9527,13 +11058,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_autolink>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/autolinks/${p["autolinkId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_autolink.parse(res.data) }
   }
 
   async reposDeleteAutolink(
@@ -9547,13 +11080,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/autolinks/${p["autolinkId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposCheckAutomatedSecurityFixes(
@@ -9566,13 +11101,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_check_automated_security_fixes>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_check_automated_security_fixes.parse(res.data) }
   }
 
   async reposEnableAutomatedSecurityFixes(
@@ -9585,13 +11122,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposDisableAutomatedSecurityFixes(
@@ -9604,13 +11143,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposListBranches(
@@ -9631,13 +11172,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_short_branch).parse(res.data) }
   }
 
   async reposGetBranch(
@@ -9651,13 +11194,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_branch_with_protection>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_branch_with_protection.parse(res.data) }
   }
 
   async reposGetBranchProtection(
@@ -9671,13 +11216,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_branch_protection>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_branch_protection.parse(res.data) }
   }
 
   async reposUpdateBranchProtection(
@@ -9732,7 +11279,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -9741,6 +11288,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_protected_branch.parse(res.data) }
   }
 
   async reposDeleteBranchProtection(
@@ -9754,13 +11303,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposGetAdminBranchProtection(
@@ -9774,13 +11325,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_protected_branch_admin_enforced>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_protected_branch_admin_enforced.parse(res.data) }
   }
 
   async reposSetAdminBranchProtection(
@@ -9794,13 +11347,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_protected_branch_admin_enforced>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_protected_branch_admin_enforced.parse(res.data) }
   }
 
   async reposDeleteAdminBranchProtection(
@@ -9814,13 +11369,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposGetPullRequestReviewProtection(
@@ -9834,13 +11391,18 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_protected_branch_pull_request_review>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: s_protected_branch_pull_request_review.parse(res.data),
+    }
   }
 
   async reposUpdatePullRequestReviewProtection(
@@ -9872,7 +11434,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -9881,6 +11443,11 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: s_protected_branch_pull_request_review.parse(res.data),
+    }
   }
 
   async reposDeletePullRequestReviewProtection(
@@ -9894,13 +11461,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposGetCommitSignatureProtection(
@@ -9914,13 +11483,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_protected_branch_admin_enforced>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_protected_branch_admin_enforced.parse(res.data) }
   }
 
   async reposCreateCommitSignatureProtection(
@@ -9934,13 +11505,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_protected_branch_admin_enforced>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_protected_branch_admin_enforced.parse(res.data) }
   }
 
   async reposDeleteCommitSignatureProtection(
@@ -9954,13 +11527,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposGetStatusChecksProtection(
@@ -9974,13 +11549,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_status_check_policy>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_status_check_policy.parse(res.data) }
   }
 
   async reposUpdateStatusCheckProtection(
@@ -10004,7 +11581,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -10013,6 +11590,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_status_check_policy.parse(res.data) }
   }
 
   async reposRemoveStatusCheckProtection(
@@ -10026,13 +11605,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposGetAllStatusCheckContexts(
@@ -10046,13 +11627,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(z.string()).parse(res.data) }
   }
 
   async reposAddStatusCheckContexts(
@@ -10073,7 +11656,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -10082,6 +11665,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(z.string()).parse(res.data) }
   }
 
   async reposSetStatusCheckContexts(
@@ -10102,7 +11687,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -10111,6 +11696,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(z.string()).parse(res.data) }
   }
 
   async reposRemoveStatusCheckContexts(
@@ -10131,7 +11718,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -10140,6 +11727,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(z.string()).parse(res.data) }
   }
 
   async reposGetAccessRestrictions(
@@ -10153,13 +11742,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_branch_restriction_policy>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_branch_restriction_policy.parse(res.data) }
   }
 
   async reposDeleteAccessRestrictions(
@@ -10173,13 +11764,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposGetAppsWithAccessToProtectedBranch(
@@ -10193,13 +11786,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_integration[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_integration).parse(res.data) }
   }
 
   async reposAddAppAccessRestrictions(
@@ -10220,7 +11815,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -10229,6 +11824,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_integration).parse(res.data) }
   }
 
   async reposSetAppAccessRestrictions(
@@ -10249,7 +11846,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -10258,6 +11855,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_integration).parse(res.data) }
   }
 
   async reposRemoveAppAccessRestrictions(
@@ -10278,7 +11877,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -10287,6 +11886,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_integration).parse(res.data) }
   }
 
   async reposGetTeamsWithAccessToProtectedBranch(
@@ -10300,13 +11901,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_team).parse(res.data) }
   }
 
   async reposAddTeamAccessRestrictions(
@@ -10327,7 +11930,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -10336,6 +11939,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_team).parse(res.data) }
   }
 
   async reposSetTeamAccessRestrictions(
@@ -10356,7 +11961,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -10365,6 +11970,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_team).parse(res.data) }
   }
 
   async reposRemoveTeamAccessRestrictions(
@@ -10385,7 +11992,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -10394,6 +12001,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_team).parse(res.data) }
   }
 
   async reposGetUsersWithAccessToProtectedBranch(
@@ -10407,13 +12016,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_simple_user).parse(res.data) }
   }
 
   async reposAddUserAccessRestrictions(
@@ -10434,7 +12045,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -10443,6 +12054,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_simple_user).parse(res.data) }
   }
 
   async reposSetUserAccessRestrictions(
@@ -10463,7 +12076,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -10472,6 +12085,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_simple_user).parse(res.data) }
   }
 
   async reposRemoveUserAccessRestrictions(
@@ -10492,7 +12107,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -10501,6 +12116,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_simple_user).parse(res.data) }
   }
 
   async reposRenameBranch(
@@ -10519,7 +12136,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -10528,6 +12145,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_branch_with_protection.parse(res.data) }
   }
 
   async checksCreate(
@@ -10552,7 +12171,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -10561,6 +12180,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_check_run.parse(res.data) }
   }
 
   async checksGet(
@@ -10574,13 +12195,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_check_run>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_check_run.parse(res.data) }
   }
 
   async checksUpdate(
@@ -10639,7 +12262,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -10648,6 +12271,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_check_run.parse(res.data) }
   }
 
   async checksListAnnotations(
@@ -10664,13 +12289,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/annotations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_check_annotation).parse(res.data) }
   }
 
   async checksRerequestRun(
@@ -10684,13 +12311,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/rerequest`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_empty_object.parse(res.data) }
   }
 
   async checksCreateSuite(
@@ -10708,7 +12337,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -10717,6 +12346,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_check_suite.parse(res.data) }
   }
 
   async checksSetSuitesPreferences(
@@ -10737,7 +12368,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -10746,6 +12377,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_check_suite_preference.parse(res.data) }
   }
 
   async checksGetSuite(
@@ -10759,13 +12392,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_check_suite>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_check_suite.parse(res.data) }
   }
 
   async checksListForSuite(
@@ -10796,13 +12431,23 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          check_runs: z.array(s_check_run),
+        })
+        .parse(res.data),
+    }
   }
 
   async checksRerequestSuite(
@@ -10816,13 +12461,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}/rerequest`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_empty_object.parse(res.data) }
   }
 
   async codeScanningListAlertsForRepo(
@@ -10855,13 +12502,18 @@ export class ApiClient extends AbstractAxiosClient {
       severity: p["severity"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.array(s_code_scanning_alert_items).parse(res.data),
+    }
   }
 
   async codeScanningGetAlert(
@@ -10875,13 +12527,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_alert>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_code_scanning_alert.parse(res.data) }
   }
 
   async codeScanningUpdateAlert(
@@ -10902,7 +12556,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -10911,6 +12565,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_code_scanning_alert.parse(res.data) }
   }
 
   async codeScanningListAlertInstances(
@@ -10932,13 +12588,18 @@ export class ApiClient extends AbstractAxiosClient {
       ref: p["ref"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.array(s_code_scanning_alert_instance).parse(res.data),
+    }
   }
 
   async codeScanningListRecentAnalyses(
@@ -10969,13 +12630,15 @@ export class ApiClient extends AbstractAxiosClient {
       sort: p["sort"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_code_scanning_analysis).parse(res.data) }
   }
 
   async codeScanningGetAnalysis(
@@ -10993,13 +12656,15 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.object({}).parse(res.data) }
   }
 
   async codeScanningDeleteAnalysis(
@@ -11015,13 +12680,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`
     const query = this._query({ confirm_delete: p["confirmDelete"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_code_scanning_analysis_deletion.parse(res.data) }
   }
 
   async codeScanningListCodeqlDatabases(
@@ -11034,13 +12701,18 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_codeql_database[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.array(s_code_scanning_codeql_database).parse(res.data),
+    }
   }
 
   async codeScanningGetCodeqlDatabase(
@@ -11054,13 +12726,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_codeql_database>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases/${p["language"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_code_scanning_codeql_database.parse(res.data) }
   }
 
   async codeScanningGetDefaultSetup(
@@ -11073,13 +12747,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_default_setup>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/default-setup`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_code_scanning_default_setup.parse(res.data) }
   }
 
   async codeScanningUpdateDefaultSetup(
@@ -11098,7 +12774,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -11107,6 +12783,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_empty_object.parse(res.data) }
   }
 
   async codeScanningUploadSarif(
@@ -11130,7 +12808,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11139,6 +12817,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_code_scanning_sarifs_receipt.parse(res.data) }
   }
 
   async codeScanningGetSarif(
@@ -11152,13 +12832,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_sarifs_status>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/sarifs/${p["sarifId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_code_scanning_sarifs_status.parse(res.data) }
   }
 
   async reposCodeownersErrors(
@@ -11173,13 +12855,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codeowners/errors`
     const query = this._query({ ref: p["ref"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_codeowners_errors.parse(res.data) }
   }
 
   async codespacesListInRepositoryForAuthenticatedUser(
@@ -11200,13 +12884,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          codespaces: z.array(s_codespace),
+        })
+        .parse(res.data),
+    }
   }
 
   async codespacesCreateWithRepoForAuthenticatedUser(
@@ -11234,7 +12928,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11243,6 +12937,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_codespace.parse(res.data) }
   }
 
   async codespacesListDevcontainersInRepositoryForAuthenticatedUser(
@@ -11267,13 +12963,29 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/devcontainers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          devcontainers: z.array(
+            z.object({
+              path: z.string(),
+              name: z.string().optional(),
+              display_name: z.string().optional(),
+            }),
+          ),
+        })
+        .parse(res.data),
+    }
   }
 
   async codespacesRepoMachinesForAuthenticatedUser(
@@ -11299,13 +13011,23 @@ export class ApiClient extends AbstractAxiosClient {
       ref: p["ref"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          machines: z.array(s_codespace_machine),
+        })
+        .parse(res.data),
+    }
   }
 
   async codespacesPreFlightWithRepoForAuthenticatedUser(
@@ -11329,13 +13051,28 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/new`
     const query = this._query({ ref: p["ref"], client_ip: p["clientIp"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          billable_owner: s_simple_user.optional(),
+          defaults: z
+            .object({
+              location: z.string(),
+              devcontainer_path: z.string().nullable(),
+            })
+            .optional(),
+        })
+        .parse(res.data),
+    }
   }
 
   async codespacesListRepoSecrets(
@@ -11356,13 +13093,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          secrets: z.array(s_repo_codespaces_secret),
+        })
+        .parse(res.data),
+    }
   }
 
   async codespacesGetRepoPublicKey(
@@ -11375,13 +13122,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespaces_public_key>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/public-key`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_codespaces_public_key.parse(res.data) }
   }
 
   async codespacesGetRepoSecret(
@@ -11395,13 +13144,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repo_codespaces_secret>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_repo_codespaces_secret.parse(res.data) }
   }
 
   async codespacesCreateOrUpdateRepoSecret(
@@ -11421,7 +13172,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -11430,6 +13181,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_empty_object.parse(res.data) }
   }
 
   async codespacesDeleteRepoSecret(
@@ -11443,13 +13196,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposListCollaborators(
@@ -11472,13 +13227,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_collaborator).parse(res.data) }
   }
 
   async reposCheckCollaborator(
@@ -11492,13 +13249,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposAddCollaborator(
@@ -11517,7 +13276,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -11526,6 +13285,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_repository_invitation.parse(res.data) }
   }
 
   async reposRemoveCollaborator(
@@ -11539,13 +13300,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposGetCollaboratorPermissionLevel(
@@ -11559,13 +13322,18 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_collaborator_permission>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}/permission`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: s_repository_collaborator_permission.parse(res.data),
+    }
   }
 
   async reposListCommitCommentsForRepo(
@@ -11581,13 +13349,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/comments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_commit_comment).parse(res.data) }
   }
 
   async reposGetCommitComment(
@@ -11601,13 +13371,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_commit_comment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_commit_comment.parse(res.data) }
   }
 
   async reposUpdateCommitComment(
@@ -11626,7 +13398,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -11635,6 +13407,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_commit_comment.parse(res.data) }
   }
 
   async reposDeleteCommitComment(
@@ -11648,13 +13422,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reactionsListForCommitComment(
@@ -11684,13 +13460,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_reaction).parse(res.data) }
   }
 
   async reactionsCreateForCommitComment(
@@ -11717,7 +13495,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11726,6 +13504,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_reaction.parse(res.data) }
   }
 
   async reactionsDeleteForCommitComment(
@@ -11740,13 +13520,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions/${p["reactionId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposListCommits(
@@ -11777,13 +13559,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_commit).parse(res.data) }
   }
 
   async reposListBranchesForHeadCommit(
@@ -11797,13 +13581,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_branch_short[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/branches-where-head`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_branch_short).parse(res.data) }
   }
 
   async reposListCommentsForCommit(
@@ -11820,13 +13606,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/comments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_commit_comment).parse(res.data) }
   }
 
   async reposCreateCommitComment(
@@ -11848,7 +13636,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11857,6 +13645,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_commit_comment.parse(res.data) }
   }
 
   async reposListPullRequestsAssociatedWithCommit(
@@ -11873,13 +13663,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/pulls`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_pull_request_simple).parse(res.data) }
   }
 
   async reposGetCommit(
@@ -11896,13 +13688,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_commit.parse(res.data) }
   }
 
   async checksListForRef(
@@ -11935,13 +13729,23 @@ export class ApiClient extends AbstractAxiosClient {
       app_id: p["appId"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          check_runs: z.array(s_check_run),
+        })
+        .parse(res.data),
+    }
   }
 
   async checksListSuitesForRef(
@@ -11970,13 +13774,23 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          check_suites: z.array(s_check_suite),
+        })
+        .parse(res.data),
+    }
   }
 
   async reposGetCombinedStatusForRef(
@@ -11993,13 +13807,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/status`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_combined_commit_status.parse(res.data) }
   }
 
   async reposListCommitStatusesForRef(
@@ -12016,13 +13832,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/statuses`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_status).parse(res.data) }
   }
 
   async reposGetCommunityProfileMetrics(
@@ -12035,13 +13853,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_community_profile>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/community/profile`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_community_profile.parse(res.data) }
   }
 
   async reposCompareCommits(
@@ -12058,13 +13878,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/compare/${p["basehead"]}`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_commit_comparison.parse(res.data) }
   }
 
   async reposGetContent(
@@ -12087,13 +13909,25 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`
     const query = this._query({ ref: p["ref"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .union([
+          s_content_directory,
+          s_content_file,
+          s_content_symlink,
+          s_content_submodule,
+        ])
+        .parse(res.data),
+    }
   }
 
   async reposCreateOrUpdateFileContents(
@@ -12125,7 +13959,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -12134,6 +13968,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_file_commit.parse(res.data) }
   }
 
   async reposDeleteFile(
@@ -12162,7 +13998,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -12171,6 +14007,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_file_commit.parse(res.data) }
   }
 
   async reposListContributors(
@@ -12191,13 +14029,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_contributor).parse(res.data) }
   }
 
   async dependabotListAlertsForRepo(
@@ -12240,13 +14080,15 @@ export class ApiClient extends AbstractAxiosClient {
       last: p["last"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_dependabot_alert).parse(res.data) }
   }
 
   async dependabotGetAlert(
@@ -12260,13 +14102,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependabot_alert>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts/${p["alertNumber"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_dependabot_alert.parse(res.data) }
   }
 
   async dependabotUpdateAlert(
@@ -12292,7 +14136,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -12301,6 +14145,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_dependabot_alert.parse(res.data) }
   }
 
   async dependabotListRepoSecrets(
@@ -12321,13 +14167,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          secrets: z.array(s_dependabot_secret),
+        })
+        .parse(res.data),
+    }
   }
 
   async dependabotGetRepoPublicKey(
@@ -12340,13 +14196,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependabot_public_key>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/public-key`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_dependabot_public_key.parse(res.data) }
   }
 
   async dependabotGetRepoSecret(
@@ -12360,13 +14218,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependabot_secret>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_dependabot_secret.parse(res.data) }
   }
 
   async dependabotCreateOrUpdateRepoSecret(
@@ -12386,7 +14246,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -12395,6 +14255,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_empty_object.parse(res.data) }
   }
 
   async dependabotDeleteRepoSecret(
@@ -12408,13 +14270,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async dependencyGraphDiffRange(
@@ -12430,13 +14294,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/compare/${p["basehead"]}`
     const query = this._query({ name: p["name"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_dependency_graph_diff.parse(res.data) }
   }
 
   async dependencyGraphExportSbom(
@@ -12449,13 +14315,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependency_graph_spdx_sbom>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/sbom`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_dependency_graph_spdx_sbom.parse(res.data) }
   }
 
   async dependencyGraphCreateRepositorySnapshot(
@@ -12478,7 +14346,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -12487,6 +14355,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          id: z.coerce.number(),
+          created_at: z.string(),
+          result: z.string(),
+          message: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async reposListDeployments(
@@ -12513,13 +14393,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_deployment).parse(res.data) }
   }
 
   async reposCreateDeployment(
@@ -12554,7 +14436,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -12563,6 +14445,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deployment.parse(res.data) }
   }
 
   async reposGetDeployment(
@@ -12576,13 +14460,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deployment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deployment.parse(res.data) }
   }
 
   async reposDeleteDeployment(
@@ -12596,13 +14482,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposListDeploymentStatuses(
@@ -12619,13 +14507,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_deployment_status).parse(res.data) }
   }
 
   async reposCreateDeploymentStatus(
@@ -12657,7 +14547,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -12666,6 +14556,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deployment_status.parse(res.data) }
   }
 
   async reposGetDeploymentStatus(
@@ -12680,13 +14572,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deployment_status>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses/${p["statusId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deployment_status.parse(res.data) }
   }
 
   async reposCreateDispatchEvent(
@@ -12707,7 +14601,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -12716,6 +14610,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposGetAllEnvironments(
@@ -12736,13 +14632,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number().optional(),
+          environments: z.array(s_environment).optional(),
+        })
+        .parse(res.data),
+    }
   }
 
   async reposGetEnvironment(
@@ -12756,13 +14662,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_environment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_environment.parse(res.data) }
   }
 
   async reposCreateOrUpdateEnvironment(
@@ -12788,7 +14696,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -12797,6 +14705,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_environment.parse(res.data) }
   }
 
   async reposDeleteAnEnvironment(
@@ -12810,13 +14720,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposListDeploymentBranchPolicies(
@@ -12838,13 +14750,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          branch_policies: z.array(s_deployment_branch_policy),
+        })
+        .parse(res.data),
+    }
   }
 
   async reposCreateDeploymentBranchPolicy(
@@ -12861,7 +14783,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -12870,6 +14792,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deployment_branch_policy.parse(res.data) }
   }
 
   async reposGetDeploymentBranchPolicy(
@@ -12884,13 +14808,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deployment_branch_policy>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deployment_branch_policy.parse(res.data) }
   }
 
   async reposUpdateDeploymentBranchPolicy(
@@ -12908,7 +14834,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -12917,6 +14843,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deployment_branch_policy.parse(res.data) }
   }
 
   async reposDeleteDeploymentBranchPolicy(
@@ -12931,13 +14859,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposGetAllDeploymentProtectionRules(
@@ -12956,13 +14886,25 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number().optional(),
+          custom_deployment_protection_rules: z
+            .array(s_deployment_protection_rule)
+            .optional(),
+        })
+        .parse(res.data),
+    }
   }
 
   async reposCreateDeploymentProtectionRule(
@@ -12981,7 +14923,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -12990,6 +14932,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deployment_protection_rule.parse(res.data) }
   }
 
   async reposListCustomDeploymentRuleIntegrations(
@@ -13011,13 +14955,25 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/apps`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number().optional(),
+          available_custom_deployment_protection_rule_integrations: z
+            .array(s_custom_deployment_rule_app)
+            .optional(),
+        })
+        .parse(res.data),
+    }
   }
 
   async reposGetCustomDeploymentProtectionRule(
@@ -13032,13 +14988,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deployment_protection_rule>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/${p["protectionRuleId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deployment_protection_rule.parse(res.data) }
   }
 
   async reposDisableDeploymentProtectionRule(
@@ -13053,13 +15011,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/${p["protectionRuleId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async activityListRepoEvents(
@@ -13075,13 +15035,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_event).parse(res.data) }
   }
 
   async reposListForks(
@@ -13102,13 +15064,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
   }
 
   async reposCreateFork(
@@ -13128,7 +15092,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -13137,6 +15101,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_full_repository.parse(res.data) }
   }
 
   async gitCreateBlob(
@@ -13155,7 +15121,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -13164,6 +15130,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_short_blob.parse(res.data) }
   }
 
   async gitGetBlob(
@@ -13177,13 +15145,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_blob>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/blobs/${p["fileSha"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_blob.parse(res.data) }
   }
 
   async gitCreateCommit(
@@ -13214,7 +15184,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -13223,6 +15193,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_git_commit.parse(res.data) }
   }
 
   async gitGetCommit(
@@ -13236,13 +15208,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_git_commit>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/commits/${p["commitSha"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_git_commit.parse(res.data) }
   }
 
   async gitListMatchingRefs(
@@ -13256,13 +15230,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_git_ref[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/matching-refs/${p["ref"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_git_ref).parse(res.data) }
   }
 
   async gitGetRef(
@@ -13276,13 +15252,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_git_ref>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/ref/${p["ref"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_git_ref.parse(res.data) }
   }
 
   async gitCreateRef(
@@ -13301,7 +15279,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -13310,6 +15288,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_git_ref.parse(res.data) }
   }
 
   async gitUpdateRef(
@@ -13329,7 +15309,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -13338,6 +15318,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_git_ref.parse(res.data) }
   }
 
   async gitDeleteRef(
@@ -13351,13 +15333,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async gitCreateTag(
@@ -13383,7 +15367,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -13392,6 +15376,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_git_tag.parse(res.data) }
   }
 
   async gitGetTag(
@@ -13405,13 +15391,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_git_tag>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/tags/${p["tagSha"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_git_tag.parse(res.data) }
   }
 
   async gitCreateTree(
@@ -13436,7 +15424,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -13445,6 +15433,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_git_tree.parse(res.data) }
   }
 
   async gitGetTree(
@@ -13460,13 +15450,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/trees/${p["treeSha"]}`
     const query = this._query({ recursive: p["recursive"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_git_tree.parse(res.data) }
   }
 
   async reposListWebhooks(
@@ -13482,13 +15474,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_hook).parse(res.data) }
   }
 
   async reposCreateWebhook(
@@ -13516,7 +15510,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -13525,6 +15519,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_hook.parse(res.data) }
   }
 
   async reposGetWebhook(
@@ -13538,13 +15534,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_hook.parse(res.data) }
   }
 
   async reposUpdateWebhook(
@@ -13574,7 +15572,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -13583,6 +15581,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_hook.parse(res.data) }
   }
 
   async reposDeleteWebhook(
@@ -13596,13 +15596,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposGetWebhookConfigForRepo(
@@ -13616,13 +15618,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_webhook_config>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/config`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_webhook_config.parse(res.data) }
   }
 
   async reposUpdateWebhookConfigForRepo(
@@ -13644,7 +15648,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -13653,6 +15657,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_webhook_config.parse(res.data) }
   }
 
   async reposListWebhookDeliveries(
@@ -13674,13 +15680,15 @@ export class ApiClient extends AbstractAxiosClient {
       redelivery: p["redelivery"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_hook_delivery_item).parse(res.data) }
   }
 
   async reposGetWebhookDelivery(
@@ -13695,13 +15703,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook_delivery>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_hook_delivery.parse(res.data) }
   }
 
   async reposRedeliverWebhookDelivery(
@@ -13716,13 +15726,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<EmptyObject>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.object({}).parse(res.data) }
   }
 
   async reposPingWebhook(
@@ -13736,13 +15748,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/pings`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposTestPushWebhook(
@@ -13756,13 +15770,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/tests`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async migrationsGetImportStatus(
@@ -13775,13 +15791,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_import>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/import`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_import.parse(res.data) }
   }
 
   async migrationsStartImport(
@@ -13803,7 +15821,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -13812,6 +15830,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_import.parse(res.data) }
   }
 
   async migrationsUpdateImport(
@@ -13832,7 +15852,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -13841,6 +15861,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_import.parse(res.data) }
   }
 
   async migrationsCancelImport(
@@ -13853,13 +15875,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/import`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async migrationsGetCommitAuthors(
@@ -13874,13 +15898,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/import/authors`
     const query = this._query({ since: p["since"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_porter_author).parse(res.data) }
   }
 
   async migrationsMapCommitAuthor(
@@ -13900,7 +15926,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -13909,6 +15935,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_porter_author.parse(res.data) }
   }
 
   async migrationsGetLargeFiles(
@@ -13921,13 +15949,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_porter_large_file[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/import/large_files`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_porter_large_file).parse(res.data) }
   }
 
   async migrationsSetLfsPreference(
@@ -13945,7 +15975,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -13954,6 +15984,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_import.parse(res.data) }
   }
 
   async appsGetRepoInstallation(
@@ -13966,13 +15998,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_installation>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/installation`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_installation.parse(res.data) }
   }
 
   async interactionsGetRestrictionsForRepo(
@@ -13985,13 +16019,20 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_interaction_limit_response | EmptyObject>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .union([s_interaction_limit_response, z.object({})])
+        .parse(res.data),
+    }
   }
 
   async interactionsSetRestrictionsForRepo(
@@ -14007,7 +16048,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -14016,6 +16057,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_interaction_limit_response.parse(res.data) }
   }
 
   async interactionsRemoveRestrictionsForRepo(
@@ -14028,13 +16071,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposListInvitations(
@@ -14050,13 +16095,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_repository_invitation).parse(res.data) }
   }
 
   async reposUpdateInvitation(
@@ -14075,7 +16122,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -14084,6 +16131,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_repository_invitation.parse(res.data) }
   }
 
   async reposDeleteInvitation(
@@ -14097,13 +16146,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async issuesListForRepo(
@@ -14140,13 +16191,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_issue).parse(res.data) }
   }
 
   async issuesCreate(
@@ -14177,7 +16230,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -14186,6 +16239,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issue.parse(res.data) }
   }
 
   async issuesListCommentsForRepo(
@@ -14210,13 +16265,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_issue_comment).parse(res.data) }
   }
 
   async issuesGetComment(
@@ -14230,13 +16287,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue_comment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issue_comment.parse(res.data) }
   }
 
   async issuesUpdateComment(
@@ -14255,7 +16314,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -14264,6 +16323,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issue_comment.parse(res.data) }
   }
 
   async issuesDeleteComment(
@@ -14277,13 +16338,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reactionsListForIssueComment(
@@ -14313,13 +16376,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_reaction).parse(res.data) }
   }
 
   async reactionsCreateForIssueComment(
@@ -14346,7 +16411,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -14355,6 +16420,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_reaction.parse(res.data) }
   }
 
   async reactionsDeleteForIssueComment(
@@ -14369,13 +16436,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions/${p["reactionId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async issuesListEventsForRepo(
@@ -14391,13 +16460,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_issue_event).parse(res.data) }
   }
 
   async issuesGetEvent(
@@ -14411,13 +16482,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue_event>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/events/${p["eventId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issue_event.parse(res.data) }
   }
 
   async issuesGet(
@@ -14431,13 +16504,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issue.parse(res.data) }
   }
 
   async issuesUpdate(
@@ -14471,7 +16546,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -14480,6 +16555,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issue.parse(res.data) }
   }
 
   async issuesAddAssignees(
@@ -14498,7 +16575,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -14507,6 +16584,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issue.parse(res.data) }
   }
 
   async issuesRemoveAssignees(
@@ -14525,7 +16604,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -14534,6 +16613,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issue.parse(res.data) }
   }
 
   async issuesCheckUserCanBeAssignedToIssue(
@@ -14548,13 +16629,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees/${p["assignee"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async issuesListComments(
@@ -14576,13 +16659,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_issue_comment).parse(res.data) }
   }
 
   async issuesCreateComment(
@@ -14601,7 +16686,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -14610,6 +16695,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issue_comment.parse(res.data) }
   }
 
   async issuesListEvents(
@@ -14626,13 +16713,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_issue_event_for_issue).parse(res.data) }
   }
 
   async issuesListLabelsOnIssue(
@@ -14649,13 +16738,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_label).parse(res.data) }
   }
 
   async issuesAddLabels(
@@ -14685,7 +16776,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -14694,6 +16785,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_label).parse(res.data) }
   }
 
   async issuesSetLabels(
@@ -14723,7 +16816,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -14732,6 +16825,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_label).parse(res.data) }
   }
 
   async issuesRemoveAllLabels(
@@ -14745,13 +16840,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async issuesRemoveLabel(
@@ -14766,13 +16863,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_label[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels/${p["name"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_label).parse(res.data) }
   }
 
   async issuesLock(
@@ -14791,7 +16890,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -14800,6 +16899,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async issuesUnlock(
@@ -14813,13 +16914,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/lock`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reactionsListForIssue(
@@ -14849,13 +16952,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_reaction).parse(res.data) }
   }
 
   async reactionsCreateForIssue(
@@ -14882,7 +16987,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -14891,6 +16996,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_reaction.parse(res.data) }
   }
 
   async reactionsDeleteForIssue(
@@ -14905,13 +17012,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions/${p["reactionId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async issuesListEventsForTimeline(
@@ -14928,13 +17037,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/timeline`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_timeline_issue_events).parse(res.data) }
   }
 
   async reposListDeployKeys(
@@ -14950,13 +17061,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_deploy_key).parse(res.data) }
   }
 
   async reposCreateDeployKey(
@@ -14976,7 +17089,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -14985,6 +17098,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deploy_key.parse(res.data) }
   }
 
   async reposGetDeployKey(
@@ -14998,13 +17113,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deploy_key>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deploy_key.parse(res.data) }
   }
 
   async reposDeleteDeployKey(
@@ -15018,13 +17135,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async issuesListLabelsForRepo(
@@ -15040,13 +17159,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/labels`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_label).parse(res.data) }
   }
 
   async issuesCreateLabel(
@@ -15066,7 +17187,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -15075,6 +17196,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_label.parse(res.data) }
   }
 
   async issuesGetLabel(
@@ -15088,13 +17211,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_label>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_label.parse(res.data) }
   }
 
   async issuesUpdateLabel(
@@ -15115,7 +17240,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -15124,6 +17249,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_label.parse(res.data) }
   }
 
   async issuesDeleteLabel(
@@ -15137,13 +17264,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposListLanguages(
@@ -15156,13 +17285,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_language>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/languages`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_language.parse(res.data) }
   }
 
   async licensesGetForRepo(
@@ -15175,13 +17306,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_license_content>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/license`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_license_content.parse(res.data) }
   }
 
   async reposMergeUpstream(
@@ -15199,7 +17332,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -15208,6 +17341,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_merged_upstream.parse(res.data) }
   }
 
   async reposMerge(
@@ -15227,7 +17362,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -15236,6 +17371,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_commit.parse(res.data) }
   }
 
   async issuesListMilestones(
@@ -15260,13 +17397,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_milestone).parse(res.data) }
   }
 
   async issuesCreateMilestone(
@@ -15287,7 +17426,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -15296,6 +17435,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_milestone.parse(res.data) }
   }
 
   async issuesGetMilestone(
@@ -15309,13 +17450,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_milestone>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_milestone.parse(res.data) }
   }
 
   async issuesUpdateMilestone(
@@ -15337,7 +17480,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -15346,6 +17489,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_milestone.parse(res.data) }
   }
 
   async issuesDeleteMilestone(
@@ -15359,13 +17504,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async issuesListLabelsForMilestone(
@@ -15382,13 +17529,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}/labels`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_label).parse(res.data) }
   }
 
   async activityListRepoNotificationsForAuthenticatedUser(
@@ -15415,13 +17564,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_thread).parse(res.data) }
   }
 
   async activityMarkRepoNotificationsAsRead(
@@ -15445,7 +17596,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -15454,6 +17605,13 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({ message: z.string().optional(), url: z.string().optional() })
+        .parse(res.data),
+    }
   }
 
   async reposGetPages(
@@ -15466,13 +17624,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_page>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_page.parse(res.data) }
   }
 
   async reposCreatePagesSite(
@@ -15494,7 +17654,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -15503,6 +17663,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_page.parse(res.data) }
   }
 
   async reposUpdateInformationAboutPagesSite(
@@ -15530,7 +17692,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -15539,6 +17701,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposDeletePagesSite(
@@ -15551,13 +17715,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposListPagesBuilds(
@@ -15573,13 +17739,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages/builds`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_page_build).parse(res.data) }
   }
 
   async reposRequestPagesBuild(
@@ -15592,13 +17760,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_page_build_status>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages/builds`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_page_build_status.parse(res.data) }
   }
 
   async reposGetLatestPagesBuild(
@@ -15611,13 +17781,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_page_build>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages/builds/latest`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_page_build.parse(res.data) }
   }
 
   async reposGetPagesBuild(
@@ -15631,13 +17803,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_page_build>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages/builds/${p["buildId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_page_build.parse(res.data) }
   }
 
   async reposCreatePagesDeployment(
@@ -15658,7 +17832,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -15667,6 +17841,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_page_deployment.parse(res.data) }
   }
 
   async reposGetPagesHealthCheck(
@@ -15681,13 +17857,15 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages/health`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_pages_health_check.parse(res.data) }
   }
 
   async reposEnablePrivateVulnerabilityReporting(
@@ -15700,13 +17878,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/private-vulnerability-reporting`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposDisablePrivateVulnerabilityReporting(
@@ -15719,13 +17899,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/private-vulnerability-reporting`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async projectsListForRepo(
@@ -15746,13 +17928,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_project).parse(res.data) }
   }
 
   async projectsCreateForRepo(
@@ -15771,7 +17955,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -15780,6 +17964,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_project.parse(res.data) }
   }
 
   async pullsList(
@@ -15808,13 +17994,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_pull_request_simple).parse(res.data) }
   }
 
   async pullsCreate(
@@ -15839,7 +18027,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -15848,6 +18036,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_pull_request.parse(res.data) }
   }
 
   async pullsListReviewCommentsForRepo(
@@ -15872,13 +18062,18 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.array(s_pull_request_review_comment).parse(res.data),
+    }
   }
 
   async pullsGetReviewComment(
@@ -15892,13 +18087,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review_comment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_pull_request_review_comment.parse(res.data) }
   }
 
   async pullsUpdateReviewComment(
@@ -15917,7 +18114,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -15926,6 +18123,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_pull_request_review_comment.parse(res.data) }
   }
 
   async pullsDeleteReviewComment(
@@ -15939,13 +18138,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reactionsListForPullRequestReviewComment(
@@ -15975,13 +18176,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_reaction).parse(res.data) }
   }
 
   async reactionsCreateForPullRequestReviewComment(
@@ -16008,7 +18211,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16017,6 +18220,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_reaction.parse(res.data) }
   }
 
   async reactionsDeleteForPullRequestComment(
@@ -16031,13 +18236,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions/${p["reactionId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async pullsGet(
@@ -16051,13 +18258,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_pull_request.parse(res.data) }
   }
 
   async pullsUpdate(
@@ -16080,7 +18289,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -16089,6 +18298,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_pull_request.parse(res.data) }
   }
 
   async codespacesCreateWithPrForAuthenticatedUser(
@@ -16116,7 +18327,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16125,6 +18336,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_codespace.parse(res.data) }
   }
 
   async pullsListReviewComments(
@@ -16150,13 +18363,18 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.array(s_pull_request_review_comment).parse(res.data),
+    }
   }
 
   async pullsCreateReviewComment(
@@ -16184,7 +18402,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16193,6 +18411,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_pull_request_review_comment.parse(res.data) }
   }
 
   async pullsCreateReplyForReviewComment(
@@ -16212,7 +18432,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16221,6 +18441,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_pull_request_review_comment.parse(res.data) }
   }
 
   async pullsListCommits(
@@ -16237,13 +18459,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/commits`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_commit).parse(res.data) }
   }
 
   async pullsListFiles(
@@ -16260,13 +18484,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/files`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_diff_entry).parse(res.data) }
   }
 
   async pullsCheckIfMerged(
@@ -16280,13 +18506,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/merge`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async pullsMerge(
@@ -16308,7 +18536,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -16317,6 +18545,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_pull_request_merge_result.parse(res.data) }
   }
 
   async pullsListRequestedReviewers(
@@ -16330,13 +18560,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review_request>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_pull_request_review_request.parse(res.data) }
   }
 
   async pullsRequestReviewers(
@@ -16356,7 +18588,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16365,6 +18597,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_pull_request_simple.parse(res.data) }
   }
 
   async pullsRemoveRequestedReviewers(
@@ -16384,7 +18618,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -16393,6 +18627,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_pull_request_simple.parse(res.data) }
   }
 
   async pullsListReviews(
@@ -16409,13 +18645,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_pull_request_review).parse(res.data) }
   }
 
   async pullsCreateReview(
@@ -16445,7 +18683,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16454,6 +18692,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_pull_request_review.parse(res.data) }
   }
 
   async pullsGetReview(
@@ -16468,13 +18708,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_pull_request_review.parse(res.data) }
   }
 
   async pullsUpdateReview(
@@ -16494,7 +18736,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -16503,6 +18745,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_pull_request_review.parse(res.data) }
   }
 
   async pullsDeletePendingReview(
@@ -16517,13 +18761,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_pull_request_review.parse(res.data) }
   }
 
   async pullsListCommentsForReview(
@@ -16541,13 +18787,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/comments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_review_comment).parse(res.data) }
   }
 
   async pullsDismissReview(
@@ -16568,7 +18816,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -16577,6 +18825,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_pull_request_review.parse(res.data) }
   }
 
   async pullsSubmitReview(
@@ -16597,7 +18847,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16606,6 +18856,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_pull_request_review.parse(res.data) }
   }
 
   async pullsUpdateBranch(
@@ -16629,7 +18881,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -16638,6 +18890,13 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({ message: z.string().optional(), url: z.string().optional() })
+        .parse(res.data),
+    }
   }
 
   async reposGetReadme(
@@ -16652,13 +18911,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/readme`
     const query = this._query({ ref: p["ref"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_content_file.parse(res.data) }
   }
 
   async reposGetReadmeInDirectory(
@@ -16674,13 +18935,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/readme/${p["dir"]}`
     const query = this._query({ ref: p["ref"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_content_file.parse(res.data) }
   }
 
   async reposListReleases(
@@ -16696,13 +18959,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_release).parse(res.data) }
   }
 
   async reposCreateRelease(
@@ -16728,7 +18993,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16737,6 +19002,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_release.parse(res.data) }
   }
 
   async reposGetReleaseAsset(
@@ -16750,13 +19017,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release_asset>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_release_asset.parse(res.data) }
   }
 
   async reposUpdateReleaseAsset(
@@ -16777,7 +19046,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -16786,6 +19055,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_release_asset.parse(res.data) }
   }
 
   async reposDeleteReleaseAsset(
@@ -16799,13 +19070,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposGenerateReleaseNotes(
@@ -16826,7 +19099,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16835,6 +19108,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_release_notes_content.parse(res.data) }
   }
 
   async reposGetLatestRelease(
@@ -16847,13 +19122,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/latest`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_release.parse(res.data) }
   }
 
   async reposGetReleaseByTag(
@@ -16867,13 +19144,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/tags/${p["tag"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_release.parse(res.data) }
   }
 
   async reposGetRelease(
@@ -16887,13 +19166,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_release.parse(res.data) }
   }
 
   async reposUpdateRelease(
@@ -16919,7 +19200,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -16928,6 +19209,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_release.parse(res.data) }
   }
 
   async reposDeleteRelease(
@@ -16941,13 +19224,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposListReleaseAssets(
@@ -16964,13 +19249,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_release_asset).parse(res.data) }
   }
 
   async reposUploadReleaseAsset(
@@ -16992,7 +19279,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ name: p["name"], label: p["label"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "POST",
@@ -17001,6 +19288,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_release_asset.parse(res.data) }
   }
 
   async reactionsListForRelease(
@@ -17022,13 +19311,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_reaction).parse(res.data) }
   }
 
   async reactionsCreateForRelease(
@@ -17047,7 +19338,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -17056,6 +19347,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_reaction.parse(res.data) }
   }
 
   async reactionsDeleteForRelease(
@@ -17070,13 +19363,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions/${p["reactionId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposGetBranchRules(
@@ -17093,13 +19388,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/rules/branches/${p["branch"]}`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_repository_rule_detailed).parse(res.data) }
   }
 
   async reposGetRepoRulesets(
@@ -17120,13 +19417,15 @@ export class ApiClient extends AbstractAxiosClient {
       includes_parents: p["includesParents"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_repository_ruleset).parse(res.data) }
   }
 
   async reposCreateRepoRuleset(
@@ -17149,7 +19448,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -17158,6 +19457,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_repository_ruleset.parse(res.data) }
   }
 
   async reposGetRepoRuleset(
@@ -17173,13 +19474,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`
     const query = this._query({ includes_parents: p["includesParents"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_repository_ruleset.parse(res.data) }
   }
 
   async reposUpdateRepoRuleset(
@@ -17203,7 +19506,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -17212,6 +19515,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_repository_ruleset.parse(res.data) }
   }
 
   async reposDeleteRepoRuleset(
@@ -17225,13 +19530,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async secretScanningListAlertsForRepo(
@@ -17264,13 +19571,15 @@ export class ApiClient extends AbstractAxiosClient {
       after: p["after"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_secret_scanning_alert).parse(res.data) }
   }
 
   async secretScanningGetAlert(
@@ -17284,13 +19593,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_secret_scanning_alert>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_secret_scanning_alert.parse(res.data) }
   }
 
   async secretScanningUpdateAlert(
@@ -17311,7 +19622,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -17320,6 +19631,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_secret_scanning_alert.parse(res.data) }
   }
 
   async secretScanningListLocationsForAlert(
@@ -17336,13 +19649,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}/locations`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_secret_scanning_location).parse(res.data) }
   }
 
   async securityAdvisoriesListRepositoryAdvisories(
@@ -17369,13 +19684,15 @@ export class ApiClient extends AbstractAxiosClient {
       state: p["state"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_repository_advisory).parse(res.data) }
   }
 
   async securityAdvisoriesCreateRepositoryAdvisory(
@@ -17391,7 +19708,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -17400,6 +19717,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_repository_advisory.parse(res.data) }
   }
 
   async securityAdvisoriesCreatePrivateVulnerabilityReport(
@@ -17415,7 +19734,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -17424,6 +19743,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_repository_advisory.parse(res.data) }
   }
 
   async securityAdvisoriesGetRepositoryAdvisory(
@@ -17437,13 +19758,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_advisory>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_repository_advisory.parse(res.data) }
   }
 
   async securityAdvisoriesUpdateRepositoryAdvisory(
@@ -17460,7 +19783,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -17469,6 +19792,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_repository_advisory.parse(res.data) }
   }
 
   async securityAdvisoriesCreateRepositoryAdvisoryCveRequest(
@@ -17482,13 +19807,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<EmptyObject>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}/cve`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.object({}).parse(res.data) }
   }
 
   async activityListStargazersForRepo(
@@ -17504,13 +19831,20 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stargazers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .union([z.array(s_simple_user), z.array(s_stargazer)])
+        .parse(res.data),
+    }
   }
 
   async reposGetCodeFrequencyStats(
@@ -17527,13 +19861,15 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stats/code_frequency`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_code_frequency_stat).parse(res.data) }
   }
 
   async reposGetCommitActivityStats(
@@ -17550,13 +19886,15 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stats/commit_activity`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_commit_activity).parse(res.data) }
   }
 
   async reposGetContributorsStats(
@@ -17573,13 +19911,15 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stats/contributors`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_contributor_activity).parse(res.data) }
   }
 
   async reposGetParticipationStats(
@@ -17592,13 +19932,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_participation_stats>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stats/participation`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_participation_stats.parse(res.data) }
   }
 
   async reposGetPunchCardStats(
@@ -17611,13 +19953,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_frequency_stat[]> | AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stats/punch_card`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_code_frequency_stat).parse(res.data) }
   }
 
   async reposCreateCommitStatus(
@@ -17639,7 +19983,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -17648,6 +19992,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_status.parse(res.data) }
   }
 
   async activityListWatchersForRepo(
@@ -17663,13 +20009,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/subscribers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_simple_user).parse(res.data) }
   }
 
   async activityGetRepoSubscription(
@@ -17682,13 +20030,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_subscription>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/subscription`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_repository_subscription.parse(res.data) }
   }
 
   async activitySetRepoSubscription(
@@ -17707,7 +20057,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -17716,6 +20066,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_repository_subscription.parse(res.data) }
   }
 
   async activityDeleteRepoSubscription(
@@ -17728,13 +20080,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/subscription`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposListTags(
@@ -17750,13 +20104,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/tags`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_tag).parse(res.data) }
   }
 
   async reposListTagProtection(
@@ -17769,13 +20125,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tag_protection[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/tags/protection`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_tag_protection).parse(res.data) }
   }
 
   async reposCreateTagProtection(
@@ -17793,7 +20151,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -17802,6 +20160,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_tag_protection.parse(res.data) }
   }
 
   async reposDeleteTagProtection(
@@ -17815,13 +20175,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/tags/protection/${p["tagProtectionId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposDownloadTarballArchive(
@@ -17832,16 +20194,18 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<never> {
+  ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/tarball/${p["ref"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposListTeams(
@@ -17857,13 +20221,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_team).parse(res.data) }
   }
 
   async reposGetAllTopics(
@@ -17879,13 +20245,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/topics`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_topic.parse(res.data) }
   }
 
   async reposReplaceAllTopics(
@@ -17903,7 +20271,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -17912,6 +20280,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_topic.parse(res.data) }
   }
 
   async reposGetClones(
@@ -17926,13 +20296,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/traffic/clones`
     const query = this._query({ per: p["per"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_clone_traffic.parse(res.data) }
   }
 
   async reposGetTopPaths(
@@ -17945,13 +20317,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_content_traffic[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/paths`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_content_traffic).parse(res.data) }
   }
 
   async reposGetTopReferrers(
@@ -17964,13 +20338,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_referrer_traffic[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/referrers`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_referrer_traffic).parse(res.data) }
   }
 
   async reposGetViews(
@@ -17985,13 +20361,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/traffic/views`
     const query = this._query({ per: p["per"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_view_traffic.parse(res.data) }
   }
 
   async reposTransfer(
@@ -18011,7 +20389,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -18020,6 +20398,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_minimal_repository.parse(res.data) }
   }
 
   async reposCheckVulnerabilityAlerts(
@@ -18032,13 +20412,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposEnableVulnerabilityAlerts(
@@ -18051,13 +20433,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposDisableVulnerabilityAlerts(
@@ -18070,13 +20454,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposDownloadZipballArchive(
@@ -18087,16 +20473,18 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<never> {
+  ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/zipball/${p["ref"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposCreateUsingTemplate(
@@ -18118,7 +20506,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -18127,6 +20515,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_repository.parse(res.data) }
   }
 
   async reposListPublic(
@@ -18139,13 +20529,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repositories`
     const query = this._query({ since: p["since"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
   }
 
   async actionsListEnvironmentSecrets(
@@ -18166,13 +20558,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          secrets: z.array(s_actions_secret),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsGetEnvironmentPublicKey(
@@ -18185,13 +20587,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_public_key>> {
     const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/public-key`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_actions_public_key.parse(res.data) }
   }
 
   async actionsGetEnvironmentSecret(
@@ -18205,13 +20609,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_secret>> {
     const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_actions_secret.parse(res.data) }
   }
 
   async actionsCreateOrUpdateEnvironmentSecret(
@@ -18231,7 +20637,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -18240,6 +20646,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_empty_object.parse(res.data) }
   }
 
   async actionsDeleteEnvironmentSecret(
@@ -18253,13 +20661,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsListEnvironmentVariables(
@@ -18280,13 +20690,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          variables: z.array(s_actions_variable),
+        })
+        .parse(res.data),
+    }
   }
 
   async actionsCreateEnvironmentVariable(
@@ -18305,7 +20725,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -18314,6 +20734,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_empty_object.parse(res.data) }
   }
 
   async actionsGetEnvironmentVariable(
@@ -18327,13 +20749,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_variable>> {
     const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_actions_variable.parse(res.data) }
   }
 
   async actionsUpdateEnvironmentVariable(
@@ -18353,7 +20777,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -18362,6 +20786,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async actionsDeleteEnvironmentVariable(
@@ -18375,13 +20801,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async searchCode(
@@ -18410,13 +20838,24 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          incomplete_results: z.coerce.boolean(),
+          items: z.array(s_code_search_result_item),
+        })
+        .parse(res.data),
+    }
   }
 
   async searchCommits(
@@ -18445,13 +20884,24 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          incomplete_results: z.coerce.boolean(),
+          items: z.array(s_commit_search_result_item),
+        })
+        .parse(res.data),
+    }
   }
 
   async searchIssuesAndPullRequests(
@@ -18491,13 +20941,24 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          incomplete_results: z.coerce.boolean(),
+          items: z.array(s_issue_search_result_item),
+        })
+        .parse(res.data),
+    }
   }
 
   async searchLabels(
@@ -18528,13 +20989,24 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          incomplete_results: z.coerce.boolean(),
+          items: z.array(s_label_search_result_item),
+        })
+        .parse(res.data),
+    }
   }
 
   async searchRepos(
@@ -18563,13 +21035,24 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          incomplete_results: z.coerce.boolean(),
+          items: z.array(s_repo_search_result_item),
+        })
+        .parse(res.data),
+    }
   }
 
   async searchTopics(
@@ -18594,13 +21077,24 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          incomplete_results: z.coerce.boolean(),
+          items: z.array(s_topic_search_result_item),
+        })
+        .parse(res.data),
+    }
   }
 
   async searchUsers(
@@ -18629,13 +21123,24 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          incomplete_results: z.coerce.boolean(),
+          items: z.array(s_user_search_result_item),
+        })
+        .parse(res.data),
+    }
   }
 
   async teamsGetLegacy(
@@ -18647,13 +21152,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_full>> {
     const url = `/teams/${p["teamId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_full.parse(res.data) }
   }
 
   async teamsUpdateLegacy(
@@ -18677,7 +21184,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -18686,6 +21193,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_full.parse(res.data) }
   }
 
   async teamsDeleteLegacy(
@@ -18697,13 +21206,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async teamsListDiscussionsLegacy(
@@ -18723,13 +21234,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_team_discussion).parse(res.data) }
   }
 
   async teamsCreateDiscussionLegacy(
@@ -18748,7 +21261,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -18757,6 +21270,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_discussion.parse(res.data) }
   }
 
   async teamsGetDiscussionLegacy(
@@ -18769,13 +21284,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion>> {
     const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_discussion.parse(res.data) }
   }
 
   async teamsUpdateDiscussionLegacy(
@@ -18794,7 +21311,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -18803,6 +21320,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_discussion.parse(res.data) }
   }
 
   async teamsDeleteDiscussionLegacy(
@@ -18815,13 +21334,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async teamsListDiscussionCommentsLegacy(
@@ -18842,13 +21363,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_team_discussion_comment).parse(res.data) }
   }
 
   async teamsCreateDiscussionCommentLegacy(
@@ -18866,7 +21389,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -18875,6 +21398,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_discussion_comment.parse(res.data) }
   }
 
   async teamsGetDiscussionCommentLegacy(
@@ -18888,13 +21413,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion_comment>> {
     const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_discussion_comment.parse(res.data) }
   }
 
   async teamsUpdateDiscussionCommentLegacy(
@@ -18913,7 +21440,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -18922,6 +21449,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_discussion_comment.parse(res.data) }
   }
 
   async teamsDeleteDiscussionCommentLegacy(
@@ -18935,13 +21464,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reactionsListForTeamDiscussionCommentLegacy(
@@ -18971,13 +21502,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_reaction).parse(res.data) }
   }
 
   async reactionsCreateForTeamDiscussionCommentLegacy(
@@ -19004,7 +21537,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -19013,6 +21546,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_reaction.parse(res.data) }
   }
 
   async reactionsListForTeamDiscussionLegacy(
@@ -19041,13 +21576,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_reaction).parse(res.data) }
   }
 
   async reactionsCreateForTeamDiscussionLegacy(
@@ -19073,7 +21610,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -19082,6 +21619,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_reaction.parse(res.data) }
   }
 
   async teamsListPendingInvitationsLegacy(
@@ -19096,13 +21635,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/teams/${p["teamId"]}/invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_organization_invitation).parse(res.data) }
   }
 
   async teamsListMembersLegacy(
@@ -19122,13 +21663,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_simple_user).parse(res.data) }
   }
 
   async teamsGetMemberLegacy(
@@ -19141,13 +21684,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/members/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async teamsAddMemberLegacy(
@@ -19160,13 +21705,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/members/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async teamsRemoveMemberLegacy(
@@ -19179,13 +21726,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/members/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async teamsGetMembershipForUserLegacy(
@@ -19198,13 +21747,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_membership>> {
     const url = `/teams/${p["teamId"]}/memberships/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_membership.parse(res.data) }
   }
 
   async teamsAddOrUpdateMembershipForUserLegacy(
@@ -19222,7 +21773,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -19231,6 +21782,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_membership.parse(res.data) }
   }
 
   async teamsRemoveMembershipForUserLegacy(
@@ -19243,13 +21796,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/memberships/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async teamsListProjectsLegacy(
@@ -19264,13 +21819,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/teams/${p["teamId"]}/projects`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_team_project).parse(res.data) }
   }
 
   async teamsCheckPermissionsForProjectLegacy(
@@ -19283,13 +21840,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_project>> {
     const url = `/teams/${p["teamId"]}/projects/${p["projectId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_project.parse(res.data) }
   }
 
   async teamsAddOrUpdateProjectPermissionsLegacy(
@@ -19307,7 +21866,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -19316,6 +21875,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async teamsRemoveProjectLegacy(
@@ -19328,13 +21889,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/projects/${p["projectId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async teamsListReposLegacy(
@@ -19349,13 +21912,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/teams/${p["teamId"]}/repos`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
   }
 
   async teamsCheckPermissionsForRepoLegacy(
@@ -19369,13 +21934,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_repository> | AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_team_repository.parse(res.data) }
   }
 
   async teamsAddOrUpdateRepoPermissionsLegacy(
@@ -19394,7 +21961,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -19403,6 +21970,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async teamsRemoveRepoLegacy(
@@ -19416,13 +21985,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async teamsListChildLegacy(
@@ -19437,13 +22008,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/teams/${p["teamId"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_team).parse(res.data) }
   }
 
   async usersGetAuthenticated(
@@ -19452,13 +22025,18 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_private_user | t_public_user>> {
     const url = `/user`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.union([s_private_user, s_public_user]).parse(res.data),
+    }
   }
 
   async usersUpdateAuthenticated(
@@ -19481,7 +22059,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -19490,6 +22068,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_private_user.parse(res.data) }
   }
 
   async usersListBlockedByAuthenticatedUser(
@@ -19503,13 +22083,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/blocks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_simple_user).parse(res.data) }
   }
 
   async usersCheckBlocked(
@@ -19521,13 +22103,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/blocks/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async usersBlock(
@@ -19539,13 +22123,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/blocks/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async usersUnblock(
@@ -19557,13 +22143,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/blocks/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async codespacesListForAuthenticatedUser(
@@ -19587,13 +22175,23 @@ export class ApiClient extends AbstractAxiosClient {
       repository_id: p["repositoryId"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          codespaces: z.array(s_codespace),
+        })
+        .parse(res.data),
+    }
   }
 
   async codespacesCreateForAuthenticatedUser(
@@ -19633,7 +22231,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -19642,6 +22240,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_codespace.parse(res.data) }
   }
 
   async codespacesListSecretsForAuthenticatedUser(
@@ -19660,13 +22260,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/codespaces/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          secrets: z.array(s_codespaces_secret),
+        })
+        .parse(res.data),
+    }
   }
 
   async codespacesGetPublicKeyForAuthenticatedUser(
@@ -19675,13 +22285,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespaces_user_public_key>> {
     const url = `/user/codespaces/secrets/public-key`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_codespaces_user_public_key.parse(res.data) }
   }
 
   async codespacesGetSecretForAuthenticatedUser(
@@ -19693,13 +22305,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespaces_secret>> {
     const url = `/user/codespaces/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_codespaces_secret.parse(res.data) }
   }
 
   async codespacesCreateOrUpdateSecretForAuthenticatedUser(
@@ -19718,7 +22332,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -19727,6 +22341,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_empty_object.parse(res.data) }
   }
 
   async codespacesDeleteSecretForAuthenticatedUser(
@@ -19738,13 +22354,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/codespaces/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async codespacesListRepositoriesForSecretForAuthenticatedUser(
@@ -19761,13 +22379,23 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/user/codespaces/secrets/${p["secretName"]}/repositories`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          repositories: z.array(s_minimal_repository),
+        })
+        .parse(res.data),
+    }
   }
 
   async codespacesSetRepositoriesForSecretForAuthenticatedUser(
@@ -19784,7 +22412,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -19793,6 +22421,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async codespacesAddRepositoryForSecretForAuthenticatedUser(
@@ -19805,13 +22435,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async codespacesRemoveRepositoryForSecretForAuthenticatedUser(
@@ -19824,13 +22456,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async codespacesGetForAuthenticatedUser(
@@ -19842,13 +22476,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace>> {
     const url = `/user/codespaces/${p["codespaceName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_codespace.parse(res.data) }
   }
 
   async codespacesUpdateForAuthenticatedUser(
@@ -19867,7 +22503,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -19876,6 +22512,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_codespace.parse(res.data) }
   }
 
   async codespacesDeleteForAuthenticatedUser(
@@ -19887,13 +22525,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<EmptyObject>> {
     const url = `/user/codespaces/${p["codespaceName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.object({}).parse(res.data) }
   }
 
   async codespacesExportForAuthenticatedUser(
@@ -19905,13 +22545,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace_export_details>> {
     const url = `/user/codespaces/${p["codespaceName"]}/exports`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_codespace_export_details.parse(res.data) }
   }
 
   async codespacesGetExportDetailsForAuthenticatedUser(
@@ -19924,13 +22566,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace_export_details>> {
     const url = `/user/codespaces/${p["codespaceName"]}/exports/${p["exportId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_codespace_export_details.parse(res.data) }
   }
 
   async codespacesCodespaceMachinesForAuthenticatedUser(
@@ -19947,13 +22591,23 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/user/codespaces/${p["codespaceName"]}/machines`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          machines: z.array(s_codespace_machine),
+        })
+        .parse(res.data),
+    }
   }
 
   async codespacesPublishForAuthenticatedUser(
@@ -19971,7 +22625,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -19980,6 +22634,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_codespace_with_full_repository.parse(res.data) }
   }
 
   async codespacesStartForAuthenticatedUser(
@@ -19991,13 +22647,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace>> {
     const url = `/user/codespaces/${p["codespaceName"]}/start`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_codespace.parse(res.data) }
   }
 
   async codespacesStopForAuthenticatedUser(
@@ -20009,13 +22667,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace>> {
     const url = `/user/codespaces/${p["codespaceName"]}/stop`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_codespace.parse(res.data) }
   }
 
   async packagesListDockerMigrationConflictingPackagesForAuthenticatedUser(
@@ -20024,13 +22684,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package[]>> {
     const url = `/user/docker/conflicts`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_package).parse(res.data) }
   }
 
   async usersSetPrimaryEmailVisibilityForAuthenticatedUser(
@@ -20046,7 +22708,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -20055,6 +22717,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_email).parse(res.data) }
   }
 
   async usersListEmailsForAuthenticatedUser(
@@ -20068,13 +22732,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/emails`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_email).parse(res.data) }
   }
 
   async usersAddEmailForAuthenticatedUser(
@@ -20093,7 +22759,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20102,6 +22768,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_email).parse(res.data) }
   }
 
   async usersDeleteEmailForAuthenticatedUser(
@@ -20120,7 +22788,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -20129,6 +22797,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async usersListFollowersForAuthenticatedUser(
@@ -20142,13 +22812,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/followers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_simple_user).parse(res.data) }
   }
 
   async usersListFollowedByAuthenticatedUser(
@@ -20162,13 +22834,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/following`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_simple_user).parse(res.data) }
   }
 
   async usersCheckPersonIsFollowedByAuthenticated(
@@ -20180,13 +22854,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/following/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async usersFollow(
@@ -20198,13 +22874,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/following/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async usersUnfollow(
@@ -20216,13 +22894,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/following/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async usersListGpgKeysForAuthenticatedUser(
@@ -20236,13 +22916,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/gpg_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_gpg_key).parse(res.data) }
   }
 
   async usersCreateGpgKeyForAuthenticatedUser(
@@ -20259,7 +22941,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20268,6 +22950,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_gpg_key.parse(res.data) }
   }
 
   async usersGetGpgKeyForAuthenticatedUser(
@@ -20279,13 +22963,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gpg_key>> {
     const url = `/user/gpg_keys/${p["gpgKeyId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_gpg_key.parse(res.data) }
   }
 
   async usersDeleteGpgKeyForAuthenticatedUser(
@@ -20297,13 +22983,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/gpg_keys/${p["gpgKeyId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async appsListInstallationsForAuthenticatedUser(
@@ -20322,13 +23010,23 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/installations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          installations: z.array(s_installation),
+        })
+        .parse(res.data),
+    }
   }
 
   async appsListInstallationReposForAuthenticatedUser(
@@ -20349,13 +23047,24 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/installations/${p["installationId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          total_count: z.coerce.number(),
+          repository_selection: z.string().optional(),
+          repositories: z.array(s_repository),
+        })
+        .parse(res.data),
+    }
   }
 
   async appsAddRepoToInstallationForAuthenticatedUser(
@@ -20368,13 +23077,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async appsRemoveRepoFromInstallationForAuthenticatedUser(
@@ -20387,13 +23098,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async interactionsGetRestrictionsForAuthenticatedUser(
@@ -20405,13 +23118,20 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/user/interaction-limits`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .union([s_interaction_limit_response, z.object({})])
+        .parse(res.data),
+    }
   }
 
   async interactionsSetRestrictionsForAuthenticatedUser(
@@ -20425,7 +23145,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -20434,6 +23154,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_interaction_limit_response.parse(res.data) }
   }
 
   async interactionsRemoveRestrictionsForAuthenticatedUser(
@@ -20442,13 +23164,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/interaction-limits`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async issuesListForAuthenticatedUser(
@@ -20483,13 +23207,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_issue).parse(res.data) }
   }
 
   async usersListPublicSshKeysForAuthenticatedUser(
@@ -20503,13 +23229,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_key).parse(res.data) }
   }
 
   async usersCreatePublicSshKeyForAuthenticatedUser(
@@ -20526,7 +23254,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20535,6 +23263,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_key.parse(res.data) }
   }
 
   async usersGetPublicSshKeyForAuthenticatedUser(
@@ -20546,13 +23276,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_key>> {
     const url = `/user/keys/${p["keyId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_key.parse(res.data) }
   }
 
   async usersDeletePublicSshKeyForAuthenticatedUser(
@@ -20564,13 +23296,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/keys/${p["keyId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async appsListSubscriptionsForAuthenticatedUser(
@@ -20584,13 +23318,18 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/marketplace_purchases`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.array(s_user_marketplace_purchase).parse(res.data),
+    }
   }
 
   async appsListSubscriptionsForAuthenticatedUserStubbed(
@@ -20604,13 +23343,18 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/marketplace_purchases/stubbed`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.array(s_user_marketplace_purchase).parse(res.data),
+    }
   }
 
   async orgsListMembershipsForAuthenticatedUser(
@@ -20629,13 +23373,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_org_membership).parse(res.data) }
   }
 
   async orgsGetMembershipForAuthenticatedUser(
@@ -20647,13 +23393,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_org_membership>> {
     const url = `/user/memberships/orgs/${p["org"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_org_membership.parse(res.data) }
   }
 
   async orgsUpdateMembershipForAuthenticatedUser(
@@ -20670,7 +23418,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -20679,6 +23427,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_org_membership.parse(res.data) }
   }
 
   async migrationsListForAuthenticatedUser(
@@ -20692,13 +23442,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/migrations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_migration).parse(res.data) }
   }
 
   async migrationsStartForAuthenticatedUser(
@@ -20722,7 +23474,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20731,6 +23483,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_migration.parse(res.data) }
   }
 
   async migrationsGetStatusForAuthenticatedUser(
@@ -20744,13 +23498,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/migrations/${p["migrationId"]}`
     const query = this._query({ exclude: p["exclude"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_migration.parse(res.data) }
   }
 
   async migrationsGetArchiveForAuthenticatedUser(
@@ -20759,16 +23515,18 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<never> {
+  ): Promise<AxiosResponse<void>> {
     const url = `/user/migrations/${p["migrationId"]}/archive`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async migrationsDeleteArchiveForAuthenticatedUser(
@@ -20780,13 +23538,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/migrations/${p["migrationId"]}/archive`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async migrationsUnlockRepoForAuthenticatedUser(
@@ -20799,13 +23559,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async migrationsListReposForAuthenticatedUser(
@@ -20820,13 +23582,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/migrations/${p["migrationId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
   }
 
   async orgsListForAuthenticatedUser(
@@ -20840,13 +23604,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/orgs`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_organization_simple).parse(res.data) }
   }
 
   async packagesListPackagesForAuthenticatedUser(
@@ -20873,13 +23639,15 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_package).parse(res.data) }
   }
 
   async packagesGetPackageForAuthenticatedUser(
@@ -20898,13 +23666,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package>> {
     const url = `/user/packages/${p["packageType"]}/${p["packageName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_package.parse(res.data) }
   }
 
   async packagesDeletePackageForAuthenticatedUser(
@@ -20923,13 +23693,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/packages/${p["packageType"]}/${p["packageName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async packagesRestorePackageForAuthenticatedUser(
@@ -20950,13 +23722,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const query = this._query({ token: p["token"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUser(
@@ -20983,13 +23757,15 @@ export class ApiClient extends AbstractAxiosClient {
       state: p["state"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_package_version).parse(res.data) }
   }
 
   async packagesGetPackageVersionForAuthenticatedUser(
@@ -21009,13 +23785,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package_version>> {
     const url = `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_package_version.parse(res.data) }
   }
 
   async packagesDeletePackageVersionForAuthenticatedUser(
@@ -21035,13 +23813,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async packagesRestorePackageVersionForAuthenticatedUser(
@@ -21061,13 +23841,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async projectsCreateForAuthenticatedUser(
@@ -21084,7 +23866,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21093,6 +23875,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_project.parse(res.data) }
   }
 
   async usersListPublicEmailsForAuthenticatedUser(
@@ -21106,13 +23890,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/public_emails`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_email).parse(res.data) }
   }
 
   async reposListForAuthenticatedUser(
@@ -21143,13 +23929,15 @@ export class ApiClient extends AbstractAxiosClient {
       before: p["before"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_repository).parse(res.data) }
   }
 
   async reposCreateForAuthenticatedUser(
@@ -21187,7 +23975,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21196,6 +23984,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_repository.parse(res.data) }
   }
 
   async reposListInvitationsForAuthenticatedUser(
@@ -21209,13 +23999,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/repository_invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_repository_invitation).parse(res.data) }
   }
 
   async reposAcceptInvitationForAuthenticatedUser(
@@ -21227,13 +24019,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/repository_invitations/${p["invitationId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async reposDeclineInvitationForAuthenticatedUser(
@@ -21245,13 +24039,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/repository_invitations/${p["invitationId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async usersListSocialAccountsForAuthenticatedUser(
@@ -21265,13 +24061,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/social_accounts`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_social_account).parse(res.data) }
   }
 
   async usersAddSocialAccountForAuthenticatedUser(
@@ -21287,7 +24085,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21296,6 +24094,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_social_account).parse(res.data) }
   }
 
   async usersDeleteSocialAccountForAuthenticatedUser(
@@ -21311,7 +24111,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -21320,6 +24120,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async usersListSshSigningKeysForAuthenticatedUser(
@@ -21333,13 +24135,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/ssh_signing_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_ssh_signing_key).parse(res.data) }
   }
 
   async usersCreateSshSigningKeyForAuthenticatedUser(
@@ -21356,7 +24160,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21365,6 +24169,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_ssh_signing_key.parse(res.data) }
   }
 
   async usersGetSshSigningKeyForAuthenticatedUser(
@@ -21376,13 +24182,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_ssh_signing_key>> {
     const url = `/user/ssh_signing_keys/${p["sshSigningKeyId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_ssh_signing_key.parse(res.data) }
   }
 
   async usersDeleteSshSigningKeyForAuthenticatedUser(
@@ -21394,13 +24202,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/ssh_signing_keys/${p["sshSigningKeyId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async activityListReposStarredByAuthenticatedUser(
@@ -21421,13 +24231,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_starred_repository).parse(res.data) }
   }
 
   async activityCheckRepoIsStarredByAuthenticatedUser(
@@ -21440,13 +24252,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/starred/${p["owner"]}/${p["repo"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async activityStarRepoForAuthenticatedUser(
@@ -21459,13 +24273,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/starred/${p["owner"]}/${p["repo"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async activityUnstarRepoForAuthenticatedUser(
@@ -21478,13 +24294,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/starred/${p["owner"]}/${p["repo"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async activityListWatchedReposForAuthenticatedUser(
@@ -21498,13 +24316,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/subscriptions`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
   }
 
   async teamsListForAuthenticatedUser(
@@ -21518,13 +24338,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_team_full).parse(res.data) }
   }
 
   async usersList(
@@ -21538,13 +24360,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users`
     const query = this._query({ since: p["since"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_simple_user).parse(res.data) }
   }
 
   async usersGetByUsername(
@@ -21556,13 +24380,18 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_private_user | t_public_user>> {
     const url = `/users/${p["username"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z.union([s_private_user, s_public_user]).parse(res.data),
+    }
   }
 
   async packagesListDockerMigrationConflictingPackagesForUser(
@@ -21574,13 +24403,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package[]>> {
     const url = `/users/${p["username"]}/docker/conflicts`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_package).parse(res.data) }
   }
 
   async activityListEventsForAuthenticatedUser(
@@ -21595,13 +24426,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_event).parse(res.data) }
   }
 
   async activityListOrgEventsForAuthenticatedUser(
@@ -21617,13 +24450,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/events/orgs/${p["org"]}`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_event).parse(res.data) }
   }
 
   async activityListPublicEventsForUser(
@@ -21638,13 +24473,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/events/public`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_event).parse(res.data) }
   }
 
   async usersListFollowersForUser(
@@ -21659,13 +24496,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/followers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_simple_user).parse(res.data) }
   }
 
   async usersListFollowingForUser(
@@ -21680,13 +24519,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/following`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_simple_user).parse(res.data) }
   }
 
   async usersCheckFollowingForUser(
@@ -21699,13 +24540,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/users/${p["username"]}/following/${p["targetUser"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async gistsListForUser(
@@ -21725,13 +24568,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_base_gist).parse(res.data) }
   }
 
   async usersListGpgKeysForUser(
@@ -21746,13 +24591,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/gpg_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_gpg_key).parse(res.data) }
   }
 
   async usersGetContextForUser(
@@ -21770,13 +24617,15 @@ export class ApiClient extends AbstractAxiosClient {
       subject_id: p["subjectId"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_hovercard.parse(res.data) }
   }
 
   async appsGetUserInstallation(
@@ -21788,13 +24637,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_installation>> {
     const url = `/users/${p["username"]}/installation`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_installation.parse(res.data) }
   }
 
   async usersListPublicKeysForUser(
@@ -21809,13 +24660,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_key_simple).parse(res.data) }
   }
 
   async orgsListForUser(
@@ -21830,13 +24683,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/orgs`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_organization_simple).parse(res.data) }
   }
 
   async packagesListPackagesForUser(
@@ -21864,13 +24719,15 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_package).parse(res.data) }
   }
 
   async packagesGetPackageForUser(
@@ -21890,13 +24747,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package>> {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_package.parse(res.data) }
   }
 
   async packagesDeletePackageForUser(
@@ -21916,13 +24775,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async packagesRestorePackageForUser(
@@ -21944,13 +24805,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const query = this._query({ token: p["token"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async packagesGetAllPackageVersionsForPackageOwnedByUser(
@@ -21970,13 +24833,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package_version[]>> {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_package_version).parse(res.data) }
   }
 
   async packagesGetPackageVersionForUser(
@@ -21997,13 +24862,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package_version>> {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_package_version.parse(res.data) }
   }
 
   async packagesDeletePackageVersionForUser(
@@ -22024,13 +24891,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async packagesRestorePackageVersionForUser(
@@ -22051,13 +24920,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async projectsListForUser(
@@ -22077,13 +24948,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_project).parse(res.data) }
   }
 
   async activityListReceivedEventsForUser(
@@ -22098,13 +24971,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/received_events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_event).parse(res.data) }
   }
 
   async activityListReceivedPublicEventsForUser(
@@ -22119,13 +24994,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/received_events/public`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_event).parse(res.data) }
   }
 
   async reposListForUser(
@@ -22149,13 +25026,15 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
   }
 
   async billingGetGithubActionsBillingUser(
@@ -22167,13 +25046,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_billing_usage>> {
     const url = `/users/${p["username"]}/settings/billing/actions`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_actions_billing_usage.parse(res.data) }
   }
 
   async billingGetGithubPackagesBillingUser(
@@ -22185,13 +25066,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_packages_billing_usage>> {
     const url = `/users/${p["username"]}/settings/billing/packages`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_packages_billing_usage.parse(res.data) }
   }
 
   async billingGetSharedStorageBillingUser(
@@ -22203,13 +25086,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_combined_billing_usage>> {
     const url = `/users/${p["username"]}/settings/billing/shared-storage`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_combined_billing_usage.parse(res.data) }
   }
 
   async usersListSocialAccountsForUser(
@@ -22224,13 +25109,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/social_accounts`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_social_account).parse(res.data) }
   }
 
   async usersListSshSigningKeysForUser(
@@ -22245,13 +25132,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/ssh_signing_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_ssh_signing_key).parse(res.data) }
   }
 
   async activityListReposStarredByUser(
@@ -22273,13 +25162,20 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .union([z.array(s_starred_repository), z.array(s_repository)])
+        .parse(res.data),
+    }
   }
 
   async activityListReposWatchedByUser(
@@ -22294,13 +25190,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/subscriptions`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
   }
 
   async metaGetAllVersions(
@@ -22309,13 +25207,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string[]>> {
     const url = `/versions`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(z.string()).parse(res.data) }
   }
 
   async metaGetZen(
@@ -22324,12 +25224,14 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string>> {
     const url = `/zen`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.string().parse(res.data) }
   }
 }

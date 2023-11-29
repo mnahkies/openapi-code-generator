@@ -2,4 +2,12563 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import {
+  t_account,
+  t_account_branding_settings,
+  t_account_settings,
+  t_api_errors,
+  t_application_fee,
+  t_balance_transaction,
+  t_bank_account,
+  t_bank_connections_resource_accountholder,
+  t_capability,
+  t_card,
+  t_charge,
+  t_charge_transfer_data,
+  t_checkout_session,
+  t_connect_collection_transfer,
+  t_credit_note,
+  t_credit_note_line_item,
+  t_customer,
+  t_customer_balance_resource_cash_balance_transaction_resource_adjusted_for_overdraft,
+  t_customer_balance_resource_cash_balance_transaction_resource_applied_to_payment_transaction,
+  t_customer_balance_resource_cash_balance_transaction_resource_refunded_from_payment_transaction,
+  t_customer_balance_resource_cash_balance_transaction_resource_unapplied_from_payment_transaction,
+  t_customer_balance_transaction,
+  t_customer_cash_balance_transaction,
+  t_deleted_discount,
+  t_discount,
+  t_discounts_resource_discount_amount,
+  t_dispute,
+  t_dispute_evidence,
+  t_error,
+  t_external_account,
+  t_fee_refund,
+  t_file,
+  t_file_link,
+  t_financial_connections_account,
+  t_financial_connections_session,
+  t_invoice,
+  t_invoice_setting_customer_setting,
+  t_invoice_transfer_data,
+  t_invoiceitem,
+  t_invoices_from_invoice,
+  t_issuing_authorization,
+  t_issuing_card,
+  t_issuing_cardholder,
+  t_issuing_cardholder_id_document,
+  t_issuing_cardholder_individual,
+  t_issuing_cardholder_verification,
+  t_issuing_dispute,
+  t_issuing_dispute_canceled_evidence,
+  t_issuing_dispute_duplicate_evidence,
+  t_issuing_dispute_evidence,
+  t_issuing_dispute_fraudulent_evidence,
+  t_issuing_dispute_merchandise_not_as_described_evidence,
+  t_issuing_dispute_not_received_evidence,
+  t_issuing_dispute_other_evidence,
+  t_issuing_dispute_service_not_as_described_evidence,
+  t_issuing_transaction,
+  t_item,
+  t_legal_entity_company,
+  t_legal_entity_company_verification,
+  t_legal_entity_company_verification_document,
+  t_legal_entity_person_verification,
+  t_legal_entity_person_verification_document,
+  t_line_item,
+  t_line_items_discount_amount,
+  t_mandate,
+  t_payment_intent,
+  t_payment_link,
+  t_payment_links_resource_invoice_creation,
+  t_payment_links_resource_invoice_settings,
+  t_payment_links_resource_transfer_data,
+  t_payment_method,
+  t_payment_method_card,
+  t_payment_method_card_generated_card,
+  t_payment_method_details,
+  t_payment_method_details_bancontact,
+  t_payment_method_details_ideal,
+  t_payment_method_details_sofort,
+  t_payment_method_sepa_debit,
+  t_payment_pages_checkout_session_invoice_creation,
+  t_payment_pages_checkout_session_invoice_settings,
+  t_payment_pages_checkout_session_total_details,
+  t_payment_pages_checkout_session_total_details_resource_breakdown,
+  t_payment_source,
+  t_payout,
+  t_person,
+  t_plan,
+  t_price,
+  t_product,
+  t_promotion_code,
+  t_quote,
+  t_quotes_resource_computed,
+  t_quotes_resource_from_quote,
+  t_quotes_resource_recurring,
+  t_quotes_resource_total_details,
+  t_quotes_resource_total_details_resource_breakdown,
+  t_quotes_resource_transfer_data,
+  t_quotes_resource_upfront,
+  t_radar_early_fraud_warning,
+  t_refund,
+  t_reporting_report_run,
+  t_review,
+  t_scheduled_query_run,
+  t_sepa_debit_generated_from,
+  t_setup_attempt,
+  t_setup_attempt_payment_method_details,
+  t_setup_attempt_payment_method_details_bancontact,
+  t_setup_attempt_payment_method_details_card_present,
+  t_setup_attempt_payment_method_details_ideal,
+  t_setup_attempt_payment_method_details_sofort,
+  t_setup_intent,
+  t_subscription,
+  t_subscription_item,
+  t_subscription_schedule,
+  t_subscription_schedule_add_invoice_item,
+  t_subscription_schedule_configuration_item,
+  t_subscription_schedule_phase_configuration,
+  t_subscription_schedules_resource_default_settings,
+  t_subscription_transfer_data,
+  t_subscriptions_resource_pending_update,
+  t_tax_id,
+  t_terminal_configuration,
+  t_terminal_configuration_configuration_resource_device_type_specific_config,
+  t_terminal_reader,
+  t_terminal_reader_reader_resource_process_payment_intent_action,
+  t_terminal_reader_reader_resource_process_setup_intent_action,
+  t_terminal_reader_reader_resource_reader_action,
+  t_terminal_reader_reader_resource_refund_payment_action,
+  t_token,
+  t_topup,
+  t_transfer,
+  t_transfer_data,
+  t_transfer_reversal,
+  t_treasury_credit_reversal,
+  t_treasury_debit_reversal,
+  t_treasury_inbound_transfer,
+  t_treasury_outbound_payment,
+  t_treasury_outbound_payments_resource_returned_status,
+  t_treasury_outbound_transfer,
+  t_treasury_outbound_transfers_resource_returned_details,
+  t_treasury_received_credit,
+  t_treasury_received_credits_resource_linked_flows,
+  t_treasury_received_credits_resource_source_flows_details,
+  t_treasury_received_debit,
+  t_treasury_transaction,
+  t_treasury_transaction_entry,
+  t_treasury_transactions_resource_flow_details,
+} from "./models"
 import { z } from "zod"
+
+export const s_account_bacs_debit_payments_settings = z.object({
+  display_name: z.string().optional(),
+})
+
+export const s_account_capabilities = z.object({
+  acss_debit_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  affirm_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  afterpay_clearpay_payments: z
+    .enum(["active", "inactive", "pending"])
+    .optional(),
+  au_becs_debit_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  bacs_debit_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  bancontact_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  bank_transfer_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  blik_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  boleto_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  card_issuing: z.enum(["active", "inactive", "pending"]).optional(),
+  card_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  cartes_bancaires_payments: z
+    .enum(["active", "inactive", "pending"])
+    .optional(),
+  cashapp_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  eps_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  fpx_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  giropay_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  grabpay_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  ideal_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  india_international_payments: z
+    .enum(["active", "inactive", "pending"])
+    .optional(),
+  jcb_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  klarna_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  konbini_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  legacy_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  link_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  oxxo_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  p24_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  paynow_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  promptpay_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  sepa_debit_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  sofort_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  tax_reporting_us_1099_k: z.enum(["active", "inactive", "pending"]).optional(),
+  tax_reporting_us_1099_misc: z
+    .enum(["active", "inactive", "pending"])
+    .optional(),
+  transfers: z.enum(["active", "inactive", "pending"]).optional(),
+  treasury: z.enum(["active", "inactive", "pending"]).optional(),
+  us_bank_account_ach_payments: z
+    .enum(["active", "inactive", "pending"])
+    .optional(),
+  zip_payments: z.enum(["active", "inactive", "pending"]).optional(),
+})
+
+export const s_account_dashboard_settings = z.object({
+  display_name: z.string().nullable().optional(),
+  timezone: z.string().nullable().optional(),
+})
+
+export const s_account_decline_charge_on = z.object({
+  avs_failure: z.coerce.boolean(),
+  cvc_failure: z.coerce.boolean(),
+})
+
+export const s_account_link = z.object({
+  created: z.coerce.number(),
+  expires_at: z.coerce.number(),
+  object: z.enum(["account_link"]),
+  url: z.string(),
+})
+
+export const s_account_monthly_estimated_revenue = z.object({
+  amount: z.coerce.number(),
+  currency: z.string(),
+})
+
+export const s_account_payments_settings = z.object({
+  statement_descriptor: z.string().nullable().optional(),
+  statement_descriptor_kana: z.string().nullable().optional(),
+  statement_descriptor_kanji: z.string().nullable().optional(),
+  statement_descriptor_prefix_kana: z.string().nullable().optional(),
+  statement_descriptor_prefix_kanji: z.string().nullable().optional(),
+})
+
+export const s_account_requirements_alternative = z.object({
+  alternative_fields_due: z.array(z.string()),
+  original_fields_due: z.array(z.string()),
+})
+
+export const s_account_requirements_error = z.object({
+  code: z.enum([
+    "invalid_address_city_state_postal_code",
+    "invalid_dob_age_under_18",
+    "invalid_representative_country",
+    "invalid_street_address",
+    "invalid_tos_acceptance",
+    "invalid_value_other",
+    "verification_directors_mismatch",
+    "verification_document_address_mismatch",
+    "verification_document_address_missing",
+    "verification_document_corrupt",
+    "verification_document_country_not_supported",
+    "verification_document_directors_mismatch",
+    "verification_document_dob_mismatch",
+    "verification_document_duplicate_type",
+    "verification_document_expired",
+    "verification_document_failed_copy",
+    "verification_document_failed_greyscale",
+    "verification_document_failed_other",
+    "verification_document_failed_test_mode",
+    "verification_document_fraudulent",
+    "verification_document_id_number_mismatch",
+    "verification_document_id_number_missing",
+    "verification_document_incomplete",
+    "verification_document_invalid",
+    "verification_document_issue_or_expiry_date_missing",
+    "verification_document_manipulated",
+    "verification_document_missing_back",
+    "verification_document_missing_front",
+    "verification_document_name_mismatch",
+    "verification_document_name_missing",
+    "verification_document_nationality_mismatch",
+    "verification_document_not_readable",
+    "verification_document_not_signed",
+    "verification_document_not_uploaded",
+    "verification_document_photo_mismatch",
+    "verification_document_too_large",
+    "verification_document_type_not_supported",
+    "verification_extraneous_directors",
+    "verification_failed_address_match",
+    "verification_failed_business_iec_number",
+    "verification_failed_document_match",
+    "verification_failed_id_number_match",
+    "verification_failed_keyed_identity",
+    "verification_failed_keyed_match",
+    "verification_failed_name_match",
+    "verification_failed_other",
+    "verification_failed_residential_address",
+    "verification_failed_tax_id_match",
+    "verification_failed_tax_id_not_issued",
+    "verification_missing_directors",
+    "verification_missing_executives",
+    "verification_missing_owners",
+    "verification_requires_additional_memorandum_of_associations",
+  ]),
+  reason: z.string(),
+  requirement: z.string(),
+})
+
+export const s_account_sepa_debit_payments_settings = z.object({
+  creditor_id: z.string().optional(),
+})
+
+export const s_account_terms_of_service = z.object({
+  date: z.coerce.number().nullable().optional(),
+  ip: z.string().nullable().optional(),
+  user_agent: z.string().optional(),
+})
+
+export const s_account_tos_acceptance = z.object({
+  date: z.coerce.number().nullable().optional(),
+  ip: z.string().nullable().optional(),
+  service_agreement: z.string().optional(),
+  user_agent: z.string().nullable().optional(),
+})
+
+export const s_account_unification_account_controller = z.object({
+  is_controller: z.coerce.boolean().optional(),
+  type: z.enum(["account", "application"]),
+})
+
+export const s_address = z.object({
+  city: z.string().nullable().optional(),
+  country: z.string().nullable().optional(),
+  line1: z.string().nullable().optional(),
+  line2: z.string().nullable().optional(),
+  postal_code: z.string().nullable().optional(),
+  state: z.string().nullable().optional(),
+})
+
+export const s_apple_pay_domain = z.object({
+  created: z.coerce.number(),
+  domain_name: z.string(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  object: z.enum(["apple_pay_domain"]),
+})
+
+export const s_application = z.object({
+  id: z.string(),
+  name: z.string().nullable().optional(),
+  object: z.enum(["application"]),
+})
+
+export const s_automatic_tax = z.object({
+  enabled: z.coerce.boolean(),
+  status: z
+    .enum(["complete", "failed", "requires_location_inputs"])
+    .nullable()
+    .optional(),
+})
+
+export const s_balance_amount_by_source_type = z.object({
+  bank_account: z.coerce.number().optional(),
+  card: z.coerce.number().optional(),
+  fpx: z.coerce.number().optional(),
+})
+
+export const s_bank_connections_resource_balance_api_resource_cash_balance =
+  z.object({ available: z.object({}).nullable().optional() })
+
+export const s_bank_connections_resource_balance_api_resource_credit_balance =
+  z.object({ used: z.object({}).nullable().optional() })
+
+export const s_bank_connections_resource_balance_refresh = z.object({
+  last_attempted_at: z.coerce.number(),
+  status: z.enum(["failed", "pending", "succeeded"]),
+})
+
+export const s_bank_connections_resource_link_account_session_filters =
+  z.object({ countries: z.array(z.string()).nullable().optional() })
+
+export const s_bank_connections_resource_ownership_refresh = z.object({
+  last_attempted_at: z.coerce.number(),
+  status: z.enum(["failed", "pending", "succeeded"]),
+})
+
+export const s_cancellation_details = z.object({
+  comment: z.string().nullable().optional(),
+  feedback: z
+    .enum([
+      "customer_service",
+      "low_quality",
+      "missing_features",
+      "other",
+      "switched_service",
+      "too_complex",
+      "too_expensive",
+      "unused",
+    ])
+    .nullable()
+    .optional(),
+  reason: z
+    .enum(["cancellation_requested", "payment_disputed", "payment_failed"])
+    .nullable()
+    .optional(),
+})
+
+export const s_card_issuing_account_terms_of_service = z.object({
+  date: z.coerce.number().nullable().optional(),
+  ip: z.string().nullable().optional(),
+  user_agent: z.string().optional(),
+})
+
+export const s_card_mandate_payment_method_details = z.object({})
+
+export const s_charge_fraud_details = z.object({
+  stripe_report: z.string().optional(),
+  user_report: z.string().optional(),
+})
+
+export const s_checkout_acss_debit_mandate_options = z.object({
+  custom_mandate_url: z.string().optional(),
+  default_for: z.array(z.enum(["invoice", "subscription"])).optional(),
+  interval_description: z.string().nullable().optional(),
+  payment_schedule: z
+    .enum(["combined", "interval", "sporadic"])
+    .nullable()
+    .optional(),
+  transaction_type: z.enum(["business", "personal"]).nullable().optional(),
+})
+
+export const s_checkout_affirm_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_checkout_afterpay_clearpay_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_checkout_alipay_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_checkout_au_becs_debit_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_checkout_bacs_debit_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+})
+
+export const s_checkout_bancontact_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_checkout_boleto_payment_method_options = z.object({
+  expires_after_days: z.coerce.number(),
+  setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+})
+
+export const s_checkout_card_installments_options = z.object({
+  enabled: z.coerce.boolean().optional(),
+})
+
+export const s_checkout_cashapp_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_checkout_eps_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_checkout_fpx_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_checkout_giropay_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_checkout_grab_pay_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_checkout_ideal_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_checkout_klarna_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+})
+
+export const s_checkout_konbini_payment_method_options = z.object({
+  expires_after_days: z.coerce.number().nullable().optional(),
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_checkout_link_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none", "off_session"]).optional(),
+})
+
+export const s_checkout_oxxo_payment_method_options = z.object({
+  expires_after_days: z.coerce.number(),
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_checkout_p24_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_checkout_paynow_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_checkout_pix_payment_method_options = z.object({
+  expires_after_seconds: z.coerce.number().nullable().optional(),
+})
+
+export const s_checkout_sepa_debit_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+})
+
+export const s_checkout_sofort_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_connect_embedded_base_config_claim = z.object({
+  enabled: z.coerce.boolean(),
+})
+
+export const s_country_spec_verification_field_details = z.object({
+  additional: z.array(z.string()),
+  minimum: z.array(z.string()),
+})
+
+export const s_coupon_applies_to = z.object({ products: z.array(z.string()) })
+
+export const s_custom_unit_amount = z.object({
+  maximum: z.coerce.number().nullable().optional(),
+  minimum: z.coerce.number().nullable().optional(),
+  preset: z.coerce.number().nullable().optional(),
+})
+
+export const s_customer_balance_customer_balance_settings = z.object({
+  reconciliation_mode: z.enum(["automatic", "manual"]),
+  using_merchant_default: z.coerce.boolean(),
+})
+
+export const s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_eu_bank_transfer =
+  z.object({
+    bic: z.string().nullable().optional(),
+    iban_last4: z.string().nullable().optional(),
+    sender_name: z.string().nullable().optional(),
+  })
+
+export const s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_gb_bank_transfer =
+  z.object({
+    account_number_last4: z.string().nullable().optional(),
+    sender_name: z.string().nullable().optional(),
+    sort_code: z.string().nullable().optional(),
+  })
+
+export const s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_jp_bank_transfer =
+  z.object({
+    sender_bank: z.string().nullable().optional(),
+    sender_branch: z.string().nullable().optional(),
+    sender_name: z.string().nullable().optional(),
+  })
+
+export const s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_us_bank_transfer =
+  z.object({
+    network: z.enum(["ach", "domestic_wire_us", "swift"]).optional(),
+    sender_name: z.string().nullable().optional(),
+  })
+
+export const s_customer_tax_location = z.object({
+  country: z.string(),
+  source: z.enum([
+    "billing_address",
+    "ip_address",
+    "payment_method",
+    "shipping_destination",
+  ]),
+  state: z.string().nullable().optional(),
+})
+
+export const s_deleted_account = z.object({
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  object: z.enum(["account"]),
+})
+
+export const s_deleted_apple_pay_domain = z.object({
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  object: z.enum(["apple_pay_domain"]),
+})
+
+export const s_deleted_application = z.object({
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  name: z.string().nullable().optional(),
+  object: z.enum(["application"]),
+})
+
+export const s_deleted_bank_account = z.object({
+  currency: z.string().nullable().optional(),
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  object: z.enum(["bank_account"]),
+})
+
+export const s_deleted_card = z.object({
+  currency: z.string().nullable().optional(),
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  object: z.enum(["card"]),
+})
+
+export const s_deleted_coupon = z.object({
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  object: z.enum(["coupon"]),
+})
+
+export const s_deleted_customer = z.object({
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  object: z.enum(["customer"]),
+})
+
+export const s_deleted_invoice = z.object({
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  object: z.enum(["invoice"]),
+})
+
+export const s_deleted_invoiceitem = z.object({
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  object: z.enum(["invoiceitem"]),
+})
+
+export const s_deleted_person = z.object({
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  object: z.enum(["person"]),
+})
+
+export const s_deleted_plan = z.object({
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  object: z.enum(["plan"]),
+})
+
+export const s_deleted_price = z.object({
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  object: z.enum(["price"]),
+})
+
+export const s_deleted_product = z.object({
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  object: z.enum(["product"]),
+})
+
+export const s_deleted_radar_value_list = z.object({
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  object: z.enum(["radar.value_list"]),
+})
+
+export const s_deleted_radar_value_list_item = z.object({
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  object: z.enum(["radar.value_list_item"]),
+})
+
+export const s_deleted_subscription_item = z.object({
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  object: z.enum(["subscription_item"]),
+})
+
+export const s_deleted_tax_id = z.object({
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  object: z.enum(["tax_id"]),
+})
+
+export const s_deleted_terminal_configuration = z.object({
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  object: z.enum(["terminal.configuration"]),
+})
+
+export const s_deleted_terminal_location = z.object({
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  object: z.enum(["terminal.location"]),
+})
+
+export const s_deleted_terminal_reader = z.object({
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  object: z.enum(["terminal.reader"]),
+})
+
+export const s_deleted_test_helpers_test_clock = z.object({
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  object: z.enum(["test_helpers.test_clock"]),
+})
+
+export const s_deleted_webhook_endpoint = z.object({
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  object: z.enum(["webhook_endpoint"]),
+})
+
+export const s_dispute_evidence_details = z.object({
+  due_by: z.coerce.number().nullable().optional(),
+  has_evidence: z.coerce.boolean(),
+  past_due: z.coerce.boolean(),
+  submission_count: z.coerce.number(),
+})
+
+export const s_dispute_payment_method_details_card = z.object({
+  brand: z.string(),
+  network_reason_code: z.string().nullable().optional(),
+})
+
+export const s_email_sent = z.object({
+  email_sent_at: z.coerce.number(),
+  email_sent_to: z.string(),
+})
+
+export const s_ephemeral_key = z.object({
+  created: z.coerce.number(),
+  expires: z.coerce.number(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  object: z.enum(["ephemeral_key"]),
+  secret: z.string().optional(),
+})
+
+export const s_exchange_rate = z.object({
+  id: z.string(),
+  object: z.enum(["exchange_rate"]),
+  rates: z.object({}),
+})
+
+export const s_fee = z.object({
+  amount: z.coerce.number(),
+  application: z.string().nullable().optional(),
+  currency: z.string(),
+  description: z.string().nullable().optional(),
+  type: z.string(),
+})
+
+export const s_financial_connections_account_owner = z.object({
+  email: z.string().nullable().optional(),
+  id: z.string(),
+  name: z.string(),
+  object: z.enum(["financial_connections.account_owner"]),
+  ownership: z.string(),
+  phone: z.string().nullable().optional(),
+  raw_address: z.string().nullable().optional(),
+  refreshed_at: z.coerce.number().nullable().optional(),
+})
+
+export const s_financial_reporting_finance_report_run_run_parameters = z.object(
+  {
+    columns: z.array(z.string()).optional(),
+    connected_account: z.string().optional(),
+    currency: z.string().optional(),
+    interval_end: z.coerce.number().optional(),
+    interval_start: z.coerce.number().optional(),
+    payout: z.string().optional(),
+    reporting_category: z.string().optional(),
+    timezone: z.string().optional(),
+  },
+)
+
+export const s_funding_instructions_bank_transfer_iban_record = z.object({
+  account_holder_name: z.string(),
+  bic: z.string(),
+  country: z.string(),
+  iban: z.string(),
+})
+
+export const s_funding_instructions_bank_transfer_sort_code_record = z.object({
+  account_holder_name: z.string(),
+  account_number: z.string(),
+  sort_code: z.string(),
+})
+
+export const s_funding_instructions_bank_transfer_spei_record = z.object({
+  bank_code: z.string(),
+  bank_name: z.string(),
+  clabe: z.string(),
+})
+
+export const s_funding_instructions_bank_transfer_zengin_record = z.object({
+  account_holder_name: z.string().nullable().optional(),
+  account_number: z.string().nullable().optional(),
+  account_type: z.string().nullable().optional(),
+  bank_code: z.string().nullable().optional(),
+  bank_name: z.string().nullable().optional(),
+  branch_code: z.string().nullable().optional(),
+  branch_name: z.string().nullable().optional(),
+})
+
+export const s_gelato_data_document_report_date_of_birth = z.object({
+  day: z.coerce.number().nullable().optional(),
+  month: z.coerce.number().nullable().optional(),
+  year: z.coerce.number().nullable().optional(),
+})
+
+export const s_gelato_data_document_report_expiration_date = z.object({
+  day: z.coerce.number().nullable().optional(),
+  month: z.coerce.number().nullable().optional(),
+  year: z.coerce.number().nullable().optional(),
+})
+
+export const s_gelato_data_document_report_issued_date = z.object({
+  day: z.coerce.number().nullable().optional(),
+  month: z.coerce.number().nullable().optional(),
+  year: z.coerce.number().nullable().optional(),
+})
+
+export const s_gelato_data_id_number_report_date = z.object({
+  day: z.coerce.number().nullable().optional(),
+  month: z.coerce.number().nullable().optional(),
+  year: z.coerce.number().nullable().optional(),
+})
+
+export const s_gelato_data_verified_outputs_date = z.object({
+  day: z.coerce.number().nullable().optional(),
+  month: z.coerce.number().nullable().optional(),
+  year: z.coerce.number().nullable().optional(),
+})
+
+export const s_gelato_document_report_error = z.object({
+  code: z
+    .enum([
+      "document_expired",
+      "document_type_not_supported",
+      "document_unverified_other",
+    ])
+    .nullable()
+    .optional(),
+  reason: z.string().nullable().optional(),
+})
+
+export const s_gelato_id_number_report_error = z.object({
+  code: z
+    .enum([
+      "id_number_insufficient_document_data",
+      "id_number_mismatch",
+      "id_number_unverified_other",
+    ])
+    .nullable()
+    .optional(),
+  reason: z.string().nullable().optional(),
+})
+
+export const s_gelato_report_document_options = z.object({
+  allowed_types: z
+    .array(z.enum(["driving_license", "id_card", "passport"]))
+    .optional(),
+  require_id_number: z.coerce.boolean().optional(),
+  require_live_capture: z.coerce.boolean().optional(),
+  require_matching_selfie: z.coerce.boolean().optional(),
+})
+
+export const s_gelato_report_id_number_options = z.object({})
+
+export const s_gelato_selfie_report_error = z.object({
+  code: z
+    .enum([
+      "selfie_document_missing_photo",
+      "selfie_face_mismatch",
+      "selfie_manipulated",
+      "selfie_unverified_other",
+    ])
+    .nullable()
+    .optional(),
+  reason: z.string().nullable().optional(),
+})
+
+export const s_gelato_session_document_options = z.object({
+  allowed_types: z
+    .array(z.enum(["driving_license", "id_card", "passport"]))
+    .optional(),
+  require_id_number: z.coerce.boolean().optional(),
+  require_live_capture: z.coerce.boolean().optional(),
+  require_matching_selfie: z.coerce.boolean().optional(),
+})
+
+export const s_gelato_session_id_number_options = z.object({})
+
+export const s_gelato_session_last_error = z.object({
+  code: z
+    .enum([
+      "abandoned",
+      "consent_declined",
+      "country_not_supported",
+      "device_not_supported",
+      "document_expired",
+      "document_type_not_supported",
+      "document_unverified_other",
+      "id_number_insufficient_document_data",
+      "id_number_mismatch",
+      "id_number_unverified_other",
+      "selfie_document_missing_photo",
+      "selfie_face_mismatch",
+      "selfie_manipulated",
+      "selfie_unverified_other",
+      "under_supported_age",
+    ])
+    .nullable()
+    .optional(),
+  reason: z.string().nullable().optional(),
+})
+
+export const s_inbound_transfers_payment_method_details_us_bank_account =
+  z.object({
+    account_holder_type: z
+      .enum(["company", "individual"])
+      .nullable()
+      .optional(),
+    account_type: z.enum(["checking", "savings"]).nullable().optional(),
+    bank_name: z.string().nullable().optional(),
+    fingerprint: z.string().nullable().optional(),
+    last4: z.string().nullable().optional(),
+    network: z.enum(["ach"]),
+    routing_number: z.string().nullable().optional(),
+  })
+
+export const s_invoice_installments_card = z.object({
+  enabled: z.coerce.boolean().nullable().optional(),
+})
+
+export const s_invoice_item_threshold_reason = z.object({
+  line_item_ids: z.array(z.string()),
+  usage_gte: z.coerce.number(),
+})
+
+export const s_invoice_line_item_period = z.object({
+  end: z.coerce.number(),
+  start: z.coerce.number(),
+})
+
+export const s_invoice_mandate_options_card = z.object({
+  amount: z.coerce.number().nullable().optional(),
+  amount_type: z.enum(["fixed", "maximum"]).nullable().optional(),
+  description: z.string().nullable().optional(),
+})
+
+export const s_invoice_payment_method_options_acss_debit_mandate_options =
+  z.object({
+    transaction_type: z.enum(["business", "personal"]).nullable().optional(),
+  })
+
+export const s_invoice_payment_method_options_bancontact = z.object({
+  preferred_language: z.enum(["de", "en", "fr", "nl"]),
+})
+
+export const s_invoice_payment_method_options_customer_balance_bank_transfer_eu_bank_transfer =
+  z.object({ country: z.enum(["BE", "DE", "ES", "FR", "IE", "NL"]) })
+
+export const s_invoice_payment_method_options_konbini = z.object({})
+
+export const s_invoice_payment_method_options_us_bank_account_linked_account_options =
+  z.object({
+    permissions: z
+      .array(z.enum(["balances", "payment_method", "transactions"]))
+      .optional(),
+    prefetch: z
+      .array(z.enum(["balances"]))
+      .nullable()
+      .optional(),
+  })
+
+export const s_invoice_rendering_pdf = z.object({
+  page_size: z.enum(["a4", "auto", "letter"]).nullable().optional(),
+})
+
+export const s_invoice_setting_custom_field = z.object({
+  name: z.string(),
+  value: z.string(),
+})
+
+export const s_invoice_setting_quote_setting = z.object({
+  days_until_due: z.coerce.number().nullable().optional(),
+})
+
+export const s_invoice_setting_rendering_options = z.object({
+  amount_tax_display: z.string().nullable().optional(),
+})
+
+export const s_invoice_setting_subscription_schedule_phase_setting = z.object({
+  days_until_due: z.coerce.number().nullable().optional(),
+})
+
+export const s_invoice_setting_subscription_schedule_setting = z.object({
+  days_until_due: z.coerce.number().nullable().optional(),
+})
+
+export const s_invoices_resource_invoice_tax_id = z.object({
+  type: z.enum([
+    "ad_nrt",
+    "ae_trn",
+    "ar_cuit",
+    "au_abn",
+    "au_arn",
+    "bg_uic",
+    "bo_tin",
+    "br_cnpj",
+    "br_cpf",
+    "ca_bn",
+    "ca_gst_hst",
+    "ca_pst_bc",
+    "ca_pst_mb",
+    "ca_pst_sk",
+    "ca_qst",
+    "ch_vat",
+    "cl_tin",
+    "cn_tin",
+    "co_nit",
+    "cr_tin",
+    "do_rcn",
+    "ec_ruc",
+    "eg_tin",
+    "es_cif",
+    "eu_oss_vat",
+    "eu_vat",
+    "gb_vat",
+    "ge_vat",
+    "hk_br",
+    "hu_tin",
+    "id_npwp",
+    "il_vat",
+    "in_gst",
+    "is_vat",
+    "jp_cn",
+    "jp_rn",
+    "jp_trn",
+    "ke_pin",
+    "kr_brn",
+    "li_uid",
+    "mx_rfc",
+    "my_frp",
+    "my_itn",
+    "my_sst",
+    "no_vat",
+    "nz_gst",
+    "pe_ruc",
+    "ph_tin",
+    "ro_tin",
+    "rs_pib",
+    "ru_inn",
+    "ru_kpp",
+    "sa_vat",
+    "sg_gst",
+    "sg_uen",
+    "si_tin",
+    "sv_nit",
+    "th_vat",
+    "tr_tin",
+    "tw_vat",
+    "ua_vat",
+    "unknown",
+    "us_ein",
+    "uy_ruc",
+    "ve_rif",
+    "vn_tin",
+    "za_vat",
+  ]),
+  value: z.string().nullable().optional(),
+})
+
+export const s_invoices_resource_line_items_credited_items = z.object({
+  invoice: z.string(),
+  invoice_line_items: z.array(z.string()),
+})
+
+export const s_invoices_status_transitions = z.object({
+  finalized_at: z.coerce.number().nullable().optional(),
+  marked_uncollectible_at: z.coerce.number().nullable().optional(),
+  paid_at: z.coerce.number().nullable().optional(),
+  voided_at: z.coerce.number().nullable().optional(),
+})
+
+export const s_issuing_authorization_amount_details = z.object({
+  atm_fee: z.coerce.number().nullable().optional(),
+  cashback_amount: z.coerce.number().nullable().optional(),
+})
+
+export const s_issuing_authorization_merchant_data = z.object({
+  category: z.string(),
+  category_code: z.string(),
+  city: z.string().nullable().optional(),
+  country: z.string().nullable().optional(),
+  name: z.string().nullable().optional(),
+  network_id: z.string(),
+  postal_code: z.string().nullable().optional(),
+  state: z.string().nullable().optional(),
+  terminal_id: z.string().nullable().optional(),
+})
+
+export const s_issuing_authorization_network_data = z.object({
+  acquiring_institution_id: z.string().nullable().optional(),
+})
+
+export const s_issuing_authorization_treasury = z.object({
+  received_credits: z.array(z.string()),
+  received_debits: z.array(z.string()),
+  transaction: z.string().nullable().optional(),
+})
+
+export const s_issuing_authorization_verification_data = z.object({
+  address_line1_check: z.enum(["match", "mismatch", "not_provided"]),
+  address_postal_code_check: z.enum(["match", "mismatch", "not_provided"]),
+  cvc_check: z.enum(["match", "mismatch", "not_provided"]),
+  expiry_check: z.enum(["match", "mismatch", "not_provided"]),
+})
+
+export const s_issuing_card_apple_pay = z.object({
+  eligible: z.coerce.boolean(),
+  ineligible_reason: z
+    .enum([
+      "missing_agreement",
+      "missing_cardholder_contact",
+      "unsupported_region",
+    ])
+    .nullable()
+    .optional(),
+})
+
+export const s_issuing_card_google_pay = z.object({
+  eligible: z.coerce.boolean(),
+  ineligible_reason: z
+    .enum([
+      "missing_agreement",
+      "missing_cardholder_contact",
+      "unsupported_region",
+    ])
+    .nullable()
+    .optional(),
+})
+
+export const s_issuing_card_shipping_customs = z.object({
+  eori_number: z.string().nullable().optional(),
+})
+
+export const s_issuing_card_spending_limit = z.object({
+  amount: z.coerce.number(),
+  categories: z
+    .array(
+      z.enum([
+        "ac_refrigeration_repair",
+        "accounting_bookkeeping_services",
+        "advertising_services",
+        "agricultural_cooperative",
+        "airlines_air_carriers",
+        "airports_flying_fields",
+        "ambulance_services",
+        "amusement_parks_carnivals",
+        "antique_reproductions",
+        "antique_shops",
+        "aquariums",
+        "architectural_surveying_services",
+        "art_dealers_and_galleries",
+        "artists_supply_and_craft_shops",
+        "auto_and_home_supply_stores",
+        "auto_body_repair_shops",
+        "auto_paint_shops",
+        "auto_service_shops",
+        "automated_cash_disburse",
+        "automated_fuel_dispensers",
+        "automobile_associations",
+        "automotive_parts_and_accessories_stores",
+        "automotive_tire_stores",
+        "bail_and_bond_payments",
+        "bakeries",
+        "bands_orchestras",
+        "barber_and_beauty_shops",
+        "betting_casino_gambling",
+        "bicycle_shops",
+        "billiard_pool_establishments",
+        "boat_dealers",
+        "boat_rentals_and_leases",
+        "book_stores",
+        "books_periodicals_and_newspapers",
+        "bowling_alleys",
+        "bus_lines",
+        "business_secretarial_schools",
+        "buying_shopping_services",
+        "cable_satellite_and_other_pay_television_and_radio",
+        "camera_and_photographic_supply_stores",
+        "candy_nut_and_confectionery_stores",
+        "car_and_truck_dealers_new_used",
+        "car_and_truck_dealers_used_only",
+        "car_rental_agencies",
+        "car_washes",
+        "carpentry_services",
+        "carpet_upholstery_cleaning",
+        "caterers",
+        "charitable_and_social_service_organizations_fundraising",
+        "chemicals_and_allied_products",
+        "child_care_services",
+        "childrens_and_infants_wear_stores",
+        "chiropodists_podiatrists",
+        "chiropractors",
+        "cigar_stores_and_stands",
+        "civic_social_fraternal_associations",
+        "cleaning_and_maintenance",
+        "clothing_rental",
+        "colleges_universities",
+        "commercial_equipment",
+        "commercial_footwear",
+        "commercial_photography_art_and_graphics",
+        "commuter_transport_and_ferries",
+        "computer_network_services",
+        "computer_programming",
+        "computer_repair",
+        "computer_software_stores",
+        "computers_peripherals_and_software",
+        "concrete_work_services",
+        "construction_materials",
+        "consulting_public_relations",
+        "correspondence_schools",
+        "cosmetic_stores",
+        "counseling_services",
+        "country_clubs",
+        "courier_services",
+        "court_costs",
+        "credit_reporting_agencies",
+        "cruise_lines",
+        "dairy_products_stores",
+        "dance_hall_studios_schools",
+        "dating_escort_services",
+        "dentists_orthodontists",
+        "department_stores",
+        "detective_agencies",
+        "digital_goods_applications",
+        "digital_goods_games",
+        "digital_goods_large_volume",
+        "digital_goods_media",
+        "direct_marketing_catalog_merchant",
+        "direct_marketing_combination_catalog_and_retail_merchant",
+        "direct_marketing_inbound_telemarketing",
+        "direct_marketing_insurance_services",
+        "direct_marketing_other",
+        "direct_marketing_outbound_telemarketing",
+        "direct_marketing_subscription",
+        "direct_marketing_travel",
+        "discount_stores",
+        "doctors",
+        "door_to_door_sales",
+        "drapery_window_covering_and_upholstery_stores",
+        "drinking_places",
+        "drug_stores_and_pharmacies",
+        "drugs_drug_proprietaries_and_druggist_sundries",
+        "dry_cleaners",
+        "durable_goods",
+        "duty_free_stores",
+        "eating_places_restaurants",
+        "educational_services",
+        "electric_razor_stores",
+        "electric_vehicle_charging",
+        "electrical_parts_and_equipment",
+        "electrical_services",
+        "electronics_repair_shops",
+        "electronics_stores",
+        "elementary_secondary_schools",
+        "emergency_services_gcas_visa_use_only",
+        "employment_temp_agencies",
+        "equipment_rental",
+        "exterminating_services",
+        "family_clothing_stores",
+        "fast_food_restaurants",
+        "financial_institutions",
+        "fines_government_administrative_entities",
+        "fireplace_fireplace_screens_and_accessories_stores",
+        "floor_covering_stores",
+        "florists",
+        "florists_supplies_nursery_stock_and_flowers",
+        "freezer_and_locker_meat_provisioners",
+        "fuel_dealers_non_automotive",
+        "funeral_services_crematories",
+        "furniture_home_furnishings_and_equipment_stores_except_appliances",
+        "furniture_repair_refinishing",
+        "furriers_and_fur_shops",
+        "general_services",
+        "gift_card_novelty_and_souvenir_shops",
+        "glass_paint_and_wallpaper_stores",
+        "glassware_crystal_stores",
+        "golf_courses_public",
+        "government_licensed_horse_dog_racing_us_region_only",
+        "government_licensed_online_casions_online_gambling_us_region_only",
+        "government_owned_lotteries_non_us_region",
+        "government_owned_lotteries_us_region_only",
+        "government_services",
+        "grocery_stores_supermarkets",
+        "hardware_equipment_and_supplies",
+        "hardware_stores",
+        "health_and_beauty_spas",
+        "hearing_aids_sales_and_supplies",
+        "heating_plumbing_a_c",
+        "hobby_toy_and_game_shops",
+        "home_supply_warehouse_stores",
+        "hospitals",
+        "hotels_motels_and_resorts",
+        "household_appliance_stores",
+        "industrial_supplies",
+        "information_retrieval_services",
+        "insurance_default",
+        "insurance_underwriting_premiums",
+        "intra_company_purchases",
+        "jewelry_stores_watches_clocks_and_silverware_stores",
+        "landscaping_services",
+        "laundries",
+        "laundry_cleaning_services",
+        "legal_services_attorneys",
+        "luggage_and_leather_goods_stores",
+        "lumber_building_materials_stores",
+        "manual_cash_disburse",
+        "marinas_service_and_supplies",
+        "marketplaces",
+        "masonry_stonework_and_plaster",
+        "massage_parlors",
+        "medical_and_dental_labs",
+        "medical_dental_ophthalmic_and_hospital_equipment_and_supplies",
+        "medical_services",
+        "membership_organizations",
+        "mens_and_boys_clothing_and_accessories_stores",
+        "mens_womens_clothing_stores",
+        "metal_service_centers",
+        "miscellaneous",
+        "miscellaneous_apparel_and_accessory_shops",
+        "miscellaneous_auto_dealers",
+        "miscellaneous_business_services",
+        "miscellaneous_food_stores",
+        "miscellaneous_general_merchandise",
+        "miscellaneous_general_services",
+        "miscellaneous_home_furnishing_specialty_stores",
+        "miscellaneous_publishing_and_printing",
+        "miscellaneous_recreation_services",
+        "miscellaneous_repair_shops",
+        "miscellaneous_specialty_retail",
+        "mobile_home_dealers",
+        "motion_picture_theaters",
+        "motor_freight_carriers_and_trucking",
+        "motor_homes_dealers",
+        "motor_vehicle_supplies_and_new_parts",
+        "motorcycle_shops_and_dealers",
+        "motorcycle_shops_dealers",
+        "music_stores_musical_instruments_pianos_and_sheet_music",
+        "news_dealers_and_newsstands",
+        "non_fi_money_orders",
+        "non_fi_stored_value_card_purchase_load",
+        "nondurable_goods",
+        "nurseries_lawn_and_garden_supply_stores",
+        "nursing_personal_care",
+        "office_and_commercial_furniture",
+        "opticians_eyeglasses",
+        "optometrists_ophthalmologist",
+        "orthopedic_goods_prosthetic_devices",
+        "osteopaths",
+        "package_stores_beer_wine_and_liquor",
+        "paints_varnishes_and_supplies",
+        "parking_lots_garages",
+        "passenger_railways",
+        "pawn_shops",
+        "pet_shops_pet_food_and_supplies",
+        "petroleum_and_petroleum_products",
+        "photo_developing",
+        "photographic_photocopy_microfilm_equipment_and_supplies",
+        "photographic_studios",
+        "picture_video_production",
+        "piece_goods_notions_and_other_dry_goods",
+        "plumbing_heating_equipment_and_supplies",
+        "political_organizations",
+        "postal_services_government_only",
+        "precious_stones_and_metals_watches_and_jewelry",
+        "professional_services",
+        "public_warehousing_and_storage",
+        "quick_copy_repro_and_blueprint",
+        "railroads",
+        "real_estate_agents_and_managers_rentals",
+        "record_stores",
+        "recreational_vehicle_rentals",
+        "religious_goods_stores",
+        "religious_organizations",
+        "roofing_siding_sheet_metal",
+        "secretarial_support_services",
+        "security_brokers_dealers",
+        "service_stations",
+        "sewing_needlework_fabric_and_piece_goods_stores",
+        "shoe_repair_hat_cleaning",
+        "shoe_stores",
+        "small_appliance_repair",
+        "snowmobile_dealers",
+        "special_trade_services",
+        "specialty_cleaning",
+        "sporting_goods_stores",
+        "sporting_recreation_camps",
+        "sports_and_riding_apparel_stores",
+        "sports_clubs_fields",
+        "stamp_and_coin_stores",
+        "stationary_office_supplies_printing_and_writing_paper",
+        "stationery_stores_office_and_school_supply_stores",
+        "swimming_pools_sales",
+        "t_ui_travel_germany",
+        "tailors_alterations",
+        "tax_payments_government_agencies",
+        "tax_preparation_services",
+        "taxicabs_limousines",
+        "telecommunication_equipment_and_telephone_sales",
+        "telecommunication_services",
+        "telegraph_services",
+        "tent_and_awning_shops",
+        "testing_laboratories",
+        "theatrical_ticket_agencies",
+        "timeshares",
+        "tire_retreading_and_repair",
+        "tolls_bridge_fees",
+        "tourist_attractions_and_exhibits",
+        "towing_services",
+        "trailer_parks_campgrounds",
+        "transportation_services",
+        "travel_agencies_tour_operators",
+        "truck_stop_iteration",
+        "truck_utility_trailer_rentals",
+        "typesetting_plate_making_and_related_services",
+        "typewriter_stores",
+        "u_s_federal_government_agencies_or_departments",
+        "uniforms_commercial_clothing",
+        "used_merchandise_and_secondhand_stores",
+        "utilities",
+        "variety_stores",
+        "veterinary_services",
+        "video_amusement_game_supplies",
+        "video_game_arcades",
+        "video_tape_rental_stores",
+        "vocational_trade_schools",
+        "watch_jewelry_repair",
+        "welding_repair",
+        "wholesale_clubs",
+        "wig_and_toupee_stores",
+        "wires_money_orders",
+        "womens_accessory_and_specialty_shops",
+        "womens_ready_to_wear_stores",
+        "wrecking_and_salvage_yards",
+      ]),
+    )
+    .nullable()
+    .optional(),
+  interval: z.enum([
+    "all_time",
+    "daily",
+    "monthly",
+    "per_authorization",
+    "weekly",
+    "yearly",
+  ]),
+})
+
+export const s_issuing_cardholder_company = z.object({
+  tax_id_provided: z.coerce.boolean(),
+})
+
+export const s_issuing_cardholder_individual_dob = z.object({
+  day: z.coerce.number().nullable().optional(),
+  month: z.coerce.number().nullable().optional(),
+  year: z.coerce.number().nullable().optional(),
+})
+
+export const s_issuing_cardholder_requirements = z.object({
+  disabled_reason: z
+    .enum([
+      "listed",
+      "rejected.listed",
+      "requirements.past_due",
+      "under_review",
+    ])
+    .nullable()
+    .optional(),
+  past_due: z
+    .array(
+      z.enum([
+        "company.tax_id",
+        "individual.card_issuing.user_terms_acceptance.date",
+        "individual.card_issuing.user_terms_acceptance.ip",
+        "individual.dob.day",
+        "individual.dob.month",
+        "individual.dob.year",
+        "individual.first_name",
+        "individual.last_name",
+        "individual.verification.document",
+      ]),
+    )
+    .nullable()
+    .optional(),
+})
+
+export const s_issuing_cardholder_spending_limit = z.object({
+  amount: z.coerce.number(),
+  categories: z
+    .array(
+      z.enum([
+        "ac_refrigeration_repair",
+        "accounting_bookkeeping_services",
+        "advertising_services",
+        "agricultural_cooperative",
+        "airlines_air_carriers",
+        "airports_flying_fields",
+        "ambulance_services",
+        "amusement_parks_carnivals",
+        "antique_reproductions",
+        "antique_shops",
+        "aquariums",
+        "architectural_surveying_services",
+        "art_dealers_and_galleries",
+        "artists_supply_and_craft_shops",
+        "auto_and_home_supply_stores",
+        "auto_body_repair_shops",
+        "auto_paint_shops",
+        "auto_service_shops",
+        "automated_cash_disburse",
+        "automated_fuel_dispensers",
+        "automobile_associations",
+        "automotive_parts_and_accessories_stores",
+        "automotive_tire_stores",
+        "bail_and_bond_payments",
+        "bakeries",
+        "bands_orchestras",
+        "barber_and_beauty_shops",
+        "betting_casino_gambling",
+        "bicycle_shops",
+        "billiard_pool_establishments",
+        "boat_dealers",
+        "boat_rentals_and_leases",
+        "book_stores",
+        "books_periodicals_and_newspapers",
+        "bowling_alleys",
+        "bus_lines",
+        "business_secretarial_schools",
+        "buying_shopping_services",
+        "cable_satellite_and_other_pay_television_and_radio",
+        "camera_and_photographic_supply_stores",
+        "candy_nut_and_confectionery_stores",
+        "car_and_truck_dealers_new_used",
+        "car_and_truck_dealers_used_only",
+        "car_rental_agencies",
+        "car_washes",
+        "carpentry_services",
+        "carpet_upholstery_cleaning",
+        "caterers",
+        "charitable_and_social_service_organizations_fundraising",
+        "chemicals_and_allied_products",
+        "child_care_services",
+        "childrens_and_infants_wear_stores",
+        "chiropodists_podiatrists",
+        "chiropractors",
+        "cigar_stores_and_stands",
+        "civic_social_fraternal_associations",
+        "cleaning_and_maintenance",
+        "clothing_rental",
+        "colleges_universities",
+        "commercial_equipment",
+        "commercial_footwear",
+        "commercial_photography_art_and_graphics",
+        "commuter_transport_and_ferries",
+        "computer_network_services",
+        "computer_programming",
+        "computer_repair",
+        "computer_software_stores",
+        "computers_peripherals_and_software",
+        "concrete_work_services",
+        "construction_materials",
+        "consulting_public_relations",
+        "correspondence_schools",
+        "cosmetic_stores",
+        "counseling_services",
+        "country_clubs",
+        "courier_services",
+        "court_costs",
+        "credit_reporting_agencies",
+        "cruise_lines",
+        "dairy_products_stores",
+        "dance_hall_studios_schools",
+        "dating_escort_services",
+        "dentists_orthodontists",
+        "department_stores",
+        "detective_agencies",
+        "digital_goods_applications",
+        "digital_goods_games",
+        "digital_goods_large_volume",
+        "digital_goods_media",
+        "direct_marketing_catalog_merchant",
+        "direct_marketing_combination_catalog_and_retail_merchant",
+        "direct_marketing_inbound_telemarketing",
+        "direct_marketing_insurance_services",
+        "direct_marketing_other",
+        "direct_marketing_outbound_telemarketing",
+        "direct_marketing_subscription",
+        "direct_marketing_travel",
+        "discount_stores",
+        "doctors",
+        "door_to_door_sales",
+        "drapery_window_covering_and_upholstery_stores",
+        "drinking_places",
+        "drug_stores_and_pharmacies",
+        "drugs_drug_proprietaries_and_druggist_sundries",
+        "dry_cleaners",
+        "durable_goods",
+        "duty_free_stores",
+        "eating_places_restaurants",
+        "educational_services",
+        "electric_razor_stores",
+        "electric_vehicle_charging",
+        "electrical_parts_and_equipment",
+        "electrical_services",
+        "electronics_repair_shops",
+        "electronics_stores",
+        "elementary_secondary_schools",
+        "emergency_services_gcas_visa_use_only",
+        "employment_temp_agencies",
+        "equipment_rental",
+        "exterminating_services",
+        "family_clothing_stores",
+        "fast_food_restaurants",
+        "financial_institutions",
+        "fines_government_administrative_entities",
+        "fireplace_fireplace_screens_and_accessories_stores",
+        "floor_covering_stores",
+        "florists",
+        "florists_supplies_nursery_stock_and_flowers",
+        "freezer_and_locker_meat_provisioners",
+        "fuel_dealers_non_automotive",
+        "funeral_services_crematories",
+        "furniture_home_furnishings_and_equipment_stores_except_appliances",
+        "furniture_repair_refinishing",
+        "furriers_and_fur_shops",
+        "general_services",
+        "gift_card_novelty_and_souvenir_shops",
+        "glass_paint_and_wallpaper_stores",
+        "glassware_crystal_stores",
+        "golf_courses_public",
+        "government_licensed_horse_dog_racing_us_region_only",
+        "government_licensed_online_casions_online_gambling_us_region_only",
+        "government_owned_lotteries_non_us_region",
+        "government_owned_lotteries_us_region_only",
+        "government_services",
+        "grocery_stores_supermarkets",
+        "hardware_equipment_and_supplies",
+        "hardware_stores",
+        "health_and_beauty_spas",
+        "hearing_aids_sales_and_supplies",
+        "heating_plumbing_a_c",
+        "hobby_toy_and_game_shops",
+        "home_supply_warehouse_stores",
+        "hospitals",
+        "hotels_motels_and_resorts",
+        "household_appliance_stores",
+        "industrial_supplies",
+        "information_retrieval_services",
+        "insurance_default",
+        "insurance_underwriting_premiums",
+        "intra_company_purchases",
+        "jewelry_stores_watches_clocks_and_silverware_stores",
+        "landscaping_services",
+        "laundries",
+        "laundry_cleaning_services",
+        "legal_services_attorneys",
+        "luggage_and_leather_goods_stores",
+        "lumber_building_materials_stores",
+        "manual_cash_disburse",
+        "marinas_service_and_supplies",
+        "marketplaces",
+        "masonry_stonework_and_plaster",
+        "massage_parlors",
+        "medical_and_dental_labs",
+        "medical_dental_ophthalmic_and_hospital_equipment_and_supplies",
+        "medical_services",
+        "membership_organizations",
+        "mens_and_boys_clothing_and_accessories_stores",
+        "mens_womens_clothing_stores",
+        "metal_service_centers",
+        "miscellaneous",
+        "miscellaneous_apparel_and_accessory_shops",
+        "miscellaneous_auto_dealers",
+        "miscellaneous_business_services",
+        "miscellaneous_food_stores",
+        "miscellaneous_general_merchandise",
+        "miscellaneous_general_services",
+        "miscellaneous_home_furnishing_specialty_stores",
+        "miscellaneous_publishing_and_printing",
+        "miscellaneous_recreation_services",
+        "miscellaneous_repair_shops",
+        "miscellaneous_specialty_retail",
+        "mobile_home_dealers",
+        "motion_picture_theaters",
+        "motor_freight_carriers_and_trucking",
+        "motor_homes_dealers",
+        "motor_vehicle_supplies_and_new_parts",
+        "motorcycle_shops_and_dealers",
+        "motorcycle_shops_dealers",
+        "music_stores_musical_instruments_pianos_and_sheet_music",
+        "news_dealers_and_newsstands",
+        "non_fi_money_orders",
+        "non_fi_stored_value_card_purchase_load",
+        "nondurable_goods",
+        "nurseries_lawn_and_garden_supply_stores",
+        "nursing_personal_care",
+        "office_and_commercial_furniture",
+        "opticians_eyeglasses",
+        "optometrists_ophthalmologist",
+        "orthopedic_goods_prosthetic_devices",
+        "osteopaths",
+        "package_stores_beer_wine_and_liquor",
+        "paints_varnishes_and_supplies",
+        "parking_lots_garages",
+        "passenger_railways",
+        "pawn_shops",
+        "pet_shops_pet_food_and_supplies",
+        "petroleum_and_petroleum_products",
+        "photo_developing",
+        "photographic_photocopy_microfilm_equipment_and_supplies",
+        "photographic_studios",
+        "picture_video_production",
+        "piece_goods_notions_and_other_dry_goods",
+        "plumbing_heating_equipment_and_supplies",
+        "political_organizations",
+        "postal_services_government_only",
+        "precious_stones_and_metals_watches_and_jewelry",
+        "professional_services",
+        "public_warehousing_and_storage",
+        "quick_copy_repro_and_blueprint",
+        "railroads",
+        "real_estate_agents_and_managers_rentals",
+        "record_stores",
+        "recreational_vehicle_rentals",
+        "religious_goods_stores",
+        "religious_organizations",
+        "roofing_siding_sheet_metal",
+        "secretarial_support_services",
+        "security_brokers_dealers",
+        "service_stations",
+        "sewing_needlework_fabric_and_piece_goods_stores",
+        "shoe_repair_hat_cleaning",
+        "shoe_stores",
+        "small_appliance_repair",
+        "snowmobile_dealers",
+        "special_trade_services",
+        "specialty_cleaning",
+        "sporting_goods_stores",
+        "sporting_recreation_camps",
+        "sports_and_riding_apparel_stores",
+        "sports_clubs_fields",
+        "stamp_and_coin_stores",
+        "stationary_office_supplies_printing_and_writing_paper",
+        "stationery_stores_office_and_school_supply_stores",
+        "swimming_pools_sales",
+        "t_ui_travel_germany",
+        "tailors_alterations",
+        "tax_payments_government_agencies",
+        "tax_preparation_services",
+        "taxicabs_limousines",
+        "telecommunication_equipment_and_telephone_sales",
+        "telecommunication_services",
+        "telegraph_services",
+        "tent_and_awning_shops",
+        "testing_laboratories",
+        "theatrical_ticket_agencies",
+        "timeshares",
+        "tire_retreading_and_repair",
+        "tolls_bridge_fees",
+        "tourist_attractions_and_exhibits",
+        "towing_services",
+        "trailer_parks_campgrounds",
+        "transportation_services",
+        "travel_agencies_tour_operators",
+        "truck_stop_iteration",
+        "truck_utility_trailer_rentals",
+        "typesetting_plate_making_and_related_services",
+        "typewriter_stores",
+        "u_s_federal_government_agencies_or_departments",
+        "uniforms_commercial_clothing",
+        "used_merchandise_and_secondhand_stores",
+        "utilities",
+        "variety_stores",
+        "veterinary_services",
+        "video_amusement_game_supplies",
+        "video_game_arcades",
+        "video_tape_rental_stores",
+        "vocational_trade_schools",
+        "watch_jewelry_repair",
+        "welding_repair",
+        "wholesale_clubs",
+        "wig_and_toupee_stores",
+        "wires_money_orders",
+        "womens_accessory_and_specialty_shops",
+        "womens_ready_to_wear_stores",
+        "wrecking_and_salvage_yards",
+      ]),
+    )
+    .nullable()
+    .optional(),
+  interval: z.enum([
+    "all_time",
+    "daily",
+    "monthly",
+    "per_authorization",
+    "weekly",
+    "yearly",
+  ]),
+})
+
+export const s_issuing_cardholder_user_terms_acceptance = z.object({
+  date: z.coerce.number().nullable().optional(),
+  ip: z.string().nullable().optional(),
+  user_agent: z.string().nullable().optional(),
+})
+
+export const s_issuing_dispute_treasury = z.object({
+  debit_reversal: z.string().nullable().optional(),
+  received_debit: z.string(),
+})
+
+export const s_issuing_settlement = z.object({
+  bin: z.string(),
+  clearing_date: z.coerce.number(),
+  created: z.coerce.number(),
+  currency: z.string(),
+  id: z.string(),
+  interchange_fees: z.coerce.number(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}),
+  net_total: z.coerce.number(),
+  network: z.enum(["visa"]),
+  network_fees: z.coerce.number(),
+  network_settlement_identifier: z.string(),
+  object: z.enum(["issuing.settlement"]),
+  settlement_service: z.string(),
+  transaction_count: z.coerce.number(),
+  transaction_volume: z.coerce.number(),
+})
+
+export const s_issuing_transaction_amount_details = z.object({
+  atm_fee: z.coerce.number().nullable().optional(),
+  cashback_amount: z.coerce.number().nullable().optional(),
+})
+
+export const s_issuing_transaction_flight_data_leg = z.object({
+  arrival_airport_code: z.string().nullable().optional(),
+  carrier: z.string().nullable().optional(),
+  departure_airport_code: z.string().nullable().optional(),
+  flight_number: z.string().nullable().optional(),
+  service_class: z.string().nullable().optional(),
+  stopover_allowed: z.coerce.boolean().nullable().optional(),
+})
+
+export const s_issuing_transaction_fuel_data = z.object({
+  type: z.string(),
+  unit: z.string(),
+  unit_cost_decimal: z.string(),
+  volume_decimal: z.string().nullable().optional(),
+})
+
+export const s_issuing_transaction_lodging_data = z.object({
+  check_in_at: z.coerce.number().nullable().optional(),
+  nights: z.coerce.number().nullable().optional(),
+})
+
+export const s_issuing_transaction_receipt_data = z.object({
+  description: z.string().nullable().optional(),
+  quantity: z.coerce.number().nullable().optional(),
+  total: z.coerce.number().nullable().optional(),
+  unit_cost: z.coerce.number().nullable().optional(),
+})
+
+export const s_issuing_transaction_treasury = z.object({
+  received_credit: z.string().nullable().optional(),
+  received_debit: z.string().nullable().optional(),
+})
+
+export const s_legal_entity_dob = z.object({
+  day: z.coerce.number().nullable().optional(),
+  month: z.coerce.number().nullable().optional(),
+  year: z.coerce.number().nullable().optional(),
+})
+
+export const s_legal_entity_japan_address = z.object({
+  city: z.string().nullable().optional(),
+  country: z.string().nullable().optional(),
+  line1: z.string().nullable().optional(),
+  line2: z.string().nullable().optional(),
+  postal_code: z.string().nullable().optional(),
+  state: z.string().nullable().optional(),
+  town: z.string().nullable().optional(),
+})
+
+export const s_legal_entity_ubo_declaration = z.object({
+  date: z.coerce.number().nullable().optional(),
+  ip: z.string().nullable().optional(),
+  user_agent: z.string().nullable().optional(),
+})
+
+export const s_linked_account_options_us_bank_account = z.object({
+  permissions: z
+    .array(z.enum(["balances", "ownership", "payment_method", "transactions"]))
+    .optional(),
+  prefetch: z
+    .array(z.enum(["balances"]))
+    .nullable()
+    .optional(),
+  return_url: z.string().optional(),
+})
+
+export const s_login_link = z.object({
+  created: z.coerce.number(),
+  object: z.enum(["login_link"]),
+  url: z.string(),
+})
+
+export const s_mandate_acss_debit = z.object({
+  default_for: z.array(z.enum(["invoice", "subscription"])).optional(),
+  interval_description: z.string().nullable().optional(),
+  payment_schedule: z.enum(["combined", "interval", "sporadic"]),
+  transaction_type: z.enum(["business", "personal"]),
+})
+
+export const s_mandate_au_becs_debit = z.object({ url: z.string() })
+
+export const s_mandate_bacs_debit = z.object({
+  network_status: z.enum(["accepted", "pending", "refused", "revoked"]),
+  reference: z.string(),
+  url: z.string(),
+})
+
+export const s_mandate_cashapp = z.object({})
+
+export const s_mandate_link = z.object({})
+
+export const s_mandate_multi_use = z.object({})
+
+export const s_mandate_paypal = z.object({
+  billing_agreement_id: z.string().nullable().optional(),
+  payer_id: z.string().nullable().optional(),
+})
+
+export const s_mandate_sepa_debit = z.object({
+  reference: z.string(),
+  url: z.string(),
+})
+
+export const s_mandate_single_use = z.object({
+  amount: z.coerce.number(),
+  currency: z.string(),
+})
+
+export const s_mandate_us_bank_account = z.object({})
+
+export const s_networks = z.object({
+  available: z.array(z.string()),
+  preferred: z.string().nullable().optional(),
+})
+
+export const s_notification_event_data = z.object({
+  object: z.object({}),
+  previous_attributes: z.object({}).optional(),
+})
+
+export const s_notification_event_request = z.object({
+  id: z.string().nullable().optional(),
+  idempotency_key: z.string().nullable().optional(),
+})
+
+export const s_offline_acceptance = z.object({})
+
+export const s_online_acceptance = z.object({
+  ip_address: z.string().nullable().optional(),
+  user_agent: z.string().nullable().optional(),
+})
+
+export const s_outbound_payments_payment_method_details_financial_account =
+  z.object({ id: z.string(), network: z.enum(["stripe"]) })
+
+export const s_outbound_payments_payment_method_details_us_bank_account =
+  z.object({
+    account_holder_type: z
+      .enum(["company", "individual"])
+      .nullable()
+      .optional(),
+    account_type: z.enum(["checking", "savings"]).nullable().optional(),
+    bank_name: z.string().nullable().optional(),
+    fingerprint: z.string().nullable().optional(),
+    last4: z.string().nullable().optional(),
+    network: z.enum(["ach", "us_domestic_wire"]),
+    routing_number: z.string().nullable().optional(),
+  })
+
+export const s_outbound_transfers_payment_method_details_us_bank_account =
+  z.object({
+    account_holder_type: z
+      .enum(["company", "individual"])
+      .nullable()
+      .optional(),
+    account_type: z.enum(["checking", "savings"]).nullable().optional(),
+    bank_name: z.string().nullable().optional(),
+    fingerprint: z.string().nullable().optional(),
+    last4: z.string().nullable().optional(),
+    network: z.enum(["ach", "us_domestic_wire"]),
+    routing_number: z.string().nullable().optional(),
+  })
+
+export const s_package_dimensions = z.object({
+  height: z.coerce.number(),
+  length: z.coerce.number(),
+  weight: z.coerce.number(),
+  width: z.coerce.number(),
+})
+
+export const s_payment_flows_amount_details_resource_tip = z.object({
+  amount: z.coerce.number().optional(),
+})
+
+export const s_payment_flows_automatic_payment_methods_payment_intent =
+  z.object({
+    allow_redirects: z.enum(["always", "never"]).optional(),
+    enabled: z.coerce.boolean(),
+  })
+
+export const s_payment_flows_automatic_payment_methods_setup_intent = z.object({
+  allow_redirects: z.enum(["always", "never"]).optional(),
+  enabled: z.coerce.boolean().nullable().optional(),
+})
+
+export const s_payment_flows_private_payment_methods_alipay = z.object({})
+
+export const s_payment_flows_private_payment_methods_alipay_details = z.object({
+  buyer_id: z.string().optional(),
+  fingerprint: z.string().nullable().optional(),
+  transaction_id: z.string().nullable().optional(),
+})
+
+export const s_payment_flows_private_payment_methods_klarna_dob = z.object({
+  day: z.coerce.number().nullable().optional(),
+  month: z.coerce.number().nullable().optional(),
+  year: z.coerce.number().nullable().optional(),
+})
+
+export const s_payment_intent_next_action_alipay_handle_redirect = z.object({
+  native_data: z.string().nullable().optional(),
+  native_url: z.string().nullable().optional(),
+  return_url: z.string().nullable().optional(),
+  url: z.string().nullable().optional(),
+})
+
+export const s_payment_intent_next_action_boleto = z.object({
+  expires_at: z.coerce.number().nullable().optional(),
+  hosted_voucher_url: z.string().nullable().optional(),
+  number: z.string().nullable().optional(),
+  pdf: z.string().nullable().optional(),
+})
+
+export const s_payment_intent_next_action_card_await_notification = z.object({
+  charge_attempt_at: z.coerce.number().nullable().optional(),
+  customer_approval_required: z.coerce.boolean().nullable().optional(),
+})
+
+export const s_payment_intent_next_action_cashapp_qr_code = z.object({
+  expires_at: z.coerce.number(),
+  image_url_png: z.string(),
+  image_url_svg: z.string(),
+})
+
+export const s_payment_intent_next_action_display_oxxo_details = z.object({
+  expires_after: z.coerce.number().nullable().optional(),
+  hosted_voucher_url: z.string().nullable().optional(),
+  number: z.string().nullable().optional(),
+})
+
+export const s_payment_intent_next_action_konbini_familymart = z.object({
+  confirmation_number: z.string().optional(),
+  payment_code: z.string(),
+})
+
+export const s_payment_intent_next_action_konbini_lawson = z.object({
+  confirmation_number: z.string().optional(),
+  payment_code: z.string(),
+})
+
+export const s_payment_intent_next_action_konbini_ministop = z.object({
+  confirmation_number: z.string().optional(),
+  payment_code: z.string(),
+})
+
+export const s_payment_intent_next_action_konbini_seicomart = z.object({
+  confirmation_number: z.string().optional(),
+  payment_code: z.string(),
+})
+
+export const s_payment_intent_next_action_paynow_display_qr_code = z.object({
+  data: z.string(),
+  hosted_instructions_url: z.string().nullable().optional(),
+  image_url_png: z.string(),
+  image_url_svg: z.string(),
+})
+
+export const s_payment_intent_next_action_pix_display_qr_code = z.object({
+  data: z.string().optional(),
+  expires_at: z.coerce.number().optional(),
+  hosted_instructions_url: z.string().optional(),
+  image_url_png: z.string().optional(),
+  image_url_svg: z.string().optional(),
+})
+
+export const s_payment_intent_next_action_promptpay_display_qr_code = z.object({
+  data: z.string(),
+  hosted_instructions_url: z.string(),
+  image_url_png: z.string(),
+  image_url_svg: z.string(),
+})
+
+export const s_payment_intent_next_action_redirect_to_url = z.object({
+  return_url: z.string().nullable().optional(),
+  url: z.string().nullable().optional(),
+})
+
+export const s_payment_intent_next_action_verify_with_microdeposits = z.object({
+  arrival_date: z.coerce.number(),
+  hosted_verification_url: z.string(),
+  microdeposit_type: z
+    .enum(["amounts", "descriptor_code"])
+    .nullable()
+    .optional(),
+})
+
+export const s_payment_intent_next_action_wechat_pay_display_qr_code = z.object(
+  {
+    data: z.string(),
+    hosted_instructions_url: z.string(),
+    image_data_url: z.string(),
+    image_url_png: z.string(),
+    image_url_svg: z.string(),
+  },
+)
+
+export const s_payment_intent_next_action_wechat_pay_redirect_to_android_app =
+  z.object({
+    app_id: z.string(),
+    nonce_str: z.string(),
+    package: z.string(),
+    partner_id: z.string(),
+    prepay_id: z.string(),
+    sign: z.string(),
+    timestamp: z.string(),
+  })
+
+export const s_payment_intent_next_action_wechat_pay_redirect_to_ios_app =
+  z.object({ native_url: z.string() })
+
+export const s_payment_intent_payment_method_options_au_becs_debit = z.object({
+  setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+})
+
+export const s_payment_intent_payment_method_options_blik = z.object({})
+
+export const s_payment_intent_payment_method_options_eps = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_payment_intent_payment_method_options_link = z.object({
+  capture_method: z.enum(["manual"]).optional(),
+  setup_future_usage: z.enum(["none", "off_session"]).optional(),
+})
+
+export const s_payment_intent_payment_method_options_mandate_options_acss_debit =
+  z.object({
+    custom_mandate_url: z.string().optional(),
+    interval_description: z.string().nullable().optional(),
+    payment_schedule: z
+      .enum(["combined", "interval", "sporadic"])
+      .nullable()
+      .optional(),
+    transaction_type: z.enum(["business", "personal"]).nullable().optional(),
+  })
+
+export const s_payment_intent_payment_method_options_mandate_options_sepa_debit =
+  z.object({})
+
+export const s_payment_intent_processing_customer_notification = z.object({
+  approval_requested: z.coerce.boolean().nullable().optional(),
+  completes_at: z.coerce.number().nullable().optional(),
+})
+
+export const s_payment_links_resource_automatic_tax = z.object({
+  enabled: z.coerce.boolean(),
+})
+
+export const s_payment_links_resource_completion_behavior_confirmation_page =
+  z.object({ custom_message: z.string().nullable().optional() })
+
+export const s_payment_links_resource_completion_behavior_redirect = z.object({
+  url: z.string(),
+})
+
+export const s_payment_links_resource_consent_collection = z.object({
+  promotions: z.enum(["auto", "none"]).nullable().optional(),
+  terms_of_service: z.enum(["none", "required"]).nullable().optional(),
+})
+
+export const s_payment_links_resource_custom_fields_dropdown_option = z.object({
+  label: z.string(),
+  value: z.string(),
+})
+
+export const s_payment_links_resource_custom_fields_label = z.object({
+  custom: z.string().nullable().optional(),
+  type: z.enum(["custom"]),
+})
+
+export const s_payment_links_resource_custom_fields_numeric = z.object({
+  maximum_length: z.coerce.number().nullable().optional(),
+  minimum_length: z.coerce.number().nullable().optional(),
+})
+
+export const s_payment_links_resource_custom_fields_text = z.object({
+  maximum_length: z.coerce.number().nullable().optional(),
+  minimum_length: z.coerce.number().nullable().optional(),
+})
+
+export const s_payment_links_resource_custom_text_position = z.object({
+  message: z.string(),
+})
+
+export const s_payment_links_resource_payment_intent_data = z.object({
+  capture_method: z
+    .enum(["automatic", "automatic_async", "manual"])
+    .nullable()
+    .optional(),
+  setup_future_usage: z
+    .enum(["off_session", "on_session"])
+    .nullable()
+    .optional(),
+})
+
+export const s_payment_links_resource_phone_number_collection = z.object({
+  enabled: z.coerce.boolean(),
+})
+
+export const s_payment_links_resource_shipping_address_collection = z.object({
+  allowed_countries: z.array(
+    z.enum([
+      "AC",
+      "AD",
+      "AE",
+      "AF",
+      "AG",
+      "AI",
+      "AL",
+      "AM",
+      "AO",
+      "AQ",
+      "AR",
+      "AT",
+      "AU",
+      "AW",
+      "AX",
+      "AZ",
+      "BA",
+      "BB",
+      "BD",
+      "BE",
+      "BF",
+      "BG",
+      "BH",
+      "BI",
+      "BJ",
+      "BL",
+      "BM",
+      "BN",
+      "BO",
+      "BQ",
+      "BR",
+      "BS",
+      "BT",
+      "BV",
+      "BW",
+      "BY",
+      "BZ",
+      "CA",
+      "CD",
+      "CF",
+      "CG",
+      "CH",
+      "CI",
+      "CK",
+      "CL",
+      "CM",
+      "CN",
+      "CO",
+      "CR",
+      "CV",
+      "CW",
+      "CY",
+      "CZ",
+      "DE",
+      "DJ",
+      "DK",
+      "DM",
+      "DO",
+      "DZ",
+      "EC",
+      "EE",
+      "EG",
+      "EH",
+      "ER",
+      "ES",
+      "ET",
+      "FI",
+      "FJ",
+      "FK",
+      "FO",
+      "FR",
+      "GA",
+      "GB",
+      "GD",
+      "GE",
+      "GF",
+      "GG",
+      "GH",
+      "GI",
+      "GL",
+      "GM",
+      "GN",
+      "GP",
+      "GQ",
+      "GR",
+      "GS",
+      "GT",
+      "GU",
+      "GW",
+      "GY",
+      "HK",
+      "HN",
+      "HR",
+      "HT",
+      "HU",
+      "ID",
+      "IE",
+      "IL",
+      "IM",
+      "IN",
+      "IO",
+      "IQ",
+      "IS",
+      "IT",
+      "JE",
+      "JM",
+      "JO",
+      "JP",
+      "KE",
+      "KG",
+      "KH",
+      "KI",
+      "KM",
+      "KN",
+      "KR",
+      "KW",
+      "KY",
+      "KZ",
+      "LA",
+      "LB",
+      "LC",
+      "LI",
+      "LK",
+      "LR",
+      "LS",
+      "LT",
+      "LU",
+      "LV",
+      "LY",
+      "MA",
+      "MC",
+      "MD",
+      "ME",
+      "MF",
+      "MG",
+      "MK",
+      "ML",
+      "MM",
+      "MN",
+      "MO",
+      "MQ",
+      "MR",
+      "MS",
+      "MT",
+      "MU",
+      "MV",
+      "MW",
+      "MX",
+      "MY",
+      "MZ",
+      "NA",
+      "NC",
+      "NE",
+      "NG",
+      "NI",
+      "NL",
+      "NO",
+      "NP",
+      "NR",
+      "NU",
+      "NZ",
+      "OM",
+      "PA",
+      "PE",
+      "PF",
+      "PG",
+      "PH",
+      "PK",
+      "PL",
+      "PM",
+      "PN",
+      "PR",
+      "PS",
+      "PT",
+      "PY",
+      "QA",
+      "RE",
+      "RO",
+      "RS",
+      "RU",
+      "RW",
+      "SA",
+      "SB",
+      "SC",
+      "SE",
+      "SG",
+      "SH",
+      "SI",
+      "SJ",
+      "SK",
+      "SL",
+      "SM",
+      "SN",
+      "SO",
+      "SR",
+      "SS",
+      "ST",
+      "SV",
+      "SX",
+      "SZ",
+      "TA",
+      "TC",
+      "TD",
+      "TF",
+      "TG",
+      "TH",
+      "TJ",
+      "TK",
+      "TL",
+      "TM",
+      "TN",
+      "TO",
+      "TR",
+      "TT",
+      "TV",
+      "TW",
+      "TZ",
+      "UA",
+      "UG",
+      "US",
+      "UY",
+      "UZ",
+      "VA",
+      "VC",
+      "VE",
+      "VG",
+      "VN",
+      "VU",
+      "WF",
+      "WS",
+      "XK",
+      "YE",
+      "YT",
+      "ZA",
+      "ZM",
+      "ZW",
+      "ZZ",
+    ]),
+  ),
+})
+
+export const s_payment_links_resource_subscription_data = z.object({
+  description: z.string().nullable().optional(),
+  trial_period_days: z.coerce.number().nullable().optional(),
+})
+
+export const s_payment_links_resource_tax_id_collection = z.object({
+  enabled: z.coerce.boolean(),
+})
+
+export const s_payment_method_acss_debit = z.object({
+  bank_name: z.string().nullable().optional(),
+  fingerprint: z.string().nullable().optional(),
+  institution_number: z.string().nullable().optional(),
+  last4: z.string().nullable().optional(),
+  transit_number: z.string().nullable().optional(),
+})
+
+export const s_payment_method_affirm = z.object({})
+
+export const s_payment_method_afterpay_clearpay = z.object({})
+
+export const s_payment_method_au_becs_debit = z.object({
+  bsb_number: z.string().nullable().optional(),
+  fingerprint: z.string().nullable().optional(),
+  last4: z.string().nullable().optional(),
+})
+
+export const s_payment_method_bacs_debit = z.object({
+  fingerprint: z.string().nullable().optional(),
+  last4: z.string().nullable().optional(),
+  sort_code: z.string().nullable().optional(),
+})
+
+export const s_payment_method_bancontact = z.object({})
+
+export const s_payment_method_blik = z.object({})
+
+export const s_payment_method_boleto = z.object({ tax_id: z.string() })
+
+export const s_payment_method_card_checks = z.object({
+  address_line1_check: z.string().nullable().optional(),
+  address_postal_code_check: z.string().nullable().optional(),
+  cvc_check: z.string().nullable().optional(),
+})
+
+export const s_payment_method_card_present_networks = z.object({
+  available: z.array(z.string()),
+  preferred: z.string().nullable().optional(),
+})
+
+export const s_payment_method_card_wallet_amex_express_checkout = z.object({})
+
+export const s_payment_method_card_wallet_apple_pay = z.object({})
+
+export const s_payment_method_card_wallet_google_pay = z.object({})
+
+export const s_payment_method_card_wallet_link = z.object({})
+
+export const s_payment_method_card_wallet_samsung_pay = z.object({})
+
+export const s_payment_method_cashapp = z.object({
+  buyer_id: z.string().nullable().optional(),
+  cashtag: z.string().nullable().optional(),
+})
+
+export const s_payment_method_config_biz_payment_method_configuration_details =
+  z.object({ id: z.string(), parent: z.string().nullable().optional() })
+
+export const s_payment_method_config_resource_display_preference = z.object({
+  overridable: z.coerce.boolean().nullable().optional(),
+  preference: z.enum(["none", "off", "on"]),
+  value: z.enum(["off", "on"]),
+})
+
+export const s_payment_method_customer_balance = z.object({})
+
+export const s_payment_method_details_ach_credit_transfer = z.object({
+  account_number: z.string().nullable().optional(),
+  bank_name: z.string().nullable().optional(),
+  routing_number: z.string().nullable().optional(),
+  swift_code: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_ach_debit = z.object({
+  account_holder_type: z.enum(["company", "individual"]).nullable().optional(),
+  bank_name: z.string().nullable().optional(),
+  country: z.string().nullable().optional(),
+  fingerprint: z.string().nullable().optional(),
+  last4: z.string().nullable().optional(),
+  routing_number: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_acss_debit = z.object({
+  bank_name: z.string().nullable().optional(),
+  fingerprint: z.string().nullable().optional(),
+  institution_number: z.string().nullable().optional(),
+  last4: z.string().nullable().optional(),
+  mandate: z.string().optional(),
+  transit_number: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_affirm = z.object({})
+
+export const s_payment_method_details_afterpay_clearpay = z.object({
+  order_id: z.string().nullable().optional(),
+  reference: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_au_becs_debit = z.object({
+  bsb_number: z.string().nullable().optional(),
+  fingerprint: z.string().nullable().optional(),
+  last4: z.string().nullable().optional(),
+  mandate: z.string().optional(),
+})
+
+export const s_payment_method_details_bacs_debit = z.object({
+  fingerprint: z.string().nullable().optional(),
+  last4: z.string().nullable().optional(),
+  mandate: z.string().nullable().optional(),
+  sort_code: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_blik = z.object({})
+
+export const s_payment_method_details_boleto = z.object({ tax_id: z.string() })
+
+export const s_payment_method_details_card_checks = z.object({
+  address_line1_check: z.string().nullable().optional(),
+  address_postal_code_check: z.string().nullable().optional(),
+  cvc_check: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_card_installments_plan = z.object({
+  count: z.coerce.number().nullable().optional(),
+  interval: z.enum(["month"]).nullable().optional(),
+  type: z.enum(["fixed_count"]),
+})
+
+export const s_payment_method_details_card_network_token = z.object({
+  used: z.coerce.boolean(),
+})
+
+export const s_payment_method_details_card_present_receipt = z.object({
+  account_type: z.enum(["checking", "credit", "prepaid", "unknown"]).optional(),
+  application_cryptogram: z.string().nullable().optional(),
+  application_preferred_name: z.string().nullable().optional(),
+  authorization_code: z.string().nullable().optional(),
+  authorization_response_code: z.string().nullable().optional(),
+  cardholder_verification_method: z.string().nullable().optional(),
+  dedicated_file_name: z.string().nullable().optional(),
+  terminal_verification_results: z.string().nullable().optional(),
+  transaction_status_information: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_card_wallet_amex_express_checkout =
+  z.object({})
+
+export const s_payment_method_details_card_wallet_apple_pay = z.object({})
+
+export const s_payment_method_details_card_wallet_google_pay = z.object({})
+
+export const s_payment_method_details_card_wallet_link = z.object({})
+
+export const s_payment_method_details_card_wallet_samsung_pay = z.object({})
+
+export const s_payment_method_details_cashapp = z.object({
+  buyer_id: z.string().nullable().optional(),
+  cashtag: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_customer_balance = z.object({})
+
+export const s_payment_method_details_eps = z.object({
+  bank: z
+    .enum([
+      "arzte_und_apotheker_bank",
+      "austrian_anadi_bank_ag",
+      "bank_austria",
+      "bankhaus_carl_spangler",
+      "bankhaus_schelhammer_und_schattera_ag",
+      "bawag_psk_ag",
+      "bks_bank_ag",
+      "brull_kallmus_bank_ag",
+      "btv_vier_lander_bank",
+      "capital_bank_grawe_gruppe_ag",
+      "deutsche_bank_ag",
+      "dolomitenbank",
+      "easybank_ag",
+      "erste_bank_und_sparkassen",
+      "hypo_alpeadriabank_international_ag",
+      "hypo_bank_burgenland_aktiengesellschaft",
+      "hypo_noe_lb_fur_niederosterreich_u_wien",
+      "hypo_oberosterreich_salzburg_steiermark",
+      "hypo_tirol_bank_ag",
+      "hypo_vorarlberg_bank_ag",
+      "marchfelder_bank",
+      "oberbank_ag",
+      "raiffeisen_bankengruppe_osterreich",
+      "schoellerbank_ag",
+      "sparda_bank_wien",
+      "volksbank_gruppe",
+      "volkskreditbank_ag",
+      "vr_bank_braunau",
+    ])
+    .nullable()
+    .optional(),
+  verified_name: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_fpx = z.object({
+  bank: z.enum([
+    "affin_bank",
+    "agrobank",
+    "alliance_bank",
+    "ambank",
+    "bank_islam",
+    "bank_muamalat",
+    "bank_of_china",
+    "bank_rakyat",
+    "bsn",
+    "cimb",
+    "deutsche_bank",
+    "hong_leong_bank",
+    "hsbc",
+    "kfh",
+    "maybank2e",
+    "maybank2u",
+    "ocbc",
+    "pb_enterprise",
+    "public_bank",
+    "rhb",
+    "standard_chartered",
+    "uob",
+  ]),
+  transaction_id: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_giropay = z.object({
+  bank_code: z.string().nullable().optional(),
+  bank_name: z.string().nullable().optional(),
+  bic: z.string().nullable().optional(),
+  verified_name: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_grabpay = z.object({
+  transaction_id: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_interac_present_receipt = z.object({
+  account_type: z.enum(["checking", "savings", "unknown"]).optional(),
+  application_cryptogram: z.string().nullable().optional(),
+  application_preferred_name: z.string().nullable().optional(),
+  authorization_code: z.string().nullable().optional(),
+  authorization_response_code: z.string().nullable().optional(),
+  cardholder_verification_method: z.string().nullable().optional(),
+  dedicated_file_name: z.string().nullable().optional(),
+  terminal_verification_results: z.string().nullable().optional(),
+  transaction_status_information: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_klarna = z.object({
+  payment_method_category: z.string().nullable().optional(),
+  preferred_locale: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_konbini_store = z.object({
+  chain: z
+    .enum(["familymart", "lawson", "ministop", "seicomart"])
+    .nullable()
+    .optional(),
+})
+
+export const s_payment_method_details_link = z.object({
+  country: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_multibanco = z.object({
+  entity: z.string().nullable().optional(),
+  reference: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_oxxo = z.object({
+  number: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_p24 = z.object({
+  bank: z
+    .enum([
+      "alior_bank",
+      "bank_millennium",
+      "bank_nowy_bfg_sa",
+      "bank_pekao_sa",
+      "banki_spbdzielcze",
+      "blik",
+      "bnp_paribas",
+      "boz",
+      "citi_handlowy",
+      "credit_agricole",
+      "envelobank",
+      "etransfer_pocztowy24",
+      "getin_bank",
+      "ideabank",
+      "ing",
+      "inteligo",
+      "mbank_mtransfer",
+      "nest_przelew",
+      "noble_pay",
+      "pbac_z_ipko",
+      "plus_bank",
+      "santander_przelew24",
+      "tmobile_usbugi_bankowe",
+      "toyota_bank",
+      "volkswagen_bank",
+    ])
+    .nullable()
+    .optional(),
+  reference: z.string().nullable().optional(),
+  verified_name: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_paynow = z.object({
+  reference: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_pix = z.object({
+  bank_transaction_id: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_promptpay = z.object({
+  reference: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_sepa_debit = z.object({
+  bank_code: z.string().nullable().optional(),
+  branch_code: z.string().nullable().optional(),
+  country: z.string().nullable().optional(),
+  fingerprint: z.string().nullable().optional(),
+  last4: z.string().nullable().optional(),
+  mandate: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_stripe_account = z.object({})
+
+export const s_payment_method_details_us_bank_account = z.object({
+  account_holder_type: z.enum(["company", "individual"]).nullable().optional(),
+  account_type: z.enum(["checking", "savings"]).nullable().optional(),
+  bank_name: z.string().nullable().optional(),
+  fingerprint: z.string().nullable().optional(),
+  last4: z.string().nullable().optional(),
+  routing_number: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_wechat = z.object({})
+
+export const s_payment_method_details_wechat_pay = z.object({
+  fingerprint: z.string().nullable().optional(),
+  transaction_id: z.string().nullable().optional(),
+})
+
+export const s_payment_method_details_zip = z.object({})
+
+export const s_payment_method_domain_resource_payment_method_status_details =
+  z.object({ error_message: z.string() })
+
+export const s_payment_method_eps = z.object({
+  bank: z
+    .enum([
+      "arzte_und_apotheker_bank",
+      "austrian_anadi_bank_ag",
+      "bank_austria",
+      "bankhaus_carl_spangler",
+      "bankhaus_schelhammer_und_schattera_ag",
+      "bawag_psk_ag",
+      "bks_bank_ag",
+      "brull_kallmus_bank_ag",
+      "btv_vier_lander_bank",
+      "capital_bank_grawe_gruppe_ag",
+      "deutsche_bank_ag",
+      "dolomitenbank",
+      "easybank_ag",
+      "erste_bank_und_sparkassen",
+      "hypo_alpeadriabank_international_ag",
+      "hypo_bank_burgenland_aktiengesellschaft",
+      "hypo_noe_lb_fur_niederosterreich_u_wien",
+      "hypo_oberosterreich_salzburg_steiermark",
+      "hypo_tirol_bank_ag",
+      "hypo_vorarlberg_bank_ag",
+      "marchfelder_bank",
+      "oberbank_ag",
+      "raiffeisen_bankengruppe_osterreich",
+      "schoellerbank_ag",
+      "sparda_bank_wien",
+      "volksbank_gruppe",
+      "volkskreditbank_ag",
+      "vr_bank_braunau",
+    ])
+    .nullable()
+    .optional(),
+})
+
+export const s_payment_method_fpx = z.object({
+  bank: z.enum([
+    "affin_bank",
+    "agrobank",
+    "alliance_bank",
+    "ambank",
+    "bank_islam",
+    "bank_muamalat",
+    "bank_of_china",
+    "bank_rakyat",
+    "bsn",
+    "cimb",
+    "deutsche_bank",
+    "hong_leong_bank",
+    "hsbc",
+    "kfh",
+    "maybank2e",
+    "maybank2u",
+    "ocbc",
+    "pb_enterprise",
+    "public_bank",
+    "rhb",
+    "standard_chartered",
+    "uob",
+  ]),
+})
+
+export const s_payment_method_giropay = z.object({})
+
+export const s_payment_method_grabpay = z.object({})
+
+export const s_payment_method_ideal = z.object({
+  bank: z
+    .enum([
+      "abn_amro",
+      "asn_bank",
+      "bunq",
+      "handelsbanken",
+      "ing",
+      "knab",
+      "moneyou",
+      "n26",
+      "rabobank",
+      "regiobank",
+      "revolut",
+      "sns_bank",
+      "triodos_bank",
+      "van_lanschot",
+      "yoursafe",
+    ])
+    .nullable()
+    .optional(),
+  bic: z
+    .enum([
+      "ABNANL2A",
+      "ASNBNL21",
+      "BITSNL2A",
+      "BUNQNL2A",
+      "FVLBNL22",
+      "HANDNL2A",
+      "INGBNL2A",
+      "KNABNL2H",
+      "MOYONL21",
+      "NTSBDEB1",
+      "RABONL2U",
+      "RBRBNL21",
+      "REVOIE23",
+      "REVOLT21",
+      "SNSBNL2A",
+      "TRIONL2U",
+    ])
+    .nullable()
+    .optional(),
+})
+
+export const s_payment_method_konbini = z.object({})
+
+export const s_payment_method_link = z.object({
+  email: z.string().nullable().optional(),
+})
+
+export const s_payment_method_options_affirm = z.object({
+  capture_method: z.enum(["manual"]).optional(),
+  preferred_locale: z.string().optional(),
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_payment_method_options_afterpay_clearpay = z.object({
+  capture_method: z.enum(["manual"]).optional(),
+  reference: z.string().nullable().optional(),
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_payment_method_options_alipay = z.object({
+  setup_future_usage: z.enum(["none", "off_session"]).optional(),
+})
+
+export const s_payment_method_options_bacs_debit = z.object({
+  setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+})
+
+export const s_payment_method_options_bancontact = z.object({
+  preferred_language: z.enum(["de", "en", "fr", "nl"]),
+  setup_future_usage: z.enum(["none", "off_session"]).optional(),
+})
+
+export const s_payment_method_options_boleto = z.object({
+  expires_after_days: z.coerce.number(),
+  setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+})
+
+export const s_payment_method_options_card_mandate_options = z.object({
+  amount: z.coerce.number(),
+  amount_type: z.enum(["fixed", "maximum"]),
+  description: z.string().nullable().optional(),
+  end_date: z.coerce.number().nullable().optional(),
+  interval: z.enum(["day", "month", "sporadic", "week", "year"]),
+  interval_count: z.coerce.number().nullable().optional(),
+  reference: z.string(),
+  start_date: z.coerce.number(),
+  supported_types: z
+    .array(z.enum(["india"]))
+    .nullable()
+    .optional(),
+})
+
+export const s_payment_method_options_card_present = z.object({
+  request_extended_authorization: z.coerce.boolean().nullable().optional(),
+  request_incremental_authorization_support: z.coerce
+    .boolean()
+    .nullable()
+    .optional(),
+})
+
+export const s_payment_method_options_cashapp = z.object({
+  capture_method: z.enum(["manual"]).optional(),
+  setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+})
+
+export const s_payment_method_options_customer_balance_eu_bank_account =
+  z.object({ country: z.enum(["BE", "DE", "ES", "FR", "IE", "NL"]) })
+
+export const s_payment_method_options_fpx = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_payment_method_options_giropay = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_payment_method_options_grabpay = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_payment_method_options_ideal = z.object({
+  setup_future_usage: z.enum(["none", "off_session"]).optional(),
+})
+
+export const s_payment_method_options_interac_present = z.object({})
+
+export const s_payment_method_options_klarna = z.object({
+  capture_method: z.enum(["manual"]).optional(),
+  preferred_locale: z.string().nullable().optional(),
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_payment_method_options_konbini = z.object({
+  confirmation_number: z.string().nullable().optional(),
+  expires_after_days: z.coerce.number().nullable().optional(),
+  expires_at: z.coerce.number().nullable().optional(),
+  product_description: z.string().nullable().optional(),
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_payment_method_options_oxxo = z.object({
+  expires_after_days: z.coerce.number(),
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_payment_method_options_p24 = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_payment_method_options_paynow = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_payment_method_options_paypal = z.object({
+  capture_method: z.enum(["manual"]).optional(),
+  preferred_locale: z.string().nullable().optional(),
+  reference: z.string().nullable().optional(),
+  setup_future_usage: z.enum(["none", "off_session"]).optional(),
+})
+
+export const s_payment_method_options_pix = z.object({
+  expires_after_seconds: z.coerce.number().nullable().optional(),
+  expires_at: z.coerce.number().nullable().optional(),
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_payment_method_options_promptpay = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_payment_method_options_sofort = z.object({
+  preferred_language: z
+    .enum(["de", "en", "es", "fr", "it", "nl", "pl"])
+    .nullable()
+    .optional(),
+  setup_future_usage: z.enum(["none", "off_session"]).optional(),
+})
+
+export const s_payment_method_options_wechat_pay = z.object({
+  app_id: z.string().nullable().optional(),
+  client: z.enum(["android", "ios", "web"]).nullable().optional(),
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_payment_method_options_zip = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_payment_method_oxxo = z.object({})
+
+export const s_payment_method_p24 = z.object({
+  bank: z
+    .enum([
+      "alior_bank",
+      "bank_millennium",
+      "bank_nowy_bfg_sa",
+      "bank_pekao_sa",
+      "banki_spbdzielcze",
+      "blik",
+      "bnp_paribas",
+      "boz",
+      "citi_handlowy",
+      "credit_agricole",
+      "envelobank",
+      "etransfer_pocztowy24",
+      "getin_bank",
+      "ideabank",
+      "ing",
+      "inteligo",
+      "mbank_mtransfer",
+      "nest_przelew",
+      "noble_pay",
+      "pbac_z_ipko",
+      "plus_bank",
+      "santander_przelew24",
+      "tmobile_usbugi_bankowe",
+      "toyota_bank",
+      "volkswagen_bank",
+    ])
+    .nullable()
+    .optional(),
+})
+
+export const s_payment_method_paynow = z.object({})
+
+export const s_payment_method_paypal = z.object({
+  payer_email: z.string().nullable().optional(),
+  payer_id: z.string().nullable().optional(),
+})
+
+export const s_payment_method_pix = z.object({})
+
+export const s_payment_method_promptpay = z.object({})
+
+export const s_payment_method_sofort = z.object({
+  country: z.string().nullable().optional(),
+})
+
+export const s_payment_method_us_bank_account_blocked = z.object({
+  network_code: z
+    .enum([
+      "R02",
+      "R03",
+      "R04",
+      "R05",
+      "R07",
+      "R08",
+      "R10",
+      "R11",
+      "R16",
+      "R20",
+      "R29",
+      "R31",
+    ])
+    .nullable()
+    .optional(),
+  reason: z
+    .enum([
+      "bank_account_closed",
+      "bank_account_frozen",
+      "bank_account_invalid_details",
+      "bank_account_restricted",
+      "bank_account_unusable",
+      "debit_not_authorized",
+    ])
+    .nullable()
+    .optional(),
+})
+
+export const s_payment_method_wechat_pay = z.object({})
+
+export const s_payment_method_zip = z.object({})
+
+export const s_payment_pages_checkout_session_after_expiration_recovery =
+  z.object({
+    allow_promotion_codes: z.coerce.boolean(),
+    enabled: z.coerce.boolean(),
+    expires_at: z.coerce.number().nullable().optional(),
+    url: z.string().nullable().optional(),
+  })
+
+export const s_payment_pages_checkout_session_automatic_tax = z.object({
+  enabled: z.coerce.boolean(),
+  status: z
+    .enum(["complete", "failed", "requires_location_inputs"])
+    .nullable()
+    .optional(),
+})
+
+export const s_payment_pages_checkout_session_consent = z.object({
+  promotions: z.enum(["opt_in", "opt_out"]).nullable().optional(),
+  terms_of_service: z.enum(["accepted"]).nullable().optional(),
+})
+
+export const s_payment_pages_checkout_session_consent_collection = z.object({
+  promotions: z.enum(["auto", "none"]).nullable().optional(),
+  terms_of_service: z.enum(["none", "required"]).nullable().optional(),
+})
+
+export const s_payment_pages_checkout_session_currency_conversion = z.object({
+  amount_subtotal: z.coerce.number(),
+  amount_total: z.coerce.number(),
+  fx_rate: z.string(),
+  source_currency: z.string(),
+})
+
+export const s_payment_pages_checkout_session_custom_fields_label = z.object({
+  custom: z.string().nullable().optional(),
+  type: z.enum(["custom"]),
+})
+
+export const s_payment_pages_checkout_session_custom_fields_numeric = z.object({
+  maximum_length: z.coerce.number().nullable().optional(),
+  minimum_length: z.coerce.number().nullable().optional(),
+  value: z.string().nullable().optional(),
+})
+
+export const s_payment_pages_checkout_session_custom_fields_option = z.object({
+  label: z.string(),
+  value: z.string(),
+})
+
+export const s_payment_pages_checkout_session_custom_fields_text = z.object({
+  maximum_length: z.coerce.number().nullable().optional(),
+  minimum_length: z.coerce.number().nullable().optional(),
+  value: z.string().nullable().optional(),
+})
+
+export const s_payment_pages_checkout_session_custom_text_position = z.object({
+  message: z.string(),
+})
+
+export const s_payment_pages_checkout_session_phone_number_collection =
+  z.object({ enabled: z.coerce.boolean() })
+
+export const s_payment_pages_checkout_session_shipping_address_collection =
+  z.object({
+    allowed_countries: z.array(
+      z.enum([
+        "AC",
+        "AD",
+        "AE",
+        "AF",
+        "AG",
+        "AI",
+        "AL",
+        "AM",
+        "AO",
+        "AQ",
+        "AR",
+        "AT",
+        "AU",
+        "AW",
+        "AX",
+        "AZ",
+        "BA",
+        "BB",
+        "BD",
+        "BE",
+        "BF",
+        "BG",
+        "BH",
+        "BI",
+        "BJ",
+        "BL",
+        "BM",
+        "BN",
+        "BO",
+        "BQ",
+        "BR",
+        "BS",
+        "BT",
+        "BV",
+        "BW",
+        "BY",
+        "BZ",
+        "CA",
+        "CD",
+        "CF",
+        "CG",
+        "CH",
+        "CI",
+        "CK",
+        "CL",
+        "CM",
+        "CN",
+        "CO",
+        "CR",
+        "CV",
+        "CW",
+        "CY",
+        "CZ",
+        "DE",
+        "DJ",
+        "DK",
+        "DM",
+        "DO",
+        "DZ",
+        "EC",
+        "EE",
+        "EG",
+        "EH",
+        "ER",
+        "ES",
+        "ET",
+        "FI",
+        "FJ",
+        "FK",
+        "FO",
+        "FR",
+        "GA",
+        "GB",
+        "GD",
+        "GE",
+        "GF",
+        "GG",
+        "GH",
+        "GI",
+        "GL",
+        "GM",
+        "GN",
+        "GP",
+        "GQ",
+        "GR",
+        "GS",
+        "GT",
+        "GU",
+        "GW",
+        "GY",
+        "HK",
+        "HN",
+        "HR",
+        "HT",
+        "HU",
+        "ID",
+        "IE",
+        "IL",
+        "IM",
+        "IN",
+        "IO",
+        "IQ",
+        "IS",
+        "IT",
+        "JE",
+        "JM",
+        "JO",
+        "JP",
+        "KE",
+        "KG",
+        "KH",
+        "KI",
+        "KM",
+        "KN",
+        "KR",
+        "KW",
+        "KY",
+        "KZ",
+        "LA",
+        "LB",
+        "LC",
+        "LI",
+        "LK",
+        "LR",
+        "LS",
+        "LT",
+        "LU",
+        "LV",
+        "LY",
+        "MA",
+        "MC",
+        "MD",
+        "ME",
+        "MF",
+        "MG",
+        "MK",
+        "ML",
+        "MM",
+        "MN",
+        "MO",
+        "MQ",
+        "MR",
+        "MS",
+        "MT",
+        "MU",
+        "MV",
+        "MW",
+        "MX",
+        "MY",
+        "MZ",
+        "NA",
+        "NC",
+        "NE",
+        "NG",
+        "NI",
+        "NL",
+        "NO",
+        "NP",
+        "NR",
+        "NU",
+        "NZ",
+        "OM",
+        "PA",
+        "PE",
+        "PF",
+        "PG",
+        "PH",
+        "PK",
+        "PL",
+        "PM",
+        "PN",
+        "PR",
+        "PS",
+        "PT",
+        "PY",
+        "QA",
+        "RE",
+        "RO",
+        "RS",
+        "RU",
+        "RW",
+        "SA",
+        "SB",
+        "SC",
+        "SE",
+        "SG",
+        "SH",
+        "SI",
+        "SJ",
+        "SK",
+        "SL",
+        "SM",
+        "SN",
+        "SO",
+        "SR",
+        "SS",
+        "ST",
+        "SV",
+        "SX",
+        "SZ",
+        "TA",
+        "TC",
+        "TD",
+        "TF",
+        "TG",
+        "TH",
+        "TJ",
+        "TK",
+        "TL",
+        "TM",
+        "TN",
+        "TO",
+        "TR",
+        "TT",
+        "TV",
+        "TW",
+        "TZ",
+        "UA",
+        "UG",
+        "US",
+        "UY",
+        "UZ",
+        "VA",
+        "VC",
+        "VE",
+        "VG",
+        "VN",
+        "VU",
+        "WF",
+        "WS",
+        "XK",
+        "YE",
+        "YT",
+        "ZA",
+        "ZM",
+        "ZW",
+        "ZZ",
+      ]),
+    ),
+  })
+
+export const s_payment_pages_checkout_session_tax_id = z.object({
+  type: z.enum([
+    "ad_nrt",
+    "ae_trn",
+    "ar_cuit",
+    "au_abn",
+    "au_arn",
+    "bg_uic",
+    "bo_tin",
+    "br_cnpj",
+    "br_cpf",
+    "ca_bn",
+    "ca_gst_hst",
+    "ca_pst_bc",
+    "ca_pst_mb",
+    "ca_pst_sk",
+    "ca_qst",
+    "ch_vat",
+    "cl_tin",
+    "cn_tin",
+    "co_nit",
+    "cr_tin",
+    "do_rcn",
+    "ec_ruc",
+    "eg_tin",
+    "es_cif",
+    "eu_oss_vat",
+    "eu_vat",
+    "gb_vat",
+    "ge_vat",
+    "hk_br",
+    "hu_tin",
+    "id_npwp",
+    "il_vat",
+    "in_gst",
+    "is_vat",
+    "jp_cn",
+    "jp_rn",
+    "jp_trn",
+    "ke_pin",
+    "kr_brn",
+    "li_uid",
+    "mx_rfc",
+    "my_frp",
+    "my_itn",
+    "my_sst",
+    "no_vat",
+    "nz_gst",
+    "pe_ruc",
+    "ph_tin",
+    "ro_tin",
+    "rs_pib",
+    "ru_inn",
+    "ru_kpp",
+    "sa_vat",
+    "sg_gst",
+    "sg_uen",
+    "si_tin",
+    "sv_nit",
+    "th_vat",
+    "tr_tin",
+    "tw_vat",
+    "ua_vat",
+    "unknown",
+    "us_ein",
+    "uy_ruc",
+    "ve_rif",
+    "vn_tin",
+    "za_vat",
+  ]),
+  value: z.string().nullable().optional(),
+})
+
+export const s_payment_pages_checkout_session_tax_id_collection = z.object({
+  enabled: z.coerce.boolean(),
+})
+
+export const s_paypal_seller_protection = z.object({
+  dispute_categories: z
+    .array(z.enum(["fraudulent", "product_not_received"]))
+    .nullable()
+    .optional(),
+  status: z.enum(["eligible", "not_eligible", "partially_eligible"]),
+})
+
+export const s_period = z.object({
+  end: z.coerce.number().nullable().optional(),
+  start: z.coerce.number().nullable().optional(),
+})
+
+export const s_person_relationship = z.object({
+  director: z.coerce.boolean().nullable().optional(),
+  executive: z.coerce.boolean().nullable().optional(),
+  owner: z.coerce.boolean().nullable().optional(),
+  percent_ownership: z.coerce.number().nullable().optional(),
+  representative: z.coerce.boolean().nullable().optional(),
+  title: z.string().nullable().optional(),
+})
+
+export const s_plan_tier = z.object({
+  flat_amount: z.coerce.number().nullable().optional(),
+  flat_amount_decimal: z.string().nullable().optional(),
+  unit_amount: z.coerce.number().nullable().optional(),
+  unit_amount_decimal: z.string().nullable().optional(),
+  up_to: z.coerce.number().nullable().optional(),
+})
+
+export const s_platform_tax_fee = z.object({
+  account: z.string(),
+  id: z.string(),
+  object: z.enum(["platform_tax_fee"]),
+  source_transaction: z.string(),
+  type: z.string(),
+})
+
+export const s_portal_business_profile = z.object({
+  headline: z.string().nullable().optional(),
+  privacy_policy_url: z.string().nullable().optional(),
+  terms_of_service_url: z.string().nullable().optional(),
+})
+
+export const s_portal_customer_update = z.object({
+  allowed_updates: z.array(
+    z.enum(["address", "email", "name", "phone", "shipping", "tax_id"]),
+  ),
+  enabled: z.coerce.boolean(),
+})
+
+export const s_portal_flows_after_completion_hosted_confirmation = z.object({
+  custom_message: z.string().nullable().optional(),
+})
+
+export const s_portal_flows_after_completion_redirect = z.object({
+  return_url: z.string(),
+})
+
+export const s_portal_flows_coupon_offer = z.object({ coupon: z.string() })
+
+export const s_portal_flows_flow_subscription_update = z.object({
+  subscription: z.string(),
+})
+
+export const s_portal_flows_subscription_update_confirm_discount = z.object({
+  coupon: z.string().nullable().optional(),
+  promotion_code: z.string().nullable().optional(),
+})
+
+export const s_portal_flows_subscription_update_confirm_item = z.object({
+  id: z.string().nullable().optional(),
+  price: z.string().nullable().optional(),
+  quantity: z.coerce.number().optional(),
+})
+
+export const s_portal_invoice_list = z.object({ enabled: z.coerce.boolean() })
+
+export const s_portal_login_page = z.object({
+  enabled: z.coerce.boolean(),
+  url: z.string().nullable().optional(),
+})
+
+export const s_portal_payment_method_update = z.object({
+  enabled: z.coerce.boolean(),
+})
+
+export const s_portal_subscription_cancellation_reason = z.object({
+  enabled: z.coerce.boolean(),
+  options: z.array(
+    z.enum([
+      "customer_service",
+      "low_quality",
+      "missing_features",
+      "other",
+      "switched_service",
+      "too_complex",
+      "too_expensive",
+      "unused",
+    ]),
+  ),
+})
+
+export const s_portal_subscription_pause = z.object({
+  enabled: z.coerce.boolean(),
+})
+
+export const s_portal_subscription_update_product = z.object({
+  prices: z.array(z.string()),
+  product: z.string(),
+})
+
+export const s_price_tier = z.object({
+  flat_amount: z.coerce.number().nullable().optional(),
+  flat_amount_decimal: z.string().nullable().optional(),
+  unit_amount: z.coerce.number().nullable().optional(),
+  unit_amount_decimal: z.string().nullable().optional(),
+  up_to: z.coerce.number().nullable().optional(),
+})
+
+export const s_product_feature = z.object({ name: z.string() })
+
+export const s_quotes_resource_automatic_tax = z.object({
+  enabled: z.coerce.boolean(),
+  status: z
+    .enum(["complete", "failed", "requires_location_inputs"])
+    .nullable()
+    .optional(),
+})
+
+export const s_quotes_resource_status_transitions = z.object({
+  accepted_at: z.coerce.number().nullable().optional(),
+  canceled_at: z.coerce.number().nullable().optional(),
+  finalized_at: z.coerce.number().nullable().optional(),
+})
+
+export const s_quotes_resource_subscription_data_subscription_data = z.object({
+  description: z.string().nullable().optional(),
+  effective_date: z.coerce.number().nullable().optional(),
+  trial_period_days: z.coerce.number().nullable().optional(),
+})
+
+export const s_radar_radar_options = z.object({
+  session: z.string().optional(),
+})
+
+export const s_radar_review_resource_location = z.object({
+  city: z.string().nullable().optional(),
+  country: z.string().nullable().optional(),
+  latitude: z.coerce.number().nullable().optional(),
+  longitude: z.coerce.number().nullable().optional(),
+  region: z.string().nullable().optional(),
+})
+
+export const s_radar_review_resource_session = z.object({
+  browser: z.string().nullable().optional(),
+  device: z.string().nullable().optional(),
+  platform: z.string().nullable().optional(),
+  version: z.string().nullable().optional(),
+})
+
+export const s_radar_value_list_item = z.object({
+  created: z.coerce.number(),
+  created_by: z.string(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  object: z.enum(["radar.value_list_item"]),
+  value: z.string(),
+  value_list: z.string(),
+})
+
+export const s_received_payment_method_details_financial_account = z.object({
+  id: z.string(),
+  network: z.enum(["stripe"]),
+})
+
+export const s_recurring = z.object({
+  aggregate_usage: z
+    .enum(["last_during_period", "last_ever", "max", "sum"])
+    .nullable()
+    .optional(),
+  interval: z.enum(["day", "month", "week", "year"]),
+  interval_count: z.coerce.number(),
+  usage_type: z.enum(["licensed", "metered"]),
+})
+
+export const s_reporting_report_type = z.object({
+  data_available_end: z.coerce.number(),
+  data_available_start: z.coerce.number(),
+  default_columns: z.array(z.string()).nullable().optional(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  name: z.string(),
+  object: z.enum(["reporting.report_type"]),
+  updated: z.coerce.number(),
+  version: z.coerce.number(),
+})
+
+export const s_reserve_transaction = z.object({
+  amount: z.coerce.number(),
+  currency: z.string(),
+  description: z.string().nullable().optional(),
+  id: z.string(),
+  object: z.enum(["reserve_transaction"]),
+})
+
+export const s_rule = z.object({
+  action: z.string(),
+  id: z.string(),
+  predicate: z.string(),
+})
+
+export const s_schedules_phase_automatic_tax = z.object({
+  enabled: z.coerce.boolean(),
+})
+
+export const s_secret_service_resource_scope = z.object({
+  type: z.enum(["account", "user"]),
+  user: z.string().optional(),
+})
+
+export const s_setup_attempt_payment_method_details_acss_debit = z.object({})
+
+export const s_setup_attempt_payment_method_details_au_becs_debit = z.object({})
+
+export const s_setup_attempt_payment_method_details_bacs_debit = z.object({})
+
+export const s_setup_attempt_payment_method_details_boleto = z.object({})
+
+export const s_setup_attempt_payment_method_details_cashapp = z.object({})
+
+export const s_setup_attempt_payment_method_details_klarna = z.object({})
+
+export const s_setup_attempt_payment_method_details_link = z.object({})
+
+export const s_setup_attempt_payment_method_details_paypal = z.object({})
+
+export const s_setup_attempt_payment_method_details_sepa_debit = z.object({})
+
+export const s_setup_attempt_payment_method_details_us_bank_account = z.object(
+  {},
+)
+
+export const s_setup_intent_next_action_redirect_to_url = z.object({
+  return_url: z.string().nullable().optional(),
+  url: z.string().nullable().optional(),
+})
+
+export const s_setup_intent_next_action_verify_with_microdeposits = z.object({
+  arrival_date: z.coerce.number(),
+  hosted_verification_url: z.string(),
+  microdeposit_type: z
+    .enum(["amounts", "descriptor_code"])
+    .nullable()
+    .optional(),
+})
+
+export const s_setup_intent_payment_method_options_card_mandate_options =
+  z.object({
+    amount: z.coerce.number(),
+    amount_type: z.enum(["fixed", "maximum"]),
+    currency: z.string(),
+    description: z.string().nullable().optional(),
+    end_date: z.coerce.number().nullable().optional(),
+    interval: z.enum(["day", "month", "sporadic", "week", "year"]),
+    interval_count: z.coerce.number().nullable().optional(),
+    reference: z.string(),
+    start_date: z.coerce.number(),
+    supported_types: z
+      .array(z.enum(["india"]))
+      .nullable()
+      .optional(),
+  })
+
+export const s_setup_intent_payment_method_options_link = z.object({})
+
+export const s_setup_intent_payment_method_options_mandate_options_acss_debit =
+  z.object({
+    custom_mandate_url: z.string().optional(),
+    default_for: z.array(z.enum(["invoice", "subscription"])).optional(),
+    interval_description: z.string().nullable().optional(),
+    payment_schedule: z
+      .enum(["combined", "interval", "sporadic"])
+      .nullable()
+      .optional(),
+    transaction_type: z.enum(["business", "personal"]).nullable().optional(),
+  })
+
+export const s_setup_intent_payment_method_options_mandate_options_sepa_debit =
+  z.object({})
+
+export const s_setup_intent_payment_method_options_paypal = z.object({
+  billing_agreement_id: z.string().nullable().optional(),
+})
+
+export const s_setup_intent_type_specific_payment_method_options_client =
+  z.object({
+    verification_method: z
+      .enum(["automatic", "instant", "microdeposits"])
+      .optional(),
+  })
+
+export const s_shipping_rate_delivery_estimate_bound = z.object({
+  unit: z.enum(["business_day", "day", "hour", "month", "week"]),
+  value: z.coerce.number(),
+})
+
+export const s_sigma_scheduled_query_run_error = z.object({
+  message: z.string(),
+})
+
+export const s_source_code_verification_flow = z.object({
+  attempts_remaining: z.coerce.number(),
+  status: z.string(),
+})
+
+export const s_source_mandate_notification_acss_debit_data = z.object({
+  statement_descriptor: z.string().optional(),
+})
+
+export const s_source_mandate_notification_bacs_debit_data = z.object({
+  last4: z.string().optional(),
+})
+
+export const s_source_mandate_notification_sepa_debit_data = z.object({
+  creditor_identifier: z.string().optional(),
+  last4: z.string().optional(),
+  mandate_reference: z.string().optional(),
+})
+
+export const s_source_order_item = z.object({
+  amount: z.coerce.number().nullable().optional(),
+  currency: z.string().nullable().optional(),
+  description: z.string().nullable().optional(),
+  parent: z.string().nullable().optional(),
+  quantity: z.coerce.number().optional(),
+  type: z.string().nullable().optional(),
+})
+
+export const s_source_receiver_flow = z.object({
+  address: z.string().nullable().optional(),
+  amount_charged: z.coerce.number(),
+  amount_received: z.coerce.number(),
+  amount_returned: z.coerce.number(),
+  refund_attributes_method: z.string(),
+  refund_attributes_status: z.string(),
+})
+
+export const s_source_redirect_flow = z.object({
+  failure_reason: z.string().nullable().optional(),
+  return_url: z.string(),
+  status: z.string(),
+  url: z.string(),
+})
+
+export const s_source_transaction_ach_credit_transfer_data = z.object({
+  customer_data: z.string().optional(),
+  fingerprint: z.string().optional(),
+  last4: z.string().optional(),
+  routing_number: z.string().optional(),
+})
+
+export const s_source_transaction_chf_credit_transfer_data = z.object({
+  reference: z.string().optional(),
+  sender_address_country: z.string().optional(),
+  sender_address_line1: z.string().optional(),
+  sender_iban: z.string().optional(),
+  sender_name: z.string().optional(),
+})
+
+export const s_source_transaction_gbp_credit_transfer_data = z.object({
+  fingerprint: z.string().optional(),
+  funding_method: z.string().optional(),
+  last4: z.string().optional(),
+  reference: z.string().optional(),
+  sender_account_number: z.string().optional(),
+  sender_name: z.string().optional(),
+  sender_sort_code: z.string().optional(),
+})
+
+export const s_source_transaction_paper_check_data = z.object({
+  available_at: z.string().optional(),
+  invoices: z.string().optional(),
+})
+
+export const s_source_transaction_sepa_credit_transfer_data = z.object({
+  reference: z.string().optional(),
+  sender_iban: z.string().optional(),
+  sender_name: z.string().optional(),
+})
+
+export const s_source_type_ach_credit_transfer = z.object({
+  account_number: z.string().nullable().optional(),
+  bank_name: z.string().nullable().optional(),
+  fingerprint: z.string().nullable().optional(),
+  refund_account_holder_name: z.string().nullable().optional(),
+  refund_account_holder_type: z.string().nullable().optional(),
+  refund_routing_number: z.string().nullable().optional(),
+  routing_number: z.string().nullable().optional(),
+  swift_code: z.string().nullable().optional(),
+})
+
+export const s_source_type_ach_debit = z.object({
+  bank_name: z.string().nullable().optional(),
+  country: z.string().nullable().optional(),
+  fingerprint: z.string().nullable().optional(),
+  last4: z.string().nullable().optional(),
+  routing_number: z.string().nullable().optional(),
+  type: z.string().nullable().optional(),
+})
+
+export const s_source_type_acss_debit = z.object({
+  bank_address_city: z.string().nullable().optional(),
+  bank_address_line_1: z.string().nullable().optional(),
+  bank_address_line_2: z.string().nullable().optional(),
+  bank_address_postal_code: z.string().nullable().optional(),
+  bank_name: z.string().nullable().optional(),
+  category: z.string().nullable().optional(),
+  country: z.string().nullable().optional(),
+  fingerprint: z.string().nullable().optional(),
+  last4: z.string().nullable().optional(),
+  routing_number: z.string().nullable().optional(),
+})
+
+export const s_source_type_alipay = z.object({
+  data_string: z.string().nullable().optional(),
+  native_url: z.string().nullable().optional(),
+  statement_descriptor: z.string().nullable().optional(),
+})
+
+export const s_source_type_au_becs_debit = z.object({
+  bsb_number: z.string().nullable().optional(),
+  fingerprint: z.string().nullable().optional(),
+  last4: z.string().nullable().optional(),
+})
+
+export const s_source_type_bancontact = z.object({
+  bank_code: z.string().nullable().optional(),
+  bank_name: z.string().nullable().optional(),
+  bic: z.string().nullable().optional(),
+  iban_last4: z.string().nullable().optional(),
+  preferred_language: z.string().nullable().optional(),
+  statement_descriptor: z.string().nullable().optional(),
+})
+
+export const s_source_type_card = z.object({
+  address_line1_check: z.string().nullable().optional(),
+  address_zip_check: z.string().nullable().optional(),
+  brand: z.string().nullable().optional(),
+  country: z.string().nullable().optional(),
+  cvc_check: z.string().nullable().optional(),
+  dynamic_last4: z.string().nullable().optional(),
+  exp_month: z.coerce.number().nullable().optional(),
+  exp_year: z.coerce.number().nullable().optional(),
+  fingerprint: z.string().optional(),
+  funding: z.string().nullable().optional(),
+  last4: z.string().nullable().optional(),
+  name: z.string().nullable().optional(),
+  three_d_secure: z.string().optional(),
+  tokenization_method: z.string().nullable().optional(),
+})
+
+export const s_source_type_card_present = z.object({
+  application_cryptogram: z.string().optional(),
+  application_preferred_name: z.string().optional(),
+  authorization_code: z.string().nullable().optional(),
+  authorization_response_code: z.string().optional(),
+  brand: z.string().nullable().optional(),
+  country: z.string().nullable().optional(),
+  cvm_type: z.string().optional(),
+  data_type: z.string().nullable().optional(),
+  dedicated_file_name: z.string().optional(),
+  emv_auth_data: z.string().optional(),
+  evidence_customer_signature: z.string().nullable().optional(),
+  evidence_transaction_certificate: z.string().nullable().optional(),
+  exp_month: z.coerce.number().nullable().optional(),
+  exp_year: z.coerce.number().nullable().optional(),
+  fingerprint: z.string().optional(),
+  funding: z.string().nullable().optional(),
+  last4: z.string().nullable().optional(),
+  pos_device_id: z.string().nullable().optional(),
+  pos_entry_mode: z.string().optional(),
+  read_method: z.string().nullable().optional(),
+  reader: z.string().nullable().optional(),
+  terminal_verification_results: z.string().optional(),
+  transaction_status_information: z.string().optional(),
+})
+
+export const s_source_type_eps = z.object({
+  reference: z.string().nullable().optional(),
+  statement_descriptor: z.string().nullable().optional(),
+})
+
+export const s_source_type_giropay = z.object({
+  bank_code: z.string().nullable().optional(),
+  bank_name: z.string().nullable().optional(),
+  bic: z.string().nullable().optional(),
+  statement_descriptor: z.string().nullable().optional(),
+})
+
+export const s_source_type_ideal = z.object({
+  bank: z.string().nullable().optional(),
+  bic: z.string().nullable().optional(),
+  iban_last4: z.string().nullable().optional(),
+  statement_descriptor: z.string().nullable().optional(),
+})
+
+export const s_source_type_klarna = z.object({
+  background_image_url: z.string().optional(),
+  client_token: z.string().nullable().optional(),
+  first_name: z.string().optional(),
+  last_name: z.string().optional(),
+  locale: z.string().optional(),
+  logo_url: z.string().optional(),
+  page_title: z.string().optional(),
+  pay_later_asset_urls_descriptive: z.string().optional(),
+  pay_later_asset_urls_standard: z.string().optional(),
+  pay_later_name: z.string().optional(),
+  pay_later_redirect_url: z.string().optional(),
+  pay_now_asset_urls_descriptive: z.string().optional(),
+  pay_now_asset_urls_standard: z.string().optional(),
+  pay_now_name: z.string().optional(),
+  pay_now_redirect_url: z.string().optional(),
+  pay_over_time_asset_urls_descriptive: z.string().optional(),
+  pay_over_time_asset_urls_standard: z.string().optional(),
+  pay_over_time_name: z.string().optional(),
+  pay_over_time_redirect_url: z.string().optional(),
+  payment_method_categories: z.string().optional(),
+  purchase_country: z.string().optional(),
+  purchase_type: z.string().optional(),
+  redirect_url: z.string().optional(),
+  shipping_delay: z.coerce.number().optional(),
+  shipping_first_name: z.string().optional(),
+  shipping_last_name: z.string().optional(),
+})
+
+export const s_source_type_multibanco = z.object({
+  entity: z.string().nullable().optional(),
+  reference: z.string().nullable().optional(),
+  refund_account_holder_address_city: z.string().nullable().optional(),
+  refund_account_holder_address_country: z.string().nullable().optional(),
+  refund_account_holder_address_line1: z.string().nullable().optional(),
+  refund_account_holder_address_line2: z.string().nullable().optional(),
+  refund_account_holder_address_postal_code: z.string().nullable().optional(),
+  refund_account_holder_address_state: z.string().nullable().optional(),
+  refund_account_holder_name: z.string().nullable().optional(),
+  refund_iban: z.string().nullable().optional(),
+})
+
+export const s_source_type_p24 = z.object({
+  reference: z.string().nullable().optional(),
+})
+
+export const s_source_type_sepa_debit = z.object({
+  bank_code: z.string().nullable().optional(),
+  branch_code: z.string().nullable().optional(),
+  country: z.string().nullable().optional(),
+  fingerprint: z.string().nullable().optional(),
+  last4: z.string().nullable().optional(),
+  mandate_reference: z.string().nullable().optional(),
+  mandate_url: z.string().nullable().optional(),
+})
+
+export const s_source_type_sofort = z.object({
+  bank_code: z.string().nullable().optional(),
+  bank_name: z.string().nullable().optional(),
+  bic: z.string().nullable().optional(),
+  country: z.string().nullable().optional(),
+  iban_last4: z.string().nullable().optional(),
+  preferred_language: z.string().nullable().optional(),
+  statement_descriptor: z.string().nullable().optional(),
+})
+
+export const s_source_type_three_d_secure = z.object({
+  address_line1_check: z.string().nullable().optional(),
+  address_zip_check: z.string().nullable().optional(),
+  authenticated: z.coerce.boolean().nullable().optional(),
+  brand: z.string().nullable().optional(),
+  card: z.string().nullable().optional(),
+  country: z.string().nullable().optional(),
+  customer: z.string().nullable().optional(),
+  cvc_check: z.string().nullable().optional(),
+  dynamic_last4: z.string().nullable().optional(),
+  exp_month: z.coerce.number().nullable().optional(),
+  exp_year: z.coerce.number().nullable().optional(),
+  fingerprint: z.string().optional(),
+  funding: z.string().nullable().optional(),
+  last4: z.string().nullable().optional(),
+  name: z.string().nullable().optional(),
+  three_d_secure: z.string().optional(),
+  tokenization_method: z.string().nullable().optional(),
+})
+
+export const s_source_type_wechat = z.object({
+  prepay_id: z.string().optional(),
+  qr_code_url: z.string().nullable().optional(),
+  statement_descriptor: z.string().optional(),
+})
+
+export const s_subscription_automatic_tax = z.object({
+  enabled: z.coerce.boolean(),
+})
+
+export const s_subscription_billing_thresholds = z.object({
+  amount_gte: z.coerce.number().nullable().optional(),
+  reset_billing_cycle_anchor: z.coerce.boolean().nullable().optional(),
+})
+
+export const s_subscription_details_data = z.object({
+  metadata: z.object({}).nullable().optional(),
+})
+
+export const s_subscription_item_billing_thresholds = z.object({
+  usage_gte: z.coerce.number().nullable().optional(),
+})
+
+export const s_subscription_pending_invoice_item_interval = z.object({
+  interval: z.enum(["day", "month", "week", "year"]),
+  interval_count: z.coerce.number(),
+})
+
+export const s_subscription_schedule_current_phase = z.object({
+  end_date: z.coerce.number(),
+  start_date: z.coerce.number(),
+})
+
+export const s_subscription_schedules_resource_default_settings_automatic_tax =
+  z.object({ enabled: z.coerce.boolean() })
+
+export const s_subscriptions_resource_pause_collection = z.object({
+  behavior: z.enum(["keep_as_draft", "mark_uncollectible", "void"]),
+  resumes_at: z.coerce.number().nullable().optional(),
+})
+
+export const s_subscriptions_trials_resource_end_behavior = z.object({
+  missing_payment_method: z.enum(["cancel", "create_invoice", "pause"]),
+})
+
+export const s_tax_code = z.object({
+  description: z.string(),
+  id: z.string(),
+  name: z.string(),
+  object: z.enum(["tax_code"]),
+})
+
+export const s_tax_deducted_at_source = z.object({
+  id: z.string(),
+  object: z.enum(["tax_deducted_at_source"]),
+  period_end: z.coerce.number(),
+  period_start: z.coerce.number(),
+  tax_deduction_account_number: z.string(),
+})
+
+export const s_tax_id_verification = z.object({
+  status: z.enum(["pending", "unavailable", "unverified", "verified"]),
+  verified_address: z.string().nullable().optional(),
+  verified_name: z.string().nullable().optional(),
+})
+
+export const s_tax_product_resource_customer_details_resource_tax_id = z.object(
+  {
+    type: z.enum([
+      "ad_nrt",
+      "ae_trn",
+      "ar_cuit",
+      "au_abn",
+      "au_arn",
+      "bg_uic",
+      "bo_tin",
+      "br_cnpj",
+      "br_cpf",
+      "ca_bn",
+      "ca_gst_hst",
+      "ca_pst_bc",
+      "ca_pst_mb",
+      "ca_pst_sk",
+      "ca_qst",
+      "ch_vat",
+      "cl_tin",
+      "cn_tin",
+      "co_nit",
+      "cr_tin",
+      "do_rcn",
+      "ec_ruc",
+      "eg_tin",
+      "es_cif",
+      "eu_oss_vat",
+      "eu_vat",
+      "gb_vat",
+      "ge_vat",
+      "hk_br",
+      "hu_tin",
+      "id_npwp",
+      "il_vat",
+      "in_gst",
+      "is_vat",
+      "jp_cn",
+      "jp_rn",
+      "jp_trn",
+      "ke_pin",
+      "kr_brn",
+      "li_uid",
+      "mx_rfc",
+      "my_frp",
+      "my_itn",
+      "my_sst",
+      "no_vat",
+      "nz_gst",
+      "pe_ruc",
+      "ph_tin",
+      "ro_tin",
+      "rs_pib",
+      "ru_inn",
+      "ru_kpp",
+      "sa_vat",
+      "sg_gst",
+      "sg_uen",
+      "si_tin",
+      "sv_nit",
+      "th_vat",
+      "tr_tin",
+      "tw_vat",
+      "ua_vat",
+      "unknown",
+      "us_ein",
+      "uy_ruc",
+      "ve_rif",
+      "vn_tin",
+      "za_vat",
+    ]),
+    value: z.string(),
+  },
+)
+
+export const s_tax_product_resource_jurisdiction = z.object({
+  country: z.string(),
+  display_name: z.string(),
+  level: z.enum(["city", "country", "county", "district", "state"]),
+  state: z.string().nullable().optional(),
+})
+
+export const s_tax_product_resource_line_item_tax_rate_details = z.object({
+  display_name: z.string(),
+  percentage_decimal: z.string(),
+  tax_type: z.enum([
+    "amusement_tax",
+    "communications_tax",
+    "gst",
+    "hst",
+    "igst",
+    "jct",
+    "lease_tax",
+    "pst",
+    "qst",
+    "rst",
+    "sales_tax",
+    "vat",
+  ]),
+})
+
+export const s_tax_product_resource_postal_address = z.object({
+  city: z.string().nullable().optional(),
+  country: z.string(),
+  line1: z.string().nullable().optional(),
+  line2: z.string().nullable().optional(),
+  postal_code: z.string().nullable().optional(),
+  state: z.string().nullable().optional(),
+})
+
+export const s_tax_product_resource_tax_rate_details = z.object({
+  country: z.string().nullable().optional(),
+  percentage_decimal: z.string(),
+  state: z.string().nullable().optional(),
+  tax_type: z
+    .enum([
+      "amusement_tax",
+      "communications_tax",
+      "gst",
+      "hst",
+      "igst",
+      "jct",
+      "lease_tax",
+      "pst",
+      "qst",
+      "rst",
+      "sales_tax",
+      "vat",
+    ])
+    .nullable()
+    .optional(),
+})
+
+export const s_tax_product_resource_tax_settings_defaults = z.object({
+  tax_behavior: z
+    .enum(["exclusive", "inclusive", "inferred_by_currency"])
+    .nullable()
+    .optional(),
+  tax_code: z.string().nullable().optional(),
+})
+
+export const s_tax_product_resource_tax_settings_status_details_resource_active =
+  z.object({})
+
+export const s_tax_product_resource_tax_settings_status_details_resource_pending =
+  z.object({ missing_fields: z.array(z.string()).nullable().optional() })
+
+export const s_tax_product_resource_tax_transaction_line_item_resource_reversal =
+  z.object({ original_line_item: z.string() })
+
+export const s_tax_product_resource_tax_transaction_resource_reversal =
+  z.object({ original_transaction: z.string().nullable().optional() })
+
+export const s_tax_product_resource_tax_transaction_shipping_cost = z.object({
+  amount: z.coerce.number(),
+  amount_tax: z.coerce.number(),
+  shipping_rate: z.string().optional(),
+  tax_behavior: z.enum(["exclusive", "inclusive"]),
+  tax_code: z.string(),
+})
+
+export const s_tax_rate = z.object({
+  active: z.coerce.boolean(),
+  country: z.string().nullable().optional(),
+  created: z.coerce.number(),
+  description: z.string().nullable().optional(),
+  display_name: z.string(),
+  effective_percentage: z.coerce.number().nullable().optional(),
+  id: z.string(),
+  inclusive: z.coerce.boolean(),
+  jurisdiction: z.string().nullable().optional(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}).nullable().optional(),
+  object: z.enum(["tax_rate"]),
+  percentage: z.coerce.number(),
+  state: z.string().nullable().optional(),
+  tax_type: z
+    .enum([
+      "amusement_tax",
+      "communications_tax",
+      "gst",
+      "hst",
+      "igst",
+      "jct",
+      "lease_tax",
+      "pst",
+      "qst",
+      "rst",
+      "sales_tax",
+      "service_tax",
+      "vat",
+    ])
+    .nullable()
+    .optional(),
+})
+
+export const s_terminal_configuration_configuration_resource_currency_specific_config =
+  z.object({
+    fixed_amounts: z.array(z.coerce.number()).nullable().optional(),
+    percentages: z.array(z.coerce.number()).nullable().optional(),
+    smart_tip_threshold: z.coerce.number().optional(),
+  })
+
+export const s_terminal_connection_token = z.object({
+  location: z.string().optional(),
+  object: z.enum(["terminal.connection_token"]),
+  secret: z.string(),
+})
+
+export const s_terminal_reader_reader_resource_line_item = z.object({
+  amount: z.coerce.number(),
+  description: z.string(),
+  quantity: z.coerce.number(),
+})
+
+export const s_terminal_reader_reader_resource_process_setup_config = z.object(
+  {},
+)
+
+export const s_terminal_reader_reader_resource_tipping_config = z.object({
+  amount_eligible: z.coerce.number().optional(),
+})
+
+export const s_test_helpers_test_clock = z.object({
+  created: z.coerce.number(),
+  deletes_after: z.coerce.number(),
+  frozen_time: z.coerce.number(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  name: z.string().nullable().optional(),
+  object: z.enum(["test_helpers.test_clock"]),
+  status: z.enum(["advancing", "internal_failure", "ready"]),
+})
+
+export const s_three_d_secure_details = z.object({
+  authentication_flow: z
+    .enum(["challenge", "frictionless"])
+    .nullable()
+    .optional(),
+  result: z
+    .enum([
+      "attempt_acknowledged",
+      "authenticated",
+      "exempted",
+      "failed",
+      "not_supported",
+      "processing_error",
+    ])
+    .nullable()
+    .optional(),
+  result_reason: z
+    .enum([
+      "abandoned",
+      "bypassed",
+      "canceled",
+      "card_not_enrolled",
+      "network_not_supported",
+      "protocol_error",
+      "rejected",
+    ])
+    .nullable()
+    .optional(),
+  version: z.enum(["1.0.2", "2.1.0", "2.2.0"]).nullable().optional(),
+})
+
+export const s_three_d_secure_details_charge = z.object({
+  authentication_flow: z
+    .enum(["challenge", "frictionless"])
+    .nullable()
+    .optional(),
+  result: z
+    .enum([
+      "attempt_acknowledged",
+      "authenticated",
+      "exempted",
+      "failed",
+      "not_supported",
+      "processing_error",
+    ])
+    .nullable()
+    .optional(),
+  result_reason: z
+    .enum([
+      "abandoned",
+      "bypassed",
+      "canceled",
+      "card_not_enrolled",
+      "network_not_supported",
+      "protocol_error",
+      "rejected",
+    ])
+    .nullable()
+    .optional(),
+  version: z.enum(["1.0.2", "2.1.0", "2.2.0"]).nullable().optional(),
+})
+
+export const s_three_d_secure_usage = z.object({
+  supported: z.coerce.boolean(),
+})
+
+export const s_transfer_schedule = z.object({
+  delay_days: z.coerce.number(),
+  interval: z.string(),
+  monthly_anchor: z.coerce.number().optional(),
+  weekly_anchor: z.string().optional(),
+})
+
+export const s_transform_quantity = z.object({
+  divide_by: z.coerce.number(),
+  round: z.enum(["down", "up"]),
+})
+
+export const s_transform_usage = z.object({
+  divide_by: z.coerce.number(),
+  round: z.enum(["down", "up"]),
+})
+
+export const s_treasury_financial_accounts_resource_aba_record = z.object({
+  account_holder_name: z.string(),
+  account_number: z.string().nullable().optional(),
+  account_number_last4: z.string(),
+  bank_name: z.string(),
+  routing_number: z.string(),
+})
+
+export const s_treasury_financial_accounts_resource_balance = z.object({
+  cash: z.object({}),
+  inbound_pending: z.object({}),
+  outbound_pending: z.object({}),
+})
+
+export const s_treasury_financial_accounts_resource_closed_status_details =
+  z.object({
+    reasons: z.array(
+      z.enum(["account_rejected", "closed_by_platform", "other"]),
+    ),
+  })
+
+export const s_treasury_financial_accounts_resource_platform_restrictions =
+  z.object({
+    inbound_flows: z.enum(["restricted", "unrestricted"]).nullable().optional(),
+    outbound_flows: z
+      .enum(["restricted", "unrestricted"])
+      .nullable()
+      .optional(),
+  })
+
+export const s_treasury_financial_accounts_resource_toggles_setting_status_details =
+  z.object({
+    code: z.enum([
+      "activating",
+      "capability_not_requested",
+      "financial_account_closed",
+      "rejected_other",
+      "rejected_unsupported_business",
+      "requirements_past_due",
+      "requirements_pending_verification",
+      "restricted_by_platform",
+      "restricted_other",
+    ]),
+    resolution: z
+      .enum(["contact_stripe", "provide_information", "remove_restriction"])
+      .nullable()
+      .optional(),
+    restriction: z.enum(["inbound_flows", "outbound_flows"]).optional(),
+  })
+
+export const s_treasury_inbound_transfers_resource_failure_details = z.object({
+  code: z.enum([
+    "account_closed",
+    "account_frozen",
+    "bank_account_restricted",
+    "bank_ownership_changed",
+    "debit_not_authorized",
+    "incorrect_account_holder_address",
+    "incorrect_account_holder_name",
+    "incorrect_account_holder_tax_id",
+    "insufficient_funds",
+    "invalid_account_number",
+    "invalid_currency",
+    "no_account",
+    "other",
+  ]),
+})
+
+export const s_treasury_inbound_transfers_resource_inbound_transfer_resource_linked_flows =
+  z.object({ received_debit: z.string().nullable().optional() })
+
+export const s_treasury_inbound_transfers_resource_inbound_transfer_resource_status_transitions =
+  z.object({
+    canceled_at: z.coerce.number().nullable().optional(),
+    failed_at: z.coerce.number().nullable().optional(),
+    succeeded_at: z.coerce.number().nullable().optional(),
+  })
+
+export const s_treasury_outbound_payments_resource_outbound_payment_resource_end_user_details =
+  z.object({
+    ip_address: z.string().nullable().optional(),
+    present: z.coerce.boolean(),
+  })
+
+export const s_treasury_outbound_payments_resource_outbound_payment_resource_status_transitions =
+  z.object({
+    canceled_at: z.coerce.number().nullable().optional(),
+    failed_at: z.coerce.number().nullable().optional(),
+    posted_at: z.coerce.number().nullable().optional(),
+    returned_at: z.coerce.number().nullable().optional(),
+  })
+
+export const s_treasury_outbound_transfers_resource_status_transitions =
+  z.object({
+    canceled_at: z.coerce.number().nullable().optional(),
+    failed_at: z.coerce.number().nullable().optional(),
+    posted_at: z.coerce.number().nullable().optional(),
+    returned_at: z.coerce.number().nullable().optional(),
+  })
+
+export const s_treasury_received_credits_resource_reversal_details = z.object({
+  deadline: z.coerce.number().nullable().optional(),
+  restricted_reason: z
+    .enum([
+      "already_reversed",
+      "deadline_passed",
+      "network_restricted",
+      "other",
+      "source_flow_restricted",
+    ])
+    .nullable()
+    .optional(),
+})
+
+export const s_treasury_received_credits_resource_status_transitions = z.object(
+  { posted_at: z.coerce.number().nullable().optional() },
+)
+
+export const s_treasury_received_debits_resource_debit_reversal_linked_flows =
+  z.object({ issuing_dispute: z.string().nullable().optional() })
+
+export const s_treasury_received_debits_resource_linked_flows = z.object({
+  debit_reversal: z.string().nullable().optional(),
+  inbound_transfer: z.string().nullable().optional(),
+  issuing_authorization: z.string().nullable().optional(),
+  issuing_transaction: z.string().nullable().optional(),
+})
+
+export const s_treasury_received_debits_resource_reversal_details = z.object({
+  deadline: z.coerce.number().nullable().optional(),
+  restricted_reason: z
+    .enum([
+      "already_reversed",
+      "deadline_passed",
+      "network_restricted",
+      "other",
+      "source_flow_restricted",
+    ])
+    .nullable()
+    .optional(),
+})
+
+export const s_treasury_received_debits_resource_status_transitions = z.object({
+  completed_at: z.coerce.number().nullable().optional(),
+})
+
+export const s_treasury_shared_resource_initiating_payment_method_details_us_bank_account =
+  z.object({
+    bank_name: z.string().nullable().optional(),
+    last4: z.string().nullable().optional(),
+    routing_number: z.string().nullable().optional(),
+  })
+
+export const s_treasury_transactions_resource_abstract_transaction_resource_status_transitions =
+  z.object({
+    posted_at: z.coerce.number().nullable().optional(),
+    void_at: z.coerce.number().nullable().optional(),
+  })
+
+export const s_treasury_transactions_resource_balance_impact = z.object({
+  cash: z.coerce.number(),
+  inbound_pending: z.coerce.number(),
+  outbound_pending: z.coerce.number(),
+})
+
+export const s_us_bank_account_networks = z.object({
+  preferred: z.string().nullable().optional(),
+  supported: z.array(z.enum(["ach", "us_domestic_wire"])),
+})
+
+export const s_usage_record = z.object({
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  object: z.enum(["usage_record"]),
+  quantity: z.coerce.number(),
+  subscription_item: z.string(),
+  timestamp: z.coerce.number(),
+})
+
+export const s_verification_session_redaction = z.object({
+  status: z.enum(["processing", "redacted"]),
+})
+
+export const s_webhook_endpoint = z.object({
+  api_version: z.string().nullable().optional(),
+  application: z.string().nullable().optional(),
+  created: z.coerce.number(),
+  description: z.string().nullable().optional(),
+  enabled_events: z.array(z.string()),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}),
+  object: z.enum(["webhook_endpoint"]),
+  secret: z.string().optional(),
+  status: z.string(),
+  url: z.string(),
+})
+
+export const s_account_business_profile = z.object({
+  mcc: z.string().nullable().optional(),
+  monthly_estimated_revenue: s_account_monthly_estimated_revenue.optional(),
+  name: z.string().nullable().optional(),
+  product_description: z.string().nullable().optional(),
+  support_address: s_address.nullable().optional(),
+  support_email: z.string().nullable().optional(),
+  support_phone: z.string().nullable().optional(),
+  support_url: z.string().nullable().optional(),
+  url: z.string().nullable().optional(),
+})
+
+export const s_account_capability_future_requirements = z.object({
+  alternatives: z
+    .array(s_account_requirements_alternative)
+    .nullable()
+    .optional(),
+  current_deadline: z.coerce.number().nullable().optional(),
+  currently_due: z.array(z.string()),
+  disabled_reason: z.string().nullable().optional(),
+  errors: z.array(s_account_requirements_error),
+  eventually_due: z.array(z.string()),
+  past_due: z.array(z.string()),
+  pending_verification: z.array(z.string()),
+})
+
+export const s_account_capability_requirements = z.object({
+  alternatives: z
+    .array(s_account_requirements_alternative)
+    .nullable()
+    .optional(),
+  current_deadline: z.coerce.number().nullable().optional(),
+  currently_due: z.array(z.string()),
+  disabled_reason: z.string().nullable().optional(),
+  errors: z.array(s_account_requirements_error),
+  eventually_due: z.array(z.string()),
+  past_due: z.array(z.string()),
+  pending_verification: z.array(z.string()),
+})
+
+export const s_account_card_issuing_settings = z.object({
+  tos_acceptance: s_card_issuing_account_terms_of_service.optional(),
+})
+
+export const s_account_card_payments_settings = z.object({
+  decline_on: s_account_decline_charge_on.optional(),
+  statement_descriptor_prefix: z.string().nullable().optional(),
+  statement_descriptor_prefix_kana: z.string().nullable().optional(),
+  statement_descriptor_prefix_kanji: z.string().nullable().optional(),
+})
+
+export const s_account_future_requirements = z.object({
+  alternatives: z
+    .array(s_account_requirements_alternative)
+    .nullable()
+    .optional(),
+  current_deadline: z.coerce.number().nullable().optional(),
+  currently_due: z.array(z.string()).nullable().optional(),
+  disabled_reason: z.string().nullable().optional(),
+  errors: z.array(s_account_requirements_error).nullable().optional(),
+  eventually_due: z.array(z.string()).nullable().optional(),
+  past_due: z.array(z.string()).nullable().optional(),
+  pending_verification: z.array(z.string()).nullable().optional(),
+})
+
+export const s_account_payout_settings = z.object({
+  debit_negative_balances: z.coerce.boolean(),
+  schedule: s_transfer_schedule,
+  statement_descriptor: z.string().nullable().optional(),
+})
+
+export const s_account_requirements = z.object({
+  alternatives: z
+    .array(s_account_requirements_alternative)
+    .nullable()
+    .optional(),
+  current_deadline: z.coerce.number().nullable().optional(),
+  currently_due: z.array(z.string()).nullable().optional(),
+  disabled_reason: z.string().nullable().optional(),
+  errors: z.array(s_account_requirements_error).nullable().optional(),
+  eventually_due: z.array(z.string()).nullable().optional(),
+  past_due: z.array(z.string()).nullable().optional(),
+  pending_verification: z.array(z.string()).nullable().optional(),
+})
+
+export const s_account_treasury_settings = z.object({
+  tos_acceptance: s_account_terms_of_service.optional(),
+})
+
+export const s_apps_secret = z.object({
+  created: z.coerce.number(),
+  deleted: z.coerce.boolean().optional(),
+  expires_at: z.coerce.number().nullable().optional(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  name: z.string(),
+  object: z.enum(["apps.secret"]),
+  payload: z.string().nullable().optional(),
+  scope: s_secret_service_resource_scope,
+})
+
+export const s_balance_amount = z.object({
+  amount: z.coerce.number(),
+  currency: z.string(),
+  source_types: s_balance_amount_by_source_type.optional(),
+})
+
+export const s_bank_connections_resource_balance = z.object({
+  as_of: z.coerce.number(),
+  cash: s_bank_connections_resource_balance_api_resource_cash_balance.optional(),
+  credit:
+    s_bank_connections_resource_balance_api_resource_credit_balance.optional(),
+  current: z.object({}),
+  type: z.enum(["cash", "credit"]),
+})
+
+export const s_billing_details = z.object({
+  address: s_address.nullable().optional(),
+  email: z.string().nullable().optional(),
+  name: z.string().nullable().optional(),
+  phone: z.string().nullable().optional(),
+})
+
+export const s_cash_balance = z.object({
+  available: z.object({}).nullable().optional(),
+  customer: z.string(),
+  livemode: z.coerce.boolean(),
+  object: z.enum(["cash_balance"]),
+  settings: s_customer_balance_customer_balance_settings,
+})
+
+export const s_charge_outcome = z.object({
+  network_status: z.string().nullable().optional(),
+  reason: z.string().nullable().optional(),
+  risk_level: z.string().optional(),
+  risk_score: z.coerce.number().optional(),
+  rule: z.union([z.string(), s_rule]).optional(),
+  seller_message: z.string().nullable().optional(),
+  type: z.string(),
+})
+
+export const s_checkout_acss_debit_payment_method_options = z.object({
+  currency: z.enum(["cad", "usd"]).optional(),
+  mandate_options: s_checkout_acss_debit_mandate_options.optional(),
+  setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+  verification_method: z
+    .enum(["automatic", "instant", "microdeposits"])
+    .optional(),
+})
+
+export const s_checkout_card_payment_method_options = z.object({
+  installments: s_checkout_card_installments_options.optional(),
+  setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+  statement_descriptor_suffix_kana: z.string().optional(),
+  statement_descriptor_suffix_kanji: z.string().optional(),
+})
+
+export const s_checkout_customer_balance_bank_transfer_payment_method_options =
+  z.object({
+    eu_bank_transfer:
+      s_payment_method_options_customer_balance_eu_bank_account.optional(),
+    requested_address_types: z
+      .array(
+        z.enum(["aba", "iban", "sepa", "sort_code", "spei", "swift", "zengin"]),
+      )
+      .optional(),
+    type: z
+      .enum([
+        "eu_bank_transfer",
+        "gb_bank_transfer",
+        "jp_bank_transfer",
+        "mx_bank_transfer",
+        "us_bank_transfer",
+      ])
+      .nullable()
+      .optional(),
+  })
+
+export const s_checkout_us_bank_account_payment_method_options = z.object({
+  financial_connections: s_linked_account_options_us_bank_account.optional(),
+  setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+  verification_method: z.enum(["automatic", "instant"]).optional(),
+})
+
+export const s_connect_embedded_account_session_create_components = z.object({
+  account_onboarding: s_connect_embedded_base_config_claim,
+})
+
+export const s_country_spec_verification_fields = z.object({
+  company: s_country_spec_verification_field_details,
+  individual: s_country_spec_verification_field_details,
+})
+
+export const s_coupon = z.object({
+  amount_off: z.coerce.number().nullable().optional(),
+  applies_to: s_coupon_applies_to.optional(),
+  created: z.coerce.number(),
+  currency: z.string().nullable().optional(),
+  currency_options: z.object({}).optional(),
+  duration: z.enum(["forever", "once", "repeating"]),
+  duration_in_months: z.coerce.number().nullable().optional(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  max_redemptions: z.coerce.number().nullable().optional(),
+  metadata: z.object({}).nullable().optional(),
+  name: z.string().nullable().optional(),
+  object: z.enum(["coupon"]),
+  percent_off: z.coerce.number().nullable().optional(),
+  redeem_by: z.coerce.number().nullable().optional(),
+  times_redeemed: z.coerce.number(),
+  valid: z.coerce.boolean(),
+})
+
+export const s_credit_note_tax_amount = z.object({
+  amount: z.coerce.number(),
+  inclusive: z.coerce.boolean(),
+  tax_rate: z.union([z.string(), s_tax_rate]),
+  taxability_reason: z
+    .enum([
+      "customer_exempt",
+      "not_collecting",
+      "not_subject_to_tax",
+      "not_supported",
+      "portion_product_exempt",
+      "portion_reduced_rated",
+      "portion_standard_rated",
+      "product_exempt",
+      "product_exempt_holiday",
+      "proportionally_rated",
+      "reduced_rated",
+      "reverse_charge",
+      "standard_rated",
+      "taxable_basis_reduced",
+      "zero_rated",
+    ])
+    .nullable()
+    .optional(),
+  taxable_amount: z.coerce.number().nullable().optional(),
+})
+
+export const s_customer_acceptance = z.object({
+  accepted_at: z.coerce.number().nullable().optional(),
+  offline: s_offline_acceptance.optional(),
+  online: s_online_acceptance.optional(),
+  type: z.enum(["offline", "online"]),
+})
+
+export const s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer =
+  z.object({
+    eu_bank_transfer:
+      s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_eu_bank_transfer.optional(),
+    gb_bank_transfer:
+      s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_gb_bank_transfer.optional(),
+    jp_bank_transfer:
+      s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_jp_bank_transfer.optional(),
+    reference: z.string().nullable().optional(),
+    type: z.enum([
+      "eu_bank_transfer",
+      "gb_bank_transfer",
+      "jp_bank_transfer",
+      "mx_bank_transfer",
+      "us_bank_transfer",
+    ]),
+    us_bank_transfer:
+      s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_us_bank_transfer.optional(),
+  })
+
+export const s_customer_tax = z.object({
+  automatic_tax: z.enum([
+    "failed",
+    "not_collecting",
+    "supported",
+    "unrecognized_location",
+  ]),
+  ip_address: z.string().nullable().optional(),
+  location: s_customer_tax_location.nullable().optional(),
+})
+
+export const s_deleted_external_account = z.union([
+  s_deleted_bank_account,
+  s_deleted_card,
+])
+
+export const s_deleted_payment_source = z.union([
+  s_deleted_bank_account,
+  s_deleted_card,
+])
+
+export const s_dispute_payment_method_details = z.object({
+  card: s_dispute_payment_method_details_card.nullable().optional(),
+  type: z.enum(["card"]),
+})
+
+export const s_event = z.object({
+  account: z.string().optional(),
+  api_version: z.string().nullable().optional(),
+  created: z.coerce.number(),
+  data: s_notification_event_data,
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  object: z.enum(["event"]),
+  pending_webhooks: z.coerce.number(),
+  request: s_notification_event_request.nullable().optional(),
+  type: z.string(),
+})
+
+export const s_external_account_requirements = z.object({
+  currently_due: z.array(z.string()).nullable().optional(),
+  errors: z.array(s_account_requirements_error).nullable().optional(),
+  past_due: z.array(z.string()).nullable().optional(),
+  pending_verification: z.array(z.string()).nullable().optional(),
+})
+
+export const s_financial_connections_account_ownership = z.object({
+  created: z.coerce.number(),
+  id: z.string(),
+  object: z.enum(["financial_connections.account_ownership"]),
+  owners: z.object({
+    data: z.array(s_financial_connections_account_owner),
+    has_more: z.coerce.boolean(),
+    object: z.enum(["list"]),
+    url: z.string(),
+  }),
+})
+
+export const s_funding_instructions_bank_transfer_financial_address = z.object({
+  iban: s_funding_instructions_bank_transfer_iban_record.optional(),
+  sort_code: s_funding_instructions_bank_transfer_sort_code_record.optional(),
+  spei: s_funding_instructions_bank_transfer_spei_record.optional(),
+  supported_networks: z
+    .array(z.enum(["bacs", "fps", "sepa", "spei", "zengin"]))
+    .optional(),
+  type: z.enum(["iban", "sort_code", "spei", "zengin"]),
+  zengin: s_funding_instructions_bank_transfer_zengin_record.optional(),
+})
+
+export const s_gelato_document_report = z.object({
+  address: s_address.nullable().optional(),
+  dob: s_gelato_data_document_report_date_of_birth.nullable().optional(),
+  error: s_gelato_document_report_error.nullable().optional(),
+  expiration_date: s_gelato_data_document_report_expiration_date
+    .nullable()
+    .optional(),
+  files: z.array(z.string()).nullable().optional(),
+  first_name: z.string().nullable().optional(),
+  issued_date: s_gelato_data_document_report_issued_date.nullable().optional(),
+  issuing_country: z.string().nullable().optional(),
+  last_name: z.string().nullable().optional(),
+  number: z.string().nullable().optional(),
+  status: z.enum(["unverified", "verified"]),
+  type: z
+    .enum(["driving_license", "id_card", "passport"])
+    .nullable()
+    .optional(),
+})
+
+export const s_gelato_id_number_report = z.object({
+  dob: s_gelato_data_id_number_report_date.nullable().optional(),
+  error: s_gelato_id_number_report_error.nullable().optional(),
+  first_name: z.string().nullable().optional(),
+  id_number: z.string().nullable().optional(),
+  id_number_type: z.enum(["br_cpf", "sg_nric", "us_ssn"]).nullable().optional(),
+  last_name: z.string().nullable().optional(),
+  status: z.enum(["unverified", "verified"]),
+})
+
+export const s_gelato_selfie_report = z.object({
+  document: z.string().nullable().optional(),
+  error: s_gelato_selfie_report_error.nullable().optional(),
+  selfie: z.string().nullable().optional(),
+  status: z.enum(["unverified", "verified"]),
+})
+
+export const s_gelato_verification_report_options = z.object({
+  document: s_gelato_report_document_options.optional(),
+  id_number: s_gelato_report_id_number_options.optional(),
+})
+
+export const s_gelato_verification_session_options = z.object({
+  document: s_gelato_session_document_options.optional(),
+  id_number: s_gelato_session_id_number_options.optional(),
+})
+
+export const s_gelato_verified_outputs = z.object({
+  address: s_address.nullable().optional(),
+  dob: s_gelato_data_verified_outputs_date.nullable().optional(),
+  first_name: z.string().nullable().optional(),
+  id_number: z.string().nullable().optional(),
+  id_number_type: z.enum(["br_cpf", "sg_nric", "us_ssn"]).nullable().optional(),
+  last_name: z.string().nullable().optional(),
+})
+
+export const s_invoice_payment_method_options_acss_debit = z.object({
+  mandate_options:
+    s_invoice_payment_method_options_acss_debit_mandate_options.optional(),
+  verification_method: z
+    .enum(["automatic", "instant", "microdeposits"])
+    .optional(),
+})
+
+export const s_invoice_payment_method_options_card = z.object({
+  installments: s_invoice_installments_card.optional(),
+  request_three_d_secure: z.enum(["any", "automatic"]).nullable().optional(),
+})
+
+export const s_invoice_payment_method_options_customer_balance_bank_transfer =
+  z.object({
+    eu_bank_transfer:
+      s_invoice_payment_method_options_customer_balance_bank_transfer_eu_bank_transfer.optional(),
+    type: z.string().nullable().optional(),
+  })
+
+export const s_invoice_payment_method_options_us_bank_account = z.object({
+  financial_connections:
+    s_invoice_payment_method_options_us_bank_account_linked_account_options.optional(),
+  verification_method: z
+    .enum(["automatic", "instant", "microdeposits"])
+    .optional(),
+})
+
+export const s_invoice_tax_amount = z.object({
+  amount: z.coerce.number(),
+  inclusive: z.coerce.boolean(),
+  tax_rate: z.union([z.string(), s_tax_rate]),
+  taxability_reason: z
+    .enum([
+      "customer_exempt",
+      "not_collecting",
+      "not_subject_to_tax",
+      "not_supported",
+      "portion_product_exempt",
+      "portion_reduced_rated",
+      "portion_standard_rated",
+      "product_exempt",
+      "product_exempt_holiday",
+      "proportionally_rated",
+      "reduced_rated",
+      "reverse_charge",
+      "standard_rated",
+      "taxable_basis_reduced",
+      "zero_rated",
+    ])
+    .nullable()
+    .optional(),
+  taxable_amount: z.coerce.number().nullable().optional(),
+})
+
+export const s_invoice_threshold_reason = z.object({
+  amount_gte: z.coerce.number().nullable().optional(),
+  item_reasons: z.array(s_invoice_item_threshold_reason),
+})
+
+export const s_invoices_invoice_rendering = z.object({
+  amount_tax_display: z.string().nullable().optional(),
+  pdf: s_invoice_rendering_pdf.nullable().optional(),
+})
+
+export const s_invoices_resource_line_items_proration_details = z.object({
+  credited_items: s_invoices_resource_line_items_credited_items
+    .nullable()
+    .optional(),
+})
+
+export const s_issuing_authorization_pending_request = z.object({
+  amount: z.coerce.number(),
+  amount_details: s_issuing_authorization_amount_details.nullable().optional(),
+  currency: z.string(),
+  is_amount_controllable: z.coerce.boolean(),
+  merchant_amount: z.coerce.number(),
+  merchant_currency: z.string(),
+})
+
+export const s_issuing_authorization_request = z.object({
+  amount: z.coerce.number(),
+  amount_details: s_issuing_authorization_amount_details.nullable().optional(),
+  approved: z.coerce.boolean(),
+  created: z.coerce.number(),
+  currency: z.string(),
+  merchant_amount: z.coerce.number(),
+  merchant_currency: z.string(),
+  reason: z.enum([
+    "account_disabled",
+    "card_active",
+    "card_inactive",
+    "cardholder_inactive",
+    "cardholder_verification_required",
+    "insufficient_funds",
+    "not_allowed",
+    "spending_controls",
+    "suspected_fraud",
+    "verification_failed",
+    "webhook_approved",
+    "webhook_declined",
+    "webhook_error",
+    "webhook_timeout",
+  ]),
+  reason_message: z.string().nullable().optional(),
+})
+
+export const s_issuing_card_authorization_controls = z.object({
+  allowed_categories: z
+    .array(
+      z.enum([
+        "ac_refrigeration_repair",
+        "accounting_bookkeeping_services",
+        "advertising_services",
+        "agricultural_cooperative",
+        "airlines_air_carriers",
+        "airports_flying_fields",
+        "ambulance_services",
+        "amusement_parks_carnivals",
+        "antique_reproductions",
+        "antique_shops",
+        "aquariums",
+        "architectural_surveying_services",
+        "art_dealers_and_galleries",
+        "artists_supply_and_craft_shops",
+        "auto_and_home_supply_stores",
+        "auto_body_repair_shops",
+        "auto_paint_shops",
+        "auto_service_shops",
+        "automated_cash_disburse",
+        "automated_fuel_dispensers",
+        "automobile_associations",
+        "automotive_parts_and_accessories_stores",
+        "automotive_tire_stores",
+        "bail_and_bond_payments",
+        "bakeries",
+        "bands_orchestras",
+        "barber_and_beauty_shops",
+        "betting_casino_gambling",
+        "bicycle_shops",
+        "billiard_pool_establishments",
+        "boat_dealers",
+        "boat_rentals_and_leases",
+        "book_stores",
+        "books_periodicals_and_newspapers",
+        "bowling_alleys",
+        "bus_lines",
+        "business_secretarial_schools",
+        "buying_shopping_services",
+        "cable_satellite_and_other_pay_television_and_radio",
+        "camera_and_photographic_supply_stores",
+        "candy_nut_and_confectionery_stores",
+        "car_and_truck_dealers_new_used",
+        "car_and_truck_dealers_used_only",
+        "car_rental_agencies",
+        "car_washes",
+        "carpentry_services",
+        "carpet_upholstery_cleaning",
+        "caterers",
+        "charitable_and_social_service_organizations_fundraising",
+        "chemicals_and_allied_products",
+        "child_care_services",
+        "childrens_and_infants_wear_stores",
+        "chiropodists_podiatrists",
+        "chiropractors",
+        "cigar_stores_and_stands",
+        "civic_social_fraternal_associations",
+        "cleaning_and_maintenance",
+        "clothing_rental",
+        "colleges_universities",
+        "commercial_equipment",
+        "commercial_footwear",
+        "commercial_photography_art_and_graphics",
+        "commuter_transport_and_ferries",
+        "computer_network_services",
+        "computer_programming",
+        "computer_repair",
+        "computer_software_stores",
+        "computers_peripherals_and_software",
+        "concrete_work_services",
+        "construction_materials",
+        "consulting_public_relations",
+        "correspondence_schools",
+        "cosmetic_stores",
+        "counseling_services",
+        "country_clubs",
+        "courier_services",
+        "court_costs",
+        "credit_reporting_agencies",
+        "cruise_lines",
+        "dairy_products_stores",
+        "dance_hall_studios_schools",
+        "dating_escort_services",
+        "dentists_orthodontists",
+        "department_stores",
+        "detective_agencies",
+        "digital_goods_applications",
+        "digital_goods_games",
+        "digital_goods_large_volume",
+        "digital_goods_media",
+        "direct_marketing_catalog_merchant",
+        "direct_marketing_combination_catalog_and_retail_merchant",
+        "direct_marketing_inbound_telemarketing",
+        "direct_marketing_insurance_services",
+        "direct_marketing_other",
+        "direct_marketing_outbound_telemarketing",
+        "direct_marketing_subscription",
+        "direct_marketing_travel",
+        "discount_stores",
+        "doctors",
+        "door_to_door_sales",
+        "drapery_window_covering_and_upholstery_stores",
+        "drinking_places",
+        "drug_stores_and_pharmacies",
+        "drugs_drug_proprietaries_and_druggist_sundries",
+        "dry_cleaners",
+        "durable_goods",
+        "duty_free_stores",
+        "eating_places_restaurants",
+        "educational_services",
+        "electric_razor_stores",
+        "electric_vehicle_charging",
+        "electrical_parts_and_equipment",
+        "electrical_services",
+        "electronics_repair_shops",
+        "electronics_stores",
+        "elementary_secondary_schools",
+        "emergency_services_gcas_visa_use_only",
+        "employment_temp_agencies",
+        "equipment_rental",
+        "exterminating_services",
+        "family_clothing_stores",
+        "fast_food_restaurants",
+        "financial_institutions",
+        "fines_government_administrative_entities",
+        "fireplace_fireplace_screens_and_accessories_stores",
+        "floor_covering_stores",
+        "florists",
+        "florists_supplies_nursery_stock_and_flowers",
+        "freezer_and_locker_meat_provisioners",
+        "fuel_dealers_non_automotive",
+        "funeral_services_crematories",
+        "furniture_home_furnishings_and_equipment_stores_except_appliances",
+        "furniture_repair_refinishing",
+        "furriers_and_fur_shops",
+        "general_services",
+        "gift_card_novelty_and_souvenir_shops",
+        "glass_paint_and_wallpaper_stores",
+        "glassware_crystal_stores",
+        "golf_courses_public",
+        "government_licensed_horse_dog_racing_us_region_only",
+        "government_licensed_online_casions_online_gambling_us_region_only",
+        "government_owned_lotteries_non_us_region",
+        "government_owned_lotteries_us_region_only",
+        "government_services",
+        "grocery_stores_supermarkets",
+        "hardware_equipment_and_supplies",
+        "hardware_stores",
+        "health_and_beauty_spas",
+        "hearing_aids_sales_and_supplies",
+        "heating_plumbing_a_c",
+        "hobby_toy_and_game_shops",
+        "home_supply_warehouse_stores",
+        "hospitals",
+        "hotels_motels_and_resorts",
+        "household_appliance_stores",
+        "industrial_supplies",
+        "information_retrieval_services",
+        "insurance_default",
+        "insurance_underwriting_premiums",
+        "intra_company_purchases",
+        "jewelry_stores_watches_clocks_and_silverware_stores",
+        "landscaping_services",
+        "laundries",
+        "laundry_cleaning_services",
+        "legal_services_attorneys",
+        "luggage_and_leather_goods_stores",
+        "lumber_building_materials_stores",
+        "manual_cash_disburse",
+        "marinas_service_and_supplies",
+        "marketplaces",
+        "masonry_stonework_and_plaster",
+        "massage_parlors",
+        "medical_and_dental_labs",
+        "medical_dental_ophthalmic_and_hospital_equipment_and_supplies",
+        "medical_services",
+        "membership_organizations",
+        "mens_and_boys_clothing_and_accessories_stores",
+        "mens_womens_clothing_stores",
+        "metal_service_centers",
+        "miscellaneous",
+        "miscellaneous_apparel_and_accessory_shops",
+        "miscellaneous_auto_dealers",
+        "miscellaneous_business_services",
+        "miscellaneous_food_stores",
+        "miscellaneous_general_merchandise",
+        "miscellaneous_general_services",
+        "miscellaneous_home_furnishing_specialty_stores",
+        "miscellaneous_publishing_and_printing",
+        "miscellaneous_recreation_services",
+        "miscellaneous_repair_shops",
+        "miscellaneous_specialty_retail",
+        "mobile_home_dealers",
+        "motion_picture_theaters",
+        "motor_freight_carriers_and_trucking",
+        "motor_homes_dealers",
+        "motor_vehicle_supplies_and_new_parts",
+        "motorcycle_shops_and_dealers",
+        "motorcycle_shops_dealers",
+        "music_stores_musical_instruments_pianos_and_sheet_music",
+        "news_dealers_and_newsstands",
+        "non_fi_money_orders",
+        "non_fi_stored_value_card_purchase_load",
+        "nondurable_goods",
+        "nurseries_lawn_and_garden_supply_stores",
+        "nursing_personal_care",
+        "office_and_commercial_furniture",
+        "opticians_eyeglasses",
+        "optometrists_ophthalmologist",
+        "orthopedic_goods_prosthetic_devices",
+        "osteopaths",
+        "package_stores_beer_wine_and_liquor",
+        "paints_varnishes_and_supplies",
+        "parking_lots_garages",
+        "passenger_railways",
+        "pawn_shops",
+        "pet_shops_pet_food_and_supplies",
+        "petroleum_and_petroleum_products",
+        "photo_developing",
+        "photographic_photocopy_microfilm_equipment_and_supplies",
+        "photographic_studios",
+        "picture_video_production",
+        "piece_goods_notions_and_other_dry_goods",
+        "plumbing_heating_equipment_and_supplies",
+        "political_organizations",
+        "postal_services_government_only",
+        "precious_stones_and_metals_watches_and_jewelry",
+        "professional_services",
+        "public_warehousing_and_storage",
+        "quick_copy_repro_and_blueprint",
+        "railroads",
+        "real_estate_agents_and_managers_rentals",
+        "record_stores",
+        "recreational_vehicle_rentals",
+        "religious_goods_stores",
+        "religious_organizations",
+        "roofing_siding_sheet_metal",
+        "secretarial_support_services",
+        "security_brokers_dealers",
+        "service_stations",
+        "sewing_needlework_fabric_and_piece_goods_stores",
+        "shoe_repair_hat_cleaning",
+        "shoe_stores",
+        "small_appliance_repair",
+        "snowmobile_dealers",
+        "special_trade_services",
+        "specialty_cleaning",
+        "sporting_goods_stores",
+        "sporting_recreation_camps",
+        "sports_and_riding_apparel_stores",
+        "sports_clubs_fields",
+        "stamp_and_coin_stores",
+        "stationary_office_supplies_printing_and_writing_paper",
+        "stationery_stores_office_and_school_supply_stores",
+        "swimming_pools_sales",
+        "t_ui_travel_germany",
+        "tailors_alterations",
+        "tax_payments_government_agencies",
+        "tax_preparation_services",
+        "taxicabs_limousines",
+        "telecommunication_equipment_and_telephone_sales",
+        "telecommunication_services",
+        "telegraph_services",
+        "tent_and_awning_shops",
+        "testing_laboratories",
+        "theatrical_ticket_agencies",
+        "timeshares",
+        "tire_retreading_and_repair",
+        "tolls_bridge_fees",
+        "tourist_attractions_and_exhibits",
+        "towing_services",
+        "trailer_parks_campgrounds",
+        "transportation_services",
+        "travel_agencies_tour_operators",
+        "truck_stop_iteration",
+        "truck_utility_trailer_rentals",
+        "typesetting_plate_making_and_related_services",
+        "typewriter_stores",
+        "u_s_federal_government_agencies_or_departments",
+        "uniforms_commercial_clothing",
+        "used_merchandise_and_secondhand_stores",
+        "utilities",
+        "variety_stores",
+        "veterinary_services",
+        "video_amusement_game_supplies",
+        "video_game_arcades",
+        "video_tape_rental_stores",
+        "vocational_trade_schools",
+        "watch_jewelry_repair",
+        "welding_repair",
+        "wholesale_clubs",
+        "wig_and_toupee_stores",
+        "wires_money_orders",
+        "womens_accessory_and_specialty_shops",
+        "womens_ready_to_wear_stores",
+        "wrecking_and_salvage_yards",
+      ]),
+    )
+    .nullable()
+    .optional(),
+  blocked_categories: z
+    .array(
+      z.enum([
+        "ac_refrigeration_repair",
+        "accounting_bookkeeping_services",
+        "advertising_services",
+        "agricultural_cooperative",
+        "airlines_air_carriers",
+        "airports_flying_fields",
+        "ambulance_services",
+        "amusement_parks_carnivals",
+        "antique_reproductions",
+        "antique_shops",
+        "aquariums",
+        "architectural_surveying_services",
+        "art_dealers_and_galleries",
+        "artists_supply_and_craft_shops",
+        "auto_and_home_supply_stores",
+        "auto_body_repair_shops",
+        "auto_paint_shops",
+        "auto_service_shops",
+        "automated_cash_disburse",
+        "automated_fuel_dispensers",
+        "automobile_associations",
+        "automotive_parts_and_accessories_stores",
+        "automotive_tire_stores",
+        "bail_and_bond_payments",
+        "bakeries",
+        "bands_orchestras",
+        "barber_and_beauty_shops",
+        "betting_casino_gambling",
+        "bicycle_shops",
+        "billiard_pool_establishments",
+        "boat_dealers",
+        "boat_rentals_and_leases",
+        "book_stores",
+        "books_periodicals_and_newspapers",
+        "bowling_alleys",
+        "bus_lines",
+        "business_secretarial_schools",
+        "buying_shopping_services",
+        "cable_satellite_and_other_pay_television_and_radio",
+        "camera_and_photographic_supply_stores",
+        "candy_nut_and_confectionery_stores",
+        "car_and_truck_dealers_new_used",
+        "car_and_truck_dealers_used_only",
+        "car_rental_agencies",
+        "car_washes",
+        "carpentry_services",
+        "carpet_upholstery_cleaning",
+        "caterers",
+        "charitable_and_social_service_organizations_fundraising",
+        "chemicals_and_allied_products",
+        "child_care_services",
+        "childrens_and_infants_wear_stores",
+        "chiropodists_podiatrists",
+        "chiropractors",
+        "cigar_stores_and_stands",
+        "civic_social_fraternal_associations",
+        "cleaning_and_maintenance",
+        "clothing_rental",
+        "colleges_universities",
+        "commercial_equipment",
+        "commercial_footwear",
+        "commercial_photography_art_and_graphics",
+        "commuter_transport_and_ferries",
+        "computer_network_services",
+        "computer_programming",
+        "computer_repair",
+        "computer_software_stores",
+        "computers_peripherals_and_software",
+        "concrete_work_services",
+        "construction_materials",
+        "consulting_public_relations",
+        "correspondence_schools",
+        "cosmetic_stores",
+        "counseling_services",
+        "country_clubs",
+        "courier_services",
+        "court_costs",
+        "credit_reporting_agencies",
+        "cruise_lines",
+        "dairy_products_stores",
+        "dance_hall_studios_schools",
+        "dating_escort_services",
+        "dentists_orthodontists",
+        "department_stores",
+        "detective_agencies",
+        "digital_goods_applications",
+        "digital_goods_games",
+        "digital_goods_large_volume",
+        "digital_goods_media",
+        "direct_marketing_catalog_merchant",
+        "direct_marketing_combination_catalog_and_retail_merchant",
+        "direct_marketing_inbound_telemarketing",
+        "direct_marketing_insurance_services",
+        "direct_marketing_other",
+        "direct_marketing_outbound_telemarketing",
+        "direct_marketing_subscription",
+        "direct_marketing_travel",
+        "discount_stores",
+        "doctors",
+        "door_to_door_sales",
+        "drapery_window_covering_and_upholstery_stores",
+        "drinking_places",
+        "drug_stores_and_pharmacies",
+        "drugs_drug_proprietaries_and_druggist_sundries",
+        "dry_cleaners",
+        "durable_goods",
+        "duty_free_stores",
+        "eating_places_restaurants",
+        "educational_services",
+        "electric_razor_stores",
+        "electric_vehicle_charging",
+        "electrical_parts_and_equipment",
+        "electrical_services",
+        "electronics_repair_shops",
+        "electronics_stores",
+        "elementary_secondary_schools",
+        "emergency_services_gcas_visa_use_only",
+        "employment_temp_agencies",
+        "equipment_rental",
+        "exterminating_services",
+        "family_clothing_stores",
+        "fast_food_restaurants",
+        "financial_institutions",
+        "fines_government_administrative_entities",
+        "fireplace_fireplace_screens_and_accessories_stores",
+        "floor_covering_stores",
+        "florists",
+        "florists_supplies_nursery_stock_and_flowers",
+        "freezer_and_locker_meat_provisioners",
+        "fuel_dealers_non_automotive",
+        "funeral_services_crematories",
+        "furniture_home_furnishings_and_equipment_stores_except_appliances",
+        "furniture_repair_refinishing",
+        "furriers_and_fur_shops",
+        "general_services",
+        "gift_card_novelty_and_souvenir_shops",
+        "glass_paint_and_wallpaper_stores",
+        "glassware_crystal_stores",
+        "golf_courses_public",
+        "government_licensed_horse_dog_racing_us_region_only",
+        "government_licensed_online_casions_online_gambling_us_region_only",
+        "government_owned_lotteries_non_us_region",
+        "government_owned_lotteries_us_region_only",
+        "government_services",
+        "grocery_stores_supermarkets",
+        "hardware_equipment_and_supplies",
+        "hardware_stores",
+        "health_and_beauty_spas",
+        "hearing_aids_sales_and_supplies",
+        "heating_plumbing_a_c",
+        "hobby_toy_and_game_shops",
+        "home_supply_warehouse_stores",
+        "hospitals",
+        "hotels_motels_and_resorts",
+        "household_appliance_stores",
+        "industrial_supplies",
+        "information_retrieval_services",
+        "insurance_default",
+        "insurance_underwriting_premiums",
+        "intra_company_purchases",
+        "jewelry_stores_watches_clocks_and_silverware_stores",
+        "landscaping_services",
+        "laundries",
+        "laundry_cleaning_services",
+        "legal_services_attorneys",
+        "luggage_and_leather_goods_stores",
+        "lumber_building_materials_stores",
+        "manual_cash_disburse",
+        "marinas_service_and_supplies",
+        "marketplaces",
+        "masonry_stonework_and_plaster",
+        "massage_parlors",
+        "medical_and_dental_labs",
+        "medical_dental_ophthalmic_and_hospital_equipment_and_supplies",
+        "medical_services",
+        "membership_organizations",
+        "mens_and_boys_clothing_and_accessories_stores",
+        "mens_womens_clothing_stores",
+        "metal_service_centers",
+        "miscellaneous",
+        "miscellaneous_apparel_and_accessory_shops",
+        "miscellaneous_auto_dealers",
+        "miscellaneous_business_services",
+        "miscellaneous_food_stores",
+        "miscellaneous_general_merchandise",
+        "miscellaneous_general_services",
+        "miscellaneous_home_furnishing_specialty_stores",
+        "miscellaneous_publishing_and_printing",
+        "miscellaneous_recreation_services",
+        "miscellaneous_repair_shops",
+        "miscellaneous_specialty_retail",
+        "mobile_home_dealers",
+        "motion_picture_theaters",
+        "motor_freight_carriers_and_trucking",
+        "motor_homes_dealers",
+        "motor_vehicle_supplies_and_new_parts",
+        "motorcycle_shops_and_dealers",
+        "motorcycle_shops_dealers",
+        "music_stores_musical_instruments_pianos_and_sheet_music",
+        "news_dealers_and_newsstands",
+        "non_fi_money_orders",
+        "non_fi_stored_value_card_purchase_load",
+        "nondurable_goods",
+        "nurseries_lawn_and_garden_supply_stores",
+        "nursing_personal_care",
+        "office_and_commercial_furniture",
+        "opticians_eyeglasses",
+        "optometrists_ophthalmologist",
+        "orthopedic_goods_prosthetic_devices",
+        "osteopaths",
+        "package_stores_beer_wine_and_liquor",
+        "paints_varnishes_and_supplies",
+        "parking_lots_garages",
+        "passenger_railways",
+        "pawn_shops",
+        "pet_shops_pet_food_and_supplies",
+        "petroleum_and_petroleum_products",
+        "photo_developing",
+        "photographic_photocopy_microfilm_equipment_and_supplies",
+        "photographic_studios",
+        "picture_video_production",
+        "piece_goods_notions_and_other_dry_goods",
+        "plumbing_heating_equipment_and_supplies",
+        "political_organizations",
+        "postal_services_government_only",
+        "precious_stones_and_metals_watches_and_jewelry",
+        "professional_services",
+        "public_warehousing_and_storage",
+        "quick_copy_repro_and_blueprint",
+        "railroads",
+        "real_estate_agents_and_managers_rentals",
+        "record_stores",
+        "recreational_vehicle_rentals",
+        "religious_goods_stores",
+        "religious_organizations",
+        "roofing_siding_sheet_metal",
+        "secretarial_support_services",
+        "security_brokers_dealers",
+        "service_stations",
+        "sewing_needlework_fabric_and_piece_goods_stores",
+        "shoe_repair_hat_cleaning",
+        "shoe_stores",
+        "small_appliance_repair",
+        "snowmobile_dealers",
+        "special_trade_services",
+        "specialty_cleaning",
+        "sporting_goods_stores",
+        "sporting_recreation_camps",
+        "sports_and_riding_apparel_stores",
+        "sports_clubs_fields",
+        "stamp_and_coin_stores",
+        "stationary_office_supplies_printing_and_writing_paper",
+        "stationery_stores_office_and_school_supply_stores",
+        "swimming_pools_sales",
+        "t_ui_travel_germany",
+        "tailors_alterations",
+        "tax_payments_government_agencies",
+        "tax_preparation_services",
+        "taxicabs_limousines",
+        "telecommunication_equipment_and_telephone_sales",
+        "telecommunication_services",
+        "telegraph_services",
+        "tent_and_awning_shops",
+        "testing_laboratories",
+        "theatrical_ticket_agencies",
+        "timeshares",
+        "tire_retreading_and_repair",
+        "tolls_bridge_fees",
+        "tourist_attractions_and_exhibits",
+        "towing_services",
+        "trailer_parks_campgrounds",
+        "transportation_services",
+        "travel_agencies_tour_operators",
+        "truck_stop_iteration",
+        "truck_utility_trailer_rentals",
+        "typesetting_plate_making_and_related_services",
+        "typewriter_stores",
+        "u_s_federal_government_agencies_or_departments",
+        "uniforms_commercial_clothing",
+        "used_merchandise_and_secondhand_stores",
+        "utilities",
+        "variety_stores",
+        "veterinary_services",
+        "video_amusement_game_supplies",
+        "video_game_arcades",
+        "video_tape_rental_stores",
+        "vocational_trade_schools",
+        "watch_jewelry_repair",
+        "welding_repair",
+        "wholesale_clubs",
+        "wig_and_toupee_stores",
+        "wires_money_orders",
+        "womens_accessory_and_specialty_shops",
+        "womens_ready_to_wear_stores",
+        "wrecking_and_salvage_yards",
+      ]),
+    )
+    .nullable()
+    .optional(),
+  spending_limits: z.array(s_issuing_card_spending_limit).nullable().optional(),
+  spending_limits_currency: z.string().nullable().optional(),
+})
+
+export const s_issuing_card_shipping = z.object({
+  address: s_address,
+  carrier: z.enum(["dhl", "fedex", "royal_mail", "usps"]).nullable().optional(),
+  customs: s_issuing_card_shipping_customs.nullable().optional(),
+  eta: z.coerce.number().nullable().optional(),
+  name: z.string(),
+  phone_number: z.string().nullable().optional(),
+  require_signature: z.coerce.boolean().nullable().optional(),
+  service: z.enum(["express", "priority", "standard"]),
+  status: z
+    .enum([
+      "canceled",
+      "delivered",
+      "failure",
+      "pending",
+      "returned",
+      "shipped",
+    ])
+    .nullable()
+    .optional(),
+  tracking_number: z.string().nullable().optional(),
+  tracking_url: z.string().nullable().optional(),
+  type: z.enum(["bulk", "individual"]),
+})
+
+export const s_issuing_card_wallets = z.object({
+  apple_pay: s_issuing_card_apple_pay,
+  google_pay: s_issuing_card_google_pay,
+  primary_account_identifier: z.string().nullable().optional(),
+})
+
+export const s_issuing_cardholder_address = z.object({ address: s_address })
+
+export const s_issuing_cardholder_authorization_controls = z.object({
+  allowed_categories: z
+    .array(
+      z.enum([
+        "ac_refrigeration_repair",
+        "accounting_bookkeeping_services",
+        "advertising_services",
+        "agricultural_cooperative",
+        "airlines_air_carriers",
+        "airports_flying_fields",
+        "ambulance_services",
+        "amusement_parks_carnivals",
+        "antique_reproductions",
+        "antique_shops",
+        "aquariums",
+        "architectural_surveying_services",
+        "art_dealers_and_galleries",
+        "artists_supply_and_craft_shops",
+        "auto_and_home_supply_stores",
+        "auto_body_repair_shops",
+        "auto_paint_shops",
+        "auto_service_shops",
+        "automated_cash_disburse",
+        "automated_fuel_dispensers",
+        "automobile_associations",
+        "automotive_parts_and_accessories_stores",
+        "automotive_tire_stores",
+        "bail_and_bond_payments",
+        "bakeries",
+        "bands_orchestras",
+        "barber_and_beauty_shops",
+        "betting_casino_gambling",
+        "bicycle_shops",
+        "billiard_pool_establishments",
+        "boat_dealers",
+        "boat_rentals_and_leases",
+        "book_stores",
+        "books_periodicals_and_newspapers",
+        "bowling_alleys",
+        "bus_lines",
+        "business_secretarial_schools",
+        "buying_shopping_services",
+        "cable_satellite_and_other_pay_television_and_radio",
+        "camera_and_photographic_supply_stores",
+        "candy_nut_and_confectionery_stores",
+        "car_and_truck_dealers_new_used",
+        "car_and_truck_dealers_used_only",
+        "car_rental_agencies",
+        "car_washes",
+        "carpentry_services",
+        "carpet_upholstery_cleaning",
+        "caterers",
+        "charitable_and_social_service_organizations_fundraising",
+        "chemicals_and_allied_products",
+        "child_care_services",
+        "childrens_and_infants_wear_stores",
+        "chiropodists_podiatrists",
+        "chiropractors",
+        "cigar_stores_and_stands",
+        "civic_social_fraternal_associations",
+        "cleaning_and_maintenance",
+        "clothing_rental",
+        "colleges_universities",
+        "commercial_equipment",
+        "commercial_footwear",
+        "commercial_photography_art_and_graphics",
+        "commuter_transport_and_ferries",
+        "computer_network_services",
+        "computer_programming",
+        "computer_repair",
+        "computer_software_stores",
+        "computers_peripherals_and_software",
+        "concrete_work_services",
+        "construction_materials",
+        "consulting_public_relations",
+        "correspondence_schools",
+        "cosmetic_stores",
+        "counseling_services",
+        "country_clubs",
+        "courier_services",
+        "court_costs",
+        "credit_reporting_agencies",
+        "cruise_lines",
+        "dairy_products_stores",
+        "dance_hall_studios_schools",
+        "dating_escort_services",
+        "dentists_orthodontists",
+        "department_stores",
+        "detective_agencies",
+        "digital_goods_applications",
+        "digital_goods_games",
+        "digital_goods_large_volume",
+        "digital_goods_media",
+        "direct_marketing_catalog_merchant",
+        "direct_marketing_combination_catalog_and_retail_merchant",
+        "direct_marketing_inbound_telemarketing",
+        "direct_marketing_insurance_services",
+        "direct_marketing_other",
+        "direct_marketing_outbound_telemarketing",
+        "direct_marketing_subscription",
+        "direct_marketing_travel",
+        "discount_stores",
+        "doctors",
+        "door_to_door_sales",
+        "drapery_window_covering_and_upholstery_stores",
+        "drinking_places",
+        "drug_stores_and_pharmacies",
+        "drugs_drug_proprietaries_and_druggist_sundries",
+        "dry_cleaners",
+        "durable_goods",
+        "duty_free_stores",
+        "eating_places_restaurants",
+        "educational_services",
+        "electric_razor_stores",
+        "electric_vehicle_charging",
+        "electrical_parts_and_equipment",
+        "electrical_services",
+        "electronics_repair_shops",
+        "electronics_stores",
+        "elementary_secondary_schools",
+        "emergency_services_gcas_visa_use_only",
+        "employment_temp_agencies",
+        "equipment_rental",
+        "exterminating_services",
+        "family_clothing_stores",
+        "fast_food_restaurants",
+        "financial_institutions",
+        "fines_government_administrative_entities",
+        "fireplace_fireplace_screens_and_accessories_stores",
+        "floor_covering_stores",
+        "florists",
+        "florists_supplies_nursery_stock_and_flowers",
+        "freezer_and_locker_meat_provisioners",
+        "fuel_dealers_non_automotive",
+        "funeral_services_crematories",
+        "furniture_home_furnishings_and_equipment_stores_except_appliances",
+        "furniture_repair_refinishing",
+        "furriers_and_fur_shops",
+        "general_services",
+        "gift_card_novelty_and_souvenir_shops",
+        "glass_paint_and_wallpaper_stores",
+        "glassware_crystal_stores",
+        "golf_courses_public",
+        "government_licensed_horse_dog_racing_us_region_only",
+        "government_licensed_online_casions_online_gambling_us_region_only",
+        "government_owned_lotteries_non_us_region",
+        "government_owned_lotteries_us_region_only",
+        "government_services",
+        "grocery_stores_supermarkets",
+        "hardware_equipment_and_supplies",
+        "hardware_stores",
+        "health_and_beauty_spas",
+        "hearing_aids_sales_and_supplies",
+        "heating_plumbing_a_c",
+        "hobby_toy_and_game_shops",
+        "home_supply_warehouse_stores",
+        "hospitals",
+        "hotels_motels_and_resorts",
+        "household_appliance_stores",
+        "industrial_supplies",
+        "information_retrieval_services",
+        "insurance_default",
+        "insurance_underwriting_premiums",
+        "intra_company_purchases",
+        "jewelry_stores_watches_clocks_and_silverware_stores",
+        "landscaping_services",
+        "laundries",
+        "laundry_cleaning_services",
+        "legal_services_attorneys",
+        "luggage_and_leather_goods_stores",
+        "lumber_building_materials_stores",
+        "manual_cash_disburse",
+        "marinas_service_and_supplies",
+        "marketplaces",
+        "masonry_stonework_and_plaster",
+        "massage_parlors",
+        "medical_and_dental_labs",
+        "medical_dental_ophthalmic_and_hospital_equipment_and_supplies",
+        "medical_services",
+        "membership_organizations",
+        "mens_and_boys_clothing_and_accessories_stores",
+        "mens_womens_clothing_stores",
+        "metal_service_centers",
+        "miscellaneous",
+        "miscellaneous_apparel_and_accessory_shops",
+        "miscellaneous_auto_dealers",
+        "miscellaneous_business_services",
+        "miscellaneous_food_stores",
+        "miscellaneous_general_merchandise",
+        "miscellaneous_general_services",
+        "miscellaneous_home_furnishing_specialty_stores",
+        "miscellaneous_publishing_and_printing",
+        "miscellaneous_recreation_services",
+        "miscellaneous_repair_shops",
+        "miscellaneous_specialty_retail",
+        "mobile_home_dealers",
+        "motion_picture_theaters",
+        "motor_freight_carriers_and_trucking",
+        "motor_homes_dealers",
+        "motor_vehicle_supplies_and_new_parts",
+        "motorcycle_shops_and_dealers",
+        "motorcycle_shops_dealers",
+        "music_stores_musical_instruments_pianos_and_sheet_music",
+        "news_dealers_and_newsstands",
+        "non_fi_money_orders",
+        "non_fi_stored_value_card_purchase_load",
+        "nondurable_goods",
+        "nurseries_lawn_and_garden_supply_stores",
+        "nursing_personal_care",
+        "office_and_commercial_furniture",
+        "opticians_eyeglasses",
+        "optometrists_ophthalmologist",
+        "orthopedic_goods_prosthetic_devices",
+        "osteopaths",
+        "package_stores_beer_wine_and_liquor",
+        "paints_varnishes_and_supplies",
+        "parking_lots_garages",
+        "passenger_railways",
+        "pawn_shops",
+        "pet_shops_pet_food_and_supplies",
+        "petroleum_and_petroleum_products",
+        "photo_developing",
+        "photographic_photocopy_microfilm_equipment_and_supplies",
+        "photographic_studios",
+        "picture_video_production",
+        "piece_goods_notions_and_other_dry_goods",
+        "plumbing_heating_equipment_and_supplies",
+        "political_organizations",
+        "postal_services_government_only",
+        "precious_stones_and_metals_watches_and_jewelry",
+        "professional_services",
+        "public_warehousing_and_storage",
+        "quick_copy_repro_and_blueprint",
+        "railroads",
+        "real_estate_agents_and_managers_rentals",
+        "record_stores",
+        "recreational_vehicle_rentals",
+        "religious_goods_stores",
+        "religious_organizations",
+        "roofing_siding_sheet_metal",
+        "secretarial_support_services",
+        "security_brokers_dealers",
+        "service_stations",
+        "sewing_needlework_fabric_and_piece_goods_stores",
+        "shoe_repair_hat_cleaning",
+        "shoe_stores",
+        "small_appliance_repair",
+        "snowmobile_dealers",
+        "special_trade_services",
+        "specialty_cleaning",
+        "sporting_goods_stores",
+        "sporting_recreation_camps",
+        "sports_and_riding_apparel_stores",
+        "sports_clubs_fields",
+        "stamp_and_coin_stores",
+        "stationary_office_supplies_printing_and_writing_paper",
+        "stationery_stores_office_and_school_supply_stores",
+        "swimming_pools_sales",
+        "t_ui_travel_germany",
+        "tailors_alterations",
+        "tax_payments_government_agencies",
+        "tax_preparation_services",
+        "taxicabs_limousines",
+        "telecommunication_equipment_and_telephone_sales",
+        "telecommunication_services",
+        "telegraph_services",
+        "tent_and_awning_shops",
+        "testing_laboratories",
+        "theatrical_ticket_agencies",
+        "timeshares",
+        "tire_retreading_and_repair",
+        "tolls_bridge_fees",
+        "tourist_attractions_and_exhibits",
+        "towing_services",
+        "trailer_parks_campgrounds",
+        "transportation_services",
+        "travel_agencies_tour_operators",
+        "truck_stop_iteration",
+        "truck_utility_trailer_rentals",
+        "typesetting_plate_making_and_related_services",
+        "typewriter_stores",
+        "u_s_federal_government_agencies_or_departments",
+        "uniforms_commercial_clothing",
+        "used_merchandise_and_secondhand_stores",
+        "utilities",
+        "variety_stores",
+        "veterinary_services",
+        "video_amusement_game_supplies",
+        "video_game_arcades",
+        "video_tape_rental_stores",
+        "vocational_trade_schools",
+        "watch_jewelry_repair",
+        "welding_repair",
+        "wholesale_clubs",
+        "wig_and_toupee_stores",
+        "wires_money_orders",
+        "womens_accessory_and_specialty_shops",
+        "womens_ready_to_wear_stores",
+        "wrecking_and_salvage_yards",
+      ]),
+    )
+    .nullable()
+    .optional(),
+  blocked_categories: z
+    .array(
+      z.enum([
+        "ac_refrigeration_repair",
+        "accounting_bookkeeping_services",
+        "advertising_services",
+        "agricultural_cooperative",
+        "airlines_air_carriers",
+        "airports_flying_fields",
+        "ambulance_services",
+        "amusement_parks_carnivals",
+        "antique_reproductions",
+        "antique_shops",
+        "aquariums",
+        "architectural_surveying_services",
+        "art_dealers_and_galleries",
+        "artists_supply_and_craft_shops",
+        "auto_and_home_supply_stores",
+        "auto_body_repair_shops",
+        "auto_paint_shops",
+        "auto_service_shops",
+        "automated_cash_disburse",
+        "automated_fuel_dispensers",
+        "automobile_associations",
+        "automotive_parts_and_accessories_stores",
+        "automotive_tire_stores",
+        "bail_and_bond_payments",
+        "bakeries",
+        "bands_orchestras",
+        "barber_and_beauty_shops",
+        "betting_casino_gambling",
+        "bicycle_shops",
+        "billiard_pool_establishments",
+        "boat_dealers",
+        "boat_rentals_and_leases",
+        "book_stores",
+        "books_periodicals_and_newspapers",
+        "bowling_alleys",
+        "bus_lines",
+        "business_secretarial_schools",
+        "buying_shopping_services",
+        "cable_satellite_and_other_pay_television_and_radio",
+        "camera_and_photographic_supply_stores",
+        "candy_nut_and_confectionery_stores",
+        "car_and_truck_dealers_new_used",
+        "car_and_truck_dealers_used_only",
+        "car_rental_agencies",
+        "car_washes",
+        "carpentry_services",
+        "carpet_upholstery_cleaning",
+        "caterers",
+        "charitable_and_social_service_organizations_fundraising",
+        "chemicals_and_allied_products",
+        "child_care_services",
+        "childrens_and_infants_wear_stores",
+        "chiropodists_podiatrists",
+        "chiropractors",
+        "cigar_stores_and_stands",
+        "civic_social_fraternal_associations",
+        "cleaning_and_maintenance",
+        "clothing_rental",
+        "colleges_universities",
+        "commercial_equipment",
+        "commercial_footwear",
+        "commercial_photography_art_and_graphics",
+        "commuter_transport_and_ferries",
+        "computer_network_services",
+        "computer_programming",
+        "computer_repair",
+        "computer_software_stores",
+        "computers_peripherals_and_software",
+        "concrete_work_services",
+        "construction_materials",
+        "consulting_public_relations",
+        "correspondence_schools",
+        "cosmetic_stores",
+        "counseling_services",
+        "country_clubs",
+        "courier_services",
+        "court_costs",
+        "credit_reporting_agencies",
+        "cruise_lines",
+        "dairy_products_stores",
+        "dance_hall_studios_schools",
+        "dating_escort_services",
+        "dentists_orthodontists",
+        "department_stores",
+        "detective_agencies",
+        "digital_goods_applications",
+        "digital_goods_games",
+        "digital_goods_large_volume",
+        "digital_goods_media",
+        "direct_marketing_catalog_merchant",
+        "direct_marketing_combination_catalog_and_retail_merchant",
+        "direct_marketing_inbound_telemarketing",
+        "direct_marketing_insurance_services",
+        "direct_marketing_other",
+        "direct_marketing_outbound_telemarketing",
+        "direct_marketing_subscription",
+        "direct_marketing_travel",
+        "discount_stores",
+        "doctors",
+        "door_to_door_sales",
+        "drapery_window_covering_and_upholstery_stores",
+        "drinking_places",
+        "drug_stores_and_pharmacies",
+        "drugs_drug_proprietaries_and_druggist_sundries",
+        "dry_cleaners",
+        "durable_goods",
+        "duty_free_stores",
+        "eating_places_restaurants",
+        "educational_services",
+        "electric_razor_stores",
+        "electric_vehicle_charging",
+        "electrical_parts_and_equipment",
+        "electrical_services",
+        "electronics_repair_shops",
+        "electronics_stores",
+        "elementary_secondary_schools",
+        "emergency_services_gcas_visa_use_only",
+        "employment_temp_agencies",
+        "equipment_rental",
+        "exterminating_services",
+        "family_clothing_stores",
+        "fast_food_restaurants",
+        "financial_institutions",
+        "fines_government_administrative_entities",
+        "fireplace_fireplace_screens_and_accessories_stores",
+        "floor_covering_stores",
+        "florists",
+        "florists_supplies_nursery_stock_and_flowers",
+        "freezer_and_locker_meat_provisioners",
+        "fuel_dealers_non_automotive",
+        "funeral_services_crematories",
+        "furniture_home_furnishings_and_equipment_stores_except_appliances",
+        "furniture_repair_refinishing",
+        "furriers_and_fur_shops",
+        "general_services",
+        "gift_card_novelty_and_souvenir_shops",
+        "glass_paint_and_wallpaper_stores",
+        "glassware_crystal_stores",
+        "golf_courses_public",
+        "government_licensed_horse_dog_racing_us_region_only",
+        "government_licensed_online_casions_online_gambling_us_region_only",
+        "government_owned_lotteries_non_us_region",
+        "government_owned_lotteries_us_region_only",
+        "government_services",
+        "grocery_stores_supermarkets",
+        "hardware_equipment_and_supplies",
+        "hardware_stores",
+        "health_and_beauty_spas",
+        "hearing_aids_sales_and_supplies",
+        "heating_plumbing_a_c",
+        "hobby_toy_and_game_shops",
+        "home_supply_warehouse_stores",
+        "hospitals",
+        "hotels_motels_and_resorts",
+        "household_appliance_stores",
+        "industrial_supplies",
+        "information_retrieval_services",
+        "insurance_default",
+        "insurance_underwriting_premiums",
+        "intra_company_purchases",
+        "jewelry_stores_watches_clocks_and_silverware_stores",
+        "landscaping_services",
+        "laundries",
+        "laundry_cleaning_services",
+        "legal_services_attorneys",
+        "luggage_and_leather_goods_stores",
+        "lumber_building_materials_stores",
+        "manual_cash_disburse",
+        "marinas_service_and_supplies",
+        "marketplaces",
+        "masonry_stonework_and_plaster",
+        "massage_parlors",
+        "medical_and_dental_labs",
+        "medical_dental_ophthalmic_and_hospital_equipment_and_supplies",
+        "medical_services",
+        "membership_organizations",
+        "mens_and_boys_clothing_and_accessories_stores",
+        "mens_womens_clothing_stores",
+        "metal_service_centers",
+        "miscellaneous",
+        "miscellaneous_apparel_and_accessory_shops",
+        "miscellaneous_auto_dealers",
+        "miscellaneous_business_services",
+        "miscellaneous_food_stores",
+        "miscellaneous_general_merchandise",
+        "miscellaneous_general_services",
+        "miscellaneous_home_furnishing_specialty_stores",
+        "miscellaneous_publishing_and_printing",
+        "miscellaneous_recreation_services",
+        "miscellaneous_repair_shops",
+        "miscellaneous_specialty_retail",
+        "mobile_home_dealers",
+        "motion_picture_theaters",
+        "motor_freight_carriers_and_trucking",
+        "motor_homes_dealers",
+        "motor_vehicle_supplies_and_new_parts",
+        "motorcycle_shops_and_dealers",
+        "motorcycle_shops_dealers",
+        "music_stores_musical_instruments_pianos_and_sheet_music",
+        "news_dealers_and_newsstands",
+        "non_fi_money_orders",
+        "non_fi_stored_value_card_purchase_load",
+        "nondurable_goods",
+        "nurseries_lawn_and_garden_supply_stores",
+        "nursing_personal_care",
+        "office_and_commercial_furniture",
+        "opticians_eyeglasses",
+        "optometrists_ophthalmologist",
+        "orthopedic_goods_prosthetic_devices",
+        "osteopaths",
+        "package_stores_beer_wine_and_liquor",
+        "paints_varnishes_and_supplies",
+        "parking_lots_garages",
+        "passenger_railways",
+        "pawn_shops",
+        "pet_shops_pet_food_and_supplies",
+        "petroleum_and_petroleum_products",
+        "photo_developing",
+        "photographic_photocopy_microfilm_equipment_and_supplies",
+        "photographic_studios",
+        "picture_video_production",
+        "piece_goods_notions_and_other_dry_goods",
+        "plumbing_heating_equipment_and_supplies",
+        "political_organizations",
+        "postal_services_government_only",
+        "precious_stones_and_metals_watches_and_jewelry",
+        "professional_services",
+        "public_warehousing_and_storage",
+        "quick_copy_repro_and_blueprint",
+        "railroads",
+        "real_estate_agents_and_managers_rentals",
+        "record_stores",
+        "recreational_vehicle_rentals",
+        "religious_goods_stores",
+        "religious_organizations",
+        "roofing_siding_sheet_metal",
+        "secretarial_support_services",
+        "security_brokers_dealers",
+        "service_stations",
+        "sewing_needlework_fabric_and_piece_goods_stores",
+        "shoe_repair_hat_cleaning",
+        "shoe_stores",
+        "small_appliance_repair",
+        "snowmobile_dealers",
+        "special_trade_services",
+        "specialty_cleaning",
+        "sporting_goods_stores",
+        "sporting_recreation_camps",
+        "sports_and_riding_apparel_stores",
+        "sports_clubs_fields",
+        "stamp_and_coin_stores",
+        "stationary_office_supplies_printing_and_writing_paper",
+        "stationery_stores_office_and_school_supply_stores",
+        "swimming_pools_sales",
+        "t_ui_travel_germany",
+        "tailors_alterations",
+        "tax_payments_government_agencies",
+        "tax_preparation_services",
+        "taxicabs_limousines",
+        "telecommunication_equipment_and_telephone_sales",
+        "telecommunication_services",
+        "telegraph_services",
+        "tent_and_awning_shops",
+        "testing_laboratories",
+        "theatrical_ticket_agencies",
+        "timeshares",
+        "tire_retreading_and_repair",
+        "tolls_bridge_fees",
+        "tourist_attractions_and_exhibits",
+        "towing_services",
+        "trailer_parks_campgrounds",
+        "transportation_services",
+        "travel_agencies_tour_operators",
+        "truck_stop_iteration",
+        "truck_utility_trailer_rentals",
+        "typesetting_plate_making_and_related_services",
+        "typewriter_stores",
+        "u_s_federal_government_agencies_or_departments",
+        "uniforms_commercial_clothing",
+        "used_merchandise_and_secondhand_stores",
+        "utilities",
+        "variety_stores",
+        "veterinary_services",
+        "video_amusement_game_supplies",
+        "video_game_arcades",
+        "video_tape_rental_stores",
+        "vocational_trade_schools",
+        "watch_jewelry_repair",
+        "welding_repair",
+        "wholesale_clubs",
+        "wig_and_toupee_stores",
+        "wires_money_orders",
+        "womens_accessory_and_specialty_shops",
+        "womens_ready_to_wear_stores",
+        "wrecking_and_salvage_yards",
+      ]),
+    )
+    .nullable()
+    .optional(),
+  spending_limits: z
+    .array(s_issuing_cardholder_spending_limit)
+    .nullable()
+    .optional(),
+  spending_limits_currency: z.string().nullable().optional(),
+})
+
+export const s_issuing_cardholder_card_issuing = z.object({
+  user_terms_acceptance: s_issuing_cardholder_user_terms_acceptance
+    .nullable()
+    .optional(),
+})
+
+export const s_issuing_transaction_flight_data = z.object({
+  departure_at: z.coerce.number().nullable().optional(),
+  passenger_name: z.string().nullable().optional(),
+  refundable: z.coerce.boolean().nullable().optional(),
+  segments: z
+    .array(s_issuing_transaction_flight_data_leg)
+    .nullable()
+    .optional(),
+  travel_agency: z.string().nullable().optional(),
+})
+
+export const s_line_items_tax_amount = z.object({
+  amount: z.coerce.number(),
+  rate: s_tax_rate,
+  taxability_reason: z
+    .enum([
+      "customer_exempt",
+      "not_collecting",
+      "not_subject_to_tax",
+      "not_supported",
+      "portion_product_exempt",
+      "portion_reduced_rated",
+      "portion_standard_rated",
+      "product_exempt",
+      "product_exempt_holiday",
+      "proportionally_rated",
+      "reduced_rated",
+      "reverse_charge",
+      "standard_rated",
+      "taxable_basis_reduced",
+      "zero_rated",
+    ])
+    .nullable()
+    .optional(),
+  taxable_amount: z.coerce.number().nullable().optional(),
+})
+
+export const s_mandate_payment_method_details = z.object({
+  acss_debit: s_mandate_acss_debit.optional(),
+  au_becs_debit: s_mandate_au_becs_debit.optional(),
+  bacs_debit: s_mandate_bacs_debit.optional(),
+  card: s_card_mandate_payment_method_details.optional(),
+  cashapp: s_mandate_cashapp.optional(),
+  link: s_mandate_link.optional(),
+  paypal: s_mandate_paypal.optional(),
+  sepa_debit: s_mandate_sepa_debit.optional(),
+  type: z.string(),
+  us_bank_account: s_mandate_us_bank_account.optional(),
+})
+
+export const s_payment_flows_amount_details = z.object({
+  tip: s_payment_flows_amount_details_resource_tip.optional(),
+})
+
+export const s_payment_flows_installment_options = z.object({
+  enabled: z.coerce.boolean(),
+  plan: s_payment_method_details_card_installments_plan.optional(),
+})
+
+export const s_payment_intent_card_processing = z.object({
+  customer_notification:
+    s_payment_intent_processing_customer_notification.optional(),
+})
+
+export const s_payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code =
+  z.object({
+    hosted_instructions_url: z.string(),
+    mobile_auth_url: z.string(),
+    qr_code: s_payment_intent_next_action_cashapp_qr_code,
+  })
+
+export const s_payment_intent_next_action_konbini_stores = z.object({
+  familymart: s_payment_intent_next_action_konbini_familymart
+    .nullable()
+    .optional(),
+  lawson: s_payment_intent_next_action_konbini_lawson.nullable().optional(),
+  ministop: s_payment_intent_next_action_konbini_ministop.nullable().optional(),
+  seicomart: s_payment_intent_next_action_konbini_seicomart
+    .nullable()
+    .optional(),
+})
+
+export const s_payment_intent_payment_method_options_acss_debit = z.object({
+  mandate_options:
+    s_payment_intent_payment_method_options_mandate_options_acss_debit.optional(),
+  setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+  verification_method: z
+    .enum(["automatic", "instant", "microdeposits"])
+    .optional(),
+})
+
+export const s_payment_intent_payment_method_options_sepa_debit = z.object({
+  mandate_options:
+    s_payment_intent_payment_method_options_mandate_options_sepa_debit.optional(),
+  setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+})
+
+export const s_payment_intent_payment_method_options_us_bank_account = z.object(
+  {
+    financial_connections: s_linked_account_options_us_bank_account.optional(),
+    preferred_settlement_speed: z.enum(["fastest", "standard"]).optional(),
+    setup_future_usage: z
+      .enum(["none", "off_session", "on_session"])
+      .optional(),
+    verification_method: z
+      .enum(["automatic", "instant", "microdeposits"])
+      .optional(),
+  },
+)
+
+export const s_payment_links_resource_after_completion = z.object({
+  hosted_confirmation:
+    s_payment_links_resource_completion_behavior_confirmation_page.optional(),
+  redirect: s_payment_links_resource_completion_behavior_redirect.optional(),
+  type: z.enum(["hosted_confirmation", "redirect"]),
+})
+
+export const s_payment_links_resource_custom_fields_dropdown = z.object({
+  options: z.array(s_payment_links_resource_custom_fields_dropdown_option),
+})
+
+export const s_payment_links_resource_custom_text = z.object({
+  shipping_address: s_payment_links_resource_custom_text_position
+    .nullable()
+    .optional(),
+  submit: s_payment_links_resource_custom_text_position.nullable().optional(),
+  terms_of_service_acceptance: s_payment_links_resource_custom_text_position
+    .nullable()
+    .optional(),
+})
+
+export const s_payment_method_card_present = z.object({
+  brand: z.string().nullable().optional(),
+  cardholder_name: z.string().nullable().optional(),
+  country: z.string().nullable().optional(),
+  exp_month: z.coerce.number(),
+  exp_year: z.coerce.number(),
+  fingerprint: z.string().nullable().optional(),
+  funding: z.string().nullable().optional(),
+  last4: z.string().nullable().optional(),
+  networks: s_payment_method_card_present_networks.nullable().optional(),
+  read_method: z
+    .enum([
+      "contact_emv",
+      "contactless_emv",
+      "contactless_magstripe_mode",
+      "magnetic_stripe_fallback",
+      "magnetic_stripe_track2",
+    ])
+    .nullable()
+    .optional(),
+})
+
+export const s_payment_method_card_wallet_masterpass = z.object({
+  billing_address: s_address.nullable().optional(),
+  email: z.string().nullable().optional(),
+  name: z.string().nullable().optional(),
+  shipping_address: s_address.nullable().optional(),
+})
+
+export const s_payment_method_card_wallet_visa_checkout = z.object({
+  billing_address: s_address.nullable().optional(),
+  email: z.string().nullable().optional(),
+  name: z.string().nullable().optional(),
+  shipping_address: s_address.nullable().optional(),
+})
+
+export const s_payment_method_config_resource_payment_method_properties =
+  z.object({
+    available: z.coerce.boolean(),
+    display_preference: s_payment_method_config_resource_display_preference,
+  })
+
+export const s_payment_method_details_card_installments = z.object({
+  plan: s_payment_method_details_card_installments_plan.nullable().optional(),
+})
+
+export const s_payment_method_details_card_present = z.object({
+  amount_authorized: z.coerce.number().nullable().optional(),
+  brand: z.string().nullable().optional(),
+  capture_before: z.coerce.number().optional(),
+  cardholder_name: z.string().nullable().optional(),
+  country: z.string().nullable().optional(),
+  emv_auth_data: z.string().nullable().optional(),
+  exp_month: z.coerce.number(),
+  exp_year: z.coerce.number(),
+  fingerprint: z.string().nullable().optional(),
+  funding: z.string().nullable().optional(),
+  generated_card: z.string().nullable().optional(),
+  incremental_authorization_supported: z.coerce.boolean(),
+  last4: z.string().nullable().optional(),
+  network: z.string().nullable().optional(),
+  overcapture_supported: z.coerce.boolean(),
+  read_method: z
+    .enum([
+      "contact_emv",
+      "contactless_emv",
+      "contactless_magstripe_mode",
+      "magnetic_stripe_fallback",
+      "magnetic_stripe_track2",
+    ])
+    .nullable()
+    .optional(),
+  receipt: s_payment_method_details_card_present_receipt.nullable().optional(),
+})
+
+export const s_payment_method_details_card_wallet_masterpass = z.object({
+  billing_address: s_address.nullable().optional(),
+  email: z.string().nullable().optional(),
+  name: z.string().nullable().optional(),
+  shipping_address: s_address.nullable().optional(),
+})
+
+export const s_payment_method_details_card_wallet_visa_checkout = z.object({
+  billing_address: s_address.nullable().optional(),
+  email: z.string().nullable().optional(),
+  name: z.string().nullable().optional(),
+  shipping_address: s_address.nullable().optional(),
+})
+
+export const s_payment_method_details_interac_present = z.object({
+  brand: z.string().nullable().optional(),
+  cardholder_name: z.string().nullable().optional(),
+  country: z.string().nullable().optional(),
+  emv_auth_data: z.string().nullable().optional(),
+  exp_month: z.coerce.number(),
+  exp_year: z.coerce.number(),
+  fingerprint: z.string().nullable().optional(),
+  funding: z.string().nullable().optional(),
+  generated_card: z.string().nullable().optional(),
+  last4: z.string().nullable().optional(),
+  network: z.string().nullable().optional(),
+  preferred_locales: z.array(z.string()).nullable().optional(),
+  read_method: z
+    .enum([
+      "contact_emv",
+      "contactless_emv",
+      "contactless_magstripe_mode",
+      "magnetic_stripe_fallback",
+      "magnetic_stripe_track2",
+    ])
+    .nullable()
+    .optional(),
+  receipt: s_payment_method_details_interac_present_receipt
+    .nullable()
+    .optional(),
+})
+
+export const s_payment_method_details_konbini = z.object({
+  store: s_payment_method_details_konbini_store.nullable().optional(),
+})
+
+export const s_payment_method_details_paypal = z.object({
+  payer_email: z.string().nullable().optional(),
+  payer_id: z.string().nullable().optional(),
+  payer_name: z.string().nullable().optional(),
+  seller_protection: s_paypal_seller_protection.nullable().optional(),
+  transaction_id: z.string().nullable().optional(),
+})
+
+export const s_payment_method_domain_resource_payment_method_status = z.object({
+  status: z.enum(["active", "inactive"]),
+  status_details:
+    s_payment_method_domain_resource_payment_method_status_details.optional(),
+})
+
+export const s_payment_method_interac_present = z.object({
+  brand: z.string().nullable().optional(),
+  cardholder_name: z.string().nullable().optional(),
+  country: z.string().nullable().optional(),
+  exp_month: z.coerce.number(),
+  exp_year: z.coerce.number(),
+  fingerprint: z.string().nullable().optional(),
+  funding: z.string().nullable().optional(),
+  last4: z.string().nullable().optional(),
+  networks: s_payment_method_card_present_networks.nullable().optional(),
+  preferred_locales: z.array(z.string()).nullable().optional(),
+  read_method: z
+    .enum([
+      "contact_emv",
+      "contactless_emv",
+      "contactless_magstripe_mode",
+      "magnetic_stripe_fallback",
+      "magnetic_stripe_track2",
+    ])
+    .nullable()
+    .optional(),
+})
+
+export const s_payment_method_klarna = z.object({
+  dob: s_payment_flows_private_payment_methods_klarna_dob.nullable().optional(),
+})
+
+export const s_payment_method_options_card_installments = z.object({
+  available_plans: z
+    .array(s_payment_method_details_card_installments_plan)
+    .nullable()
+    .optional(),
+  enabled: z.coerce.boolean(),
+  plan: s_payment_method_details_card_installments_plan.nullable().optional(),
+})
+
+export const s_payment_method_options_customer_balance_bank_transfer = z.object(
+  {
+    eu_bank_transfer:
+      s_payment_method_options_customer_balance_eu_bank_account.optional(),
+    requested_address_types: z
+      .array(
+        z.enum(["aba", "iban", "sepa", "sort_code", "spei", "swift", "zengin"]),
+      )
+      .optional(),
+    type: z
+      .enum([
+        "eu_bank_transfer",
+        "gb_bank_transfer",
+        "jp_bank_transfer",
+        "mx_bank_transfer",
+        "us_bank_transfer",
+      ])
+      .nullable()
+      .optional(),
+  },
+)
+
+export const s_payment_method_us_bank_account_status_details = z.object({
+  blocked: s_payment_method_us_bank_account_blocked.optional(),
+})
+
+export const s_payment_pages_checkout_session_after_expiration = z.object({
+  recovery: s_payment_pages_checkout_session_after_expiration_recovery
+    .nullable()
+    .optional(),
+})
+
+export const s_payment_pages_checkout_session_custom_fields_dropdown = z.object(
+  {
+    options: z.array(s_payment_pages_checkout_session_custom_fields_option),
+    value: z.string().nullable().optional(),
+  },
+)
+
+export const s_payment_pages_checkout_session_custom_text = z.object({
+  shipping_address: s_payment_pages_checkout_session_custom_text_position
+    .nullable()
+    .optional(),
+  submit: s_payment_pages_checkout_session_custom_text_position
+    .nullable()
+    .optional(),
+  terms_of_service_acceptance:
+    s_payment_pages_checkout_session_custom_text_position.nullable().optional(),
+})
+
+export const s_payment_pages_checkout_session_customer_details = z.object({
+  address: s_address.nullable().optional(),
+  email: z.string().nullable().optional(),
+  name: z.string().nullable().optional(),
+  phone: z.string().nullable().optional(),
+  tax_exempt: z.enum(["exempt", "none", "reverse"]).nullable().optional(),
+  tax_ids: z
+    .array(s_payment_pages_checkout_session_tax_id)
+    .nullable()
+    .optional(),
+})
+
+export const s_person_future_requirements = z.object({
+  alternatives: z
+    .array(s_account_requirements_alternative)
+    .nullable()
+    .optional(),
+  currently_due: z.array(z.string()),
+  errors: z.array(s_account_requirements_error),
+  eventually_due: z.array(z.string()),
+  past_due: z.array(z.string()),
+  pending_verification: z.array(z.string()),
+})
+
+export const s_person_requirements = z.object({
+  alternatives: z
+    .array(s_account_requirements_alternative)
+    .nullable()
+    .optional(),
+  currently_due: z.array(z.string()),
+  errors: z.array(s_account_requirements_error),
+  eventually_due: z.array(z.string()),
+  past_due: z.array(z.string()),
+  pending_verification: z.array(z.string()),
+})
+
+export const s_portal_flows_flow_after_completion = z.object({
+  hosted_confirmation: s_portal_flows_after_completion_hosted_confirmation
+    .nullable()
+    .optional(),
+  redirect: s_portal_flows_after_completion_redirect.nullable().optional(),
+  type: z.enum(["hosted_confirmation", "portal_homepage", "redirect"]),
+})
+
+export const s_portal_flows_flow_subscription_update_confirm = z.object({
+  discounts: z
+    .array(s_portal_flows_subscription_update_confirm_discount)
+    .nullable()
+    .optional(),
+  items: z.array(s_portal_flows_subscription_update_confirm_item),
+  subscription: z.string(),
+})
+
+export const s_portal_flows_retention = z.object({
+  coupon_offer: s_portal_flows_coupon_offer.nullable().optional(),
+  type: z.enum(["coupon_offer"]),
+})
+
+export const s_portal_subscription_cancel = z.object({
+  cancellation_reason: s_portal_subscription_cancellation_reason,
+  enabled: z.coerce.boolean(),
+  mode: z.enum(["at_period_end", "immediately"]),
+  proration_behavior: z.enum(["always_invoice", "create_prorations", "none"]),
+})
+
+export const s_portal_subscription_update = z.object({
+  default_allowed_updates: z.array(
+    z.enum(["price", "promotion_code", "quantity"]),
+  ),
+  enabled: z.coerce.boolean(),
+  products: z.array(s_portal_subscription_update_product).nullable().optional(),
+  proration_behavior: z.enum(["always_invoice", "create_prorations", "none"]),
+})
+
+export const s_promotion_codes_resource_restrictions = z.object({
+  currency_options: z.object({}).optional(),
+  first_time_transaction: z.coerce.boolean(),
+  minimum_amount: z.coerce.number().nullable().optional(),
+  minimum_amount_currency: z.string().nullable().optional(),
+})
+
+export const s_radar_value_list = z.object({
+  alias: z.string(),
+  created: z.coerce.number(),
+  created_by: z.string(),
+  id: z.string(),
+  item_type: z.enum([
+    "card_bin",
+    "card_fingerprint",
+    "case_sensitive_string",
+    "country",
+    "customer_id",
+    "email",
+    "ip_address",
+    "sepa_debit_fingerprint",
+    "string",
+    "us_bank_account_fingerprint",
+  ]),
+  list_items: z.object({
+    data: z.array(s_radar_value_list_item),
+    has_more: z.coerce.boolean(),
+    object: z.enum(["list"]),
+    url: z.string(),
+  }),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}),
+  name: z.string(),
+  object: z.enum(["radar.value_list"]),
+})
+
+export const s_refund_next_action_display_details = z.object({
+  email_sent: s_email_sent,
+  expires_at: z.coerce.number(),
+})
+
+export const s_setup_attempt_payment_method_details_card_wallet = z.object({
+  apple_pay: s_payment_method_details_card_wallet_apple_pay.optional(),
+  google_pay: s_payment_method_details_card_wallet_google_pay.optional(),
+  type: z.enum(["apple_pay", "google_pay", "link"]),
+})
+
+export const s_setup_intent_payment_method_options_acss_debit = z.object({
+  currency: z.enum(["cad", "usd"]).nullable().optional(),
+  mandate_options:
+    s_setup_intent_payment_method_options_mandate_options_acss_debit.optional(),
+  verification_method: z
+    .enum(["automatic", "instant", "microdeposits"])
+    .optional(),
+})
+
+export const s_setup_intent_payment_method_options_card = z.object({
+  mandate_options: s_setup_intent_payment_method_options_card_mandate_options
+    .nullable()
+    .optional(),
+  network: z
+    .enum([
+      "amex",
+      "cartes_bancaires",
+      "diners",
+      "discover",
+      "eftpos_au",
+      "interac",
+      "jcb",
+      "mastercard",
+      "unionpay",
+      "unknown",
+      "visa",
+    ])
+    .nullable()
+    .optional(),
+  request_three_d_secure: z
+    .enum(["any", "automatic", "challenge_only"])
+    .nullable()
+    .optional(),
+})
+
+export const s_setup_intent_payment_method_options_sepa_debit = z.object({
+  mandate_options:
+    s_setup_intent_payment_method_options_mandate_options_sepa_debit.optional(),
+})
+
+export const s_setup_intent_payment_method_options_us_bank_account = z.object({
+  financial_connections: s_linked_account_options_us_bank_account.optional(),
+  verification_method: z
+    .enum(["automatic", "instant", "microdeposits"])
+    .optional(),
+})
+
+export const s_shipping = z.object({
+  address: s_address.optional(),
+  carrier: z.string().nullable().optional(),
+  name: z.string().optional(),
+  phone: z.string().nullable().optional(),
+  tracking_number: z.string().nullable().optional(),
+})
+
+export const s_shipping_rate_delivery_estimate = z.object({
+  maximum: s_shipping_rate_delivery_estimate_bound.nullable().optional(),
+  minimum: s_shipping_rate_delivery_estimate_bound.nullable().optional(),
+})
+
+export const s_shipping_rate_fixed_amount = z.object({
+  amount: z.coerce.number(),
+  currency: z.string(),
+  currency_options: z.object({}).optional(),
+})
+
+export const s_source_owner = z.object({
+  address: s_address.nullable().optional(),
+  email: z.string().nullable().optional(),
+  name: z.string().nullable().optional(),
+  phone: z.string().nullable().optional(),
+  verified_address: s_address.nullable().optional(),
+  verified_email: z.string().nullable().optional(),
+  verified_name: z.string().nullable().optional(),
+  verified_phone: z.string().nullable().optional(),
+})
+
+export const s_source_transaction = z.object({
+  ach_credit_transfer: s_source_transaction_ach_credit_transfer_data.optional(),
+  amount: z.coerce.number(),
+  chf_credit_transfer: s_source_transaction_chf_credit_transfer_data.optional(),
+  created: z.coerce.number(),
+  currency: z.string(),
+  gbp_credit_transfer: s_source_transaction_gbp_credit_transfer_data.optional(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  object: z.enum(["source_transaction"]),
+  paper_check: s_source_transaction_paper_check_data.optional(),
+  sepa_credit_transfer:
+    s_source_transaction_sepa_credit_transfer_data.optional(),
+  source: z.string(),
+  status: z.string(),
+  type: z.enum([
+    "ach_credit_transfer",
+    "ach_debit",
+    "alipay",
+    "bancontact",
+    "card",
+    "card_present",
+    "eps",
+    "giropay",
+    "ideal",
+    "klarna",
+    "multibanco",
+    "p24",
+    "sepa_debit",
+    "sofort",
+    "three_d_secure",
+    "wechat",
+  ]),
+})
+
+export const s_subscription_payment_method_options_card = z.object({
+  mandate_options: s_invoice_mandate_options_card.optional(),
+  network: z
+    .enum([
+      "amex",
+      "cartes_bancaires",
+      "diners",
+      "discover",
+      "eftpos_au",
+      "interac",
+      "jcb",
+      "mastercard",
+      "unionpay",
+      "unknown",
+      "visa",
+    ])
+    .nullable()
+    .optional(),
+  request_three_d_secure: z.enum(["any", "automatic"]).nullable().optional(),
+})
+
+export const s_subscriptions_trials_resource_trial_settings = z.object({
+  end_behavior: s_subscriptions_trials_resource_end_behavior,
+})
+
+export const s_tax_product_resource_customer_details = z.object({
+  address: s_tax_product_resource_postal_address.nullable().optional(),
+  address_source: z.enum(["billing", "shipping"]).nullable().optional(),
+  ip_address: z.string().nullable().optional(),
+  tax_ids: z.array(s_tax_product_resource_customer_details_resource_tax_id),
+  taxability_override: z.enum(["customer_exempt", "none", "reverse_charge"]),
+})
+
+export const s_tax_product_resource_line_item_tax_breakdown = z.object({
+  amount: z.coerce.number(),
+  jurisdiction: s_tax_product_resource_jurisdiction,
+  sourcing: z.enum(["destination", "origin"]),
+  tax_rate_details: s_tax_product_resource_line_item_tax_rate_details
+    .nullable()
+    .optional(),
+  taxability_reason: z.enum([
+    "customer_exempt",
+    "not_collecting",
+    "not_subject_to_tax",
+    "not_supported",
+    "portion_product_exempt",
+    "portion_reduced_rated",
+    "portion_standard_rated",
+    "product_exempt",
+    "product_exempt_holiday",
+    "proportionally_rated",
+    "reduced_rated",
+    "reverse_charge",
+    "standard_rated",
+    "taxable_basis_reduced",
+    "zero_rated",
+  ]),
+  taxable_amount: z.coerce.number(),
+})
+
+export const s_tax_product_resource_tax_breakdown = z.object({
+  amount: z.coerce.number(),
+  inclusive: z.coerce.boolean(),
+  tax_rate_details: s_tax_product_resource_tax_rate_details,
+  taxability_reason: z.enum([
+    "customer_exempt",
+    "not_collecting",
+    "not_subject_to_tax",
+    "not_supported",
+    "portion_product_exempt",
+    "portion_reduced_rated",
+    "portion_standard_rated",
+    "product_exempt",
+    "product_exempt_holiday",
+    "proportionally_rated",
+    "reduced_rated",
+    "reverse_charge",
+    "standard_rated",
+    "taxable_basis_reduced",
+    "zero_rated",
+  ]),
+  taxable_amount: z.coerce.number(),
+})
+
+export const s_tax_product_resource_tax_settings_head_office = z.object({
+  address: s_address,
+})
+
+export const s_tax_product_resource_tax_settings_status_details = z.object({
+  active:
+    s_tax_product_resource_tax_settings_status_details_resource_active.optional(),
+  pending:
+    s_tax_product_resource_tax_settings_status_details_resource_pending.optional(),
+})
+
+export const s_tax_transaction_line_item = z.object({
+  amount: z.coerce.number(),
+  amount_tax: z.coerce.number(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}).nullable().optional(),
+  object: z.enum(["tax.transaction_line_item"]),
+  product: z.string().nullable().optional(),
+  quantity: z.coerce.number(),
+  reference: z.string(),
+  reversal: s_tax_product_resource_tax_transaction_line_item_resource_reversal
+    .nullable()
+    .optional(),
+  tax_behavior: z.enum(["exclusive", "inclusive"]),
+  tax_code: z.string(),
+  type: z.enum(["reversal", "transaction"]),
+})
+
+export const s_terminal_configuration_configuration_resource_tipping = z.object(
+  {
+    aud: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
+    cad: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
+    chf: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
+    czk: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
+    dkk: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
+    eur: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
+    gbp: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
+    hkd: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
+    myr: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
+    nok: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
+    nzd: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
+    sek: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
+    sgd: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
+    usd: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
+  },
+)
+
+export const s_terminal_location = z.object({
+  address: s_address,
+  configuration_overrides: z.string().optional(),
+  display_name: z.string(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}),
+  object: z.enum(["terminal.location"]),
+})
+
+export const s_terminal_reader_reader_resource_cart = z.object({
+  currency: z.string(),
+  line_items: z.array(s_terminal_reader_reader_resource_line_item),
+  tax: z.coerce.number().nullable().optional(),
+  total: z.coerce.number(),
+})
+
+export const s_terminal_reader_reader_resource_process_config = z.object({
+  skip_tipping: z.coerce.boolean().optional(),
+  tipping: s_terminal_reader_reader_resource_tipping_config.optional(),
+})
+
+export const s_treasury_financial_accounts_resource_aba_toggle_settings =
+  z.object({
+    requested: z.coerce.boolean(),
+    status: z.enum(["active", "pending", "restricted"]),
+    status_details: z.array(
+      s_treasury_financial_accounts_resource_toggles_setting_status_details,
+    ),
+  })
+
+export const s_treasury_financial_accounts_resource_ach_toggle_settings =
+  z.object({
+    requested: z.coerce.boolean(),
+    status: z.enum(["active", "pending", "restricted"]),
+    status_details: z.array(
+      s_treasury_financial_accounts_resource_toggles_setting_status_details,
+    ),
+  })
+
+export const s_treasury_financial_accounts_resource_financial_address =
+  z.object({
+    aba: s_treasury_financial_accounts_resource_aba_record.optional(),
+    supported_networks: z.array(z.enum(["ach", "us_domestic_wire"])).optional(),
+    type: z.enum(["aba"]),
+  })
+
+export const s_treasury_financial_accounts_resource_status_details = z.object({
+  closed: s_treasury_financial_accounts_resource_closed_status_details
+    .nullable()
+    .optional(),
+})
+
+export const s_treasury_financial_accounts_resource_toggle_settings = z.object({
+  requested: z.coerce.boolean(),
+  status: z.enum(["active", "pending", "restricted"]),
+  status_details: z.array(
+    s_treasury_financial_accounts_resource_toggles_setting_status_details,
+  ),
+})
+
+export const s_treasury_shared_resource_billing_details = z.object({
+  address: s_address,
+  email: z.string().nullable().optional(),
+  name: z.string().nullable().optional(),
+})
+
+export const s_usage_record_summary = z.object({
+  id: z.string(),
+  invoice: z.string().nullable().optional(),
+  livemode: z.coerce.boolean(),
+  object: z.enum(["usage_record_summary"]),
+  period: s_period,
+  subscription_item: z.string(),
+  total_usage: z.coerce.number(),
+})
+
+export const s_account_session = z.object({
+  account: z.string(),
+  client_secret: z.string(),
+  components: s_connect_embedded_account_session_create_components,
+  expires_at: z.coerce.number(),
+  livemode: z.coerce.boolean(),
+  object: z.enum(["account_session"]),
+})
+
+export const s_balance_detail = z.object({
+  available: z.array(s_balance_amount),
+})
+
+export const s_card_generated_from_payment_method_details = z.object({
+  card_present: s_payment_method_details_card_present.optional(),
+  type: z.string(),
+})
+
+export const s_checkout_customer_balance_payment_method_options = z.object({
+  bank_transfer:
+    s_checkout_customer_balance_bank_transfer_payment_method_options.optional(),
+  funding_type: z.enum(["bank_transfer"]).nullable().optional(),
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_country_spec = z.object({
+  default_currency: z.string(),
+  id: z.string(),
+  object: z.enum(["country_spec"]),
+  supported_bank_account_currencies: z.object({}),
+  supported_payment_currencies: z.array(z.string()),
+  supported_payment_methods: z.array(z.string()),
+  supported_transfer_countries: z.array(z.string()),
+  verification_fields: s_country_spec_verification_fields,
+})
+
+export const s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction =
+  z.object({
+    bank_transfer:
+      s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer,
+  })
+
+export const s_funding_instructions_bank_transfer = z.object({
+  country: z.string(),
+  financial_addresses: z.array(
+    s_funding_instructions_bank_transfer_financial_address,
+  ),
+  type: z.enum(["eu_bank_transfer", "jp_bank_transfer"]),
+})
+
+export const s_identity_verification_report = z.object({
+  created: z.coerce.number(),
+  document: s_gelato_document_report.optional(),
+  id: z.string(),
+  id_number: s_gelato_id_number_report.optional(),
+  livemode: z.coerce.boolean(),
+  object: z.enum(["identity.verification_report"]),
+  options: s_gelato_verification_report_options.optional(),
+  selfie: s_gelato_selfie_report.optional(),
+  type: z.enum(["document", "id_number"]).optional(),
+  verification_session: z.string().nullable().optional(),
+})
+
+export const s_inbound_transfers = z.object({
+  billing_details: s_treasury_shared_resource_billing_details,
+  type: z.enum(["us_bank_account"]),
+  us_bank_account:
+    s_inbound_transfers_payment_method_details_us_bank_account.optional(),
+})
+
+export const s_invoice_payment_method_options_customer_balance = z.object({
+  bank_transfer:
+    s_invoice_payment_method_options_customer_balance_bank_transfer.optional(),
+  funding_type: z.enum(["bank_transfer"]).nullable().optional(),
+})
+
+export const s_issuing_transaction_purchase_details = z.object({
+  flight: s_issuing_transaction_flight_data.nullable().optional(),
+  fuel: s_issuing_transaction_fuel_data.nullable().optional(),
+  lodging: s_issuing_transaction_lodging_data.nullable().optional(),
+  receipt: z.array(s_issuing_transaction_receipt_data).nullable().optional(),
+  reference: z.string().nullable().optional(),
+})
+
+export const s_outbound_payments_payment_method_details = z.object({
+  billing_details: s_treasury_shared_resource_billing_details,
+  financial_account:
+    s_outbound_payments_payment_method_details_financial_account.optional(),
+  type: z.enum(["financial_account", "us_bank_account"]),
+  us_bank_account:
+    s_outbound_payments_payment_method_details_us_bank_account.optional(),
+})
+
+export const s_outbound_transfers_payment_method_details = z.object({
+  billing_details: s_treasury_shared_resource_billing_details,
+  type: z.enum(["us_bank_account"]),
+  us_bank_account:
+    s_outbound_transfers_payment_method_details_us_bank_account.optional(),
+})
+
+export const s_payment_intent_next_action_display_bank_transfer_instructions =
+  z.object({
+    amount_remaining: z.coerce.number().nullable().optional(),
+    currency: z.string().nullable().optional(),
+    financial_addresses: z
+      .array(s_funding_instructions_bank_transfer_financial_address)
+      .optional(),
+    hosted_instructions_url: z.string().nullable().optional(),
+    reference: z.string().nullable().optional(),
+    type: z.enum([
+      "eu_bank_transfer",
+      "gb_bank_transfer",
+      "jp_bank_transfer",
+      "mx_bank_transfer",
+      "us_bank_transfer",
+    ]),
+  })
+
+export const s_payment_intent_next_action_konbini = z.object({
+  expires_at: z.coerce.number(),
+  hosted_voucher_url: z.string().nullable().optional(),
+  stores: s_payment_intent_next_action_konbini_stores,
+})
+
+export const s_payment_intent_payment_method_options_card = z.object({
+  capture_method: z.enum(["manual"]).optional(),
+  installments: s_payment_method_options_card_installments
+    .nullable()
+    .optional(),
+  mandate_options: s_payment_method_options_card_mandate_options
+    .nullable()
+    .optional(),
+  network: z
+    .enum([
+      "amex",
+      "cartes_bancaires",
+      "diners",
+      "discover",
+      "eftpos_au",
+      "interac",
+      "jcb",
+      "mastercard",
+      "unionpay",
+      "unknown",
+      "visa",
+    ])
+    .nullable()
+    .optional(),
+  request_three_d_secure: z
+    .enum(["any", "automatic", "challenge_only"])
+    .nullable()
+    .optional(),
+  setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+  statement_descriptor_suffix_kana: z.string().optional(),
+  statement_descriptor_suffix_kanji: z.string().optional(),
+})
+
+export const s_payment_intent_processing = z.object({
+  card: s_payment_intent_card_processing.optional(),
+  type: z.enum(["card"]),
+})
+
+export const s_payment_intent_type_specific_payment_method_options_client =
+  z.object({
+    capture_method: z.enum(["manual", "manual_preferred"]).optional(),
+    installments: s_payment_flows_installment_options.optional(),
+    setup_future_usage: z
+      .enum(["none", "off_session", "on_session"])
+      .optional(),
+    verification_method: z
+      .enum(["automatic", "instant", "microdeposits"])
+      .optional(),
+  })
+
+export const s_payment_links_resource_custom_fields = z.object({
+  dropdown: s_payment_links_resource_custom_fields_dropdown
+    .nullable()
+    .optional(),
+  key: z.string(),
+  label: s_payment_links_resource_custom_fields_label,
+  numeric: s_payment_links_resource_custom_fields_numeric.nullable().optional(),
+  optional: z.coerce.boolean(),
+  text: s_payment_links_resource_custom_fields_text.nullable().optional(),
+  type: z.enum(["dropdown", "numeric", "text"]),
+})
+
+export const s_payment_method_card_wallet = z.object({
+  amex_express_checkout:
+    s_payment_method_card_wallet_amex_express_checkout.optional(),
+  apple_pay: s_payment_method_card_wallet_apple_pay.optional(),
+  dynamic_last4: z.string().nullable().optional(),
+  google_pay: s_payment_method_card_wallet_google_pay.optional(),
+  link: s_payment_method_card_wallet_link.optional(),
+  masterpass: s_payment_method_card_wallet_masterpass.optional(),
+  samsung_pay: s_payment_method_card_wallet_samsung_pay.optional(),
+  type: z.enum([
+    "amex_express_checkout",
+    "apple_pay",
+    "google_pay",
+    "link",
+    "masterpass",
+    "samsung_pay",
+    "visa_checkout",
+  ]),
+  visa_checkout: s_payment_method_card_wallet_visa_checkout.optional(),
+})
+
+export const s_payment_method_configuration = z.object({
+  acss_debit:
+    s_payment_method_config_resource_payment_method_properties.optional(),
+  active: z.coerce.boolean(),
+  affirm: s_payment_method_config_resource_payment_method_properties.optional(),
+  afterpay_clearpay:
+    s_payment_method_config_resource_payment_method_properties.optional(),
+  alipay: s_payment_method_config_resource_payment_method_properties.optional(),
+  apple_pay:
+    s_payment_method_config_resource_payment_method_properties.optional(),
+  application: z.string().nullable().optional(),
+  au_becs_debit:
+    s_payment_method_config_resource_payment_method_properties.optional(),
+  bacs_debit:
+    s_payment_method_config_resource_payment_method_properties.optional(),
+  bancontact:
+    s_payment_method_config_resource_payment_method_properties.optional(),
+  blik: s_payment_method_config_resource_payment_method_properties.optional(),
+  boleto: s_payment_method_config_resource_payment_method_properties.optional(),
+  card: s_payment_method_config_resource_payment_method_properties.optional(),
+  cartes_bancaires:
+    s_payment_method_config_resource_payment_method_properties.optional(),
+  cashapp:
+    s_payment_method_config_resource_payment_method_properties.optional(),
+  eps: s_payment_method_config_resource_payment_method_properties.optional(),
+  fpx: s_payment_method_config_resource_payment_method_properties.optional(),
+  giropay:
+    s_payment_method_config_resource_payment_method_properties.optional(),
+  google_pay:
+    s_payment_method_config_resource_payment_method_properties.optional(),
+  grabpay:
+    s_payment_method_config_resource_payment_method_properties.optional(),
+  id: z.string(),
+  id_bank_transfer:
+    s_payment_method_config_resource_payment_method_properties.optional(),
+  ideal: s_payment_method_config_resource_payment_method_properties.optional(),
+  is_default: z.coerce.boolean(),
+  jcb: s_payment_method_config_resource_payment_method_properties.optional(),
+  klarna: s_payment_method_config_resource_payment_method_properties.optional(),
+  konbini:
+    s_payment_method_config_resource_payment_method_properties.optional(),
+  link: s_payment_method_config_resource_payment_method_properties.optional(),
+  livemode: z.coerce.boolean(),
+  multibanco:
+    s_payment_method_config_resource_payment_method_properties.optional(),
+  name: z.string(),
+  netbanking:
+    s_payment_method_config_resource_payment_method_properties.optional(),
+  object: z.enum(["payment_method_configuration"]),
+  oxxo: s_payment_method_config_resource_payment_method_properties.optional(),
+  p24: s_payment_method_config_resource_payment_method_properties.optional(),
+  parent: z.string().nullable().optional(),
+  pay_by_bank:
+    s_payment_method_config_resource_payment_method_properties.optional(),
+  paynow: s_payment_method_config_resource_payment_method_properties.optional(),
+  paypal: s_payment_method_config_resource_payment_method_properties.optional(),
+  promptpay:
+    s_payment_method_config_resource_payment_method_properties.optional(),
+  sepa_debit:
+    s_payment_method_config_resource_payment_method_properties.optional(),
+  sofort: s_payment_method_config_resource_payment_method_properties.optional(),
+  upi: s_payment_method_config_resource_payment_method_properties.optional(),
+  us_bank_account:
+    s_payment_method_config_resource_payment_method_properties.optional(),
+  wechat_pay:
+    s_payment_method_config_resource_payment_method_properties.optional(),
+})
+
+export const s_payment_method_details_card_wallet = z.object({
+  amex_express_checkout:
+    s_payment_method_details_card_wallet_amex_express_checkout.optional(),
+  apple_pay: s_payment_method_details_card_wallet_apple_pay.optional(),
+  dynamic_last4: z.string().nullable().optional(),
+  google_pay: s_payment_method_details_card_wallet_google_pay.optional(),
+  link: s_payment_method_details_card_wallet_link.optional(),
+  masterpass: s_payment_method_details_card_wallet_masterpass.optional(),
+  samsung_pay: s_payment_method_details_card_wallet_samsung_pay.optional(),
+  type: z.enum([
+    "amex_express_checkout",
+    "apple_pay",
+    "google_pay",
+    "link",
+    "masterpass",
+    "samsung_pay",
+    "visa_checkout",
+  ]),
+  visa_checkout: s_payment_method_details_card_wallet_visa_checkout.optional(),
+})
+
+export const s_payment_method_domain = z.object({
+  apple_pay: s_payment_method_domain_resource_payment_method_status,
+  created: z.coerce.number(),
+  domain_name: z.string(),
+  enabled: z.coerce.boolean(),
+  google_pay: s_payment_method_domain_resource_payment_method_status,
+  id: z.string(),
+  link: s_payment_method_domain_resource_payment_method_status,
+  livemode: z.coerce.boolean(),
+  object: z.enum(["payment_method_domain"]),
+  paypal: s_payment_method_domain_resource_payment_method_status,
+})
+
+export const s_payment_method_options_customer_balance = z.object({
+  bank_transfer:
+    s_payment_method_options_customer_balance_bank_transfer.optional(),
+  funding_type: z.enum(["bank_transfer"]).nullable().optional(),
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_payment_method_us_bank_account = z.object({
+  account_holder_type: z.enum(["company", "individual"]).nullable().optional(),
+  account_type: z.enum(["checking", "savings"]).nullable().optional(),
+  bank_name: z.string().nullable().optional(),
+  financial_connections_account: z.string().nullable().optional(),
+  fingerprint: z.string().nullable().optional(),
+  last4: z.string().nullable().optional(),
+  networks: s_us_bank_account_networks.nullable().optional(),
+  routing_number: z.string().nullable().optional(),
+  status_details: s_payment_method_us_bank_account_status_details
+    .nullable()
+    .optional(),
+})
+
+export const s_payment_pages_checkout_session_custom_fields = z.object({
+  dropdown: s_payment_pages_checkout_session_custom_fields_dropdown
+    .nullable()
+    .optional(),
+  key: z.string(),
+  label: s_payment_pages_checkout_session_custom_fields_label,
+  numeric: s_payment_pages_checkout_session_custom_fields_numeric
+    .nullable()
+    .optional(),
+  optional: z.coerce.boolean(),
+  text: s_payment_pages_checkout_session_custom_fields_text
+    .nullable()
+    .optional(),
+  type: z.enum(["dropdown", "numeric", "text"]),
+})
+
+export const s_portal_features = z.object({
+  customer_update: s_portal_customer_update,
+  invoice_history: s_portal_invoice_list,
+  payment_method_update: s_portal_payment_method_update,
+  subscription_cancel: s_portal_subscription_cancel,
+  subscription_pause: s_portal_subscription_pause,
+  subscription_update: s_portal_subscription_update,
+})
+
+export const s_portal_flows_flow_subscription_cancel = z.object({
+  retention: s_portal_flows_retention.nullable().optional(),
+  subscription: z.string(),
+})
+
+export const s_refund_next_action = z.object({
+  display_details: s_refund_next_action_display_details.nullable().optional(),
+  type: z.string(),
+})
+
+export const s_setup_attempt_payment_method_details_card = z.object({
+  brand: z.string().nullable().optional(),
+  checks: s_payment_method_details_card_checks.nullable().optional(),
+  country: z.string().nullable().optional(),
+  exp_month: z.coerce.number().nullable().optional(),
+  exp_year: z.coerce.number().nullable().optional(),
+  fingerprint: z.string().nullable().optional(),
+  funding: z.string().nullable().optional(),
+  last4: z.string().nullable().optional(),
+  network: z.string().nullable().optional(),
+  three_d_secure: s_three_d_secure_details.nullable().optional(),
+  wallet: s_setup_attempt_payment_method_details_card_wallet
+    .nullable()
+    .optional(),
+})
+
+export const s_setup_intent_next_action = z.object({
+  cashapp_handle_redirect_or_display_qr_code:
+    s_payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code.optional(),
+  redirect_to_url: s_setup_intent_next_action_redirect_to_url.optional(),
+  type: z.string(),
+  use_stripe_sdk: z.object({}).optional(),
+  verify_with_microdeposits:
+    s_setup_intent_next_action_verify_with_microdeposits.optional(),
+})
+
+export const s_setup_intent_payment_method_options = z.object({
+  acss_debit: z
+    .union([
+      s_setup_intent_payment_method_options_acss_debit,
+      s_setup_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  card: s_setup_intent_payment_method_options_card.optional(),
+  link: z
+    .union([
+      s_setup_intent_payment_method_options_link,
+      s_setup_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  paypal: z
+    .union([
+      s_setup_intent_payment_method_options_paypal,
+      s_setup_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  sepa_debit: z
+    .union([
+      s_setup_intent_payment_method_options_sepa_debit,
+      s_setup_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  us_bank_account: z
+    .union([
+      s_setup_intent_payment_method_options_us_bank_account,
+      s_setup_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+})
+
+export const s_shipping_rate = z.object({
+  active: z.coerce.boolean(),
+  created: z.coerce.number(),
+  delivery_estimate: s_shipping_rate_delivery_estimate.nullable().optional(),
+  display_name: z.string().nullable().optional(),
+  fixed_amount: s_shipping_rate_fixed_amount.optional(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}),
+  object: z.enum(["shipping_rate"]),
+  tax_behavior: z
+    .enum(["exclusive", "inclusive", "unspecified"])
+    .nullable()
+    .optional(),
+  tax_code: z.union([z.string(), s_tax_code]).nullable().optional(),
+  type: z.enum(["fixed_amount"]),
+})
+
+export const s_source_order = z.object({
+  amount: z.coerce.number(),
+  currency: z.string(),
+  email: z.string().optional(),
+  items: z.array(s_source_order_item).nullable().optional(),
+  shipping: s_shipping.optional(),
+})
+
+export const s_tax_calculation_line_item = z.object({
+  amount: z.coerce.number(),
+  amount_tax: z.coerce.number(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  object: z.enum(["tax.calculation_line_item"]),
+  product: z.string().nullable().optional(),
+  quantity: z.coerce.number(),
+  reference: z.string().nullable().optional(),
+  tax_behavior: z.enum(["exclusive", "inclusive"]),
+  tax_breakdown: z
+    .array(s_tax_product_resource_line_item_tax_breakdown)
+    .nullable()
+    .optional(),
+  tax_code: z.string(),
+})
+
+export const s_tax_product_resource_tax_calculation_shipping_cost = z.object({
+  amount: z.coerce.number(),
+  amount_tax: z.coerce.number(),
+  shipping_rate: z.string().optional(),
+  tax_behavior: z.enum(["exclusive", "inclusive"]),
+  tax_breakdown: z
+    .array(s_tax_product_resource_line_item_tax_breakdown)
+    .optional(),
+  tax_code: z.string(),
+})
+
+export const s_tax_settings = z.object({
+  defaults: s_tax_product_resource_tax_settings_defaults,
+  head_office: s_tax_product_resource_tax_settings_head_office
+    .nullable()
+    .optional(),
+  livemode: z.coerce.boolean(),
+  object: z.enum(["tax.settings"]),
+  status: z.enum(["active", "pending"]),
+  status_details: s_tax_product_resource_tax_settings_status_details,
+})
+
+export const s_tax_transaction = z.object({
+  created: z.coerce.number(),
+  currency: z.string(),
+  customer: z.string().nullable().optional(),
+  customer_details: s_tax_product_resource_customer_details,
+  id: z.string(),
+  line_items: z
+    .object({
+      data: z.array(s_tax_transaction_line_item),
+      has_more: z.coerce.boolean(),
+      object: z.enum(["list"]),
+      url: z.string(),
+    })
+    .nullable()
+    .optional(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}).nullable().optional(),
+  object: z.enum(["tax.transaction"]),
+  reference: z.string(),
+  reversal: s_tax_product_resource_tax_transaction_resource_reversal
+    .nullable()
+    .optional(),
+  shipping_cost: s_tax_product_resource_tax_transaction_shipping_cost
+    .nullable()
+    .optional(),
+  tax_date: z.coerce.number(),
+  type: z.enum(["reversal", "transaction"]),
+})
+
+export const s_terminal_reader_reader_resource_set_reader_display_action =
+  z.object({
+    cart: s_terminal_reader_reader_resource_cart.nullable().optional(),
+    type: z.enum(["cart"]),
+  })
+
+export const s_treasury_financial_accounts_resource_financial_addresses_features =
+  z.object({
+    aba: s_treasury_financial_accounts_resource_aba_toggle_settings.optional(),
+  })
+
+export const s_treasury_financial_accounts_resource_inbound_transfers =
+  z.object({
+    ach: s_treasury_financial_accounts_resource_ach_toggle_settings.optional(),
+  })
+
+export const s_treasury_financial_accounts_resource_outbound_payments =
+  z.object({
+    ach: s_treasury_financial_accounts_resource_ach_toggle_settings.optional(),
+    us_domestic_wire:
+      s_treasury_financial_accounts_resource_toggle_settings.optional(),
+  })
+
+export const s_treasury_financial_accounts_resource_outbound_transfers =
+  z.object({
+    ach: s_treasury_financial_accounts_resource_ach_toggle_settings.optional(),
+    us_domestic_wire:
+      s_treasury_financial_accounts_resource_toggle_settings.optional(),
+  })
+
+export const s_treasury_shared_resource_initiating_payment_method_details_initiating_payment_method_details =
+  z.object({
+    balance: z.enum(["payments"]).optional(),
+    billing_details: s_treasury_shared_resource_billing_details,
+    financial_account:
+      s_received_payment_method_details_financial_account.optional(),
+    issuing_card: z.string().optional(),
+    type: z.enum([
+      "balance",
+      "financial_account",
+      "issuing_card",
+      "stripe",
+      "us_bank_account",
+    ]),
+    us_bank_account:
+      s_treasury_shared_resource_initiating_payment_method_details_us_bank_account.optional(),
+  })
+
+export const s_balance = z.object({
+  available: z.array(s_balance_amount),
+  connect_reserved: z.array(s_balance_amount).optional(),
+  instant_available: z.array(s_balance_amount).optional(),
+  issuing: s_balance_detail.optional(),
+  livemode: z.coerce.boolean(),
+  object: z.enum(["balance"]),
+  pending: z.array(s_balance_amount),
+})
+
+export const s_billing_portal_configuration = z.object({
+  active: z.coerce.boolean(),
+  application: z
+    .union([z.string(), s_application, s_deleted_application])
+    .nullable()
+    .optional(),
+  business_profile: s_portal_business_profile,
+  created: z.coerce.number(),
+  default_return_url: z.string().nullable().optional(),
+  features: s_portal_features,
+  id: z.string(),
+  is_default: z.coerce.boolean(),
+  livemode: z.coerce.boolean(),
+  login_page: s_portal_login_page,
+  metadata: z.object({}).nullable().optional(),
+  object: z.enum(["billing_portal.configuration"]),
+  updated: z.coerce.number(),
+})
+
+export const s_checkout_session_payment_method_options = z.object({
+  acss_debit: s_checkout_acss_debit_payment_method_options.optional(),
+  affirm: s_checkout_affirm_payment_method_options.optional(),
+  afterpay_clearpay:
+    s_checkout_afterpay_clearpay_payment_method_options.optional(),
+  alipay: s_checkout_alipay_payment_method_options.optional(),
+  au_becs_debit: s_checkout_au_becs_debit_payment_method_options.optional(),
+  bacs_debit: s_checkout_bacs_debit_payment_method_options.optional(),
+  bancontact: s_checkout_bancontact_payment_method_options.optional(),
+  boleto: s_checkout_boleto_payment_method_options.optional(),
+  card: s_checkout_card_payment_method_options.optional(),
+  cashapp: s_checkout_cashapp_payment_method_options.optional(),
+  customer_balance:
+    s_checkout_customer_balance_payment_method_options.optional(),
+  eps: s_checkout_eps_payment_method_options.optional(),
+  fpx: s_checkout_fpx_payment_method_options.optional(),
+  giropay: s_checkout_giropay_payment_method_options.optional(),
+  grabpay: s_checkout_grab_pay_payment_method_options.optional(),
+  ideal: s_checkout_ideal_payment_method_options.optional(),
+  klarna: s_checkout_klarna_payment_method_options.optional(),
+  konbini: s_checkout_konbini_payment_method_options.optional(),
+  link: s_checkout_link_payment_method_options.optional(),
+  oxxo: s_checkout_oxxo_payment_method_options.optional(),
+  p24: s_checkout_p24_payment_method_options.optional(),
+  paynow: s_checkout_paynow_payment_method_options.optional(),
+  pix: s_checkout_pix_payment_method_options.optional(),
+  sepa_debit: s_checkout_sepa_debit_payment_method_options.optional(),
+  sofort: s_checkout_sofort_payment_method_options.optional(),
+  us_bank_account: s_checkout_us_bank_account_payment_method_options.optional(),
+})
+
+export const s_funding_instructions = z.object({
+  bank_transfer: s_funding_instructions_bank_transfer,
+  currency: z.string(),
+  funding_type: z.enum(["bank_transfer"]),
+  livemode: z.coerce.boolean(),
+  object: z.enum(["funding_instructions"]),
+})
+
+export const s_identity_verification_session = z.object({
+  client_secret: z.string().nullable().optional(),
+  created: z.coerce.number(),
+  id: z.string(),
+  last_error: s_gelato_session_last_error.nullable().optional(),
+  last_verification_report: z
+    .union([z.string(), s_identity_verification_report])
+    .nullable()
+    .optional(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}),
+  object: z.enum(["identity.verification_session"]),
+  options: s_gelato_verification_session_options.nullable().optional(),
+  redaction: s_verification_session_redaction.nullable().optional(),
+  status: z.enum(["canceled", "processing", "requires_input", "verified"]),
+  type: z.enum(["document", "id_number"]).nullable().optional(),
+  url: z.string().nullable().optional(),
+  verified_outputs: s_gelato_verified_outputs.nullable().optional(),
+})
+
+export const s_invoices_payment_method_options = z.object({
+  acss_debit: s_invoice_payment_method_options_acss_debit.nullable().optional(),
+  bancontact: s_invoice_payment_method_options_bancontact.nullable().optional(),
+  card: s_invoice_payment_method_options_card.nullable().optional(),
+  customer_balance: s_invoice_payment_method_options_customer_balance
+    .nullable()
+    .optional(),
+  konbini: s_invoice_payment_method_options_konbini.nullable().optional(),
+  us_bank_account: s_invoice_payment_method_options_us_bank_account
+    .nullable()
+    .optional(),
+})
+
+export const s_invoices_shipping_cost = z.object({
+  amount_subtotal: z.coerce.number(),
+  amount_tax: z.coerce.number(),
+  amount_total: z.coerce.number(),
+  shipping_rate: z.union([z.string(), s_shipping_rate]).nullable().optional(),
+  taxes: z.array(s_line_items_tax_amount).optional(),
+})
+
+export const s_payment_intent_next_action = z.object({
+  alipay_handle_redirect:
+    s_payment_intent_next_action_alipay_handle_redirect.optional(),
+  boleto_display_details: s_payment_intent_next_action_boleto.optional(),
+  card_await_notification:
+    s_payment_intent_next_action_card_await_notification.optional(),
+  cashapp_handle_redirect_or_display_qr_code:
+    s_payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code.optional(),
+  display_bank_transfer_instructions:
+    s_payment_intent_next_action_display_bank_transfer_instructions.optional(),
+  konbini_display_details: s_payment_intent_next_action_konbini.optional(),
+  oxxo_display_details:
+    s_payment_intent_next_action_display_oxxo_details.optional(),
+  paynow_display_qr_code:
+    s_payment_intent_next_action_paynow_display_qr_code.optional(),
+  pix_display_qr_code:
+    s_payment_intent_next_action_pix_display_qr_code.optional(),
+  promptpay_display_qr_code:
+    s_payment_intent_next_action_promptpay_display_qr_code.optional(),
+  redirect_to_url: s_payment_intent_next_action_redirect_to_url.optional(),
+  type: z.string(),
+  use_stripe_sdk: z.object({}).optional(),
+  verify_with_microdeposits:
+    s_payment_intent_next_action_verify_with_microdeposits.optional(),
+  wechat_pay_display_qr_code:
+    s_payment_intent_next_action_wechat_pay_display_qr_code.optional(),
+  wechat_pay_redirect_to_android_app:
+    s_payment_intent_next_action_wechat_pay_redirect_to_android_app.optional(),
+  wechat_pay_redirect_to_ios_app:
+    s_payment_intent_next_action_wechat_pay_redirect_to_ios_app.optional(),
+})
+
+export const s_payment_intent_payment_method_options = z.object({
+  acss_debit: z
+    .union([
+      s_payment_intent_payment_method_options_acss_debit,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  affirm: z
+    .union([
+      s_payment_method_options_affirm,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  afterpay_clearpay: z
+    .union([
+      s_payment_method_options_afterpay_clearpay,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  alipay: z
+    .union([
+      s_payment_method_options_alipay,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  au_becs_debit: z
+    .union([
+      s_payment_intent_payment_method_options_au_becs_debit,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  bacs_debit: z
+    .union([
+      s_payment_method_options_bacs_debit,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  bancontact: z
+    .union([
+      s_payment_method_options_bancontact,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  blik: z
+    .union([
+      s_payment_intent_payment_method_options_blik,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  boleto: z
+    .union([
+      s_payment_method_options_boleto,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  card: z
+    .union([
+      s_payment_intent_payment_method_options_card,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  card_present: z
+    .union([
+      s_payment_method_options_card_present,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  cashapp: z
+    .union([
+      s_payment_method_options_cashapp,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  customer_balance: z
+    .union([
+      s_payment_method_options_customer_balance,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  eps: z
+    .union([
+      s_payment_intent_payment_method_options_eps,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  fpx: z
+    .union([
+      s_payment_method_options_fpx,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  giropay: z
+    .union([
+      s_payment_method_options_giropay,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  grabpay: z
+    .union([
+      s_payment_method_options_grabpay,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  ideal: z
+    .union([
+      s_payment_method_options_ideal,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  interac_present: z
+    .union([
+      s_payment_method_options_interac_present,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  klarna: z
+    .union([
+      s_payment_method_options_klarna,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  konbini: z
+    .union([
+      s_payment_method_options_konbini,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  link: z
+    .union([
+      s_payment_intent_payment_method_options_link,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  oxxo: z
+    .union([
+      s_payment_method_options_oxxo,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  p24: z
+    .union([
+      s_payment_method_options_p24,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  paynow: z
+    .union([
+      s_payment_method_options_paynow,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  paypal: z
+    .union([
+      s_payment_method_options_paypal,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  pix: z
+    .union([
+      s_payment_method_options_pix,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  promptpay: z
+    .union([
+      s_payment_method_options_promptpay,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  sepa_debit: z
+    .union([
+      s_payment_intent_payment_method_options_sepa_debit,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  sofort: z
+    .union([
+      s_payment_method_options_sofort,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  us_bank_account: z
+    .union([
+      s_payment_intent_payment_method_options_us_bank_account,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  wechat_pay: z
+    .union([
+      s_payment_method_options_wechat_pay,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  zip: z
+    .union([
+      s_payment_method_options_zip,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+})
+
+export const s_payment_links_resource_shipping_option = z.object({
+  shipping_amount: z.coerce.number(),
+  shipping_rate: z.union([z.string(), s_shipping_rate]),
+})
+
+export const s_payment_method_details_card = z.object({
+  brand: z.string().nullable().optional(),
+  checks: s_payment_method_details_card_checks.nullable().optional(),
+  country: z.string().nullable().optional(),
+  exp_month: z.coerce.number(),
+  exp_year: z.coerce.number(),
+  fingerprint: z.string().nullable().optional(),
+  funding: z.string().nullable().optional(),
+  installments: s_payment_method_details_card_installments
+    .nullable()
+    .optional(),
+  last4: z.string().nullable().optional(),
+  mandate: z.string().nullable().optional(),
+  network: z.string().nullable().optional(),
+  network_token: s_payment_method_details_card_network_token
+    .nullable()
+    .optional(),
+  three_d_secure: s_three_d_secure_details_charge.nullable().optional(),
+  wallet: s_payment_method_details_card_wallet.nullable().optional(),
+})
+
+export const s_payment_pages_checkout_session_shipping_cost = z.object({
+  amount_subtotal: z.coerce.number(),
+  amount_tax: z.coerce.number(),
+  amount_total: z.coerce.number(),
+  shipping_rate: z.union([z.string(), s_shipping_rate]).nullable().optional(),
+  taxes: z.array(s_line_items_tax_amount).optional(),
+})
+
+export const s_payment_pages_checkout_session_shipping_option = z.object({
+  shipping_amount: z.coerce.number(),
+  shipping_rate: z.union([z.string(), s_shipping_rate]),
+})
+
+export const s_portal_flows_flow = z.object({
+  after_completion: s_portal_flows_flow_after_completion,
+  subscription_cancel: s_portal_flows_flow_subscription_cancel
+    .nullable()
+    .optional(),
+  subscription_update: s_portal_flows_flow_subscription_update
+    .nullable()
+    .optional(),
+  subscription_update_confirm: s_portal_flows_flow_subscription_update_confirm
+    .nullable()
+    .optional(),
+  type: z.enum([
+    "payment_method_update",
+    "subscription_cancel",
+    "subscription_update",
+    "subscription_update_confirm",
+  ]),
+})
+
+export const s_source = z.object({
+  ach_credit_transfer: s_source_type_ach_credit_transfer.optional(),
+  ach_debit: s_source_type_ach_debit.optional(),
+  acss_debit: s_source_type_acss_debit.optional(),
+  alipay: s_source_type_alipay.optional(),
+  amount: z.coerce.number().nullable().optional(),
+  au_becs_debit: s_source_type_au_becs_debit.optional(),
+  bancontact: s_source_type_bancontact.optional(),
+  card: s_source_type_card.optional(),
+  card_present: s_source_type_card_present.optional(),
+  client_secret: z.string(),
+  code_verification: s_source_code_verification_flow.optional(),
+  created: z.coerce.number(),
+  currency: z.string().nullable().optional(),
+  customer: z.string().optional(),
+  eps: s_source_type_eps.optional(),
+  flow: z.string(),
+  giropay: s_source_type_giropay.optional(),
+  id: z.string(),
+  ideal: s_source_type_ideal.optional(),
+  klarna: s_source_type_klarna.optional(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}).nullable().optional(),
+  multibanco: s_source_type_multibanco.optional(),
+  object: z.enum(["source"]),
+  owner: s_source_owner.nullable().optional(),
+  p24: s_source_type_p24.optional(),
+  receiver: s_source_receiver_flow.optional(),
+  redirect: s_source_redirect_flow.optional(),
+  sepa_debit: s_source_type_sepa_debit.optional(),
+  sofort: s_source_type_sofort.optional(),
+  source_order: s_source_order.optional(),
+  statement_descriptor: z.string().nullable().optional(),
+  status: z.string(),
+  three_d_secure: s_source_type_three_d_secure.optional(),
+  type: z.enum([
+    "ach_credit_transfer",
+    "ach_debit",
+    "acss_debit",
+    "alipay",
+    "au_becs_debit",
+    "bancontact",
+    "card",
+    "card_present",
+    "eps",
+    "giropay",
+    "ideal",
+    "klarna",
+    "multibanco",
+    "p24",
+    "sepa_debit",
+    "sofort",
+    "three_d_secure",
+    "wechat",
+  ]),
+  usage: z.string().nullable().optional(),
+  wechat: s_source_type_wechat.optional(),
+})
+
+export const s_subscriptions_resource_payment_method_options = z.object({
+  acss_debit: s_invoice_payment_method_options_acss_debit.nullable().optional(),
+  bancontact: s_invoice_payment_method_options_bancontact.nullable().optional(),
+  card: s_subscription_payment_method_options_card.nullable().optional(),
+  customer_balance: s_invoice_payment_method_options_customer_balance
+    .nullable()
+    .optional(),
+  konbini: s_invoice_payment_method_options_konbini.nullable().optional(),
+  us_bank_account: s_invoice_payment_method_options_us_bank_account
+    .nullable()
+    .optional(),
+})
+
+export const s_tax_calculation = z.object({
+  amount_total: z.coerce.number(),
+  currency: z.string(),
+  customer: z.string().nullable().optional(),
+  customer_details: s_tax_product_resource_customer_details,
+  expires_at: z.coerce.number().nullable().optional(),
+  id: z.string().nullable().optional(),
+  line_items: z
+    .object({
+      data: z.array(s_tax_calculation_line_item),
+      has_more: z.coerce.boolean(),
+      object: z.enum(["list"]),
+      url: z.string(),
+    })
+    .nullable()
+    .optional(),
+  livemode: z.coerce.boolean(),
+  object: z.enum(["tax.calculation"]),
+  shipping_cost: s_tax_product_resource_tax_calculation_shipping_cost
+    .nullable()
+    .optional(),
+  tax_amount_exclusive: z.coerce.number(),
+  tax_amount_inclusive: z.coerce.number(),
+  tax_breakdown: z.array(s_tax_product_resource_tax_breakdown),
+  tax_date: z.coerce.number(),
+})
+
+export const s_treasury_financial_account_features = z.object({
+  card_issuing:
+    s_treasury_financial_accounts_resource_toggle_settings.optional(),
+  deposit_insurance:
+    s_treasury_financial_accounts_resource_toggle_settings.optional(),
+  financial_addresses:
+    s_treasury_financial_accounts_resource_financial_addresses_features.optional(),
+  inbound_transfers:
+    s_treasury_financial_accounts_resource_inbound_transfers.optional(),
+  intra_stripe_flows:
+    s_treasury_financial_accounts_resource_toggle_settings.optional(),
+  object: z.enum(["treasury.financial_account_features"]),
+  outbound_payments:
+    s_treasury_financial_accounts_resource_outbound_payments.optional(),
+  outbound_transfers:
+    s_treasury_financial_accounts_resource_outbound_transfers.optional(),
+})
+
+export const s_billing_portal_session = z.object({
+  configuration: z.union([z.string(), s_billing_portal_configuration]),
+  created: z.coerce.number(),
+  customer: z.string(),
+  flow: s_portal_flows_flow.nullable().optional(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  locale: z
+    .enum([
+      "auto",
+      "bg",
+      "cs",
+      "da",
+      "de",
+      "el",
+      "en",
+      "en-AU",
+      "en-CA",
+      "en-GB",
+      "en-IE",
+      "en-IN",
+      "en-NZ",
+      "en-SG",
+      "es",
+      "es-419",
+      "et",
+      "fi",
+      "fil",
+      "fr",
+      "fr-CA",
+      "hr",
+      "hu",
+      "id",
+      "it",
+      "ja",
+      "ko",
+      "lt",
+      "lv",
+      "ms",
+      "mt",
+      "nb",
+      "nl",
+      "pl",
+      "pt",
+      "pt-BR",
+      "ro",
+      "ru",
+      "sk",
+      "sl",
+      "sv",
+      "th",
+      "tr",
+      "vi",
+      "zh",
+      "zh-HK",
+      "zh-TW",
+    ])
+    .nullable()
+    .optional(),
+  object: z.enum(["billing_portal.session"]),
+  on_behalf_of: z.string().nullable().optional(),
+  return_url: z.string().nullable().optional(),
+  url: z.string(),
+})
+
+export const s_invoices_payment_settings = z.object({
+  default_mandate: z.string().nullable().optional(),
+  payment_method_options: s_invoices_payment_method_options
+    .nullable()
+    .optional(),
+  payment_method_types: z
+    .array(
+      z.enum([
+        "ach_credit_transfer",
+        "ach_debit",
+        "acss_debit",
+        "au_becs_debit",
+        "bacs_debit",
+        "bancontact",
+        "boleto",
+        "card",
+        "cashapp",
+        "customer_balance",
+        "fpx",
+        "giropay",
+        "grabpay",
+        "ideal",
+        "konbini",
+        "link",
+        "paynow",
+        "paypal",
+        "promptpay",
+        "sepa_debit",
+        "sofort",
+        "us_bank_account",
+        "wechat_pay",
+      ]),
+    )
+    .nullable()
+    .optional(),
+})
+
+export const s_source_mandate_notification = z.object({
+  acss_debit: s_source_mandate_notification_acss_debit_data.optional(),
+  amount: z.coerce.number().nullable().optional(),
+  bacs_debit: s_source_mandate_notification_bacs_debit_data.optional(),
+  created: z.coerce.number(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  object: z.enum(["source_mandate_notification"]),
+  reason: z.string(),
+  sepa_debit: s_source_mandate_notification_sepa_debit_data.optional(),
+  source: s_source,
+  status: z.string(),
+  type: z.string(),
+})
+
+export const s_subscriptions_resource_payment_settings = z.object({
+  payment_method_options: s_subscriptions_resource_payment_method_options
+    .nullable()
+    .optional(),
+  payment_method_types: z
+    .array(
+      z.enum([
+        "ach_credit_transfer",
+        "ach_debit",
+        "acss_debit",
+        "au_becs_debit",
+        "bacs_debit",
+        "bancontact",
+        "boleto",
+        "card",
+        "cashapp",
+        "customer_balance",
+        "fpx",
+        "giropay",
+        "grabpay",
+        "ideal",
+        "konbini",
+        "link",
+        "paynow",
+        "paypal",
+        "promptpay",
+        "sepa_debit",
+        "sofort",
+        "us_bank_account",
+        "wechat_pay",
+      ]),
+    )
+    .nullable()
+    .optional(),
+  save_default_payment_method: z
+    .enum(["off", "on_subscription"])
+    .nullable()
+    .optional(),
+})
+
+export const s_treasury_financial_account = z.object({
+  active_features: z
+    .array(
+      z.enum([
+        "card_issuing",
+        "deposit_insurance",
+        "financial_addresses.aba",
+        "inbound_transfers.ach",
+        "intra_stripe_flows",
+        "outbound_payments.ach",
+        "outbound_payments.us_domestic_wire",
+        "outbound_transfers.ach",
+        "outbound_transfers.us_domestic_wire",
+        "remote_deposit_capture",
+      ]),
+    )
+    .optional(),
+  balance: s_treasury_financial_accounts_resource_balance,
+  country: z.string(),
+  created: z.coerce.number(),
+  features: s_treasury_financial_account_features.optional(),
+  financial_addresses: z.array(
+    s_treasury_financial_accounts_resource_financial_address,
+  ),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}).nullable().optional(),
+  object: z.enum(["treasury.financial_account"]),
+  pending_features: z
+    .array(
+      z.enum([
+        "card_issuing",
+        "deposit_insurance",
+        "financial_addresses.aba",
+        "inbound_transfers.ach",
+        "intra_stripe_flows",
+        "outbound_payments.ach",
+        "outbound_payments.us_domestic_wire",
+        "outbound_transfers.ach",
+        "outbound_transfers.us_domestic_wire",
+        "remote_deposit_capture",
+      ]),
+    )
+    .optional(),
+  platform_restrictions:
+    s_treasury_financial_accounts_resource_platform_restrictions
+      .nullable()
+      .optional(),
+  restricted_features: z
+    .array(
+      z.enum([
+        "card_issuing",
+        "deposit_insurance",
+        "financial_addresses.aba",
+        "inbound_transfers.ach",
+        "intra_stripe_flows",
+        "outbound_payments.ach",
+        "outbound_payments.us_domestic_wire",
+        "outbound_transfers.ach",
+        "outbound_transfers.us_domestic_wire",
+        "remote_deposit_capture",
+      ]),
+    )
+    .optional(),
+  status: z.enum(["closed", "open"]),
+  status_details: s_treasury_financial_accounts_resource_status_details,
+  supported_currencies: z.array(z.string()),
+})
+
+export const s_account: z.ZodType<t_account> = z.object({
+  business_profile: s_account_business_profile.nullable().optional(),
+  business_type: z
+    .enum(["company", "government_entity", "individual", "non_profit"])
+    .nullable()
+    .optional(),
+  capabilities: s_account_capabilities.optional(),
+  charges_enabled: z.coerce.boolean().optional(),
+  company: z.lazy(() => s_legal_entity_company.optional()),
+  controller: s_account_unification_account_controller.optional(),
+  country: z.string().optional(),
+  created: z.coerce.number().optional(),
+  default_currency: z.string().optional(),
+  details_submitted: z.coerce.boolean().optional(),
+  email: z.string().nullable().optional(),
+  external_accounts: z
+    .object({
+      data: z.array(
+        z.union([z.lazy(() => s_bank_account), z.lazy(() => s_card)]),
+      ),
+      has_more: z.coerce.boolean(),
+      object: z.enum(["list"]),
+      url: z.string(),
+    })
+    .optional(),
+  future_requirements: s_account_future_requirements.optional(),
+  id: z.string(),
+  individual: z.lazy(() => s_person.optional()),
+  metadata: z.object({}).optional(),
+  object: z.enum(["account"]),
+  payouts_enabled: z.coerce.boolean().optional(),
+  requirements: s_account_requirements.optional(),
+  settings: z
+    .lazy(() => s_account_settings)
+    .nullable()
+    .optional(),
+  tos_acceptance: s_account_tos_acceptance.optional(),
+  type: z.enum(["custom", "express", "standard"]).optional(),
+})
+
+export const s_error: z.ZodType<t_error> = z.object({
+  error: z.lazy(() => s_api_errors),
+})
+
+export const s_external_account: z.ZodType<t_external_account> = z.union([
+  z.lazy(() => s_bank_account),
+  z.lazy(() => s_card),
+])
+
+export const s_capability: z.ZodType<t_capability> = z.object({
+  account: z.union([z.string(), z.lazy(() => s_account)]),
+  future_requirements: s_account_capability_future_requirements.optional(),
+  id: z.string(),
+  object: z.enum(["capability"]),
+  requested: z.coerce.boolean(),
+  requested_at: z.coerce.number().nullable().optional(),
+  requirements: s_account_capability_requirements.optional(),
+  status: z.enum(["active", "disabled", "inactive", "pending", "unrequested"]),
+})
+
+export const s_bank_account: z.ZodType<t_bank_account> = z.object({
+  account: z
+    .union([z.string(), z.lazy(() => s_account)])
+    .nullable()
+    .optional(),
+  account_holder_name: z.string().nullable().optional(),
+  account_holder_type: z.string().nullable().optional(),
+  account_type: z.string().nullable().optional(),
+  available_payout_methods: z
+    .array(z.enum(["instant", "standard"]))
+    .nullable()
+    .optional(),
+  bank_name: z.string().nullable().optional(),
+  country: z.string(),
+  currency: z.string(),
+  customer: z
+    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .nullable()
+    .optional(),
+  default_for_currency: z.coerce.boolean().nullable().optional(),
+  fingerprint: z.string().nullable().optional(),
+  future_requirements: s_external_account_requirements.nullable().optional(),
+  id: z.string(),
+  last4: z.string(),
+  metadata: z.object({}).nullable().optional(),
+  object: z.enum(["bank_account"]),
+  requirements: s_external_account_requirements.nullable().optional(),
+  routing_number: z.string().nullable().optional(),
+  status: z.string(),
+})
+
+export const s_card: z.ZodType<t_card> = z.object({
+  account: z
+    .union([z.string(), z.lazy(() => s_account)])
+    .nullable()
+    .optional(),
+  address_city: z.string().nullable().optional(),
+  address_country: z.string().nullable().optional(),
+  address_line1: z.string().nullable().optional(),
+  address_line1_check: z.string().nullable().optional(),
+  address_line2: z.string().nullable().optional(),
+  address_state: z.string().nullable().optional(),
+  address_zip: z.string().nullable().optional(),
+  address_zip_check: z.string().nullable().optional(),
+  available_payout_methods: z
+    .array(z.enum(["instant", "standard"]))
+    .nullable()
+    .optional(),
+  brand: z.string(),
+  country: z.string().nullable().optional(),
+  currency: z.string().nullable().optional(),
+  customer: z
+    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .nullable()
+    .optional(),
+  cvc_check: z.string().nullable().optional(),
+  default_for_currency: z.coerce.boolean().nullable().optional(),
+  dynamic_last4: z.string().nullable().optional(),
+  exp_month: z.coerce.number(),
+  exp_year: z.coerce.number(),
+  fingerprint: z.string().nullable().optional(),
+  funding: z.string(),
+  id: z.string(),
+  last4: z.string(),
+  metadata: z.object({}).nullable().optional(),
+  name: z.string().nullable().optional(),
+  object: z.enum(["card"]),
+  status: z.string().nullable().optional(),
+  tokenization_method: z.string().nullable().optional(),
+})
+
+export const s_person: z.ZodType<t_person> = z.object({
+  account: z.string(),
+  address: s_address.optional(),
+  address_kana: s_legal_entity_japan_address.nullable().optional(),
+  address_kanji: s_legal_entity_japan_address.nullable().optional(),
+  created: z.coerce.number(),
+  dob: s_legal_entity_dob.optional(),
+  email: z.string().nullable().optional(),
+  first_name: z.string().nullable().optional(),
+  first_name_kana: z.string().nullable().optional(),
+  first_name_kanji: z.string().nullable().optional(),
+  full_name_aliases: z.array(z.string()).optional(),
+  future_requirements: s_person_future_requirements.nullable().optional(),
+  gender: z.string().nullable().optional(),
+  id: z.string(),
+  id_number_provided: z.coerce.boolean().optional(),
+  id_number_secondary_provided: z.coerce.boolean().optional(),
+  last_name: z.string().nullable().optional(),
+  last_name_kana: z.string().nullable().optional(),
+  last_name_kanji: z.string().nullable().optional(),
+  maiden_name: z.string().nullable().optional(),
+  metadata: z.object({}).optional(),
+  nationality: z.string().nullable().optional(),
+  object: z.enum(["person"]),
+  phone: z.string().nullable().optional(),
+  political_exposure: z.enum(["existing", "none"]).optional(),
+  registered_address: s_address.optional(),
+  relationship: s_person_relationship.optional(),
+  requirements: s_person_requirements.nullable().optional(),
+  ssn_last_4_provided: z.coerce.boolean().optional(),
+  verification: z.lazy(() => s_legal_entity_person_verification.optional()),
+})
+
+export const s_application_fee: z.ZodType<t_application_fee> = z.object({
+  account: z.union([z.string(), z.lazy(() => s_account)]),
+  amount: z.coerce.number(),
+  amount_refunded: z.coerce.number(),
+  application: z.union([z.string(), s_application]),
+  balance_transaction: z
+    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .nullable()
+    .optional(),
+  charge: z.union([z.string(), z.lazy(() => s_charge)]),
+  created: z.coerce.number(),
+  currency: z.string(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  object: z.enum(["application_fee"]),
+  originating_transaction: z
+    .union([z.string(), z.lazy(() => s_charge)])
+    .nullable()
+    .optional(),
+  refunded: z.coerce.boolean(),
+  refunds: z.object({
+    data: z.array(z.lazy(() => s_fee_refund)),
+    has_more: z.coerce.boolean(),
+    object: z.enum(["list"]),
+    url: z.string(),
+  }),
+})
+
+export const s_fee_refund: z.ZodType<t_fee_refund> = z.object({
+  amount: z.coerce.number(),
+  balance_transaction: z
+    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .nullable()
+    .optional(),
+  created: z.coerce.number(),
+  currency: z.string(),
+  fee: z.union([z.string(), z.lazy(() => s_application_fee)]),
+  id: z.string(),
+  metadata: z.object({}).nullable().optional(),
+  object: z.enum(["fee_refund"]),
+})
+
+export const s_balance_transaction: z.ZodType<t_balance_transaction> = z.object(
+  {
+    amount: z.coerce.number(),
+    available_on: z.coerce.number(),
+    created: z.coerce.number(),
+    currency: z.string(),
+    description: z.string().nullable().optional(),
+    exchange_rate: z.coerce.number().nullable().optional(),
+    fee: z.coerce.number(),
+    fee_details: z.array(s_fee),
+    id: z.string(),
+    net: z.coerce.number(),
+    object: z.enum(["balance_transaction"]),
+    reporting_category: z.string(),
+    source: z
+      .union([
+        z.string(),
+        z.lazy(() => s_application_fee),
+        z.lazy(() => s_charge),
+        z.lazy(() => s_connect_collection_transfer),
+        z.lazy(() => s_customer_cash_balance_transaction),
+        z.lazy(() => s_dispute),
+        z.lazy(() => s_fee_refund),
+        z.lazy(() => s_issuing_authorization),
+        z.lazy(() => s_issuing_dispute),
+        z.lazy(() => s_issuing_transaction),
+        z.lazy(() => s_payout),
+        s_platform_tax_fee,
+        z.lazy(() => s_refund),
+        s_reserve_transaction,
+        s_tax_deducted_at_source,
+        z.lazy(() => s_topup),
+        z.lazy(() => s_transfer),
+        z.lazy(() => s_transfer_reversal),
+      ])
+      .nullable()
+      .optional(),
+    status: z.string(),
+    type: z.enum([
+      "adjustment",
+      "advance",
+      "advance_funding",
+      "anticipation_repayment",
+      "application_fee",
+      "application_fee_refund",
+      "charge",
+      "connect_collection_transfer",
+      "contribution",
+      "issuing_authorization_hold",
+      "issuing_authorization_release",
+      "issuing_dispute",
+      "issuing_transaction",
+      "obligation_inbound",
+      "obligation_outbound",
+      "obligation_payout",
+      "obligation_payout_failure",
+      "obligation_reversal_inbound",
+      "obligation_reversal_outbound",
+      "payment",
+      "payment_failure_refund",
+      "payment_refund",
+      "payment_reversal",
+      "payout",
+      "payout_cancel",
+      "payout_failure",
+      "refund",
+      "refund_failure",
+      "reserve_transaction",
+      "reserved_funds",
+      "stripe_fee",
+      "stripe_fx_fee",
+      "tax_fee",
+      "topup",
+      "topup_reversal",
+      "transfer",
+      "transfer_cancel",
+      "transfer_failure",
+      "transfer_refund",
+    ]),
+  },
+)
+
+export const s_charge: z.ZodType<t_charge> = z.object({
+  amount: z.coerce.number(),
+  amount_captured: z.coerce.number(),
+  amount_refunded: z.coerce.number(),
+  application: z.union([z.string(), s_application]).nullable().optional(),
+  application_fee: z
+    .union([z.string(), z.lazy(() => s_application_fee)])
+    .nullable()
+    .optional(),
+  application_fee_amount: z.coerce.number().nullable().optional(),
+  balance_transaction: z
+    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .nullable()
+    .optional(),
+  billing_details: s_billing_details,
+  calculated_statement_descriptor: z.string().nullable().optional(),
+  captured: z.coerce.boolean(),
+  created: z.coerce.number(),
+  currency: z.string(),
+  customer: z
+    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .nullable()
+    .optional(),
+  description: z.string().nullable().optional(),
+  disputed: z.coerce.boolean(),
+  failure_balance_transaction: z
+    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .nullable()
+    .optional(),
+  failure_code: z.string().nullable().optional(),
+  failure_message: z.string().nullable().optional(),
+  fraud_details: s_charge_fraud_details.nullable().optional(),
+  id: z.string(),
+  invoice: z
+    .union([z.string(), z.lazy(() => s_invoice)])
+    .nullable()
+    .optional(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}),
+  object: z.enum(["charge"]),
+  on_behalf_of: z
+    .union([z.string(), z.lazy(() => s_account)])
+    .nullable()
+    .optional(),
+  outcome: s_charge_outcome.nullable().optional(),
+  paid: z.coerce.boolean(),
+  payment_intent: z
+    .union([z.string(), z.lazy(() => s_payment_intent)])
+    .nullable()
+    .optional(),
+  payment_method: z.string().nullable().optional(),
+  payment_method_details: z
+    .lazy(() => s_payment_method_details)
+    .nullable()
+    .optional(),
+  radar_options: s_radar_radar_options.optional(),
+  receipt_email: z.string().nullable().optional(),
+  receipt_number: z.string().nullable().optional(),
+  receipt_url: z.string().nullable().optional(),
+  refunded: z.coerce.boolean(),
+  refunds: z
+    .object({
+      data: z.array(z.lazy(() => s_refund)),
+      has_more: z.coerce.boolean(),
+      object: z.enum(["list"]),
+      url: z.string(),
+    })
+    .nullable()
+    .optional(),
+  review: z
+    .union([z.string(), z.lazy(() => s_review)])
+    .nullable()
+    .optional(),
+  shipping: s_shipping.nullable().optional(),
+  source_transfer: z
+    .union([z.string(), z.lazy(() => s_transfer)])
+    .nullable()
+    .optional(),
+  statement_descriptor: z.string().nullable().optional(),
+  statement_descriptor_suffix: z.string().nullable().optional(),
+  status: z.enum(["failed", "pending", "succeeded"]),
+  transfer: z.union([z.string(), z.lazy(() => s_transfer)]).optional(),
+  transfer_data: z
+    .lazy(() => s_charge_transfer_data)
+    .nullable()
+    .optional(),
+  transfer_group: z.string().nullable().optional(),
+})
+
+export const s_dispute: z.ZodType<t_dispute> = z.object({
+  amount: z.coerce.number(),
+  balance_transactions: z.array(z.lazy(() => s_balance_transaction)),
+  charge: z.union([z.string(), z.lazy(() => s_charge)]),
+  created: z.coerce.number(),
+  currency: z.string(),
+  evidence: z.lazy(() => s_dispute_evidence),
+  evidence_details: s_dispute_evidence_details,
+  id: z.string(),
+  is_charge_refundable: z.coerce.boolean(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}),
+  object: z.enum(["dispute"]),
+  payment_intent: z
+    .union([z.string(), z.lazy(() => s_payment_intent)])
+    .nullable()
+    .optional(),
+  payment_method_details: s_dispute_payment_method_details.optional(),
+  reason: z.string(),
+  status: z.enum([
+    "lost",
+    "needs_response",
+    "under_review",
+    "warning_closed",
+    "warning_needs_response",
+    "warning_under_review",
+    "won",
+  ]),
+})
+
+export const s_refund: z.ZodType<t_refund> = z.object({
+  amount: z.coerce.number(),
+  balance_transaction: z
+    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .nullable()
+    .optional(),
+  charge: z
+    .union([z.string(), z.lazy(() => s_charge)])
+    .nullable()
+    .optional(),
+  created: z.coerce.number(),
+  currency: z.string(),
+  description: z.string().optional(),
+  failure_balance_transaction: z
+    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .optional(),
+  failure_reason: z.string().optional(),
+  id: z.string(),
+  instructions_email: z.string().optional(),
+  metadata: z.object({}).nullable().optional(),
+  next_action: s_refund_next_action.optional(),
+  object: z.enum(["refund"]),
+  payment_intent: z
+    .union([z.string(), z.lazy(() => s_payment_intent)])
+    .nullable()
+    .optional(),
+  reason: z
+    .enum([
+      "duplicate",
+      "expired_uncaptured_charge",
+      "fraudulent",
+      "requested_by_customer",
+    ])
+    .nullable()
+    .optional(),
+  receipt_number: z.string().nullable().optional(),
+  source_transfer_reversal: z
+    .union([z.string(), z.lazy(() => s_transfer_reversal)])
+    .nullable()
+    .optional(),
+  status: z.string().nullable().optional(),
+  transfer_reversal: z
+    .union([z.string(), z.lazy(() => s_transfer_reversal)])
+    .nullable()
+    .optional(),
+})
+
+export const s_checkout_session: z.ZodType<t_checkout_session> = z.object({
+  after_expiration: s_payment_pages_checkout_session_after_expiration
+    .nullable()
+    .optional(),
+  allow_promotion_codes: z.coerce.boolean().nullable().optional(),
+  amount_subtotal: z.coerce.number().nullable().optional(),
+  amount_total: z.coerce.number().nullable().optional(),
+  automatic_tax: s_payment_pages_checkout_session_automatic_tax,
+  billing_address_collection: z
+    .enum(["auto", "required"])
+    .nullable()
+    .optional(),
+  cancel_url: z.string().nullable().optional(),
+  client_reference_id: z.string().nullable().optional(),
+  consent: s_payment_pages_checkout_session_consent.nullable().optional(),
+  consent_collection: s_payment_pages_checkout_session_consent_collection
+    .nullable()
+    .optional(),
+  created: z.coerce.number(),
+  currency: z.string().nullable().optional(),
+  currency_conversion: s_payment_pages_checkout_session_currency_conversion
+    .nullable()
+    .optional(),
+  custom_fields: z.array(s_payment_pages_checkout_session_custom_fields),
+  custom_text: s_payment_pages_checkout_session_custom_text,
+  customer: z
+    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .nullable()
+    .optional(),
+  customer_creation: z.enum(["always", "if_required"]).nullable().optional(),
+  customer_details: s_payment_pages_checkout_session_customer_details
+    .nullable()
+    .optional(),
+  customer_email: z.string().nullable().optional(),
+  expires_at: z.coerce.number(),
+  id: z.string(),
+  invoice: z
+    .union([z.string(), z.lazy(() => s_invoice)])
+    .nullable()
+    .optional(),
+  invoice_creation: z
+    .lazy(() => s_payment_pages_checkout_session_invoice_creation)
+    .nullable()
+    .optional(),
+  line_items: z
+    .object({
+      data: z.array(z.lazy(() => s_item)),
+      has_more: z.coerce.boolean(),
+      object: z.enum(["list"]),
+      url: z.string(),
+    })
+    .optional(),
+  livemode: z.coerce.boolean(),
+  locale: z
+    .enum([
+      "auto",
+      "bg",
+      "cs",
+      "da",
+      "de",
+      "el",
+      "en",
+      "en-GB",
+      "es",
+      "es-419",
+      "et",
+      "fi",
+      "fil",
+      "fr",
+      "fr-CA",
+      "hr",
+      "hu",
+      "id",
+      "it",
+      "ja",
+      "ko",
+      "lt",
+      "lv",
+      "ms",
+      "mt",
+      "nb",
+      "nl",
+      "pl",
+      "pt",
+      "pt-BR",
+      "ro",
+      "ru",
+      "sk",
+      "sl",
+      "sv",
+      "th",
+      "tr",
+      "vi",
+      "zh",
+      "zh-HK",
+      "zh-TW",
+    ])
+    .nullable()
+    .optional(),
+  metadata: z.object({}).nullable().optional(),
+  mode: z.enum(["payment", "setup", "subscription"]),
+  object: z.enum(["checkout.session"]),
+  payment_intent: z
+    .union([z.string(), z.lazy(() => s_payment_intent)])
+    .nullable()
+    .optional(),
+  payment_link: z
+    .union([z.string(), z.lazy(() => s_payment_link)])
+    .nullable()
+    .optional(),
+  payment_method_collection: z
+    .enum(["always", "if_required"])
+    .nullable()
+    .optional(),
+  payment_method_configuration_details:
+    s_payment_method_config_biz_payment_method_configuration_details
+      .nullable()
+      .optional(),
+  payment_method_options: s_checkout_session_payment_method_options
+    .nullable()
+    .optional(),
+  payment_method_types: z.array(z.string()),
+  payment_status: z.enum(["no_payment_required", "paid", "unpaid"]),
+  phone_number_collection:
+    s_payment_pages_checkout_session_phone_number_collection.optional(),
+  recovered_from: z.string().nullable().optional(),
+  setup_intent: z
+    .union([z.string(), z.lazy(() => s_setup_intent)])
+    .nullable()
+    .optional(),
+  shipping_address_collection:
+    s_payment_pages_checkout_session_shipping_address_collection
+      .nullable()
+      .optional(),
+  shipping_cost: s_payment_pages_checkout_session_shipping_cost
+    .nullable()
+    .optional(),
+  shipping_details: s_shipping.nullable().optional(),
+  shipping_options: z.array(s_payment_pages_checkout_session_shipping_option),
+  status: z.enum(["complete", "expired", "open"]).nullable().optional(),
+  submit_type: z.enum(["auto", "book", "donate", "pay"]).nullable().optional(),
+  subscription: z
+    .union([z.string(), z.lazy(() => s_subscription)])
+    .nullable()
+    .optional(),
+  success_url: z.string().nullable().optional(),
+  tax_id_collection:
+    s_payment_pages_checkout_session_tax_id_collection.optional(),
+  total_details: z
+    .lazy(() => s_payment_pages_checkout_session_total_details)
+    .nullable()
+    .optional(),
+  url: z.string().nullable().optional(),
+})
+
+export const s_item: z.ZodType<t_item> = z.object({
+  amount_discount: z.coerce.number(),
+  amount_subtotal: z.coerce.number(),
+  amount_tax: z.coerce.number(),
+  amount_total: z.coerce.number(),
+  currency: z.string(),
+  description: z.string(),
+  discounts: z.array(z.lazy(() => s_line_items_discount_amount)).optional(),
+  id: z.string(),
+  object: z.enum(["item"]),
+  price: z
+    .lazy(() => s_price)
+    .nullable()
+    .optional(),
+  quantity: z.coerce.number().nullable().optional(),
+  taxes: z.array(s_line_items_tax_amount).optional(),
+})
+
+export const s_credit_note: z.ZodType<t_credit_note> = z.object({
+  amount: z.coerce.number(),
+  amount_shipping: z.coerce.number(),
+  created: z.coerce.number(),
+  currency: z.string(),
+  customer: z.union([z.string(), z.lazy(() => s_customer), s_deleted_customer]),
+  customer_balance_transaction: z
+    .union([z.string(), z.lazy(() => s_customer_balance_transaction)])
+    .nullable()
+    .optional(),
+  discount_amount: z.coerce.number(),
+  discount_amounts: z.array(z.lazy(() => s_discounts_resource_discount_amount)),
+  effective_at: z.coerce.number().nullable().optional(),
+  id: z.string(),
+  invoice: z.union([z.string(), z.lazy(() => s_invoice)]),
+  lines: z.object({
+    data: z.array(z.lazy(() => s_credit_note_line_item)),
+    has_more: z.coerce.boolean(),
+    object: z.enum(["list"]),
+    url: z.string(),
+  }),
+  livemode: z.coerce.boolean(),
+  memo: z.string().nullable().optional(),
+  metadata: z.object({}).nullable().optional(),
+  number: z.string(),
+  object: z.enum(["credit_note"]),
+  out_of_band_amount: z.coerce.number().nullable().optional(),
+  pdf: z.string(),
+  reason: z
+    .enum(["duplicate", "fraudulent", "order_change", "product_unsatisfactory"])
+    .nullable()
+    .optional(),
+  refund: z
+    .union([z.string(), z.lazy(() => s_refund)])
+    .nullable()
+    .optional(),
+  shipping_cost: s_invoices_shipping_cost.nullable().optional(),
+  status: z.enum(["issued", "void"]),
+  subtotal: z.coerce.number(),
+  subtotal_excluding_tax: z.coerce.number().nullable().optional(),
+  tax_amounts: z.array(s_credit_note_tax_amount),
+  total: z.coerce.number(),
+  total_excluding_tax: z.coerce.number().nullable().optional(),
+  type: z.enum(["post_payment", "pre_payment"]),
+  voided_at: z.coerce.number().nullable().optional(),
+})
+
+export const s_credit_note_line_item: z.ZodType<t_credit_note_line_item> =
+  z.object({
+    amount: z.coerce.number(),
+    amount_excluding_tax: z.coerce.number().nullable().optional(),
+    description: z.string().nullable().optional(),
+    discount_amount: z.coerce.number(),
+    discount_amounts: z.array(
+      z.lazy(() => s_discounts_resource_discount_amount),
+    ),
+    id: z.string(),
+    invoice_line_item: z.string().optional(),
+    livemode: z.coerce.boolean(),
+    object: z.enum(["credit_note_line_item"]),
+    quantity: z.coerce.number().nullable().optional(),
+    tax_amounts: z.array(s_credit_note_tax_amount),
+    tax_rates: z.array(s_tax_rate),
+    type: z.enum(["custom_line_item", "invoice_line_item"]),
+    unit_amount: z.coerce.number().nullable().optional(),
+    unit_amount_decimal: z.string().nullable().optional(),
+    unit_amount_excluding_tax: z.string().nullable().optional(),
+  })
+
+export const s_customer: z.ZodType<t_customer> = z.object({
+  address: s_address.nullable().optional(),
+  balance: z.coerce.number().optional(),
+  cash_balance: s_cash_balance.nullable().optional(),
+  created: z.coerce.number(),
+  currency: z.string().nullable().optional(),
+  default_source: z
+    .union([
+      z.string(),
+      z.lazy(() => s_bank_account),
+      z.lazy(() => s_card),
+      s_source,
+    ])
+    .nullable()
+    .optional(),
+  delinquent: z.coerce.boolean().nullable().optional(),
+  description: z.string().nullable().optional(),
+  discount: z
+    .lazy(() => s_discount)
+    .nullable()
+    .optional(),
+  email: z.string().nullable().optional(),
+  id: z.string(),
+  invoice_credit_balance: z.object({}).optional(),
+  invoice_prefix: z.string().nullable().optional(),
+  invoice_settings: z.lazy(() => s_invoice_setting_customer_setting.optional()),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}).optional(),
+  name: z.string().nullable().optional(),
+  next_invoice_sequence: z.coerce.number().optional(),
+  object: z.enum(["customer"]),
+  phone: z.string().nullable().optional(),
+  preferred_locales: z.array(z.string()).nullable().optional(),
+  shipping: s_shipping.nullable().optional(),
+  sources: z
+    .object({
+      data: z.array(
+        z.union([z.lazy(() => s_bank_account), z.lazy(() => s_card), s_source]),
+      ),
+      has_more: z.coerce.boolean(),
+      object: z.enum(["list"]),
+      url: z.string(),
+    })
+    .optional(),
+  subscriptions: z
+    .object({
+      data: z.array(z.lazy(() => s_subscription)),
+      has_more: z.coerce.boolean(),
+      object: z.enum(["list"]),
+      url: z.string(),
+    })
+    .optional(),
+  tax: s_customer_tax.optional(),
+  tax_exempt: z.enum(["exempt", "none", "reverse"]).nullable().optional(),
+  tax_ids: z
+    .object({
+      data: z.array(z.lazy(() => s_tax_id)),
+      has_more: z.coerce.boolean(),
+      object: z.enum(["list"]),
+      url: z.string(),
+    })
+    .optional(),
+  test_clock: z
+    .union([z.string(), s_test_helpers_test_clock])
+    .nullable()
+    .optional(),
+})
+
+export const s_customer_balance_transaction: z.ZodType<t_customer_balance_transaction> =
+  z.object({
+    amount: z.coerce.number(),
+    created: z.coerce.number(),
+    credit_note: z
+      .union([z.string(), z.lazy(() => s_credit_note)])
+      .nullable()
+      .optional(),
+    currency: z.string(),
+    customer: z.union([z.string(), z.lazy(() => s_customer)]),
+    description: z.string().nullable().optional(),
+    ending_balance: z.coerce.number(),
+    id: z.string(),
+    invoice: z
+      .union([z.string(), z.lazy(() => s_invoice)])
+      .nullable()
+      .optional(),
+    livemode: z.coerce.boolean(),
+    metadata: z.object({}).nullable().optional(),
+    object: z.enum(["customer_balance_transaction"]),
+    type: z.enum([
+      "adjustment",
+      "applied_to_invoice",
+      "credit_note",
+      "initial",
+      "invoice_overpaid",
+      "invoice_too_large",
+      "invoice_too_small",
+      "migration",
+      "unapplied_from_invoice",
+      "unspent_receiver_credit",
+    ]),
+  })
+
+export const s_payment_source: z.ZodType<t_payment_source> = z.union([
+  z.lazy(() => s_account),
+  z.lazy(() => s_bank_account),
+  z.lazy(() => s_card),
+  s_source,
+])
+
+export const s_customer_cash_balance_transaction: z.ZodType<t_customer_cash_balance_transaction> =
+  z.object({
+    adjusted_for_overdraft: z.lazy(() =>
+      s_customer_balance_resource_cash_balance_transaction_resource_adjusted_for_overdraft.optional(),
+    ),
+    applied_to_payment: z.lazy(() =>
+      s_customer_balance_resource_cash_balance_transaction_resource_applied_to_payment_transaction.optional(),
+    ),
+    created: z.coerce.number(),
+    currency: z.string(),
+    customer: z.union([z.string(), z.lazy(() => s_customer)]),
+    ending_balance: z.coerce.number(),
+    funded:
+      s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction.optional(),
+    id: z.string(),
+    livemode: z.coerce.boolean(),
+    net_amount: z.coerce.number(),
+    object: z.enum(["customer_cash_balance_transaction"]),
+    refunded_from_payment: z.lazy(() =>
+      s_customer_balance_resource_cash_balance_transaction_resource_refunded_from_payment_transaction.optional(),
+    ),
+    type: z.enum([
+      "adjusted_for_overdraft",
+      "applied_to_payment",
+      "funded",
+      "funding_reversed",
+      "refunded_from_payment",
+      "return_canceled",
+      "return_initiated",
+      "unapplied_from_payment",
+    ]),
+    unapplied_from_payment: z.lazy(() =>
+      s_customer_balance_resource_cash_balance_transaction_resource_unapplied_from_payment_transaction.optional(),
+    ),
+  })
+
+export const s_deleted_discount: z.ZodType<t_deleted_discount> = z.object({
+  checkout_session: z.string().nullable().optional(),
+  coupon: s_coupon,
+  customer: z
+    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .nullable()
+    .optional(),
+  deleted: z.coerce.boolean(),
+  id: z.string(),
+  invoice: z.string().nullable().optional(),
+  invoice_item: z.string().nullable().optional(),
+  object: z.enum(["discount"]),
+  promotion_code: z
+    .union([z.string(), z.lazy(() => s_promotion_code)])
+    .nullable()
+    .optional(),
+  start: z.coerce.number(),
+  subscription: z.string().nullable().optional(),
+})
+
+export const s_discount: z.ZodType<t_discount> = z.object({
+  checkout_session: z.string().nullable().optional(),
+  coupon: s_coupon,
+  customer: z
+    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .nullable()
+    .optional(),
+  end: z.coerce.number().nullable().optional(),
+  id: z.string(),
+  invoice: z.string().nullable().optional(),
+  invoice_item: z.string().nullable().optional(),
+  object: z.enum(["discount"]),
+  promotion_code: z
+    .union([z.string(), z.lazy(() => s_promotion_code)])
+    .nullable()
+    .optional(),
+  start: z.coerce.number(),
+  subscription: z.string().nullable().optional(),
+})
+
+export const s_payment_method: z.ZodType<t_payment_method> = z.object({
+  acss_debit: s_payment_method_acss_debit.optional(),
+  affirm: s_payment_method_affirm.optional(),
+  afterpay_clearpay: s_payment_method_afterpay_clearpay.optional(),
+  alipay: s_payment_flows_private_payment_methods_alipay.optional(),
+  au_becs_debit: s_payment_method_au_becs_debit.optional(),
+  bacs_debit: s_payment_method_bacs_debit.optional(),
+  bancontact: s_payment_method_bancontact.optional(),
+  billing_details: s_billing_details,
+  blik: s_payment_method_blik.optional(),
+  boleto: s_payment_method_boleto.optional(),
+  card: z.lazy(() => s_payment_method_card.optional()),
+  card_present: s_payment_method_card_present.optional(),
+  cashapp: s_payment_method_cashapp.optional(),
+  created: z.coerce.number(),
+  customer: z
+    .union([z.string(), z.lazy(() => s_customer)])
+    .nullable()
+    .optional(),
+  customer_balance: s_payment_method_customer_balance.optional(),
+  eps: s_payment_method_eps.optional(),
+  fpx: s_payment_method_fpx.optional(),
+  giropay: s_payment_method_giropay.optional(),
+  grabpay: s_payment_method_grabpay.optional(),
+  id: z.string(),
+  ideal: s_payment_method_ideal.optional(),
+  interac_present: s_payment_method_interac_present.optional(),
+  klarna: s_payment_method_klarna.optional(),
+  konbini: s_payment_method_konbini.optional(),
+  link: s_payment_method_link.optional(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}).nullable().optional(),
+  object: z.enum(["payment_method"]),
+  oxxo: s_payment_method_oxxo.optional(),
+  p24: s_payment_method_p24.optional(),
+  paynow: s_payment_method_paynow.optional(),
+  paypal: s_payment_method_paypal.optional(),
+  pix: s_payment_method_pix.optional(),
+  promptpay: s_payment_method_promptpay.optional(),
+  radar_options: s_radar_radar_options.optional(),
+  sepa_debit: z.lazy(() => s_payment_method_sepa_debit.optional()),
+  sofort: s_payment_method_sofort.optional(),
+  type: z.enum([
+    "acss_debit",
+    "affirm",
+    "afterpay_clearpay",
+    "alipay",
+    "au_becs_debit",
+    "bacs_debit",
+    "bancontact",
+    "blik",
+    "boleto",
+    "card",
+    "card_present",
+    "cashapp",
+    "customer_balance",
+    "eps",
+    "fpx",
+    "giropay",
+    "grabpay",
+    "ideal",
+    "interac_present",
+    "klarna",
+    "konbini",
+    "link",
+    "oxxo",
+    "p24",
+    "paynow",
+    "paypal",
+    "pix",
+    "promptpay",
+    "sepa_debit",
+    "sofort",
+    "us_bank_account",
+    "wechat_pay",
+    "zip",
+  ]),
+  us_bank_account: s_payment_method_us_bank_account.optional(),
+  wechat_pay: s_payment_method_wechat_pay.optional(),
+  zip: s_payment_method_zip.optional(),
+})
+
+export const s_subscription: z.ZodType<t_subscription> = z.object({
+  application: z
+    .union([z.string(), s_application, s_deleted_application])
+    .nullable()
+    .optional(),
+  application_fee_percent: z.coerce.number().nullable().optional(),
+  automatic_tax: s_subscription_automatic_tax,
+  billing_cycle_anchor: z.coerce.number(),
+  billing_thresholds: s_subscription_billing_thresholds.nullable().optional(),
+  cancel_at: z.coerce.number().nullable().optional(),
+  cancel_at_period_end: z.coerce.boolean(),
+  canceled_at: z.coerce.number().nullable().optional(),
+  cancellation_details: s_cancellation_details.nullable().optional(),
+  collection_method: z.enum(["charge_automatically", "send_invoice"]),
+  created: z.coerce.number(),
+  currency: z.string(),
+  current_period_end: z.coerce.number(),
+  current_period_start: z.coerce.number(),
+  customer: z.union([z.string(), z.lazy(() => s_customer), s_deleted_customer]),
+  days_until_due: z.coerce.number().nullable().optional(),
+  default_payment_method: z
+    .union([z.string(), z.lazy(() => s_payment_method)])
+    .nullable()
+    .optional(),
+  default_source: z
+    .union([
+      z.string(),
+      z.lazy(() => s_bank_account),
+      z.lazy(() => s_card),
+      s_source,
+    ])
+    .nullable()
+    .optional(),
+  default_tax_rates: z.array(s_tax_rate).nullable().optional(),
+  description: z.string().nullable().optional(),
+  discount: z
+    .lazy(() => s_discount)
+    .nullable()
+    .optional(),
+  ended_at: z.coerce.number().nullable().optional(),
+  id: z.string(),
+  items: z.object({
+    data: z.array(z.lazy(() => s_subscription_item)),
+    has_more: z.coerce.boolean(),
+    object: z.enum(["list"]),
+    url: z.string(),
+  }),
+  latest_invoice: z
+    .union([z.string(), z.lazy(() => s_invoice)])
+    .nullable()
+    .optional(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}),
+  next_pending_invoice_item_invoice: z.coerce.number().nullable().optional(),
+  object: z.enum(["subscription"]),
+  on_behalf_of: z
+    .union([z.string(), z.lazy(() => s_account)])
+    .nullable()
+    .optional(),
+  pause_collection: s_subscriptions_resource_pause_collection
+    .nullable()
+    .optional(),
+  payment_settings: s_subscriptions_resource_payment_settings
+    .nullable()
+    .optional(),
+  pending_invoice_item_interval: s_subscription_pending_invoice_item_interval
+    .nullable()
+    .optional(),
+  pending_setup_intent: z
+    .union([z.string(), z.lazy(() => s_setup_intent)])
+    .nullable()
+    .optional(),
+  pending_update: z
+    .lazy(() => s_subscriptions_resource_pending_update)
+    .nullable()
+    .optional(),
+  schedule: z
+    .union([z.string(), z.lazy(() => s_subscription_schedule)])
+    .nullable()
+    .optional(),
+  start_date: z.coerce.number(),
+  status: z.enum([
+    "active",
+    "canceled",
+    "incomplete",
+    "incomplete_expired",
+    "past_due",
+    "paused",
+    "trialing",
+    "unpaid",
+  ]),
+  test_clock: z
+    .union([z.string(), s_test_helpers_test_clock])
+    .nullable()
+    .optional(),
+  transfer_data: z
+    .lazy(() => s_subscription_transfer_data)
+    .nullable()
+    .optional(),
+  trial_end: z.coerce.number().nullable().optional(),
+  trial_settings: s_subscriptions_trials_resource_trial_settings
+    .nullable()
+    .optional(),
+  trial_start: z.coerce.number().nullable().optional(),
+})
+
+export const s_tax_id: z.ZodType<t_tax_id> = z.object({
+  country: z.string().nullable().optional(),
+  created: z.coerce.number(),
+  customer: z
+    .union([z.string(), z.lazy(() => s_customer)])
+    .nullable()
+    .optional(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  object: z.enum(["tax_id"]),
+  type: z.enum([
+    "ad_nrt",
+    "ae_trn",
+    "ar_cuit",
+    "au_abn",
+    "au_arn",
+    "bg_uic",
+    "bo_tin",
+    "br_cnpj",
+    "br_cpf",
+    "ca_bn",
+    "ca_gst_hst",
+    "ca_pst_bc",
+    "ca_pst_mb",
+    "ca_pst_sk",
+    "ca_qst",
+    "ch_vat",
+    "cl_tin",
+    "cn_tin",
+    "co_nit",
+    "cr_tin",
+    "do_rcn",
+    "ec_ruc",
+    "eg_tin",
+    "es_cif",
+    "eu_oss_vat",
+    "eu_vat",
+    "gb_vat",
+    "ge_vat",
+    "hk_br",
+    "hu_tin",
+    "id_npwp",
+    "il_vat",
+    "in_gst",
+    "is_vat",
+    "jp_cn",
+    "jp_rn",
+    "jp_trn",
+    "ke_pin",
+    "kr_brn",
+    "li_uid",
+    "mx_rfc",
+    "my_frp",
+    "my_itn",
+    "my_sst",
+    "no_vat",
+    "nz_gst",
+    "pe_ruc",
+    "ph_tin",
+    "ro_tin",
+    "rs_pib",
+    "ru_inn",
+    "ru_kpp",
+    "sa_vat",
+    "sg_gst",
+    "sg_uen",
+    "si_tin",
+    "sv_nit",
+    "th_vat",
+    "tr_tin",
+    "tw_vat",
+    "ua_vat",
+    "unknown",
+    "us_ein",
+    "uy_ruc",
+    "ve_rif",
+    "vn_tin",
+    "za_vat",
+  ]),
+  value: z.string(),
+  verification: s_tax_id_verification.nullable().optional(),
+})
+
+export const s_file_link: z.ZodType<t_file_link> = z.object({
+  created: z.coerce.number(),
+  expired: z.coerce.boolean(),
+  expires_at: z.coerce.number().nullable().optional(),
+  file: z.union([z.string(), z.lazy(() => s_file)]),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}),
+  object: z.enum(["file_link"]),
+  url: z.string().nullable().optional(),
+})
+
+export const s_file: z.ZodType<t_file> = z.object({
+  created: z.coerce.number(),
+  expires_at: z.coerce.number().nullable().optional(),
+  filename: z.string().nullable().optional(),
+  id: z.string(),
+  links: z
+    .object({
+      data: z.array(z.lazy(() => s_file_link)),
+      has_more: z.coerce.boolean(),
+      object: z.enum(["list"]),
+      url: z.string(),
+    })
+    .nullable()
+    .optional(),
+  object: z.enum(["file"]),
+  purpose: z.enum([
+    "account_requirement",
+    "additional_verification",
+    "business_icon",
+    "business_logo",
+    "customer_signature",
+    "dispute_evidence",
+    "document_provider_identity_document",
+    "finance_report_run",
+    "identity_document",
+    "identity_document_downloadable",
+    "pci_document",
+    "selfie",
+    "sigma_scheduled_query",
+    "tax_document_user_upload",
+    "terminal_reader_splashscreen",
+  ]),
+  size: z.coerce.number(),
+  title: z.string().nullable().optional(),
+  type: z.string().nullable().optional(),
+  url: z.string().nullable().optional(),
+})
+
+export const s_financial_connections_account: z.ZodType<t_financial_connections_account> =
+  z.object({
+    account_holder: z
+      .lazy(() => s_bank_connections_resource_accountholder)
+      .nullable()
+      .optional(),
+    balance: s_bank_connections_resource_balance.nullable().optional(),
+    balance_refresh: s_bank_connections_resource_balance_refresh
+      .nullable()
+      .optional(),
+    category: z.enum(["cash", "credit", "investment", "other"]),
+    created: z.coerce.number(),
+    display_name: z.string().nullable().optional(),
+    id: z.string(),
+    institution_name: z.string(),
+    last4: z.string().nullable().optional(),
+    livemode: z.coerce.boolean(),
+    object: z.enum(["financial_connections.account"]),
+    ownership: z
+      .union([z.string(), s_financial_connections_account_ownership])
+      .nullable()
+      .optional(),
+    ownership_refresh: s_bank_connections_resource_ownership_refresh
+      .nullable()
+      .optional(),
+    permissions: z
+      .array(
+        z.enum(["balances", "ownership", "payment_method", "transactions"]),
+      )
+      .nullable()
+      .optional(),
+    status: z.enum(["active", "disconnected", "inactive"]),
+    subcategory: z.enum([
+      "checking",
+      "credit_card",
+      "line_of_credit",
+      "mortgage",
+      "other",
+      "savings",
+    ]),
+    supported_payment_method_types: z.array(
+      z.enum(["link", "us_bank_account"]),
+    ),
+  })
+
+export const s_financial_connections_session: z.ZodType<t_financial_connections_session> =
+  z.object({
+    account_holder: z
+      .lazy(() => s_bank_connections_resource_accountholder)
+      .nullable()
+      .optional(),
+    accounts: z.object({
+      data: z.array(z.lazy(() => s_financial_connections_account)),
+      has_more: z.coerce.boolean(),
+      object: z.enum(["list"]),
+      url: z.string(),
+    }),
+    client_secret: z.string(),
+    filters:
+      s_bank_connections_resource_link_account_session_filters.optional(),
+    id: z.string(),
+    livemode: z.coerce.boolean(),
+    object: z.enum(["financial_connections.session"]),
+    permissions: z.array(
+      z.enum(["balances", "ownership", "payment_method", "transactions"]),
+    ),
+    prefetch: z
+      .array(z.enum(["balances", "ownership"]))
+      .nullable()
+      .optional(),
+    return_url: z.string().optional(),
+  })
+
+export const s_invoiceitem: z.ZodType<t_invoiceitem> = z.object({
+  amount: z.coerce.number(),
+  currency: z.string(),
+  customer: z.union([z.string(), z.lazy(() => s_customer), s_deleted_customer]),
+  date: z.coerce.number(),
+  description: z.string().nullable().optional(),
+  discountable: z.coerce.boolean(),
+  discounts: z
+    .array(z.union([z.string(), z.lazy(() => s_discount)]))
+    .nullable()
+    .optional(),
+  id: z.string(),
+  invoice: z
+    .union([z.string(), z.lazy(() => s_invoice)])
+    .nullable()
+    .optional(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}).nullable().optional(),
+  object: z.enum(["invoiceitem"]),
+  period: s_invoice_line_item_period,
+  price: z
+    .lazy(() => s_price)
+    .nullable()
+    .optional(),
+  proration: z.coerce.boolean(),
+  quantity: z.coerce.number(),
+  subscription: z
+    .union([z.string(), z.lazy(() => s_subscription)])
+    .nullable()
+    .optional(),
+  subscription_item: z.string().optional(),
+  tax_rates: z.array(s_tax_rate).nullable().optional(),
+  test_clock: z
+    .union([z.string(), s_test_helpers_test_clock])
+    .nullable()
+    .optional(),
+  unit_amount: z.coerce.number().nullable().optional(),
+  unit_amount_decimal: z.string().nullable().optional(),
+})
+
+export const s_invoice: z.ZodType<t_invoice> = z.object({
+  account_country: z.string().nullable().optional(),
+  account_name: z.string().nullable().optional(),
+  account_tax_ids: z
+    .array(z.union([z.string(), z.lazy(() => s_tax_id), s_deleted_tax_id]))
+    .nullable()
+    .optional(),
+  amount_due: z.coerce.number(),
+  amount_paid: z.coerce.number(),
+  amount_remaining: z.coerce.number(),
+  amount_shipping: z.coerce.number(),
+  application: z
+    .union([z.string(), s_application, s_deleted_application])
+    .nullable()
+    .optional(),
+  application_fee_amount: z.coerce.number().nullable().optional(),
+  attempt_count: z.coerce.number(),
+  attempted: z.coerce.boolean(),
+  auto_advance: z.coerce.boolean().optional(),
+  automatic_tax: s_automatic_tax,
+  billing_reason: z
+    .enum([
+      "automatic_pending_invoice_item_invoice",
+      "manual",
+      "quote_accept",
+      "subscription",
+      "subscription_create",
+      "subscription_cycle",
+      "subscription_threshold",
+      "subscription_update",
+      "upcoming",
+    ])
+    .nullable()
+    .optional(),
+  charge: z
+    .union([z.string(), z.lazy(() => s_charge)])
+    .nullable()
+    .optional(),
+  collection_method: z.enum(["charge_automatically", "send_invoice"]),
+  created: z.coerce.number(),
+  currency: z.string(),
+  custom_fields: z.array(s_invoice_setting_custom_field).nullable().optional(),
+  customer: z
+    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .nullable()
+    .optional(),
+  customer_address: s_address.nullable().optional(),
+  customer_email: z.string().nullable().optional(),
+  customer_name: z.string().nullable().optional(),
+  customer_phone: z.string().nullable().optional(),
+  customer_shipping: s_shipping.nullable().optional(),
+  customer_tax_exempt: z
+    .enum(["exempt", "none", "reverse"])
+    .nullable()
+    .optional(),
+  customer_tax_ids: z
+    .array(s_invoices_resource_invoice_tax_id)
+    .nullable()
+    .optional(),
+  default_payment_method: z
+    .union([z.string(), z.lazy(() => s_payment_method)])
+    .nullable()
+    .optional(),
+  default_source: z
+    .union([
+      z.string(),
+      z.lazy(() => s_bank_account),
+      z.lazy(() => s_card),
+      s_source,
+    ])
+    .nullable()
+    .optional(),
+  default_tax_rates: z.array(s_tax_rate),
+  description: z.string().nullable().optional(),
+  discount: z
+    .lazy(() => s_discount)
+    .nullable()
+    .optional(),
+  discounts: z
+    .array(
+      z.union([
+        z.string(),
+        z.lazy(() => s_discount),
+        z.lazy(() => s_deleted_discount),
+      ]),
+    )
+    .nullable()
+    .optional(),
+  due_date: z.coerce.number().nullable().optional(),
+  effective_at: z.coerce.number().nullable().optional(),
+  ending_balance: z.coerce.number().nullable().optional(),
+  footer: z.string().nullable().optional(),
+  from_invoice: z
+    .lazy(() => s_invoices_from_invoice)
+    .nullable()
+    .optional(),
+  hosted_invoice_url: z.string().nullable().optional(),
+  id: z.string().optional(),
+  invoice_pdf: z.string().nullable().optional(),
+  last_finalization_error: z
+    .lazy(() => s_api_errors)
+    .nullable()
+    .optional(),
+  latest_revision: z
+    .union([z.string(), z.lazy(() => s_invoice)])
+    .nullable()
+    .optional(),
+  lines: z.object({
+    data: z.array(z.lazy(() => s_line_item)),
+    has_more: z.coerce.boolean(),
+    object: z.enum(["list"]),
+    url: z.string(),
+  }),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}).nullable().optional(),
+  next_payment_attempt: z.coerce.number().nullable().optional(),
+  number: z.string().nullable().optional(),
+  object: z.enum(["invoice"]),
+  on_behalf_of: z
+    .union([z.string(), z.lazy(() => s_account)])
+    .nullable()
+    .optional(),
+  paid: z.coerce.boolean(),
+  paid_out_of_band: z.coerce.boolean(),
+  payment_intent: z
+    .union([z.string(), z.lazy(() => s_payment_intent)])
+    .nullable()
+    .optional(),
+  payment_settings: s_invoices_payment_settings,
+  period_end: z.coerce.number(),
+  period_start: z.coerce.number(),
+  post_payment_credit_notes_amount: z.coerce.number(),
+  pre_payment_credit_notes_amount: z.coerce.number(),
+  quote: z
+    .union([z.string(), z.lazy(() => s_quote)])
+    .nullable()
+    .optional(),
+  receipt_number: z.string().nullable().optional(),
+  rendering: s_invoices_invoice_rendering.nullable().optional(),
+  rendering_options: s_invoice_setting_rendering_options.nullable().optional(),
+  shipping_cost: s_invoices_shipping_cost.nullable().optional(),
+  shipping_details: s_shipping.nullable().optional(),
+  starting_balance: z.coerce.number(),
+  statement_descriptor: z.string().nullable().optional(),
+  status: z
+    .enum(["draft", "open", "paid", "uncollectible", "void"])
+    .nullable()
+    .optional(),
+  status_transitions: s_invoices_status_transitions,
+  subscription: z
+    .union([z.string(), z.lazy(() => s_subscription)])
+    .nullable()
+    .optional(),
+  subscription_details: s_subscription_details_data.nullable().optional(),
+  subscription_proration_date: z.coerce.number().optional(),
+  subtotal: z.coerce.number(),
+  subtotal_excluding_tax: z.coerce.number().nullable().optional(),
+  tax: z.coerce.number().nullable().optional(),
+  test_clock: z
+    .union([z.string(), s_test_helpers_test_clock])
+    .nullable()
+    .optional(),
+  threshold_reason: s_invoice_threshold_reason.optional(),
+  total: z.coerce.number(),
+  total_discount_amounts: z
+    .array(z.lazy(() => s_discounts_resource_discount_amount))
+    .nullable()
+    .optional(),
+  total_excluding_tax: z.coerce.number().nullable().optional(),
+  total_tax_amounts: z.array(s_invoice_tax_amount),
+  transfer_data: z
+    .lazy(() => s_invoice_transfer_data)
+    .nullable()
+    .optional(),
+  webhooks_delivered_at: z.coerce.number().nullable().optional(),
+})
+
+export const s_line_item: z.ZodType<t_line_item> = z.object({
+  amount: z.coerce.number(),
+  amount_excluding_tax: z.coerce.number().nullable().optional(),
+  currency: z.string(),
+  description: z.string().nullable().optional(),
+  discount_amounts: z
+    .array(z.lazy(() => s_discounts_resource_discount_amount))
+    .nullable()
+    .optional(),
+  discountable: z.coerce.boolean(),
+  discounts: z
+    .array(z.union([z.string(), z.lazy(() => s_discount)]))
+    .nullable()
+    .optional(),
+  id: z.string(),
+  invoice_item: z.union([z.string(), z.lazy(() => s_invoiceitem)]).optional(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}),
+  object: z.enum(["line_item"]),
+  period: s_invoice_line_item_period,
+  price: z
+    .lazy(() => s_price)
+    .nullable()
+    .optional(),
+  proration: z.coerce.boolean(),
+  proration_details: s_invoices_resource_line_items_proration_details
+    .nullable()
+    .optional(),
+  quantity: z.coerce.number().nullable().optional(),
+  subscription: z
+    .union([z.string(), z.lazy(() => s_subscription)])
+    .nullable()
+    .optional(),
+  subscription_item: z
+    .union([z.string(), z.lazy(() => s_subscription_item)])
+    .optional(),
+  tax_amounts: z.array(s_invoice_tax_amount).optional(),
+  tax_rates: z.array(s_tax_rate).optional(),
+  type: z.enum(["invoiceitem", "subscription"]),
+  unit_amount_excluding_tax: z.string().nullable().optional(),
+})
+
+export const s_issuing_authorization: z.ZodType<t_issuing_authorization> =
+  z.object({
+    amount: z.coerce.number(),
+    amount_details: s_issuing_authorization_amount_details
+      .nullable()
+      .optional(),
+    approved: z.coerce.boolean(),
+    authorization_method: z.enum([
+      "chip",
+      "contactless",
+      "keyed_in",
+      "online",
+      "swipe",
+    ]),
+    balance_transactions: z.array(z.lazy(() => s_balance_transaction)),
+    card: z.lazy(() => s_issuing_card),
+    cardholder: z
+      .union([z.string(), z.lazy(() => s_issuing_cardholder)])
+      .nullable()
+      .optional(),
+    created: z.coerce.number(),
+    currency: z.string(),
+    id: z.string(),
+    livemode: z.coerce.boolean(),
+    merchant_amount: z.coerce.number(),
+    merchant_currency: z.string(),
+    merchant_data: s_issuing_authorization_merchant_data,
+    metadata: z.object({}),
+    network_data: s_issuing_authorization_network_data.nullable().optional(),
+    object: z.enum(["issuing.authorization"]),
+    pending_request: s_issuing_authorization_pending_request
+      .nullable()
+      .optional(),
+    request_history: z.array(s_issuing_authorization_request),
+    status: z.enum(["closed", "pending", "reversed"]),
+    transactions: z.array(z.lazy(() => s_issuing_transaction)),
+    treasury: s_issuing_authorization_treasury.nullable().optional(),
+    verification_data: s_issuing_authorization_verification_data,
+    wallet: z.string().nullable().optional(),
+  })
+
+export const s_issuing_cardholder: z.ZodType<t_issuing_cardholder> = z.object({
+  billing: s_issuing_cardholder_address,
+  company: s_issuing_cardholder_company.nullable().optional(),
+  created: z.coerce.number(),
+  email: z.string().nullable().optional(),
+  id: z.string(),
+  individual: z
+    .lazy(() => s_issuing_cardholder_individual)
+    .nullable()
+    .optional(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}),
+  name: z.string(),
+  object: z.enum(["issuing.cardholder"]),
+  phone_number: z.string().nullable().optional(),
+  preferred_locales: z
+    .array(z.enum(["de", "en", "es", "fr", "it"]))
+    .nullable()
+    .optional(),
+  requirements: s_issuing_cardholder_requirements,
+  spending_controls: s_issuing_cardholder_authorization_controls
+    .nullable()
+    .optional(),
+  status: z.enum(["active", "blocked", "inactive"]),
+  type: z.enum(["company", "individual"]),
+})
+
+export const s_issuing_card: z.ZodType<t_issuing_card> = z.object({
+  brand: z.string(),
+  cancellation_reason: z
+    .enum(["design_rejected", "lost", "stolen"])
+    .nullable()
+    .optional(),
+  cardholder: z.lazy(() => s_issuing_cardholder),
+  created: z.coerce.number(),
+  currency: z.string(),
+  cvc: z.string().optional(),
+  exp_month: z.coerce.number(),
+  exp_year: z.coerce.number(),
+  financial_account: z.string().nullable().optional(),
+  id: z.string(),
+  last4: z.string(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}),
+  number: z.string().optional(),
+  object: z.enum(["issuing.card"]),
+  replaced_by: z
+    .union([z.string(), z.lazy(() => s_issuing_card)])
+    .nullable()
+    .optional(),
+  replacement_for: z
+    .union([z.string(), z.lazy(() => s_issuing_card)])
+    .nullable()
+    .optional(),
+  replacement_reason: z
+    .enum(["damaged", "expired", "lost", "stolen"])
+    .nullable()
+    .optional(),
+  shipping: s_issuing_card_shipping.nullable().optional(),
+  spending_controls: s_issuing_card_authorization_controls,
+  status: z.enum(["active", "canceled", "inactive"]),
+  type: z.enum(["physical", "virtual"]),
+  wallets: s_issuing_card_wallets.nullable().optional(),
+})
+
+export const s_issuing_dispute: z.ZodType<t_issuing_dispute> = z.object({
+  amount: z.coerce.number(),
+  balance_transactions: z
+    .array(z.lazy(() => s_balance_transaction))
+    .nullable()
+    .optional(),
+  created: z.coerce.number(),
+  currency: z.string(),
+  evidence: z.lazy(() => s_issuing_dispute_evidence),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}),
+  object: z.enum(["issuing.dispute"]),
+  status: z.enum(["expired", "lost", "submitted", "unsubmitted", "won"]),
+  transaction: z.union([z.string(), z.lazy(() => s_issuing_transaction)]),
+  treasury: s_issuing_dispute_treasury.nullable().optional(),
+})
+
+export const s_issuing_transaction: z.ZodType<t_issuing_transaction> = z.object(
+  {
+    amount: z.coerce.number(),
+    amount_details: s_issuing_transaction_amount_details.nullable().optional(),
+    authorization: z
+      .union([z.string(), z.lazy(() => s_issuing_authorization)])
+      .nullable()
+      .optional(),
+    balance_transaction: z
+      .union([z.string(), z.lazy(() => s_balance_transaction)])
+      .nullable()
+      .optional(),
+    card: z.union([z.string(), z.lazy(() => s_issuing_card)]),
+    cardholder: z
+      .union([z.string(), z.lazy(() => s_issuing_cardholder)])
+      .nullable()
+      .optional(),
+    created: z.coerce.number(),
+    currency: z.string(),
+    dispute: z
+      .union([z.string(), z.lazy(() => s_issuing_dispute)])
+      .nullable()
+      .optional(),
+    id: z.string(),
+    livemode: z.coerce.boolean(),
+    merchant_amount: z.coerce.number(),
+    merchant_currency: z.string(),
+    merchant_data: s_issuing_authorization_merchant_data,
+    metadata: z.object({}),
+    object: z.enum(["issuing.transaction"]),
+    purchase_details: s_issuing_transaction_purchase_details
+      .nullable()
+      .optional(),
+    treasury: s_issuing_transaction_treasury.nullable().optional(),
+    type: z.enum(["capture", "refund"]),
+    wallet: z
+      .enum(["apple_pay", "google_pay", "samsung_pay"])
+      .nullable()
+      .optional(),
+  },
+)
+
+export const s_mandate: z.ZodType<t_mandate> = z.object({
+  customer_acceptance: s_customer_acceptance,
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  multi_use: s_mandate_multi_use.optional(),
+  object: z.enum(["mandate"]),
+  on_behalf_of: z.string().optional(),
+  payment_method: z.union([z.string(), z.lazy(() => s_payment_method)]),
+  payment_method_details: s_mandate_payment_method_details,
+  single_use: s_mandate_single_use.optional(),
+  status: z.enum(["active", "inactive", "pending"]),
+  type: z.enum(["multi_use", "single_use"]),
+})
+
+export const s_payment_intent: z.ZodType<t_payment_intent> = z.object({
+  amount: z.coerce.number(),
+  amount_capturable: z.coerce.number().optional(),
+  amount_details: s_payment_flows_amount_details.optional(),
+  amount_received: z.coerce.number().optional(),
+  application: z.union([z.string(), s_application]).nullable().optional(),
+  application_fee_amount: z.coerce.number().nullable().optional(),
+  automatic_payment_methods:
+    s_payment_flows_automatic_payment_methods_payment_intent
+      .nullable()
+      .optional(),
+  canceled_at: z.coerce.number().nullable().optional(),
+  cancellation_reason: z
+    .enum([
+      "abandoned",
+      "automatic",
+      "duplicate",
+      "failed_invoice",
+      "fraudulent",
+      "requested_by_customer",
+      "void_invoice",
+    ])
+    .nullable()
+    .optional(),
+  capture_method: z.enum(["automatic", "automatic_async", "manual"]),
+  client_secret: z.string().nullable().optional(),
+  confirmation_method: z.enum(["automatic", "manual"]),
+  created: z.coerce.number(),
+  currency: z.string(),
+  customer: z
+    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .nullable()
+    .optional(),
+  description: z.string().nullable().optional(),
+  id: z.string(),
+  invoice: z
+    .union([z.string(), z.lazy(() => s_invoice)])
+    .nullable()
+    .optional(),
+  last_payment_error: z
+    .lazy(() => s_api_errors)
+    .nullable()
+    .optional(),
+  latest_charge: z
+    .union([z.string(), z.lazy(() => s_charge)])
+    .nullable()
+    .optional(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}).optional(),
+  next_action: s_payment_intent_next_action.nullable().optional(),
+  object: z.enum(["payment_intent"]),
+  on_behalf_of: z
+    .union([z.string(), z.lazy(() => s_account)])
+    .nullable()
+    .optional(),
+  payment_method: z
+    .union([z.string(), z.lazy(() => s_payment_method)])
+    .nullable()
+    .optional(),
+  payment_method_configuration_details:
+    s_payment_method_config_biz_payment_method_configuration_details
+      .nullable()
+      .optional(),
+  payment_method_options: s_payment_intent_payment_method_options
+    .nullable()
+    .optional(),
+  payment_method_types: z.array(z.string()),
+  processing: s_payment_intent_processing.nullable().optional(),
+  receipt_email: z.string().nullable().optional(),
+  review: z
+    .union([z.string(), z.lazy(() => s_review)])
+    .nullable()
+    .optional(),
+  setup_future_usage: z
+    .enum(["off_session", "on_session"])
+    .nullable()
+    .optional(),
+  shipping: s_shipping.nullable().optional(),
+  statement_descriptor: z.string().nullable().optional(),
+  statement_descriptor_suffix: z.string().nullable().optional(),
+  status: z.enum([
+    "canceled",
+    "processing",
+    "requires_action",
+    "requires_capture",
+    "requires_confirmation",
+    "requires_payment_method",
+    "succeeded",
+  ]),
+  transfer_data: z
+    .lazy(() => s_transfer_data)
+    .nullable()
+    .optional(),
+  transfer_group: z.string().nullable().optional(),
+})
+
+export const s_payment_link: z.ZodType<t_payment_link> = z.object({
+  active: z.coerce.boolean(),
+  after_completion: s_payment_links_resource_after_completion,
+  allow_promotion_codes: z.coerce.boolean(),
+  application: z
+    .union([z.string(), s_application, s_deleted_application])
+    .nullable()
+    .optional(),
+  application_fee_amount: z.coerce.number().nullable().optional(),
+  application_fee_percent: z.coerce.number().nullable().optional(),
+  automatic_tax: s_payment_links_resource_automatic_tax,
+  billing_address_collection: z.enum(["auto", "required"]),
+  consent_collection: s_payment_links_resource_consent_collection
+    .nullable()
+    .optional(),
+  currency: z.string(),
+  custom_fields: z.array(s_payment_links_resource_custom_fields),
+  custom_text: s_payment_links_resource_custom_text,
+  customer_creation: z.enum(["always", "if_required"]),
+  id: z.string(),
+  invoice_creation: z
+    .lazy(() => s_payment_links_resource_invoice_creation)
+    .nullable()
+    .optional(),
+  line_items: z
+    .object({
+      data: z.array(z.lazy(() => s_item)),
+      has_more: z.coerce.boolean(),
+      object: z.enum(["list"]),
+      url: z.string(),
+    })
+    .optional(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}),
+  object: z.enum(["payment_link"]),
+  on_behalf_of: z
+    .union([z.string(), z.lazy(() => s_account)])
+    .nullable()
+    .optional(),
+  payment_intent_data: s_payment_links_resource_payment_intent_data
+    .nullable()
+    .optional(),
+  payment_method_collection: z.enum(["always", "if_required"]),
+  payment_method_types: z
+    .array(
+      z.enum([
+        "affirm",
+        "afterpay_clearpay",
+        "alipay",
+        "au_becs_debit",
+        "bacs_debit",
+        "bancontact",
+        "blik",
+        "boleto",
+        "card",
+        "cashapp",
+        "eps",
+        "fpx",
+        "giropay",
+        "grabpay",
+        "ideal",
+        "klarna",
+        "konbini",
+        "link",
+        "oxxo",
+        "p24",
+        "paynow",
+        "paypal",
+        "pix",
+        "promptpay",
+        "sepa_debit",
+        "sofort",
+        "us_bank_account",
+        "wechat_pay",
+      ]),
+    )
+    .nullable()
+    .optional(),
+  phone_number_collection: s_payment_links_resource_phone_number_collection,
+  shipping_address_collection:
+    s_payment_links_resource_shipping_address_collection.nullable().optional(),
+  shipping_options: z.array(s_payment_links_resource_shipping_option),
+  submit_type: z.enum(["auto", "book", "donate", "pay"]),
+  subscription_data: s_payment_links_resource_subscription_data
+    .nullable()
+    .optional(),
+  tax_id_collection: s_payment_links_resource_tax_id_collection,
+  transfer_data: z
+    .lazy(() => s_payment_links_resource_transfer_data)
+    .nullable()
+    .optional(),
+  url: z.string(),
+})
+
+export const s_payout: z.ZodType<t_payout> = z.object({
+  amount: z.coerce.number(),
+  arrival_date: z.coerce.number(),
+  automatic: z.coerce.boolean(),
+  balance_transaction: z
+    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .nullable()
+    .optional(),
+  created: z.coerce.number(),
+  currency: z.string(),
+  description: z.string().nullable().optional(),
+  destination: z
+    .union([
+      z.string(),
+      z.lazy(() => s_bank_account),
+      z.lazy(() => s_card),
+      s_deleted_bank_account,
+      s_deleted_card,
+    ])
+    .nullable()
+    .optional(),
+  failure_balance_transaction: z
+    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .nullable()
+    .optional(),
+  failure_code: z.string().nullable().optional(),
+  failure_message: z.string().nullable().optional(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}).nullable().optional(),
+  method: z.string(),
+  object: z.enum(["payout"]),
+  original_payout: z
+    .union([z.string(), z.lazy(() => s_payout)])
+    .nullable()
+    .optional(),
+  reconciliation_status: z.enum(["completed", "in_progress", "not_applicable"]),
+  reversed_by: z
+    .union([z.string(), z.lazy(() => s_payout)])
+    .nullable()
+    .optional(),
+  source_type: z.string(),
+  statement_descriptor: z.string().nullable().optional(),
+  status: z.string(),
+  type: z.enum(["bank_account", "card"]),
+})
+
+export const s_plan: z.ZodType<t_plan> = z.object({
+  active: z.coerce.boolean(),
+  aggregate_usage: z
+    .enum(["last_during_period", "last_ever", "max", "sum"])
+    .nullable()
+    .optional(),
+  amount: z.coerce.number().nullable().optional(),
+  amount_decimal: z.string().nullable().optional(),
+  billing_scheme: z.enum(["per_unit", "tiered"]),
+  created: z.coerce.number(),
+  currency: z.string(),
+  id: z.string(),
+  interval: z.enum(["day", "month", "week", "year"]),
+  interval_count: z.coerce.number(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}).nullable().optional(),
+  nickname: z.string().nullable().optional(),
+  object: z.enum(["plan"]),
+  product: z
+    .union([z.string(), z.lazy(() => s_product), s_deleted_product])
+    .nullable()
+    .optional(),
+  tiers: z.array(s_plan_tier).optional(),
+  tiers_mode: z.enum(["graduated", "volume"]).nullable().optional(),
+  transform_usage: s_transform_usage.nullable().optional(),
+  trial_period_days: z.coerce.number().nullable().optional(),
+  usage_type: z.enum(["licensed", "metered"]),
+})
+
+export const s_price: z.ZodType<t_price> = z.object({
+  active: z.coerce.boolean(),
+  billing_scheme: z.enum(["per_unit", "tiered"]),
+  created: z.coerce.number(),
+  currency: z.string(),
+  currency_options: z.object({}).optional(),
+  custom_unit_amount: s_custom_unit_amount.nullable().optional(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  lookup_key: z.string().nullable().optional(),
+  metadata: z.object({}),
+  nickname: z.string().nullable().optional(),
+  object: z.enum(["price"]),
+  product: z.union([z.string(), z.lazy(() => s_product), s_deleted_product]),
+  recurring: s_recurring.nullable().optional(),
+  tax_behavior: z
+    .enum(["exclusive", "inclusive", "unspecified"])
+    .nullable()
+    .optional(),
+  tiers: z.array(s_price_tier).optional(),
+  tiers_mode: z.enum(["graduated", "volume"]).nullable().optional(),
+  transform_quantity: s_transform_quantity.nullable().optional(),
+  type: z.enum(["one_time", "recurring"]),
+  unit_amount: z.coerce.number().nullable().optional(),
+  unit_amount_decimal: z.string().nullable().optional(),
+})
+
+export const s_product: z.ZodType<t_product> = z.object({
+  active: z.coerce.boolean(),
+  created: z.coerce.number(),
+  default_price: z
+    .union([z.string(), z.lazy(() => s_price)])
+    .nullable()
+    .optional(),
+  description: z.string().nullable().optional(),
+  features: z.array(s_product_feature),
+  id: z.string(),
+  images: z.array(z.string()),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}),
+  name: z.string(),
+  object: z.enum(["product"]),
+  package_dimensions: s_package_dimensions.nullable().optional(),
+  shippable: z.coerce.boolean().nullable().optional(),
+  statement_descriptor: z.string().nullable().optional(),
+  tax_code: z.union([z.string(), s_tax_code]).nullable().optional(),
+  unit_label: z.string().nullable().optional(),
+  updated: z.coerce.number(),
+  url: z.string().nullable().optional(),
+})
+
+export const s_promotion_code: z.ZodType<t_promotion_code> = z.object({
+  active: z.coerce.boolean(),
+  code: z.string(),
+  coupon: s_coupon,
+  created: z.coerce.number(),
+  customer: z
+    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .nullable()
+    .optional(),
+  expires_at: z.coerce.number().nullable().optional(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  max_redemptions: z.coerce.number().nullable().optional(),
+  metadata: z.object({}).nullable().optional(),
+  object: z.enum(["promotion_code"]),
+  restrictions: s_promotion_codes_resource_restrictions,
+  times_redeemed: z.coerce.number(),
+})
+
+export const s_quote: z.ZodType<t_quote> = z.object({
+  amount_subtotal: z.coerce.number(),
+  amount_total: z.coerce.number(),
+  application: z
+    .union([z.string(), s_application, s_deleted_application])
+    .nullable()
+    .optional(),
+  application_fee_amount: z.coerce.number().nullable().optional(),
+  application_fee_percent: z.coerce.number().nullable().optional(),
+  automatic_tax: s_quotes_resource_automatic_tax,
+  collection_method: z.enum(["charge_automatically", "send_invoice"]),
+  computed: z.lazy(() => s_quotes_resource_computed),
+  created: z.coerce.number(),
+  currency: z.string().nullable().optional(),
+  customer: z
+    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .nullable()
+    .optional(),
+  default_tax_rates: z.array(z.union([z.string(), s_tax_rate])).optional(),
+  description: z.string().nullable().optional(),
+  discounts: z.array(z.union([z.string(), z.lazy(() => s_discount)])),
+  expires_at: z.coerce.number(),
+  footer: z.string().nullable().optional(),
+  from_quote: z
+    .lazy(() => s_quotes_resource_from_quote)
+    .nullable()
+    .optional(),
+  header: z.string().nullable().optional(),
+  id: z.string(),
+  invoice: z
+    .union([z.string(), z.lazy(() => s_invoice), s_deleted_invoice])
+    .nullable()
+    .optional(),
+  invoice_settings: s_invoice_setting_quote_setting.nullable().optional(),
+  line_items: z
+    .object({
+      data: z.array(z.lazy(() => s_item)),
+      has_more: z.coerce.boolean(),
+      object: z.enum(["list"]),
+      url: z.string(),
+    })
+    .optional(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}),
+  number: z.string().nullable().optional(),
+  object: z.enum(["quote"]),
+  on_behalf_of: z
+    .union([z.string(), z.lazy(() => s_account)])
+    .nullable()
+    .optional(),
+  status: z.enum(["accepted", "canceled", "draft", "open"]),
+  status_transitions: s_quotes_resource_status_transitions,
+  subscription: z
+    .union([z.string(), z.lazy(() => s_subscription)])
+    .nullable()
+    .optional(),
+  subscription_data: s_quotes_resource_subscription_data_subscription_data,
+  subscription_schedule: z
+    .union([z.string(), z.lazy(() => s_subscription_schedule)])
+    .nullable()
+    .optional(),
+  test_clock: z
+    .union([z.string(), s_test_helpers_test_clock])
+    .nullable()
+    .optional(),
+  total_details: z.lazy(() => s_quotes_resource_total_details),
+  transfer_data: z
+    .lazy(() => s_quotes_resource_transfer_data)
+    .nullable()
+    .optional(),
+})
+
+export const s_radar_early_fraud_warning: z.ZodType<t_radar_early_fraud_warning> =
+  z.object({
+    actionable: z.coerce.boolean(),
+    charge: z.union([z.string(), z.lazy(() => s_charge)]),
+    created: z.coerce.number(),
+    fraud_type: z.string(),
+    id: z.string(),
+    livemode: z.coerce.boolean(),
+    object: z.enum(["radar.early_fraud_warning"]),
+    payment_intent: z
+      .union([z.string(), z.lazy(() => s_payment_intent)])
+      .optional(),
+  })
+
+export const s_reporting_report_run: z.ZodType<t_reporting_report_run> =
+  z.object({
+    created: z.coerce.number(),
+    error: z.string().nullable().optional(),
+    id: z.string(),
+    livemode: z.coerce.boolean(),
+    object: z.enum(["reporting.report_run"]),
+    parameters: s_financial_reporting_finance_report_run_run_parameters,
+    report_type: z.string(),
+    result: z
+      .lazy(() => s_file)
+      .nullable()
+      .optional(),
+    status: z.string(),
+    succeeded_at: z.coerce.number().nullable().optional(),
+  })
+
+export const s_review: z.ZodType<t_review> = z.object({
+  billing_zip: z.string().nullable().optional(),
+  charge: z
+    .union([z.string(), z.lazy(() => s_charge)])
+    .nullable()
+    .optional(),
+  closed_reason: z
+    .enum(["approved", "disputed", "redacted", "refunded", "refunded_as_fraud"])
+    .nullable()
+    .optional(),
+  created: z.coerce.number(),
+  id: z.string(),
+  ip_address: z.string().nullable().optional(),
+  ip_address_location: s_radar_review_resource_location.nullable().optional(),
+  livemode: z.coerce.boolean(),
+  object: z.enum(["review"]),
+  open: z.coerce.boolean(),
+  opened_reason: z.enum(["manual", "rule"]),
+  payment_intent: z
+    .union([z.string(), z.lazy(() => s_payment_intent)])
+    .optional(),
+  reason: z.string(),
+  session: s_radar_review_resource_session.nullable().optional(),
+})
+
+export const s_setup_attempt: z.ZodType<t_setup_attempt> = z.object({
+  application: z.union([z.string(), s_application]).nullable().optional(),
+  attach_to_self: z.coerce.boolean().optional(),
+  created: z.coerce.number(),
+  customer: z
+    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .nullable()
+    .optional(),
+  flow_directions: z
+    .array(z.enum(["inbound", "outbound"]))
+    .nullable()
+    .optional(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  object: z.enum(["setup_attempt"]),
+  on_behalf_of: z
+    .union([z.string(), z.lazy(() => s_account)])
+    .nullable()
+    .optional(),
+  payment_method: z.union([z.string(), z.lazy(() => s_payment_method)]),
+  payment_method_details: z.lazy(() => s_setup_attempt_payment_method_details),
+  setup_error: z
+    .lazy(() => s_api_errors)
+    .nullable()
+    .optional(),
+  setup_intent: z.union([z.string(), z.lazy(() => s_setup_intent)]),
+  status: z.string(),
+  usage: z.string(),
+})
+
+export const s_setup_intent: z.ZodType<t_setup_intent> = z.object({
+  application: z.union([z.string(), s_application]).nullable().optional(),
+  attach_to_self: z.coerce.boolean().optional(),
+  automatic_payment_methods:
+    s_payment_flows_automatic_payment_methods_setup_intent
+      .nullable()
+      .optional(),
+  cancellation_reason: z
+    .enum(["abandoned", "duplicate", "requested_by_customer"])
+    .nullable()
+    .optional(),
+  client_secret: z.string().nullable().optional(),
+  created: z.coerce.number(),
+  customer: z
+    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .nullable()
+    .optional(),
+  description: z.string().nullable().optional(),
+  flow_directions: z
+    .array(z.enum(["inbound", "outbound"]))
+    .nullable()
+    .optional(),
+  id: z.string(),
+  last_setup_error: z
+    .lazy(() => s_api_errors)
+    .nullable()
+    .optional(),
+  latest_attempt: z
+    .union([z.string(), z.lazy(() => s_setup_attempt)])
+    .nullable()
+    .optional(),
+  livemode: z.coerce.boolean(),
+  mandate: z
+    .union([z.string(), z.lazy(() => s_mandate)])
+    .nullable()
+    .optional(),
+  metadata: z.object({}).nullable().optional(),
+  next_action: s_setup_intent_next_action.nullable().optional(),
+  object: z.enum(["setup_intent"]),
+  on_behalf_of: z
+    .union([z.string(), z.lazy(() => s_account)])
+    .nullable()
+    .optional(),
+  payment_method: z
+    .union([z.string(), z.lazy(() => s_payment_method)])
+    .nullable()
+    .optional(),
+  payment_method_configuration_details:
+    s_payment_method_config_biz_payment_method_configuration_details
+      .nullable()
+      .optional(),
+  payment_method_options: s_setup_intent_payment_method_options
+    .nullable()
+    .optional(),
+  payment_method_types: z.array(z.string()),
+  single_use_mandate: z
+    .union([z.string(), z.lazy(() => s_mandate)])
+    .nullable()
+    .optional(),
+  status: z.enum([
+    "canceled",
+    "processing",
+    "requires_action",
+    "requires_confirmation",
+    "requires_payment_method",
+    "succeeded",
+  ]),
+  usage: z.string(),
+})
+
+export const s_scheduled_query_run: z.ZodType<t_scheduled_query_run> = z.object(
+  {
+    created: z.coerce.number(),
+    data_load_time: z.coerce.number(),
+    error: s_sigma_scheduled_query_run_error.optional(),
+    file: z
+      .lazy(() => s_file)
+      .nullable()
+      .optional(),
+    id: z.string(),
+    livemode: z.coerce.boolean(),
+    object: z.enum(["scheduled_query_run"]),
+    result_available_until: z.coerce.number(),
+    sql: z.string(),
+    status: z.string(),
+    title: z.string(),
+  },
+)
+
+export const s_subscription_item: z.ZodType<t_subscription_item> = z.object({
+  billing_thresholds: s_subscription_item_billing_thresholds
+    .nullable()
+    .optional(),
+  created: z.coerce.number(),
+  id: z.string(),
+  metadata: z.object({}),
+  object: z.enum(["subscription_item"]),
+  price: z.lazy(() => s_price),
+  quantity: z.coerce.number().optional(),
+  subscription: z.string(),
+  tax_rates: z.array(s_tax_rate).nullable().optional(),
+})
+
+export const s_subscription_schedule: z.ZodType<t_subscription_schedule> =
+  z.object({
+    application: z
+      .union([z.string(), s_application, s_deleted_application])
+      .nullable()
+      .optional(),
+    canceled_at: z.coerce.number().nullable().optional(),
+    completed_at: z.coerce.number().nullable().optional(),
+    created: z.coerce.number(),
+    current_phase: s_subscription_schedule_current_phase.nullable().optional(),
+    customer: z.union([
+      z.string(),
+      z.lazy(() => s_customer),
+      s_deleted_customer,
+    ]),
+    default_settings: z.lazy(
+      () => s_subscription_schedules_resource_default_settings,
+    ),
+    end_behavior: z.enum(["cancel", "none", "release", "renew"]),
+    id: z.string(),
+    livemode: z.coerce.boolean(),
+    metadata: z.object({}).nullable().optional(),
+    object: z.enum(["subscription_schedule"]),
+    phases: z.array(z.lazy(() => s_subscription_schedule_phase_configuration)),
+    released_at: z.coerce.number().nullable().optional(),
+    released_subscription: z.string().nullable().optional(),
+    status: z.enum([
+      "active",
+      "canceled",
+      "completed",
+      "not_started",
+      "released",
+    ]),
+    subscription: z
+      .union([z.string(), z.lazy(() => s_subscription)])
+      .nullable()
+      .optional(),
+    test_clock: z
+      .union([z.string(), s_test_helpers_test_clock])
+      .nullable()
+      .optional(),
+  })
+
+export const s_terminal_configuration: z.ZodType<t_terminal_configuration> =
+  z.object({
+    bbpos_wisepos_e: z.lazy(() =>
+      s_terminal_configuration_configuration_resource_device_type_specific_config.optional(),
+    ),
+    id: z.string(),
+    is_account_default: z.coerce.boolean().nullable().optional(),
+    livemode: z.coerce.boolean(),
+    object: z.enum(["terminal.configuration"]),
+    tipping: s_terminal_configuration_configuration_resource_tipping.optional(),
+    verifone_p400: z.lazy(() =>
+      s_terminal_configuration_configuration_resource_device_type_specific_config.optional(),
+    ),
+  })
+
+export const s_terminal_reader: z.ZodType<t_terminal_reader> = z.object({
+  action: z
+    .lazy(() => s_terminal_reader_reader_resource_reader_action)
+    .nullable()
+    .optional(),
+  device_sw_version: z.string().nullable().optional(),
+  device_type: z.enum([
+    "bbpos_chipper2x",
+    "bbpos_wisepad3",
+    "bbpos_wisepos_e",
+    "simulated_wisepos_e",
+    "stripe_m2",
+    "verifone_P400",
+  ]),
+  id: z.string(),
+  ip_address: z.string().nullable().optional(),
+  label: z.string(),
+  livemode: z.coerce.boolean(),
+  location: z.union([z.string(), s_terminal_location]).nullable().optional(),
+  metadata: z.object({}),
+  object: z.enum(["terminal.reader"]),
+  serial_number: z.string(),
+  status: z.string().nullable().optional(),
+})
+
+export const s_treasury_inbound_transfer: z.ZodType<t_treasury_inbound_transfer> =
+  z.object({
+    amount: z.coerce.number(),
+    cancelable: z.coerce.boolean(),
+    created: z.coerce.number(),
+    currency: z.string(),
+    description: z.string().nullable().optional(),
+    failure_details: s_treasury_inbound_transfers_resource_failure_details
+      .nullable()
+      .optional(),
+    financial_account: z.string(),
+    hosted_regulatory_receipt_url: z.string().nullable().optional(),
+    id: z.string(),
+    linked_flows:
+      s_treasury_inbound_transfers_resource_inbound_transfer_resource_linked_flows,
+    livemode: z.coerce.boolean(),
+    metadata: z.object({}),
+    object: z.enum(["treasury.inbound_transfer"]),
+    origin_payment_method: z.string(),
+    origin_payment_method_details: s_inbound_transfers.nullable().optional(),
+    returned: z.coerce.boolean().nullable().optional(),
+    statement_descriptor: z.string(),
+    status: z.enum(["canceled", "failed", "processing", "succeeded"]),
+    status_transitions:
+      s_treasury_inbound_transfers_resource_inbound_transfer_resource_status_transitions,
+    transaction: z
+      .union([z.string(), z.lazy(() => s_treasury_transaction)])
+      .nullable()
+      .optional(),
+  })
+
+export const s_treasury_outbound_payment: z.ZodType<t_treasury_outbound_payment> =
+  z.object({
+    amount: z.coerce.number(),
+    cancelable: z.coerce.boolean(),
+    created: z.coerce.number(),
+    currency: z.string(),
+    customer: z.string().nullable().optional(),
+    description: z.string().nullable().optional(),
+    destination_payment_method: z.string().nullable().optional(),
+    destination_payment_method_details:
+      s_outbound_payments_payment_method_details.nullable().optional(),
+    end_user_details:
+      s_treasury_outbound_payments_resource_outbound_payment_resource_end_user_details
+        .nullable()
+        .optional(),
+    expected_arrival_date: z.coerce.number(),
+    financial_account: z.string(),
+    hosted_regulatory_receipt_url: z.string().nullable().optional(),
+    id: z.string(),
+    livemode: z.coerce.boolean(),
+    metadata: z.object({}),
+    object: z.enum(["treasury.outbound_payment"]),
+    returned_details: z
+      .lazy(() => s_treasury_outbound_payments_resource_returned_status)
+      .nullable()
+      .optional(),
+    statement_descriptor: z.string(),
+    status: z.enum(["canceled", "failed", "posted", "processing", "returned"]),
+    status_transitions:
+      s_treasury_outbound_payments_resource_outbound_payment_resource_status_transitions,
+    transaction: z.union([z.string(), z.lazy(() => s_treasury_transaction)]),
+  })
+
+export const s_treasury_outbound_transfer: z.ZodType<t_treasury_outbound_transfer> =
+  z.object({
+    amount: z.coerce.number(),
+    cancelable: z.coerce.boolean(),
+    created: z.coerce.number(),
+    currency: z.string(),
+    description: z.string().nullable().optional(),
+    destination_payment_method: z.string().nullable().optional(),
+    destination_payment_method_details:
+      s_outbound_transfers_payment_method_details,
+    expected_arrival_date: z.coerce.number(),
+    financial_account: z.string(),
+    hosted_regulatory_receipt_url: z.string().nullable().optional(),
+    id: z.string(),
+    livemode: z.coerce.boolean(),
+    metadata: z.object({}),
+    object: z.enum(["treasury.outbound_transfer"]),
+    returned_details: z
+      .lazy(() => s_treasury_outbound_transfers_resource_returned_details)
+      .nullable()
+      .optional(),
+    statement_descriptor: z.string(),
+    status: z.enum(["canceled", "failed", "posted", "processing", "returned"]),
+    status_transitions:
+      s_treasury_outbound_transfers_resource_status_transitions,
+    transaction: z.union([z.string(), z.lazy(() => s_treasury_transaction)]),
+  })
+
+export const s_treasury_received_credit: z.ZodType<t_treasury_received_credit> =
+  z.object({
+    amount: z.coerce.number(),
+    created: z.coerce.number(),
+    currency: z.string(),
+    description: z.string(),
+    failure_code: z
+      .enum(["account_closed", "account_frozen", "other"])
+      .nullable()
+      .optional(),
+    financial_account: z.string().nullable().optional(),
+    hosted_regulatory_receipt_url: z.string().nullable().optional(),
+    id: z.string(),
+    initiating_payment_method_details:
+      s_treasury_shared_resource_initiating_payment_method_details_initiating_payment_method_details,
+    linked_flows: z.lazy(
+      () => s_treasury_received_credits_resource_linked_flows,
+    ),
+    livemode: z.coerce.boolean(),
+    network: z.enum(["ach", "card", "stripe", "us_domestic_wire"]),
+    object: z.enum(["treasury.received_credit"]),
+    reversal_details: s_treasury_received_credits_resource_reversal_details
+      .nullable()
+      .optional(),
+    status: z.enum(["failed", "succeeded"]),
+    transaction: z
+      .union([z.string(), z.lazy(() => s_treasury_transaction)])
+      .nullable()
+      .optional(),
+  })
+
+export const s_treasury_received_debit: z.ZodType<t_treasury_received_debit> =
+  z.object({
+    amount: z.coerce.number(),
+    created: z.coerce.number(),
+    currency: z.string(),
+    description: z.string(),
+    failure_code: z
+      .enum(["account_closed", "account_frozen", "insufficient_funds", "other"])
+      .nullable()
+      .optional(),
+    financial_account: z.string().nullable().optional(),
+    hosted_regulatory_receipt_url: z.string().nullable().optional(),
+    id: z.string(),
+    initiating_payment_method_details:
+      s_treasury_shared_resource_initiating_payment_method_details_initiating_payment_method_details.optional(),
+    linked_flows: s_treasury_received_debits_resource_linked_flows,
+    livemode: z.coerce.boolean(),
+    network: z.enum(["ach", "card", "stripe"]),
+    object: z.enum(["treasury.received_debit"]),
+    reversal_details: s_treasury_received_debits_resource_reversal_details
+      .nullable()
+      .optional(),
+    status: z.enum(["failed", "succeeded"]),
+    transaction: z
+      .union([z.string(), z.lazy(() => s_treasury_transaction)])
+      .nullable()
+      .optional(),
+  })
+
+export const s_token: z.ZodType<t_token> = z.object({
+  bank_account: z.lazy(() => s_bank_account.optional()),
+  card: z.lazy(() => s_card.optional()),
+  client_ip: z.string().nullable().optional(),
+  created: z.coerce.number(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  object: z.enum(["token"]),
+  type: z.string(),
+  used: z.coerce.boolean(),
+})
+
+export const s_topup: z.ZodType<t_topup> = z.object({
+  amount: z.coerce.number(),
+  balance_transaction: z
+    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .nullable()
+    .optional(),
+  created: z.coerce.number(),
+  currency: z.string(),
+  description: z.string().nullable().optional(),
+  expected_availability_date: z.coerce.number().nullable().optional(),
+  failure_code: z.string().nullable().optional(),
+  failure_message: z.string().nullable().optional(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}),
+  object: z.enum(["topup"]),
+  source: s_source.nullable().optional(),
+  statement_descriptor: z.string().nullable().optional(),
+  status: z.enum(["canceled", "failed", "pending", "reversed", "succeeded"]),
+  transfer_group: z.string().nullable().optional(),
+})
+
+export const s_transfer: z.ZodType<t_transfer> = z.object({
+  amount: z.coerce.number(),
+  amount_reversed: z.coerce.number(),
+  balance_transaction: z
+    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .nullable()
+    .optional(),
+  created: z.coerce.number(),
+  currency: z.string(),
+  description: z.string().nullable().optional(),
+  destination: z
+    .union([z.string(), z.lazy(() => s_account)])
+    .nullable()
+    .optional(),
+  destination_payment: z.union([z.string(), z.lazy(() => s_charge)]).optional(),
+  id: z.string(),
+  livemode: z.coerce.boolean(),
+  metadata: z.object({}),
+  object: z.enum(["transfer"]),
+  reversals: z.object({
+    data: z.array(z.lazy(() => s_transfer_reversal)),
+    has_more: z.coerce.boolean(),
+    object: z.enum(["list"]),
+    url: z.string(),
+  }),
+  reversed: z.coerce.boolean(),
+  source_transaction: z
+    .union([z.string(), z.lazy(() => s_charge)])
+    .nullable()
+    .optional(),
+  source_type: z.string().optional(),
+  transfer_group: z.string().nullable().optional(),
+})
+
+export const s_transfer_reversal: z.ZodType<t_transfer_reversal> = z.object({
+  amount: z.coerce.number(),
+  balance_transaction: z
+    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .nullable()
+    .optional(),
+  created: z.coerce.number(),
+  currency: z.string(),
+  destination_payment_refund: z
+    .union([z.string(), z.lazy(() => s_refund)])
+    .nullable()
+    .optional(),
+  id: z.string(),
+  metadata: z.object({}).nullable().optional(),
+  object: z.enum(["transfer_reversal"]),
+  source_refund: z
+    .union([z.string(), z.lazy(() => s_refund)])
+    .nullable()
+    .optional(),
+  transfer: z.union([z.string(), z.lazy(() => s_transfer)]),
+})
+
+export const s_treasury_credit_reversal: z.ZodType<t_treasury_credit_reversal> =
+  z.object({
+    amount: z.coerce.number(),
+    created: z.coerce.number(),
+    currency: z.string(),
+    financial_account: z.string(),
+    hosted_regulatory_receipt_url: z.string().nullable().optional(),
+    id: z.string(),
+    livemode: z.coerce.boolean(),
+    metadata: z.object({}),
+    network: z.enum(["ach", "stripe"]),
+    object: z.enum(["treasury.credit_reversal"]),
+    received_credit: z.string(),
+    status: z.enum(["canceled", "posted", "processing"]),
+    status_transitions: s_treasury_received_credits_resource_status_transitions,
+    transaction: z
+      .union([z.string(), z.lazy(() => s_treasury_transaction)])
+      .nullable()
+      .optional(),
+  })
+
+export const s_treasury_debit_reversal: z.ZodType<t_treasury_debit_reversal> =
+  z.object({
+    amount: z.coerce.number(),
+    created: z.coerce.number(),
+    currency: z.string(),
+    financial_account: z.string().nullable().optional(),
+    hosted_regulatory_receipt_url: z.string().nullable().optional(),
+    id: z.string(),
+    linked_flows:
+      s_treasury_received_debits_resource_debit_reversal_linked_flows
+        .nullable()
+        .optional(),
+    livemode: z.coerce.boolean(),
+    metadata: z.object({}),
+    network: z.enum(["ach", "card"]),
+    object: z.enum(["treasury.debit_reversal"]),
+    received_debit: z.string(),
+    status: z.enum(["failed", "processing", "succeeded"]),
+    status_transitions: s_treasury_received_debits_resource_status_transitions,
+    transaction: z
+      .union([z.string(), z.lazy(() => s_treasury_transaction)])
+      .nullable()
+      .optional(),
+  })
+
+export const s_treasury_transaction_entry: z.ZodType<t_treasury_transaction_entry> =
+  z.object({
+    balance_impact: s_treasury_transactions_resource_balance_impact,
+    created: z.coerce.number(),
+    currency: z.string(),
+    effective_at: z.coerce.number(),
+    financial_account: z.string(),
+    flow: z.string().nullable().optional(),
+    flow_details: z
+      .lazy(() => s_treasury_transactions_resource_flow_details)
+      .nullable()
+      .optional(),
+    flow_type: z.enum([
+      "credit_reversal",
+      "debit_reversal",
+      "inbound_transfer",
+      "issuing_authorization",
+      "other",
+      "outbound_payment",
+      "outbound_transfer",
+      "received_credit",
+      "received_debit",
+    ]),
+    id: z.string(),
+    livemode: z.coerce.boolean(),
+    object: z.enum(["treasury.transaction_entry"]),
+    transaction: z.union([z.string(), z.lazy(() => s_treasury_transaction)]),
+    type: z.enum([
+      "credit_reversal",
+      "credit_reversal_posting",
+      "debit_reversal",
+      "inbound_transfer",
+      "inbound_transfer_return",
+      "issuing_authorization_hold",
+      "issuing_authorization_release",
+      "other",
+      "outbound_payment",
+      "outbound_payment_cancellation",
+      "outbound_payment_failure",
+      "outbound_payment_posting",
+      "outbound_payment_return",
+      "outbound_transfer",
+      "outbound_transfer_cancellation",
+      "outbound_transfer_failure",
+      "outbound_transfer_posting",
+      "outbound_transfer_return",
+      "received_credit",
+      "received_debit",
+    ]),
+  })
+
+export const s_treasury_transaction: z.ZodType<t_treasury_transaction> =
+  z.object({
+    amount: z.coerce.number(),
+    balance_impact: s_treasury_transactions_resource_balance_impact,
+    created: z.coerce.number(),
+    currency: z.string(),
+    description: z.string(),
+    entries: z
+      .object({
+        data: z.array(z.lazy(() => s_treasury_transaction_entry)),
+        has_more: z.coerce.boolean(),
+        object: z.enum(["list"]),
+        url: z.string(),
+      })
+      .nullable()
+      .optional(),
+    financial_account: z.string(),
+    flow: z.string().nullable().optional(),
+    flow_details: z
+      .lazy(() => s_treasury_transactions_resource_flow_details)
+      .nullable()
+      .optional(),
+    flow_type: z.enum([
+      "credit_reversal",
+      "debit_reversal",
+      "inbound_transfer",
+      "issuing_authorization",
+      "other",
+      "outbound_payment",
+      "outbound_transfer",
+      "received_credit",
+      "received_debit",
+    ]),
+    id: z.string(),
+    livemode: z.coerce.boolean(),
+    object: z.enum(["treasury.transaction"]),
+    status: z.enum(["open", "posted", "void"]),
+    status_transitions:
+      s_treasury_transactions_resource_abstract_transaction_resource_status_transitions,
+  })
+
+export const s_legal_entity_company: z.ZodType<t_legal_entity_company> =
+  z.object({
+    address: s_address.optional(),
+    address_kana: s_legal_entity_japan_address.nullable().optional(),
+    address_kanji: s_legal_entity_japan_address.nullable().optional(),
+    directors_provided: z.coerce.boolean().optional(),
+    executives_provided: z.coerce.boolean().optional(),
+    export_license_id: z.string().optional(),
+    export_purpose_code: z.string().optional(),
+    name: z.string().nullable().optional(),
+    name_kana: z.string().nullable().optional(),
+    name_kanji: z.string().nullable().optional(),
+    owners_provided: z.coerce.boolean().optional(),
+    ownership_declaration: s_legal_entity_ubo_declaration.nullable().optional(),
+    phone: z.string().nullable().optional(),
+    structure: z
+      .enum([
+        "free_zone_establishment",
+        "free_zone_llc",
+        "government_instrumentality",
+        "governmental_unit",
+        "incorporated_non_profit",
+        "incorporated_partnership",
+        "limited_liability_partnership",
+        "llc",
+        "multi_member_llc",
+        "private_company",
+        "private_corporation",
+        "private_partnership",
+        "public_company",
+        "public_corporation",
+        "public_partnership",
+        "single_member_llc",
+        "sole_establishment",
+        "sole_proprietorship",
+        "tax_exempt_government_instrumentality",
+        "unincorporated_association",
+        "unincorporated_non_profit",
+        "unincorporated_partnership",
+      ])
+      .optional(),
+    tax_id_provided: z.coerce.boolean().optional(),
+    tax_id_registrar: z.string().optional(),
+    vat_id_provided: z.coerce.boolean().optional(),
+    verification: z
+      .lazy(() => s_legal_entity_company_verification)
+      .nullable()
+      .optional(),
+  })
+
+export const s_account_settings: z.ZodType<t_account_settings> = z.object({
+  bacs_debit_payments: s_account_bacs_debit_payments_settings.optional(),
+  branding: z.lazy(() => s_account_branding_settings),
+  card_issuing: s_account_card_issuing_settings.optional(),
+  card_payments: s_account_card_payments_settings,
+  dashboard: s_account_dashboard_settings,
+  payments: s_account_payments_settings,
+  payouts: s_account_payout_settings.optional(),
+  sepa_debit_payments: s_account_sepa_debit_payments_settings.optional(),
+  treasury: s_account_treasury_settings.optional(),
+})
+
+export const s_api_errors: z.ZodType<t_api_errors> = z.object({
+  charge: z.string().optional(),
+  code: z.string().optional(),
+  decline_code: z.string().optional(),
+  doc_url: z.string().optional(),
+  message: z.string().optional(),
+  param: z.string().optional(),
+  payment_intent: z.lazy(() => s_payment_intent.optional()),
+  payment_method: z.lazy(() => s_payment_method.optional()),
+  payment_method_type: z.string().optional(),
+  request_log_url: z.string().optional(),
+  setup_intent: z.lazy(() => s_setup_intent.optional()),
+  source: z
+    .union([z.lazy(() => s_bank_account), z.lazy(() => s_card), s_source])
+    .optional(),
+  type: z.enum([
+    "api_error",
+    "card_error",
+    "idempotency_error",
+    "invalid_request_error",
+  ]),
+})
+
+export const s_legal_entity_person_verification: z.ZodType<t_legal_entity_person_verification> =
+  z.object({
+    additional_document: z
+      .lazy(() => s_legal_entity_person_verification_document)
+      .nullable()
+      .optional(),
+    details: z.string().nullable().optional(),
+    details_code: z.string().nullable().optional(),
+    document: z.lazy(() =>
+      s_legal_entity_person_verification_document.optional(),
+    ),
+    status: z.string(),
+  })
+
+export const s_connect_collection_transfer: z.ZodType<t_connect_collection_transfer> =
+  z.object({
+    amount: z.coerce.number(),
+    currency: z.string(),
+    destination: z.union([z.string(), z.lazy(() => s_account)]),
+    id: z.string(),
+    livemode: z.coerce.boolean(),
+    object: z.enum(["connect_collection_transfer"]),
+  })
+
+export const s_payment_method_details: z.ZodType<t_payment_method_details> =
+  z.object({
+    ach_credit_transfer:
+      s_payment_method_details_ach_credit_transfer.optional(),
+    ach_debit: s_payment_method_details_ach_debit.optional(),
+    acss_debit: s_payment_method_details_acss_debit.optional(),
+    affirm: s_payment_method_details_affirm.optional(),
+    afterpay_clearpay: s_payment_method_details_afterpay_clearpay.optional(),
+    alipay: s_payment_flows_private_payment_methods_alipay_details.optional(),
+    au_becs_debit: s_payment_method_details_au_becs_debit.optional(),
+    bacs_debit: s_payment_method_details_bacs_debit.optional(),
+    bancontact: z.lazy(() => s_payment_method_details_bancontact.optional()),
+    blik: s_payment_method_details_blik.optional(),
+    boleto: s_payment_method_details_boleto.optional(),
+    card: s_payment_method_details_card.optional(),
+    card_present: s_payment_method_details_card_present.optional(),
+    cashapp: s_payment_method_details_cashapp.optional(),
+    customer_balance: s_payment_method_details_customer_balance.optional(),
+    eps: s_payment_method_details_eps.optional(),
+    fpx: s_payment_method_details_fpx.optional(),
+    giropay: s_payment_method_details_giropay.optional(),
+    grabpay: s_payment_method_details_grabpay.optional(),
+    ideal: z.lazy(() => s_payment_method_details_ideal.optional()),
+    interac_present: s_payment_method_details_interac_present.optional(),
+    klarna: s_payment_method_details_klarna.optional(),
+    konbini: s_payment_method_details_konbini.optional(),
+    link: s_payment_method_details_link.optional(),
+    multibanco: s_payment_method_details_multibanco.optional(),
+    oxxo: s_payment_method_details_oxxo.optional(),
+    p24: s_payment_method_details_p24.optional(),
+    paynow: s_payment_method_details_paynow.optional(),
+    paypal: s_payment_method_details_paypal.optional(),
+    pix: s_payment_method_details_pix.optional(),
+    promptpay: s_payment_method_details_promptpay.optional(),
+    sepa_debit: s_payment_method_details_sepa_debit.optional(),
+    sofort: z.lazy(() => s_payment_method_details_sofort.optional()),
+    stripe_account: s_payment_method_details_stripe_account.optional(),
+    type: z.string(),
+    us_bank_account: s_payment_method_details_us_bank_account.optional(),
+    wechat: s_payment_method_details_wechat.optional(),
+    wechat_pay: s_payment_method_details_wechat_pay.optional(),
+    zip: s_payment_method_details_zip.optional(),
+  })
+
+export const s_charge_transfer_data: z.ZodType<t_charge_transfer_data> =
+  z.object({
+    amount: z.coerce.number().nullable().optional(),
+    destination: z.union([z.string(), z.lazy(() => s_account)]),
+  })
+
+export const s_dispute_evidence: z.ZodType<t_dispute_evidence> = z.object({
+  access_activity_log: z.string().nullable().optional(),
+  billing_address: z.string().nullable().optional(),
+  cancellation_policy: z
+    .union([z.string(), z.lazy(() => s_file)])
+    .nullable()
+    .optional(),
+  cancellation_policy_disclosure: z.string().nullable().optional(),
+  cancellation_rebuttal: z.string().nullable().optional(),
+  customer_communication: z
+    .union([z.string(), z.lazy(() => s_file)])
+    .nullable()
+    .optional(),
+  customer_email_address: z.string().nullable().optional(),
+  customer_name: z.string().nullable().optional(),
+  customer_purchase_ip: z.string().nullable().optional(),
+  customer_signature: z
+    .union([z.string(), z.lazy(() => s_file)])
+    .nullable()
+    .optional(),
+  duplicate_charge_documentation: z
+    .union([z.string(), z.lazy(() => s_file)])
+    .nullable()
+    .optional(),
+  duplicate_charge_explanation: z.string().nullable().optional(),
+  duplicate_charge_id: z.string().nullable().optional(),
+  product_description: z.string().nullable().optional(),
+  receipt: z
+    .union([z.string(), z.lazy(() => s_file)])
+    .nullable()
+    .optional(),
+  refund_policy: z
+    .union([z.string(), z.lazy(() => s_file)])
+    .nullable()
+    .optional(),
+  refund_policy_disclosure: z.string().nullable().optional(),
+  refund_refusal_explanation: z.string().nullable().optional(),
+  service_date: z.string().nullable().optional(),
+  service_documentation: z
+    .union([z.string(), z.lazy(() => s_file)])
+    .nullable()
+    .optional(),
+  shipping_address: z.string().nullable().optional(),
+  shipping_carrier: z.string().nullable().optional(),
+  shipping_date: z.string().nullable().optional(),
+  shipping_documentation: z
+    .union([z.string(), z.lazy(() => s_file)])
+    .nullable()
+    .optional(),
+  shipping_tracking_number: z.string().nullable().optional(),
+  uncategorized_file: z
+    .union([z.string(), z.lazy(() => s_file)])
+    .nullable()
+    .optional(),
+  uncategorized_text: z.string().nullable().optional(),
+})
+
+export const s_payment_pages_checkout_session_invoice_creation: z.ZodType<t_payment_pages_checkout_session_invoice_creation> =
+  z.object({
+    enabled: z.coerce.boolean(),
+    invoice_data: z.lazy(
+      () => s_payment_pages_checkout_session_invoice_settings,
+    ),
+  })
+
+export const s_payment_pages_checkout_session_total_details: z.ZodType<t_payment_pages_checkout_session_total_details> =
+  z.object({
+    amount_discount: z.coerce.number(),
+    amount_shipping: z.coerce.number().nullable().optional(),
+    amount_tax: z.coerce.number(),
+    breakdown: z.lazy(() =>
+      s_payment_pages_checkout_session_total_details_resource_breakdown.optional(),
+    ),
+  })
+
+export const s_line_items_discount_amount: z.ZodType<t_line_items_discount_amount> =
+  z.object({ amount: z.coerce.number(), discount: z.lazy(() => s_discount) })
+
+export const s_discounts_resource_discount_amount: z.ZodType<t_discounts_resource_discount_amount> =
+  z.object({
+    amount: z.coerce.number(),
+    discount: z.union([
+      z.string(),
+      z.lazy(() => s_discount),
+      z.lazy(() => s_deleted_discount),
+    ]),
+  })
+
+export const s_invoice_setting_customer_setting: z.ZodType<t_invoice_setting_customer_setting> =
+  z.object({
+    custom_fields: z
+      .array(s_invoice_setting_custom_field)
+      .nullable()
+      .optional(),
+    default_payment_method: z
+      .union([z.string(), z.lazy(() => s_payment_method)])
+      .nullable()
+      .optional(),
+    footer: z.string().nullable().optional(),
+    rendering_options: s_invoice_setting_rendering_options
+      .nullable()
+      .optional(),
+  })
+
+export const s_customer_balance_resource_cash_balance_transaction_resource_adjusted_for_overdraft: z.ZodType<t_customer_balance_resource_cash_balance_transaction_resource_adjusted_for_overdraft> =
+  z.object({
+    balance_transaction: z.union([
+      z.string(),
+      z.lazy(() => s_balance_transaction),
+    ]),
+    linked_transaction: z.union([
+      z.string(),
+      z.lazy(() => s_customer_cash_balance_transaction),
+    ]),
+  })
+
+export const s_customer_balance_resource_cash_balance_transaction_resource_applied_to_payment_transaction: z.ZodType<t_customer_balance_resource_cash_balance_transaction_resource_applied_to_payment_transaction> =
+  z.object({
+    payment_intent: z.union([z.string(), z.lazy(() => s_payment_intent)]),
+  })
+
+export const s_customer_balance_resource_cash_balance_transaction_resource_refunded_from_payment_transaction: z.ZodType<t_customer_balance_resource_cash_balance_transaction_resource_refunded_from_payment_transaction> =
+  z.object({ refund: z.union([z.string(), z.lazy(() => s_refund)]) })
+
+export const s_customer_balance_resource_cash_balance_transaction_resource_unapplied_from_payment_transaction: z.ZodType<t_customer_balance_resource_cash_balance_transaction_resource_unapplied_from_payment_transaction> =
+  z.object({
+    payment_intent: z.union([z.string(), z.lazy(() => s_payment_intent)]),
+  })
+
+export const s_payment_method_card: z.ZodType<t_payment_method_card> = z.object(
+  {
+    brand: z.string(),
+    checks: s_payment_method_card_checks.nullable().optional(),
+    country: z.string().nullable().optional(),
+    exp_month: z.coerce.number(),
+    exp_year: z.coerce.number(),
+    fingerprint: z.string().nullable().optional(),
+    funding: z.string(),
+    generated_from: z
+      .lazy(() => s_payment_method_card_generated_card)
+      .nullable()
+      .optional(),
+    last4: z.string(),
+    networks: s_networks.nullable().optional(),
+    three_d_secure_usage: s_three_d_secure_usage.nullable().optional(),
+    wallet: s_payment_method_card_wallet.nullable().optional(),
+  },
+)
+
+export const s_payment_method_sepa_debit: z.ZodType<t_payment_method_sepa_debit> =
+  z.object({
+    bank_code: z.string().nullable().optional(),
+    branch_code: z.string().nullable().optional(),
+    country: z.string().nullable().optional(),
+    fingerprint: z.string().nullable().optional(),
+    generated_from: z
+      .lazy(() => s_sepa_debit_generated_from)
+      .nullable()
+      .optional(),
+    last4: z.string().nullable().optional(),
+  })
+
+export const s_subscriptions_resource_pending_update: z.ZodType<t_subscriptions_resource_pending_update> =
+  z.object({
+    billing_cycle_anchor: z.coerce.number().nullable().optional(),
+    expires_at: z.coerce.number(),
+    subscription_items: z
+      .array(z.lazy(() => s_subscription_item))
+      .nullable()
+      .optional(),
+    trial_end: z.coerce.number().nullable().optional(),
+    trial_from_plan: z.coerce.boolean().nullable().optional(),
+  })
+
+export const s_subscription_transfer_data: z.ZodType<t_subscription_transfer_data> =
+  z.object({
+    amount_percent: z.coerce.number().nullable().optional(),
+    destination: z.union([z.string(), z.lazy(() => s_account)]),
+  })
+
+export const s_bank_connections_resource_accountholder: z.ZodType<t_bank_connections_resource_accountholder> =
+  z.object({
+    account: z.union([z.string(), z.lazy(() => s_account)]).optional(),
+    customer: z.union([z.string(), z.lazy(() => s_customer)]).optional(),
+    type: z.enum(["account", "customer"]),
+  })
+
+export const s_invoices_from_invoice: z.ZodType<t_invoices_from_invoice> =
+  z.object({
+    action: z.string(),
+    invoice: z.union([z.string(), z.lazy(() => s_invoice)]),
+  })
+
+export const s_invoice_transfer_data: z.ZodType<t_invoice_transfer_data> =
+  z.object({
+    amount: z.coerce.number().nullable().optional(),
+    destination: z.union([z.string(), z.lazy(() => s_account)]),
+  })
+
+export const s_issuing_cardholder_individual: z.ZodType<t_issuing_cardholder_individual> =
+  z.object({
+    card_issuing: s_issuing_cardholder_card_issuing.nullable().optional(),
+    dob: s_issuing_cardholder_individual_dob.nullable().optional(),
+    first_name: z.string().nullable().optional(),
+    last_name: z.string().nullable().optional(),
+    verification: z
+      .lazy(() => s_issuing_cardholder_verification)
+      .nullable()
+      .optional(),
+  })
+
+export const s_issuing_dispute_evidence: z.ZodType<t_issuing_dispute_evidence> =
+  z.object({
+    canceled: z.lazy(() => s_issuing_dispute_canceled_evidence.optional()),
+    duplicate: z.lazy(() => s_issuing_dispute_duplicate_evidence.optional()),
+    fraudulent: z.lazy(() => s_issuing_dispute_fraudulent_evidence.optional()),
+    merchandise_not_as_described: z.lazy(() =>
+      s_issuing_dispute_merchandise_not_as_described_evidence.optional(),
+    ),
+    not_received: z.lazy(() =>
+      s_issuing_dispute_not_received_evidence.optional(),
+    ),
+    other: z.lazy(() => s_issuing_dispute_other_evidence.optional()),
+    reason: z.enum([
+      "canceled",
+      "duplicate",
+      "fraudulent",
+      "merchandise_not_as_described",
+      "not_received",
+      "other",
+      "service_not_as_described",
+    ]),
+    service_not_as_described: z.lazy(() =>
+      s_issuing_dispute_service_not_as_described_evidence.optional(),
+    ),
+  })
+
+export const s_transfer_data: z.ZodType<t_transfer_data> = z.object({
+  amount: z.coerce.number().optional(),
+  destination: z.union([z.string(), z.lazy(() => s_account)]),
+})
+
+export const s_payment_links_resource_invoice_creation: z.ZodType<t_payment_links_resource_invoice_creation> =
+  z.object({
+    enabled: z.coerce.boolean(),
+    invoice_data: z
+      .lazy(() => s_payment_links_resource_invoice_settings)
+      .nullable()
+      .optional(),
+  })
+
+export const s_payment_links_resource_transfer_data: z.ZodType<t_payment_links_resource_transfer_data> =
+  z.object({
+    amount: z.coerce.number().nullable().optional(),
+    destination: z.union([z.string(), z.lazy(() => s_account)]),
+  })
+
+export const s_quotes_resource_computed: z.ZodType<t_quotes_resource_computed> =
+  z.object({
+    recurring: z
+      .lazy(() => s_quotes_resource_recurring)
+      .nullable()
+      .optional(),
+    upfront: z.lazy(() => s_quotes_resource_upfront),
+  })
+
+export const s_quotes_resource_from_quote: z.ZodType<t_quotes_resource_from_quote> =
+  z.object({
+    is_revision: z.coerce.boolean(),
+    quote: z.union([z.string(), z.lazy(() => s_quote)]),
+  })
+
+export const s_quotes_resource_total_details: z.ZodType<t_quotes_resource_total_details> =
+  z.object({
+    amount_discount: z.coerce.number(),
+    amount_shipping: z.coerce.number().nullable().optional(),
+    amount_tax: z.coerce.number(),
+    breakdown: z.lazy(() =>
+      s_quotes_resource_total_details_resource_breakdown.optional(),
+    ),
+  })
+
+export const s_quotes_resource_transfer_data: z.ZodType<t_quotes_resource_transfer_data> =
+  z.object({
+    amount: z.coerce.number().nullable().optional(),
+    amount_percent: z.coerce.number().nullable().optional(),
+    destination: z.union([z.string(), z.lazy(() => s_account)]),
+  })
+
+export const s_setup_attempt_payment_method_details: z.ZodType<t_setup_attempt_payment_method_details> =
+  z.object({
+    acss_debit: s_setup_attempt_payment_method_details_acss_debit.optional(),
+    au_becs_debit:
+      s_setup_attempt_payment_method_details_au_becs_debit.optional(),
+    bacs_debit: s_setup_attempt_payment_method_details_bacs_debit.optional(),
+    bancontact: z.lazy(() =>
+      s_setup_attempt_payment_method_details_bancontact.optional(),
+    ),
+    boleto: s_setup_attempt_payment_method_details_boleto.optional(),
+    card: s_setup_attempt_payment_method_details_card.optional(),
+    card_present: z.lazy(() =>
+      s_setup_attempt_payment_method_details_card_present.optional(),
+    ),
+    cashapp: s_setup_attempt_payment_method_details_cashapp.optional(),
+    ideal: z.lazy(() =>
+      s_setup_attempt_payment_method_details_ideal.optional(),
+    ),
+    klarna: s_setup_attempt_payment_method_details_klarna.optional(),
+    link: s_setup_attempt_payment_method_details_link.optional(),
+    paypal: s_setup_attempt_payment_method_details_paypal.optional(),
+    sepa_debit: s_setup_attempt_payment_method_details_sepa_debit.optional(),
+    sofort: z.lazy(() =>
+      s_setup_attempt_payment_method_details_sofort.optional(),
+    ),
+    type: z.string(),
+    us_bank_account:
+      s_setup_attempt_payment_method_details_us_bank_account.optional(),
+  })
+
+export const s_subscription_schedules_resource_default_settings: z.ZodType<t_subscription_schedules_resource_default_settings> =
+  z.object({
+    application_fee_percent: z.coerce.number().nullable().optional(),
+    automatic_tax:
+      s_subscription_schedules_resource_default_settings_automatic_tax.optional(),
+    billing_cycle_anchor: z.enum(["automatic", "phase_start"]),
+    billing_thresholds: s_subscription_billing_thresholds.nullable().optional(),
+    collection_method: z
+      .enum(["charge_automatically", "send_invoice"])
+      .nullable()
+      .optional(),
+    default_payment_method: z
+      .union([z.string(), z.lazy(() => s_payment_method)])
+      .nullable()
+      .optional(),
+    description: z.string().nullable().optional(),
+    invoice_settings: s_invoice_setting_subscription_schedule_setting
+      .nullable()
+      .optional(),
+    on_behalf_of: z
+      .union([z.string(), z.lazy(() => s_account)])
+      .nullable()
+      .optional(),
+    transfer_data: z
+      .lazy(() => s_subscription_transfer_data)
+      .nullable()
+      .optional(),
+  })
+
+export const s_subscription_schedule_phase_configuration: z.ZodType<t_subscription_schedule_phase_configuration> =
+  z.object({
+    add_invoice_items: z.array(
+      z.lazy(() => s_subscription_schedule_add_invoice_item),
+    ),
+    application_fee_percent: z.coerce.number().nullable().optional(),
+    automatic_tax: s_schedules_phase_automatic_tax.optional(),
+    billing_cycle_anchor: z
+      .enum(["automatic", "phase_start"])
+      .nullable()
+      .optional(),
+    billing_thresholds: s_subscription_billing_thresholds.nullable().optional(),
+    collection_method: z
+      .enum(["charge_automatically", "send_invoice"])
+      .nullable()
+      .optional(),
+    coupon: z
+      .union([z.string(), s_coupon, s_deleted_coupon])
+      .nullable()
+      .optional(),
+    currency: z.string(),
+    default_payment_method: z
+      .union([z.string(), z.lazy(() => s_payment_method)])
+      .nullable()
+      .optional(),
+    default_tax_rates: z.array(s_tax_rate).nullable().optional(),
+    description: z.string().nullable().optional(),
+    end_date: z.coerce.number(),
+    invoice_settings: s_invoice_setting_subscription_schedule_phase_setting
+      .nullable()
+      .optional(),
+    items: z.array(z.lazy(() => s_subscription_schedule_configuration_item)),
+    metadata: z.object({}).nullable().optional(),
+    on_behalf_of: z
+      .union([z.string(), z.lazy(() => s_account)])
+      .nullable()
+      .optional(),
+    proration_behavior: z.enum(["always_invoice", "create_prorations", "none"]),
+    start_date: z.coerce.number(),
+    transfer_data: z
+      .lazy(() => s_subscription_transfer_data)
+      .nullable()
+      .optional(),
+    trial_end: z.coerce.number().nullable().optional(),
+  })
+
+export const s_terminal_configuration_configuration_resource_device_type_specific_config: z.ZodType<t_terminal_configuration_configuration_resource_device_type_specific_config> =
+  z.object({
+    splashscreen: z.union([z.string(), z.lazy(() => s_file)]).optional(),
+  })
+
+export const s_terminal_reader_reader_resource_reader_action: z.ZodType<t_terminal_reader_reader_resource_reader_action> =
+  z.object({
+    failure_code: z.string().nullable().optional(),
+    failure_message: z.string().nullable().optional(),
+    process_payment_intent: z.lazy(() =>
+      s_terminal_reader_reader_resource_process_payment_intent_action.optional(),
+    ),
+    process_setup_intent: z.lazy(() =>
+      s_terminal_reader_reader_resource_process_setup_intent_action.optional(),
+    ),
+    refund_payment: z.lazy(() =>
+      s_terminal_reader_reader_resource_refund_payment_action.optional(),
+    ),
+    set_reader_display:
+      s_terminal_reader_reader_resource_set_reader_display_action.optional(),
+    status: z.enum(["failed", "in_progress", "succeeded"]),
+    type: z.enum([
+      "process_payment_intent",
+      "process_setup_intent",
+      "refund_payment",
+      "set_reader_display",
+    ]),
+  })
+
+export const s_treasury_outbound_payments_resource_returned_status: z.ZodType<t_treasury_outbound_payments_resource_returned_status> =
+  z.object({
+    code: z.enum([
+      "account_closed",
+      "account_frozen",
+      "bank_account_restricted",
+      "bank_ownership_changed",
+      "declined",
+      "incorrect_account_holder_name",
+      "invalid_account_number",
+      "invalid_currency",
+      "no_account",
+      "other",
+    ]),
+    transaction: z.union([z.string(), z.lazy(() => s_treasury_transaction)]),
+  })
+
+export const s_treasury_outbound_transfers_resource_returned_details: z.ZodType<t_treasury_outbound_transfers_resource_returned_details> =
+  z.object({
+    code: z.enum([
+      "account_closed",
+      "account_frozen",
+      "bank_account_restricted",
+      "bank_ownership_changed",
+      "declined",
+      "incorrect_account_holder_name",
+      "invalid_account_number",
+      "invalid_currency",
+      "no_account",
+      "other",
+    ]),
+    transaction: z.union([z.string(), z.lazy(() => s_treasury_transaction)]),
+  })
+
+export const s_treasury_received_credits_resource_linked_flows: z.ZodType<t_treasury_received_credits_resource_linked_flows> =
+  z.object({
+    credit_reversal: z.string().nullable().optional(),
+    issuing_authorization: z.string().nullable().optional(),
+    issuing_transaction: z.string().nullable().optional(),
+    source_flow: z.string().nullable().optional(),
+    source_flow_details: z
+      .lazy(() => s_treasury_received_credits_resource_source_flows_details)
+      .nullable()
+      .optional(),
+    source_flow_type: z.string().nullable().optional(),
+  })
+
+export const s_treasury_transactions_resource_flow_details: z.ZodType<t_treasury_transactions_resource_flow_details> =
+  z.object({
+    credit_reversal: z.lazy(() => s_treasury_credit_reversal.optional()),
+    debit_reversal: z.lazy(() => s_treasury_debit_reversal.optional()),
+    inbound_transfer: z.lazy(() => s_treasury_inbound_transfer.optional()),
+    issuing_authorization: z.lazy(() => s_issuing_authorization.optional()),
+    outbound_payment: z.lazy(() => s_treasury_outbound_payment.optional()),
+    outbound_transfer: z.lazy(() => s_treasury_outbound_transfer.optional()),
+    received_credit: z.lazy(() => s_treasury_received_credit.optional()),
+    received_debit: z.lazy(() => s_treasury_received_debit.optional()),
+    type: z.enum([
+      "credit_reversal",
+      "debit_reversal",
+      "inbound_transfer",
+      "issuing_authorization",
+      "other",
+      "outbound_payment",
+      "outbound_transfer",
+      "received_credit",
+      "received_debit",
+    ]),
+  })
+
+export const s_legal_entity_company_verification: z.ZodType<t_legal_entity_company_verification> =
+  z.object({
+    document: z.lazy(() => s_legal_entity_company_verification_document),
+  })
+
+export const s_account_branding_settings: z.ZodType<t_account_branding_settings> =
+  z.object({
+    icon: z
+      .union([z.string(), z.lazy(() => s_file)])
+      .nullable()
+      .optional(),
+    logo: z
+      .union([z.string(), z.lazy(() => s_file)])
+      .nullable()
+      .optional(),
+    primary_color: z.string().nullable().optional(),
+    secondary_color: z.string().nullable().optional(),
+  })
+
+export const s_legal_entity_person_verification_document: z.ZodType<t_legal_entity_person_verification_document> =
+  z.object({
+    back: z
+      .union([z.string(), z.lazy(() => s_file)])
+      .nullable()
+      .optional(),
+    details: z.string().nullable().optional(),
+    details_code: z.string().nullable().optional(),
+    front: z
+      .union([z.string(), z.lazy(() => s_file)])
+      .nullable()
+      .optional(),
+  })
+
+export const s_payment_method_details_bancontact: z.ZodType<t_payment_method_details_bancontact> =
+  z.object({
+    bank_code: z.string().nullable().optional(),
+    bank_name: z.string().nullable().optional(),
+    bic: z.string().nullable().optional(),
+    generated_sepa_debit: z
+      .union([z.string(), z.lazy(() => s_payment_method)])
+      .nullable()
+      .optional(),
+    generated_sepa_debit_mandate: z
+      .union([z.string(), z.lazy(() => s_mandate)])
+      .nullable()
+      .optional(),
+    iban_last4: z.string().nullable().optional(),
+    preferred_language: z.enum(["de", "en", "fr", "nl"]).nullable().optional(),
+    verified_name: z.string().nullable().optional(),
+  })
+
+export const s_payment_method_details_ideal: z.ZodType<t_payment_method_details_ideal> =
+  z.object({
+    bank: z
+      .enum([
+        "abn_amro",
+        "asn_bank",
+        "bunq",
+        "handelsbanken",
+        "ing",
+        "knab",
+        "moneyou",
+        "n26",
+        "rabobank",
+        "regiobank",
+        "revolut",
+        "sns_bank",
+        "triodos_bank",
+        "van_lanschot",
+        "yoursafe",
+      ])
+      .nullable()
+      .optional(),
+    bic: z
+      .enum([
+        "ABNANL2A",
+        "ASNBNL21",
+        "BITSNL2A",
+        "BUNQNL2A",
+        "FVLBNL22",
+        "HANDNL2A",
+        "INGBNL2A",
+        "KNABNL2H",
+        "MOYONL21",
+        "NTSBDEB1",
+        "RABONL2U",
+        "RBRBNL21",
+        "REVOIE23",
+        "REVOLT21",
+        "SNSBNL2A",
+        "TRIONL2U",
+      ])
+      .nullable()
+      .optional(),
+    generated_sepa_debit: z
+      .union([z.string(), z.lazy(() => s_payment_method)])
+      .nullable()
+      .optional(),
+    generated_sepa_debit_mandate: z
+      .union([z.string(), z.lazy(() => s_mandate)])
+      .nullable()
+      .optional(),
+    iban_last4: z.string().nullable().optional(),
+    verified_name: z.string().nullable().optional(),
+  })
+
+export const s_payment_method_details_sofort: z.ZodType<t_payment_method_details_sofort> =
+  z.object({
+    bank_code: z.string().nullable().optional(),
+    bank_name: z.string().nullable().optional(),
+    bic: z.string().nullable().optional(),
+    country: z.string().nullable().optional(),
+    generated_sepa_debit: z
+      .union([z.string(), z.lazy(() => s_payment_method)])
+      .nullable()
+      .optional(),
+    generated_sepa_debit_mandate: z
+      .union([z.string(), z.lazy(() => s_mandate)])
+      .nullable()
+      .optional(),
+    iban_last4: z.string().nullable().optional(),
+    preferred_language: z
+      .enum(["de", "en", "es", "fr", "it", "nl", "pl"])
+      .nullable()
+      .optional(),
+    verified_name: z.string().nullable().optional(),
+  })
+
+export const s_payment_pages_checkout_session_invoice_settings: z.ZodType<t_payment_pages_checkout_session_invoice_settings> =
+  z.object({
+    account_tax_ids: z
+      .array(z.union([z.string(), z.lazy(() => s_tax_id), s_deleted_tax_id]))
+      .nullable()
+      .optional(),
+    custom_fields: z
+      .array(s_invoice_setting_custom_field)
+      .nullable()
+      .optional(),
+    description: z.string().nullable().optional(),
+    footer: z.string().nullable().optional(),
+    metadata: z.object({}).nullable().optional(),
+    rendering_options: s_invoice_setting_rendering_options
+      .nullable()
+      .optional(),
+  })
+
+export const s_payment_pages_checkout_session_total_details_resource_breakdown: z.ZodType<t_payment_pages_checkout_session_total_details_resource_breakdown> =
+  z.object({
+    discounts: z.array(z.lazy(() => s_line_items_discount_amount)),
+    taxes: z.array(s_line_items_tax_amount),
+  })
+
+export const s_payment_method_card_generated_card: z.ZodType<t_payment_method_card_generated_card> =
+  z.object({
+    charge: z.string().nullable().optional(),
+    payment_method_details: s_card_generated_from_payment_method_details
+      .nullable()
+      .optional(),
+    setup_attempt: z
+      .union([z.string(), z.lazy(() => s_setup_attempt)])
+      .nullable()
+      .optional(),
+  })
+
+export const s_sepa_debit_generated_from: z.ZodType<t_sepa_debit_generated_from> =
+  z.object({
+    charge: z
+      .union([z.string(), z.lazy(() => s_charge)])
+      .nullable()
+      .optional(),
+    setup_attempt: z
+      .union([z.string(), z.lazy(() => s_setup_attempt)])
+      .nullable()
+      .optional(),
+  })
+
+export const s_issuing_cardholder_verification: z.ZodType<t_issuing_cardholder_verification> =
+  z.object({
+    document: z
+      .lazy(() => s_issuing_cardholder_id_document)
+      .nullable()
+      .optional(),
+  })
+
+export const s_issuing_dispute_canceled_evidence: z.ZodType<t_issuing_dispute_canceled_evidence> =
+  z.object({
+    additional_documentation: z
+      .union([z.string(), z.lazy(() => s_file)])
+      .nullable()
+      .optional(),
+    canceled_at: z.coerce.number().nullable().optional(),
+    cancellation_policy_provided: z.coerce.boolean().nullable().optional(),
+    cancellation_reason: z.string().nullable().optional(),
+    expected_at: z.coerce.number().nullable().optional(),
+    explanation: z.string().nullable().optional(),
+    product_description: z.string().nullable().optional(),
+    product_type: z.enum(["merchandise", "service"]).nullable().optional(),
+    return_status: z
+      .enum(["merchant_rejected", "successful"])
+      .nullable()
+      .optional(),
+    returned_at: z.coerce.number().nullable().optional(),
+  })
+
+export const s_issuing_dispute_duplicate_evidence: z.ZodType<t_issuing_dispute_duplicate_evidence> =
+  z.object({
+    additional_documentation: z
+      .union([z.string(), z.lazy(() => s_file)])
+      .nullable()
+      .optional(),
+    card_statement: z
+      .union([z.string(), z.lazy(() => s_file)])
+      .nullable()
+      .optional(),
+    cash_receipt: z
+      .union([z.string(), z.lazy(() => s_file)])
+      .nullable()
+      .optional(),
+    check_image: z
+      .union([z.string(), z.lazy(() => s_file)])
+      .nullable()
+      .optional(),
+    explanation: z.string().nullable().optional(),
+    original_transaction: z.string().nullable().optional(),
+  })
+
+export const s_issuing_dispute_fraudulent_evidence: z.ZodType<t_issuing_dispute_fraudulent_evidence> =
+  z.object({
+    additional_documentation: z
+      .union([z.string(), z.lazy(() => s_file)])
+      .nullable()
+      .optional(),
+    explanation: z.string().nullable().optional(),
+  })
+
+export const s_issuing_dispute_merchandise_not_as_described_evidence: z.ZodType<t_issuing_dispute_merchandise_not_as_described_evidence> =
+  z.object({
+    additional_documentation: z
+      .union([z.string(), z.lazy(() => s_file)])
+      .nullable()
+      .optional(),
+    explanation: z.string().nullable().optional(),
+    received_at: z.coerce.number().nullable().optional(),
+    return_description: z.string().nullable().optional(),
+    return_status: z
+      .enum(["merchant_rejected", "successful"])
+      .nullable()
+      .optional(),
+    returned_at: z.coerce.number().nullable().optional(),
+  })
+
+export const s_issuing_dispute_not_received_evidence: z.ZodType<t_issuing_dispute_not_received_evidence> =
+  z.object({
+    additional_documentation: z
+      .union([z.string(), z.lazy(() => s_file)])
+      .nullable()
+      .optional(),
+    expected_at: z.coerce.number().nullable().optional(),
+    explanation: z.string().nullable().optional(),
+    product_description: z.string().nullable().optional(),
+    product_type: z.enum(["merchandise", "service"]).nullable().optional(),
+  })
+
+export const s_issuing_dispute_other_evidence: z.ZodType<t_issuing_dispute_other_evidence> =
+  z.object({
+    additional_documentation: z
+      .union([z.string(), z.lazy(() => s_file)])
+      .nullable()
+      .optional(),
+    explanation: z.string().nullable().optional(),
+    product_description: z.string().nullable().optional(),
+    product_type: z.enum(["merchandise", "service"]).nullable().optional(),
+  })
+
+export const s_issuing_dispute_service_not_as_described_evidence: z.ZodType<t_issuing_dispute_service_not_as_described_evidence> =
+  z.object({
+    additional_documentation: z
+      .union([z.string(), z.lazy(() => s_file)])
+      .nullable()
+      .optional(),
+    canceled_at: z.coerce.number().nullable().optional(),
+    cancellation_reason: z.string().nullable().optional(),
+    explanation: z.string().nullable().optional(),
+    received_at: z.coerce.number().nullable().optional(),
+  })
+
+export const s_payment_links_resource_invoice_settings: z.ZodType<t_payment_links_resource_invoice_settings> =
+  z.object({
+    account_tax_ids: z
+      .array(z.union([z.string(), z.lazy(() => s_tax_id), s_deleted_tax_id]))
+      .nullable()
+      .optional(),
+    custom_fields: z
+      .array(s_invoice_setting_custom_field)
+      .nullable()
+      .optional(),
+    description: z.string().nullable().optional(),
+    footer: z.string().nullable().optional(),
+    metadata: z.object({}).nullable().optional(),
+    rendering_options: s_invoice_setting_rendering_options
+      .nullable()
+      .optional(),
+  })
+
+export const s_quotes_resource_recurring: z.ZodType<t_quotes_resource_recurring> =
+  z.object({
+    amount_subtotal: z.coerce.number(),
+    amount_total: z.coerce.number(),
+    interval: z.enum(["day", "month", "week", "year"]),
+    interval_count: z.coerce.number(),
+    total_details: z.lazy(() => s_quotes_resource_total_details),
+  })
+
+export const s_quotes_resource_upfront: z.ZodType<t_quotes_resource_upfront> =
+  z.object({
+    amount_subtotal: z.coerce.number(),
+    amount_total: z.coerce.number(),
+    line_items: z
+      .object({
+        data: z.array(z.lazy(() => s_item)),
+        has_more: z.coerce.boolean(),
+        object: z.enum(["list"]),
+        url: z.string(),
+      })
+      .optional(),
+    total_details: z.lazy(() => s_quotes_resource_total_details),
+  })
+
+export const s_quotes_resource_total_details_resource_breakdown: z.ZodType<t_quotes_resource_total_details_resource_breakdown> =
+  z.object({
+    discounts: z.array(z.lazy(() => s_line_items_discount_amount)),
+    taxes: z.array(s_line_items_tax_amount),
+  })
+
+export const s_setup_attempt_payment_method_details_bancontact: z.ZodType<t_setup_attempt_payment_method_details_bancontact> =
+  z.object({
+    bank_code: z.string().nullable().optional(),
+    bank_name: z.string().nullable().optional(),
+    bic: z.string().nullable().optional(),
+    generated_sepa_debit: z
+      .union([z.string(), z.lazy(() => s_payment_method)])
+      .nullable()
+      .optional(),
+    generated_sepa_debit_mandate: z
+      .union([z.string(), z.lazy(() => s_mandate)])
+      .nullable()
+      .optional(),
+    iban_last4: z.string().nullable().optional(),
+    preferred_language: z.enum(["de", "en", "fr", "nl"]).nullable().optional(),
+    verified_name: z.string().nullable().optional(),
+  })
+
+export const s_setup_attempt_payment_method_details_card_present: z.ZodType<t_setup_attempt_payment_method_details_card_present> =
+  z.object({
+    generated_card: z
+      .union([z.string(), z.lazy(() => s_payment_method)])
+      .nullable()
+      .optional(),
+  })
+
+export const s_setup_attempt_payment_method_details_ideal: z.ZodType<t_setup_attempt_payment_method_details_ideal> =
+  z.object({
+    bank: z
+      .enum([
+        "abn_amro",
+        "asn_bank",
+        "bunq",
+        "handelsbanken",
+        "ing",
+        "knab",
+        "moneyou",
+        "n26",
+        "rabobank",
+        "regiobank",
+        "revolut",
+        "sns_bank",
+        "triodos_bank",
+        "van_lanschot",
+        "yoursafe",
+      ])
+      .nullable()
+      .optional(),
+    bic: z
+      .enum([
+        "ABNANL2A",
+        "ASNBNL21",
+        "BITSNL2A",
+        "BUNQNL2A",
+        "FVLBNL22",
+        "HANDNL2A",
+        "INGBNL2A",
+        "KNABNL2H",
+        "MOYONL21",
+        "NTSBDEB1",
+        "RABONL2U",
+        "RBRBNL21",
+        "REVOIE23",
+        "REVOLT21",
+        "SNSBNL2A",
+        "TRIONL2U",
+      ])
+      .nullable()
+      .optional(),
+    generated_sepa_debit: z
+      .union([z.string(), z.lazy(() => s_payment_method)])
+      .nullable()
+      .optional(),
+    generated_sepa_debit_mandate: z
+      .union([z.string(), z.lazy(() => s_mandate)])
+      .nullable()
+      .optional(),
+    iban_last4: z.string().nullable().optional(),
+    verified_name: z.string().nullable().optional(),
+  })
+
+export const s_setup_attempt_payment_method_details_sofort: z.ZodType<t_setup_attempt_payment_method_details_sofort> =
+  z.object({
+    bank_code: z.string().nullable().optional(),
+    bank_name: z.string().nullable().optional(),
+    bic: z.string().nullable().optional(),
+    generated_sepa_debit: z
+      .union([z.string(), z.lazy(() => s_payment_method)])
+      .nullable()
+      .optional(),
+    generated_sepa_debit_mandate: z
+      .union([z.string(), z.lazy(() => s_mandate)])
+      .nullable()
+      .optional(),
+    iban_last4: z.string().nullable().optional(),
+    preferred_language: z.enum(["de", "en", "fr", "nl"]).nullable().optional(),
+    verified_name: z.string().nullable().optional(),
+  })
+
+export const s_subscription_schedule_add_invoice_item: z.ZodType<t_subscription_schedule_add_invoice_item> =
+  z.object({
+    price: z.union([z.string(), z.lazy(() => s_price), s_deleted_price]),
+    quantity: z.coerce.number().nullable().optional(),
+    tax_rates: z.array(s_tax_rate).nullable().optional(),
+  })
+
+export const s_subscription_schedule_configuration_item: z.ZodType<t_subscription_schedule_configuration_item> =
+  z.object({
+    billing_thresholds: s_subscription_item_billing_thresholds
+      .nullable()
+      .optional(),
+    metadata: z.object({}).nullable().optional(),
+    price: z.union([z.string(), z.lazy(() => s_price), s_deleted_price]),
+    quantity: z.coerce.number().optional(),
+    tax_rates: z.array(s_tax_rate).nullable().optional(),
+  })
+
+export const s_terminal_reader_reader_resource_process_payment_intent_action: z.ZodType<t_terminal_reader_reader_resource_process_payment_intent_action> =
+  z.object({
+    payment_intent: z.union([z.string(), z.lazy(() => s_payment_intent)]),
+    process_config: s_terminal_reader_reader_resource_process_config.optional(),
+  })
+
+export const s_terminal_reader_reader_resource_process_setup_intent_action: z.ZodType<t_terminal_reader_reader_resource_process_setup_intent_action> =
+  z.object({
+    generated_card: z.string().optional(),
+    process_config:
+      s_terminal_reader_reader_resource_process_setup_config.optional(),
+    setup_intent: z.union([z.string(), z.lazy(() => s_setup_intent)]),
+  })
+
+export const s_terminal_reader_reader_resource_refund_payment_action: z.ZodType<t_terminal_reader_reader_resource_refund_payment_action> =
+  z.object({
+    amount: z.coerce.number().optional(),
+    charge: z.union([z.string(), z.lazy(() => s_charge)]).optional(),
+    metadata: z.object({}).optional(),
+    payment_intent: z
+      .union([z.string(), z.lazy(() => s_payment_intent)])
+      .optional(),
+    reason: z
+      .enum(["duplicate", "fraudulent", "requested_by_customer"])
+      .optional(),
+    refund: z.union([z.string(), z.lazy(() => s_refund)]).optional(),
+    refund_application_fee: z.coerce.boolean().optional(),
+    reverse_transfer: z.coerce.boolean().optional(),
+  })
+
+export const s_treasury_received_credits_resource_source_flows_details: z.ZodType<t_treasury_received_credits_resource_source_flows_details> =
+  z.object({
+    credit_reversal: z.lazy(() => s_treasury_credit_reversal.optional()),
+    outbound_payment: z.lazy(() => s_treasury_outbound_payment.optional()),
+    payout: z.lazy(() => s_payout.optional()),
+    type: z.enum(["credit_reversal", "other", "outbound_payment", "payout"]),
+  })
+
+export const s_legal_entity_company_verification_document: z.ZodType<t_legal_entity_company_verification_document> =
+  z.object({
+    back: z
+      .union([z.string(), z.lazy(() => s_file)])
+      .nullable()
+      .optional(),
+    details: z.string().nullable().optional(),
+    details_code: z.string().nullable().optional(),
+    front: z
+      .union([z.string(), z.lazy(() => s_file)])
+      .nullable()
+      .optional(),
+  })
+
+export const s_issuing_cardholder_id_document: z.ZodType<t_issuing_cardholder_id_document> =
+  z.object({
+    back: z
+      .union([z.string(), z.lazy(() => s_file)])
+      .nullable()
+      .optional(),
+    front: z
+      .union([z.string(), z.lazy(() => s_file)])
+      .nullable()
+      .optional(),
+  })

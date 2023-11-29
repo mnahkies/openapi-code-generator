@@ -831,6 +831,829 @@ import {
   t_webhook_endpoint,
 } from "./models"
 import {
+  s_account,
+  s_account_bacs_debit_payments_settings,
+  s_account_branding_settings,
+  s_account_business_profile,
+  s_account_capabilities,
+  s_account_capability_future_requirements,
+  s_account_capability_requirements,
+  s_account_card_issuing_settings,
+  s_account_card_payments_settings,
+  s_account_dashboard_settings,
+  s_account_decline_charge_on,
+  s_account_future_requirements,
+  s_account_link,
+  s_account_monthly_estimated_revenue,
+  s_account_payments_settings,
+  s_account_payout_settings,
+  s_account_requirements,
+  s_account_requirements_alternative,
+  s_account_requirements_error,
+  s_account_sepa_debit_payments_settings,
+  s_account_session,
+  s_account_settings,
+  s_account_terms_of_service,
+  s_account_tos_acceptance,
+  s_account_treasury_settings,
+  s_account_unification_account_controller,
+  s_address,
+  s_api_errors,
+  s_apple_pay_domain,
+  s_application,
+  s_application_fee,
+  s_apps_secret,
+  s_automatic_tax,
+  s_balance,
+  s_balance_amount,
+  s_balance_amount_by_source_type,
+  s_balance_detail,
+  s_balance_transaction,
+  s_bank_account,
+  s_bank_connections_resource_accountholder,
+  s_bank_connections_resource_balance,
+  s_bank_connections_resource_balance_api_resource_cash_balance,
+  s_bank_connections_resource_balance_api_resource_credit_balance,
+  s_bank_connections_resource_balance_refresh,
+  s_bank_connections_resource_link_account_session_filters,
+  s_bank_connections_resource_ownership_refresh,
+  s_billing_details,
+  s_billing_portal_configuration,
+  s_billing_portal_session,
+  s_cancellation_details,
+  s_capability,
+  s_card,
+  s_card_generated_from_payment_method_details,
+  s_card_issuing_account_terms_of_service,
+  s_card_mandate_payment_method_details,
+  s_cash_balance,
+  s_charge,
+  s_charge_fraud_details,
+  s_charge_outcome,
+  s_charge_transfer_data,
+  s_checkout_acss_debit_mandate_options,
+  s_checkout_acss_debit_payment_method_options,
+  s_checkout_affirm_payment_method_options,
+  s_checkout_afterpay_clearpay_payment_method_options,
+  s_checkout_alipay_payment_method_options,
+  s_checkout_au_becs_debit_payment_method_options,
+  s_checkout_bacs_debit_payment_method_options,
+  s_checkout_bancontact_payment_method_options,
+  s_checkout_boleto_payment_method_options,
+  s_checkout_card_installments_options,
+  s_checkout_card_payment_method_options,
+  s_checkout_cashapp_payment_method_options,
+  s_checkout_customer_balance_bank_transfer_payment_method_options,
+  s_checkout_customer_balance_payment_method_options,
+  s_checkout_eps_payment_method_options,
+  s_checkout_fpx_payment_method_options,
+  s_checkout_giropay_payment_method_options,
+  s_checkout_grab_pay_payment_method_options,
+  s_checkout_ideal_payment_method_options,
+  s_checkout_klarna_payment_method_options,
+  s_checkout_konbini_payment_method_options,
+  s_checkout_link_payment_method_options,
+  s_checkout_oxxo_payment_method_options,
+  s_checkout_p24_payment_method_options,
+  s_checkout_paynow_payment_method_options,
+  s_checkout_pix_payment_method_options,
+  s_checkout_sepa_debit_payment_method_options,
+  s_checkout_session,
+  s_checkout_session_payment_method_options,
+  s_checkout_sofort_payment_method_options,
+  s_checkout_us_bank_account_payment_method_options,
+  s_connect_collection_transfer,
+  s_connect_embedded_account_session_create_components,
+  s_connect_embedded_base_config_claim,
+  s_country_spec,
+  s_country_spec_verification_field_details,
+  s_country_spec_verification_fields,
+  s_coupon,
+  s_coupon_applies_to,
+  s_credit_note,
+  s_credit_note_line_item,
+  s_credit_note_tax_amount,
+  s_custom_unit_amount,
+  s_customer,
+  s_customer_acceptance,
+  s_customer_balance_customer_balance_settings,
+  s_customer_balance_resource_cash_balance_transaction_resource_adjusted_for_overdraft,
+  s_customer_balance_resource_cash_balance_transaction_resource_applied_to_payment_transaction,
+  s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction,
+  s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer,
+  s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_eu_bank_transfer,
+  s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_gb_bank_transfer,
+  s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_jp_bank_transfer,
+  s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_us_bank_transfer,
+  s_customer_balance_resource_cash_balance_transaction_resource_refunded_from_payment_transaction,
+  s_customer_balance_resource_cash_balance_transaction_resource_unapplied_from_payment_transaction,
+  s_customer_balance_transaction,
+  s_customer_cash_balance_transaction,
+  s_customer_tax,
+  s_customer_tax_location,
+  s_deleted_account,
+  s_deleted_apple_pay_domain,
+  s_deleted_application,
+  s_deleted_bank_account,
+  s_deleted_card,
+  s_deleted_coupon,
+  s_deleted_customer,
+  s_deleted_discount,
+  s_deleted_external_account,
+  s_deleted_invoice,
+  s_deleted_invoiceitem,
+  s_deleted_payment_source,
+  s_deleted_person,
+  s_deleted_plan,
+  s_deleted_price,
+  s_deleted_product,
+  s_deleted_radar_value_list,
+  s_deleted_radar_value_list_item,
+  s_deleted_subscription_item,
+  s_deleted_tax_id,
+  s_deleted_terminal_configuration,
+  s_deleted_terminal_location,
+  s_deleted_terminal_reader,
+  s_deleted_test_helpers_test_clock,
+  s_deleted_webhook_endpoint,
+  s_discount,
+  s_discounts_resource_discount_amount,
+  s_dispute,
+  s_dispute_evidence,
+  s_dispute_evidence_details,
+  s_dispute_payment_method_details,
+  s_dispute_payment_method_details_card,
+  s_email_sent,
+  s_ephemeral_key,
+  s_error,
+  s_event,
+  s_exchange_rate,
+  s_external_account,
+  s_external_account_requirements,
+  s_fee,
+  s_fee_refund,
+  s_file,
+  s_file_link,
+  s_financial_connections_account,
+  s_financial_connections_account_owner,
+  s_financial_connections_account_ownership,
+  s_financial_connections_session,
+  s_financial_reporting_finance_report_run_run_parameters,
+  s_funding_instructions,
+  s_funding_instructions_bank_transfer,
+  s_funding_instructions_bank_transfer_financial_address,
+  s_funding_instructions_bank_transfer_iban_record,
+  s_funding_instructions_bank_transfer_sort_code_record,
+  s_funding_instructions_bank_transfer_spei_record,
+  s_funding_instructions_bank_transfer_zengin_record,
+  s_gelato_data_document_report_date_of_birth,
+  s_gelato_data_document_report_expiration_date,
+  s_gelato_data_document_report_issued_date,
+  s_gelato_data_id_number_report_date,
+  s_gelato_data_verified_outputs_date,
+  s_gelato_document_report,
+  s_gelato_document_report_error,
+  s_gelato_id_number_report,
+  s_gelato_id_number_report_error,
+  s_gelato_report_document_options,
+  s_gelato_report_id_number_options,
+  s_gelato_selfie_report,
+  s_gelato_selfie_report_error,
+  s_gelato_session_document_options,
+  s_gelato_session_id_number_options,
+  s_gelato_session_last_error,
+  s_gelato_verification_report_options,
+  s_gelato_verification_session_options,
+  s_gelato_verified_outputs,
+  s_identity_verification_report,
+  s_identity_verification_session,
+  s_inbound_transfers,
+  s_inbound_transfers_payment_method_details_us_bank_account,
+  s_invoice,
+  s_invoice_installments_card,
+  s_invoice_item_threshold_reason,
+  s_invoice_line_item_period,
+  s_invoice_mandate_options_card,
+  s_invoice_payment_method_options_acss_debit,
+  s_invoice_payment_method_options_acss_debit_mandate_options,
+  s_invoice_payment_method_options_bancontact,
+  s_invoice_payment_method_options_card,
+  s_invoice_payment_method_options_customer_balance,
+  s_invoice_payment_method_options_customer_balance_bank_transfer,
+  s_invoice_payment_method_options_customer_balance_bank_transfer_eu_bank_transfer,
+  s_invoice_payment_method_options_konbini,
+  s_invoice_payment_method_options_us_bank_account,
+  s_invoice_payment_method_options_us_bank_account_linked_account_options,
+  s_invoice_rendering_pdf,
+  s_invoice_setting_custom_field,
+  s_invoice_setting_customer_setting,
+  s_invoice_setting_quote_setting,
+  s_invoice_setting_rendering_options,
+  s_invoice_setting_subscription_schedule_phase_setting,
+  s_invoice_setting_subscription_schedule_setting,
+  s_invoice_tax_amount,
+  s_invoice_threshold_reason,
+  s_invoice_transfer_data,
+  s_invoiceitem,
+  s_invoices_from_invoice,
+  s_invoices_invoice_rendering,
+  s_invoices_payment_method_options,
+  s_invoices_payment_settings,
+  s_invoices_resource_invoice_tax_id,
+  s_invoices_resource_line_items_credited_items,
+  s_invoices_resource_line_items_proration_details,
+  s_invoices_shipping_cost,
+  s_invoices_status_transitions,
+  s_issuing_authorization,
+  s_issuing_authorization_amount_details,
+  s_issuing_authorization_merchant_data,
+  s_issuing_authorization_network_data,
+  s_issuing_authorization_pending_request,
+  s_issuing_authorization_request,
+  s_issuing_authorization_treasury,
+  s_issuing_authorization_verification_data,
+  s_issuing_card,
+  s_issuing_card_apple_pay,
+  s_issuing_card_authorization_controls,
+  s_issuing_card_google_pay,
+  s_issuing_card_shipping,
+  s_issuing_card_shipping_customs,
+  s_issuing_card_spending_limit,
+  s_issuing_card_wallets,
+  s_issuing_cardholder,
+  s_issuing_cardholder_address,
+  s_issuing_cardholder_authorization_controls,
+  s_issuing_cardholder_card_issuing,
+  s_issuing_cardholder_company,
+  s_issuing_cardholder_id_document,
+  s_issuing_cardholder_individual,
+  s_issuing_cardholder_individual_dob,
+  s_issuing_cardholder_requirements,
+  s_issuing_cardholder_spending_limit,
+  s_issuing_cardholder_user_terms_acceptance,
+  s_issuing_cardholder_verification,
+  s_issuing_dispute,
+  s_issuing_dispute_canceled_evidence,
+  s_issuing_dispute_duplicate_evidence,
+  s_issuing_dispute_evidence,
+  s_issuing_dispute_fraudulent_evidence,
+  s_issuing_dispute_merchandise_not_as_described_evidence,
+  s_issuing_dispute_not_received_evidence,
+  s_issuing_dispute_other_evidence,
+  s_issuing_dispute_service_not_as_described_evidence,
+  s_issuing_dispute_treasury,
+  s_issuing_settlement,
+  s_issuing_transaction,
+  s_issuing_transaction_amount_details,
+  s_issuing_transaction_flight_data,
+  s_issuing_transaction_flight_data_leg,
+  s_issuing_transaction_fuel_data,
+  s_issuing_transaction_lodging_data,
+  s_issuing_transaction_purchase_details,
+  s_issuing_transaction_receipt_data,
+  s_issuing_transaction_treasury,
+  s_item,
+  s_legal_entity_company,
+  s_legal_entity_company_verification,
+  s_legal_entity_company_verification_document,
+  s_legal_entity_dob,
+  s_legal_entity_japan_address,
+  s_legal_entity_person_verification,
+  s_legal_entity_person_verification_document,
+  s_legal_entity_ubo_declaration,
+  s_line_item,
+  s_line_items_discount_amount,
+  s_line_items_tax_amount,
+  s_linked_account_options_us_bank_account,
+  s_login_link,
+  s_mandate,
+  s_mandate_acss_debit,
+  s_mandate_au_becs_debit,
+  s_mandate_bacs_debit,
+  s_mandate_cashapp,
+  s_mandate_link,
+  s_mandate_multi_use,
+  s_mandate_payment_method_details,
+  s_mandate_paypal,
+  s_mandate_sepa_debit,
+  s_mandate_single_use,
+  s_mandate_us_bank_account,
+  s_networks,
+  s_notification_event_data,
+  s_notification_event_request,
+  s_offline_acceptance,
+  s_online_acceptance,
+  s_outbound_payments_payment_method_details,
+  s_outbound_payments_payment_method_details_financial_account,
+  s_outbound_payments_payment_method_details_us_bank_account,
+  s_outbound_transfers_payment_method_details,
+  s_outbound_transfers_payment_method_details_us_bank_account,
+  s_package_dimensions,
+  s_payment_flows_amount_details,
+  s_payment_flows_amount_details_resource_tip,
+  s_payment_flows_automatic_payment_methods_payment_intent,
+  s_payment_flows_automatic_payment_methods_setup_intent,
+  s_payment_flows_installment_options,
+  s_payment_flows_private_payment_methods_alipay,
+  s_payment_flows_private_payment_methods_alipay_details,
+  s_payment_flows_private_payment_methods_klarna_dob,
+  s_payment_intent,
+  s_payment_intent_card_processing,
+  s_payment_intent_next_action,
+  s_payment_intent_next_action_alipay_handle_redirect,
+  s_payment_intent_next_action_boleto,
+  s_payment_intent_next_action_card_await_notification,
+  s_payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code,
+  s_payment_intent_next_action_cashapp_qr_code,
+  s_payment_intent_next_action_display_bank_transfer_instructions,
+  s_payment_intent_next_action_display_oxxo_details,
+  s_payment_intent_next_action_konbini,
+  s_payment_intent_next_action_konbini_familymart,
+  s_payment_intent_next_action_konbini_lawson,
+  s_payment_intent_next_action_konbini_ministop,
+  s_payment_intent_next_action_konbini_seicomart,
+  s_payment_intent_next_action_konbini_stores,
+  s_payment_intent_next_action_paynow_display_qr_code,
+  s_payment_intent_next_action_pix_display_qr_code,
+  s_payment_intent_next_action_promptpay_display_qr_code,
+  s_payment_intent_next_action_redirect_to_url,
+  s_payment_intent_next_action_verify_with_microdeposits,
+  s_payment_intent_next_action_wechat_pay_display_qr_code,
+  s_payment_intent_next_action_wechat_pay_redirect_to_android_app,
+  s_payment_intent_next_action_wechat_pay_redirect_to_ios_app,
+  s_payment_intent_payment_method_options,
+  s_payment_intent_payment_method_options_acss_debit,
+  s_payment_intent_payment_method_options_au_becs_debit,
+  s_payment_intent_payment_method_options_blik,
+  s_payment_intent_payment_method_options_card,
+  s_payment_intent_payment_method_options_eps,
+  s_payment_intent_payment_method_options_link,
+  s_payment_intent_payment_method_options_mandate_options_acss_debit,
+  s_payment_intent_payment_method_options_mandate_options_sepa_debit,
+  s_payment_intent_payment_method_options_sepa_debit,
+  s_payment_intent_payment_method_options_us_bank_account,
+  s_payment_intent_processing,
+  s_payment_intent_processing_customer_notification,
+  s_payment_intent_type_specific_payment_method_options_client,
+  s_payment_link,
+  s_payment_links_resource_after_completion,
+  s_payment_links_resource_automatic_tax,
+  s_payment_links_resource_completion_behavior_confirmation_page,
+  s_payment_links_resource_completion_behavior_redirect,
+  s_payment_links_resource_consent_collection,
+  s_payment_links_resource_custom_fields,
+  s_payment_links_resource_custom_fields_dropdown,
+  s_payment_links_resource_custom_fields_dropdown_option,
+  s_payment_links_resource_custom_fields_label,
+  s_payment_links_resource_custom_fields_numeric,
+  s_payment_links_resource_custom_fields_text,
+  s_payment_links_resource_custom_text,
+  s_payment_links_resource_custom_text_position,
+  s_payment_links_resource_invoice_creation,
+  s_payment_links_resource_invoice_settings,
+  s_payment_links_resource_payment_intent_data,
+  s_payment_links_resource_phone_number_collection,
+  s_payment_links_resource_shipping_address_collection,
+  s_payment_links_resource_shipping_option,
+  s_payment_links_resource_subscription_data,
+  s_payment_links_resource_tax_id_collection,
+  s_payment_links_resource_transfer_data,
+  s_payment_method,
+  s_payment_method_acss_debit,
+  s_payment_method_affirm,
+  s_payment_method_afterpay_clearpay,
+  s_payment_method_au_becs_debit,
+  s_payment_method_bacs_debit,
+  s_payment_method_bancontact,
+  s_payment_method_blik,
+  s_payment_method_boleto,
+  s_payment_method_card,
+  s_payment_method_card_checks,
+  s_payment_method_card_generated_card,
+  s_payment_method_card_present,
+  s_payment_method_card_present_networks,
+  s_payment_method_card_wallet,
+  s_payment_method_card_wallet_amex_express_checkout,
+  s_payment_method_card_wallet_apple_pay,
+  s_payment_method_card_wallet_google_pay,
+  s_payment_method_card_wallet_link,
+  s_payment_method_card_wallet_masterpass,
+  s_payment_method_card_wallet_samsung_pay,
+  s_payment_method_card_wallet_visa_checkout,
+  s_payment_method_cashapp,
+  s_payment_method_config_biz_payment_method_configuration_details,
+  s_payment_method_config_resource_display_preference,
+  s_payment_method_config_resource_payment_method_properties,
+  s_payment_method_configuration,
+  s_payment_method_customer_balance,
+  s_payment_method_details,
+  s_payment_method_details_ach_credit_transfer,
+  s_payment_method_details_ach_debit,
+  s_payment_method_details_acss_debit,
+  s_payment_method_details_affirm,
+  s_payment_method_details_afterpay_clearpay,
+  s_payment_method_details_au_becs_debit,
+  s_payment_method_details_bacs_debit,
+  s_payment_method_details_bancontact,
+  s_payment_method_details_blik,
+  s_payment_method_details_boleto,
+  s_payment_method_details_card,
+  s_payment_method_details_card_checks,
+  s_payment_method_details_card_installments,
+  s_payment_method_details_card_installments_plan,
+  s_payment_method_details_card_network_token,
+  s_payment_method_details_card_present,
+  s_payment_method_details_card_present_receipt,
+  s_payment_method_details_card_wallet,
+  s_payment_method_details_card_wallet_amex_express_checkout,
+  s_payment_method_details_card_wallet_apple_pay,
+  s_payment_method_details_card_wallet_google_pay,
+  s_payment_method_details_card_wallet_link,
+  s_payment_method_details_card_wallet_masterpass,
+  s_payment_method_details_card_wallet_samsung_pay,
+  s_payment_method_details_card_wallet_visa_checkout,
+  s_payment_method_details_cashapp,
+  s_payment_method_details_customer_balance,
+  s_payment_method_details_eps,
+  s_payment_method_details_fpx,
+  s_payment_method_details_giropay,
+  s_payment_method_details_grabpay,
+  s_payment_method_details_ideal,
+  s_payment_method_details_interac_present,
+  s_payment_method_details_interac_present_receipt,
+  s_payment_method_details_klarna,
+  s_payment_method_details_konbini,
+  s_payment_method_details_konbini_store,
+  s_payment_method_details_link,
+  s_payment_method_details_multibanco,
+  s_payment_method_details_oxxo,
+  s_payment_method_details_p24,
+  s_payment_method_details_paynow,
+  s_payment_method_details_paypal,
+  s_payment_method_details_pix,
+  s_payment_method_details_promptpay,
+  s_payment_method_details_sepa_debit,
+  s_payment_method_details_sofort,
+  s_payment_method_details_stripe_account,
+  s_payment_method_details_us_bank_account,
+  s_payment_method_details_wechat,
+  s_payment_method_details_wechat_pay,
+  s_payment_method_details_zip,
+  s_payment_method_domain,
+  s_payment_method_domain_resource_payment_method_status,
+  s_payment_method_domain_resource_payment_method_status_details,
+  s_payment_method_eps,
+  s_payment_method_fpx,
+  s_payment_method_giropay,
+  s_payment_method_grabpay,
+  s_payment_method_ideal,
+  s_payment_method_interac_present,
+  s_payment_method_klarna,
+  s_payment_method_konbini,
+  s_payment_method_link,
+  s_payment_method_options_affirm,
+  s_payment_method_options_afterpay_clearpay,
+  s_payment_method_options_alipay,
+  s_payment_method_options_bacs_debit,
+  s_payment_method_options_bancontact,
+  s_payment_method_options_boleto,
+  s_payment_method_options_card_installments,
+  s_payment_method_options_card_mandate_options,
+  s_payment_method_options_card_present,
+  s_payment_method_options_cashapp,
+  s_payment_method_options_customer_balance,
+  s_payment_method_options_customer_balance_bank_transfer,
+  s_payment_method_options_customer_balance_eu_bank_account,
+  s_payment_method_options_fpx,
+  s_payment_method_options_giropay,
+  s_payment_method_options_grabpay,
+  s_payment_method_options_ideal,
+  s_payment_method_options_interac_present,
+  s_payment_method_options_klarna,
+  s_payment_method_options_konbini,
+  s_payment_method_options_oxxo,
+  s_payment_method_options_p24,
+  s_payment_method_options_paynow,
+  s_payment_method_options_paypal,
+  s_payment_method_options_pix,
+  s_payment_method_options_promptpay,
+  s_payment_method_options_sofort,
+  s_payment_method_options_wechat_pay,
+  s_payment_method_options_zip,
+  s_payment_method_oxxo,
+  s_payment_method_p24,
+  s_payment_method_paynow,
+  s_payment_method_paypal,
+  s_payment_method_pix,
+  s_payment_method_promptpay,
+  s_payment_method_sepa_debit,
+  s_payment_method_sofort,
+  s_payment_method_us_bank_account,
+  s_payment_method_us_bank_account_blocked,
+  s_payment_method_us_bank_account_status_details,
+  s_payment_method_wechat_pay,
+  s_payment_method_zip,
+  s_payment_pages_checkout_session_after_expiration,
+  s_payment_pages_checkout_session_after_expiration_recovery,
+  s_payment_pages_checkout_session_automatic_tax,
+  s_payment_pages_checkout_session_consent,
+  s_payment_pages_checkout_session_consent_collection,
+  s_payment_pages_checkout_session_currency_conversion,
+  s_payment_pages_checkout_session_custom_fields,
+  s_payment_pages_checkout_session_custom_fields_dropdown,
+  s_payment_pages_checkout_session_custom_fields_label,
+  s_payment_pages_checkout_session_custom_fields_numeric,
+  s_payment_pages_checkout_session_custom_fields_option,
+  s_payment_pages_checkout_session_custom_fields_text,
+  s_payment_pages_checkout_session_custom_text,
+  s_payment_pages_checkout_session_custom_text_position,
+  s_payment_pages_checkout_session_customer_details,
+  s_payment_pages_checkout_session_invoice_creation,
+  s_payment_pages_checkout_session_invoice_settings,
+  s_payment_pages_checkout_session_phone_number_collection,
+  s_payment_pages_checkout_session_shipping_address_collection,
+  s_payment_pages_checkout_session_shipping_cost,
+  s_payment_pages_checkout_session_shipping_option,
+  s_payment_pages_checkout_session_tax_id,
+  s_payment_pages_checkout_session_tax_id_collection,
+  s_payment_pages_checkout_session_total_details,
+  s_payment_pages_checkout_session_total_details_resource_breakdown,
+  s_payment_source,
+  s_payout,
+  s_paypal_seller_protection,
+  s_period,
+  s_person,
+  s_person_future_requirements,
+  s_person_relationship,
+  s_person_requirements,
+  s_plan,
+  s_plan_tier,
+  s_platform_tax_fee,
+  s_portal_business_profile,
+  s_portal_customer_update,
+  s_portal_features,
+  s_portal_flows_after_completion_hosted_confirmation,
+  s_portal_flows_after_completion_redirect,
+  s_portal_flows_coupon_offer,
+  s_portal_flows_flow,
+  s_portal_flows_flow_after_completion,
+  s_portal_flows_flow_subscription_cancel,
+  s_portal_flows_flow_subscription_update,
+  s_portal_flows_flow_subscription_update_confirm,
+  s_portal_flows_retention,
+  s_portal_flows_subscription_update_confirm_discount,
+  s_portal_flows_subscription_update_confirm_item,
+  s_portal_invoice_list,
+  s_portal_login_page,
+  s_portal_payment_method_update,
+  s_portal_subscription_cancel,
+  s_portal_subscription_cancellation_reason,
+  s_portal_subscription_pause,
+  s_portal_subscription_update,
+  s_portal_subscription_update_product,
+  s_price,
+  s_price_tier,
+  s_product,
+  s_product_feature,
+  s_promotion_code,
+  s_promotion_codes_resource_restrictions,
+  s_quote,
+  s_quotes_resource_automatic_tax,
+  s_quotes_resource_computed,
+  s_quotes_resource_from_quote,
+  s_quotes_resource_recurring,
+  s_quotes_resource_status_transitions,
+  s_quotes_resource_subscription_data_subscription_data,
+  s_quotes_resource_total_details,
+  s_quotes_resource_total_details_resource_breakdown,
+  s_quotes_resource_transfer_data,
+  s_quotes_resource_upfront,
+  s_radar_early_fraud_warning,
+  s_radar_radar_options,
+  s_radar_review_resource_location,
+  s_radar_review_resource_session,
+  s_radar_value_list,
+  s_radar_value_list_item,
+  s_received_payment_method_details_financial_account,
+  s_recurring,
+  s_refund,
+  s_refund_next_action,
+  s_refund_next_action_display_details,
+  s_reporting_report_run,
+  s_reporting_report_type,
+  s_reserve_transaction,
+  s_review,
+  s_rule,
+  s_scheduled_query_run,
+  s_schedules_phase_automatic_tax,
+  s_secret_service_resource_scope,
+  s_sepa_debit_generated_from,
+  s_setup_attempt,
+  s_setup_attempt_payment_method_details,
+  s_setup_attempt_payment_method_details_acss_debit,
+  s_setup_attempt_payment_method_details_au_becs_debit,
+  s_setup_attempt_payment_method_details_bacs_debit,
+  s_setup_attempt_payment_method_details_bancontact,
+  s_setup_attempt_payment_method_details_boleto,
+  s_setup_attempt_payment_method_details_card,
+  s_setup_attempt_payment_method_details_card_present,
+  s_setup_attempt_payment_method_details_card_wallet,
+  s_setup_attempt_payment_method_details_cashapp,
+  s_setup_attempt_payment_method_details_ideal,
+  s_setup_attempt_payment_method_details_klarna,
+  s_setup_attempt_payment_method_details_link,
+  s_setup_attempt_payment_method_details_paypal,
+  s_setup_attempt_payment_method_details_sepa_debit,
+  s_setup_attempt_payment_method_details_sofort,
+  s_setup_attempt_payment_method_details_us_bank_account,
+  s_setup_intent,
+  s_setup_intent_next_action,
+  s_setup_intent_next_action_redirect_to_url,
+  s_setup_intent_next_action_verify_with_microdeposits,
+  s_setup_intent_payment_method_options,
+  s_setup_intent_payment_method_options_acss_debit,
+  s_setup_intent_payment_method_options_card,
+  s_setup_intent_payment_method_options_card_mandate_options,
+  s_setup_intent_payment_method_options_link,
+  s_setup_intent_payment_method_options_mandate_options_acss_debit,
+  s_setup_intent_payment_method_options_mandate_options_sepa_debit,
+  s_setup_intent_payment_method_options_paypal,
+  s_setup_intent_payment_method_options_sepa_debit,
+  s_setup_intent_payment_method_options_us_bank_account,
+  s_setup_intent_type_specific_payment_method_options_client,
+  s_shipping,
+  s_shipping_rate,
+  s_shipping_rate_delivery_estimate,
+  s_shipping_rate_delivery_estimate_bound,
+  s_shipping_rate_fixed_amount,
+  s_sigma_scheduled_query_run_error,
+  s_source,
+  s_source_code_verification_flow,
+  s_source_mandate_notification,
+  s_source_mandate_notification_acss_debit_data,
+  s_source_mandate_notification_bacs_debit_data,
+  s_source_mandate_notification_sepa_debit_data,
+  s_source_order,
+  s_source_order_item,
+  s_source_owner,
+  s_source_receiver_flow,
+  s_source_redirect_flow,
+  s_source_transaction,
+  s_source_transaction_ach_credit_transfer_data,
+  s_source_transaction_chf_credit_transfer_data,
+  s_source_transaction_gbp_credit_transfer_data,
+  s_source_transaction_paper_check_data,
+  s_source_transaction_sepa_credit_transfer_data,
+  s_source_type_ach_credit_transfer,
+  s_source_type_ach_debit,
+  s_source_type_acss_debit,
+  s_source_type_alipay,
+  s_source_type_au_becs_debit,
+  s_source_type_bancontact,
+  s_source_type_card,
+  s_source_type_card_present,
+  s_source_type_eps,
+  s_source_type_giropay,
+  s_source_type_ideal,
+  s_source_type_klarna,
+  s_source_type_multibanco,
+  s_source_type_p24,
+  s_source_type_sepa_debit,
+  s_source_type_sofort,
+  s_source_type_three_d_secure,
+  s_source_type_wechat,
+  s_subscription,
+  s_subscription_automatic_tax,
+  s_subscription_billing_thresholds,
+  s_subscription_details_data,
+  s_subscription_item,
+  s_subscription_item_billing_thresholds,
+  s_subscription_payment_method_options_card,
+  s_subscription_pending_invoice_item_interval,
+  s_subscription_schedule,
+  s_subscription_schedule_add_invoice_item,
+  s_subscription_schedule_configuration_item,
+  s_subscription_schedule_current_phase,
+  s_subscription_schedule_phase_configuration,
+  s_subscription_schedules_resource_default_settings,
+  s_subscription_schedules_resource_default_settings_automatic_tax,
+  s_subscription_transfer_data,
+  s_subscriptions_resource_pause_collection,
+  s_subscriptions_resource_payment_method_options,
+  s_subscriptions_resource_payment_settings,
+  s_subscriptions_resource_pending_update,
+  s_subscriptions_trials_resource_end_behavior,
+  s_subscriptions_trials_resource_trial_settings,
+  s_tax_calculation,
+  s_tax_calculation_line_item,
+  s_tax_code,
+  s_tax_deducted_at_source,
+  s_tax_id,
+  s_tax_id_verification,
+  s_tax_product_resource_customer_details,
+  s_tax_product_resource_customer_details_resource_tax_id,
+  s_tax_product_resource_jurisdiction,
+  s_tax_product_resource_line_item_tax_breakdown,
+  s_tax_product_resource_line_item_tax_rate_details,
+  s_tax_product_resource_postal_address,
+  s_tax_product_resource_tax_breakdown,
+  s_tax_product_resource_tax_calculation_shipping_cost,
+  s_tax_product_resource_tax_rate_details,
+  s_tax_product_resource_tax_settings_defaults,
+  s_tax_product_resource_tax_settings_head_office,
+  s_tax_product_resource_tax_settings_status_details,
+  s_tax_product_resource_tax_settings_status_details_resource_active,
+  s_tax_product_resource_tax_settings_status_details_resource_pending,
+  s_tax_product_resource_tax_transaction_line_item_resource_reversal,
+  s_tax_product_resource_tax_transaction_resource_reversal,
+  s_tax_product_resource_tax_transaction_shipping_cost,
+  s_tax_rate,
+  s_tax_settings,
+  s_tax_transaction,
+  s_tax_transaction_line_item,
+  s_terminal_configuration,
+  s_terminal_configuration_configuration_resource_currency_specific_config,
+  s_terminal_configuration_configuration_resource_device_type_specific_config,
+  s_terminal_configuration_configuration_resource_tipping,
+  s_terminal_connection_token,
+  s_terminal_location,
+  s_terminal_reader,
+  s_terminal_reader_reader_resource_cart,
+  s_terminal_reader_reader_resource_line_item,
+  s_terminal_reader_reader_resource_process_config,
+  s_terminal_reader_reader_resource_process_payment_intent_action,
+  s_terminal_reader_reader_resource_process_setup_config,
+  s_terminal_reader_reader_resource_process_setup_intent_action,
+  s_terminal_reader_reader_resource_reader_action,
+  s_terminal_reader_reader_resource_refund_payment_action,
+  s_terminal_reader_reader_resource_set_reader_display_action,
+  s_terminal_reader_reader_resource_tipping_config,
+  s_test_helpers_test_clock,
+  s_three_d_secure_details,
+  s_three_d_secure_details_charge,
+  s_three_d_secure_usage,
+  s_token,
+  s_topup,
+  s_transfer,
+  s_transfer_data,
+  s_transfer_reversal,
+  s_transfer_schedule,
+  s_transform_quantity,
+  s_transform_usage,
+  s_treasury_credit_reversal,
+  s_treasury_debit_reversal,
+  s_treasury_financial_account,
+  s_treasury_financial_account_features,
+  s_treasury_financial_accounts_resource_aba_record,
+  s_treasury_financial_accounts_resource_aba_toggle_settings,
+  s_treasury_financial_accounts_resource_ach_toggle_settings,
+  s_treasury_financial_accounts_resource_balance,
+  s_treasury_financial_accounts_resource_closed_status_details,
+  s_treasury_financial_accounts_resource_financial_address,
+  s_treasury_financial_accounts_resource_financial_addresses_features,
+  s_treasury_financial_accounts_resource_inbound_transfers,
+  s_treasury_financial_accounts_resource_outbound_payments,
+  s_treasury_financial_accounts_resource_outbound_transfers,
+  s_treasury_financial_accounts_resource_platform_restrictions,
+  s_treasury_financial_accounts_resource_status_details,
+  s_treasury_financial_accounts_resource_toggle_settings,
+  s_treasury_financial_accounts_resource_toggles_setting_status_details,
+  s_treasury_inbound_transfer,
+  s_treasury_inbound_transfers_resource_failure_details,
+  s_treasury_inbound_transfers_resource_inbound_transfer_resource_linked_flows,
+  s_treasury_inbound_transfers_resource_inbound_transfer_resource_status_transitions,
+  s_treasury_outbound_payment,
+  s_treasury_outbound_payments_resource_outbound_payment_resource_end_user_details,
+  s_treasury_outbound_payments_resource_outbound_payment_resource_status_transitions,
+  s_treasury_outbound_payments_resource_returned_status,
+  s_treasury_outbound_transfer,
+  s_treasury_outbound_transfers_resource_returned_details,
+  s_treasury_outbound_transfers_resource_status_transitions,
+  s_treasury_received_credit,
+  s_treasury_received_credits_resource_linked_flows,
+  s_treasury_received_credits_resource_reversal_details,
+  s_treasury_received_credits_resource_source_flows_details,
+  s_treasury_received_credits_resource_status_transitions,
+  s_treasury_received_debit,
+  s_treasury_received_debits_resource_debit_reversal_linked_flows,
+  s_treasury_received_debits_resource_linked_flows,
+  s_treasury_received_debits_resource_reversal_details,
+  s_treasury_received_debits_resource_status_transitions,
+  s_treasury_shared_resource_billing_details,
+  s_treasury_shared_resource_initiating_payment_method_details_initiating_payment_method_details,
+  s_treasury_shared_resource_initiating_payment_method_details_us_bank_account,
+  s_treasury_transaction,
+  s_treasury_transaction_entry,
+  s_treasury_transactions_resource_abstract_transaction_resource_status_transitions,
+  s_treasury_transactions_resource_balance_impact,
+  s_treasury_transactions_resource_flow_details,
+  s_us_bank_account_networks,
+  s_usage_record,
+  s_usage_record_summary,
+  s_verification_session_redaction,
+  s_webhook_endpoint,
+} from "./schemas"
+import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
 } from "@nahkies/typescript-axios-runtime/main"
@@ -857,7 +1680,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -866,6 +1689,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_account.parse(res.data) }
   }
 
   async postAccountLinks(
@@ -888,7 +1713,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -897,6 +1722,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_account_link.parse(res.data) }
   }
 
   async postAccountSessions(
@@ -920,7 +1747,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -929,6 +1756,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_account_session.parse(res.data) }
   }
 
   async getAccounts(
@@ -970,7 +1799,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -979,6 +1808,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_account)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postAccounts(
@@ -1391,7 +2232,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -1400,6 +2241,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_account.parse(res.data) }
   }
 
   async deleteAccountsAccount(
@@ -1416,7 +2259,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -1425,6 +2268,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_account.parse(res.data) }
   }
 
   async getAccountsAccount(
@@ -1443,7 +2288,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -1452,6 +2297,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_account.parse(res.data) }
   }
 
   async postAccountsAccount(
@@ -1846,7 +2693,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -1855,6 +2702,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_account.parse(res.data) }
   }
 
   async postAccountsAccountBankAccounts(
@@ -1895,7 +2744,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -1904,6 +2753,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_external_account.parse(res.data) }
   }
 
   async deleteAccountsAccountBankAccountsId(
@@ -1921,7 +2772,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -1930,6 +2781,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_external_account.parse(res.data) }
   }
 
   async getAccountsAccountBankAccountsId(
@@ -1949,7 +2802,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -1958,6 +2811,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_external_account.parse(res.data) }
   }
 
   async postAccountsAccountBankAccountsId(
@@ -2000,7 +2855,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -2009,6 +2864,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_external_account.parse(res.data) }
   }
 
   async getAccountsAccountCapabilities(
@@ -2034,7 +2891,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -2043,6 +2900,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_capability)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getAccountsAccountCapabilitiesCapability(
@@ -2062,7 +2931,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -2071,6 +2940,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_capability.parse(res.data) }
   }
 
   async postAccountsAccountCapabilitiesCapability(
@@ -2091,7 +2962,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -2100,6 +2971,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_capability.parse(res.data) }
   }
 
   async getAccountsAccountExternalAccounts(
@@ -2133,7 +3006,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -2142,6 +3015,20 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(
+            z.union([z.lazy(() => s_bank_account), z.lazy(() => s_card)]),
+          ),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postAccountsAccountExternalAccounts(
@@ -2182,7 +3069,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -2191,6 +3078,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_external_account.parse(res.data) }
   }
 
   async deleteAccountsAccountExternalAccountsId(
@@ -2208,7 +3097,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -2217,6 +3106,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_external_account.parse(res.data) }
   }
 
   async getAccountsAccountExternalAccountsId(
@@ -2236,7 +3127,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -2245,6 +3136,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_external_account.parse(res.data) }
   }
 
   async postAccountsAccountExternalAccountsId(
@@ -2287,7 +3180,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -2296,6 +3189,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_external_account.parse(res.data) }
   }
 
   async postAccountsAccountLoginLinks(
@@ -2314,7 +3209,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -2323,6 +3218,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_login_link.parse(res.data) }
   }
 
   async getAccountsAccountPeople(
@@ -2363,7 +3260,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -2372,6 +3269,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_person)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postAccountsAccountPeople(
@@ -2482,7 +3391,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -2491,6 +3400,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_person.parse(res.data) }
   }
 
   async deleteAccountsAccountPeoplePerson(
@@ -2508,7 +3419,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -2517,6 +3428,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_person.parse(res.data) }
   }
 
   async getAccountsAccountPeoplePerson(
@@ -2536,7 +3449,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -2545,6 +3458,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_person.parse(res.data) }
   }
 
   async postAccountsAccountPeoplePerson(
@@ -2656,7 +3571,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -2665,6 +3580,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_person.parse(res.data) }
   }
 
   async getAccountsAccountPersons(
@@ -2705,7 +3622,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -2714,6 +3631,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_person)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postAccountsAccountPersons(
@@ -2824,7 +3753,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -2833,6 +3762,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_person.parse(res.data) }
   }
 
   async deleteAccountsAccountPersonsPerson(
@@ -2850,7 +3781,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -2859,6 +3790,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_person.parse(res.data) }
   }
 
   async getAccountsAccountPersonsPerson(
@@ -2878,7 +3811,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -2887,6 +3820,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_person.parse(res.data) }
   }
 
   async postAccountsAccountPersonsPerson(
@@ -2998,7 +3933,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3007,6 +3942,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_person.parse(res.data) }
   }
 
   async postAccountsAccountReject(
@@ -3026,7 +3963,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3035,6 +3972,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_account.parse(res.data) }
   }
 
   async getApplePayDomains(
@@ -3069,7 +4008,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3078,6 +4017,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_apple_pay_domain),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postApplePayDomains(
@@ -3096,7 +4047,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3105,6 +4056,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_apple_pay_domain.parse(res.data) }
   }
 
   async deleteApplePayDomainsDomain(
@@ -3121,7 +4074,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -3130,6 +4083,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_apple_pay_domain.parse(res.data) }
   }
 
   async getApplePayDomainsDomain(
@@ -3148,7 +4103,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3157,6 +4112,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_apple_pay_domain.parse(res.data) }
   }
 
   async getApplicationFees(
@@ -3200,7 +4157,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3209,6 +4166,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_application_fee)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getApplicationFeesFeeRefundsId(
@@ -3228,7 +4197,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3237,6 +4206,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_fee_refund.parse(res.data) }
   }
 
   async postApplicationFeesFeeRefundsId(
@@ -3261,7 +4232,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3270,6 +4241,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_fee_refund.parse(res.data) }
   }
 
   async getApplicationFeesId(
@@ -3288,7 +4261,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3297,6 +4270,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_application_fee.parse(res.data) }
   }
 
   async postApplicationFeesIdRefund(
@@ -3317,7 +4292,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3326,6 +4301,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_application_fee.parse(res.data) }
   }
 
   async getApplicationFeesIdRefunds(
@@ -3359,7 +4336,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3368,6 +4345,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_fee_refund)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postApplicationFeesIdRefunds(
@@ -3390,7 +4379,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3399,6 +4388,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_fee_refund.parse(res.data) }
   }
 
   async getAppsSecrets(
@@ -3436,7 +4427,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3445,6 +4436,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_apps_secret),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postAppsSecrets(
@@ -3469,7 +4472,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3478,6 +4481,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_apps_secret.parse(res.data) }
   }
 
   async postAppsSecretsDelete(
@@ -3500,7 +4505,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3509,6 +4514,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_apps_secret.parse(res.data) }
   }
 
   async getAppsSecretsFind(
@@ -3535,7 +4542,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3544,6 +4551,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_apps_secret.parse(res.data) }
   }
 
   async getBalance(
@@ -3561,7 +4570,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3570,6 +4579,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_balance.parse(res.data) }
   }
 
   async getBalanceHistory(
@@ -3619,7 +4630,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3628,6 +4639,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_balance_transaction)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getBalanceHistoryId(
@@ -3646,7 +4669,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3655,6 +4678,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_balance_transaction.parse(res.data) }
   }
 
   async getBalanceTransactions(
@@ -3704,7 +4729,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3713,6 +4738,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_balance_transaction)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getBalanceTransactionsId(
@@ -3731,7 +4768,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3740,6 +4777,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_balance_transaction.parse(res.data) }
   }
 
   async getBillingPortalConfigurations(
@@ -3776,7 +4815,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3785,6 +4824,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_billing_portal_configuration),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postBillingPortalConfigurations(
@@ -3871,7 +4922,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3880,6 +4931,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_billing_portal_configuration.parse(res.data) }
   }
 
   async getBillingPortalConfigurationsConfiguration(
@@ -3898,7 +4951,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3907,6 +4960,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_billing_portal_configuration.parse(res.data) }
   }
 
   async postBillingPortalConfigurationsConfiguration(
@@ -3997,7 +5052,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4006,6 +5061,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_billing_portal_configuration.parse(res.data) }
   }
 
   async postBillingPortalSessions(
@@ -4115,7 +5172,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4124,6 +5181,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_billing_portal_session.parse(res.data) }
   }
 
   async getCharges(
@@ -4171,7 +5230,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -4180,6 +5239,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_charge)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postCharges(
@@ -4261,7 +5332,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4270,6 +5341,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_charge.parse(res.data) }
   }
 
   async getChargesSearch(
@@ -4304,7 +5377,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -4313,6 +5386,20 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_charge)),
+          has_more: z.coerce.boolean(),
+          next_page: z.string().nullable().optional(),
+          object: z.enum(["search_result"]),
+          total_count: z.coerce.number().optional(),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getChargesCharge(
@@ -4331,7 +5418,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -4340,6 +5427,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_charge.parse(res.data) }
   }
 
   async postChargesCharge(
@@ -4384,7 +5473,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4393,6 +5482,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_charge.parse(res.data) }
   }
 
   async postChargesChargeCapture(
@@ -4421,7 +5512,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4430,6 +5521,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_charge.parse(res.data) }
   }
 
   async getChargesChargeDispute(
@@ -4448,7 +5541,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -4457,6 +5550,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_dispute.parse(res.data) }
   }
 
   async postChargesChargeDispute(
@@ -4510,7 +5605,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4519,6 +5614,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_dispute.parse(res.data) }
   }
 
   async postChargesChargeDisputeClose(
@@ -4537,7 +5634,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4546,6 +5643,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_dispute.parse(res.data) }
   }
 
   async postChargesChargeRefund(
@@ -4575,7 +5674,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4584,6 +5683,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_charge.parse(res.data) }
   }
 
   async getChargesChargeRefunds(
@@ -4617,7 +5718,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -4626,6 +5727,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_refund)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postChargesChargeRefunds(
@@ -4658,7 +5771,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4667,6 +5780,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_refund.parse(res.data) }
   }
 
   async getChargesChargeRefundsRefund(
@@ -4686,7 +5801,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -4695,6 +5810,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_refund.parse(res.data) }
   }
 
   async postChargesChargeRefundsRefund(
@@ -4719,7 +5836,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4728,6 +5845,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_refund.parse(res.data) }
   }
 
   async getCheckoutSessions(
@@ -4772,7 +5891,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -4781,6 +5900,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_checkout_session)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postCheckoutSessions(
@@ -5510,7 +6641,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -5519,6 +6650,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_checkout_session.parse(res.data) }
   }
 
   async getCheckoutSessionsSession(
@@ -5537,7 +6670,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -5546,6 +6679,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_checkout_session.parse(res.data) }
   }
 
   async postCheckoutSessionsSessionExpire(
@@ -5564,7 +6699,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -5573,6 +6708,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_checkout_session.parse(res.data) }
   }
 
   async getCheckoutSessionsSessionLineItems(
@@ -5606,7 +6743,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -5615,6 +6752,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_item)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getCountrySpecs(
@@ -5647,7 +6796,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -5656,6 +6805,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_country_spec),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getCountrySpecsCountry(
@@ -5674,7 +6835,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -5683,6 +6844,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_country_spec.parse(res.data) }
   }
 
   async getCoupons(
@@ -5724,7 +6887,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -5733,6 +6896,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_coupon),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postCoupons(
@@ -5772,7 +6947,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -5781,6 +6956,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_coupon.parse(res.data) }
   }
 
   async deleteCouponsCoupon(
@@ -5797,7 +6974,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -5806,6 +6983,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_coupon.parse(res.data) }
   }
 
   async getCouponsCoupon(
@@ -5824,7 +7003,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -5833,6 +7012,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_coupon.parse(res.data) }
   }
 
   async postCouponsCoupon(
@@ -5862,7 +7043,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -5871,6 +7052,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_coupon.parse(res.data) }
   }
 
   async getCreditNotes(
@@ -5907,7 +7090,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -5916,6 +7099,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_credit_note)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postCreditNotes(
@@ -5962,7 +7157,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -5971,6 +7166,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_credit_note.parse(res.data) }
   }
 
   async getCreditNotesPreview(
@@ -6031,7 +7228,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -6040,6 +7237,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_credit_note.parse(res.data) }
   }
 
   async getCreditNotesPreviewLines(
@@ -6113,7 +7312,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -6122,6 +7321,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_credit_note_line_item)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getCreditNotesCreditNoteLines(
@@ -6155,7 +7366,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -6164,6 +7375,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_credit_note_line_item)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getCreditNotesId(
@@ -6182,7 +7405,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -6191,6 +7414,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_credit_note.parse(res.data) }
   }
 
   async postCreditNotesId(
@@ -6213,7 +7438,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6222,6 +7447,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_credit_note.parse(res.data) }
   }
 
   async postCreditNotesIdVoid(
@@ -6240,7 +7467,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6249,6 +7476,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_credit_note.parse(res.data) }
   }
 
   async getCustomers(
@@ -6294,7 +7523,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -6303,6 +7532,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_customer)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postCustomers(
@@ -6459,7 +7700,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6468,6 +7709,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_customer.parse(res.data) }
   }
 
   async getCustomersSearch(
@@ -6502,7 +7745,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -6511,6 +7754,20 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_customer)),
+          has_more: z.coerce.boolean(),
+          next_page: z.string().nullable().optional(),
+          object: z.enum(["search_result"]),
+          total_count: z.coerce.number().optional(),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async deleteCustomersCustomer(
@@ -6527,7 +7784,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -6536,6 +7793,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_customer.parse(res.data) }
   }
 
   async getCustomersCustomer(
@@ -6554,7 +7813,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -6563,6 +7822,13 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .union([z.lazy(() => s_customer), s_deleted_customer])
+        .parse(res.data),
+    }
   }
 
   async postCustomersCustomer(
@@ -6682,7 +7948,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6691,6 +7957,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_customer.parse(res.data) }
   }
 
   async getCustomersCustomerBalanceTransactions(
@@ -6724,7 +7992,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -6733,6 +8001,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_customer_balance_transaction)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postCustomersCustomerBalanceTransactions(
@@ -6759,7 +8039,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6768,6 +8048,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_customer_balance_transaction.parse(res.data) }
   }
 
   async getCustomersCustomerBalanceTransactionsTransaction(
@@ -6787,7 +8069,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -6796,6 +8078,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_customer_balance_transaction.parse(res.data) }
   }
 
   async postCustomersCustomerBalanceTransactionsTransaction(
@@ -6821,7 +8105,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6830,6 +8114,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_customer_balance_transaction.parse(res.data) }
   }
 
   async getCustomersCustomerBankAccounts(
@@ -6863,7 +8149,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -6872,6 +8158,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_bank_account)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postCustomersCustomerBankAccounts(
@@ -6925,7 +8223,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6934,6 +8232,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_source.parse(res.data) }
   }
 
   async deleteCustomersCustomerBankAccountsId(
@@ -6953,7 +8253,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -6962,6 +8262,13 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .union([z.lazy(() => s_payment_source), s_deleted_payment_source])
+        .parse(res.data),
+    }
   }
 
   async getCustomersCustomerBankAccountsId(
@@ -6981,7 +8288,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -6990,6 +8297,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_bank_account.parse(res.data) }
   }
 
   async postCustomersCustomerBankAccountsId(
@@ -7038,7 +8347,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7047,6 +8356,13 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .union([z.lazy(() => s_card), z.lazy(() => s_bank_account), s_source])
+        .parse(res.data),
+    }
   }
 
   async postCustomersCustomerBankAccountsIdVerify(
@@ -7067,7 +8383,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7076,6 +8392,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_bank_account.parse(res.data) }
   }
 
   async getCustomersCustomerCards(
@@ -7109,7 +8427,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7118,6 +8436,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_card)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postCustomersCustomerCards(
@@ -7171,7 +8501,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7180,6 +8510,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_source.parse(res.data) }
   }
 
   async deleteCustomersCustomerCardsId(
@@ -7199,7 +8531,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -7208,6 +8540,13 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .union([z.lazy(() => s_payment_source), s_deleted_payment_source])
+        .parse(res.data),
+    }
   }
 
   async getCustomersCustomerCardsId(
@@ -7227,7 +8566,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7236,6 +8575,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_card.parse(res.data) }
   }
 
   async postCustomersCustomerCardsId(
@@ -7284,7 +8625,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7293,6 +8634,13 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .union([z.lazy(() => s_card), z.lazy(() => s_bank_account), s_source])
+        .parse(res.data),
+    }
   }
 
   async getCustomersCustomerCashBalance(
@@ -7311,7 +8659,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7320,6 +8668,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_cash_balance.parse(res.data) }
   }
 
   async postCustomersCustomerCashBalance(
@@ -7341,7 +8691,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7350,6 +8700,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_cash_balance.parse(res.data) }
   }
 
   async getCustomersCustomerCashBalanceTransactions(
@@ -7383,7 +8735,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7392,6 +8744,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_customer_cash_balance_transaction)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getCustomersCustomerCashBalanceTransactionsTransaction(
@@ -7411,7 +8775,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7420,6 +8784,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_customer_cash_balance_transaction.parse(res.data) }
   }
 
   async deleteCustomersCustomerDiscount(
@@ -7436,7 +8802,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -7445,6 +8811,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_discount.parse(res.data) }
   }
 
   async getCustomersCustomerDiscount(
@@ -7463,7 +8831,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7472,6 +8840,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_discount.parse(res.data) }
   }
 
   async postCustomersCustomerFundingInstructions(
@@ -7504,7 +8874,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7513,6 +8883,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_funding_instructions.parse(res.data) }
   }
 
   async getCustomersCustomerPaymentMethods(
@@ -7579,7 +8951,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7588,6 +8960,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_payment_method)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getCustomersCustomerPaymentMethodsPaymentMethod(
@@ -7607,7 +8991,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7616,6 +9000,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_method.parse(res.data) }
   }
 
   async getCustomersCustomerSources(
@@ -7651,7 +9037,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7660,6 +9046,24 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(
+            z.union([
+              z.lazy(() => s_bank_account),
+              z.lazy(() => s_card),
+              s_source,
+            ]),
+          ),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postCustomersCustomerSources(
@@ -7713,7 +9117,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7722,6 +9126,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_source.parse(res.data) }
   }
 
   async deleteCustomersCustomerSourcesId(
@@ -7741,7 +9147,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -7750,6 +9156,13 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .union([z.lazy(() => s_payment_source), s_deleted_payment_source])
+        .parse(res.data),
+    }
   }
 
   async getCustomersCustomerSourcesId(
@@ -7769,7 +9182,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7778,6 +9191,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_source.parse(res.data) }
   }
 
   async postCustomersCustomerSourcesId(
@@ -7826,7 +9241,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7835,6 +9250,13 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .union([z.lazy(() => s_card), z.lazy(() => s_bank_account), s_source])
+        .parse(res.data),
+    }
   }
 
   async postCustomersCustomerSourcesIdVerify(
@@ -7855,7 +9277,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7864,6 +9286,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_bank_account.parse(res.data) }
   }
 
   async getCustomersCustomerSubscriptions(
@@ -7897,7 +9321,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7906,6 +9330,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_subscription)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postCustomersCustomerSubscriptions(
@@ -8111,7 +9547,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -8120,6 +9556,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_subscription.parse(res.data) }
   }
 
   async deleteCustomersCustomerSubscriptionsSubscriptionExposedId(
@@ -8141,7 +9579,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -8150,6 +9588,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_subscription.parse(res.data) }
   }
 
   async getCustomersCustomerSubscriptionsSubscriptionExposedId(
@@ -8169,7 +9609,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -8178,6 +9618,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_subscription.parse(res.data) }
   }
 
   async postCustomersCustomerSubscriptionsSubscriptionExposedId(
@@ -8408,7 +9850,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -8417,6 +9859,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_subscription.parse(res.data) }
   }
 
   async deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
@@ -8434,7 +9878,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -8443,6 +9887,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_discount.parse(res.data) }
   }
 
   async getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
@@ -8462,7 +9908,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -8471,6 +9917,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_discount.parse(res.data) }
   }
 
   async getCustomersCustomerTaxIds(
@@ -8504,7 +9952,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -8513,6 +9961,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_tax_id)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postCustomersCustomerTaxIds(
@@ -8599,7 +10059,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -8608,6 +10068,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_tax_id.parse(res.data) }
   }
 
   async deleteCustomersCustomerTaxIdsId(
@@ -8625,7 +10087,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -8634,6 +10096,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_tax_id.parse(res.data) }
   }
 
   async getCustomersCustomerTaxIdsId(
@@ -8653,7 +10117,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -8662,6 +10126,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_tax_id.parse(res.data) }
   }
 
   async getDisputes(
@@ -8707,7 +10173,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -8716,6 +10182,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_dispute)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getDisputesDispute(
@@ -8734,7 +10212,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -8743,6 +10221,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_dispute.parse(res.data) }
   }
 
   async postDisputesDispute(
@@ -8796,7 +10276,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -8805,6 +10285,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_dispute.parse(res.data) }
   }
 
   async postDisputesDisputeClose(
@@ -8823,7 +10305,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -8832,6 +10314,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_dispute.parse(res.data) }
   }
 
   async postEphemeralKeys(
@@ -8853,7 +10337,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -8862,6 +10346,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_ephemeral_key.parse(res.data) }
   }
 
   async deleteEphemeralKeysKey(
@@ -8880,7 +10366,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -8889,6 +10375,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_ephemeral_key.parse(res.data) }
   }
 
   async getEvents(
@@ -8936,7 +10424,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -8945,6 +10433,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_event),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getEventsId(
@@ -8963,7 +10463,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -8972,6 +10472,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_event.parse(res.data) }
   }
 
   async getExchangeRates(
@@ -9004,7 +10506,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9013,6 +10515,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_exchange_rate),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getExchangeRatesRateId(
@@ -9031,7 +10545,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9040,6 +10554,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_exchange_rate.parse(res.data) }
   }
 
   async getFileLinks(
@@ -9085,7 +10601,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9094,6 +10610,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_file_link)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postFileLinks(
@@ -9118,7 +10646,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9127,6 +10655,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_file_link.parse(res.data) }
   }
 
   async getFileLinksLink(
@@ -9145,7 +10675,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9154,6 +10684,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_file_link.parse(res.data) }
   }
 
   async postFileLinksLink(
@@ -9178,7 +10710,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9187,6 +10719,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_file_link.parse(res.data) }
   }
 
   async getFiles(
@@ -9245,7 +10779,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9254,6 +10788,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_file)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postFiles(
@@ -9290,7 +10836,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "multipart/form-data" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9299,6 +10845,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_file.parse(res.data) }
   }
 
   async getFilesFile(
@@ -9317,7 +10865,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9326,6 +10874,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_file.parse(res.data) }
   }
 
   async getFinancialConnectionsAccounts(
@@ -9365,7 +10915,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9374,6 +10924,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_financial_connections_account)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getFinancialConnectionsAccountsAccount(
@@ -9392,7 +10954,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9401,6 +10963,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_financial_connections_account.parse(res.data) }
   }
 
   async postFinancialConnectionsAccountsAccountDisconnect(
@@ -9419,7 +10983,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9428,6 +10992,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_financial_connections_account.parse(res.data) }
   }
 
   async getFinancialConnectionsAccountsAccountOwners(
@@ -9463,7 +11029,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9472,6 +11038,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_financial_connections_account_owner),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postFinancialConnectionsAccountsAccountRefresh(
@@ -9491,7 +11069,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9500,6 +11078,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_financial_connections_account.parse(res.data) }
   }
 
   async postFinancialConnectionsSessions(
@@ -9533,7 +11113,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9542,6 +11122,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_financial_connections_session.parse(res.data) }
   }
 
   async getFinancialConnectionsSessionsSession(
@@ -9560,7 +11142,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9569,6 +11151,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_financial_connections_session.parse(res.data) }
   }
 
   async getIdentityVerificationReports(
@@ -9614,7 +11198,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9623,6 +11207,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_identity_verification_report),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getIdentityVerificationReportsReport(
@@ -9641,7 +11237,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9650,6 +11246,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_identity_verification_report.parse(res.data) }
   }
 
   async getIdentityVerificationSessions(
@@ -9693,7 +11291,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9702,6 +11300,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_identity_verification_session),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postIdentityVerificationSessions(
@@ -9734,7 +11344,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9743,6 +11353,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_identity_verification_session.parse(res.data) }
   }
 
   async getIdentityVerificationSessionsSession(
@@ -9761,7 +11373,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9770,6 +11382,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_identity_verification_session.parse(res.data) }
   }
 
   async postIdentityVerificationSessionsSession(
@@ -9802,7 +11416,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9811,6 +11425,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_identity_verification_session.parse(res.data) }
   }
 
   async postIdentityVerificationSessionsSessionCancel(
@@ -9829,7 +11445,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9838,6 +11454,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_identity_verification_session.parse(res.data) }
   }
 
   async postIdentityVerificationSessionsSessionRedact(
@@ -9856,7 +11474,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9865,6 +11483,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_identity_verification_session.parse(res.data) }
   }
 
   async getInvoiceitems(
@@ -9912,7 +11532,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9921,6 +11541,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_invoiceitem)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postInvoiceitems(
@@ -9974,7 +11606,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9983,6 +11615,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_invoiceitem.parse(res.data) }
   }
 
   async deleteInvoiceitemsInvoiceitem(
@@ -9999,7 +11633,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -10008,6 +11642,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_invoiceitem.parse(res.data) }
   }
 
   async getInvoiceitemsInvoiceitem(
@@ -10026,7 +11662,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -10035,6 +11671,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_invoiceitem.parse(res.data) }
   }
 
   async postInvoiceitemsInvoiceitem(
@@ -10085,7 +11723,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -10094,6 +11732,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_invoiceitem.parse(res.data) }
   }
 
   async getInvoices(
@@ -10152,7 +11792,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -10161,6 +11801,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_invoice)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postInvoices(
@@ -10374,7 +12026,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -10383,6 +12035,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_invoice.parse(res.data) }
   }
 
   async getInvoicesSearch(
@@ -10417,7 +12071,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -10426,6 +12080,20 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_invoice)),
+          has_more: z.coerce.boolean(),
+          next_page: z.string().nullable().optional(),
+          object: z.enum(["search_result"]),
+          total_count: z.coerce.number().optional(),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getInvoicesUpcoming(
@@ -10659,7 +12327,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -10668,6 +12336,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_invoice.parse(res.data) }
   }
 
   async getInvoicesUpcomingLines(
@@ -10914,7 +12584,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -10923,6 +12593,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_line_item)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async deleteInvoicesInvoice(
@@ -10939,7 +12621,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -10948,6 +12630,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_invoice.parse(res.data) }
   }
 
   async getInvoicesInvoice(
@@ -10966,7 +12650,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -10975,6 +12659,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_invoice.parse(res.data) }
   }
 
   async postInvoicesInvoice(
@@ -11184,7 +12870,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11193,6 +12879,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_invoice.parse(res.data) }
   }
 
   async postInvoicesInvoiceFinalize(
@@ -11212,7 +12900,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11221,6 +12909,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_invoice.parse(res.data) }
   }
 
   async getInvoicesInvoiceLines(
@@ -11254,7 +12944,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -11263,6 +12953,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_line_item)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postInvoicesInvoiceMarkUncollectible(
@@ -11281,7 +12983,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11290,6 +12992,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_invoice.parse(res.data) }
   }
 
   async postInvoicesInvoicePay(
@@ -11314,7 +13018,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11323,6 +13027,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_invoice.parse(res.data) }
   }
 
   async postInvoicesInvoiceSend(
@@ -11341,7 +13047,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11350,6 +13056,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_invoice.parse(res.data) }
   }
 
   async postInvoicesInvoiceVoid(
@@ -11368,7 +13076,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11377,6 +13085,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_invoice.parse(res.data) }
   }
 
   async getIssuingAuthorizations(
@@ -11424,7 +13134,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -11433,6 +13143,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_issuing_authorization)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getIssuingAuthorizationsAuthorization(
@@ -11451,7 +13173,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -11460,6 +13182,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_authorization.parse(res.data) }
   }
 
   async postIssuingAuthorizationsAuthorization(
@@ -11483,7 +13207,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11492,6 +13216,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_authorization.parse(res.data) }
   }
 
   async postIssuingAuthorizationsAuthorizationApprove(
@@ -11516,7 +13242,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11525,6 +13251,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_authorization.parse(res.data) }
   }
 
   async postIssuingAuthorizationsAuthorizationDecline(
@@ -11548,7 +13276,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11557,6 +13285,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_authorization.parse(res.data) }
   }
 
   async getIssuingCardholders(
@@ -11606,7 +13336,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -11615,6 +13345,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_issuing_cardholder)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postIssuingCardholders(
@@ -12580,7 +14322,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -12589,6 +14331,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_cardholder.parse(res.data) }
   }
 
   async getIssuingCardholdersCardholder(
@@ -12607,7 +14351,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -12616,6 +14360,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_cardholder.parse(res.data) }
   }
 
   async postIssuingCardholdersCardholder(
@@ -13580,7 +15326,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -13589,6 +15335,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_cardholder.parse(res.data) }
   }
 
   async getIssuingCards(
@@ -13642,7 +15390,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -13651,6 +15399,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_issuing_card)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postIssuingCards(
@@ -14599,7 +16359,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -14608,6 +16368,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_card.parse(res.data) }
   }
 
   async getIssuingCardsCard(
@@ -14626,7 +16388,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -14635,6 +16397,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_card.parse(res.data) }
   }
 
   async postIssuingCardsCard(
@@ -15566,7 +17330,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -15575,6 +17339,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_card.parse(res.data) }
   }
 
   async getIssuingDisputes(
@@ -15620,7 +17386,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -15629,6 +17395,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_issuing_dispute)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postIssuingDisputes(
@@ -15730,7 +17508,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -15739,6 +17517,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_dispute.parse(res.data) }
   }
 
   async getIssuingDisputesDispute(
@@ -15757,7 +17537,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -15766,6 +17546,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_dispute.parse(res.data) }
   }
 
   async postIssuingDisputesDispute(
@@ -15866,7 +17648,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -15875,6 +17657,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_dispute.parse(res.data) }
   }
 
   async postIssuingDisputesDisputeSubmit(
@@ -15898,7 +17682,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -15907,6 +17691,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_dispute.parse(res.data) }
   }
 
   async getIssuingSettlements(
@@ -15948,7 +17734,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -15957,6 +17743,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_issuing_settlement),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getIssuingSettlementsSettlement(
@@ -15975,7 +17773,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -15984,6 +17782,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_settlement.parse(res.data) }
   }
 
   async postIssuingSettlementsSettlement(
@@ -16005,7 +17805,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16014,6 +17814,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_settlement.parse(res.data) }
   }
 
   async getIssuingTransactions(
@@ -16061,7 +17863,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -16070,6 +17872,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_issuing_transaction)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getIssuingTransactionsTransaction(
@@ -16088,7 +17902,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -16097,6 +17911,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_transaction.parse(res.data) }
   }
 
   async postIssuingTransactionsTransaction(
@@ -16120,7 +17936,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16129,6 +17945,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_transaction.parse(res.data) }
   }
 
   async postLinkAccountSessions(
@@ -16162,7 +17980,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16171,6 +17989,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_financial_connections_session.parse(res.data) }
   }
 
   async getLinkAccountSessionsSession(
@@ -16189,7 +18009,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -16198,6 +18018,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_financial_connections_session.parse(res.data) }
   }
 
   async getLinkedAccounts(
@@ -16237,7 +18059,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -16246,6 +18068,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_financial_connections_account)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getLinkedAccountsAccount(
@@ -16264,7 +18098,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -16273,6 +18107,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_financial_connections_account.parse(res.data) }
   }
 
   async postLinkedAccountsAccountDisconnect(
@@ -16291,7 +18127,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16300,6 +18136,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_financial_connections_account.parse(res.data) }
   }
 
   async getLinkedAccountsAccountOwners(
@@ -16335,7 +18173,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -16344,6 +18182,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_financial_connections_account_owner),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postLinkedAccountsAccountRefresh(
@@ -16363,7 +18213,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16372,6 +18222,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_financial_connections_account.parse(res.data) }
   }
 
   async getMandatesMandate(
@@ -16390,7 +18242,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -16399,6 +18251,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_mandate.parse(res.data) }
   }
 
   async getPaymentIntents(
@@ -16442,7 +18296,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -16451,6 +18305,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_payment_intent)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postPaymentIntents(
@@ -17086,7 +18952,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -17095,6 +18961,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_intent.parse(res.data) }
   }
 
   async getPaymentIntentsSearch(
@@ -17129,7 +18997,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -17138,6 +19006,20 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_payment_intent)),
+          has_more: z.coerce.boolean(),
+          next_page: z.string().nullable().optional(),
+          object: z.enum(["search_result"]),
+          total_count: z.coerce.number().optional(),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getPaymentIntentsIntent(
@@ -17160,7 +19042,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -17169,6 +19051,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_intent.parse(res.data) }
   }
 
   async postPaymentIntentsIntent(
@@ -17780,7 +19664,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -17789,6 +19673,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_intent.parse(res.data) }
   }
 
   async postPaymentIntentsIntentApplyCustomerBalance(
@@ -17809,7 +19695,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -17818,6 +19704,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_intent.parse(res.data) }
   }
 
   async postPaymentIntentsIntentCancel(
@@ -17841,7 +19729,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -17850,6 +19738,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_intent.parse(res.data) }
   }
 
   async postPaymentIntentsIntentCapture(
@@ -17880,7 +19770,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -17889,6 +19779,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_intent.parse(res.data) }
   }
 
   async postPaymentIntentsIntentConfirm(
@@ -18514,7 +20406,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -18523,6 +20415,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_intent.parse(res.data) }
   }
 
   async postPaymentIntentsIntentIncrementAuthorization(
@@ -18551,7 +20445,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -18560,6 +20454,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_intent.parse(res.data) }
   }
 
   async postPaymentIntentsIntentVerifyMicrodeposits(
@@ -18581,7 +20477,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -18590,6 +20486,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_intent.parse(res.data) }
   }
 
   async getPaymentLinks(
@@ -18624,7 +20522,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -18633,6 +20531,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_payment_link)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postPaymentLinks(
@@ -19046,7 +20956,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -19055,6 +20965,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_link.parse(res.data) }
   }
 
   async getPaymentLinksPaymentLink(
@@ -19073,7 +20985,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -19082,6 +20994,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_link.parse(res.data) }
   }
 
   async postPaymentLinksPaymentLink(
@@ -19473,7 +21387,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -19482,6 +21396,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_link.parse(res.data) }
   }
 
   async getPaymentLinksPaymentLinkLineItems(
@@ -19515,7 +21431,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -19524,6 +21440,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_item)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getPaymentMethodConfigurations(
@@ -19552,7 +21480,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -19561,6 +21489,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_payment_method_configuration),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postPaymentMethodConfigurations(
@@ -19745,7 +21685,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -19754,6 +21694,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_method_configuration.parse(res.data) }
   }
 
   async getPaymentMethodConfigurationsConfiguration(
@@ -19772,7 +21714,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -19781,6 +21723,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_method_configuration.parse(res.data) }
   }
 
   async postPaymentMethodConfigurationsConfiguration(
@@ -19966,7 +21910,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -19975,6 +21919,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_method_configuration.parse(res.data) }
   }
 
   async getPaymentMethodDomains(
@@ -20011,7 +21957,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -20020,6 +21966,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_payment_method_domain),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postPaymentMethodDomains(
@@ -20039,7 +21997,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20048,6 +22006,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_method_domain.parse(res.data) }
   }
 
   async getPaymentMethodDomainsPaymentMethodDomain(
@@ -20066,7 +22026,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -20075,6 +22035,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_method_domain.parse(res.data) }
   }
 
   async postPaymentMethodDomainsPaymentMethodDomain(
@@ -20094,7 +22056,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20103,6 +22065,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_method_domain.parse(res.data) }
   }
 
   async postPaymentMethodDomainsPaymentMethodDomainValidate(
@@ -20121,7 +22085,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20130,6 +22094,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_method_domain.parse(res.data) }
   }
 
   async getPaymentMethods(
@@ -20197,7 +22163,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -20206,6 +22172,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_payment_method)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postPaymentMethods(
@@ -20445,7 +22423,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20454,6 +22432,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_method.parse(res.data) }
   }
 
   async getPaymentMethodsPaymentMethod(
@@ -20472,7 +22452,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -20481,6 +22461,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_method.parse(res.data) }
   }
 
   async postPaymentMethodsPaymentMethod(
@@ -20527,7 +22509,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20536,6 +22518,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_method.parse(res.data) }
   }
 
   async postPaymentMethodsPaymentMethodAttach(
@@ -20555,7 +22539,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20564,6 +22548,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_method.parse(res.data) }
   }
 
   async postPaymentMethodsPaymentMethodDetach(
@@ -20582,7 +22568,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20591,6 +22577,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payment_method.parse(res.data) }
   }
 
   async getPayouts(
@@ -20645,7 +22633,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -20654,6 +22642,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_payout)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postPayouts(
@@ -20681,7 +22681,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20690,6 +22690,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payout.parse(res.data) }
   }
 
   async getPayoutsPayout(
@@ -20708,7 +22710,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -20717,6 +22719,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payout.parse(res.data) }
   }
 
   async postPayoutsPayout(
@@ -20740,7 +22744,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20749,6 +22753,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payout.parse(res.data) }
   }
 
   async postPayoutsPayoutCancel(
@@ -20767,7 +22773,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20776,6 +22782,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payout.parse(res.data) }
   }
 
   async postPayoutsPayoutReverse(
@@ -20797,7 +22805,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20806,6 +22814,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_payout.parse(res.data) }
   }
 
   async getPlans(
@@ -20851,7 +22861,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -20860,6 +22870,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_plan)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postPlans(
@@ -20919,7 +22941,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20928,6 +22950,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_plan.parse(res.data) }
   }
 
   async deletePlansPlan(
@@ -20944,7 +22968,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -20953,6 +22977,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_plan.parse(res.data) }
   }
 
   async getPlansPlan(
@@ -20971,7 +22997,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -20980,6 +23006,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_plan.parse(res.data) }
   }
 
   async postPlansPlan(
@@ -21007,7 +23035,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21016,6 +23044,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_plan.parse(res.data) }
   }
 
   async getPrices(
@@ -21072,7 +23102,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -21081,6 +23111,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_price)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postPrices(
@@ -21166,7 +23208,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21175,6 +23217,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_price.parse(res.data) }
   }
 
   async getPricesSearch(
@@ -21209,7 +23253,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -21218,6 +23262,20 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_price)),
+          has_more: z.coerce.boolean(),
+          next_page: z.string().nullable().optional(),
+          object: z.enum(["search_result"]),
+          total_count: z.coerce.number().optional(),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getPricesPrice(
@@ -21236,7 +23294,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -21245,6 +23303,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_price.parse(res.data) }
   }
 
   async postPricesPrice(
@@ -21295,7 +23355,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21304,6 +23364,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_price.parse(res.data) }
   }
 
   async getProducts(
@@ -21353,7 +23415,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -21362,6 +23424,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_product)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postProducts(
@@ -21431,7 +23505,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21440,6 +23514,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_product.parse(res.data) }
   }
 
   async getProductsSearch(
@@ -21474,7 +23550,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -21483,6 +23559,20 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_product)),
+          has_more: z.coerce.boolean(),
+          next_page: z.string().nullable().optional(),
+          object: z.enum(["search_result"]),
+          total_count: z.coerce.number().optional(),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async deleteProductsId(
@@ -21499,7 +23589,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -21508,6 +23598,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_product.parse(res.data) }
   }
 
   async getProductsId(
@@ -21526,7 +23618,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -21535,6 +23627,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_product.parse(res.data) }
   }
 
   async postProductsId(
@@ -21581,7 +23675,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21590,6 +23684,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_product.parse(res.data) }
   }
 
   async getPromotionCodes(
@@ -21639,7 +23735,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -21648,6 +23744,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_promotion_code)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postPromotionCodes(
@@ -21684,7 +23792,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21693,6 +23801,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_promotion_code.parse(res.data) }
   }
 
   async getPromotionCodesPromotionCode(
@@ -21711,7 +23821,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -21720,6 +23830,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_promotion_code.parse(res.data) }
   }
 
   async postPromotionCodesPromotionCode(
@@ -21751,7 +23863,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21760,6 +23872,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_promotion_code.parse(res.data) }
   }
 
   async getQuotes(
@@ -21798,7 +23912,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -21807,6 +23921,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_quote)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postQuotes(
@@ -21882,7 +24008,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21891,6 +24017,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_quote.parse(res.data) }
   }
 
   async getQuotesQuote(
@@ -21909,7 +24037,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -21918,6 +24046,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_quote.parse(res.data) }
   }
 
   async postQuotesQuote(
@@ -21990,7 +24120,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21999,6 +24129,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_quote.parse(res.data) }
   }
 
   async postQuotesQuoteAccept(
@@ -22017,7 +24149,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22026,6 +24158,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_quote.parse(res.data) }
   }
 
   async postQuotesQuoteCancel(
@@ -22044,7 +24178,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22053,6 +24187,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_quote.parse(res.data) }
   }
 
   async getQuotesQuoteComputedUpfrontLineItems(
@@ -22086,7 +24222,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22095,6 +24231,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_item)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postQuotesQuoteFinalize(
@@ -22114,7 +24262,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22123,6 +24271,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_quote.parse(res.data) }
   }
 
   async getQuotesQuoteLineItems(
@@ -22156,7 +24306,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22165,6 +24315,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_item)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getQuotesQuotePdf(
@@ -22183,7 +24345,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22192,6 +24354,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.string().parse(res.data) }
   }
 
   async getRadarEarlyFraudWarnings(
@@ -22228,7 +24392,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22237,6 +24401,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_radar_early_fraud_warning)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getRadarEarlyFraudWarningsEarlyFraudWarning(
@@ -22255,7 +24431,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22264,6 +24440,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_radar_early_fraud_warning.parse(res.data) }
   }
 
   async getRadarValueListItems(
@@ -22309,7 +24487,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22318,6 +24496,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_radar_value_list_item),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postRadarValueListItems(
@@ -22337,7 +24527,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22346,6 +24536,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_radar_value_list_item.parse(res.data) }
   }
 
   async deleteRadarValueListItemsItem(
@@ -22362,7 +24554,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -22371,6 +24563,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_radar_value_list_item.parse(res.data) }
   }
 
   async getRadarValueListItemsItem(
@@ -22389,7 +24583,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22398,6 +24592,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_radar_value_list_item.parse(res.data) }
   }
 
   async getRadarValueLists(
@@ -22443,7 +24639,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22452,6 +24648,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_radar_value_list),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postRadarValueLists(
@@ -22485,7 +24693,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22494,6 +24702,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_radar_value_list.parse(res.data) }
   }
 
   async deleteRadarValueListsValueList(
@@ -22510,7 +24720,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -22519,6 +24729,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_radar_value_list.parse(res.data) }
   }
 
   async getRadarValueListsValueList(
@@ -22537,7 +24749,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22546,6 +24758,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_radar_value_list.parse(res.data) }
   }
 
   async postRadarValueListsValueList(
@@ -22569,7 +24783,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22578,6 +24792,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_radar_value_list.parse(res.data) }
   }
 
   async getRefunds(
@@ -22623,7 +24839,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22632,6 +24848,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_refund)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postRefunds(
@@ -22664,7 +24892,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22673,6 +24901,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_refund.parse(res.data) }
   }
 
   async getRefundsRefund(
@@ -22691,7 +24921,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22700,6 +24930,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_refund.parse(res.data) }
   }
 
   async postRefundsRefund(
@@ -22723,7 +24955,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22732,6 +24964,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_refund.parse(res.data) }
   }
 
   async postRefundsRefundCancel(
@@ -22750,7 +24984,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22759,6 +24993,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_refund.parse(res.data) }
   }
 
   async getReportingReportRuns(
@@ -22800,7 +25036,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22809,6 +25045,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_reporting_report_run)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postReportingReportRuns(
@@ -23470,7 +25718,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -23479,6 +25727,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_reporting_report_run.parse(res.data) }
   }
 
   async getReportingReportRunsReportRun(
@@ -23497,7 +25747,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -23506,6 +25756,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_reporting_report_run.parse(res.data) }
   }
 
   async getReportingReportTypes(
@@ -23530,7 +25782,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -23539,6 +25791,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_reporting_report_type),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getReportingReportTypesReportType(
@@ -23557,7 +25821,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -23566,6 +25830,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_reporting_report_type.parse(res.data) }
   }
 
   async getReviews(
@@ -23607,7 +25873,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -23616,6 +25882,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_review)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getReviewsReview(
@@ -23634,7 +25912,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -23643,6 +25921,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_review.parse(res.data) }
   }
 
   async postReviewsReviewApprove(
@@ -23661,7 +25941,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -23670,6 +25950,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_review.parse(res.data) }
   }
 
   async getSetupAttempts(
@@ -23713,7 +25995,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -23722,6 +26004,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_setup_attempt)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getSetupIntents(
@@ -23769,7 +26063,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -23778,6 +26072,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_setup_intent)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postSetupIntents(
@@ -24105,7 +26411,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -24114,6 +26420,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_setup_intent.parse(res.data) }
   }
 
   async getSetupIntentsIntent(
@@ -24136,7 +26444,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -24145,6 +26453,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_setup_intent.parse(res.data) }
   }
 
   async postSetupIntentsIntent(
@@ -24449,7 +26759,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -24458,6 +26768,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_setup_intent.parse(res.data) }
   }
 
   async postSetupIntentsIntentCancel(
@@ -24480,7 +26792,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -24489,6 +26801,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_setup_intent.parse(res.data) }
   }
 
   async postSetupIntentsIntentConfirm(
@@ -24807,7 +27121,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -24816,6 +27130,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_setup_intent.parse(res.data) }
   }
 
   async postSetupIntentsIntentVerifyMicrodeposits(
@@ -24837,7 +27153,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -24846,6 +27162,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_setup_intent.parse(res.data) }
   }
 
   async getShippingRates(
@@ -24891,7 +27209,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -24900,6 +27218,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_shipping_rate),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postShippingRates(
@@ -24944,7 +27274,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -24953,6 +27283,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_shipping_rate.parse(res.data) }
   }
 
   async getShippingRatesShippingRateToken(
@@ -24971,7 +27303,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -24980,6 +27312,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_shipping_rate.parse(res.data) }
   }
 
   async postShippingRatesShippingRateToken(
@@ -25013,7 +27347,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -25022,6 +27356,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_shipping_rate.parse(res.data) }
   }
 
   async getSigmaScheduledQueryRuns(
@@ -25054,7 +27390,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -25063,6 +27399,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_scheduled_query_run)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getSigmaScheduledQueryRunsScheduledQueryRun(
@@ -25081,7 +27429,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -25090,6 +27438,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_scheduled_query_run.parse(res.data) }
   }
 
   async postSources(
@@ -25188,7 +27538,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -25197,6 +27547,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_source.parse(res.data) }
   }
 
   async getSourcesSource(
@@ -25219,7 +27571,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -25228,6 +27580,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_source.parse(res.data) }
   }
 
   async postSourcesSource(
@@ -25315,7 +27669,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -25324,6 +27678,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_source.parse(res.data) }
   }
 
   async getSourcesSourceMandateNotificationsMandateNotification(
@@ -25343,7 +27699,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -25352,6 +27708,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_source_mandate_notification.parse(res.data) }
   }
 
   async getSourcesSourceSourceTransactions(
@@ -25385,7 +27743,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -25394,6 +27752,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_source_transaction),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getSourcesSourceSourceTransactionsSourceTransaction(
@@ -25413,7 +27783,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -25422,6 +27792,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_source_transaction.parse(res.data) }
   }
 
   async postSourcesSourceVerify(
@@ -25441,7 +27813,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -25450,6 +27822,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_source.parse(res.data) }
   }
 
   async getSubscriptionItems(
@@ -25484,7 +27858,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -25493,6 +27867,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_subscription_item)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postSubscriptionItems(
@@ -25540,7 +27926,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -25549,6 +27935,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_subscription_item.parse(res.data) }
   }
 
   async deleteSubscriptionItemsItem(
@@ -25569,7 +27957,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -25578,6 +27966,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_subscription_item.parse(res.data) }
   }
 
   async getSubscriptionItemsItem(
@@ -25596,7 +27986,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -25605,6 +27995,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_subscription_item.parse(res.data) }
   }
 
   async postSubscriptionItemsItem(
@@ -25655,7 +28047,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -25664,6 +28056,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_subscription_item.parse(res.data) }
   }
 
   async getSubscriptionItemsSubscriptionItemUsageRecordSummaries(
@@ -25697,7 +28091,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -25706,6 +28100,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_usage_record_summary),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postSubscriptionItemsSubscriptionItemUsageRecords(
@@ -25727,7 +28133,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -25736,6 +28142,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_usage_record.parse(res.data) }
   }
 
   async getSubscriptionSchedules(
@@ -25808,7 +28216,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -25817,6 +28225,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_subscription_schedule)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postSubscriptionSchedules(
@@ -25940,7 +28360,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -25949,6 +28369,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_subscription_schedule.parse(res.data) }
   }
 
   async getSubscriptionSchedulesSchedule(
@@ -25967,7 +28389,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -25976,6 +28398,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_subscription_schedule.parse(res.data) }
   }
 
   async postSubscriptionSchedulesSchedule(
@@ -26098,7 +28522,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -26107,6 +28531,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_subscription_schedule.parse(res.data) }
   }
 
   async postSubscriptionSchedulesScheduleCancel(
@@ -26127,7 +28553,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -26136,6 +28562,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_subscription_schedule.parse(res.data) }
   }
 
   async postSubscriptionSchedulesScheduleRelease(
@@ -26155,7 +28583,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -26164,6 +28592,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_subscription_schedule.parse(res.data) }
   }
 
   async getSubscriptions(
@@ -26247,7 +28677,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -26256,6 +28686,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_subscription)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postSubscriptions(
@@ -26463,7 +28905,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -26472,6 +28914,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_subscription.parse(res.data) }
   }
 
   async getSubscriptionsSearch(
@@ -26506,7 +28950,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -26515,6 +28959,20 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_subscription)),
+          has_more: z.coerce.boolean(),
+          next_page: z.string().nullable().optional(),
+          object: z.enum(["search_result"]),
+          total_count: z.coerce.number().optional(),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async deleteSubscriptionsSubscriptionExposedId(
@@ -26548,7 +29006,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -26557,6 +29015,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_subscription.parse(res.data) }
   }
 
   async getSubscriptionsSubscriptionExposedId(
@@ -26575,7 +29035,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -26584,6 +29044,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_subscription.parse(res.data) }
   }
 
   async postSubscriptionsSubscriptionExposedId(
@@ -26815,7 +29277,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -26824,6 +29286,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_subscription.parse(res.data) }
   }
 
   async deleteSubscriptionsSubscriptionExposedIdDiscount(
@@ -26840,7 +29304,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -26849,6 +29313,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_discount.parse(res.data) }
   }
 
   async postSubscriptionsSubscriptionResume(
@@ -26870,7 +29336,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -26879,6 +29345,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_subscription.parse(res.data) }
   }
 
   async postTaxCalculations(
@@ -26996,7 +29464,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -27005,6 +29473,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_tax_calculation.parse(res.data) }
   }
 
   async getTaxCalculationsCalculationLineItems(
@@ -27038,7 +29508,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -27047,6 +29517,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_tax_calculation_line_item),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getTaxSettings(
@@ -27064,7 +29546,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -27073,6 +29555,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_tax_settings.parse(res.data) }
   }
 
   async postTaxSettings(
@@ -27104,7 +29588,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -27113,6 +29597,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_tax_settings.parse(res.data) }
   }
 
   async postTaxTransactionsCreateFromCalculation(
@@ -27135,7 +29621,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -27144,6 +29630,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_tax_transaction.parse(res.data) }
   }
 
   async postTaxTransactionsCreateReversal(
@@ -27182,7 +29670,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -27191,6 +29679,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_tax_transaction.parse(res.data) }
   }
 
   async getTaxTransactionsTransaction(
@@ -27209,7 +29699,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -27218,6 +29708,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_tax_transaction.parse(res.data) }
   }
 
   async getTaxTransactionsTransactionLineItems(
@@ -27251,7 +29743,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -27260,6 +29752,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_tax_transaction_line_item),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getTaxCodes(
@@ -27292,7 +29796,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -27301,6 +29805,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_tax_code),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getTaxCodesId(
@@ -27319,7 +29835,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -27328,6 +29844,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_tax_code.parse(res.data) }
   }
 
   async getTaxRates(
@@ -27373,7 +29891,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -27382,6 +29900,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_tax_rate),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postTaxRates(
@@ -27424,7 +29954,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -27433,6 +29963,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_tax_rate.parse(res.data) }
   }
 
   async getTaxRatesTaxRate(
@@ -27451,7 +29983,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -27460,6 +29992,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_tax_rate.parse(res.data) }
   }
 
   async postTaxRatesTaxRate(
@@ -27503,7 +30037,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -27512,6 +30046,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_tax_rate.parse(res.data) }
   }
 
   async getTerminalConfigurations(
@@ -27546,7 +30082,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -27555,6 +30091,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_terminal_configuration)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postTerminalConfigurations(
@@ -27652,7 +30200,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -27661,6 +30209,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_terminal_configuration.parse(res.data) }
   }
 
   async deleteTerminalConfigurationsConfiguration(
@@ -27677,7 +30227,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -27686,6 +30236,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_terminal_configuration.parse(res.data) }
   }
 
   async getTerminalConfigurationsConfiguration(
@@ -27706,7 +30258,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -27715,6 +30267,16 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .union([
+          z.lazy(() => s_terminal_configuration),
+          s_deleted_terminal_configuration,
+        ])
+        .parse(res.data),
+    }
   }
 
   async postTerminalConfigurationsConfiguration(
@@ -27819,7 +30381,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -27828,6 +30390,16 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .union([
+          z.lazy(() => s_terminal_configuration),
+          s_deleted_terminal_configuration,
+        ])
+        .parse(res.data),
+    }
   }
 
   async postTerminalConnectionTokens(
@@ -27846,7 +30418,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -27855,6 +30427,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_terminal_connection_token.parse(res.data) }
   }
 
   async getTerminalLocations(
@@ -27887,7 +30461,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -27896,6 +30470,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_terminal_location),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postTerminalLocations(
@@ -27928,7 +30514,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -27937,6 +30523,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_terminal_location.parse(res.data) }
   }
 
   async deleteTerminalLocationsLocation(
@@ -27953,7 +30541,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -27962,6 +30550,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_terminal_location.parse(res.data) }
   }
 
   async getTerminalLocationsLocation(
@@ -27980,7 +30570,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -27989,6 +30579,13 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .union([s_terminal_location, s_deleted_terminal_location])
+        .parse(res.data),
+    }
   }
 
   async postTerminalLocationsLocation(
@@ -28022,7 +30619,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28031,6 +30628,13 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .union([s_terminal_location, s_deleted_terminal_location])
+        .parse(res.data),
+    }
   }
 
   async getTerminalReaders(
@@ -28077,7 +30681,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -28086,6 +30690,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_terminal_reader)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postTerminalReaders(
@@ -28111,7 +30727,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28120,6 +30736,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_terminal_reader.parse(res.data) }
   }
 
   async deleteTerminalReadersReader(
@@ -28136,7 +30754,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -28145,6 +30763,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_terminal_reader.parse(res.data) }
   }
 
   async getTerminalReadersReader(
@@ -28163,7 +30783,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -28172,6 +30792,13 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .union([z.lazy(() => s_terminal_reader), s_deleted_terminal_reader])
+        .parse(res.data),
+    }
   }
 
   async postTerminalReadersReader(
@@ -28196,7 +30823,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28205,6 +30832,13 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .union([z.lazy(() => s_terminal_reader), s_deleted_terminal_reader])
+        .parse(res.data),
+    }
   }
 
   async postTerminalReadersReaderCancelAction(
@@ -28223,7 +30857,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28232,6 +30866,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_terminal_reader.parse(res.data) }
   }
 
   async postTerminalReadersReaderProcessPaymentIntent(
@@ -28257,7 +30893,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28266,6 +30902,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_terminal_reader.parse(res.data) }
   }
 
   async postTerminalReadersReaderProcessSetupIntent(
@@ -28287,7 +30925,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28296,6 +30934,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_terminal_reader.parse(res.data) }
   }
 
   async postTerminalReadersReaderRefundPayment(
@@ -28322,7 +30962,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28331,6 +30971,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_terminal_reader.parse(res.data) }
   }
 
   async postTerminalReadersReaderSetReaderDisplay(
@@ -28360,7 +31002,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28369,6 +31011,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_terminal_reader.parse(res.data) }
   }
 
   async postTestHelpersCustomersCustomerFundCashBalance(
@@ -28390,7 +31034,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28399,6 +31043,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_customer_cash_balance_transaction.parse(res.data) }
   }
 
   async postTestHelpersIssuingAuthorizations(
@@ -28744,7 +31390,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28753,6 +31399,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_authorization.parse(res.data) }
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationCapture(
@@ -28811,7 +31459,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28820,6 +31468,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_authorization.parse(res.data) }
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationExpire(
@@ -28838,7 +31488,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28847,6 +31497,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_authorization.parse(res.data) }
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationIncrement(
@@ -28867,7 +31519,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28876,6 +31528,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_authorization.parse(res.data) }
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationReverse(
@@ -28895,7 +31549,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28904,6 +31558,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_authorization.parse(res.data) }
   }
 
   async postTestHelpersIssuingCardsCardShippingDeliver(
@@ -28922,7 +31578,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28931,6 +31587,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_card.parse(res.data) }
   }
 
   async postTestHelpersIssuingCardsCardShippingFail(
@@ -28949,7 +31607,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28958,6 +31616,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_card.parse(res.data) }
   }
 
   async postTestHelpersIssuingCardsCardShippingReturn(
@@ -28976,7 +31636,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28985,6 +31645,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_card.parse(res.data) }
   }
 
   async postTestHelpersIssuingCardsCardShippingShip(
@@ -29003,7 +31665,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29012,6 +31674,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_card.parse(res.data) }
   }
 
   async postTestHelpersIssuingTransactionsCreateForceCapture(
@@ -29374,7 +32038,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29383,6 +32047,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_transaction.parse(res.data) }
   }
 
   async postTestHelpersIssuingTransactionsCreateUnlinkedRefund(
@@ -29745,7 +32411,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29754,6 +32420,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_transaction.parse(res.data) }
   }
 
   async postTestHelpersIssuingTransactionsTransactionRefund(
@@ -29773,7 +32441,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29782,6 +32450,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_issuing_transaction.parse(res.data) }
   }
 
   async postTestHelpersRefundsRefundExpire(
@@ -29800,7 +32470,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29809,6 +32479,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_refund.parse(res.data) }
   }
 
   async postTestHelpersTerminalReadersReaderPresentPaymentMethod(
@@ -29835,7 +32507,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29844,6 +32516,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_terminal_reader.parse(res.data) }
   }
 
   async getTestHelpersTestClocks(
@@ -29876,7 +32550,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -29885,6 +32559,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_test_helpers_test_clock),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postTestHelpersTestClocks(
@@ -29904,7 +32590,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29913,6 +32599,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_test_helpers_test_clock.parse(res.data) }
   }
 
   async deleteTestHelpersTestClocksTestClock(
@@ -29929,7 +32617,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -29938,6 +32626,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_test_helpers_test_clock.parse(res.data) }
   }
 
   async getTestHelpersTestClocksTestClock(
@@ -29956,7 +32646,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -29965,6 +32655,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_test_helpers_test_clock.parse(res.data) }
   }
 
   async postTestHelpersTestClocksTestClockAdvance(
@@ -29984,7 +32676,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29993,6 +32685,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_test_helpers_test_clock.parse(res.data) }
   }
 
   async postTestHelpersTreasuryInboundTransfersIdFail(
@@ -30027,7 +32721,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30036,6 +32730,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_inbound_transfer.parse(res.data) }
   }
 
   async postTestHelpersTreasuryInboundTransfersIdReturn(
@@ -30054,7 +32750,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30063,6 +32759,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_inbound_transfer.parse(res.data) }
   }
 
   async postTestHelpersTreasuryInboundTransfersIdSucceed(
@@ -30081,7 +32779,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30090,6 +32788,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_inbound_transfer.parse(res.data) }
   }
 
   async postTestHelpersTreasuryOutboundPaymentsIdFail(
@@ -30108,7 +32808,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30117,6 +32817,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_outbound_payment.parse(res.data) }
   }
 
   async postTestHelpersTreasuryOutboundPaymentsIdPost(
@@ -30135,7 +32837,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30144,6 +32846,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_outbound_payment.parse(res.data) }
   }
 
   async postTestHelpersTreasuryOutboundPaymentsIdReturn(
@@ -30175,7 +32879,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30184,6 +32888,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_outbound_payment.parse(res.data) }
   }
 
   async postTestHelpersTreasuryOutboundTransfersOutboundTransferFail(
@@ -30202,7 +32908,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30211,6 +32917,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_outbound_transfer.parse(res.data) }
   }
 
   async postTestHelpersTreasuryOutboundTransfersOutboundTransferPost(
@@ -30229,7 +32937,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30238,6 +32946,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_outbound_transfer.parse(res.data) }
   }
 
   async postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn(
@@ -30269,7 +32979,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30278,6 +32988,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_outbound_transfer.parse(res.data) }
   }
 
   async postTestHelpersTreasuryReceivedCredits(
@@ -30308,7 +33020,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30317,6 +33029,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_received_credit.parse(res.data) }
   }
 
   async postTestHelpersTreasuryReceivedDebits(
@@ -30347,7 +33061,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30356,6 +33070,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_received_debit.parse(res.data) }
   }
 
   async postTokens(
@@ -30656,7 +33372,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30665,6 +33381,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_token.parse(res.data) }
   }
 
   async getTokensToken(
@@ -30683,7 +33401,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -30692,6 +33410,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_token.parse(res.data) }
   }
 
   async getTopups(
@@ -30744,7 +33464,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -30753,6 +33473,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_topup)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postTopups(
@@ -30781,7 +33513,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30790,6 +33522,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_topup.parse(res.data) }
   }
 
   async getTopupsTopup(
@@ -30808,7 +33542,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -30817,6 +33551,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_topup.parse(res.data) }
   }
 
   async postTopupsTopup(
@@ -30841,7 +33577,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30850,6 +33586,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_topup.parse(res.data) }
   }
 
   async postTopupsTopupCancel(
@@ -30868,7 +33606,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30877,6 +33615,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_topup.parse(res.data) }
   }
 
   async getTransfers(
@@ -30922,7 +33662,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -30931,6 +33671,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_transfer)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postTransfers(
@@ -30958,7 +33710,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30967,6 +33719,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_transfer.parse(res.data) }
   }
 
   async getTransfersIdReversals(
@@ -31000,7 +33754,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -31009,6 +33763,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_transfer_reversal)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postTransfersIdReversals(
@@ -31035,7 +33801,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31044,6 +33810,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_transfer_reversal.parse(res.data) }
   }
 
   async getTransfersTransfer(
@@ -31062,7 +33830,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -31071,6 +33839,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_transfer.parse(res.data) }
   }
 
   async postTransfersTransfer(
@@ -31095,7 +33865,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31104,6 +33874,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_transfer.parse(res.data) }
   }
 
   async getTransfersTransferReversalsId(
@@ -31123,7 +33895,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -31132,6 +33904,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_transfer_reversal.parse(res.data) }
   }
 
   async postTransfersTransferReversalsId(
@@ -31156,7 +33930,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31165,6 +33939,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_transfer_reversal.parse(res.data) }
   }
 
   async getTreasuryCreditReversals(
@@ -31203,7 +33979,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -31212,6 +33988,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_treasury_credit_reversal)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postTreasuryCreditReversals(
@@ -31233,7 +34021,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31242,6 +34030,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_credit_reversal.parse(res.data) }
   }
 
   async getTreasuryCreditReversalsCreditReversal(
@@ -31260,7 +34050,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -31269,6 +34059,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_credit_reversal.parse(res.data) }
   }
 
   async getTreasuryDebitReversals(
@@ -31309,7 +34101,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -31318,6 +34110,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_treasury_debit_reversal)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postTreasuryDebitReversals(
@@ -31339,7 +34143,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31348,6 +34152,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_debit_reversal.parse(res.data) }
   }
 
   async getTreasuryDebitReversalsDebitReversal(
@@ -31366,7 +34172,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -31375,6 +34181,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_debit_reversal.parse(res.data) }
   }
 
   async getTreasuryFinancialAccounts(
@@ -31416,7 +34224,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -31425,6 +34233,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_treasury_financial_account),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postTreasuryFinancialAccounts(
@@ -31487,7 +34307,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31496,6 +34316,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_financial_account.parse(res.data) }
   }
 
   async getTreasuryFinancialAccountsFinancialAccount(
@@ -31514,7 +34336,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -31523,6 +34345,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_financial_account.parse(res.data) }
   }
 
   async postTreasuryFinancialAccountsFinancialAccount(
@@ -31585,7 +34409,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31594,6 +34418,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_financial_account.parse(res.data) }
   }
 
   async getTreasuryFinancialAccountsFinancialAccountFeatures(
@@ -31612,7 +34438,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -31621,6 +34447,11 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: s_treasury_financial_account_features.parse(res.data),
+    }
   }
 
   async postTreasuryFinancialAccountsFinancialAccountFeatures(
@@ -31674,7 +34505,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31683,6 +34514,11 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: s_treasury_financial_account_features.parse(res.data),
+    }
   }
 
   async getTreasuryInboundTransfers(
@@ -31719,7 +34555,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -31728,6 +34564,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_treasury_inbound_transfer)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postTreasuryInboundTransfers(
@@ -31754,7 +34602,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31763,6 +34611,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_inbound_transfer.parse(res.data) }
   }
 
   async getTreasuryInboundTransfersId(
@@ -31781,7 +34631,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -31790,6 +34640,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_inbound_transfer.parse(res.data) }
   }
 
   async postTreasuryInboundTransfersInboundTransferCancel(
@@ -31808,7 +34660,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31817,6 +34669,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_inbound_transfer.parse(res.data) }
   }
 
   async getTreasuryOutboundPayments(
@@ -31855,7 +34709,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -31864,6 +34718,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_treasury_outbound_payment)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postTreasuryOutboundPayments(
@@ -31931,7 +34797,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31940,6 +34806,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_outbound_payment.parse(res.data) }
   }
 
   async getTreasuryOutboundPaymentsId(
@@ -31958,7 +34826,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -31967,6 +34835,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_outbound_payment.parse(res.data) }
   }
 
   async postTreasuryOutboundPaymentsIdCancel(
@@ -31985,7 +34855,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31994,6 +34864,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_outbound_payment.parse(res.data) }
   }
 
   async getTreasuryOutboundTransfers(
@@ -32030,7 +34902,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32039,6 +34911,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_treasury_outbound_transfer)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postTreasuryOutboundTransfers(
@@ -32072,7 +34956,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -32081,6 +34965,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_outbound_transfer.parse(res.data) }
   }
 
   async getTreasuryOutboundTransfersOutboundTransfer(
@@ -32099,7 +34985,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32108,6 +34994,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_outbound_transfer.parse(res.data) }
   }
 
   async postTreasuryOutboundTransfersOutboundTransferCancel(
@@ -32126,7 +35014,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -32135,6 +35023,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_outbound_transfer.parse(res.data) }
   }
 
   async getTreasuryReceivedCredits(
@@ -32179,7 +35069,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32188,6 +35078,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_treasury_received_credit)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getTreasuryReceivedCreditsId(
@@ -32206,7 +35108,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32215,6 +35117,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_received_credit.parse(res.data) }
   }
 
   async getTreasuryReceivedDebits(
@@ -32251,7 +35155,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32260,6 +35164,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_treasury_received_debit)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getTreasuryReceivedDebitsId(
@@ -32278,7 +35194,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32287,6 +35203,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_received_debit.parse(res.data) }
   }
 
   async getTreasuryTransactionEntries(
@@ -32343,7 +35261,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32352,6 +35270,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_treasury_transaction_entry)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getTreasuryTransactionEntriesId(
@@ -32370,7 +35300,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32379,6 +35309,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_transaction_entry.parse(res.data) }
   }
 
   async getTreasuryTransactions(
@@ -32437,7 +35369,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32446,6 +35378,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(z.lazy(() => s_treasury_transaction)),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async getTreasuryTransactionsId(
@@ -32464,7 +35408,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32473,6 +35417,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_treasury_transaction.parse(res.data) }
   }
 
   async getWebhookEndpoints(
@@ -32505,7 +35451,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32514,6 +35460,18 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return {
+      ...res,
+      data: z
+        .object({
+          data: z.array(s_webhook_endpoint),
+          has_more: z.coerce.boolean(),
+          object: z.enum(["list"]),
+          url: z.string(),
+        })
+        .parse(res.data),
+    }
   }
 
   async postWebhookEndpoints(
@@ -32857,7 +35815,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -32866,6 +35824,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_webhook_endpoint.parse(res.data) }
   }
 
   async deleteWebhookEndpointsWebhookEndpoint(
@@ -32882,7 +35842,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -32891,6 +35851,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_deleted_webhook_endpoint.parse(res.data) }
   }
 
   async getWebhookEndpointsWebhookEndpoint(
@@ -32909,7 +35871,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32918,6 +35880,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_webhook_endpoint.parse(res.data) }
   }
 
   async postWebhookEndpointsWebhookEndpoint(
@@ -33162,7 +36126,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -33171,5 +36135,7 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_webhook_endpoint.parse(res.data) }
   }
 }

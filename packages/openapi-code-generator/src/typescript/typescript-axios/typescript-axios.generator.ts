@@ -19,6 +19,7 @@ export async function generateTypescriptAxios(
     input,
     imports,
   )
+
   const client = new TypescriptAxiosClientBuilder(
     "client.ts",
     "ApiClient",

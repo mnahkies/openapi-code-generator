@@ -46,6 +46,38 @@ import {
   t_UserInfo,
 } from "./models"
 import {
+  s_ApplicationType,
+  s_BackchannelAuthorizeResponse,
+  s_Claim,
+  s_Client,
+  s_CodeChallengeMethod,
+  s_DeviceAuthorizeResponse,
+  s_EndpointAuthMethod,
+  s_Error,
+  s_GrantType,
+  s_IntrospectionResponse,
+  s_JsonWebKey,
+  s_JsonWebKeyStatus,
+  s_JsonWebKeyType,
+  s_JsonWebKeyUse,
+  s_OAuthError,
+  s_OAuthKeys,
+  s_OAuthMetadata,
+  s_OidcMetadata,
+  s_ParResponse,
+  s_ResponseMode,
+  s_ResponseType,
+  s_ResponseTypesSupported,
+  s_Scope,
+  s_SigningAlgorithm,
+  s_SubjectType,
+  s_TokenDeliveryMode,
+  s_TokenResponse,
+  s_TokenResponseTokenType,
+  s_TokenType,
+  s_UserInfo,
+} from "./schemas"
+import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
 } from "@nahkies/typescript-axios-runtime/main"
@@ -67,13 +99,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/.well-known/openid-configuration`
     const query = this._query({ client_id: p["clientId"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_OidcMetadata.parse(res.data) }
   }
 
   async authorize(
@@ -101,7 +135,7 @@ export class ApiClient extends AbstractAxiosClient {
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<never> {
+  ): Promise<AxiosResponse<t_Error>> {
     const url = `/oauth2/v1/authorize`
     const query = this._query({
       acr_values: p["acrValues"],
@@ -126,13 +160,15 @@ export class ApiClient extends AbstractAxiosClient {
       state: p["state"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_Error.parse(res.data) }
   }
 
   async bcAuthorize(
@@ -148,7 +184,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -157,6 +193,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_BackchannelAuthorizeResponse.parse(res.data) }
   }
 
   async listClients(
@@ -175,13 +213,15 @@ export class ApiClient extends AbstractAxiosClient {
       q: p["q"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.array(s_Client).parse(res.data) }
   }
 
   async createClient(
@@ -195,7 +235,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -204,6 +244,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_Client.parse(res.data) }
   }
 
   async getClient(
@@ -215,13 +257,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Client>> {
     const url = `/oauth2/v1/clients/${p["clientId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_Client.parse(res.data) }
   }
 
   async replaceClient(
@@ -236,7 +280,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -245,6 +289,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_Client.parse(res.data) }
   }
 
   async deleteClient(
@@ -256,13 +302,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/oauth2/v1/clients/${p["clientId"]}`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async generateNewClientSecret(
@@ -274,13 +322,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Client>> {
     const url = `/oauth2/v1/clients/${p["clientId"]}/lifecycle/newSecret`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_Client.parse(res.data) }
   }
 
   async deviceAuthorize(
@@ -296,7 +346,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -305,6 +355,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_DeviceAuthorizeResponse.parse(res.data) }
   }
 
   async introspect(
@@ -318,7 +370,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -327,6 +379,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_IntrospectionResponse.parse(res.data) }
   }
 
   async oauthKeys(
@@ -339,13 +393,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/oauth2/v1/keys`
     const query = this._query({ client_id: p["clientId"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_OAuthKeys.parse(res.data) }
   }
 
   async logout(
@@ -356,7 +412,7 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<never> {
+  ): Promise<AxiosResponse<t_Error>> {
     const url = `/oauth2/v1/logout`
     const query = this._query({
       id_token_hint: p["idTokenHint"],
@@ -364,13 +420,15 @@ export class ApiClient extends AbstractAxiosClient {
       state: p["state"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_Error.parse(res.data) }
   }
 
   async par(
@@ -384,7 +442,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -393,6 +451,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_ParResponse.parse(res.data) }
   }
 
   async revoke(
@@ -406,7 +466,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -415,6 +475,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async token(
@@ -430,7 +492,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -439,6 +501,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_TokenResponse.parse(res.data) }
   }
 
   async userinfo(
@@ -447,13 +511,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_UserInfo>> {
     const url = `/oauth2/v1/userinfo`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_UserInfo.parse(res.data) }
   }
 
   async getWellKnownOAuthConfigurationCustomAs(
@@ -467,13 +533,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/oauth2/${p["authorizationServerId"]}/.well-known/oauth-authorization-server`
     const query = this._query({ client_id: p["clientId"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_OAuthMetadata.parse(res.data) }
   }
 
   async getWellKnownOpenIdConfigurationCustomAs(
@@ -487,13 +555,15 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/oauth2/${p["authorizationServerId"]}/.well-known/openid-configuration`
     const query = this._query({ client_id: p["clientId"] })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_OidcMetadata.parse(res.data) }
   }
 
   async authorizeCustomAs(
@@ -522,7 +592,7 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<never> {
+  ): Promise<AxiosResponse<t_Error>> {
     const url = `/oauth2/${p["authorizationServerId"]}/v1/authorize`
     const query = this._query({
       acr_values: p["acrValues"],
@@ -547,13 +617,15 @@ export class ApiClient extends AbstractAxiosClient {
       state: p["state"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_Error.parse(res.data) }
   }
 
   async bcAuthorizeCustomAs(
@@ -570,7 +642,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -579,6 +651,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_BackchannelAuthorizeResponse.parse(res.data) }
   }
 
   async deviceAuthorizeCustomAs(
@@ -595,7 +669,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -604,6 +678,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_DeviceAuthorizeResponse.parse(res.data) }
   }
 
   async introspectCustomAs(
@@ -618,7 +694,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -627,6 +703,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_IntrospectionResponse.parse(res.data) }
   }
 
   async oauthKeysCustomAs(
@@ -638,13 +716,15 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_OAuthKeys>> {
     const url = `/oauth2/${p["authorizationServerId"]}/v1/keys`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_OAuthKeys.parse(res.data) }
   }
 
   async logoutCustomAs(
@@ -656,7 +736,7 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<never> {
+  ): Promise<AxiosResponse<t_Error>> {
     const url = `/oauth2/${p["authorizationServerId"]}/v1/logout`
     const query = this._query({
       id_token_hint: p["idTokenHint"],
@@ -664,13 +744,15 @@ export class ApiClient extends AbstractAxiosClient {
       state: p["state"],
     })
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_Error.parse(res.data) }
   }
 
   async parCustomAs(
@@ -685,7 +767,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -694,6 +776,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_ParResponse.parse(res.data) }
   }
 
   async revokeCustomAs(
@@ -708,7 +792,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -717,6 +801,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async tokenCustomAs(
@@ -733,7 +819,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -742,6 +828,8 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_TokenResponse.parse(res.data) }
   }
 
   async userinfoCustomAs(
@@ -753,12 +841,14 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_UserInfo>> {
     const url = `/oauth2/${p["authorizationServerId"]}/v1/userinfo`
 
-    return this.axios.request({
+    const res = await this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
+
+    return { ...res, data: s_UserInfo.parse(res.data) }
   }
 }
