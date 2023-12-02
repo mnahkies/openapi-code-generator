@@ -18,6 +18,8 @@ import {
   RequestInputType,
 } from "@nahkies/typescript-koa-runtime/errors"
 import {
+  KoaRuntimeResponder,
+  KoaRuntimeResponse,
   Response,
   ServerConfig,
   StatusCode,
@@ -39,19 +41,38 @@ import { z } from "zod"
 //region safe-edit-region-header
 
 //endregion safe-edit-region-header
+export type GetTodoListsResponder = {
+  with200(): KoaRuntimeResponse<t_TodoList[]>
+} & KoaRuntimeResponder
+
 export type GetTodoLists = (
   params: Params<void, t_GetTodoListsQuerySchema, void>,
+  respond: GetTodoListsResponder,
   ctx: Context,
-) => Promise<Response<200, t_TodoList[]>>
+) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_TodoList[]>>
+
+export type GetTodoListByIdResponder = {
+  with200(): KoaRuntimeResponse<t_TodoList>
+  withStatusCode4xx(status: StatusCode4xx): KoaRuntimeResponse<t_Error>
+  withDefault(status: StatusCode): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
 
 export type GetTodoListById = (
   params: Params<t_GetTodoListByIdParamSchema, void, void>,
+  respond: GetTodoListByIdResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<200, t_TodoList>
   | Response<StatusCode4xx, t_Error>
   | Response<StatusCode, void>
 >
+
+export type UpdateTodoListByIdResponder = {
+  with200(): KoaRuntimeResponse<t_TodoList>
+  withStatusCode4xx(status: StatusCode4xx): KoaRuntimeResponse<t_Error>
+  withDefault(status: StatusCode): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
 
 export type UpdateTodoListById = (
   params: Params<
@@ -59,17 +80,27 @@ export type UpdateTodoListById = (
     void,
     t_UpdateTodoListByIdBodySchema
   >,
+  respond: UpdateTodoListByIdResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<200, t_TodoList>
   | Response<StatusCode4xx, t_Error>
   | Response<StatusCode, void>
 >
 
+export type DeleteTodoListByIdResponder = {
+  with204(): KoaRuntimeResponse<void>
+  withStatusCode4xx(status: StatusCode4xx): KoaRuntimeResponse<t_Error>
+  withDefault(status: StatusCode): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
 export type DeleteTodoListById = (
   params: Params<t_DeleteTodoListByIdParamSchema, void, void>,
+  respond: DeleteTodoListByIdResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<204, void>
   | Response<StatusCode4xx, t_Error>
   | Response<StatusCode, void>
@@ -106,11 +137,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: undefined,
     }
 
-    const { status, body } = await implementation
-      .getTodoLists(input, ctx)
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_TodoList[]>(200)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .getTodoLists(input, responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getTodoListsResponseValidator(status, body)
     ctx.status = status
@@ -138,11 +181,29 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: undefined,
     }
 
-    const { status, body } = await implementation
-      .getTodoListById(input, ctx)
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_TodoList>(200)
+      },
+      withStatusCode4xx(status: StatusCode4xx) {
+        return new KoaRuntimeResponse<t_Error>(status)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<void>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .getTodoListById(input, responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getTodoListByIdResponseValidator(status, body)
     ctx.status = status
@@ -176,11 +237,29 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
     }
 
-    const { status, body } = await implementation
-      .updateTodoListById(input, ctx)
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_TodoList>(200)
+      },
+      withStatusCode4xx(status: StatusCode4xx) {
+        return new KoaRuntimeResponse<t_Error>(status)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<void>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .updateTodoListById(input, responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = updateTodoListByIdResponseValidator(status, body)
     ctx.status = status
@@ -208,11 +287,29 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: undefined,
     }
 
-    const { status, body } = await implementation
-      .deleteTodoListById(input, ctx)
+    const responder = {
+      with204() {
+        return new KoaRuntimeResponse<void>(204)
+      },
+      withStatusCode4xx(status: StatusCode4xx) {
+        return new KoaRuntimeResponse<t_Error>(status)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<void>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .deleteTodoListById(input, responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = deleteTodoListByIdResponseValidator(status, body)
     ctx.status = status
