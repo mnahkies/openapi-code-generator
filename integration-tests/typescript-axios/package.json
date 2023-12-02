@@ -1,0 +1,21 @@
+{
+  "name": "typescript-axios",
+  "version": "0.0.1",
+  "main": "./dist/index.js",
+  "author": "Michael Nahkies",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf ./dist && rm -rf ./src/generated",
+    "validate": "tsc -p ./tsconfig.json"
+  },
+  "dependencies": {
+    "@nahkies/typescript-axios-runtime": "*",
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.10",
+    "typescript": "~5.1.6"
+  }
+}

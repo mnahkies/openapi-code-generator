@@ -20,7 +20,7 @@ async function main() {
 
   const repos = await getAllRepos()
 
-  const sourceAndAdminRepos = repos.filter(it => !it.fork && it.permissions?.admin)
+  const sourceAndAdminRepos = repos.filter(it => !it.fork && it.permissions?.admin && !it.archived)
 
   for (const repo of sourceAndAdminRepos) {
     console.info("updating: " + repo.full_name)

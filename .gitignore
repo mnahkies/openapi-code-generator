@@ -11,4 +11,3 @@ yarn-error.log
 .yarn/*
 
 packages/openapi-code-generator/src/typescript/common/new-builder.ts
-packages/openapi-code-generator/src/typescript/typescript-axios/
