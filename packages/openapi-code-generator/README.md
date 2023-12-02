@@ -19,6 +19,7 @@ generating a strongly typed client for large/complex definitions like the GitHub
 - [Server Examples](#server-examples)
   - [Typescript Koa](#typescript-koa)
     - [Custom Koa app / configuration](#custom-koa-app--configuration)
+    - [Error Handling](#error-handling)
 - [More information / contributing](#more-information--contributing)
 
 <!-- tocstop -->
@@ -326,7 +327,7 @@ import {bootstrap, createRouter, CreateTodoList, GetTodoLists} from "../generate
 
 // Define your route implementations as async functions implementing the types
 // exported from generated.ts
-const createTodoList: CreateTodoList = async ({body}) => {
+const createTodoList: CreateTodoList = async ({body}, respond) => {
   const list = await prisma.todoList.create({
     data: {
       // body is strongly typed and parsed at runtime
@@ -334,12 +335,16 @@ const createTodoList: CreateTodoList = async ({body}) => {
     }
   })
 
-  // response is strongly typed pattern matching the status code against the response schema,
-  // and doing runtime validation before sending the response
-  return {
-    status: 200 as const,
-    body: dbListToApiList(list)
-  }
+  // (recommended) the respond parameter is a strongly typed helper that 
+  // provides a better intellisense experience. 
+  // the body is additionally validated against the response schema/status code at runtime
+  return respond.with200().body(dbListToApiList(list))
+  // alternatively, you can return a {status, body} object which is also strongly typed 
+  // pattern matching the status code against the response schema:
+  // return {
+  //   status: 200 as const,
+  //   body: dbListToApiList(list)
+  // }
 }
 
 const getTodoLists: GetTodoLists = async ({query}) => {
@@ -368,7 +373,7 @@ import {createRouter} from "../generated"
 import KoaBody from "koa-body"
 import https from "https"
 
-// ...implement routes where
+// ...implement routes here
 
 const app = new Koa()
 
@@ -388,6 +393,48 @@ https
     app.callback(),
   )
   .listen(433)
+```
+
+#### Error Handling
+Any errors thrown during the request processing will be wrapped in `KoaRuntimeError` objects,
+and tagged with the `phase` the error was thrown.
+
+```typescript
+interface KoaRuntimeError extends Error {
+  cause: unknown // the originally thrown exception 
+  phase:
+    | "request_validation"
+    | "request_handler"
+    | "response_validation"
+}
+```
+
+This allows for implementing catch-all error middleware, eg:
+```typescript
+export async function genericErrorMiddleware(ctx: Context, next: Next) {
+  try {
+    await next()
+  } catch (err) {
+    // if the request validation failed, return a 400 and include helpful
+    // information about the problem
+    if (KoaRuntimeError.isKoaError(err) && err.phase === "request_validation") {
+      ctx.status = 400
+      ctx.body = {
+        message: "request validation failed",
+        meta: err.cause instanceof ZodError ? {issues: err.cause.issues} : {},
+      } satisfies t_Error
+      return
+    }
+
+    // return a 500 and omit information from the response otherwise
+    logger.error("internal server error", err)
+    ctx.status = 500
+    ctx.body = {
+      message: "internal server error",
+    } satisfies t_Error
+  }
+}
+
 ```
 
 ## More information / contributing
