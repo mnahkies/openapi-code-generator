@@ -29,7 +29,7 @@
     "@types/prettier": "^3.0.0",
     "nodemon": "3.0.1",
     "ts-node": "10.9.1",
-    "typescript": "~5.1.6"
+    "typescript": "~5.2.2"
   },
   "dependencies": {
     "@commander-js/extra-typings": "^11.1.0",
