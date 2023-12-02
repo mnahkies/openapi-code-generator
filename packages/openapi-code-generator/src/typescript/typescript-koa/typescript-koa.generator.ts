@@ -9,6 +9,8 @@ import {SchemaBuilder, schemaBuilderFactory} from "../common/schema-builders/sch
 import {buildExport, requestBodyAsParameter, statusStringToType} from "../common/typescript-common"
 import {OpenapiGeneratorConfig} from "../../templates.types"
 import {object} from "../common/type-utils"
+import {ZodBuilder} from "../common/schema-builders/zod-schema-builder"
+import {JoiBuilder} from "../common/schema-builders/joi-schema-builder"
 
 function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
   return parameters.reduce((acc, parameter) => {
@@ -63,6 +65,16 @@ export class ServerBuilder {
 
     this.imports.addModule("KoaRouter", "@koa/router")
     this.imports.addModule("koaBody", "koa-body")
+
+    if (schemaBuilder instanceof ZodBuilder) {
+      imports
+        .from("@nahkies/typescript-koa-runtime/zod")
+        .add("parseRequestInput", "Params", "responseValidationFactory")
+    } else if (schemaBuilder instanceof JoiBuilder) {
+      imports
+        .from("@nahkies/typescript-koa-runtime/joi")
+        .add("parseRequestInput", "Params", "responseValidationFactory")
+    }
   }
 
   add(operation: IROperation): void {
