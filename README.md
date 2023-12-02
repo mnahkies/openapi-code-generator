@@ -17,6 +17,7 @@ generating a strongly typed client for large/complex definitions like the GitHub
 ## Project Structure
 The repository is structured as a mono repo of several npm packages that work together under [./packages](./packages):
 - [openapi-code-generator](./packages/openapi-code-generator)
+- [typescript-axios-runtime](./packages/typescript-axios-runtime)
 - [typescript-fetch-runtime](./packages/typescript-fetch-runtime)
 - [typescript-koa-runtime](./packages/typescript-koa-runtime)
 

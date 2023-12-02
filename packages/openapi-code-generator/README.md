@@ -14,6 +14,7 @@ generating a strongly typed client for large/complex definitions like the GitHub
 - [Usage](#usage)
 - [Client Examples](#client-examples)
   - [Typescript Fetch](#typescript-fetch)
+  - [Typescript Axios](#typescript-axios)
   - [Typescript Angular](#typescript-angular)
 - [Server Examples](#server-examples)
   - [Typescript Koa](#typescript-koa)
@@ -109,13 +110,15 @@ Running:
 yarn openapi-code-generator \
   --input ./openapi.yaml \
   --output ./src/clients/some-service \
-  --template typescript-fetch
+  --template typescript-fetch \
+  --schema-builder zod
 ```
 
 Will output these files into `./src/clients/some-service`:
 
 - `./client.ts`: exports a class `ApiClient` that implements methods for calling each endpoint
 - `./models.ts`: exports typescript types
+- `./schemas.ts`: exports runtime parsers using the chosen `schema-builder` (default `zod`)
 
 Once generated usage should look something like this:
 
@@ -146,6 +149,67 @@ const body = await res.json()
 console.log(`id is: ${body.id}`)
 ```
 
+### Typescript Axios
+The `typescript-axios` template outputs a client SDK based on the [axios](https://www.npmjs.com/package/axios) that gives the following:
+
+- Typed methods to call each endpoint
+
+It does not yet support runtime validation/parsing - compile time type safety only at this stage.
+
+It follows the standard `axios` pattern of rejecting any response that isn't `2xx` and thus can't provide typed
+error responses. If you'd like to have strong typing over your error responses consider using the `typescript-fetch` template.
+
+See [integration-tests/typescript-axios](../../integration-tests/typescript-axios) for more samples.
+
+Dependencies:
+
+```shell
+yarn add axios @nahkies/typescript-axios-runtime
+```
+
+Running:
+
+```shell
+yarn openapi-code-generator \
+  --input ./openapi.yaml \
+  --output ./src/clients/some-service \
+  --template typescript-axios \
+  --schema-builder zod
+```
+
+Will output these files into `./src/clients/some-service`:
+
+- `./client.ts`: exports a class `ApiClient` that implements methods for calling each endpoint
+- `./models.ts`: exports typescript types
+- `./schemas.ts`: exports runtime parsers using the chosen `schema-builder` (default `zod`)
+
+Once generated usage should look something like this:
+
+```typescript
+const client = new ApiClient({
+  // Pass a axios instance if you wish to use interceptors for auth, logging, etc
+  // axios: axios.create({...}),
+  basePath: `http://localhost:${address.port}`,
+  defaultHeaders: {
+    "Content-Type": "application/json",
+    "Authorisation": "Bearer: <TOKEN>" // can pass auth headers here
+  },
+})
+
+// rejects if status code isn't 2xx, following typical axios behavior
+const res = await client.createTodoListItem({
+  listId: list.id,
+  requestBody: {content: "test item"},
+  // optionally pass a timeout (ms), or any arbitrary axios options
+  // timeout?: number,
+  // opts?: AxiosRequestConfig
+})
+
+// data will be typed correctly
+console.log(`id is: ${res.data.id}`)
+```
+
+
 ### Typescript Angular
 
 **Note: this is the least battle tested of the templates and most likely to have critical bugs**
@@ -164,7 +228,8 @@ Running:
 yarn openapi-code-generator \
   --input ./openapi.yaml \
   --output ./src/app/clients/some-service \
-  --template typescript-angular
+  --template typescript-angular \
+  --schema-builder zod
 ```
 
 Will output these files into `./src/app/clients/some-service`:
@@ -172,6 +237,7 @@ Will output these files into `./src/app/clients/some-service`:
 - `./api.module.ts`: exports a class `ApiModule` as an `NgModule`
 - `./client.service.ts`: exports a class `ApiClient` as injectable Angular service
 - `./models.ts`: exports typescript types
+- `./schemas.ts`: exports runtime parsers using the chosen `schema-builder` (default `zod`)
 
 Once generated usage should look something like this:
 
