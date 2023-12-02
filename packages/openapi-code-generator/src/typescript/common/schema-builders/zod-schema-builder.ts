@@ -29,12 +29,7 @@ export class ZodBuilder extends AbstractSchemaBuilder {
     imports: ImportBuilder,
   ) {
     super(filename, input, imports)
-
     this.importHelpers(imports)
-
-    imports
-      .from("@nahkies/typescript-koa-runtime/zod")
-      .add("parseRequestInput", "Params", "responseValidationFactory")
   }
 
   protected importHelpers(imports: ImportBuilder) {

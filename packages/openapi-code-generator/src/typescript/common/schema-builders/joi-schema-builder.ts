@@ -29,10 +29,6 @@ export class JoiBuilder extends AbstractSchemaBuilder {
     super(filename, input, imports)
 
     this.importHelpers(imports)
-
-    imports
-      .from("@nahkies/typescript-koa-runtime/joi")
-      .add("parseRequestInput", "Params", "responseValidationFactory")
   }
 
   protected importHelpers(imports: ImportBuilder) {
