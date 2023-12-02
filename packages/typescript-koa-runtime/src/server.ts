@@ -22,8 +22,8 @@ type Enumerate<
 type IntRange<F extends number, T extends number> = F extends T
   ? F
   : Exclude<Enumerate<T>, Enumerate<F>> extends never
-  ? never
-  : Exclude<Enumerate<T>, Enumerate<F>> | T
+    ? never
+    : Exclude<Enumerate<T>, Enumerate<F>> | T
 
 export type StatusCode1xx = IntRange<100, 199> // `1${number}${number}`
 export type StatusCode2xx = IntRange<200, 299> // `2${number}${number}`
