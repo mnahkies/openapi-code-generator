@@ -14,6 +14,10 @@ import {
 import { s_CreateUpdateTodoList, s_Error, s_TodoList } from "./schemas"
 import KoaRouter from "@koa/router"
 import {
+  KoaRuntimeError,
+  RequestInputType,
+} from "@nahkies/typescript-koa-runtime/errors"
+import {
   Response,
   ServerConfig,
   StatusCode,
@@ -94,11 +98,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getTodoLists", "/list", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getTodoListsQuerySchema, ctx.query),
+      query: parseRequestInput(
+        getTodoListsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.getTodoLists(input, ctx)
+    const { status, body } = await implementation
+      .getTodoLists(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getTodoListsResponseValidator(status, body)
     ctx.status = status
@@ -117,12 +129,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("getTodoListById", "/list/:listId", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(getTodoListByIdParamSchema, ctx.params),
+      params: parseRequestInput(
+        getTodoListByIdParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.getTodoListById(input, ctx)
+    const { status, body } = await implementation
+      .getTodoListById(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getTodoListByIdResponseValidator(status, body)
     ctx.status = status
@@ -143,12 +163,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put("updateTodoListById", "/list/:listId", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(updateTodoListByIdParamSchema, ctx.params),
+      params: parseRequestInput(
+        updateTodoListByIdParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(updateTodoListByIdBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        updateTodoListByIdBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.updateTodoListById(input, ctx)
+    const { status, body } = await implementation
+      .updateTodoListById(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = updateTodoListByIdResponseValidator(status, body)
     ctx.status = status
@@ -167,12 +199,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete("deleteTodoListById", "/list/:listId", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(deleteTodoListByIdParamSchema, ctx.params),
+      params: parseRequestInput(
+        deleteTodoListByIdParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.deleteTodoListById(input, ctx)
+    const { status, body } = await implementation
+      .deleteTodoListById(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = deleteTodoListByIdResponseValidator(status, body)
     ctx.status = status

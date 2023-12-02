@@ -2658,6 +2658,10 @@ import {
 } from "./schemas"
 import KoaRouter from "@koa/router"
 import {
+  KoaRuntimeError,
+  RequestInputType,
+} from "@nahkies/typescript-koa-runtime/errors"
+import {
   Response,
   ServerConfig,
   StatusCode,
@@ -8682,11 +8686,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getAccount", "/v1/account", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getAccountQuerySchema, ctx.query),
-      body: parseRequestInput(getAccountBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getAccountQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getAccountBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getAccount(input, ctx)
+    const { status, body } = await implementation
+      .getAccount(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getAccountResponseValidator(status, body)
     ctx.status = status
@@ -8711,10 +8727,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postAccountLinksBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postAccountLinksBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postAccountLinks(input, ctx)
+    const { status, body } = await implementation
+      .postAccountLinks(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postAccountLinksResponseValidator(status, body)
     ctx.status = status
@@ -8744,13 +8768,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postAccountSessionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postAccountSessions(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postAccountSessions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postAccountSessionsResponseValidator(status, body)
       ctx.status = status
@@ -8796,11 +8822,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getAccounts", "/v1/accounts", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getAccountsQuerySchema, ctx.query),
-      body: parseRequestInput(getAccountsBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getAccountsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getAccountsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getAccounts(input, ctx)
+    const { status, body } = await implementation
+      .getAccounts(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getAccountsResponseValidator(status, body)
     ctx.status = status
@@ -9294,10 +9332,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postAccountsBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postAccountsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postAccounts(input, ctx)
+    const { status, body } = await implementation
+      .postAccounts(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postAccountsResponseValidator(status, body)
     ctx.status = status
@@ -9318,18 +9364,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/accounts/:account",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(deleteAccountsAccountParamSchema, ctx.params),
+        params: parseRequestInput(
+          deleteAccountsAccountParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           deleteAccountsAccountBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.deleteAccountsAccount(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .deleteAccountsAccount(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteAccountsAccountResponseValidator(status, body)
       ctx.status = status
@@ -9355,15 +9407,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/accounts/:account",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(getAccountsAccountParamSchema, ctx.params),
-        query: parseRequestInput(getAccountsAccountQuerySchema, ctx.query),
-        body: parseRequestInput(getAccountsAccountBodySchema, ctx.request.body),
+        params: parseRequestInput(
+          getAccountsAccountParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          getAccountsAccountQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getAccountsAccountBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.getAccountsAccount(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getAccountsAccount(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getAccountsAccountResponseValidator(status, body)
       ctx.status = status
@@ -9835,18 +9900,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/accounts/:account",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(postAccountsAccountParamSchema, ctx.params),
+        params: parseRequestInput(
+          postAccountsAccountParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postAccountsAccount(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postAccountsAccount(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postAccountsAccountResponseValidator(status, body)
       ctx.status = status
@@ -9902,16 +9973,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postAccountsAccountBankAccountsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountBankAccountsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postAccountsAccountBankAccounts(input, ctx)
+      const { status, body } = await implementation
+        .postAccountsAccountBankAccounts(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postAccountsAccountBankAccountsResponseValidator(status, body)
       ctx.status = status
@@ -9937,16 +10013,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteAccountsAccountBankAccountsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteAccountsAccountBankAccountsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.deleteAccountsAccountBankAccountsId(input, ctx)
+      const { status, body } = await implementation
+        .deleteAccountsAccountBankAccountsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteAccountsAccountBankAccountsIdResponseValidator(
         status,
@@ -9979,19 +10060,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getAccountsAccountBankAccountsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getAccountsAccountBankAccountsIdQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getAccountsAccountBankAccountsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getAccountsAccountBankAccountsId(input, ctx)
+      const { status, body } = await implementation
+        .getAccountsAccountBankAccountsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getAccountsAccountBankAccountsIdResponseValidator(status, body)
       ctx.status = status
@@ -10042,16 +10129,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postAccountsAccountBankAccountsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountBankAccountsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postAccountsAccountBankAccountsId(input, ctx)
+      const { status, body } = await implementation
+        .postAccountsAccountBankAccountsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postAccountsAccountBankAccountsIdResponseValidator(
         status,
@@ -10096,19 +10188,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getAccountsAccountCapabilitiesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getAccountsAccountCapabilitiesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getAccountsAccountCapabilitiesBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getAccountsAccountCapabilities(input, ctx)
+      const { status, body } = await implementation
+        .getAccountsAccountCapabilities(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getAccountsAccountCapabilitiesResponseValidator(status, body)
       ctx.status = status
@@ -10140,22 +10238,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getAccountsAccountCapabilitiesCapabilityParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getAccountsAccountCapabilitiesCapabilityQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getAccountsAccountCapabilitiesCapabilityBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getAccountsAccountCapabilitiesCapability(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .getAccountsAccountCapabilitiesCapability(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getAccountsAccountCapabilitiesCapabilityResponseValidator(
         status,
@@ -10189,19 +10290,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postAccountsAccountCapabilitiesCapabilityParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountCapabilitiesCapabilityBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postAccountsAccountCapabilitiesCapability(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postAccountsAccountCapabilitiesCapability(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postAccountsAccountCapabilitiesCapabilityResponseValidator(
         status,
@@ -10251,19 +10354,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getAccountsAccountExternalAccountsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getAccountsAccountExternalAccountsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getAccountsAccountExternalAccountsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getAccountsAccountExternalAccounts(input, ctx)
+      const { status, body } = await implementation
+        .getAccountsAccountExternalAccounts(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getAccountsAccountExternalAccountsResponseValidator(
         status,
@@ -10322,16 +10431,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postAccountsAccountExternalAccountsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountExternalAccountsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postAccountsAccountExternalAccounts(input, ctx)
+      const { status, body } = await implementation
+        .postAccountsAccountExternalAccounts(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postAccountsAccountExternalAccountsResponseValidator(
         status,
@@ -10362,16 +10476,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteAccountsAccountExternalAccountsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteAccountsAccountExternalAccountsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.deleteAccountsAccountExternalAccountsId(input, ctx)
+      const { status, body } = await implementation
+        .deleteAccountsAccountExternalAccountsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteAccountsAccountExternalAccountsIdResponseValidator(
         status,
@@ -10404,19 +10523,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getAccountsAccountExternalAccountsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getAccountsAccountExternalAccountsIdQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getAccountsAccountExternalAccountsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getAccountsAccountExternalAccountsId(input, ctx)
+      const { status, body } = await implementation
+        .getAccountsAccountExternalAccountsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getAccountsAccountExternalAccountsIdResponseValidator(
         status,
@@ -10470,16 +10595,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postAccountsAccountExternalAccountsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountExternalAccountsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postAccountsAccountExternalAccountsId(input, ctx)
+      const { status, body } = await implementation
+        .postAccountsAccountExternalAccountsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postAccountsAccountExternalAccountsIdResponseValidator(
         status,
@@ -10509,16 +10639,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postAccountsAccountLoginLinksParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountLoginLinksBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postAccountsAccountLoginLinks(input, ctx)
+      const { status, body } = await implementation
+        .postAccountsAccountLoginLinks(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postAccountsAccountLoginLinksResponseValidator(status, body)
       ctx.status = status
@@ -10568,21 +10703,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getAccountsAccountPeopleParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getAccountsAccountPeopleQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getAccountsAccountPeopleBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getAccountsAccountPeople(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getAccountsAccountPeople(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getAccountsAccountPeopleResponseValidator(status, body)
       ctx.status = status
@@ -10730,18 +10869,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postAccountsAccountPeopleParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountPeopleBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postAccountsAccountPeople(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postAccountsAccountPeople(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postAccountsAccountPeopleResponseValidator(status, body)
       ctx.status = status
@@ -10767,16 +10909,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteAccountsAccountPeoplePersonParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteAccountsAccountPeoplePersonBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.deleteAccountsAccountPeoplePerson(input, ctx)
+      const { status, body } = await implementation
+        .deleteAccountsAccountPeoplePerson(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteAccountsAccountPeoplePersonResponseValidator(
         status,
@@ -10809,19 +10956,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getAccountsAccountPeoplePersonParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getAccountsAccountPeoplePersonQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getAccountsAccountPeoplePersonBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getAccountsAccountPeoplePerson(input, ctx)
+      const { status, body } = await implementation
+        .getAccountsAccountPeoplePerson(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getAccountsAccountPeoplePersonResponseValidator(status, body)
       ctx.status = status
@@ -10970,16 +11123,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postAccountsAccountPeoplePersonParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountPeoplePersonBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postAccountsAccountPeoplePerson(input, ctx)
+      const { status, body } = await implementation
+        .postAccountsAccountPeoplePerson(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postAccountsAccountPeoplePersonResponseValidator(status, body)
       ctx.status = status
@@ -11029,21 +11187,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getAccountsAccountPersonsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getAccountsAccountPersonsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getAccountsAccountPersonsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getAccountsAccountPersons(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getAccountsAccountPersons(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getAccountsAccountPersonsResponseValidator(status, body)
       ctx.status = status
@@ -11193,18 +11355,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postAccountsAccountPersonsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountPersonsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postAccountsAccountPersons(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postAccountsAccountPersons(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postAccountsAccountPersonsResponseValidator(status, body)
       ctx.status = status
@@ -11230,16 +11395,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteAccountsAccountPersonsPersonParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteAccountsAccountPersonsPersonBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.deleteAccountsAccountPersonsPerson(input, ctx)
+      const { status, body } = await implementation
+        .deleteAccountsAccountPersonsPerson(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteAccountsAccountPersonsPersonResponseValidator(
         status,
@@ -11272,19 +11442,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getAccountsAccountPersonsPersonParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getAccountsAccountPersonsPersonQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getAccountsAccountPersonsPersonBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getAccountsAccountPersonsPerson(input, ctx)
+      const { status, body } = await implementation
+        .getAccountsAccountPersonsPerson(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getAccountsAccountPersonsPersonResponseValidator(status, body)
       ctx.status = status
@@ -11433,16 +11609,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postAccountsAccountPersonsPersonParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountPersonsPersonBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postAccountsAccountPersonsPerson(input, ctx)
+      const { status, body } = await implementation
+        .postAccountsAccountPersonsPerson(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postAccountsAccountPersonsPersonResponseValidator(status, body)
       ctx.status = status
@@ -11470,18 +11651,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postAccountsAccountRejectParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountRejectBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postAccountsAccountReject(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postAccountsAccountReject(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postAccountsAccountRejectResponseValidator(status, body)
       ctx.status = status
@@ -11520,14 +11704,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getApplePayDomainsQuerySchema, ctx.query),
-        body: parseRequestInput(getApplePayDomainsBodySchema, ctx.request.body),
+        query: parseRequestInput(
+          getApplePayDomainsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getApplePayDomainsBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.getApplePayDomains(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getApplePayDomains(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getApplePayDomainsResponseValidator(status, body)
       ctx.status = status
@@ -11555,13 +11748,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postApplePayDomainsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postApplePayDomains(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postApplePayDomains(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postApplePayDomainsResponseValidator(status, body)
       ctx.status = status
@@ -11586,18 +11781,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteApplePayDomainsDomainParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteApplePayDomainsDomainBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.deleteApplePayDomainsDomain(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .deleteApplePayDomainsDomain(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteApplePayDomainsDomainResponseValidator(status, body)
       ctx.status = status
@@ -11626,21 +11824,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getApplePayDomainsDomainParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getApplePayDomainsDomainQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getApplePayDomainsDomainBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getApplePayDomainsDomain(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getApplePayDomainsDomain(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getApplePayDomainsDomainResponseValidator(status, body)
       ctx.status = status
@@ -11690,14 +11892,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getApplicationFeesQuerySchema, ctx.query),
-        body: parseRequestInput(getApplicationFeesBodySchema, ctx.request.body),
+        query: parseRequestInput(
+          getApplicationFeesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getApplicationFeesBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.getApplicationFees(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getApplicationFees(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getApplicationFeesResponseValidator(status, body)
       ctx.status = status
@@ -11727,19 +11938,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getApplicationFeesFeeRefundsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getApplicationFeesFeeRefundsIdQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getApplicationFeesFeeRefundsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getApplicationFeesFeeRefundsId(input, ctx)
+      const { status, body } = await implementation
+        .getApplicationFeesFeeRefundsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getApplicationFeesFeeRefundsIdResponseValidator(status, body)
       ctx.status = status
@@ -11770,16 +11987,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postApplicationFeesFeeRefundsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postApplicationFeesFeeRefundsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postApplicationFeesFeeRefundsId(input, ctx)
+      const { status, body } = await implementation
+        .postApplicationFeesFeeRefundsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postApplicationFeesFeeRefundsIdResponseValidator(status, body)
       ctx.status = status
@@ -11805,18 +12027,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/application_fees/:id",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(getApplicationFeesIdParamSchema, ctx.params),
-        query: parseRequestInput(getApplicationFeesIdQuerySchema, ctx.query),
+        params: parseRequestInput(
+          getApplicationFeesIdParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          getApplicationFeesIdQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getApplicationFeesIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getApplicationFeesId(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getApplicationFeesId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getApplicationFeesIdResponseValidator(status, body)
       ctx.status = status
@@ -11845,18 +12077,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postApplicationFeesIdRefundParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postApplicationFeesIdRefundBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postApplicationFeesIdRefund(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postApplicationFeesIdRefund(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postApplicationFeesIdRefundResponseValidator(status, body)
       ctx.status = status
@@ -11899,21 +12134,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getApplicationFeesIdRefundsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getApplicationFeesIdRefundsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getApplicationFeesIdRefundsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getApplicationFeesIdRefunds(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getApplicationFeesIdRefunds(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getApplicationFeesIdRefundsResponseValidator(status, body)
       ctx.status = status
@@ -11942,16 +12181,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postApplicationFeesIdRefundsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postApplicationFeesIdRefundsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postApplicationFeesIdRefunds(input, ctx)
+      const { status, body } = await implementation
+        .postApplicationFeesIdRefunds(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postApplicationFeesIdRefundsResponseValidator(status, body)
       ctx.status = status
@@ -11990,11 +12234,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getAppsSecrets", "/v1/apps/secrets", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getAppsSecretsQuerySchema, ctx.query),
-      body: parseRequestInput(getAppsSecretsBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getAppsSecretsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getAppsSecretsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getAppsSecrets(input, ctx)
+    const { status, body } = await implementation
+      .getAppsSecrets(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getAppsSecretsResponseValidator(status, body)
     ctx.status = status
@@ -12021,10 +12277,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postAppsSecretsBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postAppsSecretsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postAppsSecrets(input, ctx)
+    const { status, body } = await implementation
+      .postAppsSecrets(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postAppsSecretsResponseValidator(status, body)
     ctx.status = status
@@ -12055,13 +12319,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postAppsSecretsDeleteBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postAppsSecretsDelete(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postAppsSecretsDelete(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postAppsSecretsDeleteResponseValidator(status, body)
       ctx.status = status
@@ -12091,14 +12357,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getAppsSecretsFindQuerySchema, ctx.query),
-        body: parseRequestInput(getAppsSecretsFindBodySchema, ctx.request.body),
+        query: parseRequestInput(
+          getAppsSecretsFindQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getAppsSecretsFindBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.getAppsSecretsFind(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getAppsSecretsFind(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getAppsSecretsFindResponseValidator(status, body)
       ctx.status = status
@@ -12120,11 +12395,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getBalance", "/v1/balance", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getBalanceQuerySchema, ctx.query),
-      body: parseRequestInput(getBalanceBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getBalanceQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getBalanceBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getBalance(input, ctx)
+    const { status, body } = await implementation
+      .getBalance(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getBalanceResponseValidator(status, body)
     ctx.status = status
@@ -12173,11 +12460,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getBalanceHistory", "/v1/balance/history", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getBalanceHistoryQuerySchema, ctx.query),
-      body: parseRequestInput(getBalanceHistoryBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getBalanceHistoryQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getBalanceHistoryBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getBalanceHistory(input, ctx)
+    const { status, body } = await implementation
+      .getBalanceHistory(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getBalanceHistoryResponseValidator(status, body)
     ctx.status = status
@@ -12202,18 +12501,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/balance/history/:id",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(getBalanceHistoryIdParamSchema, ctx.params),
-        query: parseRequestInput(getBalanceHistoryIdQuerySchema, ctx.query),
+        params: parseRequestInput(
+          getBalanceHistoryIdParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          getBalanceHistoryIdQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getBalanceHistoryIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getBalanceHistoryId(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getBalanceHistoryId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getBalanceHistoryIdResponseValidator(status, body)
       ctx.status = status
@@ -12266,17 +12575,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getBalanceTransactionsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getBalanceTransactionsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getBalanceTransactionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getBalanceTransactions(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getBalanceTransactions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getBalanceTransactionsResponseValidator(status, body)
       ctx.status = status
@@ -12305,21 +12620,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getBalanceTransactionsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getBalanceTransactionsIdQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getBalanceTransactionsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getBalanceTransactionsId(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getBalanceTransactionsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getBalanceTransactionsIdResponseValidator(status, body)
       ctx.status = status
@@ -12363,15 +12682,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getBillingPortalConfigurationsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getBillingPortalConfigurationsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getBillingPortalConfigurations(input, ctx)
+      const { status, body } = await implementation
+        .getBillingPortalConfigurations(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getBillingPortalConfigurationsResponseValidator(status, body)
       ctx.status = status
@@ -12483,11 +12807,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postBillingPortalConfigurationsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postBillingPortalConfigurations(input, ctx)
+      const { status, body } = await implementation
+        .postBillingPortalConfigurations(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postBillingPortalConfigurationsResponseValidator(status, body)
       ctx.status = status
@@ -12521,22 +12849,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getBillingPortalConfigurationsConfigurationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getBillingPortalConfigurationsConfigurationQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getBillingPortalConfigurationsConfigurationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getBillingPortalConfigurationsConfiguration(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .getBillingPortalConfigurationsConfiguration(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getBillingPortalConfigurationsConfigurationResponseValidator(
         status,
@@ -12669,19 +13000,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postBillingPortalConfigurationsConfigurationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postBillingPortalConfigurationsConfigurationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postBillingPortalConfigurationsConfiguration(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postBillingPortalConfigurationsConfiguration(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postBillingPortalConfigurationsConfigurationResponseValidator(
         status,
@@ -12821,13 +13154,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postBillingPortalSessionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postBillingPortalSessions(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postBillingPortalSessions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postBillingPortalSessionsResponseValidator(status, body)
       ctx.status = status
@@ -12876,11 +13211,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getCharges", "/v1/charges", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getChargesQuerySchema, ctx.query),
-      body: parseRequestInput(getChargesBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getChargesQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getChargesBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getCharges(input, ctx)
+    const { status, body } = await implementation
+      .getCharges(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getChargesResponseValidator(status, body)
     ctx.status = status
@@ -12968,10 +13315,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postChargesBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postChargesBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postCharges(input, ctx)
+    const { status, body } = await implementation
+      .postCharges(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postChargesResponseValidator(status, body)
     ctx.status = status
@@ -13007,11 +13362,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getChargesSearch", "/v1/charges/search", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getChargesSearchQuerySchema, ctx.query),
-      body: parseRequestInput(getChargesSearchBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getChargesSearchQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getChargesSearchBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getChargesSearch(input, ctx)
+    const { status, body } = await implementation
+      .getChargesSearch(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getChargesSearchResponseValidator(status, body)
     ctx.status = status
@@ -13033,12 +13400,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("getChargesCharge", "/v1/charges/:charge", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(getChargesChargeParamSchema, ctx.params),
-      query: parseRequestInput(getChargesChargeQuerySchema, ctx.query),
-      body: parseRequestInput(getChargesChargeBodySchema, ctx.request.body),
+      params: parseRequestInput(
+        getChargesChargeParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getChargesChargeQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getChargesChargeBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getChargesCharge(input, ctx)
+    const { status, body } = await implementation
+      .getChargesCharge(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getChargesChargeResponseValidator(status, body)
     ctx.status = status
@@ -13084,12 +13467,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post("postChargesCharge", "/v1/charges/:charge", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(postChargesChargeParamSchema, ctx.params),
+      params: parseRequestInput(
+        postChargesChargeParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(postChargesChargeBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postChargesChargeBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postChargesCharge(input, ctx)
+    const { status, body } = await implementation
+      .postChargesCharge(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postChargesChargeResponseValidator(status, body)
     ctx.status = status
@@ -13127,18 +13522,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postChargesChargeCaptureParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postChargesChargeCaptureBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postChargesChargeCapture(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postChargesChargeCapture(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postChargesChargeCaptureResponseValidator(status, body)
       ctx.status = status
@@ -13167,18 +13565,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getChargesChargeDisputeParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(getChargesChargeDisputeQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getChargesChargeDisputeQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getChargesChargeDisputeBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getChargesChargeDispute(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getChargesChargeDispute(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getChargesChargeDisputeResponseValidator(status, body)
       ctx.status = status
@@ -13240,18 +13645,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postChargesChargeDisputeParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postChargesChargeDisputeBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postChargesChargeDispute(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postChargesChargeDispute(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postChargesChargeDisputeResponseValidator(status, body)
       ctx.status = status
@@ -13278,16 +13686,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postChargesChargeDisputeCloseParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postChargesChargeDisputeCloseBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postChargesChargeDisputeClose(input, ctx)
+      const { status, body } = await implementation
+        .postChargesChargeDisputeClose(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postChargesChargeDisputeCloseResponseValidator(status, body)
       ctx.status = status
@@ -13325,18 +13738,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postChargesChargeRefundParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postChargesChargeRefundBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postChargesChargeRefund(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postChargesChargeRefund(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postChargesChargeRefundResponseValidator(status, body)
       ctx.status = status
@@ -13378,18 +13794,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getChargesChargeRefundsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(getChargesChargeRefundsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getChargesChargeRefundsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getChargesChargeRefundsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getChargesChargeRefunds(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getChargesChargeRefunds(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getChargesChargeRefundsResponseValidator(status, body)
       ctx.status = status
@@ -13430,18 +13853,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postChargesChargeRefundsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postChargesChargeRefundsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postChargesChargeRefunds(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postChargesChargeRefunds(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postChargesChargeRefundsResponseValidator(status, body)
       ctx.status = status
@@ -13471,19 +13897,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getChargesChargeRefundsRefundParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getChargesChargeRefundsRefundQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getChargesChargeRefundsRefundBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getChargesChargeRefundsRefund(input, ctx)
+      const { status, body } = await implementation
+        .getChargesChargeRefundsRefund(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getChargesChargeRefundsRefundResponseValidator(status, body)
       ctx.status = status
@@ -13514,16 +13946,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postChargesChargeRefundsRefundParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postChargesChargeRefundsRefundBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postChargesChargeRefundsRefund(input, ctx)
+      const { status, body } = await implementation
+        .postChargesChargeRefundsRefund(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postChargesChargeRefundsRefundResponseValidator(status, body)
       ctx.status = status
@@ -13566,17 +14003,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getCheckoutSessionsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getCheckoutSessionsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getCheckoutSessionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getCheckoutSessions(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getCheckoutSessions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCheckoutSessionsResponseValidator(status, body)
       ctx.status = status
@@ -14455,13 +14898,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postCheckoutSessionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postCheckoutSessions(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postCheckoutSessions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postCheckoutSessionsResponseValidator(status, body)
       ctx.status = status
@@ -14492,21 +14937,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCheckoutSessionsSessionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCheckoutSessionsSessionQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCheckoutSessionsSessionBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getCheckoutSessionsSession(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getCheckoutSessionsSession(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCheckoutSessionsSessionResponseValidator(status, body)
       ctx.status = status
@@ -14533,16 +14982,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postCheckoutSessionsSessionExpireParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postCheckoutSessionsSessionExpireBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postCheckoutSessionsSessionExpire(input, ctx)
+      const { status, body } = await implementation
+        .postCheckoutSessionsSessionExpire(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postCheckoutSessionsSessionExpireResponseValidator(
         status,
@@ -14590,19 +15044,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCheckoutSessionsSessionLineItemsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCheckoutSessionsSessionLineItemsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCheckoutSessionsSessionLineItemsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getCheckoutSessionsSessionLineItems(input, ctx)
+      const { status, body } = await implementation
+        .getCheckoutSessionsSessionLineItems(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCheckoutSessionsSessionLineItemsResponseValidator(
         status,
@@ -14640,11 +15100,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getCountrySpecs", "/v1/country_specs", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getCountrySpecsQuerySchema, ctx.query),
-      body: parseRequestInput(getCountrySpecsBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getCountrySpecsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getCountrySpecsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getCountrySpecs(input, ctx)
+    const { status, body } = await implementation
+      .getCountrySpecs(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getCountrySpecsResponseValidator(status, body)
     ctx.status = status
@@ -14672,18 +15144,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCountrySpecsCountryParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(getCountrySpecsCountryQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getCountrySpecsCountryQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getCountrySpecsCountryBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getCountrySpecsCountry(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getCountrySpecsCountry(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCountrySpecsCountryResponseValidator(status, body)
       ctx.status = status
@@ -14729,11 +15208,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getCoupons", "/v1/coupons", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getCouponsQuerySchema, ctx.query),
-      body: parseRequestInput(getCouponsBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getCouponsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getCouponsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getCoupons(input, ctx)
+    const { status, body } = await implementation
+      .getCoupons(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getCouponsResponseValidator(status, body)
     ctx.status = status
@@ -14769,10 +15260,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postCouponsBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postCouponsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postCoupons(input, ctx)
+    const { status, body } = await implementation
+      .postCoupons(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postCouponsResponseValidator(status, body)
     ctx.status = status
@@ -14793,18 +15292,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/coupons/:coupon",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(deleteCouponsCouponParamSchema, ctx.params),
+        params: parseRequestInput(
+          deleteCouponsCouponParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           deleteCouponsCouponBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.deleteCouponsCoupon(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .deleteCouponsCoupon(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteCouponsCouponResponseValidator(status, body)
       ctx.status = status
@@ -14827,12 +15332,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("getCouponsCoupon", "/v1/coupons/:coupon", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(getCouponsCouponParamSchema, ctx.params),
-      query: parseRequestInput(getCouponsCouponQuerySchema, ctx.query),
-      body: parseRequestInput(getCouponsCouponBodySchema, ctx.request.body),
+      params: parseRequestInput(
+        getCouponsCouponParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getCouponsCouponQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getCouponsCouponBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getCouponsCoupon(input, ctx)
+    const { status, body } = await implementation
+      .getCouponsCoupon(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getCouponsCouponResponseValidator(status, body)
     ctx.status = status
@@ -14857,12 +15378,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post("postCouponsCoupon", "/v1/coupons/:coupon", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(postCouponsCouponParamSchema, ctx.params),
+      params: parseRequestInput(
+        postCouponsCouponParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(postCouponsCouponBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postCouponsCouponBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postCouponsCoupon(input, ctx)
+    const { status, body } = await implementation
+      .postCouponsCoupon(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postCouponsCouponResponseValidator(status, body)
     ctx.status = status
@@ -14898,11 +15431,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getCreditNotes", "/v1/credit_notes", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getCreditNotesQuerySchema, ctx.query),
-      body: parseRequestInput(getCreditNotesBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getCreditNotesQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getCreditNotesBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getCreditNotes(input, ctx)
+    const { status, body } = await implementation
+      .getCreditNotes(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getCreditNotesResponseValidator(status, body)
     ctx.status = status
@@ -14956,10 +15501,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postCreditNotesBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postCreditNotesBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postCreditNotes(input, ctx)
+    const { status, body } = await implementation
+      .postCreditNotes(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postCreditNotesResponseValidator(status, body)
     ctx.status = status
@@ -15017,17 +15570,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getCreditNotesPreviewQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getCreditNotesPreviewQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getCreditNotesPreviewBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getCreditNotesPreview(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getCreditNotesPreview(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCreditNotesPreviewResponseValidator(status, body)
       ctx.status = status
@@ -15102,17 +15661,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getCreditNotesPreviewLinesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCreditNotesPreviewLinesBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getCreditNotesPreviewLines(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getCreditNotesPreviewLines(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCreditNotesPreviewLinesResponseValidator(status, body)
       ctx.status = status
@@ -15157,19 +15719,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCreditNotesCreditNoteLinesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCreditNotesCreditNoteLinesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCreditNotesCreditNoteLinesBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getCreditNotesCreditNoteLines(input, ctx)
+      const { status, body } = await implementation
+        .getCreditNotesCreditNoteLines(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCreditNotesCreditNoteLinesResponseValidator(status, body)
       ctx.status = status
@@ -15192,12 +15760,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("getCreditNotesId", "/v1/credit_notes/:id", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(getCreditNotesIdParamSchema, ctx.params),
-      query: parseRequestInput(getCreditNotesIdQuerySchema, ctx.query),
-      body: parseRequestInput(getCreditNotesIdBodySchema, ctx.request.body),
+      params: parseRequestInput(
+        getCreditNotesIdParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getCreditNotesIdQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getCreditNotesIdBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getCreditNotesId(input, ctx)
+    const { status, body } = await implementation
+      .getCreditNotesId(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getCreditNotesIdResponseValidator(status, body)
     ctx.status = status
@@ -15224,15 +15808,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/credit_notes/:id",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(postCreditNotesIdParamSchema, ctx.params),
+        params: parseRequestInput(
+          postCreditNotesIdParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(postCreditNotesIdBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          postCreditNotesIdBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.postCreditNotesId(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postCreditNotesId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postCreditNotesIdResponseValidator(status, body)
       ctx.status = status
@@ -15256,18 +15849,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/credit_notes/:id/void",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(postCreditNotesIdVoidParamSchema, ctx.params),
+        params: parseRequestInput(
+          postCreditNotesIdVoidParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           postCreditNotesIdVoidBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postCreditNotesIdVoid(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postCreditNotesIdVoid(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postCreditNotesIdVoidResponseValidator(status, body)
       ctx.status = status
@@ -15315,11 +15914,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getCustomers", "/v1/customers", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getCustomersQuerySchema, ctx.query),
-      body: parseRequestInput(getCustomersBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getCustomersQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getCustomersBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getCustomers(input, ctx)
+    const { status, body } = await implementation
+      .getCustomers(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getCustomersResponseValidator(status, body)
     ctx.status = status
@@ -15497,10 +16108,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postCustomersBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postCustomersBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postCustomers(input, ctx)
+    const { status, body } = await implementation
+      .postCustomers(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postCustomersResponseValidator(status, body)
     ctx.status = status
@@ -15539,14 +16158,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getCustomersSearchQuerySchema, ctx.query),
-        body: parseRequestInput(getCustomersSearchBodySchema, ctx.request.body),
+        query: parseRequestInput(
+          getCustomersSearchQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getCustomersSearchBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.getCustomersSearch(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getCustomersSearch(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCustomersSearchResponseValidator(status, body)
       ctx.status = status
@@ -15571,18 +16199,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteCustomersCustomerParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.deleteCustomersCustomer(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .deleteCustomersCustomer(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteCustomersCustomerResponseValidator(status, body)
       ctx.status = status
@@ -15608,18 +16239,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/customers/:customer",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(getCustomersCustomerParamSchema, ctx.params),
-        query: parseRequestInput(getCustomersCustomerQuerySchema, ctx.query),
+        params: parseRequestInput(
+          getCustomersCustomerParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          getCustomersCustomerQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getCustomersCustomerBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getCustomersCustomer(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getCustomersCustomer(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCustomersCustomerResponseValidator(status, body)
       ctx.status = status
@@ -15762,18 +16403,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/customers/:customer",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(postCustomersCustomerParamSchema, ctx.params),
+        params: parseRequestInput(
+          postCustomersCustomerParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postCustomersCustomer(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postCustomersCustomer(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postCustomersCustomerResponseValidator(status, body)
       ctx.status = status
@@ -15820,19 +16467,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCustomersCustomerBalanceTransactionsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCustomersCustomerBalanceTransactionsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCustomersCustomerBalanceTransactionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getCustomersCustomerBalanceTransactions(input, ctx)
+      const { status, body } = await implementation
+        .getCustomersCustomerBalanceTransactions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCustomersCustomerBalanceTransactionsResponseValidator(
         status,
@@ -15869,19 +16522,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postCustomersCustomerBalanceTransactionsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerBalanceTransactionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postCustomersCustomerBalanceTransactions(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postCustomersCustomerBalanceTransactions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postCustomersCustomerBalanceTransactionsResponseValidator(
         status,
@@ -15916,22 +16571,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCustomersCustomerBalanceTransactionsTransactionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCustomersCustomerBalanceTransactionsTransactionQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCustomersCustomerBalanceTransactionsTransactionBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getCustomersCustomerBalanceTransactionsTransaction(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .getCustomersCustomerBalanceTransactionsTransaction(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         getCustomersCustomerBalanceTransactionsTransactionResponseValidator(
@@ -15968,19 +16626,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postCustomersCustomerBalanceTransactionsTransactionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerBalanceTransactionsTransactionBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postCustomersCustomerBalanceTransactionsTransaction(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postCustomersCustomerBalanceTransactionsTransaction(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postCustomersCustomerBalanceTransactionsTransactionResponseValidator(
@@ -16029,19 +16689,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCustomersCustomerBankAccountsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCustomersCustomerBankAccountsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCustomersCustomerBankAccountsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getCustomersCustomerBankAccounts(input, ctx)
+      const { status, body } = await implementation
+        .getCustomersCustomerBankAccounts(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCustomersCustomerBankAccountsResponseValidator(status, body)
       ctx.status = status
@@ -16107,16 +16773,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postCustomersCustomerBankAccountsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerBankAccountsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postCustomersCustomerBankAccounts(input, ctx)
+      const { status, body } = await implementation
+        .postCustomersCustomerBankAccounts(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postCustomersCustomerBankAccountsResponseValidator(
         status,
@@ -16155,16 +16826,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteCustomersCustomerBankAccountsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerBankAccountsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.deleteCustomersCustomerBankAccountsId(input, ctx)
+      const { status, body } = await implementation
+        .deleteCustomersCustomerBankAccountsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteCustomersCustomerBankAccountsIdResponseValidator(
         status,
@@ -16197,19 +16873,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCustomersCustomerBankAccountsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCustomersCustomerBankAccountsIdQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCustomersCustomerBankAccountsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getCustomersCustomerBankAccountsId(input, ctx)
+      const { status, body } = await implementation
+        .getCustomersCustomerBankAccountsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCustomersCustomerBankAccountsIdResponseValidator(
         status,
@@ -16283,16 +16965,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postCustomersCustomerBankAccountsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerBankAccountsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postCustomersCustomerBankAccountsId(input, ctx)
+      const { status, body } = await implementation
+        .postCustomersCustomerBankAccountsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postCustomersCustomerBankAccountsIdResponseValidator(
         status,
@@ -16326,19 +17013,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postCustomersCustomerBankAccountsIdVerifyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerBankAccountsIdVerifyBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postCustomersCustomerBankAccountsIdVerify(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postCustomersCustomerBankAccountsIdVerify(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postCustomersCustomerBankAccountsIdVerifyResponseValidator(
         status,
@@ -16385,21 +17074,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCustomersCustomerCardsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCustomersCustomerCardsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCustomersCustomerCardsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getCustomersCustomerCards(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getCustomersCustomerCards(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCustomersCustomerCardsResponseValidator(status, body)
       ctx.status = status
@@ -16467,18 +17160,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postCustomersCustomerCardsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerCardsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postCustomersCustomerCards(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postCustomersCustomerCards(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postCustomersCustomerCardsResponseValidator(status, body)
       ctx.status = status
@@ -16514,16 +17210,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteCustomersCustomerCardsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerCardsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.deleteCustomersCustomerCardsId(input, ctx)
+      const { status, body } = await implementation
+        .deleteCustomersCustomerCardsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteCustomersCustomerCardsIdResponseValidator(status, body)
       ctx.status = status
@@ -16553,21 +17254,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCustomersCustomerCardsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCustomersCustomerCardsIdQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCustomersCustomerCardsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getCustomersCustomerCardsId(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getCustomersCustomerCardsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCustomersCustomerCardsIdResponseValidator(status, body)
       ctx.status = status
@@ -16638,16 +17343,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postCustomersCustomerCardsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerCardsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postCustomersCustomerCardsId(input, ctx)
+      const { status, body } = await implementation
+        .postCustomersCustomerCardsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postCustomersCustomerCardsIdResponseValidator(status, body)
       ctx.status = status
@@ -16676,19 +17386,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCustomersCustomerCashBalanceParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCustomersCustomerCashBalanceQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCustomersCustomerCashBalanceBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getCustomersCustomerCashBalance(input, ctx)
+      const { status, body } = await implementation
+        .getCustomersCustomerCashBalance(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCustomersCustomerCashBalanceResponseValidator(status, body)
       ctx.status = status
@@ -16724,16 +17440,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postCustomersCustomerCashBalanceParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerCashBalanceBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postCustomersCustomerCashBalance(input, ctx)
+      const { status, body } = await implementation
+        .postCustomersCustomerCashBalance(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postCustomersCustomerCashBalanceResponseValidator(status, body)
       ctx.status = status
@@ -16780,22 +17501,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCustomersCustomerCashBalanceTransactionsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCustomersCustomerCashBalanceTransactionsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCustomersCustomerCashBalanceTransactionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getCustomersCustomerCashBalanceTransactions(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .getCustomersCustomerCashBalanceTransactions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCustomersCustomerCashBalanceTransactionsResponseValidator(
         status,
@@ -16830,22 +17554,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCustomersCustomerCashBalanceTransactionsTransactionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCustomersCustomerCashBalanceTransactionsTransactionQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCustomersCustomerCashBalanceTransactionsTransactionBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getCustomersCustomerCashBalanceTransactionsTransaction(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .getCustomersCustomerCashBalanceTransactionsTransaction(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         getCustomersCustomerCashBalanceTransactionsTransactionResponseValidator(
@@ -16874,16 +17601,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteCustomersCustomerDiscountParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerDiscountBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.deleteCustomersCustomerDiscount(input, ctx)
+      const { status, body } = await implementation
+        .deleteCustomersCustomerDiscount(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteCustomersCustomerDiscountResponseValidator(status, body)
       ctx.status = status
@@ -16912,19 +17644,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCustomersCustomerDiscountParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCustomersCustomerDiscountQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCustomersCustomerDiscountBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getCustomersCustomerDiscount(input, ctx)
+      const { status, body } = await implementation
+        .getCustomersCustomerDiscount(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCustomersCustomerDiscountResponseValidator(status, body)
       ctx.status = status
@@ -16966,19 +17704,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postCustomersCustomerFundingInstructionsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerFundingInstructionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postCustomersCustomerFundingInstructions(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postCustomersCustomerFundingInstructions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postCustomersCustomerFundingInstructionsResponseValidator(
         status,
@@ -17061,19 +17801,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCustomersCustomerPaymentMethodsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCustomersCustomerPaymentMethodsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCustomersCustomerPaymentMethodsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getCustomersCustomerPaymentMethods(input, ctx)
+      const { status, body } = await implementation
+        .getCustomersCustomerPaymentMethods(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCustomersCustomerPaymentMethodsResponseValidator(
         status,
@@ -17108,22 +17854,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCustomersCustomerPaymentMethodsPaymentMethodParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCustomersCustomerPaymentMethodsPaymentMethodQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCustomersCustomerPaymentMethodsPaymentMethodBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getCustomersCustomerPaymentMethodsPaymentMethod(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .getCustomersCustomerPaymentMethodsPaymentMethod(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         getCustomersCustomerPaymentMethodsPaymentMethodResponseValidator(
@@ -17179,21 +17928,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCustomersCustomerSourcesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCustomersCustomerSourcesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCustomersCustomerSourcesBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getCustomersCustomerSources(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getCustomersCustomerSources(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCustomersCustomerSourcesResponseValidator(status, body)
       ctx.status = status
@@ -17259,16 +18012,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postCustomersCustomerSourcesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerSourcesBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postCustomersCustomerSources(input, ctx)
+      const { status, body } = await implementation
+        .postCustomersCustomerSources(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postCustomersCustomerSourcesResponseValidator(status, body)
       ctx.status = status
@@ -17304,16 +18062,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteCustomersCustomerSourcesIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerSourcesIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.deleteCustomersCustomerSourcesId(input, ctx)
+      const { status, body } = await implementation
+        .deleteCustomersCustomerSourcesId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteCustomersCustomerSourcesIdResponseValidator(status, body)
       ctx.status = status
@@ -17343,19 +18106,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCustomersCustomerSourcesIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCustomersCustomerSourcesIdQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCustomersCustomerSourcesIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getCustomersCustomerSourcesId(input, ctx)
+      const { status, body } = await implementation
+        .getCustomersCustomerSourcesId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCustomersCustomerSourcesIdResponseValidator(status, body)
       ctx.status = status
@@ -17426,16 +18195,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postCustomersCustomerSourcesIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerSourcesIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postCustomersCustomerSourcesId(input, ctx)
+      const { status, body } = await implementation
+        .postCustomersCustomerSourcesId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postCustomersCustomerSourcesIdResponseValidator(status, body)
       ctx.status = status
@@ -17466,16 +18240,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postCustomersCustomerSourcesIdVerifyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerSourcesIdVerifyBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postCustomersCustomerSourcesIdVerify(input, ctx)
+      const { status, body } = await implementation
+        .postCustomersCustomerSourcesIdVerify(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postCustomersCustomerSourcesIdVerifyResponseValidator(
         status,
@@ -17523,19 +18302,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCustomersCustomerSubscriptionsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCustomersCustomerSubscriptionsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCustomersCustomerSubscriptionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getCustomersCustomerSubscriptions(input, ctx)
+      const { status, body } = await implementation
+        .getCustomersCustomerSubscriptions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCustomersCustomerSubscriptionsResponseValidator(
         status,
@@ -17828,16 +18613,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postCustomersCustomerSubscriptionsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerSubscriptionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postCustomersCustomerSubscriptions(input, ctx)
+      const { status, body } = await implementation
+        .postCustomersCustomerSubscriptions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postCustomersCustomerSubscriptionsResponseValidator(
         status,
@@ -17870,19 +18660,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.deleteCustomersCustomerSubscriptionsSubscriptionExposedId(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .deleteCustomersCustomerSubscriptionsSubscriptionExposedId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         deleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponseValidator(
@@ -17915,22 +18707,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCustomersCustomerSubscriptionsSubscriptionExposedIdQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getCustomersCustomerSubscriptionsSubscriptionExposedId(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .getCustomersCustomerSubscriptionsSubscriptionExposedId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         getCustomersCustomerSubscriptionsSubscriptionExposedIdResponseValidator(
@@ -18254,19 +19049,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postCustomersCustomerSubscriptionsSubscriptionExposedId(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postCustomersCustomerSubscriptionsSubscriptionExposedId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postCustomersCustomerSubscriptionsSubscriptionExposedIdResponseValidator(
@@ -18295,19 +19092,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
+      const { status, body } = await implementation
+        .deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
           input,
           ctx,
         )
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseValidator(
@@ -18339,22 +19141,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
+      const { status, body } = await implementation
+        .getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
           input,
           ctx,
         )
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseValidator(
@@ -18402,21 +19210,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCustomersCustomerTaxIdsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCustomersCustomerTaxIdsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCustomersCustomerTaxIdsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getCustomersCustomerTaxIds(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getCustomersCustomerTaxIds(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCustomersCustomerTaxIdsResponseValidator(status, body)
       ctx.status = status
@@ -18512,18 +19324,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postCustomersCustomerTaxIdsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerTaxIdsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postCustomersCustomerTaxIds(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postCustomersCustomerTaxIds(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postCustomersCustomerTaxIdsResponseValidator(status, body)
       ctx.status = status
@@ -18549,16 +19364,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteCustomersCustomerTaxIdsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerTaxIdsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.deleteCustomersCustomerTaxIdsId(input, ctx)
+      const { status, body } = await implementation
+        .deleteCustomersCustomerTaxIdsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteCustomersCustomerTaxIdsIdResponseValidator(status, body)
       ctx.status = status
@@ -18588,19 +19408,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getCustomersCustomerTaxIdsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getCustomersCustomerTaxIdsIdQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getCustomersCustomerTaxIdsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getCustomersCustomerTaxIdsId(input, ctx)
+      const { status, body } = await implementation
+        .getCustomersCustomerTaxIdsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getCustomersCustomerTaxIdsIdResponseValidator(status, body)
       ctx.status = status
@@ -18648,11 +19474,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getDisputes", "/v1/disputes", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getDisputesQuerySchema, ctx.query),
-      body: parseRequestInput(getDisputesBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getDisputesQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getDisputesBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getDisputes(input, ctx)
+    const { status, body } = await implementation
+      .getDisputes(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getDisputesResponseValidator(status, body)
     ctx.status = status
@@ -18677,15 +19515,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/disputes/:dispute",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(getDisputesDisputeParamSchema, ctx.params),
-        query: parseRequestInput(getDisputesDisputeQuerySchema, ctx.query),
-        body: parseRequestInput(getDisputesDisputeBodySchema, ctx.request.body),
+        params: parseRequestInput(
+          getDisputesDisputeParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          getDisputesDisputeQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getDisputesDisputeBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.getDisputesDispute(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getDisputesDispute(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getDisputesDisputeResponseValidator(status, body)
       ctx.status = status
@@ -18744,18 +19595,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/disputes/:dispute",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(postDisputesDisputeParamSchema, ctx.params),
+        params: parseRequestInput(
+          postDisputesDisputeParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           postDisputesDisputeBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postDisputesDispute(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postDisputesDispute(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postDisputesDisputeResponseValidator(status, body)
       ctx.status = status
@@ -18782,18 +19639,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postDisputesDisputeCloseParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postDisputesDisputeCloseBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postDisputesDisputeClose(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postDisputesDisputeClose(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postDisputesDisputeCloseResponseValidator(status, body)
       ctx.status = status
@@ -18820,10 +19680,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postEphemeralKeysBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postEphemeralKeysBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postEphemeralKeys(input, ctx)
+    const { status, body } = await implementation
+      .postEphemeralKeys(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postEphemeralKeysResponseValidator(status, body)
     ctx.status = status
@@ -18849,18 +19717,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteEphemeralKeysKeyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteEphemeralKeysKeyBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.deleteEphemeralKeysKey(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .deleteEphemeralKeysKey(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteEphemeralKeysKeyResponseValidator(status, body)
       ctx.status = status
@@ -18909,11 +19780,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getEvents", "/v1/events", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getEventsQuerySchema, ctx.query),
-      body: parseRequestInput(getEventsBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getEventsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getEventsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getEvents(input, ctx)
+    const { status, body } = await implementation
+      .getEvents(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getEventsResponseValidator(status, body)
     ctx.status = status
@@ -18935,12 +19818,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("getEventsId", "/v1/events/:id", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(getEventsIdParamSchema, ctx.params),
-      query: parseRequestInput(getEventsIdQuerySchema, ctx.query),
-      body: parseRequestInput(getEventsIdBodySchema, ctx.request.body),
+      params: parseRequestInput(
+        getEventsIdParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getEventsIdQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getEventsIdBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getEventsId(input, ctx)
+    const { status, body } = await implementation
+      .getEventsId(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getEventsIdResponseValidator(status, body)
     ctx.status = status
@@ -18974,11 +19873,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getExchangeRates", "/v1/exchange_rates", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getExchangeRatesQuerySchema, ctx.query),
-      body: parseRequestInput(getExchangeRatesBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getExchangeRatesQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getExchangeRatesBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getExchangeRates(input, ctx)
+    const { status, body } = await implementation
+      .getExchangeRates(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getExchangeRatesResponseValidator(status, body)
     ctx.status = status
@@ -19006,18 +19917,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getExchangeRatesRateIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(getExchangeRatesRateIdQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getExchangeRatesRateIdQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getExchangeRatesRateIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getExchangeRatesRateId(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getExchangeRatesRateId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getExchangeRatesRateIdResponseValidator(status, body)
       ctx.status = status
@@ -19065,11 +19983,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getFileLinks", "/v1/file_links", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getFileLinksQuerySchema, ctx.query),
-      body: parseRequestInput(getFileLinksBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getFileLinksQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getFileLinksBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getFileLinks(input, ctx)
+    const { status, body } = await implementation
+      .getFileLinks(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getFileLinksResponseValidator(status, body)
     ctx.status = status
@@ -19092,10 +20022,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postFileLinksBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postFileLinksBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postFileLinks(input, ctx)
+    const { status, body } = await implementation
+      .postFileLinks(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postFileLinksResponseValidator(status, body)
     ctx.status = status
@@ -19117,12 +20055,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("getFileLinksLink", "/v1/file_links/:link", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(getFileLinksLinkParamSchema, ctx.params),
-      query: parseRequestInput(getFileLinksLinkQuerySchema, ctx.query),
-      body: parseRequestInput(getFileLinksLinkBodySchema, ctx.request.body),
+      params: parseRequestInput(
+        getFileLinksLinkParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getFileLinksLinkQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getFileLinksLinkBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getFileLinksLink(input, ctx)
+    const { status, body } = await implementation
+      .getFileLinksLink(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getFileLinksLinkResponseValidator(status, body)
     ctx.status = status
@@ -19151,15 +20105,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/file_links/:link",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(postFileLinksLinkParamSchema, ctx.params),
+        params: parseRequestInput(
+          postFileLinksLinkParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(postFileLinksLinkBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          postFileLinksLinkBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.postFileLinksLink(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postFileLinksLink(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postFileLinksLinkResponseValidator(status, body)
       ctx.status = status
@@ -19224,11 +20187,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getFiles", "/v1/files", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getFilesQuerySchema, ctx.query),
-      body: parseRequestInput(getFilesBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getFilesQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getFilesBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getFiles(input, ctx)
+    const { status, body } = await implementation
+      .getFiles(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getFilesResponseValidator(status, body)
     ctx.status = status
@@ -19268,10 +20243,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postFilesBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postFilesBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postFiles(input, ctx)
+    const { status, body } = await implementation
+      .postFiles(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postFilesResponseValidator(status, body)
     ctx.status = status
@@ -19293,12 +20276,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("getFilesFile", "/v1/files/:file", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(getFilesFileParamSchema, ctx.params),
-      query: parseRequestInput(getFilesFileQuerySchema, ctx.query),
-      body: parseRequestInput(getFilesFileBodySchema, ctx.request.body),
+      params: parseRequestInput(
+        getFilesFileParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getFilesFileQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getFilesFileBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getFilesFile(input, ctx)
+    const { status, body } = await implementation
+      .getFilesFile(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getFilesFileResponseValidator(status, body)
     ctx.status = status
@@ -19346,15 +20345,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getFinancialConnectionsAccountsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getFinancialConnectionsAccountsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getFinancialConnectionsAccounts(input, ctx)
+      const { status, body } = await implementation
+        .getFinancialConnectionsAccounts(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getFinancialConnectionsAccountsResponseValidator(status, body)
       ctx.status = status
@@ -19388,19 +20392,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getFinancialConnectionsAccountsAccountParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getFinancialConnectionsAccountsAccountQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getFinancialConnectionsAccountsAccountBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getFinancialConnectionsAccountsAccount(input, ctx)
+      const { status, body } = await implementation
+        .getFinancialConnectionsAccountsAccount(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getFinancialConnectionsAccountsAccountResponseValidator(
         status,
@@ -19433,19 +20443,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postFinancialConnectionsAccountsAccountDisconnectParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postFinancialConnectionsAccountsAccountDisconnectBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postFinancialConnectionsAccountsAccountDisconnect(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postFinancialConnectionsAccountsAccountDisconnect(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postFinancialConnectionsAccountsAccountDisconnectResponseValidator(
@@ -19497,22 +20509,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getFinancialConnectionsAccountsAccountOwnersParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getFinancialConnectionsAccountsAccountOwnersQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getFinancialConnectionsAccountsAccountOwnersBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getFinancialConnectionsAccountsAccountOwners(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .getFinancialConnectionsAccountsAccountOwners(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getFinancialConnectionsAccountsAccountOwnersResponseValidator(
         status,
@@ -19546,19 +20561,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postFinancialConnectionsAccountsAccountRefreshParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postFinancialConnectionsAccountsAccountRefreshBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postFinancialConnectionsAccountsAccountRefresh(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postFinancialConnectionsAccountsAccountRefresh(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postFinancialConnectionsAccountsAccountRefreshResponseValidator(
@@ -19601,11 +20618,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postFinancialConnectionsSessionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postFinancialConnectionsSessions(input, ctx)
+      const { status, body } = await implementation
+        .postFinancialConnectionsSessions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postFinancialConnectionsSessionsResponseValidator(status, body)
       ctx.status = status
@@ -19639,19 +20660,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getFinancialConnectionsSessionsSessionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getFinancialConnectionsSessionsSessionQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getFinancialConnectionsSessionsSessionBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getFinancialConnectionsSessionsSession(input, ctx)
+      const { status, body } = await implementation
+        .getFinancialConnectionsSessionsSession(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getFinancialConnectionsSessionsSessionResponseValidator(
         status,
@@ -19709,15 +20736,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getIdentityVerificationReportsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getIdentityVerificationReportsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getIdentityVerificationReports(input, ctx)
+      const { status, body } = await implementation
+        .getIdentityVerificationReports(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getIdentityVerificationReportsResponseValidator(status, body)
       ctx.status = status
@@ -19749,19 +20781,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getIdentityVerificationReportsReportParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getIdentityVerificationReportsReportQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getIdentityVerificationReportsReportBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getIdentityVerificationReportsReport(input, ctx)
+      const { status, body } = await implementation
+        .getIdentityVerificationReportsReport(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getIdentityVerificationReportsReportResponseValidator(
         status,
@@ -19820,15 +20858,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getIdentityVerificationSessionsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getIdentityVerificationSessionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getIdentityVerificationSessions(input, ctx)
+      const { status, body } = await implementation
+        .getIdentityVerificationSessions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getIdentityVerificationSessionsResponseValidator(status, body)
       ctx.status = status
@@ -19876,11 +20919,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postIdentityVerificationSessionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postIdentityVerificationSessions(input, ctx)
+      const { status, body } = await implementation
+        .postIdentityVerificationSessions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postIdentityVerificationSessionsResponseValidator(status, body)
       ctx.status = status
@@ -19914,19 +20961,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getIdentityVerificationSessionsSessionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getIdentityVerificationSessionsSessionQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getIdentityVerificationSessionsSessionBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getIdentityVerificationSessionsSession(input, ctx)
+      const { status, body } = await implementation
+        .getIdentityVerificationSessionsSession(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getIdentityVerificationSessionsSessionResponseValidator(
         status,
@@ -19980,16 +21033,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postIdentityVerificationSessionsSessionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postIdentityVerificationSessionsSessionBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postIdentityVerificationSessionsSession(input, ctx)
+      const { status, body } = await implementation
+        .postIdentityVerificationSessionsSession(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postIdentityVerificationSessionsSessionResponseValidator(
         status,
@@ -20022,19 +21080,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postIdentityVerificationSessionsSessionCancelParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postIdentityVerificationSessionsSessionCancelBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postIdentityVerificationSessionsSessionCancel(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postIdentityVerificationSessionsSessionCancel(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postIdentityVerificationSessionsSessionCancelResponseValidator(
         status,
@@ -20067,19 +21127,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postIdentityVerificationSessionsSessionRedactParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postIdentityVerificationSessionsSessionRedactBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postIdentityVerificationSessionsSessionRedact(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postIdentityVerificationSessionsSessionRedact(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postIdentityVerificationSessionsSessionRedactResponseValidator(
         status,
@@ -20131,11 +21193,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getInvoiceitems", "/v1/invoiceitems", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getInvoiceitemsQuerySchema, ctx.query),
-      body: parseRequestInput(getInvoiceitemsBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getInvoiceitemsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getInvoiceitemsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getInvoiceitems(input, ctx)
+    const { status, body } = await implementation
+      .getInvoiceitems(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getInvoiceitemsResponseValidator(status, body)
     ctx.status = status
@@ -20195,10 +21269,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postInvoiceitemsBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postInvoiceitemsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postInvoiceitems(input, ctx)
+    const { status, body } = await implementation
+      .postInvoiceitems(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postInvoiceitemsResponseValidator(status, body)
     ctx.status = status
@@ -20222,16 +21304,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteInvoiceitemsInvoiceitemParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteInvoiceitemsInvoiceitemBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.deleteInvoiceitemsInvoiceitem(input, ctx)
+      const { status, body } = await implementation
+        .deleteInvoiceitemsInvoiceitem(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteInvoiceitemsInvoiceitemResponseValidator(status, body)
       ctx.status = status
@@ -20262,21 +21349,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getInvoiceitemsInvoiceitemParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getInvoiceitemsInvoiceitemQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getInvoiceitemsInvoiceitemBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getInvoiceitemsInvoiceitem(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getInvoiceitemsInvoiceitem(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getInvoiceitemsInvoiceitemResponseValidator(status, body)
       ctx.status = status
@@ -20343,18 +21434,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postInvoiceitemsInvoiceitemParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postInvoiceitemsInvoiceitemBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postInvoiceitemsInvoiceitem(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postInvoiceitemsInvoiceitem(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postInvoiceitemsInvoiceitemResponseValidator(status, body)
       ctx.status = status
@@ -20419,11 +21513,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getInvoices", "/v1/invoices", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getInvoicesQuerySchema, ctx.query),
-      body: parseRequestInput(getInvoicesBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getInvoicesQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getInvoicesBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getInvoices(input, ctx)
+    const { status, body } = await implementation
+      .getInvoices(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getInvoicesResponseValidator(status, body)
     ctx.status = status
@@ -20715,10 +21821,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postInvoicesBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postInvoicesBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postInvoices(input, ctx)
+    const { status, body } = await implementation
+      .postInvoices(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postInvoicesResponseValidator(status, body)
     ctx.status = status
@@ -20754,11 +21868,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getInvoicesSearch", "/v1/invoices/search", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getInvoicesSearchQuerySchema, ctx.query),
-      body: parseRequestInput(getInvoicesSearchBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getInvoicesSearchQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getInvoicesSearchBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getInvoicesSearch(input, ctx)
+    const { status, body } = await implementation
+      .getInvoicesSearch(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getInvoicesSearchResponseValidator(status, body)
     ctx.status = status
@@ -21012,17 +22138,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getInvoicesUpcomingQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getInvoicesUpcomingQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getInvoicesUpcomingBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getInvoicesUpcoming(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getInvoicesUpcoming(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getInvoicesUpcomingResponseValidator(status, body)
       ctx.status = status
@@ -21293,17 +22425,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getInvoicesUpcomingLinesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getInvoicesUpcomingLinesBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getInvoicesUpcomingLines(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getInvoicesUpcomingLines(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getInvoicesUpcomingLinesResponseValidator(status, body)
       ctx.status = status
@@ -21325,18 +22460,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/invoices/:invoice",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(deleteInvoicesInvoiceParamSchema, ctx.params),
+        params: parseRequestInput(
+          deleteInvoicesInvoiceParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           deleteInvoicesInvoiceBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.deleteInvoicesInvoice(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .deleteInvoicesInvoice(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteInvoicesInvoiceResponseValidator(status, body)
       ctx.status = status
@@ -21362,15 +22503,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/invoices/:invoice",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(getInvoicesInvoiceParamSchema, ctx.params),
-        query: parseRequestInput(getInvoicesInvoiceQuerySchema, ctx.query),
-        body: parseRequestInput(getInvoicesInvoiceBodySchema, ctx.request.body),
+        params: parseRequestInput(
+          getInvoicesInvoiceParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          getInvoicesInvoiceQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getInvoicesInvoiceBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.getInvoicesInvoice(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getInvoicesInvoice(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getInvoicesInvoiceResponseValidator(status, body)
       ctx.status = status
@@ -21668,18 +22822,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/invoices/:invoice",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(postInvoicesInvoiceParamSchema, ctx.params),
+        params: parseRequestInput(
+          postInvoicesInvoiceParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           postInvoicesInvoiceBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postInvoicesInvoice(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postInvoicesInvoice(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postInvoicesInvoiceResponseValidator(status, body)
       ctx.status = status
@@ -21709,18 +22869,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postInvoicesInvoiceFinalizeParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postInvoicesInvoiceFinalizeBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postInvoicesInvoiceFinalize(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postInvoicesInvoiceFinalize(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postInvoicesInvoiceFinalizeResponseValidator(status, body)
       ctx.status = status
@@ -21762,18 +22925,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getInvoicesInvoiceLinesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(getInvoicesInvoiceLinesQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getInvoicesInvoiceLinesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getInvoicesInvoiceLinesBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getInvoicesInvoiceLines(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getInvoicesInvoiceLines(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getInvoicesInvoiceLinesResponseValidator(status, body)
       ctx.status = status
@@ -21800,16 +22970,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postInvoicesInvoiceMarkUncollectibleParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postInvoicesInvoiceMarkUncollectibleBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postInvoicesInvoiceMarkUncollectible(input, ctx)
+      const { status, body } = await implementation
+        .postInvoicesInvoiceMarkUncollectible(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postInvoicesInvoiceMarkUncollectibleResponseValidator(
         status,
@@ -21847,18 +23022,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postInvoicesInvoicePayParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postInvoicesInvoicePayBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postInvoicesInvoicePay(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postInvoicesInvoicePay(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postInvoicesInvoicePayResponseValidator(status, body)
       ctx.status = status
@@ -21885,18 +23063,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postInvoicesInvoiceSendParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postInvoicesInvoiceSendBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postInvoicesInvoiceSend(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postInvoicesInvoiceSend(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postInvoicesInvoiceSendResponseValidator(status, body)
       ctx.status = status
@@ -21923,18 +23104,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postInvoicesInvoiceVoidParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postInvoicesInvoiceVoidBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postInvoicesInvoiceVoid(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postInvoicesInvoiceVoid(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postInvoicesInvoiceVoidResponseValidator(status, body)
       ctx.status = status
@@ -21989,17 +23173,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getIssuingAuthorizationsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getIssuingAuthorizationsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getIssuingAuthorizations(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getIssuingAuthorizations(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getIssuingAuthorizationsResponseValidator(status, body)
       ctx.status = status
@@ -22030,19 +23217,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getIssuingAuthorizationsAuthorizationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getIssuingAuthorizationsAuthorizationQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getIssuingAuthorizationsAuthorizationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getIssuingAuthorizationsAuthorization(input, ctx)
+      const { status, body } = await implementation
+        .getIssuingAuthorizationsAuthorization(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getIssuingAuthorizationsAuthorizationResponseValidator(
         status,
@@ -22075,16 +23268,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postIssuingAuthorizationsAuthorizationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postIssuingAuthorizationsAuthorizationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postIssuingAuthorizationsAuthorization(input, ctx)
+      const { status, body } = await implementation
+        .postIssuingAuthorizationsAuthorization(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postIssuingAuthorizationsAuthorizationResponseValidator(
         status,
@@ -22118,19 +23316,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postIssuingAuthorizationsAuthorizationApproveParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postIssuingAuthorizationsAuthorizationApproveBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postIssuingAuthorizationsAuthorizationApprove(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postIssuingAuthorizationsAuthorizationApprove(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postIssuingAuthorizationsAuthorizationApproveResponseValidator(
         status,
@@ -22163,19 +23363,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postIssuingAuthorizationsAuthorizationDeclineParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postIssuingAuthorizationsAuthorizationDeclineBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postIssuingAuthorizationsAuthorizationDecline(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postIssuingAuthorizationsAuthorizationDecline(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postIssuingAuthorizationsAuthorizationDeclineResponseValidator(
         status,
@@ -22231,17 +23433,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getIssuingCardholdersQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getIssuingCardholdersQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getIssuingCardholdersBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getIssuingCardholders(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getIssuingCardholders(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getIssuingCardholdersResponseValidator(status, body)
       ctx.status = status
@@ -23245,13 +24453,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postIssuingCardholdersBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postIssuingCardholders(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postIssuingCardholders(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postIssuingCardholdersResponseValidator(status, body)
       ctx.status = status
@@ -23280,19 +24490,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getIssuingCardholdersCardholderParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getIssuingCardholdersCardholderQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getIssuingCardholdersCardholderBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getIssuingCardholdersCardholder(input, ctx)
+      const { status, body } = await implementation
+        .getIssuingCardholdersCardholder(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getIssuingCardholdersCardholderResponseValidator(status, body)
       ctx.status = status
@@ -24298,16 +25514,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postIssuingCardholdersCardholderParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postIssuingCardholdersCardholderBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postIssuingCardholdersCardholder(input, ctx)
+      const { status, body } = await implementation
+        .postIssuingCardholdersCardholder(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postIssuingCardholdersCardholderResponseValidator(status, body)
       ctx.status = status
@@ -24359,11 +25580,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getIssuingCards", "/v1/issuing/cards", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getIssuingCardsQuerySchema, ctx.query),
-      body: parseRequestInput(getIssuingCardsBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getIssuingCardsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getIssuingCardsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getIssuingCards(input, ctx)
+    const { status, body } = await implementation
+      .getIssuingCards(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getIssuingCardsResponseValidator(status, body)
     ctx.status = status
@@ -25333,10 +26566,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postIssuingCardsBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postIssuingCardsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postIssuingCards(input, ctx)
+    const { status, body } = await implementation
+      .postIssuingCards(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postIssuingCardsResponseValidator(status, body)
     ctx.status = status
@@ -25361,18 +26602,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/issuing/cards/:card",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(getIssuingCardsCardParamSchema, ctx.params),
-        query: parseRequestInput(getIssuingCardsCardQuerySchema, ctx.query),
+        params: parseRequestInput(
+          getIssuingCardsCardParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          getIssuingCardsCardQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getIssuingCardsCardBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getIssuingCardsCard(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getIssuingCardsCard(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getIssuingCardsCardResponseValidator(status, body)
       ctx.status = status
@@ -26324,18 +27575,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/issuing/cards/:card",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(postIssuingCardsCardParamSchema, ctx.params),
+        params: parseRequestInput(
+          postIssuingCardsCardParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           postIssuingCardsCardBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postIssuingCardsCard(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postIssuingCardsCard(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postIssuingCardsCardResponseValidator(status, body)
       ctx.status = status
@@ -26388,14 +27645,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getIssuingDisputesQuerySchema, ctx.query),
-        body: parseRequestInput(getIssuingDisputesBodySchema, ctx.request.body),
+        query: parseRequestInput(
+          getIssuingDisputesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getIssuingDisputesBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.getIssuingDisputes(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getIssuingDisputes(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getIssuingDisputesResponseValidator(status, body)
       ctx.status = status
@@ -26578,13 +27844,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postIssuingDisputesBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postIssuingDisputes(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postIssuingDisputes(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postIssuingDisputesResponseValidator(status, body)
       ctx.status = status
@@ -26613,21 +27881,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getIssuingDisputesDisputeParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getIssuingDisputesDisputeQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getIssuingDisputesDisputeBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getIssuingDisputesDispute(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getIssuingDisputesDispute(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getIssuingDisputesDisputeResponseValidator(status, body)
       ctx.status = status
@@ -26810,18 +28082,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postIssuingDisputesDisputeParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postIssuingDisputesDisputeBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postIssuingDisputesDispute(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postIssuingDisputesDispute(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postIssuingDisputesDisputeResponseValidator(status, body)
       ctx.status = status
@@ -26851,16 +28126,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postIssuingDisputesDisputeSubmitParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postIssuingDisputesDisputeSubmitBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postIssuingDisputesDisputeSubmit(input, ctx)
+      const { status, body } = await implementation
+        .postIssuingDisputesDisputeSubmit(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postIssuingDisputesDisputeSubmitResponseValidator(status, body)
       ctx.status = status
@@ -26909,17 +28189,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getIssuingSettlementsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getIssuingSettlementsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getIssuingSettlementsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getIssuingSettlements(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getIssuingSettlements(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getIssuingSettlementsResponseValidator(status, body)
       ctx.status = status
@@ -26948,19 +28234,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getIssuingSettlementsSettlementParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getIssuingSettlementsSettlementQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getIssuingSettlementsSettlementBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getIssuingSettlementsSettlement(input, ctx)
+      const { status, body } = await implementation
+        .getIssuingSettlementsSettlement(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getIssuingSettlementsSettlementResponseValidator(status, body)
       ctx.status = status
@@ -26990,16 +28282,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postIssuingSettlementsSettlementParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postIssuingSettlementsSettlementBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postIssuingSettlementsSettlement(input, ctx)
+      const { status, body } = await implementation
+        .postIssuingSettlementsSettlement(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postIssuingSettlementsSettlementResponseValidator(status, body)
       ctx.status = status
@@ -27051,17 +28348,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getIssuingTransactionsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getIssuingTransactionsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getIssuingTransactionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getIssuingTransactions(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getIssuingTransactions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getIssuingTransactionsResponseValidator(status, body)
       ctx.status = status
@@ -27090,19 +28393,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getIssuingTransactionsTransactionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getIssuingTransactionsTransactionQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getIssuingTransactionsTransactionBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getIssuingTransactionsTransaction(input, ctx)
+      const { status, body } = await implementation
+        .getIssuingTransactionsTransaction(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getIssuingTransactionsTransactionResponseValidator(
         status,
@@ -27135,16 +28444,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postIssuingTransactionsTransactionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postIssuingTransactionsTransactionBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postIssuingTransactionsTransaction(input, ctx)
+      const { status, body } = await implementation
+        .postIssuingTransactionsTransaction(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postIssuingTransactionsTransactionResponseValidator(
         status,
@@ -27185,13 +28499,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postLinkAccountSessionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postLinkAccountSessions(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postLinkAccountSessions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postLinkAccountSessionsResponseValidator(status, body)
       ctx.status = status
@@ -27223,19 +28539,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getLinkAccountSessionsSessionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getLinkAccountSessionsSessionQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getLinkAccountSessionsSessionBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getLinkAccountSessionsSession(input, ctx)
+      const { status, body } = await implementation
+        .getLinkAccountSessionsSession(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getLinkAccountSessionsSessionResponseValidator(status, body)
       ctx.status = status
@@ -27277,11 +28599,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getLinkedAccounts", "/v1/linked_accounts", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getLinkedAccountsQuerySchema, ctx.query),
-      body: parseRequestInput(getLinkedAccountsBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getLinkedAccountsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getLinkedAccountsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getLinkedAccounts(input, ctx)
+    const { status, body } = await implementation
+      .getLinkedAccounts(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getLinkedAccountsResponseValidator(status, body)
     ctx.status = status
@@ -27309,21 +28643,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getLinkedAccountsAccountParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getLinkedAccountsAccountQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getLinkedAccountsAccountBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getLinkedAccountsAccount(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getLinkedAccountsAccount(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getLinkedAccountsAccountResponseValidator(status, body)
       ctx.status = status
@@ -27353,16 +28691,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postLinkedAccountsAccountDisconnectParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postLinkedAccountsAccountDisconnectBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postLinkedAccountsAccountDisconnect(input, ctx)
+      const { status, body } = await implementation
+        .postLinkedAccountsAccountDisconnect(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postLinkedAccountsAccountDisconnectResponseValidator(
         status,
@@ -27411,19 +28754,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getLinkedAccountsAccountOwnersParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getLinkedAccountsAccountOwnersQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getLinkedAccountsAccountOwnersBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getLinkedAccountsAccountOwners(input, ctx)
+      const { status, body } = await implementation
+        .getLinkedAccountsAccountOwners(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getLinkedAccountsAccountOwnersResponseValidator(status, body)
       ctx.status = status
@@ -27454,16 +28803,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postLinkedAccountsAccountRefreshParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postLinkedAccountsAccountRefreshBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postLinkedAccountsAccountRefresh(input, ctx)
+      const { status, body } = await implementation
+        .postLinkedAccountsAccountRefresh(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postLinkedAccountsAccountRefreshResponseValidator(status, body)
       ctx.status = status
@@ -27489,15 +28843,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/mandates/:mandate",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(getMandatesMandateParamSchema, ctx.params),
-        query: parseRequestInput(getMandatesMandateQuerySchema, ctx.query),
-        body: parseRequestInput(getMandatesMandateBodySchema, ctx.request.body),
+        params: parseRequestInput(
+          getMandatesMandateParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          getMandatesMandateQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getMandatesMandateBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.getMandatesMandate(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getMandatesMandate(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getMandatesMandateResponseValidator(status, body)
       ctx.status = status
@@ -27544,11 +28911,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getPaymentIntents", "/v1/payment_intents", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getPaymentIntentsQuerySchema, ctx.query),
-      body: parseRequestInput(getPaymentIntentsBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getPaymentIntentsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getPaymentIntentsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getPaymentIntents(input, ctx)
+    const { status, body } = await implementation
+      .getPaymentIntents(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getPaymentIntentsResponseValidator(status, body)
     ctx.status = status
@@ -28385,13 +29764,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const input = {
         params: undefined,
         query: undefined,
-        body: parseRequestInput(postPaymentIntentsBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          postPaymentIntentsBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.postPaymentIntents(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postPaymentIntents(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postPaymentIntentsResponseValidator(status, body)
       ctx.status = status
@@ -28431,17 +29815,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getPaymentIntentsSearchQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getPaymentIntentsSearchQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getPaymentIntentsSearchBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getPaymentIntentsSearch(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getPaymentIntentsSearch(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getPaymentIntentsSearchResponseValidator(status, body)
       ctx.status = status
@@ -28471,18 +29861,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getPaymentIntentsIntentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(getPaymentIntentsIntentQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getPaymentIntentsIntentQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getPaymentIntentsIntentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getPaymentIntentsIntent(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getPaymentIntentsIntent(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getPaymentIntentsIntentResponseValidator(status, body)
       ctx.status = status
@@ -29304,18 +30701,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postPaymentIntentsIntentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsIntentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postPaymentIntentsIntent(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postPaymentIntentsIntent(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postPaymentIntentsIntentResponseValidator(status, body)
       ctx.status = status
@@ -29346,19 +30746,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postPaymentIntentsIntentApplyCustomerBalanceParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsIntentApplyCustomerBalanceBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postPaymentIntentsIntentApplyCustomerBalance(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postPaymentIntentsIntentApplyCustomerBalance(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postPaymentIntentsIntentApplyCustomerBalanceResponseValidator(
         status,
@@ -29393,16 +30795,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postPaymentIntentsIntentCancelParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsIntentCancelBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postPaymentIntentsIntentCancel(input, ctx)
+      const { status, body } = await implementation
+        .postPaymentIntentsIntentCancel(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postPaymentIntentsIntentCancelResponseValidator(status, body)
       ctx.status = status
@@ -29439,16 +30846,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postPaymentIntentsIntentCaptureParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsIntentCaptureBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postPaymentIntentsIntentCapture(input, ctx)
+      const { status, body } = await implementation
+        .postPaymentIntentsIntentCapture(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postPaymentIntentsIntentCaptureResponseValidator(status, body)
       ctx.status = status
@@ -30288,16 +31700,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postPaymentIntentsIntentConfirmParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsIntentConfirmBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postPaymentIntentsIntentConfirm(input, ctx)
+      const { status, body } = await implementation
+        .postPaymentIntentsIntentConfirm(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postPaymentIntentsIntentConfirmResponseValidator(status, body)
       ctx.status = status
@@ -30332,19 +31749,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postPaymentIntentsIntentIncrementAuthorizationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsIntentIncrementAuthorizationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postPaymentIntentsIntentIncrementAuthorization(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postPaymentIntentsIntentIncrementAuthorization(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postPaymentIntentsIntentIncrementAuthorizationResponseValidator(
@@ -30380,19 +31799,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postPaymentIntentsIntentVerifyMicrodepositsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsIntentVerifyMicrodepositsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postPaymentIntentsIntentVerifyMicrodeposits(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postPaymentIntentsIntentVerifyMicrodeposits(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postPaymentIntentsIntentVerifyMicrodepositsResponseValidator(
         status,
@@ -30431,11 +31852,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getPaymentLinks", "/v1/payment_links", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getPaymentLinksQuerySchema, ctx.query),
-      body: parseRequestInput(getPaymentLinksBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getPaymentLinksQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getPaymentLinksBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getPaymentLinks(input, ctx)
+    const { status, body } = await implementation
+      .getPaymentLinks(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getPaymentLinksResponseValidator(status, body)
     ctx.status = status
@@ -30870,10 +32303,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postPaymentLinksBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postPaymentLinksBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postPaymentLinks(input, ctx)
+    const { status, body } = await implementation
+      .postPaymentLinks(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postPaymentLinksResponseValidator(status, body)
     ctx.status = status
@@ -30903,21 +32344,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getPaymentLinksPaymentLinkParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getPaymentLinksPaymentLinkQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getPaymentLinksPaymentLinkBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getPaymentLinksPaymentLink(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getPaymentLinksPaymentLink(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getPaymentLinksPaymentLinkResponseValidator(status, body)
       ctx.status = status
@@ -31338,18 +32783,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postPaymentLinksPaymentLinkParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentLinksPaymentLinkBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postPaymentLinksPaymentLink(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postPaymentLinksPaymentLink(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postPaymentLinksPaymentLinkResponseValidator(status, body)
       ctx.status = status
@@ -31394,19 +32842,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getPaymentLinksPaymentLinkLineItemsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getPaymentLinksPaymentLinkLineItemsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getPaymentLinksPaymentLinkLineItemsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getPaymentLinksPaymentLinkLineItems(input, ctx)
+      const { status, body } = await implementation
+        .getPaymentLinksPaymentLinkLineItems(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getPaymentLinksPaymentLinkLineItemsResponseValidator(
         status,
@@ -31449,15 +32903,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getPaymentMethodConfigurationsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getPaymentMethodConfigurationsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getPaymentMethodConfigurations(input, ctx)
+      const { status, body } = await implementation
+        .getPaymentMethodConfigurations(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getPaymentMethodConfigurationsResponseValidator(status, body)
       ctx.status = status
@@ -31720,11 +33179,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postPaymentMethodConfigurationsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postPaymentMethodConfigurations(input, ctx)
+      const { status, body } = await implementation
+        .postPaymentMethodConfigurations(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postPaymentMethodConfigurationsResponseValidator(status, body)
       ctx.status = status
@@ -31758,22 +33221,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getPaymentMethodConfigurationsConfigurationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getPaymentMethodConfigurationsConfigurationQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getPaymentMethodConfigurationsConfigurationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getPaymentMethodConfigurationsConfiguration(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .getPaymentMethodConfigurationsConfiguration(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getPaymentMethodConfigurationsConfigurationResponseValidator(
         status,
@@ -32041,19 +33507,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postPaymentMethodConfigurationsConfigurationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentMethodConfigurationsConfigurationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postPaymentMethodConfigurationsConfiguration(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postPaymentMethodConfigurationsConfiguration(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postPaymentMethodConfigurationsConfigurationResponseValidator(
         status,
@@ -32096,17 +33564,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getPaymentMethodDomainsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getPaymentMethodDomainsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getPaymentMethodDomainsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getPaymentMethodDomains(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getPaymentMethodDomains(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getPaymentMethodDomainsResponseValidator(status, body)
       ctx.status = status
@@ -32135,13 +33609,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postPaymentMethodDomainsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postPaymentMethodDomains(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postPaymentMethodDomains(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postPaymentMethodDomainsResponseValidator(status, body)
       ctx.status = status
@@ -32172,22 +33648,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getPaymentMethodDomainsPaymentMethodDomainParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getPaymentMethodDomainsPaymentMethodDomainQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getPaymentMethodDomainsPaymentMethodDomainBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getPaymentMethodDomainsPaymentMethodDomain(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .getPaymentMethodDomainsPaymentMethodDomain(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getPaymentMethodDomainsPaymentMethodDomainResponseValidator(
         status,
@@ -32220,19 +33699,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postPaymentMethodDomainsPaymentMethodDomainParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentMethodDomainsPaymentMethodDomainBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postPaymentMethodDomainsPaymentMethodDomain(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postPaymentMethodDomainsPaymentMethodDomain(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postPaymentMethodDomainsPaymentMethodDomainResponseValidator(
         status,
@@ -32261,19 +33742,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postPaymentMethodDomainsPaymentMethodDomainValidateParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentMethodDomainsPaymentMethodDomainValidateBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postPaymentMethodDomainsPaymentMethodDomainValidate(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postPaymentMethodDomainsPaymentMethodDomainValidate(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postPaymentMethodDomainsPaymentMethodDomainValidateResponseValidator(
@@ -32348,11 +33831,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getPaymentMethods", "/v1/payment_methods", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getPaymentMethodsQuerySchema, ctx.query),
-      body: parseRequestInput(getPaymentMethodsBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getPaymentMethodsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getPaymentMethodsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getPaymentMethods(input, ctx)
+    const { status, body } = await implementation
+      .getPaymentMethods(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getPaymentMethodsResponseValidator(status, body)
     ctx.status = status
@@ -32627,13 +34122,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const input = {
         params: undefined,
         query: undefined,
-        body: parseRequestInput(postPaymentMethodsBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          postPaymentMethodsBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.postPaymentMethods(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postPaymentMethods(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postPaymentMethodsResponseValidator(status, body)
       ctx.status = status
@@ -32662,19 +34162,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getPaymentMethodsPaymentMethodParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getPaymentMethodsPaymentMethodQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getPaymentMethodsPaymentMethodBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getPaymentMethodsPaymentMethod(input, ctx)
+      const { status, body } = await implementation
+        .getPaymentMethodsPaymentMethod(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getPaymentMethodsPaymentMethodResponseValidator(status, body)
       ctx.status = status
@@ -32736,16 +34242,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postPaymentMethodsPaymentMethodParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentMethodsPaymentMethodBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postPaymentMethodsPaymentMethod(input, ctx)
+      const { status, body } = await implementation
+        .postPaymentMethodsPaymentMethod(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postPaymentMethodsPaymentMethodResponseValidator(status, body)
       ctx.status = status
@@ -32773,16 +34284,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postPaymentMethodsPaymentMethodAttachParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentMethodsPaymentMethodAttachBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postPaymentMethodsPaymentMethodAttach(input, ctx)
+      const { status, body } = await implementation
+        .postPaymentMethodsPaymentMethodAttach(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postPaymentMethodsPaymentMethodAttachResponseValidator(
         status,
@@ -32812,16 +34328,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postPaymentMethodsPaymentMethodDetachParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postPaymentMethodsPaymentMethodDetachBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postPaymentMethodsPaymentMethodDetach(input, ctx)
+      const { status, body } = await implementation
+        .postPaymentMethodsPaymentMethodDetach(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postPaymentMethodsPaymentMethodDetachResponseValidator(
         status,
@@ -32883,11 +34404,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getPayouts", "/v1/payouts", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getPayoutsQuerySchema, ctx.query),
-      body: parseRequestInput(getPayoutsBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getPayoutsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getPayoutsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getPayouts(input, ctx)
+    const { status, body } = await implementation
+      .getPayouts(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getPayoutsResponseValidator(status, body)
     ctx.status = status
@@ -32915,10 +34448,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postPayoutsBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postPayoutsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postPayouts(input, ctx)
+    const { status, body } = await implementation
+      .postPayouts(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postPayoutsResponseValidator(status, body)
     ctx.status = status
@@ -32940,12 +34481,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("getPayoutsPayout", "/v1/payouts/:payout", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(getPayoutsPayoutParamSchema, ctx.params),
-      query: parseRequestInput(getPayoutsPayoutQuerySchema, ctx.query),
-      body: parseRequestInput(getPayoutsPayoutBodySchema, ctx.request.body),
+      params: parseRequestInput(
+        getPayoutsPayoutParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getPayoutsPayoutQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getPayoutsPayoutBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getPayoutsPayout(input, ctx)
+    const { status, body } = await implementation
+      .getPayoutsPayout(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getPayoutsPayoutResponseValidator(status, body)
     ctx.status = status
@@ -32968,12 +34525,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post("postPayoutsPayout", "/v1/payouts/:payout", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(postPayoutsPayoutParamSchema, ctx.params),
+      params: parseRequestInput(
+        postPayoutsPayoutParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(postPayoutsPayoutBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postPayoutsPayoutBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postPayoutsPayout(input, ctx)
+    const { status, body } = await implementation
+      .postPayoutsPayout(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postPayoutsPayoutResponseValidator(status, body)
     ctx.status = status
@@ -32999,18 +34568,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postPayoutsPayoutCancelParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postPayoutsPayoutCancelBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postPayoutsPayoutCancel(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postPayoutsPayoutCancel(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postPayoutsPayoutCancelResponseValidator(status, body)
       ctx.status = status
@@ -33040,18 +34612,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postPayoutsPayoutReverseParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postPayoutsPayoutReverseBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postPayoutsPayoutReverse(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postPayoutsPayoutReverse(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postPayoutsPayoutReverseResponseValidator(status, body)
       ctx.status = status
@@ -33099,11 +34674,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getPlans", "/v1/plans", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getPlansQuerySchema, ctx.query),
-      body: parseRequestInput(getPlansBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getPlansQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getPlansBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getPlans(input, ctx)
+    const { status, body } = await implementation
+      .getPlans(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getPlansResponseValidator(status, body)
     ctx.status = status
@@ -33167,10 +34754,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postPlansBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postPlansBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postPlans(input, ctx)
+    const { status, body } = await implementation
+      .postPlans(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postPlansResponseValidator(status, body)
     ctx.status = status
@@ -33188,12 +34783,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete("deletePlansPlan", "/v1/plans/:plan", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(deletePlansPlanParamSchema, ctx.params),
+      params: parseRequestInput(
+        deletePlansPlanParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(deletePlansPlanBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        deletePlansPlanBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.deletePlansPlan(input, ctx)
+    const { status, body } = await implementation
+      .deletePlansPlan(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = deletePlansPlanResponseValidator(status, body)
     ctx.status = status
@@ -33215,12 +34822,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("getPlansPlan", "/v1/plans/:plan", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(getPlansPlanParamSchema, ctx.params),
-      query: parseRequestInput(getPlansPlanQuerySchema, ctx.query),
-      body: parseRequestInput(getPlansPlanBodySchema, ctx.request.body),
+      params: parseRequestInput(
+        getPlansPlanParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getPlansPlanQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getPlansPlanBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getPlansPlan(input, ctx)
+    const { status, body } = await implementation
+      .getPlansPlan(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getPlansPlanResponseValidator(status, body)
     ctx.status = status
@@ -33247,12 +34870,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post("postPlansPlan", "/v1/plans/:plan", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(postPlansPlanParamSchema, ctx.params),
+      params: parseRequestInput(
+        postPlansPlanParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(postPlansPlanBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postPlansPlanBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postPlansPlan(input, ctx)
+    const { status, body } = await implementation
+      .postPlansPlan(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postPlansPlanResponseValidator(status, body)
     ctx.status = status
@@ -33308,11 +34943,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getPrices", "/v1/prices", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getPricesQuerySchema, ctx.query),
-      body: parseRequestInput(getPricesBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getPricesQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getPricesBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getPrices(input, ctx)
+    const { status, body } = await implementation
+      .getPrices(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getPricesResponseValidator(status, body)
     ctx.status = status
@@ -33388,10 +35035,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postPricesBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postPricesBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postPrices(input, ctx)
+    const { status, body } = await implementation
+      .postPrices(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postPricesResponseValidator(status, body)
     ctx.status = status
@@ -33427,11 +35082,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getPricesSearch", "/v1/prices/search", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getPricesSearchQuerySchema, ctx.query),
-      body: parseRequestInput(getPricesSearchBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getPricesSearchQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getPricesSearchBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getPricesSearch(input, ctx)
+    const { status, body } = await implementation
+      .getPricesSearch(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getPricesSearchResponseValidator(status, body)
     ctx.status = status
@@ -33453,12 +35120,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("getPricesPrice", "/v1/prices/:price", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(getPricesPriceParamSchema, ctx.params),
-      query: parseRequestInput(getPricesPriceQuerySchema, ctx.query),
-      body: parseRequestInput(getPricesPriceBodySchema, ctx.request.body),
+      params: parseRequestInput(
+        getPricesPriceParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getPricesPriceQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getPricesPriceBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getPricesPrice(input, ctx)
+    const { status, body } = await implementation
+      .getPricesPrice(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getPricesPriceResponseValidator(status, body)
     ctx.status = status
@@ -33489,12 +35172,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post("postPricesPrice", "/v1/prices/:price", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(postPricesPriceParamSchema, ctx.params),
+      params: parseRequestInput(
+        postPricesPriceParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(postPricesPriceBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postPricesPriceBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postPricesPrice(input, ctx)
+    const { status, body } = await implementation
+      .postPricesPrice(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postPricesPriceResponseValidator(status, body)
     ctx.status = status
@@ -33543,11 +35238,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getProducts", "/v1/products", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getProductsQuerySchema, ctx.query),
-      body: parseRequestInput(getProductsBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getProductsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getProductsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getProducts(input, ctx)
+    const { status, body } = await implementation
+      .getProducts(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getProductsResponseValidator(status, body)
     ctx.status = status
@@ -33604,10 +35311,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postProductsBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postProductsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postProducts(input, ctx)
+    const { status, body } = await implementation
+      .postProducts(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postProductsResponseValidator(status, body)
     ctx.status = status
@@ -33643,11 +35358,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getProductsSearch", "/v1/products/search", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getProductsSearchQuerySchema, ctx.query),
-      body: parseRequestInput(getProductsSearchBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getProductsSearchQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getProductsSearchBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getProductsSearch(input, ctx)
+    const { status, body } = await implementation
+      .getProductsSearch(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getProductsSearchResponseValidator(status, body)
     ctx.status = status
@@ -33665,12 +35392,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete("deleteProductsId", "/v1/products/:id", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(deleteProductsIdParamSchema, ctx.params),
+      params: parseRequestInput(
+        deleteProductsIdParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(deleteProductsIdBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        deleteProductsIdBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.deleteProductsId(input, ctx)
+    const { status, body } = await implementation
+      .deleteProductsId(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = deleteProductsIdResponseValidator(status, body)
     ctx.status = status
@@ -33692,12 +35431,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("getProductsId", "/v1/products/:id", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(getProductsIdParamSchema, ctx.params),
-      query: parseRequestInput(getProductsIdQuerySchema, ctx.query),
-      body: parseRequestInput(getProductsIdBodySchema, ctx.request.body),
+      params: parseRequestInput(
+        getProductsIdParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getProductsIdQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getProductsIdBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getProductsId(input, ctx)
+    const { status, body } = await implementation
+      .getProductsId(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getProductsIdResponseValidator(status, body)
     ctx.status = status
@@ -33744,12 +35499,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post("postProductsId", "/v1/products/:id", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(postProductsIdParamSchema, ctx.params),
+      params: parseRequestInput(
+        postProductsIdParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(postProductsIdBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postProductsIdBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postProductsId(input, ctx)
+    const { status, body } = await implementation
+      .postProductsId(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postProductsIdResponseValidator(status, body)
     ctx.status = status
@@ -33798,11 +35565,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getPromotionCodes", "/v1/promotion_codes", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getPromotionCodesQuerySchema, ctx.query),
-      body: parseRequestInput(getPromotionCodesBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getPromotionCodesQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getPromotionCodesBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getPromotionCodes(input, ctx)
+    const { status, body } = await implementation
+      .getPromotionCodes(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getPromotionCodesResponseValidator(status, body)
     ctx.status = status
@@ -33840,13 +35619,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const input = {
         params: undefined,
         query: undefined,
-        body: parseRequestInput(postPromotionCodesBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          postPromotionCodesBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.postPromotionCodes(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postPromotionCodes(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postPromotionCodesResponseValidator(status, body)
       ctx.status = status
@@ -33875,19 +35659,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getPromotionCodesPromotionCodeParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getPromotionCodesPromotionCodeQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getPromotionCodesPromotionCodeBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getPromotionCodesPromotionCode(input, ctx)
+      const { status, body } = await implementation
+        .getPromotionCodesPromotionCode(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getPromotionCodesPromotionCodeResponseValidator(status, body)
       ctx.status = status
@@ -33921,16 +35711,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postPromotionCodesPromotionCodeParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postPromotionCodesPromotionCodeBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postPromotionCodesPromotionCode(input, ctx)
+      const { status, body } = await implementation
+        .postPromotionCodesPromotionCode(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postPromotionCodesPromotionCodeResponseValidator(status, body)
       ctx.status = status
@@ -33968,11 +35763,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getQuotes", "/v1/quotes", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getQuotesQuerySchema, ctx.query),
-      body: parseRequestInput(getQuotesBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getQuotesQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getQuotesBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getQuotes(input, ctx)
+    const { status, body } = await implementation
+      .getQuotes(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getQuotesResponseValidator(status, body)
     ctx.status = status
@@ -34086,10 +35893,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postQuotesBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postQuotesBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postQuotes(input, ctx)
+    const { status, body } = await implementation
+      .postQuotes(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postQuotesResponseValidator(status, body)
     ctx.status = status
@@ -34111,12 +35926,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("getQuotesQuote", "/v1/quotes/:quote", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(getQuotesQuoteParamSchema, ctx.params),
-      query: parseRequestInput(getQuotesQuoteQuerySchema, ctx.query),
-      body: parseRequestInput(getQuotesQuoteBodySchema, ctx.request.body),
+      params: parseRequestInput(
+        getQuotesQuoteParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getQuotesQuoteQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getQuotesQuoteBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getQuotesQuote(input, ctx)
+    const { status, body } = await implementation
+      .getQuotesQuote(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getQuotesQuoteResponseValidator(status, body)
     ctx.status = status
@@ -34224,12 +36055,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post("postQuotesQuote", "/v1/quotes/:quote", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(postQuotesQuoteParamSchema, ctx.params),
+      params: parseRequestInput(
+        postQuotesQuoteParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(postQuotesQuoteBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postQuotesQuoteBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postQuotesQuote(input, ctx)
+    const { status, body } = await implementation
+      .postQuotesQuote(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postQuotesQuoteResponseValidator(status, body)
     ctx.status = status
@@ -34252,18 +36095,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/quotes/:quote/accept",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(postQuotesQuoteAcceptParamSchema, ctx.params),
+        params: parseRequestInput(
+          postQuotesQuoteAcceptParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           postQuotesQuoteAcceptBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postQuotesQuoteAccept(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postQuotesQuoteAccept(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postQuotesQuoteAcceptResponseValidator(status, body)
       ctx.status = status
@@ -34287,18 +36136,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/quotes/:quote/cancel",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(postQuotesQuoteCancelParamSchema, ctx.params),
+        params: parseRequestInput(
+          postQuotesQuoteCancelParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           postQuotesQuoteCancelBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postQuotesQuoteCancel(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postQuotesQuoteCancel(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postQuotesQuoteCancelResponseValidator(status, body)
       ctx.status = status
@@ -34345,19 +36200,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getQuotesQuoteComputedUpfrontLineItemsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getQuotesQuoteComputedUpfrontLineItemsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getQuotesQuoteComputedUpfrontLineItemsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getQuotesQuoteComputedUpfrontLineItems(input, ctx)
+      const { status, body } = await implementation
+        .getQuotesQuoteComputedUpfrontLineItems(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getQuotesQuoteComputedUpfrontLineItemsResponseValidator(
         status,
@@ -34390,18 +36251,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postQuotesQuoteFinalizeParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postQuotesQuoteFinalizeBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postQuotesQuoteFinalize(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postQuotesQuoteFinalize(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postQuotesQuoteFinalizeResponseValidator(status, body)
       ctx.status = status
@@ -34443,18 +36307,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getQuotesQuoteLineItemsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(getQuotesQuoteLineItemsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getQuotesQuoteLineItemsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getQuotesQuoteLineItemsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getQuotesQuoteLineItems(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getQuotesQuoteLineItems(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getQuotesQuoteLineItemsResponseValidator(status, body)
       ctx.status = status
@@ -34480,15 +36351,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/quotes/:quote/pdf",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(getQuotesQuotePdfParamSchema, ctx.params),
-        query: parseRequestInput(getQuotesQuotePdfQuerySchema, ctx.query),
-        body: parseRequestInput(getQuotesQuotePdfBodySchema, ctx.request.body),
+        params: parseRequestInput(
+          getQuotesQuotePdfParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          getQuotesQuotePdfQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getQuotesQuotePdfBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.getQuotesQuotePdf(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getQuotesQuotePdf(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getQuotesQuotePdfResponseValidator(status, body)
       ctx.status = status
@@ -34531,17 +36415,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getRadarEarlyFraudWarningsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getRadarEarlyFraudWarningsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getRadarEarlyFraudWarnings(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getRadarEarlyFraudWarnings(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getRadarEarlyFraudWarningsResponseValidator(status, body)
       ctx.status = status
@@ -34572,22 +36459,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getRadarEarlyFraudWarningsEarlyFraudWarningParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getRadarEarlyFraudWarningsEarlyFraudWarningQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getRadarEarlyFraudWarningsEarlyFraudWarningBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getRadarEarlyFraudWarningsEarlyFraudWarning(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .getRadarEarlyFraudWarningsEarlyFraudWarning(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getRadarEarlyFraudWarningsEarlyFraudWarningResponseValidator(
         status,
@@ -34641,17 +36531,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getRadarValueListItemsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getRadarValueListItemsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getRadarValueListItemsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getRadarValueListItems(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getRadarValueListItems(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getRadarValueListItemsResponseValidator(status, body)
       ctx.status = status
@@ -34680,13 +36576,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postRadarValueListItemsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postRadarValueListItems(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postRadarValueListItems(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postRadarValueListItemsResponseValidator(status, body)
       ctx.status = status
@@ -34714,16 +36612,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteRadarValueListItemsItemParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteRadarValueListItemsItemBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.deleteRadarValueListItemsItem(input, ctx)
+      const { status, body } = await implementation
+        .deleteRadarValueListItemsItem(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteRadarValueListItemsItemResponseValidator(status, body)
       ctx.status = status
@@ -34752,21 +36655,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getRadarValueListItemsItemParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getRadarValueListItemsItemQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getRadarValueListItemsItemBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getRadarValueListItemsItem(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getRadarValueListItemsItem(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getRadarValueListItemsItemResponseValidator(status, body)
       ctx.status = status
@@ -34817,14 +36724,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getRadarValueListsQuerySchema, ctx.query),
-        body: parseRequestInput(getRadarValueListsBodySchema, ctx.request.body),
+        query: parseRequestInput(
+          getRadarValueListsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getRadarValueListsBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.getRadarValueLists(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getRadarValueLists(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getRadarValueListsResponseValidator(status, body)
       ctx.status = status
@@ -34868,13 +36784,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postRadarValueListsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postRadarValueLists(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postRadarValueLists(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postRadarValueListsResponseValidator(status, body)
       ctx.status = status
@@ -34899,16 +36817,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteRadarValueListsValueListParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteRadarValueListsValueListBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.deleteRadarValueListsValueList(input, ctx)
+      const { status, body } = await implementation
+        .deleteRadarValueListsValueList(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteRadarValueListsValueListResponseValidator(status, body)
       ctx.status = status
@@ -34937,21 +36860,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getRadarValueListsValueListParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getRadarValueListsValueListQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getRadarValueListsValueListBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getRadarValueListsValueList(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getRadarValueListsValueList(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getRadarValueListsValueListResponseValidator(status, body)
       ctx.status = status
@@ -34983,16 +36910,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postRadarValueListsValueListParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postRadarValueListsValueListBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postRadarValueListsValueList(input, ctx)
+      const { status, body } = await implementation
+        .postRadarValueListsValueList(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postRadarValueListsValueListResponseValidator(status, body)
       ctx.status = status
@@ -35040,11 +36972,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getRefunds", "/v1/refunds", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getRefundsQuerySchema, ctx.query),
-      body: parseRequestInput(getRefundsBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getRefundsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getRefundsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getRefunds(input, ctx)
+    const { status, body } = await implementation
+      .getRefunds(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getRefundsResponseValidator(status, body)
     ctx.status = status
@@ -35079,10 +37023,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postRefundsBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postRefundsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postRefunds(input, ctx)
+    const { status, body } = await implementation
+      .postRefunds(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postRefundsResponseValidator(status, body)
     ctx.status = status
@@ -35104,12 +37056,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("getRefundsRefund", "/v1/refunds/:refund", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(getRefundsRefundParamSchema, ctx.params),
-      query: parseRequestInput(getRefundsRefundQuerySchema, ctx.query),
-      body: parseRequestInput(getRefundsRefundBodySchema, ctx.request.body),
+      params: parseRequestInput(
+        getRefundsRefundParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getRefundsRefundQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getRefundsRefundBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getRefundsRefund(input, ctx)
+    const { status, body } = await implementation
+      .getRefundsRefund(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getRefundsRefundResponseValidator(status, body)
     ctx.status = status
@@ -35132,12 +37100,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post("postRefundsRefund", "/v1/refunds/:refund", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(postRefundsRefundParamSchema, ctx.params),
+      params: parseRequestInput(
+        postRefundsRefundParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(postRefundsRefundBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postRefundsRefundBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postRefundsRefund(input, ctx)
+    const { status, body } = await implementation
+      .postRefundsRefund(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postRefundsRefundResponseValidator(status, body)
     ctx.status = status
@@ -35163,18 +37143,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postRefundsRefundCancelParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postRefundsRefundCancelBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postRefundsRefundCancel(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postRefundsRefundCancel(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postRefundsRefundCancelResponseValidator(status, body)
       ctx.status = status
@@ -35223,17 +37206,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getReportingReportRunsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getReportingReportRunsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getReportingReportRunsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getReportingReportRuns(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getReportingReportRuns(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getReportingReportRunsResponseValidator(status, body)
       ctx.status = status
@@ -35912,13 +37901,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postReportingReportRunsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postReportingReportRuns(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postReportingReportRuns(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postReportingReportRunsResponseValidator(status, body)
       ctx.status = status
@@ -35947,19 +37938,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getReportingReportRunsReportRunParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getReportingReportRunsReportRunQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getReportingReportRunsReportRunBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getReportingReportRunsReportRun(input, ctx)
+      const { status, body } = await implementation
+        .getReportingReportRunsReportRun(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getReportingReportRunsReportRunResponseValidator(status, body)
       ctx.status = status
@@ -35994,17 +37991,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getReportingReportTypesQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getReportingReportTypesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getReportingReportTypesBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getReportingReportTypes(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getReportingReportTypes(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getReportingReportTypesResponseValidator(status, body)
       ctx.status = status
@@ -36033,19 +38036,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getReportingReportTypesReportTypeParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getReportingReportTypesReportTypeQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getReportingReportTypesReportTypeBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getReportingReportTypesReportType(input, ctx)
+      const { status, body } = await implementation
+        .getReportingReportTypesReportType(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getReportingReportTypesReportTypeResponseValidator(
         status,
@@ -36094,11 +38103,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getReviews", "/v1/reviews", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getReviewsQuerySchema, ctx.query),
-      body: parseRequestInput(getReviewsBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getReviewsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getReviewsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getReviews(input, ctx)
+    const { status, body } = await implementation
+      .getReviews(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getReviewsResponseValidator(status, body)
     ctx.status = status
@@ -36120,12 +38141,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("getReviewsReview", "/v1/reviews/:review", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(getReviewsReviewParamSchema, ctx.params),
-      query: parseRequestInput(getReviewsReviewQuerySchema, ctx.query),
-      body: parseRequestInput(getReviewsReviewBodySchema, ctx.request.body),
+      params: parseRequestInput(
+        getReviewsReviewParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getReviewsReviewQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getReviewsReviewBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getReviewsReview(input, ctx)
+    const { status, body } = await implementation
+      .getReviewsReview(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getReviewsReviewResponseValidator(status, body)
     ctx.status = status
@@ -36151,18 +38188,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postReviewsReviewApproveParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postReviewsReviewApproveBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postReviewsReviewApprove(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postReviewsReviewApprove(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postReviewsReviewApproveResponseValidator(status, body)
       ctx.status = status
@@ -36209,11 +38249,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getSetupAttempts", "/v1/setup_attempts", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getSetupAttemptsQuerySchema, ctx.query),
-      body: parseRequestInput(getSetupAttemptsBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getSetupAttemptsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getSetupAttemptsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getSetupAttempts(input, ctx)
+    const { status, body } = await implementation
+      .getSetupAttempts(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getSetupAttemptsResponseValidator(status, body)
     ctx.status = status
@@ -36261,11 +38313,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getSetupIntents", "/v1/setup_intents", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getSetupIntentsQuerySchema, ctx.query),
-      body: parseRequestInput(getSetupIntentsBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getSetupIntentsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getSetupIntentsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getSetupIntents(input, ctx)
+    const { status, body } = await implementation
+      .getSetupIntents(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getSetupIntentsResponseValidator(status, body)
     ctx.status = status
@@ -36668,10 +38732,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postSetupIntentsBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postSetupIntentsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postSetupIntents(input, ctx)
+    const { status, body } = await implementation
+      .postSetupIntents(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postSetupIntentsResponseValidator(status, body)
     ctx.status = status
@@ -36697,18 +38769,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/setup_intents/:intent",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(getSetupIntentsIntentParamSchema, ctx.params),
-        query: parseRequestInput(getSetupIntentsIntentQuerySchema, ctx.query),
+        params: parseRequestInput(
+          getSetupIntentsIntentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          getSetupIntentsIntentQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getSetupIntentsIntentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getSetupIntentsIntent(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getSetupIntentsIntent(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getSetupIntentsIntentResponseValidator(status, body)
       ctx.status = status
@@ -37089,18 +39171,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postSetupIntentsIntentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postSetupIntentsIntentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postSetupIntentsIntent(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postSetupIntentsIntent(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postSetupIntentsIntentResponseValidator(status, body)
       ctx.status = status
@@ -37132,16 +39217,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postSetupIntentsIntentCancelParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postSetupIntentsIntentCancelBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postSetupIntentsIntentCancel(input, ctx)
+      const { status, body } = await implementation
+        .postSetupIntentsIntentCancel(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postSetupIntentsIntentCancelResponseValidator(status, body)
       ctx.status = status
@@ -37542,16 +39632,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postSetupIntentsIntentConfirmParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postSetupIntentsIntentConfirmBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postSetupIntentsIntentConfirm(input, ctx)
+      const { status, body } = await implementation
+        .postSetupIntentsIntentConfirm(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postSetupIntentsIntentConfirmResponseValidator(status, body)
       ctx.status = status
@@ -37583,19 +39678,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postSetupIntentsIntentVerifyMicrodepositsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postSetupIntentsIntentVerifyMicrodepositsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postSetupIntentsIntentVerifyMicrodeposits(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postSetupIntentsIntentVerifyMicrodeposits(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postSetupIntentsIntentVerifyMicrodepositsResponseValidator(
         status,
@@ -37646,11 +39743,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getShippingRates", "/v1/shipping_rates", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getShippingRatesQuerySchema, ctx.query),
-      body: parseRequestInput(getShippingRatesBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getShippingRatesQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getShippingRatesBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getShippingRates(input, ctx)
+    const { status, body } = await implementation
+      .getShippingRates(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getShippingRatesResponseValidator(status, body)
     ctx.status = status
@@ -37698,10 +39807,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postShippingRatesBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postShippingRatesBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postShippingRates(input, ctx)
+    const { status, body } = await implementation
+      .postShippingRates(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postShippingRatesResponseValidator(status, body)
     ctx.status = status
@@ -37729,19 +39846,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getShippingRatesShippingRateTokenParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getShippingRatesShippingRateTokenQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getShippingRatesShippingRateTokenBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getShippingRatesShippingRateToken(input, ctx)
+      const { status, body } = await implementation
+        .getShippingRatesShippingRateToken(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getShippingRatesShippingRateTokenResponseValidator(
         status,
@@ -37781,16 +39904,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postShippingRatesShippingRateTokenParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postShippingRatesShippingRateTokenBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postShippingRatesShippingRateToken(input, ctx)
+      const { status, body } = await implementation
+        .postShippingRatesShippingRateToken(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postShippingRatesShippingRateTokenResponseValidator(
         status,
@@ -37834,17 +39962,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getSigmaScheduledQueryRunsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getSigmaScheduledQueryRunsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getSigmaScheduledQueryRuns(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getSigmaScheduledQueryRuns(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getSigmaScheduledQueryRunsResponseValidator(status, body)
       ctx.status = status
@@ -37875,22 +40006,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getSigmaScheduledQueryRunsScheduledQueryRunParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getSigmaScheduledQueryRunsScheduledQueryRunQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getSigmaScheduledQueryRunsScheduledQueryRunBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getSigmaScheduledQueryRunsScheduledQueryRun(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .getSigmaScheduledQueryRunsScheduledQueryRun(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getSigmaScheduledQueryRunsScheduledQueryRunResponseValidator(
         status,
@@ -38018,10 +40152,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postSourcesBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postSourcesBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postSources(input, ctx)
+    const { status, body } = await implementation
+      .postSources(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postSourcesResponseValidator(status, body)
     ctx.status = status
@@ -38044,12 +40186,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("getSourcesSource", "/v1/sources/:source", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(getSourcesSourceParamSchema, ctx.params),
-      query: parseRequestInput(getSourcesSourceQuerySchema, ctx.query),
-      body: parseRequestInput(getSourcesSourceBodySchema, ctx.request.body),
+      params: parseRequestInput(
+        getSourcesSourceParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getSourcesSourceQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getSourcesSourceBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getSourcesSource(input, ctx)
+    const { status, body } = await implementation
+      .getSourcesSource(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getSourcesSourceResponseValidator(status, body)
     ctx.status = status
@@ -38155,12 +40313,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post("postSourcesSource", "/v1/sources/:source", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(postSourcesSourceParamSchema, ctx.params),
+      params: parseRequestInput(
+        postSourcesSourceParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(postSourcesSourceBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postSourcesSourceBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postSourcesSource(input, ctx)
+    const { status, body } = await implementation
+      .postSourcesSource(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postSourcesSourceResponseValidator(status, body)
     ctx.status = status
@@ -38188,22 +40358,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getSourcesSourceMandateNotificationsMandateNotificationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getSourcesSourceMandateNotificationsMandateNotificationQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getSourcesSourceMandateNotificationsMandateNotificationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getSourcesSourceMandateNotificationsMandateNotification(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .getSourcesSourceMandateNotificationsMandateNotification(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         getSourcesSourceMandateNotificationsMandateNotificationResponseValidator(
@@ -38252,19 +40425,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getSourcesSourceSourceTransactionsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getSourcesSourceSourceTransactionsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getSourcesSourceSourceTransactionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getSourcesSourceSourceTransactions(input, ctx)
+      const { status, body } = await implementation
+        .getSourcesSourceSourceTransactions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getSourcesSourceSourceTransactionsResponseValidator(
         status,
@@ -38296,22 +40475,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getSourcesSourceSourceTransactionsSourceTransactionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getSourcesSourceSourceTransactionsSourceTransactionQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getSourcesSourceSourceTransactionsSourceTransactionBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getSourcesSourceSourceTransactionsSourceTransaction(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .getSourcesSourceSourceTransactionsSourceTransaction(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         getSourcesSourceSourceTransactionsSourceTransactionResponseValidator(
@@ -38343,18 +40525,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postSourcesSourceVerifyParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postSourcesSourceVerifyBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postSourcesSourceVerify(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postSourcesSourceVerify(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postSourcesSourceVerifyResponseValidator(status, body)
       ctx.status = status
@@ -38393,17 +40578,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getSubscriptionItemsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getSubscriptionItemsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getSubscriptionItemsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getSubscriptionItems(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getSubscriptionItems(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getSubscriptionItemsResponseValidator(status, body)
       ctx.status = status
@@ -38465,13 +40656,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postSubscriptionItemsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postSubscriptionItems(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postSubscriptionItems(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postSubscriptionItemsResponseValidator(status, body)
       ctx.status = status
@@ -38502,18 +40695,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteSubscriptionItemsItemParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteSubscriptionItemsItemBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.deleteSubscriptionItemsItem(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .deleteSubscriptionItemsItem(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteSubscriptionItemsItemResponseValidator(status, body)
       ctx.status = status
@@ -38542,21 +40738,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getSubscriptionItemsItemParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getSubscriptionItemsItemQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getSubscriptionItemsItemBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getSubscriptionItemsItem(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getSubscriptionItemsItem(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getSubscriptionItemsItemResponseValidator(status, body)
       ctx.status = status
@@ -38620,18 +40820,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postSubscriptionItemsItemParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postSubscriptionItemsItemBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postSubscriptionItemsItem(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postSubscriptionItemsItem(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postSubscriptionItemsItemResponseValidator(status, body)
       ctx.status = status
@@ -38678,22 +40881,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getSubscriptionItemsSubscriptionItemUsageRecordSummariesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getSubscriptionItemsSubscriptionItemUsageRecordSummariesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getSubscriptionItemsSubscriptionItemUsageRecordSummariesBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getSubscriptionItemsSubscriptionItemUsageRecordSummaries(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .getSubscriptionItemsSubscriptionItemUsageRecordSummaries(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         getSubscriptionItemsSubscriptionItemUsageRecordSummariesResponseValidator(
@@ -38727,19 +40933,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postSubscriptionItemsSubscriptionItemUsageRecordsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postSubscriptionItemsSubscriptionItemUsageRecordsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postSubscriptionItemsSubscriptionItemUsageRecords(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postSubscriptionItemsSubscriptionItemUsageRecords(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postSubscriptionItemsSubscriptionItemUsageRecordsResponseValidator(
@@ -38830,17 +41038,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getSubscriptionSchedulesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getSubscriptionSchedulesBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getSubscriptionSchedules(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getSubscriptionSchedules(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getSubscriptionSchedulesResponseValidator(status, body)
       ctx.status = status
@@ -39009,13 +41220,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postSubscriptionSchedulesBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postSubscriptionSchedules(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postSubscriptionSchedules(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postSubscriptionSchedulesResponseValidator(status, body)
       ctx.status = status
@@ -39044,19 +41257,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getSubscriptionSchedulesScheduleParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getSubscriptionSchedulesScheduleQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getSubscriptionSchedulesScheduleBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getSubscriptionSchedulesSchedule(input, ctx)
+      const { status, body } = await implementation
+        .getSubscriptionSchedulesSchedule(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getSubscriptionSchedulesScheduleResponseValidator(status, body)
       ctx.status = status
@@ -39227,16 +41446,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postSubscriptionSchedulesScheduleParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postSubscriptionSchedulesScheduleBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postSubscriptionSchedulesSchedule(input, ctx)
+      const { status, body } = await implementation
+        .postSubscriptionSchedulesSchedule(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postSubscriptionSchedulesScheduleResponseValidator(
         status,
@@ -39270,16 +41494,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postSubscriptionSchedulesScheduleCancelParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postSubscriptionSchedulesScheduleCancelBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postSubscriptionSchedulesScheduleCancel(input, ctx)
+      const { status, body } = await implementation
+        .postSubscriptionSchedulesScheduleCancel(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postSubscriptionSchedulesScheduleCancelResponseValidator(
         status,
@@ -39312,19 +41541,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postSubscriptionSchedulesScheduleReleaseParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postSubscriptionSchedulesScheduleReleaseBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postSubscriptionSchedulesScheduleRelease(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postSubscriptionSchedulesScheduleRelease(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postSubscriptionSchedulesScheduleReleaseResponseValidator(
         status,
@@ -39416,11 +41647,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getSubscriptions", "/v1/subscriptions", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getSubscriptionsQuerySchema, ctx.query),
-      body: parseRequestInput(getSubscriptionsBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getSubscriptionsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getSubscriptionsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getSubscriptions(input, ctx)
+    const { status, body } = await implementation
+      .getSubscriptions(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getSubscriptionsResponseValidator(status, body)
     ctx.status = status
@@ -39698,10 +41941,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postSubscriptionsBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postSubscriptionsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postSubscriptions(input, ctx)
+    const { status, body } = await implementation
+      .postSubscriptions(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postSubscriptionsResponseValidator(status, body)
     ctx.status = status
@@ -39740,17 +41991,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getSubscriptionsSearchQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getSubscriptionsSearchQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getSubscriptionsSearchBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getSubscriptionsSearch(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getSubscriptionsSearch(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getSubscriptionsSearchResponseValidator(status, body)
       ctx.status = status
@@ -39799,19 +42056,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteSubscriptionsSubscriptionExposedIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteSubscriptionsSubscriptionExposedIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.deleteSubscriptionsSubscriptionExposedId(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .deleteSubscriptionsSubscriptionExposedId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteSubscriptionsSubscriptionExposedIdResponseValidator(
         status,
@@ -39845,19 +42104,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getSubscriptionsSubscriptionExposedIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getSubscriptionsSubscriptionExposedIdQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getSubscriptionsSubscriptionExposedIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getSubscriptionsSubscriptionExposedId(input, ctx)
+      const { status, body } = await implementation
+        .getSubscriptionsSubscriptionExposedId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getSubscriptionsSubscriptionExposedIdResponseValidator(
         status,
@@ -40183,16 +42448,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postSubscriptionsSubscriptionExposedIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postSubscriptionsSubscriptionExposedIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postSubscriptionsSubscriptionExposedId(input, ctx)
+      const { status, body } = await implementation
+        .postSubscriptionsSubscriptionExposedId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postSubscriptionsSubscriptionExposedIdResponseValidator(
         status,
@@ -40222,19 +42492,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteSubscriptionsSubscriptionExposedIdDiscountParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteSubscriptionsSubscriptionExposedIdDiscountBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.deleteSubscriptionsSubscriptionExposedIdDiscount(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .deleteSubscriptionsSubscriptionExposedIdDiscount(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         deleteSubscriptionsSubscriptionExposedIdDiscountResponseValidator(
@@ -40272,16 +42544,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postSubscriptionsSubscriptionResumeParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postSubscriptionsSubscriptionResumeBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postSubscriptionsSubscriptionResume(input, ctx)
+      const { status, body } = await implementation
+        .postSubscriptionsSubscriptionResume(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postSubscriptionsSubscriptionResumeResponseValidator(
         status,
@@ -40426,13 +42703,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postTaxCalculationsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postTaxCalculations(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postTaxCalculations(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTaxCalculationsResponseValidator(status, body)
       ctx.status = status
@@ -40479,19 +42758,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getTaxCalculationsCalculationLineItemsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getTaxCalculationsCalculationLineItemsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTaxCalculationsCalculationLineItemsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getTaxCalculationsCalculationLineItems(input, ctx)
+      const { status, body } = await implementation
+        .getTaxCalculationsCalculationLineItems(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTaxCalculationsCalculationLineItemsResponseValidator(
         status,
@@ -40516,11 +42801,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getTaxSettings", "/v1/tax/settings", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getTaxSettingsQuerySchema, ctx.query),
-      body: parseRequestInput(getTaxSettingsBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getTaxSettingsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getTaxSettingsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getTaxSettings(input, ctx)
+    const { status, body } = await implementation
+      .getTaxSettings(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getTaxSettingsResponseValidator(status, body)
     ctx.status = status
@@ -40562,10 +42859,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postTaxSettingsBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postTaxSettingsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postTaxSettings(input, ctx)
+    const { status, body } = await implementation
+      .postTaxSettings(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postTaxSettingsResponseValidator(status, body)
     ctx.status = status
@@ -40592,14 +42897,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postTaxTransactionsCreateFromCalculationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTaxTransactionsCreateFromCalculation(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTaxTransactionsCreateFromCalculation(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTaxTransactionsCreateFromCalculationResponseValidator(
         status,
@@ -40647,11 +42953,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postTaxTransactionsCreateReversalBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTaxTransactionsCreateReversal(input, ctx)
+      const { status, body } = await implementation
+        .postTaxTransactionsCreateReversal(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTaxTransactionsCreateReversalResponseValidator(
         status,
@@ -40683,19 +42993,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getTaxTransactionsTransactionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getTaxTransactionsTransactionQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTaxTransactionsTransactionBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getTaxTransactionsTransaction(input, ctx)
+      const { status, body } = await implementation
+        .getTaxTransactionsTransaction(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTaxTransactionsTransactionResponseValidator(status, body)
       ctx.status = status
@@ -40742,19 +43058,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getTaxTransactionsTransactionLineItemsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getTaxTransactionsTransactionLineItemsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTaxTransactionsTransactionLineItemsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getTaxTransactionsTransactionLineItems(input, ctx)
+      const { status, body } = await implementation
+        .getTaxTransactionsTransactionLineItems(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTaxTransactionsTransactionLineItemsResponseValidator(
         status,
@@ -40792,11 +43114,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getTaxCodes", "/v1/tax_codes", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getTaxCodesQuerySchema, ctx.query),
-      body: parseRequestInput(getTaxCodesBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getTaxCodesQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getTaxCodesBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getTaxCodes(input, ctx)
+    const { status, body } = await implementation
+      .getTaxCodes(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getTaxCodesResponseValidator(status, body)
     ctx.status = status
@@ -40818,12 +43152,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("getTaxCodesId", "/v1/tax_codes/:id", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(getTaxCodesIdParamSchema, ctx.params),
-      query: parseRequestInput(getTaxCodesIdQuerySchema, ctx.query),
-      body: parseRequestInput(getTaxCodesIdBodySchema, ctx.request.body),
+      params: parseRequestInput(
+        getTaxCodesIdParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getTaxCodesIdQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getTaxCodesIdBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getTaxCodesId(input, ctx)
+    const { status, body } = await implementation
+      .getTaxCodesId(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getTaxCodesIdResponseValidator(status, body)
     ctx.status = status
@@ -40870,11 +43220,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getTaxRates", "/v1/tax_rates", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getTaxRatesQuerySchema, ctx.query),
-      body: parseRequestInput(getTaxRatesBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getTaxRatesQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getTaxRatesBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getTaxRates(input, ctx)
+    const { status, body } = await implementation
+      .getTaxRates(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getTaxRatesResponseValidator(status, body)
     ctx.status = status
@@ -40920,10 +43282,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postTaxRatesBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postTaxRatesBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postTaxRates(input, ctx)
+    const { status, body } = await implementation
+      .postTaxRates(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postTaxRatesResponseValidator(status, body)
     ctx.status = status
@@ -40948,15 +43318,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/tax_rates/:taxRate",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(getTaxRatesTaxRateParamSchema, ctx.params),
-        query: parseRequestInput(getTaxRatesTaxRateQuerySchema, ctx.query),
-        body: parseRequestInput(getTaxRatesTaxRateBodySchema, ctx.request.body),
+        params: parseRequestInput(
+          getTaxRatesTaxRateParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          getTaxRatesTaxRateQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getTaxRatesTaxRateBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.getTaxRatesTaxRate(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getTaxRatesTaxRate(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTaxRatesTaxRateResponseValidator(status, body)
       ctx.status = status
@@ -41006,18 +43389,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/tax_rates/:taxRate",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(postTaxRatesTaxRateParamSchema, ctx.params),
+        params: parseRequestInput(
+          postTaxRatesTaxRateParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           postTaxRatesTaxRateBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postTaxRatesTaxRate(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postTaxRatesTaxRate(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTaxRatesTaxRateResponseValidator(status, body)
       ctx.status = status
@@ -41059,17 +43448,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getTerminalConfigurationsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTerminalConfigurationsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getTerminalConfigurations(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getTerminalConfigurations(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTerminalConfigurationsResponseValidator(status, body)
       ctx.status = status
@@ -41213,13 +43605,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postTerminalConfigurationsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postTerminalConfigurations(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postTerminalConfigurations(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTerminalConfigurationsResponseValidator(status, body)
       ctx.status = status
@@ -41249,19 +43643,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteTerminalConfigurationsConfigurationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteTerminalConfigurationsConfigurationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.deleteTerminalConfigurationsConfiguration(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .deleteTerminalConfigurationsConfiguration(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteTerminalConfigurationsConfigurationResponseValidator(
         status,
@@ -41306,19 +43702,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getTerminalConfigurationsConfigurationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getTerminalConfigurationsConfigurationQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTerminalConfigurationsConfigurationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getTerminalConfigurationsConfiguration(input, ctx)
+      const { status, body } = await implementation
+        .getTerminalConfigurationsConfiguration(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTerminalConfigurationsConfigurationResponseValidator(
         status,
@@ -41482,16 +43884,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTerminalConfigurationsConfigurationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTerminalConfigurationsConfigurationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTerminalConfigurationsConfiguration(input, ctx)
+      const { status, body } = await implementation
+        .postTerminalConfigurationsConfiguration(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTerminalConfigurationsConfigurationResponseValidator(
         status,
@@ -41522,11 +43929,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postTerminalConnectionTokensBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTerminalConnectionTokens(input, ctx)
+      const { status, body } = await implementation
+        .postTerminalConnectionTokens(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTerminalConnectionTokensResponseValidator(status, body)
       ctx.status = status
@@ -41564,17 +43975,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getTerminalLocationsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getTerminalLocationsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getTerminalLocationsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getTerminalLocations(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getTerminalLocations(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTerminalLocationsResponseValidator(status, body)
       ctx.status = status
@@ -41612,13 +44029,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postTerminalLocationsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postTerminalLocations(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postTerminalLocations(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTerminalLocationsResponseValidator(status, body)
       ctx.status = status
@@ -41643,16 +44062,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteTerminalLocationsLocationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteTerminalLocationsLocationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.deleteTerminalLocationsLocation(input, ctx)
+      const { status, body } = await implementation
+        .deleteTerminalLocationsLocation(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteTerminalLocationsLocationResponseValidator(status, body)
       ctx.status = status
@@ -41684,19 +44108,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getTerminalLocationsLocationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getTerminalLocationsLocationQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTerminalLocationsLocationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getTerminalLocationsLocation(input, ctx)
+      const { status, body } = await implementation
+        .getTerminalLocationsLocation(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTerminalLocationsLocationResponseValidator(status, body)
       ctx.status = status
@@ -41741,16 +44171,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTerminalLocationsLocationParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTerminalLocationsLocationBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTerminalLocationsLocation(input, ctx)
+      const { status, body } = await implementation
+        .postTerminalLocationsLocation(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTerminalLocationsLocationResponseValidator(status, body)
       ctx.status = status
@@ -41801,14 +44236,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getTerminalReadersQuerySchema, ctx.query),
-        body: parseRequestInput(getTerminalReadersBodySchema, ctx.request.body),
+        query: parseRequestInput(
+          getTerminalReadersQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getTerminalReadersBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.getTerminalReaders(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getTerminalReaders(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTerminalReadersResponseValidator(status, body)
       ctx.status = status
@@ -41839,13 +44283,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postTerminalReadersBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postTerminalReaders(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postTerminalReaders(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTerminalReadersResponseValidator(status, body)
       ctx.status = status
@@ -41870,18 +44316,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteTerminalReadersReaderParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteTerminalReadersReaderBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.deleteTerminalReadersReader(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .deleteTerminalReadersReader(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteTerminalReadersReaderResponseValidator(status, body)
       ctx.status = status
@@ -41915,21 +44364,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getTerminalReadersReaderParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getTerminalReadersReaderQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTerminalReadersReaderBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getTerminalReadersReader(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getTerminalReadersReader(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTerminalReadersReaderResponseValidator(status, body)
       ctx.status = status
@@ -41965,18 +44418,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTerminalReadersReaderParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTerminalReadersReaderBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postTerminalReadersReader(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postTerminalReadersReader(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTerminalReadersReaderResponseValidator(status, body)
       ctx.status = status
@@ -42003,16 +44459,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTerminalReadersReaderCancelActionParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTerminalReadersReaderCancelActionBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTerminalReadersReaderCancelAction(input, ctx)
+      const { status, body } = await implementation
+        .postTerminalReadersReaderCancelAction(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTerminalReadersReaderCancelActionResponseValidator(
         status,
@@ -42051,19 +44512,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTerminalReadersReaderProcessPaymentIntentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTerminalReadersReaderProcessPaymentIntentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTerminalReadersReaderProcessPaymentIntent(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTerminalReadersReaderProcessPaymentIntent(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTerminalReadersReaderProcessPaymentIntentResponseValidator(
         status,
@@ -42096,19 +44559,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTerminalReadersReaderProcessSetupIntentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTerminalReadersReaderProcessSetupIntentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTerminalReadersReaderProcessSetupIntent(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTerminalReadersReaderProcessSetupIntent(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTerminalReadersReaderProcessSetupIntentResponseValidator(
         status,
@@ -42146,16 +44611,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTerminalReadersReaderRefundPaymentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTerminalReadersReaderRefundPaymentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTerminalReadersReaderRefundPayment(input, ctx)
+      const { status, body } = await implementation
+        .postTerminalReadersReaderRefundPayment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTerminalReadersReaderRefundPaymentResponseValidator(
         status,
@@ -42200,19 +44670,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTerminalReadersReaderSetReaderDisplayParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTerminalReadersReaderSetReaderDisplayBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTerminalReadersReaderSetReaderDisplay(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTerminalReadersReaderSetReaderDisplay(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTerminalReadersReaderSetReaderDisplayResponseValidator(
         status,
@@ -42248,19 +44720,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersCustomersCustomerFundCashBalanceParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersCustomersCustomerFundCashBalanceBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersCustomersCustomerFundCashBalance(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTestHelpersCustomersCustomerFundCashBalance(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postTestHelpersCustomersCustomerFundCashBalanceResponseValidator(
@@ -42627,11 +45101,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postTestHelpersIssuingAuthorizationsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersIssuingAuthorizations(input, ctx)
+      const { status, body } = await implementation
+        .postTestHelpersIssuingAuthorizations(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTestHelpersIssuingAuthorizationsResponseValidator(
         status,
@@ -42721,19 +45199,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersIssuingAuthorizationsAuthorizationCaptureParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingAuthorizationsAuthorizationCaptureBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersIssuingAuthorizationsAuthorizationCapture(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTestHelpersIssuingAuthorizationsAuthorizationCapture(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postTestHelpersIssuingAuthorizationsAuthorizationCaptureResponseValidator(
@@ -42763,19 +45243,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersIssuingAuthorizationsAuthorizationExpireParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingAuthorizationsAuthorizationExpireBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersIssuingAuthorizationsAuthorizationExpire(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTestHelpersIssuingAuthorizationsAuthorizationExpire(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postTestHelpersIssuingAuthorizationsAuthorizationExpireResponseValidator(
@@ -42808,19 +45290,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersIssuingAuthorizationsAuthorizationIncrementParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingAuthorizationsAuthorizationIncrementBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersIssuingAuthorizationsAuthorizationIncrement(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTestHelpersIssuingAuthorizationsAuthorizationIncrement(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postTestHelpersIssuingAuthorizationsAuthorizationIncrementResponseValidator(
@@ -42853,19 +45337,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersIssuingAuthorizationsAuthorizationReverseParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingAuthorizationsAuthorizationReverseBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersIssuingAuthorizationsAuthorizationReverse(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTestHelpersIssuingAuthorizationsAuthorizationReverse(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postTestHelpersIssuingAuthorizationsAuthorizationReverseResponseValidator(
@@ -42896,19 +45382,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingDeliverParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingDeliverBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersIssuingCardsCardShippingDeliver(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTestHelpersIssuingCardsCardShippingDeliver(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postTestHelpersIssuingCardsCardShippingDeliverResponseValidator(
@@ -42939,19 +45427,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingFailParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingFailBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersIssuingCardsCardShippingFail(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTestHelpersIssuingCardsCardShippingFail(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTestHelpersIssuingCardsCardShippingFailResponseValidator(
         status,
@@ -42981,19 +45471,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingReturnParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingReturnBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersIssuingCardsCardShippingReturn(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTestHelpersIssuingCardsCardShippingReturn(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTestHelpersIssuingCardsCardShippingReturnResponseValidator(
         status,
@@ -43023,19 +45515,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingShipParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingShipBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersIssuingCardsCardShippingShip(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTestHelpersIssuingCardsCardShippingShip(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTestHelpersIssuingCardsCardShippingShipResponseValidator(
         status,
@@ -43433,14 +45927,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postTestHelpersIssuingTransactionsCreateForceCaptureBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersIssuingTransactionsCreateForceCapture(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTestHelpersIssuingTransactionsCreateForceCapture(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postTestHelpersIssuingTransactionsCreateForceCaptureResponseValidator(
@@ -43839,14 +46334,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postTestHelpersIssuingTransactionsCreateUnlinkedRefundBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersIssuingTransactionsCreateUnlinkedRefund(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTestHelpersIssuingTransactionsCreateUnlinkedRefund(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postTestHelpersIssuingTransactionsCreateUnlinkedRefundResponseValidator(
@@ -43879,19 +46375,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersIssuingTransactionsTransactionRefundParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingTransactionsTransactionRefundBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersIssuingTransactionsTransactionRefund(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTestHelpersIssuingTransactionsTransactionRefund(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postTestHelpersIssuingTransactionsTransactionRefundResponseValidator(
@@ -43922,16 +46420,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersRefundsRefundExpireParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersRefundsRefundExpireBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersRefundsRefundExpire(input, ctx)
+      const { status, body } = await implementation
+        .postTestHelpersRefundsRefundExpire(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTestHelpersRefundsRefundExpireResponseValidator(
         status,
@@ -43966,19 +46469,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersTerminalReadersReaderPresentPaymentMethodParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTerminalReadersReaderPresentPaymentMethodBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersTerminalReadersReaderPresentPaymentMethod(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTestHelpersTerminalReadersReaderPresentPaymentMethod(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postTestHelpersTerminalReadersReaderPresentPaymentMethodResponseValidator(
@@ -44023,17 +46528,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getTestHelpersTestClocksQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTestHelpersTestClocksBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getTestHelpersTestClocks(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getTestHelpersTestClocks(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTestHelpersTestClocksResponseValidator(status, body)
       ctx.status = status
@@ -44062,13 +46570,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postTestHelpersTestClocksBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postTestHelpersTestClocks(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postTestHelpersTestClocks(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTestHelpersTestClocksResponseValidator(status, body)
       ctx.status = status
@@ -44096,16 +46606,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteTestHelpersTestClocksTestClockParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteTestHelpersTestClocksTestClockBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.deleteTestHelpersTestClocksTestClock(input, ctx)
+      const { status, body } = await implementation
+        .deleteTestHelpersTestClocksTestClock(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteTestHelpersTestClocksTestClockResponseValidator(
         status,
@@ -44137,19 +46652,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getTestHelpersTestClocksTestClockParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getTestHelpersTestClocksTestClockQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTestHelpersTestClocksTestClockBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getTestHelpersTestClocksTestClock(input, ctx)
+      const { status, body } = await implementation
+        .getTestHelpersTestClocksTestClock(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTestHelpersTestClocksTestClockResponseValidator(
         status,
@@ -44180,19 +46701,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersTestClocksTestClockAdvanceParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTestClocksTestClockAdvanceBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersTestClocksTestClockAdvance(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTestHelpersTestClocksTestClockAdvance(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTestHelpersTestClocksTestClockAdvanceResponseValidator(
         status,
@@ -44245,19 +46768,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersTreasuryInboundTransfersIdFailParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryInboundTransfersIdFailBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersTreasuryInboundTransfersIdFail(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTestHelpersTreasuryInboundTransfersIdFail(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTestHelpersTreasuryInboundTransfersIdFailResponseValidator(
         status,
@@ -44287,19 +46812,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersTreasuryInboundTransfersIdReturnParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryInboundTransfersIdReturnBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersTreasuryInboundTransfersIdReturn(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTestHelpersTreasuryInboundTransfersIdReturn(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postTestHelpersTreasuryInboundTransfersIdReturnResponseValidator(
@@ -44330,19 +46857,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersTreasuryInboundTransfersIdSucceedParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryInboundTransfersIdSucceedBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersTreasuryInboundTransfersIdSucceed(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTestHelpersTreasuryInboundTransfersIdSucceed(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postTestHelpersTreasuryInboundTransfersIdSucceedResponseValidator(
@@ -44373,19 +46902,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersTreasuryOutboundPaymentsIdFailParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryOutboundPaymentsIdFailBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersTreasuryOutboundPaymentsIdFail(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTestHelpersTreasuryOutboundPaymentsIdFail(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTestHelpersTreasuryOutboundPaymentsIdFailResponseValidator(
         status,
@@ -44415,19 +46946,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersTreasuryOutboundPaymentsIdPostParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryOutboundPaymentsIdPostBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersTreasuryOutboundPaymentsIdPost(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTestHelpersTreasuryOutboundPaymentsIdPost(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTestHelpersTreasuryOutboundPaymentsIdPostResponseValidator(
         status,
@@ -44477,19 +47010,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersTreasuryOutboundPaymentsIdReturnParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryOutboundPaymentsIdReturnBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersTreasuryOutboundPaymentsIdReturn(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTestHelpersTreasuryOutboundPaymentsIdReturn(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postTestHelpersTreasuryOutboundPaymentsIdReturnResponseValidator(
@@ -44518,19 +47053,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersTreasuryOutboundTransfersOutboundTransferFailParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryOutboundTransfersOutboundTransferFailBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersTreasuryOutboundTransfersOutboundTransferFail(
+      const { status, body } = await implementation
+        .postTestHelpersTreasuryOutboundTransfersOutboundTransferFail(
           input,
           ctx,
         )
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponseValidator(
@@ -44559,19 +47099,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersTreasuryOutboundTransfersOutboundTransferPostParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryOutboundTransfersOutboundTransferPostBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersTreasuryOutboundTransfersOutboundTransferPost(
+      const { status, body } = await implementation
+        .postTestHelpersTreasuryOutboundTransfersOutboundTransferPost(
           input,
           ctx,
         )
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponseValidator(
@@ -44622,19 +47167,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn(
+      const { status, body } = await implementation
+        .postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn(
           input,
           ctx,
         )
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponseValidator(
@@ -44680,11 +47230,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postTestHelpersTreasuryReceivedCreditsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersTreasuryReceivedCredits(input, ctx)
+      const { status, body } = await implementation
+        .postTestHelpersTreasuryReceivedCredits(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTestHelpersTreasuryReceivedCreditsResponseValidator(
         status,
@@ -44729,11 +47283,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postTestHelpersTreasuryReceivedDebitsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTestHelpersTreasuryReceivedDebits(input, ctx)
+      const { status, body } = await implementation
+        .postTestHelpersTreasuryReceivedDebits(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTestHelpersTreasuryReceivedDebitsResponseValidator(
         status,
@@ -45116,10 +47674,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postTokensBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postTokensBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postTokens(input, ctx)
+    const { status, body } = await implementation
+      .postTokens(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postTokensResponseValidator(status, body)
     ctx.status = status
@@ -45141,12 +47707,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("getTokensToken", "/v1/tokens/:token", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(getTokensTokenParamSchema, ctx.params),
-      query: parseRequestInput(getTokensTokenQuerySchema, ctx.query),
-      body: parseRequestInput(getTokensTokenBodySchema, ctx.request.body),
+      params: parseRequestInput(
+        getTokensTokenParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getTokensTokenQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getTokensTokenBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getTokensToken(input, ctx)
+    const { status, body } = await implementation
+      .getTokensToken(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getTokensTokenResponseValidator(status, body)
     ctx.status = status
@@ -45203,11 +47785,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getTopups", "/v1/topups", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getTopupsQuerySchema, ctx.query),
-      body: parseRequestInput(getTopupsBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getTopupsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getTopupsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getTopups(input, ctx)
+    const { status, body } = await implementation
+      .getTopups(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getTopupsResponseValidator(status, body)
     ctx.status = status
@@ -45234,10 +47828,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postTopupsBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postTopupsBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postTopups(input, ctx)
+    const { status, body } = await implementation
+      .postTopups(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postTopupsResponseValidator(status, body)
     ctx.status = status
@@ -45259,12 +47861,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("getTopupsTopup", "/v1/topups/:topup", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(getTopupsTopupParamSchema, ctx.params),
-      query: parseRequestInput(getTopupsTopupQuerySchema, ctx.query),
-      body: parseRequestInput(getTopupsTopupBodySchema, ctx.request.body),
+      params: parseRequestInput(
+        getTopupsTopupParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getTopupsTopupQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getTopupsTopupBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getTopupsTopup(input, ctx)
+    const { status, body } = await implementation
+      .getTopupsTopup(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getTopupsTopupResponseValidator(status, body)
     ctx.status = status
@@ -45288,12 +47906,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post("postTopupsTopup", "/v1/topups/:topup", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(postTopupsTopupParamSchema, ctx.params),
+      params: parseRequestInput(
+        postTopupsTopupParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
-      body: parseRequestInput(postTopupsTopupBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postTopupsTopupBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postTopupsTopup(input, ctx)
+    const { status, body } = await implementation
+      .postTopupsTopup(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postTopupsTopupResponseValidator(status, body)
     ctx.status = status
@@ -45316,18 +47946,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/topups/:topup/cancel",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(postTopupsTopupCancelParamSchema, ctx.params),
+        params: parseRequestInput(
+          postTopupsTopupCancelParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           postTopupsTopupCancelBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postTopupsTopupCancel(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postTopupsTopupCancel(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTopupsTopupCancelResponseValidator(status, body)
       ctx.status = status
@@ -45375,11 +48011,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("getTransfers", "/v1/transfers", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(getTransfersQuerySchema, ctx.query),
-      body: parseRequestInput(getTransfersBodySchema, ctx.request.body),
+      query: parseRequestInput(
+        getTransfersQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getTransfersBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.getTransfers(input, ctx)
+    const { status, body } = await implementation
+      .getTransfers(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getTransfersResponseValidator(status, body)
     ctx.status = status
@@ -45407,10 +48055,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(postTransfersBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        postTransfersBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.postTransfers(input, ctx)
+    const { status, body } = await implementation
+      .postTransfers(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = postTransfersResponseValidator(status, body)
     ctx.status = status
@@ -45451,18 +48107,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getTransfersIdReversalsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(getTransfersIdReversalsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getTransfersIdReversalsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getTransfersIdReversalsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getTransfersIdReversals(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getTransfersIdReversals(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTransfersIdReversalsResponseValidator(status, body)
       ctx.status = status
@@ -45495,18 +48158,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTransfersIdReversalsParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTransfersIdReversalsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postTransfersIdReversals(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postTransfersIdReversals(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTransfersIdReversalsResponseValidator(status, body)
       ctx.status = status
@@ -45532,18 +48198,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/transfers/:transfer",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(getTransfersTransferParamSchema, ctx.params),
-        query: parseRequestInput(getTransfersTransferQuerySchema, ctx.query),
+        params: parseRequestInput(
+          getTransfersTransferParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          getTransfersTransferQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getTransfersTransferBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getTransfersTransfer(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getTransfersTransfer(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTransfersTransferResponseValidator(status, body)
       ctx.status = status
@@ -45571,18 +48247,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/v1/transfers/:transfer",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(postTransfersTransferParamSchema, ctx.params),
+        params: parseRequestInput(
+          postTransfersTransferParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           postTransfersTransferBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postTransfersTransfer(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postTransfersTransfer(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTransfersTransferResponseValidator(status, body)
       ctx.status = status
@@ -45612,19 +48294,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getTransfersTransferReversalsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getTransfersTransferReversalsIdQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTransfersTransferReversalsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getTransfersTransferReversalsId(input, ctx)
+      const { status, body } = await implementation
+        .getTransfersTransferReversalsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTransfersTransferReversalsIdResponseValidator(status, body)
       ctx.status = status
@@ -45655,16 +48343,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTransfersTransferReversalsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTransfersTransferReversalsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTransfersTransferReversalsId(input, ctx)
+      const { status, body } = await implementation
+        .postTransfersTransferReversalsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTransfersTransferReversalsIdResponseValidator(status, body)
       ctx.status = status
@@ -45708,17 +48401,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getTreasuryCreditReversalsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTreasuryCreditReversalsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getTreasuryCreditReversals(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getTreasuryCreditReversals(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTreasuryCreditReversalsResponseValidator(status, body)
       ctx.status = status
@@ -45745,13 +48441,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postTreasuryCreditReversalsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postTreasuryCreditReversals(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postTreasuryCreditReversals(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTreasuryCreditReversalsResponseValidator(status, body)
       ctx.status = status
@@ -45782,22 +48480,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getTreasuryCreditReversalsCreditReversalParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getTreasuryCreditReversalsCreditReversalQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTreasuryCreditReversalsCreditReversalBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getTreasuryCreditReversalsCreditReversal(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .getTreasuryCreditReversalsCreditReversal(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTreasuryCreditReversalsCreditReversalResponseValidator(
         status,
@@ -45845,17 +48546,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getTreasuryDebitReversalsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTreasuryDebitReversalsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getTreasuryDebitReversals(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getTreasuryDebitReversals(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTreasuryDebitReversalsResponseValidator(status, body)
       ctx.status = status
@@ -45884,13 +48588,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postTreasuryDebitReversalsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postTreasuryDebitReversals(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postTreasuryDebitReversals(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTreasuryDebitReversalsResponseValidator(status, body)
       ctx.status = status
@@ -45921,19 +48627,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getTreasuryDebitReversalsDebitReversalParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getTreasuryDebitReversalsDebitReversalQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTreasuryDebitReversalsDebitReversalBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getTreasuryDebitReversalsDebitReversal(input, ctx)
+      const { status, body } = await implementation
+        .getTreasuryDebitReversalsDebitReversal(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTreasuryDebitReversalsDebitReversalResponseValidator(
         status,
@@ -45989,15 +48701,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getTreasuryFinancialAccountsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTreasuryFinancialAccountsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getTreasuryFinancialAccounts(input, ctx)
+      const { status, body } = await implementation
+        .getTreasuryFinancialAccounts(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTreasuryFinancialAccountsResponseValidator(status, body)
       ctx.status = status
@@ -46067,11 +48784,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postTreasuryFinancialAccountsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTreasuryFinancialAccounts(input, ctx)
+      const { status, body } = await implementation
+        .postTreasuryFinancialAccounts(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTreasuryFinancialAccountsResponseValidator(status, body)
       ctx.status = status
@@ -46102,22 +48823,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getTreasuryFinancialAccountsFinancialAccountParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getTreasuryFinancialAccountsFinancialAccountQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTreasuryFinancialAccountsFinancialAccountBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getTreasuryFinancialAccountsFinancialAccount(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .getTreasuryFinancialAccountsFinancialAccount(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTreasuryFinancialAccountsFinancialAccountResponseValidator(
         status,
@@ -46193,19 +48917,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTreasuryFinancialAccountsFinancialAccountParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTreasuryFinancialAccountsFinancialAccountBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTreasuryFinancialAccountsFinancialAccount(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTreasuryFinancialAccountsFinancialAccount(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTreasuryFinancialAccountsFinancialAccountResponseValidator(
         status,
@@ -46240,22 +48966,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getTreasuryFinancialAccountsFinancialAccountFeaturesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getTreasuryFinancialAccountsFinancialAccountFeatures(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .getTreasuryFinancialAccountsFinancialAccountFeatures(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         getTreasuryFinancialAccountsFinancialAccountFeaturesResponseValidator(
@@ -46317,19 +49046,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTreasuryFinancialAccountsFinancialAccountFeatures(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTreasuryFinancialAccountsFinancialAccountFeatures(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postTreasuryFinancialAccountsFinancialAccountFeaturesResponseValidator(
@@ -46379,17 +49110,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getTreasuryInboundTransfersQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTreasuryInboundTransfersBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getTreasuryInboundTransfers(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getTreasuryInboundTransfers(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTreasuryInboundTransfersResponseValidator(status, body)
       ctx.status = status
@@ -46421,11 +49155,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postTreasuryInboundTransfersBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTreasuryInboundTransfers(input, ctx)
+      const { status, body } = await implementation
+        .postTreasuryInboundTransfers(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTreasuryInboundTransfersResponseValidator(status, body)
       ctx.status = status
@@ -46452,19 +49190,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getTreasuryInboundTransfersIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getTreasuryInboundTransfersIdQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTreasuryInboundTransfersIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getTreasuryInboundTransfersId(input, ctx)
+      const { status, body } = await implementation
+        .getTreasuryInboundTransfersId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTreasuryInboundTransfersIdResponseValidator(status, body)
       ctx.status = status
@@ -46491,19 +49235,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTreasuryInboundTransfersInboundTransferCancelParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTreasuryInboundTransfersInboundTransferCancelBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTreasuryInboundTransfersInboundTransferCancel(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTreasuryInboundTransfersInboundTransferCancel(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postTreasuryInboundTransfersInboundTransferCancelResponseValidator(
@@ -46554,17 +49300,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getTreasuryOutboundPaymentsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTreasuryOutboundPaymentsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getTreasuryOutboundPayments(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getTreasuryOutboundPayments(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTreasuryOutboundPaymentsResponseValidator(status, body)
       ctx.status = status
@@ -46651,11 +49400,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postTreasuryOutboundPaymentsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTreasuryOutboundPayments(input, ctx)
+      const { status, body } = await implementation
+        .postTreasuryOutboundPayments(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTreasuryOutboundPaymentsResponseValidator(status, body)
       ctx.status = status
@@ -46682,19 +49435,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getTreasuryOutboundPaymentsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getTreasuryOutboundPaymentsIdQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTreasuryOutboundPaymentsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getTreasuryOutboundPaymentsId(input, ctx)
+      const { status, body } = await implementation
+        .getTreasuryOutboundPaymentsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTreasuryOutboundPaymentsIdResponseValidator(status, body)
       ctx.status = status
@@ -46721,16 +49480,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTreasuryOutboundPaymentsIdCancelParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTreasuryOutboundPaymentsIdCancelBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTreasuryOutboundPaymentsIdCancel(input, ctx)
+      const { status, body } = await implementation
+        .postTreasuryOutboundPaymentsIdCancel(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTreasuryOutboundPaymentsIdCancelResponseValidator(
         status,
@@ -46779,15 +49543,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getTreasuryOutboundTransfersQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTreasuryOutboundTransfersBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getTreasuryOutboundTransfers(input, ctx)
+      const { status, body } = await implementation
+        .getTreasuryOutboundTransfers(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTreasuryOutboundTransfersResponseValidator(status, body)
       ctx.status = status
@@ -46831,11 +49600,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postTreasuryOutboundTransfersBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTreasuryOutboundTransfers(input, ctx)
+      const { status, body } = await implementation
+        .postTreasuryOutboundTransfers(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postTreasuryOutboundTransfersResponseValidator(status, body)
       ctx.status = status
@@ -46866,22 +49639,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getTreasuryOutboundTransfersOutboundTransferParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getTreasuryOutboundTransfersOutboundTransferQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTreasuryOutboundTransfersOutboundTransferBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getTreasuryOutboundTransfersOutboundTransfer(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .getTreasuryOutboundTransfersOutboundTransfer(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTreasuryOutboundTransfersOutboundTransferResponseValidator(
         status,
@@ -46910,19 +49686,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postTreasuryOutboundTransfersOutboundTransferCancelParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postTreasuryOutboundTransfersOutboundTransferCancelBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postTreasuryOutboundTransfersOutboundTransferCancel(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .postTreasuryOutboundTransfersOutboundTransferCancel(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         postTreasuryOutboundTransfersOutboundTransferCancelResponseValidator(
@@ -46979,17 +49757,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getTreasuryReceivedCreditsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTreasuryReceivedCreditsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getTreasuryReceivedCredits(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getTreasuryReceivedCredits(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTreasuryReceivedCreditsResponseValidator(status, body)
       ctx.status = status
@@ -47016,19 +49797,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getTreasuryReceivedCreditsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getTreasuryReceivedCreditsIdQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTreasuryReceivedCreditsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getTreasuryReceivedCreditsId(input, ctx)
+      const { status, body } = await implementation
+        .getTreasuryReceivedCreditsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTreasuryReceivedCreditsIdResponseValidator(status, body)
       ctx.status = status
@@ -47071,17 +49858,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getTreasuryReceivedDebitsQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTreasuryReceivedDebitsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getTreasuryReceivedDebits(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getTreasuryReceivedDebits(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTreasuryReceivedDebitsResponseValidator(status, body)
       ctx.status = status
@@ -47108,21 +49898,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getTreasuryReceivedDebitsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getTreasuryReceivedDebitsIdQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTreasuryReceivedDebitsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getTreasuryReceivedDebitsId(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getTreasuryReceivedDebitsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTreasuryReceivedDebitsIdResponseValidator(status, body)
       ctx.status = status
@@ -47189,15 +49983,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: parseRequestInput(
           getTreasuryTransactionEntriesQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTreasuryTransactionEntriesBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getTreasuryTransactionEntries(input, ctx)
+      const { status, body } = await implementation
+        .getTreasuryTransactionEntries(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTreasuryTransactionEntriesResponseValidator(status, body)
       ctx.status = status
@@ -47226,19 +50025,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getTreasuryTransactionEntriesIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getTreasuryTransactionEntriesIdQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTreasuryTransactionEntriesIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getTreasuryTransactionEntriesId(input, ctx)
+      const { status, body } = await implementation
+        .getTreasuryTransactionEntriesId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTreasuryTransactionEntriesIdResponseValidator(status, body)
       ctx.status = status
@@ -47305,17 +50110,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getTreasuryTransactionsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getTreasuryTransactionsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getTreasuryTransactionsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getTreasuryTransactions(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getTreasuryTransactions(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTreasuryTransactionsResponseValidator(status, body)
       ctx.status = status
@@ -47344,21 +50155,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getTreasuryTransactionsIdParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getTreasuryTransactionsIdQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getTreasuryTransactionsIdBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getTreasuryTransactionsId(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getTreasuryTransactionsId(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getTreasuryTransactionsIdResponseValidator(status, body)
       ctx.status = status
@@ -47396,17 +50211,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     async (ctx, next) => {
       const input = {
         params: undefined,
-        query: parseRequestInput(getWebhookEndpointsQuerySchema, ctx.query),
+        query: parseRequestInput(
+          getWebhookEndpointsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: parseRequestInput(
           getWebhookEndpointsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.getWebhookEndpoints(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .getWebhookEndpoints(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getWebhookEndpointsResponseValidator(status, body)
       ctx.status = status
@@ -47760,13 +50581,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           postWebhookEndpointsBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.postWebhookEndpoints(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .postWebhookEndpoints(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postWebhookEndpointsResponseValidator(status, body)
       ctx.status = status
@@ -47793,16 +50616,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteWebhookEndpointsWebhookEndpointParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           deleteWebhookEndpointsWebhookEndpointBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.deleteWebhookEndpointsWebhookEndpoint(input, ctx)
+      const { status, body } = await implementation
+        .deleteWebhookEndpointsWebhookEndpoint(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteWebhookEndpointsWebhookEndpointResponseValidator(
         status,
@@ -47834,19 +50662,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           getWebhookEndpointsWebhookEndpointParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
           getWebhookEndpointsWebhookEndpointQuerySchema,
           ctx.query,
+          RequestInputType.QueryString,
         ),
         body: parseRequestInput(
           getWebhookEndpointsWebhookEndpointBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.getWebhookEndpointsWebhookEndpoint(input, ctx)
+      const { status, body } = await implementation
+        .getWebhookEndpointsWebhookEndpoint(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getWebhookEndpointsWebhookEndpointResponseValidator(
         status,
@@ -48104,16 +50938,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           postWebhookEndpointsWebhookEndpointParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           postWebhookEndpointsWebhookEndpointBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.postWebhookEndpointsWebhookEndpoint(input, ctx)
+      const { status, body } = await implementation
+        .postWebhookEndpointsWebhookEndpoint(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = postWebhookEndpointsWebhookEndpointResponseValidator(
         status,

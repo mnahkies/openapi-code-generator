@@ -60,6 +60,12 @@ export class ServerBuilder {
         "StatusCode",
       )
 
+    this.imports.from("@nahkies/typescript-koa-runtime/errors")
+      .add(
+        "KoaRuntimeError",
+        "RequestInputType",
+      )
+
     this.imports.from("koa")
       .add("Context")
 
@@ -166,12 +172,13 @@ export class ServerBuilder {
       `async (ctx, next) => {
 
        const input = {
-        params: ${paramSchema ? `parseRequestInput(${operation.operationId}ParamSchema, ctx.params)` : "undefined"},
-        query: ${querySchema ? `parseRequestInput(${operation.operationId}QuerySchema, ctx.query)` : "undefined"},
-        body: ${bodyParamSchema ? `parseRequestInput(${operation.operationId}BodySchema, ctx.request.body)` : "undefined"},
+        params: ${paramSchema ? `parseRequestInput(${operation.operationId}ParamSchema, ctx.params, RequestInputType.RouteParam)` : "undefined"},
+        query: ${querySchema ? `parseRequestInput(${operation.operationId}QuerySchema, ctx.query, RequestInputType.QueryString)` : "undefined"},
+        body: ${bodyParamSchema ? `parseRequestInput(${operation.operationId}BodySchema, ctx.request.body, RequestInputType.RequestBody)` : "undefined"},
        }
 
-        const {status, body} = await implementation.${operation.operationId}(input, ctx)
+          const {status, body} = await implementation.${operation.operationId}(input, ctx)
+            .catch(err => { throw KoaRuntimeError.HandlerError(err) })
 
         ctx.body = ${operation.operationId}ResponseValidator(status, body)
         ctx.status = status

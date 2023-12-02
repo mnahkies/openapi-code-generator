@@ -14,6 +14,10 @@ import {
 import { s_Error, s_NewPet, s_Pet } from "./schemas"
 import KoaRouter from "@koa/router"
 import {
+  KoaRuntimeError,
+  RequestInputType,
+} from "@nahkies/typescript-koa-runtime/errors"
+import {
   Response,
   ServerConfig,
   StatusCode,
@@ -78,11 +82,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get("findPets", "/pets", async (ctx, next) => {
     const input = {
       params: undefined,
-      query: parseRequestInput(findPetsQuerySchema, ctx.query),
+      query: parseRequestInput(
+        findPetsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
-    const { status, body } = await implementation.findPets(input, ctx)
+    const { status, body } = await implementation
+      .findPets(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = findPetsResponseValidator(status, body)
     ctx.status = status
@@ -100,10 +112,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(addPetBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        addPetBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.addPet(input, ctx)
+    const { status, body } = await implementation
+      .addPet(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = addPetResponseValidator(status, body)
     ctx.status = status
@@ -119,12 +139,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("findPetById", "/pets/:id", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(findPetByIdParamSchema, ctx.params),
+      params: parseRequestInput(
+        findPetByIdParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.findPetById(input, ctx)
+    const { status, body } = await implementation
+      .findPetById(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = findPetByIdResponseValidator(status, body)
     ctx.status = status
@@ -140,12 +168,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete("deletePet", "/pets/:id", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(deletePetParamSchema, ctx.params),
+      params: parseRequestInput(
+        deletePetParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.deletePet(input, ctx)
+    const { status, body } = await implementation
+      .deletePet(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = deletePetResponseValidator(status, body)
     ctx.status = status

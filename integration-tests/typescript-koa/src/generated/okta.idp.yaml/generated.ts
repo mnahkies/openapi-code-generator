@@ -58,6 +58,10 @@ import {
 } from "./schemas"
 import KoaRouter from "@koa/router"
 import {
+  KoaRuntimeError,
+  RequestInputType,
+} from "@nahkies/typescript-koa-runtime/errors"
+import {
   Response,
   ServerConfig,
   StatusCode,
@@ -395,11 +399,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: parseRequestInput(
           createAppAuthenticatorEnrollmentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.createAppAuthenticatorEnrollment(input, ctx)
+      const { status, body } = await implementation
+        .createAppAuthenticatorEnrollment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = createAppAuthenticatorEnrollmentResponseValidator(status, body)
       ctx.status = status
@@ -432,19 +440,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           verifyAppAuthenticatorPushNotificationChallengeParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           verifyAppAuthenticatorPushNotificationChallengeBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.verifyAppAuthenticatorPushNotificationChallenge(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .verifyAppAuthenticatorPushNotificationChallenge(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         verifyAppAuthenticatorPushNotificationChallengeResponseValidator(
@@ -482,16 +492,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           updateAppAuthenticatorEnrollmentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
           updateAppAuthenticatorEnrollmentBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } =
-        await implementation.updateAppAuthenticatorEnrollment(input, ctx)
+      const { status, body } = await implementation
+        .updateAppAuthenticatorEnrollment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = updateAppAuthenticatorEnrollmentResponseValidator(status, body)
       ctx.status = status
@@ -522,13 +537,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           deleteAppAuthenticatorEnrollmentParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.deleteAppAuthenticatorEnrollment(input, ctx)
+      const { status, body } = await implementation
+        .deleteAppAuthenticatorEnrollment(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteAppAuthenticatorEnrollmentResponseValidator(status, body)
       ctx.status = status
@@ -553,16 +572,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           listAppAuthenticatorPendingPushNotificationChallengesParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.listAppAuthenticatorPendingPushNotificationChallenges(
-          input,
-          ctx,
-        )
+      const { status, body } = await implementation
+        .listAppAuthenticatorPendingPushNotificationChallenges(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body =
         listAppAuthenticatorPendingPushNotificationChallengesResponseValidator(
@@ -589,7 +609,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: undefined,
     }
 
-    const { status, body } = await implementation.listEmails(input, ctx)
+    const { status, body } = await implementation
+      .listEmails(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = listEmailsResponseValidator(status, body)
     ctx.status = status
@@ -618,10 +642,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(createEmailBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        createEmailBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.createEmail(input, ctx)
+    const { status, body } = await implementation
+      .createEmail(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = createEmailResponseValidator(status, body)
     ctx.status = status
@@ -640,12 +672,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("getEmail", "/idp/myaccount/emails/:id", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(getEmailParamSchema, ctx.params),
+      params: parseRequestInput(
+        getEmailParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.getEmail(input, ctx)
+    const { status, body } = await implementation
+      .getEmail(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getEmailResponseValidator(status, body)
     ctx.status = status
@@ -670,12 +710,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/idp/myaccount/emails/:id",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(deleteEmailParamSchema, ctx.params),
+        params: parseRequestInput(
+          deleteEmailParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.deleteEmail(input, ctx)
+      const { status, body } = await implementation
+        .deleteEmail(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deleteEmailResponseValidator(status, body)
       ctx.status = status
@@ -720,15 +768,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/idp/myaccount/emails/:id/challenge",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(sendEmailChallengeParamSchema, ctx.params),
+        params: parseRequestInput(
+          sendEmailChallengeParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(sendEmailChallengeBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          sendEmailChallengeBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.sendEmailChallenge(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .sendEmailChallenge(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = sendEmailChallengeResponseValidator(status, body)
       ctx.status = status
@@ -777,13 +834,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: parseRequestInput(
           pollChallengeForEmailMagicLinkParamSchema,
           ctx.params,
+          RequestInputType.RouteParam,
         ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } =
-        await implementation.pollChallengeForEmailMagicLink(input, ctx)
+      const { status, body } = await implementation
+        .pollChallengeForEmailMagicLink(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = pollChallengeForEmailMagicLinkResponseValidator(status, body)
       ctx.status = status
@@ -813,12 +874,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/idp/myaccount/emails/:id/challenge/:challengeId/verify",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(verifyEmailOtpParamSchema, ctx.params),
+        params: parseRequestInput(
+          verifyEmailOtpParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(verifyEmailOtpBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          verifyEmailOtpBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.verifyEmailOtp(input, ctx)
+      const { status, body } = await implementation
+        .verifyEmailOtp(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = verifyEmailOtpResponseValidator(status, body)
       ctx.status = status
@@ -841,7 +914,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: undefined,
     }
 
-    const { status, body } = await implementation.listPhones(input, ctx)
+    const { status, body } = await implementation
+      .listPhones(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = listPhonesResponseValidator(status, body)
     ctx.status = status
@@ -870,10 +947,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(createPhoneBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        createPhoneBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.createPhone(input, ctx)
+    const { status, body } = await implementation
+      .createPhone(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = createPhoneResponseValidator(status, body)
     ctx.status = status
@@ -893,12 +978,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get("getPhone", "/idp/myaccount/phones/:id", async (ctx, next) => {
     const input = {
-      params: parseRequestInput(getPhoneParamSchema, ctx.params),
+      params: parseRequestInput(
+        getPhoneParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
       query: undefined,
       body: undefined,
     }
 
-    const { status, body } = await implementation.getPhone(input, ctx)
+    const { status, body } = await implementation
+      .getPhone(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getPhoneResponseValidator(status, body)
     ctx.status = status
@@ -922,12 +1015,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/idp/myaccount/phones/:id",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(deletePhoneParamSchema, ctx.params),
+        params: parseRequestInput(
+          deletePhoneParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: undefined,
       }
 
-      const { status, body } = await implementation.deletePhone(input, ctx)
+      const { status, body } = await implementation
+        .deletePhone(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = deletePhoneResponseValidator(status, body)
       ctx.status = status
@@ -973,15 +1074,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/idp/myaccount/phones/:id/challenge",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(sendPhoneChallengeParamSchema, ctx.params),
+        params: parseRequestInput(
+          sendPhoneChallengeParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
-        body: parseRequestInput(sendPhoneChallengeBodySchema, ctx.request.body),
+        body: parseRequestInput(
+          sendPhoneChallengeBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
       }
 
-      const { status, body } = await implementation.sendPhoneChallenge(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .sendPhoneChallenge(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = sendPhoneChallengeResponseValidator(status, body)
       ctx.status = status
@@ -1012,18 +1122,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "/idp/myaccount/phones/:id/verify",
     async (ctx, next) => {
       const input = {
-        params: parseRequestInput(verifyPhoneChallengeParamSchema, ctx.params),
+        params: parseRequestInput(
+          verifyPhoneChallengeParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
         query: undefined,
         body: parseRequestInput(
           verifyPhoneChallengeBodySchema,
           ctx.request.body,
+          RequestInputType.RequestBody,
         ),
       }
 
-      const { status, body } = await implementation.verifyPhoneChallenge(
-        input,
-        ctx,
-      )
+      const { status, body } = await implementation
+        .verifyPhoneChallenge(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = verifyPhoneChallengeResponseValidator(status, body)
       ctx.status = status
@@ -1046,7 +1162,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: undefined,
     }
 
-    const { status, body } = await implementation.getProfile(input, ctx)
+    const { status, body } = await implementation
+      .getProfile(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = getProfileResponseValidator(status, body)
     ctx.status = status
@@ -1071,10 +1191,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(replaceProfileBodySchema, ctx.request.body),
+      body: parseRequestInput(
+        replaceProfileBodySchema,
+        ctx.request.body,
+        RequestInputType.RequestBody,
+      ),
     }
 
-    const { status, body } = await implementation.replaceProfile(input, ctx)
+    const { status, body } = await implementation
+      .replaceProfile(input, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
 
     ctx.body = replaceProfileResponseValidator(status, body)
     ctx.status = status
@@ -1099,7 +1227,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: undefined,
       }
 
-      const { status, body } = await implementation.getProfileSchema(input, ctx)
+      const { status, body } = await implementation
+        .getProfileSchema(input, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
       ctx.body = getProfileSchemaResponseValidator(status, body)
       ctx.status = status
