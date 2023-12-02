@@ -127,6 +127,8 @@ import {
   RequestInputType,
 } from "@nahkies/typescript-koa-runtime/errors"
 import {
+  KoaRuntimeResponder,
+  KoaRuntimeResponse,
   Response,
   ServerConfig,
   StatusCode,
@@ -148,57 +150,119 @@ import { z } from "zod"
 //region safe-edit-region-header
 
 //endregion safe-edit-region-header
+export type GetWellKnownOpenIdConfigurationResponder = {
+  with200(): KoaRuntimeResponse<t_OidcMetadata>
+  with400(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
 export type GetWellKnownOpenIdConfiguration = (
   params: Params<void, t_GetWellKnownOpenIdConfigurationQuerySchema, void>,
+  respond: GetWellKnownOpenIdConfigurationResponder,
   ctx: Context,
-) => Promise<Response<200, t_OidcMetadata> | Response<400, t_Error>>
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_OidcMetadata>
+  | Response<400, t_Error>
+>
+
+export type AuthorizeResponder = {
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
 
 export type Authorize = (
   params: Params<void, t_AuthorizeQuerySchema, void>,
+  respond: AuthorizeResponder,
   ctx: Context,
-) => Promise<Response<429, t_Error>>
+) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
+
+export type BcAuthorizeResponder = {
+  with200(): KoaRuntimeResponse<t_BackchannelAuthorizeResponse>
+  with400(): KoaRuntimeResponse<t_OAuthError>
+  with401(): KoaRuntimeResponse<t_OAuthError>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
 
 export type BcAuthorize = (
   params: Params<void, void, t_BcAuthorizeBodySchema>,
+  respond: BcAuthorizeResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<200, t_BackchannelAuthorizeResponse>
   | Response<400, t_OAuthError>
   | Response<401, t_OAuthError>
   | Response<429, t_Error>
 >
 
+export type ListClientsResponder = {
+  with200(): KoaRuntimeResponse<t_Client[]>
+  with403(): KoaRuntimeResponse<t_Error>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
 export type ListClients = (
   params: Params<void, t_ListClientsQuerySchema, void>,
+  respond: ListClientsResponder,
   ctx: Context,
 ) => Promise<
-  Response<200, t_Client[]> | Response<403, t_Error> | Response<429, t_Error>
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_Client[]>
+  | Response<403, t_Error>
+  | Response<429, t_Error>
 >
+
+export type CreateClientResponder = {
+  with201(): KoaRuntimeResponse<t_Client>
+  with400(): KoaRuntimeResponse<t_Error>
+  with403(): KoaRuntimeResponse<t_Error>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
 
 export type CreateClient = (
   params: Params<void, void, t_CreateClientBodySchema>,
+  respond: CreateClientResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<201, t_Client>
   | Response<400, t_Error>
   | Response<403, t_Error>
   | Response<429, t_Error>
 >
 
+export type GetClientResponder = {
+  with200(): KoaRuntimeResponse<t_Client>
+  with403(): KoaRuntimeResponse<t_Error>
+  with404(): KoaRuntimeResponse<t_Error>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
 export type GetClient = (
   params: Params<t_GetClientParamSchema, void, void>,
+  respond: GetClientResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<200, t_Client>
   | Response<403, t_Error>
   | Response<404, t_Error>
   | Response<429, t_Error>
 >
 
+export type ReplaceClientResponder = {
+  with200(): KoaRuntimeResponse<t_Client>
+  with400(): KoaRuntimeResponse<t_Error>
+  with403(): KoaRuntimeResponse<t_Error>
+  with404(): KoaRuntimeResponse<t_Error>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
 export type ReplaceClient = (
   params: Params<t_ReplaceClientParamSchema, void, t_ReplaceClientBodySchema>,
+  respond: ReplaceClientResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<200, t_Client>
   | Response<400, t_Error>
   | Response<403, t_Error>
@@ -206,60 +270,121 @@ export type ReplaceClient = (
   | Response<429, t_Error>
 >
 
+export type DeleteClientResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_Error>
+  with404(): KoaRuntimeResponse<t_Error>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
 export type DeleteClient = (
   params: Params<t_DeleteClientParamSchema, void, void>,
+  respond: DeleteClientResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<204, void>
   | Response<403, t_Error>
   | Response<404, t_Error>
   | Response<429, t_Error>
 >
 
+export type GenerateNewClientSecretResponder = {
+  with200(): KoaRuntimeResponse<t_Client>
+  with403(): KoaRuntimeResponse<t_Error>
+  with404(): KoaRuntimeResponse<t_Error>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
 export type GenerateNewClientSecret = (
   params: Params<t_GenerateNewClientSecretParamSchema, void, void>,
+  respond: GenerateNewClientSecretResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<200, t_Client>
   | Response<403, t_Error>
   | Response<404, t_Error>
   | Response<429, t_Error>
 >
 
+export type DeviceAuthorizeResponder = {
+  with200(): KoaRuntimeResponse<t_DeviceAuthorizeResponse>
+  with400(): KoaRuntimeResponse<t_OAuthError>
+  with401(): KoaRuntimeResponse<t_OAuthError>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
 export type DeviceAuthorize = (
   params: Params<void, void, t_DeviceAuthorizeBodySchema>,
+  respond: DeviceAuthorizeResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<200, t_DeviceAuthorizeResponse>
   | Response<400, t_OAuthError>
   | Response<401, t_OAuthError>
   | Response<429, t_Error>
 >
 
+export type IntrospectResponder = {
+  with200(): KoaRuntimeResponse<t_IntrospectionResponse>
+  with400(): KoaRuntimeResponse<t_OAuthError>
+  with401(): KoaRuntimeResponse<t_OAuthError>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
 export type Introspect = (
   params: Params<void, void, t_IntrospectBodySchema>,
+  respond: IntrospectResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<200, t_IntrospectionResponse>
   | Response<400, t_OAuthError>
   | Response<401, t_OAuthError>
   | Response<429, t_Error>
 >
 
+export type OauthKeysResponder = {
+  with200(): KoaRuntimeResponse<t_OAuthKeys>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
 export type OauthKeys = (
   params: Params<void, t_OauthKeysQuerySchema, void>,
+  respond: OauthKeysResponder,
   ctx: Context,
-) => Promise<Response<200, t_OAuthKeys> | Response<429, t_Error>>
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_OAuthKeys>
+  | Response<429, t_Error>
+>
+
+export type LogoutResponder = {
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
 
 export type Logout = (
   params: Params<void, t_LogoutQuerySchema, void>,
+  respond: LogoutResponder,
   ctx: Context,
-) => Promise<Response<429, t_Error>>
+) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
+
+export type ParResponder = {
+  with200(): KoaRuntimeResponse<t_ParResponse>
+  with400(): KoaRuntimeResponse<t_OAuthError>
+  with401(): KoaRuntimeResponse<t_OAuthError>
+  with403(): KoaRuntimeResponse<t_OAuthError>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
 
 export type Par = (
   params: Params<void, void, t_ParBodySchema>,
+  respond: ParResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<200, t_ParResponse>
   | Response<400, t_OAuthError>
   | Response<401, t_OAuthError>
@@ -267,35 +392,68 @@ export type Par = (
   | Response<429, t_Error>
 >
 
+export type RevokeResponder = {
+  with200(): KoaRuntimeResponse<void>
+  with400(): KoaRuntimeResponse<t_OAuthError>
+  with401(): KoaRuntimeResponse<t_OAuthError>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
 export type Revoke = (
   params: Params<void, void, t_RevokeBodySchema>,
+  respond: RevokeResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<200, void>
   | Response<400, t_OAuthError>
   | Response<401, t_OAuthError>
   | Response<429, t_Error>
 >
 
+export type TokenResponder = {
+  with200(): KoaRuntimeResponse<t_TokenResponse>
+  with400(): KoaRuntimeResponse<t_OAuthError>
+  with401(): KoaRuntimeResponse<t_OAuthError>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
 export type Token = (
   params: Params<void, void, t_TokenBodySchema>,
+  respond: TokenResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<200, t_TokenResponse>
   | Response<400, t_OAuthError>
   | Response<401, t_OAuthError>
   | Response<429, t_Error>
 >
 
+export type UserinfoResponder = {
+  with200(): KoaRuntimeResponse<t_UserInfo>
+  with401(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<void>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
 export type Userinfo = (
   params: Params<void, void, void>,
+  respond: UserinfoResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<200, t_UserInfo>
   | Response<401, void>
   | Response<403, void>
   | Response<429, t_Error>
 >
+
+export type GetWellKnownOAuthConfigurationCustomAsResponder = {
+  with200(): KoaRuntimeResponse<t_OAuthMetadata>
+  with400(): KoaRuntimeResponse<t_Error>
+  with404(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
 
 export type GetWellKnownOAuthConfigurationCustomAs = (
   params: Params<
@@ -303,12 +461,20 @@ export type GetWellKnownOAuthConfigurationCustomAs = (
     t_GetWellKnownOAuthConfigurationCustomAsQuerySchema,
     void
   >,
+  respond: GetWellKnownOAuthConfigurationCustomAsResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<200, t_OAuthMetadata>
   | Response<400, t_Error>
   | Response<404, t_Error>
 >
+
+export type GetWellKnownOpenIdConfigurationCustomAsResponder = {
+  with200(): KoaRuntimeResponse<t_OidcMetadata>
+  with400(): KoaRuntimeResponse<t_Error>
+  with404(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
 
 export type GetWellKnownOpenIdConfigurationCustomAs = (
   params: Params<
@@ -316,12 +482,18 @@ export type GetWellKnownOpenIdConfigurationCustomAs = (
     t_GetWellKnownOpenIdConfigurationCustomAsQuerySchema,
     void
   >,
+  respond: GetWellKnownOpenIdConfigurationCustomAsResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<200, t_OidcMetadata>
   | Response<400, t_Error>
   | Response<404, t_Error>
 >
+
+export type AuthorizeCustomAsResponder = {
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
 
 export type AuthorizeCustomAs = (
   params: Params<
@@ -329,8 +501,16 @@ export type AuthorizeCustomAs = (
     t_AuthorizeCustomAsQuerySchema,
     void
   >,
+  respond: AuthorizeCustomAsResponder,
   ctx: Context,
-) => Promise<Response<429, t_Error>>
+) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
+
+export type BcAuthorizeCustomAsResponder = {
+  with200(): KoaRuntimeResponse<t_BackchannelAuthorizeResponse>
+  with400(): KoaRuntimeResponse<t_OAuthError>
+  with401(): KoaRuntimeResponse<t_OAuthError>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
 
 export type BcAuthorizeCustomAs = (
   params: Params<
@@ -338,13 +518,22 @@ export type BcAuthorizeCustomAs = (
     void,
     t_BcAuthorizeCustomAsBodySchema
   >,
+  respond: BcAuthorizeCustomAsResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<200, t_BackchannelAuthorizeResponse>
   | Response<400, t_OAuthError>
   | Response<401, t_OAuthError>
   | Response<429, t_Error>
 >
+
+export type DeviceAuthorizeCustomAsResponder = {
+  with200(): KoaRuntimeResponse<t_DeviceAuthorizeResponse>
+  with400(): KoaRuntimeResponse<t_OAuthError>
+  with401(): KoaRuntimeResponse<t_OAuthError>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
 
 export type DeviceAuthorizeCustomAs = (
   params: Params<
@@ -352,13 +541,22 @@ export type DeviceAuthorizeCustomAs = (
     void,
     t_DeviceAuthorizeCustomAsBodySchema
   >,
+  respond: DeviceAuthorizeCustomAsResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<200, t_DeviceAuthorizeResponse>
   | Response<400, t_OAuthError>
   | Response<401, t_OAuthError>
   | Response<429, t_Error>
 >
+
+export type IntrospectCustomAsResponder = {
+  with200(): KoaRuntimeResponse<t_IntrospectionResponse>
+  with400(): KoaRuntimeResponse<t_OAuthError>
+  with401(): KoaRuntimeResponse<t_OAuthError>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
 
 export type IntrospectCustomAs = (
   params: Params<
@@ -366,18 +564,34 @@ export type IntrospectCustomAs = (
     void,
     t_IntrospectCustomAsBodySchema
   >,
+  respond: IntrospectCustomAsResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<200, t_IntrospectionResponse>
   | Response<400, t_OAuthError>
   | Response<401, t_OAuthError>
   | Response<429, t_Error>
 >
 
+export type OauthKeysCustomAsResponder = {
+  with200(): KoaRuntimeResponse<t_OAuthKeys>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
 export type OauthKeysCustomAs = (
   params: Params<t_OauthKeysCustomAsParamSchema, void, void>,
+  respond: OauthKeysCustomAsResponder,
   ctx: Context,
-) => Promise<Response<200, t_OAuthKeys> | Response<429, t_Error>>
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_OAuthKeys>
+  | Response<429, t_Error>
+>
+
+export type LogoutCustomAsResponder = {
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
 
 export type LogoutCustomAs = (
   params: Params<
@@ -385,13 +599,24 @@ export type LogoutCustomAs = (
     t_LogoutCustomAsQuerySchema,
     void
   >,
+  respond: LogoutCustomAsResponder,
   ctx: Context,
-) => Promise<Response<429, t_Error>>
+) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
+
+export type ParCustomAsResponder = {
+  with200(): KoaRuntimeResponse<t_ParResponse>
+  with400(): KoaRuntimeResponse<t_OAuthError>
+  with401(): KoaRuntimeResponse<t_OAuthError>
+  with403(): KoaRuntimeResponse<t_OAuthError>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
 
 export type ParCustomAs = (
   params: Params<t_ParCustomAsParamSchema, void, t_ParCustomAsBodySchema>,
+  respond: ParCustomAsResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<200, t_ParResponse>
   | Response<400, t_OAuthError>
   | Response<401, t_OAuthError>
@@ -399,30 +624,57 @@ export type ParCustomAs = (
   | Response<429, t_Error>
 >
 
+export type RevokeCustomAsResponder = {
+  with200(): KoaRuntimeResponse<void>
+  with400(): KoaRuntimeResponse<t_OAuthError>
+  with401(): KoaRuntimeResponse<t_OAuthError>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
 export type RevokeCustomAs = (
   params: Params<t_RevokeCustomAsParamSchema, void, t_RevokeCustomAsBodySchema>,
+  respond: RevokeCustomAsResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<200, void>
   | Response<400, t_OAuthError>
   | Response<401, t_OAuthError>
   | Response<429, t_Error>
 >
 
+export type TokenCustomAsResponder = {
+  with200(): KoaRuntimeResponse<t_TokenResponse>
+  with400(): KoaRuntimeResponse<t_OAuthError>
+  with401(): KoaRuntimeResponse<t_OAuthError>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
 export type TokenCustomAs = (
   params: Params<t_TokenCustomAsParamSchema, void, t_TokenCustomAsBodySchema>,
+  respond: TokenCustomAsResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<200, t_TokenResponse>
   | Response<400, t_OAuthError>
   | Response<401, t_OAuthError>
   | Response<429, t_Error>
 >
 
+export type UserinfoCustomAsResponder = {
+  with200(): KoaRuntimeResponse<t_UserInfo>
+  with401(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<void>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
 export type UserinfoCustomAs = (
   params: Params<t_UserinfoCustomAsParamSchema, void, void>,
+  respond: UserinfoCustomAsResponder,
   ctx: Context,
 ) => Promise<
+  | KoaRuntimeResponse<unknown>
   | Response<200, t_UserInfo>
   | Response<401, void>
   | Response<403, void>
@@ -491,11 +743,26 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: undefined,
       }
 
-      const { status, body } = await implementation
-        .getWellKnownOpenIdConfiguration(input, ctx)
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_OidcMetadata>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_Error>(400)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .getWellKnownOpenIdConfiguration(input, responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getWellKnownOpenIdConfigurationResponseValidator(status, body)
       ctx.status = status
@@ -542,11 +809,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: undefined,
     }
 
-    const { status, body } = await implementation
-      .authorize(input, ctx)
+    const responder = {
+      with429() {
+        return new KoaRuntimeResponse<t_Error>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .authorize(input, responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = authorizeResponseValidator(status, body)
     ctx.status = status
@@ -576,11 +855,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
     }
 
-    const { status, body } = await implementation
-      .bcAuthorize(input, ctx)
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_BackchannelAuthorizeResponse>(200)
+      },
+      with400() {
+        return new KoaRuntimeResponse<t_OAuthError>(400)
+      },
+      with401() {
+        return new KoaRuntimeResponse<t_OAuthError>(401)
+      },
+      with429() {
+        return new KoaRuntimeResponse<t_Error>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .bcAuthorize(input, responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = bcAuthorizeResponseValidator(status, body)
     ctx.status = status
@@ -613,11 +913,29 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: undefined,
     }
 
-    const { status, body } = await implementation
-      .listClients(input, ctx)
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_Client[]>(200)
+      },
+      with403() {
+        return new KoaRuntimeResponse<t_Error>(403)
+      },
+      with429() {
+        return new KoaRuntimeResponse<t_Error>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .listClients(input, responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = listClientsResponseValidator(status, body)
     ctx.status = status
@@ -647,11 +965,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
     }
 
-    const { status, body } = await implementation
-      .createClient(input, ctx)
+    const responder = {
+      with201() {
+        return new KoaRuntimeResponse<t_Client>(201)
+      },
+      with400() {
+        return new KoaRuntimeResponse<t_Error>(400)
+      },
+      with403() {
+        return new KoaRuntimeResponse<t_Error>(403)
+      },
+      with429() {
+        return new KoaRuntimeResponse<t_Error>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .createClient(input, responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = createClientResponseValidator(status, body)
     ctx.status = status
@@ -681,11 +1020,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: undefined,
     }
 
-    const { status, body } = await implementation
-      .getClient(input, ctx)
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_Client>(200)
+      },
+      with403() {
+        return new KoaRuntimeResponse<t_Error>(403)
+      },
+      with404() {
+        return new KoaRuntimeResponse<t_Error>(404)
+      },
+      with429() {
+        return new KoaRuntimeResponse<t_Error>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .getClient(input, responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getClientResponseValidator(status, body)
     ctx.status = status
@@ -725,11 +1085,35 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
       }
 
-      const { status, body } = await implementation
-        .replaceClient(input, ctx)
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_Client>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_Error>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_Error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_Error>(404)
+        },
+        with429() {
+          return new KoaRuntimeResponse<t_Error>(429)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .replaceClient(input, responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = replaceClientResponseValidator(status, body)
       ctx.status = status
@@ -763,11 +1147,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: undefined,
       }
 
-      const { status, body } = await implementation
-        .deleteClient(input, ctx)
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_Error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_Error>(404)
+        },
+        with429() {
+          return new KoaRuntimeResponse<t_Error>(429)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .deleteClient(input, responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteClientResponseValidator(status, body)
       ctx.status = status
@@ -801,11 +1206,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: undefined,
       }
 
-      const { status, body } = await implementation
-        .generateNewClientSecret(input, ctx)
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_Client>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_Error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_Error>(404)
+        },
+        with429() {
+          return new KoaRuntimeResponse<t_Error>(429)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .generateNewClientSecret(input, responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = generateNewClientSecretResponseValidator(status, body)
       ctx.status = status
@@ -839,11 +1265,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
       }
 
-      const { status, body } = await implementation
-        .deviceAuthorize(input, ctx)
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_DeviceAuthorizeResponse>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_OAuthError>(400)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_OAuthError>(401)
+        },
+        with429() {
+          return new KoaRuntimeResponse<t_Error>(429)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .deviceAuthorize(input, responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deviceAuthorizeResponseValidator(status, body)
       ctx.status = status
@@ -874,11 +1321,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
     }
 
-    const { status, body } = await implementation
-      .introspect(input, ctx)
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_IntrospectionResponse>(200)
+      },
+      with400() {
+        return new KoaRuntimeResponse<t_OAuthError>(400)
+      },
+      with401() {
+        return new KoaRuntimeResponse<t_OAuthError>(401)
+      },
+      with429() {
+        return new KoaRuntimeResponse<t_Error>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .introspect(input, responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = introspectResponseValidator(status, body)
     ctx.status = status
@@ -906,11 +1374,26 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: undefined,
     }
 
-    const { status, body } = await implementation
-      .oauthKeys(input, ctx)
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_OAuthKeys>(200)
+      },
+      with429() {
+        return new KoaRuntimeResponse<t_Error>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .oauthKeys(input, responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = oauthKeysResponseValidator(status, body)
     ctx.status = status
@@ -939,11 +1422,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: undefined,
     }
 
-    const { status, body } = await implementation
-      .logout(input, ctx)
+    const responder = {
+      with429() {
+        return new KoaRuntimeResponse<t_Error>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .logout(input, responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = logoutResponseValidator(status, body)
     ctx.status = status
@@ -974,11 +1469,35 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
     }
 
-    const { status, body } = await implementation
-      .par(input, ctx)
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_ParResponse>(200)
+      },
+      with400() {
+        return new KoaRuntimeResponse<t_OAuthError>(400)
+      },
+      with401() {
+        return new KoaRuntimeResponse<t_OAuthError>(401)
+      },
+      with403() {
+        return new KoaRuntimeResponse<t_OAuthError>(403)
+      },
+      with429() {
+        return new KoaRuntimeResponse<t_Error>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .par(input, responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = parResponseValidator(status, body)
     ctx.status = status
@@ -1008,11 +1527,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
     }
 
-    const { status, body } = await implementation
-      .revoke(input, ctx)
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<void>(200)
+      },
+      with400() {
+        return new KoaRuntimeResponse<t_OAuthError>(400)
+      },
+      with401() {
+        return new KoaRuntimeResponse<t_OAuthError>(401)
+      },
+      with429() {
+        return new KoaRuntimeResponse<t_Error>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .revoke(input, responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = revokeResponseValidator(status, body)
     ctx.status = status
@@ -1042,11 +1582,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
     }
 
-    const { status, body } = await implementation
-      .token(input, ctx)
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_TokenResponse>(200)
+      },
+      with400() {
+        return new KoaRuntimeResponse<t_OAuthError>(400)
+      },
+      with401() {
+        return new KoaRuntimeResponse<t_OAuthError>(401)
+      },
+      with429() {
+        return new KoaRuntimeResponse<t_Error>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .token(input, responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = tokenResponseValidator(status, body)
     ctx.status = status
@@ -1070,11 +1631,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
       body: undefined,
     }
 
-    const { status, body } = await implementation
-      .userinfo(input, ctx)
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_UserInfo>(200)
+      },
+      with401() {
+        return new KoaRuntimeResponse<void>(401)
+      },
+      with403() {
+        return new KoaRuntimeResponse<void>(403)
+      },
+      with429() {
+        return new KoaRuntimeResponse<t_Error>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .userinfo(input, responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = userinfoResponseValidator(status, body)
     ctx.status = status
@@ -1117,11 +1699,29 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: undefined,
       }
 
-      const { status, body } = await implementation
-        .getWellKnownOAuthConfigurationCustomAs(input, ctx)
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_OAuthMetadata>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_Error>(400)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_Error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .getWellKnownOAuthConfigurationCustomAs(input, responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getWellKnownOAuthConfigurationCustomAsResponseValidator(
         status,
@@ -1168,11 +1768,29 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: undefined,
       }
 
-      const { status, body } = await implementation
-        .getWellKnownOpenIdConfigurationCustomAs(input, ctx)
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_OidcMetadata>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_Error>(400)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_Error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .getWellKnownOpenIdConfigurationCustomAs(input, responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getWellKnownOpenIdConfigurationCustomAsResponseValidator(
         status,
@@ -1233,11 +1851,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: undefined,
       }
 
-      const { status, body } = await implementation
-        .authorizeCustomAs(input, ctx)
+      const responder = {
+        with429() {
+          return new KoaRuntimeResponse<t_Error>(429)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .authorizeCustomAs(input, responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = authorizeCustomAsResponseValidator(status, body)
       ctx.status = status
@@ -1279,11 +1909,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
       }
 
-      const { status, body } = await implementation
-        .bcAuthorizeCustomAs(input, ctx)
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_BackchannelAuthorizeResponse>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_OAuthError>(400)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_OAuthError>(401)
+        },
+        with429() {
+          return new KoaRuntimeResponse<t_Error>(429)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .bcAuthorizeCustomAs(input, responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = bcAuthorizeCustomAsResponseValidator(status, body)
       ctx.status = status
@@ -1325,11 +1976,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
       }
 
-      const { status, body } = await implementation
-        .deviceAuthorizeCustomAs(input, ctx)
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_DeviceAuthorizeResponse>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_OAuthError>(400)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_OAuthError>(401)
+        },
+        with429() {
+          return new KoaRuntimeResponse<t_Error>(429)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .deviceAuthorizeCustomAs(input, responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deviceAuthorizeCustomAsResponseValidator(status, body)
       ctx.status = status
@@ -1371,11 +2043,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
       }
 
-      const { status, body } = await implementation
-        .introspectCustomAs(input, ctx)
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_IntrospectionResponse>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_OAuthError>(400)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_OAuthError>(401)
+        },
+        with429() {
+          return new KoaRuntimeResponse<t_Error>(429)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .introspectCustomAs(input, responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = introspectCustomAsResponseValidator(status, body)
       ctx.status = status
@@ -1409,11 +2102,26 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: undefined,
       }
 
-      const { status, body } = await implementation
-        .oauthKeysCustomAs(input, ctx)
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_OAuthKeys>(200)
+        },
+        with429() {
+          return new KoaRuntimeResponse<t_Error>(429)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .oauthKeysCustomAs(input, responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = oauthKeysCustomAsResponseValidator(status, body)
       ctx.status = status
@@ -1454,11 +2162,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: undefined,
       }
 
-      const { status, body } = await implementation
-        .logoutCustomAs(input, ctx)
+      const responder = {
+        with429() {
+          return new KoaRuntimeResponse<t_Error>(429)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .logoutCustomAs(input, responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = logoutCustomAsResponseValidator(status, body)
       ctx.status = status
@@ -1499,11 +2219,35 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
       }
 
-      const { status, body } = await implementation
-        .parCustomAs(input, ctx)
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_ParResponse>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_OAuthError>(400)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_OAuthError>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_OAuthError>(403)
+        },
+        with429() {
+          return new KoaRuntimeResponse<t_Error>(429)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .parCustomAs(input, responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = parCustomAsResponseValidator(status, body)
       ctx.status = status
@@ -1545,11 +2289,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
       }
 
-      const { status, body } = await implementation
-        .revokeCustomAs(input, ctx)
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<void>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_OAuthError>(400)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_OAuthError>(401)
+        },
+        with429() {
+          return new KoaRuntimeResponse<t_Error>(429)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .revokeCustomAs(input, responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = revokeCustomAsResponseValidator(status, body)
       ctx.status = status
@@ -1591,11 +2356,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
       }
 
-      const { status, body } = await implementation
-        .tokenCustomAs(input, ctx)
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_TokenResponse>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_OAuthError>(400)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_OAuthError>(401)
+        },
+        with429() {
+          return new KoaRuntimeResponse<t_Error>(429)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .tokenCustomAs(input, responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = tokenCustomAsResponseValidator(status, body)
       ctx.status = status
@@ -1631,11 +2417,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: undefined,
       }
 
-      const { status, body } = await implementation
-        .userinfoCustomAs(input, ctx)
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_UserInfo>(200)
+        },
+        with401() {
+          return new KoaRuntimeResponse<void>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<void>(403)
+        },
+        with429() {
+          return new KoaRuntimeResponse<t_Error>(429)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .userinfoCustomAs(input, responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = userinfoCustomAsResponseValidator(status, body)
       ctx.status = status
