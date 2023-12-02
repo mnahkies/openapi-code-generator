@@ -43,8 +43,12 @@ import {
 import {
   s_AppAuthenticatorEnrollment,
   s_AppAuthenticatorEnrollmentRequest,
+  s_AppAuthenticatorMethodCapabilities,
   s_Email,
   s_Error,
+  s_KeyEC,
+  s_KeyObject,
+  s_KeyRSA,
   s_Phone,
   s_Profile,
   s_PushNotificationChallenge,

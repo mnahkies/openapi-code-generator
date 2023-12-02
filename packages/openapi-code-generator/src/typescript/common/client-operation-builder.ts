@@ -4,11 +4,13 @@ import {isDefined} from "../../core/utils"
 import {generationLib} from "../../core/generation-lib"
 import {TypeBuilder} from "./type-builder"
 import {combineParams, MethodParameterDefinition, requestBodyAsParameter, statusStringToType} from "./typescript-common"
+import {SchemaBuilder} from "./schema-builders/schema-builder"
 
 export class ClientOperationBuilder {
   constructor(
     private readonly operation: IROperation,
     private readonly models: TypeBuilder,
+    private readonly schemaBuilder: SchemaBuilder,
   ) {
   }
 
