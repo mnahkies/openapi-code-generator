@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.2.0...v0.3.0) (2023-12-02)
+
+
+### Bug Fixes
+
+* decouple schema builders from typescript-koa ([#113](https://github.com/mnahkies/openapi-code-generator/issues/113)) ([f75a80c](https://github.com/mnahkies/openapi-code-generator/commit/f75a80c9cad7cd1b11a282f542fd05b0fb2d2c86)), closes [#112](https://github.com/mnahkies/openapi-code-generator/issues/112)
+
+
+* feat!: throw discriminable errors indicating point of failure (#95) ([4badd41](https://github.com/mnahkies/openapi-code-generator/commit/4badd4114b1c19e73631b48610751f9229f436c8)), closes [#95](https://github.com/mnahkies/openapi-code-generator/issues/95) [/github.com/mnahkies/openapi-code-generator/pull/95/files#diff-b82e27c39ae18163c6d5547d0bf1c5dd9a92302ae047f160a76ea0c7af5ad7b0](https://github.com//github.com/mnahkies/openapi-code-generator/pull/95/files/issues/diff-b82e27c39ae18163c6d5547d0bf1c5dd9a92302ae047f160a76ea0c7af5ad7b0)
+
+
+### Features
+
+* add typescript-axios template ([#83](https://github.com/mnahkies/openapi-code-generator/issues/83)) ([c3e045d](https://github.com/mnahkies/openapi-code-generator/commit/c3e045d446e2af9f75f5724a19b58c212376751f))
+* include schema builder in client generators ([#114](https://github.com/mnahkies/openapi-code-generator/issues/114)) ([9beb268](https://github.com/mnahkies/openapi-code-generator/commit/9beb2682fdc724871206d18a2c678e56d7c6238b)), closes [#112](https://github.com/mnahkies/openapi-code-generator/issues/112)
+
+
+### BREAKING CHANGES
+
+* ** errors thrown are now wrapped in `KoaRuntimeError`
+objects.
+
+
+
+
+
 # [0.2.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.1.1...v0.2.0) (2023-11-12)
 
 
