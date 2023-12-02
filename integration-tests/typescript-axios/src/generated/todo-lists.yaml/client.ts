@@ -8,6 +8,7 @@ import {
   AbstractAxiosConfig,
 } from "@nahkies/typescript-axios-runtime/main"
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
+import { z } from "zod"
 
 export class ApiClient extends AbstractAxiosClient {
   constructor(config: AbstractAxiosConfig) {

@@ -5,15 +5,23 @@
 import {
   t_AcrValue,
   t_AmrValue,
+  t_ApplicationType,
   t_BackchannelAuthorizeRequest,
   t_BackchannelAuthorizeResponse,
+  t_Claim,
   t_Client,
   t_CodeChallengeMethod,
   t_DeviceAuthorizeRequest,
   t_DeviceAuthorizeResponse,
+  t_EndpointAuthMethod,
   t_Error,
+  t_GrantType,
   t_IntrospectionRequest,
   t_IntrospectionResponse,
+  t_JsonWebKey,
+  t_JsonWebKeyStatus,
+  t_JsonWebKeyType,
+  t_JsonWebKeyUse,
   t_OAuthError,
   t_OAuthKeys,
   t_OAuthMetadata,
@@ -22,10 +30,19 @@ import {
   t_ParResponse,
   t_Prompt,
   t_ResponseMode,
+  t_ResponseType,
   t_ResponseTypesSupported,
   t_RevokeRequest,
+  t_Scope,
+  t_SigningAlgorithm,
+  t_SubjectType,
+  t_TokenDeliveryMode,
   t_TokenRequest,
   t_TokenResponse,
+  t_TokenResponseTokenType,
+  t_TokenType,
+  t_TokenTypeHintIntrospect,
+  t_TokenTypeHintRevoke,
   t_UserInfo,
 } from "./models"
 import {
@@ -33,6 +50,7 @@ import {
   AbstractAxiosConfig,
 } from "@nahkies/typescript-axios-runtime/main"
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
+import { z } from "zod"
 
 export class ApiClient extends AbstractAxiosClient {
   constructor(config: AbstractAxiosConfig) {

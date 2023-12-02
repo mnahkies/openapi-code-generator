@@ -6,8 +6,12 @@ import {
   EmptyObject,
   t_AppAuthenticatorEnrollment,
   t_AppAuthenticatorEnrollmentRequest,
+  t_AppAuthenticatorMethodCapabilities,
   t_Email,
   t_Error,
+  t_KeyEC,
+  t_KeyObject,
+  t_KeyRSA,
   t_Phone,
   t_Profile,
   t_PushNotificationChallenge,
@@ -20,6 +24,7 @@ import {
   AbstractAxiosConfig,
 } from "@nahkies/typescript-axios-runtime/main"
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
+import { z } from "zod"
 
 export class ApiClient extends AbstractAxiosClient {
   constructor(config: AbstractAxiosConfig) {
