@@ -14,6 +14,7 @@ import {
   StatusCode5xx,
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
+import { z } from "zod"
 
 export interface ApiClientConfig extends AbstractFetchClientConfig {}
 

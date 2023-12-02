@@ -6,8 +6,12 @@ import {
   EmptyObject,
   t_AppAuthenticatorEnrollment,
   t_AppAuthenticatorEnrollmentRequest,
+  t_AppAuthenticatorMethodCapabilities,
   t_Email,
   t_Error,
+  t_KeyEC,
+  t_KeyObject,
+  t_KeyRSA,
   t_Phone,
   t_Profile,
   t_PushNotificationChallenge,
@@ -26,6 +30,7 @@ import {
   StatusCode5xx,
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
+import { z } from "zod"
 
 export interface ApiClientConfig extends AbstractFetchClientConfig {}
 
