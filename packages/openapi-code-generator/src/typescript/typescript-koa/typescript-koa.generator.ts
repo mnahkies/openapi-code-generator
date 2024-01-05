@@ -278,7 +278,7 @@ function route(route: string): string {
 
   return Array.from(route.matchAll(placeholder))
     .reduce((result, match) => {
-      return result.replace(match[0], ":" + _.camelCase(match[1]))
+      return result.replace(match[0], ":" + match[1])
     }, route)
 }
 
