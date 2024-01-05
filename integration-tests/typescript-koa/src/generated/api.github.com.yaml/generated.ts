@@ -20386,7 +20386,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "securityAdvisoriesGetGlobalAdvisory",
-    "/advisories/:ghsaId",
+    "/advisories/:ghsa_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -20702,7 +20702,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "appsGetWebhookDelivery",
-    "/app/hook/deliveries/:deliveryId",
+    "/app/hook/deliveries/:delivery_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -20760,7 +20760,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "appsRedeliverWebhookDelivery",
-    "/app/hook/deliveries/:deliveryId/attempts",
+    "/app/hook/deliveries/:delivery_id/attempts",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -20931,7 +20931,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "appsGetInstallation",
-    "/app/installations/:installationId",
+    "/app/installations/:installation_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -20984,7 +20984,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "appsDeleteInstallation",
-    "/app/installations/:installationId",
+    "/app/installations/:installation_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -21049,7 +21049,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "appsCreateInstallationAccessToken",
-    "/app/installations/:installationId/access_tokens",
+    "/app/installations/:installation_id/access_tokens",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -21118,7 +21118,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "appsSuspendInstallation",
-    "/app/installations/:installationId/suspended",
+    "/app/installations/:installation_id/suspended",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -21171,7 +21171,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "appsUnsuspendInstallation",
-    "/app/installations/:installationId/suspended",
+    "/app/installations/:installation_id/suspended",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -21226,7 +21226,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "appsDeleteAuthorization",
-    "/applications/:clientId/grant",
+    "/applications/:client_id/grant",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -21284,7 +21284,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "appsCheckToken",
-    "/applications/:clientId/token",
+    "/applications/:client_id/token",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -21344,7 +21344,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "appsResetToken",
-    "/applications/:clientId/token",
+    "/applications/:client_id/token",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -21401,7 +21401,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "appsDeleteToken",
-    "/applications/:clientId/token",
+    "/applications/:client_id/token",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -21468,7 +21468,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "appsScopeToken",
-    "/applications/:clientId/token/scoped",
+    "/applications/:client_id/token/scoped",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -21531,7 +21531,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("appsGetBySlug", "/apps/:appSlug", async (ctx, next) => {
+  router.get("appsGetBySlug", "/apps/:app_slug", async (ctx, next) => {
     const input = {
       params: parseRequestInput(
         appsGetBySlugParamSchema,
@@ -21585,7 +21585,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "classroomGetAnAssignment",
-    "/assignments/:assignmentId",
+    "/assignments/:assignment_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -21641,7 +21641,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "classroomListAcceptedAssigmentsForAnAssignment",
-    "/assignments/:assignmentId/accepted_assignments",
+    "/assignments/:assignment_id/accepted_assignments",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -21700,7 +21700,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "classroomGetAssignmentGrades",
-    "/assignments/:assignmentId/grades",
+    "/assignments/:assignment_id/grades",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -21797,7 +21797,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "classroomGetAClassroom",
-    "/classrooms/:classroomId",
+    "/classrooms/:classroom_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -21853,7 +21853,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "classroomListAssignmentsForAClassroom",
-    "/classrooms/:classroomId/assignments",
+    "/classrooms/:classroom_id/assignments",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -22588,7 +22588,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("gistsGet", "/gists/:gistId", async (ctx, next) => {
+  router.get("gistsGet", "/gists/:gist_id", async (ctx, next) => {
     const input = {
       params: parseRequestInput(
         gistsGetParamSchema,
@@ -22657,7 +22657,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.patch("gistsUpdate", "/gists/:gistId", async (ctx, next) => {
+  router.patch("gistsUpdate", "/gists/:gist_id", async (ctx, next) => {
     const input = {
       params: parseRequestInput(
         gistsUpdateParamSchema,
@@ -22713,7 +22713,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.delete("gistsDelete", "/gists/:gistId", async (ctx, next) => {
+  router.delete("gistsDelete", "/gists/:gist_id", async (ctx, next) => {
     const input = {
       params: parseRequestInput(
         gistsDeleteParamSchema,
@@ -22775,7 +22775,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "gistsListComments",
-    "/gists/:gistId/comments",
+    "/gists/:gist_id/comments",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -22840,7 +22840,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "gistsCreateComment",
-    "/gists/:gistId/comments",
+    "/gists/:gist_id/comments",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -22919,7 +22919,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "gistsGetComment",
-    "/gists/:gistId/comments/:commentId",
+    "/gists/:gist_id/comments/:comment_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -22989,7 +22989,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "gistsUpdateComment",
-    "/gists/:gistId/comments/:commentId",
+    "/gists/:gist_id/comments/:comment_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -23049,7 +23049,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "gistsDeleteComment",
-    "/gists/:gistId/comments/:commentId",
+    "/gists/:gist_id/comments/:comment_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -23113,7 +23113,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "gistsListCommits",
-    "/gists/:gistId/commits",
+    "/gists/:gist_id/commits",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -23179,7 +23179,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("gistsListForks", "/gists/:gistId/forks", async (ctx, next) => {
+  router.get("gistsListForks", "/gists/:gist_id/forks", async (ctx, next) => {
     const input = {
       params: parseRequestInput(
         gistsListForksParamSchema,
@@ -23239,7 +23239,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.post("gistsFork", "/gists/:gistId/forks", async (ctx, next) => {
+  router.post("gistsFork", "/gists/:gist_id/forks", async (ctx, next) => {
     const input = {
       params: parseRequestInput(
         gistsForkParamSchema,
@@ -23299,7 +23299,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "gistsCheckIsStarred",
-    "/gists/:gistId/star",
+    "/gists/:gist_id/star",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -23356,7 +23356,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.put("gistsStar", "/gists/:gistId/star", async (ctx, next) => {
+  router.put("gistsStar", "/gists/:gist_id/star", async (ctx, next) => {
     const input = {
       params: parseRequestInput(
         gistsStarParamSchema,
@@ -23411,7 +23411,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.delete("gistsUnstar", "/gists/:gistId/star", async (ctx, next) => {
+  router.delete("gistsUnstar", "/gists/:gist_id/star", async (ctx, next) => {
     const input = {
       params: parseRequestInput(
         gistsUnstarParamSchema,
@@ -23469,7 +23469,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("gistsGetRevision", "/gists/:gistId/:sha", async (ctx, next) => {
+  router.get("gistsGetRevision", "/gists/:gist_id/:sha", async (ctx, next) => {
     const input = {
       params: parseRequestInput(
         gistsGetRevisionParamSchema,
@@ -24015,7 +24015,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "appsGetSubscriptionPlanForAccount",
-    "/marketplace_listing/accounts/:accountId",
+    "/marketplace_listing/accounts/:account_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -24141,7 +24141,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "appsListAccountsForPlan",
-    "/marketplace_listing/plans/:planId/accounts",
+    "/marketplace_listing/plans/:plan_id/accounts",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -24206,7 +24206,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "appsGetSubscriptionPlanForAccountStubbed",
-    "/marketplace_listing/stubbed/accounts/:accountId",
+    "/marketplace_listing/stubbed/accounts/:account_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -24327,7 +24327,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "appsListAccountsForPlanStubbed",
-    "/marketplace_listing/stubbed/plans/:planId/accounts",
+    "/marketplace_listing/stubbed/plans/:plan_id/accounts",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -24651,7 +24651,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "activityGetThread",
-    "/notifications/threads/:threadId",
+    "/notifications/threads/:thread_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -24711,7 +24711,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "activityMarkThreadAsRead",
-    "/notifications/threads/:threadId",
+    "/notifications/threads/:thread_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -24770,7 +24770,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "activityGetThreadSubscriptionForAuthenticatedUser",
-    "/notifications/threads/:threadId/subscription",
+    "/notifications/threads/:thread_id/subscription",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -24844,7 +24844,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "activitySetThreadSubscription",
-    "/notifications/threads/:threadId/subscription",
+    "/notifications/threads/:thread_id/subscription",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -24910,7 +24910,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "activityDeleteThreadSubscription",
-    "/notifications/threads/:threadId/subscription",
+    "/notifications/threads/:thread_id/subscription",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -25747,7 +25747,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "actionsEnableSelectedRepositoryGithubActionsOrganization",
-    "/orgs/:org/actions/permissions/repositories/:repositoryId",
+    "/orgs/:org/actions/permissions/repositories/:repository_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -25799,7 +25799,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "actionsDisableSelectedRepositoryGithubActionsOrganization",
-    "/orgs/:org/actions/permissions/repositories/:repositoryId",
+    "/orgs/:org/actions/permissions/repositories/:repository_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -26363,7 +26363,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsGetSelfHostedRunnerForOrg",
-    "/orgs/:org/actions/runners/:runnerId",
+    "/orgs/:org/actions/runners/:runner_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -26409,7 +26409,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "actionsDeleteSelfHostedRunnerFromOrg",
-    "/orgs/:org/actions/runners/:runnerId",
+    "/orgs/:org/actions/runners/:runner_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -26470,7 +26470,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsListLabelsForSelfHostedRunnerForOrg",
-    "/orgs/:org/actions/runners/:runnerId/labels",
+    "/orgs/:org/actions/runners/:runner_id/labels",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -26542,7 +26542,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "actionsAddCustomLabelsToSelfHostedRunnerForOrg",
-    "/orgs/:org/actions/runners/:runnerId/labels",
+    "/orgs/:org/actions/runners/:runner_id/labels",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -26622,7 +26622,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "actionsSetCustomLabelsForSelfHostedRunnerForOrg",
-    "/orgs/:org/actions/runners/:runnerId/labels",
+    "/orgs/:org/actions/runners/:runner_id/labels",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -26695,7 +26695,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrg",
-    "/orgs/:org/actions/runners/:runnerId/labels",
+    "/orgs/:org/actions/runners/:runner_id/labels",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -26770,7 +26770,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "actionsRemoveCustomLabelFromSelfHostedRunnerForOrg",
-    "/orgs/:org/actions/runners/:runnerId/labels/:name",
+    "/orgs/:org/actions/runners/:runner_id/labels/:name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -26945,7 +26945,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsGetOrgSecret",
-    "/orgs/:org/actions/secrets/:secretName",
+    "/orgs/:org/actions/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -27004,7 +27004,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "actionsCreateOrUpdateOrgSecret",
-    "/orgs/:org/actions/secrets/:secretName",
+    "/orgs/:org/actions/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -27059,7 +27059,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "actionsDeleteOrgSecret",
-    "/orgs/:org/actions/secrets/:secretName",
+    "/orgs/:org/actions/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -27121,7 +27121,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsListSelectedReposForOrgSecret",
-    "/orgs/:org/actions/secrets/:secretName/repositories",
+    "/orgs/:org/actions/secrets/:secret_name/repositories",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -27181,7 +27181,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "actionsSetSelectedReposForOrgSecret",
-    "/orgs/:org/actions/secrets/:secretName/repositories",
+    "/orgs/:org/actions/secrets/:secret_name/repositories",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -27241,7 +27241,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "actionsAddSelectedRepoToOrgSecret",
-    "/orgs/:org/actions/secrets/:secretName/repositories/:repositoryId",
+    "/orgs/:org/actions/secrets/:secret_name/repositories/:repository_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -27300,7 +27300,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "actionsRemoveSelectedRepoFromOrgSecret",
-    "/orgs/:org/actions/secrets/:secretName/repositories/:repositoryId",
+    "/orgs/:org/actions/secrets/:secret_name/repositories/:repository_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -27777,7 +27777,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "actionsAddSelectedRepoToOrgVariable",
-    "/orgs/:org/actions/variables/:name/repositories/:repositoryId",
+    "/orgs/:org/actions/variables/:name/repositories/:repository_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -27836,7 +27836,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "actionsRemoveSelectedRepoFromOrgVariable",
-    "/orgs/:org/actions/variables/:name/repositories/:repositoryId",
+    "/orgs/:org/actions/variables/:name/repositories/:repository_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -28622,7 +28622,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "codespacesGetOrgSecret",
-    "/orgs/:org/codespaces/secrets/:secretName",
+    "/orgs/:org/codespaces/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -28683,7 +28683,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "codespacesCreateOrUpdateOrgSecret",
-    "/orgs/:org/codespaces/secrets/:secretName",
+    "/orgs/:org/codespaces/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -28750,7 +28750,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "codespacesDeleteOrgSecret",
-    "/orgs/:org/codespaces/secrets/:secretName",
+    "/orgs/:org/codespaces/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -28816,7 +28816,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "codespacesListSelectedReposForOrgSecret",
-    "/orgs/:org/codespaces/secrets/:secretName/repositories",
+    "/orgs/:org/codespaces/secrets/:secret_name/repositories",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -28886,7 +28886,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "codespacesSetSelectedReposForOrgSecret",
-    "/orgs/:org/codespaces/secrets/:secretName/repositories",
+    "/orgs/:org/codespaces/secrets/:secret_name/repositories",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -28954,7 +28954,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "codespacesAddSelectedRepoToOrgSecret",
-    "/orgs/:org/codespaces/secrets/:secretName/repositories/:repositoryId",
+    "/orgs/:org/codespaces/secrets/:secret_name/repositories/:repository_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -29021,7 +29021,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "codespacesRemoveSelectedRepoFromOrgSecret",
-    "/orgs/:org/codespaces/secrets/:secretName/repositories/:repositoryId",
+    "/orgs/:org/codespaces/secrets/:secret_name/repositories/:repository_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -29761,7 +29761,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "dependabotGetOrgSecret",
-    "/orgs/:org/dependabot/secrets/:secretName",
+    "/orgs/:org/dependabot/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -29820,7 +29820,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "dependabotCreateOrUpdateOrgSecret",
-    "/orgs/:org/dependabot/secrets/:secretName",
+    "/orgs/:org/dependabot/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -29878,7 +29878,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "dependabotDeleteOrgSecret",
-    "/orgs/:org/dependabot/secrets/:secretName",
+    "/orgs/:org/dependabot/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -29940,7 +29940,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "dependabotListSelectedReposForOrgSecret",
-    "/orgs/:org/dependabot/secrets/:secretName/repositories",
+    "/orgs/:org/dependabot/secrets/:secret_name/repositories",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -30000,7 +30000,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "dependabotSetSelectedReposForOrgSecret",
-    "/orgs/:org/dependabot/secrets/:secretName/repositories",
+    "/orgs/:org/dependabot/secrets/:secret_name/repositories",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -30060,7 +30060,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "dependabotAddSelectedRepoToOrgSecret",
-    "/orgs/:org/dependabot/secrets/:secretName/repositories/:repositoryId",
+    "/orgs/:org/dependabot/secrets/:secret_name/repositories/:repository_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -30119,7 +30119,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "dependabotRemoveSelectedRepoFromOrgSecret",
-    "/orgs/:org/dependabot/secrets/:secretName/repositories/:repositoryId",
+    "/orgs/:org/dependabot/secrets/:secret_name/repositories/:repository_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -30478,7 +30478,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "orgsGetWebhook",
-    "/orgs/:org/hooks/:hookId",
+    "/orgs/:org/hooks/:hook_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -30549,7 +30549,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "orgsUpdateWebhook",
-    "/orgs/:org/hooks/:hookId",
+    "/orgs/:org/hooks/:hook_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -30610,7 +30610,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "orgsDeleteWebhook",
-    "/orgs/:org/hooks/:hookId",
+    "/orgs/:org/hooks/:hook_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -30661,7 +30661,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "orgsGetWebhookConfigForOrg",
-    "/orgs/:org/hooks/:hookId/config",
+    "/orgs/:org/hooks/:hook_id/config",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -30716,7 +30716,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "orgsUpdateWebhookConfigForOrg",
-    "/orgs/:org/hooks/:hookId/config",
+    "/orgs/:org/hooks/:hook_id/config",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -30778,7 +30778,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "orgsListWebhookDeliveries",
-    "/orgs/:org/hooks/:hookId/deliveries",
+    "/orgs/:org/hooks/:hook_id/deliveries",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -30841,7 +30841,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "orgsGetWebhookDelivery",
-    "/orgs/:org/hooks/:hookId/deliveries/:deliveryId",
+    "/orgs/:org/hooks/:hook_id/deliveries/:delivery_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -30901,7 +30901,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "orgsRedeliverWebhookDelivery",
-    "/orgs/:org/hooks/:hookId/deliveries/:deliveryId/attempts",
+    "/orgs/:org/hooks/:hook_id/deliveries/:delivery_id/attempts",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -30958,7 +30958,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "orgsPingWebhook",
-    "/orgs/:org/hooks/:hookId/pings",
+    "/orgs/:org/hooks/:hook_id/pings",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -31425,7 +31425,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "orgsCancelInvitation",
-    "/orgs/:org/invitations/:invitationId",
+    "/orgs/:org/invitations/:invitation_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -31487,7 +31487,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "orgsListInvitationTeams",
-    "/orgs/:org/invitations/:invitationId/teams",
+    "/orgs/:org/invitations/:invitation_id/teams",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -31877,7 +31877,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "codespacesDeleteFromOrganization",
-    "/orgs/:org/members/:username/codespaces/:codespaceName",
+    "/orgs/:org/members/:username/codespaces/:codespace_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -31949,7 +31949,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "codespacesStopInOrganization",
-    "/orgs/:org/members/:username/codespaces/:codespaceName/stop",
+    "/orgs/:org/members/:username/codespaces/:codespace_name/stop",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -32402,7 +32402,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "migrationsGetStatusForOrg",
-    "/orgs/:org/migrations/:migrationId",
+    "/orgs/:org/migrations/:migration_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -32461,7 +32461,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "migrationsDownloadArchiveForOrg",
-    "/orgs/:org/migrations/:migrationId/archive",
+    "/orgs/:org/migrations/:migration_id/archive",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -32516,7 +32516,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "migrationsDeleteArchiveForOrg",
-    "/orgs/:org/migrations/:migrationId/archive",
+    "/orgs/:org/migrations/:migration_id/archive",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -32571,7 +32571,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "migrationsUnlockRepoForOrg",
-    "/orgs/:org/migrations/:migrationId/repos/:repoName/lock",
+    "/orgs/:org/migrations/:migration_id/repos/:repo_name/lock",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -32630,7 +32630,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "migrationsListReposForOrg",
-    "/orgs/:org/migrations/:migrationId/repositories",
+    "/orgs/:org/migrations/:migration_id/repositories",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -32965,7 +32965,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "packagesGetPackageForOrganization",
-    "/orgs/:org/packages/:packageType/:packageName",
+    "/orgs/:org/packages/:package_type/:package_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -33030,7 +33030,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "packagesDeletePackageForOrg",
-    "/orgs/:org/packages/:packageType/:packageName",
+    "/orgs/:org/packages/:package_type/:package_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -33105,7 +33105,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "packagesRestorePackageForOrg",
-    "/orgs/:org/packages/:packageType/:packageName/restore",
+    "/orgs/:org/packages/:package_type/:package_name/restore",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -33190,7 +33190,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "packagesGetAllPackageVersionsForPackageOwnedByOrg",
-    "/orgs/:org/packages/:packageType/:packageName/versions",
+    "/orgs/:org/packages/:package_type/:package_name/versions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -33266,7 +33266,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "packagesGetPackageVersionForOrganization",
-    "/orgs/:org/packages/:packageType/:packageName/versions/:packageVersionId",
+    "/orgs/:org/packages/:package_type/:package_name/versions/:package_version_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -33332,7 +33332,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "packagesDeletePackageVersionForOrg",
-    "/orgs/:org/packages/:packageType/:packageName/versions/:packageVersionId",
+    "/orgs/:org/packages/:package_type/:package_name/versions/:package_version_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -33407,7 +33407,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "packagesRestorePackageVersionForOrg",
-    "/orgs/:org/packages/:packageType/:packageName/versions/:packageVersionId/restore",
+    "/orgs/:org/packages/:package_type/:package_name/versions/:package_version_id/restore",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -33635,7 +33635,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "orgsReviewPatGrantRequest",
-    "/orgs/:org/personal-access-token-requests/:patRequestId",
+    "/orgs/:org/personal-access-token-requests/:pat_request_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -33710,7 +33710,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "orgsListPatGrantRequestRepositories",
-    "/orgs/:org/personal-access-token-requests/:patRequestId/repositories",
+    "/orgs/:org/personal-access-token-requests/:pat_request_id/repositories",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -33935,7 +33935,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "orgsUpdatePatAccess",
-    "/orgs/:org/personal-access-tokens/:patId",
+    "/orgs/:org/personal-access-tokens/:pat_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -34010,7 +34010,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "orgsListPatGrantRepositories",
-    "/orgs/:org/personal-access-tokens/:patId/repositories",
+    "/orgs/:org/personal-access-tokens/:pat_id/repositories",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -34698,7 +34698,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposGetOrgRuleset",
-    "/orgs/:org/rulesets/:rulesetId",
+    "/orgs/:org/rulesets/:ruleset_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -34767,7 +34767,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "reposUpdateOrgRuleset",
-    "/orgs/:org/rulesets/:rulesetId",
+    "/orgs/:org/rulesets/:ruleset_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -34829,7 +34829,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reposDeleteOrgRuleset",
-    "/orgs/:org/rulesets/:rulesetId",
+    "/orgs/:org/rulesets/:ruleset_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -35090,7 +35090,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "orgsAddSecurityManagerTeam",
-    "/orgs/:org/security-managers/teams/:teamSlug",
+    "/orgs/:org/security-managers/teams/:team_slug",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -35139,7 +35139,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "orgsRemoveSecurityManagerTeam",
-    "/orgs/:org/security-managers/teams/:teamSlug",
+    "/orgs/:org/security-managers/teams/:team_slug",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -35458,7 +35458,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsGetByName",
-    "/orgs/:org/teams/:teamSlug",
+    "/orgs/:org/teams/:team_slug",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -35528,7 +35528,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "teamsUpdateInOrg",
-    "/orgs/:org/teams/:teamSlug",
+    "/orgs/:org/teams/:team_slug",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -35592,7 +35592,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "teamsDeleteInOrg",
-    "/orgs/:org/teams/:teamSlug",
+    "/orgs/:org/teams/:team_slug",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -35647,7 +35647,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsListDiscussionsInOrg",
-    "/orgs/:org/teams/:teamSlug/discussions",
+    "/orgs/:org/teams/:team_slug/discussions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -35705,7 +35705,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "teamsCreateDiscussionInOrg",
-    "/orgs/:org/teams/:teamSlug/discussions",
+    "/orgs/:org/teams/:team_slug/discussions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -35758,7 +35758,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsGetDiscussionInOrg",
-    "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber",
+    "/orgs/:org/teams/:team_slug/discussions/:discussion_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -35811,7 +35811,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "teamsUpdateDiscussionInOrg",
-    "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber",
+    "/orgs/:org/teams/:team_slug/discussions/:discussion_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -35864,7 +35864,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "teamsDeleteDiscussionInOrg",
-    "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber",
+    "/orgs/:org/teams/:team_slug/discussions/:discussion_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -35920,7 +35920,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsListDiscussionCommentsInOrg",
-    "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments",
+    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/comments",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -35975,7 +35975,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "teamsCreateDiscussionCommentInOrg",
-    "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments",
+    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/comments",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -36030,7 +36030,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsGetDiscussionCommentInOrg",
-    "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber",
+    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/comments/:comment_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -36082,7 +36082,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "teamsUpdateDiscussionCommentInOrg",
-    "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber",
+    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/comments/:comment_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -36137,7 +36137,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "teamsDeleteDiscussionCommentInOrg",
-    "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber",
+    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/comments/:comment_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -36205,7 +36205,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reactionsListForTeamDiscussionCommentInOrg",
-    "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber/reactions",
+    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/comments/:comment_number/reactions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -36279,7 +36279,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "reactionsCreateForTeamDiscussionCommentInOrg",
-    "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber/reactions",
+    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/comments/:comment_number/reactions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -36338,7 +36338,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reactionsDeleteForTeamDiscussionComment",
-    "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber/reactions/:reactionId",
+    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/comments/:comment_number/reactions/:reaction_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -36405,7 +36405,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reactionsListForTeamDiscussionInOrg",
-    "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/reactions",
+    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/reactions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -36478,7 +36478,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "reactionsCreateForTeamDiscussionInOrg",
-    "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/reactions",
+    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/reactions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -36536,7 +36536,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reactionsDeleteForTeamDiscussion",
-    "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/reactions/:reactionId",
+    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/reactions/:reaction_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -36590,7 +36590,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsListPendingInvitationsInOrg",
-    "/orgs/:org/teams/:teamSlug/invitations",
+    "/orgs/:org/teams/:team_slug/invitations",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -36648,7 +36648,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsListMembersInOrg",
-    "/orgs/:org/teams/:teamSlug/members",
+    "/orgs/:org/teams/:team_slug/members",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -36705,7 +36705,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsGetMembershipForUserInOrg",
-    "/orgs/:org/teams/:teamSlug/memberships/:username",
+    "/orgs/:org/teams/:team_slug/memberships/:username",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -36766,7 +36766,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "teamsAddOrUpdateMembershipForUserInOrg",
-    "/orgs/:org/teams/:teamSlug/memberships/:username",
+    "/orgs/:org/teams/:team_slug/memberships/:username",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -36832,7 +36832,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "teamsRemoveMembershipForUserInOrg",
-    "/orgs/:org/teams/:teamSlug/memberships/:username",
+    "/orgs/:org/teams/:team_slug/memberships/:username",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -36891,7 +36891,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsListProjectsInOrg",
-    "/orgs/:org/teams/:teamSlug/projects",
+    "/orgs/:org/teams/:team_slug/projects",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -36948,7 +36948,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsCheckPermissionsForProjectInOrg",
-    "/orgs/:org/teams/:teamSlug/projects/:projectId",
+    "/orgs/:org/teams/:team_slug/projects/:project_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -37018,7 +37018,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "teamsAddOrUpdateProjectPermissionsInOrg",
-    "/orgs/:org/teams/:teamSlug/projects/:projectId",
+    "/orgs/:org/teams/:team_slug/projects/:project_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -37080,7 +37080,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "teamsRemoveProjectInOrg",
-    "/orgs/:org/teams/:teamSlug/projects/:projectId",
+    "/orgs/:org/teams/:team_slug/projects/:project_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -37133,7 +37133,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsListReposInOrg",
-    "/orgs/:org/teams/:teamSlug/repos",
+    "/orgs/:org/teams/:team_slug/repos",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -37192,7 +37192,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsCheckPermissionsForRepoInOrg",
-    "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
+    "/orgs/:org/teams/:team_slug/repos/:owner/:repo",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -37253,7 +37253,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "teamsAddOrUpdateRepoPermissionsInOrg",
-    "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
+    "/orgs/:org/teams/:team_slug/repos/:owner/:repo",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -37310,7 +37310,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "teamsRemoveRepoInOrg",
-    "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
+    "/orgs/:org/teams/:team_slug/repos/:owner/:repo",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -37363,7 +37363,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsListChildInOrg",
-    "/orgs/:org/teams/:teamSlug/teams",
+    "/orgs/:org/teams/:team_slug/teams",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -37432,7 +37432,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "orgsEnableOrDisableSecurityProductOnAllOrgRepos",
-    "/orgs/:org/:securityProduct/:enablement",
+    "/orgs/:org/:security_product/:enablement",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -37494,7 +37494,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "projectsGetCard",
-    "/projects/columns/cards/:cardId",
+    "/projects/columns/cards/:card_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -37565,7 +37565,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "projectsUpdateCard",
-    "/projects/columns/cards/:cardId",
+    "/projects/columns/cards/:card_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -37642,7 +37642,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "projectsDeleteCard",
-    "/projects/columns/cards/:cardId",
+    "/projects/columns/cards/:card_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -37746,7 +37746,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "projectsMoveCard",
-    "/projects/columns/cards/:cardId/moves",
+    "/projects/columns/cards/:card_id/moves",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -37835,7 +37835,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "projectsGetColumn",
-    "/projects/columns/:columnId",
+    "/projects/columns/:column_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -37901,7 +37901,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "projectsUpdateColumn",
-    "/projects/columns/:columnId",
+    "/projects/columns/:column_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -37966,7 +37966,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "projectsDeleteColumn",
-    "/projects/columns/:columnId",
+    "/projects/columns/:column_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -38033,7 +38033,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "projectsListCards",
-    "/projects/columns/:columnId/cards",
+    "/projects/columns/:column_id/cards",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -38120,7 +38120,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "projectsCreateCard",
-    "/projects/columns/:columnId/cards",
+    "/projects/columns/:column_id/cards",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -38204,7 +38204,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "projectsMoveColumn",
-    "/projects/columns/:columnId/moves",
+    "/projects/columns/:column_id/moves",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -38268,7 +38268,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("projectsGet", "/projects/:projectId", async (ctx, next) => {
+  router.get("projectsGet", "/projects/:project_id", async (ctx, next) => {
     const input = {
       params: parseRequestInput(
         projectsGetParamSchema,
@@ -38345,7 +38345,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.patch("projectsUpdate", "/projects/:projectId", async (ctx, next) => {
+  router.patch("projectsUpdate", "/projects/:project_id", async (ctx, next) => {
     const input = {
       params: parseRequestInput(
         projectsUpdateParamSchema,
@@ -38426,58 +38426,62 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.delete("projectsDelete", "/projects/:projectId", async (ctx, next) => {
-    const input = {
-      params: parseRequestInput(
-        projectsDeleteParamSchema,
-        ctx.params,
-        RequestInputType.RouteParam,
-      ),
-      query: undefined,
-      body: undefined,
-    }
+  router.delete(
+    "projectsDelete",
+    "/projects/:project_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          projectsDeleteParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+      }
 
-    const responder = {
-      with204() {
-        return new KoaRuntimeResponse<void>(204)
-      },
-      with304() {
-        return new KoaRuntimeResponse<void>(304)
-      },
-      with401() {
-        return new KoaRuntimeResponse<t_basic_error>(401)
-      },
-      with403() {
-        return new KoaRuntimeResponse<{
-          documentation_url?: string
-          errors?: string[]
-          message?: string
-        }>(403)
-      },
-      with404() {
-        return new KoaRuntimeResponse<t_basic_error>(404)
-      },
-      with410() {
-        return new KoaRuntimeResponse<t_basic_error>(410)
-      },
-      withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
-      },
-    }
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<{
+            documentation_url?: string
+            errors?: string[]
+            message?: string
+          }>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with410() {
+          return new KoaRuntimeResponse<t_basic_error>(410)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
 
-    const response = await implementation
-      .projectsDelete(input, responder, ctx)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
+      const response = await implementation
+        .projectsDelete(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
-    const { status, body } =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = projectsDeleteResponseValidator(status, body)
-    ctx.status = status
-    return next()
-  })
+      ctx.body = projectsDeleteResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
 
   const projectsListCollaboratorsParamSchema = z.object({
     project_id: z.coerce.number(),
@@ -38503,7 +38507,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "projectsListCollaborators",
-    "/projects/:projectId/collaborators",
+    "/projects/:project_id/collaborators",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -38582,7 +38586,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "projectsAddCollaborator",
-    "/projects/:projectId/collaborators/:username",
+    "/projects/:project_id/collaborators/:username",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -38656,7 +38660,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "projectsRemoveCollaborator",
-    "/projects/:projectId/collaborators/:username",
+    "/projects/:project_id/collaborators/:username",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -38727,7 +38731,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "projectsGetPermissionForUser",
-    "/projects/:projectId/collaborators/:username/permission",
+    "/projects/:project_id/collaborators/:username/permission",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -38799,7 +38803,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "projectsListColumns",
-    "/projects/:projectId/columns",
+    "/projects/:project_id/columns",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -38867,7 +38871,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "projectsCreateColumn",
-    "/projects/:projectId/columns",
+    "/projects/:project_id/columns",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -39282,7 +39286,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsGetArtifact",
-    "/repos/:owner/:repo/actions/artifacts/:artifactId",
+    "/repos/:owner/:repo/actions/artifacts/:artifact_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -39331,7 +39335,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "actionsDeleteArtifact",
-    "/repos/:owner/:repo/actions/artifacts/:artifactId",
+    "/repos/:owner/:repo/actions/artifacts/:artifact_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -39384,7 +39388,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsDownloadArtifact",
-    "/repos/:owner/:repo/actions/artifacts/:artifactId/:archiveFormat",
+    "/repos/:owner/:repo/actions/artifacts/:artifact_id/:archive_format",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -39603,7 +39607,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "actionsDeleteActionsCacheById",
-    "/repos/:owner/:repo/actions/caches/:cacheId",
+    "/repos/:owner/:repo/actions/caches/:cache_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -39650,7 +39654,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsGetJobForWorkflowRun",
-    "/repos/:owner/:repo/actions/jobs/:jobId",
+    "/repos/:owner/:repo/actions/jobs/:job_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -39697,7 +39701,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsDownloadJobLogsForWorkflowRun",
-    "/repos/:owner/:repo/actions/jobs/:jobId/logs",
+    "/repos/:owner/:repo/actions/jobs/:job_id/logs",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -39758,7 +39762,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "actionsReRunJobForWorkflowRun",
-    "/repos/:owner/:repo/actions/jobs/:jobId/rerun",
+    "/repos/:owner/:repo/actions/jobs/:job_id/rerun",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -40839,7 +40843,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsGetSelfHostedRunnerForRepo",
-    "/repos/:owner/:repo/actions/runners/:runnerId",
+    "/repos/:owner/:repo/actions/runners/:runner_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -40889,7 +40893,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "actionsDeleteSelfHostedRunnerFromRepo",
-    "/repos/:owner/:repo/actions/runners/:runnerId",
+    "/repos/:owner/:repo/actions/runners/:runner_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -40951,7 +40955,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsListLabelsForSelfHostedRunnerForRepo",
-    "/repos/:owner/:repo/actions/runners/:runnerId/labels",
+    "/repos/:owner/:repo/actions/runners/:runner_id/labels",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -41024,7 +41028,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "actionsAddCustomLabelsToSelfHostedRunnerForRepo",
-    "/repos/:owner/:repo/actions/runners/:runnerId/labels",
+    "/repos/:owner/:repo/actions/runners/:runner_id/labels",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -41105,7 +41109,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "actionsSetCustomLabelsForSelfHostedRunnerForRepo",
-    "/repos/:owner/:repo/actions/runners/:runnerId/labels",
+    "/repos/:owner/:repo/actions/runners/:runner_id/labels",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -41182,7 +41186,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepo",
-    "/repos/:owner/:repo/actions/runners/:runnerId/labels",
+    "/repos/:owner/:repo/actions/runners/:runner_id/labels",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -41258,7 +41262,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "actionsRemoveCustomLabelFromSelfHostedRunnerForRepo",
-    "/repos/:owner/:repo/actions/runners/:runnerId/labels/:name",
+    "/repos/:owner/:repo/actions/runners/:runner_id/labels/:name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -41422,7 +41426,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsGetWorkflowRun",
-    "/repos/:owner/:repo/actions/runs/:runId",
+    "/repos/:owner/:repo/actions/runs/:run_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -41475,7 +41479,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "actionsDeleteWorkflowRun",
-    "/repos/:owner/:repo/actions/runs/:runId",
+    "/repos/:owner/:repo/actions/runs/:run_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -41524,7 +41528,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsGetReviewsForRun",
-    "/repos/:owner/:repo/actions/runs/:runId/approvals",
+    "/repos/:owner/:repo/actions/runs/:run_id/approvals",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -41577,7 +41581,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "actionsApproveWorkflowRun",
-    "/repos/:owner/:repo/actions/runs/:runId/approve",
+    "/repos/:owner/:repo/actions/runs/:run_id/approve",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -41647,7 +41651,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsListWorkflowRunArtifacts",
-    "/repos/:owner/:repo/actions/runs/:runId/artifacts",
+    "/repos/:owner/:repo/actions/runs/:run_id/artifacts",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -41706,7 +41710,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsGetWorkflowRunAttempt",
-    "/repos/:owner/:repo/actions/runs/:runId/attempts/:attemptNumber",
+    "/repos/:owner/:repo/actions/runs/:run_id/attempts/:attempt_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -41772,7 +41776,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsListJobsForWorkflowRunAttempt",
-    "/repos/:owner/:repo/actions/runs/:runId/attempts/:attemptNumber/jobs",
+    "/repos/:owner/:repo/actions/runs/:run_id/attempts/:attempt_number/jobs",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -41833,7 +41837,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsDownloadWorkflowRunAttemptLogs",
-    "/repos/:owner/:repo/actions/runs/:runId/attempts/:attemptNumber/logs",
+    "/repos/:owner/:repo/actions/runs/:run_id/attempts/:attempt_number/logs",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -41888,7 +41892,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "actionsCancelWorkflowRun",
-    "/repos/:owner/:repo/actions/runs/:runId/cancel",
+    "/repos/:owner/:repo/actions/runs/:run_id/cancel",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -41943,7 +41947,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "actionsReviewCustomGatesForRun",
-    "/repos/:owner/:repo/actions/runs/:runId/deployment_protection_rule",
+    "/repos/:owner/:repo/actions/runs/:run_id/deployment_protection_rule",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -42008,7 +42012,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsListJobsForWorkflowRun",
-    "/repos/:owner/:repo/actions/runs/:runId/jobs",
+    "/repos/:owner/:repo/actions/runs/:run_id/jobs",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -42062,7 +42066,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsDownloadWorkflowRunLogs",
-    "/repos/:owner/:repo/actions/runs/:runId/logs",
+    "/repos/:owner/:repo/actions/runs/:run_id/logs",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -42116,7 +42120,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "actionsDeleteWorkflowRunLogs",
-    "/repos/:owner/:repo/actions/runs/:runId/logs",
+    "/repos/:owner/:repo/actions/runs/:run_id/logs",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -42172,7 +42176,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsGetPendingDeploymentsForRun",
-    "/repos/:owner/:repo/actions/runs/:runId/pending_deployments",
+    "/repos/:owner/:repo/actions/runs/:run_id/pending_deployments",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -42228,7 +42232,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "actionsReviewPendingDeploymentsForRun",
-    "/repos/:owner/:repo/actions/runs/:runId/pending_deployments",
+    "/repos/:owner/:repo/actions/runs/:run_id/pending_deployments",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -42289,7 +42293,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "actionsReRunWorkflow",
-    "/repos/:owner/:repo/actions/runs/:runId/rerun",
+    "/repos/:owner/:repo/actions/runs/:run_id/rerun",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -42345,7 +42349,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "actionsReRunWorkflowFailedJobs",
-    "/repos/:owner/:repo/actions/runs/:runId/rerun-failed-jobs",
+    "/repos/:owner/:repo/actions/runs/:run_id/rerun-failed-jobs",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -42398,7 +42402,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsGetWorkflowRunUsage",
-    "/repos/:owner/:repo/actions/runs/:runId/timing",
+    "/repos/:owner/:repo/actions/runs/:run_id/timing",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -42563,7 +42567,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsGetRepoSecret",
-    "/repos/:owner/:repo/actions/secrets/:secretName",
+    "/repos/:owner/:repo/actions/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -42621,7 +42625,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "actionsCreateOrUpdateRepoSecret",
-    "/repos/:owner/:repo/actions/secrets/:secretName",
+    "/repos/:owner/:repo/actions/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -42677,7 +42681,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "actionsDeleteRepoSecret",
-    "/repos/:owner/:repo/actions/secrets/:secretName",
+    "/repos/:owner/:repo/actions/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -43075,7 +43079,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsGetWorkflow",
-    "/repos/:owner/:repo/actions/workflows/:workflowId",
+    "/repos/:owner/:repo/actions/workflows/:workflow_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -43124,7 +43128,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "actionsDisableWorkflow",
-    "/repos/:owner/:repo/actions/workflows/:workflowId/disable",
+    "/repos/:owner/:repo/actions/workflows/:workflow_id/disable",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -43176,7 +43180,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "actionsCreateWorkflowDispatch",
-    "/repos/:owner/:repo/actions/workflows/:workflowId/dispatches",
+    "/repos/:owner/:repo/actions/workflows/:workflow_id/dispatches",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -43229,7 +43233,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "actionsEnableWorkflow",
-    "/repos/:owner/:repo/actions/workflows/:workflowId/enable",
+    "/repos/:owner/:repo/actions/workflows/:workflow_id/enable",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -43316,7 +43320,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsListWorkflowRuns",
-    "/repos/:owner/:repo/actions/workflows/:workflowId/runs",
+    "/repos/:owner/:repo/actions/workflows/:workflow_id/runs",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -43372,7 +43376,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsGetWorkflowUsage",
-    "/repos/:owner/:repo/actions/workflows/:workflowId/timing",
+    "/repos/:owner/:repo/actions/workflows/:workflow_id/timing",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -43741,7 +43745,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposGetAutolink",
-    "/repos/:owner/:repo/autolinks/:autolinkId",
+    "/repos/:owner/:repo/autolinks/:autolink_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -43796,7 +43800,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reposDeleteAutolink",
-    "/repos/:owner/:repo/autolinks/:autolinkId",
+    "/repos/:owner/:repo/autolinks/:autolink_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -46329,7 +46333,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "checksGet",
-    "/repos/:owner/:repo/check-runs/:checkRunId",
+    "/repos/:owner/:repo/check-runs/:check_run_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -46439,7 +46443,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "checksUpdate",
-    "/repos/:owner/:repo/check-runs/:checkRunId",
+    "/repos/:owner/:repo/check-runs/:check_run_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -46497,7 +46501,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "checksListAnnotations",
-    "/repos/:owner/:repo/check-runs/:checkRunId/annotations",
+    "/repos/:owner/:repo/check-runs/:check_run_id/annotations",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -46555,7 +46559,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "checksRerequestRun",
-    "/repos/:owner/:repo/check-runs/:checkRunId/rerequest",
+    "/repos/:owner/:repo/check-runs/:check_run_id/rerequest",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -46733,7 +46737,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "checksGetSuite",
-    "/repos/:owner/:repo/check-suites/:checkSuiteId",
+    "/repos/:owner/:repo/check-suites/:check_suite_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -46798,7 +46802,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "checksListForSuite",
-    "/repos/:owner/:repo/check-suites/:checkSuiteId/check-runs",
+    "/repos/:owner/:repo/check-suites/:check_suite_id/check-runs",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -46854,7 +46858,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "checksRerequestSuite",
-    "/repos/:owner/:repo/check-suites/:checkSuiteId/rerequest",
+    "/repos/:owner/:repo/check-suites/:check_suite_id/rerequest",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -47010,7 +47014,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "codeScanningGetAlert",
-    "/repos/:owner/:repo/code-scanning/alerts/:alertNumber",
+    "/repos/:owner/:repo/code-scanning/alerts/:alert_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -47093,7 +47097,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "codeScanningUpdateAlert",
-    "/repos/:owner/:repo/code-scanning/alerts/:alertNumber",
+    "/repos/:owner/:repo/code-scanning/alerts/:alert_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -47178,7 +47182,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "codeScanningListAlertInstances",
-    "/repos/:owner/:repo/code-scanning/alerts/:alertNumber/instances",
+    "/repos/:owner/:repo/code-scanning/alerts/:alert_number/instances",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -47345,7 +47349,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "codeScanningGetAnalysis",
-    "/repos/:owner/:repo/code-scanning/analyses/:analysisId",
+    "/repos/:owner/:repo/code-scanning/analyses/:analysis_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -47426,7 +47430,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "codeScanningDeleteAnalysis",
-    "/repos/:owner/:repo/code-scanning/analyses/:analysisId",
+    "/repos/:owner/:repo/code-scanning/analyses/:analysis_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -47920,7 +47924,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "codeScanningGetSarif",
-    "/repos/:owner/:repo/code-scanning/sarifs/:sarifId",
+    "/repos/:owner/:repo/code-scanning/sarifs/:sarif_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -48652,7 +48656,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "codespacesGetRepoSecret",
-    "/repos/:owner/:repo/codespaces/secrets/:secretName",
+    "/repos/:owner/:repo/codespaces/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -48710,7 +48714,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "codespacesCreateOrUpdateRepoSecret",
-    "/repos/:owner/:repo/codespaces/secrets/:secretName",
+    "/repos/:owner/:repo/codespaces/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -48769,7 +48773,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "codespacesDeleteRepoSecret",
-    "/repos/:owner/:repo/codespaces/secrets/:secretName",
+    "/repos/:owner/:repo/codespaces/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -49189,7 +49193,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposGetCommitComment",
-    "/repos/:owner/:repo/comments/:commentId",
+    "/repos/:owner/:repo/comments/:comment_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -49246,7 +49250,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "reposUpdateCommitComment",
-    "/repos/:owner/:repo/comments/:commentId",
+    "/repos/:owner/:repo/comments/:comment_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -49305,7 +49309,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reposDeleteCommitComment",
-    "/repos/:owner/:repo/comments/:commentId",
+    "/repos/:owner/:repo/comments/:comment_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -49378,7 +49382,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reactionsListForCommitComment",
-    "/repos/:owner/:repo/comments/:commentId/reactions",
+    "/repos/:owner/:repo/comments/:comment_id/reactions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -49452,7 +49456,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "reactionsCreateForCommitComment",
-    "/repos/:owner/:repo/comments/:commentId/reactions",
+    "/repos/:owner/:repo/comments/:comment_id/reactions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -49510,7 +49514,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reactionsDeleteForCommitComment",
-    "/repos/:owner/:repo/comments/:commentId/reactions/:reactionId",
+    "/repos/:owner/:repo/comments/:comment_id/reactions/:reaction_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -49644,7 +49648,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposListBranchesForHeadCommit",
-    "/repos/:owner/:repo/commits/:commitSha/branches-where-head",
+    "/repos/:owner/:repo/commits/:commit_sha/branches-where-head",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -49701,7 +49705,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposListCommentsForCommit",
-    "/repos/:owner/:repo/commits/:commitSha/comments",
+    "/repos/:owner/:repo/commits/:commit_sha/comments",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -49765,7 +49769,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "reposCreateCommitComment",
-    "/repos/:owner/:repo/commits/:commitSha/comments",
+    "/repos/:owner/:repo/commits/:commit_sha/comments",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -49830,7 +49834,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposListPullRequestsAssociatedWithCommit",
-    "/repos/:owner/:repo/commits/:commitSha/pulls",
+    "/repos/:owner/:repo/commits/:commit_sha/pulls",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -50814,7 +50818,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "dependabotGetAlert",
-    "/repos/:owner/:repo/dependabot/alerts/:alertNumber",
+    "/repos/:owner/:repo/dependabot/alerts/:alert_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -50893,7 +50897,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "dependabotUpdateAlert",
-    "/repos/:owner/:repo/dependabot/alerts/:alertNumber",
+    "/repos/:owner/:repo/dependabot/alerts/:alert_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -51077,7 +51081,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "dependabotGetRepoSecret",
-    "/repos/:owner/:repo/dependabot/secrets/:secretName",
+    "/repos/:owner/:repo/dependabot/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -51135,7 +51139,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "dependabotCreateOrUpdateRepoSecret",
-    "/repos/:owner/:repo/dependabot/secrets/:secretName",
+    "/repos/:owner/:repo/dependabot/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -51194,7 +51198,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "dependabotDeleteRepoSecret",
-    "/repos/:owner/:repo/dependabot/secrets/:secretName",
+    "/repos/:owner/:repo/dependabot/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -51585,7 +51589,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposGetDeployment",
-    "/repos/:owner/:repo/deployments/:deploymentId",
+    "/repos/:owner/:repo/deployments/:deployment_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -51641,7 +51645,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reposDeleteDeployment",
-    "/repos/:owner/:repo/deployments/:deploymentId",
+    "/repos/:owner/:repo/deployments/:deployment_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -51705,7 +51709,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposListDeploymentStatuses",
-    "/repos/:owner/:repo/deployments/:deploymentId/statuses",
+    "/repos/:owner/:repo/deployments/:deployment_id/statuses",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -51783,7 +51787,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "reposCreateDeploymentStatus",
-    "/repos/:owner/:repo/deployments/:deploymentId/statuses",
+    "/repos/:owner/:repo/deployments/:deployment_id/statuses",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -51843,7 +51847,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposGetDeploymentStatus",
-    "/repos/:owner/:repo/deployments/:deploymentId/statuses/:statusId",
+    "/repos/:owner/:repo/deployments/:deployment_id/statuses/:status_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -52026,7 +52030,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposGetEnvironment",
-    "/repos/:owner/:repo/environments/:environmentName",
+    "/repos/:owner/:repo/environments/:environment_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -52096,7 +52100,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "reposCreateOrUpdateEnvironment",
-    "/repos/:owner/:repo/environments/:environmentName",
+    "/repos/:owner/:repo/environments/:environment_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -52152,7 +52156,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reposDeleteAnEnvironment",
-    "/repos/:owner/:repo/environments/:environmentName",
+    "/repos/:owner/:repo/environments/:environment_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -52215,7 +52219,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposListDeploymentBranchPolicies",
-    "/repos/:owner/:repo/environments/:environmentName/deployment-branch-policies",
+    "/repos/:owner/:repo/environments/:environment_name/deployment-branch-policies",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -52282,7 +52286,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "reposCreateDeploymentBranchPolicy",
-    "/repos/:owner/:repo/environments/:environmentName/deployment-branch-policies",
+    "/repos/:owner/:repo/environments/:environment_name/deployment-branch-policies",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -52343,7 +52347,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposGetDeploymentBranchPolicy",
-    "/repos/:owner/:repo/environments/:environmentName/deployment-branch-policies/:branchPolicyId",
+    "/repos/:owner/:repo/environments/:environment_name/deployment-branch-policies/:branch_policy_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -52394,7 +52398,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "reposUpdateDeploymentBranchPolicy",
-    "/repos/:owner/:repo/environments/:environmentName/deployment-branch-policies/:branchPolicyId",
+    "/repos/:owner/:repo/environments/:environment_name/deployment-branch-policies/:branch_policy_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -52449,7 +52453,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reposDeleteDeploymentBranchPolicy",
-    "/repos/:owner/:repo/environments/:environmentName/deployment-branch-policies/:branchPolicyId",
+    "/repos/:owner/:repo/environments/:environment_name/deployment-branch-policies/:branch_policy_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -52512,7 +52516,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposGetAllDeploymentProtectionRules",
-    "/repos/:owner/:repo/environments/:environmentName/deployment_protection_rules",
+    "/repos/:owner/:repo/environments/:environment_name/deployment_protection_rules",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -52572,7 +52576,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "reposCreateDeploymentProtectionRule",
-    "/repos/:owner/:repo/environments/:environmentName/deployment_protection_rules",
+    "/repos/:owner/:repo/environments/:environment_name/deployment_protection_rules",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -52644,7 +52648,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposListCustomDeploymentRuleIntegrations",
-    "/repos/:owner/:repo/environments/:environmentName/deployment_protection_rules/apps",
+    "/repos/:owner/:repo/environments/:environment_name/deployment_protection_rules/apps",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -52705,7 +52709,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposGetCustomDeploymentProtectionRule",
-    "/repos/:owner/:repo/environments/:environmentName/deployment_protection_rules/:protectionRuleId",
+    "/repos/:owner/:repo/environments/:environment_name/deployment_protection_rules/:protection_rule_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -52756,7 +52760,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reposDisableDeploymentProtectionRule",
-    "/repos/:owner/:repo/environments/:environmentName/deployment_protection_rules/:protectionRuleId",
+    "/repos/:owner/:repo/environments/:environment_name/deployment_protection_rules/:protection_rule_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -53088,7 +53092,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "gitGetBlob",
-    "/repos/:owner/:repo/git/blobs/:fileSha",
+    "/repos/:owner/:repo/git/blobs/:file_sha",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -53232,7 +53236,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "gitGetCommit",
-    "/repos/:owner/:repo/git/commits/:commitSha",
+    "/repos/:owner/:repo/git/commits/:commit_sha",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -53642,7 +53646,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "gitGetTag",
-    "/repos/:owner/:repo/git/tags/:tagSha",
+    "/repos/:owner/:repo/git/tags/:tag_sha",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -53781,7 +53785,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "gitGetTree",
-    "/repos/:owner/:repo/git/trees/:treeSha",
+    "/repos/:owner/:repo/git/trees/:tree_sha",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -53991,7 +53995,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposGetWebhook",
-    "/repos/:owner/:repo/hooks/:hookId",
+    "/repos/:owner/:repo/hooks/:hook_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -54064,7 +54068,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "reposUpdateWebhook",
-    "/repos/:owner/:repo/hooks/:hookId",
+    "/repos/:owner/:repo/hooks/:hook_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -54126,7 +54130,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reposDeleteWebhook",
-    "/repos/:owner/:repo/hooks/:hookId",
+    "/repos/:owner/:repo/hooks/:hook_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -54176,7 +54180,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposGetWebhookConfigForRepo",
-    "/repos/:owner/:repo/hooks/:hookId/config",
+    "/repos/:owner/:repo/hooks/:hook_id/config",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -54232,7 +54236,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "reposUpdateWebhookConfigForRepo",
-    "/repos/:owner/:repo/hooks/:hookId/config",
+    "/repos/:owner/:repo/hooks/:hook_id/config",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -54295,7 +54299,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposListWebhookDeliveries",
-    "/repos/:owner/:repo/hooks/:hookId/deliveries",
+    "/repos/:owner/:repo/hooks/:hook_id/deliveries",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -54359,7 +54363,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposGetWebhookDelivery",
-    "/repos/:owner/:repo/hooks/:hookId/deliveries/:deliveryId",
+    "/repos/:owner/:repo/hooks/:hook_id/deliveries/:delivery_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -54420,7 +54424,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "reposRedeliverWebhookDelivery",
-    "/repos/:owner/:repo/hooks/:hookId/deliveries/:deliveryId/attempts",
+    "/repos/:owner/:repo/hooks/:hook_id/deliveries/:delivery_id/attempts",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -54478,7 +54482,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "reposPingWebhook",
-    "/repos/:owner/:repo/hooks/:hookId/pings",
+    "/repos/:owner/:repo/hooks/:hook_id/pings",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -54533,7 +54537,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "reposTestPushWebhook",
-    "/repos/:owner/:repo/hooks/:hookId/tests",
+    "/repos/:owner/:repo/hooks/:hook_id/tests",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -54914,7 +54918,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "migrationsMapCommitAuthor",
-    "/repos/:owner/:repo/import/authors/:authorId",
+    "/repos/:owner/:repo/import/authors/:author_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -55395,7 +55399,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "reposUpdateInvitation",
-    "/repos/:owner/:repo/invitations/:invitationId",
+    "/repos/:owner/:repo/invitations/:invitation_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -55448,7 +55452,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reposDeleteInvitation",
-    "/repos/:owner/:repo/invitations/:invitationId",
+    "/repos/:owner/:repo/invitations/:invitation_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -55760,7 +55764,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "issuesGetComment",
-    "/repos/:owner/:repo/issues/comments/:commentId",
+    "/repos/:owner/:repo/issues/comments/:comment_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -55817,7 +55821,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "issuesUpdateComment",
-    "/repos/:owner/:repo/issues/comments/:commentId",
+    "/repos/:owner/:repo/issues/comments/:comment_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -55873,7 +55877,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "issuesDeleteComment",
-    "/repos/:owner/:repo/issues/comments/:commentId",
+    "/repos/:owner/:repo/issues/comments/:comment_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -55943,7 +55947,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reactionsListForIssueComment",
-    "/repos/:owner/:repo/issues/comments/:commentId/reactions",
+    "/repos/:owner/:repo/issues/comments/:comment_id/reactions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -56017,7 +56021,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "reactionsCreateForIssueComment",
-    "/repos/:owner/:repo/issues/comments/:commentId/reactions",
+    "/repos/:owner/:repo/issues/comments/:comment_id/reactions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -56075,7 +56079,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reactionsDeleteForIssueComment",
-    "/repos/:owner/:repo/issues/comments/:commentId/reactions/:reactionId",
+    "/repos/:owner/:repo/issues/comments/:comment_id/reactions/:reaction_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -56192,7 +56196,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "issuesGetEvent",
-    "/repos/:owner/:repo/issues/events/:eventId",
+    "/repos/:owner/:repo/issues/events/:event_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -56256,7 +56260,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "issuesGet",
-    "/repos/:owner/:repo/issues/:issueNumber",
+    "/repos/:owner/:repo/issues/:issue_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -56360,7 +56364,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "issuesUpdate",
-    "/repos/:owner/:repo/issues/:issueNumber",
+    "/repos/:owner/:repo/issues/:issue_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -56439,7 +56443,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "issuesAddAssignees",
-    "/repos/:owner/:repo/issues/:issueNumber/assignees",
+    "/repos/:owner/:repo/issues/:issue_number/assignees",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -56496,7 +56500,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "issuesRemoveAssignees",
-    "/repos/:owner/:repo/issues/:issueNumber/assignees",
+    "/repos/:owner/:repo/issues/:issue_number/assignees",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -56554,7 +56558,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "issuesCheckUserCanBeAssignedToIssue",
-    "/repos/:owner/:repo/issues/:issueNumber/assignees/:assignee",
+    "/repos/:owner/:repo/issues/:issue_number/assignees/:assignee",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -56619,7 +56623,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "issuesListComments",
-    "/repos/:owner/:repo/issues/:issueNumber/comments",
+    "/repos/:owner/:repo/issues/:issue_number/comments",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -56686,7 +56690,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "issuesCreateComment",
-    "/repos/:owner/:repo/issues/:issueNumber/comments",
+    "/repos/:owner/:repo/issues/:issue_number/comments",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -56759,7 +56763,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "issuesListEvents",
-    "/repos/:owner/:repo/issues/:issueNumber/events",
+    "/repos/:owner/:repo/issues/:issue_number/events",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -56825,7 +56829,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "issuesListLabelsOnIssue",
-    "/repos/:owner/:repo/issues/:issueNumber/labels",
+    "/repos/:owner/:repo/issues/:issue_number/labels",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -56903,7 +56907,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "issuesAddLabels",
-    "/repos/:owner/:repo/issues/:issueNumber/labels",
+    "/repos/:owner/:repo/issues/:issue_number/labels",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -56984,7 +56988,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "issuesSetLabels",
-    "/repos/:owner/:repo/issues/:issueNumber/labels",
+    "/repos/:owner/:repo/issues/:issue_number/labels",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -57054,7 +57058,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "issuesRemoveAllLabels",
-    "/repos/:owner/:repo/issues/:issueNumber/labels",
+    "/repos/:owner/:repo/issues/:issue_number/labels",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -57118,7 +57122,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "issuesRemoveLabel",
-    "/repos/:owner/:repo/issues/:issueNumber/labels/:name",
+    "/repos/:owner/:repo/issues/:issue_number/labels/:name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -57191,7 +57195,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "issuesLock",
-    "/repos/:owner/:repo/issues/:issueNumber/lock",
+    "/repos/:owner/:repo/issues/:issue_number/lock",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -57260,7 +57264,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "issuesUnlock",
-    "/repos/:owner/:repo/issues/:issueNumber/lock",
+    "/repos/:owner/:repo/issues/:issue_number/lock",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -57336,7 +57340,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reactionsListForIssue",
-    "/repos/:owner/:repo/issues/:issueNumber/reactions",
+    "/repos/:owner/:repo/issues/:issue_number/reactions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -57412,7 +57416,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "reactionsCreateForIssue",
-    "/repos/:owner/:repo/issues/:issueNumber/reactions",
+    "/repos/:owner/:repo/issues/:issue_number/reactions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -57472,7 +57476,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reactionsDeleteForIssue",
-    "/repos/:owner/:repo/issues/:issueNumber/reactions/:reactionId",
+    "/repos/:owner/:repo/issues/:issue_number/reactions/:reaction_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -57531,7 +57535,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "issuesListEventsForTimeline",
-    "/repos/:owner/:repo/issues/:issueNumber/timeline",
+    "/repos/:owner/:repo/issues/:issue_number/timeline",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -57714,7 +57718,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposGetDeployKey",
-    "/repos/:owner/:repo/keys/:keyId",
+    "/repos/:owner/:repo/keys/:key_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -57766,7 +57770,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reposDeleteDeployKey",
-    "/repos/:owner/:repo/keys/:keyId",
+    "/repos/:owner/:repo/keys/:key_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -58485,7 +58489,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "issuesGetMilestone",
-    "/repos/:owner/:repo/milestones/:milestoneNumber",
+    "/repos/:owner/:repo/milestones/:milestone_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -58546,7 +58550,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "issuesUpdateMilestone",
-    "/repos/:owner/:repo/milestones/:milestoneNumber",
+    "/repos/:owner/:repo/milestones/:milestone_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -58602,7 +58606,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "issuesDeleteMilestone",
-    "/repos/:owner/:repo/milestones/:milestoneNumber",
+    "/repos/:owner/:repo/milestones/:milestone_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -58657,7 +58661,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "issuesListLabelsForMilestone",
-    "/repos/:owner/:repo/milestones/:milestoneNumber/labels",
+    "/repos/:owner/:repo/milestones/:milestone_number/labels",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -59275,7 +59279,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposGetPagesBuild",
-    "/repos/:owner/:repo/pages/builds/:buildId",
+    "/repos/:owner/:repo/pages/builds/:build_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -59938,7 +59942,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "pullsGetReviewComment",
-    "/repos/:owner/:repo/pulls/comments/:commentId",
+    "/repos/:owner/:repo/pulls/comments/:comment_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -59992,7 +59996,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "pullsUpdateReviewComment",
-    "/repos/:owner/:repo/pulls/comments/:commentId",
+    "/repos/:owner/:repo/pulls/comments/:comment_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -60048,7 +60052,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "pullsDeleteReviewComment",
-    "/repos/:owner/:repo/pulls/comments/:commentId",
+    "/repos/:owner/:repo/pulls/comments/:comment_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -60121,7 +60125,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reactionsListForPullRequestReviewComment",
-    "/repos/:owner/:repo/pulls/comments/:commentId/reactions",
+    "/repos/:owner/:repo/pulls/comments/:comment_id/reactions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -60198,7 +60202,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "reactionsCreateForPullRequestReviewComment",
-    "/repos/:owner/:repo/pulls/comments/:commentId/reactions",
+    "/repos/:owner/:repo/pulls/comments/:comment_id/reactions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -60259,7 +60263,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reactionsDeleteForPullRequestComment",
-    "/repos/:owner/:repo/pulls/comments/:commentId/reactions/:reactionId",
+    "/repos/:owner/:repo/pulls/comments/:comment_id/reactions/:reaction_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -60324,7 +60328,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "pullsGet",
-    "/repos/:owner/:repo/pulls/:pullNumber",
+    "/repos/:owner/:repo/pulls/:pull_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -60403,7 +60407,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "pullsUpdate",
-    "/repos/:owner/:repo/pulls/:pullNumber",
+    "/repos/:owner/:repo/pulls/:pull_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -60494,7 +60498,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "codespacesCreateWithPrForAuthenticatedUser",
-    "/repos/:owner/:repo/pulls/:pullNumber/codespaces",
+    "/repos/:owner/:repo/pulls/:pull_number/codespaces",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -60577,7 +60581,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "pullsListReviewComments",
-    "/repos/:owner/:repo/pulls/:pullNumber/comments",
+    "/repos/:owner/:repo/pulls/:pull_number/comments",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -60647,7 +60651,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "pullsCreateReviewComment",
-    "/repos/:owner/:repo/pulls/:pullNumber/comments",
+    "/repos/:owner/:repo/pulls/:pull_number/comments",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -60715,7 +60719,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "pullsCreateReplyForReviewComment",
-    "/repos/:owner/:repo/pulls/:pullNumber/comments/:commentId/replies",
+    "/repos/:owner/:repo/pulls/:pull_number/comments/:comment_id/replies",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -60776,7 +60780,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "pullsListCommits",
-    "/repos/:owner/:repo/pulls/:pullNumber/commits",
+    "/repos/:owner/:repo/pulls/:pull_number/commits",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -60846,7 +60850,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "pullsListFiles",
-    "/repos/:owner/:repo/pulls/:pullNumber/files",
+    "/repos/:owner/:repo/pulls/:pull_number/files",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -60915,7 +60919,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "pullsCheckIfMerged",
-    "/repos/:owner/:repo/pulls/:pullNumber/merge",
+    "/repos/:owner/:repo/pulls/:pull_number/merge",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -60996,7 +61000,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "pullsMerge",
-    "/repos/:owner/:repo/pulls/:pullNumber/merge",
+    "/repos/:owner/:repo/pulls/:pull_number/merge",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -61071,7 +61075,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "pullsListRequestedReviewers",
-    "/repos/:owner/:repo/pulls/:pullNumber/requested_reviewers",
+    "/repos/:owner/:repo/pulls/:pull_number/requested_reviewers",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -61131,7 +61135,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "pullsRequestReviewers",
-    "/repos/:owner/:repo/pulls/:pullNumber/requested_reviewers",
+    "/repos/:owner/:repo/pulls/:pull_number/requested_reviewers",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -61199,7 +61203,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "pullsRemoveRequestedReviewers",
-    "/repos/:owner/:repo/pulls/:pullNumber/requested_reviewers",
+    "/repos/:owner/:repo/pulls/:pull_number/requested_reviewers",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -61260,7 +61264,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "pullsListReviews",
-    "/repos/:owner/:repo/pulls/:pullNumber/reviews",
+    "/repos/:owner/:repo/pulls/:pull_number/reviews",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -61338,7 +61342,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "pullsCreateReview",
-    "/repos/:owner/:repo/pulls/:pullNumber/reviews",
+    "/repos/:owner/:repo/pulls/:pull_number/reviews",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -61401,7 +61405,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "pullsGetReview",
-    "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
+    "/repos/:owner/:repo/pulls/:pull_number/reviews/:review_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -61459,7 +61463,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "pullsUpdateReview",
-    "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
+    "/repos/:owner/:repo/pulls/:pull_number/reviews/:review_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -61520,7 +61524,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "pullsDeletePendingReview",
-    "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
+    "/repos/:owner/:repo/pulls/:pull_number/reviews/:review_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -61584,7 +61588,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "pullsListCommentsForReview",
-    "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/comments",
+    "/repos/:owner/:repo/pulls/:pull_number/reviews/:review_id/comments",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -61650,7 +61654,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "pullsDismissReview",
-    "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/dismissals",
+    "/repos/:owner/:repo/pulls/:pull_number/reviews/:review_id/dismissals",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -61720,7 +61724,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "pullsSubmitReview",
-    "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/events",
+    "/repos/:owner/:repo/pulls/:pull_number/reviews/:review_id/events",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -61797,7 +61801,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "pullsUpdateBranch",
-    "/repos/:owner/:repo/pulls/:pullNumber/update-branch",
+    "/repos/:owner/:repo/pulls/:pull_number/update-branch",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -62131,7 +62135,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposGetReleaseAsset",
-    "/repos/:owner/:repo/releases/assets/:assetId",
+    "/repos/:owner/:repo/releases/assets/:asset_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -62194,7 +62198,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "reposUpdateReleaseAsset",
-    "/repos/:owner/:repo/releases/assets/:assetId",
+    "/repos/:owner/:repo/releases/assets/:asset_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -62247,7 +62251,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reposDeleteReleaseAsset",
-    "/repos/:owner/:repo/releases/assets/:assetId",
+    "/repos/:owner/:repo/releases/assets/:asset_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -62467,7 +62471,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposGetRelease",
-    "/repos/:owner/:repo/releases/:releaseId",
+    "/repos/:owner/:repo/releases/:release_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -62535,7 +62539,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "reposUpdateRelease",
-    "/repos/:owner/:repo/releases/:releaseId",
+    "/repos/:owner/:repo/releases/:release_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -62591,7 +62595,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reposDeleteRelease",
-    "/repos/:owner/:repo/releases/:releaseId",
+    "/repos/:owner/:repo/releases/:release_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -62645,7 +62649,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposListReleaseAssets",
-    "/repos/:owner/:repo/releases/:releaseId/assets",
+    "/repos/:owner/:repo/releases/:release_id/assets",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -62708,7 +62712,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "reposUploadReleaseAsset",
-    "/repos/:owner/:repo/releases/:releaseId/assets",
+    "/repos/:owner/:repo/releases/:release_id/assets",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -62779,7 +62783,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reactionsListForRelease",
-    "/repos/:owner/:repo/releases/:releaseId/reactions",
+    "/repos/:owner/:repo/releases/:release_id/reactions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -62843,7 +62847,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "reactionsCreateForRelease",
-    "/repos/:owner/:repo/releases/:releaseId/reactions",
+    "/repos/:owner/:repo/releases/:release_id/reactions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -62903,7 +62907,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reactionsDeleteForRelease",
-    "/repos/:owner/:repo/releases/:releaseId/reactions/:reactionId",
+    "/repos/:owner/:repo/releases/:release_id/reactions/:reaction_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -63157,7 +63161,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reposGetRepoRuleset",
-    "/repos/:owner/:repo/rulesets/:rulesetId",
+    "/repos/:owner/:repo/rulesets/:ruleset_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -63231,7 +63235,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "reposUpdateRepoRuleset",
-    "/repos/:owner/:repo/rulesets/:rulesetId",
+    "/repos/:owner/:repo/rulesets/:ruleset_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -63294,7 +63298,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reposDeleteRepoRuleset",
-    "/repos/:owner/:repo/rulesets/:rulesetId",
+    "/repos/:owner/:repo/rulesets/:ruleset_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -63447,7 +63451,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "secretScanningGetAlert",
-    "/repos/:owner/:repo/secret-scanning/alerts/:alertNumber",
+    "/repos/:owner/:repo/secret-scanning/alerts/:alert_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -63528,7 +63532,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "secretScanningUpdateAlert",
-    "/repos/:owner/:repo/secret-scanning/alerts/:alertNumber",
+    "/repos/:owner/:repo/secret-scanning/alerts/:alert_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -63614,7 +63618,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "secretScanningListLocationsForAlert",
-    "/repos/:owner/:repo/secret-scanning/alerts/:alertNumber/locations",
+    "/repos/:owner/:repo/secret-scanning/alerts/:alert_number/locations",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -63909,7 +63913,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "securityAdvisoriesGetRepositoryAdvisory",
-    "/repos/:owner/:repo/security-advisories/:ghsaId",
+    "/repos/:owner/:repo/security-advisories/:ghsa_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -63976,7 +63980,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "securityAdvisoriesUpdateRepositoryAdvisory",
-    "/repos/:owner/:repo/security-advisories/:ghsaId",
+    "/repos/:owner/:repo/security-advisories/:ghsa_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -64045,7 +64049,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "securityAdvisoriesCreateRepositoryAdvisoryCveRequest",
-    "/repos/:owner/:repo/security-advisories/:ghsaId/cve",
+    "/repos/:owner/:repo/security-advisories/:ghsa_id/cve",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -64917,7 +64921,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reposDeleteTagProtection",
-    "/repos/:owner/:repo/tags/protection/:tagProtectionId",
+    "/repos/:owner/:repo/tags/protection/:tag_protection_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -65702,7 +65706,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "reposCreateUsingTemplate",
-    "/repos/:templateOwner/:templateRepo/generate",
+    "/repos/:template_owner/:template_repo/generate",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -65821,7 +65825,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsListEnvironmentSecrets",
-    "/repositories/:repositoryId/environments/:environmentName/secrets",
+    "/repositories/:repository_id/environments/:environment_name/secrets",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -65874,7 +65878,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsGetEnvironmentPublicKey",
-    "/repositories/:repositoryId/environments/:environmentName/secrets/public-key",
+    "/repositories/:repository_id/environments/:environment_name/secrets/public-key",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -65921,7 +65925,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsGetEnvironmentSecret",
-    "/repositories/:repositoryId/environments/:environmentName/secrets/:secretName",
+    "/repositories/:repository_id/environments/:environment_name/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -65979,7 +65983,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "actionsCreateOrUpdateEnvironmentSecret",
-    "/repositories/:repositoryId/environments/:environmentName/secrets/:secretName",
+    "/repositories/:repository_id/environments/:environment_name/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -66036,7 +66040,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "actionsDeleteEnvironmentSecret",
-    "/repositories/:repositoryId/environments/:environmentName/secrets/:secretName",
+    "/repositories/:repository_id/environments/:environment_name/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -66098,7 +66102,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsListEnvironmentVariables",
-    "/repositories/:repositoryId/environments/:environmentName/variables",
+    "/repositories/:repository_id/environments/:environment_name/variables",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -66156,7 +66160,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "actionsCreateEnvironmentVariable",
-    "/repositories/:repositoryId/environments/:environmentName/variables",
+    "/repositories/:repository_id/environments/:environment_name/variables",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -66207,7 +66211,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "actionsGetEnvironmentVariable",
-    "/repositories/:repositoryId/environments/:environmentName/variables/:name",
+    "/repositories/:repository_id/environments/:environment_name/variables/:name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -66259,7 +66263,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "actionsUpdateEnvironmentVariable",
-    "/repositories/:repositoryId/environments/:environmentName/variables/:name",
+    "/repositories/:repository_id/environments/:environment_name/variables/:name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -66310,7 +66314,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "actionsDeleteEnvironmentVariable",
-    "/repositories/:repositoryId/environments/:environmentName/variables/:name",
+    "/repositories/:repository_id/environments/:environment_name/variables/:name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -66920,7 +66924,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("teamsGetLegacy", "/teams/:teamId", async (ctx, next) => {
+  router.get("teamsGetLegacy", "/teams/:team_id", async (ctx, next) => {
     const input = {
       params: parseRequestInput(
         teamsGetLegacyParamSchema,
@@ -66981,7 +66985,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.patch("teamsUpdateLegacy", "/teams/:teamId", async (ctx, next) => {
+  router.patch("teamsUpdateLegacy", "/teams/:team_id", async (ctx, next) => {
     const input = {
       params: parseRequestInput(
         teamsUpdateLegacyParamSchema,
@@ -67042,7 +67046,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.delete("teamsDeleteLegacy", "/teams/:teamId", async (ctx, next) => {
+  router.delete("teamsDeleteLegacy", "/teams/:team_id", async (ctx, next) => {
     const input = {
       params: parseRequestInput(
         teamsDeleteLegacyParamSchema,
@@ -67099,7 +67103,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsListDiscussionsLegacy",
-    "/teams/:teamId/discussions",
+    "/teams/:team_id/discussions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -67154,7 +67158,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "teamsCreateDiscussionLegacy",
-    "/teams/:teamId/discussions",
+    "/teams/:team_id/discussions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -67206,7 +67210,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsGetDiscussionLegacy",
-    "/teams/:teamId/discussions/:discussionNumber",
+    "/teams/:team_id/discussions/:discussion_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -67256,7 +67260,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "teamsUpdateDiscussionLegacy",
-    "/teams/:teamId/discussions/:discussionNumber",
+    "/teams/:team_id/discussions/:discussion_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -67306,7 +67310,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "teamsDeleteDiscussionLegacy",
-    "/teams/:teamId/discussions/:discussionNumber",
+    "/teams/:team_id/discussions/:discussion_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -67361,7 +67365,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsListDiscussionCommentsLegacy",
-    "/teams/:teamId/discussions/:discussionNumber/comments",
+    "/teams/:team_id/discussions/:discussion_number/comments",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -67418,7 +67422,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "teamsCreateDiscussionCommentLegacy",
-    "/teams/:teamId/discussions/:discussionNumber/comments",
+    "/teams/:team_id/discussions/:discussion_number/comments",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -67472,7 +67476,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsGetDiscussionCommentLegacy",
-    "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber",
+    "/teams/:team_id/discussions/:discussion_number/comments/:comment_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -67523,7 +67527,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "teamsUpdateDiscussionCommentLegacy",
-    "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber",
+    "/teams/:team_id/discussions/:discussion_number/comments/:comment_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -67577,7 +67581,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "teamsDeleteDiscussionCommentLegacy",
-    "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber",
+    "/teams/:team_id/discussions/:discussion_number/comments/:comment_number",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -67644,7 +67648,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reactionsListForTeamDiscussionCommentLegacy",
-    "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber/reactions",
+    "/teams/:team_id/discussions/:discussion_number/comments/:comment_number/reactions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -67711,7 +67715,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "reactionsCreateForTeamDiscussionCommentLegacy",
-    "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber/reactions",
+    "/teams/:team_id/discussions/:discussion_number/comments/:comment_number/reactions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -67781,7 +67785,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "reactionsListForTeamDiscussionLegacy",
-    "/teams/:teamId/discussions/:discussionNumber/reactions",
+    "/teams/:team_id/discussions/:discussion_number/reactions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -67847,7 +67851,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "reactionsCreateForTeamDiscussionLegacy",
-    "/teams/:teamId/discussions/:discussionNumber/reactions",
+    "/teams/:team_id/discussions/:discussion_number/reactions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -67907,7 +67911,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsListPendingInvitationsLegacy",
-    "/teams/:teamId/invitations",
+    "/teams/:team_id/invitations",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -67970,7 +67974,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsListMembersLegacy",
-    "/teams/:teamId/members",
+    "/teams/:team_id/members",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -68028,7 +68032,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsGetMemberLegacy",
-    "/teams/:teamId/members/:username",
+    "/teams/:team_id/members/:username",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -68084,7 +68088,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "teamsAddMemberLegacy",
-    "/teams/:teamId/members/:username",
+    "/teams/:team_id/members/:username",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -68144,7 +68148,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "teamsRemoveMemberLegacy",
-    "/teams/:teamId/members/:username",
+    "/teams/:team_id/members/:username",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -68199,7 +68203,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsGetMembershipForUserLegacy",
-    "/teams/:teamId/memberships/:username",
+    "/teams/:team_id/memberships/:username",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -68260,7 +68264,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "teamsAddOrUpdateMembershipForUserLegacy",
-    "/teams/:teamId/memberships/:username",
+    "/teams/:team_id/memberships/:username",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -68328,7 +68332,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "teamsRemoveMembershipForUserLegacy",
-    "/teams/:teamId/memberships/:username",
+    "/teams/:team_id/memberships/:username",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -68389,7 +68393,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsListProjectsLegacy",
-    "/teams/:teamId/projects",
+    "/teams/:team_id/projects",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -68448,7 +68452,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsCheckPermissionsForProjectLegacy",
-    "/teams/:teamId/projects/:projectId",
+    "/teams/:team_id/projects/:project_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -68518,7 +68522,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "teamsAddOrUpdateProjectPermissionsLegacy",
-    "/teams/:teamId/projects/:projectId",
+    "/teams/:team_id/projects/:project_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -68589,7 +68593,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "teamsRemoveProjectLegacy",
-    "/teams/:teamId/projects/:projectId",
+    "/teams/:team_id/projects/:project_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -68650,7 +68654,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsListReposLegacy",
-    "/teams/:teamId/repos",
+    "/teams/:team_id/repos",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -68711,7 +68715,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsCheckPermissionsForRepoLegacy",
-    "/teams/:teamId/repos/:owner/:repo",
+    "/teams/:team_id/repos/:owner/:repo",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -68778,7 +68782,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "teamsAddOrUpdateRepoPermissionsLegacy",
-    "/teams/:teamId/repos/:owner/:repo",
+    "/teams/:team_id/repos/:owner/:repo",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -68840,7 +68844,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "teamsRemoveRepoLegacy",
-    "/teams/:teamId/repos/:owner/:repo",
+    "/teams/:team_id/repos/:owner/:repo",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -68897,7 +68901,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "teamsListChildLegacy",
-    "/teams/:teamId/teams",
+    "/teams/:team_id/teams",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -69636,7 +69640,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "codespacesGetSecretForAuthenticatedUser",
-    "/user/codespaces/secrets/:secretName",
+    "/user/codespaces/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -69701,7 +69705,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "codespacesCreateOrUpdateSecretForAuthenticatedUser",
-    "/user/codespaces/secrets/:secretName",
+    "/user/codespaces/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -69767,7 +69771,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "codespacesDeleteSecretForAuthenticatedUser",
-    "/user/codespaces/secrets/:secretName",
+    "/user/codespaces/secrets/:secret_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -69829,7 +69833,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "codespacesListRepositoriesForSecretForAuthenticatedUser",
-    "/user/codespaces/secrets/:secretName/repositories",
+    "/user/codespaces/secrets/:secret_name/repositories",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -69908,7 +69912,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "codespacesSetRepositoriesForSecretForAuthenticatedUser",
-    "/user/codespaces/secrets/:secretName/repositories",
+    "/user/codespaces/secrets/:secret_name/repositories",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -69985,7 +69989,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "codespacesAddRepositoryForSecretForAuthenticatedUser",
-    "/user/codespaces/secrets/:secretName/repositories/:repositoryId",
+    "/user/codespaces/secrets/:secret_name/repositories/:repository_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -70058,7 +70062,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "codespacesRemoveRepositoryForSecretForAuthenticatedUser",
-    "/user/codespaces/secrets/:secretName/repositories/:repositoryId",
+    "/user/codespaces/secrets/:secret_name/repositories/:repository_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -70133,7 +70137,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "codespacesGetForAuthenticatedUser",
-    "/user/codespaces/:codespaceName",
+    "/user/codespaces/:codespace_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -70212,7 +70216,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "codespacesUpdateForAuthenticatedUser",
-    "/user/codespaces/:codespaceName",
+    "/user/codespaces/:codespace_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -70283,7 +70287,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "codespacesDeleteForAuthenticatedUser",
-    "/user/codespaces/:codespaceName",
+    "/user/codespaces/:codespace_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -70356,7 +70360,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "codespacesExportForAuthenticatedUser",
-    "/user/codespaces/:codespaceName/exports",
+    "/user/codespaces/:codespace_name/exports",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -70426,7 +70430,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "codespacesGetExportDetailsForAuthenticatedUser",
-    "/user/codespaces/:codespaceName/exports/:exportId",
+    "/user/codespaces/:codespace_name/exports/:export_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -70494,7 +70498,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "codespacesCodespaceMachinesForAuthenticatedUser",
-    "/user/codespaces/:codespaceName/machines",
+    "/user/codespaces/:codespace_name/machines",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -70575,7 +70579,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "codespacesPublishForAuthenticatedUser",
-    "/user/codespaces/:codespaceName/publish",
+    "/user/codespaces/:codespace_name/publish",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -70652,7 +70656,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "codespacesStartForAuthenticatedUser",
-    "/user/codespaces/:codespaceName/start",
+    "/user/codespaces/:codespace_name/start",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -70733,7 +70737,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "codespacesStopForAuthenticatedUser",
-    "/user/codespaces/:codespaceName/stop",
+    "/user/codespaces/:codespace_name/stop",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -71614,7 +71618,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "usersGetGpgKeyForAuthenticatedUser",
-    "/user/gpg_keys/:gpgKeyId",
+    "/user/gpg_keys/:gpg_key_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -71684,7 +71688,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "usersDeleteGpgKeyForAuthenticatedUser",
-    "/user/gpg_keys/:gpgKeyId",
+    "/user/gpg_keys/:gpg_key_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -71842,7 +71846,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "appsListInstallationReposForAuthenticatedUser",
-    "/user/installations/:installationId/repositories",
+    "/user/installations/:installation_id/repositories",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -71916,7 +71920,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.put(
     "appsAddRepoToInstallationForAuthenticatedUser",
-    "/user/installations/:installationId/repositories/:repositoryId",
+    "/user/installations/:installation_id/repositories/:repository_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -71984,7 +71988,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "appsRemoveRepoFromInstallationForAuthenticatedUser",
-    "/user/installations/:installationId/repositories/:repositoryId",
+    "/user/installations/:installation_id/repositories/:repository_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -72423,7 +72427,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "usersGetPublicSshKeyForAuthenticatedUser",
-    "/user/keys/:keyId",
+    "/user/keys/:key_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -72492,7 +72496,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "usersDeletePublicSshKeyForAuthenticatedUser",
-    "/user/keys/:keyId",
+    "/user/keys/:key_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -73042,7 +73046,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "migrationsGetStatusForAuthenticatedUser",
-    "/user/migrations/:migrationId",
+    "/user/migrations/:migration_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -73114,7 +73118,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "migrationsGetArchiveForAuthenticatedUser",
-    "/user/migrations/:migrationId/archive",
+    "/user/migrations/:migration_id/archive",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -73180,7 +73184,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "migrationsDeleteArchiveForAuthenticatedUser",
-    "/user/migrations/:migrationId/archive",
+    "/user/migrations/:migration_id/archive",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -73250,7 +73254,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "migrationsUnlockRepoForAuthenticatedUser",
-    "/user/migrations/:migrationId/repos/:repoName/lock",
+    "/user/migrations/:migration_id/repos/:repo_name/lock",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -73321,7 +73325,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "migrationsListReposForAuthenticatedUser",
-    "/user/migrations/:migrationId/repositories",
+    "/user/migrations/:migration_id/repositories",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -73514,7 +73518,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "packagesGetPackageForAuthenticatedUser",
-    "/user/packages/:packageType/:packageName",
+    "/user/packages/:package_type/:package_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -73578,7 +73582,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "packagesDeletePackageForAuthenticatedUser",
-    "/user/packages/:packageType/:packageName",
+    "/user/packages/:package_type/:package_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -73655,7 +73659,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "packagesRestorePackageForAuthenticatedUser",
-    "/user/packages/:packageType/:packageName/restore",
+    "/user/packages/:package_type/:package_name/restore",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -73740,7 +73744,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUser",
-    "/user/packages/:packageType/:packageName/versions",
+    "/user/packages/:package_type/:package_name/versions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -73815,7 +73819,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "packagesGetPackageVersionForAuthenticatedUser",
-    "/user/packages/:packageType/:packageName/versions/:packageVersionId",
+    "/user/packages/:package_type/:package_name/versions/:package_version_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -73880,7 +73884,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "packagesDeletePackageVersionForAuthenticatedUser",
-    "/user/packages/:packageType/:packageName/versions/:packageVersionId",
+    "/user/packages/:package_type/:package_name/versions/:package_version_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -73957,7 +73961,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "packagesRestorePackageVersionForAuthenticatedUser",
-    "/user/packages/:packageType/:packageName/versions/:packageVersionId/restore",
+    "/user/packages/:package_type/:package_name/versions/:package_version_id/restore",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -74412,7 +74416,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.patch(
     "reposAcceptInvitationForAuthenticatedUser",
-    "/user/repository_invitations/:invitationId",
+    "/user/repository_invitations/:invitation_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -74481,7 +74485,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "reposDeclineInvitationForAuthenticatedUser",
-    "/user/repository_invitations/:invitationId",
+    "/user/repository_invitations/:invitation_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -74910,7 +74914,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "usersGetSshSigningKeyForAuthenticatedUser",
-    "/user/ssh_signing_keys/:sshSigningKeyId",
+    "/user/ssh_signing_keys/:ssh_signing_key_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -74979,7 +74983,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "usersDeleteSshSigningKeyForAuthenticatedUser",
-    "/user/ssh_signing_keys/:sshSigningKeyId",
+    "/user/ssh_signing_keys/:ssh_signing_key_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -75895,7 +75899,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "usersCheckFollowingForUser",
-    "/users/:username/following/:targetUser",
+    "/users/:username/following/:target_user",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -76366,7 +76370,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "packagesGetPackageForUser",
-    "/users/:username/packages/:packageType/:packageName",
+    "/users/:username/packages/:package_type/:package_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -76428,7 +76432,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "packagesDeletePackageForUser",
-    "/users/:username/packages/:packageType/:packageName",
+    "/users/:username/packages/:package_type/:package_name",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -76503,7 +76507,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "packagesRestorePackageForUser",
-    "/users/:username/packages/:packageType/:packageName/restore",
+    "/users/:username/packages/:package_type/:package_name/restore",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -76579,7 +76583,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "packagesGetAllPackageVersionsForPackageOwnedByUser",
-    "/users/:username/packages/:packageType/:packageName/versions",
+    "/users/:username/packages/:package_type/:package_name/versions",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -76651,7 +76655,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "packagesGetPackageVersionForUser",
-    "/users/:username/packages/:packageType/:packageName/versions/:packageVersionId",
+    "/users/:username/packages/:package_type/:package_name/versions/:package_version_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -76714,7 +76718,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "packagesDeletePackageVersionForUser",
-    "/users/:username/packages/:packageType/:packageName/versions/:packageVersionId",
+    "/users/:username/packages/:package_type/:package_name/versions/:package_version_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -76789,7 +76793,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "packagesRestorePackageVersionForUser",
-    "/users/:username/packages/:packageType/:packageName/versions/:packageVersionId/restore",
+    "/users/:username/packages/:package_type/:package_name/versions/:package_version_id/restore",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
