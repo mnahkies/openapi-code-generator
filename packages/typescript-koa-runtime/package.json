@@ -34,7 +34,7 @@
     "./zod": {
       "require": "./dist/zod.js",
       "import": "./dist/zod.js",
-      "types": "./dist/joi.d.ts"
+      "types": "./dist/zod.d.ts"
     }
   },
   "scripts": {
