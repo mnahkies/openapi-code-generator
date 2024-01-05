@@ -11,11 +11,11 @@
   },
   "dependencies": {
     "@nahkies/typescript-axios-runtime": "*",
-    "axios": "^1.6.2",
+    "axios": "^1.6.4",
     "dotenv": "^16.3.1"
   },
   "devDependencies": {
-    "@types/node": "^20.10.2",
+    "@types/node": "^20.10.6",
     "typescript": "~5.2.2"
   }
 }
