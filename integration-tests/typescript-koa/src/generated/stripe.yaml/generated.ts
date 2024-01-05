@@ -21818,7 +21818,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getCreditNotesCreditNoteLines",
-    "/v1/credit_notes/:creditNote/lines",
+    "/v1/credit_notes/:credit_note/lines",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -24508,7 +24508,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getCustomersCustomerPaymentMethodsPaymentMethod",
-    "/v1/customers/:customer/payment_methods/:paymentMethod",
+    "/v1/customers/:customer/payment_methods/:payment_method",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -25461,7 +25461,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "deleteCustomersCustomerSubscriptionsSubscriptionExposedId",
-    "/v1/customers/:customer/subscriptions/:subscriptionExposedId",
+    "/v1/customers/:customer/subscriptions/:subscription_exposed_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -25527,7 +25527,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getCustomersCustomerSubscriptionsSubscriptionExposedId",
-    "/v1/customers/:customer/subscriptions/:subscriptionExposedId",
+    "/v1/customers/:customer/subscriptions/:subscription_exposed_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -25888,7 +25888,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postCustomersCustomerSubscriptionsSubscriptionExposedId",
-    "/v1/customers/:customer/subscriptions/:subscriptionExposedId",
+    "/v1/customers/:customer/subscriptions/:subscription_exposed_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -25950,7 +25950,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount",
-    "/v1/customers/:customer/subscriptions/:subscriptionExposedId/discount",
+    "/v1/customers/:customer/subscriptions/:subscription_exposed_id/discount",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -26015,7 +26015,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount",
-    "/v1/customers/:customer/subscriptions/:subscriptionExposedId/discount",
+    "/v1/customers/:customer/subscriptions/:subscription_exposed_id/discount",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -27022,7 +27022,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getExchangeRatesRateId",
-    "/v1/exchange_rates/:rateId",
+    "/v1/exchange_rates/:rate_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -40872,7 +40872,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getPaymentLinksPaymentLink",
-    "/v1/payment_links/:paymentLink",
+    "/v1/payment_links/:payment_link",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -41326,7 +41326,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postPaymentLinksPaymentLink",
-    "/v1/payment_links/:paymentLink",
+    "/v1/payment_links/:payment_link",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -41400,7 +41400,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getPaymentLinksPaymentLinkLineItems",
-    "/v1/payment_links/:paymentLink/line_items",
+    "/v1/payment_links/:payment_link/line_items",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -42326,7 +42326,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getPaymentMethodDomainsPaymentMethodDomain",
-    "/v1/payment_method_domains/:paymentMethodDomain",
+    "/v1/payment_method_domains/:payment_method_domain",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -42392,7 +42392,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postPaymentMethodDomainsPaymentMethodDomain",
-    "/v1/payment_method_domains/:paymentMethodDomain",
+    "/v1/payment_method_domains/:payment_method_domain",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -42450,7 +42450,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postPaymentMethodDomainsPaymentMethodDomainValidate",
-    "/v1/payment_method_domains/:paymentMethodDomain/validate",
+    "/v1/payment_method_domains/:payment_method_domain/validate",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -42924,7 +42924,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getPaymentMethodsPaymentMethod",
-    "/v1/payment_methods/:paymentMethod",
+    "/v1/payment_methods/:payment_method",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -43019,7 +43019,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postPaymentMethodsPaymentMethod",
-    "/v1/payment_methods/:paymentMethod",
+    "/v1/payment_methods/:payment_method",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -43076,7 +43076,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postPaymentMethodsPaymentMethodAttach",
-    "/v1/payment_methods/:paymentMethod/attach",
+    "/v1/payment_methods/:payment_method/attach",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -43135,7 +43135,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postPaymentMethodsPaymentMethodDetach",
-    "/v1/payment_methods/:paymentMethod/detach",
+    "/v1/payment_methods/:payment_method/detach",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -44880,7 +44880,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getPromotionCodesPromotionCode",
-    "/v1/promotion_codes/:promotionCode",
+    "/v1/promotion_codes/:promotion_code",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -44947,7 +44947,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postPromotionCodesPromotionCode",
-    "/v1/promotion_codes/:promotionCode",
+    "/v1/promotion_codes/:promotion_code",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -45895,7 +45895,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getRadarEarlyFraudWarningsEarlyFraudWarning",
-    "/v1/radar/early_fraud_warnings/:earlyFraudWarning",
+    "/v1/radar/early_fraud_warnings/:early_fraud_warning",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -46368,7 +46368,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "deleteRadarValueListsValueList",
-    "/v1/radar/value_lists/:valueList",
+    "/v1/radar/value_lists/:value_list",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -46426,7 +46426,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getRadarValueListsValueList",
-    "/v1/radar/value_lists/:valueList",
+    "/v1/radar/value_lists/:value_list",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -46491,7 +46491,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postRadarValueListsValueList",
-    "/v1/radar/value_lists/:valueList",
+    "/v1/radar/value_lists/:value_list",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -47649,7 +47649,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getReportingReportRunsReportRun",
-    "/v1/reporting/report_runs/:reportRun",
+    "/v1/reporting/report_runs/:report_run",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -47782,7 +47782,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getReportingReportTypesReportType",
-    "/v1/reporting/report_types/:reportType",
+    "/v1/reporting/report_types/:report_type",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -49822,7 +49822,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getShippingRatesShippingRateToken",
-    "/v1/shipping_rates/:shippingRateToken",
+    "/v1/shipping_rates/:shipping_rate_token",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -49895,7 +49895,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postShippingRatesShippingRateToken",
-    "/v1/shipping_rates/:shippingRateToken",
+    "/v1/shipping_rates/:shipping_rate_token",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -50032,7 +50032,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getSigmaScheduledQueryRunsScheduledQueryRun",
-    "/v1/sigma/scheduled_query_runs/:scheduledQueryRun",
+    "/v1/sigma/scheduled_query_runs/:scheduled_query_run",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -50444,7 +50444,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getSourcesSourceMandateNotificationsMandateNotification",
-    "/v1/sources/:source/mandate_notifications/:mandateNotification",
+    "/v1/sources/:source/mandate_notifications/:mandate_notification",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -50600,7 +50600,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getSourcesSourceSourceTransactionsSourceTransaction",
-    "/v1/sources/:source/source_transactions/:sourceTransaction",
+    "/v1/sources/:source/source_transactions/:source_transaction",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -51120,7 +51120,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getSubscriptionItemsSubscriptionItemUsageRecordSummaries",
-    "/v1/subscription_items/:subscriptionItem/usage_record_summaries",
+    "/v1/subscription_items/:subscription_item/usage_record_summaries",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -51196,7 +51196,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postSubscriptionItemsSubscriptionItemUsageRecords",
-    "/v1/subscription_items/:subscriptionItem/usage_records",
+    "/v1/subscription_items/:subscription_item/usage_records",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -52490,7 +52490,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "deleteSubscriptionsSubscriptionExposedId",
-    "/v1/subscriptions/:subscriptionExposedId",
+    "/v1/subscriptions/:subscription_exposed_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -52553,7 +52553,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getSubscriptionsSubscriptionExposedId",
-    "/v1/subscriptions/:subscriptionExposedId",
+    "/v1/subscriptions/:subscription_exposed_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -52912,7 +52912,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postSubscriptionsSubscriptionExposedId",
-    "/v1/subscriptions/:subscriptionExposedId",
+    "/v1/subscriptions/:subscription_exposed_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -52971,7 +52971,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "deleteSubscriptionsSubscriptionExposedIdDiscount",
-    "/v1/subscriptions/:subscriptionExposedId/discount",
+    "/v1/subscriptions/:subscription_exposed_id/discount",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -54030,7 +54030,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getTaxRatesTaxRate",
-    "/v1/tax_rates/:taxRate",
+    "/v1/tax_rates/:tax_rate",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -54116,7 +54116,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postTaxRatesTaxRate",
-    "/v1/tax_rates/:taxRate",
+    "/v1/tax_rates/:tax_rate",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -57981,7 +57981,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "deleteTestHelpersTestClocksTestClock",
-    "/v1/test_helpers/test_clocks/:testClock",
+    "/v1/test_helpers/test_clocks/:test_clock",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -58042,7 +58042,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getTestHelpersTestClocksTestClock",
-    "/v1/test_helpers/test_clocks/:testClock",
+    "/v1/test_helpers/test_clocks/:test_clock",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -58106,7 +58106,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postTestHelpersTestClocksTestClockAdvance",
-    "/v1/test_helpers/test_clocks/:testClock/advance",
+    "/v1/test_helpers/test_clocks/:test_clock/advance",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -58563,7 +58563,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postTestHelpersTreasuryOutboundTransfersOutboundTransferFail",
-    "/v1/test_helpers/treasury/outbound_transfers/:outboundTransfer/fail",
+    "/v1/test_helpers/treasury/outbound_transfers/:outbound_transfer/fail",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -58625,7 +58625,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postTestHelpersTreasuryOutboundTransfersOutboundTransferPost",
-    "/v1/test_helpers/treasury/outbound_transfers/:outboundTransfer/post",
+    "/v1/test_helpers/treasury/outbound_transfers/:outbound_transfer/post",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -58709,7 +58709,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn",
-    "/v1/test_helpers/treasury/outbound_transfers/:outboundTransfer/return",
+    "/v1/test_helpers/treasury/outbound_transfers/:outbound_transfer/return",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -60343,7 +60343,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getTreasuryCreditReversalsCreditReversal",
-    "/v1/treasury/credit_reversals/:creditReversal",
+    "/v1/treasury/credit_reversals/:credit_reversal",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -60540,7 +60540,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getTreasuryDebitReversalsDebitReversal",
-    "/v1/treasury/debit_reversals/:debitReversal",
+    "/v1/treasury/debit_reversals/:debit_reversal",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -60786,7 +60786,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getTreasuryFinancialAccountsFinancialAccount",
-    "/v1/treasury/financial_accounts/:financialAccount",
+    "/v1/treasury/financial_accounts/:financial_account",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -60895,7 +60895,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postTreasuryFinancialAccountsFinancialAccount",
-    "/v1/treasury/financial_accounts/:financialAccount",
+    "/v1/treasury/financial_accounts/:financial_account",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -60959,7 +60959,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getTreasuryFinancialAccountsFinancialAccountFeatures",
-    "/v1/treasury/financial_accounts/:financialAccount/features",
+    "/v1/treasury/financial_accounts/:financial_account/features",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -61060,7 +61060,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postTreasuryFinancialAccountsFinancialAccountFeatures",
-    "/v1/treasury/financial_accounts/:financialAccount/features",
+    "/v1/treasury/financial_accounts/:financial_account/features",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -61320,7 +61320,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postTreasuryInboundTransfersInboundTransferCancel",
-    "/v1/treasury/inbound_transfers/:inboundTransfer/cancel",
+    "/v1/treasury/inbound_transfers/:inbound_transfer/cancel",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -61843,7 +61843,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getTreasuryOutboundTransfersOutboundTransfer",
-    "/v1/treasury/outbound_transfers/:outboundTransfer",
+    "/v1/treasury/outbound_transfers/:outbound_transfer",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -61905,7 +61905,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postTreasuryOutboundTransfersOutboundTransferCancel",
-    "/v1/treasury/outbound_transfers/:outboundTransfer/cancel",
+    "/v1/treasury/outbound_transfers/:outbound_transfer/cancel",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -63029,7 +63029,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.delete(
     "deleteWebhookEndpointsWebhookEndpoint",
-    "/v1/webhook_endpoints/:webhookEndpoint",
+    "/v1/webhook_endpoints/:webhook_endpoint",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -63090,7 +63090,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.get(
     "getWebhookEndpointsWebhookEndpoint",
-    "/v1/webhook_endpoints/:webhookEndpoint",
+    "/v1/webhook_endpoints/:webhook_endpoint",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
@@ -63381,7 +63381,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   router.post(
     "postWebhookEndpointsWebhookEndpoint",
-    "/v1/webhook_endpoints/:webhookEndpoint",
+    "/v1/webhook_endpoints/:webhook_endpoint",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
