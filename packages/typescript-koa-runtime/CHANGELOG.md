@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.3.0...v0.4.0) (2024-01-05)
+
+
+### Bug Fixes
+
+* incorrect .d.ts path for zod ([#119](https://github.com/mnahkies/openapi-code-generator/issues/119)) ([f0d737d](https://github.com/mnahkies/openapi-code-generator/commit/f0d737dbafff29f5e5ab573bb68ed7ac03eef5ef)), closes [#117](https://github.com/mnahkies/openapi-code-generator/issues/117)
+
+
+### Features
+
+* **typescript-koa:** introduce optional "respond" pattern ([c6595a1](https://github.com/mnahkies/openapi-code-generator/commit/c6595a118dcd37bf81b3c22a7f3ddc760a5cf113))
+
+
+
+
+
 # [0.3.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.2.0...v0.3.0) (2023-12-02)
 
 

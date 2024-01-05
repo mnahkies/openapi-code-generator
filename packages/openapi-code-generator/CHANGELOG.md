@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.3.0...v0.4.0) (2024-01-05)
+
+
+### Bug Fixes
+
+* **koa:** don't camel-case route placeholders ([#120](https://github.com/mnahkies/openapi-code-generator/issues/120)) ([59e1438](https://github.com/mnahkies/openapi-code-generator/commit/59e1438d1f01cd505cb5f93de6cb4937a5133e20)), closes [#118](https://github.com/mnahkies/openapi-code-generator/issues/118) [#118](https://github.com/mnahkies/openapi-code-generator/issues/118)
+
+
+### Features
+
+* **typescript-koa:** introduce optional "respond" pattern ([c6595a1](https://github.com/mnahkies/openapi-code-generator/commit/c6595a118dcd37bf81b3c22a7f3ddc760a5cf113))
+
+
+
+
+
 # [0.3.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.2.0...v0.3.0) (2023-12-02)
 
 
