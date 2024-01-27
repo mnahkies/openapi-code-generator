@@ -98,7 +98,7 @@ to run the code generation and check that the result builds, currently this incl
 - A Todo List API (written for this repo, showcases definitions split across multiple files)
 
 At this stage we don't actually execute the code generated for these API's, but this would be a nice improvement for
-the future. The Github client in particular gets a fair amount of use for automating tasks against my workplaces Github organisation.
+the future. The Github client in particular gets a fair amount of use for automating tasks against my workplace's Github organisation.
 
 ## Publishing
 For now, publishing the package is a manual process. There are two scripts to assist:
