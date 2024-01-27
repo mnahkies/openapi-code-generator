@@ -19,7 +19,7 @@ Some templates also make use of a runtime library.
 
 <!-- tocstop -->
 
-![high level architecture](./architectu.svg)
+![high level architecture](./architecture_high_level.svg)
 
 ## Core
 
