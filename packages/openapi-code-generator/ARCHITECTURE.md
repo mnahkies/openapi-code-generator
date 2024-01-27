@@ -39,7 +39,7 @@ it from JSON/YAML
 Nothing particular interesting here, just takes a loaded document and validates
 it against the OpenAPI 3 specification in JSON schema format.
 
-Useful for detecting emission errors due to bad input rather than bugs in the
+Useful for detecting errors due to bad input rather than bugs in the
 code generation.
 
 ### `openapi-loader`
