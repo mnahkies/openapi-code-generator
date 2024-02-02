@@ -6,6 +6,7 @@ coverage
 .eslintcache
 yarn-error.log
 .env
+.DS_Store
 
 .pnp.*
 .yarn/*
