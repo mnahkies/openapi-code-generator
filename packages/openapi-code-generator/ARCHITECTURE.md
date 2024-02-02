@@ -36,7 +36,7 @@ it from JSON/YAML
 
 ### `openapi-validator`
 
-Nothing particular interesting here, just takes a loaded document and validates
+Nothing particularly interesting here, just takes a loaded document and validates
 it against the OpenAPI 3 specification in JSON schema format.
 
 Useful for detecting errors due to bad input rather than bugs in the
