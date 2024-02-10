@@ -31,6 +31,7 @@ import {logger} from "./logger"
 export class Input {
   constructor(
     readonly loader: OpenapiLoader,
+    readonly config: {extractInlineSchemas: boolean},
   ) {
   }
 
@@ -128,7 +129,9 @@ export class Input {
     }
   }
 
-  private normalizeResponsesObject(operationId: string, responses?: Responses): {[statusCode: string]: IRResponse} | undefined {
+  private normalizeResponsesObject(operationId: string, responses?: Responses): {
+    [statusCode: string]: IRResponse
+  } | undefined {
     if (!responses) {
       return undefined
     }
@@ -161,34 +164,36 @@ export class Input {
     return _.camelCase([method, ...route.split("/")].join("-"))
   }
 
-  private normalizeMediaTypes(mediaTypes:{[contentType: string]: MediaType} = {}, operationId: string, suffix: "RequestBody" | `${string}Response`){
+  private normalizeMediaTypes(mediaTypes: {
+    [mediaType: string]: MediaType
+  } = {}, operationId: string, suffix: "RequestBody" | `${string}Response`) {
     return Object.fromEntries(Object.entries(mediaTypes)
       // Sometimes people pass `{}` as the MediaType for 204 responses, filter these out
       .filter(([, mediaType]) => Boolean(mediaType.schema))
       .map(([contentType, mediaType]) => {
-
-        // TODO: omit media type when only one possible?
-        const syntheticName = `${operationId}${mediaTypeToIdentifier(contentType)}${suffix}`
-        const normalizedSchema = (() => {
-          const result = normalizeSchemaObject(mediaType.schema)
-
-          if (!isRef(result)) {
-            if (result.type === "object") {
-              return this.loader.addVirtualType(operationId, syntheticName, result)
-            }
-          }
-
-          return result
-        })()
-
         return [
           contentType,
           {
-            schema: normalizedSchema,
+            schema: this.normalizeMediaTypeSchema(operationId, contentType, mediaType.schema, suffix),
             encoding: mediaType.encoding,
           },
         ]
       }))
+  }
+
+  private normalizeMediaTypeSchema(operationId: string, mediaType: string, schema: Schema | Reference, suffix: string): MaybeIRModel {
+    // TODO: omit media type when only one possible?
+    const syntheticName = `${operationId}${mediaTypeToIdentifier(mediaType)}${suffix}`
+    const result = normalizeSchemaObject(schema)
+
+    const shouldCreateVirtualType = this.config.extractInlineSchemas &&
+      (!isRef(result) && (
+          result.type === "object"
+          || (result.type === "array" && !isRef(result.items) && result.items.type === "object")
+        )
+      )
+
+    return shouldCreateVirtualType ? this.loader.addVirtualType(operationId, syntheticName, result) : result
   }
 }
 

@@ -3,9 +3,12 @@
 /* eslint-disable */
 
 import {
+  t_CreateTodoListItemBodySchema,
+  t_CreateTodoListItemParamSchema,
   t_DeleteTodoListByIdParamSchema,
   t_Error,
   t_GetTodoListByIdParamSchema,
+  t_GetTodoListItemsParamSchema,
   t_GetTodoListsQuerySchema,
   t_TodoList,
   t_UpdateTodoListByIdBodySchema,
@@ -106,11 +109,64 @@ export type DeleteTodoListById = (
   | Response<StatusCode, void>
 >
 
+export type GetTodoListItemsResponder = {
+  with200(): KoaRuntimeResponse<{
+    completedAt?: string
+    content: string
+    createdAt: string
+    id: string
+  }>
+  withStatusCode5xx(status: StatusCode5xx): KoaRuntimeResponse<{
+    code: string
+    message: string
+  }>
+} & KoaRuntimeResponder
+
+export type GetTodoListItems = (
+  params: Params<t_GetTodoListItemsParamSchema, void, void>,
+  respond: GetTodoListItemsResponder,
+  ctx: Context,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        completedAt?: string
+        content: string
+        createdAt: string
+        id: string
+      }
+    >
+  | Response<
+      StatusCode5xx,
+      {
+        code: string
+        message: string
+      }
+    >
+>
+
+export type CreateTodoListItemResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type CreateTodoListItem = (
+  params: Params<
+    t_CreateTodoListItemParamSchema,
+    void,
+    t_CreateTodoListItemBodySchema
+  >,
+  respond: CreateTodoListItemResponder,
+  ctx: Context,
+) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
+
 export type Implementation = {
   getTodoLists: GetTodoLists
   getTodoListById: GetTodoListById
   updateTodoListById: UpdateTodoListById
   deleteTodoListById: DeleteTodoListById
+  getTodoListItems: GetTodoListItems
+  createTodoListItem: CreateTodoListItem
 }
 
 export function createRouter(implementation: Implementation): KoaRouter {
@@ -315,6 +371,124 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ctx.status = status
     return next()
   })
+
+  const getTodoListItemsParamSchema = z.object({ listId: z.string() })
+
+  const getTodoListItemsResponseValidator = responseValidationFactory(
+    [
+      [
+        "200",
+        z.object({
+          id: z.string(),
+          content: z.string(),
+          createdAt: z.string().datetime({ offset: true }),
+          completedAt: z.string().datetime({ offset: true }).optional(),
+        }),
+      ],
+      ["5XX", z.object({ message: z.string(), code: z.string() })],
+    ],
+    undefined,
+  )
+
+  router.get("getTodoListItems", "/list/:listId/items", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(
+        getTodoListItemsParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: undefined,
+      body: undefined,
+    }
+
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<{
+          completedAt?: string
+          content: string
+          createdAt: string
+          id: string
+        }>(200)
+      },
+      withStatusCode5xx(status: StatusCode5xx) {
+        return new KoaRuntimeResponse<{
+          code: string
+          message: string
+        }>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .getTodoListItems(input, responder, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+    ctx.body = getTodoListItemsResponseValidator(status, body)
+    ctx.status = status
+    return next()
+  })
+
+  const createTodoListItemParamSchema = z.object({ listId: z.string() })
+
+  const createTodoListItemBodySchema = z.object({
+    id: z.string(),
+    content: z.string(),
+    completedAt: z.string().datetime({ offset: true }).optional(),
+  })
+
+  const createTodoListItemResponseValidator = responseValidationFactory(
+    [["204", z.void()]],
+    undefined,
+  )
+
+  router.post(
+    "createTodoListItem",
+    "/list/:listId/items",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          createTodoListItemParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          createTodoListItemBodySchema,
+          ctx.request.body,
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .createTodoListItem(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = createTodoListItemResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
 
   return router
 }

@@ -16,11 +16,25 @@ export type t_TodoList = {
   updated: string
 }
 
+export type t_CreateTodoListItemBodySchema = {
+  completedAt?: string
+  content: string
+  id: string
+}
+
+export type t_CreateTodoListItemParamSchema = {
+  listId: string
+}
+
 export type t_DeleteTodoListByIdParamSchema = {
   listId: string
 }
 
 export type t_GetTodoListByIdParamSchema = {
+  listId: string
+}
+
+export type t_GetTodoListItemsParamSchema = {
   listId: string
 }
 

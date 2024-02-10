@@ -93,4 +93,56 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
   }
+
+  async getTodoListItems(
+    p: {
+      listId: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<
+    AxiosResponse<{
+      completedAt?: string
+      content: string
+      createdAt: string
+      id: string
+    }>
+  > {
+    const url = `/list/${p["listId"]}/items`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "GET",
+      timeout,
+      ...(opts ?? {}),
+    })
+  }
+
+  async createTodoListItem(
+    p: {
+      listId: string
+      requestBody: {
+        completedAt?: string
+        content: string
+        id: string
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/list/${p["listId"]}/items`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "POST",
+      headers,
+      data: body,
+      timeout,
+      ...(opts ?? {}),
+    })
+  }
 }
