@@ -11,10 +11,10 @@
   },
   "dependencies": {
     "@nahkies/typescript-fetch-runtime": "*",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.4.1"
   },
   "devDependencies": {
-    "@types/node": "^20.10.6",
-    "typescript": "~5.2.2"
+    "@types/node": "^20.11.17",
+    "typescript": "~5.3.3"
   }
 }
