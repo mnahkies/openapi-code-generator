@@ -35,15 +35,13 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
           .filter(({statusType}) => statusType.startsWith("2"))
           .map(({responseType}) => `AxiosResponse<${responseType}>`),
       ) ||
-      (builder.returnType()[0] &&
-        `AxiosResponse<${builder.returnType()[0].responseType}>`) ||
       union(
         builder
           .returnType()
           .filter((it) => it.isDefault)
           .map(({responseType}) => `AxiosResponse<${responseType}>`),
       ) ||
-      "never"
+      "AxiosResponse<void>"
 
     const responseSchema = this.enableRuntimeResponseValidation
       ? builder.responseSchemas().specific[0] ??
