@@ -19,8 +19,8 @@ export function titleCase(str: string): string {
   return _.capitalize(camel[0]) + camel.slice(1)
 }
 
-export function contentTypeToIdentifier(contentType: string): string {
-  const [type, subType] = contentType.split("/").map((it) => {
+export function mediaTypeToIdentifier(mediaType: string): string {
+  const [type, subType] = mediaType.split("/").map((it) => {
     return _.camelCase(it.replaceAll(/[-.+]/g, " "))
   })
 

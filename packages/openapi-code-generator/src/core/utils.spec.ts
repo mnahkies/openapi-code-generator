@@ -3,7 +3,7 @@
  */
 
 import {describe, expect, it} from "@jest/globals"
-import {contentTypeToIdentifier, titleCase} from "./utils"
+import {mediaTypeToIdentifier, titleCase} from "./utils"
 
 describe("core/utils", () => {
   describe("#titleCase", () => {
@@ -16,7 +16,7 @@ describe("core/utils", () => {
     })
   })
 
-  describe("#contentTypeToIdentifier", () => {
+  describe("#mediaTypeToIdentifier", () => {
     // https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types ¯\_(ツ)_/¯
     it.each([
       ["audio/aac", "AudioAac"],
@@ -114,7 +114,7 @@ describe("core/utils", () => {
       ["video/3gpp2", "Video3Gpp2"],
       ["application/x-7z-compressed", "ApplicationX7ZCompressed"],
     ])("%s -> %s", async (contentType, expected) => {
-      expect(contentTypeToIdentifier(contentType)).toBe(expected)
+      expect(mediaTypeToIdentifier(contentType)).toBe(expected)
     })
   })
 })

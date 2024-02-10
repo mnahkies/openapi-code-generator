@@ -10,7 +10,7 @@ import {
 } from "./openapi-types"
 import {OpenapiLoader} from "./openapi-loader"
 import {generationLib} from "./generation-lib"
-import {isHttpMethod} from "./utils"
+import {mediaTypeToIdentifier, isHttpMethod} from "./utils"
 import {
   IRModel,
   IRModelArray,
@@ -22,7 +22,6 @@ import {
   IROperation,
   IRParameter,
   IRRef,
-  IRRequestBody,
   IRResponse,
   MaybeIRModel,
 } from "./openapi-types-normalized"
@@ -72,7 +71,7 @@ export class Input {
           operationId,
           tags: definition.tags ?? [],
           requestBody: this.normalizeRequestBodyObject(operationId, definition.requestBody),
-          responses: this.normalizeResponsesObject(definition.responses),
+          responses: this.normalizeResponsesObject(operationId, definition.responses),
           summary: definition.summary,
           description: definition.description,
           deprecated: definition.deprecated ?? false,
@@ -120,10 +119,16 @@ export class Input {
       return undefined
     }
 
-    return normalizeRequestBodyObject(this.loader.requestBody(operationId, requestBody))
+    requestBody = this.loader.requestBody(requestBody)
+
+    return {
+      description: requestBody.description,
+      required: requestBody.required ?? true,
+      content: this.normalizeMediaTypes(requestBody.content, operationId, "RequestBody"),
+    }
   }
 
-  private normalizeResponsesObject(responses?: Responses): {[statusCode: string]: IRResponse} | undefined {
+  private normalizeResponsesObject(operationId: string, responses?: Responses): {[statusCode: string]: IRResponse} | undefined {
     if (!responses) {
       return undefined
     }
@@ -136,7 +141,7 @@ export class Input {
         {
           headers: {},
           description: response.description,
-          content: normalizeMediaType(response.content),
+          content: this.normalizeMediaTypes(response.content, operationId, `${statusCode}Response`),
         },
       ]
     }))
@@ -155,29 +160,36 @@ export class Input {
 
     return _.camelCase([method, ...route.split("/")].join("-"))
   }
-}
 
-function normalizeRequestBodyObject(requestBodyObject: RequestBody): IRRequestBody | undefined {
-  return {
-    description: requestBodyObject.description,
-    required: requestBodyObject.required ?? true,
-    content: normalizeMediaType(requestBodyObject.content),
+  private normalizeMediaTypes(mediaTypes:{[contentType: string]: MediaType} = {}, operationId: string, suffix: "RequestBody" | `${string}Response`){
+    return Object.fromEntries(Object.entries(mediaTypes)
+      // Sometimes people pass `{}` as the MediaType for 204 responses, filter these out
+      .filter(([, mediaType]) => Boolean(mediaType.schema))
+      .map(([contentType, mediaType]) => {
+
+        // TODO: omit media type when only one possible?
+        const syntheticName = `${operationId}${mediaTypeToIdentifier(contentType)}${suffix}`
+        const normalizedSchema = (() => {
+          const result = normalizeSchemaObject(mediaType.schema)
+
+          if (!isRef(result)) {
+            if (result.type === "object") {
+              return this.loader.addVirtualType(operationId, syntheticName, result)
+            }
+          }
+
+          return result
+        })()
+
+        return [
+          contentType,
+          {
+            schema: normalizedSchema,
+            encoding: mediaType.encoding,
+          },
+        ]
+      }))
   }
-}
-
-function normalizeMediaType(mediaTypes: {[contentType: string]: MediaType} = {}) {
-  return Object.fromEntries(Object.entries(mediaTypes)
-    // Sometimes people pass `{}` as the MediaType for 204 responses, filter these out
-    .filter(([, mediaType]) => Boolean(mediaType.schema))
-    .map(([contentType, mediaType]) => {
-      return [
-        contentType,
-        {
-          schema: normalizeSchemaObject(mediaType.schema),
-          encoding: mediaType.encoding,
-        },
-      ]
-    }))
 }
 
 function normalizeParameterObject(parameterObject: Parameter): IRParameter {
