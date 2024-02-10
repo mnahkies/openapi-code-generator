@@ -47,7 +47,7 @@ const program = new Command()
   .addOption(
     new Option(
       "--extract-inline-schemas",
-      "Generate names and extract types/schemas for inline schemas",
+      "(experimental) Generate names and extract types/schemas for inline schemas",
     )
       .env("OPENAPI_EXTRACT_INLINE_SCHEMAS")
       .default(false),
