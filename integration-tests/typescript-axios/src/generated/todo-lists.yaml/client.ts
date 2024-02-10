@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 import { t_CreateUpdateTodoList, t_Error, t_TodoList } from "./models"
-import { s_Error, s_TodoList } from "./schemas"
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
@@ -27,15 +26,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/list`
     const query = this._query({ created: p["created"], status: p["status"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return { ...res, data: z.array(s_TodoList).parse(res.data) }
   }
 
   async getTodoListById(
@@ -47,15 +44,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_TodoList>> {
     const url = `/list/${p["listId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return { ...res, data: s_TodoList.parse(res.data) }
   }
 
   async updateTodoListById(
@@ -70,7 +65,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -79,8 +74,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return { ...res, data: s_TodoList.parse(res.data) }
   }
 
   async deleteTodoListById(
@@ -92,15 +85,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/list/${p["listId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return { ...res, data: z.undefined().parse(res.data) }
   }
 
   async getTodoListItems(
@@ -119,25 +110,13 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/list/${p["listId"]}/items`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return {
-      ...res,
-      data: z
-        .object({
-          id: z.string(),
-          content: z.string(),
-          createdAt: z.string().datetime({ offset: true }),
-          completedAt: z.string().datetime({ offset: true }).optional(),
-        })
-        .parse(res.data),
-    }
   }
 
   async createTodoListItem(
@@ -156,7 +135,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -165,7 +144,5 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return { ...res, data: z.undefined().parse(res.data) }
   }
 }
