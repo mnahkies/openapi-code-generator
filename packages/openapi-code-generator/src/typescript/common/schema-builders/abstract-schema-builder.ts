@@ -78,6 +78,10 @@ export abstract class AbstractSchemaBuilder {
       next = generate()
     }
 
+    if (next.length === 0) {
+      return ""
+    }
+
     this.importHelpers(imports)
 
     return `${imports.toString()}\n\n${next.join("\n\n")}`

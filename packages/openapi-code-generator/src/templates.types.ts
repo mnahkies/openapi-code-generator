@@ -5,6 +5,7 @@ export interface OpenapiGeneratorConfig {
   dest: string,
   input: Input,
   schemaBuilder: SchemaBuilderType
+  enableRuntimeResponseValidation: boolean
 }
 
 export interface OpenapiGenerator {

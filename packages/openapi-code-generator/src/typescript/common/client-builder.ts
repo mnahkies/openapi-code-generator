@@ -18,6 +18,7 @@ export abstract class TypescriptClientBuilder {
     protected readonly imports: ImportBuilder,
     protected readonly models: TypeBuilder,
     protected readonly schemaBuilder: SchemaBuilder,
+    protected readonly enableRuntimeResponseValidation: boolean,
   ) {
     this.buildImports(imports)
   }

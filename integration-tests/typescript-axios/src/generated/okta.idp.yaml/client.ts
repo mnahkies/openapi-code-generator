@@ -20,20 +20,6 @@ import {
   t_UpdateAppAuthenticatorEnrollmentRequest,
 } from "./models"
 import {
-  s_AppAuthenticatorEnrollment,
-  s_AppAuthenticatorMethodCapabilities,
-  s_Email,
-  s_Error,
-  s_KeyEC,
-  s_KeyObject,
-  s_KeyRSA,
-  s_Phone,
-  s_Profile,
-  s_PushNotificationChallenge,
-  s_Schema,
-  s_UpdateAppAuthenticatorEnrollmentRequest,
-} from "./schemas"
-import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
 } from "@nahkies/typescript-axios-runtime/main"
@@ -66,7 +52,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_AppAuthenticatorEnrollment.parse(res.data) }
+    return res
   }
 
   async verifyAppAuthenticatorPushNotificationChallenge(
@@ -91,7 +77,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async updateAppAuthenticatorEnrollment(
@@ -116,10 +102,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: s_UpdateAppAuthenticatorEnrollmentRequest.parse(res.data),
-    }
+    return res
   }
 
   async deleteAppAuthenticatorEnrollment(
@@ -139,7 +122,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async listAppAuthenticatorPendingPushNotificationChallenges(
@@ -159,10 +142,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.array(s_PushNotificationChallenge).parse(res.data),
-    }
+    return res
   }
 
   async listEmails(
@@ -179,7 +159,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_Email).parse(res.data) }
+    return res
   }
 
   async createEmail(
@@ -210,7 +190,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_Email.parse(res.data) }
+    return res
   }
 
   async getEmail(
@@ -230,7 +210,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_Email.parse(res.data) }
+    return res
   }
 
   async deleteEmail(
@@ -250,7 +230,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async sendEmailChallenge(
@@ -300,27 +280,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          id: z.string(),
-          status: z.string(),
-          expiresAt: z.string(),
-          profile: z.object({ email: z.string() }),
-          _links: z.object({
-            verify: z.object({
-              href: z.string(),
-              hints: z.object({ allow: z.array(z.string()) }),
-            }),
-            poll: z.object({
-              href: z.string(),
-              hints: z.object({ allow: z.array(z.string()) }),
-            }),
-          }),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async pollChallengeForEmailMagicLink(
@@ -364,27 +324,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          id: z.string(),
-          status: z.string(),
-          expiresAt: z.string(),
-          profile: z.object({ email: z.string() }),
-          _links: z.object({
-            verify: z.object({
-              href: z.string(),
-              hints: z.object({ allow: z.array(z.string()) }),
-            }),
-            poll: z.object({
-              href: z.string(),
-              hints: z.object({ allow: z.array(z.string()) }),
-            }),
-          }),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async verifyEmailOtp(
@@ -412,7 +352,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async listPhones(
@@ -429,7 +369,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_Phone).parse(res.data) }
+    return res
   }
 
   async createPhone(
@@ -459,7 +399,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_Phone.parse(res.data) }
+    return res
   }
 
   async getPhone(
@@ -479,7 +419,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_Phone.parse(res.data) }
+    return res
   }
 
   async deletePhone(
@@ -499,7 +439,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async sendPhoneChallenge(
@@ -538,23 +478,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          _links: z
-            .object({
-              verify: z
-                .object({
-                  href: z.string(),
-                  hints: z.object({ allow: z.array(z.string()) }),
-                })
-                .optional(),
-            })
-            .optional(),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async verifyPhoneChallenge(
@@ -581,7 +505,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async getProfile(
@@ -598,7 +522,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_Profile.parse(res.data) }
+    return res
   }
 
   async replaceProfile(
@@ -624,7 +548,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_Profile.parse(res.data) }
+    return res
   }
 
   async getProfileSchema(
@@ -641,6 +565,6 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_Schema.parse(res.data) }
+    return res
   }
 }

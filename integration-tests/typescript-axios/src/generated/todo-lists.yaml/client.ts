@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 import { t_CreateUpdateTodoList, t_Error, t_TodoList } from "./models"
-import { s_Error, s_TodoList } from "./schemas"
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
@@ -35,7 +34,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_TodoList).parse(res.data) }
+    return res
   }
 
   async getTodoListById(
@@ -55,7 +54,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_TodoList.parse(res.data) }
+    return res
   }
 
   async updateTodoListById(
@@ -80,7 +79,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_TodoList.parse(res.data) }
+    return res
   }
 
   async deleteTodoListById(
@@ -100,7 +99,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async getTodoListItems(
@@ -127,17 +126,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          id: z.string(),
-          content: z.string(),
-          createdAt: z.string().datetime({ offset: true }),
-          completedAt: z.string().datetime({ offset: true }).optional(),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async createTodoListItem(
@@ -166,6 +155,6 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 }

@@ -46,38 +46,6 @@ import {
   t_UserInfo,
 } from "./models"
 import {
-  s_ApplicationType,
-  s_BackchannelAuthorizeResponse,
-  s_Claim,
-  s_Client,
-  s_CodeChallengeMethod,
-  s_DeviceAuthorizeResponse,
-  s_EndpointAuthMethod,
-  s_Error,
-  s_GrantType,
-  s_IntrospectionResponse,
-  s_JsonWebKey,
-  s_JsonWebKeyStatus,
-  s_JsonWebKeyType,
-  s_JsonWebKeyUse,
-  s_OAuthError,
-  s_OAuthKeys,
-  s_OAuthMetadata,
-  s_OidcMetadata,
-  s_ParResponse,
-  s_ResponseMode,
-  s_ResponseType,
-  s_ResponseTypesSupported,
-  s_Scope,
-  s_SigningAlgorithm,
-  s_SubjectType,
-  s_TokenDeliveryMode,
-  s_TokenResponse,
-  s_TokenResponseTokenType,
-  s_TokenType,
-  s_UserInfo,
-} from "./schemas"
-import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
 } from "@nahkies/typescript-axios-runtime/main"
@@ -107,7 +75,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_OidcMetadata.parse(res.data) }
+    return res
   }
 
   async authorize(
@@ -168,7 +136,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_Error.parse(res.data) }
+    return res
   }
 
   async bcAuthorize(
@@ -194,7 +162,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_BackchannelAuthorizeResponse.parse(res.data) }
+    return res
   }
 
   async listClients(
@@ -221,7 +189,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_Client).parse(res.data) }
+    return res
   }
 
   async createClient(
@@ -245,7 +213,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_Client.parse(res.data) }
+    return res
   }
 
   async getClient(
@@ -265,7 +233,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_Client.parse(res.data) }
+    return res
   }
 
   async replaceClient(
@@ -290,7 +258,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_Client.parse(res.data) }
+    return res
   }
 
   async deleteClient(
@@ -310,7 +278,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async generateNewClientSecret(
@@ -330,7 +298,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_Client.parse(res.data) }
+    return res
   }
 
   async deviceAuthorize(
@@ -356,7 +324,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_DeviceAuthorizeResponse.parse(res.data) }
+    return res
   }
 
   async introspect(
@@ -380,7 +348,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_IntrospectionResponse.parse(res.data) }
+    return res
   }
 
   async oauthKeys(
@@ -401,7 +369,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_OAuthKeys.parse(res.data) }
+    return res
   }
 
   async logout(
@@ -428,7 +396,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_Error.parse(res.data) }
+    return res
   }
 
   async par(
@@ -452,7 +420,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_ParResponse.parse(res.data) }
+    return res
   }
 
   async revoke(
@@ -476,7 +444,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async token(
@@ -502,7 +470,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_TokenResponse.parse(res.data) }
+    return res
   }
 
   async userinfo(
@@ -519,7 +487,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_UserInfo.parse(res.data) }
+    return res
   }
 
   async getWellKnownOAuthConfigurationCustomAs(
@@ -541,7 +509,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_OAuthMetadata.parse(res.data) }
+    return res
   }
 
   async getWellKnownOpenIdConfigurationCustomAs(
@@ -563,7 +531,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_OidcMetadata.parse(res.data) }
+    return res
   }
 
   async authorizeCustomAs(
@@ -625,7 +593,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_Error.parse(res.data) }
+    return res
   }
 
   async bcAuthorizeCustomAs(
@@ -652,7 +620,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_BackchannelAuthorizeResponse.parse(res.data) }
+    return res
   }
 
   async deviceAuthorizeCustomAs(
@@ -679,7 +647,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_DeviceAuthorizeResponse.parse(res.data) }
+    return res
   }
 
   async introspectCustomAs(
@@ -704,7 +672,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_IntrospectionResponse.parse(res.data) }
+    return res
   }
 
   async oauthKeysCustomAs(
@@ -724,7 +692,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_OAuthKeys.parse(res.data) }
+    return res
   }
 
   async logoutCustomAs(
@@ -752,7 +720,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_Error.parse(res.data) }
+    return res
   }
 
   async parCustomAs(
@@ -777,7 +745,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_ParResponse.parse(res.data) }
+    return res
   }
 
   async revokeCustomAs(
@@ -802,7 +770,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async tokenCustomAs(
@@ -829,7 +797,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_TokenResponse.parse(res.data) }
+    return res
   }
 
   async userinfoCustomAs(
@@ -849,6 +817,6 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_UserInfo.parse(res.data) }
+    return res
   }
 }

@@ -45,12 +45,13 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
       ) ||
       "never"
 
-    const responseSchema =
-      builder.responseSchemas().specific[0] ??
-      builder.responseSchemas().defaultResponse
+    const responseSchema = this.enableRuntimeResponseValidation
+      ? builder.responseSchemas().specific[0] ??
+        builder.responseSchemas().defaultResponse
+      : null
 
     const body = `
-const url = \`${routeToTemplateString(route)}\`
+    const url = \`${routeToTemplateString(route)}\`
     ${[
       headers ? `const headers = this._headers(${headers})` : "",
       queryString ? `const query = this._query({ ${queryString} })` : "",
@@ -71,7 +72,11 @@ const url = \`${routeToTemplateString(route)}\`
       .filter(Boolean)
       .join(",\n")}})
 
-   return {...res, data: ${responseSchema.schema}.parse(res.data)}
+    return ${
+      responseSchema
+        ? `{...res, data: ${responseSchema.schema}.parse(res.data)`
+        : "res"
+    }
 `
     return asyncMethod({
       name: operationId,

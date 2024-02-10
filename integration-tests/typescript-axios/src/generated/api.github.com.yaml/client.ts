@@ -416,399 +416,6 @@ import {
   t_workflow_usage,
 } from "./models"
 import {
-  s_actions_billing_usage,
-  s_actions_cache_list,
-  s_actions_cache_usage_by_repository,
-  s_actions_cache_usage_org_enterprise,
-  s_actions_can_approve_pull_request_reviews,
-  s_actions_default_workflow_permissions,
-  s_actions_enabled,
-  s_actions_get_default_workflow_permissions,
-  s_actions_organization_permissions,
-  s_actions_public_key,
-  s_actions_repository_permissions,
-  s_actions_secret,
-  s_actions_variable,
-  s_actions_workflow_access_to_repository,
-  s_activity,
-  s_actor,
-  s_added_to_project_issue_event,
-  s_alert_auto_dismissed_at,
-  s_alert_created_at,
-  s_alert_dismissed_at,
-  s_alert_fixed_at,
-  s_alert_html_url,
-  s_alert_instances_url,
-  s_alert_number,
-  s_alert_updated_at,
-  s_alert_url,
-  s_allowed_actions,
-  s_api_overview,
-  s_app_permissions,
-  s_artifact,
-  s_assigned_issue_event,
-  s_authentication_token,
-  s_author_association,
-  s_authorization,
-  s_auto_merge,
-  s_autolink,
-  s_base_gist,
-  s_basic_error,
-  s_blob,
-  s_branch_protection,
-  s_branch_restriction_policy,
-  s_branch_short,
-  s_branch_with_protection,
-  s_check_annotation,
-  s_check_automated_security_fixes,
-  s_check_run,
-  s_check_suite,
-  s_check_suite_preference,
-  s_classroom,
-  s_classroom_accepted_assignment,
-  s_classroom_assignment,
-  s_classroom_assignment_grade,
-  s_clone_traffic,
-  s_code_frequency_stat,
-  s_code_of_conduct,
-  s_code_of_conduct_simple,
-  s_code_scanning_alert,
-  s_code_scanning_alert_classification,
-  s_code_scanning_alert_dismissed_comment,
-  s_code_scanning_alert_dismissed_reason,
-  s_code_scanning_alert_environment,
-  s_code_scanning_alert_instance,
-  s_code_scanning_alert_items,
-  s_code_scanning_alert_location,
-  s_code_scanning_alert_rule,
-  s_code_scanning_alert_rule_summary,
-  s_code_scanning_alert_state,
-  s_code_scanning_analysis,
-  s_code_scanning_analysis_analysis_key,
-  s_code_scanning_analysis_category,
-  s_code_scanning_analysis_commit_sha,
-  s_code_scanning_analysis_created_at,
-  s_code_scanning_analysis_deletion,
-  s_code_scanning_analysis_environment,
-  s_code_scanning_analysis_sarif_id,
-  s_code_scanning_analysis_tool,
-  s_code_scanning_analysis_tool_guid,
-  s_code_scanning_analysis_tool_name,
-  s_code_scanning_analysis_tool_version,
-  s_code_scanning_analysis_url,
-  s_code_scanning_codeql_database,
-  s_code_scanning_default_setup,
-  s_code_scanning_default_setup_update_response,
-  s_code_scanning_organization_alert_items,
-  s_code_scanning_ref,
-  s_code_scanning_sarifs_receipt,
-  s_code_scanning_sarifs_status,
-  s_code_search_result_item,
-  s_codeowners_errors,
-  s_codespace,
-  s_codespace_export_details,
-  s_codespace_machine,
-  s_codespace_with_full_repository,
-  s_codespaces_org_secret,
-  s_codespaces_public_key,
-  s_codespaces_secret,
-  s_codespaces_user_public_key,
-  s_collaborator,
-  s_combined_billing_usage,
-  s_combined_commit_status,
-  s_commit,
-  s_commit_activity,
-  s_commit_comment,
-  s_commit_comparison,
-  s_commit_search_result_item,
-  s_community_profile,
-  s_content_directory,
-  s_content_file,
-  s_content_submodule,
-  s_content_symlink,
-  s_content_traffic,
-  s_contributor,
-  s_contributor_activity,
-  s_converted_note_to_issue_issue_event,
-  s_copilot_organization_details,
-  s_copilot_seat_breakdown,
-  s_copilot_seat_details,
-  s_custom_deployment_rule_app,
-  s_demilestoned_issue_event,
-  s_dependabot_alert,
-  s_dependabot_alert_package,
-  s_dependabot_alert_security_advisory,
-  s_dependabot_alert_security_vulnerability,
-  s_dependabot_alert_with_repository,
-  s_dependabot_public_key,
-  s_dependabot_secret,
-  s_dependency_graph_diff,
-  s_dependency_graph_spdx_sbom,
-  s_deploy_key,
-  s_deployment,
-  s_deployment_branch_policy,
-  s_deployment_branch_policy_settings,
-  s_deployment_protection_rule,
-  s_deployment_reviewer_type,
-  s_deployment_simple,
-  s_deployment_status,
-  s_diff_entry,
-  s_email,
-  s_empty_object,
-  s_enabled_repositories,
-  s_enterprise,
-  s_environment,
-  s_environment_approvals,
-  s_event,
-  s_feed,
-  s_file_commit,
-  s_full_repository,
-  s_gist_comment,
-  s_gist_commit,
-  s_gist_history,
-  s_gist_simple,
-  s_git_commit,
-  s_git_ref,
-  s_git_tag,
-  s_git_tree,
-  s_gitignore_template,
-  s_global_advisory,
-  s_gpg_key,
-  s_hook,
-  s_hook_delivery,
-  s_hook_delivery_item,
-  s_hook_response,
-  s_hovercard,
-  s_import,
-  s_installation,
-  s_installation_token,
-  s_integration,
-  s_integration_installation_request,
-  s_interaction_group,
-  s_interaction_limit_response,
-  s_issue,
-  s_issue_comment,
-  s_issue_event,
-  s_issue_event_dismissed_review,
-  s_issue_event_for_issue,
-  s_issue_event_label,
-  s_issue_event_milestone,
-  s_issue_event_project_card,
-  s_issue_event_rename,
-  s_issue_search_result_item,
-  s_job,
-  s_key,
-  s_key_simple,
-  s_label,
-  s_label_search_result_item,
-  s_labeled_issue_event,
-  s_language,
-  s_license,
-  s_license_content,
-  s_license_simple,
-  s_link,
-  s_link_with_type,
-  s_locked_issue_event,
-  s_marketplace_account,
-  s_marketplace_listing_plan,
-  s_marketplace_purchase,
-  s_merged_upstream,
-  s_migration,
-  s_milestone,
-  s_milestoned_issue_event,
-  s_minimal_repository,
-  s_moved_column_in_project_issue_event,
-  s_nullable_alert_updated_at,
-  s_nullable_code_of_conduct_simple,
-  s_nullable_codespace_machine,
-  s_nullable_collaborator,
-  s_nullable_community_health_file,
-  s_nullable_git_user,
-  s_nullable_integration,
-  s_nullable_issue,
-  s_nullable_license_simple,
-  s_nullable_milestone,
-  s_nullable_minimal_repository,
-  s_nullable_repository,
-  s_nullable_scoped_installation,
-  s_nullable_simple_commit,
-  s_nullable_simple_user,
-  s_nullable_team_simple,
-  s_oidc_custom_sub,
-  s_oidc_custom_sub_repo,
-  s_org_hook,
-  s_org_membership,
-  s_org_ruleset_conditions,
-  s_organization_actions_secret,
-  s_organization_actions_variable,
-  s_organization_dependabot_secret,
-  s_organization_full,
-  s_organization_invitation,
-  s_organization_programmatic_access_grant,
-  s_organization_programmatic_access_grant_request,
-  s_organization_secret_scanning_alert,
-  s_organization_simple,
-  s_package,
-  s_package_version,
-  s_packages_billing_usage,
-  s_page,
-  s_page_build,
-  s_page_build_status,
-  s_page_deployment,
-  s_pages_health_check,
-  s_pages_https_certificate,
-  s_pages_source_hash,
-  s_participation_stats,
-  s_pending_deployment,
-  s_porter_author,
-  s_porter_large_file,
-  s_private_user,
-  s_project,
-  s_project_card,
-  s_project_collaborator_permission,
-  s_project_column,
-  s_protected_branch,
-  s_protected_branch_admin_enforced,
-  s_protected_branch_pull_request_review,
-  s_protected_branch_required_status_check,
-  s_public_user,
-  s_pull_request,
-  s_pull_request_merge_result,
-  s_pull_request_minimal,
-  s_pull_request_review,
-  s_pull_request_review_comment,
-  s_pull_request_review_request,
-  s_pull_request_simple,
-  s_rate_limit,
-  s_rate_limit_overview,
-  s_reaction,
-  s_reaction_rollup,
-  s_referenced_workflow,
-  s_referrer_traffic,
-  s_release,
-  s_release_asset,
-  s_release_notes_content,
-  s_removed_from_project_issue_event,
-  s_renamed_issue_event,
-  s_repo_codespaces_secret,
-  s_repo_search_result_item,
-  s_repository,
-  s_repository_advisory,
-  s_repository_advisory_credit,
-  s_repository_advisory_vulnerability,
-  s_repository_collaborator_permission,
-  s_repository_invitation,
-  s_repository_rule,
-  s_repository_rule_branch_name_pattern,
-  s_repository_rule_commit_author_email_pattern,
-  s_repository_rule_commit_message_pattern,
-  s_repository_rule_committer_email_pattern,
-  s_repository_rule_creation,
-  s_repository_rule_deletion,
-  s_repository_rule_detailed,
-  s_repository_rule_enforcement,
-  s_repository_rule_non_fast_forward,
-  s_repository_rule_params_status_check_configuration,
-  s_repository_rule_pull_request,
-  s_repository_rule_required_deployments,
-  s_repository_rule_required_linear_history,
-  s_repository_rule_required_signatures,
-  s_repository_rule_required_status_checks,
-  s_repository_rule_ruleset_info,
-  s_repository_rule_tag_name_pattern,
-  s_repository_rule_update,
-  s_repository_ruleset,
-  s_repository_ruleset_bypass_actor,
-  s_repository_ruleset_conditions,
-  s_repository_ruleset_conditions_repository_id_target,
-  s_repository_ruleset_conditions_repository_name_target,
-  s_repository_subscription,
-  s_review_comment,
-  s_review_dismissed_issue_event,
-  s_review_request_removed_issue_event,
-  s_review_requested_issue_event,
-  s_root,
-  s_runner,
-  s_runner_application,
-  s_runner_label,
-  s_scim_error,
-  s_search_result_text_matches,
-  s_secret_scanning_alert,
-  s_secret_scanning_alert_resolution,
-  s_secret_scanning_alert_state,
-  s_secret_scanning_location,
-  s_secret_scanning_location_commit,
-  s_secret_scanning_location_issue_body,
-  s_secret_scanning_location_issue_comment,
-  s_secret_scanning_location_issue_title,
-  s_security_advisory_credit_types,
-  s_security_advisory_ecosystems,
-  s_security_and_analysis,
-  s_selected_actions,
-  s_selected_actions_url,
-  s_short_blob,
-  s_short_branch,
-  s_simple_classroom,
-  s_simple_classroom_assignment,
-  s_simple_classroom_organization,
-  s_simple_classroom_repository,
-  s_simple_classroom_user,
-  s_simple_commit,
-  s_simple_commit_status,
-  s_simple_repository,
-  s_simple_user,
-  s_social_account,
-  s_ssh_signing_key,
-  s_stargazer,
-  s_starred_repository,
-  s_state_change_issue_event,
-  s_status,
-  s_status_check_policy,
-  s_tag,
-  s_tag_protection,
-  s_team,
-  s_team_discussion,
-  s_team_discussion_comment,
-  s_team_full,
-  s_team_membership,
-  s_team_organization,
-  s_team_project,
-  s_team_repository,
-  s_team_simple,
-  s_thread,
-  s_thread_subscription,
-  s_timeline_assigned_issue_event,
-  s_timeline_comment_event,
-  s_timeline_commit_commented_event,
-  s_timeline_committed_event,
-  s_timeline_cross_referenced_event,
-  s_timeline_issue_events,
-  s_timeline_line_commented_event,
-  s_timeline_reviewed_event,
-  s_timeline_unassigned_issue_event,
-  s_topic,
-  s_topic_search_result_item,
-  s_traffic,
-  s_unassigned_issue_event,
-  s_unlabeled_issue_event,
-  s_user_marketplace_purchase,
-  s_user_search_result_item,
-  s_validation_error,
-  s_validation_error_simple,
-  s_verification,
-  s_view_traffic,
-  s_wait_timer,
-  s_webhook_config,
-  s_webhook_config_content_type,
-  s_webhook_config_insecure_ssl,
-  s_webhook_config_secret,
-  s_webhook_config_url,
-  s_workflow,
-  s_workflow_run,
-  s_workflow_run_usage,
-  s_workflow_usage,
-} from "./schemas"
-import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
 } from "@nahkies/typescript-axios-runtime/main"
@@ -834,7 +441,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_root.parse(res.data) }
+    return res
   }
 
   async securityAdvisoriesListGlobalAdvisories(
@@ -899,7 +506,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_global_advisory).parse(res.data) }
+    return res
   }
 
   async securityAdvisoriesGetGlobalAdvisory(
@@ -919,7 +526,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_global_advisory.parse(res.data) }
+    return res
   }
 
   async appsGetAuthenticated(
@@ -936,7 +543,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_integration.parse(res.data) }
+    return res
   }
 
   async appsCreateFromManifest(
@@ -971,19 +578,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: s_integration
-        .merge(
-          z.object({
-            client_id: z.string(),
-            client_secret: z.string(),
-            webhook_secret: z.string().nullable(),
-            pem: z.string(),
-          }),
-        )
-        .parse(res.data),
-    }
+    return res
   }
 
   async appsGetWebhookConfigForApp(
@@ -1000,7 +595,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_webhook_config.parse(res.data) }
+    return res
   }
 
   async appsUpdateWebhookConfigForApp(
@@ -1029,7 +624,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_webhook_config.parse(res.data) }
+    return res
   }
 
   async appsListWebhookDeliveries(
@@ -1056,7 +651,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_hook_delivery_item).parse(res.data) }
+    return res
   }
 
   async appsGetWebhookDelivery(
@@ -1076,7 +671,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_hook_delivery.parse(res.data) }
+    return res
   }
 
   async appsRedeliverWebhookDelivery(
@@ -1096,7 +691,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.object({}).parse(res.data) }
+    return res
   }
 
   async appsListInstallationRequestsForAuthenticatedApp(
@@ -1118,10 +713,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.array(s_integration_installation_request).parse(res.data),
-    }
+    return res
   }
 
   async appsListInstallations(
@@ -1150,7 +742,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_installation).parse(res.data) }
+    return res
   }
 
   async appsGetInstallation(
@@ -1170,7 +762,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_installation.parse(res.data) }
+    return res
   }
 
   async appsDeleteInstallation(
@@ -1190,7 +782,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async appsCreateInstallationAccessToken(
@@ -1219,7 +811,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_installation_token.parse(res.data) }
+    return res
   }
 
   async appsSuspendInstallation(
@@ -1239,7 +831,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async appsUnsuspendInstallation(
@@ -1259,7 +851,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async appsDeleteAuthorization(
@@ -1286,7 +878,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async appsCheckToken(
@@ -1313,7 +905,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_authorization.parse(res.data) }
+    return res
   }
 
   async appsResetToken(
@@ -1340,7 +932,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_authorization.parse(res.data) }
+    return res
   }
 
   async appsDeleteToken(
@@ -1367,7 +959,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async appsScopeToken(
@@ -1399,7 +991,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_authorization.parse(res.data) }
+    return res
   }
 
   async appsGetBySlug(
@@ -1419,7 +1011,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_integration.parse(res.data) }
+    return res
   }
 
   async classroomGetAnAssignment(
@@ -1439,7 +1031,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_classroom_assignment.parse(res.data) }
+    return res
   }
 
   async classroomListAcceptedAssigmentsForAnAssignment(
@@ -1462,10 +1054,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.array(s_classroom_accepted_assignment).parse(res.data),
-    }
+    return res
   }
 
   async classroomGetAssignmentGrades(
@@ -1485,10 +1074,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.array(s_classroom_assignment_grade).parse(res.data),
-    }
+    return res
   }
 
   async classroomListClassrooms(
@@ -1510,7 +1096,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_simple_classroom).parse(res.data) }
+    return res
   }
 
   async classroomGetAClassroom(
@@ -1530,7 +1116,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_classroom.parse(res.data) }
+    return res
   }
 
   async classroomListAssignmentsForAClassroom(
@@ -1553,10 +1139,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.array(s_simple_classroom_assignment).parse(res.data),
-    }
+    return res
   }
 
   async codesOfConductGetAllCodesOfConduct(
@@ -1573,7 +1156,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_code_of_conduct).parse(res.data) }
+    return res
   }
 
   async codesOfConductGetConductCode(
@@ -1593,7 +1176,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_code_of_conduct.parse(res.data) }
+    return res
   }
 
   async emojisGet(
@@ -1614,7 +1197,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.object({}).parse(res.data) }
+    return res
   }
 
   async dependabotListAlertsForEnterprise(
@@ -1660,10 +1243,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.array(s_dependabot_alert_with_repository).parse(res.data),
-    }
+    return res
   }
 
   async secretScanningListAlertsForEnterprise(
@@ -1701,10 +1281,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.array(s_organization_secret_scanning_alert).parse(res.data),
-    }
+    return res
   }
 
   async activityListPublicEvents(
@@ -1726,7 +1303,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_event).parse(res.data) }
+    return res
   }
 
   async activityGetFeeds(
@@ -1743,7 +1320,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_feed.parse(res.data) }
+    return res
   }
 
   async gistsList(
@@ -1770,7 +1347,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_base_gist).parse(res.data) }
+    return res
   }
 
   async gistsCreate(
@@ -1802,7 +1379,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_gist_simple.parse(res.data) }
+    return res
   }
 
   async gistsListPublic(
@@ -1829,7 +1406,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_base_gist).parse(res.data) }
+    return res
   }
 
   async gistsListStarred(
@@ -1856,7 +1433,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_base_gist).parse(res.data) }
+    return res
   }
 
   async gistsGet(
@@ -1876,7 +1453,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_gist_simple.parse(res.data) }
+    return res
   }
 
   async gistsUpdate(
@@ -1909,7 +1486,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_gist_simple.parse(res.data) }
+    return res
   }
 
   async gistsDelete(
@@ -1929,7 +1506,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async gistsListComments(
@@ -1952,7 +1529,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_gist_comment).parse(res.data) }
+    return res
   }
 
   async gistsCreateComment(
@@ -1979,7 +1556,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_gist_comment.parse(res.data) }
+    return res
   }
 
   async gistsGetComment(
@@ -2000,7 +1577,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_gist_comment.parse(res.data) }
+    return res
   }
 
   async gistsUpdateComment(
@@ -2028,7 +1605,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_gist_comment.parse(res.data) }
+    return res
   }
 
   async gistsDeleteComment(
@@ -2049,7 +1626,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async gistsListCommits(
@@ -2072,7 +1649,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_gist_commit).parse(res.data) }
+    return res
   }
 
   async gistsListForks(
@@ -2095,7 +1672,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_gist_simple).parse(res.data) }
+    return res
   }
 
   async gistsFork(
@@ -2115,7 +1692,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_base_gist.parse(res.data) }
+    return res
   }
 
   async gistsCheckIsStarred(
@@ -2135,7 +1712,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async gistsStar(
@@ -2155,7 +1732,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async gistsUnstar(
@@ -2175,7 +1752,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async gistsGetRevision(
@@ -2196,7 +1773,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_gist_simple.parse(res.data) }
+    return res
   }
 
   async gitignoreGetAllTemplates(
@@ -2213,7 +1790,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(z.string()).parse(res.data) }
+    return res
   }
 
   async gitignoreGetTemplate(
@@ -2233,7 +1810,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_gitignore_template.parse(res.data) }
+    return res
   }
 
   async appsListReposAccessibleToInstallation(
@@ -2261,16 +1838,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          repositories: z.array(s_repository),
-          repository_selection: z.string().optional(),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async appsRevokeInstallationAccessToken(
@@ -2287,7 +1855,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async issuesList(
@@ -2338,7 +1906,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_issue).parse(res.data) }
+    return res
   }
 
   async licensesGetAllCommonlyUsed(
@@ -2365,7 +1933,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_license_simple).parse(res.data) }
+    return res
   }
 
   async licensesGet(
@@ -2385,7 +1953,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_license.parse(res.data) }
+    return res
   }
 
   async markdownRender(
@@ -2413,7 +1981,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.string().parse(res.data) }
+    return res
   }
 
   async markdownRenderRaw(
@@ -2437,7 +2005,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.string().parse(res.data) }
+    return res
   }
 
   async appsGetSubscriptionPlanForAccount(
@@ -2457,7 +2025,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_marketplace_purchase.parse(res.data) }
+    return res
   }
 
   async appsListPlans(
@@ -2479,7 +2047,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_marketplace_listing_plan).parse(res.data) }
+    return res
   }
 
   async appsListAccountsForPlan(
@@ -2509,7 +2077,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_marketplace_purchase).parse(res.data) }
+    return res
   }
 
   async appsGetSubscriptionPlanForAccountStubbed(
@@ -2529,7 +2097,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_marketplace_purchase.parse(res.data) }
+    return res
   }
 
   async appsListPlansStubbed(
@@ -2551,7 +2119,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_marketplace_listing_plan).parse(res.data) }
+    return res
   }
 
   async appsListAccountsForPlanStubbed(
@@ -2581,7 +2149,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_marketplace_purchase).parse(res.data) }
+    return res
   }
 
   async metaGet(
@@ -2598,7 +2166,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_api_overview.parse(res.data) }
+    return res
   }
 
   async activityListPublicEventsForRepoNetwork(
@@ -2622,7 +2190,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_event).parse(res.data) }
+    return res
   }
 
   async activityListNotificationsForAuthenticatedUser(
@@ -2655,7 +2223,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_thread).parse(res.data) }
+    return res
   }
 
   async activityMarkNotificationsAsRead(
@@ -2687,10 +2255,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.object({ message: z.string().optional() }).parse(res.data),
-    }
+    return res
   }
 
   async activityGetThread(
@@ -2710,7 +2275,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_thread.parse(res.data) }
+    return res
   }
 
   async activityMarkThreadAsRead(
@@ -2730,7 +2295,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async activityGetThreadSubscriptionForAuthenticatedUser(
@@ -2750,7 +2315,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_thread_subscription.parse(res.data) }
+    return res
   }
 
   async activitySetThreadSubscription(
@@ -2777,7 +2342,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_thread_subscription.parse(res.data) }
+    return res
   }
 
   async activityDeleteThreadSubscription(
@@ -2797,7 +2362,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async metaGetOctocat(
@@ -2818,7 +2383,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.string().parse(res.data) }
+    return res
   }
 
   async orgsList(
@@ -2840,7 +2405,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_organization_simple).parse(res.data) }
+    return res
   }
 
   async orgsGet(
@@ -2860,7 +2425,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_organization_full.parse(res.data) }
+    return res
   }
 
   async orgsUpdate(
@@ -2915,7 +2480,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_organization_full.parse(res.data) }
+    return res
   }
 
   async orgsDelete(
@@ -2935,7 +2500,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.object({}).parse(res.data) }
+    return res
   }
 
   async actionsGetActionsCacheUsageForOrg(
@@ -2955,10 +2520,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: s_actions_cache_usage_org_enterprise.parse(res.data),
-    }
+    return res
   }
 
   async actionsGetActionsCacheUsageByRepoForOrg(
@@ -2986,15 +2548,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          repository_cache_usages: z.array(s_actions_cache_usage_by_repository),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async oidcGetOidcCustomSubTemplateForOrg(
@@ -3014,7 +2568,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_oidc_custom_sub.parse(res.data) }
+    return res
   }
 
   async oidcUpdateOidcCustomSubTemplateForOrg(
@@ -3039,7 +2593,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_empty_object.parse(res.data) }
+    return res
   }
 
   async actionsGetGithubActionsPermissionsOrganization(
@@ -3059,7 +2613,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_actions_organization_permissions.parse(res.data) }
+    return res
   }
 
   async actionsSetGithubActionsPermissionsOrganization(
@@ -3087,7 +2641,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsListSelectedRepositoriesEnabledGithubActionsOrganization(
@@ -3115,15 +2669,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          repositories: z.array(s_repository),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsSetSelectedRepositoriesEnabledGithubActionsOrganization(
@@ -3150,7 +2696,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsEnableSelectedRepositoryGithubActionsOrganization(
@@ -3171,7 +2717,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsDisableSelectedRepositoryGithubActionsOrganization(
@@ -3192,7 +2738,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsGetAllowedActionsOrganization(
@@ -3212,7 +2758,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_selected_actions.parse(res.data) }
+    return res
   }
 
   async actionsSetAllowedActionsOrganization(
@@ -3237,7 +2783,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsGetGithubActionsDefaultWorkflowPermissionsOrganization(
@@ -3257,10 +2803,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: s_actions_get_default_workflow_permissions.parse(res.data),
-    }
+    return res
   }
 
   async actionsSetGithubActionsDefaultWorkflowPermissionsOrganization(
@@ -3285,7 +2828,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsListSelfHostedRunnersForOrg(
@@ -3318,12 +2861,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({ total_count: z.coerce.number(), runners: z.array(s_runner) })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsListRunnerApplicationsForOrg(
@@ -3343,7 +2881,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_runner_application).parse(res.data) }
+    return res
   }
 
   async actionsGenerateRunnerJitconfigForOrg(
@@ -3378,12 +2916,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({ runner: s_runner, encoded_jit_config: z.string() })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsCreateRegistrationTokenForOrg(
@@ -3403,7 +2936,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_authentication_token.parse(res.data) }
+    return res
   }
 
   async actionsCreateRemoveTokenForOrg(
@@ -3423,7 +2956,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_authentication_token.parse(res.data) }
+    return res
   }
 
   async actionsGetSelfHostedRunnerForOrg(
@@ -3444,7 +2977,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_runner.parse(res.data) }
+    return res
   }
 
   async actionsDeleteSelfHostedRunnerFromOrg(
@@ -3465,7 +2998,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsListLabelsForSelfHostedRunnerForOrg(
@@ -3491,15 +3024,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          labels: z.array(s_runner_label),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsAddCustomLabelsToSelfHostedRunnerForOrg(
@@ -3532,15 +3057,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          labels: z.array(s_runner_label),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsSetCustomLabelsForSelfHostedRunnerForOrg(
@@ -3573,15 +3090,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          labels: z.array(s_runner_label),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrg(
@@ -3607,15 +3116,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          labels: z.array(s_runner_label),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsRemoveCustomLabelFromSelfHostedRunnerForOrg(
@@ -3642,15 +3143,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          labels: z.array(s_runner_label),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsListOrgSecrets(
@@ -3678,15 +3171,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          secrets: z.array(s_organization_actions_secret),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsGetOrgPublicKey(
@@ -3706,7 +3191,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_actions_public_key.parse(res.data) }
+    return res
   }
 
   async actionsGetOrgSecret(
@@ -3727,7 +3212,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_organization_actions_secret.parse(res.data) }
+    return res
   }
 
   async actionsCreateOrUpdateOrgSecret(
@@ -3758,7 +3243,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_empty_object.parse(res.data) }
+    return res
   }
 
   async actionsDeleteOrgSecret(
@@ -3779,7 +3264,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsListSelectedReposForOrgSecret(
@@ -3808,15 +3293,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          repositories: z.array(s_minimal_repository),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsSetSelectedReposForOrgSecret(
@@ -3844,7 +3321,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsAddSelectedRepoToOrgSecret(
@@ -3866,7 +3343,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsRemoveSelectedRepoFromOrgSecret(
@@ -3888,7 +3365,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsListOrgVariables(
@@ -3916,15 +3393,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          variables: z.array(s_organization_actions_variable),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsCreateOrgVariable(
@@ -3954,7 +3423,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_empty_object.parse(res.data) }
+    return res
   }
 
   async actionsGetOrgVariable(
@@ -3975,7 +3444,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_organization_actions_variable.parse(res.data) }
+    return res
   }
 
   async actionsUpdateOrgVariable(
@@ -4006,7 +3475,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsDeleteOrgVariable(
@@ -4027,7 +3496,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsListSelectedReposForOrgVariable(
@@ -4056,15 +3525,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          repositories: z.array(s_minimal_repository),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsSetSelectedReposForOrgVariable(
@@ -4092,7 +3553,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsAddSelectedRepoToOrgVariable(
@@ -4114,7 +3575,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsRemoveSelectedRepoFromOrgVariable(
@@ -4136,7 +3597,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async orgsListBlockedUsers(
@@ -4159,7 +3620,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_simple_user).parse(res.data) }
+    return res
   }
 
   async orgsCheckBlockedUser(
@@ -4180,7 +3641,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async orgsBlockUser(
@@ -4201,7 +3662,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async orgsUnblockUser(
@@ -4222,7 +3683,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async codeScanningListAlertsForOrg(
@@ -4264,10 +3725,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.array(s_code_scanning_organization_alert_items).parse(res.data),
-    }
+    return res
   }
 
   async codespacesListInOrganization(
@@ -4295,15 +3753,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          codespaces: z.array(s_codespace),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async codespacesSetCodespacesAccess(
@@ -4335,7 +3785,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async codespacesSetCodespacesAccessUsers(
@@ -4362,7 +3812,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async codespacesDeleteCodespacesAccessUsers(
@@ -4389,7 +3839,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async codespacesListOrgSecrets(
@@ -4417,15 +3867,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          secrets: z.array(s_codespaces_org_secret),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async codespacesGetOrgPublicKey(
@@ -4445,7 +3887,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_codespaces_public_key.parse(res.data) }
+    return res
   }
 
   async codespacesGetOrgSecret(
@@ -4466,7 +3908,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_codespaces_org_secret.parse(res.data) }
+    return res
   }
 
   async codespacesCreateOrUpdateOrgSecret(
@@ -4497,7 +3939,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_empty_object.parse(res.data) }
+    return res
   }
 
   async codespacesDeleteOrgSecret(
@@ -4518,7 +3960,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async codespacesListSelectedReposForOrgSecret(
@@ -4547,15 +3989,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          repositories: z.array(s_minimal_repository),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async codespacesSetSelectedReposForOrgSecret(
@@ -4583,7 +4017,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async codespacesAddSelectedRepoToOrgSecret(
@@ -4605,7 +4039,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async codespacesRemoveSelectedRepoFromOrgSecret(
@@ -4627,7 +4061,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async copilotGetCopilotOrganizationDetails(
@@ -4647,7 +4081,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_copilot_organization_details.parse(res.data) }
+    return res
   }
 
   async copilotListCopilotSeats(
@@ -4675,15 +4109,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_seats: z.coerce.number().optional(),
-          seats: z.array(s_copilot_seat_details).optional(),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async copilotAddCopilotForBusinessSeatsForTeams(
@@ -4714,10 +4140,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.object({ seats_created: z.coerce.number() }).parse(res.data),
-    }
+    return res
   }
 
   async copilotCancelCopilotSeatAssignmentForTeams(
@@ -4748,10 +4171,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.object({ seats_cancelled: z.coerce.number() }).parse(res.data),
-    }
+    return res
   }
 
   async copilotAddCopilotForBusinessSeatsForUsers(
@@ -4782,10 +4202,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.object({ seats_created: z.coerce.number() }).parse(res.data),
-    }
+    return res
   }
 
   async copilotCancelCopilotSeatAssignmentForUsers(
@@ -4816,10 +4233,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.object({ seats_cancelled: z.coerce.number() }).parse(res.data),
-    }
+    return res
   }
 
   async dependabotListAlertsForOrg(
@@ -4865,10 +4279,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.array(s_dependabot_alert_with_repository).parse(res.data),
-    }
+    return res
   }
 
   async dependabotListOrgSecrets(
@@ -4896,15 +4307,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          secrets: z.array(s_organization_dependabot_secret),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async dependabotGetOrgPublicKey(
@@ -4924,7 +4327,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_dependabot_public_key.parse(res.data) }
+    return res
   }
 
   async dependabotGetOrgSecret(
@@ -4945,7 +4348,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_organization_dependabot_secret.parse(res.data) }
+    return res
   }
 
   async dependabotCreateOrUpdateOrgSecret(
@@ -4976,7 +4379,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_empty_object.parse(res.data) }
+    return res
   }
 
   async dependabotDeleteOrgSecret(
@@ -4997,7 +4400,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async dependabotListSelectedReposForOrgSecret(
@@ -5026,15 +4429,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          repositories: z.array(s_minimal_repository),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async dependabotSetSelectedReposForOrgSecret(
@@ -5062,7 +4457,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async dependabotAddSelectedRepoToOrgSecret(
@@ -5084,7 +4479,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async dependabotRemoveSelectedRepoFromOrgSecret(
@@ -5106,7 +4501,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async packagesListDockerMigrationConflictingPackagesForOrganization(
@@ -5126,7 +4521,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_package).parse(res.data) }
+    return res
   }
 
   async activityListPublicOrgEvents(
@@ -5149,7 +4544,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_event).parse(res.data) }
+    return res
   }
 
   async orgsListFailedInvitations(
@@ -5172,7 +4567,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_organization_invitation).parse(res.data) }
+    return res
   }
 
   async orgsListWebhooks(
@@ -5195,7 +4590,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_org_hook).parse(res.data) }
+    return res
   }
 
   async orgsCreateWebhook(
@@ -5232,7 +4627,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_org_hook.parse(res.data) }
+    return res
   }
 
   async orgsGetWebhook(
@@ -5253,7 +4648,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_org_hook.parse(res.data) }
+    return res
   }
 
   async orgsUpdateWebhook(
@@ -5289,7 +4684,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_org_hook.parse(res.data) }
+    return res
   }
 
   async orgsDeleteWebhook(
@@ -5310,7 +4705,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async orgsGetWebhookConfigForOrg(
@@ -5331,7 +4726,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_webhook_config.parse(res.data) }
+    return res
   }
 
   async orgsUpdateWebhookConfigForOrg(
@@ -5362,7 +4757,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_webhook_config.parse(res.data) }
+    return res
   }
 
   async orgsListWebhookDeliveries(
@@ -5391,7 +4786,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_hook_delivery_item).parse(res.data) }
+    return res
   }
 
   async orgsGetWebhookDelivery(
@@ -5413,7 +4808,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_hook_delivery.parse(res.data) }
+    return res
   }
 
   async orgsRedeliverWebhookDelivery(
@@ -5435,7 +4830,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.object({}).parse(res.data) }
+    return res
   }
 
   async orgsPingWebhook(
@@ -5456,7 +4851,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async appsGetOrgInstallation(
@@ -5476,7 +4871,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_installation.parse(res.data) }
+    return res
   }
 
   async orgsListAppInstallations(
@@ -5504,15 +4899,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          installations: z.array(s_installation),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async interactionsGetRestrictionsForOrg(
@@ -5532,12 +4919,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .union([s_interaction_limit_response, z.object({})])
-        .parse(res.data),
-    }
+    return res
   }
 
   async interactionsSetRestrictionsForOrg(
@@ -5562,7 +4944,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_interaction_limit_response.parse(res.data) }
+    return res
   }
 
   async interactionsRemoveRestrictionsForOrg(
@@ -5582,7 +4964,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async orgsListPendingInvitations(
@@ -5617,7 +4999,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_organization_invitation).parse(res.data) }
+    return res
   }
 
   async orgsCreateInvitation(
@@ -5647,7 +5029,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_organization_invitation.parse(res.data) }
+    return res
   }
 
   async orgsCancelInvitation(
@@ -5668,7 +5050,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async orgsListInvitationTeams(
@@ -5692,7 +5074,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_team).parse(res.data) }
+    return res
   }
 
   async issuesListForOrg(
@@ -5736,7 +5118,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_issue).parse(res.data) }
+    return res
   }
 
   async orgsListMembers(
@@ -5766,7 +5148,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_simple_user).parse(res.data) }
+    return res
   }
 
   async orgsCheckMembershipForUser(
@@ -5787,7 +5169,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async orgsRemoveMember(
@@ -5808,7 +5190,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async codespacesGetCodespacesForUserInOrg(
@@ -5837,15 +5219,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          codespaces: z.array(s_codespace),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async codespacesDeleteFromOrganization(
@@ -5867,7 +5241,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.object({}).parse(res.data) }
+    return res
   }
 
   async codespacesStopInOrganization(
@@ -5889,7 +5263,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_codespace.parse(res.data) }
+    return res
   }
 
   async copilotGetCopilotSeatAssignmentDetailsForUser(
@@ -5910,7 +5284,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_copilot_seat_details.parse(res.data) }
+    return res
   }
 
   async orgsGetMembershipForUser(
@@ -5931,7 +5305,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_org_membership.parse(res.data) }
+    return res
   }
 
   async orgsSetMembershipForUser(
@@ -5959,7 +5333,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_org_membership.parse(res.data) }
+    return res
   }
 
   async orgsRemoveMembershipForUser(
@@ -5980,7 +5354,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async migrationsListForOrg(
@@ -6008,7 +5382,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_migration).parse(res.data) }
+    return res
   }
 
   async migrationsStartForOrg(
@@ -6043,7 +5417,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_migration.parse(res.data) }
+    return res
   }
 
   async migrationsGetStatusForOrg(
@@ -6066,7 +5440,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_migration.parse(res.data) }
+    return res
   }
 
   async migrationsDownloadArchiveForOrg(
@@ -6087,7 +5461,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async migrationsDeleteArchiveForOrg(
@@ -6108,7 +5482,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async migrationsUnlockRepoForOrg(
@@ -6130,7 +5504,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async migrationsListReposForOrg(
@@ -6154,7 +5528,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
+    return res
   }
 
   async orgsListOutsideCollaborators(
@@ -6182,7 +5556,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_simple_user).parse(res.data) }
+    return res
   }
 
   async orgsConvertMemberToOutsideCollaborator(
@@ -6210,7 +5584,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.object({}).parse(res.data) }
+    return res
   }
 
   async orgsRemoveOutsideCollaborator(
@@ -6231,7 +5605,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async packagesListPackagesForOrganization(
@@ -6267,7 +5641,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_package).parse(res.data) }
+    return res
   }
 
   async packagesGetPackageForOrganization(
@@ -6295,7 +5669,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_package.parse(res.data) }
+    return res
   }
 
   async packagesDeletePackageForOrg(
@@ -6323,7 +5697,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async packagesRestorePackageForOrg(
@@ -6353,7 +5727,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async packagesGetAllPackageVersionsForPackageOwnedByOrg(
@@ -6389,7 +5763,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_package_version).parse(res.data) }
+    return res
   }
 
   async packagesGetPackageVersionForOrganization(
@@ -6418,7 +5792,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_package_version.parse(res.data) }
+    return res
   }
 
   async packagesDeletePackageVersionForOrg(
@@ -6447,7 +5821,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async packagesRestorePackageVersionForOrg(
@@ -6476,7 +5850,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async orgsListPatGrantRequests(
@@ -6518,12 +5892,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .array(s_organization_programmatic_access_grant_request)
-        .parse(res.data),
-    }
+    return res
   }
 
   async orgsReviewPatGrantRequestsInBulk(
@@ -6552,7 +5921,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.object({}).parse(res.data) }
+    return res
   }
 
   async orgsReviewPatGrantRequest(
@@ -6581,7 +5950,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async orgsListPatGrantRequestRepositories(
@@ -6605,7 +5974,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
+    return res
   }
 
   async orgsListPatGrants(
@@ -6645,10 +6014,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.array(s_organization_programmatic_access_grant).parse(res.data),
-    }
+    return res
   }
 
   async orgsUpdatePatAccesses(
@@ -6676,7 +6042,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.object({}).parse(res.data) }
+    return res
   }
 
   async orgsUpdatePatAccess(
@@ -6704,7 +6070,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async orgsListPatGrantRepositories(
@@ -6728,7 +6094,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
+    return res
   }
 
   async projectsListForOrg(
@@ -6756,7 +6122,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_project).parse(res.data) }
+    return res
   }
 
   async projectsCreateForOrg(
@@ -6784,7 +6150,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_project.parse(res.data) }
+    return res
   }
 
   async orgsListPublicMembers(
@@ -6807,7 +6173,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_simple_user).parse(res.data) }
+    return res
   }
 
   async orgsCheckPublicMembershipForUser(
@@ -6828,7 +6194,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async orgsSetPublicMembershipForAuthenticatedUser(
@@ -6849,7 +6215,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async orgsRemovePublicMembershipForAuthenticatedUser(
@@ -6870,7 +6236,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposListForOrg(
@@ -6902,7 +6268,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
+    return res
   }
 
   async reposCreateInOrg(
@@ -6952,7 +6318,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_repository.parse(res.data) }
+    return res
   }
 
   async reposGetOrgRulesets(
@@ -6975,7 +6341,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_repository_ruleset).parse(res.data) }
+    return res
   }
 
   async reposCreateOrgRuleset(
@@ -7007,7 +6373,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_repository_ruleset.parse(res.data) }
+    return res
   }
 
   async reposGetOrgRuleset(
@@ -7028,7 +6394,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_repository_ruleset.parse(res.data) }
+    return res
   }
 
   async reposUpdateOrgRuleset(
@@ -7061,7 +6427,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_repository_ruleset.parse(res.data) }
+    return res
   }
 
   async reposDeleteOrgRuleset(
@@ -7082,7 +6448,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async secretScanningListAlertsForOrg(
@@ -7122,10 +6488,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.array(s_organization_secret_scanning_alert).parse(res.data),
-    }
+    return res
   }
 
   async securityAdvisoriesListOrgRepositoryAdvisories(
@@ -7159,7 +6522,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_repository_advisory).parse(res.data) }
+    return res
   }
 
   async orgsListSecurityManagerTeams(
@@ -7179,7 +6542,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_team_simple).parse(res.data) }
+    return res
   }
 
   async orgsAddSecurityManagerTeam(
@@ -7200,7 +6563,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async orgsRemoveSecurityManagerTeam(
@@ -7221,7 +6584,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async billingGetGithubActionsBillingOrg(
@@ -7241,7 +6604,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_actions_billing_usage.parse(res.data) }
+    return res
   }
 
   async billingGetGithubPackagesBillingOrg(
@@ -7261,7 +6624,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_packages_billing_usage.parse(res.data) }
+    return res
   }
 
   async billingGetSharedStorageBillingOrg(
@@ -7281,7 +6644,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_combined_billing_usage.parse(res.data) }
+    return res
   }
 
   async teamsList(
@@ -7304,7 +6667,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_team).parse(res.data) }
+    return res
   }
 
   async teamsCreate(
@@ -7340,7 +6703,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_full.parse(res.data) }
+    return res
   }
 
   async teamsGetByName(
@@ -7361,7 +6724,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_full.parse(res.data) }
+    return res
   }
 
   async teamsUpdateInOrg(
@@ -7396,7 +6759,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_full.parse(res.data) }
+    return res
   }
 
   async teamsDeleteInOrg(
@@ -7417,7 +6780,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async teamsListDiscussionsInOrg(
@@ -7448,7 +6811,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_team_discussion).parse(res.data) }
+    return res
   }
 
   async teamsCreateDiscussionInOrg(
@@ -7478,7 +6841,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_discussion.parse(res.data) }
+    return res
   }
 
   async teamsGetDiscussionInOrg(
@@ -7500,7 +6863,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_discussion.parse(res.data) }
+    return res
   }
 
   async teamsUpdateDiscussionInOrg(
@@ -7530,7 +6893,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_discussion.parse(res.data) }
+    return res
   }
 
   async teamsDeleteDiscussionInOrg(
@@ -7552,7 +6915,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async teamsListDiscussionCommentsInOrg(
@@ -7582,7 +6945,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_team_discussion_comment).parse(res.data) }
+    return res
   }
 
   async teamsCreateDiscussionCommentInOrg(
@@ -7611,7 +6974,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_discussion_comment.parse(res.data) }
+    return res
   }
 
   async teamsGetDiscussionCommentInOrg(
@@ -7634,7 +6997,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_discussion_comment.parse(res.data) }
+    return res
   }
 
   async teamsUpdateDiscussionCommentInOrg(
@@ -7664,7 +7027,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_discussion_comment.parse(res.data) }
+    return res
   }
 
   async teamsDeleteDiscussionCommentInOrg(
@@ -7687,7 +7050,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reactionsListForTeamDiscussionCommentInOrg(
@@ -7726,7 +7089,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_reaction).parse(res.data) }
+    return res
   }
 
   async reactionsCreateForTeamDiscussionCommentInOrg(
@@ -7764,7 +7127,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_reaction.parse(res.data) }
+    return res
   }
 
   async reactionsDeleteForTeamDiscussionComment(
@@ -7788,7 +7151,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reactionsListForTeamDiscussionInOrg(
@@ -7826,7 +7189,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_reaction).parse(res.data) }
+    return res
   }
 
   async reactionsCreateForTeamDiscussionInOrg(
@@ -7863,7 +7226,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_reaction.parse(res.data) }
+    return res
   }
 
   async reactionsDeleteForTeamDiscussion(
@@ -7886,7 +7249,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async teamsListPendingInvitationsInOrg(
@@ -7910,7 +7273,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_organization_invitation).parse(res.data) }
+    return res
   }
 
   async teamsListMembersInOrg(
@@ -7939,7 +7302,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_simple_user).parse(res.data) }
+    return res
   }
 
   async teamsGetMembershipForUserInOrg(
@@ -7961,7 +7324,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_membership.parse(res.data) }
+    return res
   }
 
   async teamsAddOrUpdateMembershipForUserInOrg(
@@ -7990,7 +7353,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_membership.parse(res.data) }
+    return res
   }
 
   async teamsRemoveMembershipForUserInOrg(
@@ -8012,7 +7375,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async teamsListProjectsInOrg(
@@ -8036,7 +7399,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_team_project).parse(res.data) }
+    return res
   }
 
   async teamsCheckPermissionsForProjectInOrg(
@@ -8058,7 +7421,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_project.parse(res.data) }
+    return res
   }
 
   async teamsAddOrUpdateProjectPermissionsInOrg(
@@ -8087,7 +7450,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async teamsRemoveProjectInOrg(
@@ -8109,7 +7472,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async teamsListReposInOrg(
@@ -8133,7 +7496,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
+    return res
   }
 
   async teamsCheckPermissionsForRepoInOrg(
@@ -8156,7 +7519,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_repository.parse(res.data) }
+    return res
   }
 
   async teamsAddOrUpdateRepoPermissionsInOrg(
@@ -8186,7 +7549,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async teamsRemoveRepoInOrg(
@@ -8209,7 +7572,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async teamsListChildInOrg(
@@ -8233,7 +7596,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_team).parse(res.data) }
+    return res
   }
 
   async orgsEnableOrDisableSecurityProductOnAllOrgRepos(
@@ -8269,7 +7632,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async projectsGetCard(
@@ -8289,7 +7652,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_project_card.parse(res.data) }
+    return res
   }
 
   async projectsUpdateCard(
@@ -8317,7 +7680,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_project_card.parse(res.data) }
+    return res
   }
 
   async projectsDeleteCard(
@@ -8337,7 +7700,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async projectsMoveCard(
@@ -8365,7 +7728,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.object({}).parse(res.data) }
+    return res
   }
 
   async projectsGetColumn(
@@ -8385,7 +7748,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_project_column.parse(res.data) }
+    return res
   }
 
   async projectsUpdateColumn(
@@ -8412,7 +7775,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_project_column.parse(res.data) }
+    return res
   }
 
   async projectsDeleteColumn(
@@ -8432,7 +7795,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async projectsListCards(
@@ -8460,7 +7823,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_project_card).parse(res.data) }
+    return res
   }
 
   async projectsCreateCard(
@@ -8492,7 +7855,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_project_card.parse(res.data) }
+    return res
   }
 
   async projectsMoveColumn(
@@ -8519,7 +7882,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.object({}).parse(res.data) }
+    return res
   }
 
   async projectsGet(
@@ -8539,7 +7902,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_project.parse(res.data) }
+    return res
   }
 
   async projectsUpdate(
@@ -8570,7 +7933,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_project.parse(res.data) }
+    return res
   }
 
   async projectsDelete(
@@ -8590,7 +7953,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async projectsListCollaborators(
@@ -8618,7 +7981,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_simple_user).parse(res.data) }
+    return res
   }
 
   async projectsAddCollaborator(
@@ -8646,7 +8009,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async projectsRemoveCollaborator(
@@ -8667,7 +8030,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async projectsGetPermissionForUser(
@@ -8688,7 +8051,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_project_collaborator_permission.parse(res.data) }
+    return res
   }
 
   async projectsListColumns(
@@ -8711,7 +8074,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_project_column).parse(res.data) }
+    return res
   }
 
   async projectsCreateColumn(
@@ -8738,7 +8101,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_project_column.parse(res.data) }
+    return res
   }
 
   async rateLimitGet(
@@ -8755,7 +8118,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_rate_limit_overview.parse(res.data) }
+    return res
   }
 
   async reposGet(
@@ -8776,7 +8139,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_full_repository.parse(res.data) }
+    return res
   }
 
   async reposUpdate(
@@ -8838,7 +8201,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_full_repository.parse(res.data) }
+    return res
   }
 
   async reposDelete(
@@ -8859,7 +8222,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsListArtifactsForRepo(
@@ -8893,15 +8256,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          artifacts: z.array(s_artifact),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsGetArtifact(
@@ -8923,7 +8278,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_artifact.parse(res.data) }
+    return res
   }
 
   async actionsDeleteArtifact(
@@ -8945,7 +8300,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsDownloadArtifact(
@@ -8968,7 +8323,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsGetActionsCacheUsage(
@@ -8989,7 +8344,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_actions_cache_usage_by_repository.parse(res.data) }
+    return res
   }
 
   async actionsGetActionsCacheList(
@@ -9024,7 +8379,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_actions_cache_list.parse(res.data) }
+    return res
   }
 
   async actionsDeleteActionsCacheByKey(
@@ -9048,7 +8403,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_actions_cache_list.parse(res.data) }
+    return res
   }
 
   async actionsDeleteActionsCacheById(
@@ -9070,7 +8425,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsGetJobForWorkflowRun(
@@ -9092,7 +8447,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_job.parse(res.data) }
+    return res
   }
 
   async actionsDownloadJobLogsForWorkflowRun(
@@ -9114,7 +8469,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsReRunJobForWorkflowRun(
@@ -9143,7 +8498,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_empty_object.parse(res.data) }
+    return res
   }
 
   async actionsGetCustomOidcSubClaimForRepo(
@@ -9164,7 +8519,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_oidc_custom_sub_repo.parse(res.data) }
+    return res
   }
 
   async actionsSetCustomOidcSubClaimForRepo(
@@ -9193,7 +8548,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_empty_object.parse(res.data) }
+    return res
   }
 
   async actionsListRepoOrganizationSecrets(
@@ -9222,15 +8577,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          secrets: z.array(s_actions_secret),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsListRepoOrganizationVariables(
@@ -9259,15 +8606,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          variables: z.array(s_actions_variable),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsGetGithubActionsPermissionsRepository(
@@ -9288,7 +8627,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_actions_repository_permissions.parse(res.data) }
+    return res
   }
 
   async actionsSetGithubActionsPermissionsRepository(
@@ -9317,7 +8656,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsGetWorkflowAccessToRepository(
@@ -9338,10 +8677,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: s_actions_workflow_access_to_repository.parse(res.data),
-    }
+    return res
   }
 
   async actionsSetWorkflowAccessToRepository(
@@ -9367,7 +8703,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsGetAllowedActionsRepository(
@@ -9388,7 +8724,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_selected_actions.parse(res.data) }
+    return res
   }
 
   async actionsSetAllowedActionsRepository(
@@ -9414,7 +8750,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsGetGithubActionsDefaultWorkflowPermissionsRepository(
@@ -9435,10 +8771,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: s_actions_get_default_workflow_permissions.parse(res.data),
-    }
+    return res
   }
 
   async actionsSetGithubActionsDefaultWorkflowPermissionsRepository(
@@ -9464,7 +8797,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsListSelfHostedRunnersForRepo(
@@ -9498,12 +8831,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({ total_count: z.coerce.number(), runners: z.array(s_runner) })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsListRunnerApplicationsForRepo(
@@ -9524,7 +8852,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_runner_application).parse(res.data) }
+    return res
   }
 
   async actionsGenerateRunnerJitconfigForRepo(
@@ -9560,12 +8888,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({ runner: s_runner, encoded_jit_config: z.string() })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsCreateRegistrationTokenForRepo(
@@ -9586,7 +8909,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_authentication_token.parse(res.data) }
+    return res
   }
 
   async actionsCreateRemoveTokenForRepo(
@@ -9607,7 +8930,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_authentication_token.parse(res.data) }
+    return res
   }
 
   async actionsGetSelfHostedRunnerForRepo(
@@ -9629,7 +8952,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_runner.parse(res.data) }
+    return res
   }
 
   async actionsDeleteSelfHostedRunnerFromRepo(
@@ -9651,7 +8974,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsListLabelsForSelfHostedRunnerForRepo(
@@ -9678,15 +9001,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          labels: z.array(s_runner_label),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsAddCustomLabelsToSelfHostedRunnerForRepo(
@@ -9720,15 +9035,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          labels: z.array(s_runner_label),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsSetCustomLabelsForSelfHostedRunnerForRepo(
@@ -9762,15 +9069,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          labels: z.array(s_runner_label),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepo(
@@ -9797,15 +9096,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          labels: z.array(s_runner_label),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsRemoveCustomLabelFromSelfHostedRunnerForRepo(
@@ -9833,15 +9124,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          labels: z.array(s_runner_label),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsListWorkflowRunsForRepo(
@@ -9903,15 +9186,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          workflow_runs: z.array(s_workflow_run),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsGetWorkflowRun(
@@ -9937,7 +9212,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_workflow_run.parse(res.data) }
+    return res
   }
 
   async actionsDeleteWorkflowRun(
@@ -9959,7 +9234,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsGetReviewsForRun(
@@ -9981,7 +9256,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_environment_approvals).parse(res.data) }
+    return res
   }
 
   async actionsApproveWorkflowRun(
@@ -10003,7 +9278,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_empty_object.parse(res.data) }
+    return res
   }
 
   async actionsListWorkflowRunArtifacts(
@@ -10038,15 +9313,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          artifacts: z.array(s_artifact),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsGetWorkflowRunAttempt(
@@ -10073,7 +9340,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_workflow_run.parse(res.data) }
+    return res
   }
 
   async actionsListJobsForWorkflowRunAttempt(
@@ -10104,12 +9371,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({ total_count: z.coerce.number(), jobs: z.array(s_job) })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsDownloadWorkflowRunAttemptLogs(
@@ -10132,7 +9394,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsCancelWorkflowRun(
@@ -10154,7 +9416,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_empty_object.parse(res.data) }
+    return res
   }
 
   async actionsReviewCustomGatesForRun(
@@ -10183,7 +9445,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsListJobsForWorkflowRun(
@@ -10218,12 +9480,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({ total_count: z.coerce.number(), jobs: z.array(s_job) })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsDownloadWorkflowRunLogs(
@@ -10245,7 +9502,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsDeleteWorkflowRunLogs(
@@ -10267,7 +9524,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsGetPendingDeploymentsForRun(
@@ -10289,7 +9546,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_pending_deployment).parse(res.data) }
+    return res
   }
 
   async actionsReviewPendingDeploymentsForRun(
@@ -10320,7 +9577,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_deployment).parse(res.data) }
+    return res
   }
 
   async actionsReRunWorkflow(
@@ -10349,7 +9606,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_empty_object.parse(res.data) }
+    return res
   }
 
   async actionsReRunWorkflowFailedJobs(
@@ -10378,7 +9635,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_empty_object.parse(res.data) }
+    return res
   }
 
   async actionsGetWorkflowRunUsage(
@@ -10400,7 +9657,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_workflow_run_usage.parse(res.data) }
+    return res
   }
 
   async actionsListRepoSecrets(
@@ -10429,15 +9686,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          secrets: z.array(s_actions_secret),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsGetRepoPublicKey(
@@ -10458,7 +9707,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_actions_public_key.parse(res.data) }
+    return res
   }
 
   async actionsGetRepoSecret(
@@ -10480,7 +9729,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_actions_secret.parse(res.data) }
+    return res
   }
 
   async actionsCreateOrUpdateRepoSecret(
@@ -10510,7 +9759,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_empty_object.parse(res.data) }
+    return res
   }
 
   async actionsDeleteRepoSecret(
@@ -10532,7 +9781,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsListRepoVariables(
@@ -10561,15 +9810,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          variables: z.array(s_actions_variable),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsCreateRepoVariable(
@@ -10598,7 +9839,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_empty_object.parse(res.data) }
+    return res
   }
 
   async actionsGetRepoVariable(
@@ -10620,7 +9861,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_actions_variable.parse(res.data) }
+    return res
   }
 
   async actionsUpdateRepoVariable(
@@ -10650,7 +9891,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsDeleteRepoVariable(
@@ -10672,7 +9913,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsListRepoWorkflows(
@@ -10701,15 +9942,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          workflows: z.array(s_workflow),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsGetWorkflow(
@@ -10731,7 +9964,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_workflow.parse(res.data) }
+    return res
   }
 
   async actionsDisableWorkflow(
@@ -10753,7 +9986,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsCreateWorkflowDispatch(
@@ -10785,7 +10018,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsEnableWorkflow(
@@ -10807,7 +10040,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsListWorkflowRuns(
@@ -10870,15 +10103,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          workflow_runs: z.array(s_workflow_run),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsGetWorkflowUsage(
@@ -10900,7 +10125,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_workflow_usage.parse(res.data) }
+    return res
   }
 
   async reposListActivities(
@@ -10945,7 +10170,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_activity).parse(res.data) }
+    return res
   }
 
   async issuesListAssignees(
@@ -10969,7 +10194,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_simple_user).parse(res.data) }
+    return res
   }
 
   async issuesCheckUserCanBeAssigned(
@@ -10991,7 +10216,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposListAutolinks(
@@ -11014,7 +10239,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_autolink).parse(res.data) }
+    return res
   }
 
   async reposCreateAutolink(
@@ -11044,7 +10269,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_autolink.parse(res.data) }
+    return res
   }
 
   async reposGetAutolink(
@@ -11066,7 +10291,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_autolink.parse(res.data) }
+    return res
   }
 
   async reposDeleteAutolink(
@@ -11088,7 +10313,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposCheckAutomatedSecurityFixes(
@@ -11109,7 +10334,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_check_automated_security_fixes.parse(res.data) }
+    return res
   }
 
   async reposEnableAutomatedSecurityFixes(
@@ -11130,7 +10355,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposDisableAutomatedSecurityFixes(
@@ -11151,7 +10376,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposListBranches(
@@ -11180,7 +10405,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_short_branch).parse(res.data) }
+    return res
   }
 
   async reposGetBranch(
@@ -11202,7 +10427,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_branch_with_protection.parse(res.data) }
+    return res
   }
 
   async reposGetBranchProtection(
@@ -11224,7 +10449,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_branch_protection.parse(res.data) }
+    return res
   }
 
   async reposUpdateBranchProtection(
@@ -11289,7 +10514,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_protected_branch.parse(res.data) }
+    return res
   }
 
   async reposDeleteBranchProtection(
@@ -11311,7 +10536,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposGetAdminBranchProtection(
@@ -11333,7 +10558,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_protected_branch_admin_enforced.parse(res.data) }
+    return res
   }
 
   async reposSetAdminBranchProtection(
@@ -11355,7 +10580,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_protected_branch_admin_enforced.parse(res.data) }
+    return res
   }
 
   async reposDeleteAdminBranchProtection(
@@ -11377,7 +10602,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposGetPullRequestReviewProtection(
@@ -11399,10 +10624,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: s_protected_branch_pull_request_review.parse(res.data),
-    }
+    return res
   }
 
   async reposUpdatePullRequestReviewProtection(
@@ -11444,10 +10666,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: s_protected_branch_pull_request_review.parse(res.data),
-    }
+    return res
   }
 
   async reposDeletePullRequestReviewProtection(
@@ -11469,7 +10688,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposGetCommitSignatureProtection(
@@ -11491,7 +10710,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_protected_branch_admin_enforced.parse(res.data) }
+    return res
   }
 
   async reposCreateCommitSignatureProtection(
@@ -11513,7 +10732,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_protected_branch_admin_enforced.parse(res.data) }
+    return res
   }
 
   async reposDeleteCommitSignatureProtection(
@@ -11535,7 +10754,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposGetStatusChecksProtection(
@@ -11557,7 +10776,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_status_check_policy.parse(res.data) }
+    return res
   }
 
   async reposUpdateStatusCheckProtection(
@@ -11591,7 +10810,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_status_check_policy.parse(res.data) }
+    return res
   }
 
   async reposRemoveStatusCheckProtection(
@@ -11613,7 +10832,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposGetAllStatusCheckContexts(
@@ -11635,7 +10854,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(z.string()).parse(res.data) }
+    return res
   }
 
   async reposAddStatusCheckContexts(
@@ -11666,7 +10885,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(z.string()).parse(res.data) }
+    return res
   }
 
   async reposSetStatusCheckContexts(
@@ -11697,7 +10916,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(z.string()).parse(res.data) }
+    return res
   }
 
   async reposRemoveStatusCheckContexts(
@@ -11728,7 +10947,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(z.string()).parse(res.data) }
+    return res
   }
 
   async reposGetAccessRestrictions(
@@ -11750,7 +10969,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_branch_restriction_policy.parse(res.data) }
+    return res
   }
 
   async reposDeleteAccessRestrictions(
@@ -11772,7 +10991,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposGetAppsWithAccessToProtectedBranch(
@@ -11794,7 +11013,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_integration).parse(res.data) }
+    return res
   }
 
   async reposAddAppAccessRestrictions(
@@ -11825,7 +11044,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_integration).parse(res.data) }
+    return res
   }
 
   async reposSetAppAccessRestrictions(
@@ -11856,7 +11075,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_integration).parse(res.data) }
+    return res
   }
 
   async reposRemoveAppAccessRestrictions(
@@ -11887,7 +11106,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_integration).parse(res.data) }
+    return res
   }
 
   async reposGetTeamsWithAccessToProtectedBranch(
@@ -11909,7 +11128,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_team).parse(res.data) }
+    return res
   }
 
   async reposAddTeamAccessRestrictions(
@@ -11940,7 +11159,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_team).parse(res.data) }
+    return res
   }
 
   async reposSetTeamAccessRestrictions(
@@ -11971,7 +11190,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_team).parse(res.data) }
+    return res
   }
 
   async reposRemoveTeamAccessRestrictions(
@@ -12002,7 +11221,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_team).parse(res.data) }
+    return res
   }
 
   async reposGetUsersWithAccessToProtectedBranch(
@@ -12024,7 +11243,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_simple_user).parse(res.data) }
+    return res
   }
 
   async reposAddUserAccessRestrictions(
@@ -12055,7 +11274,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_simple_user).parse(res.data) }
+    return res
   }
 
   async reposSetUserAccessRestrictions(
@@ -12086,7 +11305,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_simple_user).parse(res.data) }
+    return res
   }
 
   async reposRemoveUserAccessRestrictions(
@@ -12117,7 +11336,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_simple_user).parse(res.data) }
+    return res
   }
 
   async reposRenameBranch(
@@ -12146,7 +11365,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_branch_with_protection.parse(res.data) }
+    return res
   }
 
   async checksCreate(
@@ -12181,7 +11400,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_check_run.parse(res.data) }
+    return res
   }
 
   async checksGet(
@@ -12203,7 +11422,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_check_run.parse(res.data) }
+    return res
   }
 
   async checksUpdate(
@@ -12272,7 +11491,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_check_run.parse(res.data) }
+    return res
   }
 
   async checksListAnnotations(
@@ -12297,7 +11516,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_check_annotation).parse(res.data) }
+    return res
   }
 
   async checksRerequestRun(
@@ -12319,7 +11538,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_empty_object.parse(res.data) }
+    return res
   }
 
   async checksCreateSuite(
@@ -12347,7 +11566,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_check_suite.parse(res.data) }
+    return res
   }
 
   async checksSetSuitesPreferences(
@@ -12378,7 +11597,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_check_suite_preference.parse(res.data) }
+    return res
   }
 
   async checksGetSuite(
@@ -12400,7 +11619,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_check_suite.parse(res.data) }
+    return res
   }
 
   async checksListForSuite(
@@ -12439,15 +11658,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          check_runs: z.array(s_check_run),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async checksRerequestSuite(
@@ -12469,7 +11680,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_empty_object.parse(res.data) }
+    return res
   }
 
   async codeScanningListAlertsForRepo(
@@ -12510,10 +11721,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.array(s_code_scanning_alert_items).parse(res.data),
-    }
+    return res
   }
 
   async codeScanningGetAlert(
@@ -12535,7 +11743,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_code_scanning_alert.parse(res.data) }
+    return res
   }
 
   async codeScanningUpdateAlert(
@@ -12566,7 +11774,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_code_scanning_alert.parse(res.data) }
+    return res
   }
 
   async codeScanningListAlertInstances(
@@ -12596,10 +11804,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.array(s_code_scanning_alert_instance).parse(res.data),
-    }
+    return res
   }
 
   async codeScanningListRecentAnalyses(
@@ -12638,7 +11843,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_code_scanning_analysis).parse(res.data) }
+    return res
   }
 
   async codeScanningGetAnalysis(
@@ -12664,7 +11869,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.object({}).parse(res.data) }
+    return res
   }
 
   async codeScanningDeleteAnalysis(
@@ -12688,7 +11893,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_code_scanning_analysis_deletion.parse(res.data) }
+    return res
   }
 
   async codeScanningListCodeqlDatabases(
@@ -12709,10 +11914,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.array(s_code_scanning_codeql_database).parse(res.data),
-    }
+    return res
   }
 
   async codeScanningGetCodeqlDatabase(
@@ -12734,7 +11936,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_code_scanning_codeql_database.parse(res.data) }
+    return res
   }
 
   async codeScanningGetDefaultSetup(
@@ -12755,7 +11957,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_code_scanning_default_setup.parse(res.data) }
+    return res
   }
 
   async codeScanningUpdateDefaultSetup(
@@ -12784,7 +11986,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_empty_object.parse(res.data) }
+    return res
   }
 
   async codeScanningUploadSarif(
@@ -12818,7 +12020,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_code_scanning_sarifs_receipt.parse(res.data) }
+    return res
   }
 
   async codeScanningGetSarif(
@@ -12840,7 +12042,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_code_scanning_sarifs_status.parse(res.data) }
+    return res
   }
 
   async reposCodeownersErrors(
@@ -12863,7 +12065,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_codeowners_errors.parse(res.data) }
+    return res
   }
 
   async codespacesListInRepositoryForAuthenticatedUser(
@@ -12892,15 +12094,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          codespaces: z.array(s_codespace),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async codespacesCreateWithRepoForAuthenticatedUser(
@@ -12938,7 +12132,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_codespace.parse(res.data) }
+    return res
   }
 
   async codespacesListDevcontainersInRepositoryForAuthenticatedUser(
@@ -12971,21 +12165,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          devcontainers: z.array(
-            z.object({
-              path: z.string(),
-              name: z.string().optional(),
-              display_name: z.string().optional(),
-            }),
-          ),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async codespacesRepoMachinesForAuthenticatedUser(
@@ -13019,15 +12199,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          machines: z.array(s_codespace_machine),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async codespacesPreFlightWithRepoForAuthenticatedUser(
@@ -13059,20 +12231,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          billable_owner: s_simple_user.optional(),
-          defaults: z
-            .object({
-              location: z.string(),
-              devcontainer_path: z.string().nullable(),
-            })
-            .optional(),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async codespacesListRepoSecrets(
@@ -13101,15 +12260,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          secrets: z.array(s_repo_codespaces_secret),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async codespacesGetRepoPublicKey(
@@ -13130,7 +12281,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_codespaces_public_key.parse(res.data) }
+    return res
   }
 
   async codespacesGetRepoSecret(
@@ -13152,7 +12303,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_repo_codespaces_secret.parse(res.data) }
+    return res
   }
 
   async codespacesCreateOrUpdateRepoSecret(
@@ -13182,7 +12333,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_empty_object.parse(res.data) }
+    return res
   }
 
   async codespacesDeleteRepoSecret(
@@ -13204,7 +12355,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposListCollaborators(
@@ -13235,7 +12386,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_collaborator).parse(res.data) }
+    return res
   }
 
   async reposCheckCollaborator(
@@ -13257,7 +12408,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposAddCollaborator(
@@ -13286,7 +12437,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_repository_invitation.parse(res.data) }
+    return res
   }
 
   async reposRemoveCollaborator(
@@ -13308,7 +12459,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposGetCollaboratorPermissionLevel(
@@ -13330,10 +12481,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: s_repository_collaborator_permission.parse(res.data),
-    }
+    return res
   }
 
   async reposListCommitCommentsForRepo(
@@ -13357,7 +12505,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_commit_comment).parse(res.data) }
+    return res
   }
 
   async reposGetCommitComment(
@@ -13379,7 +12527,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_commit_comment.parse(res.data) }
+    return res
   }
 
   async reposUpdateCommitComment(
@@ -13408,7 +12556,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_commit_comment.parse(res.data) }
+    return res
   }
 
   async reposDeleteCommitComment(
@@ -13430,7 +12578,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reactionsListForCommitComment(
@@ -13468,7 +12616,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_reaction).parse(res.data) }
+    return res
   }
 
   async reactionsCreateForCommitComment(
@@ -13505,7 +12653,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_reaction.parse(res.data) }
+    return res
   }
 
   async reactionsDeleteForCommitComment(
@@ -13528,7 +12676,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposListCommits(
@@ -13567,7 +12715,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_commit).parse(res.data) }
+    return res
   }
 
   async reposListBranchesForHeadCommit(
@@ -13589,7 +12737,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_branch_short).parse(res.data) }
+    return res
   }
 
   async reposListCommentsForCommit(
@@ -13614,7 +12762,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_commit_comment).parse(res.data) }
+    return res
   }
 
   async reposCreateCommitComment(
@@ -13646,7 +12794,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_commit_comment.parse(res.data) }
+    return res
   }
 
   async reposListPullRequestsAssociatedWithCommit(
@@ -13671,7 +12819,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_pull_request_simple).parse(res.data) }
+    return res
   }
 
   async reposGetCommit(
@@ -13696,7 +12844,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_commit.parse(res.data) }
+    return res
   }
 
   async checksListForRef(
@@ -13737,15 +12885,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          check_runs: z.array(s_check_run),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async checksListSuitesForRef(
@@ -13782,15 +12922,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          check_suites: z.array(s_check_suite),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async reposGetCombinedStatusForRef(
@@ -13815,7 +12947,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_combined_commit_status.parse(res.data) }
+    return res
   }
 
   async reposListCommitStatusesForRef(
@@ -13840,7 +12972,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_status).parse(res.data) }
+    return res
   }
 
   async reposGetCommunityProfileMetrics(
@@ -13861,7 +12993,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_community_profile.parse(res.data) }
+    return res
   }
 
   async reposCompareCommits(
@@ -13886,7 +13018,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_commit_comparison.parse(res.data) }
+    return res
   }
 
   async reposGetContent(
@@ -13917,17 +13049,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .union([
-          s_content_directory,
-          s_content_file,
-          s_content_symlink,
-          s_content_submodule,
-        ])
-        .parse(res.data),
-    }
+    return res
   }
 
   async reposCreateOrUpdateFileContents(
@@ -13969,7 +13091,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_file_commit.parse(res.data) }
+    return res
   }
 
   async reposDeleteFile(
@@ -14008,7 +13130,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_file_commit.parse(res.data) }
+    return res
   }
 
   async reposListContributors(
@@ -14037,7 +13159,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_contributor).parse(res.data) }
+    return res
   }
 
   async dependabotListAlertsForRepo(
@@ -14088,7 +13210,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_dependabot_alert).parse(res.data) }
+    return res
   }
 
   async dependabotGetAlert(
@@ -14110,7 +13232,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_dependabot_alert.parse(res.data) }
+    return res
   }
 
   async dependabotUpdateAlert(
@@ -14146,7 +13268,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_dependabot_alert.parse(res.data) }
+    return res
   }
 
   async dependabotListRepoSecrets(
@@ -14175,15 +13297,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          secrets: z.array(s_dependabot_secret),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async dependabotGetRepoPublicKey(
@@ -14204,7 +13318,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_dependabot_public_key.parse(res.data) }
+    return res
   }
 
   async dependabotGetRepoSecret(
@@ -14226,7 +13340,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_dependabot_secret.parse(res.data) }
+    return res
   }
 
   async dependabotCreateOrUpdateRepoSecret(
@@ -14256,7 +13370,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_empty_object.parse(res.data) }
+    return res
   }
 
   async dependabotDeleteRepoSecret(
@@ -14278,7 +13392,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async dependencyGraphDiffRange(
@@ -14302,7 +13416,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_dependency_graph_diff.parse(res.data) }
+    return res
   }
 
   async dependencyGraphExportSbom(
@@ -14323,7 +13437,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_dependency_graph_spdx_sbom.parse(res.data) }
+    return res
   }
 
   async dependencyGraphCreateRepositorySnapshot(
@@ -14356,17 +13470,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          id: z.coerce.number(),
-          created_at: z.string(),
-          result: z.string(),
-          message: z.string(),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async reposListDeployments(
@@ -14401,7 +13505,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_deployment).parse(res.data) }
+    return res
   }
 
   async reposCreateDeployment(
@@ -14446,7 +13550,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_deployment.parse(res.data) }
+    return res
   }
 
   async reposGetDeployment(
@@ -14468,7 +13572,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_deployment.parse(res.data) }
+    return res
   }
 
   async reposDeleteDeployment(
@@ -14490,7 +13594,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposListDeploymentStatuses(
@@ -14515,7 +13619,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_deployment_status).parse(res.data) }
+    return res
   }
 
   async reposCreateDeploymentStatus(
@@ -14557,7 +13661,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_deployment_status.parse(res.data) }
+    return res
   }
 
   async reposGetDeploymentStatus(
@@ -14580,7 +13684,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_deployment_status.parse(res.data) }
+    return res
   }
 
   async reposCreateDispatchEvent(
@@ -14611,7 +13715,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposGetAllEnvironments(
@@ -14640,15 +13744,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number().optional(),
-          environments: z.array(s_environment).optional(),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async reposGetEnvironment(
@@ -14670,7 +13766,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_environment.parse(res.data) }
+    return res
   }
 
   async reposCreateOrUpdateEnvironment(
@@ -14706,7 +13802,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_environment.parse(res.data) }
+    return res
   }
 
   async reposDeleteAnEnvironment(
@@ -14728,7 +13824,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposListDeploymentBranchPolicies(
@@ -14758,15 +13854,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          branch_policies: z.array(s_deployment_branch_policy),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async reposCreateDeploymentBranchPolicy(
@@ -14793,7 +13881,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_deployment_branch_policy.parse(res.data) }
+    return res
   }
 
   async reposGetDeploymentBranchPolicy(
@@ -14816,7 +13904,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_deployment_branch_policy.parse(res.data) }
+    return res
   }
 
   async reposUpdateDeploymentBranchPolicy(
@@ -14844,7 +13932,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_deployment_branch_policy.parse(res.data) }
+    return res
   }
 
   async reposDeleteDeploymentBranchPolicy(
@@ -14867,7 +13955,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposGetAllDeploymentProtectionRules(
@@ -14894,17 +13982,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number().optional(),
-          custom_deployment_protection_rules: z
-            .array(s_deployment_protection_rule)
-            .optional(),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async reposCreateDeploymentProtectionRule(
@@ -14933,7 +14011,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_deployment_protection_rule.parse(res.data) }
+    return res
   }
 
   async reposListCustomDeploymentRuleIntegrations(
@@ -14963,17 +14041,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number().optional(),
-          available_custom_deployment_protection_rule_integrations: z
-            .array(s_custom_deployment_rule_app)
-            .optional(),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async reposGetCustomDeploymentProtectionRule(
@@ -14996,7 +14064,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_deployment_protection_rule.parse(res.data) }
+    return res
   }
 
   async reposDisableDeploymentProtectionRule(
@@ -15019,7 +14087,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async activityListRepoEvents(
@@ -15043,7 +14111,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_event).parse(res.data) }
+    return res
   }
 
   async reposListForks(
@@ -15072,7 +14140,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
+    return res
   }
 
   async reposCreateFork(
@@ -15102,7 +14170,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_full_repository.parse(res.data) }
+    return res
   }
 
   async gitCreateBlob(
@@ -15131,7 +14199,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_short_blob.parse(res.data) }
+    return res
   }
 
   async gitGetBlob(
@@ -15153,7 +14221,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_blob.parse(res.data) }
+    return res
   }
 
   async gitCreateCommit(
@@ -15194,7 +14262,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_git_commit.parse(res.data) }
+    return res
   }
 
   async gitGetCommit(
@@ -15216,7 +14284,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_git_commit.parse(res.data) }
+    return res
   }
 
   async gitListMatchingRefs(
@@ -15238,7 +14306,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_git_ref).parse(res.data) }
+    return res
   }
 
   async gitGetRef(
@@ -15260,7 +14328,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_git_ref.parse(res.data) }
+    return res
   }
 
   async gitCreateRef(
@@ -15289,7 +14357,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_git_ref.parse(res.data) }
+    return res
   }
 
   async gitUpdateRef(
@@ -15319,7 +14387,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_git_ref.parse(res.data) }
+    return res
   }
 
   async gitDeleteRef(
@@ -15341,7 +14409,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async gitCreateTag(
@@ -15377,7 +14445,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_git_tag.parse(res.data) }
+    return res
   }
 
   async gitGetTag(
@@ -15399,7 +14467,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_git_tag.parse(res.data) }
+    return res
   }
 
   async gitCreateTree(
@@ -15434,7 +14502,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_git_tree.parse(res.data) }
+    return res
   }
 
   async gitGetTree(
@@ -15458,7 +14526,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_git_tree.parse(res.data) }
+    return res
   }
 
   async reposListWebhooks(
@@ -15482,7 +14550,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_hook).parse(res.data) }
+    return res
   }
 
   async reposCreateWebhook(
@@ -15520,7 +14588,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_hook.parse(res.data) }
+    return res
   }
 
   async reposGetWebhook(
@@ -15542,7 +14610,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_hook.parse(res.data) }
+    return res
   }
 
   async reposUpdateWebhook(
@@ -15582,7 +14650,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_hook.parse(res.data) }
+    return res
   }
 
   async reposDeleteWebhook(
@@ -15604,7 +14672,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposGetWebhookConfigForRepo(
@@ -15626,7 +14694,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_webhook_config.parse(res.data) }
+    return res
   }
 
   async reposUpdateWebhookConfigForRepo(
@@ -15658,7 +14726,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_webhook_config.parse(res.data) }
+    return res
   }
 
   async reposListWebhookDeliveries(
@@ -15688,7 +14756,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_hook_delivery_item).parse(res.data) }
+    return res
   }
 
   async reposGetWebhookDelivery(
@@ -15711,7 +14779,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_hook_delivery.parse(res.data) }
+    return res
   }
 
   async reposRedeliverWebhookDelivery(
@@ -15734,7 +14802,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.object({}).parse(res.data) }
+    return res
   }
 
   async reposPingWebhook(
@@ -15756,7 +14824,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposTestPushWebhook(
@@ -15778,7 +14846,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async migrationsGetImportStatus(
@@ -15799,7 +14867,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_import.parse(res.data) }
+    return res
   }
 
   async migrationsStartImport(
@@ -15831,7 +14899,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_import.parse(res.data) }
+    return res
   }
 
   async migrationsUpdateImport(
@@ -15862,7 +14930,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_import.parse(res.data) }
+    return res
   }
 
   async migrationsCancelImport(
@@ -15883,7 +14951,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async migrationsGetCommitAuthors(
@@ -15906,7 +14974,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_porter_author).parse(res.data) }
+    return res
   }
 
   async migrationsMapCommitAuthor(
@@ -15936,7 +15004,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_porter_author.parse(res.data) }
+    return res
   }
 
   async migrationsGetLargeFiles(
@@ -15957,7 +15025,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_porter_large_file).parse(res.data) }
+    return res
   }
 
   async migrationsSetLfsPreference(
@@ -15985,7 +15053,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_import.parse(res.data) }
+    return res
   }
 
   async appsGetRepoInstallation(
@@ -16006,7 +15074,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_installation.parse(res.data) }
+    return res
   }
 
   async interactionsGetRestrictionsForRepo(
@@ -16027,12 +15095,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .union([s_interaction_limit_response, z.object({})])
-        .parse(res.data),
-    }
+    return res
   }
 
   async interactionsSetRestrictionsForRepo(
@@ -16058,7 +15121,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_interaction_limit_response.parse(res.data) }
+    return res
   }
 
   async interactionsRemoveRestrictionsForRepo(
@@ -16079,7 +15142,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposListInvitations(
@@ -16103,7 +15166,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_repository_invitation).parse(res.data) }
+    return res
   }
 
   async reposUpdateInvitation(
@@ -16132,7 +15195,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_repository_invitation.parse(res.data) }
+    return res
   }
 
   async reposDeleteInvitation(
@@ -16154,7 +15217,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async issuesListForRepo(
@@ -16199,7 +15262,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_issue).parse(res.data) }
+    return res
   }
 
   async issuesCreate(
@@ -16240,7 +15303,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_issue.parse(res.data) }
+    return res
   }
 
   async issuesListCommentsForRepo(
@@ -16273,7 +15336,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_issue_comment).parse(res.data) }
+    return res
   }
 
   async issuesGetComment(
@@ -16295,7 +15358,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_issue_comment.parse(res.data) }
+    return res
   }
 
   async issuesUpdateComment(
@@ -16324,7 +15387,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_issue_comment.parse(res.data) }
+    return res
   }
 
   async issuesDeleteComment(
@@ -16346,7 +15409,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reactionsListForIssueComment(
@@ -16384,7 +15447,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_reaction).parse(res.data) }
+    return res
   }
 
   async reactionsCreateForIssueComment(
@@ -16421,7 +15484,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_reaction.parse(res.data) }
+    return res
   }
 
   async reactionsDeleteForIssueComment(
@@ -16444,7 +15507,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async issuesListEventsForRepo(
@@ -16468,7 +15531,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_issue_event).parse(res.data) }
+    return res
   }
 
   async issuesGetEvent(
@@ -16490,7 +15553,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_issue_event.parse(res.data) }
+    return res
   }
 
   async issuesGet(
@@ -16512,7 +15575,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_issue.parse(res.data) }
+    return res
   }
 
   async issuesUpdate(
@@ -16556,7 +15619,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_issue.parse(res.data) }
+    return res
   }
 
   async issuesAddAssignees(
@@ -16585,7 +15648,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_issue.parse(res.data) }
+    return res
   }
 
   async issuesRemoveAssignees(
@@ -16614,7 +15677,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_issue.parse(res.data) }
+    return res
   }
 
   async issuesCheckUserCanBeAssignedToIssue(
@@ -16637,7 +15700,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async issuesListComments(
@@ -16667,7 +15730,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_issue_comment).parse(res.data) }
+    return res
   }
 
   async issuesCreateComment(
@@ -16696,7 +15759,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_issue_comment.parse(res.data) }
+    return res
   }
 
   async issuesListEvents(
@@ -16721,7 +15784,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_issue_event_for_issue).parse(res.data) }
+    return res
   }
 
   async issuesListLabelsOnIssue(
@@ -16746,7 +15809,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_label).parse(res.data) }
+    return res
   }
 
   async issuesAddLabels(
@@ -16786,7 +15849,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_label).parse(res.data) }
+    return res
   }
 
   async issuesSetLabels(
@@ -16826,7 +15889,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_label).parse(res.data) }
+    return res
   }
 
   async issuesRemoveAllLabels(
@@ -16848,7 +15911,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async issuesRemoveLabel(
@@ -16871,7 +15934,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_label).parse(res.data) }
+    return res
   }
 
   async issuesLock(
@@ -16900,7 +15963,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async issuesUnlock(
@@ -16922,7 +15985,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reactionsListForIssue(
@@ -16960,7 +16023,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_reaction).parse(res.data) }
+    return res
   }
 
   async reactionsCreateForIssue(
@@ -16997,7 +16060,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_reaction.parse(res.data) }
+    return res
   }
 
   async reactionsDeleteForIssue(
@@ -17020,7 +16083,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async issuesListEventsForTimeline(
@@ -17045,7 +16108,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_timeline_issue_events).parse(res.data) }
+    return res
   }
 
   async reposListDeployKeys(
@@ -17069,7 +16132,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_deploy_key).parse(res.data) }
+    return res
   }
 
   async reposCreateDeployKey(
@@ -17099,7 +16162,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_deploy_key.parse(res.data) }
+    return res
   }
 
   async reposGetDeployKey(
@@ -17121,7 +16184,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_deploy_key.parse(res.data) }
+    return res
   }
 
   async reposDeleteDeployKey(
@@ -17143,7 +16206,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async issuesListLabelsForRepo(
@@ -17167,7 +16230,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_label).parse(res.data) }
+    return res
   }
 
   async issuesCreateLabel(
@@ -17197,7 +16260,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_label.parse(res.data) }
+    return res
   }
 
   async issuesGetLabel(
@@ -17219,7 +16282,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_label.parse(res.data) }
+    return res
   }
 
   async issuesUpdateLabel(
@@ -17250,7 +16313,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_label.parse(res.data) }
+    return res
   }
 
   async issuesDeleteLabel(
@@ -17272,7 +16335,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposListLanguages(
@@ -17293,7 +16356,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_language.parse(res.data) }
+    return res
   }
 
   async licensesGetForRepo(
@@ -17314,7 +16377,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_license_content.parse(res.data) }
+    return res
   }
 
   async reposMergeUpstream(
@@ -17342,7 +16405,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_merged_upstream.parse(res.data) }
+    return res
   }
 
   async reposMerge(
@@ -17372,7 +16435,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_commit.parse(res.data) }
+    return res
   }
 
   async issuesListMilestones(
@@ -17405,7 +16468,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_milestone).parse(res.data) }
+    return res
   }
 
   async issuesCreateMilestone(
@@ -17436,7 +16499,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_milestone.parse(res.data) }
+    return res
   }
 
   async issuesGetMilestone(
@@ -17458,7 +16521,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_milestone.parse(res.data) }
+    return res
   }
 
   async issuesUpdateMilestone(
@@ -17490,7 +16553,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_milestone.parse(res.data) }
+    return res
   }
 
   async issuesDeleteMilestone(
@@ -17512,7 +16575,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async issuesListLabelsForMilestone(
@@ -17537,7 +16600,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_label).parse(res.data) }
+    return res
   }
 
   async activityListRepoNotificationsForAuthenticatedUser(
@@ -17572,7 +16635,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_thread).parse(res.data) }
+    return res
   }
 
   async activityMarkRepoNotificationsAsRead(
@@ -17606,12 +16669,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({ message: z.string().optional(), url: z.string().optional() })
-        .parse(res.data),
-    }
+    return res
   }
 
   async reposGetPages(
@@ -17632,7 +16690,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_page.parse(res.data) }
+    return res
   }
 
   async reposCreatePagesSite(
@@ -17664,7 +16722,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_page.parse(res.data) }
+    return res
   }
 
   async reposUpdateInformationAboutPagesSite(
@@ -17702,7 +16760,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposDeletePagesSite(
@@ -17723,7 +16781,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposListPagesBuilds(
@@ -17747,7 +16805,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_page_build).parse(res.data) }
+    return res
   }
 
   async reposRequestPagesBuild(
@@ -17768,7 +16826,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_page_build_status.parse(res.data) }
+    return res
   }
 
   async reposGetLatestPagesBuild(
@@ -17789,7 +16847,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_page_build.parse(res.data) }
+    return res
   }
 
   async reposGetPagesBuild(
@@ -17811,7 +16869,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_page_build.parse(res.data) }
+    return res
   }
 
   async reposCreatePagesDeployment(
@@ -17842,7 +16900,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_page_deployment.parse(res.data) }
+    return res
   }
 
   async reposGetPagesHealthCheck(
@@ -17865,7 +16923,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_pages_health_check.parse(res.data) }
+    return res
   }
 
   async reposEnablePrivateVulnerabilityReporting(
@@ -17886,7 +16944,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposDisablePrivateVulnerabilityReporting(
@@ -17907,7 +16965,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async projectsListForRepo(
@@ -17936,7 +16994,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_project).parse(res.data) }
+    return res
   }
 
   async projectsCreateForRepo(
@@ -17965,7 +17023,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_project.parse(res.data) }
+    return res
   }
 
   async pullsList(
@@ -18002,7 +17060,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_pull_request_simple).parse(res.data) }
+    return res
   }
 
   async pullsCreate(
@@ -18037,7 +17095,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_pull_request.parse(res.data) }
+    return res
   }
 
   async pullsListReviewCommentsForRepo(
@@ -18070,10 +17128,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.array(s_pull_request_review_comment).parse(res.data),
-    }
+    return res
   }
 
   async pullsGetReviewComment(
@@ -18095,7 +17150,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_pull_request_review_comment.parse(res.data) }
+    return res
   }
 
   async pullsUpdateReviewComment(
@@ -18124,7 +17179,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_pull_request_review_comment.parse(res.data) }
+    return res
   }
 
   async pullsDeleteReviewComment(
@@ -18146,7 +17201,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reactionsListForPullRequestReviewComment(
@@ -18184,7 +17239,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_reaction).parse(res.data) }
+    return res
   }
 
   async reactionsCreateForPullRequestReviewComment(
@@ -18221,7 +17276,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_reaction.parse(res.data) }
+    return res
   }
 
   async reactionsDeleteForPullRequestComment(
@@ -18244,7 +17299,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async pullsGet(
@@ -18266,7 +17321,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_pull_request.parse(res.data) }
+    return res
   }
 
   async pullsUpdate(
@@ -18299,7 +17354,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_pull_request.parse(res.data) }
+    return res
   }
 
   async codespacesCreateWithPrForAuthenticatedUser(
@@ -18337,7 +17392,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_codespace.parse(res.data) }
+    return res
   }
 
   async pullsListReviewComments(
@@ -18371,10 +17426,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.array(s_pull_request_review_comment).parse(res.data),
-    }
+    return res
   }
 
   async pullsCreateReviewComment(
@@ -18412,7 +17464,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_pull_request_review_comment.parse(res.data) }
+    return res
   }
 
   async pullsCreateReplyForReviewComment(
@@ -18442,7 +17494,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_pull_request_review_comment.parse(res.data) }
+    return res
   }
 
   async pullsListCommits(
@@ -18467,7 +17519,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_commit).parse(res.data) }
+    return res
   }
 
   async pullsListFiles(
@@ -18492,7 +17544,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_diff_entry).parse(res.data) }
+    return res
   }
 
   async pullsCheckIfMerged(
@@ -18514,7 +17566,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async pullsMerge(
@@ -18546,7 +17598,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_pull_request_merge_result.parse(res.data) }
+    return res
   }
 
   async pullsListRequestedReviewers(
@@ -18568,7 +17620,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_pull_request_review_request.parse(res.data) }
+    return res
   }
 
   async pullsRequestReviewers(
@@ -18598,7 +17650,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_pull_request_simple.parse(res.data) }
+    return res
   }
 
   async pullsRemoveRequestedReviewers(
@@ -18628,7 +17680,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_pull_request_simple.parse(res.data) }
+    return res
   }
 
   async pullsListReviews(
@@ -18653,7 +17705,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_pull_request_review).parse(res.data) }
+    return res
   }
 
   async pullsCreateReview(
@@ -18693,7 +17745,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_pull_request_review.parse(res.data) }
+    return res
   }
 
   async pullsGetReview(
@@ -18716,7 +17768,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_pull_request_review.parse(res.data) }
+    return res
   }
 
   async pullsUpdateReview(
@@ -18746,7 +17798,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_pull_request_review.parse(res.data) }
+    return res
   }
 
   async pullsDeletePendingReview(
@@ -18769,7 +17821,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_pull_request_review.parse(res.data) }
+    return res
   }
 
   async pullsListCommentsForReview(
@@ -18795,7 +17847,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_review_comment).parse(res.data) }
+    return res
   }
 
   async pullsDismissReview(
@@ -18826,7 +17878,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_pull_request_review.parse(res.data) }
+    return res
   }
 
   async pullsSubmitReview(
@@ -18857,7 +17909,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_pull_request_review.parse(res.data) }
+    return res
   }
 
   async pullsUpdateBranch(
@@ -18891,12 +17943,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({ message: z.string().optional(), url: z.string().optional() })
-        .parse(res.data),
-    }
+    return res
   }
 
   async reposGetReadme(
@@ -18919,7 +17966,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_content_file.parse(res.data) }
+    return res
   }
 
   async reposGetReadmeInDirectory(
@@ -18943,7 +17990,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_content_file.parse(res.data) }
+    return res
   }
 
   async reposListReleases(
@@ -18967,7 +18014,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_release).parse(res.data) }
+    return res
   }
 
   async reposCreateRelease(
@@ -19003,7 +18050,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_release.parse(res.data) }
+    return res
   }
 
   async reposGetReleaseAsset(
@@ -19025,7 +18072,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_release_asset.parse(res.data) }
+    return res
   }
 
   async reposUpdateReleaseAsset(
@@ -19056,7 +18103,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_release_asset.parse(res.data) }
+    return res
   }
 
   async reposDeleteReleaseAsset(
@@ -19078,7 +18125,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposGenerateReleaseNotes(
@@ -19109,7 +18156,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_release_notes_content.parse(res.data) }
+    return res
   }
 
   async reposGetLatestRelease(
@@ -19130,7 +18177,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_release.parse(res.data) }
+    return res
   }
 
   async reposGetReleaseByTag(
@@ -19152,7 +18199,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_release.parse(res.data) }
+    return res
   }
 
   async reposGetRelease(
@@ -19174,7 +18221,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_release.parse(res.data) }
+    return res
   }
 
   async reposUpdateRelease(
@@ -19210,7 +18257,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_release.parse(res.data) }
+    return res
   }
 
   async reposDeleteRelease(
@@ -19232,7 +18279,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposListReleaseAssets(
@@ -19257,7 +18304,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_release_asset).parse(res.data) }
+    return res
   }
 
   async reposUploadReleaseAsset(
@@ -19289,7 +18336,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_release_asset.parse(res.data) }
+    return res
   }
 
   async reactionsListForRelease(
@@ -19319,7 +18366,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_reaction).parse(res.data) }
+    return res
   }
 
   async reactionsCreateForRelease(
@@ -19348,7 +18395,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_reaction.parse(res.data) }
+    return res
   }
 
   async reactionsDeleteForRelease(
@@ -19371,7 +18418,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposGetBranchRules(
@@ -19396,7 +18443,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_repository_rule_detailed).parse(res.data) }
+    return res
   }
 
   async reposGetRepoRulesets(
@@ -19425,7 +18472,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_repository_ruleset).parse(res.data) }
+    return res
   }
 
   async reposCreateRepoRuleset(
@@ -19458,7 +18505,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_repository_ruleset.parse(res.data) }
+    return res
   }
 
   async reposGetRepoRuleset(
@@ -19482,7 +18529,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_repository_ruleset.parse(res.data) }
+    return res
   }
 
   async reposUpdateRepoRuleset(
@@ -19516,7 +18563,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_repository_ruleset.parse(res.data) }
+    return res
   }
 
   async reposDeleteRepoRuleset(
@@ -19538,7 +18585,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async secretScanningListAlertsForRepo(
@@ -19579,7 +18626,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_secret_scanning_alert).parse(res.data) }
+    return res
   }
 
   async secretScanningGetAlert(
@@ -19601,7 +18648,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_secret_scanning_alert.parse(res.data) }
+    return res
   }
 
   async secretScanningUpdateAlert(
@@ -19632,7 +18679,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_secret_scanning_alert.parse(res.data) }
+    return res
   }
 
   async secretScanningListLocationsForAlert(
@@ -19657,7 +18704,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_secret_scanning_location).parse(res.data) }
+    return res
   }
 
   async securityAdvisoriesListRepositoryAdvisories(
@@ -19692,7 +18739,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_repository_advisory).parse(res.data) }
+    return res
   }
 
   async securityAdvisoriesCreateRepositoryAdvisory(
@@ -19718,7 +18765,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_repository_advisory.parse(res.data) }
+    return res
   }
 
   async securityAdvisoriesCreatePrivateVulnerabilityReport(
@@ -19744,7 +18791,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_repository_advisory.parse(res.data) }
+    return res
   }
 
   async securityAdvisoriesGetRepositoryAdvisory(
@@ -19766,7 +18813,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_repository_advisory.parse(res.data) }
+    return res
   }
 
   async securityAdvisoriesUpdateRepositoryAdvisory(
@@ -19793,7 +18840,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_repository_advisory.parse(res.data) }
+    return res
   }
 
   async securityAdvisoriesCreateRepositoryAdvisoryCveRequest(
@@ -19815,7 +18862,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.object({}).parse(res.data) }
+    return res
   }
 
   async activityListStargazersForRepo(
@@ -19839,12 +18886,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .union([z.array(s_simple_user), z.array(s_stargazer)])
-        .parse(res.data),
-    }
+    return res
   }
 
   async reposGetCodeFrequencyStats(
@@ -19869,7 +18911,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_code_frequency_stat).parse(res.data) }
+    return res
   }
 
   async reposGetCommitActivityStats(
@@ -19894,7 +18936,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_commit_activity).parse(res.data) }
+    return res
   }
 
   async reposGetContributorsStats(
@@ -19919,7 +18961,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_contributor_activity).parse(res.data) }
+    return res
   }
 
   async reposGetParticipationStats(
@@ -19940,7 +18982,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_participation_stats.parse(res.data) }
+    return res
   }
 
   async reposGetPunchCardStats(
@@ -19961,7 +19003,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_code_frequency_stat).parse(res.data) }
+    return res
   }
 
   async reposCreateCommitStatus(
@@ -19993,7 +19035,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_status.parse(res.data) }
+    return res
   }
 
   async activityListWatchersForRepo(
@@ -20017,7 +19059,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_simple_user).parse(res.data) }
+    return res
   }
 
   async activityGetRepoSubscription(
@@ -20038,7 +19080,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_repository_subscription.parse(res.data) }
+    return res
   }
 
   async activitySetRepoSubscription(
@@ -20067,7 +19109,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_repository_subscription.parse(res.data) }
+    return res
   }
 
   async activityDeleteRepoSubscription(
@@ -20088,7 +19130,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposListTags(
@@ -20112,7 +19154,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_tag).parse(res.data) }
+    return res
   }
 
   async reposListTagProtection(
@@ -20133,7 +19175,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_tag_protection).parse(res.data) }
+    return res
   }
 
   async reposCreateTagProtection(
@@ -20161,7 +19203,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_tag_protection.parse(res.data) }
+    return res
   }
 
   async reposDeleteTagProtection(
@@ -20183,7 +19225,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposDownloadTarballArchive(
@@ -20205,7 +19247,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposListTeams(
@@ -20229,7 +19271,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_team).parse(res.data) }
+    return res
   }
 
   async reposGetAllTopics(
@@ -20253,7 +19295,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_topic.parse(res.data) }
+    return res
   }
 
   async reposReplaceAllTopics(
@@ -20281,7 +19323,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_topic.parse(res.data) }
+    return res
   }
 
   async reposGetClones(
@@ -20304,7 +19346,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_clone_traffic.parse(res.data) }
+    return res
   }
 
   async reposGetTopPaths(
@@ -20325,7 +19367,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_content_traffic).parse(res.data) }
+    return res
   }
 
   async reposGetTopReferrers(
@@ -20346,7 +19388,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_referrer_traffic).parse(res.data) }
+    return res
   }
 
   async reposGetViews(
@@ -20369,7 +19411,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_view_traffic.parse(res.data) }
+    return res
   }
 
   async reposTransfer(
@@ -20399,7 +19441,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_minimal_repository.parse(res.data) }
+    return res
   }
 
   async reposCheckVulnerabilityAlerts(
@@ -20420,7 +19462,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposEnableVulnerabilityAlerts(
@@ -20441,7 +19483,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposDisableVulnerabilityAlerts(
@@ -20462,7 +19504,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposDownloadZipballArchive(
@@ -20484,7 +19526,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposCreateUsingTemplate(
@@ -20516,7 +19558,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_repository.parse(res.data) }
+    return res
   }
 
   async reposListPublic(
@@ -20537,7 +19579,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
+    return res
   }
 
   async actionsListEnvironmentSecrets(
@@ -20566,15 +19608,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          secrets: z.array(s_actions_secret),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsGetEnvironmentPublicKey(
@@ -20595,7 +19629,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_actions_public_key.parse(res.data) }
+    return res
   }
 
   async actionsGetEnvironmentSecret(
@@ -20617,7 +19651,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_actions_secret.parse(res.data) }
+    return res
   }
 
   async actionsCreateOrUpdateEnvironmentSecret(
@@ -20647,7 +19681,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_empty_object.parse(res.data) }
+    return res
   }
 
   async actionsDeleteEnvironmentSecret(
@@ -20669,7 +19703,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsListEnvironmentVariables(
@@ -20698,15 +19732,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          variables: z.array(s_actions_variable),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async actionsCreateEnvironmentVariable(
@@ -20735,7 +19761,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_empty_object.parse(res.data) }
+    return res
   }
 
   async actionsGetEnvironmentVariable(
@@ -20757,7 +19783,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_actions_variable.parse(res.data) }
+    return res
   }
 
   async actionsUpdateEnvironmentVariable(
@@ -20787,7 +19813,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async actionsDeleteEnvironmentVariable(
@@ -20809,7 +19835,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async searchCode(
@@ -20846,16 +19872,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          incomplete_results: z.coerce.boolean(),
-          items: z.array(s_code_search_result_item),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async searchCommits(
@@ -20892,16 +19909,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          incomplete_results: z.coerce.boolean(),
-          items: z.array(s_commit_search_result_item),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async searchIssuesAndPullRequests(
@@ -20949,16 +19957,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          incomplete_results: z.coerce.boolean(),
-          items: z.array(s_issue_search_result_item),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async searchLabels(
@@ -20997,16 +19996,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          incomplete_results: z.coerce.boolean(),
-          items: z.array(s_label_search_result_item),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async searchRepos(
@@ -21043,16 +20033,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          incomplete_results: z.coerce.boolean(),
-          items: z.array(s_repo_search_result_item),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async searchTopics(
@@ -21085,16 +20066,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          incomplete_results: z.coerce.boolean(),
-          items: z.array(s_topic_search_result_item),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async searchUsers(
@@ -21131,16 +20103,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          incomplete_results: z.coerce.boolean(),
-          items: z.array(s_user_search_result_item),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async teamsGetLegacy(
@@ -21160,7 +20123,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_full.parse(res.data) }
+    return res
   }
 
   async teamsUpdateLegacy(
@@ -21194,7 +20157,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_full.parse(res.data) }
+    return res
   }
 
   async teamsDeleteLegacy(
@@ -21214,7 +20177,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async teamsListDiscussionsLegacy(
@@ -21242,7 +20205,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_team_discussion).parse(res.data) }
+    return res
   }
 
   async teamsCreateDiscussionLegacy(
@@ -21271,7 +20234,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_discussion.parse(res.data) }
+    return res
   }
 
   async teamsGetDiscussionLegacy(
@@ -21292,7 +20255,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_discussion.parse(res.data) }
+    return res
   }
 
   async teamsUpdateDiscussionLegacy(
@@ -21321,7 +20284,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_discussion.parse(res.data) }
+    return res
   }
 
   async teamsDeleteDiscussionLegacy(
@@ -21342,7 +20305,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async teamsListDiscussionCommentsLegacy(
@@ -21371,7 +20334,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_team_discussion_comment).parse(res.data) }
+    return res
   }
 
   async teamsCreateDiscussionCommentLegacy(
@@ -21399,7 +20362,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_discussion_comment.parse(res.data) }
+    return res
   }
 
   async teamsGetDiscussionCommentLegacy(
@@ -21421,7 +20384,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_discussion_comment.parse(res.data) }
+    return res
   }
 
   async teamsUpdateDiscussionCommentLegacy(
@@ -21450,7 +20413,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_discussion_comment.parse(res.data) }
+    return res
   }
 
   async teamsDeleteDiscussionCommentLegacy(
@@ -21472,7 +20435,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reactionsListForTeamDiscussionCommentLegacy(
@@ -21510,7 +20473,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_reaction).parse(res.data) }
+    return res
   }
 
   async reactionsCreateForTeamDiscussionCommentLegacy(
@@ -21547,7 +20510,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_reaction.parse(res.data) }
+    return res
   }
 
   async reactionsListForTeamDiscussionLegacy(
@@ -21584,7 +20547,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_reaction).parse(res.data) }
+    return res
   }
 
   async reactionsCreateForTeamDiscussionLegacy(
@@ -21620,7 +20583,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_reaction.parse(res.data) }
+    return res
   }
 
   async teamsListPendingInvitationsLegacy(
@@ -21643,7 +20606,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_organization_invitation).parse(res.data) }
+    return res
   }
 
   async teamsListMembersLegacy(
@@ -21671,7 +20634,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_simple_user).parse(res.data) }
+    return res
   }
 
   async teamsGetMemberLegacy(
@@ -21692,7 +20655,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async teamsAddMemberLegacy(
@@ -21713,7 +20676,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async teamsRemoveMemberLegacy(
@@ -21734,7 +20697,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async teamsGetMembershipForUserLegacy(
@@ -21755,7 +20718,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_membership.parse(res.data) }
+    return res
   }
 
   async teamsAddOrUpdateMembershipForUserLegacy(
@@ -21783,7 +20746,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_membership.parse(res.data) }
+    return res
   }
 
   async teamsRemoveMembershipForUserLegacy(
@@ -21804,7 +20767,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async teamsListProjectsLegacy(
@@ -21827,7 +20790,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_team_project).parse(res.data) }
+    return res
   }
 
   async teamsCheckPermissionsForProjectLegacy(
@@ -21848,7 +20811,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_project.parse(res.data) }
+    return res
   }
 
   async teamsAddOrUpdateProjectPermissionsLegacy(
@@ -21876,7 +20839,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async teamsRemoveProjectLegacy(
@@ -21897,7 +20860,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async teamsListReposLegacy(
@@ -21920,7 +20883,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
+    return res
   }
 
   async teamsCheckPermissionsForRepoLegacy(
@@ -21942,7 +20905,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_team_repository.parse(res.data) }
+    return res
   }
 
   async teamsAddOrUpdateRepoPermissionsLegacy(
@@ -21971,7 +20934,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async teamsRemoveRepoLegacy(
@@ -21993,7 +20956,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async teamsListChildLegacy(
@@ -22016,7 +20979,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_team).parse(res.data) }
+    return res
   }
 
   async usersGetAuthenticated(
@@ -22033,10 +20996,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.union([s_private_user, s_public_user]).parse(res.data),
-    }
+    return res
   }
 
   async usersUpdateAuthenticated(
@@ -22069,7 +21029,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_private_user.parse(res.data) }
+    return res
   }
 
   async usersListBlockedByAuthenticatedUser(
@@ -22091,7 +21051,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_simple_user).parse(res.data) }
+    return res
   }
 
   async usersCheckBlocked(
@@ -22111,7 +21071,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async usersBlock(
@@ -22131,7 +21091,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async usersUnblock(
@@ -22151,7 +21111,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async codespacesListForAuthenticatedUser(
@@ -22183,15 +21143,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          codespaces: z.array(s_codespace),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async codespacesCreateForAuthenticatedUser(
@@ -22241,7 +21193,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_codespace.parse(res.data) }
+    return res
   }
 
   async codespacesListSecretsForAuthenticatedUser(
@@ -22268,15 +21220,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          secrets: z.array(s_codespaces_secret),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async codespacesGetPublicKeyForAuthenticatedUser(
@@ -22293,7 +21237,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_codespaces_user_public_key.parse(res.data) }
+    return res
   }
 
   async codespacesGetSecretForAuthenticatedUser(
@@ -22313,7 +21257,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_codespaces_secret.parse(res.data) }
+    return res
   }
 
   async codespacesCreateOrUpdateSecretForAuthenticatedUser(
@@ -22342,7 +21286,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_empty_object.parse(res.data) }
+    return res
   }
 
   async codespacesDeleteSecretForAuthenticatedUser(
@@ -22362,7 +21306,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async codespacesListRepositoriesForSecretForAuthenticatedUser(
@@ -22387,15 +21331,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          repositories: z.array(s_minimal_repository),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async codespacesSetRepositoriesForSecretForAuthenticatedUser(
@@ -22422,7 +21358,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async codespacesAddRepositoryForSecretForAuthenticatedUser(
@@ -22443,7 +21379,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async codespacesRemoveRepositoryForSecretForAuthenticatedUser(
@@ -22464,7 +21400,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async codespacesGetForAuthenticatedUser(
@@ -22484,7 +21420,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_codespace.parse(res.data) }
+    return res
   }
 
   async codespacesUpdateForAuthenticatedUser(
@@ -22513,7 +21449,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_codespace.parse(res.data) }
+    return res
   }
 
   async codespacesDeleteForAuthenticatedUser(
@@ -22533,7 +21469,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.object({}).parse(res.data) }
+    return res
   }
 
   async codespacesExportForAuthenticatedUser(
@@ -22553,7 +21489,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_codespace_export_details.parse(res.data) }
+    return res
   }
 
   async codespacesGetExportDetailsForAuthenticatedUser(
@@ -22574,7 +21510,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_codespace_export_details.parse(res.data) }
+    return res
   }
 
   async codespacesCodespaceMachinesForAuthenticatedUser(
@@ -22599,15 +21535,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          machines: z.array(s_codespace_machine),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async codespacesPublishForAuthenticatedUser(
@@ -22635,7 +21563,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_codespace_with_full_repository.parse(res.data) }
+    return res
   }
 
   async codespacesStartForAuthenticatedUser(
@@ -22655,7 +21583,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_codespace.parse(res.data) }
+    return res
   }
 
   async codespacesStopForAuthenticatedUser(
@@ -22675,7 +21603,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_codespace.parse(res.data) }
+    return res
   }
 
   async packagesListDockerMigrationConflictingPackagesForAuthenticatedUser(
@@ -22692,7 +21620,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_package).parse(res.data) }
+    return res
   }
 
   async usersSetPrimaryEmailVisibilityForAuthenticatedUser(
@@ -22718,7 +21646,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_email).parse(res.data) }
+    return res
   }
 
   async usersListEmailsForAuthenticatedUser(
@@ -22740,7 +21668,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_email).parse(res.data) }
+    return res
   }
 
   async usersAddEmailForAuthenticatedUser(
@@ -22769,7 +21697,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_email).parse(res.data) }
+    return res
   }
 
   async usersDeleteEmailForAuthenticatedUser(
@@ -22798,7 +21726,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async usersListFollowersForAuthenticatedUser(
@@ -22820,7 +21748,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_simple_user).parse(res.data) }
+    return res
   }
 
   async usersListFollowedByAuthenticatedUser(
@@ -22842,7 +21770,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_simple_user).parse(res.data) }
+    return res
   }
 
   async usersCheckPersonIsFollowedByAuthenticated(
@@ -22862,7 +21790,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async usersFollow(
@@ -22882,7 +21810,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async usersUnfollow(
@@ -22902,7 +21830,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async usersListGpgKeysForAuthenticatedUser(
@@ -22924,7 +21852,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_gpg_key).parse(res.data) }
+    return res
   }
 
   async usersCreateGpgKeyForAuthenticatedUser(
@@ -22951,7 +21879,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_gpg_key.parse(res.data) }
+    return res
   }
 
   async usersGetGpgKeyForAuthenticatedUser(
@@ -22971,7 +21899,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_gpg_key.parse(res.data) }
+    return res
   }
 
   async usersDeleteGpgKeyForAuthenticatedUser(
@@ -22991,7 +21919,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async appsListInstallationsForAuthenticatedUser(
@@ -23018,15 +21946,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          installations: z.array(s_installation),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async appsListInstallationReposForAuthenticatedUser(
@@ -23055,16 +21975,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .object({
-          total_count: z.coerce.number(),
-          repository_selection: z.string().optional(),
-          repositories: z.array(s_repository),
-        })
-        .parse(res.data),
-    }
+    return res
   }
 
   async appsAddRepoToInstallationForAuthenticatedUser(
@@ -23085,7 +21996,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async appsRemoveRepoFromInstallationForAuthenticatedUser(
@@ -23106,7 +22017,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async interactionsGetRestrictionsForAuthenticatedUser(
@@ -23126,12 +22037,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .union([s_interaction_limit_response, z.object({})])
-        .parse(res.data),
-    }
+    return res
   }
 
   async interactionsSetRestrictionsForAuthenticatedUser(
@@ -23155,7 +22061,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_interaction_limit_response.parse(res.data) }
+    return res
   }
 
   async interactionsRemoveRestrictionsForAuthenticatedUser(
@@ -23172,7 +22078,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async issuesListForAuthenticatedUser(
@@ -23215,7 +22121,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_issue).parse(res.data) }
+    return res
   }
 
   async usersListPublicSshKeysForAuthenticatedUser(
@@ -23237,7 +22143,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_key).parse(res.data) }
+    return res
   }
 
   async usersCreatePublicSshKeyForAuthenticatedUser(
@@ -23264,7 +22170,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_key.parse(res.data) }
+    return res
   }
 
   async usersGetPublicSshKeyForAuthenticatedUser(
@@ -23284,7 +22190,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_key.parse(res.data) }
+    return res
   }
 
   async usersDeletePublicSshKeyForAuthenticatedUser(
@@ -23304,7 +22210,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async appsListSubscriptionsForAuthenticatedUser(
@@ -23326,10 +22232,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.array(s_user_marketplace_purchase).parse(res.data),
-    }
+    return res
   }
 
   async appsListSubscriptionsForAuthenticatedUserStubbed(
@@ -23351,10 +22254,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.array(s_user_marketplace_purchase).parse(res.data),
-    }
+    return res
   }
 
   async orgsListMembershipsForAuthenticatedUser(
@@ -23381,7 +22281,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_org_membership).parse(res.data) }
+    return res
   }
 
   async orgsGetMembershipForAuthenticatedUser(
@@ -23401,7 +22301,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_org_membership.parse(res.data) }
+    return res
   }
 
   async orgsUpdateMembershipForAuthenticatedUser(
@@ -23428,7 +22328,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_org_membership.parse(res.data) }
+    return res
   }
 
   async migrationsListForAuthenticatedUser(
@@ -23450,7 +22350,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_migration).parse(res.data) }
+    return res
   }
 
   async migrationsStartForAuthenticatedUser(
@@ -23484,7 +22384,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_migration.parse(res.data) }
+    return res
   }
 
   async migrationsGetStatusForAuthenticatedUser(
@@ -23506,7 +22406,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_migration.parse(res.data) }
+    return res
   }
 
   async migrationsGetArchiveForAuthenticatedUser(
@@ -23526,7 +22426,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async migrationsDeleteArchiveForAuthenticatedUser(
@@ -23546,7 +22446,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async migrationsUnlockRepoForAuthenticatedUser(
@@ -23567,7 +22467,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async migrationsListReposForAuthenticatedUser(
@@ -23590,7 +22490,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
+    return res
   }
 
   async orgsListForAuthenticatedUser(
@@ -23612,7 +22512,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_organization_simple).parse(res.data) }
+    return res
   }
 
   async packagesListPackagesForAuthenticatedUser(
@@ -23647,7 +22547,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_package).parse(res.data) }
+    return res
   }
 
   async packagesGetPackageForAuthenticatedUser(
@@ -23674,7 +22574,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_package.parse(res.data) }
+    return res
   }
 
   async packagesDeletePackageForAuthenticatedUser(
@@ -23701,7 +22601,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async packagesRestorePackageForAuthenticatedUser(
@@ -23730,7 +22630,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUser(
@@ -23765,7 +22665,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_package_version).parse(res.data) }
+    return res
   }
 
   async packagesGetPackageVersionForAuthenticatedUser(
@@ -23793,7 +22693,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_package_version.parse(res.data) }
+    return res
   }
 
   async packagesDeletePackageVersionForAuthenticatedUser(
@@ -23821,7 +22721,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async packagesRestorePackageVersionForAuthenticatedUser(
@@ -23849,7 +22749,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async projectsCreateForAuthenticatedUser(
@@ -23876,7 +22776,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_project.parse(res.data) }
+    return res
   }
 
   async usersListPublicEmailsForAuthenticatedUser(
@@ -23898,7 +22798,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_email).parse(res.data) }
+    return res
   }
 
   async reposListForAuthenticatedUser(
@@ -23937,7 +22837,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_repository).parse(res.data) }
+    return res
   }
 
   async reposCreateForAuthenticatedUser(
@@ -23985,7 +22885,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_repository.parse(res.data) }
+    return res
   }
 
   async reposListInvitationsForAuthenticatedUser(
@@ -24007,7 +22907,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_repository_invitation).parse(res.data) }
+    return res
   }
 
   async reposAcceptInvitationForAuthenticatedUser(
@@ -24027,7 +22927,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async reposDeclineInvitationForAuthenticatedUser(
@@ -24047,7 +22947,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async usersListSocialAccountsForAuthenticatedUser(
@@ -24069,7 +22969,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_social_account).parse(res.data) }
+    return res
   }
 
   async usersAddSocialAccountForAuthenticatedUser(
@@ -24095,7 +22995,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_social_account).parse(res.data) }
+    return res
   }
 
   async usersDeleteSocialAccountForAuthenticatedUser(
@@ -24121,7 +23021,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async usersListSshSigningKeysForAuthenticatedUser(
@@ -24143,7 +23043,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_ssh_signing_key).parse(res.data) }
+    return res
   }
 
   async usersCreateSshSigningKeyForAuthenticatedUser(
@@ -24170,7 +23070,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_ssh_signing_key.parse(res.data) }
+    return res
   }
 
   async usersGetSshSigningKeyForAuthenticatedUser(
@@ -24190,7 +23090,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_ssh_signing_key.parse(res.data) }
+    return res
   }
 
   async usersDeleteSshSigningKeyForAuthenticatedUser(
@@ -24210,7 +23110,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async activityListReposStarredByAuthenticatedUser(
@@ -24239,7 +23139,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_starred_repository).parse(res.data) }
+    return res
   }
 
   async activityCheckRepoIsStarredByAuthenticatedUser(
@@ -24260,7 +23160,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async activityStarRepoForAuthenticatedUser(
@@ -24281,7 +23181,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async activityUnstarRepoForAuthenticatedUser(
@@ -24302,7 +23202,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async activityListWatchedReposForAuthenticatedUser(
@@ -24324,7 +23224,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
+    return res
   }
 
   async teamsListForAuthenticatedUser(
@@ -24346,7 +23246,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_team_full).parse(res.data) }
+    return res
   }
 
   async usersList(
@@ -24368,7 +23268,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_simple_user).parse(res.data) }
+    return res
   }
 
   async usersGetByUsername(
@@ -24388,10 +23288,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z.union([s_private_user, s_public_user]).parse(res.data),
-    }
+    return res
   }
 
   async packagesListDockerMigrationConflictingPackagesForUser(
@@ -24411,7 +23308,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_package).parse(res.data) }
+    return res
   }
 
   async activityListEventsForAuthenticatedUser(
@@ -24434,7 +23331,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_event).parse(res.data) }
+    return res
   }
 
   async activityListOrgEventsForAuthenticatedUser(
@@ -24458,7 +23355,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_event).parse(res.data) }
+    return res
   }
 
   async activityListPublicEventsForUser(
@@ -24481,7 +23378,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_event).parse(res.data) }
+    return res
   }
 
   async usersListFollowersForUser(
@@ -24504,7 +23401,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_simple_user).parse(res.data) }
+    return res
   }
 
   async usersListFollowingForUser(
@@ -24527,7 +23424,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_simple_user).parse(res.data) }
+    return res
   }
 
   async usersCheckFollowingForUser(
@@ -24548,7 +23445,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async gistsListForUser(
@@ -24576,7 +23473,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_base_gist).parse(res.data) }
+    return res
   }
 
   async usersListGpgKeysForUser(
@@ -24599,7 +23496,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_gpg_key).parse(res.data) }
+    return res
   }
 
   async usersGetContextForUser(
@@ -24625,7 +23522,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_hovercard.parse(res.data) }
+    return res
   }
 
   async appsGetUserInstallation(
@@ -24645,7 +23542,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_installation.parse(res.data) }
+    return res
   }
 
   async usersListPublicKeysForUser(
@@ -24668,7 +23565,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_key_simple).parse(res.data) }
+    return res
   }
 
   async orgsListForUser(
@@ -24691,7 +23588,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_organization_simple).parse(res.data) }
+    return res
   }
 
   async packagesListPackagesForUser(
@@ -24727,7 +23624,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_package).parse(res.data) }
+    return res
   }
 
   async packagesGetPackageForUser(
@@ -24755,7 +23652,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_package.parse(res.data) }
+    return res
   }
 
   async packagesDeletePackageForUser(
@@ -24783,7 +23680,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async packagesRestorePackageForUser(
@@ -24813,7 +23710,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async packagesGetAllPackageVersionsForPackageOwnedByUser(
@@ -24841,7 +23738,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_package_version).parse(res.data) }
+    return res
   }
 
   async packagesGetPackageVersionForUser(
@@ -24870,7 +23767,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_package_version.parse(res.data) }
+    return res
   }
 
   async packagesDeletePackageVersionForUser(
@@ -24899,7 +23796,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async packagesRestorePackageVersionForUser(
@@ -24928,7 +23825,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 
   async projectsListForUser(
@@ -24956,7 +23853,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_project).parse(res.data) }
+    return res
   }
 
   async activityListReceivedEventsForUser(
@@ -24979,7 +23876,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_event).parse(res.data) }
+    return res
   }
 
   async activityListReceivedPublicEventsForUser(
@@ -25002,7 +23899,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_event).parse(res.data) }
+    return res
   }
 
   async reposListForUser(
@@ -25034,7 +23931,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
+    return res
   }
 
   async billingGetGithubActionsBillingUser(
@@ -25054,7 +23951,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_actions_billing_usage.parse(res.data) }
+    return res
   }
 
   async billingGetGithubPackagesBillingUser(
@@ -25074,7 +23971,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_packages_billing_usage.parse(res.data) }
+    return res
   }
 
   async billingGetSharedStorageBillingUser(
@@ -25094,7 +23991,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_combined_billing_usage.parse(res.data) }
+    return res
   }
 
   async usersListSocialAccountsForUser(
@@ -25117,7 +24014,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_social_account).parse(res.data) }
+    return res
   }
 
   async usersListSshSigningKeysForUser(
@@ -25140,7 +24037,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_ssh_signing_key).parse(res.data) }
+    return res
   }
 
   async activityListReposStarredByUser(
@@ -25170,12 +24067,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return {
-      ...res,
-      data: z
-        .union([z.array(s_starred_repository), z.array(s_repository)])
-        .parse(res.data),
-    }
+    return res
   }
 
   async activityListReposWatchedByUser(
@@ -25198,7 +24090,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_minimal_repository).parse(res.data) }
+    return res
   }
 
   async metaGetAllVersions(
@@ -25215,7 +24107,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(z.string()).parse(res.data) }
+    return res
   }
 
   async metaGetZen(
@@ -25232,6 +24124,6 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.string().parse(res.data) }
+    return res
   }
 }

@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 import { t_Error, t_NewPet, t_Pet } from "./models"
-import { s_Error, s_NewPet, s_Pet } from "./schemas"
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
@@ -35,7 +34,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.array(s_Pet).parse(res.data) }
+    return res
   }
 
   async addPet(
@@ -59,7 +58,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_Pet.parse(res.data) }
+    return res
   }
 
   async findPetById(
@@ -79,7 +78,7 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: s_Pet.parse(res.data) }
+    return res
   }
 
   async deletePet(
@@ -99,6 +98,6 @@ export class ApiClient extends AbstractAxiosClient {
       ...(opts ?? {}),
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return res
   }
 }
