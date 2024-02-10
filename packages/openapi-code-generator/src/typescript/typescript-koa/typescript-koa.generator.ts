@@ -73,10 +73,8 @@ export class ServerBuilder {
         "RequestInputType",
       )
 
-    this.imports.from("koa")
-      .add("Context")
-
     this.imports.addModule("KoaRouter", "@koa/router")
+    this.imports.from("@koa/router").add("RouterContext")
     this.imports.addModule("koaBody", "koa-body")
 
     if (schemaBuilder instanceof ZodBuilder) {
@@ -177,7 +175,7 @@ export class ServerBuilder {
           value: `(
                     params: Params<${pathParamsType}, ${queryParamsType}, ${bodyParamsType + (bodyParamsType === "void" || bodyParamIsRequired ? "" : " | undefined")}>,
                     respond: ${titleCase(operation.operationId) + "Responder"},
-                    ctx: Context
+                    ctx: RouterContext
                   ) => Promise<KoaRuntimeResponse<unknown> | ${[
             ...responseSchemas.specific.map(it => `Response<${it.statusType}, ${it.type}>`),
             responseSchemas.defaultResponse && `Response<StatusCode, ${responseSchemas.defaultResponse.type}>`,
