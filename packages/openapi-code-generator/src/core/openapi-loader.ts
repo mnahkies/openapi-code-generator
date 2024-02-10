@@ -16,6 +16,7 @@ import {
   Schema,
 } from "./openapi-types"
 import {isRef} from "./openapi-utils"
+import {contentTypeToIdentifier} from "./utils"
 
 export class OpenapiLoader {
 
@@ -30,13 +31,13 @@ export class OpenapiLoader {
     this.library.set(generationLib.key, generationLib.definition)
   }
 
-  addVirtualType(context: string, name: string, schema: Schema): string {
+  addVirtualType(context: string, name: string, schema: Schema): Reference {
     const def = this.virtualLibrary.get(context) ?? new VirtualDefinition(context)
     this.virtualLibrary.set(context, def)
     this.library.set(context, def.definition)
     def.addSchema(name, schema)
 
-    return `${context}#/components/schemas/${name}`
+    return {$ref: `${context}#/components/schemas/${name}`}
   }
 
   get entryPoint(): OpenapiDocument {
@@ -53,8 +54,19 @@ export class OpenapiLoader {
     return isRef(maybeRef) ? this.$ref(maybeRef) : maybeRef
   }
 
-  requestBody(maybeRef: Reference | RequestBody): RequestBody {
-    return isRef(maybeRef) ? this.$ref(maybeRef) : maybeRef
+  requestBody(operationId: string, maybeRef: Reference | RequestBody): RequestBody {
+    const requestBody = isRef(maybeRef) ? this.$ref<RequestBody>(maybeRef) : maybeRef
+
+    requestBody.content = Object.fromEntries(Object.entries(requestBody.content).map(([contentType, value]) => {
+      if(!isRef(value.schema)){
+        value.schema = this.addVirtualType(operationId, `${operationId}${contentTypeToIdentifier(contentType)}RequestBody`, value.schema)
+
+        console.info(requestBody)
+      }
+      return [contentType, value]
+    }))
+
+    return requestBody
   }
 
   response(maybeRef: Reference | Response): Response {

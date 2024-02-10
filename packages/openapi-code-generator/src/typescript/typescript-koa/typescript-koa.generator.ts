@@ -109,23 +109,19 @@ export class ServerBuilder {
 
     if (paramSchema) {
       const name = `${operation.operationId}ParamSchema`
-      pathParamsType = types.schemaObjectToType({$ref: this.input.loader.addVirtualType(operation.operationId, _.upperFirst(name), reduceParamsToOpenApiSchema(pathParams))})
+      pathParamsType = types.schemaObjectToType(this.input.loader.addVirtualType(operation.operationId, _.upperFirst(name), reduceParamsToOpenApiSchema(pathParams)))
       this.statements.push(`const ${name} = ${paramSchema.toString()}`)
     }
 
     if (querySchema) {
       const name = `${operation.operationId}QuerySchema`
-      queryParamsType = types.schemaObjectToType({
-        $ref: this.input.loader.addVirtualType(operation.operationId, _.upperFirst(name), reduceParamsToOpenApiSchema(queryParams)),
-      })
+      queryParamsType = types.schemaObjectToType(this.input.loader.addVirtualType(operation.operationId, _.upperFirst(name), reduceParamsToOpenApiSchema(queryParams)))
       this.statements.push(`const ${name} = ${querySchema.toString()}`)
     }
 
     if (bodyParamSchema && requestBodyParameter) {
       const name = `${operation.operationId}BodySchema`
-      bodyParamsType = types.schemaObjectToType({
-        $ref: this.input.loader.addVirtualType(operation.operationId, _.upperFirst(name), this.input.schema(requestBodyParameter.schema)),
-      })
+      bodyParamsType = types.schemaObjectToType(this.input.loader.addVirtualType(operation.operationId, _.upperFirst(name), this.input.schema(requestBodyParameter.schema)))
       this.statements.push(`const ${name} = ${bodyParamSchema}`)
     }
 

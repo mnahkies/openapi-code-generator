@@ -62,14 +62,16 @@ export class Input {
 
         definition = this.loader.operation(definition)
 
+        const operationId = this.normalizeOperationId(definition.operationId, method, route)
+
         result.push({
           ...additionalAttributes,
           route,
           method: method.toUpperCase() as IROperation["method"],
           parameters: params.concat(this.normalizeParameters(definition.parameters)),
-          operationId: this.normalizeOperationId(definition.operationId, method, route),
+          operationId,
           tags: definition.tags ?? [],
-          requestBody: this.normalizeRequestBodyObject(definition.requestBody),
+          requestBody: this.normalizeRequestBodyObject(operationId, definition.requestBody),
           responses: this.normalizeResponsesObject(definition.responses),
           summary: definition.summary,
           description: definition.description,
@@ -113,12 +115,12 @@ export class Input {
     return normalizeSchemaObject(schema) as IRModel
   }
 
-  private normalizeRequestBodyObject(requestBody?: RequestBody | Reference) {
+  private normalizeRequestBodyObject(operationId: string, requestBody?: RequestBody | Reference) {
     if (!requestBody) {
       return undefined
     }
 
-    return normalizeRequestBodyObject(this.loader.requestBody(requestBody))
+    return normalizeRequestBodyObject(this.loader.requestBody(operationId, requestBody))
   }
 
   private normalizeResponsesObject(responses?: Responses): {[statusCode: string]: IRResponse} | undefined {
