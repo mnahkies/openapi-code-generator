@@ -72,6 +72,76 @@ paths:
           $ref: '../integration-tests-definitions-shared/error-handling.yaml#/components/responses/ClientError'
         default:
           $ref: '../integration-tests-definitions-shared/error-handling.yaml#/components/responses/ServerError'
+  /list/{listId}/items:
+    parameters:
+      - name: listId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      operationId: getTodoListItems
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - id
+                  - content
+                  - createdAt
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  content:
+                    type: string
+                  createdAt:
+                    type: string
+                    format: date-time
+                  completedAt:
+                    type: string
+                    format: date-time
+        5XX:
+          description: server error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - message
+                  - code
+                properties:
+                  message:
+                    type: string
+                  code:
+                    type: string
+    post:
+      operationId: createTodoListItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+                - content
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                content:
+                  type: string
+                completedAt:
+                  type: string
+                  format: date-time
+      responses:
+        204:
+          description: success
 components:
   schemas:
     CreateUpdateTodoList:

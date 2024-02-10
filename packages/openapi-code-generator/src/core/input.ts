@@ -10,7 +10,7 @@ import {
 } from "./openapi-types"
 import {OpenapiLoader} from "./openapi-loader"
 import {generationLib} from "./generation-lib"
-import {isHttpMethod} from "./utils"
+import {mediaTypeToIdentifier, isHttpMethod} from "./utils"
 import {
   IRModel,
   IRModelArray,
@@ -22,7 +22,6 @@ import {
   IROperation,
   IRParameter,
   IRRef,
-  IRRequestBody,
   IRResponse,
   MaybeIRModel,
 } from "./openapi-types-normalized"
@@ -32,6 +31,7 @@ import {logger} from "./logger"
 export class Input {
   constructor(
     readonly loader: OpenapiLoader,
+    readonly config: {extractInlineSchemas: boolean},
   ) {
   }
 
@@ -62,15 +62,17 @@ export class Input {
 
         definition = this.loader.operation(definition)
 
+        const operationId = this.normalizeOperationId(definition.operationId, method, route)
+
         result.push({
           ...additionalAttributes,
           route,
           method: method.toUpperCase() as IROperation["method"],
           parameters: params.concat(this.normalizeParameters(definition.parameters)),
-          operationId: this.normalizeOperationId(definition.operationId, method, route),
+          operationId,
           tags: definition.tags ?? [],
-          requestBody: this.normalizeRequestBodyObject(definition.requestBody),
-          responses: this.normalizeResponsesObject(definition.responses),
+          requestBody: this.normalizeRequestBodyObject(operationId, definition.requestBody),
+          responses: this.normalizeResponsesObject(operationId, definition.responses),
           summary: definition.summary,
           description: definition.description,
           deprecated: definition.deprecated ?? false,
@@ -113,15 +115,23 @@ export class Input {
     return normalizeSchemaObject(schema) as IRModel
   }
 
-  private normalizeRequestBodyObject(requestBody?: RequestBody | Reference) {
+  private normalizeRequestBodyObject(operationId: string, requestBody?: RequestBody | Reference) {
     if (!requestBody) {
       return undefined
     }
 
-    return normalizeRequestBodyObject(this.loader.requestBody(requestBody))
+    requestBody = this.loader.requestBody(requestBody)
+
+    return {
+      description: requestBody.description,
+      required: requestBody.required ?? true,
+      content: this.normalizeMediaTypes(requestBody.content, operationId, "RequestBody"),
+    }
   }
 
-  private normalizeResponsesObject(responses?: Responses): {[statusCode: string]: IRResponse} | undefined {
+  private normalizeResponsesObject(operationId: string, responses?: Responses): {
+    [statusCode: string]: IRResponse
+  } | undefined {
     if (!responses) {
       return undefined
     }
@@ -134,7 +144,7 @@ export class Input {
         {
           headers: {},
           description: response.description,
-          content: normalizeMediaType(response.content),
+          content: this.normalizeMediaTypes(response.content, operationId, `${statusCode}Response`),
         },
       ]
     }))
@@ -153,29 +163,38 @@ export class Input {
 
     return _.camelCase([method, ...route.split("/")].join("-"))
   }
-}
 
-function normalizeRequestBodyObject(requestBodyObject: RequestBody): IRRequestBody | undefined {
-  return {
-    description: requestBodyObject.description,
-    required: requestBodyObject.required ?? true,
-    content: normalizeMediaType(requestBodyObject.content),
+  private normalizeMediaTypes(mediaTypes: {
+    [mediaType: string]: MediaType
+  } = {}, operationId: string, suffix: "RequestBody" | `${string}Response`) {
+    return Object.fromEntries(Object.entries(mediaTypes)
+      // Sometimes people pass `{}` as the MediaType for 204 responses, filter these out
+      .filter(([, mediaType]) => Boolean(mediaType.schema))
+      .map(([contentType, mediaType]) => {
+        return [
+          contentType,
+          {
+            schema: this.normalizeMediaTypeSchema(operationId, contentType, mediaType.schema, suffix),
+            encoding: mediaType.encoding,
+          },
+        ]
+      }))
   }
-}
 
-function normalizeMediaType(mediaTypes: {[contentType: string]: MediaType} = {}) {
-  return Object.fromEntries(Object.entries(mediaTypes)
-    // Sometimes people pass `{}` as the MediaType for 204 responses, filter these out
-    .filter(([, mediaType]) => Boolean(mediaType.schema))
-    .map(([contentType, mediaType]) => {
-      return [
-        contentType,
-        {
-          schema: normalizeSchemaObject(mediaType.schema),
-          encoding: mediaType.encoding,
-        },
-      ]
-    }))
+  private normalizeMediaTypeSchema(operationId: string, mediaType: string, schema: Schema | Reference, suffix: string): MaybeIRModel {
+    // TODO: omit media type when only one possible?
+    const syntheticName = `${operationId}${mediaTypeToIdentifier(mediaType)}${suffix}`
+    const result = normalizeSchemaObject(schema)
+
+    const shouldCreateVirtualType = this.config.extractInlineSchemas &&
+      (!isRef(result) && (
+          result.type === "object"
+          || (result.type === "array" && !isRef(result.items) && result.items.type === "object")
+        )
+      )
+
+    return shouldCreateVirtualType ? this.loader.addVirtualType(operationId, syntheticName, result) : result
+  }
 }
 
 function normalizeParameterObject(parameterObject: Parameter): IRParameter {

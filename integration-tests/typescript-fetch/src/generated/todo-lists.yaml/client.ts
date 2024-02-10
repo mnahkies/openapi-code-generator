@@ -91,4 +91,58 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
+
+  async getTodoListItems(
+    p: {
+      listId: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            completedAt?: string
+            content: string
+            createdAt: string
+            id: string
+          }
+        >
+      | Res<
+          StatusCode5xx,
+          {
+            code: string
+            message: string
+          }
+        >
+    >
+  > {
+    const url = this.basePath + `/list/${p["listId"]}/items`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async createTodoListItem(
+    p: {
+      listId: string
+      requestBody: {
+        completedAt?: string
+        content: string
+        id: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url = this.basePath + `/list/${p["listId"]}/items`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
 }

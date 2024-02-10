@@ -171,4 +171,52 @@ export class ApiClient {
       },
     )
   }
+
+  getTodoListItems(p: { listId: string }): Observable<
+    | (HttpResponse<{
+        completedAt?: string
+        content: string
+        createdAt: string
+        id: string
+      }> & { status: 200 })
+    | (HttpResponse<{
+        code: string
+        message: string
+      }> & { status: StatusCode5xx })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/list/${p["listId"]}/items`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  createTodoListItem(p: {
+    listId: string
+    requestBody: {
+      completedAt?: string
+      content: string
+      id: string
+    }
+  }): Observable<
+    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/list/${p["listId"]}/items`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
 }

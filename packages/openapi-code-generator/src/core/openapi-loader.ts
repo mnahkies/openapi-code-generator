@@ -30,13 +30,13 @@ export class OpenapiLoader {
     this.library.set(generationLib.key, generationLib.definition)
   }
 
-  addVirtualType(context: string, name: string, schema: Schema): string {
+  addVirtualType(context: string, name: string, schema: Schema): Reference {
     const def = this.virtualLibrary.get(context) ?? new VirtualDefinition(context)
     this.virtualLibrary.set(context, def)
     this.library.set(context, def.definition)
     def.addSchema(name, schema)
 
-    return `${context}#/components/schemas/${name}`
+    return {$ref: `${context}#/components/schemas/${name}`}
   }
 
   get entryPoint(): OpenapiDocument {
@@ -54,7 +54,7 @@ export class OpenapiLoader {
   }
 
   requestBody(maybeRef: Reference | RequestBody): RequestBody {
-    return isRef(maybeRef) ? this.$ref(maybeRef) : maybeRef
+    return isRef(maybeRef) ? this.$ref<RequestBody>(maybeRef) : maybeRef
   }
 
   response(maybeRef: Reference | Response): Response {

@@ -29,7 +29,7 @@ export async function unitTestInput(version: Version, skipValidation = false) {
   const file = fileForVersion(version)
   const loader = await OpenapiLoader.create(file, validator)
 
-  return {input: new Input(loader), file}
+  return {input: new Input(loader, {extractInlineSchemas: true}), file}
 }
 
 export async function createTestInputFromYamlString(
@@ -50,5 +50,5 @@ export async function createTestInputFromYamlString(
 
   const loader = await OpenapiLoader.createFromLiteral(spec, validator)
 
-  return new Input(loader)
+  return new Input(loader, {extractInlineSchemas: true})
 }

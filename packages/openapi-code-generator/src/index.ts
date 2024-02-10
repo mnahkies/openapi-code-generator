@@ -44,6 +44,14 @@ const program = new Command()
       .default("zod" as const)
       .makeOptionMandatory(),
   )
+  .addOption(
+    new Option(
+      "--extract-inline-schemas",
+      "(experimental) Generate names and extract types/schemas for inline schemas",
+    )
+      .env("OPENAPI_EXTRACT_INLINE_SCHEMAS")
+      .default(false),
+  )
   .showHelpAfterError()
   .parse()
 
@@ -59,7 +67,9 @@ async function main() {
 
   const loader = await OpenapiLoader.create(config.input, validator)
 
-  const input = new Input(loader)
+  const input = new Input(loader, {
+    extractInlineSchemas: config.extractInlineSchemas,
+  })
 
   const generator = templates[config.template]
 
