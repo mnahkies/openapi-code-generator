@@ -20,6 +20,11 @@
       "require": "./dist/main.js",
       "import": "./dist/main.js",
       "types": "./dist/main.d.ts"
+    },
+    "./zod": {
+      "require": "./dist/zod.js",
+      "import": "./dist/zod.js",
+      "types": "./dist/zod.d.ts"
     }
   },
   "scripts": {
@@ -30,8 +35,12 @@
   "dependencies": {
     "qs": "^6.11.2"
   },
+  "peerDependencies": {
+    "zod": "^3.20.6"
+  },
   "devDependencies": {
-    "@types/qs": "^6.9.11"
+    "@types/qs": "^6.9.11",
+    "zod": "^3.20.6"
   },
   "files": [
     "src",
