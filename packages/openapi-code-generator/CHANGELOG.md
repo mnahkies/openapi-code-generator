@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.4.0...v0.5.0) (2024-02-10)
+
+
+### Bug Fixes
+
+* use RouterContext rather than plain Context ([a13c1b7](https://github.com/mnahkies/openapi-code-generator/commit/a13c1b76522c5bdf172229e88b02be1390286fd0))
+
+
+### Features
+
+* client generators support experimental runtime response validation ([#112](https://github.com/mnahkies/openapi-code-generator/issues/112)) ([f3c3610](https://github.com/mnahkies/openapi-code-generator/commit/f3c361074db22d3de0db044d34cffd2e36772429)), closes [#82](https://github.com/mnahkies/openapi-code-generator/issues/82)
+* experimental support for extracting inline schemas ([#123](https://github.com/mnahkies/openapi-code-generator/issues/123)) ([1c11d77](https://github.com/mnahkies/openapi-code-generator/commit/1c11d778f4aa19451e5d8c3271d45a8dc9d12070))
+
+
+
+
+
 # [0.4.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.3.0...v0.4.0) (2024-01-05)
 
 

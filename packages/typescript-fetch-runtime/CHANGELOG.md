@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.4.0...v0.5.0) (2024-02-10)
+
+
+### Features
+
+* client generators support experimental runtime response validation ([#112](https://github.com/mnahkies/openapi-code-generator/issues/112)) ([f3c3610](https://github.com/mnahkies/openapi-code-generator/commit/f3c361074db22d3de0db044d34cffd2e36772429)), closes [#82](https://github.com/mnahkies/openapi-code-generator/issues/82)
+
+
+
+
+
 # [0.4.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.3.0...v0.4.0) (2024-01-05)
 
 **Note:** Version bump only for package @nahkies/typescript-fetch-runtime
