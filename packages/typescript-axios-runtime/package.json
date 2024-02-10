@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@types/qs": "^6.9.11",
-    "axios": "^1.6.4"
+    "axios": "^1.6.7"
   },
   "files": [
     "src",

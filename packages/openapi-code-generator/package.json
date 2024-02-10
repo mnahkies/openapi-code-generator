@@ -27,17 +27,17 @@
     "@types/js-yaml": "^4.0.9",
     "@types/lodash": "^4.14.202",
     "@types/prettier": "^3.0.0",
-    "typescript": "~5.2.2"
+    "typescript": "~5.3.3"
   },
   "dependencies": {
-    "@commander-js/extra-typings": "^11.1.0",
+    "@commander-js/extra-typings": "^12.0.0",
     "ajv": "^8.12.0",
     "ajv-draft-04": "^1.0.0",
     "ajv-formats": "^2.1.1",
-    "commander": "^11.1.0",
+    "commander": "^12.0.0",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
-    "prettier": "^3.1.0",
+    "prettier": "^3.2.5",
     "source-map-support": "^0.5.21",
     "tslib": "^2.6.2"
   },
