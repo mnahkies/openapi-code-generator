@@ -2124,7 +2124,7 @@ import {
   s_workflow_run_usage,
   s_workflow_usage,
 } from "./schemas"
-import KoaRouter from "@koa/router"
+import KoaRouter, { RouterContext } from "@koa/router"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -2146,7 +2146,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import { Context } from "koa"
 import koaBody from "koa-body"
 import { z } from "zod"
 
@@ -2160,7 +2159,7 @@ export type MetaRootResponder = {
 export type MetaRoot = (
   params: Params<void, void, void>,
   respond: MetaRootResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_root>>
 
 export type SecurityAdvisoriesListGlobalAdvisoriesResponder = {
@@ -2176,7 +2175,7 @@ export type SecurityAdvisoriesListGlobalAdvisories = (
     void
   >,
   respond: SecurityAdvisoriesListGlobalAdvisoriesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_global_advisory[]>
@@ -2192,7 +2191,7 @@ export type SecurityAdvisoriesGetGlobalAdvisoryResponder = {
 export type SecurityAdvisoriesGetGlobalAdvisory = (
   params: Params<t_SecurityAdvisoriesGetGlobalAdvisoryParamSchema, void, void>,
   respond: SecurityAdvisoriesGetGlobalAdvisoryResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_global_advisory>
@@ -2206,7 +2205,7 @@ export type AppsGetAuthenticatedResponder = {
 export type AppsGetAuthenticated = (
   params: Params<void, void, void>,
   respond: AppsGetAuthenticatedResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_integration>>
 
 export type AppsCreateFromManifestResponder = {
@@ -2231,7 +2230,7 @@ export type AppsCreateFromManifestResponder = {
 export type AppsCreateFromManifest = (
   params: Params<t_AppsCreateFromManifestParamSchema, void, void>,
   respond: AppsCreateFromManifestResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -2260,7 +2259,7 @@ export type AppsGetWebhookConfigForAppResponder = {
 export type AppsGetWebhookConfigForApp = (
   params: Params<void, void, void>,
   respond: AppsGetWebhookConfigForAppResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_webhook_config>>
 
 export type AppsUpdateWebhookConfigForAppResponder = {
@@ -2270,7 +2269,7 @@ export type AppsUpdateWebhookConfigForAppResponder = {
 export type AppsUpdateWebhookConfigForApp = (
   params: Params<void, void, t_AppsUpdateWebhookConfigForAppBodySchema>,
   respond: AppsUpdateWebhookConfigForAppResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_webhook_config>>
 
 export type AppsListWebhookDeliveriesResponder = {
@@ -2282,7 +2281,7 @@ export type AppsListWebhookDeliveriesResponder = {
 export type AppsListWebhookDeliveries = (
   params: Params<void, t_AppsListWebhookDeliveriesQuerySchema, void>,
   respond: AppsListWebhookDeliveriesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_hook_delivery_item[]>
@@ -2299,7 +2298,7 @@ export type AppsGetWebhookDeliveryResponder = {
 export type AppsGetWebhookDelivery = (
   params: Params<t_AppsGetWebhookDeliveryParamSchema, void, void>,
   respond: AppsGetWebhookDeliveryResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_hook_delivery>
@@ -2316,7 +2315,7 @@ export type AppsRedeliverWebhookDeliveryResponder = {
 export type AppsRedeliverWebhookDelivery = (
   params: Params<t_AppsRedeliverWebhookDeliveryParamSchema, void, void>,
   respond: AppsRedeliverWebhookDeliveryResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<202, EmptyObject>
@@ -2337,7 +2336,7 @@ export type AppsListInstallationRequestsForAuthenticatedApp = (
     void
   >,
   respond: AppsListInstallationRequestsForAuthenticatedAppResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_integration_installation_request[]>
@@ -2352,7 +2351,7 @@ export type AppsListInstallationsResponder = {
 export type AppsListInstallations = (
   params: Params<void, t_AppsListInstallationsQuerySchema, void>,
   respond: AppsListInstallationsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_installation[]>>
 
 export type AppsGetInstallationResponder = {
@@ -2363,7 +2362,7 @@ export type AppsGetInstallationResponder = {
 export type AppsGetInstallation = (
   params: Params<t_AppsGetInstallationParamSchema, void, void>,
   respond: AppsGetInstallationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_installation>
@@ -2378,7 +2377,7 @@ export type AppsDeleteInstallationResponder = {
 export type AppsDeleteInstallation = (
   params: Params<t_AppsDeleteInstallationParamSchema, void, void>,
   respond: AppsDeleteInstallationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -2400,7 +2399,7 @@ export type AppsCreateInstallationAccessToken = (
     t_AppsCreateInstallationAccessTokenBodySchema | undefined
   >,
   respond: AppsCreateInstallationAccessTokenResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_installation_token>
@@ -2418,7 +2417,7 @@ export type AppsSuspendInstallationResponder = {
 export type AppsSuspendInstallation = (
   params: Params<t_AppsSuspendInstallationParamSchema, void, void>,
   respond: AppsSuspendInstallationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -2433,7 +2432,7 @@ export type AppsUnsuspendInstallationResponder = {
 export type AppsUnsuspendInstallation = (
   params: Params<t_AppsUnsuspendInstallationParamSchema, void, void>,
   respond: AppsUnsuspendInstallationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -2452,7 +2451,7 @@ export type AppsDeleteAuthorization = (
     t_AppsDeleteAuthorizationBodySchema
   >,
   respond: AppsDeleteAuthorizationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -2468,7 +2467,7 @@ export type AppsCheckTokenResponder = {
 export type AppsCheckToken = (
   params: Params<t_AppsCheckTokenParamSchema, void, t_AppsCheckTokenBodySchema>,
   respond: AppsCheckTokenResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_authorization>
@@ -2484,7 +2483,7 @@ export type AppsResetTokenResponder = {
 export type AppsResetToken = (
   params: Params<t_AppsResetTokenParamSchema, void, t_AppsResetTokenBodySchema>,
   respond: AppsResetTokenResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_authorization>
@@ -2503,7 +2502,7 @@ export type AppsDeleteToken = (
     t_AppsDeleteTokenBodySchema
   >,
   respond: AppsDeleteTokenResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -2521,7 +2520,7 @@ export type AppsScopeTokenResponder = {
 export type AppsScopeToken = (
   params: Params<t_AppsScopeTokenParamSchema, void, t_AppsScopeTokenBodySchema>,
   respond: AppsScopeTokenResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_authorization>
@@ -2540,7 +2539,7 @@ export type AppsGetBySlugResponder = {
 export type AppsGetBySlug = (
   params: Params<t_AppsGetBySlugParamSchema, void, void>,
   respond: AppsGetBySlugResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_integration>
@@ -2556,7 +2555,7 @@ export type ClassroomGetAnAssignmentResponder = {
 export type ClassroomGetAnAssignment = (
   params: Params<t_ClassroomGetAnAssignmentParamSchema, void, void>,
   respond: ClassroomGetAnAssignmentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_classroom_assignment>
@@ -2574,7 +2573,7 @@ export type ClassroomListAcceptedAssigmentsForAnAssignment = (
     void
   >,
   respond: ClassroomListAcceptedAssigmentsForAnAssignmentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_classroom_accepted_assignment[]>
 >
@@ -2587,7 +2586,7 @@ export type ClassroomGetAssignmentGradesResponder = {
 export type ClassroomGetAssignmentGrades = (
   params: Params<t_ClassroomGetAssignmentGradesParamSchema, void, void>,
   respond: ClassroomGetAssignmentGradesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_classroom_assignment_grade[]>
@@ -2601,7 +2600,7 @@ export type ClassroomListClassroomsResponder = {
 export type ClassroomListClassrooms = (
   params: Params<void, t_ClassroomListClassroomsQuerySchema, void>,
   respond: ClassroomListClassroomsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_simple_classroom[]>>
 
 export type ClassroomGetAClassroomResponder = {
@@ -2612,7 +2611,7 @@ export type ClassroomGetAClassroomResponder = {
 export type ClassroomGetAClassroom = (
   params: Params<t_ClassroomGetAClassroomParamSchema, void, void>,
   respond: ClassroomGetAClassroomResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_classroom>
@@ -2630,7 +2629,7 @@ export type ClassroomListAssignmentsForAClassroom = (
     void
   >,
   respond: ClassroomListAssignmentsForAClassroomResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_simple_classroom_assignment[]>
 >
@@ -2643,7 +2642,7 @@ export type CodesOfConductGetAllCodesOfConductResponder = {
 export type CodesOfConductGetAllCodesOfConduct = (
   params: Params<void, void, void>,
   respond: CodesOfConductGetAllCodesOfConductResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_code_of_conduct[]>
@@ -2659,7 +2658,7 @@ export type CodesOfConductGetConductCodeResponder = {
 export type CodesOfConductGetConductCode = (
   params: Params<t_CodesOfConductGetConductCodeParamSchema, void, void>,
   respond: CodesOfConductGetConductCodeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_code_of_conduct>
@@ -2677,7 +2676,7 @@ export type EmojisGetResponder = {
 export type EmojisGet = (
   params: Params<void, void, void>,
   respond: EmojisGetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -2704,7 +2703,7 @@ export type DependabotListAlertsForEnterprise = (
     void
   >,
   respond: DependabotListAlertsForEnterpriseResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_dependabot_alert_with_repository[]>
@@ -2731,7 +2730,7 @@ export type SecretScanningListAlertsForEnterprise = (
     void
   >,
   respond: SecretScanningListAlertsForEnterpriseResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_organization_secret_scanning_alert[]>
@@ -2760,7 +2759,7 @@ export type ActivityListPublicEventsResponder = {
 export type ActivityListPublicEvents = (
   params: Params<void, t_ActivityListPublicEventsQuerySchema, void>,
   respond: ActivityListPublicEventsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_event[]>
@@ -2783,7 +2782,7 @@ export type ActivityGetFeedsResponder = {
 export type ActivityGetFeeds = (
   params: Params<void, void, void>,
   respond: ActivityGetFeedsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_feed>>
 
 export type GistsListResponder = {
@@ -2795,7 +2794,7 @@ export type GistsListResponder = {
 export type GistsList = (
   params: Params<void, t_GistsListQuerySchema, void>,
   respond: GistsListResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_base_gist[]>
@@ -2814,7 +2813,7 @@ export type GistsCreateResponder = {
 export type GistsCreate = (
   params: Params<void, void, t_GistsCreateBodySchema>,
   respond: GistsCreateResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_gist_simple>
@@ -2834,7 +2833,7 @@ export type GistsListPublicResponder = {
 export type GistsListPublic = (
   params: Params<void, t_GistsListPublicQuerySchema, void>,
   respond: GistsListPublicResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_base_gist[]>
@@ -2853,7 +2852,7 @@ export type GistsListStarredResponder = {
 export type GistsListStarred = (
   params: Params<void, t_GistsListStarredQuerySchema, void>,
   respond: GistsListStarredResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_base_gist[]>
@@ -2880,7 +2879,7 @@ export type GistsGetResponder = {
 export type GistsGet = (
   params: Params<t_GistsGetParamSchema, void, void>,
   respond: GistsGetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_gist_simple>
@@ -2909,7 +2908,7 @@ export type GistsUpdateResponder = {
 export type GistsUpdate = (
   params: Params<t_GistsUpdateParamSchema, void, t_GistsUpdateBodySchema>,
   respond: GistsUpdateResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_gist_simple>
@@ -2927,7 +2926,7 @@ export type GistsDeleteResponder = {
 export type GistsDelete = (
   params: Params<t_GistsDeleteParamSchema, void, void>,
   respond: GistsDeleteResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -2950,7 +2949,7 @@ export type GistsListComments = (
     void
   >,
   respond: GistsListCommentsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_gist_comment[]>
@@ -2973,7 +2972,7 @@ export type GistsCreateComment = (
     t_GistsCreateCommentBodySchema
   >,
   respond: GistsCreateCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_gist_comment>
@@ -3000,7 +2999,7 @@ export type GistsGetCommentResponder = {
 export type GistsGetComment = (
   params: Params<t_GistsGetCommentParamSchema, void, void>,
   respond: GistsGetCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_gist_comment>
@@ -3032,7 +3031,7 @@ export type GistsUpdateComment = (
     t_GistsUpdateCommentBodySchema
   >,
   respond: GistsUpdateCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_gist_comment>
@@ -3049,7 +3048,7 @@ export type GistsDeleteCommentResponder = {
 export type GistsDeleteComment = (
   params: Params<t_GistsDeleteCommentParamSchema, void, void>,
   respond: GistsDeleteCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -3072,7 +3071,7 @@ export type GistsListCommits = (
     void
   >,
   respond: GistsListCommitsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_gist_commit[]>
@@ -3095,7 +3094,7 @@ export type GistsListForks = (
     void
   >,
   respond: GistsListForksResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_gist_simple[]>
@@ -3115,7 +3114,7 @@ export type GistsForkResponder = {
 export type GistsFork = (
   params: Params<t_GistsForkParamSchema, void, void>,
   respond: GistsForkResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_base_gist>
@@ -3135,7 +3134,7 @@ export type GistsCheckIsStarredResponder = {
 export type GistsCheckIsStarred = (
   params: Params<t_GistsCheckIsStarredParamSchema, void, void>,
   respond: GistsCheckIsStarredResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -3154,7 +3153,7 @@ export type GistsStarResponder = {
 export type GistsStar = (
   params: Params<t_GistsStarParamSchema, void, void>,
   respond: GistsStarResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -3173,7 +3172,7 @@ export type GistsUnstarResponder = {
 export type GistsUnstar = (
   params: Params<t_GistsUnstarParamSchema, void, void>,
   respond: GistsUnstarResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -3192,7 +3191,7 @@ export type GistsGetRevisionResponder = {
 export type GistsGetRevision = (
   params: Params<t_GistsGetRevisionParamSchema, void, void>,
   respond: GistsGetRevisionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_gist_simple>
@@ -3209,7 +3208,7 @@ export type GitignoreGetAllTemplatesResponder = {
 export type GitignoreGetAllTemplates = (
   params: Params<void, void, void>,
   respond: GitignoreGetAllTemplatesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, string[]> | Response<304, void>
 >
@@ -3222,7 +3221,7 @@ export type GitignoreGetTemplateResponder = {
 export type GitignoreGetTemplate = (
   params: Params<t_GitignoreGetTemplateParamSchema, void, void>,
   respond: GitignoreGetTemplateResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_gitignore_template>
@@ -3247,7 +3246,7 @@ export type AppsListReposAccessibleToInstallation = (
     void
   >,
   respond: AppsListReposAccessibleToInstallationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3270,7 +3269,7 @@ export type AppsRevokeInstallationAccessTokenResponder = {
 export type AppsRevokeInstallationAccessToken = (
   params: Params<void, void, void>,
   respond: AppsRevokeInstallationAccessTokenResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type IssuesListResponder = {
@@ -3283,7 +3282,7 @@ export type IssuesListResponder = {
 export type IssuesList = (
   params: Params<void, t_IssuesListQuerySchema, void>,
   respond: IssuesListResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issue[]>
@@ -3300,7 +3299,7 @@ export type LicensesGetAllCommonlyUsedResponder = {
 export type LicensesGetAllCommonlyUsed = (
   params: Params<void, t_LicensesGetAllCommonlyUsedQuerySchema, void>,
   respond: LicensesGetAllCommonlyUsedResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_license_simple[]>
@@ -3317,7 +3316,7 @@ export type LicensesGetResponder = {
 export type LicensesGet = (
   params: Params<t_LicensesGetParamSchema, void, void>,
   respond: LicensesGetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_license>
@@ -3334,7 +3333,7 @@ export type MarkdownRenderResponder = {
 export type MarkdownRender = (
   params: Params<void, void, t_MarkdownRenderBodySchema>,
   respond: MarkdownRenderResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, string> | Response<304, void>
 >
@@ -3347,7 +3346,7 @@ export type MarkdownRenderRawResponder = {
 export type MarkdownRenderRaw = (
   params: Params<void, void, t_MarkdownRenderRawBodySchema | undefined>,
   respond: MarkdownRenderRawResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, string> | Response<304, void>
 >
@@ -3361,7 +3360,7 @@ export type AppsGetSubscriptionPlanForAccountResponder = {
 export type AppsGetSubscriptionPlanForAccount = (
   params: Params<t_AppsGetSubscriptionPlanForAccountParamSchema, void, void>,
   respond: AppsGetSubscriptionPlanForAccountResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_marketplace_purchase>
@@ -3378,7 +3377,7 @@ export type AppsListPlansResponder = {
 export type AppsListPlans = (
   params: Params<void, t_AppsListPlansQuerySchema, void>,
   respond: AppsListPlansResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_marketplace_listing_plan[]>
@@ -3400,7 +3399,7 @@ export type AppsListAccountsForPlan = (
     void
   >,
   respond: AppsListAccountsForPlanResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_marketplace_purchase[]>
@@ -3422,7 +3421,7 @@ export type AppsGetSubscriptionPlanForAccountStubbed = (
     void
   >,
   respond: AppsGetSubscriptionPlanForAccountStubbedResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_marketplace_purchase>
@@ -3438,7 +3437,7 @@ export type AppsListPlansStubbedResponder = {
 export type AppsListPlansStubbed = (
   params: Params<void, t_AppsListPlansStubbedQuerySchema, void>,
   respond: AppsListPlansStubbedResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_marketplace_listing_plan[]>
@@ -3457,7 +3456,7 @@ export type AppsListAccountsForPlanStubbed = (
     void
   >,
   respond: AppsListAccountsForPlanStubbedResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_marketplace_purchase[]>
@@ -3472,7 +3471,7 @@ export type MetaGetResponder = {
 export type MetaGet = (
   params: Params<void, void, void>,
   respond: MetaGetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_api_overview>
@@ -3494,7 +3493,7 @@ export type ActivityListPublicEventsForRepoNetwork = (
     void
   >,
   respond: ActivityListPublicEventsForRepoNetworkResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_event[]>
@@ -3519,7 +3518,7 @@ export type ActivityListNotificationsForAuthenticatedUser = (
     void
   >,
   respond: ActivityListNotificationsForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_thread[]>
@@ -3546,7 +3545,7 @@ export type ActivityMarkNotificationsAsRead = (
     t_ActivityMarkNotificationsAsReadBodySchema | undefined
   >,
   respond: ActivityMarkNotificationsAsReadResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3571,7 +3570,7 @@ export type ActivityGetThreadResponder = {
 export type ActivityGetThread = (
   params: Params<t_ActivityGetThreadParamSchema, void, void>,
   respond: ActivityGetThreadResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_thread>
@@ -3589,7 +3588,7 @@ export type ActivityMarkThreadAsReadResponder = {
 export type ActivityMarkThreadAsRead = (
   params: Params<t_ActivityMarkThreadAsReadParamSchema, void, void>,
   respond: ActivityMarkThreadAsReadResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<205, void>
@@ -3611,7 +3610,7 @@ export type ActivityGetThreadSubscriptionForAuthenticatedUser = (
     void
   >,
   respond: ActivityGetThreadSubscriptionForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_thread_subscription>
@@ -3634,7 +3633,7 @@ export type ActivitySetThreadSubscription = (
     t_ActivitySetThreadSubscriptionBodySchema | undefined
   >,
   respond: ActivitySetThreadSubscriptionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_thread_subscription>
@@ -3653,7 +3652,7 @@ export type ActivityDeleteThreadSubscriptionResponder = {
 export type ActivityDeleteThreadSubscription = (
   params: Params<t_ActivityDeleteThreadSubscriptionParamSchema, void, void>,
   respond: ActivityDeleteThreadSubscriptionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -3669,7 +3668,7 @@ export type MetaGetOctocatResponder = {
 export type MetaGetOctocat = (
   params: Params<void, t_MetaGetOctocatQuerySchema, void>,
   respond: MetaGetOctocatResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, string>>
 
 export type OrgsListResponder = {
@@ -3680,7 +3679,7 @@ export type OrgsListResponder = {
 export type OrgsList = (
   params: Params<void, t_OrgsListQuerySchema, void>,
   respond: OrgsListResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_organization_simple[]>
@@ -3695,7 +3694,7 @@ export type OrgsGetResponder = {
 export type OrgsGet = (
   params: Params<t_OrgsGetParamSchema, void, void>,
   respond: OrgsGetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_organization_full>
@@ -3715,7 +3714,7 @@ export type OrgsUpdate = (
     t_OrgsUpdateBodySchema | undefined
   >,
   respond: OrgsUpdateResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_organization_full>
@@ -3732,7 +3731,7 @@ export type OrgsDeleteResponder = {
 export type OrgsDelete = (
   params: Params<t_OrgsDeleteParamSchema, void, void>,
   respond: OrgsDeleteResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<202, EmptyObject>
@@ -3747,7 +3746,7 @@ export type ActionsGetActionsCacheUsageForOrgResponder = {
 export type ActionsGetActionsCacheUsageForOrg = (
   params: Params<t_ActionsGetActionsCacheUsageForOrgParamSchema, void, void>,
   respond: ActionsGetActionsCacheUsageForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_actions_cache_usage_org_enterprise>
@@ -3767,7 +3766,7 @@ export type ActionsGetActionsCacheUsageByRepoForOrg = (
     void
   >,
   respond: ActionsGetActionsCacheUsageByRepoForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3786,7 +3785,7 @@ export type OidcGetOidcCustomSubTemplateForOrgResponder = {
 export type OidcGetOidcCustomSubTemplateForOrg = (
   params: Params<t_OidcGetOidcCustomSubTemplateForOrgParamSchema, void, void>,
   respond: OidcGetOidcCustomSubTemplateForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_oidc_custom_sub>>
 
 export type OidcUpdateOidcCustomSubTemplateForOrgResponder = {
@@ -3802,7 +3801,7 @@ export type OidcUpdateOidcCustomSubTemplateForOrg = (
     t_OidcUpdateOidcCustomSubTemplateForOrgBodySchema
   >,
   respond: OidcUpdateOidcCustomSubTemplateForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_empty_object>
@@ -3821,7 +3820,7 @@ export type ActionsGetGithubActionsPermissionsOrganization = (
     void
   >,
   respond: ActionsGetGithubActionsPermissionsOrganizationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_actions_organization_permissions>
@@ -3838,7 +3837,7 @@ export type ActionsSetGithubActionsPermissionsOrganization = (
     t_ActionsSetGithubActionsPermissionsOrganizationBodySchema
   >,
   respond: ActionsSetGithubActionsPermissionsOrganizationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationResponder =
@@ -3856,7 +3855,7 @@ export type ActionsListSelectedRepositoriesEnabledGithubActionsOrganization = (
     void
   >,
   respond: ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3880,7 +3879,7 @@ export type ActionsSetSelectedRepositoriesEnabledGithubActionsOrganization = (
     t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema
   >,
   respond: ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsEnableSelectedRepositoryGithubActionsOrganizationResponder =
@@ -3895,7 +3894,7 @@ export type ActionsEnableSelectedRepositoryGithubActionsOrganization = (
     void
   >,
   respond: ActionsEnableSelectedRepositoryGithubActionsOrganizationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsDisableSelectedRepositoryGithubActionsOrganizationResponder =
@@ -3910,7 +3909,7 @@ export type ActionsDisableSelectedRepositoryGithubActionsOrganization = (
     void
   >,
   respond: ActionsDisableSelectedRepositoryGithubActionsOrganizationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsGetAllowedActionsOrganizationResponder = {
@@ -3920,7 +3919,7 @@ export type ActionsGetAllowedActionsOrganizationResponder = {
 export type ActionsGetAllowedActionsOrganization = (
   params: Params<t_ActionsGetAllowedActionsOrganizationParamSchema, void, void>,
   respond: ActionsGetAllowedActionsOrganizationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_selected_actions>>
 
 export type ActionsSetAllowedActionsOrganizationResponder = {
@@ -3934,7 +3933,7 @@ export type ActionsSetAllowedActionsOrganization = (
     t_ActionsSetAllowedActionsOrganizationBodySchema | undefined
   >,
   respond: ActionsSetAllowedActionsOrganizationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsGetGithubActionsDefaultWorkflowPermissionsOrganizationResponder =
@@ -3949,7 +3948,7 @@ export type ActionsGetGithubActionsDefaultWorkflowPermissionsOrganization = (
     void
   >,
   respond: ActionsGetGithubActionsDefaultWorkflowPermissionsOrganizationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_actions_get_default_workflow_permissions>
@@ -3968,7 +3967,7 @@ export type ActionsSetGithubActionsDefaultWorkflowPermissionsOrganization = (
     | undefined
   >,
   respond: ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsListSelfHostedRunnersForOrgResponder = {
@@ -3985,7 +3984,7 @@ export type ActionsListSelfHostedRunnersForOrg = (
     void
   >,
   respond: ActionsListSelfHostedRunnersForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4004,7 +4003,7 @@ export type ActionsListRunnerApplicationsForOrgResponder = {
 export type ActionsListRunnerApplicationsForOrg = (
   params: Params<t_ActionsListRunnerApplicationsForOrgParamSchema, void, void>,
   respond: ActionsListRunnerApplicationsForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_runner_application[]>
 >
@@ -4025,7 +4024,7 @@ export type ActionsGenerateRunnerJitconfigForOrg = (
     t_ActionsGenerateRunnerJitconfigForOrgBodySchema
   >,
   respond: ActionsGenerateRunnerJitconfigForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4046,7 +4045,7 @@ export type ActionsCreateRegistrationTokenForOrgResponder = {
 export type ActionsCreateRegistrationTokenForOrg = (
   params: Params<t_ActionsCreateRegistrationTokenForOrgParamSchema, void, void>,
   respond: ActionsCreateRegistrationTokenForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<201, t_authentication_token>
 >
@@ -4058,7 +4057,7 @@ export type ActionsCreateRemoveTokenForOrgResponder = {
 export type ActionsCreateRemoveTokenForOrg = (
   params: Params<t_ActionsCreateRemoveTokenForOrgParamSchema, void, void>,
   respond: ActionsCreateRemoveTokenForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<201, t_authentication_token>
 >
@@ -4070,7 +4069,7 @@ export type ActionsGetSelfHostedRunnerForOrgResponder = {
 export type ActionsGetSelfHostedRunnerForOrg = (
   params: Params<t_ActionsGetSelfHostedRunnerForOrgParamSchema, void, void>,
   respond: ActionsGetSelfHostedRunnerForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_runner>>
 
 export type ActionsDeleteSelfHostedRunnerFromOrgResponder = {
@@ -4080,7 +4079,7 @@ export type ActionsDeleteSelfHostedRunnerFromOrgResponder = {
 export type ActionsDeleteSelfHostedRunnerFromOrg = (
   params: Params<t_ActionsDeleteSelfHostedRunnerFromOrgParamSchema, void, void>,
   respond: ActionsDeleteSelfHostedRunnerFromOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsListLabelsForSelfHostedRunnerForOrgResponder = {
@@ -4098,7 +4097,7 @@ export type ActionsListLabelsForSelfHostedRunnerForOrg = (
     void
   >,
   respond: ActionsListLabelsForSelfHostedRunnerForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4127,7 +4126,7 @@ export type ActionsAddCustomLabelsToSelfHostedRunnerForOrg = (
     t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema
   >,
   respond: ActionsAddCustomLabelsToSelfHostedRunnerForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4157,7 +4156,7 @@ export type ActionsSetCustomLabelsForSelfHostedRunnerForOrg = (
     t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema
   >,
   respond: ActionsSetCustomLabelsForSelfHostedRunnerForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4186,7 +4185,7 @@ export type ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrg = (
     void
   >,
   respond: ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4215,7 +4214,7 @@ export type ActionsRemoveCustomLabelFromSelfHostedRunnerForOrg = (
     void
   >,
   respond: ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4243,7 +4242,7 @@ export type ActionsListOrgSecrets = (
     void
   >,
   respond: ActionsListOrgSecretsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4262,7 +4261,7 @@ export type ActionsGetOrgPublicKeyResponder = {
 export type ActionsGetOrgPublicKey = (
   params: Params<t_ActionsGetOrgPublicKeyParamSchema, void, void>,
   respond: ActionsGetOrgPublicKeyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_actions_public_key>>
 
 export type ActionsGetOrgSecretResponder = {
@@ -4272,7 +4271,7 @@ export type ActionsGetOrgSecretResponder = {
 export type ActionsGetOrgSecret = (
   params: Params<t_ActionsGetOrgSecretParamSchema, void, void>,
   respond: ActionsGetOrgSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_organization_actions_secret>
 >
@@ -4289,7 +4288,7 @@ export type ActionsCreateOrUpdateOrgSecret = (
     t_ActionsCreateOrUpdateOrgSecretBodySchema
   >,
   respond: ActionsCreateOrUpdateOrgSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_empty_object>
@@ -4303,7 +4302,7 @@ export type ActionsDeleteOrgSecretResponder = {
 export type ActionsDeleteOrgSecret = (
   params: Params<t_ActionsDeleteOrgSecretParamSchema, void, void>,
   respond: ActionsDeleteOrgSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsListSelectedReposForOrgSecretResponder = {
@@ -4320,7 +4319,7 @@ export type ActionsListSelectedReposForOrgSecret = (
     void
   >,
   respond: ActionsListSelectedReposForOrgSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4343,7 +4342,7 @@ export type ActionsSetSelectedReposForOrgSecret = (
     t_ActionsSetSelectedReposForOrgSecretBodySchema
   >,
   respond: ActionsSetSelectedReposForOrgSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsAddSelectedRepoToOrgSecretResponder = {
@@ -4354,7 +4353,7 @@ export type ActionsAddSelectedRepoToOrgSecretResponder = {
 export type ActionsAddSelectedRepoToOrgSecret = (
   params: Params<t_ActionsAddSelectedRepoToOrgSecretParamSchema, void, void>,
   respond: ActionsAddSelectedRepoToOrgSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<409, void>
 >
@@ -4371,7 +4370,7 @@ export type ActionsRemoveSelectedRepoFromOrgSecret = (
     void
   >,
   respond: ActionsRemoveSelectedRepoFromOrgSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<409, void>
 >
@@ -4390,7 +4389,7 @@ export type ActionsListOrgVariables = (
     void
   >,
   respond: ActionsListOrgVariablesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4413,7 +4412,7 @@ export type ActionsCreateOrgVariable = (
     t_ActionsCreateOrgVariableBodySchema
   >,
   respond: ActionsCreateOrgVariableResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<201, t_empty_object>>
 
 export type ActionsGetOrgVariableResponder = {
@@ -4423,7 +4422,7 @@ export type ActionsGetOrgVariableResponder = {
 export type ActionsGetOrgVariable = (
   params: Params<t_ActionsGetOrgVariableParamSchema, void, void>,
   respond: ActionsGetOrgVariableResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_organization_actions_variable>
 >
@@ -4439,7 +4438,7 @@ export type ActionsUpdateOrgVariable = (
     t_ActionsUpdateOrgVariableBodySchema
   >,
   respond: ActionsUpdateOrgVariableResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsDeleteOrgVariableResponder = {
@@ -4449,7 +4448,7 @@ export type ActionsDeleteOrgVariableResponder = {
 export type ActionsDeleteOrgVariable = (
   params: Params<t_ActionsDeleteOrgVariableParamSchema, void, void>,
   respond: ActionsDeleteOrgVariableResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsListSelectedReposForOrgVariableResponder = {
@@ -4467,7 +4466,7 @@ export type ActionsListSelectedReposForOrgVariable = (
     void
   >,
   respond: ActionsListSelectedReposForOrgVariableResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4492,7 +4491,7 @@ export type ActionsSetSelectedReposForOrgVariable = (
     t_ActionsSetSelectedReposForOrgVariableBodySchema
   >,
   respond: ActionsSetSelectedReposForOrgVariableResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<409, void>
 >
@@ -4505,7 +4504,7 @@ export type ActionsAddSelectedRepoToOrgVariableResponder = {
 export type ActionsAddSelectedRepoToOrgVariable = (
   params: Params<t_ActionsAddSelectedRepoToOrgVariableParamSchema, void, void>,
   respond: ActionsAddSelectedRepoToOrgVariableResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<409, void>
 >
@@ -4522,7 +4521,7 @@ export type ActionsRemoveSelectedRepoFromOrgVariable = (
     void
   >,
   respond: ActionsRemoveSelectedRepoFromOrgVariableResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<409, void>
 >
@@ -4538,7 +4537,7 @@ export type OrgsListBlockedUsers = (
     void
   >,
   respond: OrgsListBlockedUsersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_simple_user[]>>
 
 export type OrgsCheckBlockedUserResponder = {
@@ -4549,7 +4548,7 @@ export type OrgsCheckBlockedUserResponder = {
 export type OrgsCheckBlockedUser = (
   params: Params<t_OrgsCheckBlockedUserParamSchema, void, void>,
   respond: OrgsCheckBlockedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -4564,7 +4563,7 @@ export type OrgsBlockUserResponder = {
 export type OrgsBlockUser = (
   params: Params<t_OrgsBlockUserParamSchema, void, void>,
   respond: OrgsBlockUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -4578,7 +4577,7 @@ export type OrgsUnblockUserResponder = {
 export type OrgsUnblockUser = (
   params: Params<t_OrgsUnblockUserParamSchema, void, void>,
   respond: OrgsUnblockUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type CodeScanningListAlertsForOrgResponder = {
@@ -4598,7 +4597,7 @@ export type CodeScanningListAlertsForOrg = (
     void
   >,
   respond: CodeScanningListAlertsForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_code_scanning_organization_alert_items[]>
@@ -4632,7 +4631,7 @@ export type CodespacesListInOrganization = (
     void
   >,
   respond: CodespacesListInOrganizationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4665,7 +4664,7 @@ export type CodespacesSetCodespacesAccess = (
     t_CodespacesSetCodespacesAccessBodySchema
   >,
   respond: CodespacesSetCodespacesAccessResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -4692,7 +4691,7 @@ export type CodespacesSetCodespacesAccessUsers = (
     t_CodespacesSetCodespacesAccessUsersBodySchema
   >,
   respond: CodespacesSetCodespacesAccessUsersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -4719,7 +4718,7 @@ export type CodespacesDeleteCodespacesAccessUsers = (
     t_CodespacesDeleteCodespacesAccessUsersBodySchema
   >,
   respond: CodespacesDeleteCodespacesAccessUsersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -4744,7 +4743,7 @@ export type CodespacesListOrgSecrets = (
     void
   >,
   respond: CodespacesListOrgSecretsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4763,7 +4762,7 @@ export type CodespacesGetOrgPublicKeyResponder = {
 export type CodespacesGetOrgPublicKey = (
   params: Params<t_CodespacesGetOrgPublicKeyParamSchema, void, void>,
   respond: CodespacesGetOrgPublicKeyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_codespaces_public_key>
 >
@@ -4775,7 +4774,7 @@ export type CodespacesGetOrgSecretResponder = {
 export type CodespacesGetOrgSecret = (
   params: Params<t_CodespacesGetOrgSecretParamSchema, void, void>,
   respond: CodespacesGetOrgSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_codespaces_org_secret>
 >
@@ -4794,7 +4793,7 @@ export type CodespacesCreateOrUpdateOrgSecret = (
     t_CodespacesCreateOrUpdateOrgSecretBodySchema
   >,
   respond: CodespacesCreateOrUpdateOrgSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_empty_object>
@@ -4811,7 +4810,7 @@ export type CodespacesDeleteOrgSecretResponder = {
 export type CodespacesDeleteOrgSecret = (
   params: Params<t_CodespacesDeleteOrgSecretParamSchema, void, void>,
   respond: CodespacesDeleteOrgSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -4833,7 +4832,7 @@ export type CodespacesListSelectedReposForOrgSecret = (
     void
   >,
   respond: CodespacesListSelectedReposForOrgSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4859,7 +4858,7 @@ export type CodespacesSetSelectedReposForOrgSecret = (
     t_CodespacesSetSelectedReposForOrgSecretBodySchema
   >,
   respond: CodespacesSetSelectedReposForOrgSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -4877,7 +4876,7 @@ export type CodespacesAddSelectedRepoToOrgSecretResponder = {
 export type CodespacesAddSelectedRepoToOrgSecret = (
   params: Params<t_CodespacesAddSelectedRepoToOrgSecretParamSchema, void, void>,
   respond: CodespacesAddSelectedRepoToOrgSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -4900,7 +4899,7 @@ export type CodespacesRemoveSelectedRepoFromOrgSecret = (
     void
   >,
   respond: CodespacesRemoveSelectedRepoFromOrgSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -4920,7 +4919,7 @@ export type CopilotGetCopilotOrganizationDetailsResponder = {
 export type CopilotGetCopilotOrganizationDetails = (
   params: Params<t_CopilotGetCopilotOrganizationDetailsParamSchema, void, void>,
   respond: CopilotGetCopilotOrganizationDetailsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_copilot_organization_details>
@@ -4948,7 +4947,7 @@ export type CopilotListCopilotSeats = (
     void
   >,
   respond: CopilotListCopilotSeatsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4982,7 +4981,7 @@ export type CopilotAddCopilotForBusinessSeatsForTeams = (
     t_CopilotAddCopilotForBusinessSeatsForTeamsBodySchema
   >,
   respond: CopilotAddCopilotForBusinessSeatsForTeamsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5016,7 +5015,7 @@ export type CopilotCancelCopilotSeatAssignmentForTeams = (
     t_CopilotCancelCopilotSeatAssignmentForTeamsBodySchema
   >,
   respond: CopilotCancelCopilotSeatAssignmentForTeamsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5050,7 +5049,7 @@ export type CopilotAddCopilotForBusinessSeatsForUsers = (
     t_CopilotAddCopilotForBusinessSeatsForUsersBodySchema
   >,
   respond: CopilotAddCopilotForBusinessSeatsForUsersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5084,7 +5083,7 @@ export type CopilotCancelCopilotSeatAssignmentForUsers = (
     t_CopilotCancelCopilotSeatAssignmentForUsersBodySchema
   >,
   respond: CopilotCancelCopilotSeatAssignmentForUsersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5116,7 +5115,7 @@ export type DependabotListAlertsForOrg = (
     void
   >,
   respond: DependabotListAlertsForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_dependabot_alert_with_repository[]>
@@ -5141,7 +5140,7 @@ export type DependabotListOrgSecrets = (
     void
   >,
   respond: DependabotListOrgSecretsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5160,7 +5159,7 @@ export type DependabotGetOrgPublicKeyResponder = {
 export type DependabotGetOrgPublicKey = (
   params: Params<t_DependabotGetOrgPublicKeyParamSchema, void, void>,
   respond: DependabotGetOrgPublicKeyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_dependabot_public_key>
 >
@@ -5172,7 +5171,7 @@ export type DependabotGetOrgSecretResponder = {
 export type DependabotGetOrgSecret = (
   params: Params<t_DependabotGetOrgSecretParamSchema, void, void>,
   respond: DependabotGetOrgSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_organization_dependabot_secret>
 >
@@ -5189,7 +5188,7 @@ export type DependabotCreateOrUpdateOrgSecret = (
     t_DependabotCreateOrUpdateOrgSecretBodySchema
   >,
   respond: DependabotCreateOrUpdateOrgSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_empty_object>
@@ -5203,7 +5202,7 @@ export type DependabotDeleteOrgSecretResponder = {
 export type DependabotDeleteOrgSecret = (
   params: Params<t_DependabotDeleteOrgSecretParamSchema, void, void>,
   respond: DependabotDeleteOrgSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type DependabotListSelectedReposForOrgSecretResponder = {
@@ -5220,7 +5219,7 @@ export type DependabotListSelectedReposForOrgSecret = (
     void
   >,
   respond: DependabotListSelectedReposForOrgSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5243,7 +5242,7 @@ export type DependabotSetSelectedReposForOrgSecret = (
     t_DependabotSetSelectedReposForOrgSecretBodySchema
   >,
   respond: DependabotSetSelectedReposForOrgSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type DependabotAddSelectedRepoToOrgSecretResponder = {
@@ -5254,7 +5253,7 @@ export type DependabotAddSelectedRepoToOrgSecretResponder = {
 export type DependabotAddSelectedRepoToOrgSecret = (
   params: Params<t_DependabotAddSelectedRepoToOrgSecretParamSchema, void, void>,
   respond: DependabotAddSelectedRepoToOrgSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<409, void>
 >
@@ -5271,7 +5270,7 @@ export type DependabotRemoveSelectedRepoFromOrgSecret = (
     void
   >,
   respond: DependabotRemoveSelectedRepoFromOrgSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<409, void>
 >
@@ -5290,7 +5289,7 @@ export type PackagesListDockerMigrationConflictingPackagesForOrganization = (
     void
   >,
   respond: PackagesListDockerMigrationConflictingPackagesForOrganizationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_package[]>
@@ -5309,7 +5308,7 @@ export type ActivityListPublicOrgEvents = (
     void
   >,
   respond: ActivityListPublicOrgEventsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_event[]>>
 
 export type OrgsListFailedInvitationsResponder = {
@@ -5324,7 +5323,7 @@ export type OrgsListFailedInvitations = (
     void
   >,
   respond: OrgsListFailedInvitationsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_organization_invitation[]>
@@ -5343,7 +5342,7 @@ export type OrgsListWebhooks = (
     void
   >,
   respond: OrgsListWebhooksResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_org_hook[]>
@@ -5363,7 +5362,7 @@ export type OrgsCreateWebhook = (
     t_OrgsCreateWebhookBodySchema
   >,
   respond: OrgsCreateWebhookResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_org_hook>
@@ -5379,7 +5378,7 @@ export type OrgsGetWebhookResponder = {
 export type OrgsGetWebhook = (
   params: Params<t_OrgsGetWebhookParamSchema, void, void>,
   respond: OrgsGetWebhookResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_org_hook>
@@ -5399,7 +5398,7 @@ export type OrgsUpdateWebhook = (
     t_OrgsUpdateWebhookBodySchema | undefined
   >,
   respond: OrgsUpdateWebhookResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_org_hook>
@@ -5415,7 +5414,7 @@ export type OrgsDeleteWebhookResponder = {
 export type OrgsDeleteWebhook = (
   params: Params<t_OrgsDeleteWebhookParamSchema, void, void>,
   respond: OrgsDeleteWebhookResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -5429,7 +5428,7 @@ export type OrgsGetWebhookConfigForOrgResponder = {
 export type OrgsGetWebhookConfigForOrg = (
   params: Params<t_OrgsGetWebhookConfigForOrgParamSchema, void, void>,
   respond: OrgsGetWebhookConfigForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_webhook_config>>
 
 export type OrgsUpdateWebhookConfigForOrgResponder = {
@@ -5443,7 +5442,7 @@ export type OrgsUpdateWebhookConfigForOrg = (
     t_OrgsUpdateWebhookConfigForOrgBodySchema | undefined
   >,
   respond: OrgsUpdateWebhookConfigForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_webhook_config>>
 
 export type OrgsListWebhookDeliveriesResponder = {
@@ -5459,7 +5458,7 @@ export type OrgsListWebhookDeliveries = (
     void
   >,
   respond: OrgsListWebhookDeliveriesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_hook_delivery_item[]>
@@ -5476,7 +5475,7 @@ export type OrgsGetWebhookDeliveryResponder = {
 export type OrgsGetWebhookDelivery = (
   params: Params<t_OrgsGetWebhookDeliveryParamSchema, void, void>,
   respond: OrgsGetWebhookDeliveryResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_hook_delivery>
@@ -5493,7 +5492,7 @@ export type OrgsRedeliverWebhookDeliveryResponder = {
 export type OrgsRedeliverWebhookDelivery = (
   params: Params<t_OrgsRedeliverWebhookDeliveryParamSchema, void, void>,
   respond: OrgsRedeliverWebhookDeliveryResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<202, EmptyObject>
@@ -5509,7 +5508,7 @@ export type OrgsPingWebhookResponder = {
 export type OrgsPingWebhook = (
   params: Params<t_OrgsPingWebhookParamSchema, void, void>,
   respond: OrgsPingWebhookResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -5523,7 +5522,7 @@ export type AppsGetOrgInstallationResponder = {
 export type AppsGetOrgInstallation = (
   params: Params<t_AppsGetOrgInstallationParamSchema, void, void>,
   respond: AppsGetOrgInstallationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_installation>>
 
 export type OrgsListAppInstallationsResponder = {
@@ -5540,7 +5539,7 @@ export type OrgsListAppInstallations = (
     void
   >,
   respond: OrgsListAppInstallationsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5559,7 +5558,7 @@ export type InteractionsGetRestrictionsForOrgResponder = {
 export type InteractionsGetRestrictionsForOrg = (
   params: Params<t_InteractionsGetRestrictionsForOrgParamSchema, void, void>,
   respond: InteractionsGetRestrictionsForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_interaction_limit_response | EmptyObject>
@@ -5577,7 +5576,7 @@ export type InteractionsSetRestrictionsForOrg = (
     t_InteractionsSetRestrictionsForOrgBodySchema
   >,
   respond: InteractionsSetRestrictionsForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_interaction_limit_response>
@@ -5591,7 +5590,7 @@ export type InteractionsRemoveRestrictionsForOrgResponder = {
 export type InteractionsRemoveRestrictionsForOrg = (
   params: Params<t_InteractionsRemoveRestrictionsForOrgParamSchema, void, void>,
   respond: InteractionsRemoveRestrictionsForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type OrgsListPendingInvitationsResponder = {
@@ -5606,7 +5605,7 @@ export type OrgsListPendingInvitations = (
     void
   >,
   respond: OrgsListPendingInvitationsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_organization_invitation[]>
@@ -5626,7 +5625,7 @@ export type OrgsCreateInvitation = (
     t_OrgsCreateInvitationBodySchema | undefined
   >,
   respond: OrgsCreateInvitationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_organization_invitation>
@@ -5643,7 +5642,7 @@ export type OrgsCancelInvitationResponder = {
 export type OrgsCancelInvitation = (
   params: Params<t_OrgsCancelInvitationParamSchema, void, void>,
   respond: OrgsCancelInvitationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -5663,7 +5662,7 @@ export type OrgsListInvitationTeams = (
     void
   >,
   respond: OrgsListInvitationTeamsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team[]>
@@ -5682,7 +5681,7 @@ export type IssuesListForOrg = (
     void
   >,
   respond: IssuesListForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issue[]>
@@ -5701,7 +5700,7 @@ export type OrgsListMembers = (
     void
   >,
   respond: OrgsListMembersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_simple_user[]>
@@ -5717,7 +5716,7 @@ export type OrgsCheckMembershipForUserResponder = {
 export type OrgsCheckMembershipForUser = (
   params: Params<t_OrgsCheckMembershipForUserParamSchema, void, void>,
   respond: OrgsCheckMembershipForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -5733,7 +5732,7 @@ export type OrgsRemoveMemberResponder = {
 export type OrgsRemoveMember = (
   params: Params<t_OrgsRemoveMemberParamSchema, void, void>,
   respond: OrgsRemoveMemberResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -5759,7 +5758,7 @@ export type CodespacesGetCodespacesForUserInOrg = (
     void
   >,
   respond: CodespacesGetCodespacesForUserInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5788,7 +5787,7 @@ export type CodespacesDeleteFromOrganizationResponder = {
 export type CodespacesDeleteFromOrganization = (
   params: Params<t_CodespacesDeleteFromOrganizationParamSchema, void, void>,
   respond: CodespacesDeleteFromOrganizationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<202, EmptyObject>
@@ -5811,7 +5810,7 @@ export type CodespacesStopInOrganizationResponder = {
 export type CodespacesStopInOrganization = (
   params: Params<t_CodespacesStopInOrganizationParamSchema, void, void>,
   respond: CodespacesStopInOrganizationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_codespace>
@@ -5838,7 +5837,7 @@ export type CopilotGetCopilotSeatAssignmentDetailsForUser = (
     void
   >,
   respond: CopilotGetCopilotSeatAssignmentDetailsForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_copilot_seat_details>
@@ -5858,7 +5857,7 @@ export type OrgsGetMembershipForUserResponder = {
 export type OrgsGetMembershipForUser = (
   params: Params<t_OrgsGetMembershipForUserParamSchema, void, void>,
   respond: OrgsGetMembershipForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_org_membership>
@@ -5879,7 +5878,7 @@ export type OrgsSetMembershipForUser = (
     t_OrgsSetMembershipForUserBodySchema | undefined
   >,
   respond: OrgsSetMembershipForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_org_membership>
@@ -5896,7 +5895,7 @@ export type OrgsRemoveMembershipForUserResponder = {
 export type OrgsRemoveMembershipForUser = (
   params: Params<t_OrgsRemoveMembershipForUserParamSchema, void, void>,
   respond: OrgsRemoveMembershipForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -5915,7 +5914,7 @@ export type MigrationsListForOrg = (
     void
   >,
   respond: MigrationsListForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_migration[]>>
 
 export type MigrationsStartForOrgResponder = {
@@ -5931,7 +5930,7 @@ export type MigrationsStartForOrg = (
     t_MigrationsStartForOrgBodySchema
   >,
   respond: MigrationsStartForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_migration>
@@ -5951,7 +5950,7 @@ export type MigrationsGetStatusForOrg = (
     void
   >,
   respond: MigrationsGetStatusForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_migration>
@@ -5966,7 +5965,7 @@ export type MigrationsDownloadArchiveForOrgResponder = {
 export type MigrationsDownloadArchiveForOrg = (
   params: Params<t_MigrationsDownloadArchiveForOrgParamSchema, void, void>,
   respond: MigrationsDownloadArchiveForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<302, void>
@@ -5981,7 +5980,7 @@ export type MigrationsDeleteArchiveForOrgResponder = {
 export type MigrationsDeleteArchiveForOrg = (
   params: Params<t_MigrationsDeleteArchiveForOrgParamSchema, void, void>,
   respond: MigrationsDeleteArchiveForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -5996,7 +5995,7 @@ export type MigrationsUnlockRepoForOrgResponder = {
 export type MigrationsUnlockRepoForOrg = (
   params: Params<t_MigrationsUnlockRepoForOrgParamSchema, void, void>,
   respond: MigrationsUnlockRepoForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -6015,7 +6014,7 @@ export type MigrationsListReposForOrg = (
     void
   >,
   respond: MigrationsListReposForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_minimal_repository[]>
@@ -6033,7 +6032,7 @@ export type OrgsListOutsideCollaborators = (
     void
   >,
   respond: OrgsListOutsideCollaboratorsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_simple_user[]>>
 
 export type OrgsConvertMemberToOutsideCollaboratorResponder = {
@@ -6050,7 +6049,7 @@ export type OrgsConvertMemberToOutsideCollaborator = (
     t_OrgsConvertMemberToOutsideCollaboratorBodySchema | undefined
   >,
   respond: OrgsConvertMemberToOutsideCollaboratorResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<202, EmptyObject>
@@ -6070,7 +6069,7 @@ export type OrgsRemoveOutsideCollaboratorResponder = {
 export type OrgsRemoveOutsideCollaborator = (
   params: Params<t_OrgsRemoveOutsideCollaboratorParamSchema, void, void>,
   respond: OrgsRemoveOutsideCollaboratorResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -6097,7 +6096,7 @@ export type PackagesListPackagesForOrganization = (
     void
   >,
   respond: PackagesListPackagesForOrganizationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_package[]>
@@ -6113,7 +6112,7 @@ export type PackagesGetPackageForOrganizationResponder = {
 export type PackagesGetPackageForOrganization = (
   params: Params<t_PackagesGetPackageForOrganizationParamSchema, void, void>,
   respond: PackagesGetPackageForOrganizationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_package>>
 
 export type PackagesDeletePackageForOrgResponder = {
@@ -6126,7 +6125,7 @@ export type PackagesDeletePackageForOrgResponder = {
 export type PackagesDeletePackageForOrg = (
   params: Params<t_PackagesDeletePackageForOrgParamSchema, void, void>,
   respond: PackagesDeletePackageForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -6149,7 +6148,7 @@ export type PackagesRestorePackageForOrg = (
     void
   >,
   respond: PackagesRestorePackageForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -6172,7 +6171,7 @@ export type PackagesGetAllPackageVersionsForPackageOwnedByOrg = (
     void
   >,
   respond: PackagesGetAllPackageVersionsForPackageOwnedByOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_package_version[]>
@@ -6192,7 +6191,7 @@ export type PackagesGetPackageVersionForOrganization = (
     void
   >,
   respond: PackagesGetPackageVersionForOrganizationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_package_version>>
 
 export type PackagesDeletePackageVersionForOrgResponder = {
@@ -6205,7 +6204,7 @@ export type PackagesDeletePackageVersionForOrgResponder = {
 export type PackagesDeletePackageVersionForOrg = (
   params: Params<t_PackagesDeletePackageVersionForOrgParamSchema, void, void>,
   respond: PackagesDeletePackageVersionForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -6224,7 +6223,7 @@ export type PackagesRestorePackageVersionForOrgResponder = {
 export type PackagesRestorePackageVersionForOrg = (
   params: Params<t_PackagesRestorePackageVersionForOrgParamSchema, void, void>,
   respond: PackagesRestorePackageVersionForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -6250,7 +6249,7 @@ export type OrgsListPatGrantRequests = (
     void
   >,
   respond: OrgsListPatGrantRequestsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_organization_programmatic_access_grant_request[]>
@@ -6275,7 +6274,7 @@ export type OrgsReviewPatGrantRequestsInBulk = (
     t_OrgsReviewPatGrantRequestsInBulkBodySchema
   >,
   respond: OrgsReviewPatGrantRequestsInBulkResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<202, EmptyObject>
@@ -6300,7 +6299,7 @@ export type OrgsReviewPatGrantRequest = (
     t_OrgsReviewPatGrantRequestBodySchema
   >,
   respond: OrgsReviewPatGrantRequestResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -6324,7 +6323,7 @@ export type OrgsListPatGrantRequestRepositories = (
     void
   >,
   respond: OrgsListPatGrantRequestRepositoriesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_minimal_repository[]>
@@ -6348,7 +6347,7 @@ export type OrgsListPatGrants = (
     void
   >,
   respond: OrgsListPatGrantsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_organization_programmatic_access_grant[]>
@@ -6373,7 +6372,7 @@ export type OrgsUpdatePatAccesses = (
     t_OrgsUpdatePatAccessesBodySchema
   >,
   respond: OrgsUpdatePatAccessesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<202, EmptyObject>
@@ -6398,7 +6397,7 @@ export type OrgsUpdatePatAccess = (
     t_OrgsUpdatePatAccessBodySchema
   >,
   respond: OrgsUpdatePatAccessResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -6422,7 +6421,7 @@ export type OrgsListPatGrantRepositories = (
     void
   >,
   respond: OrgsListPatGrantRepositoriesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_minimal_repository[]>
@@ -6443,7 +6442,7 @@ export type ProjectsListForOrg = (
     void
   >,
   respond: ProjectsListForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_project[]>
@@ -6466,7 +6465,7 @@ export type ProjectsCreateForOrg = (
     t_ProjectsCreateForOrgBodySchema
   >,
   respond: ProjectsCreateForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_project>
@@ -6488,7 +6487,7 @@ export type OrgsListPublicMembers = (
     void
   >,
   respond: OrgsListPublicMembersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_simple_user[]>>
 
 export type OrgsCheckPublicMembershipForUserResponder = {
@@ -6499,7 +6498,7 @@ export type OrgsCheckPublicMembershipForUserResponder = {
 export type OrgsCheckPublicMembershipForUser = (
   params: Params<t_OrgsCheckPublicMembershipForUserParamSchema, void, void>,
   respond: OrgsCheckPublicMembershipForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<404, void>
 >
@@ -6516,7 +6515,7 @@ export type OrgsSetPublicMembershipForAuthenticatedUser = (
     void
   >,
   respond: OrgsSetPublicMembershipForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -6534,7 +6533,7 @@ export type OrgsRemovePublicMembershipForAuthenticatedUser = (
     void
   >,
   respond: OrgsRemovePublicMembershipForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ReposListForOrgResponder = {
@@ -6548,7 +6547,7 @@ export type ReposListForOrg = (
     void
   >,
   respond: ReposListForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_minimal_repository[]>
 >
@@ -6566,7 +6565,7 @@ export type ReposCreateInOrg = (
     t_ReposCreateInOrgBodySchema
   >,
   respond: ReposCreateInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_repository>
@@ -6587,7 +6586,7 @@ export type ReposGetOrgRulesets = (
     void
   >,
   respond: ReposGetOrgRulesetsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_repository_ruleset[]>
@@ -6608,7 +6607,7 @@ export type ReposCreateOrgRuleset = (
     t_ReposCreateOrgRulesetBodySchema
   >,
   respond: ReposCreateOrgRulesetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_repository_ruleset>
@@ -6625,7 +6624,7 @@ export type ReposGetOrgRulesetResponder = {
 export type ReposGetOrgRuleset = (
   params: Params<t_ReposGetOrgRulesetParamSchema, void, void>,
   respond: ReposGetOrgRulesetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_repository_ruleset>
@@ -6646,7 +6645,7 @@ export type ReposUpdateOrgRuleset = (
     t_ReposUpdateOrgRulesetBodySchema | undefined
   >,
   respond: ReposUpdateOrgRulesetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_repository_ruleset>
@@ -6663,7 +6662,7 @@ export type ReposDeleteOrgRulesetResponder = {
 export type ReposDeleteOrgRuleset = (
   params: Params<t_ReposDeleteOrgRulesetParamSchema, void, void>,
   respond: ReposDeleteOrgRulesetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -6688,7 +6687,7 @@ export type SecretScanningListAlertsForOrg = (
     void
   >,
   respond: SecretScanningListAlertsForOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_organization_secret_scanning_alert[]>
@@ -6716,7 +6715,7 @@ export type SecurityAdvisoriesListOrgRepositoryAdvisories = (
     void
   >,
   respond: SecurityAdvisoriesListOrgRepositoryAdvisoriesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_repository_advisory[]>
@@ -6731,7 +6730,7 @@ export type OrgsListSecurityManagerTeamsResponder = {
 export type OrgsListSecurityManagerTeams = (
   params: Params<t_OrgsListSecurityManagerTeamsParamSchema, void, void>,
   respond: OrgsListSecurityManagerTeamsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_team_simple[]>>
 
 export type OrgsAddSecurityManagerTeamResponder = {
@@ -6742,7 +6741,7 @@ export type OrgsAddSecurityManagerTeamResponder = {
 export type OrgsAddSecurityManagerTeam = (
   params: Params<t_OrgsAddSecurityManagerTeamParamSchema, void, void>,
   respond: OrgsAddSecurityManagerTeamResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<409, void>
 >
@@ -6754,7 +6753,7 @@ export type OrgsRemoveSecurityManagerTeamResponder = {
 export type OrgsRemoveSecurityManagerTeam = (
   params: Params<t_OrgsRemoveSecurityManagerTeamParamSchema, void, void>,
   respond: OrgsRemoveSecurityManagerTeamResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type BillingGetGithubActionsBillingOrgResponder = {
@@ -6764,7 +6763,7 @@ export type BillingGetGithubActionsBillingOrgResponder = {
 export type BillingGetGithubActionsBillingOrg = (
   params: Params<t_BillingGetGithubActionsBillingOrgParamSchema, void, void>,
   respond: BillingGetGithubActionsBillingOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_actions_billing_usage>
 >
@@ -6776,7 +6775,7 @@ export type BillingGetGithubPackagesBillingOrgResponder = {
 export type BillingGetGithubPackagesBillingOrg = (
   params: Params<t_BillingGetGithubPackagesBillingOrgParamSchema, void, void>,
   respond: BillingGetGithubPackagesBillingOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_packages_billing_usage>
 >
@@ -6788,7 +6787,7 @@ export type BillingGetSharedStorageBillingOrgResponder = {
 export type BillingGetSharedStorageBillingOrg = (
   params: Params<t_BillingGetSharedStorageBillingOrgParamSchema, void, void>,
   respond: BillingGetSharedStorageBillingOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_combined_billing_usage>
 >
@@ -6801,7 +6800,7 @@ export type TeamsListResponder = {
 export type TeamsList = (
   params: Params<t_TeamsListParamSchema, t_TeamsListQuerySchema, void>,
   respond: TeamsListResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team[]>
@@ -6817,7 +6816,7 @@ export type TeamsCreateResponder = {
 export type TeamsCreate = (
   params: Params<t_TeamsCreateParamSchema, void, t_TeamsCreateBodySchema>,
   respond: TeamsCreateResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_team_full>
@@ -6833,7 +6832,7 @@ export type TeamsGetByNameResponder = {
 export type TeamsGetByName = (
   params: Params<t_TeamsGetByNameParamSchema, void, void>,
   respond: TeamsGetByNameResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team_full>
@@ -6855,7 +6854,7 @@ export type TeamsUpdateInOrg = (
     t_TeamsUpdateInOrgBodySchema | undefined
   >,
   respond: TeamsUpdateInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team_full>
@@ -6872,7 +6871,7 @@ export type TeamsDeleteInOrgResponder = {
 export type TeamsDeleteInOrg = (
   params: Params<t_TeamsDeleteInOrgParamSchema, void, void>,
   respond: TeamsDeleteInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type TeamsListDiscussionsInOrgResponder = {
@@ -6886,7 +6885,7 @@ export type TeamsListDiscussionsInOrg = (
     void
   >,
   respond: TeamsListDiscussionsInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_team_discussion[]>>
 
 export type TeamsCreateDiscussionInOrgResponder = {
@@ -6900,7 +6899,7 @@ export type TeamsCreateDiscussionInOrg = (
     t_TeamsCreateDiscussionInOrgBodySchema
   >,
   respond: TeamsCreateDiscussionInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<201, t_team_discussion>>
 
 export type TeamsGetDiscussionInOrgResponder = {
@@ -6910,7 +6909,7 @@ export type TeamsGetDiscussionInOrgResponder = {
 export type TeamsGetDiscussionInOrg = (
   params: Params<t_TeamsGetDiscussionInOrgParamSchema, void, void>,
   respond: TeamsGetDiscussionInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_team_discussion>>
 
 export type TeamsUpdateDiscussionInOrgResponder = {
@@ -6924,7 +6923,7 @@ export type TeamsUpdateDiscussionInOrg = (
     t_TeamsUpdateDiscussionInOrgBodySchema | undefined
   >,
   respond: TeamsUpdateDiscussionInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_team_discussion>>
 
 export type TeamsDeleteDiscussionInOrgResponder = {
@@ -6934,7 +6933,7 @@ export type TeamsDeleteDiscussionInOrgResponder = {
 export type TeamsDeleteDiscussionInOrg = (
   params: Params<t_TeamsDeleteDiscussionInOrgParamSchema, void, void>,
   respond: TeamsDeleteDiscussionInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type TeamsListDiscussionCommentsInOrgResponder = {
@@ -6948,7 +6947,7 @@ export type TeamsListDiscussionCommentsInOrg = (
     void
   >,
   respond: TeamsListDiscussionCommentsInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_team_discussion_comment[]>
 >
@@ -6964,7 +6963,7 @@ export type TeamsCreateDiscussionCommentInOrg = (
     t_TeamsCreateDiscussionCommentInOrgBodySchema
   >,
   respond: TeamsCreateDiscussionCommentInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<201, t_team_discussion_comment>
 >
@@ -6976,7 +6975,7 @@ export type TeamsGetDiscussionCommentInOrgResponder = {
 export type TeamsGetDiscussionCommentInOrg = (
   params: Params<t_TeamsGetDiscussionCommentInOrgParamSchema, void, void>,
   respond: TeamsGetDiscussionCommentInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_team_discussion_comment>
 >
@@ -6992,7 +6991,7 @@ export type TeamsUpdateDiscussionCommentInOrg = (
     t_TeamsUpdateDiscussionCommentInOrgBodySchema
   >,
   respond: TeamsUpdateDiscussionCommentInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_team_discussion_comment>
 >
@@ -7004,7 +7003,7 @@ export type TeamsDeleteDiscussionCommentInOrgResponder = {
 export type TeamsDeleteDiscussionCommentInOrg = (
   params: Params<t_TeamsDeleteDiscussionCommentInOrgParamSchema, void, void>,
   respond: TeamsDeleteDiscussionCommentInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ReactionsListForTeamDiscussionCommentInOrgResponder = {
@@ -7018,7 +7017,7 @@ export type ReactionsListForTeamDiscussionCommentInOrg = (
     void
   >,
   respond: ReactionsListForTeamDiscussionCommentInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_reaction[]>>
 
 export type ReactionsCreateForTeamDiscussionCommentInOrgResponder = {
@@ -7033,7 +7032,7 @@ export type ReactionsCreateForTeamDiscussionCommentInOrg = (
     t_ReactionsCreateForTeamDiscussionCommentInOrgBodySchema
   >,
   respond: ReactionsCreateForTeamDiscussionCommentInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_reaction>
@@ -7051,7 +7050,7 @@ export type ReactionsDeleteForTeamDiscussionComment = (
     void
   >,
   respond: ReactionsDeleteForTeamDiscussionCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ReactionsListForTeamDiscussionInOrgResponder = {
@@ -7065,7 +7064,7 @@ export type ReactionsListForTeamDiscussionInOrg = (
     void
   >,
   respond: ReactionsListForTeamDiscussionInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_reaction[]>>
 
 export type ReactionsCreateForTeamDiscussionInOrgResponder = {
@@ -7080,7 +7079,7 @@ export type ReactionsCreateForTeamDiscussionInOrg = (
     t_ReactionsCreateForTeamDiscussionInOrgBodySchema
   >,
   respond: ReactionsCreateForTeamDiscussionInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_reaction>
@@ -7094,7 +7093,7 @@ export type ReactionsDeleteForTeamDiscussionResponder = {
 export type ReactionsDeleteForTeamDiscussion = (
   params: Params<t_ReactionsDeleteForTeamDiscussionParamSchema, void, void>,
   respond: ReactionsDeleteForTeamDiscussionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type TeamsListPendingInvitationsInOrgResponder = {
@@ -7108,7 +7107,7 @@ export type TeamsListPendingInvitationsInOrg = (
     void
   >,
   respond: TeamsListPendingInvitationsInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_organization_invitation[]>
 >
@@ -7124,7 +7123,7 @@ export type TeamsListMembersInOrg = (
     void
   >,
   respond: TeamsListMembersInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_simple_user[]>>
 
 export type TeamsGetMembershipForUserInOrgResponder = {
@@ -7135,7 +7134,7 @@ export type TeamsGetMembershipForUserInOrgResponder = {
 export type TeamsGetMembershipForUserInOrg = (
   params: Params<t_TeamsGetMembershipForUserInOrgParamSchema, void, void>,
   respond: TeamsGetMembershipForUserInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team_membership>
@@ -7155,7 +7154,7 @@ export type TeamsAddOrUpdateMembershipForUserInOrg = (
     t_TeamsAddOrUpdateMembershipForUserInOrgBodySchema | undefined
   >,
   respond: TeamsAddOrUpdateMembershipForUserInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team_membership>
@@ -7171,7 +7170,7 @@ export type TeamsRemoveMembershipForUserInOrgResponder = {
 export type TeamsRemoveMembershipForUserInOrg = (
   params: Params<t_TeamsRemoveMembershipForUserInOrgParamSchema, void, void>,
   respond: TeamsRemoveMembershipForUserInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<403, void>
 >
@@ -7187,7 +7186,7 @@ export type TeamsListProjectsInOrg = (
     void
   >,
   respond: TeamsListProjectsInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_team_project[]>>
 
 export type TeamsCheckPermissionsForProjectInOrgResponder = {
@@ -7198,7 +7197,7 @@ export type TeamsCheckPermissionsForProjectInOrgResponder = {
 export type TeamsCheckPermissionsForProjectInOrg = (
   params: Params<t_TeamsCheckPermissionsForProjectInOrgParamSchema, void, void>,
   respond: TeamsCheckPermissionsForProjectInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team_project>
@@ -7220,7 +7219,7 @@ export type TeamsAddOrUpdateProjectPermissionsInOrg = (
     t_TeamsAddOrUpdateProjectPermissionsInOrgBodySchema | undefined
   >,
   respond: TeamsAddOrUpdateProjectPermissionsInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -7240,7 +7239,7 @@ export type TeamsRemoveProjectInOrgResponder = {
 export type TeamsRemoveProjectInOrg = (
   params: Params<t_TeamsRemoveProjectInOrgParamSchema, void, void>,
   respond: TeamsRemoveProjectInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type TeamsListReposInOrgResponder = {
@@ -7254,7 +7253,7 @@ export type TeamsListReposInOrg = (
     void
   >,
   respond: TeamsListReposInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_minimal_repository[]>
 >
@@ -7268,7 +7267,7 @@ export type TeamsCheckPermissionsForRepoInOrgResponder = {
 export type TeamsCheckPermissionsForRepoInOrg = (
   params: Params<t_TeamsCheckPermissionsForRepoInOrgParamSchema, void, void>,
   respond: TeamsCheckPermissionsForRepoInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team_repository>
@@ -7287,7 +7286,7 @@ export type TeamsAddOrUpdateRepoPermissionsInOrg = (
     t_TeamsAddOrUpdateRepoPermissionsInOrgBodySchema | undefined
   >,
   respond: TeamsAddOrUpdateRepoPermissionsInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type TeamsRemoveRepoInOrgResponder = {
@@ -7297,7 +7296,7 @@ export type TeamsRemoveRepoInOrgResponder = {
 export type TeamsRemoveRepoInOrg = (
   params: Params<t_TeamsRemoveRepoInOrgParamSchema, void, void>,
   respond: TeamsRemoveRepoInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type TeamsListChildInOrgResponder = {
@@ -7311,7 +7310,7 @@ export type TeamsListChildInOrg = (
     void
   >,
   respond: TeamsListChildInOrgResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_team[]>>
 
 export type OrgsEnableOrDisableSecurityProductOnAllOrgReposResponder = {
@@ -7326,7 +7325,7 @@ export type OrgsEnableOrDisableSecurityProductOnAllOrgRepos = (
     t_OrgsEnableOrDisableSecurityProductOnAllOrgReposBodySchema | undefined
   >,
   respond: OrgsEnableOrDisableSecurityProductOnAllOrgReposResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<422, void>
 >
@@ -7342,7 +7341,7 @@ export type ProjectsGetCardResponder = {
 export type ProjectsGetCard = (
   params: Params<t_ProjectsGetCardParamSchema, void, void>,
   respond: ProjectsGetCardResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_project_card>
@@ -7368,7 +7367,7 @@ export type ProjectsUpdateCard = (
     t_ProjectsUpdateCardBodySchema | undefined
   >,
   respond: ProjectsUpdateCardResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_project_card>
@@ -7394,7 +7393,7 @@ export type ProjectsDeleteCardResponder = {
 export type ProjectsDeleteCard = (
   params: Params<t_ProjectsDeleteCardParamSchema, void, void>,
   respond: ProjectsDeleteCardResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -7444,7 +7443,7 @@ export type ProjectsMoveCard = (
     t_ProjectsMoveCardBodySchema
   >,
   respond: ProjectsMoveCardResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, EmptyObject>
@@ -7489,7 +7488,7 @@ export type ProjectsGetColumnResponder = {
 export type ProjectsGetColumn = (
   params: Params<t_ProjectsGetColumnParamSchema, void, void>,
   respond: ProjectsGetColumnResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_project_column>
@@ -7513,7 +7512,7 @@ export type ProjectsUpdateColumn = (
     t_ProjectsUpdateColumnBodySchema
   >,
   respond: ProjectsUpdateColumnResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_project_column>
@@ -7532,7 +7531,7 @@ export type ProjectsDeleteColumnResponder = {
 export type ProjectsDeleteColumn = (
   params: Params<t_ProjectsDeleteColumnParamSchema, void, void>,
   respond: ProjectsDeleteColumnResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -7555,7 +7554,7 @@ export type ProjectsListCards = (
     void
   >,
   respond: ProjectsListCardsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_project_card[]>
@@ -7588,7 +7587,7 @@ export type ProjectsCreateCard = (
     t_ProjectsCreateCardBodySchema
   >,
   respond: ProjectsCreateCardResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_project_card>
@@ -7625,7 +7624,7 @@ export type ProjectsMoveColumn = (
     t_ProjectsMoveColumnBodySchema
   >,
   respond: ProjectsMoveColumnResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, EmptyObject>
@@ -7645,7 +7644,7 @@ export type ProjectsGetResponder = {
 export type ProjectsGet = (
   params: Params<t_ProjectsGetParamSchema, void, void>,
   respond: ProjectsGetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_project>
@@ -7675,7 +7674,7 @@ export type ProjectsUpdate = (
     t_ProjectsUpdateBodySchema | undefined
   >,
   respond: ProjectsUpdateResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_project>
@@ -7710,7 +7709,7 @@ export type ProjectsDeleteResponder = {
 export type ProjectsDelete = (
   params: Params<t_ProjectsDeleteParamSchema, void, void>,
   respond: ProjectsDeleteResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -7744,7 +7743,7 @@ export type ProjectsListCollaborators = (
     void
   >,
   respond: ProjectsListCollaboratorsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_simple_user[]>
@@ -7771,7 +7770,7 @@ export type ProjectsAddCollaborator = (
     t_ProjectsAddCollaboratorBodySchema | undefined
   >,
   respond: ProjectsAddCollaboratorResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -7794,7 +7793,7 @@ export type ProjectsRemoveCollaboratorResponder = {
 export type ProjectsRemoveCollaborator = (
   params: Params<t_ProjectsRemoveCollaboratorParamSchema, void, void>,
   respond: ProjectsRemoveCollaboratorResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -7817,7 +7816,7 @@ export type ProjectsGetPermissionForUserResponder = {
 export type ProjectsGetPermissionForUser = (
   params: Params<t_ProjectsGetPermissionForUserParamSchema, void, void>,
   respond: ProjectsGetPermissionForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_project_collaborator_permission>
@@ -7842,7 +7841,7 @@ export type ProjectsListColumns = (
     void
   >,
   respond: ProjectsListColumnsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_project_column[]>
@@ -7866,7 +7865,7 @@ export type ProjectsCreateColumn = (
     t_ProjectsCreateColumnBodySchema
   >,
   respond: ProjectsCreateColumnResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_project_column>
@@ -7885,7 +7884,7 @@ export type RateLimitGetResponder = {
 export type RateLimitGet = (
   params: Params<void, void, void>,
   respond: RateLimitGetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_rate_limit_overview>
@@ -7903,7 +7902,7 @@ export type ReposGetResponder = {
 export type ReposGet = (
   params: Params<t_ReposGetParamSchema, void, void>,
   respond: ReposGetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_full_repository>
@@ -7927,7 +7926,7 @@ export type ReposUpdate = (
     t_ReposUpdateBodySchema | undefined
   >,
   respond: ReposUpdateResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_full_repository>
@@ -7950,7 +7949,7 @@ export type ReposDeleteResponder = {
 export type ReposDelete = (
   params: Params<t_ReposDeleteParamSchema, void, void>,
   respond: ReposDeleteResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -7979,7 +7978,7 @@ export type ActionsListArtifactsForRepo = (
     void
   >,
   respond: ActionsListArtifactsForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7998,7 +7997,7 @@ export type ActionsGetArtifactResponder = {
 export type ActionsGetArtifact = (
   params: Params<t_ActionsGetArtifactParamSchema, void, void>,
   respond: ActionsGetArtifactResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_artifact>>
 
 export type ActionsDeleteArtifactResponder = {
@@ -8008,7 +8007,7 @@ export type ActionsDeleteArtifactResponder = {
 export type ActionsDeleteArtifact = (
   params: Params<t_ActionsDeleteArtifactParamSchema, void, void>,
   respond: ActionsDeleteArtifactResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsDownloadArtifactResponder = {
@@ -8019,7 +8018,7 @@ export type ActionsDownloadArtifactResponder = {
 export type ActionsDownloadArtifact = (
   params: Params<t_ActionsDownloadArtifactParamSchema, void, void>,
   respond: ActionsDownloadArtifactResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<302, void>
@@ -8033,7 +8032,7 @@ export type ActionsGetActionsCacheUsageResponder = {
 export type ActionsGetActionsCacheUsage = (
   params: Params<t_ActionsGetActionsCacheUsageParamSchema, void, void>,
   respond: ActionsGetActionsCacheUsageResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_actions_cache_usage_by_repository>
@@ -8050,7 +8049,7 @@ export type ActionsGetActionsCacheList = (
     void
   >,
   respond: ActionsGetActionsCacheListResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_actions_cache_list>>
 
 export type ActionsDeleteActionsCacheByKeyResponder = {
@@ -8064,7 +8063,7 @@ export type ActionsDeleteActionsCacheByKey = (
     void
   >,
   respond: ActionsDeleteActionsCacheByKeyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_actions_cache_list>>
 
 export type ActionsDeleteActionsCacheByIdResponder = {
@@ -8074,7 +8073,7 @@ export type ActionsDeleteActionsCacheByIdResponder = {
 export type ActionsDeleteActionsCacheById = (
   params: Params<t_ActionsDeleteActionsCacheByIdParamSchema, void, void>,
   respond: ActionsDeleteActionsCacheByIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsGetJobForWorkflowRunResponder = {
@@ -8084,7 +8083,7 @@ export type ActionsGetJobForWorkflowRunResponder = {
 export type ActionsGetJobForWorkflowRun = (
   params: Params<t_ActionsGetJobForWorkflowRunParamSchema, void, void>,
   respond: ActionsGetJobForWorkflowRunResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_job>>
 
 export type ActionsDownloadJobLogsForWorkflowRunResponder = {
@@ -8094,7 +8093,7 @@ export type ActionsDownloadJobLogsForWorkflowRunResponder = {
 export type ActionsDownloadJobLogsForWorkflowRun = (
   params: Params<t_ActionsDownloadJobLogsForWorkflowRunParamSchema, void, void>,
   respond: ActionsDownloadJobLogsForWorkflowRunResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<302, void>>
 
 export type ActionsReRunJobForWorkflowRunResponder = {
@@ -8109,7 +8108,7 @@ export type ActionsReRunJobForWorkflowRun = (
     t_ActionsReRunJobForWorkflowRunBodySchema | undefined
   >,
   respond: ActionsReRunJobForWorkflowRunResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_empty_object>
@@ -8125,7 +8124,7 @@ export type ActionsGetCustomOidcSubClaimForRepoResponder = {
 export type ActionsGetCustomOidcSubClaimForRepo = (
   params: Params<t_ActionsGetCustomOidcSubClaimForRepoParamSchema, void, void>,
   respond: ActionsGetCustomOidcSubClaimForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_oidc_custom_sub_repo>
@@ -8147,7 +8146,7 @@ export type ActionsSetCustomOidcSubClaimForRepo = (
     t_ActionsSetCustomOidcSubClaimForRepoBodySchema
   >,
   respond: ActionsSetCustomOidcSubClaimForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_empty_object>
@@ -8170,7 +8169,7 @@ export type ActionsListRepoOrganizationSecrets = (
     void
   >,
   respond: ActionsListRepoOrganizationSecretsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8196,7 +8195,7 @@ export type ActionsListRepoOrganizationVariables = (
     void
   >,
   respond: ActionsListRepoOrganizationVariablesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8219,7 +8218,7 @@ export type ActionsGetGithubActionsPermissionsRepository = (
     void
   >,
   respond: ActionsGetGithubActionsPermissionsRepositoryResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_actions_repository_permissions>
 >
@@ -8235,7 +8234,7 @@ export type ActionsSetGithubActionsPermissionsRepository = (
     t_ActionsSetGithubActionsPermissionsRepositoryBodySchema
   >,
   respond: ActionsSetGithubActionsPermissionsRepositoryResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsGetWorkflowAccessToRepositoryResponder = {
@@ -8245,7 +8244,7 @@ export type ActionsGetWorkflowAccessToRepositoryResponder = {
 export type ActionsGetWorkflowAccessToRepository = (
   params: Params<t_ActionsGetWorkflowAccessToRepositoryParamSchema, void, void>,
   respond: ActionsGetWorkflowAccessToRepositoryResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_actions_workflow_access_to_repository>
@@ -8262,7 +8261,7 @@ export type ActionsSetWorkflowAccessToRepository = (
     t_ActionsSetWorkflowAccessToRepositoryBodySchema
   >,
   respond: ActionsSetWorkflowAccessToRepositoryResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsGetAllowedActionsRepositoryResponder = {
@@ -8272,7 +8271,7 @@ export type ActionsGetAllowedActionsRepositoryResponder = {
 export type ActionsGetAllowedActionsRepository = (
   params: Params<t_ActionsGetAllowedActionsRepositoryParamSchema, void, void>,
   respond: ActionsGetAllowedActionsRepositoryResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_selected_actions>>
 
 export type ActionsSetAllowedActionsRepositoryResponder = {
@@ -8286,7 +8285,7 @@ export type ActionsSetAllowedActionsRepository = (
     t_ActionsSetAllowedActionsRepositoryBodySchema | undefined
   >,
   respond: ActionsSetAllowedActionsRepositoryResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsGetGithubActionsDefaultWorkflowPermissionsRepositoryResponder =
@@ -8301,7 +8300,7 @@ export type ActionsGetGithubActionsDefaultWorkflowPermissionsRepository = (
     void
   >,
   respond: ActionsGetGithubActionsDefaultWorkflowPermissionsRepositoryResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_actions_get_default_workflow_permissions>
@@ -8320,7 +8319,7 @@ export type ActionsSetGithubActionsDefaultWorkflowPermissionsRepository = (
     t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySchema
   >,
   respond: ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<409, void>
 >
@@ -8339,7 +8338,7 @@ export type ActionsListSelfHostedRunnersForRepo = (
     void
   >,
   respond: ActionsListSelfHostedRunnersForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8358,7 +8357,7 @@ export type ActionsListRunnerApplicationsForRepoResponder = {
 export type ActionsListRunnerApplicationsForRepo = (
   params: Params<t_ActionsListRunnerApplicationsForRepoParamSchema, void, void>,
   respond: ActionsListRunnerApplicationsForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_runner_application[]>
 >
@@ -8379,7 +8378,7 @@ export type ActionsGenerateRunnerJitconfigForRepo = (
     t_ActionsGenerateRunnerJitconfigForRepoBodySchema
   >,
   respond: ActionsGenerateRunnerJitconfigForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8404,7 +8403,7 @@ export type ActionsCreateRegistrationTokenForRepo = (
     void
   >,
   respond: ActionsCreateRegistrationTokenForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<201, t_authentication_token>
 >
@@ -8416,7 +8415,7 @@ export type ActionsCreateRemoveTokenForRepoResponder = {
 export type ActionsCreateRemoveTokenForRepo = (
   params: Params<t_ActionsCreateRemoveTokenForRepoParamSchema, void, void>,
   respond: ActionsCreateRemoveTokenForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<201, t_authentication_token>
 >
@@ -8428,7 +8427,7 @@ export type ActionsGetSelfHostedRunnerForRepoResponder = {
 export type ActionsGetSelfHostedRunnerForRepo = (
   params: Params<t_ActionsGetSelfHostedRunnerForRepoParamSchema, void, void>,
   respond: ActionsGetSelfHostedRunnerForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_runner>>
 
 export type ActionsDeleteSelfHostedRunnerFromRepoResponder = {
@@ -8442,7 +8441,7 @@ export type ActionsDeleteSelfHostedRunnerFromRepo = (
     void
   >,
   respond: ActionsDeleteSelfHostedRunnerFromRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsListLabelsForSelfHostedRunnerForRepoResponder = {
@@ -8460,7 +8459,7 @@ export type ActionsListLabelsForSelfHostedRunnerForRepo = (
     void
   >,
   respond: ActionsListLabelsForSelfHostedRunnerForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8489,7 +8488,7 @@ export type ActionsAddCustomLabelsToSelfHostedRunnerForRepo = (
     t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema
   >,
   respond: ActionsAddCustomLabelsToSelfHostedRunnerForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8519,7 +8518,7 @@ export type ActionsSetCustomLabelsForSelfHostedRunnerForRepo = (
     t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema
   >,
   respond: ActionsSetCustomLabelsForSelfHostedRunnerForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8548,7 +8547,7 @@ export type ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepo = (
     void
   >,
   respond: ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8577,7 +8576,7 @@ export type ActionsRemoveCustomLabelFromSelfHostedRunnerForRepo = (
     void
   >,
   respond: ActionsRemoveCustomLabelFromSelfHostedRunnerForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8605,7 +8604,7 @@ export type ActionsListWorkflowRunsForRepo = (
     void
   >,
   respond: ActionsListWorkflowRunsForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8628,7 +8627,7 @@ export type ActionsGetWorkflowRun = (
     void
   >,
   respond: ActionsGetWorkflowRunResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_workflow_run>>
 
 export type ActionsDeleteWorkflowRunResponder = {
@@ -8638,7 +8637,7 @@ export type ActionsDeleteWorkflowRunResponder = {
 export type ActionsDeleteWorkflowRun = (
   params: Params<t_ActionsDeleteWorkflowRunParamSchema, void, void>,
   respond: ActionsDeleteWorkflowRunResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsGetReviewsForRunResponder = {
@@ -8648,7 +8647,7 @@ export type ActionsGetReviewsForRunResponder = {
 export type ActionsGetReviewsForRun = (
   params: Params<t_ActionsGetReviewsForRunParamSchema, void, void>,
   respond: ActionsGetReviewsForRunResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_environment_approvals[]>
 >
@@ -8662,7 +8661,7 @@ export type ActionsApproveWorkflowRunResponder = {
 export type ActionsApproveWorkflowRun = (
   params: Params<t_ActionsApproveWorkflowRunParamSchema, void, void>,
   respond: ActionsApproveWorkflowRunResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_empty_object>
@@ -8684,7 +8683,7 @@ export type ActionsListWorkflowRunArtifacts = (
     void
   >,
   respond: ActionsListWorkflowRunArtifactsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8707,7 +8706,7 @@ export type ActionsGetWorkflowRunAttempt = (
     void
   >,
   respond: ActionsGetWorkflowRunAttemptResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_workflow_run>>
 
 export type ActionsListJobsForWorkflowRunAttemptResponder = {
@@ -8725,7 +8724,7 @@ export type ActionsListJobsForWorkflowRunAttempt = (
     void
   >,
   respond: ActionsListJobsForWorkflowRunAttemptResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8749,7 +8748,7 @@ export type ActionsDownloadWorkflowRunAttemptLogs = (
     void
   >,
   respond: ActionsDownloadWorkflowRunAttemptLogsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<302, void>>
 
 export type ActionsCancelWorkflowRunResponder = {
@@ -8760,7 +8759,7 @@ export type ActionsCancelWorkflowRunResponder = {
 export type ActionsCancelWorkflowRun = (
   params: Params<t_ActionsCancelWorkflowRunParamSchema, void, void>,
   respond: ActionsCancelWorkflowRunResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<202, t_empty_object>
@@ -8778,7 +8777,7 @@ export type ActionsReviewCustomGatesForRun = (
     t_ActionsReviewCustomGatesForRunBodySchema
   >,
   respond: ActionsReviewCustomGatesForRunResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsListJobsForWorkflowRunResponder = {
@@ -8795,7 +8794,7 @@ export type ActionsListJobsForWorkflowRun = (
     void
   >,
   respond: ActionsListJobsForWorkflowRunResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8814,7 +8813,7 @@ export type ActionsDownloadWorkflowRunLogsResponder = {
 export type ActionsDownloadWorkflowRunLogs = (
   params: Params<t_ActionsDownloadWorkflowRunLogsParamSchema, void, void>,
   respond: ActionsDownloadWorkflowRunLogsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<302, void>>
 
 export type ActionsDeleteWorkflowRunLogsResponder = {
@@ -8826,7 +8825,7 @@ export type ActionsDeleteWorkflowRunLogsResponder = {
 export type ActionsDeleteWorkflowRunLogs = (
   params: Params<t_ActionsDeleteWorkflowRunLogsParamSchema, void, void>,
   respond: ActionsDeleteWorkflowRunLogsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -8841,7 +8840,7 @@ export type ActionsGetPendingDeploymentsForRunResponder = {
 export type ActionsGetPendingDeploymentsForRun = (
   params: Params<t_ActionsGetPendingDeploymentsForRunParamSchema, void, void>,
   respond: ActionsGetPendingDeploymentsForRunResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_pending_deployment[]>
 >
@@ -8857,7 +8856,7 @@ export type ActionsReviewPendingDeploymentsForRun = (
     t_ActionsReviewPendingDeploymentsForRunBodySchema
   >,
   respond: ActionsReviewPendingDeploymentsForRunResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_deployment[]>>
 
 export type ActionsReRunWorkflowResponder = {
@@ -8871,7 +8870,7 @@ export type ActionsReRunWorkflow = (
     t_ActionsReRunWorkflowBodySchema | undefined
   >,
   respond: ActionsReRunWorkflowResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<201, t_empty_object>>
 
 export type ActionsReRunWorkflowFailedJobsResponder = {
@@ -8885,7 +8884,7 @@ export type ActionsReRunWorkflowFailedJobs = (
     t_ActionsReRunWorkflowFailedJobsBodySchema | undefined
   >,
   respond: ActionsReRunWorkflowFailedJobsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<201, t_empty_object>>
 
 export type ActionsGetWorkflowRunUsageResponder = {
@@ -8895,7 +8894,7 @@ export type ActionsGetWorkflowRunUsageResponder = {
 export type ActionsGetWorkflowRunUsage = (
   params: Params<t_ActionsGetWorkflowRunUsageParamSchema, void, void>,
   respond: ActionsGetWorkflowRunUsageResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_workflow_run_usage>>
 
 export type ActionsListRepoSecretsResponder = {
@@ -8912,7 +8911,7 @@ export type ActionsListRepoSecrets = (
     void
   >,
   respond: ActionsListRepoSecretsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8931,7 +8930,7 @@ export type ActionsGetRepoPublicKeyResponder = {
 export type ActionsGetRepoPublicKey = (
   params: Params<t_ActionsGetRepoPublicKeyParamSchema, void, void>,
   respond: ActionsGetRepoPublicKeyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_actions_public_key>>
 
 export type ActionsGetRepoSecretResponder = {
@@ -8941,7 +8940,7 @@ export type ActionsGetRepoSecretResponder = {
 export type ActionsGetRepoSecret = (
   params: Params<t_ActionsGetRepoSecretParamSchema, void, void>,
   respond: ActionsGetRepoSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_actions_secret>>
 
 export type ActionsCreateOrUpdateRepoSecretResponder = {
@@ -8956,7 +8955,7 @@ export type ActionsCreateOrUpdateRepoSecret = (
     t_ActionsCreateOrUpdateRepoSecretBodySchema
   >,
   respond: ActionsCreateOrUpdateRepoSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_empty_object>
@@ -8970,7 +8969,7 @@ export type ActionsDeleteRepoSecretResponder = {
 export type ActionsDeleteRepoSecret = (
   params: Params<t_ActionsDeleteRepoSecretParamSchema, void, void>,
   respond: ActionsDeleteRepoSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsListRepoVariablesResponder = {
@@ -8987,7 +8986,7 @@ export type ActionsListRepoVariables = (
     void
   >,
   respond: ActionsListRepoVariablesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9010,7 +9009,7 @@ export type ActionsCreateRepoVariable = (
     t_ActionsCreateRepoVariableBodySchema
   >,
   respond: ActionsCreateRepoVariableResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<201, t_empty_object>>
 
 export type ActionsGetRepoVariableResponder = {
@@ -9020,7 +9019,7 @@ export type ActionsGetRepoVariableResponder = {
 export type ActionsGetRepoVariable = (
   params: Params<t_ActionsGetRepoVariableParamSchema, void, void>,
   respond: ActionsGetRepoVariableResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_actions_variable>>
 
 export type ActionsUpdateRepoVariableResponder = {
@@ -9034,7 +9033,7 @@ export type ActionsUpdateRepoVariable = (
     t_ActionsUpdateRepoVariableBodySchema
   >,
   respond: ActionsUpdateRepoVariableResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsDeleteRepoVariableResponder = {
@@ -9044,7 +9043,7 @@ export type ActionsDeleteRepoVariableResponder = {
 export type ActionsDeleteRepoVariable = (
   params: Params<t_ActionsDeleteRepoVariableParamSchema, void, void>,
   respond: ActionsDeleteRepoVariableResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsListRepoWorkflowsResponder = {
@@ -9061,7 +9060,7 @@ export type ActionsListRepoWorkflows = (
     void
   >,
   respond: ActionsListRepoWorkflowsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9080,7 +9079,7 @@ export type ActionsGetWorkflowResponder = {
 export type ActionsGetWorkflow = (
   params: Params<t_ActionsGetWorkflowParamSchema, void, void>,
   respond: ActionsGetWorkflowResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_workflow>>
 
 export type ActionsDisableWorkflowResponder = {
@@ -9090,7 +9089,7 @@ export type ActionsDisableWorkflowResponder = {
 export type ActionsDisableWorkflow = (
   params: Params<t_ActionsDisableWorkflowParamSchema, void, void>,
   respond: ActionsDisableWorkflowResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsCreateWorkflowDispatchResponder = {
@@ -9104,7 +9103,7 @@ export type ActionsCreateWorkflowDispatch = (
     t_ActionsCreateWorkflowDispatchBodySchema
   >,
   respond: ActionsCreateWorkflowDispatchResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsEnableWorkflowResponder = {
@@ -9114,7 +9113,7 @@ export type ActionsEnableWorkflowResponder = {
 export type ActionsEnableWorkflow = (
   params: Params<t_ActionsEnableWorkflowParamSchema, void, void>,
   respond: ActionsEnableWorkflowResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsListWorkflowRunsResponder = {
@@ -9131,7 +9130,7 @@ export type ActionsListWorkflowRuns = (
     void
   >,
   respond: ActionsListWorkflowRunsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9150,7 +9149,7 @@ export type ActionsGetWorkflowUsageResponder = {
 export type ActionsGetWorkflowUsage = (
   params: Params<t_ActionsGetWorkflowUsageParamSchema, void, void>,
   respond: ActionsGetWorkflowUsageResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_workflow_usage>>
 
 export type ReposListActivitiesResponder = {
@@ -9165,7 +9164,7 @@ export type ReposListActivities = (
     void
   >,
   respond: ReposListActivitiesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_activity[]>
@@ -9184,7 +9183,7 @@ export type IssuesListAssignees = (
     void
   >,
   respond: IssuesListAssigneesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_simple_user[]>
@@ -9199,7 +9198,7 @@ export type IssuesCheckUserCanBeAssignedResponder = {
 export type IssuesCheckUserCanBeAssigned = (
   params: Params<t_IssuesCheckUserCanBeAssignedParamSchema, void, void>,
   respond: IssuesCheckUserCanBeAssignedResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -9217,7 +9216,7 @@ export type ReposListAutolinks = (
     void
   >,
   respond: ReposListAutolinksResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_autolink[]>>
 
 export type ReposCreateAutolinkResponder = {
@@ -9232,7 +9231,7 @@ export type ReposCreateAutolink = (
     t_ReposCreateAutolinkBodySchema
   >,
   respond: ReposCreateAutolinkResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_autolink>
@@ -9247,7 +9246,7 @@ export type ReposGetAutolinkResponder = {
 export type ReposGetAutolink = (
   params: Params<t_ReposGetAutolinkParamSchema, void, void>,
   respond: ReposGetAutolinkResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_autolink>
@@ -9262,7 +9261,7 @@ export type ReposDeleteAutolinkResponder = {
 export type ReposDeleteAutolink = (
   params: Params<t_ReposDeleteAutolinkParamSchema, void, void>,
   respond: ReposDeleteAutolinkResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -9277,7 +9276,7 @@ export type ReposCheckAutomatedSecurityFixesResponder = {
 export type ReposCheckAutomatedSecurityFixes = (
   params: Params<t_ReposCheckAutomatedSecurityFixesParamSchema, void, void>,
   respond: ReposCheckAutomatedSecurityFixesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_check_automated_security_fixes>
@@ -9291,7 +9290,7 @@ export type ReposEnableAutomatedSecurityFixesResponder = {
 export type ReposEnableAutomatedSecurityFixes = (
   params: Params<t_ReposEnableAutomatedSecurityFixesParamSchema, void, void>,
   respond: ReposEnableAutomatedSecurityFixesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ReposDisableAutomatedSecurityFixesResponder = {
@@ -9301,7 +9300,7 @@ export type ReposDisableAutomatedSecurityFixesResponder = {
 export type ReposDisableAutomatedSecurityFixes = (
   params: Params<t_ReposDisableAutomatedSecurityFixesParamSchema, void, void>,
   respond: ReposDisableAutomatedSecurityFixesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ReposListBranchesResponder = {
@@ -9316,7 +9315,7 @@ export type ReposListBranches = (
     void
   >,
   respond: ReposListBranchesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_short_branch[]>
@@ -9332,7 +9331,7 @@ export type ReposGetBranchResponder = {
 export type ReposGetBranch = (
   params: Params<t_ReposGetBranchParamSchema, void, void>,
   respond: ReposGetBranchResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_branch_with_protection>
@@ -9348,7 +9347,7 @@ export type ReposGetBranchProtectionResponder = {
 export type ReposGetBranchProtection = (
   params: Params<t_ReposGetBranchProtectionParamSchema, void, void>,
   respond: ReposGetBranchProtectionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_branch_protection>
@@ -9369,7 +9368,7 @@ export type ReposUpdateBranchProtection = (
     t_ReposUpdateBranchProtectionBodySchema
   >,
   respond: ReposUpdateBranchProtectionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_protected_branch>
@@ -9386,7 +9385,7 @@ export type ReposDeleteBranchProtectionResponder = {
 export type ReposDeleteBranchProtection = (
   params: Params<t_ReposDeleteBranchProtectionParamSchema, void, void>,
   respond: ReposDeleteBranchProtectionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -9400,7 +9399,7 @@ export type ReposGetAdminBranchProtectionResponder = {
 export type ReposGetAdminBranchProtection = (
   params: Params<t_ReposGetAdminBranchProtectionParamSchema, void, void>,
   respond: ReposGetAdminBranchProtectionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_protected_branch_admin_enforced>
 >
@@ -9412,7 +9411,7 @@ export type ReposSetAdminBranchProtectionResponder = {
 export type ReposSetAdminBranchProtection = (
   params: Params<t_ReposSetAdminBranchProtectionParamSchema, void, void>,
   respond: ReposSetAdminBranchProtectionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_protected_branch_admin_enforced>
 >
@@ -9425,7 +9424,7 @@ export type ReposDeleteAdminBranchProtectionResponder = {
 export type ReposDeleteAdminBranchProtection = (
   params: Params<t_ReposDeleteAdminBranchProtectionParamSchema, void, void>,
   respond: ReposDeleteAdminBranchProtectionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -9439,7 +9438,7 @@ export type ReposGetPullRequestReviewProtectionResponder = {
 export type ReposGetPullRequestReviewProtection = (
   params: Params<t_ReposGetPullRequestReviewProtectionParamSchema, void, void>,
   respond: ReposGetPullRequestReviewProtectionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_protected_branch_pull_request_review>
@@ -9457,7 +9456,7 @@ export type ReposUpdatePullRequestReviewProtection = (
     t_ReposUpdatePullRequestReviewProtectionBodySchema | undefined
   >,
   respond: ReposUpdatePullRequestReviewProtectionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_protected_branch_pull_request_review>
@@ -9476,7 +9475,7 @@ export type ReposDeletePullRequestReviewProtection = (
     void
   >,
   respond: ReposDeletePullRequestReviewProtectionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -9491,7 +9490,7 @@ export type ReposGetCommitSignatureProtectionResponder = {
 export type ReposGetCommitSignatureProtection = (
   params: Params<t_ReposGetCommitSignatureProtectionParamSchema, void, void>,
   respond: ReposGetCommitSignatureProtectionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_protected_branch_admin_enforced>
@@ -9506,7 +9505,7 @@ export type ReposCreateCommitSignatureProtectionResponder = {
 export type ReposCreateCommitSignatureProtection = (
   params: Params<t_ReposCreateCommitSignatureProtectionParamSchema, void, void>,
   respond: ReposCreateCommitSignatureProtectionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_protected_branch_admin_enforced>
@@ -9521,7 +9520,7 @@ export type ReposDeleteCommitSignatureProtectionResponder = {
 export type ReposDeleteCommitSignatureProtection = (
   params: Params<t_ReposDeleteCommitSignatureProtectionParamSchema, void, void>,
   respond: ReposDeleteCommitSignatureProtectionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -9536,7 +9535,7 @@ export type ReposGetStatusChecksProtectionResponder = {
 export type ReposGetStatusChecksProtection = (
   params: Params<t_ReposGetStatusChecksProtectionParamSchema, void, void>,
   respond: ReposGetStatusChecksProtectionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_status_check_policy>
@@ -9556,7 +9555,7 @@ export type ReposUpdateStatusCheckProtection = (
     t_ReposUpdateStatusCheckProtectionBodySchema | undefined
   >,
   respond: ReposUpdateStatusCheckProtectionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_status_check_policy>
@@ -9571,7 +9570,7 @@ export type ReposRemoveStatusCheckProtectionResponder = {
 export type ReposRemoveStatusCheckProtection = (
   params: Params<t_ReposRemoveStatusCheckProtectionParamSchema, void, void>,
   respond: ReposRemoveStatusCheckProtectionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ReposGetAllStatusCheckContextsResponder = {
@@ -9582,7 +9581,7 @@ export type ReposGetAllStatusCheckContextsResponder = {
 export type ReposGetAllStatusCheckContexts = (
   params: Params<t_ReposGetAllStatusCheckContextsParamSchema, void, void>,
   respond: ReposGetAllStatusCheckContextsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, string[]>
@@ -9603,7 +9602,7 @@ export type ReposAddStatusCheckContexts = (
     t_ReposAddStatusCheckContextsBodySchema | undefined
   >,
   respond: ReposAddStatusCheckContextsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, string[]>
@@ -9625,7 +9624,7 @@ export type ReposSetStatusCheckContexts = (
     t_ReposSetStatusCheckContextsBodySchema | undefined
   >,
   respond: ReposSetStatusCheckContextsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, string[]>
@@ -9646,7 +9645,7 @@ export type ReposRemoveStatusCheckContexts = (
     t_ReposRemoveStatusCheckContextsBodySchema
   >,
   respond: ReposRemoveStatusCheckContextsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, string[]>
@@ -9662,7 +9661,7 @@ export type ReposGetAccessRestrictionsResponder = {
 export type ReposGetAccessRestrictions = (
   params: Params<t_ReposGetAccessRestrictionsParamSchema, void, void>,
   respond: ReposGetAccessRestrictionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_branch_restriction_policy>
@@ -9676,7 +9675,7 @@ export type ReposDeleteAccessRestrictionsResponder = {
 export type ReposDeleteAccessRestrictions = (
   params: Params<t_ReposDeleteAccessRestrictionsParamSchema, void, void>,
   respond: ReposDeleteAccessRestrictionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ReposGetAppsWithAccessToProtectedBranchResponder = {
@@ -9691,7 +9690,7 @@ export type ReposGetAppsWithAccessToProtectedBranch = (
     void
   >,
   respond: ReposGetAppsWithAccessToProtectedBranchResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_integration[]>
@@ -9710,7 +9709,7 @@ export type ReposAddAppAccessRestrictions = (
     t_ReposAddAppAccessRestrictionsBodySchema | undefined
   >,
   respond: ReposAddAppAccessRestrictionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_integration[]>
@@ -9729,7 +9728,7 @@ export type ReposSetAppAccessRestrictions = (
     t_ReposSetAppAccessRestrictionsBodySchema | undefined
   >,
   respond: ReposSetAppAccessRestrictionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_integration[]>
@@ -9748,7 +9747,7 @@ export type ReposRemoveAppAccessRestrictions = (
     t_ReposRemoveAppAccessRestrictionsBodySchema
   >,
   respond: ReposRemoveAppAccessRestrictionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_integration[]>
@@ -9767,7 +9766,7 @@ export type ReposGetTeamsWithAccessToProtectedBranch = (
     void
   >,
   respond: ReposGetTeamsWithAccessToProtectedBranchResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team[]>
@@ -9786,7 +9785,7 @@ export type ReposAddTeamAccessRestrictions = (
     t_ReposAddTeamAccessRestrictionsBodySchema | undefined
   >,
   respond: ReposAddTeamAccessRestrictionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team[]>
@@ -9805,7 +9804,7 @@ export type ReposSetTeamAccessRestrictions = (
     t_ReposSetTeamAccessRestrictionsBodySchema | undefined
   >,
   respond: ReposSetTeamAccessRestrictionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team[]>
@@ -9824,7 +9823,7 @@ export type ReposRemoveTeamAccessRestrictions = (
     t_ReposRemoveTeamAccessRestrictionsBodySchema
   >,
   respond: ReposRemoveTeamAccessRestrictionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team[]>
@@ -9843,7 +9842,7 @@ export type ReposGetUsersWithAccessToProtectedBranch = (
     void
   >,
   respond: ReposGetUsersWithAccessToProtectedBranchResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_simple_user[]>
@@ -9862,7 +9861,7 @@ export type ReposAddUserAccessRestrictions = (
     t_ReposAddUserAccessRestrictionsBodySchema | undefined
   >,
   respond: ReposAddUserAccessRestrictionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_simple_user[]>
@@ -9881,7 +9880,7 @@ export type ReposSetUserAccessRestrictions = (
     t_ReposSetUserAccessRestrictionsBodySchema | undefined
   >,
   respond: ReposSetUserAccessRestrictionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_simple_user[]>
@@ -9900,7 +9899,7 @@ export type ReposRemoveUserAccessRestrictions = (
     t_ReposRemoveUserAccessRestrictionsBodySchema
   >,
   respond: ReposRemoveUserAccessRestrictionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_simple_user[]>
@@ -9921,7 +9920,7 @@ export type ReposRenameBranch = (
     t_ReposRenameBranchBodySchema
   >,
   respond: ReposRenameBranchResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_branch_with_protection>
@@ -9937,7 +9936,7 @@ export type ChecksCreateResponder = {
 export type ChecksCreate = (
   params: Params<t_ChecksCreateParamSchema, void, t_ChecksCreateBodySchema>,
   respond: ChecksCreateResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<201, t_check_run>>
 
 export type ChecksGetResponder = {
@@ -9947,7 +9946,7 @@ export type ChecksGetResponder = {
 export type ChecksGet = (
   params: Params<t_ChecksGetParamSchema, void, void>,
   respond: ChecksGetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_check_run>>
 
 export type ChecksUpdateResponder = {
@@ -9957,7 +9956,7 @@ export type ChecksUpdateResponder = {
 export type ChecksUpdate = (
   params: Params<t_ChecksUpdateParamSchema, void, t_ChecksUpdateBodySchema>,
   respond: ChecksUpdateResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_check_run>>
 
 export type ChecksListAnnotationsResponder = {
@@ -9971,7 +9970,7 @@ export type ChecksListAnnotations = (
     void
   >,
   respond: ChecksListAnnotationsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_check_annotation[]>>
 
 export type ChecksRerequestRunResponder = {
@@ -9984,7 +9983,7 @@ export type ChecksRerequestRunResponder = {
 export type ChecksRerequestRun = (
   params: Params<t_ChecksRerequestRunParamSchema, void, void>,
   respond: ChecksRerequestRunResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_empty_object>
@@ -10005,7 +10004,7 @@ export type ChecksCreateSuite = (
     t_ChecksCreateSuiteBodySchema
   >,
   respond: ChecksCreateSuiteResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_check_suite>
@@ -10023,7 +10022,7 @@ export type ChecksSetSuitesPreferences = (
     t_ChecksSetSuitesPreferencesBodySchema
   >,
   respond: ChecksSetSuitesPreferencesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_check_suite_preference>
 >
@@ -10035,7 +10034,7 @@ export type ChecksGetSuiteResponder = {
 export type ChecksGetSuite = (
   params: Params<t_ChecksGetSuiteParamSchema, void, void>,
   respond: ChecksGetSuiteResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_check_suite>>
 
 export type ChecksListForSuiteResponder = {
@@ -10052,7 +10051,7 @@ export type ChecksListForSuite = (
     void
   >,
   respond: ChecksListForSuiteResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10071,7 +10070,7 @@ export type ChecksRerequestSuiteResponder = {
 export type ChecksRerequestSuite = (
   params: Params<t_ChecksRerequestSuiteParamSchema, void, void>,
   respond: ChecksRerequestSuiteResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<201, t_empty_object>>
 
 export type CodeScanningListAlertsForRepoResponder = {
@@ -10093,7 +10092,7 @@ export type CodeScanningListAlertsForRepo = (
     void
   >,
   respond: CodeScanningListAlertsForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_code_scanning_alert_items[]>
@@ -10125,7 +10124,7 @@ export type CodeScanningGetAlertResponder = {
 export type CodeScanningGetAlert = (
   params: Params<t_CodeScanningGetAlertParamSchema, void, void>,
   respond: CodeScanningGetAlertResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_code_scanning_alert>
@@ -10160,7 +10159,7 @@ export type CodeScanningUpdateAlert = (
     t_CodeScanningUpdateAlertBodySchema
   >,
   respond: CodeScanningUpdateAlertResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_code_scanning_alert>
@@ -10194,7 +10193,7 @@ export type CodeScanningListAlertInstances = (
     void
   >,
   respond: CodeScanningListAlertInstancesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_code_scanning_alert_instance[]>
@@ -10228,7 +10227,7 @@ export type CodeScanningListRecentAnalyses = (
     void
   >,
   respond: CodeScanningListRecentAnalysesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_code_scanning_analysis[]>
@@ -10260,7 +10259,7 @@ export type CodeScanningGetAnalysisResponder = {
 export type CodeScanningGetAnalysis = (
   params: Params<t_CodeScanningGetAnalysisParamSchema, void, void>,
   respond: CodeScanningGetAnalysisResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10300,7 +10299,7 @@ export type CodeScanningDeleteAnalysis = (
     void
   >,
   respond: CodeScanningDeleteAnalysisResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_code_scanning_analysis_deletion>
@@ -10331,7 +10330,7 @@ export type CodeScanningListCodeqlDatabasesResponder = {
 export type CodeScanningListCodeqlDatabases = (
   params: Params<t_CodeScanningListCodeqlDatabasesParamSchema, void, void>,
   respond: CodeScanningListCodeqlDatabasesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_code_scanning_codeql_database[]>
@@ -10362,7 +10361,7 @@ export type CodeScanningGetCodeqlDatabaseResponder = {
 export type CodeScanningGetCodeqlDatabase = (
   params: Params<t_CodeScanningGetCodeqlDatabaseParamSchema, void, void>,
   respond: CodeScanningGetCodeqlDatabaseResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_code_scanning_codeql_database>
@@ -10393,7 +10392,7 @@ export type CodeScanningGetDefaultSetupResponder = {
 export type CodeScanningGetDefaultSetup = (
   params: Params<t_CodeScanningGetDefaultSetupParamSchema, void, void>,
   respond: CodeScanningGetDefaultSetupResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_code_scanning_default_setup>
@@ -10429,7 +10428,7 @@ export type CodeScanningUpdateDefaultSetup = (
     t_CodeScanningUpdateDefaultSetupBodySchema
   >,
   respond: CodeScanningUpdateDefaultSetupResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_empty_object>
@@ -10467,7 +10466,7 @@ export type CodeScanningUploadSarif = (
     t_CodeScanningUploadSarifBodySchema
   >,
   respond: CodeScanningUploadSarifResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<202, t_code_scanning_sarifs_receipt>
@@ -10499,7 +10498,7 @@ export type CodeScanningGetSarifResponder = {
 export type CodeScanningGetSarif = (
   params: Params<t_CodeScanningGetSarifParamSchema, void, void>,
   respond: CodeScanningGetSarifResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_code_scanning_sarifs_status>
@@ -10527,7 +10526,7 @@ export type ReposCodeownersErrors = (
     void
   >,
   respond: ReposCodeownersErrorsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_codeowners_errors>
@@ -10552,7 +10551,7 @@ export type CodespacesListInRepositoryForAuthenticatedUser = (
     void
   >,
   respond: CodespacesListInRepositoryForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10589,7 +10588,7 @@ export type CodespacesCreateWithRepoForAuthenticatedUser = (
     t_CodespacesCreateWithRepoForAuthenticatedUserBodySchema
   >,
   respond: CodespacesCreateWithRepoForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_codespace>
@@ -10632,7 +10631,7 @@ export type CodespacesListDevcontainersInRepositoryForAuthenticatedUser = (
     void
   >,
   respond: CodespacesListDevcontainersInRepositoryForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10672,7 +10671,7 @@ export type CodespacesRepoMachinesForAuthenticatedUser = (
     void
   >,
   respond: CodespacesRepoMachinesForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10709,7 +10708,7 @@ export type CodespacesPreFlightWithRepoForAuthenticatedUser = (
     void
   >,
   respond: CodespacesPreFlightWithRepoForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10741,7 +10740,7 @@ export type CodespacesListRepoSecrets = (
     void
   >,
   respond: CodespacesListRepoSecretsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10760,7 +10759,7 @@ export type CodespacesGetRepoPublicKeyResponder = {
 export type CodespacesGetRepoPublicKey = (
   params: Params<t_CodespacesGetRepoPublicKeyParamSchema, void, void>,
   respond: CodespacesGetRepoPublicKeyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_codespaces_public_key>
 >
@@ -10772,7 +10771,7 @@ export type CodespacesGetRepoSecretResponder = {
 export type CodespacesGetRepoSecret = (
   params: Params<t_CodespacesGetRepoSecretParamSchema, void, void>,
   respond: CodespacesGetRepoSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_repo_codespaces_secret>
 >
@@ -10789,7 +10788,7 @@ export type CodespacesCreateOrUpdateRepoSecret = (
     t_CodespacesCreateOrUpdateRepoSecretBodySchema
   >,
   respond: CodespacesCreateOrUpdateRepoSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_empty_object>
@@ -10803,7 +10802,7 @@ export type CodespacesDeleteRepoSecretResponder = {
 export type CodespacesDeleteRepoSecret = (
   params: Params<t_CodespacesDeleteRepoSecretParamSchema, void, void>,
   respond: CodespacesDeleteRepoSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ReposListCollaboratorsResponder = {
@@ -10818,7 +10817,7 @@ export type ReposListCollaborators = (
     void
   >,
   respond: ReposListCollaboratorsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_collaborator[]>
@@ -10833,7 +10832,7 @@ export type ReposCheckCollaboratorResponder = {
 export type ReposCheckCollaborator = (
   params: Params<t_ReposCheckCollaboratorParamSchema, void, void>,
   respond: ReposCheckCollaboratorResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<404, void>
 >
@@ -10852,7 +10851,7 @@ export type ReposAddCollaborator = (
     t_ReposAddCollaboratorBodySchema | undefined
   >,
   respond: ReposAddCollaboratorResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_repository_invitation>
@@ -10870,7 +10869,7 @@ export type ReposRemoveCollaboratorResponder = {
 export type ReposRemoveCollaborator = (
   params: Params<t_ReposRemoveCollaboratorParamSchema, void, void>,
   respond: ReposRemoveCollaboratorResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -10886,7 +10885,7 @@ export type ReposGetCollaboratorPermissionLevelResponder = {
 export type ReposGetCollaboratorPermissionLevel = (
   params: Params<t_ReposGetCollaboratorPermissionLevelParamSchema, void, void>,
   respond: ReposGetCollaboratorPermissionLevelResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_repository_collaborator_permission>
@@ -10904,7 +10903,7 @@ export type ReposListCommitCommentsForRepo = (
     void
   >,
   respond: ReposListCommitCommentsForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_commit_comment[]>>
 
 export type ReposGetCommitCommentResponder = {
@@ -10915,7 +10914,7 @@ export type ReposGetCommitCommentResponder = {
 export type ReposGetCommitComment = (
   params: Params<t_ReposGetCommitCommentParamSchema, void, void>,
   respond: ReposGetCommitCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_commit_comment>
@@ -10934,7 +10933,7 @@ export type ReposUpdateCommitComment = (
     t_ReposUpdateCommitCommentBodySchema
   >,
   respond: ReposUpdateCommitCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_commit_comment>
@@ -10949,7 +10948,7 @@ export type ReposDeleteCommitCommentResponder = {
 export type ReposDeleteCommitComment = (
   params: Params<t_ReposDeleteCommitCommentParamSchema, void, void>,
   respond: ReposDeleteCommitCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -10968,7 +10967,7 @@ export type ReactionsListForCommitComment = (
     void
   >,
   respond: ReactionsListForCommitCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_reaction[]>
@@ -10988,7 +10987,7 @@ export type ReactionsCreateForCommitComment = (
     t_ReactionsCreateForCommitCommentBodySchema
   >,
   respond: ReactionsCreateForCommitCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_reaction>
@@ -11003,7 +11002,7 @@ export type ReactionsDeleteForCommitCommentResponder = {
 export type ReactionsDeleteForCommitComment = (
   params: Params<t_ReactionsDeleteForCommitCommentParamSchema, void, void>,
   respond: ReactionsDeleteForCommitCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ReposListCommitsResponder = {
@@ -11021,7 +11020,7 @@ export type ReposListCommits = (
     void
   >,
   respond: ReposListCommitsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_commit[]>
@@ -11039,7 +11038,7 @@ export type ReposListBranchesForHeadCommitResponder = {
 export type ReposListBranchesForHeadCommit = (
   params: Params<t_ReposListBranchesForHeadCommitParamSchema, void, void>,
   respond: ReposListBranchesForHeadCommitResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_branch_short[]>
@@ -11057,7 +11056,7 @@ export type ReposListCommentsForCommit = (
     void
   >,
   respond: ReposListCommentsForCommitResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_commit_comment[]>>
 
 export type ReposCreateCommitCommentResponder = {
@@ -11073,7 +11072,7 @@ export type ReposCreateCommitComment = (
     t_ReposCreateCommitCommentBodySchema
   >,
   respond: ReposCreateCommitCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_commit_comment>
@@ -11092,7 +11091,7 @@ export type ReposListPullRequestsAssociatedWithCommit = (
     void
   >,
   respond: ReposListPullRequestsAssociatedWithCommitResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_pull_request_simple[]>
 >
@@ -11116,7 +11115,7 @@ export type ReposGetCommit = (
     void
   >,
   respond: ReposGetCommitResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_commit>
@@ -11147,7 +11146,7 @@ export type ChecksListForRef = (
     void
   >,
   respond: ChecksListForRefResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11173,7 +11172,7 @@ export type ChecksListSuitesForRef = (
     void
   >,
   respond: ChecksListSuitesForRefResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11197,7 +11196,7 @@ export type ReposGetCombinedStatusForRef = (
     void
   >,
   respond: ReposGetCombinedStatusForRefResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_combined_commit_status>
@@ -11216,7 +11215,7 @@ export type ReposListCommitStatusesForRef = (
     void
   >,
   respond: ReposListCommitStatusesForRefResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_status[]>
@@ -11230,7 +11229,7 @@ export type ReposGetCommunityProfileMetricsResponder = {
 export type ReposGetCommunityProfileMetrics = (
   params: Params<t_ReposGetCommunityProfileMetricsParamSchema, void, void>,
   respond: ReposGetCommunityProfileMetricsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_community_profile>>
 
 export type ReposCompareCommitsResponder = {
@@ -11251,7 +11250,7 @@ export type ReposCompareCommits = (
     void
   >,
   respond: ReposCompareCommitsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_commit_comparison>
@@ -11286,7 +11285,7 @@ export type ReposGetContent = (
     void
   >,
   respond: ReposGetContentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11316,7 +11315,7 @@ export type ReposCreateOrUpdateFileContents = (
     t_ReposCreateOrUpdateFileContentsBodySchema
   >,
   respond: ReposCreateOrUpdateFileContentsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_file_commit>
@@ -11345,7 +11344,7 @@ export type ReposDeleteFile = (
     t_ReposDeleteFileBodySchema
   >,
   respond: ReposDeleteFileResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_file_commit>
@@ -11376,7 +11375,7 @@ export type ReposListContributors = (
     void
   >,
   respond: ReposListContributorsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_contributor[]>
@@ -11401,7 +11400,7 @@ export type DependabotListAlertsForRepo = (
     void
   >,
   respond: DependabotListAlertsForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_dependabot_alert[]>
@@ -11422,7 +11421,7 @@ export type DependabotGetAlertResponder = {
 export type DependabotGetAlert = (
   params: Params<t_DependabotGetAlertParamSchema, void, void>,
   respond: DependabotGetAlertResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_dependabot_alert>
@@ -11447,7 +11446,7 @@ export type DependabotUpdateAlert = (
     t_DependabotUpdateAlertBodySchema
   >,
   respond: DependabotUpdateAlertResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_dependabot_alert>
@@ -11472,7 +11471,7 @@ export type DependabotListRepoSecrets = (
     void
   >,
   respond: DependabotListRepoSecretsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11491,7 +11490,7 @@ export type DependabotGetRepoPublicKeyResponder = {
 export type DependabotGetRepoPublicKey = (
   params: Params<t_DependabotGetRepoPublicKeyParamSchema, void, void>,
   respond: DependabotGetRepoPublicKeyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_dependabot_public_key>
 >
@@ -11503,7 +11502,7 @@ export type DependabotGetRepoSecretResponder = {
 export type DependabotGetRepoSecret = (
   params: Params<t_DependabotGetRepoSecretParamSchema, void, void>,
   respond: DependabotGetRepoSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_dependabot_secret>>
 
 export type DependabotCreateOrUpdateRepoSecretResponder = {
@@ -11518,7 +11517,7 @@ export type DependabotCreateOrUpdateRepoSecret = (
     t_DependabotCreateOrUpdateRepoSecretBodySchema
   >,
   respond: DependabotCreateOrUpdateRepoSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_empty_object>
@@ -11532,7 +11531,7 @@ export type DependabotDeleteRepoSecretResponder = {
 export type DependabotDeleteRepoSecret = (
   params: Params<t_DependabotDeleteRepoSecretParamSchema, void, void>,
   respond: DependabotDeleteRepoSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type DependencyGraphDiffRangeResponder = {
@@ -11548,7 +11547,7 @@ export type DependencyGraphDiffRange = (
     void
   >,
   respond: DependencyGraphDiffRangeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_dependency_graph_diff>
@@ -11565,7 +11564,7 @@ export type DependencyGraphExportSbomResponder = {
 export type DependencyGraphExportSbom = (
   params: Params<t_DependencyGraphExportSbomParamSchema, void, void>,
   respond: DependencyGraphExportSbomResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_dependency_graph_spdx_sbom>
@@ -11589,7 +11588,7 @@ export type DependencyGraphCreateRepositorySnapshot = (
     t_DependencyGraphCreateRepositorySnapshotBodySchema
   >,
   respond: DependencyGraphCreateRepositorySnapshotResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11614,7 +11613,7 @@ export type ReposListDeployments = (
     void
   >,
   respond: ReposListDeploymentsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_deployment[]>>
 
 export type ReposCreateDeploymentResponder = {
@@ -11633,7 +11632,7 @@ export type ReposCreateDeployment = (
     t_ReposCreateDeploymentBodySchema
   >,
   respond: ReposCreateDeploymentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_deployment>
@@ -11655,7 +11654,7 @@ export type ReposGetDeploymentResponder = {
 export type ReposGetDeployment = (
   params: Params<t_ReposGetDeploymentParamSchema, void, void>,
   respond: ReposGetDeploymentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deployment>
@@ -11671,7 +11670,7 @@ export type ReposDeleteDeploymentResponder = {
 export type ReposDeleteDeployment = (
   params: Params<t_ReposDeleteDeploymentParamSchema, void, void>,
   respond: ReposDeleteDeploymentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -11691,7 +11690,7 @@ export type ReposListDeploymentStatuses = (
     void
   >,
   respond: ReposListDeploymentStatusesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deployment_status[]>
@@ -11710,7 +11709,7 @@ export type ReposCreateDeploymentStatus = (
     t_ReposCreateDeploymentStatusBodySchema
   >,
   respond: ReposCreateDeploymentStatusResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_deployment_status>
@@ -11725,7 +11724,7 @@ export type ReposGetDeploymentStatusResponder = {
 export type ReposGetDeploymentStatus = (
   params: Params<t_ReposGetDeploymentStatusParamSchema, void, void>,
   respond: ReposGetDeploymentStatusResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deployment_status>
@@ -11744,7 +11743,7 @@ export type ReposCreateDispatchEvent = (
     t_ReposCreateDispatchEventBodySchema
   >,
   respond: ReposCreateDispatchEventResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -11765,7 +11764,7 @@ export type ReposGetAllEnvironments = (
     void
   >,
   respond: ReposGetAllEnvironmentsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11784,7 +11783,7 @@ export type ReposGetEnvironmentResponder = {
 export type ReposGetEnvironment = (
   params: Params<t_ReposGetEnvironmentParamSchema, void, void>,
   respond: ReposGetEnvironmentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_environment>>
 
 export type ReposCreateOrUpdateEnvironmentResponder = {
@@ -11799,7 +11798,7 @@ export type ReposCreateOrUpdateEnvironment = (
     t_ReposCreateOrUpdateEnvironmentBodySchema | undefined
   >,
   respond: ReposCreateOrUpdateEnvironmentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_environment>
@@ -11813,7 +11812,7 @@ export type ReposDeleteAnEnvironmentResponder = {
 export type ReposDeleteAnEnvironment = (
   params: Params<t_ReposDeleteAnEnvironmentParamSchema, void, void>,
   respond: ReposDeleteAnEnvironmentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ReposListDeploymentBranchPoliciesResponder = {
@@ -11830,7 +11829,7 @@ export type ReposListDeploymentBranchPolicies = (
     void
   >,
   respond: ReposListDeploymentBranchPoliciesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11855,7 +11854,7 @@ export type ReposCreateDeploymentBranchPolicy = (
     t_ReposCreateDeploymentBranchPolicyBodySchema
   >,
   respond: ReposCreateDeploymentBranchPolicyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deployment_branch_policy>
@@ -11870,7 +11869,7 @@ export type ReposGetDeploymentBranchPolicyResponder = {
 export type ReposGetDeploymentBranchPolicy = (
   params: Params<t_ReposGetDeploymentBranchPolicyParamSchema, void, void>,
   respond: ReposGetDeploymentBranchPolicyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_deployment_branch_policy>
 >
@@ -11886,7 +11885,7 @@ export type ReposUpdateDeploymentBranchPolicy = (
     t_ReposUpdateDeploymentBranchPolicyBodySchema
   >,
   respond: ReposUpdateDeploymentBranchPolicyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_deployment_branch_policy>
 >
@@ -11898,7 +11897,7 @@ export type ReposDeleteDeploymentBranchPolicyResponder = {
 export type ReposDeleteDeploymentBranchPolicy = (
   params: Params<t_ReposDeleteDeploymentBranchPolicyParamSchema, void, void>,
   respond: ReposDeleteDeploymentBranchPolicyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ReposGetAllDeploymentProtectionRulesResponder = {
@@ -11911,7 +11910,7 @@ export type ReposGetAllDeploymentProtectionRulesResponder = {
 export type ReposGetAllDeploymentProtectionRules = (
   params: Params<t_ReposGetAllDeploymentProtectionRulesParamSchema, void, void>,
   respond: ReposGetAllDeploymentProtectionRulesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11934,7 +11933,7 @@ export type ReposCreateDeploymentProtectionRule = (
     t_ReposCreateDeploymentProtectionRuleBodySchema
   >,
   respond: ReposCreateDeploymentProtectionRuleResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<201, t_deployment_protection_rule>
 >
@@ -11953,7 +11952,7 @@ export type ReposListCustomDeploymentRuleIntegrations = (
     void
   >,
   respond: ReposListCustomDeploymentRuleIntegrationsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11976,7 +11975,7 @@ export type ReposGetCustomDeploymentProtectionRule = (
     void
   >,
   respond: ReposGetCustomDeploymentProtectionRuleResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_deployment_protection_rule>
 >
@@ -11988,7 +11987,7 @@ export type ReposDisableDeploymentProtectionRuleResponder = {
 export type ReposDisableDeploymentProtectionRule = (
   params: Params<t_ReposDisableDeploymentProtectionRuleParamSchema, void, void>,
   respond: ReposDisableDeploymentProtectionRuleResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActivityListRepoEventsResponder = {
@@ -12002,7 +12001,7 @@ export type ActivityListRepoEvents = (
     void
   >,
   respond: ActivityListRepoEventsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_event[]>>
 
 export type ReposListForksResponder = {
@@ -12017,7 +12016,7 @@ export type ReposListForks = (
     void
   >,
   respond: ReposListForksResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_minimal_repository[]>
@@ -12039,7 +12038,7 @@ export type ReposCreateFork = (
     t_ReposCreateForkBodySchema | undefined
   >,
   respond: ReposCreateForkResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<202, t_full_repository>
@@ -12060,7 +12059,7 @@ export type GitCreateBlobResponder = {
 export type GitCreateBlob = (
   params: Params<t_GitCreateBlobParamSchema, void, t_GitCreateBlobBodySchema>,
   respond: GitCreateBlobResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_short_blob>
@@ -12080,7 +12079,7 @@ export type GitGetBlobResponder = {
 export type GitGetBlob = (
   params: Params<t_GitGetBlobParamSchema, void, void>,
   respond: GitGetBlobResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_blob>
@@ -12102,7 +12101,7 @@ export type GitCreateCommit = (
     t_GitCreateCommitBodySchema
   >,
   respond: GitCreateCommitResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_git_commit>
@@ -12118,7 +12117,7 @@ export type GitGetCommitResponder = {
 export type GitGetCommit = (
   params: Params<t_GitGetCommitParamSchema, void, void>,
   respond: GitGetCommitResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_git_commit>
@@ -12132,7 +12131,7 @@ export type GitListMatchingRefsResponder = {
 export type GitListMatchingRefs = (
   params: Params<t_GitListMatchingRefsParamSchema, void, void>,
   respond: GitListMatchingRefsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_git_ref[]>>
 
 export type GitGetRefResponder = {
@@ -12143,7 +12142,7 @@ export type GitGetRefResponder = {
 export type GitGetRef = (
   params: Params<t_GitGetRefParamSchema, void, void>,
   respond: GitGetRefResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_git_ref>
@@ -12158,7 +12157,7 @@ export type GitCreateRefResponder = {
 export type GitCreateRef = (
   params: Params<t_GitCreateRefParamSchema, void, t_GitCreateRefBodySchema>,
   respond: GitCreateRefResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_git_ref>
@@ -12173,7 +12172,7 @@ export type GitUpdateRefResponder = {
 export type GitUpdateRef = (
   params: Params<t_GitUpdateRefParamSchema, void, t_GitUpdateRefBodySchema>,
   respond: GitUpdateRefResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_git_ref>
@@ -12188,7 +12187,7 @@ export type GitDeleteRefResponder = {
 export type GitDeleteRef = (
   params: Params<t_GitDeleteRefParamSchema, void, void>,
   respond: GitDeleteRefResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -12203,7 +12202,7 @@ export type GitCreateTagResponder = {
 export type GitCreateTag = (
   params: Params<t_GitCreateTagParamSchema, void, t_GitCreateTagBodySchema>,
   respond: GitCreateTagResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_git_tag>
@@ -12218,7 +12217,7 @@ export type GitGetTagResponder = {
 export type GitGetTag = (
   params: Params<t_GitGetTagParamSchema, void, void>,
   respond: GitGetTagResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_git_tag>
@@ -12235,7 +12234,7 @@ export type GitCreateTreeResponder = {
 export type GitCreateTree = (
   params: Params<t_GitCreateTreeParamSchema, void, t_GitCreateTreeBodySchema>,
   respond: GitCreateTreeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_git_tree>
@@ -12253,7 +12252,7 @@ export type GitGetTreeResponder = {
 export type GitGetTree = (
   params: Params<t_GitGetTreeParamSchema, t_GitGetTreeQuerySchema, void>,
   respond: GitGetTreeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_git_tree>
@@ -12273,7 +12272,7 @@ export type ReposListWebhooks = (
     void
   >,
   respond: ReposListWebhooksResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_hook[]>
@@ -12294,7 +12293,7 @@ export type ReposCreateWebhook = (
     t_ReposCreateWebhookBodySchema | undefined
   >,
   respond: ReposCreateWebhookResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_hook>
@@ -12311,7 +12310,7 @@ export type ReposGetWebhookResponder = {
 export type ReposGetWebhook = (
   params: Params<t_ReposGetWebhookParamSchema, void, void>,
   respond: ReposGetWebhookResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_hook>
@@ -12331,7 +12330,7 @@ export type ReposUpdateWebhook = (
     t_ReposUpdateWebhookBodySchema
   >,
   respond: ReposUpdateWebhookResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_hook>
@@ -12347,7 +12346,7 @@ export type ReposDeleteWebhookResponder = {
 export type ReposDeleteWebhook = (
   params: Params<t_ReposDeleteWebhookParamSchema, void, void>,
   respond: ReposDeleteWebhookResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -12361,7 +12360,7 @@ export type ReposGetWebhookConfigForRepoResponder = {
 export type ReposGetWebhookConfigForRepo = (
   params: Params<t_ReposGetWebhookConfigForRepoParamSchema, void, void>,
   respond: ReposGetWebhookConfigForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_webhook_config>>
 
 export type ReposUpdateWebhookConfigForRepoResponder = {
@@ -12375,7 +12374,7 @@ export type ReposUpdateWebhookConfigForRepo = (
     t_ReposUpdateWebhookConfigForRepoBodySchema | undefined
   >,
   respond: ReposUpdateWebhookConfigForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_webhook_config>>
 
 export type ReposListWebhookDeliveriesResponder = {
@@ -12391,7 +12390,7 @@ export type ReposListWebhookDeliveries = (
     void
   >,
   respond: ReposListWebhookDeliveriesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_hook_delivery_item[]>
@@ -12408,7 +12407,7 @@ export type ReposGetWebhookDeliveryResponder = {
 export type ReposGetWebhookDelivery = (
   params: Params<t_ReposGetWebhookDeliveryParamSchema, void, void>,
   respond: ReposGetWebhookDeliveryResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_hook_delivery>
@@ -12425,7 +12424,7 @@ export type ReposRedeliverWebhookDeliveryResponder = {
 export type ReposRedeliverWebhookDelivery = (
   params: Params<t_ReposRedeliverWebhookDeliveryParamSchema, void, void>,
   respond: ReposRedeliverWebhookDeliveryResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<202, EmptyObject>
@@ -12441,7 +12440,7 @@ export type ReposPingWebhookResponder = {
 export type ReposPingWebhook = (
   params: Params<t_ReposPingWebhookParamSchema, void, void>,
   respond: ReposPingWebhookResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -12456,7 +12455,7 @@ export type ReposTestPushWebhookResponder = {
 export type ReposTestPushWebhook = (
   params: Params<t_ReposTestPushWebhookParamSchema, void, void>,
   respond: ReposTestPushWebhookResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -12472,7 +12471,7 @@ export type MigrationsGetImportStatusResponder = {
 export type MigrationsGetImportStatus = (
   params: Params<t_MigrationsGetImportStatusParamSchema, void, void>,
   respond: MigrationsGetImportStatusResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_import>
@@ -12494,7 +12493,7 @@ export type MigrationsStartImport = (
     t_MigrationsStartImportBodySchema
   >,
   respond: MigrationsStartImportResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_import>
@@ -12515,7 +12514,7 @@ export type MigrationsUpdateImport = (
     t_MigrationsUpdateImportBodySchema | undefined
   >,
   respond: MigrationsUpdateImportResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_import>
@@ -12530,7 +12529,7 @@ export type MigrationsCancelImportResponder = {
 export type MigrationsCancelImport = (
   params: Params<t_MigrationsCancelImportParamSchema, void, void>,
   respond: MigrationsCancelImportResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -12550,7 +12549,7 @@ export type MigrationsGetCommitAuthors = (
     void
   >,
   respond: MigrationsGetCommitAuthorsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_porter_author[]>
@@ -12572,7 +12571,7 @@ export type MigrationsMapCommitAuthor = (
     t_MigrationsMapCommitAuthorBodySchema | undefined
   >,
   respond: MigrationsMapCommitAuthorResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_porter_author>
@@ -12589,7 +12588,7 @@ export type MigrationsGetLargeFilesResponder = {
 export type MigrationsGetLargeFiles = (
   params: Params<t_MigrationsGetLargeFilesParamSchema, void, void>,
   respond: MigrationsGetLargeFilesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_porter_large_file[]>
@@ -12609,7 +12608,7 @@ export type MigrationsSetLfsPreference = (
     t_MigrationsSetLfsPreferenceBodySchema
   >,
   respond: MigrationsSetLfsPreferenceResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_import>
@@ -12626,7 +12625,7 @@ export type AppsGetRepoInstallationResponder = {
 export type AppsGetRepoInstallation = (
   params: Params<t_AppsGetRepoInstallationParamSchema, void, void>,
   respond: AppsGetRepoInstallationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_installation>
@@ -12641,7 +12640,7 @@ export type InteractionsGetRestrictionsForRepoResponder = {
 export type InteractionsGetRestrictionsForRepo = (
   params: Params<t_InteractionsGetRestrictionsForRepoParamSchema, void, void>,
   respond: InteractionsGetRestrictionsForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_interaction_limit_response | EmptyObject>
@@ -12659,7 +12658,7 @@ export type InteractionsSetRestrictionsForRepo = (
     t_InteractionsSetRestrictionsForRepoBodySchema
   >,
   respond: InteractionsSetRestrictionsForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_interaction_limit_response>
@@ -12678,7 +12677,7 @@ export type InteractionsRemoveRestrictionsForRepo = (
     void
   >,
   respond: InteractionsRemoveRestrictionsForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<409, void>
 >
@@ -12694,7 +12693,7 @@ export type ReposListInvitations = (
     void
   >,
   respond: ReposListInvitationsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_repository_invitation[]>
 >
@@ -12710,7 +12709,7 @@ export type ReposUpdateInvitation = (
     t_ReposUpdateInvitationBodySchema | undefined
   >,
   respond: ReposUpdateInvitationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_repository_invitation>
 >
@@ -12722,7 +12721,7 @@ export type ReposDeleteInvitationResponder = {
 export type ReposDeleteInvitation = (
   params: Params<t_ReposDeleteInvitationParamSchema, void, void>,
   respond: ReposDeleteInvitationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type IssuesListForRepoResponder = {
@@ -12739,7 +12738,7 @@ export type IssuesListForRepo = (
     void
   >,
   respond: IssuesListForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issue[]>
@@ -12765,7 +12764,7 @@ export type IssuesCreateResponder = {
 export type IssuesCreate = (
   params: Params<t_IssuesCreateParamSchema, void, t_IssuesCreateBodySchema>,
   respond: IssuesCreateResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_issue>
@@ -12797,7 +12796,7 @@ export type IssuesListCommentsForRepo = (
     void
   >,
   respond: IssuesListCommentsForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issue_comment[]>
@@ -12813,7 +12812,7 @@ export type IssuesGetCommentResponder = {
 export type IssuesGetComment = (
   params: Params<t_IssuesGetCommentParamSchema, void, void>,
   respond: IssuesGetCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issue_comment>
@@ -12832,7 +12831,7 @@ export type IssuesUpdateComment = (
     t_IssuesUpdateCommentBodySchema
   >,
   respond: IssuesUpdateCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issue_comment>
@@ -12846,7 +12845,7 @@ export type IssuesDeleteCommentResponder = {
 export type IssuesDeleteComment = (
   params: Params<t_IssuesDeleteCommentParamSchema, void, void>,
   respond: IssuesDeleteCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ReactionsListForIssueCommentResponder = {
@@ -12861,7 +12860,7 @@ export type ReactionsListForIssueComment = (
     void
   >,
   respond: ReactionsListForIssueCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_reaction[]>
@@ -12881,7 +12880,7 @@ export type ReactionsCreateForIssueComment = (
     t_ReactionsCreateForIssueCommentBodySchema
   >,
   respond: ReactionsCreateForIssueCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_reaction>
@@ -12896,7 +12895,7 @@ export type ReactionsDeleteForIssueCommentResponder = {
 export type ReactionsDeleteForIssueComment = (
   params: Params<t_ReactionsDeleteForIssueCommentParamSchema, void, void>,
   respond: ReactionsDeleteForIssueCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type IssuesListEventsForRepoResponder = {
@@ -12911,7 +12910,7 @@ export type IssuesListEventsForRepo = (
     void
   >,
   respond: IssuesListEventsForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issue_event[]>
@@ -12928,7 +12927,7 @@ export type IssuesGetEventResponder = {
 export type IssuesGetEvent = (
   params: Params<t_IssuesGetEventParamSchema, void, void>,
   respond: IssuesGetEventResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issue_event>
@@ -12948,7 +12947,7 @@ export type IssuesGetResponder = {
 export type IssuesGet = (
   params: Params<t_IssuesGetParamSchema, void, void>,
   respond: IssuesGetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issue>
@@ -12979,7 +12978,7 @@ export type IssuesUpdate = (
     t_IssuesUpdateBodySchema | undefined
   >,
   respond: IssuesUpdateResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issue>
@@ -13009,7 +13008,7 @@ export type IssuesAddAssignees = (
     t_IssuesAddAssigneesBodySchema | undefined
   >,
   respond: IssuesAddAssigneesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<201, t_issue>>
 
 export type IssuesRemoveAssigneesResponder = {
@@ -13023,7 +13022,7 @@ export type IssuesRemoveAssignees = (
     t_IssuesRemoveAssigneesBodySchema
   >,
   respond: IssuesRemoveAssigneesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_issue>>
 
 export type IssuesCheckUserCanBeAssignedToIssueResponder = {
@@ -13034,7 +13033,7 @@ export type IssuesCheckUserCanBeAssignedToIssueResponder = {
 export type IssuesCheckUserCanBeAssignedToIssue = (
   params: Params<t_IssuesCheckUserCanBeAssignedToIssueParamSchema, void, void>,
   respond: IssuesCheckUserCanBeAssignedToIssueResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -13054,7 +13053,7 @@ export type IssuesListComments = (
     void
   >,
   respond: IssuesListCommentsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issue_comment[]>
@@ -13077,7 +13076,7 @@ export type IssuesCreateComment = (
     t_IssuesCreateCommentBodySchema
   >,
   respond: IssuesCreateCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_issue_comment>
@@ -13099,7 +13098,7 @@ export type IssuesListEvents = (
     void
   >,
   respond: IssuesListEventsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issue_event_for_issue[]>
@@ -13120,7 +13119,7 @@ export type IssuesListLabelsOnIssue = (
     void
   >,
   respond: IssuesListLabelsOnIssueResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_label[]>
@@ -13144,7 +13143,7 @@ export type IssuesAddLabels = (
     t_IssuesAddLabelsBodySchema | undefined
   >,
   respond: IssuesAddLabelsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_label[]>
@@ -13169,7 +13168,7 @@ export type IssuesSetLabels = (
     t_IssuesSetLabelsBodySchema | undefined
   >,
   respond: IssuesSetLabelsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_label[]>
@@ -13189,7 +13188,7 @@ export type IssuesRemoveAllLabelsResponder = {
 export type IssuesRemoveAllLabels = (
   params: Params<t_IssuesRemoveAllLabelsParamSchema, void, void>,
   respond: IssuesRemoveAllLabelsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -13208,7 +13207,7 @@ export type IssuesRemoveLabelResponder = {
 export type IssuesRemoveLabel = (
   params: Params<t_IssuesRemoveLabelParamSchema, void, void>,
   respond: IssuesRemoveLabelResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_label[]>
@@ -13232,7 +13231,7 @@ export type IssuesLock = (
     t_IssuesLockBodySchema | undefined
   >,
   respond: IssuesLockResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -13251,7 +13250,7 @@ export type IssuesUnlockResponder = {
 export type IssuesUnlock = (
   params: Params<t_IssuesUnlockParamSchema, void, void>,
   respond: IssuesUnlockResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -13272,7 +13271,7 @@ export type ReactionsListForIssue = (
     void
   >,
   respond: ReactionsListForIssueResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_reaction[]>
@@ -13293,7 +13292,7 @@ export type ReactionsCreateForIssue = (
     t_ReactionsCreateForIssueBodySchema
   >,
   respond: ReactionsCreateForIssueResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_reaction>
@@ -13308,7 +13307,7 @@ export type ReactionsDeleteForIssueResponder = {
 export type ReactionsDeleteForIssue = (
   params: Params<t_ReactionsDeleteForIssueParamSchema, void, void>,
   respond: ReactionsDeleteForIssueResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type IssuesListEventsForTimelineResponder = {
@@ -13324,7 +13323,7 @@ export type IssuesListEventsForTimeline = (
     void
   >,
   respond: IssuesListEventsForTimelineResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_timeline_issue_events[]>
@@ -13343,7 +13342,7 @@ export type ReposListDeployKeys = (
     void
   >,
   respond: ReposListDeployKeysResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_deploy_key[]>>
 
 export type ReposCreateDeployKeyResponder = {
@@ -13358,7 +13357,7 @@ export type ReposCreateDeployKey = (
     t_ReposCreateDeployKeyBodySchema
   >,
   respond: ReposCreateDeployKeyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_deploy_key>
@@ -13373,7 +13372,7 @@ export type ReposGetDeployKeyResponder = {
 export type ReposGetDeployKey = (
   params: Params<t_ReposGetDeployKeyParamSchema, void, void>,
   respond: ReposGetDeployKeyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deploy_key>
@@ -13387,7 +13386,7 @@ export type ReposDeleteDeployKeyResponder = {
 export type ReposDeleteDeployKey = (
   params: Params<t_ReposDeleteDeployKeyParamSchema, void, void>,
   respond: ReposDeleteDeployKeyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type IssuesListLabelsForRepoResponder = {
@@ -13402,7 +13401,7 @@ export type IssuesListLabelsForRepo = (
     void
   >,
   respond: IssuesListLabelsForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_label[]>
@@ -13422,7 +13421,7 @@ export type IssuesCreateLabel = (
     t_IssuesCreateLabelBodySchema
   >,
   respond: IssuesCreateLabelResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_label>
@@ -13438,7 +13437,7 @@ export type IssuesGetLabelResponder = {
 export type IssuesGetLabel = (
   params: Params<t_IssuesGetLabelParamSchema, void, void>,
   respond: IssuesGetLabelResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_label>
@@ -13456,7 +13455,7 @@ export type IssuesUpdateLabel = (
     t_IssuesUpdateLabelBodySchema | undefined
   >,
   respond: IssuesUpdateLabelResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_label>>
 
 export type IssuesDeleteLabelResponder = {
@@ -13466,7 +13465,7 @@ export type IssuesDeleteLabelResponder = {
 export type IssuesDeleteLabel = (
   params: Params<t_IssuesDeleteLabelParamSchema, void, void>,
   respond: IssuesDeleteLabelResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ReposListLanguagesResponder = {
@@ -13476,7 +13475,7 @@ export type ReposListLanguagesResponder = {
 export type ReposListLanguages = (
   params: Params<t_ReposListLanguagesParamSchema, void, void>,
   respond: ReposListLanguagesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_language>>
 
 export type LicensesGetForRepoResponder = {
@@ -13486,7 +13485,7 @@ export type LicensesGetForRepoResponder = {
 export type LicensesGetForRepo = (
   params: Params<t_LicensesGetForRepoParamSchema, void, void>,
   respond: LicensesGetForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_license_content>>
 
 export type ReposMergeUpstreamResponder = {
@@ -13502,7 +13501,7 @@ export type ReposMergeUpstream = (
     t_ReposMergeUpstreamBodySchema
   >,
   respond: ReposMergeUpstreamResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_merged_upstream>
@@ -13522,7 +13521,7 @@ export type ReposMergeResponder = {
 export type ReposMerge = (
   params: Params<t_ReposMergeParamSchema, void, t_ReposMergeBodySchema>,
   respond: ReposMergeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_commit>
@@ -13545,7 +13544,7 @@ export type IssuesListMilestones = (
     void
   >,
   respond: IssuesListMilestonesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_milestone[]>
@@ -13565,7 +13564,7 @@ export type IssuesCreateMilestone = (
     t_IssuesCreateMilestoneBodySchema
   >,
   respond: IssuesCreateMilestoneResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_milestone>
@@ -13581,7 +13580,7 @@ export type IssuesGetMilestoneResponder = {
 export type IssuesGetMilestone = (
   params: Params<t_IssuesGetMilestoneParamSchema, void, void>,
   respond: IssuesGetMilestoneResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_milestone>
@@ -13599,7 +13598,7 @@ export type IssuesUpdateMilestone = (
     t_IssuesUpdateMilestoneBodySchema | undefined
   >,
   respond: IssuesUpdateMilestoneResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_milestone>>
 
 export type IssuesDeleteMilestoneResponder = {
@@ -13610,7 +13609,7 @@ export type IssuesDeleteMilestoneResponder = {
 export type IssuesDeleteMilestone = (
   params: Params<t_IssuesDeleteMilestoneParamSchema, void, void>,
   respond: IssuesDeleteMilestoneResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -13628,7 +13627,7 @@ export type IssuesListLabelsForMilestone = (
     void
   >,
   respond: IssuesListLabelsForMilestoneResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_label[]>>
 
 export type ActivityListRepoNotificationsForAuthenticatedUserResponder = {
@@ -13642,7 +13641,7 @@ export type ActivityListRepoNotificationsForAuthenticatedUser = (
     void
   >,
   respond: ActivityListRepoNotificationsForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_thread[]>>
 
 export type ActivityMarkRepoNotificationsAsReadResponder = {
@@ -13660,7 +13659,7 @@ export type ActivityMarkRepoNotificationsAsRead = (
     t_ActivityMarkRepoNotificationsAsReadBodySchema | undefined
   >,
   respond: ActivityMarkRepoNotificationsAsReadResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -13681,7 +13680,7 @@ export type ReposGetPagesResponder = {
 export type ReposGetPages = (
   params: Params<t_ReposGetPagesParamSchema, void, void>,
   respond: ReposGetPagesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_page>
@@ -13701,7 +13700,7 @@ export type ReposCreatePagesSite = (
     t_ReposCreatePagesSiteBodySchema
   >,
   respond: ReposCreatePagesSiteResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_page>
@@ -13723,7 +13722,7 @@ export type ReposUpdateInformationAboutPagesSite = (
     t_ReposUpdateInformationAboutPagesSiteBodySchema
   >,
   respond: ReposUpdateInformationAboutPagesSiteResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -13742,7 +13741,7 @@ export type ReposDeletePagesSiteResponder = {
 export type ReposDeletePagesSite = (
   params: Params<t_ReposDeletePagesSiteParamSchema, void, void>,
   respond: ReposDeletePagesSiteResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -13762,7 +13761,7 @@ export type ReposListPagesBuilds = (
     void
   >,
   respond: ReposListPagesBuildsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_page_build[]>>
 
 export type ReposRequestPagesBuildResponder = {
@@ -13772,7 +13771,7 @@ export type ReposRequestPagesBuildResponder = {
 export type ReposRequestPagesBuild = (
   params: Params<t_ReposRequestPagesBuildParamSchema, void, void>,
   respond: ReposRequestPagesBuildResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<201, t_page_build_status>>
 
 export type ReposGetLatestPagesBuildResponder = {
@@ -13782,7 +13781,7 @@ export type ReposGetLatestPagesBuildResponder = {
 export type ReposGetLatestPagesBuild = (
   params: Params<t_ReposGetLatestPagesBuildParamSchema, void, void>,
   respond: ReposGetLatestPagesBuildResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_page_build>>
 
 export type ReposGetPagesBuildResponder = {
@@ -13792,7 +13791,7 @@ export type ReposGetPagesBuildResponder = {
 export type ReposGetPagesBuild = (
   params: Params<t_ReposGetPagesBuildParamSchema, void, void>,
   respond: ReposGetPagesBuildResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_page_build>>
 
 export type ReposCreatePagesDeploymentResponder = {
@@ -13809,7 +13808,7 @@ export type ReposCreatePagesDeployment = (
     t_ReposCreatePagesDeploymentBodySchema
   >,
   respond: ReposCreatePagesDeploymentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_page_deployment>
@@ -13829,7 +13828,7 @@ export type ReposGetPagesHealthCheckResponder = {
 export type ReposGetPagesHealthCheck = (
   params: Params<t_ReposGetPagesHealthCheckParamSchema, void, void>,
   respond: ReposGetPagesHealthCheckResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_pages_health_check>
@@ -13851,7 +13850,7 @@ export type ReposEnablePrivateVulnerabilityReporting = (
     void
   >,
   respond: ReposEnablePrivateVulnerabilityReportingResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -13870,7 +13869,7 @@ export type ReposDisablePrivateVulnerabilityReporting = (
     void
   >,
   respond: ReposDisablePrivateVulnerabilityReportingResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -13893,7 +13892,7 @@ export type ProjectsListForRepo = (
     void
   >,
   respond: ProjectsListForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_project[]>
@@ -13920,7 +13919,7 @@ export type ProjectsCreateForRepo = (
     t_ProjectsCreateForRepoBodySchema
   >,
   respond: ProjectsCreateForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_project>
@@ -13940,7 +13939,7 @@ export type PullsListResponder = {
 export type PullsList = (
   params: Params<t_PullsListParamSchema, t_PullsListQuerySchema, void>,
   respond: PullsListResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_pull_request_simple[]>
@@ -13957,7 +13956,7 @@ export type PullsCreateResponder = {
 export type PullsCreate = (
   params: Params<t_PullsCreateParamSchema, void, t_PullsCreateBodySchema>,
   respond: PullsCreateResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_pull_request>
@@ -13976,7 +13975,7 @@ export type PullsListReviewCommentsForRepo = (
     void
   >,
   respond: PullsListReviewCommentsForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_pull_request_review_comment[]>
 >
@@ -13989,7 +13988,7 @@ export type PullsGetReviewCommentResponder = {
 export type PullsGetReviewComment = (
   params: Params<t_PullsGetReviewCommentParamSchema, void, void>,
   respond: PullsGetReviewCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_pull_request_review_comment>
@@ -14007,7 +14006,7 @@ export type PullsUpdateReviewComment = (
     t_PullsUpdateReviewCommentBodySchema
   >,
   respond: PullsUpdateReviewCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_pull_request_review_comment>
 >
@@ -14020,7 +14019,7 @@ export type PullsDeleteReviewCommentResponder = {
 export type PullsDeleteReviewComment = (
   params: Params<t_PullsDeleteReviewCommentParamSchema, void, void>,
   respond: PullsDeleteReviewCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -14039,7 +14038,7 @@ export type ReactionsListForPullRequestReviewComment = (
     void
   >,
   respond: ReactionsListForPullRequestReviewCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_reaction[]>
@@ -14059,7 +14058,7 @@ export type ReactionsCreateForPullRequestReviewComment = (
     t_ReactionsCreateForPullRequestReviewCommentBodySchema
   >,
   respond: ReactionsCreateForPullRequestReviewCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_reaction>
@@ -14074,7 +14073,7 @@ export type ReactionsDeleteForPullRequestCommentResponder = {
 export type ReactionsDeleteForPullRequestComment = (
   params: Params<t_ReactionsDeleteForPullRequestCommentParamSchema, void, void>,
   respond: ReactionsDeleteForPullRequestCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type PullsGetResponder = {
@@ -14092,7 +14091,7 @@ export type PullsGetResponder = {
 export type PullsGet = (
   params: Params<t_PullsGetParamSchema, void, void>,
   respond: PullsGetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_pull_request>
@@ -14122,7 +14121,7 @@ export type PullsUpdate = (
     t_PullsUpdateBodySchema | undefined
   >,
   respond: PullsUpdateResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_pull_request>
@@ -14150,7 +14149,7 @@ export type CodespacesCreateWithPrForAuthenticatedUser = (
     t_CodespacesCreateWithPrForAuthenticatedUserBodySchema
   >,
   respond: CodespacesCreateWithPrForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_codespace>
@@ -14179,7 +14178,7 @@ export type PullsListReviewComments = (
     void
   >,
   respond: PullsListReviewCommentsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_pull_request_review_comment[]>
 >
@@ -14197,7 +14196,7 @@ export type PullsCreateReviewComment = (
     t_PullsCreateReviewCommentBodySchema
   >,
   respond: PullsCreateReviewCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_pull_request_review_comment>
@@ -14217,7 +14216,7 @@ export type PullsCreateReplyForReviewComment = (
     t_PullsCreateReplyForReviewCommentBodySchema
   >,
   respond: PullsCreateReplyForReviewCommentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_pull_request_review_comment>
@@ -14235,7 +14234,7 @@ export type PullsListCommits = (
     void
   >,
   respond: PullsListCommitsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_commit[]>>
 
 export type PullsListFilesResponder = {
@@ -14256,7 +14255,7 @@ export type PullsListFiles = (
     void
   >,
   respond: PullsListFilesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_diff_entry[]>
@@ -14280,7 +14279,7 @@ export type PullsCheckIfMergedResponder = {
 export type PullsCheckIfMerged = (
   params: Params<t_PullsCheckIfMergedParamSchema, void, void>,
   respond: PullsCheckIfMergedResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<404, void>
 >
@@ -14307,7 +14306,7 @@ export type PullsMerge = (
     t_PullsMergeBodySchema | undefined
   >,
   respond: PullsMergeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_pull_request_merge_result>
@@ -14337,7 +14336,7 @@ export type PullsListRequestedReviewersResponder = {
 export type PullsListRequestedReviewers = (
   params: Params<t_PullsListRequestedReviewersParamSchema, void, void>,
   respond: PullsListRequestedReviewersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_pull_request_review_request>
 >
@@ -14355,7 +14354,7 @@ export type PullsRequestReviewers = (
     t_PullsRequestReviewersBodySchema | undefined
   >,
   respond: PullsRequestReviewersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_pull_request_simple>
@@ -14375,7 +14374,7 @@ export type PullsRemoveRequestedReviewers = (
     t_PullsRemoveRequestedReviewersBodySchema
   >,
   respond: PullsRemoveRequestedReviewersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_pull_request_simple>
@@ -14393,7 +14392,7 @@ export type PullsListReviews = (
     void
   >,
   respond: PullsListReviewsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_pull_request_review[]>
 >
@@ -14411,7 +14410,7 @@ export type PullsCreateReview = (
     t_PullsCreateReviewBodySchema | undefined
   >,
   respond: PullsCreateReviewResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_pull_request_review>
@@ -14427,7 +14426,7 @@ export type PullsGetReviewResponder = {
 export type PullsGetReview = (
   params: Params<t_PullsGetReviewParamSchema, void, void>,
   respond: PullsGetReviewResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_pull_request_review>
@@ -14446,7 +14445,7 @@ export type PullsUpdateReview = (
     t_PullsUpdateReviewBodySchema
   >,
   respond: PullsUpdateReviewResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_pull_request_review>
@@ -14462,7 +14461,7 @@ export type PullsDeletePendingReviewResponder = {
 export type PullsDeletePendingReview = (
   params: Params<t_PullsDeletePendingReviewParamSchema, void, void>,
   respond: PullsDeletePendingReviewResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_pull_request_review>
@@ -14482,7 +14481,7 @@ export type PullsListCommentsForReview = (
     void
   >,
   respond: PullsListCommentsForReviewResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_review_comment[]>
@@ -14502,7 +14501,7 @@ export type PullsDismissReview = (
     t_PullsDismissReviewBodySchema
   >,
   respond: PullsDismissReviewResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_pull_request_review>
@@ -14524,7 +14523,7 @@ export type PullsSubmitReview = (
     t_PullsSubmitReviewBodySchema
   >,
   respond: PullsSubmitReviewResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_pull_request_review>
@@ -14549,7 +14548,7 @@ export type PullsUpdateBranch = (
     t_PullsUpdateBranchBodySchema | undefined
   >,
   respond: PullsUpdateBranchResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -14576,7 +14575,7 @@ export type ReposGetReadme = (
     void
   >,
   respond: ReposGetReadmeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_content_file>
@@ -14597,7 +14596,7 @@ export type ReposGetReadmeInDirectory = (
     void
   >,
   respond: ReposGetReadmeInDirectoryResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_content_file>
@@ -14617,7 +14616,7 @@ export type ReposListReleases = (
     void
   >,
   respond: ReposListReleasesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_release[]>
@@ -14637,7 +14636,7 @@ export type ReposCreateRelease = (
     t_ReposCreateReleaseBodySchema
   >,
   respond: ReposCreateReleaseResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_release>
@@ -14654,7 +14653,7 @@ export type ReposGetReleaseAssetResponder = {
 export type ReposGetReleaseAsset = (
   params: Params<t_ReposGetReleaseAssetParamSchema, void, void>,
   respond: ReposGetReleaseAssetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_release_asset>
@@ -14673,7 +14672,7 @@ export type ReposUpdateReleaseAsset = (
     t_ReposUpdateReleaseAssetBodySchema | undefined
   >,
   respond: ReposUpdateReleaseAssetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_release_asset>>
 
 export type ReposDeleteReleaseAssetResponder = {
@@ -14683,7 +14682,7 @@ export type ReposDeleteReleaseAssetResponder = {
 export type ReposDeleteReleaseAsset = (
   params: Params<t_ReposDeleteReleaseAssetParamSchema, void, void>,
   respond: ReposDeleteReleaseAssetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ReposGenerateReleaseNotesResponder = {
@@ -14698,7 +14697,7 @@ export type ReposGenerateReleaseNotes = (
     t_ReposGenerateReleaseNotesBodySchema
   >,
   respond: ReposGenerateReleaseNotesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_release_notes_content>
@@ -14712,7 +14711,7 @@ export type ReposGetLatestReleaseResponder = {
 export type ReposGetLatestRelease = (
   params: Params<t_ReposGetLatestReleaseParamSchema, void, void>,
   respond: ReposGetLatestReleaseResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_release>>
 
 export type ReposGetReleaseByTagResponder = {
@@ -14723,7 +14722,7 @@ export type ReposGetReleaseByTagResponder = {
 export type ReposGetReleaseByTag = (
   params: Params<t_ReposGetReleaseByTagParamSchema, void, void>,
   respond: ReposGetReleaseByTagResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_release>
@@ -14738,7 +14737,7 @@ export type ReposGetReleaseResponder = {
 export type ReposGetRelease = (
   params: Params<t_ReposGetReleaseParamSchema, void, void>,
   respond: ReposGetReleaseResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_release> | Response<401, void>
 >
@@ -14755,7 +14754,7 @@ export type ReposUpdateRelease = (
     t_ReposUpdateReleaseBodySchema | undefined
   >,
   respond: ReposUpdateReleaseResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_release>
@@ -14769,7 +14768,7 @@ export type ReposDeleteReleaseResponder = {
 export type ReposDeleteRelease = (
   params: Params<t_ReposDeleteReleaseParamSchema, void, void>,
   respond: ReposDeleteReleaseResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ReposListReleaseAssetsResponder = {
@@ -14783,7 +14782,7 @@ export type ReposListReleaseAssets = (
     void
   >,
   respond: ReposListReleaseAssetsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_release_asset[]>>
 
 export type ReposUploadReleaseAssetResponder = {
@@ -14798,7 +14797,7 @@ export type ReposUploadReleaseAsset = (
     t_ReposUploadReleaseAssetBodySchema | undefined
   >,
   respond: ReposUploadReleaseAssetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_release_asset>
@@ -14817,7 +14816,7 @@ export type ReactionsListForRelease = (
     void
   >,
   respond: ReactionsListForReleaseResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_reaction[]>
@@ -14837,7 +14836,7 @@ export type ReactionsCreateForRelease = (
     t_ReactionsCreateForReleaseBodySchema
   >,
   respond: ReactionsCreateForReleaseResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_reaction>
@@ -14852,7 +14851,7 @@ export type ReactionsDeleteForReleaseResponder = {
 export type ReactionsDeleteForRelease = (
   params: Params<t_ReactionsDeleteForReleaseParamSchema, void, void>,
   respond: ReactionsDeleteForReleaseResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ReposGetBranchRulesResponder = {
@@ -14866,7 +14865,7 @@ export type ReposGetBranchRules = (
     void
   >,
   respond: ReposGetBranchRulesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_repository_rule_detailed[]>
 >
@@ -14884,7 +14883,7 @@ export type ReposGetRepoRulesets = (
     void
   >,
   respond: ReposGetRepoRulesetsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_repository_ruleset[]>
@@ -14905,7 +14904,7 @@ export type ReposCreateRepoRuleset = (
     t_ReposCreateRepoRulesetBodySchema
   >,
   respond: ReposCreateRepoRulesetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_repository_ruleset>
@@ -14926,7 +14925,7 @@ export type ReposGetRepoRuleset = (
     void
   >,
   respond: ReposGetRepoRulesetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_repository_ruleset>
@@ -14947,7 +14946,7 @@ export type ReposUpdateRepoRuleset = (
     t_ReposUpdateRepoRulesetBodySchema | undefined
   >,
   respond: ReposUpdateRepoRulesetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_repository_ruleset>
@@ -14964,7 +14963,7 @@ export type ReposDeleteRepoRulesetResponder = {
 export type ReposDeleteRepoRuleset = (
   params: Params<t_ReposDeleteRepoRulesetParamSchema, void, void>,
   respond: ReposDeleteRepoRulesetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -14989,7 +14988,7 @@ export type SecretScanningListAlertsForRepo = (
     void
   >,
   respond: SecretScanningListAlertsForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_secret_scanning_alert[]>
@@ -15018,7 +15017,7 @@ export type SecretScanningGetAlertResponder = {
 export type SecretScanningGetAlert = (
   params: Params<t_SecretScanningGetAlertParamSchema, void, void>,
   respond: SecretScanningGetAlertResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_secret_scanning_alert>
@@ -15053,7 +15052,7 @@ export type SecretScanningUpdateAlert = (
     t_SecretScanningUpdateAlertBodySchema
   >,
   respond: SecretScanningUpdateAlertResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_secret_scanning_alert>
@@ -15087,7 +15086,7 @@ export type SecretScanningListLocationsForAlert = (
     void
   >,
   respond: SecretScanningListLocationsForAlertResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_secret_scanning_location[]>
@@ -15115,7 +15114,7 @@ export type SecurityAdvisoriesListRepositoryAdvisories = (
     void
   >,
   respond: SecurityAdvisoriesListRepositoryAdvisoriesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_repository_advisory[]>
@@ -15137,7 +15136,7 @@ export type SecurityAdvisoriesCreateRepositoryAdvisory = (
     t_SecurityAdvisoriesCreateRepositoryAdvisoryBodySchema
   >,
   respond: SecurityAdvisoriesCreateRepositoryAdvisoryResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_repository_advisory>
@@ -15160,7 +15159,7 @@ export type SecurityAdvisoriesCreatePrivateVulnerabilityReport = (
     t_SecurityAdvisoriesCreatePrivateVulnerabilityReportBodySchema
   >,
   respond: SecurityAdvisoriesCreatePrivateVulnerabilityReportResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_repository_advisory>
@@ -15182,7 +15181,7 @@ export type SecurityAdvisoriesGetRepositoryAdvisory = (
     void
   >,
   respond: SecurityAdvisoriesGetRepositoryAdvisoryResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_repository_advisory>
@@ -15204,7 +15203,7 @@ export type SecurityAdvisoriesUpdateRepositoryAdvisory = (
     t_SecurityAdvisoriesUpdateRepositoryAdvisoryBodySchema
   >,
   respond: SecurityAdvisoriesUpdateRepositoryAdvisoryResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_repository_advisory>
@@ -15228,7 +15227,7 @@ export type SecurityAdvisoriesCreateRepositoryAdvisoryCveRequest = (
     void
   >,
   respond: SecurityAdvisoriesCreateRepositoryAdvisoryCveRequestResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<202, EmptyObject>
@@ -15250,7 +15249,7 @@ export type ActivityListStargazersForRepo = (
     void
   >,
   respond: ActivityListStargazersForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_simple_user[] | t_stargazer[]>
@@ -15266,7 +15265,7 @@ export type ReposGetCodeFrequencyStatsResponder = {
 export type ReposGetCodeFrequencyStats = (
   params: Params<t_ReposGetCodeFrequencyStatsParamSchema, void, void>,
   respond: ReposGetCodeFrequencyStatsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_code_frequency_stat[]>
@@ -15283,7 +15282,7 @@ export type ReposGetCommitActivityStatsResponder = {
 export type ReposGetCommitActivityStats = (
   params: Params<t_ReposGetCommitActivityStatsParamSchema, void, void>,
   respond: ReposGetCommitActivityStatsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_commit_activity[]>
@@ -15300,7 +15299,7 @@ export type ReposGetContributorsStatsResponder = {
 export type ReposGetContributorsStats = (
   params: Params<t_ReposGetContributorsStatsParamSchema, void, void>,
   respond: ReposGetContributorsStatsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_contributor_activity[]>
@@ -15316,7 +15315,7 @@ export type ReposGetParticipationStatsResponder = {
 export type ReposGetParticipationStats = (
   params: Params<t_ReposGetParticipationStatsParamSchema, void, void>,
   respond: ReposGetParticipationStatsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_participation_stats>
@@ -15331,7 +15330,7 @@ export type ReposGetPunchCardStatsResponder = {
 export type ReposGetPunchCardStats = (
   params: Params<t_ReposGetPunchCardStatsParamSchema, void, void>,
   respond: ReposGetPunchCardStatsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_code_frequency_stat[]>
@@ -15349,7 +15348,7 @@ export type ReposCreateCommitStatus = (
     t_ReposCreateCommitStatusBodySchema
   >,
   respond: ReposCreateCommitStatusResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<201, t_status>>
 
 export type ActivityListWatchersForRepoResponder = {
@@ -15363,7 +15362,7 @@ export type ActivityListWatchersForRepo = (
     void
   >,
   respond: ActivityListWatchersForRepoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_simple_user[]>>
 
 export type ActivityGetRepoSubscriptionResponder = {
@@ -15375,7 +15374,7 @@ export type ActivityGetRepoSubscriptionResponder = {
 export type ActivityGetRepoSubscription = (
   params: Params<t_ActivityGetRepoSubscriptionParamSchema, void, void>,
   respond: ActivityGetRepoSubscriptionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_repository_subscription>
@@ -15394,7 +15393,7 @@ export type ActivitySetRepoSubscription = (
     t_ActivitySetRepoSubscriptionBodySchema | undefined
   >,
   respond: ActivitySetRepoSubscriptionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_repository_subscription>
 >
@@ -15406,7 +15405,7 @@ export type ActivityDeleteRepoSubscriptionResponder = {
 export type ActivityDeleteRepoSubscription = (
   params: Params<t_ActivityDeleteRepoSubscriptionParamSchema, void, void>,
   respond: ActivityDeleteRepoSubscriptionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ReposListTagsResponder = {
@@ -15416,7 +15415,7 @@ export type ReposListTagsResponder = {
 export type ReposListTags = (
   params: Params<t_ReposListTagsParamSchema, t_ReposListTagsQuerySchema, void>,
   respond: ReposListTagsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_tag[]>>
 
 export type ReposListTagProtectionResponder = {
@@ -15428,7 +15427,7 @@ export type ReposListTagProtectionResponder = {
 export type ReposListTagProtection = (
   params: Params<t_ReposListTagProtectionParamSchema, void, void>,
   respond: ReposListTagProtectionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tag_protection[]>
@@ -15449,7 +15448,7 @@ export type ReposCreateTagProtection = (
     t_ReposCreateTagProtectionBodySchema
   >,
   respond: ReposCreateTagProtectionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_tag_protection>
@@ -15466,7 +15465,7 @@ export type ReposDeleteTagProtectionResponder = {
 export type ReposDeleteTagProtection = (
   params: Params<t_ReposDeleteTagProtectionParamSchema, void, void>,
   respond: ReposDeleteTagProtectionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -15481,7 +15480,7 @@ export type ReposDownloadTarballArchiveResponder = {
 export type ReposDownloadTarballArchive = (
   params: Params<t_ReposDownloadTarballArchiveParamSchema, void, void>,
   respond: ReposDownloadTarballArchiveResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<302, void>>
 
 export type ReposListTeamsResponder = {
@@ -15496,7 +15495,7 @@ export type ReposListTeams = (
     void
   >,
   respond: ReposListTeamsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team[]>
@@ -15515,7 +15514,7 @@ export type ReposGetAllTopics = (
     void
   >,
   respond: ReposGetAllTopicsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_topic>
@@ -15535,7 +15534,7 @@ export type ReposReplaceAllTopics = (
     t_ReposReplaceAllTopicsBodySchema
   >,
   respond: ReposReplaceAllTopicsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_topic>
@@ -15555,7 +15554,7 @@ export type ReposGetClones = (
     void
   >,
   respond: ReposGetClonesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_clone_traffic>
@@ -15570,7 +15569,7 @@ export type ReposGetTopPathsResponder = {
 export type ReposGetTopPaths = (
   params: Params<t_ReposGetTopPathsParamSchema, void, void>,
   respond: ReposGetTopPathsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_content_traffic[]>
@@ -15585,7 +15584,7 @@ export type ReposGetTopReferrersResponder = {
 export type ReposGetTopReferrers = (
   params: Params<t_ReposGetTopReferrersParamSchema, void, void>,
   respond: ReposGetTopReferrersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_referrer_traffic[]>
@@ -15600,7 +15599,7 @@ export type ReposGetViewsResponder = {
 export type ReposGetViews = (
   params: Params<t_ReposGetViewsParamSchema, t_ReposGetViewsQuerySchema, void>,
   respond: ReposGetViewsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_view_traffic>
@@ -15614,7 +15613,7 @@ export type ReposTransferResponder = {
 export type ReposTransfer = (
   params: Params<t_ReposTransferParamSchema, void, t_ReposTransferBodySchema>,
   respond: ReposTransferResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<202, t_minimal_repository>>
 
 export type ReposCheckVulnerabilityAlertsResponder = {
@@ -15625,7 +15624,7 @@ export type ReposCheckVulnerabilityAlertsResponder = {
 export type ReposCheckVulnerabilityAlerts = (
   params: Params<t_ReposCheckVulnerabilityAlertsParamSchema, void, void>,
   respond: ReposCheckVulnerabilityAlertsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<404, void>
 >
@@ -15637,7 +15636,7 @@ export type ReposEnableVulnerabilityAlertsResponder = {
 export type ReposEnableVulnerabilityAlerts = (
   params: Params<t_ReposEnableVulnerabilityAlertsParamSchema, void, void>,
   respond: ReposEnableVulnerabilityAlertsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ReposDisableVulnerabilityAlertsResponder = {
@@ -15647,7 +15646,7 @@ export type ReposDisableVulnerabilityAlertsResponder = {
 export type ReposDisableVulnerabilityAlerts = (
   params: Params<t_ReposDisableVulnerabilityAlertsParamSchema, void, void>,
   respond: ReposDisableVulnerabilityAlertsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ReposDownloadZipballArchiveResponder = {
@@ -15657,7 +15656,7 @@ export type ReposDownloadZipballArchiveResponder = {
 export type ReposDownloadZipballArchive = (
   params: Params<t_ReposDownloadZipballArchiveParamSchema, void, void>,
   respond: ReposDownloadZipballArchiveResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<302, void>>
 
 export type ReposCreateUsingTemplateResponder = {
@@ -15671,7 +15670,7 @@ export type ReposCreateUsingTemplate = (
     t_ReposCreateUsingTemplateBodySchema
   >,
   respond: ReposCreateUsingTemplateResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<201, t_repository>>
 
 export type ReposListPublicResponder = {
@@ -15683,7 +15682,7 @@ export type ReposListPublicResponder = {
 export type ReposListPublic = (
   params: Params<void, t_ReposListPublicQuerySchema, void>,
   respond: ReposListPublicResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_minimal_repository[]>
@@ -15705,7 +15704,7 @@ export type ActionsListEnvironmentSecrets = (
     void
   >,
   respond: ActionsListEnvironmentSecretsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -15724,7 +15723,7 @@ export type ActionsGetEnvironmentPublicKeyResponder = {
 export type ActionsGetEnvironmentPublicKey = (
   params: Params<t_ActionsGetEnvironmentPublicKeyParamSchema, void, void>,
   respond: ActionsGetEnvironmentPublicKeyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_actions_public_key>>
 
 export type ActionsGetEnvironmentSecretResponder = {
@@ -15734,7 +15733,7 @@ export type ActionsGetEnvironmentSecretResponder = {
 export type ActionsGetEnvironmentSecret = (
   params: Params<t_ActionsGetEnvironmentSecretParamSchema, void, void>,
   respond: ActionsGetEnvironmentSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_actions_secret>>
 
 export type ActionsCreateOrUpdateEnvironmentSecretResponder = {
@@ -15749,7 +15748,7 @@ export type ActionsCreateOrUpdateEnvironmentSecret = (
     t_ActionsCreateOrUpdateEnvironmentSecretBodySchema
   >,
   respond: ActionsCreateOrUpdateEnvironmentSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_empty_object>
@@ -15763,7 +15762,7 @@ export type ActionsDeleteEnvironmentSecretResponder = {
 export type ActionsDeleteEnvironmentSecret = (
   params: Params<t_ActionsDeleteEnvironmentSecretParamSchema, void, void>,
   respond: ActionsDeleteEnvironmentSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsListEnvironmentVariablesResponder = {
@@ -15780,7 +15779,7 @@ export type ActionsListEnvironmentVariables = (
     void
   >,
   respond: ActionsListEnvironmentVariablesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -15803,7 +15802,7 @@ export type ActionsCreateEnvironmentVariable = (
     t_ActionsCreateEnvironmentVariableBodySchema
   >,
   respond: ActionsCreateEnvironmentVariableResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<201, t_empty_object>>
 
 export type ActionsGetEnvironmentVariableResponder = {
@@ -15813,7 +15812,7 @@ export type ActionsGetEnvironmentVariableResponder = {
 export type ActionsGetEnvironmentVariable = (
   params: Params<t_ActionsGetEnvironmentVariableParamSchema, void, void>,
   respond: ActionsGetEnvironmentVariableResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_actions_variable>>
 
 export type ActionsUpdateEnvironmentVariableResponder = {
@@ -15827,7 +15826,7 @@ export type ActionsUpdateEnvironmentVariable = (
     t_ActionsUpdateEnvironmentVariableBodySchema
   >,
   respond: ActionsUpdateEnvironmentVariableResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ActionsDeleteEnvironmentVariableResponder = {
@@ -15837,7 +15836,7 @@ export type ActionsDeleteEnvironmentVariableResponder = {
 export type ActionsDeleteEnvironmentVariable = (
   params: Params<t_ActionsDeleteEnvironmentVariableParamSchema, void, void>,
   respond: ActionsDeleteEnvironmentVariableResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type SearchCodeResponder = {
@@ -15859,7 +15858,7 @@ export type SearchCodeResponder = {
 export type SearchCode = (
   params: Params<void, t_SearchCodeQuerySchema, void>,
   respond: SearchCodeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -15895,7 +15894,7 @@ export type SearchCommitsResponder = {
 export type SearchCommits = (
   params: Params<void, t_SearchCommitsQuerySchema, void>,
   respond: SearchCommitsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -15928,7 +15927,7 @@ export type SearchIssuesAndPullRequestsResponder = {
 export type SearchIssuesAndPullRequests = (
   params: Params<void, t_SearchIssuesAndPullRequestsQuerySchema, void>,
   respond: SearchIssuesAndPullRequestsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -15967,7 +15966,7 @@ export type SearchLabelsResponder = {
 export type SearchLabels = (
   params: Params<void, t_SearchLabelsQuerySchema, void>,
   respond: SearchLabelsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -16002,7 +16001,7 @@ export type SearchReposResponder = {
 export type SearchRepos = (
   params: Params<void, t_SearchReposQuerySchema, void>,
   respond: SearchReposResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -16037,7 +16036,7 @@ export type SearchTopicsResponder = {
 export type SearchTopics = (
   params: Params<void, t_SearchTopicsQuerySchema, void>,
   respond: SearchTopicsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -16069,7 +16068,7 @@ export type SearchUsersResponder = {
 export type SearchUsers = (
   params: Params<void, t_SearchUsersQuerySchema, void>,
   respond: SearchUsersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -16100,7 +16099,7 @@ export type TeamsGetLegacyResponder = {
 export type TeamsGetLegacy = (
   params: Params<t_TeamsGetLegacyParamSchema, void, void>,
   respond: TeamsGetLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team_full>
@@ -16122,7 +16121,7 @@ export type TeamsUpdateLegacy = (
     t_TeamsUpdateLegacyBodySchema
   >,
   respond: TeamsUpdateLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team_full>
@@ -16141,7 +16140,7 @@ export type TeamsDeleteLegacyResponder = {
 export type TeamsDeleteLegacy = (
   params: Params<t_TeamsDeleteLegacyParamSchema, void, void>,
   respond: TeamsDeleteLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -16160,7 +16159,7 @@ export type TeamsListDiscussionsLegacy = (
     void
   >,
   respond: TeamsListDiscussionsLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_team_discussion[]>>
 
 export type TeamsCreateDiscussionLegacyResponder = {
@@ -16174,7 +16173,7 @@ export type TeamsCreateDiscussionLegacy = (
     t_TeamsCreateDiscussionLegacyBodySchema
   >,
   respond: TeamsCreateDiscussionLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<201, t_team_discussion>>
 
 export type TeamsGetDiscussionLegacyResponder = {
@@ -16184,7 +16183,7 @@ export type TeamsGetDiscussionLegacyResponder = {
 export type TeamsGetDiscussionLegacy = (
   params: Params<t_TeamsGetDiscussionLegacyParamSchema, void, void>,
   respond: TeamsGetDiscussionLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_team_discussion>>
 
 export type TeamsUpdateDiscussionLegacyResponder = {
@@ -16198,7 +16197,7 @@ export type TeamsUpdateDiscussionLegacy = (
     t_TeamsUpdateDiscussionLegacyBodySchema | undefined
   >,
   respond: TeamsUpdateDiscussionLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_team_discussion>>
 
 export type TeamsDeleteDiscussionLegacyResponder = {
@@ -16208,7 +16207,7 @@ export type TeamsDeleteDiscussionLegacyResponder = {
 export type TeamsDeleteDiscussionLegacy = (
   params: Params<t_TeamsDeleteDiscussionLegacyParamSchema, void, void>,
   respond: TeamsDeleteDiscussionLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type TeamsListDiscussionCommentsLegacyResponder = {
@@ -16222,7 +16221,7 @@ export type TeamsListDiscussionCommentsLegacy = (
     void
   >,
   respond: TeamsListDiscussionCommentsLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_team_discussion_comment[]>
 >
@@ -16238,7 +16237,7 @@ export type TeamsCreateDiscussionCommentLegacy = (
     t_TeamsCreateDiscussionCommentLegacyBodySchema
   >,
   respond: TeamsCreateDiscussionCommentLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<201, t_team_discussion_comment>
 >
@@ -16250,7 +16249,7 @@ export type TeamsGetDiscussionCommentLegacyResponder = {
 export type TeamsGetDiscussionCommentLegacy = (
   params: Params<t_TeamsGetDiscussionCommentLegacyParamSchema, void, void>,
   respond: TeamsGetDiscussionCommentLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_team_discussion_comment>
 >
@@ -16266,7 +16265,7 @@ export type TeamsUpdateDiscussionCommentLegacy = (
     t_TeamsUpdateDiscussionCommentLegacyBodySchema
   >,
   respond: TeamsUpdateDiscussionCommentLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_team_discussion_comment>
 >
@@ -16278,7 +16277,7 @@ export type TeamsDeleteDiscussionCommentLegacyResponder = {
 export type TeamsDeleteDiscussionCommentLegacy = (
   params: Params<t_TeamsDeleteDiscussionCommentLegacyParamSchema, void, void>,
   respond: TeamsDeleteDiscussionCommentLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type ReactionsListForTeamDiscussionCommentLegacyResponder = {
@@ -16292,7 +16291,7 @@ export type ReactionsListForTeamDiscussionCommentLegacy = (
     void
   >,
   respond: ReactionsListForTeamDiscussionCommentLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_reaction[]>>
 
 export type ReactionsCreateForTeamDiscussionCommentLegacyResponder = {
@@ -16306,7 +16305,7 @@ export type ReactionsCreateForTeamDiscussionCommentLegacy = (
     t_ReactionsCreateForTeamDiscussionCommentLegacyBodySchema
   >,
   respond: ReactionsCreateForTeamDiscussionCommentLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<201, t_reaction>>
 
 export type ReactionsListForTeamDiscussionLegacyResponder = {
@@ -16320,7 +16319,7 @@ export type ReactionsListForTeamDiscussionLegacy = (
     void
   >,
   respond: ReactionsListForTeamDiscussionLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_reaction[]>>
 
 export type ReactionsCreateForTeamDiscussionLegacyResponder = {
@@ -16334,7 +16333,7 @@ export type ReactionsCreateForTeamDiscussionLegacy = (
     t_ReactionsCreateForTeamDiscussionLegacyBodySchema
   >,
   respond: ReactionsCreateForTeamDiscussionLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<201, t_reaction>>
 
 export type TeamsListPendingInvitationsLegacyResponder = {
@@ -16348,7 +16347,7 @@ export type TeamsListPendingInvitationsLegacy = (
     void
   >,
   respond: TeamsListPendingInvitationsLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_organization_invitation[]>
 >
@@ -16365,7 +16364,7 @@ export type TeamsListMembersLegacy = (
     void
   >,
   respond: TeamsListMembersLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_simple_user[]>
@@ -16380,7 +16379,7 @@ export type TeamsGetMemberLegacyResponder = {
 export type TeamsGetMemberLegacy = (
   params: Params<t_TeamsGetMemberLegacyParamSchema, void, void>,
   respond: TeamsGetMemberLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<404, void>
 >
@@ -16395,7 +16394,7 @@ export type TeamsAddMemberLegacyResponder = {
 export type TeamsAddMemberLegacy = (
   params: Params<t_TeamsAddMemberLegacyParamSchema, void, void>,
   respond: TeamsAddMemberLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -16412,7 +16411,7 @@ export type TeamsRemoveMemberLegacyResponder = {
 export type TeamsRemoveMemberLegacy = (
   params: Params<t_TeamsRemoveMemberLegacyParamSchema, void, void>,
   respond: TeamsRemoveMemberLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<404, void>
 >
@@ -16425,7 +16424,7 @@ export type TeamsGetMembershipForUserLegacyResponder = {
 export type TeamsGetMembershipForUserLegacy = (
   params: Params<t_TeamsGetMembershipForUserLegacyParamSchema, void, void>,
   respond: TeamsGetMembershipForUserLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team_membership>
@@ -16446,7 +16445,7 @@ export type TeamsAddOrUpdateMembershipForUserLegacy = (
     t_TeamsAddOrUpdateMembershipForUserLegacyBodySchema | undefined
   >,
   respond: TeamsAddOrUpdateMembershipForUserLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team_membership>
@@ -16463,7 +16462,7 @@ export type TeamsRemoveMembershipForUserLegacyResponder = {
 export type TeamsRemoveMembershipForUserLegacy = (
   params: Params<t_TeamsRemoveMembershipForUserLegacyParamSchema, void, void>,
   respond: TeamsRemoveMembershipForUserLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<403, void>
 >
@@ -16480,7 +16479,7 @@ export type TeamsListProjectsLegacy = (
     void
   >,
   respond: TeamsListProjectsLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team_project[]>
@@ -16499,7 +16498,7 @@ export type TeamsCheckPermissionsForProjectLegacy = (
     void
   >,
   respond: TeamsCheckPermissionsForProjectLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team_project>
@@ -16523,7 +16522,7 @@ export type TeamsAddOrUpdateProjectPermissionsLegacy = (
     t_TeamsAddOrUpdateProjectPermissionsLegacyBodySchema | undefined
   >,
   respond: TeamsAddOrUpdateProjectPermissionsLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -16547,7 +16546,7 @@ export type TeamsRemoveProjectLegacyResponder = {
 export type TeamsRemoveProjectLegacy = (
   params: Params<t_TeamsRemoveProjectLegacyParamSchema, void, void>,
   respond: TeamsRemoveProjectLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -16567,7 +16566,7 @@ export type TeamsListReposLegacy = (
     void
   >,
   respond: TeamsListReposLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_minimal_repository[]>
@@ -16583,7 +16582,7 @@ export type TeamsCheckPermissionsForRepoLegacyResponder = {
 export type TeamsCheckPermissionsForRepoLegacy = (
   params: Params<t_TeamsCheckPermissionsForRepoLegacyParamSchema, void, void>,
   respond: TeamsCheckPermissionsForRepoLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team_repository>
@@ -16604,7 +16603,7 @@ export type TeamsAddOrUpdateRepoPermissionsLegacy = (
     t_TeamsAddOrUpdateRepoPermissionsLegacyBodySchema | undefined
   >,
   respond: TeamsAddOrUpdateRepoPermissionsLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -16619,7 +16618,7 @@ export type TeamsRemoveRepoLegacyResponder = {
 export type TeamsRemoveRepoLegacy = (
   params: Params<t_TeamsRemoveRepoLegacyParamSchema, void, void>,
   respond: TeamsRemoveRepoLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type TeamsListChildLegacyResponder = {
@@ -16636,7 +16635,7 @@ export type TeamsListChildLegacy = (
     void
   >,
   respond: TeamsListChildLegacyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team[]>
@@ -16655,7 +16654,7 @@ export type UsersGetAuthenticatedResponder = {
 export type UsersGetAuthenticated = (
   params: Params<void, void, void>,
   respond: UsersGetAuthenticatedResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_private_user | t_public_user>
@@ -16676,7 +16675,7 @@ export type UsersUpdateAuthenticatedResponder = {
 export type UsersUpdateAuthenticated = (
   params: Params<void, void, t_UsersUpdateAuthenticatedBodySchema | undefined>,
   respond: UsersUpdateAuthenticatedResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_private_user>
@@ -16698,7 +16697,7 @@ export type UsersListBlockedByAuthenticatedUserResponder = {
 export type UsersListBlockedByAuthenticatedUser = (
   params: Params<void, t_UsersListBlockedByAuthenticatedUserQuerySchema, void>,
   respond: UsersListBlockedByAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_simple_user[]>
@@ -16719,7 +16718,7 @@ export type UsersCheckBlockedResponder = {
 export type UsersCheckBlocked = (
   params: Params<t_UsersCheckBlockedParamSchema, void, void>,
   respond: UsersCheckBlockedResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -16741,7 +16740,7 @@ export type UsersBlockResponder = {
 export type UsersBlock = (
   params: Params<t_UsersBlockParamSchema, void, void>,
   respond: UsersBlockResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -16763,7 +16762,7 @@ export type UsersUnblockResponder = {
 export type UsersUnblock = (
   params: Params<t_UsersUnblockParamSchema, void, void>,
   respond: UsersUnblockResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -16788,7 +16787,7 @@ export type CodespacesListForAuthenticatedUserResponder = {
 export type CodespacesListForAuthenticatedUser = (
   params: Params<void, t_CodespacesListForAuthenticatedUserQuerySchema, void>,
   respond: CodespacesListForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -16821,7 +16820,7 @@ export type CodespacesCreateForAuthenticatedUserResponder = {
 export type CodespacesCreateForAuthenticatedUser = (
   params: Params<void, void, t_CodespacesCreateForAuthenticatedUserBodySchema>,
   respond: CodespacesCreateForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_codespace>
@@ -16853,7 +16852,7 @@ export type CodespacesListSecretsForAuthenticatedUser = (
     void
   >,
   respond: CodespacesListSecretsForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -16872,7 +16871,7 @@ export type CodespacesGetPublicKeyForAuthenticatedUserResponder = {
 export type CodespacesGetPublicKeyForAuthenticatedUser = (
   params: Params<void, void, void>,
   respond: CodespacesGetPublicKeyForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_codespaces_user_public_key>
 >
@@ -16888,7 +16887,7 @@ export type CodespacesGetSecretForAuthenticatedUser = (
     void
   >,
   respond: CodespacesGetSecretForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_codespaces_secret>>
 
 export type CodespacesCreateOrUpdateSecretForAuthenticatedUserResponder = {
@@ -16905,7 +16904,7 @@ export type CodespacesCreateOrUpdateSecretForAuthenticatedUser = (
     t_CodespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema
   >,
   respond: CodespacesCreateOrUpdateSecretForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_empty_object>
@@ -16925,7 +16924,7 @@ export type CodespacesDeleteSecretForAuthenticatedUser = (
     void
   >,
   respond: CodespacesDeleteSecretForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type CodespacesListRepositoriesForSecretForAuthenticatedUserResponder = {
@@ -16946,7 +16945,7 @@ export type CodespacesListRepositoriesForSecretForAuthenticatedUser = (
     void
   >,
   respond: CodespacesListRepositoriesForSecretForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -16977,7 +16976,7 @@ export type CodespacesSetRepositoriesForSecretForAuthenticatedUser = (
     t_CodespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema
   >,
   respond: CodespacesSetRepositoriesForSecretForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -17002,7 +17001,7 @@ export type CodespacesAddRepositoryForSecretForAuthenticatedUser = (
     void
   >,
   respond: CodespacesAddRepositoryForSecretForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -17027,7 +17026,7 @@ export type CodespacesRemoveRepositoryForSecretForAuthenticatedUser = (
     void
   >,
   respond: CodespacesRemoveRepositoryForSecretForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -17049,7 +17048,7 @@ export type CodespacesGetForAuthenticatedUserResponder = {
 export type CodespacesGetForAuthenticatedUser = (
   params: Params<t_CodespacesGetForAuthenticatedUserParamSchema, void, void>,
   respond: CodespacesGetForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_codespace>
@@ -17074,7 +17073,7 @@ export type CodespacesUpdateForAuthenticatedUser = (
     t_CodespacesUpdateForAuthenticatedUserBodySchema | undefined
   >,
   respond: CodespacesUpdateForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_codespace>
@@ -17095,7 +17094,7 @@ export type CodespacesDeleteForAuthenticatedUserResponder = {
 export type CodespacesDeleteForAuthenticatedUser = (
   params: Params<t_CodespacesDeleteForAuthenticatedUserParamSchema, void, void>,
   respond: CodespacesDeleteForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<202, EmptyObject>
@@ -17118,7 +17117,7 @@ export type CodespacesExportForAuthenticatedUserResponder = {
 export type CodespacesExportForAuthenticatedUser = (
   params: Params<t_CodespacesExportForAuthenticatedUserParamSchema, void, void>,
   respond: CodespacesExportForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<202, t_codespace_export_details>
@@ -17141,7 +17140,7 @@ export type CodespacesGetExportDetailsForAuthenticatedUser = (
     void
   >,
   respond: CodespacesGetExportDetailsForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_codespace_export_details>
@@ -17167,7 +17166,7 @@ export type CodespacesCodespaceMachinesForAuthenticatedUser = (
     void
   >,
   respond: CodespacesCodespaceMachinesForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -17199,7 +17198,7 @@ export type CodespacesPublishForAuthenticatedUser = (
     t_CodespacesPublishForAuthenticatedUserBodySchema
   >,
   respond: CodespacesPublishForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_codespace_with_full_repository>
@@ -17224,7 +17223,7 @@ export type CodespacesStartForAuthenticatedUserResponder = {
 export type CodespacesStartForAuthenticatedUser = (
   params: Params<t_CodespacesStartForAuthenticatedUserParamSchema, void, void>,
   respond: CodespacesStartForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_codespace>
@@ -17249,7 +17248,7 @@ export type CodespacesStopForAuthenticatedUserResponder = {
 export type CodespacesStopForAuthenticatedUser = (
   params: Params<t_CodespacesStopForAuthenticatedUserParamSchema, void, void>,
   respond: CodespacesStopForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_codespace>
@@ -17268,7 +17267,7 @@ export type PackagesListDockerMigrationConflictingPackagesForAuthenticatedUser =
   (
     params: Params<void, void, void>,
     respond: PackagesListDockerMigrationConflictingPackagesForAuthenticatedUserResponder,
-    ctx: Context,
+    ctx: RouterContext,
   ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_package[]>>
 
 export type UsersSetPrimaryEmailVisibilityForAuthenticatedUserResponder = {
@@ -17287,7 +17286,7 @@ export type UsersSetPrimaryEmailVisibilityForAuthenticatedUser = (
     t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserBodySchema
   >,
   respond: UsersSetPrimaryEmailVisibilityForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_email[]>
@@ -17309,7 +17308,7 @@ export type UsersListEmailsForAuthenticatedUserResponder = {
 export type UsersListEmailsForAuthenticatedUser = (
   params: Params<void, t_UsersListEmailsForAuthenticatedUserQuerySchema, void>,
   respond: UsersListEmailsForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_email[]>
@@ -17335,7 +17334,7 @@ export type UsersAddEmailForAuthenticatedUser = (
     t_UsersAddEmailForAuthenticatedUserBodySchema | undefined
   >,
   respond: UsersAddEmailForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_email[]>
@@ -17358,7 +17357,7 @@ export type UsersDeleteEmailForAuthenticatedUserResponder = {
 export type UsersDeleteEmailForAuthenticatedUser = (
   params: Params<void, void, t_UsersDeleteEmailForAuthenticatedUserBodySchema>,
   respond: UsersDeleteEmailForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -17383,7 +17382,7 @@ export type UsersListFollowersForAuthenticatedUser = (
     void
   >,
   respond: UsersListFollowersForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_simple_user[]>
@@ -17402,7 +17401,7 @@ export type UsersListFollowedByAuthenticatedUserResponder = {
 export type UsersListFollowedByAuthenticatedUser = (
   params: Params<void, t_UsersListFollowedByAuthenticatedUserQuerySchema, void>,
   respond: UsersListFollowedByAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_simple_user[]>
@@ -17426,7 +17425,7 @@ export type UsersCheckPersonIsFollowedByAuthenticated = (
     void
   >,
   respond: UsersCheckPersonIsFollowedByAuthenticatedResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -17447,7 +17446,7 @@ export type UsersFollowResponder = {
 export type UsersFollow = (
   params: Params<t_UsersFollowParamSchema, void, void>,
   respond: UsersFollowResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -17468,7 +17467,7 @@ export type UsersUnfollowResponder = {
 export type UsersUnfollow = (
   params: Params<t_UsersUnfollowParamSchema, void, void>,
   respond: UsersUnfollowResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -17489,7 +17488,7 @@ export type UsersListGpgKeysForAuthenticatedUserResponder = {
 export type UsersListGpgKeysForAuthenticatedUser = (
   params: Params<void, t_UsersListGpgKeysForAuthenticatedUserQuerySchema, void>,
   respond: UsersListGpgKeysForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_gpg_key[]>
@@ -17511,7 +17510,7 @@ export type UsersCreateGpgKeyForAuthenticatedUserResponder = {
 export type UsersCreateGpgKeyForAuthenticatedUser = (
   params: Params<void, void, t_UsersCreateGpgKeyForAuthenticatedUserBodySchema>,
   respond: UsersCreateGpgKeyForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_gpg_key>
@@ -17533,7 +17532,7 @@ export type UsersGetGpgKeyForAuthenticatedUserResponder = {
 export type UsersGetGpgKeyForAuthenticatedUser = (
   params: Params<t_UsersGetGpgKeyForAuthenticatedUserParamSchema, void, void>,
   respond: UsersGetGpgKeyForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_gpg_key>
@@ -17559,7 +17558,7 @@ export type UsersDeleteGpgKeyForAuthenticatedUser = (
     void
   >,
   respond: UsersDeleteGpgKeyForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -17587,7 +17586,7 @@ export type AppsListInstallationsForAuthenticatedUser = (
     void
   >,
   respond: AppsListInstallationsForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -17620,7 +17619,7 @@ export type AppsListInstallationReposForAuthenticatedUser = (
     void
   >,
   respond: AppsListInstallationReposForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -17650,7 +17649,7 @@ export type AppsAddRepoToInstallationForAuthenticatedUser = (
     void
   >,
   respond: AppsAddRepoToInstallationForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -17674,7 +17673,7 @@ export type AppsRemoveRepoFromInstallationForAuthenticatedUser = (
     void
   >,
   respond: AppsRemoveRepoFromInstallationForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -17692,7 +17691,7 @@ export type InteractionsGetRestrictionsForAuthenticatedUserResponder = {
 export type InteractionsGetRestrictionsForAuthenticatedUser = (
   params: Params<void, void, void>,
   respond: InteractionsGetRestrictionsForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_interaction_limit_response | EmptyObject>
@@ -17711,7 +17710,7 @@ export type InteractionsSetRestrictionsForAuthenticatedUser = (
     t_InteractionsSetRestrictionsForAuthenticatedUserBodySchema
   >,
   respond: InteractionsSetRestrictionsForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_interaction_limit_response>
@@ -17725,7 +17724,7 @@ export type InteractionsRemoveRestrictionsForAuthenticatedUserResponder = {
 export type InteractionsRemoveRestrictionsForAuthenticatedUser = (
   params: Params<void, void, void>,
   respond: InteractionsRemoveRestrictionsForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type IssuesListForAuthenticatedUserResponder = {
@@ -17737,7 +17736,7 @@ export type IssuesListForAuthenticatedUserResponder = {
 export type IssuesListForAuthenticatedUser = (
   params: Params<void, t_IssuesListForAuthenticatedUserQuerySchema, void>,
   respond: IssuesListForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issue[]>
@@ -17760,7 +17759,7 @@ export type UsersListPublicSshKeysForAuthenticatedUser = (
     void
   >,
   respond: UsersListPublicSshKeysForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_key[]>
@@ -17786,7 +17785,7 @@ export type UsersCreatePublicSshKeyForAuthenticatedUser = (
     t_UsersCreatePublicSshKeyForAuthenticatedUserBodySchema
   >,
   respond: UsersCreatePublicSshKeyForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_key>
@@ -17812,7 +17811,7 @@ export type UsersGetPublicSshKeyForAuthenticatedUser = (
     void
   >,
   respond: UsersGetPublicSshKeyForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_key>
@@ -17837,7 +17836,7 @@ export type UsersDeletePublicSshKeyForAuthenticatedUser = (
     void
   >,
   respond: UsersDeletePublicSshKeyForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -17861,7 +17860,7 @@ export type AppsListSubscriptionsForAuthenticatedUser = (
     void
   >,
   respond: AppsListSubscriptionsForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_user_marketplace_purchase[]>
@@ -17883,7 +17882,7 @@ export type AppsListSubscriptionsForAuthenticatedUserStubbed = (
     void
   >,
   respond: AppsListSubscriptionsForAuthenticatedUserStubbedResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_user_marketplace_purchase[]>
@@ -17906,7 +17905,7 @@ export type OrgsListMembershipsForAuthenticatedUser = (
     void
   >,
   respond: OrgsListMembershipsForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_org_membership[]>
@@ -17929,7 +17928,7 @@ export type OrgsGetMembershipForAuthenticatedUser = (
     void
   >,
   respond: OrgsGetMembershipForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_org_membership>
@@ -17951,7 +17950,7 @@ export type OrgsUpdateMembershipForAuthenticatedUser = (
     t_OrgsUpdateMembershipForAuthenticatedUserBodySchema
   >,
   respond: OrgsUpdateMembershipForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_org_membership>
@@ -17970,7 +17969,7 @@ export type MigrationsListForAuthenticatedUserResponder = {
 export type MigrationsListForAuthenticatedUser = (
   params: Params<void, t_MigrationsListForAuthenticatedUserQuerySchema, void>,
   respond: MigrationsListForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_migration[]>
@@ -17990,7 +17989,7 @@ export type MigrationsStartForAuthenticatedUserResponder = {
 export type MigrationsStartForAuthenticatedUser = (
   params: Params<void, void, t_MigrationsStartForAuthenticatedUserBodySchema>,
   respond: MigrationsStartForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_migration>
@@ -18015,7 +18014,7 @@ export type MigrationsGetStatusForAuthenticatedUser = (
     void
   >,
   respond: MigrationsGetStatusForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_migration>
@@ -18039,7 +18038,7 @@ export type MigrationsGetArchiveForAuthenticatedUser = (
     void
   >,
   respond: MigrationsGetArchiveForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<302, void>
@@ -18063,7 +18062,7 @@ export type MigrationsDeleteArchiveForAuthenticatedUser = (
     void
   >,
   respond: MigrationsDeleteArchiveForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -18088,7 +18087,7 @@ export type MigrationsUnlockRepoForAuthenticatedUser = (
     void
   >,
   respond: MigrationsUnlockRepoForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -18110,7 +18109,7 @@ export type MigrationsListReposForAuthenticatedUser = (
     void
   >,
   respond: MigrationsListReposForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_minimal_repository[]>
@@ -18127,7 +18126,7 @@ export type OrgsListForAuthenticatedUserResponder = {
 export type OrgsListForAuthenticatedUser = (
   params: Params<void, t_OrgsListForAuthenticatedUserQuerySchema, void>,
   respond: OrgsListForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_organization_simple[]>
@@ -18148,7 +18147,7 @@ export type PackagesListPackagesForAuthenticatedUser = (
     void
   >,
   respond: PackagesListPackagesForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_package[]> | Response<400, void>
 >
@@ -18164,7 +18163,7 @@ export type PackagesGetPackageForAuthenticatedUser = (
     void
   >,
   respond: PackagesGetPackageForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_package>>
 
 export type PackagesDeletePackageForAuthenticatedUserResponder = {
@@ -18181,7 +18180,7 @@ export type PackagesDeletePackageForAuthenticatedUser = (
     void
   >,
   respond: PackagesDeletePackageForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -18204,7 +18203,7 @@ export type PackagesRestorePackageForAuthenticatedUser = (
     void
   >,
   respond: PackagesRestorePackageForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -18228,7 +18227,7 @@ export type PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUser = (
     void
   >,
   respond: PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_package_version[]>
@@ -18248,7 +18247,7 @@ export type PackagesGetPackageVersionForAuthenticatedUser = (
     void
   >,
   respond: PackagesGetPackageVersionForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_package_version>>
 
 export type PackagesDeletePackageVersionForAuthenticatedUserResponder = {
@@ -18265,7 +18264,7 @@ export type PackagesDeletePackageVersionForAuthenticatedUser = (
     void
   >,
   respond: PackagesDeletePackageVersionForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -18288,7 +18287,7 @@ export type PackagesRestorePackageVersionForAuthenticatedUser = (
     void
   >,
   respond: PackagesRestorePackageVersionForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -18308,7 +18307,7 @@ export type ProjectsCreateForAuthenticatedUserResponder = {
 export type ProjectsCreateForAuthenticatedUser = (
   params: Params<void, void, t_ProjectsCreateForAuthenticatedUserBodySchema>,
   respond: ProjectsCreateForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_project>
@@ -18333,7 +18332,7 @@ export type UsersListPublicEmailsForAuthenticatedUser = (
     void
   >,
   respond: UsersListPublicEmailsForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_email[]>
@@ -18354,7 +18353,7 @@ export type ReposListForAuthenticatedUserResponder = {
 export type ReposListForAuthenticatedUser = (
   params: Params<void, t_ReposListForAuthenticatedUserQuerySchema, void>,
   respond: ReposListForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_repository[]>
@@ -18377,7 +18376,7 @@ export type ReposCreateForAuthenticatedUserResponder = {
 export type ReposCreateForAuthenticatedUser = (
   params: Params<void, void, t_ReposCreateForAuthenticatedUserBodySchema>,
   respond: ReposCreateForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_repository>
@@ -18404,7 +18403,7 @@ export type ReposListInvitationsForAuthenticatedUser = (
     void
   >,
   respond: ReposListInvitationsForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_repository_invitation[]>
@@ -18429,7 +18428,7 @@ export type ReposAcceptInvitationForAuthenticatedUser = (
     void
   >,
   respond: ReposAcceptInvitationForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -18454,7 +18453,7 @@ export type ReposDeclineInvitationForAuthenticatedUser = (
     void
   >,
   respond: ReposDeclineInvitationForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -18479,7 +18478,7 @@ export type UsersListSocialAccountsForAuthenticatedUser = (
     void
   >,
   respond: UsersListSocialAccountsForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_social_account[]>
@@ -18505,7 +18504,7 @@ export type UsersAddSocialAccountForAuthenticatedUser = (
     t_UsersAddSocialAccountForAuthenticatedUserBodySchema
   >,
   respond: UsersAddSocialAccountForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_social_account[]>
@@ -18532,7 +18531,7 @@ export type UsersDeleteSocialAccountForAuthenticatedUser = (
     t_UsersDeleteSocialAccountForAuthenticatedUserBodySchema
   >,
   respond: UsersDeleteSocialAccountForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -18558,7 +18557,7 @@ export type UsersListSshSigningKeysForAuthenticatedUser = (
     void
   >,
   respond: UsersListSshSigningKeysForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_ssh_signing_key[]>
@@ -18584,7 +18583,7 @@ export type UsersCreateSshSigningKeyForAuthenticatedUser = (
     t_UsersCreateSshSigningKeyForAuthenticatedUserBodySchema
   >,
   respond: UsersCreateSshSigningKeyForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_ssh_signing_key>
@@ -18610,7 +18609,7 @@ export type UsersGetSshSigningKeyForAuthenticatedUser = (
     void
   >,
   respond: UsersGetSshSigningKeyForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_ssh_signing_key>
@@ -18635,7 +18634,7 @@ export type UsersDeleteSshSigningKeyForAuthenticatedUser = (
     void
   >,
   respond: UsersDeleteSshSigningKeyForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -18659,7 +18658,7 @@ export type ActivityListReposStarredByAuthenticatedUser = (
     void
   >,
   respond: ActivityListReposStarredByAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_starred_repository[]>
@@ -18683,7 +18682,7 @@ export type ActivityCheckRepoIsStarredByAuthenticatedUser = (
     void
   >,
   respond: ActivityCheckRepoIsStarredByAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -18704,7 +18703,7 @@ export type ActivityStarRepoForAuthenticatedUserResponder = {
 export type ActivityStarRepoForAuthenticatedUser = (
   params: Params<t_ActivityStarRepoForAuthenticatedUserParamSchema, void, void>,
   respond: ActivityStarRepoForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -18729,7 +18728,7 @@ export type ActivityUnstarRepoForAuthenticatedUser = (
     void
   >,
   respond: ActivityUnstarRepoForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -18753,7 +18752,7 @@ export type ActivityListWatchedReposForAuthenticatedUser = (
     void
   >,
   respond: ActivityListWatchedReposForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_minimal_repository[]>
@@ -18772,7 +18771,7 @@ export type TeamsListForAuthenticatedUserResponder = {
 export type TeamsListForAuthenticatedUser = (
   params: Params<void, t_TeamsListForAuthenticatedUserQuerySchema, void>,
   respond: TeamsListForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_team_full[]>
@@ -18789,7 +18788,7 @@ export type UsersListResponder = {
 export type UsersList = (
   params: Params<void, t_UsersListQuerySchema, void>,
   respond: UsersListResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_simple_user[]>
@@ -18804,7 +18803,7 @@ export type UsersGetByUsernameResponder = {
 export type UsersGetByUsername = (
   params: Params<t_UsersGetByUsernameParamSchema, void, void>,
   respond: UsersGetByUsernameResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_private_user | t_public_user>
@@ -18824,7 +18823,7 @@ export type PackagesListDockerMigrationConflictingPackagesForUser = (
     void
   >,
   respond: PackagesListDockerMigrationConflictingPackagesForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_package[]>
@@ -18843,7 +18842,7 @@ export type ActivityListEventsForAuthenticatedUser = (
     void
   >,
   respond: ActivityListEventsForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_event[]>>
 
 export type ActivityListOrgEventsForAuthenticatedUserResponder = {
@@ -18857,7 +18856,7 @@ export type ActivityListOrgEventsForAuthenticatedUser = (
     void
   >,
   respond: ActivityListOrgEventsForAuthenticatedUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_event[]>>
 
 export type ActivityListPublicEventsForUserResponder = {
@@ -18871,7 +18870,7 @@ export type ActivityListPublicEventsForUser = (
     void
   >,
   respond: ActivityListPublicEventsForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_event[]>>
 
 export type UsersListFollowersForUserResponder = {
@@ -18885,7 +18884,7 @@ export type UsersListFollowersForUser = (
     void
   >,
   respond: UsersListFollowersForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_simple_user[]>>
 
 export type UsersListFollowingForUserResponder = {
@@ -18899,7 +18898,7 @@ export type UsersListFollowingForUser = (
     void
   >,
   respond: UsersListFollowingForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_simple_user[]>>
 
 export type UsersCheckFollowingForUserResponder = {
@@ -18910,7 +18909,7 @@ export type UsersCheckFollowingForUserResponder = {
 export type UsersCheckFollowingForUser = (
   params: Params<t_UsersCheckFollowingForUserParamSchema, void, void>,
   respond: UsersCheckFollowingForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<404, void>
 >
@@ -18927,7 +18926,7 @@ export type GistsListForUser = (
     void
   >,
   respond: GistsListForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_base_gist[]>
@@ -18945,7 +18944,7 @@ export type UsersListGpgKeysForUser = (
     void
   >,
   respond: UsersListGpgKeysForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_gpg_key[]>>
 
 export type UsersGetContextForUserResponder = {
@@ -18961,7 +18960,7 @@ export type UsersGetContextForUser = (
     void
   >,
   respond: UsersGetContextForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_hovercard>
@@ -18976,7 +18975,7 @@ export type AppsGetUserInstallationResponder = {
 export type AppsGetUserInstallation = (
   params: Params<t_AppsGetUserInstallationParamSchema, void, void>,
   respond: AppsGetUserInstallationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_installation>>
 
 export type UsersListPublicKeysForUserResponder = {
@@ -18990,7 +18989,7 @@ export type UsersListPublicKeysForUser = (
     void
   >,
   respond: UsersListPublicKeysForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_key_simple[]>>
 
 export type OrgsListForUserResponder = {
@@ -19004,7 +19003,7 @@ export type OrgsListForUser = (
     void
   >,
   respond: OrgsListForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_organization_simple[]>
 >
@@ -19023,7 +19022,7 @@ export type PackagesListPackagesForUser = (
     void
   >,
   respond: PackagesListPackagesForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_package[]>
@@ -19039,7 +19038,7 @@ export type PackagesGetPackageForUserResponder = {
 export type PackagesGetPackageForUser = (
   params: Params<t_PackagesGetPackageForUserParamSchema, void, void>,
   respond: PackagesGetPackageForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_package>>
 
 export type PackagesDeletePackageForUserResponder = {
@@ -19052,7 +19051,7 @@ export type PackagesDeletePackageForUserResponder = {
 export type PackagesDeletePackageForUser = (
   params: Params<t_PackagesDeletePackageForUserParamSchema, void, void>,
   respond: PackagesDeletePackageForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -19075,7 +19074,7 @@ export type PackagesRestorePackageForUser = (
     void
   >,
   respond: PackagesRestorePackageForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -19098,7 +19097,7 @@ export type PackagesGetAllPackageVersionsForPackageOwnedByUser = (
     void
   >,
   respond: PackagesGetAllPackageVersionsForPackageOwnedByUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_package_version[]>
@@ -19114,7 +19113,7 @@ export type PackagesGetPackageVersionForUserResponder = {
 export type PackagesGetPackageVersionForUser = (
   params: Params<t_PackagesGetPackageVersionForUserParamSchema, void, void>,
   respond: PackagesGetPackageVersionForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_package_version>>
 
 export type PackagesDeletePackageVersionForUserResponder = {
@@ -19127,7 +19126,7 @@ export type PackagesDeletePackageVersionForUserResponder = {
 export type PackagesDeletePackageVersionForUser = (
   params: Params<t_PackagesDeletePackageVersionForUserParamSchema, void, void>,
   respond: PackagesDeletePackageVersionForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -19146,7 +19145,7 @@ export type PackagesRestorePackageVersionForUserResponder = {
 export type PackagesRestorePackageVersionForUser = (
   params: Params<t_PackagesRestorePackageVersionForUserParamSchema, void, void>,
   respond: PackagesRestorePackageVersionForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -19167,7 +19166,7 @@ export type ProjectsListForUser = (
     void
   >,
   respond: ProjectsListForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_project[]>
@@ -19185,7 +19184,7 @@ export type ActivityListReceivedEventsForUser = (
     void
   >,
   respond: ActivityListReceivedEventsForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_event[]>>
 
 export type ActivityListReceivedPublicEventsForUserResponder = {
@@ -19199,7 +19198,7 @@ export type ActivityListReceivedPublicEventsForUser = (
     void
   >,
   respond: ActivityListReceivedPublicEventsForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_event[]>>
 
 export type ReposListForUserResponder = {
@@ -19213,7 +19212,7 @@ export type ReposListForUser = (
     void
   >,
   respond: ReposListForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_minimal_repository[]>
 >
@@ -19225,7 +19224,7 @@ export type BillingGetGithubActionsBillingUserResponder = {
 export type BillingGetGithubActionsBillingUser = (
   params: Params<t_BillingGetGithubActionsBillingUserParamSchema, void, void>,
   respond: BillingGetGithubActionsBillingUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_actions_billing_usage>
 >
@@ -19237,7 +19236,7 @@ export type BillingGetGithubPackagesBillingUserResponder = {
 export type BillingGetGithubPackagesBillingUser = (
   params: Params<t_BillingGetGithubPackagesBillingUserParamSchema, void, void>,
   respond: BillingGetGithubPackagesBillingUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_packages_billing_usage>
 >
@@ -19249,7 +19248,7 @@ export type BillingGetSharedStorageBillingUserResponder = {
 export type BillingGetSharedStorageBillingUser = (
   params: Params<t_BillingGetSharedStorageBillingUserParamSchema, void, void>,
   respond: BillingGetSharedStorageBillingUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_combined_billing_usage>
 >
@@ -19265,7 +19264,7 @@ export type UsersListSocialAccountsForUser = (
     void
   >,
   respond: UsersListSocialAccountsForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_social_account[]>>
 
 export type UsersListSshSigningKeysForUserResponder = {
@@ -19279,7 +19278,7 @@ export type UsersListSshSigningKeysForUser = (
     void
   >,
   respond: UsersListSshSigningKeysForUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_ssh_signing_key[]>>
 
 export type ActivityListReposStarredByUserResponder = {
@@ -19293,7 +19292,7 @@ export type ActivityListReposStarredByUser = (
     void
   >,
   respond: ActivityListReposStarredByUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_starred_repository[] | t_repository[]>
@@ -19310,7 +19309,7 @@ export type ActivityListReposWatchedByUser = (
     void
   >,
   respond: ActivityListReposWatchedByUserResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_minimal_repository[]>
 >
@@ -19323,7 +19322,7 @@ export type MetaGetAllVersionsResponder = {
 export type MetaGetAllVersions = (
   params: Params<void, void, void>,
   respond: MetaGetAllVersionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, string[]>
@@ -19337,7 +19336,7 @@ export type MetaGetZenResponder = {
 export type MetaGetZen = (
   params: Params<void, void, void>,
   respond: MetaGetZenResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, string>>
 
 export type Implementation = {
