@@ -81,6 +81,35 @@ export class ClientOperationBuilder {
       .find(it => it.in === "header" && it.name.toLowerCase() === name.toLowerCase()) !== null
   }
 
+  responseSchemas() {
+    const schemaBuilder = this.schemaBuilder
+    const models = this.models
+
+    return Object.entries(this.operation.responses ?? {}).reduce((acc, [status, response]) => {
+      const content = Object.values(response.content ?? {}).pop()
+
+      if (status === "default") {
+        acc.defaultResponse = {
+          schema: content ? schemaBuilder.fromModel(content.schema, true, true) : schemaBuilder.void(),
+          type: content ? models.schemaObjectToType(content.schema) : "void",
+        }
+      } else {
+        acc.specific.push({
+          statusString: status,
+          statusType: statusStringToType(status),
+          type: content ? models.schemaObjectToType(content.schema) : "void",
+          schema: content ? schemaBuilder.fromModel(content.schema, true, true) : schemaBuilder.void(),
+        })
+      }
+
+      return acc
+    }, {specific: [], defaultResponse: undefined} as {
+      specific: {statusString: string, statusType: string, schema: string, type: string}[], defaultResponse?: {
+        type: string, schema: string
+      }
+    })
+  }
+
   returnType(): { statusType: string, responseType: string, isDefault: boolean }[] {
     const models = this.models
 

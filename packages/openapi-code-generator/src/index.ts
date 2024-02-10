@@ -46,6 +46,14 @@ const program = new Command()
   )
   .addOption(
     new Option(
+      "--enable-runtime-response-validation",
+      "(experimental) whether to validate response bodies using the chosen runtime schema library",
+    )
+      .env("OPENAPI_ENABLE_RUNTIME_RESPONSE_VALIDATION")
+      .default(false),
+  )
+  .addOption(
+    new Option(
       "--extract-inline-schemas",
       "(experimental) Generate names and extract types/schemas for inline schemas",
     )
@@ -77,6 +85,7 @@ async function main() {
     input,
     dest: config.output,
     schemaBuilder: config.schemaBuilder,
+    enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
   })
 }
 

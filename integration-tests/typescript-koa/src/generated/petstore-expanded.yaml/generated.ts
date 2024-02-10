@@ -248,7 +248,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const deletePetParamSchema = z.object({ id: z.coerce.number() })
 
   const deletePetResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [["204", z.undefined()]],
     s_Error,
   )
 

@@ -28,6 +28,7 @@ export async function generateTypescriptAngular(
     imports,
     types,
     schemaBuilder,
+    config.enableRuntimeResponseValidation,
   )
 
   input.allOperations().map((it) => client.add(it))

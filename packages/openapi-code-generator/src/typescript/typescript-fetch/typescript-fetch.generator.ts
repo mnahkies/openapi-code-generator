@@ -27,6 +27,7 @@ export async function generateTypescriptFetch(
     imports,
     types,
     schemaBuilder,
+    config.enableRuntimeResponseValidation,
   )
 
   input.allOperations().map((it) => client.add(it))

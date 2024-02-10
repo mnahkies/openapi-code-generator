@@ -2,6 +2,7 @@ import {TypescriptClientBuilder} from "../common/client-builder"
 import {ImportBuilder} from "../common/import-builder"
 import {ClientOperationBuilder} from "../common/client-operation-builder"
 import {asyncMethod, routeToTemplateString} from "../common/typescript-common"
+import {ZodBuilder} from "../common/schema-builders/zod-schema-builder"
 
 export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
 
@@ -19,6 +20,16 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
         "StatusCode5xx",
         "StatusCode",
       )
+
+    if (this.enableRuntimeResponseValidation) {
+      if (this.schemaBuilder instanceof ZodBuilder) {
+        imports
+          .from("@nahkies/typescript-fetch-runtime/zod")
+          .add(
+            "responseValidationFactory",
+          )
+      }
+    }
   }
 
   protected buildOperation(builder: ClientOperationBuilder): string {
@@ -36,8 +47,24 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
       })
       .join(" | ")
 
+    const responseSchemas = this.enableRuntimeResponseValidation
+      ? builder.responseSchemas()
+      : null
+
+    const fetchFragment = `this._fetch(url ${queryString ? "+ query" : ""},
+    {${
+      [
+        `method: "${method}",`,
+        headers ? "headers," : "",
+        requestBodyParameter ? "body," : "",
+        "...(opts ?? {})",
+      ]
+        .filter(Boolean)
+        .join("\n")
+    }}, timeout)`
+
     const body = `
-const url = this.basePath + \`${routeToTemplateString(route)}\`
+    const url = this.basePath + \`${routeToTemplateString(route)}\`
     ${
       [
         headers ? `const headers = this._headers(${headers})` : "",
@@ -48,21 +75,21 @@ const url = this.basePath + \`${routeToTemplateString(route)}\`
         .join("\n")
     }
 
-    return this._fetch(url ${queryString ? "+ query" : ""},
-    {${
-      [
-        `method: "${method}",`,
-        headers ? "headers," : "",
-        requestBodyParameter ? "body," : "",
-        "...(opts ?? {})",
-      ]
-        .filter(Boolean)
-        .join("\n")
-    }}, timeout)
+    ${responseSchemas ? `const res = ${fetchFragment}
+
+    return responseValidationFactory([${
+      responseSchemas.specific
+        .map(it => `["${it.statusString}", ${it.schema}]`)
+    }], ${responseSchemas.defaultResponse?.schema})(res)
+    ` : `return ${fetchFragment}`}
 `
     return asyncMethod({
       name: operationId,
-      parameters: [operationParameter, {name: "timeout", type: "number", required: false}, {name: "opts", type: "RequestInit", required: false}],
+      parameters: [operationParameter, {name: "timeout", type: "number", required: false}, {
+        name: "opts",
+        type: "RequestInit",
+        required: false,
+      }],
       returnType: `TypedFetchResponse<${returnType}>`,
       body,
     })

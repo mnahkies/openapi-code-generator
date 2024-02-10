@@ -41,19 +41,16 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
           .filter((it) => it.isDefault)
           .map(({responseType}) => `AxiosResponse<${responseType}>`),
       ) ||
-      "never"
+      "AxiosResponse<void>"
 
-    const body = `
-const url = \`${routeToTemplateString(route)}\`
-    ${[
-      headers ? `const headers = this._headers(${headers})` : "",
-      queryString ? `const query = this._query({ ${queryString} })` : "",
-      requestBodyParameter ? "const body = JSON.stringify(p.requestBody)" : "",
-    ]
-      .filter(Boolean)
-      .join("\n")}
+    const responseSchema = this.enableRuntimeResponseValidation
+      ? builder
+          .responseSchemas()
+          .specific.find((it) => it.statusType.startsWith("2")) ??
+        builder.responseSchemas().defaultResponse
+      : null
 
-    return this.axios.request({${[
+    const axiosFragment = `this.axios.request({${[
       `url: url ${queryString ? "+ query" : ""}`,
       "baseURL: this.basePath",
       `method: "${method}"`,
@@ -63,7 +60,26 @@ const url = \`${routeToTemplateString(route)}\`
       "...(opts ?? {})",
     ]
       .filter(Boolean)
-      .join(",\n")}})
+      .join(",\n")}})`
+
+    const body = `
+    const url = \`${routeToTemplateString(route)}\`
+    ${[
+      headers ? `const headers = this._headers(${headers})` : "",
+      queryString ? `const query = this._query({ ${queryString} })` : "",
+      requestBodyParameter ? "const body = JSON.stringify(p.requestBody)" : "",
+    ]
+      .filter(Boolean)
+      .join("\n")}
+
+    ${
+      responseSchema
+        ? `const res = await ${axiosFragment}
+
+    return {...res, data: ${responseSchema.schema}.parse(res.data)}
+    `
+        : `return ${axiosFragment}`
+    }
 `
     return asyncMethod({
       name: operationId,

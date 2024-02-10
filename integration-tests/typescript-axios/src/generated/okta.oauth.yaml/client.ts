@@ -101,7 +101,7 @@ export class ApiClient extends AbstractAxiosClient {
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<never> {
+  ): Promise<AxiosResponse<void>> {
     const url = `/oauth2/v1/authorize`
     const query = this._query({
       acr_values: p["acrValues"],
@@ -356,7 +356,7 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<never> {
+  ): Promise<AxiosResponse<void>> {
     const url = `/oauth2/v1/logout`
     const query = this._query({
       id_token_hint: p["idTokenHint"],
@@ -522,7 +522,7 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<never> {
+  ): Promise<AxiosResponse<void>> {
     const url = `/oauth2/${p["authorizationServerId"]}/v1/authorize`
     const query = this._query({
       acr_values: p["acrValues"],
@@ -656,7 +656,7 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<never> {
+  ): Promise<AxiosResponse<void>> {
     const url = `/oauth2/${p["authorizationServerId"]}/v1/logout`
     const query = this._query({
       id_token_hint: p["idTokenHint"],

@@ -2776,6 +2776,9 @@ __metadata:
   dependencies:
     "@types/qs": "npm:^6.9.11"
     qs: "npm:^6.11.2"
+    zod: "npm:^3.20.6"
+  peerDependencies:
+    zod: ^3.20.6
   languageName: unknown
   linkType: soft
 
@@ -15631,7 +15634,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.19.1, zod@npm:^3.22.4":
+"zod@npm:^3.19.1, zod@npm:^3.20.6, zod@npm:^3.22.4":
   version: 3.22.4
   resolution: "zod@npm:3.22.4"
   checksum: 10/73622ca36a916f785cf528fe612a884b3e0f183dbe6b33365a7d0fc92abdbedf7804c5e2bd8df0a278e1472106d46674281397a3dd800fa9031dc3429758c6ac

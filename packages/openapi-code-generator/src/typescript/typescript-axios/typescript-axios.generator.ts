@@ -19,6 +19,7 @@ export async function generateTypescriptAxios(
     input,
     imports,
   )
+
   const client = new TypescriptAxiosClientBuilder(
     "client.ts",
     "ApiClient",
@@ -26,6 +27,7 @@ export async function generateTypescriptAxios(
     imports,
     types,
     schemaBuilder,
+    config.enableRuntimeResponseValidation,
   )
 
   input.allOperations().map((it) => client.add(it))
