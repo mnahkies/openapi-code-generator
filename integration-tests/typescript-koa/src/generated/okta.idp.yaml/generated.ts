@@ -56,7 +56,7 @@ import {
   s_Schema,
   s_UpdateAppAuthenticatorEnrollmentRequest,
 } from "./schemas"
-import KoaRouter from "@koa/router"
+import KoaRouter, { RouterContext } from "@koa/router"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -78,7 +78,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import { Context } from "koa"
 import koaBody from "koa-body"
 import { z } from "zod"
 
@@ -96,7 +95,7 @@ export type CreateAppAuthenticatorEnrollmentResponder = {
 export type CreateAppAuthenticatorEnrollment = (
   params: Params<void, void, t_CreateAppAuthenticatorEnrollmentBodySchema>,
   respond: CreateAppAuthenticatorEnrollmentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_AppAuthenticatorEnrollment>
@@ -119,7 +118,7 @@ export type VerifyAppAuthenticatorPushNotificationChallenge = (
     t_VerifyAppAuthenticatorPushNotificationChallengeBodySchema
   >,
   respond: VerifyAppAuthenticatorPushNotificationChallengeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, void>
@@ -141,7 +140,7 @@ export type UpdateAppAuthenticatorEnrollment = (
     t_UpdateAppAuthenticatorEnrollmentBodySchema
   >,
   respond: UpdateAppAuthenticatorEnrollmentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_UpdateAppAuthenticatorEnrollmentRequest>
@@ -160,7 +159,7 @@ export type DeleteAppAuthenticatorEnrollmentResponder = {
 export type DeleteAppAuthenticatorEnrollment = (
   params: Params<t_DeleteAppAuthenticatorEnrollmentParamSchema, void, void>,
   respond: DeleteAppAuthenticatorEnrollmentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -180,7 +179,7 @@ export type ListAppAuthenticatorPendingPushNotificationChallenges = (
     void
   >,
   respond: ListAppAuthenticatorPendingPushNotificationChallengesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_PushNotificationChallenge[]>
 >
@@ -193,7 +192,7 @@ export type ListEmailsResponder = {
 export type ListEmails = (
   params: Params<void, void, void>,
   respond: ListEmailsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_Email[]>
@@ -211,7 +210,7 @@ export type CreateEmailResponder = {
 export type CreateEmail = (
   params: Params<void, void, t_CreateEmailBodySchema>,
   respond: CreateEmailResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_Email>
@@ -229,7 +228,7 @@ export type GetEmailResponder = {
 export type GetEmail = (
   params: Params<t_GetEmailParamSchema, void, void>,
   respond: GetEmailResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_Email> | Response<401, t_Error>
 >
@@ -245,7 +244,7 @@ export type DeleteEmailResponder = {
 export type DeleteEmail = (
   params: Params<t_DeleteEmailParamSchema, void, void>,
   respond: DeleteEmailResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -290,7 +289,7 @@ export type SendEmailChallenge = (
     t_SendEmailChallengeBodySchema
   >,
   respond: SendEmailChallengeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -353,7 +352,7 @@ export type PollChallengeForEmailMagicLinkResponder = {
 export type PollChallengeForEmailMagicLink = (
   params: Params<t_PollChallengeForEmailMagicLinkParamSchema, void, void>,
   respond: PollChallengeForEmailMagicLinkResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -395,7 +394,7 @@ export type VerifyEmailOtpResponder = {
 export type VerifyEmailOtp = (
   params: Params<t_VerifyEmailOtpParamSchema, void, t_VerifyEmailOtpBodySchema>,
   respond: VerifyEmailOtpResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, void>
@@ -412,7 +411,7 @@ export type ListPhonesResponder = {
 export type ListPhones = (
   params: Params<void, void, void>,
   respond: ListPhonesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_Phone[]>
@@ -431,7 +430,7 @@ export type CreatePhoneResponder = {
 export type CreatePhone = (
   params: Params<void, void, t_CreatePhoneBodySchema>,
   respond: CreatePhoneResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_Phone>
@@ -451,7 +450,7 @@ export type GetPhoneResponder = {
 export type GetPhone = (
   params: Params<t_GetPhoneParamSchema, void, void>,
   respond: GetPhoneResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_Phone>
@@ -469,7 +468,7 @@ export type DeletePhoneResponder = {
 export type DeletePhone = (
   params: Params<t_DeletePhoneParamSchema, void, void>,
   respond: DeletePhoneResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -503,7 +502,7 @@ export type SendPhoneChallenge = (
     t_SendPhoneChallengeBodySchema
   >,
   respond: SendPhoneChallengeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -542,7 +541,7 @@ export type VerifyPhoneChallenge = (
     t_VerifyPhoneChallengeBodySchema
   >,
   respond: VerifyPhoneChallengeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -561,7 +560,7 @@ export type GetProfileResponder = {
 export type GetProfile = (
   params: Params<void, void, void>,
   respond: GetProfileResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_Profile>
@@ -578,7 +577,7 @@ export type ReplaceProfileResponder = {
 export type ReplaceProfile = (
   params: Params<void, void, t_ReplaceProfileBodySchema>,
   respond: ReplaceProfileResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_Profile>
@@ -595,7 +594,7 @@ export type GetProfileSchemaResponder = {
 export type GetProfileSchema = (
   params: Params<void, void, void>,
   respond: GetProfileSchemaResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_Schema> | Response<401, t_Error>
 >

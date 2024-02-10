@@ -12,7 +12,7 @@ import {
   t_Pet,
 } from "./models"
 import { s_Error, s_NewPet, s_Pet } from "./schemas"
-import KoaRouter from "@koa/router"
+import KoaRouter, { RouterContext } from "@koa/router"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -34,7 +34,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import { Context } from "koa"
 import koaBody from "koa-body"
 import { z } from "zod"
 
@@ -49,7 +48,7 @@ export type FindPetsResponder = {
 export type FindPets = (
   params: Params<void, t_FindPetsQuerySchema, void>,
   respond: FindPetsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_Pet[]>
@@ -64,7 +63,7 @@ export type AddPetResponder = {
 export type AddPet = (
   params: Params<void, void, t_AddPetBodySchema>,
   respond: AddPetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_Pet>
@@ -79,7 +78,7 @@ export type FindPetByIdResponder = {
 export type FindPetById = (
   params: Params<t_FindPetByIdParamSchema, void, void>,
   respond: FindPetByIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_Pet>
@@ -94,7 +93,7 @@ export type DeletePetResponder = {
 export type DeletePet = (
   params: Params<t_DeletePetParamSchema, void, void>,
   respond: DeletePetResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>

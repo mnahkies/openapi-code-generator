@@ -121,7 +121,7 @@ import {
   s_TokenTypeHintRevoke,
   s_UserInfo,
 } from "./schemas"
-import KoaRouter from "@koa/router"
+import KoaRouter, { RouterContext } from "@koa/router"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -143,7 +143,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import { Context } from "koa"
 import koaBody from "koa-body"
 import { z } from "zod"
 
@@ -158,7 +157,7 @@ export type GetWellKnownOpenIdConfigurationResponder = {
 export type GetWellKnownOpenIdConfiguration = (
   params: Params<void, t_GetWellKnownOpenIdConfigurationQuerySchema, void>,
   respond: GetWellKnownOpenIdConfigurationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_OidcMetadata>
@@ -172,7 +171,7 @@ export type AuthorizeResponder = {
 export type Authorize = (
   params: Params<void, t_AuthorizeQuerySchema, void>,
   respond: AuthorizeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
 
 export type BcAuthorizeResponder = {
@@ -185,7 +184,7 @@ export type BcAuthorizeResponder = {
 export type BcAuthorize = (
   params: Params<void, void, t_BcAuthorizeBodySchema>,
   respond: BcAuthorizeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_BackchannelAuthorizeResponse>
@@ -203,7 +202,7 @@ export type ListClientsResponder = {
 export type ListClients = (
   params: Params<void, t_ListClientsQuerySchema, void>,
   respond: ListClientsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_Client[]>
@@ -221,7 +220,7 @@ export type CreateClientResponder = {
 export type CreateClient = (
   params: Params<void, void, t_CreateClientBodySchema>,
   respond: CreateClientResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<201, t_Client>
@@ -240,7 +239,7 @@ export type GetClientResponder = {
 export type GetClient = (
   params: Params<t_GetClientParamSchema, void, void>,
   respond: GetClientResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_Client>
@@ -260,7 +259,7 @@ export type ReplaceClientResponder = {
 export type ReplaceClient = (
   params: Params<t_ReplaceClientParamSchema, void, t_ReplaceClientBodySchema>,
   respond: ReplaceClientResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_Client>
@@ -280,7 +279,7 @@ export type DeleteClientResponder = {
 export type DeleteClient = (
   params: Params<t_DeleteClientParamSchema, void, void>,
   respond: DeleteClientResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -299,7 +298,7 @@ export type GenerateNewClientSecretResponder = {
 export type GenerateNewClientSecret = (
   params: Params<t_GenerateNewClientSecretParamSchema, void, void>,
   respond: GenerateNewClientSecretResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_Client>
@@ -318,7 +317,7 @@ export type DeviceAuthorizeResponder = {
 export type DeviceAuthorize = (
   params: Params<void, void, t_DeviceAuthorizeBodySchema>,
   respond: DeviceAuthorizeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_DeviceAuthorizeResponse>
@@ -337,7 +336,7 @@ export type IntrospectResponder = {
 export type Introspect = (
   params: Params<void, void, t_IntrospectBodySchema>,
   respond: IntrospectResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_IntrospectionResponse>
@@ -354,7 +353,7 @@ export type OauthKeysResponder = {
 export type OauthKeys = (
   params: Params<void, t_OauthKeysQuerySchema, void>,
   respond: OauthKeysResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_OAuthKeys>
@@ -368,7 +367,7 @@ export type LogoutResponder = {
 export type Logout = (
   params: Params<void, t_LogoutQuerySchema, void>,
   respond: LogoutResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
 
 export type ParResponder = {
@@ -382,7 +381,7 @@ export type ParResponder = {
 export type Par = (
   params: Params<void, void, t_ParBodySchema>,
   respond: ParResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_ParResponse>
@@ -402,7 +401,7 @@ export type RevokeResponder = {
 export type Revoke = (
   params: Params<void, void, t_RevokeBodySchema>,
   respond: RevokeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, void>
@@ -421,7 +420,7 @@ export type TokenResponder = {
 export type Token = (
   params: Params<void, void, t_TokenBodySchema>,
   respond: TokenResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_TokenResponse>
@@ -440,7 +439,7 @@ export type UserinfoResponder = {
 export type Userinfo = (
   params: Params<void, void, void>,
   respond: UserinfoResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_UserInfo>
@@ -462,7 +461,7 @@ export type GetWellKnownOAuthConfigurationCustomAs = (
     void
   >,
   respond: GetWellKnownOAuthConfigurationCustomAsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_OAuthMetadata>
@@ -483,7 +482,7 @@ export type GetWellKnownOpenIdConfigurationCustomAs = (
     void
   >,
   respond: GetWellKnownOpenIdConfigurationCustomAsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_OidcMetadata>
@@ -502,7 +501,7 @@ export type AuthorizeCustomAs = (
     void
   >,
   respond: AuthorizeCustomAsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
 
 export type BcAuthorizeCustomAsResponder = {
@@ -519,7 +518,7 @@ export type BcAuthorizeCustomAs = (
     t_BcAuthorizeCustomAsBodySchema
   >,
   respond: BcAuthorizeCustomAsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_BackchannelAuthorizeResponse>
@@ -542,7 +541,7 @@ export type DeviceAuthorizeCustomAs = (
     t_DeviceAuthorizeCustomAsBodySchema
   >,
   respond: DeviceAuthorizeCustomAsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_DeviceAuthorizeResponse>
@@ -565,7 +564,7 @@ export type IntrospectCustomAs = (
     t_IntrospectCustomAsBodySchema
   >,
   respond: IntrospectCustomAsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_IntrospectionResponse>
@@ -582,7 +581,7 @@ export type OauthKeysCustomAsResponder = {
 export type OauthKeysCustomAs = (
   params: Params<t_OauthKeysCustomAsParamSchema, void, void>,
   respond: OauthKeysCustomAsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_OAuthKeys>
@@ -600,7 +599,7 @@ export type LogoutCustomAs = (
     void
   >,
   respond: LogoutCustomAsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
 
 export type ParCustomAsResponder = {
@@ -614,7 +613,7 @@ export type ParCustomAsResponder = {
 export type ParCustomAs = (
   params: Params<t_ParCustomAsParamSchema, void, t_ParCustomAsBodySchema>,
   respond: ParCustomAsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_ParResponse>
@@ -634,7 +633,7 @@ export type RevokeCustomAsResponder = {
 export type RevokeCustomAs = (
   params: Params<t_RevokeCustomAsParamSchema, void, t_RevokeCustomAsBodySchema>,
   respond: RevokeCustomAsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, void>
@@ -653,7 +652,7 @@ export type TokenCustomAsResponder = {
 export type TokenCustomAs = (
   params: Params<t_TokenCustomAsParamSchema, void, t_TokenCustomAsBodySchema>,
   respond: TokenCustomAsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_TokenResponse>
@@ -672,7 +671,7 @@ export type UserinfoCustomAsResponder = {
 export type UserinfoCustomAs = (
   params: Params<t_UserinfoCustomAsParamSchema, void, void>,
   respond: UserinfoCustomAsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_UserInfo>

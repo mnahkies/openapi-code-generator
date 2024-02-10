@@ -15,7 +15,7 @@ import {
   t_UpdateTodoListByIdParamSchema,
 } from "./models"
 import { s_CreateUpdateTodoList, s_Error, s_TodoList } from "./schemas"
-import KoaRouter from "@koa/router"
+import KoaRouter, { RouterContext } from "@koa/router"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -37,7 +37,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import { Context } from "koa"
 import koaBody from "koa-body"
 import { z } from "zod"
 
@@ -51,7 +50,7 @@ export type GetTodoListsResponder = {
 export type GetTodoLists = (
   params: Params<void, t_GetTodoListsQuerySchema, void>,
   respond: GetTodoListsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_TodoList[]>>
 
 export type GetTodoListByIdResponder = {
@@ -63,7 +62,7 @@ export type GetTodoListByIdResponder = {
 export type GetTodoListById = (
   params: Params<t_GetTodoListByIdParamSchema, void, void>,
   respond: GetTodoListByIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_TodoList>
@@ -84,7 +83,7 @@ export type UpdateTodoListById = (
     t_UpdateTodoListByIdBodySchema
   >,
   respond: UpdateTodoListByIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_TodoList>
@@ -101,7 +100,7 @@ export type DeleteTodoListByIdResponder = {
 export type DeleteTodoListById = (
   params: Params<t_DeleteTodoListByIdParamSchema, void, void>,
   respond: DeleteTodoListByIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
@@ -125,7 +124,7 @@ export type GetTodoListItemsResponder = {
 export type GetTodoListItems = (
   params: Params<t_GetTodoListItemsParamSchema, void, void>,
   respond: GetTodoListItemsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -157,7 +156,7 @@ export type CreateTodoListItem = (
     t_CreateTodoListItemBodySchema
   >,
   respond: CreateTodoListItemResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type Implementation = {

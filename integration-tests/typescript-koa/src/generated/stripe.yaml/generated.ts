@@ -2656,7 +2656,7 @@ import {
   s_verification_session_redaction,
   s_webhook_endpoint,
 } from "./schemas"
-import KoaRouter from "@koa/router"
+import KoaRouter, { RouterContext } from "@koa/router"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -2678,7 +2678,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import { Context } from "koa"
 import koaBody from "koa-body"
 import { z } from "zod"
 
@@ -2697,7 +2696,7 @@ export type GetAccount = (
     t_GetAccountBodySchema | undefined
   >,
   respond: GetAccountResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_account>
@@ -2712,7 +2711,7 @@ export type PostAccountLinksResponder = {
 export type PostAccountLinks = (
   params: Params<void, void, t_PostAccountLinksBodySchema>,
   respond: PostAccountLinksResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_account_link>
@@ -2727,7 +2726,7 @@ export type PostAccountSessionsResponder = {
 export type PostAccountSessions = (
   params: Params<void, void, t_PostAccountSessionsBodySchema>,
   respond: PostAccountSessionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_account_session>
@@ -2751,7 +2750,7 @@ export type GetAccounts = (
     t_GetAccountsBodySchema | undefined
   >,
   respond: GetAccountsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -2774,7 +2773,7 @@ export type PostAccountsResponder = {
 export type PostAccounts = (
   params: Params<void, void, t_PostAccountsBodySchema | undefined>,
   respond: PostAccountsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_account>
@@ -2793,7 +2792,7 @@ export type DeleteAccountsAccount = (
     t_DeleteAccountsAccountBodySchema | undefined
   >,
   respond: DeleteAccountsAccountResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_account>
@@ -2812,7 +2811,7 @@ export type GetAccountsAccount = (
     t_GetAccountsAccountBodySchema | undefined
   >,
   respond: GetAccountsAccountResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_account>
@@ -2831,7 +2830,7 @@ export type PostAccountsAccount = (
     t_PostAccountsAccountBodySchema | undefined
   >,
   respond: PostAccountsAccountResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_account>
@@ -2850,7 +2849,7 @@ export type PostAccountsAccountBankAccounts = (
     t_PostAccountsAccountBankAccountsBodySchema | undefined
   >,
   respond: PostAccountsAccountBankAccountsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_external_account>
@@ -2869,7 +2868,7 @@ export type DeleteAccountsAccountBankAccountsId = (
     t_DeleteAccountsAccountBankAccountsIdBodySchema | undefined
   >,
   respond: DeleteAccountsAccountBankAccountsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_external_account>
@@ -2888,7 +2887,7 @@ export type GetAccountsAccountBankAccountsId = (
     t_GetAccountsAccountBankAccountsIdBodySchema | undefined
   >,
   respond: GetAccountsAccountBankAccountsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_external_account>
@@ -2907,7 +2906,7 @@ export type PostAccountsAccountBankAccountsId = (
     t_PostAccountsAccountBankAccountsIdBodySchema | undefined
   >,
   respond: PostAccountsAccountBankAccountsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_external_account>
@@ -2931,7 +2930,7 @@ export type GetAccountsAccountCapabilities = (
     t_GetAccountsAccountCapabilitiesBodySchema | undefined
   >,
   respond: GetAccountsAccountCapabilitiesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -2958,7 +2957,7 @@ export type GetAccountsAccountCapabilitiesCapability = (
     t_GetAccountsAccountCapabilitiesCapabilityBodySchema | undefined
   >,
   respond: GetAccountsAccountCapabilitiesCapabilityResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_capability>
@@ -2977,7 +2976,7 @@ export type PostAccountsAccountCapabilitiesCapability = (
     t_PostAccountsAccountCapabilitiesCapabilityBodySchema | undefined
   >,
   respond: PostAccountsAccountCapabilitiesCapabilityResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_capability>
@@ -3001,7 +3000,7 @@ export type GetAccountsAccountExternalAccounts = (
     t_GetAccountsAccountExternalAccountsBodySchema | undefined
   >,
   respond: GetAccountsAccountExternalAccountsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3028,7 +3027,7 @@ export type PostAccountsAccountExternalAccounts = (
     t_PostAccountsAccountExternalAccountsBodySchema | undefined
   >,
   respond: PostAccountsAccountExternalAccountsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_external_account>
@@ -3047,7 +3046,7 @@ export type DeleteAccountsAccountExternalAccountsId = (
     t_DeleteAccountsAccountExternalAccountsIdBodySchema | undefined
   >,
   respond: DeleteAccountsAccountExternalAccountsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_external_account>
@@ -3066,7 +3065,7 @@ export type GetAccountsAccountExternalAccountsId = (
     t_GetAccountsAccountExternalAccountsIdBodySchema | undefined
   >,
   respond: GetAccountsAccountExternalAccountsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_external_account>
@@ -3085,7 +3084,7 @@ export type PostAccountsAccountExternalAccountsId = (
     t_PostAccountsAccountExternalAccountsIdBodySchema | undefined
   >,
   respond: PostAccountsAccountExternalAccountsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_external_account>
@@ -3104,7 +3103,7 @@ export type PostAccountsAccountLoginLinks = (
     t_PostAccountsAccountLoginLinksBodySchema | undefined
   >,
   respond: PostAccountsAccountLoginLinksResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_login_link>
@@ -3128,7 +3127,7 @@ export type GetAccountsAccountPeople = (
     t_GetAccountsAccountPeopleBodySchema | undefined
   >,
   respond: GetAccountsAccountPeopleResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3155,7 +3154,7 @@ export type PostAccountsAccountPeople = (
     t_PostAccountsAccountPeopleBodySchema | undefined
   >,
   respond: PostAccountsAccountPeopleResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_person>
@@ -3174,7 +3173,7 @@ export type DeleteAccountsAccountPeoplePerson = (
     t_DeleteAccountsAccountPeoplePersonBodySchema | undefined
   >,
   respond: DeleteAccountsAccountPeoplePersonResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_person>
@@ -3193,7 +3192,7 @@ export type GetAccountsAccountPeoplePerson = (
     t_GetAccountsAccountPeoplePersonBodySchema | undefined
   >,
   respond: GetAccountsAccountPeoplePersonResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_person>
@@ -3212,7 +3211,7 @@ export type PostAccountsAccountPeoplePerson = (
     t_PostAccountsAccountPeoplePersonBodySchema | undefined
   >,
   respond: PostAccountsAccountPeoplePersonResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_person>
@@ -3236,7 +3235,7 @@ export type GetAccountsAccountPersons = (
     t_GetAccountsAccountPersonsBodySchema | undefined
   >,
   respond: GetAccountsAccountPersonsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3263,7 +3262,7 @@ export type PostAccountsAccountPersons = (
     t_PostAccountsAccountPersonsBodySchema | undefined
   >,
   respond: PostAccountsAccountPersonsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_person>
@@ -3282,7 +3281,7 @@ export type DeleteAccountsAccountPersonsPerson = (
     t_DeleteAccountsAccountPersonsPersonBodySchema | undefined
   >,
   respond: DeleteAccountsAccountPersonsPersonResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_person>
@@ -3301,7 +3300,7 @@ export type GetAccountsAccountPersonsPerson = (
     t_GetAccountsAccountPersonsPersonBodySchema | undefined
   >,
   respond: GetAccountsAccountPersonsPersonResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_person>
@@ -3320,7 +3319,7 @@ export type PostAccountsAccountPersonsPerson = (
     t_PostAccountsAccountPersonsPersonBodySchema | undefined
   >,
   respond: PostAccountsAccountPersonsPersonResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_person>
@@ -3339,7 +3338,7 @@ export type PostAccountsAccountReject = (
     t_PostAccountsAccountRejectBodySchema
   >,
   respond: PostAccountsAccountRejectResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_account>
@@ -3363,7 +3362,7 @@ export type GetApplePayDomains = (
     t_GetApplePayDomainsBodySchema | undefined
   >,
   respond: GetApplePayDomainsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3386,7 +3385,7 @@ export type PostApplePayDomainsResponder = {
 export type PostApplePayDomains = (
   params: Params<void, void, t_PostApplePayDomainsBodySchema>,
   respond: PostApplePayDomainsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_apple_pay_domain>
@@ -3405,7 +3404,7 @@ export type DeleteApplePayDomainsDomain = (
     t_DeleteApplePayDomainsDomainBodySchema | undefined
   >,
   respond: DeleteApplePayDomainsDomainResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_apple_pay_domain>
@@ -3424,7 +3423,7 @@ export type GetApplePayDomainsDomain = (
     t_GetApplePayDomainsDomainBodySchema | undefined
   >,
   respond: GetApplePayDomainsDomainResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_apple_pay_domain>
@@ -3448,7 +3447,7 @@ export type GetApplicationFees = (
     t_GetApplicationFeesBodySchema | undefined
   >,
   respond: GetApplicationFeesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3475,7 +3474,7 @@ export type GetApplicationFeesFeeRefundsId = (
     t_GetApplicationFeesFeeRefundsIdBodySchema | undefined
   >,
   respond: GetApplicationFeesFeeRefundsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_fee_refund>
@@ -3494,7 +3493,7 @@ export type PostApplicationFeesFeeRefundsId = (
     t_PostApplicationFeesFeeRefundsIdBodySchema | undefined
   >,
   respond: PostApplicationFeesFeeRefundsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_fee_refund>
@@ -3513,7 +3512,7 @@ export type GetApplicationFeesId = (
     t_GetApplicationFeesIdBodySchema | undefined
   >,
   respond: GetApplicationFeesIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_application_fee>
@@ -3532,7 +3531,7 @@ export type PostApplicationFeesIdRefund = (
     t_PostApplicationFeesIdRefundBodySchema | undefined
   >,
   respond: PostApplicationFeesIdRefundResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_application_fee>
@@ -3556,7 +3555,7 @@ export type GetApplicationFeesIdRefunds = (
     t_GetApplicationFeesIdRefundsBodySchema | undefined
   >,
   respond: GetApplicationFeesIdRefundsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3583,7 +3582,7 @@ export type PostApplicationFeesIdRefunds = (
     t_PostApplicationFeesIdRefundsBodySchema | undefined
   >,
   respond: PostApplicationFeesIdRefundsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_fee_refund>
@@ -3607,7 +3606,7 @@ export type GetAppsSecrets = (
     t_GetAppsSecretsBodySchema | undefined
   >,
   respond: GetAppsSecretsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3630,7 +3629,7 @@ export type PostAppsSecretsResponder = {
 export type PostAppsSecrets = (
   params: Params<void, void, t_PostAppsSecretsBodySchema>,
   respond: PostAppsSecretsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_apps_secret>
@@ -3645,7 +3644,7 @@ export type PostAppsSecretsDeleteResponder = {
 export type PostAppsSecretsDelete = (
   params: Params<void, void, t_PostAppsSecretsDeleteBodySchema>,
   respond: PostAppsSecretsDeleteResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_apps_secret>
@@ -3664,7 +3663,7 @@ export type GetAppsSecretsFind = (
     t_GetAppsSecretsFindBodySchema | undefined
   >,
   respond: GetAppsSecretsFindResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_apps_secret>
@@ -3683,7 +3682,7 @@ export type GetBalance = (
     t_GetBalanceBodySchema | undefined
   >,
   respond: GetBalanceResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_balance>
@@ -3707,7 +3706,7 @@ export type GetBalanceHistory = (
     t_GetBalanceHistoryBodySchema | undefined
   >,
   respond: GetBalanceHistoryResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3734,7 +3733,7 @@ export type GetBalanceHistoryId = (
     t_GetBalanceHistoryIdBodySchema | undefined
   >,
   respond: GetBalanceHistoryIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_balance_transaction>
@@ -3758,7 +3757,7 @@ export type GetBalanceTransactions = (
     t_GetBalanceTransactionsBodySchema | undefined
   >,
   respond: GetBalanceTransactionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3785,7 +3784,7 @@ export type GetBalanceTransactionsId = (
     t_GetBalanceTransactionsIdBodySchema | undefined
   >,
   respond: GetBalanceTransactionsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_balance_transaction>
@@ -3809,7 +3808,7 @@ export type GetBillingPortalConfigurations = (
     t_GetBillingPortalConfigurationsBodySchema | undefined
   >,
   respond: GetBillingPortalConfigurationsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3832,7 +3831,7 @@ export type PostBillingPortalConfigurationsResponder = {
 export type PostBillingPortalConfigurations = (
   params: Params<void, void, t_PostBillingPortalConfigurationsBodySchema>,
   respond: PostBillingPortalConfigurationsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_portal_configuration>
@@ -3851,7 +3850,7 @@ export type GetBillingPortalConfigurationsConfiguration = (
     t_GetBillingPortalConfigurationsConfigurationBodySchema | undefined
   >,
   respond: GetBillingPortalConfigurationsConfigurationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_portal_configuration>
@@ -3870,7 +3869,7 @@ export type PostBillingPortalConfigurationsConfiguration = (
     t_PostBillingPortalConfigurationsConfigurationBodySchema | undefined
   >,
   respond: PostBillingPortalConfigurationsConfigurationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_portal_configuration>
@@ -3885,7 +3884,7 @@ export type PostBillingPortalSessionsResponder = {
 export type PostBillingPortalSessions = (
   params: Params<void, void, t_PostBillingPortalSessionsBodySchema>,
   respond: PostBillingPortalSessionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_portal_session>
@@ -3909,7 +3908,7 @@ export type GetCharges = (
     t_GetChargesBodySchema | undefined
   >,
   respond: GetChargesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3932,7 +3931,7 @@ export type PostChargesResponder = {
 export type PostCharges = (
   params: Params<void, void, t_PostChargesBodySchema | undefined>,
   respond: PostChargesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_charge>
@@ -3958,7 +3957,7 @@ export type GetChargesSearch = (
     t_GetChargesSearchBodySchema | undefined
   >,
   respond: GetChargesSearchResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3987,7 +3986,7 @@ export type GetChargesCharge = (
     t_GetChargesChargeBodySchema | undefined
   >,
   respond: GetChargesChargeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_charge>
@@ -4006,7 +4005,7 @@ export type PostChargesCharge = (
     t_PostChargesChargeBodySchema | undefined
   >,
   respond: PostChargesChargeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_charge>
@@ -4025,7 +4024,7 @@ export type PostChargesChargeCapture = (
     t_PostChargesChargeCaptureBodySchema | undefined
   >,
   respond: PostChargesChargeCaptureResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_charge>
@@ -4044,7 +4043,7 @@ export type GetChargesChargeDispute = (
     t_GetChargesChargeDisputeBodySchema | undefined
   >,
   respond: GetChargesChargeDisputeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_dispute>
@@ -4063,7 +4062,7 @@ export type PostChargesChargeDispute = (
     t_PostChargesChargeDisputeBodySchema | undefined
   >,
   respond: PostChargesChargeDisputeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_dispute>
@@ -4082,7 +4081,7 @@ export type PostChargesChargeDisputeClose = (
     t_PostChargesChargeDisputeCloseBodySchema | undefined
   >,
   respond: PostChargesChargeDisputeCloseResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_dispute>
@@ -4101,7 +4100,7 @@ export type PostChargesChargeRefund = (
     t_PostChargesChargeRefundBodySchema | undefined
   >,
   respond: PostChargesChargeRefundResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_charge>
@@ -4125,7 +4124,7 @@ export type GetChargesChargeRefunds = (
     t_GetChargesChargeRefundsBodySchema | undefined
   >,
   respond: GetChargesChargeRefundsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4152,7 +4151,7 @@ export type PostChargesChargeRefunds = (
     t_PostChargesChargeRefundsBodySchema | undefined
   >,
   respond: PostChargesChargeRefundsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_refund>
@@ -4171,7 +4170,7 @@ export type GetChargesChargeRefundsRefund = (
     t_GetChargesChargeRefundsRefundBodySchema | undefined
   >,
   respond: GetChargesChargeRefundsRefundResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_refund>
@@ -4190,7 +4189,7 @@ export type PostChargesChargeRefundsRefund = (
     t_PostChargesChargeRefundsRefundBodySchema | undefined
   >,
   respond: PostChargesChargeRefundsRefundResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_refund>
@@ -4214,7 +4213,7 @@ export type GetCheckoutSessions = (
     t_GetCheckoutSessionsBodySchema | undefined
   >,
   respond: GetCheckoutSessionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4237,7 +4236,7 @@ export type PostCheckoutSessionsResponder = {
 export type PostCheckoutSessions = (
   params: Params<void, void, t_PostCheckoutSessionsBodySchema>,
   respond: PostCheckoutSessionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_checkout_session>
@@ -4256,7 +4255,7 @@ export type GetCheckoutSessionsSession = (
     t_GetCheckoutSessionsSessionBodySchema | undefined
   >,
   respond: GetCheckoutSessionsSessionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_checkout_session>
@@ -4275,7 +4274,7 @@ export type PostCheckoutSessionsSessionExpire = (
     t_PostCheckoutSessionsSessionExpireBodySchema | undefined
   >,
   respond: PostCheckoutSessionsSessionExpireResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_checkout_session>
@@ -4299,7 +4298,7 @@ export type GetCheckoutSessionsSessionLineItems = (
     t_GetCheckoutSessionsSessionLineItemsBodySchema | undefined
   >,
   respond: GetCheckoutSessionsSessionLineItemsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4331,7 +4330,7 @@ export type GetCountrySpecs = (
     t_GetCountrySpecsBodySchema | undefined
   >,
   respond: GetCountrySpecsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4358,7 +4357,7 @@ export type GetCountrySpecsCountry = (
     t_GetCountrySpecsCountryBodySchema | undefined
   >,
   respond: GetCountrySpecsCountryResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_country_spec>
@@ -4382,7 +4381,7 @@ export type GetCoupons = (
     t_GetCouponsBodySchema | undefined
   >,
   respond: GetCouponsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4405,7 +4404,7 @@ export type PostCouponsResponder = {
 export type PostCoupons = (
   params: Params<void, void, t_PostCouponsBodySchema | undefined>,
   respond: PostCouponsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_coupon>
@@ -4424,7 +4423,7 @@ export type DeleteCouponsCoupon = (
     t_DeleteCouponsCouponBodySchema | undefined
   >,
   respond: DeleteCouponsCouponResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_coupon>
@@ -4443,7 +4442,7 @@ export type GetCouponsCoupon = (
     t_GetCouponsCouponBodySchema | undefined
   >,
   respond: GetCouponsCouponResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_coupon>
@@ -4462,7 +4461,7 @@ export type PostCouponsCoupon = (
     t_PostCouponsCouponBodySchema | undefined
   >,
   respond: PostCouponsCouponResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_coupon>
@@ -4486,7 +4485,7 @@ export type GetCreditNotes = (
     t_GetCreditNotesBodySchema | undefined
   >,
   respond: GetCreditNotesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4509,7 +4508,7 @@ export type PostCreditNotesResponder = {
 export type PostCreditNotes = (
   params: Params<void, void, t_PostCreditNotesBodySchema>,
   respond: PostCreditNotesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_credit_note>
@@ -4528,7 +4527,7 @@ export type GetCreditNotesPreview = (
     t_GetCreditNotesPreviewBodySchema | undefined
   >,
   respond: GetCreditNotesPreviewResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_credit_note>
@@ -4552,7 +4551,7 @@ export type GetCreditNotesPreviewLines = (
     t_GetCreditNotesPreviewLinesBodySchema | undefined
   >,
   respond: GetCreditNotesPreviewLinesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4584,7 +4583,7 @@ export type GetCreditNotesCreditNoteLines = (
     t_GetCreditNotesCreditNoteLinesBodySchema | undefined
   >,
   respond: GetCreditNotesCreditNoteLinesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4611,7 +4610,7 @@ export type GetCreditNotesId = (
     t_GetCreditNotesIdBodySchema | undefined
   >,
   respond: GetCreditNotesIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_credit_note>
@@ -4630,7 +4629,7 @@ export type PostCreditNotesId = (
     t_PostCreditNotesIdBodySchema | undefined
   >,
   respond: PostCreditNotesIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_credit_note>
@@ -4649,7 +4648,7 @@ export type PostCreditNotesIdVoid = (
     t_PostCreditNotesIdVoidBodySchema | undefined
   >,
   respond: PostCreditNotesIdVoidResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_credit_note>
@@ -4673,7 +4672,7 @@ export type GetCustomers = (
     t_GetCustomersBodySchema | undefined
   >,
   respond: GetCustomersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4696,7 +4695,7 @@ export type PostCustomersResponder = {
 export type PostCustomers = (
   params: Params<void, void, t_PostCustomersBodySchema | undefined>,
   respond: PostCustomersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_customer>
@@ -4722,7 +4721,7 @@ export type GetCustomersSearch = (
     t_GetCustomersSearchBodySchema | undefined
   >,
   respond: GetCustomersSearchResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4751,7 +4750,7 @@ export type DeleteCustomersCustomer = (
     t_DeleteCustomersCustomerBodySchema | undefined
   >,
   respond: DeleteCustomersCustomerResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_customer>
@@ -4770,7 +4769,7 @@ export type GetCustomersCustomer = (
     t_GetCustomersCustomerBodySchema | undefined
   >,
   respond: GetCustomersCustomerResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_customer | t_deleted_customer>
@@ -4789,7 +4788,7 @@ export type PostCustomersCustomer = (
     t_PostCustomersCustomerBodySchema | undefined
   >,
   respond: PostCustomersCustomerResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_customer>
@@ -4813,7 +4812,7 @@ export type GetCustomersCustomerBalanceTransactions = (
     t_GetCustomersCustomerBalanceTransactionsBodySchema | undefined
   >,
   respond: GetCustomersCustomerBalanceTransactionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4840,7 +4839,7 @@ export type PostCustomersCustomerBalanceTransactions = (
     t_PostCustomersCustomerBalanceTransactionsBodySchema
   >,
   respond: PostCustomersCustomerBalanceTransactionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_customer_balance_transaction>
@@ -4859,7 +4858,7 @@ export type GetCustomersCustomerBalanceTransactionsTransaction = (
     t_GetCustomersCustomerBalanceTransactionsTransactionBodySchema | undefined
   >,
   respond: GetCustomersCustomerBalanceTransactionsTransactionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_customer_balance_transaction>
@@ -4878,7 +4877,7 @@ export type PostCustomersCustomerBalanceTransactionsTransaction = (
     t_PostCustomersCustomerBalanceTransactionsTransactionBodySchema | undefined
   >,
   respond: PostCustomersCustomerBalanceTransactionsTransactionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_customer_balance_transaction>
@@ -4902,7 +4901,7 @@ export type GetCustomersCustomerBankAccounts = (
     t_GetCustomersCustomerBankAccountsBodySchema | undefined
   >,
   respond: GetCustomersCustomerBankAccountsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4929,7 +4928,7 @@ export type PostCustomersCustomerBankAccounts = (
     t_PostCustomersCustomerBankAccountsBodySchema | undefined
   >,
   respond: PostCustomersCustomerBankAccountsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_source>
@@ -4948,7 +4947,7 @@ export type DeleteCustomersCustomerBankAccountsId = (
     t_DeleteCustomersCustomerBankAccountsIdBodySchema | undefined
   >,
   respond: DeleteCustomersCustomerBankAccountsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_source | t_deleted_payment_source>
@@ -4967,7 +4966,7 @@ export type GetCustomersCustomerBankAccountsId = (
     t_GetCustomersCustomerBankAccountsIdBodySchema | undefined
   >,
   respond: GetCustomersCustomerBankAccountsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_bank_account>
@@ -4986,7 +4985,7 @@ export type PostCustomersCustomerBankAccountsId = (
     t_PostCustomersCustomerBankAccountsIdBodySchema | undefined
   >,
   respond: PostCustomersCustomerBankAccountsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_card | t_bank_account | t_source>
@@ -5005,7 +5004,7 @@ export type PostCustomersCustomerBankAccountsIdVerify = (
     t_PostCustomersCustomerBankAccountsIdVerifyBodySchema | undefined
   >,
   respond: PostCustomersCustomerBankAccountsIdVerifyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_bank_account>
@@ -5029,7 +5028,7 @@ export type GetCustomersCustomerCards = (
     t_GetCustomersCustomerCardsBodySchema | undefined
   >,
   respond: GetCustomersCustomerCardsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5056,7 +5055,7 @@ export type PostCustomersCustomerCards = (
     t_PostCustomersCustomerCardsBodySchema | undefined
   >,
   respond: PostCustomersCustomerCardsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_source>
@@ -5075,7 +5074,7 @@ export type DeleteCustomersCustomerCardsId = (
     t_DeleteCustomersCustomerCardsIdBodySchema | undefined
   >,
   respond: DeleteCustomersCustomerCardsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_source | t_deleted_payment_source>
@@ -5094,7 +5093,7 @@ export type GetCustomersCustomerCardsId = (
     t_GetCustomersCustomerCardsIdBodySchema | undefined
   >,
   respond: GetCustomersCustomerCardsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_card>
@@ -5113,7 +5112,7 @@ export type PostCustomersCustomerCardsId = (
     t_PostCustomersCustomerCardsIdBodySchema | undefined
   >,
   respond: PostCustomersCustomerCardsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_card | t_bank_account | t_source>
@@ -5132,7 +5131,7 @@ export type GetCustomersCustomerCashBalance = (
     t_GetCustomersCustomerCashBalanceBodySchema | undefined
   >,
   respond: GetCustomersCustomerCashBalanceResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_cash_balance>
@@ -5151,7 +5150,7 @@ export type PostCustomersCustomerCashBalance = (
     t_PostCustomersCustomerCashBalanceBodySchema | undefined
   >,
   respond: PostCustomersCustomerCashBalanceResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_cash_balance>
@@ -5175,7 +5174,7 @@ export type GetCustomersCustomerCashBalanceTransactions = (
     t_GetCustomersCustomerCashBalanceTransactionsBodySchema | undefined
   >,
   respond: GetCustomersCustomerCashBalanceTransactionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5203,7 +5202,7 @@ export type GetCustomersCustomerCashBalanceTransactionsTransaction = (
     | undefined
   >,
   respond: GetCustomersCustomerCashBalanceTransactionsTransactionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_customer_cash_balance_transaction>
@@ -5222,7 +5221,7 @@ export type DeleteCustomersCustomerDiscount = (
     t_DeleteCustomersCustomerDiscountBodySchema | undefined
   >,
   respond: DeleteCustomersCustomerDiscountResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_discount>
@@ -5241,7 +5240,7 @@ export type GetCustomersCustomerDiscount = (
     t_GetCustomersCustomerDiscountBodySchema | undefined
   >,
   respond: GetCustomersCustomerDiscountResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_discount>
@@ -5260,7 +5259,7 @@ export type PostCustomersCustomerFundingInstructions = (
     t_PostCustomersCustomerFundingInstructionsBodySchema
   >,
   respond: PostCustomersCustomerFundingInstructionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_funding_instructions>
@@ -5284,7 +5283,7 @@ export type GetCustomersCustomerPaymentMethods = (
     t_GetCustomersCustomerPaymentMethodsBodySchema | undefined
   >,
   respond: GetCustomersCustomerPaymentMethodsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5311,7 +5310,7 @@ export type GetCustomersCustomerPaymentMethodsPaymentMethod = (
     t_GetCustomersCustomerPaymentMethodsPaymentMethodBodySchema | undefined
   >,
   respond: GetCustomersCustomerPaymentMethodsPaymentMethodResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method>
@@ -5335,7 +5334,7 @@ export type GetCustomersCustomerSources = (
     t_GetCustomersCustomerSourcesBodySchema | undefined
   >,
   respond: GetCustomersCustomerSourcesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5362,7 +5361,7 @@ export type PostCustomersCustomerSources = (
     t_PostCustomersCustomerSourcesBodySchema | undefined
   >,
   respond: PostCustomersCustomerSourcesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_source>
@@ -5381,7 +5380,7 @@ export type DeleteCustomersCustomerSourcesId = (
     t_DeleteCustomersCustomerSourcesIdBodySchema | undefined
   >,
   respond: DeleteCustomersCustomerSourcesIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_source | t_deleted_payment_source>
@@ -5400,7 +5399,7 @@ export type GetCustomersCustomerSourcesId = (
     t_GetCustomersCustomerSourcesIdBodySchema | undefined
   >,
   respond: GetCustomersCustomerSourcesIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_source>
@@ -5419,7 +5418,7 @@ export type PostCustomersCustomerSourcesId = (
     t_PostCustomersCustomerSourcesIdBodySchema | undefined
   >,
   respond: PostCustomersCustomerSourcesIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_card | t_bank_account | t_source>
@@ -5438,7 +5437,7 @@ export type PostCustomersCustomerSourcesIdVerify = (
     t_PostCustomersCustomerSourcesIdVerifyBodySchema | undefined
   >,
   respond: PostCustomersCustomerSourcesIdVerifyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_bank_account>
@@ -5462,7 +5461,7 @@ export type GetCustomersCustomerSubscriptions = (
     t_GetCustomersCustomerSubscriptionsBodySchema | undefined
   >,
   respond: GetCustomersCustomerSubscriptionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5489,7 +5488,7 @@ export type PostCustomersCustomerSubscriptions = (
     t_PostCustomersCustomerSubscriptionsBodySchema | undefined
   >,
   respond: PostCustomersCustomerSubscriptionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription>
@@ -5510,7 +5509,7 @@ export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedId = (
     | undefined
   >,
   respond: DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription>
@@ -5530,7 +5529,7 @@ export type GetCustomersCustomerSubscriptionsSubscriptionExposedId = (
     | undefined
   >,
   respond: GetCustomersCustomerSubscriptionsSubscriptionExposedIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription>
@@ -5550,7 +5549,7 @@ export type PostCustomersCustomerSubscriptionsSubscriptionExposedId = (
     | undefined
   >,
   respond: PostCustomersCustomerSubscriptionsSubscriptionExposedIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription>
@@ -5572,7 +5571,7 @@ export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount =
       | undefined
     >,
     respond: DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder,
-    ctx: Context,
+    ctx: RouterContext,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
     | Response<200, t_deleted_discount>
@@ -5593,7 +5592,7 @@ export type GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount = (
     | undefined
   >,
   respond: GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_discount>
@@ -5617,7 +5616,7 @@ export type GetCustomersCustomerTaxIds = (
     t_GetCustomersCustomerTaxIdsBodySchema | undefined
   >,
   respond: GetCustomersCustomerTaxIdsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5644,7 +5643,7 @@ export type PostCustomersCustomerTaxIds = (
     t_PostCustomersCustomerTaxIdsBodySchema
   >,
   respond: PostCustomersCustomerTaxIdsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_id>
@@ -5663,7 +5662,7 @@ export type DeleteCustomersCustomerTaxIdsId = (
     t_DeleteCustomersCustomerTaxIdsIdBodySchema | undefined
   >,
   respond: DeleteCustomersCustomerTaxIdsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_tax_id>
@@ -5682,7 +5681,7 @@ export type GetCustomersCustomerTaxIdsId = (
     t_GetCustomersCustomerTaxIdsIdBodySchema | undefined
   >,
   respond: GetCustomersCustomerTaxIdsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_id>
@@ -5706,7 +5705,7 @@ export type GetDisputes = (
     t_GetDisputesBodySchema | undefined
   >,
   respond: GetDisputesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5733,7 +5732,7 @@ export type GetDisputesDispute = (
     t_GetDisputesDisputeBodySchema | undefined
   >,
   respond: GetDisputesDisputeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_dispute>
@@ -5752,7 +5751,7 @@ export type PostDisputesDispute = (
     t_PostDisputesDisputeBodySchema | undefined
   >,
   respond: PostDisputesDisputeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_dispute>
@@ -5771,7 +5770,7 @@ export type PostDisputesDisputeClose = (
     t_PostDisputesDisputeCloseBodySchema | undefined
   >,
   respond: PostDisputesDisputeCloseResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_dispute>
@@ -5786,7 +5785,7 @@ export type PostEphemeralKeysResponder = {
 export type PostEphemeralKeys = (
   params: Params<void, void, t_PostEphemeralKeysBodySchema | undefined>,
   respond: PostEphemeralKeysResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_ephemeral_key>
@@ -5805,7 +5804,7 @@ export type DeleteEphemeralKeysKey = (
     t_DeleteEphemeralKeysKeyBodySchema | undefined
   >,
   respond: DeleteEphemeralKeysKeyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_ephemeral_key>
@@ -5829,7 +5828,7 @@ export type GetEvents = (
     t_GetEventsBodySchema | undefined
   >,
   respond: GetEventsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5856,7 +5855,7 @@ export type GetEventsId = (
     t_GetEventsIdBodySchema | undefined
   >,
   respond: GetEventsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_event>
@@ -5880,7 +5879,7 @@ export type GetExchangeRates = (
     t_GetExchangeRatesBodySchema | undefined
   >,
   respond: GetExchangeRatesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5907,7 +5906,7 @@ export type GetExchangeRatesRateId = (
     t_GetExchangeRatesRateIdBodySchema | undefined
   >,
   respond: GetExchangeRatesRateIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_exchange_rate>
@@ -5931,7 +5930,7 @@ export type GetFileLinks = (
     t_GetFileLinksBodySchema | undefined
   >,
   respond: GetFileLinksResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5954,7 +5953,7 @@ export type PostFileLinksResponder = {
 export type PostFileLinks = (
   params: Params<void, void, t_PostFileLinksBodySchema>,
   respond: PostFileLinksResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_file_link>
@@ -5973,7 +5972,7 @@ export type GetFileLinksLink = (
     t_GetFileLinksLinkBodySchema | undefined
   >,
   respond: GetFileLinksLinkResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_file_link>
@@ -5992,7 +5991,7 @@ export type PostFileLinksLink = (
     t_PostFileLinksLinkBodySchema | undefined
   >,
   respond: PostFileLinksLinkResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_file_link>
@@ -6012,7 +6011,7 @@ export type GetFilesResponder = {
 export type GetFiles = (
   params: Params<void, t_GetFilesQuerySchema, t_GetFilesBodySchema | undefined>,
   respond: GetFilesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6035,7 +6034,7 @@ export type PostFilesResponder = {
 export type PostFiles = (
   params: Params<void, void, t_PostFilesBodySchema>,
   respond: PostFilesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_file>
@@ -6054,7 +6053,7 @@ export type GetFilesFile = (
     t_GetFilesFileBodySchema | undefined
   >,
   respond: GetFilesFileResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_file>
@@ -6078,7 +6077,7 @@ export type GetFinancialConnectionsAccounts = (
     t_GetFinancialConnectionsAccountsBodySchema | undefined
   >,
   respond: GetFinancialConnectionsAccountsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6105,7 +6104,7 @@ export type GetFinancialConnectionsAccountsAccount = (
     t_GetFinancialConnectionsAccountsAccountBodySchema | undefined
   >,
   respond: GetFinancialConnectionsAccountsAccountResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_account>
@@ -6124,7 +6123,7 @@ export type PostFinancialConnectionsAccountsAccountDisconnect = (
     t_PostFinancialConnectionsAccountsAccountDisconnectBodySchema | undefined
   >,
   respond: PostFinancialConnectionsAccountsAccountDisconnectResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_account>
@@ -6148,7 +6147,7 @@ export type GetFinancialConnectionsAccountsAccountOwners = (
     t_GetFinancialConnectionsAccountsAccountOwnersBodySchema | undefined
   >,
   respond: GetFinancialConnectionsAccountsAccountOwnersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6175,7 +6174,7 @@ export type PostFinancialConnectionsAccountsAccountRefresh = (
     t_PostFinancialConnectionsAccountsAccountRefreshBodySchema
   >,
   respond: PostFinancialConnectionsAccountsAccountRefreshResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_account>
@@ -6190,7 +6189,7 @@ export type PostFinancialConnectionsSessionsResponder = {
 export type PostFinancialConnectionsSessions = (
   params: Params<void, void, t_PostFinancialConnectionsSessionsBodySchema>,
   respond: PostFinancialConnectionsSessionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_session>
@@ -6209,7 +6208,7 @@ export type GetFinancialConnectionsSessionsSession = (
     t_GetFinancialConnectionsSessionsSessionBodySchema | undefined
   >,
   respond: GetFinancialConnectionsSessionsSessionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_session>
@@ -6233,7 +6232,7 @@ export type GetIdentityVerificationReports = (
     t_GetIdentityVerificationReportsBodySchema | undefined
   >,
   respond: GetIdentityVerificationReportsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6260,7 +6259,7 @@ export type GetIdentityVerificationReportsReport = (
     t_GetIdentityVerificationReportsReportBodySchema | undefined
   >,
   respond: GetIdentityVerificationReportsReportResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_identity_verification_report>
@@ -6284,7 +6283,7 @@ export type GetIdentityVerificationSessions = (
     t_GetIdentityVerificationSessionsBodySchema | undefined
   >,
   respond: GetIdentityVerificationSessionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6307,7 +6306,7 @@ export type PostIdentityVerificationSessionsResponder = {
 export type PostIdentityVerificationSessions = (
   params: Params<void, void, t_PostIdentityVerificationSessionsBodySchema>,
   respond: PostIdentityVerificationSessionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_identity_verification_session>
@@ -6326,7 +6325,7 @@ export type GetIdentityVerificationSessionsSession = (
     t_GetIdentityVerificationSessionsSessionBodySchema | undefined
   >,
   respond: GetIdentityVerificationSessionsSessionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_identity_verification_session>
@@ -6345,7 +6344,7 @@ export type PostIdentityVerificationSessionsSession = (
     t_PostIdentityVerificationSessionsSessionBodySchema | undefined
   >,
   respond: PostIdentityVerificationSessionsSessionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_identity_verification_session>
@@ -6364,7 +6363,7 @@ export type PostIdentityVerificationSessionsSessionCancel = (
     t_PostIdentityVerificationSessionsSessionCancelBodySchema | undefined
   >,
   respond: PostIdentityVerificationSessionsSessionCancelResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_identity_verification_session>
@@ -6383,7 +6382,7 @@ export type PostIdentityVerificationSessionsSessionRedact = (
     t_PostIdentityVerificationSessionsSessionRedactBodySchema | undefined
   >,
   respond: PostIdentityVerificationSessionsSessionRedactResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_identity_verification_session>
@@ -6407,7 +6406,7 @@ export type GetInvoiceitems = (
     t_GetInvoiceitemsBodySchema | undefined
   >,
   respond: GetInvoiceitemsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6430,7 +6429,7 @@ export type PostInvoiceitemsResponder = {
 export type PostInvoiceitems = (
   params: Params<void, void, t_PostInvoiceitemsBodySchema>,
   respond: PostInvoiceitemsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoiceitem>
@@ -6449,7 +6448,7 @@ export type DeleteInvoiceitemsInvoiceitem = (
     t_DeleteInvoiceitemsInvoiceitemBodySchema | undefined
   >,
   respond: DeleteInvoiceitemsInvoiceitemResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_invoiceitem>
@@ -6468,7 +6467,7 @@ export type GetInvoiceitemsInvoiceitem = (
     t_GetInvoiceitemsInvoiceitemBodySchema | undefined
   >,
   respond: GetInvoiceitemsInvoiceitemResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoiceitem>
@@ -6487,7 +6486,7 @@ export type PostInvoiceitemsInvoiceitem = (
     t_PostInvoiceitemsInvoiceitemBodySchema | undefined
   >,
   respond: PostInvoiceitemsInvoiceitemResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoiceitem>
@@ -6511,7 +6510,7 @@ export type GetInvoices = (
     t_GetInvoicesBodySchema | undefined
   >,
   respond: GetInvoicesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6534,7 +6533,7 @@ export type PostInvoicesResponder = {
 export type PostInvoices = (
   params: Params<void, void, t_PostInvoicesBodySchema | undefined>,
   respond: PostInvoicesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice>
@@ -6560,7 +6559,7 @@ export type GetInvoicesSearch = (
     t_GetInvoicesSearchBodySchema | undefined
   >,
   respond: GetInvoicesSearchResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6589,7 +6588,7 @@ export type GetInvoicesUpcoming = (
     t_GetInvoicesUpcomingBodySchema | undefined
   >,
   respond: GetInvoicesUpcomingResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice>
@@ -6613,7 +6612,7 @@ export type GetInvoicesUpcomingLines = (
     t_GetInvoicesUpcomingLinesBodySchema | undefined
   >,
   respond: GetInvoicesUpcomingLinesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6640,7 +6639,7 @@ export type DeleteInvoicesInvoice = (
     t_DeleteInvoicesInvoiceBodySchema | undefined
   >,
   respond: DeleteInvoicesInvoiceResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_invoice>
@@ -6659,7 +6658,7 @@ export type GetInvoicesInvoice = (
     t_GetInvoicesInvoiceBodySchema | undefined
   >,
   respond: GetInvoicesInvoiceResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice>
@@ -6678,7 +6677,7 @@ export type PostInvoicesInvoice = (
     t_PostInvoicesInvoiceBodySchema | undefined
   >,
   respond: PostInvoicesInvoiceResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice>
@@ -6697,7 +6696,7 @@ export type PostInvoicesInvoiceFinalize = (
     t_PostInvoicesInvoiceFinalizeBodySchema | undefined
   >,
   respond: PostInvoicesInvoiceFinalizeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice>
@@ -6721,7 +6720,7 @@ export type GetInvoicesInvoiceLines = (
     t_GetInvoicesInvoiceLinesBodySchema | undefined
   >,
   respond: GetInvoicesInvoiceLinesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6748,7 +6747,7 @@ export type PostInvoicesInvoiceMarkUncollectible = (
     t_PostInvoicesInvoiceMarkUncollectibleBodySchema | undefined
   >,
   respond: PostInvoicesInvoiceMarkUncollectibleResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice>
@@ -6767,7 +6766,7 @@ export type PostInvoicesInvoicePay = (
     t_PostInvoicesInvoicePayBodySchema | undefined
   >,
   respond: PostInvoicesInvoicePayResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice>
@@ -6786,7 +6785,7 @@ export type PostInvoicesInvoiceSend = (
     t_PostInvoicesInvoiceSendBodySchema | undefined
   >,
   respond: PostInvoicesInvoiceSendResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice>
@@ -6805,7 +6804,7 @@ export type PostInvoicesInvoiceVoid = (
     t_PostInvoicesInvoiceVoidBodySchema | undefined
   >,
   respond: PostInvoicesInvoiceVoidResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice>
@@ -6829,7 +6828,7 @@ export type GetIssuingAuthorizations = (
     t_GetIssuingAuthorizationsBodySchema | undefined
   >,
   respond: GetIssuingAuthorizationsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6856,7 +6855,7 @@ export type GetIssuingAuthorizationsAuthorization = (
     t_GetIssuingAuthorizationsAuthorizationBodySchema | undefined
   >,
   respond: GetIssuingAuthorizationsAuthorizationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_authorization>
@@ -6875,7 +6874,7 @@ export type PostIssuingAuthorizationsAuthorization = (
     t_PostIssuingAuthorizationsAuthorizationBodySchema | undefined
   >,
   respond: PostIssuingAuthorizationsAuthorizationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_authorization>
@@ -6894,7 +6893,7 @@ export type PostIssuingAuthorizationsAuthorizationApprove = (
     t_PostIssuingAuthorizationsAuthorizationApproveBodySchema | undefined
   >,
   respond: PostIssuingAuthorizationsAuthorizationApproveResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_authorization>
@@ -6913,7 +6912,7 @@ export type PostIssuingAuthorizationsAuthorizationDecline = (
     t_PostIssuingAuthorizationsAuthorizationDeclineBodySchema | undefined
   >,
   respond: PostIssuingAuthorizationsAuthorizationDeclineResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_authorization>
@@ -6937,7 +6936,7 @@ export type GetIssuingCardholders = (
     t_GetIssuingCardholdersBodySchema | undefined
   >,
   respond: GetIssuingCardholdersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6960,7 +6959,7 @@ export type PostIssuingCardholdersResponder = {
 export type PostIssuingCardholders = (
   params: Params<void, void, t_PostIssuingCardholdersBodySchema>,
   respond: PostIssuingCardholdersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_cardholder>
@@ -6979,7 +6978,7 @@ export type GetIssuingCardholdersCardholder = (
     t_GetIssuingCardholdersCardholderBodySchema | undefined
   >,
   respond: GetIssuingCardholdersCardholderResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_cardholder>
@@ -6998,7 +6997,7 @@ export type PostIssuingCardholdersCardholder = (
     t_PostIssuingCardholdersCardholderBodySchema | undefined
   >,
   respond: PostIssuingCardholdersCardholderResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_cardholder>
@@ -7022,7 +7021,7 @@ export type GetIssuingCards = (
     t_GetIssuingCardsBodySchema | undefined
   >,
   respond: GetIssuingCardsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7045,7 +7044,7 @@ export type PostIssuingCardsResponder = {
 export type PostIssuingCards = (
   params: Params<void, void, t_PostIssuingCardsBodySchema>,
   respond: PostIssuingCardsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_card>
@@ -7064,7 +7063,7 @@ export type GetIssuingCardsCard = (
     t_GetIssuingCardsCardBodySchema | undefined
   >,
   respond: GetIssuingCardsCardResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_card>
@@ -7083,7 +7082,7 @@ export type PostIssuingCardsCard = (
     t_PostIssuingCardsCardBodySchema | undefined
   >,
   respond: PostIssuingCardsCardResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_card>
@@ -7107,7 +7106,7 @@ export type GetIssuingDisputes = (
     t_GetIssuingDisputesBodySchema | undefined
   >,
   respond: GetIssuingDisputesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7130,7 +7129,7 @@ export type PostIssuingDisputesResponder = {
 export type PostIssuingDisputes = (
   params: Params<void, void, t_PostIssuingDisputesBodySchema | undefined>,
   respond: PostIssuingDisputesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_dispute>
@@ -7149,7 +7148,7 @@ export type GetIssuingDisputesDispute = (
     t_GetIssuingDisputesDisputeBodySchema | undefined
   >,
   respond: GetIssuingDisputesDisputeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_dispute>
@@ -7168,7 +7167,7 @@ export type PostIssuingDisputesDispute = (
     t_PostIssuingDisputesDisputeBodySchema | undefined
   >,
   respond: PostIssuingDisputesDisputeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_dispute>
@@ -7187,7 +7186,7 @@ export type PostIssuingDisputesDisputeSubmit = (
     t_PostIssuingDisputesDisputeSubmitBodySchema | undefined
   >,
   respond: PostIssuingDisputesDisputeSubmitResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_dispute>
@@ -7211,7 +7210,7 @@ export type GetIssuingSettlements = (
     t_GetIssuingSettlementsBodySchema | undefined
   >,
   respond: GetIssuingSettlementsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7238,7 +7237,7 @@ export type GetIssuingSettlementsSettlement = (
     t_GetIssuingSettlementsSettlementBodySchema | undefined
   >,
   respond: GetIssuingSettlementsSettlementResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_settlement>
@@ -7257,7 +7256,7 @@ export type PostIssuingSettlementsSettlement = (
     t_PostIssuingSettlementsSettlementBodySchema | undefined
   >,
   respond: PostIssuingSettlementsSettlementResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_settlement>
@@ -7281,7 +7280,7 @@ export type GetIssuingTransactions = (
     t_GetIssuingTransactionsBodySchema | undefined
   >,
   respond: GetIssuingTransactionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7308,7 +7307,7 @@ export type GetIssuingTransactionsTransaction = (
     t_GetIssuingTransactionsTransactionBodySchema | undefined
   >,
   respond: GetIssuingTransactionsTransactionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_transaction>
@@ -7327,7 +7326,7 @@ export type PostIssuingTransactionsTransaction = (
     t_PostIssuingTransactionsTransactionBodySchema | undefined
   >,
   respond: PostIssuingTransactionsTransactionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_transaction>
@@ -7342,7 +7341,7 @@ export type PostLinkAccountSessionsResponder = {
 export type PostLinkAccountSessions = (
   params: Params<void, void, t_PostLinkAccountSessionsBodySchema>,
   respond: PostLinkAccountSessionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_session>
@@ -7361,7 +7360,7 @@ export type GetLinkAccountSessionsSession = (
     t_GetLinkAccountSessionsSessionBodySchema | undefined
   >,
   respond: GetLinkAccountSessionsSessionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_session>
@@ -7385,7 +7384,7 @@ export type GetLinkedAccounts = (
     t_GetLinkedAccountsBodySchema | undefined
   >,
   respond: GetLinkedAccountsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7412,7 +7411,7 @@ export type GetLinkedAccountsAccount = (
     t_GetLinkedAccountsAccountBodySchema | undefined
   >,
   respond: GetLinkedAccountsAccountResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_account>
@@ -7431,7 +7430,7 @@ export type PostLinkedAccountsAccountDisconnect = (
     t_PostLinkedAccountsAccountDisconnectBodySchema | undefined
   >,
   respond: PostLinkedAccountsAccountDisconnectResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_account>
@@ -7455,7 +7454,7 @@ export type GetLinkedAccountsAccountOwners = (
     t_GetLinkedAccountsAccountOwnersBodySchema | undefined
   >,
   respond: GetLinkedAccountsAccountOwnersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7482,7 +7481,7 @@ export type PostLinkedAccountsAccountRefresh = (
     t_PostLinkedAccountsAccountRefreshBodySchema
   >,
   respond: PostLinkedAccountsAccountRefreshResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_account>
@@ -7501,7 +7500,7 @@ export type GetMandatesMandate = (
     t_GetMandatesMandateBodySchema | undefined
   >,
   respond: GetMandatesMandateResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_mandate>
@@ -7525,7 +7524,7 @@ export type GetPaymentIntents = (
     t_GetPaymentIntentsBodySchema | undefined
   >,
   respond: GetPaymentIntentsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7548,7 +7547,7 @@ export type PostPaymentIntentsResponder = {
 export type PostPaymentIntents = (
   params: Params<void, void, t_PostPaymentIntentsBodySchema>,
   respond: PostPaymentIntentsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_intent>
@@ -7574,7 +7573,7 @@ export type GetPaymentIntentsSearch = (
     t_GetPaymentIntentsSearchBodySchema | undefined
   >,
   respond: GetPaymentIntentsSearchResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7603,7 +7602,7 @@ export type GetPaymentIntentsIntent = (
     t_GetPaymentIntentsIntentBodySchema | undefined
   >,
   respond: GetPaymentIntentsIntentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_intent>
@@ -7622,7 +7621,7 @@ export type PostPaymentIntentsIntent = (
     t_PostPaymentIntentsIntentBodySchema | undefined
   >,
   respond: PostPaymentIntentsIntentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_intent>
@@ -7641,7 +7640,7 @@ export type PostPaymentIntentsIntentApplyCustomerBalance = (
     t_PostPaymentIntentsIntentApplyCustomerBalanceBodySchema | undefined
   >,
   respond: PostPaymentIntentsIntentApplyCustomerBalanceResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_intent>
@@ -7660,7 +7659,7 @@ export type PostPaymentIntentsIntentCancel = (
     t_PostPaymentIntentsIntentCancelBodySchema | undefined
   >,
   respond: PostPaymentIntentsIntentCancelResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_intent>
@@ -7679,7 +7678,7 @@ export type PostPaymentIntentsIntentCapture = (
     t_PostPaymentIntentsIntentCaptureBodySchema | undefined
   >,
   respond: PostPaymentIntentsIntentCaptureResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_intent>
@@ -7698,7 +7697,7 @@ export type PostPaymentIntentsIntentConfirm = (
     t_PostPaymentIntentsIntentConfirmBodySchema | undefined
   >,
   respond: PostPaymentIntentsIntentConfirmResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_intent>
@@ -7717,7 +7716,7 @@ export type PostPaymentIntentsIntentIncrementAuthorization = (
     t_PostPaymentIntentsIntentIncrementAuthorizationBodySchema
   >,
   respond: PostPaymentIntentsIntentIncrementAuthorizationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_intent>
@@ -7736,7 +7735,7 @@ export type PostPaymentIntentsIntentVerifyMicrodeposits = (
     t_PostPaymentIntentsIntentVerifyMicrodepositsBodySchema | undefined
   >,
   respond: PostPaymentIntentsIntentVerifyMicrodepositsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_intent>
@@ -7760,7 +7759,7 @@ export type GetPaymentLinks = (
     t_GetPaymentLinksBodySchema | undefined
   >,
   respond: GetPaymentLinksResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7783,7 +7782,7 @@ export type PostPaymentLinksResponder = {
 export type PostPaymentLinks = (
   params: Params<void, void, t_PostPaymentLinksBodySchema>,
   respond: PostPaymentLinksResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_link>
@@ -7802,7 +7801,7 @@ export type GetPaymentLinksPaymentLink = (
     t_GetPaymentLinksPaymentLinkBodySchema | undefined
   >,
   respond: GetPaymentLinksPaymentLinkResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_link>
@@ -7821,7 +7820,7 @@ export type PostPaymentLinksPaymentLink = (
     t_PostPaymentLinksPaymentLinkBodySchema | undefined
   >,
   respond: PostPaymentLinksPaymentLinkResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_link>
@@ -7845,7 +7844,7 @@ export type GetPaymentLinksPaymentLinkLineItems = (
     t_GetPaymentLinksPaymentLinkLineItemsBodySchema | undefined
   >,
   respond: GetPaymentLinksPaymentLinkLineItemsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7877,7 +7876,7 @@ export type GetPaymentMethodConfigurations = (
     t_GetPaymentMethodConfigurationsBodySchema | undefined
   >,
   respond: GetPaymentMethodConfigurationsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7904,7 +7903,7 @@ export type PostPaymentMethodConfigurations = (
     t_PostPaymentMethodConfigurationsBodySchema | undefined
   >,
   respond: PostPaymentMethodConfigurationsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method_configuration>
@@ -7923,7 +7922,7 @@ export type GetPaymentMethodConfigurationsConfiguration = (
     t_GetPaymentMethodConfigurationsConfigurationBodySchema | undefined
   >,
   respond: GetPaymentMethodConfigurationsConfigurationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method_configuration>
@@ -7942,7 +7941,7 @@ export type PostPaymentMethodConfigurationsConfiguration = (
     t_PostPaymentMethodConfigurationsConfigurationBodySchema | undefined
   >,
   respond: PostPaymentMethodConfigurationsConfigurationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method_configuration>
@@ -7966,7 +7965,7 @@ export type GetPaymentMethodDomains = (
     t_GetPaymentMethodDomainsBodySchema | undefined
   >,
   respond: GetPaymentMethodDomainsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7989,7 +7988,7 @@ export type PostPaymentMethodDomainsResponder = {
 export type PostPaymentMethodDomains = (
   params: Params<void, void, t_PostPaymentMethodDomainsBodySchema>,
   respond: PostPaymentMethodDomainsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method_domain>
@@ -8008,7 +8007,7 @@ export type GetPaymentMethodDomainsPaymentMethodDomain = (
     t_GetPaymentMethodDomainsPaymentMethodDomainBodySchema | undefined
   >,
   respond: GetPaymentMethodDomainsPaymentMethodDomainResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method_domain>
@@ -8027,7 +8026,7 @@ export type PostPaymentMethodDomainsPaymentMethodDomain = (
     t_PostPaymentMethodDomainsPaymentMethodDomainBodySchema | undefined
   >,
   respond: PostPaymentMethodDomainsPaymentMethodDomainResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method_domain>
@@ -8046,7 +8045,7 @@ export type PostPaymentMethodDomainsPaymentMethodDomainValidate = (
     t_PostPaymentMethodDomainsPaymentMethodDomainValidateBodySchema | undefined
   >,
   respond: PostPaymentMethodDomainsPaymentMethodDomainValidateResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method_domain>
@@ -8070,7 +8069,7 @@ export type GetPaymentMethods = (
     t_GetPaymentMethodsBodySchema | undefined
   >,
   respond: GetPaymentMethodsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8093,7 +8092,7 @@ export type PostPaymentMethodsResponder = {
 export type PostPaymentMethods = (
   params: Params<void, void, t_PostPaymentMethodsBodySchema | undefined>,
   respond: PostPaymentMethodsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method>
@@ -8112,7 +8111,7 @@ export type GetPaymentMethodsPaymentMethod = (
     t_GetPaymentMethodsPaymentMethodBodySchema | undefined
   >,
   respond: GetPaymentMethodsPaymentMethodResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method>
@@ -8131,7 +8130,7 @@ export type PostPaymentMethodsPaymentMethod = (
     t_PostPaymentMethodsPaymentMethodBodySchema | undefined
   >,
   respond: PostPaymentMethodsPaymentMethodResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method>
@@ -8150,7 +8149,7 @@ export type PostPaymentMethodsPaymentMethodAttach = (
     t_PostPaymentMethodsPaymentMethodAttachBodySchema
   >,
   respond: PostPaymentMethodsPaymentMethodAttachResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method>
@@ -8169,7 +8168,7 @@ export type PostPaymentMethodsPaymentMethodDetach = (
     t_PostPaymentMethodsPaymentMethodDetachBodySchema | undefined
   >,
   respond: PostPaymentMethodsPaymentMethodDetachResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method>
@@ -8193,7 +8192,7 @@ export type GetPayouts = (
     t_GetPayoutsBodySchema | undefined
   >,
   respond: GetPayoutsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8216,7 +8215,7 @@ export type PostPayoutsResponder = {
 export type PostPayouts = (
   params: Params<void, void, t_PostPayoutsBodySchema>,
   respond: PostPayoutsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payout>
@@ -8235,7 +8234,7 @@ export type GetPayoutsPayout = (
     t_GetPayoutsPayoutBodySchema | undefined
   >,
   respond: GetPayoutsPayoutResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payout>
@@ -8254,7 +8253,7 @@ export type PostPayoutsPayout = (
     t_PostPayoutsPayoutBodySchema | undefined
   >,
   respond: PostPayoutsPayoutResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payout>
@@ -8273,7 +8272,7 @@ export type PostPayoutsPayoutCancel = (
     t_PostPayoutsPayoutCancelBodySchema | undefined
   >,
   respond: PostPayoutsPayoutCancelResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payout>
@@ -8292,7 +8291,7 @@ export type PostPayoutsPayoutReverse = (
     t_PostPayoutsPayoutReverseBodySchema | undefined
   >,
   respond: PostPayoutsPayoutReverseResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payout>
@@ -8312,7 +8311,7 @@ export type GetPlansResponder = {
 export type GetPlans = (
   params: Params<void, t_GetPlansQuerySchema, t_GetPlansBodySchema | undefined>,
   respond: GetPlansResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8335,7 +8334,7 @@ export type PostPlansResponder = {
 export type PostPlans = (
   params: Params<void, void, t_PostPlansBodySchema>,
   respond: PostPlansResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_plan>
@@ -8354,7 +8353,7 @@ export type DeletePlansPlan = (
     t_DeletePlansPlanBodySchema | undefined
   >,
   respond: DeletePlansPlanResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_plan>
@@ -8373,7 +8372,7 @@ export type GetPlansPlan = (
     t_GetPlansPlanBodySchema | undefined
   >,
   respond: GetPlansPlanResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_plan>
@@ -8392,7 +8391,7 @@ export type PostPlansPlan = (
     t_PostPlansPlanBodySchema | undefined
   >,
   respond: PostPlansPlanResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_plan>
@@ -8416,7 +8415,7 @@ export type GetPrices = (
     t_GetPricesBodySchema | undefined
   >,
   respond: GetPricesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8439,7 +8438,7 @@ export type PostPricesResponder = {
 export type PostPrices = (
   params: Params<void, void, t_PostPricesBodySchema>,
   respond: PostPricesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_price>
@@ -8465,7 +8464,7 @@ export type GetPricesSearch = (
     t_GetPricesSearchBodySchema | undefined
   >,
   respond: GetPricesSearchResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8494,7 +8493,7 @@ export type GetPricesPrice = (
     t_GetPricesPriceBodySchema | undefined
   >,
   respond: GetPricesPriceResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_price>
@@ -8513,7 +8512,7 @@ export type PostPricesPrice = (
     t_PostPricesPriceBodySchema | undefined
   >,
   respond: PostPricesPriceResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_price>
@@ -8537,7 +8536,7 @@ export type GetProducts = (
     t_GetProductsBodySchema | undefined
   >,
   respond: GetProductsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8560,7 +8559,7 @@ export type PostProductsResponder = {
 export type PostProducts = (
   params: Params<void, void, t_PostProductsBodySchema>,
   respond: PostProductsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_product>
@@ -8586,7 +8585,7 @@ export type GetProductsSearch = (
     t_GetProductsSearchBodySchema | undefined
   >,
   respond: GetProductsSearchResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8615,7 +8614,7 @@ export type DeleteProductsId = (
     t_DeleteProductsIdBodySchema | undefined
   >,
   respond: DeleteProductsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_product>
@@ -8634,7 +8633,7 @@ export type GetProductsId = (
     t_GetProductsIdBodySchema | undefined
   >,
   respond: GetProductsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_product>
@@ -8653,7 +8652,7 @@ export type PostProductsId = (
     t_PostProductsIdBodySchema | undefined
   >,
   respond: PostProductsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_product>
@@ -8677,7 +8676,7 @@ export type GetPromotionCodes = (
     t_GetPromotionCodesBodySchema | undefined
   >,
   respond: GetPromotionCodesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8700,7 +8699,7 @@ export type PostPromotionCodesResponder = {
 export type PostPromotionCodes = (
   params: Params<void, void, t_PostPromotionCodesBodySchema>,
   respond: PostPromotionCodesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_promotion_code>
@@ -8719,7 +8718,7 @@ export type GetPromotionCodesPromotionCode = (
     t_GetPromotionCodesPromotionCodeBodySchema | undefined
   >,
   respond: GetPromotionCodesPromotionCodeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_promotion_code>
@@ -8738,7 +8737,7 @@ export type PostPromotionCodesPromotionCode = (
     t_PostPromotionCodesPromotionCodeBodySchema | undefined
   >,
   respond: PostPromotionCodesPromotionCodeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_promotion_code>
@@ -8762,7 +8761,7 @@ export type GetQuotes = (
     t_GetQuotesBodySchema | undefined
   >,
   respond: GetQuotesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8785,7 +8784,7 @@ export type PostQuotesResponder = {
 export type PostQuotes = (
   params: Params<void, void, t_PostQuotesBodySchema | undefined>,
   respond: PostQuotesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_quote>
@@ -8804,7 +8803,7 @@ export type GetQuotesQuote = (
     t_GetQuotesQuoteBodySchema | undefined
   >,
   respond: GetQuotesQuoteResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_quote>
@@ -8823,7 +8822,7 @@ export type PostQuotesQuote = (
     t_PostQuotesQuoteBodySchema | undefined
   >,
   respond: PostQuotesQuoteResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_quote>
@@ -8842,7 +8841,7 @@ export type PostQuotesQuoteAccept = (
     t_PostQuotesQuoteAcceptBodySchema | undefined
   >,
   respond: PostQuotesQuoteAcceptResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_quote>
@@ -8861,7 +8860,7 @@ export type PostQuotesQuoteCancel = (
     t_PostQuotesQuoteCancelBodySchema | undefined
   >,
   respond: PostQuotesQuoteCancelResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_quote>
@@ -8885,7 +8884,7 @@ export type GetQuotesQuoteComputedUpfrontLineItems = (
     t_GetQuotesQuoteComputedUpfrontLineItemsBodySchema | undefined
   >,
   respond: GetQuotesQuoteComputedUpfrontLineItemsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8912,7 +8911,7 @@ export type PostQuotesQuoteFinalize = (
     t_PostQuotesQuoteFinalizeBodySchema | undefined
   >,
   respond: PostQuotesQuoteFinalizeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_quote>
@@ -8936,7 +8935,7 @@ export type GetQuotesQuoteLineItems = (
     t_GetQuotesQuoteLineItemsBodySchema | undefined
   >,
   respond: GetQuotesQuoteLineItemsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8963,7 +8962,7 @@ export type GetQuotesQuotePdf = (
     t_GetQuotesQuotePdfBodySchema | undefined
   >,
   respond: GetQuotesQuotePdfResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, string>
@@ -8987,7 +8986,7 @@ export type GetRadarEarlyFraudWarnings = (
     t_GetRadarEarlyFraudWarningsBodySchema | undefined
   >,
   respond: GetRadarEarlyFraudWarningsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9014,7 +9013,7 @@ export type GetRadarEarlyFraudWarningsEarlyFraudWarning = (
     t_GetRadarEarlyFraudWarningsEarlyFraudWarningBodySchema | undefined
   >,
   respond: GetRadarEarlyFraudWarningsEarlyFraudWarningResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_radar_early_fraud_warning>
@@ -9038,7 +9037,7 @@ export type GetRadarValueListItems = (
     t_GetRadarValueListItemsBodySchema | undefined
   >,
   respond: GetRadarValueListItemsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9061,7 +9060,7 @@ export type PostRadarValueListItemsResponder = {
 export type PostRadarValueListItems = (
   params: Params<void, void, t_PostRadarValueListItemsBodySchema>,
   respond: PostRadarValueListItemsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_radar_value_list_item>
@@ -9080,7 +9079,7 @@ export type DeleteRadarValueListItemsItem = (
     t_DeleteRadarValueListItemsItemBodySchema | undefined
   >,
   respond: DeleteRadarValueListItemsItemResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_radar_value_list_item>
@@ -9099,7 +9098,7 @@ export type GetRadarValueListItemsItem = (
     t_GetRadarValueListItemsItemBodySchema | undefined
   >,
   respond: GetRadarValueListItemsItemResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_radar_value_list_item>
@@ -9123,7 +9122,7 @@ export type GetRadarValueLists = (
     t_GetRadarValueListsBodySchema | undefined
   >,
   respond: GetRadarValueListsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9146,7 +9145,7 @@ export type PostRadarValueListsResponder = {
 export type PostRadarValueLists = (
   params: Params<void, void, t_PostRadarValueListsBodySchema>,
   respond: PostRadarValueListsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_radar_value_list>
@@ -9165,7 +9164,7 @@ export type DeleteRadarValueListsValueList = (
     t_DeleteRadarValueListsValueListBodySchema | undefined
   >,
   respond: DeleteRadarValueListsValueListResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_radar_value_list>
@@ -9184,7 +9183,7 @@ export type GetRadarValueListsValueList = (
     t_GetRadarValueListsValueListBodySchema | undefined
   >,
   respond: GetRadarValueListsValueListResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_radar_value_list>
@@ -9203,7 +9202,7 @@ export type PostRadarValueListsValueList = (
     t_PostRadarValueListsValueListBodySchema | undefined
   >,
   respond: PostRadarValueListsValueListResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_radar_value_list>
@@ -9227,7 +9226,7 @@ export type GetRefunds = (
     t_GetRefundsBodySchema | undefined
   >,
   respond: GetRefundsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9250,7 +9249,7 @@ export type PostRefundsResponder = {
 export type PostRefunds = (
   params: Params<void, void, t_PostRefundsBodySchema | undefined>,
   respond: PostRefundsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_refund>
@@ -9269,7 +9268,7 @@ export type GetRefundsRefund = (
     t_GetRefundsRefundBodySchema | undefined
   >,
   respond: GetRefundsRefundResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_refund>
@@ -9288,7 +9287,7 @@ export type PostRefundsRefund = (
     t_PostRefundsRefundBodySchema | undefined
   >,
   respond: PostRefundsRefundResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_refund>
@@ -9307,7 +9306,7 @@ export type PostRefundsRefundCancel = (
     t_PostRefundsRefundCancelBodySchema | undefined
   >,
   respond: PostRefundsRefundCancelResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_refund>
@@ -9331,7 +9330,7 @@ export type GetReportingReportRuns = (
     t_GetReportingReportRunsBodySchema | undefined
   >,
   respond: GetReportingReportRunsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9354,7 +9353,7 @@ export type PostReportingReportRunsResponder = {
 export type PostReportingReportRuns = (
   params: Params<void, void, t_PostReportingReportRunsBodySchema>,
   respond: PostReportingReportRunsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_reporting_report_run>
@@ -9373,7 +9372,7 @@ export type GetReportingReportRunsReportRun = (
     t_GetReportingReportRunsReportRunBodySchema | undefined
   >,
   respond: GetReportingReportRunsReportRunResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_reporting_report_run>
@@ -9397,7 +9396,7 @@ export type GetReportingReportTypes = (
     t_GetReportingReportTypesBodySchema | undefined
   >,
   respond: GetReportingReportTypesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9424,7 +9423,7 @@ export type GetReportingReportTypesReportType = (
     t_GetReportingReportTypesReportTypeBodySchema | undefined
   >,
   respond: GetReportingReportTypesReportTypeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_reporting_report_type>
@@ -9448,7 +9447,7 @@ export type GetReviews = (
     t_GetReviewsBodySchema | undefined
   >,
   respond: GetReviewsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9475,7 +9474,7 @@ export type GetReviewsReview = (
     t_GetReviewsReviewBodySchema | undefined
   >,
   respond: GetReviewsReviewResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_review>
@@ -9494,7 +9493,7 @@ export type PostReviewsReviewApprove = (
     t_PostReviewsReviewApproveBodySchema | undefined
   >,
   respond: PostReviewsReviewApproveResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_review>
@@ -9518,7 +9517,7 @@ export type GetSetupAttempts = (
     t_GetSetupAttemptsBodySchema | undefined
   >,
   respond: GetSetupAttemptsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9550,7 +9549,7 @@ export type GetSetupIntents = (
     t_GetSetupIntentsBodySchema | undefined
   >,
   respond: GetSetupIntentsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9573,7 +9572,7 @@ export type PostSetupIntentsResponder = {
 export type PostSetupIntents = (
   params: Params<void, void, t_PostSetupIntentsBodySchema | undefined>,
   respond: PostSetupIntentsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_setup_intent>
@@ -9592,7 +9591,7 @@ export type GetSetupIntentsIntent = (
     t_GetSetupIntentsIntentBodySchema | undefined
   >,
   respond: GetSetupIntentsIntentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_setup_intent>
@@ -9611,7 +9610,7 @@ export type PostSetupIntentsIntent = (
     t_PostSetupIntentsIntentBodySchema | undefined
   >,
   respond: PostSetupIntentsIntentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_setup_intent>
@@ -9630,7 +9629,7 @@ export type PostSetupIntentsIntentCancel = (
     t_PostSetupIntentsIntentCancelBodySchema | undefined
   >,
   respond: PostSetupIntentsIntentCancelResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_setup_intent>
@@ -9649,7 +9648,7 @@ export type PostSetupIntentsIntentConfirm = (
     t_PostSetupIntentsIntentConfirmBodySchema | undefined
   >,
   respond: PostSetupIntentsIntentConfirmResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_setup_intent>
@@ -9668,7 +9667,7 @@ export type PostSetupIntentsIntentVerifyMicrodeposits = (
     t_PostSetupIntentsIntentVerifyMicrodepositsBodySchema | undefined
   >,
   respond: PostSetupIntentsIntentVerifyMicrodepositsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_setup_intent>
@@ -9692,7 +9691,7 @@ export type GetShippingRates = (
     t_GetShippingRatesBodySchema | undefined
   >,
   respond: GetShippingRatesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9715,7 +9714,7 @@ export type PostShippingRatesResponder = {
 export type PostShippingRates = (
   params: Params<void, void, t_PostShippingRatesBodySchema>,
   respond: PostShippingRatesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_shipping_rate>
@@ -9734,7 +9733,7 @@ export type GetShippingRatesShippingRateToken = (
     t_GetShippingRatesShippingRateTokenBodySchema | undefined
   >,
   respond: GetShippingRatesShippingRateTokenResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_shipping_rate>
@@ -9753,7 +9752,7 @@ export type PostShippingRatesShippingRateToken = (
     t_PostShippingRatesShippingRateTokenBodySchema | undefined
   >,
   respond: PostShippingRatesShippingRateTokenResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_shipping_rate>
@@ -9777,7 +9776,7 @@ export type GetSigmaScheduledQueryRuns = (
     t_GetSigmaScheduledQueryRunsBodySchema | undefined
   >,
   respond: GetSigmaScheduledQueryRunsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9804,7 +9803,7 @@ export type GetSigmaScheduledQueryRunsScheduledQueryRun = (
     t_GetSigmaScheduledQueryRunsScheduledQueryRunBodySchema | undefined
   >,
   respond: GetSigmaScheduledQueryRunsScheduledQueryRunResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_scheduled_query_run>
@@ -9819,7 +9818,7 @@ export type PostSourcesResponder = {
 export type PostSources = (
   params: Params<void, void, t_PostSourcesBodySchema | undefined>,
   respond: PostSourcesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_source>
@@ -9838,7 +9837,7 @@ export type GetSourcesSource = (
     t_GetSourcesSourceBodySchema | undefined
   >,
   respond: GetSourcesSourceResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_source>
@@ -9857,7 +9856,7 @@ export type PostSourcesSource = (
     t_PostSourcesSourceBodySchema | undefined
   >,
   respond: PostSourcesSourceResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_source>
@@ -9877,7 +9876,7 @@ export type GetSourcesSourceMandateNotificationsMandateNotification = (
     | undefined
   >,
   respond: GetSourcesSourceMandateNotificationsMandateNotificationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_source_mandate_notification>
@@ -9901,7 +9900,7 @@ export type GetSourcesSourceSourceTransactions = (
     t_GetSourcesSourceSourceTransactionsBodySchema | undefined
   >,
   respond: GetSourcesSourceSourceTransactionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9928,7 +9927,7 @@ export type GetSourcesSourceSourceTransactionsSourceTransaction = (
     t_GetSourcesSourceSourceTransactionsSourceTransactionBodySchema | undefined
   >,
   respond: GetSourcesSourceSourceTransactionsSourceTransactionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_source_transaction>
@@ -9947,7 +9946,7 @@ export type PostSourcesSourceVerify = (
     t_PostSourcesSourceVerifyBodySchema
   >,
   respond: PostSourcesSourceVerifyResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_source>
@@ -9971,7 +9970,7 @@ export type GetSubscriptionItems = (
     t_GetSubscriptionItemsBodySchema | undefined
   >,
   respond: GetSubscriptionItemsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9994,7 +9993,7 @@ export type PostSubscriptionItemsResponder = {
 export type PostSubscriptionItems = (
   params: Params<void, void, t_PostSubscriptionItemsBodySchema>,
   respond: PostSubscriptionItemsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription_item>
@@ -10013,7 +10012,7 @@ export type DeleteSubscriptionItemsItem = (
     t_DeleteSubscriptionItemsItemBodySchema | undefined
   >,
   respond: DeleteSubscriptionItemsItemResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_subscription_item>
@@ -10032,7 +10031,7 @@ export type GetSubscriptionItemsItem = (
     t_GetSubscriptionItemsItemBodySchema | undefined
   >,
   respond: GetSubscriptionItemsItemResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription_item>
@@ -10051,7 +10050,7 @@ export type PostSubscriptionItemsItem = (
     t_PostSubscriptionItemsItemBodySchema | undefined
   >,
   respond: PostSubscriptionItemsItemResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription_item>
@@ -10077,7 +10076,7 @@ export type GetSubscriptionItemsSubscriptionItemUsageRecordSummaries = (
     | undefined
   >,
   respond: GetSubscriptionItemsSubscriptionItemUsageRecordSummariesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10104,7 +10103,7 @@ export type PostSubscriptionItemsSubscriptionItemUsageRecords = (
     t_PostSubscriptionItemsSubscriptionItemUsageRecordsBodySchema
   >,
   respond: PostSubscriptionItemsSubscriptionItemUsageRecordsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_usage_record>
@@ -10128,7 +10127,7 @@ export type GetSubscriptionSchedules = (
     t_GetSubscriptionSchedulesBodySchema | undefined
   >,
   respond: GetSubscriptionSchedulesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10151,7 +10150,7 @@ export type PostSubscriptionSchedulesResponder = {
 export type PostSubscriptionSchedules = (
   params: Params<void, void, t_PostSubscriptionSchedulesBodySchema | undefined>,
   respond: PostSubscriptionSchedulesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription_schedule>
@@ -10170,7 +10169,7 @@ export type GetSubscriptionSchedulesSchedule = (
     t_GetSubscriptionSchedulesScheduleBodySchema | undefined
   >,
   respond: GetSubscriptionSchedulesScheduleResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription_schedule>
@@ -10189,7 +10188,7 @@ export type PostSubscriptionSchedulesSchedule = (
     t_PostSubscriptionSchedulesScheduleBodySchema | undefined
   >,
   respond: PostSubscriptionSchedulesScheduleResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription_schedule>
@@ -10208,7 +10207,7 @@ export type PostSubscriptionSchedulesScheduleCancel = (
     t_PostSubscriptionSchedulesScheduleCancelBodySchema | undefined
   >,
   respond: PostSubscriptionSchedulesScheduleCancelResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription_schedule>
@@ -10227,7 +10226,7 @@ export type PostSubscriptionSchedulesScheduleRelease = (
     t_PostSubscriptionSchedulesScheduleReleaseBodySchema | undefined
   >,
   respond: PostSubscriptionSchedulesScheduleReleaseResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription_schedule>
@@ -10251,7 +10250,7 @@ export type GetSubscriptions = (
     t_GetSubscriptionsBodySchema | undefined
   >,
   respond: GetSubscriptionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10274,7 +10273,7 @@ export type PostSubscriptionsResponder = {
 export type PostSubscriptions = (
   params: Params<void, void, t_PostSubscriptionsBodySchema>,
   respond: PostSubscriptionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription>
@@ -10300,7 +10299,7 @@ export type GetSubscriptionsSearch = (
     t_GetSubscriptionsSearchBodySchema | undefined
   >,
   respond: GetSubscriptionsSearchResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10329,7 +10328,7 @@ export type DeleteSubscriptionsSubscriptionExposedId = (
     t_DeleteSubscriptionsSubscriptionExposedIdBodySchema | undefined
   >,
   respond: DeleteSubscriptionsSubscriptionExposedIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription>
@@ -10348,7 +10347,7 @@ export type GetSubscriptionsSubscriptionExposedId = (
     t_GetSubscriptionsSubscriptionExposedIdBodySchema | undefined
   >,
   respond: GetSubscriptionsSubscriptionExposedIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription>
@@ -10367,7 +10366,7 @@ export type PostSubscriptionsSubscriptionExposedId = (
     t_PostSubscriptionsSubscriptionExposedIdBodySchema | undefined
   >,
   respond: PostSubscriptionsSubscriptionExposedIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription>
@@ -10386,7 +10385,7 @@ export type DeleteSubscriptionsSubscriptionExposedIdDiscount = (
     t_DeleteSubscriptionsSubscriptionExposedIdDiscountBodySchema | undefined
   >,
   respond: DeleteSubscriptionsSubscriptionExposedIdDiscountResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_discount>
@@ -10405,7 +10404,7 @@ export type PostSubscriptionsSubscriptionResume = (
     t_PostSubscriptionsSubscriptionResumeBodySchema | undefined
   >,
   respond: PostSubscriptionsSubscriptionResumeResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription>
@@ -10420,7 +10419,7 @@ export type PostTaxCalculationsResponder = {
 export type PostTaxCalculations = (
   params: Params<void, void, t_PostTaxCalculationsBodySchema>,
   respond: PostTaxCalculationsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_calculation>
@@ -10444,7 +10443,7 @@ export type GetTaxCalculationsCalculationLineItems = (
     t_GetTaxCalculationsCalculationLineItemsBodySchema | undefined
   >,
   respond: GetTaxCalculationsCalculationLineItemsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10471,7 +10470,7 @@ export type GetTaxSettings = (
     t_GetTaxSettingsBodySchema | undefined
   >,
   respond: GetTaxSettingsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_settings>
@@ -10486,7 +10485,7 @@ export type PostTaxSettingsResponder = {
 export type PostTaxSettings = (
   params: Params<void, void, t_PostTaxSettingsBodySchema | undefined>,
   respond: PostTaxSettingsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_settings>
@@ -10505,7 +10504,7 @@ export type PostTaxTransactionsCreateFromCalculation = (
     t_PostTaxTransactionsCreateFromCalculationBodySchema
   >,
   respond: PostTaxTransactionsCreateFromCalculationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_transaction>
@@ -10520,7 +10519,7 @@ export type PostTaxTransactionsCreateReversalResponder = {
 export type PostTaxTransactionsCreateReversal = (
   params: Params<void, void, t_PostTaxTransactionsCreateReversalBodySchema>,
   respond: PostTaxTransactionsCreateReversalResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_transaction>
@@ -10539,7 +10538,7 @@ export type GetTaxTransactionsTransaction = (
     t_GetTaxTransactionsTransactionBodySchema | undefined
   >,
   respond: GetTaxTransactionsTransactionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_transaction>
@@ -10563,7 +10562,7 @@ export type GetTaxTransactionsTransactionLineItems = (
     t_GetTaxTransactionsTransactionLineItemsBodySchema | undefined
   >,
   respond: GetTaxTransactionsTransactionLineItemsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10595,7 +10594,7 @@ export type GetTaxCodes = (
     t_GetTaxCodesBodySchema | undefined
   >,
   respond: GetTaxCodesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10622,7 +10621,7 @@ export type GetTaxCodesId = (
     t_GetTaxCodesIdBodySchema | undefined
   >,
   respond: GetTaxCodesIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_code>
@@ -10646,7 +10645,7 @@ export type GetTaxRates = (
     t_GetTaxRatesBodySchema | undefined
   >,
   respond: GetTaxRatesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10669,7 +10668,7 @@ export type PostTaxRatesResponder = {
 export type PostTaxRates = (
   params: Params<void, void, t_PostTaxRatesBodySchema>,
   respond: PostTaxRatesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_rate>
@@ -10688,7 +10687,7 @@ export type GetTaxRatesTaxRate = (
     t_GetTaxRatesTaxRateBodySchema | undefined
   >,
   respond: GetTaxRatesTaxRateResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_rate>
@@ -10707,7 +10706,7 @@ export type PostTaxRatesTaxRate = (
     t_PostTaxRatesTaxRateBodySchema | undefined
   >,
   respond: PostTaxRatesTaxRateResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_rate>
@@ -10731,7 +10730,7 @@ export type GetTerminalConfigurations = (
     t_GetTerminalConfigurationsBodySchema | undefined
   >,
   respond: GetTerminalConfigurationsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10758,7 +10757,7 @@ export type PostTerminalConfigurations = (
     t_PostTerminalConfigurationsBodySchema | undefined
   >,
   respond: PostTerminalConfigurationsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_configuration>
@@ -10777,7 +10776,7 @@ export type DeleteTerminalConfigurationsConfiguration = (
     t_DeleteTerminalConfigurationsConfigurationBodySchema | undefined
   >,
   respond: DeleteTerminalConfigurationsConfigurationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_terminal_configuration>
@@ -10798,7 +10797,7 @@ export type GetTerminalConfigurationsConfiguration = (
     t_GetTerminalConfigurationsConfigurationBodySchema | undefined
   >,
   respond: GetTerminalConfigurationsConfigurationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_configuration | t_deleted_terminal_configuration>
@@ -10819,7 +10818,7 @@ export type PostTerminalConfigurationsConfiguration = (
     t_PostTerminalConfigurationsConfigurationBodySchema | undefined
   >,
   respond: PostTerminalConfigurationsConfigurationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_configuration | t_deleted_terminal_configuration>
@@ -10838,7 +10837,7 @@ export type PostTerminalConnectionTokens = (
     t_PostTerminalConnectionTokensBodySchema | undefined
   >,
   respond: PostTerminalConnectionTokensResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_connection_token>
@@ -10862,7 +10861,7 @@ export type GetTerminalLocations = (
     t_GetTerminalLocationsBodySchema | undefined
   >,
   respond: GetTerminalLocationsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10885,7 +10884,7 @@ export type PostTerminalLocationsResponder = {
 export type PostTerminalLocations = (
   params: Params<void, void, t_PostTerminalLocationsBodySchema>,
   respond: PostTerminalLocationsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_location>
@@ -10904,7 +10903,7 @@ export type DeleteTerminalLocationsLocation = (
     t_DeleteTerminalLocationsLocationBodySchema | undefined
   >,
   respond: DeleteTerminalLocationsLocationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_terminal_location>
@@ -10925,7 +10924,7 @@ export type GetTerminalLocationsLocation = (
     t_GetTerminalLocationsLocationBodySchema | undefined
   >,
   respond: GetTerminalLocationsLocationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_location | t_deleted_terminal_location>
@@ -10946,7 +10945,7 @@ export type PostTerminalLocationsLocation = (
     t_PostTerminalLocationsLocationBodySchema | undefined
   >,
   respond: PostTerminalLocationsLocationResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_location | t_deleted_terminal_location>
@@ -10970,7 +10969,7 @@ export type GetTerminalReaders = (
     t_GetTerminalReadersBodySchema | undefined
   >,
   respond: GetTerminalReadersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10993,7 +10992,7 @@ export type PostTerminalReadersResponder = {
 export type PostTerminalReaders = (
   params: Params<void, void, t_PostTerminalReadersBodySchema>,
   respond: PostTerminalReadersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_reader>
@@ -11012,7 +11011,7 @@ export type DeleteTerminalReadersReader = (
     t_DeleteTerminalReadersReaderBodySchema | undefined
   >,
   respond: DeleteTerminalReadersReaderResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_terminal_reader>
@@ -11031,7 +11030,7 @@ export type GetTerminalReadersReader = (
     t_GetTerminalReadersReaderBodySchema | undefined
   >,
   respond: GetTerminalReadersReaderResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_reader | t_deleted_terminal_reader>
@@ -11050,7 +11049,7 @@ export type PostTerminalReadersReader = (
     t_PostTerminalReadersReaderBodySchema | undefined
   >,
   respond: PostTerminalReadersReaderResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_reader | t_deleted_terminal_reader>
@@ -11069,7 +11068,7 @@ export type PostTerminalReadersReaderCancelAction = (
     t_PostTerminalReadersReaderCancelActionBodySchema | undefined
   >,
   respond: PostTerminalReadersReaderCancelActionResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_reader>
@@ -11088,7 +11087,7 @@ export type PostTerminalReadersReaderProcessPaymentIntent = (
     t_PostTerminalReadersReaderProcessPaymentIntentBodySchema
   >,
   respond: PostTerminalReadersReaderProcessPaymentIntentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_reader>
@@ -11107,7 +11106,7 @@ export type PostTerminalReadersReaderProcessSetupIntent = (
     t_PostTerminalReadersReaderProcessSetupIntentBodySchema
   >,
   respond: PostTerminalReadersReaderProcessSetupIntentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_reader>
@@ -11126,7 +11125,7 @@ export type PostTerminalReadersReaderRefundPayment = (
     t_PostTerminalReadersReaderRefundPaymentBodySchema | undefined
   >,
   respond: PostTerminalReadersReaderRefundPaymentResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_reader>
@@ -11145,7 +11144,7 @@ export type PostTerminalReadersReaderSetReaderDisplay = (
     t_PostTerminalReadersReaderSetReaderDisplayBodySchema
   >,
   respond: PostTerminalReadersReaderSetReaderDisplayResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_reader>
@@ -11164,7 +11163,7 @@ export type PostTestHelpersCustomersCustomerFundCashBalance = (
     t_PostTestHelpersCustomersCustomerFundCashBalanceBodySchema
   >,
   respond: PostTestHelpersCustomersCustomerFundCashBalanceResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_customer_cash_balance_transaction>
@@ -11179,7 +11178,7 @@ export type PostTestHelpersIssuingAuthorizationsResponder = {
 export type PostTestHelpersIssuingAuthorizations = (
   params: Params<void, void, t_PostTestHelpersIssuingAuthorizationsBodySchema>,
   respond: PostTestHelpersIssuingAuthorizationsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_authorization>
@@ -11200,7 +11199,7 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationCapture = (
     | undefined
   >,
   respond: PostTestHelpersIssuingAuthorizationsAuthorizationCaptureResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_authorization>
@@ -11220,7 +11219,7 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationExpire = (
     | undefined
   >,
   respond: PostTestHelpersIssuingAuthorizationsAuthorizationExpireResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_authorization>
@@ -11240,7 +11239,7 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationIncrement = (
     t_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementBodySchema
   >,
   respond: PostTestHelpersIssuingAuthorizationsAuthorizationIncrementResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_authorization>
@@ -11261,7 +11260,7 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationReverse = (
     | undefined
   >,
   respond: PostTestHelpersIssuingAuthorizationsAuthorizationReverseResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_authorization>
@@ -11280,7 +11279,7 @@ export type PostTestHelpersIssuingCardsCardShippingDeliver = (
     t_PostTestHelpersIssuingCardsCardShippingDeliverBodySchema | undefined
   >,
   respond: PostTestHelpersIssuingCardsCardShippingDeliverResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_card>
@@ -11299,7 +11298,7 @@ export type PostTestHelpersIssuingCardsCardShippingFail = (
     t_PostTestHelpersIssuingCardsCardShippingFailBodySchema | undefined
   >,
   respond: PostTestHelpersIssuingCardsCardShippingFailResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_card>
@@ -11318,7 +11317,7 @@ export type PostTestHelpersIssuingCardsCardShippingReturn = (
     t_PostTestHelpersIssuingCardsCardShippingReturnBodySchema | undefined
   >,
   respond: PostTestHelpersIssuingCardsCardShippingReturnResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_card>
@@ -11337,7 +11336,7 @@ export type PostTestHelpersIssuingCardsCardShippingShip = (
     t_PostTestHelpersIssuingCardsCardShippingShipBodySchema | undefined
   >,
   respond: PostTestHelpersIssuingCardsCardShippingShipResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_card>
@@ -11356,7 +11355,7 @@ export type PostTestHelpersIssuingTransactionsCreateForceCapture = (
     t_PostTestHelpersIssuingTransactionsCreateForceCaptureBodySchema
   >,
   respond: PostTestHelpersIssuingTransactionsCreateForceCaptureResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_transaction>
@@ -11375,7 +11374,7 @@ export type PostTestHelpersIssuingTransactionsCreateUnlinkedRefund = (
     t_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundBodySchema
   >,
   respond: PostTestHelpersIssuingTransactionsCreateUnlinkedRefundResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_transaction>
@@ -11394,7 +11393,7 @@ export type PostTestHelpersIssuingTransactionsTransactionRefund = (
     t_PostTestHelpersIssuingTransactionsTransactionRefundBodySchema | undefined
   >,
   respond: PostTestHelpersIssuingTransactionsTransactionRefundResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_transaction>
@@ -11413,7 +11412,7 @@ export type PostTestHelpersRefundsRefundExpire = (
     t_PostTestHelpersRefundsRefundExpireBodySchema | undefined
   >,
   respond: PostTestHelpersRefundsRefundExpireResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_refund>
@@ -11434,7 +11433,7 @@ export type PostTestHelpersTerminalReadersReaderPresentPaymentMethod = (
     | undefined
   >,
   respond: PostTestHelpersTerminalReadersReaderPresentPaymentMethodResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_reader>
@@ -11458,7 +11457,7 @@ export type GetTestHelpersTestClocks = (
     t_GetTestHelpersTestClocksBodySchema | undefined
   >,
   respond: GetTestHelpersTestClocksResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11481,7 +11480,7 @@ export type PostTestHelpersTestClocksResponder = {
 export type PostTestHelpersTestClocks = (
   params: Params<void, void, t_PostTestHelpersTestClocksBodySchema>,
   respond: PostTestHelpersTestClocksResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_test_helpers_test_clock>
@@ -11500,7 +11499,7 @@ export type DeleteTestHelpersTestClocksTestClock = (
     t_DeleteTestHelpersTestClocksTestClockBodySchema | undefined
   >,
   respond: DeleteTestHelpersTestClocksTestClockResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_test_helpers_test_clock>
@@ -11519,7 +11518,7 @@ export type GetTestHelpersTestClocksTestClock = (
     t_GetTestHelpersTestClocksTestClockBodySchema | undefined
   >,
   respond: GetTestHelpersTestClocksTestClockResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_test_helpers_test_clock>
@@ -11538,7 +11537,7 @@ export type PostTestHelpersTestClocksTestClockAdvance = (
     t_PostTestHelpersTestClocksTestClockAdvanceBodySchema
   >,
   respond: PostTestHelpersTestClocksTestClockAdvanceResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_test_helpers_test_clock>
@@ -11557,7 +11556,7 @@ export type PostTestHelpersTreasuryInboundTransfersIdFail = (
     t_PostTestHelpersTreasuryInboundTransfersIdFailBodySchema | undefined
   >,
   respond: PostTestHelpersTreasuryInboundTransfersIdFailResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_inbound_transfer>
@@ -11576,7 +11575,7 @@ export type PostTestHelpersTreasuryInboundTransfersIdReturn = (
     t_PostTestHelpersTreasuryInboundTransfersIdReturnBodySchema | undefined
   >,
   respond: PostTestHelpersTreasuryInboundTransfersIdReturnResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_inbound_transfer>
@@ -11595,7 +11594,7 @@ export type PostTestHelpersTreasuryInboundTransfersIdSucceed = (
     t_PostTestHelpersTreasuryInboundTransfersIdSucceedBodySchema | undefined
   >,
   respond: PostTestHelpersTreasuryInboundTransfersIdSucceedResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_inbound_transfer>
@@ -11614,7 +11613,7 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdFail = (
     t_PostTestHelpersTreasuryOutboundPaymentsIdFailBodySchema | undefined
   >,
   respond: PostTestHelpersTreasuryOutboundPaymentsIdFailResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_payment>
@@ -11633,7 +11632,7 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdPost = (
     t_PostTestHelpersTreasuryOutboundPaymentsIdPostBodySchema | undefined
   >,
   respond: PostTestHelpersTreasuryOutboundPaymentsIdPostResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_payment>
@@ -11652,7 +11651,7 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdReturn = (
     t_PostTestHelpersTreasuryOutboundPaymentsIdReturnBodySchema | undefined
   >,
   respond: PostTestHelpersTreasuryOutboundPaymentsIdReturnResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_payment>
@@ -11673,7 +11672,7 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferFail = (
     | undefined
   >,
   respond: PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_transfer>
@@ -11694,7 +11693,7 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferPost = (
     | undefined
   >,
   respond: PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_transfer>
@@ -11715,7 +11714,7 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturn = (
     | undefined
   >,
   respond: PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_transfer>
@@ -11734,7 +11733,7 @@ export type PostTestHelpersTreasuryReceivedCredits = (
     t_PostTestHelpersTreasuryReceivedCreditsBodySchema
   >,
   respond: PostTestHelpersTreasuryReceivedCreditsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_received_credit>
@@ -11749,7 +11748,7 @@ export type PostTestHelpersTreasuryReceivedDebitsResponder = {
 export type PostTestHelpersTreasuryReceivedDebits = (
   params: Params<void, void, t_PostTestHelpersTreasuryReceivedDebitsBodySchema>,
   respond: PostTestHelpersTreasuryReceivedDebitsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_received_debit>
@@ -11764,7 +11763,7 @@ export type PostTokensResponder = {
 export type PostTokens = (
   params: Params<void, void, t_PostTokensBodySchema | undefined>,
   respond: PostTokensResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_token>
@@ -11783,7 +11782,7 @@ export type GetTokensToken = (
     t_GetTokensTokenBodySchema | undefined
   >,
   respond: GetTokensTokenResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_token>
@@ -11807,7 +11806,7 @@ export type GetTopups = (
     t_GetTopupsBodySchema | undefined
   >,
   respond: GetTopupsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11830,7 +11829,7 @@ export type PostTopupsResponder = {
 export type PostTopups = (
   params: Params<void, void, t_PostTopupsBodySchema>,
   respond: PostTopupsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_topup>
@@ -11849,7 +11848,7 @@ export type GetTopupsTopup = (
     t_GetTopupsTopupBodySchema | undefined
   >,
   respond: GetTopupsTopupResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_topup>
@@ -11868,7 +11867,7 @@ export type PostTopupsTopup = (
     t_PostTopupsTopupBodySchema | undefined
   >,
   respond: PostTopupsTopupResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_topup>
@@ -11887,7 +11886,7 @@ export type PostTopupsTopupCancel = (
     t_PostTopupsTopupCancelBodySchema | undefined
   >,
   respond: PostTopupsTopupCancelResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_topup>
@@ -11911,7 +11910,7 @@ export type GetTransfers = (
     t_GetTransfersBodySchema | undefined
   >,
   respond: GetTransfersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11934,7 +11933,7 @@ export type PostTransfersResponder = {
 export type PostTransfers = (
   params: Params<void, void, t_PostTransfersBodySchema>,
   respond: PostTransfersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_transfer>
@@ -11958,7 +11957,7 @@ export type GetTransfersIdReversals = (
     t_GetTransfersIdReversalsBodySchema | undefined
   >,
   respond: GetTransfersIdReversalsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11985,7 +11984,7 @@ export type PostTransfersIdReversals = (
     t_PostTransfersIdReversalsBodySchema | undefined
   >,
   respond: PostTransfersIdReversalsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_transfer_reversal>
@@ -12004,7 +12003,7 @@ export type GetTransfersTransfer = (
     t_GetTransfersTransferBodySchema | undefined
   >,
   respond: GetTransfersTransferResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_transfer>
@@ -12023,7 +12022,7 @@ export type PostTransfersTransfer = (
     t_PostTransfersTransferBodySchema | undefined
   >,
   respond: PostTransfersTransferResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_transfer>
@@ -12042,7 +12041,7 @@ export type GetTransfersTransferReversalsId = (
     t_GetTransfersTransferReversalsIdBodySchema | undefined
   >,
   respond: GetTransfersTransferReversalsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_transfer_reversal>
@@ -12061,7 +12060,7 @@ export type PostTransfersTransferReversalsId = (
     t_PostTransfersTransferReversalsIdBodySchema | undefined
   >,
   respond: PostTransfersTransferReversalsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_transfer_reversal>
@@ -12085,7 +12084,7 @@ export type GetTreasuryCreditReversals = (
     t_GetTreasuryCreditReversalsBodySchema | undefined
   >,
   respond: GetTreasuryCreditReversalsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -12108,7 +12107,7 @@ export type PostTreasuryCreditReversalsResponder = {
 export type PostTreasuryCreditReversals = (
   params: Params<void, void, t_PostTreasuryCreditReversalsBodySchema>,
   respond: PostTreasuryCreditReversalsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_credit_reversal>
@@ -12127,7 +12126,7 @@ export type GetTreasuryCreditReversalsCreditReversal = (
     t_GetTreasuryCreditReversalsCreditReversalBodySchema | undefined
   >,
   respond: GetTreasuryCreditReversalsCreditReversalResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_credit_reversal>
@@ -12151,7 +12150,7 @@ export type GetTreasuryDebitReversals = (
     t_GetTreasuryDebitReversalsBodySchema | undefined
   >,
   respond: GetTreasuryDebitReversalsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -12174,7 +12173,7 @@ export type PostTreasuryDebitReversalsResponder = {
 export type PostTreasuryDebitReversals = (
   params: Params<void, void, t_PostTreasuryDebitReversalsBodySchema>,
   respond: PostTreasuryDebitReversalsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_debit_reversal>
@@ -12193,7 +12192,7 @@ export type GetTreasuryDebitReversalsDebitReversal = (
     t_GetTreasuryDebitReversalsDebitReversalBodySchema | undefined
   >,
   respond: GetTreasuryDebitReversalsDebitReversalResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_debit_reversal>
@@ -12217,7 +12216,7 @@ export type GetTreasuryFinancialAccounts = (
     t_GetTreasuryFinancialAccountsBodySchema | undefined
   >,
   respond: GetTreasuryFinancialAccountsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -12240,7 +12239,7 @@ export type PostTreasuryFinancialAccountsResponder = {
 export type PostTreasuryFinancialAccounts = (
   params: Params<void, void, t_PostTreasuryFinancialAccountsBodySchema>,
   respond: PostTreasuryFinancialAccountsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_financial_account>
@@ -12259,7 +12258,7 @@ export type GetTreasuryFinancialAccountsFinancialAccount = (
     t_GetTreasuryFinancialAccountsFinancialAccountBodySchema | undefined
   >,
   respond: GetTreasuryFinancialAccountsFinancialAccountResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_financial_account>
@@ -12278,7 +12277,7 @@ export type PostTreasuryFinancialAccountsFinancialAccount = (
     t_PostTreasuryFinancialAccountsFinancialAccountBodySchema | undefined
   >,
   respond: PostTreasuryFinancialAccountsFinancialAccountResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_financial_account>
@@ -12297,7 +12296,7 @@ export type GetTreasuryFinancialAccountsFinancialAccountFeatures = (
     t_GetTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema | undefined
   >,
   respond: GetTreasuryFinancialAccountsFinancialAccountFeaturesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_financial_account_features>
@@ -12317,7 +12316,7 @@ export type PostTreasuryFinancialAccountsFinancialAccountFeatures = (
     | undefined
   >,
   respond: PostTreasuryFinancialAccountsFinancialAccountFeaturesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_financial_account_features>
@@ -12341,7 +12340,7 @@ export type GetTreasuryInboundTransfers = (
     t_GetTreasuryInboundTransfersBodySchema | undefined
   >,
   respond: GetTreasuryInboundTransfersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -12364,7 +12363,7 @@ export type PostTreasuryInboundTransfersResponder = {
 export type PostTreasuryInboundTransfers = (
   params: Params<void, void, t_PostTreasuryInboundTransfersBodySchema>,
   respond: PostTreasuryInboundTransfersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_inbound_transfer>
@@ -12383,7 +12382,7 @@ export type GetTreasuryInboundTransfersId = (
     t_GetTreasuryInboundTransfersIdBodySchema | undefined
   >,
   respond: GetTreasuryInboundTransfersIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_inbound_transfer>
@@ -12402,7 +12401,7 @@ export type PostTreasuryInboundTransfersInboundTransferCancel = (
     t_PostTreasuryInboundTransfersInboundTransferCancelBodySchema | undefined
   >,
   respond: PostTreasuryInboundTransfersInboundTransferCancelResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_inbound_transfer>
@@ -12426,7 +12425,7 @@ export type GetTreasuryOutboundPayments = (
     t_GetTreasuryOutboundPaymentsBodySchema | undefined
   >,
   respond: GetTreasuryOutboundPaymentsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -12449,7 +12448,7 @@ export type PostTreasuryOutboundPaymentsResponder = {
 export type PostTreasuryOutboundPayments = (
   params: Params<void, void, t_PostTreasuryOutboundPaymentsBodySchema>,
   respond: PostTreasuryOutboundPaymentsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_payment>
@@ -12468,7 +12467,7 @@ export type GetTreasuryOutboundPaymentsId = (
     t_GetTreasuryOutboundPaymentsIdBodySchema | undefined
   >,
   respond: GetTreasuryOutboundPaymentsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_payment>
@@ -12487,7 +12486,7 @@ export type PostTreasuryOutboundPaymentsIdCancel = (
     t_PostTreasuryOutboundPaymentsIdCancelBodySchema | undefined
   >,
   respond: PostTreasuryOutboundPaymentsIdCancelResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_payment>
@@ -12511,7 +12510,7 @@ export type GetTreasuryOutboundTransfers = (
     t_GetTreasuryOutboundTransfersBodySchema | undefined
   >,
   respond: GetTreasuryOutboundTransfersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -12534,7 +12533,7 @@ export type PostTreasuryOutboundTransfersResponder = {
 export type PostTreasuryOutboundTransfers = (
   params: Params<void, void, t_PostTreasuryOutboundTransfersBodySchema>,
   respond: PostTreasuryOutboundTransfersResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_transfer>
@@ -12553,7 +12552,7 @@ export type GetTreasuryOutboundTransfersOutboundTransfer = (
     t_GetTreasuryOutboundTransfersOutboundTransferBodySchema | undefined
   >,
   respond: GetTreasuryOutboundTransfersOutboundTransferResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_transfer>
@@ -12572,7 +12571,7 @@ export type PostTreasuryOutboundTransfersOutboundTransferCancel = (
     t_PostTreasuryOutboundTransfersOutboundTransferCancelBodySchema | undefined
   >,
   respond: PostTreasuryOutboundTransfersOutboundTransferCancelResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_transfer>
@@ -12596,7 +12595,7 @@ export type GetTreasuryReceivedCredits = (
     t_GetTreasuryReceivedCreditsBodySchema | undefined
   >,
   respond: GetTreasuryReceivedCreditsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -12623,7 +12622,7 @@ export type GetTreasuryReceivedCreditsId = (
     t_GetTreasuryReceivedCreditsIdBodySchema | undefined
   >,
   respond: GetTreasuryReceivedCreditsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_received_credit>
@@ -12647,7 +12646,7 @@ export type GetTreasuryReceivedDebits = (
     t_GetTreasuryReceivedDebitsBodySchema | undefined
   >,
   respond: GetTreasuryReceivedDebitsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -12674,7 +12673,7 @@ export type GetTreasuryReceivedDebitsId = (
     t_GetTreasuryReceivedDebitsIdBodySchema | undefined
   >,
   respond: GetTreasuryReceivedDebitsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_received_debit>
@@ -12698,7 +12697,7 @@ export type GetTreasuryTransactionEntries = (
     t_GetTreasuryTransactionEntriesBodySchema | undefined
   >,
   respond: GetTreasuryTransactionEntriesResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -12725,7 +12724,7 @@ export type GetTreasuryTransactionEntriesId = (
     t_GetTreasuryTransactionEntriesIdBodySchema | undefined
   >,
   respond: GetTreasuryTransactionEntriesIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_transaction_entry>
@@ -12749,7 +12748,7 @@ export type GetTreasuryTransactions = (
     t_GetTreasuryTransactionsBodySchema | undefined
   >,
   respond: GetTreasuryTransactionsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -12776,7 +12775,7 @@ export type GetTreasuryTransactionsId = (
     t_GetTreasuryTransactionsIdBodySchema | undefined
   >,
   respond: GetTreasuryTransactionsIdResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_transaction>
@@ -12800,7 +12799,7 @@ export type GetWebhookEndpoints = (
     t_GetWebhookEndpointsBodySchema | undefined
   >,
   respond: GetWebhookEndpointsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -12823,7 +12822,7 @@ export type PostWebhookEndpointsResponder = {
 export type PostWebhookEndpoints = (
   params: Params<void, void, t_PostWebhookEndpointsBodySchema>,
   respond: PostWebhookEndpointsResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_webhook_endpoint>
@@ -12842,7 +12841,7 @@ export type DeleteWebhookEndpointsWebhookEndpoint = (
     t_DeleteWebhookEndpointsWebhookEndpointBodySchema | undefined
   >,
   respond: DeleteWebhookEndpointsWebhookEndpointResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_webhook_endpoint>
@@ -12861,7 +12860,7 @@ export type GetWebhookEndpointsWebhookEndpoint = (
     t_GetWebhookEndpointsWebhookEndpointBodySchema | undefined
   >,
   respond: GetWebhookEndpointsWebhookEndpointResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_webhook_endpoint>
@@ -12880,7 +12879,7 @@ export type PostWebhookEndpointsWebhookEndpoint = (
     t_PostWebhookEndpointsWebhookEndpointBodySchema | undefined
   >,
   respond: PostWebhookEndpointsWebhookEndpointResponder,
-  ctx: Context,
+  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_webhook_endpoint>
