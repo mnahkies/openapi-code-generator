@@ -433,15 +433,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_root>> {
     const url = `/`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async securityAdvisoriesListGlobalAdvisories(
@@ -498,15 +496,13 @@ export class ApiClient extends AbstractAxiosClient {
       sort: p["sort"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async securityAdvisoriesGetGlobalAdvisory(
@@ -518,15 +514,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_global_advisory>> {
     const url = `/advisories/${p["ghsaId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsGetAuthenticated(
@@ -535,15 +529,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_integration>> {
     const url = `/app`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsCreateFromManifest(
@@ -570,15 +562,13 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/app-manifests/${p["code"]}/conversions`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsGetWebhookConfigForApp(
@@ -587,15 +577,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_webhook_config>> {
     const url = `/app/hook/config`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsUpdateWebhookConfigForApp(
@@ -614,7 +602,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -623,8 +611,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsListWebhookDeliveries(
@@ -643,15 +629,13 @@ export class ApiClient extends AbstractAxiosClient {
       redelivery: p["redelivery"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsGetWebhookDelivery(
@@ -663,15 +647,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook_delivery>> {
     const url = `/app/hook/deliveries/${p["deliveryId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsRedeliverWebhookDelivery(
@@ -683,15 +665,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<EmptyObject>> {
     const url = `/app/hook/deliveries/${p["deliveryId"]}/attempts`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsListInstallationRequestsForAuthenticatedApp(
@@ -705,15 +685,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/app/installation-requests`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsListInstallations(
@@ -734,15 +712,13 @@ export class ApiClient extends AbstractAxiosClient {
       outdated: p["outdated"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsGetInstallation(
@@ -754,15 +730,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_installation>> {
     const url = `/app/installations/${p["installationId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsDeleteInstallation(
@@ -774,15 +748,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/app/installations/${p["installationId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsCreateInstallationAccessToken(
@@ -801,7 +773,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -810,8 +782,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsSuspendInstallation(
@@ -823,15 +793,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/app/installations/${p["installationId"]}/suspended`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsUnsuspendInstallation(
@@ -843,15 +811,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/app/installations/${p["installationId"]}/suspended`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsDeleteAuthorization(
@@ -868,7 +834,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -877,8 +843,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsCheckToken(
@@ -895,7 +859,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -904,8 +868,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsResetToken(
@@ -922,7 +884,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -931,8 +893,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsDeleteToken(
@@ -949,7 +909,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -958,8 +918,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsScopeToken(
@@ -981,7 +939,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -990,8 +948,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsGetBySlug(
@@ -1003,15 +959,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_integration>> {
     const url = `/apps/${p["appSlug"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async classroomGetAnAssignment(
@@ -1023,15 +977,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_classroom_assignment>> {
     const url = `/assignments/${p["assignmentId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async classroomListAcceptedAssigmentsForAnAssignment(
@@ -1046,15 +998,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/assignments/${p["assignmentId"]}/accepted_assignments`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async classroomGetAssignmentGrades(
@@ -1066,15 +1016,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_classroom_assignment_grade[]>> {
     const url = `/assignments/${p["assignmentId"]}/grades`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async classroomListClassrooms(
@@ -1088,15 +1036,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/classrooms`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async classroomGetAClassroom(
@@ -1108,15 +1054,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_classroom>> {
     const url = `/classrooms/${p["classroomId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async classroomListAssignmentsForAClassroom(
@@ -1131,15 +1075,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/classrooms/${p["classroomId"]}/assignments`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codesOfConductGetAllCodesOfConduct(
@@ -1148,15 +1090,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_of_conduct[]>> {
     const url = `/codes_of_conduct`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codesOfConductGetConductCode(
@@ -1168,15 +1108,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_of_conduct>> {
     const url = `/codes_of_conduct/${p["key"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async emojisGet(
@@ -1189,15 +1127,13 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/emojis`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependabotListAlertsForEnterprise(
@@ -1235,15 +1171,13 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async secretScanningListAlertsForEnterprise(
@@ -1273,15 +1207,13 @@ export class ApiClient extends AbstractAxiosClient {
       after: p["after"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityListPublicEvents(
@@ -1295,15 +1227,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityGetFeeds(
@@ -1312,15 +1242,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_feed>> {
     const url = `/feeds`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gistsList(
@@ -1339,15 +1267,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gistsCreate(
@@ -1369,7 +1295,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -1378,8 +1304,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gistsListPublic(
@@ -1398,15 +1322,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gistsListStarred(
@@ -1425,15 +1347,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gistsGet(
@@ -1445,15 +1365,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gist_simple>> {
     const url = `/gists/${p["gistId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gistsUpdate(
@@ -1476,7 +1394,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -1485,8 +1403,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gistsDelete(
@@ -1498,15 +1414,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/gists/${p["gistId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gistsListComments(
@@ -1521,15 +1435,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/gists/${p["gistId"]}/comments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gistsCreateComment(
@@ -1546,7 +1458,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -1555,8 +1467,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gistsGetComment(
@@ -1569,15 +1479,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gist_comment>> {
     const url = `/gists/${p["gistId"]}/comments/${p["commentId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gistsUpdateComment(
@@ -1595,7 +1503,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -1604,8 +1512,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gistsDeleteComment(
@@ -1618,15 +1524,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/gists/${p["gistId"]}/comments/${p["commentId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gistsListCommits(
@@ -1641,15 +1545,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/gists/${p["gistId"]}/commits`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gistsListForks(
@@ -1664,15 +1566,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/gists/${p["gistId"]}/forks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gistsFork(
@@ -1684,15 +1584,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_base_gist>> {
     const url = `/gists/${p["gistId"]}/forks`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gistsCheckIsStarred(
@@ -1704,15 +1602,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/gists/${p["gistId"]}/star`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gistsStar(
@@ -1724,15 +1620,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/gists/${p["gistId"]}/star`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gistsUnstar(
@@ -1744,15 +1638,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/gists/${p["gistId"]}/star`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gistsGetRevision(
@@ -1765,15 +1657,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gist_simple>> {
     const url = `/gists/${p["gistId"]}/${p["sha"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gitignoreGetAllTemplates(
@@ -1782,15 +1672,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string[]>> {
     const url = `/gitignore/templates`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gitignoreGetTemplate(
@@ -1802,15 +1690,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gitignore_template>> {
     const url = `/gitignore/templates/${p["name"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsListReposAccessibleToInstallation(
@@ -1830,15 +1716,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/installation/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsRevokeInstallationAccessToken(
@@ -1847,15 +1731,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/installation/token`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesList(
@@ -1898,15 +1780,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async licensesGetAllCommonlyUsed(
@@ -1925,15 +1805,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async licensesGet(
@@ -1945,15 +1823,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_license>> {
     const url = `/licenses/${p["license"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async markdownRender(
@@ -1971,7 +1847,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -1980,8 +1856,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async markdownRenderRaw(
@@ -1995,7 +1869,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "text/plain" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -2004,8 +1878,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsGetSubscriptionPlanForAccount(
@@ -2017,15 +1889,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_marketplace_purchase>> {
     const url = `/marketplace_listing/accounts/${p["accountId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsListPlans(
@@ -2039,15 +1909,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/marketplace_listing/plans`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsListAccountsForPlan(
@@ -2069,15 +1937,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsGetSubscriptionPlanForAccountStubbed(
@@ -2089,15 +1955,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_marketplace_purchase>> {
     const url = `/marketplace_listing/stubbed/accounts/${p["accountId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsListPlansStubbed(
@@ -2111,15 +1975,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/marketplace_listing/stubbed/plans`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsListAccountsForPlanStubbed(
@@ -2141,15 +2003,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async metaGet(
@@ -2158,15 +2018,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_api_overview>> {
     const url = `/meta`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityListPublicEventsForRepoNetwork(
@@ -2182,15 +2040,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/networks/${p["owner"]}/${p["repo"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityListNotificationsForAuthenticatedUser(
@@ -2215,15 +2071,13 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityMarkNotificationsAsRead(
@@ -2245,7 +2099,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -2254,8 +2108,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityGetThread(
@@ -2267,15 +2119,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_thread>> {
     const url = `/notifications/threads/${p["threadId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityMarkThreadAsRead(
@@ -2287,15 +2137,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/notifications/threads/${p["threadId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityGetThreadSubscriptionForAuthenticatedUser(
@@ -2307,15 +2155,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_thread_subscription>> {
     const url = `/notifications/threads/${p["threadId"]}/subscription`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activitySetThreadSubscription(
@@ -2332,7 +2178,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -2341,8 +2187,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityDeleteThreadSubscription(
@@ -2354,15 +2198,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/notifications/threads/${p["threadId"]}/subscription`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async metaGetOctocat(
@@ -2375,15 +2217,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/octocat`
     const query = this._query({ s: p["s"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsList(
@@ -2397,15 +2237,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/organizations`
     const query = this._query({ since: p["since"], per_page: p["perPage"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsGet(
@@ -2417,15 +2255,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_full>> {
     const url = `/orgs/${p["org"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsUpdate(
@@ -2470,7 +2306,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -2479,8 +2315,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsDelete(
@@ -2492,15 +2326,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<EmptyObject>> {
     const url = `/orgs/${p["org"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetActionsCacheUsageForOrg(
@@ -2512,15 +2344,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_cache_usage_org_enterprise>> {
     const url = `/orgs/${p["org"]}/actions/cache/usage`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetActionsCacheUsageByRepoForOrg(
@@ -2540,15 +2370,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/actions/cache/usage-by-repository`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async oidcGetOidcCustomSubTemplateForOrg(
@@ -2560,15 +2388,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_oidc_custom_sub>> {
     const url = `/orgs/${p["org"]}/actions/oidc/customization/sub`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async oidcUpdateOidcCustomSubTemplateForOrg(
@@ -2583,7 +2409,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -2592,8 +2418,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetGithubActionsPermissionsOrganization(
@@ -2605,15 +2429,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_organization_permissions>> {
     const url = `/orgs/${p["org"]}/actions/permissions`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsSetGithubActionsPermissionsOrganization(
@@ -2631,7 +2453,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -2640,8 +2462,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListSelectedRepositoriesEnabledGithubActionsOrganization(
@@ -2661,15 +2481,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/actions/permissions/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsSetSelectedRepositoriesEnabledGithubActionsOrganization(
@@ -2686,7 +2504,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -2695,8 +2513,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsEnableSelectedRepositoryGithubActionsOrganization(
@@ -2709,15 +2525,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/permissions/repositories/${p["repositoryId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsDisableSelectedRepositoryGithubActionsOrganization(
@@ -2730,15 +2544,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/permissions/repositories/${p["repositoryId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetAllowedActionsOrganization(
@@ -2750,15 +2562,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_selected_actions>> {
     const url = `/orgs/${p["org"]}/actions/permissions/selected-actions`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsSetAllowedActionsOrganization(
@@ -2773,7 +2583,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -2782,8 +2592,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetGithubActionsDefaultWorkflowPermissionsOrganization(
@@ -2795,15 +2603,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_get_default_workflow_permissions>> {
     const url = `/orgs/${p["org"]}/actions/permissions/workflow`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsSetGithubActionsDefaultWorkflowPermissionsOrganization(
@@ -2818,7 +2624,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -2827,8 +2633,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListSelfHostedRunnersForOrg(
@@ -2853,15 +2657,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListRunnerApplicationsForOrg(
@@ -2873,15 +2675,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_runner_application[]>> {
     const url = `/orgs/${p["org"]}/actions/runners/downloads`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGenerateRunnerJitconfigForOrg(
@@ -2906,7 +2706,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -2915,8 +2715,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsCreateRegistrationTokenForOrg(
@@ -2928,15 +2726,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_authentication_token>> {
     const url = `/orgs/${p["org"]}/actions/runners/registration-token`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsCreateRemoveTokenForOrg(
@@ -2948,15 +2744,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_authentication_token>> {
     const url = `/orgs/${p["org"]}/actions/runners/remove-token`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetSelfHostedRunnerForOrg(
@@ -2969,15 +2763,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_runner>> {
     const url = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsDeleteSelfHostedRunnerFromOrg(
@@ -2990,15 +2782,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListLabelsForSelfHostedRunnerForOrg(
@@ -3016,15 +2806,13 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsAddCustomLabelsToSelfHostedRunnerForOrg(
@@ -3047,7 +2835,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3056,8 +2844,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsSetCustomLabelsForSelfHostedRunnerForOrg(
@@ -3080,7 +2866,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -3089,8 +2875,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrg(
@@ -3108,15 +2892,13 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsRemoveCustomLabelFromSelfHostedRunnerForOrg(
@@ -3135,15 +2917,13 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels/${p["name"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListOrgSecrets(
@@ -3163,15 +2943,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/actions/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetOrgPublicKey(
@@ -3183,15 +2961,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_public_key>> {
     const url = `/orgs/${p["org"]}/actions/secrets/public-key`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetOrgSecret(
@@ -3204,15 +2980,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_actions_secret>> {
     const url = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsCreateOrUpdateOrgSecret(
@@ -3233,7 +3007,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -3242,8 +3016,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsDeleteOrgSecret(
@@ -3256,15 +3028,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListSelectedReposForOrgSecret(
@@ -3285,15 +3055,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsSetSelectedReposForOrgSecret(
@@ -3311,7 +3079,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -3320,8 +3088,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsAddSelectedRepoToOrgSecret(
@@ -3335,15 +3101,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsRemoveSelectedRepoFromOrgSecret(
@@ -3357,15 +3121,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListOrgVariables(
@@ -3385,15 +3147,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/actions/variables`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsCreateOrgVariable(
@@ -3413,7 +3173,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3422,8 +3182,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetOrgVariable(
@@ -3436,15 +3194,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_actions_variable>> {
     const url = `/orgs/${p["org"]}/actions/variables/${p["name"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsUpdateOrgVariable(
@@ -3465,7 +3221,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -3474,8 +3230,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsDeleteOrgVariable(
@@ -3488,15 +3242,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/variables/${p["name"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListSelectedReposForOrgVariable(
@@ -3517,15 +3269,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsSetSelectedReposForOrgVariable(
@@ -3543,7 +3293,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -3552,8 +3302,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsAddSelectedRepoToOrgVariable(
@@ -3567,15 +3315,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsRemoveSelectedRepoFromOrgVariable(
@@ -3589,15 +3335,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsListBlockedUsers(
@@ -3612,15 +3356,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/blocks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsCheckBlockedUser(
@@ -3633,15 +3375,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/blocks/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsBlockUser(
@@ -3654,15 +3394,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/blocks/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsUnblockUser(
@@ -3675,15 +3413,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/blocks/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codeScanningListAlertsForOrg(
@@ -3717,15 +3453,13 @@ export class ApiClient extends AbstractAxiosClient {
       severity: p["severity"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesListInOrganization(
@@ -3745,15 +3479,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/codespaces`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesSetCodespacesAccess(
@@ -3775,7 +3507,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -3784,8 +3516,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesSetCodespacesAccessUsers(
@@ -3802,7 +3532,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3811,8 +3541,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesDeleteCodespacesAccessUsers(
@@ -3829,7 +3557,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -3838,8 +3566,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesListOrgSecrets(
@@ -3859,15 +3585,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/codespaces/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesGetOrgPublicKey(
@@ -3879,15 +3603,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespaces_public_key>> {
     const url = `/orgs/${p["org"]}/codespaces/secrets/public-key`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesGetOrgSecret(
@@ -3900,15 +3622,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespaces_org_secret>> {
     const url = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesCreateOrUpdateOrgSecret(
@@ -3929,7 +3649,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -3938,8 +3658,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesDeleteOrgSecret(
@@ -3952,15 +3670,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesListSelectedReposForOrgSecret(
@@ -3981,15 +3697,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesSetSelectedReposForOrgSecret(
@@ -4007,7 +3721,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -4016,8 +3730,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesAddSelectedRepoToOrgSecret(
@@ -4031,15 +3743,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesRemoveSelectedRepoFromOrgSecret(
@@ -4053,15 +3763,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async copilotGetCopilotOrganizationDetails(
@@ -4073,15 +3781,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_copilot_organization_details>> {
     const url = `/orgs/${p["org"]}/copilot/billing`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async copilotListCopilotSeats(
@@ -4101,15 +3807,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/copilot/billing/seats`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async copilotAddCopilotForBusinessSeatsForTeams(
@@ -4130,7 +3834,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4139,8 +3843,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async copilotCancelCopilotSeatAssignmentForTeams(
@@ -4161,7 +3863,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -4170,8 +3872,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async copilotAddCopilotForBusinessSeatsForUsers(
@@ -4192,7 +3892,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4201,8 +3901,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async copilotCancelCopilotSeatAssignmentForUsers(
@@ -4223,7 +3921,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -4232,8 +3930,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependabotListAlertsForOrg(
@@ -4271,15 +3967,13 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependabotListOrgSecrets(
@@ -4299,15 +3993,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/dependabot/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependabotGetOrgPublicKey(
@@ -4319,15 +4011,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependabot_public_key>> {
     const url = `/orgs/${p["org"]}/dependabot/secrets/public-key`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependabotGetOrgSecret(
@@ -4340,15 +4030,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_dependabot_secret>> {
     const url = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependabotCreateOrUpdateOrgSecret(
@@ -4369,7 +4057,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -4378,8 +4066,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependabotDeleteOrgSecret(
@@ -4392,15 +4078,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependabotListSelectedReposForOrgSecret(
@@ -4421,15 +4105,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependabotSetSelectedReposForOrgSecret(
@@ -4447,7 +4129,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -4456,8 +4138,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependabotAddSelectedRepoToOrgSecret(
@@ -4471,15 +4151,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependabotRemoveSelectedRepoFromOrgSecret(
@@ -4493,15 +4171,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesListDockerMigrationConflictingPackagesForOrganization(
@@ -4513,15 +4189,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package[]>> {
     const url = `/orgs/${p["org"]}/docker/conflicts`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityListPublicOrgEvents(
@@ -4536,15 +4210,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsListFailedInvitations(
@@ -4559,15 +4231,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/failed_invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsListWebhooks(
@@ -4582,15 +4252,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/hooks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsCreateWebhook(
@@ -4617,7 +4285,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4626,8 +4294,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsGetWebhook(
@@ -4640,15 +4306,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_org_hook>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsUpdateWebhook(
@@ -4674,7 +4338,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -4683,8 +4347,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsDeleteWebhook(
@@ -4697,15 +4359,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsGetWebhookConfigForOrg(
@@ -4718,15 +4378,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_webhook_config>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}/config`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsUpdateWebhookConfigForOrg(
@@ -4747,7 +4405,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -4756,8 +4414,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsListWebhookDeliveries(
@@ -4778,15 +4434,13 @@ export class ApiClient extends AbstractAxiosClient {
       redelivery: p["redelivery"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsGetWebhookDelivery(
@@ -4800,15 +4454,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook_delivery>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsRedeliverWebhookDelivery(
@@ -4822,15 +4474,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<EmptyObject>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsPingWebhook(
@@ -4843,15 +4493,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}/pings`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsGetOrgInstallation(
@@ -4863,15 +4511,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_installation>> {
     const url = `/orgs/${p["org"]}/installation`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsListAppInstallations(
@@ -4891,15 +4537,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/installations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async interactionsGetRestrictionsForOrg(
@@ -4911,15 +4555,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_interaction_limit_response | EmptyObject>> {
     const url = `/orgs/${p["org"]}/interaction-limits`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async interactionsSetRestrictionsForOrg(
@@ -4934,7 +4576,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -4943,8 +4585,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async interactionsRemoveRestrictionsForOrg(
@@ -4956,15 +4596,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/interaction-limits`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsListPendingInvitations(
@@ -4991,15 +4629,13 @@ export class ApiClient extends AbstractAxiosClient {
       invitation_source: p["invitationSource"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsCreateInvitation(
@@ -5019,7 +4655,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -5028,8 +4664,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsCancelInvitation(
@@ -5042,15 +4676,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/invitations/${p["invitationId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsListInvitationTeams(
@@ -5066,15 +4698,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/invitations/${p["invitationId"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesListForOrg(
@@ -5110,15 +4740,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsListMembers(
@@ -5140,15 +4768,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsCheckMembershipForUser(
@@ -5161,15 +4787,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/members/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsRemoveMember(
@@ -5182,15 +4806,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/members/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesGetCodespacesForUserInOrg(
@@ -5211,15 +4833,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/members/${p["username"]}/codespaces`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesDeleteFromOrganization(
@@ -5233,15 +4853,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<EmptyObject>> {
     const url = `/orgs/${p["org"]}/members/${p["username"]}/codespaces/${p["codespaceName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesStopInOrganization(
@@ -5255,15 +4873,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace>> {
     const url = `/orgs/${p["org"]}/members/${p["username"]}/codespaces/${p["codespaceName"]}/stop`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async copilotGetCopilotSeatAssignmentDetailsForUser(
@@ -5276,15 +4892,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_copilot_seat_details>> {
     const url = `/orgs/${p["org"]}/members/${p["username"]}/copilot`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsGetMembershipForUser(
@@ -5297,15 +4911,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_org_membership>> {
     const url = `/orgs/${p["org"]}/memberships/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsSetMembershipForUser(
@@ -5323,7 +4935,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -5332,8 +4944,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsRemoveMembershipForUser(
@@ -5346,15 +4956,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/memberships/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsListForOrg(
@@ -5374,15 +4982,13 @@ export class ApiClient extends AbstractAxiosClient {
       exclude: p["exclude"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsStartForOrg(
@@ -5407,7 +5013,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -5416,8 +5022,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsGetStatusForOrg(
@@ -5432,15 +5036,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/migrations/${p["migrationId"]}`
     const query = this._query({ exclude: p["exclude"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsDownloadArchiveForOrg(
@@ -5453,15 +5055,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsDeleteArchiveForOrg(
@@ -5474,15 +5074,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsUnlockRepoForOrg(
@@ -5496,15 +5094,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsListReposForOrg(
@@ -5520,15 +5116,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsListOutsideCollaborators(
@@ -5548,15 +5142,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsConvertMemberToOutsideCollaborator(
@@ -5574,7 +5166,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -5583,8 +5175,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsRemoveOutsideCollaborator(
@@ -5597,15 +5187,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesListPackagesForOrganization(
@@ -5633,15 +5221,13 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesGetPackageForOrganization(
@@ -5661,15 +5247,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package>> {
     const url = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesDeletePackageForOrg(
@@ -5689,15 +5273,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesRestorePackageForOrg(
@@ -5719,15 +5301,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const query = this._query({ token: p["token"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesGetAllPackageVersionsForPackageOwnedByOrg(
@@ -5755,15 +5335,13 @@ export class ApiClient extends AbstractAxiosClient {
       state: p["state"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesGetPackageVersionForOrganization(
@@ -5784,15 +5362,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package_version>> {
     const url = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesDeletePackageVersionForOrg(
@@ -5813,15 +5389,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesRestorePackageVersionForOrg(
@@ -5842,15 +5416,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsListPatGrantRequests(
@@ -5884,15 +5456,13 @@ export class ApiClient extends AbstractAxiosClient {
       last_used_after: p["lastUsedAfter"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsReviewPatGrantRequestsInBulk(
@@ -5911,7 +5481,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -5920,8 +5490,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsReviewPatGrantRequest(
@@ -5940,7 +5508,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -5949,8 +5517,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsListPatGrantRequestRepositories(
@@ -5966,15 +5532,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/personal-access-token-requests/${p["patRequestId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsListPatGrants(
@@ -6006,15 +5570,13 @@ export class ApiClient extends AbstractAxiosClient {
       last_used_after: p["lastUsedAfter"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsUpdatePatAccesses(
@@ -6032,7 +5594,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6041,8 +5603,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsUpdatePatAccess(
@@ -6060,7 +5620,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6069,8 +5629,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsListPatGrantRepositories(
@@ -6086,15 +5644,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/personal-access-tokens/${p["patId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsListForOrg(
@@ -6114,15 +5670,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsCreateForOrg(
@@ -6140,7 +5694,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6149,8 +5703,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsListPublicMembers(
@@ -6165,15 +5717,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/public_members`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsCheckPublicMembershipForUser(
@@ -6186,15 +5736,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/public_members/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsSetPublicMembershipForAuthenticatedUser(
@@ -6207,15 +5755,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/public_members/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsRemovePublicMembershipForAuthenticatedUser(
@@ -6228,15 +5774,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/public_members/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListForOrg(
@@ -6260,15 +5804,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreateInOrg(
@@ -6308,7 +5850,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6317,8 +5859,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetOrgRulesets(
@@ -6333,15 +5873,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/rulesets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreateOrgRuleset(
@@ -6363,7 +5901,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6372,8 +5910,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetOrgRuleset(
@@ -6386,15 +5922,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_ruleset>> {
     const url = `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposUpdateOrgRuleset(
@@ -6417,7 +5951,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -6426,8 +5960,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDeleteOrgRuleset(
@@ -6440,15 +5972,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async secretScanningListAlertsForOrg(
@@ -6480,15 +6010,13 @@ export class ApiClient extends AbstractAxiosClient {
       after: p["after"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async securityAdvisoriesListOrgRepositoryAdvisories(
@@ -6514,15 +6042,13 @@ export class ApiClient extends AbstractAxiosClient {
       state: p["state"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsListSecurityManagerTeams(
@@ -6534,15 +6060,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_simple[]>> {
     const url = `/orgs/${p["org"]}/security-managers`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsAddSecurityManagerTeam(
@@ -6555,15 +6079,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/security-managers/teams/${p["teamSlug"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsRemoveSecurityManagerTeam(
@@ -6576,15 +6098,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/security-managers/teams/${p["teamSlug"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async billingGetGithubActionsBillingOrg(
@@ -6596,15 +6116,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_billing_usage>> {
     const url = `/orgs/${p["org"]}/settings/billing/actions`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async billingGetGithubPackagesBillingOrg(
@@ -6616,15 +6134,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_packages_billing_usage>> {
     const url = `/orgs/${p["org"]}/settings/billing/packages`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async billingGetSharedStorageBillingOrg(
@@ -6636,15 +6152,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_combined_billing_usage>> {
     const url = `/orgs/${p["org"]}/settings/billing/shared-storage`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsList(
@@ -6659,15 +6173,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsCreate(
@@ -6693,7 +6205,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6702,8 +6214,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsGetByName(
@@ -6716,15 +6226,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_full>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsUpdateInOrg(
@@ -6749,7 +6257,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -6758,8 +6266,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsDeleteInOrg(
@@ -6772,15 +6278,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsListDiscussionsInOrg(
@@ -6803,15 +6307,13 @@ export class ApiClient extends AbstractAxiosClient {
       pinned: p["pinned"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsCreateDiscussionInOrg(
@@ -6831,7 +6333,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6840,8 +6342,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsGetDiscussionInOrg(
@@ -6855,15 +6355,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsUpdateDiscussionInOrg(
@@ -6883,7 +6381,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -6892,8 +6390,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsDeleteDiscussionInOrg(
@@ -6907,15 +6403,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsListDiscussionCommentsInOrg(
@@ -6937,15 +6431,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsCreateDiscussionCommentInOrg(
@@ -6964,7 +6456,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6973,8 +6465,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsGetDiscussionCommentInOrg(
@@ -6989,15 +6479,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion_comment>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsUpdateDiscussionCommentInOrg(
@@ -7017,7 +6505,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -7026,8 +6514,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsDeleteDiscussionCommentInOrg(
@@ -7042,15 +6528,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsListForTeamDiscussionCommentInOrg(
@@ -7081,15 +6565,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsCreateForTeamDiscussionCommentInOrg(
@@ -7117,7 +6599,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7126,8 +6608,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsDeleteForTeamDiscussionComment(
@@ -7143,15 +6623,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions/${p["reactionId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsListForTeamDiscussionInOrg(
@@ -7181,15 +6659,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsCreateForTeamDiscussionInOrg(
@@ -7216,7 +6692,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7225,8 +6701,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsDeleteForTeamDiscussion(
@@ -7241,15 +6715,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions/${p["reactionId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsListPendingInvitationsInOrg(
@@ -7265,15 +6737,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsListMembersInOrg(
@@ -7294,15 +6764,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsGetMembershipForUserInOrg(
@@ -7316,15 +6784,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_membership>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsAddOrUpdateMembershipForUserInOrg(
@@ -7343,7 +6809,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -7352,8 +6818,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsRemoveMembershipForUserInOrg(
@@ -7367,15 +6831,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsListProjectsInOrg(
@@ -7391,15 +6853,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsCheckPermissionsForProjectInOrg(
@@ -7413,15 +6873,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_project>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsAddOrUpdateProjectPermissionsInOrg(
@@ -7440,7 +6898,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -7449,8 +6907,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsRemoveProjectInOrg(
@@ -7464,15 +6920,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsListReposInOrg(
@@ -7488,15 +6942,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsCheckPermissionsForRepoInOrg(
@@ -7511,15 +6963,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_repository> | AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsAddOrUpdateRepoPermissionsInOrg(
@@ -7539,7 +6989,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -7548,8 +6998,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsRemoveRepoInOrg(
@@ -7564,15 +7012,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsListChildInOrg(
@@ -7588,15 +7034,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsEnableOrDisableSecurityProductOnAllOrgRepos(
@@ -7622,7 +7066,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7631,8 +7075,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsGetCard(
@@ -7644,15 +7086,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project_card>> {
     const url = `/projects/columns/cards/${p["cardId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsUpdateCard(
@@ -7670,7 +7110,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -7679,8 +7119,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsDeleteCard(
@@ -7692,15 +7130,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/projects/columns/cards/${p["cardId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsMoveCard(
@@ -7718,7 +7154,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7727,8 +7163,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsGetColumn(
@@ -7740,15 +7174,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project_column>> {
     const url = `/projects/columns/${p["columnId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsUpdateColumn(
@@ -7765,7 +7197,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -7774,8 +7206,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsDeleteColumn(
@@ -7787,15 +7217,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/projects/columns/${p["columnId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsListCards(
@@ -7815,15 +7243,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsCreateCard(
@@ -7845,7 +7271,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7854,8 +7280,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsMoveColumn(
@@ -7872,7 +7296,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7881,8 +7305,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsGet(
@@ -7894,15 +7316,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project>> {
     const url = `/projects/${p["projectId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsUpdate(
@@ -7923,7 +7343,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -7932,8 +7352,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsDelete(
@@ -7945,15 +7363,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/projects/${p["projectId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsListCollaborators(
@@ -7973,15 +7389,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsAddCollaborator(
@@ -7999,7 +7413,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -8008,8 +7422,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsRemoveCollaborator(
@@ -8022,15 +7434,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/projects/${p["projectId"]}/collaborators/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsGetPermissionForUser(
@@ -8043,15 +7453,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project_collaborator_permission>> {
     const url = `/projects/${p["projectId"]}/collaborators/${p["username"]}/permission`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsListColumns(
@@ -8066,15 +7474,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/projects/${p["projectId"]}/columns`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsCreateColumn(
@@ -8091,7 +7497,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -8100,8 +7506,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async rateLimitGet(
@@ -8110,15 +7514,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_rate_limit_overview>> {
     const url = `/rate_limit`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGet(
@@ -8131,15 +7533,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_full_repository>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposUpdate(
@@ -8191,7 +7591,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -8200,8 +7600,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDelete(
@@ -8214,15 +7612,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListArtifactsForRepo(
@@ -8248,15 +7644,13 @@ export class ApiClient extends AbstractAxiosClient {
       name: p["name"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetArtifact(
@@ -8270,15 +7664,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_artifact>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsDeleteArtifact(
@@ -8292,15 +7684,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsDownloadArtifact(
@@ -8315,15 +7705,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}/${p["archiveFormat"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetActionsCacheUsage(
@@ -8336,15 +7724,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_cache_usage_by_repository>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/cache/usage`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetActionsCacheList(
@@ -8371,15 +7757,13 @@ export class ApiClient extends AbstractAxiosClient {
       direction: p["direction"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsDeleteActionsCacheByKey(
@@ -8395,15 +7779,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/caches`
     const query = this._query({ key: p["key"], ref: p["ref"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsDeleteActionsCacheById(
@@ -8417,15 +7799,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/caches/${p["cacheId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetJobForWorkflowRun(
@@ -8439,15 +7819,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_job>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsDownloadJobLogsForWorkflowRun(
@@ -8461,15 +7839,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}/logs`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsReRunJobForWorkflowRun(
@@ -8488,7 +7864,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -8497,8 +7873,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetCustomOidcSubClaimForRepo(
@@ -8511,15 +7885,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_oidc_custom_sub_repo>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/oidc/customization/sub`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsSetCustomOidcSubClaimForRepo(
@@ -8538,7 +7910,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -8547,8 +7919,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListRepoOrganizationSecrets(
@@ -8569,15 +7939,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/organization-secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListRepoOrganizationVariables(
@@ -8598,15 +7966,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/organization-variables`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetGithubActionsPermissionsRepository(
@@ -8619,15 +7985,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_repository_permissions>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsSetGithubActionsPermissionsRepository(
@@ -8646,7 +8010,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -8655,8 +8019,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetWorkflowAccessToRepository(
@@ -8669,15 +8031,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_workflow_access_to_repository>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/access`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsSetWorkflowAccessToRepository(
@@ -8693,7 +8053,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -8702,8 +8062,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetAllowedActionsRepository(
@@ -8716,15 +8074,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_selected_actions>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/selected-actions`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsSetAllowedActionsRepository(
@@ -8740,7 +8096,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -8749,8 +8105,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetGithubActionsDefaultWorkflowPermissionsRepository(
@@ -8763,15 +8117,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_get_default_workflow_permissions>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/workflow`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsSetGithubActionsDefaultWorkflowPermissionsRepository(
@@ -8787,7 +8139,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -8796,8 +8148,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListSelfHostedRunnersForRepo(
@@ -8823,15 +8173,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListRunnerApplicationsForRepo(
@@ -8844,15 +8192,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_runner_application[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/downloads`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGenerateRunnerJitconfigForRepo(
@@ -8878,7 +8224,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -8887,8 +8233,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsCreateRegistrationTokenForRepo(
@@ -8901,15 +8245,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_authentication_token>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/registration-token`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsCreateRemoveTokenForRepo(
@@ -8922,15 +8264,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_authentication_token>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/remove-token`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetSelfHostedRunnerForRepo(
@@ -8944,15 +8284,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_runner>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsDeleteSelfHostedRunnerFromRepo(
@@ -8966,15 +8304,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListLabelsForSelfHostedRunnerForRepo(
@@ -8993,15 +8329,13 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsAddCustomLabelsToSelfHostedRunnerForRepo(
@@ -9025,7 +8359,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9034,8 +8368,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsSetCustomLabelsForSelfHostedRunnerForRepo(
@@ -9059,7 +8391,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -9068,8 +8400,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepo(
@@ -9088,15 +8418,13 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsRemoveCustomLabelFromSelfHostedRunnerForRepo(
@@ -9116,15 +8444,13 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels/${p["name"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListWorkflowRunsForRepo(
@@ -9178,15 +8504,13 @@ export class ApiClient extends AbstractAxiosClient {
       head_sha: p["headSha"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetWorkflowRun(
@@ -9204,15 +8528,13 @@ export class ApiClient extends AbstractAxiosClient {
       exclude_pull_requests: p["excludePullRequests"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsDeleteWorkflowRun(
@@ -9226,15 +8548,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetReviewsForRun(
@@ -9248,15 +8568,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_environment_approvals[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/approvals`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsApproveWorkflowRun(
@@ -9270,15 +8588,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/approve`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListWorkflowRunArtifacts(
@@ -9305,15 +8621,13 @@ export class ApiClient extends AbstractAxiosClient {
       name: p["name"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetWorkflowRunAttempt(
@@ -9332,15 +8646,13 @@ export class ApiClient extends AbstractAxiosClient {
       exclude_pull_requests: p["excludePullRequests"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListJobsForWorkflowRunAttempt(
@@ -9363,15 +8675,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/jobs`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsDownloadWorkflowRunAttemptLogs(
@@ -9386,15 +8696,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/logs`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsCancelWorkflowRun(
@@ -9408,15 +8716,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/cancel`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsReviewCustomGatesForRun(
@@ -9435,7 +8741,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9444,8 +8750,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListJobsForWorkflowRun(
@@ -9472,15 +8776,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsDownloadWorkflowRunLogs(
@@ -9494,15 +8796,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsDeleteWorkflowRunLogs(
@@ -9516,15 +8816,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetPendingDeploymentsForRun(
@@ -9538,15 +8836,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pending_deployment[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/pending_deployments`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsReviewPendingDeploymentsForRun(
@@ -9567,7 +8863,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9576,8 +8872,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsReRunWorkflow(
@@ -9596,7 +8890,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9605,8 +8899,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsReRunWorkflowFailedJobs(
@@ -9625,7 +8917,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9634,8 +8926,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetWorkflowRunUsage(
@@ -9649,15 +8939,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_workflow_run_usage>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/timing`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListRepoSecrets(
@@ -9678,15 +8966,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetRepoPublicKey(
@@ -9699,15 +8985,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_public_key>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/public-key`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetRepoSecret(
@@ -9721,15 +9005,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_secret>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsCreateOrUpdateRepoSecret(
@@ -9749,7 +9031,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -9758,8 +9040,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsDeleteRepoSecret(
@@ -9773,15 +9053,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListRepoVariables(
@@ -9802,15 +9080,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/variables`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsCreateRepoVariable(
@@ -9829,7 +9105,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9838,8 +9114,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetRepoVariable(
@@ -9853,15 +9127,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_variable>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsUpdateRepoVariable(
@@ -9881,7 +9153,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -9890,8 +9162,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsDeleteRepoVariable(
@@ -9905,15 +9175,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListRepoWorkflows(
@@ -9934,15 +9202,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetWorkflow(
@@ -9956,15 +9222,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_workflow>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsDisableWorkflow(
@@ -9978,15 +9242,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/disable`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsCreateWorkflowDispatch(
@@ -10008,7 +9270,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -10017,8 +9279,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsEnableWorkflow(
@@ -10032,15 +9292,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/enable`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListWorkflowRuns(
@@ -10095,15 +9353,13 @@ export class ApiClient extends AbstractAxiosClient {
       head_sha: p["headSha"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetWorkflowUsage(
@@ -10117,15 +9373,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_workflow_usage>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/timing`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListActivities(
@@ -10162,15 +9416,13 @@ export class ApiClient extends AbstractAxiosClient {
       activity_type: p["activityType"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesListAssignees(
@@ -10186,15 +9438,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/assignees`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesCheckUserCanBeAssigned(
@@ -10208,15 +9458,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/assignees/${p["assignee"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListAutolinks(
@@ -10231,15 +9479,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/autolinks`
     const query = this._query({ page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreateAutolink(
@@ -10259,7 +9505,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -10268,8 +9514,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetAutolink(
@@ -10283,15 +9527,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_autolink>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/autolinks/${p["autolinkId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDeleteAutolink(
@@ -10305,15 +9547,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/autolinks/${p["autolinkId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCheckAutomatedSecurityFixes(
@@ -10326,15 +9566,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_check_automated_security_fixes>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposEnableAutomatedSecurityFixes(
@@ -10347,15 +9585,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDisableAutomatedSecurityFixes(
@@ -10368,15 +9604,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListBranches(
@@ -10397,15 +9631,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetBranch(
@@ -10419,15 +9651,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_branch_with_protection>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetBranchProtection(
@@ -10441,15 +9671,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_branch_protection>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposUpdateBranchProtection(
@@ -10504,7 +9732,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -10513,8 +9741,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDeleteBranchProtection(
@@ -10528,15 +9754,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetAdminBranchProtection(
@@ -10550,15 +9774,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_protected_branch_admin_enforced>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposSetAdminBranchProtection(
@@ -10572,15 +9794,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_protected_branch_admin_enforced>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDeleteAdminBranchProtection(
@@ -10594,15 +9814,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetPullRequestReviewProtection(
@@ -10616,15 +9834,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_protected_branch_pull_request_review>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposUpdatePullRequestReviewProtection(
@@ -10656,7 +9872,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -10665,8 +9881,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDeletePullRequestReviewProtection(
@@ -10680,15 +9894,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetCommitSignatureProtection(
@@ -10702,15 +9914,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_protected_branch_admin_enforced>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreateCommitSignatureProtection(
@@ -10724,15 +9934,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_protected_branch_admin_enforced>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDeleteCommitSignatureProtection(
@@ -10746,15 +9954,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetStatusChecksProtection(
@@ -10768,15 +9974,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_status_check_policy>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposUpdateStatusCheckProtection(
@@ -10800,7 +10004,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -10809,8 +10013,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposRemoveStatusCheckProtection(
@@ -10824,15 +10026,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetAllStatusCheckContexts(
@@ -10846,15 +10046,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposAddStatusCheckContexts(
@@ -10875,7 +10073,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -10884,8 +10082,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposSetStatusCheckContexts(
@@ -10906,7 +10102,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -10915,8 +10111,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposRemoveStatusCheckContexts(
@@ -10937,7 +10131,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -10946,8 +10140,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetAccessRestrictions(
@@ -10961,15 +10153,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_branch_restriction_policy>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDeleteAccessRestrictions(
@@ -10983,15 +10173,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetAppsWithAccessToProtectedBranch(
@@ -11005,15 +10193,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_integration[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposAddAppAccessRestrictions(
@@ -11034,7 +10220,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11043,8 +10229,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposSetAppAccessRestrictions(
@@ -11065,7 +10249,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -11074,8 +10258,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposRemoveAppAccessRestrictions(
@@ -11096,7 +10278,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -11105,8 +10287,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetTeamsWithAccessToProtectedBranch(
@@ -11120,15 +10300,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposAddTeamAccessRestrictions(
@@ -11149,7 +10327,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11158,8 +10336,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposSetTeamAccessRestrictions(
@@ -11180,7 +10356,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -11189,8 +10365,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposRemoveTeamAccessRestrictions(
@@ -11211,7 +10385,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -11220,8 +10394,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetUsersWithAccessToProtectedBranch(
@@ -11235,15 +10407,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposAddUserAccessRestrictions(
@@ -11264,7 +10434,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11273,8 +10443,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposSetUserAccessRestrictions(
@@ -11295,7 +10463,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -11304,8 +10472,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposRemoveUserAccessRestrictions(
@@ -11326,7 +10492,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -11335,8 +10501,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposRenameBranch(
@@ -11355,7 +10519,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11364,8 +10528,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async checksCreate(
@@ -11390,7 +10552,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11399,8 +10561,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async checksGet(
@@ -11414,15 +10574,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_check_run>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async checksUpdate(
@@ -11481,7 +10639,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -11490,8 +10648,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async checksListAnnotations(
@@ -11508,15 +10664,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/annotations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async checksRerequestRun(
@@ -11530,15 +10684,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/rerequest`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async checksCreateSuite(
@@ -11556,7 +10708,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11565,8 +10717,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async checksSetSuitesPreferences(
@@ -11587,7 +10737,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -11596,8 +10746,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async checksGetSuite(
@@ -11611,15 +10759,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_check_suite>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async checksListForSuite(
@@ -11650,15 +10796,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async checksRerequestSuite(
@@ -11672,15 +10816,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}/rerequest`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codeScanningListAlertsForRepo(
@@ -11713,15 +10855,13 @@ export class ApiClient extends AbstractAxiosClient {
       severity: p["severity"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codeScanningGetAlert(
@@ -11735,15 +10875,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_alert>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codeScanningUpdateAlert(
@@ -11764,7 +10902,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -11773,8 +10911,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codeScanningListAlertInstances(
@@ -11796,15 +10932,13 @@ export class ApiClient extends AbstractAxiosClient {
       ref: p["ref"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codeScanningListRecentAnalyses(
@@ -11835,15 +10969,13 @@ export class ApiClient extends AbstractAxiosClient {
       sort: p["sort"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codeScanningGetAnalysis(
@@ -11861,15 +10993,13 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codeScanningDeleteAnalysis(
@@ -11885,15 +11015,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`
     const query = this._query({ confirm_delete: p["confirmDelete"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codeScanningListCodeqlDatabases(
@@ -11906,15 +11034,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_codeql_database[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codeScanningGetCodeqlDatabase(
@@ -11928,15 +11054,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_codeql_database>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases/${p["language"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codeScanningGetDefaultSetup(
@@ -11949,15 +11073,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_default_setup>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/default-setup`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codeScanningUpdateDefaultSetup(
@@ -11976,7 +11098,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -11985,8 +11107,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codeScanningUploadSarif(
@@ -12010,7 +11130,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -12019,8 +11139,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codeScanningGetSarif(
@@ -12034,15 +11152,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_sarifs_status>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/sarifs/${p["sarifId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCodeownersErrors(
@@ -12057,15 +11173,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codeowners/errors`
     const query = this._query({ ref: p["ref"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesListInRepositoryForAuthenticatedUser(
@@ -12086,15 +11200,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesCreateWithRepoForAuthenticatedUser(
@@ -12122,7 +11234,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -12131,8 +11243,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesListDevcontainersInRepositoryForAuthenticatedUser(
@@ -12157,15 +11267,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/devcontainers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesRepoMachinesForAuthenticatedUser(
@@ -12191,15 +11299,13 @@ export class ApiClient extends AbstractAxiosClient {
       ref: p["ref"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesPreFlightWithRepoForAuthenticatedUser(
@@ -12223,15 +11329,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/new`
     const query = this._query({ ref: p["ref"], client_ip: p["clientIp"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesListRepoSecrets(
@@ -12252,15 +11356,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesGetRepoPublicKey(
@@ -12273,15 +11375,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespaces_public_key>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/public-key`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesGetRepoSecret(
@@ -12295,15 +11395,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repo_codespaces_secret>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesCreateOrUpdateRepoSecret(
@@ -12323,7 +11421,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -12332,8 +11430,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesDeleteRepoSecret(
@@ -12347,15 +11443,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListCollaborators(
@@ -12378,15 +11472,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCheckCollaborator(
@@ -12400,15 +11492,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposAddCollaborator(
@@ -12427,7 +11517,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -12436,8 +11526,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposRemoveCollaborator(
@@ -12451,15 +11539,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetCollaboratorPermissionLevel(
@@ -12473,15 +11559,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_collaborator_permission>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}/permission`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListCommitCommentsForRepo(
@@ -12497,15 +11581,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/comments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetCommitComment(
@@ -12519,15 +11601,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_commit_comment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposUpdateCommitComment(
@@ -12546,7 +11626,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -12555,8 +11635,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDeleteCommitComment(
@@ -12570,15 +11648,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsListForCommitComment(
@@ -12608,15 +11684,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsCreateForCommitComment(
@@ -12643,7 +11717,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -12652,8 +11726,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsDeleteForCommitComment(
@@ -12668,15 +11740,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions/${p["reactionId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListCommits(
@@ -12707,15 +11777,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListBranchesForHeadCommit(
@@ -12729,15 +11797,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_branch_short[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/branches-where-head`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListCommentsForCommit(
@@ -12754,15 +11820,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/comments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreateCommitComment(
@@ -12784,7 +11848,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -12793,8 +11857,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListPullRequestsAssociatedWithCommit(
@@ -12811,15 +11873,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/pulls`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetCommit(
@@ -12836,15 +11896,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async checksListForRef(
@@ -12877,15 +11935,13 @@ export class ApiClient extends AbstractAxiosClient {
       app_id: p["appId"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async checksListSuitesForRef(
@@ -12914,15 +11970,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetCombinedStatusForRef(
@@ -12939,15 +11993,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/status`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListCommitStatusesForRef(
@@ -12964,15 +12016,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/statuses`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetCommunityProfileMetrics(
@@ -12985,15 +12035,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_community_profile>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/community/profile`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCompareCommits(
@@ -13010,15 +12058,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/compare/${p["basehead"]}`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetContent(
@@ -13041,15 +12087,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`
     const query = this._query({ ref: p["ref"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreateOrUpdateFileContents(
@@ -13081,7 +12125,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -13090,8 +12134,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDeleteFile(
@@ -13120,7 +12162,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -13129,8 +12171,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListContributors(
@@ -13151,15 +12191,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependabotListAlertsForRepo(
@@ -13202,15 +12240,13 @@ export class ApiClient extends AbstractAxiosClient {
       last: p["last"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependabotGetAlert(
@@ -13224,15 +12260,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependabot_alert>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts/${p["alertNumber"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependabotUpdateAlert(
@@ -13258,7 +12292,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -13267,8 +12301,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependabotListRepoSecrets(
@@ -13289,15 +12321,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependabotGetRepoPublicKey(
@@ -13310,15 +12340,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependabot_public_key>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/public-key`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependabotGetRepoSecret(
@@ -13332,15 +12360,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependabot_secret>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependabotCreateOrUpdateRepoSecret(
@@ -13360,7 +12386,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -13369,8 +12395,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependabotDeleteRepoSecret(
@@ -13384,15 +12408,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependencyGraphDiffRange(
@@ -13408,15 +12430,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/compare/${p["basehead"]}`
     const query = this._query({ name: p["name"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependencyGraphExportSbom(
@@ -13429,15 +12449,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependency_graph_spdx_sbom>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/sbom`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async dependencyGraphCreateRepositorySnapshot(
@@ -13460,7 +12478,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -13469,8 +12487,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListDeployments(
@@ -13497,15 +12513,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreateDeployment(
@@ -13540,7 +12554,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -13549,8 +12563,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetDeployment(
@@ -13564,15 +12576,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deployment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDeleteDeployment(
@@ -13586,15 +12596,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListDeploymentStatuses(
@@ -13611,15 +12619,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreateDeploymentStatus(
@@ -13651,7 +12657,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -13660,8 +12666,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetDeploymentStatus(
@@ -13676,15 +12680,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deployment_status>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses/${p["statusId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreateDispatchEvent(
@@ -13705,7 +12707,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -13714,8 +12716,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetAllEnvironments(
@@ -13736,15 +12736,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetEnvironment(
@@ -13758,15 +12756,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_environment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreateOrUpdateEnvironment(
@@ -13792,7 +12788,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -13801,8 +12797,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDeleteAnEnvironment(
@@ -13816,15 +12810,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListDeploymentBranchPolicies(
@@ -13846,15 +12838,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreateDeploymentBranchPolicy(
@@ -13871,7 +12861,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -13880,8 +12870,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetDeploymentBranchPolicy(
@@ -13896,15 +12884,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deployment_branch_policy>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposUpdateDeploymentBranchPolicy(
@@ -13922,7 +12908,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -13931,8 +12917,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDeleteDeploymentBranchPolicy(
@@ -13947,15 +12931,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetAllDeploymentProtectionRules(
@@ -13974,15 +12956,13 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreateDeploymentProtectionRule(
@@ -14001,7 +12981,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -14010,8 +12990,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListCustomDeploymentRuleIntegrations(
@@ -14033,15 +13011,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/apps`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetCustomDeploymentProtectionRule(
@@ -14056,15 +13032,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deployment_protection_rule>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/${p["protectionRuleId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDisableDeploymentProtectionRule(
@@ -14079,15 +13053,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/${p["protectionRuleId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityListRepoEvents(
@@ -14103,15 +13075,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListForks(
@@ -14132,15 +13102,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreateFork(
@@ -14160,7 +13128,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -14169,8 +13137,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gitCreateBlob(
@@ -14189,7 +13155,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -14198,8 +13164,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gitGetBlob(
@@ -14213,15 +13177,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_blob>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/blobs/${p["fileSha"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gitCreateCommit(
@@ -14252,7 +13214,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -14261,8 +13223,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gitGetCommit(
@@ -14276,15 +13236,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_git_commit>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/commits/${p["commitSha"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gitListMatchingRefs(
@@ -14298,15 +13256,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_git_ref[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/matching-refs/${p["ref"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gitGetRef(
@@ -14320,15 +13276,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_git_ref>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/ref/${p["ref"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gitCreateRef(
@@ -14347,7 +13301,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -14356,8 +13310,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gitUpdateRef(
@@ -14377,7 +13329,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -14386,8 +13338,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gitDeleteRef(
@@ -14401,15 +13351,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gitCreateTag(
@@ -14435,7 +13383,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -14444,8 +13392,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gitGetTag(
@@ -14459,15 +13405,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_git_tag>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/tags/${p["tagSha"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gitCreateTree(
@@ -14492,7 +13436,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -14501,8 +13445,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gitGetTree(
@@ -14518,15 +13460,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/trees/${p["treeSha"]}`
     const query = this._query({ recursive: p["recursive"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListWebhooks(
@@ -14542,15 +13482,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreateWebhook(
@@ -14578,7 +13516,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -14587,8 +13525,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetWebhook(
@@ -14602,15 +13538,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposUpdateWebhook(
@@ -14640,7 +13574,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -14649,8 +13583,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDeleteWebhook(
@@ -14664,15 +13596,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetWebhookConfigForRepo(
@@ -14686,15 +13616,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_webhook_config>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/config`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposUpdateWebhookConfigForRepo(
@@ -14716,7 +13644,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -14725,8 +13653,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListWebhookDeliveries(
@@ -14748,15 +13674,13 @@ export class ApiClient extends AbstractAxiosClient {
       redelivery: p["redelivery"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetWebhookDelivery(
@@ -14771,15 +13695,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook_delivery>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposRedeliverWebhookDelivery(
@@ -14794,15 +13716,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<EmptyObject>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposPingWebhook(
@@ -14816,15 +13736,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/pings`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposTestPushWebhook(
@@ -14838,15 +13756,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/tests`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsGetImportStatus(
@@ -14859,15 +13775,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_import>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/import`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsStartImport(
@@ -14889,7 +13803,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -14898,8 +13812,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsUpdateImport(
@@ -14920,7 +13832,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -14929,8 +13841,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsCancelImport(
@@ -14943,15 +13853,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/import`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsGetCommitAuthors(
@@ -14966,15 +13874,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/import/authors`
     const query = this._query({ since: p["since"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsMapCommitAuthor(
@@ -14994,7 +13900,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -15003,8 +13909,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsGetLargeFiles(
@@ -15017,15 +13921,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_porter_large_file[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/import/large_files`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsSetLfsPreference(
@@ -15043,7 +13945,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -15052,8 +13954,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsGetRepoInstallation(
@@ -15066,15 +13966,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_installation>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/installation`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async interactionsGetRestrictionsForRepo(
@@ -15087,15 +13985,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_interaction_limit_response | EmptyObject>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async interactionsSetRestrictionsForRepo(
@@ -15111,7 +14007,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -15120,8 +14016,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async interactionsRemoveRestrictionsForRepo(
@@ -15134,15 +14028,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListInvitations(
@@ -15158,15 +14050,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposUpdateInvitation(
@@ -15185,7 +14075,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -15194,8 +14084,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDeleteInvitation(
@@ -15209,15 +14097,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesListForRepo(
@@ -15254,15 +14140,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesCreate(
@@ -15293,7 +14177,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -15302,8 +14186,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesListCommentsForRepo(
@@ -15328,15 +14210,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesGetComment(
@@ -15350,15 +14230,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue_comment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesUpdateComment(
@@ -15377,7 +14255,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -15386,8 +14264,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesDeleteComment(
@@ -15401,15 +14277,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsListForIssueComment(
@@ -15439,15 +14313,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsCreateForIssueComment(
@@ -15474,7 +14346,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -15483,8 +14355,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsDeleteForIssueComment(
@@ -15499,15 +14369,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions/${p["reactionId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesListEventsForRepo(
@@ -15523,15 +14391,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesGetEvent(
@@ -15545,15 +14411,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue_event>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/events/${p["eventId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesGet(
@@ -15567,15 +14431,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesUpdate(
@@ -15609,7 +14471,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -15618,8 +14480,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesAddAssignees(
@@ -15638,7 +14498,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -15647,8 +14507,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesRemoveAssignees(
@@ -15667,7 +14525,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -15676,8 +14534,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesCheckUserCanBeAssignedToIssue(
@@ -15692,15 +14548,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees/${p["assignee"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesListComments(
@@ -15722,15 +14576,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesCreateComment(
@@ -15749,7 +14601,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -15758,8 +14610,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesListEvents(
@@ -15776,15 +14626,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesListLabelsOnIssue(
@@ -15801,15 +14649,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesAddLabels(
@@ -15839,7 +14685,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -15848,8 +14694,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesSetLabels(
@@ -15879,7 +14723,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -15888,8 +14732,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesRemoveAllLabels(
@@ -15903,15 +14745,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesRemoveLabel(
@@ -15926,15 +14766,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_label[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels/${p["name"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesLock(
@@ -15953,7 +14791,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -15962,8 +14800,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesUnlock(
@@ -15977,15 +14813,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/lock`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsListForIssue(
@@ -16015,15 +14849,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsCreateForIssue(
@@ -16050,7 +14882,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16059,8 +14891,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsDeleteForIssue(
@@ -16075,15 +14905,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions/${p["reactionId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesListEventsForTimeline(
@@ -16100,15 +14928,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/timeline`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListDeployKeys(
@@ -16124,15 +14950,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreateDeployKey(
@@ -16152,7 +14976,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16161,8 +14985,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetDeployKey(
@@ -16176,15 +14998,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deploy_key>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDeleteDeployKey(
@@ -16198,15 +15018,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesListLabelsForRepo(
@@ -16222,15 +15040,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/labels`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesCreateLabel(
@@ -16250,7 +15066,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16259,8 +15075,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesGetLabel(
@@ -16274,15 +15088,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_label>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesUpdateLabel(
@@ -16303,7 +15115,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -16312,8 +15124,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesDeleteLabel(
@@ -16327,15 +15137,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListLanguages(
@@ -16348,15 +15156,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_language>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/languages`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async licensesGetForRepo(
@@ -16369,15 +15175,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_license_content>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/license`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposMergeUpstream(
@@ -16395,7 +15199,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16404,8 +15208,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposMerge(
@@ -16425,7 +15227,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16434,8 +15236,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesListMilestones(
@@ -16460,15 +15260,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesCreateMilestone(
@@ -16489,7 +15287,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16498,8 +15296,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesGetMilestone(
@@ -16513,15 +15309,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_milestone>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesUpdateMilestone(
@@ -16543,7 +15337,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -16552,8 +15346,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesDeleteMilestone(
@@ -16567,15 +15359,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesListLabelsForMilestone(
@@ -16592,15 +15382,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}/labels`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityListRepoNotificationsForAuthenticatedUser(
@@ -16627,15 +15415,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityMarkRepoNotificationsAsRead(
@@ -16659,7 +15445,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -16668,8 +15454,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetPages(
@@ -16682,15 +15466,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_page>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreatePagesSite(
@@ -16712,7 +15494,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16721,8 +15503,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposUpdateInformationAboutPagesSite(
@@ -16750,7 +15530,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -16759,8 +15539,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDeletePagesSite(
@@ -16773,15 +15551,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListPagesBuilds(
@@ -16797,15 +15573,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages/builds`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposRequestPagesBuild(
@@ -16818,15 +15592,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_page_build_status>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages/builds`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetLatestPagesBuild(
@@ -16839,15 +15611,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_page_build>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages/builds/latest`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetPagesBuild(
@@ -16861,15 +15631,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_page_build>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages/builds/${p["buildId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreatePagesDeployment(
@@ -16890,7 +15658,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16899,8 +15667,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetPagesHealthCheck(
@@ -16915,15 +15681,13 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages/health`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposEnablePrivateVulnerabilityReporting(
@@ -16936,15 +15700,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/private-vulnerability-reporting`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDisablePrivateVulnerabilityReporting(
@@ -16957,15 +15719,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/private-vulnerability-reporting`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsListForRepo(
@@ -16986,15 +15746,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsCreateForRepo(
@@ -17013,7 +15771,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -17022,8 +15780,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsList(
@@ -17052,15 +15808,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsCreate(
@@ -17085,7 +15839,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -17094,8 +15848,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsListReviewCommentsForRepo(
@@ -17120,15 +15872,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsGetReviewComment(
@@ -17142,15 +15892,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review_comment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsUpdateReviewComment(
@@ -17169,7 +15917,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -17178,8 +15926,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsDeleteReviewComment(
@@ -17193,15 +15939,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsListForPullRequestReviewComment(
@@ -17231,15 +15975,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsCreateForPullRequestReviewComment(
@@ -17266,7 +16008,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -17275,8 +16017,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsDeleteForPullRequestComment(
@@ -17291,15 +16031,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions/${p["reactionId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsGet(
@@ -17313,15 +16051,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsUpdate(
@@ -17344,7 +16080,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -17353,8 +16089,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesCreateWithPrForAuthenticatedUser(
@@ -17382,7 +16116,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -17391,8 +16125,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsListReviewComments(
@@ -17418,15 +16150,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsCreateReviewComment(
@@ -17454,7 +16184,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -17463,8 +16193,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsCreateReplyForReviewComment(
@@ -17484,7 +16212,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -17493,8 +16221,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsListCommits(
@@ -17511,15 +16237,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/commits`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsListFiles(
@@ -17536,15 +16260,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/files`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsCheckIfMerged(
@@ -17558,15 +16280,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/merge`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsMerge(
@@ -17588,7 +16308,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -17597,8 +16317,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsListRequestedReviewers(
@@ -17612,15 +16330,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review_request>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsRequestReviewers(
@@ -17640,7 +16356,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -17649,8 +16365,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsRemoveRequestedReviewers(
@@ -17670,7 +16384,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -17679,8 +16393,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsListReviews(
@@ -17697,15 +16409,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsCreateReview(
@@ -17735,7 +16445,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -17744,8 +16454,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsGetReview(
@@ -17760,15 +16468,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsUpdateReview(
@@ -17788,7 +16494,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -17797,8 +16503,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsDeletePendingReview(
@@ -17813,15 +16517,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsListCommentsForReview(
@@ -17839,15 +16541,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/comments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsDismissReview(
@@ -17868,7 +16568,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -17877,8 +16577,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsSubmitReview(
@@ -17899,7 +16597,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -17908,8 +16606,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async pullsUpdateBranch(
@@ -17933,7 +16629,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -17942,8 +16638,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetReadme(
@@ -17958,15 +16652,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/readme`
     const query = this._query({ ref: p["ref"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetReadmeInDirectory(
@@ -17982,15 +16674,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/readme/${p["dir"]}`
     const query = this._query({ ref: p["ref"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListReleases(
@@ -18006,15 +16696,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreateRelease(
@@ -18040,7 +16728,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -18049,8 +16737,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetReleaseAsset(
@@ -18064,15 +16750,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release_asset>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposUpdateReleaseAsset(
@@ -18093,7 +16777,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -18102,8 +16786,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDeleteReleaseAsset(
@@ -18117,15 +16799,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGenerateReleaseNotes(
@@ -18146,7 +16826,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -18155,8 +16835,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetLatestRelease(
@@ -18169,15 +16847,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/latest`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetReleaseByTag(
@@ -18191,15 +16867,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/tags/${p["tag"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetRelease(
@@ -18213,15 +16887,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposUpdateRelease(
@@ -18247,7 +16919,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -18256,8 +16928,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDeleteRelease(
@@ -18271,15 +16941,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListReleaseAssets(
@@ -18296,15 +16964,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposUploadReleaseAsset(
@@ -18326,7 +16992,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ name: p["name"], label: p["label"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "POST",
@@ -18335,8 +17001,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsListForRelease(
@@ -18358,15 +17022,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsCreateForRelease(
@@ -18385,7 +17047,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -18394,8 +17056,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsDeleteForRelease(
@@ -18410,15 +17070,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions/${p["reactionId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetBranchRules(
@@ -18435,15 +17093,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/rules/branches/${p["branch"]}`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetRepoRulesets(
@@ -18464,15 +17120,13 @@ export class ApiClient extends AbstractAxiosClient {
       includes_parents: p["includesParents"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreateRepoRuleset(
@@ -18495,7 +17149,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -18504,8 +17158,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetRepoRuleset(
@@ -18521,15 +17173,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`
     const query = this._query({ includes_parents: p["includesParents"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposUpdateRepoRuleset(
@@ -18553,7 +17203,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -18562,8 +17212,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDeleteRepoRuleset(
@@ -18577,15 +17225,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async secretScanningListAlertsForRepo(
@@ -18618,15 +17264,13 @@ export class ApiClient extends AbstractAxiosClient {
       after: p["after"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async secretScanningGetAlert(
@@ -18640,15 +17284,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_secret_scanning_alert>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async secretScanningUpdateAlert(
@@ -18669,7 +17311,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -18678,8 +17320,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async secretScanningListLocationsForAlert(
@@ -18696,15 +17336,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}/locations`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async securityAdvisoriesListRepositoryAdvisories(
@@ -18731,15 +17369,13 @@ export class ApiClient extends AbstractAxiosClient {
       state: p["state"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async securityAdvisoriesCreateRepositoryAdvisory(
@@ -18755,7 +17391,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -18764,8 +17400,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async securityAdvisoriesCreatePrivateVulnerabilityReport(
@@ -18781,7 +17415,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -18790,8 +17424,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async securityAdvisoriesGetRepositoryAdvisory(
@@ -18805,15 +17437,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_advisory>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async securityAdvisoriesUpdateRepositoryAdvisory(
@@ -18830,7 +17460,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -18839,8 +17469,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async securityAdvisoriesCreateRepositoryAdvisoryCveRequest(
@@ -18854,15 +17482,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<EmptyObject>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}/cve`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityListStargazersForRepo(
@@ -18878,15 +17504,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stargazers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetCodeFrequencyStats(
@@ -18903,15 +17527,13 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stats/code_frequency`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetCommitActivityStats(
@@ -18928,15 +17550,13 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stats/commit_activity`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetContributorsStats(
@@ -18953,15 +17573,13 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stats/contributors`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetParticipationStats(
@@ -18974,15 +17592,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_participation_stats>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stats/participation`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetPunchCardStats(
@@ -18995,15 +17611,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_frequency_stat[]> | AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stats/punch_card`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreateCommitStatus(
@@ -19025,7 +17639,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -19034,8 +17648,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityListWatchersForRepo(
@@ -19051,15 +17663,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/subscribers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityGetRepoSubscription(
@@ -19072,15 +17682,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_subscription>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/subscription`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activitySetRepoSubscription(
@@ -19099,7 +17707,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -19108,8 +17716,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityDeleteRepoSubscription(
@@ -19122,15 +17728,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/subscription`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListTags(
@@ -19146,15 +17750,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/tags`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListTagProtection(
@@ -19167,15 +17769,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tag_protection[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/tags/protection`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreateTagProtection(
@@ -19193,7 +17793,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -19202,8 +17802,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDeleteTagProtection(
@@ -19217,15 +17815,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/tags/protection/${p["tagProtectionId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDownloadTarballArchive(
@@ -19239,15 +17835,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/tarball/${p["ref"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListTeams(
@@ -19263,15 +17857,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetAllTopics(
@@ -19287,15 +17879,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/topics`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposReplaceAllTopics(
@@ -19313,7 +17903,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -19322,8 +17912,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetClones(
@@ -19338,15 +17926,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/traffic/clones`
     const query = this._query({ per: p["per"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetTopPaths(
@@ -19359,15 +17945,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_content_traffic[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/paths`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetTopReferrers(
@@ -19380,15 +17964,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_referrer_traffic[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/referrers`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposGetViews(
@@ -19403,15 +17985,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/traffic/views`
     const query = this._query({ per: p["per"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposTransfer(
@@ -19431,7 +18011,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -19440,8 +18020,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCheckVulnerabilityAlerts(
@@ -19454,15 +18032,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposEnableVulnerabilityAlerts(
@@ -19475,15 +18051,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDisableVulnerabilityAlerts(
@@ -19496,15 +18070,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDownloadZipballArchive(
@@ -19518,15 +18090,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/zipball/${p["ref"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreateUsingTemplate(
@@ -19548,7 +18118,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -19557,8 +18127,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListPublic(
@@ -19571,15 +18139,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repositories`
     const query = this._query({ since: p["since"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListEnvironmentSecrets(
@@ -19600,15 +18166,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetEnvironmentPublicKey(
@@ -19621,15 +18185,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_public_key>> {
     const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/public-key`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetEnvironmentSecret(
@@ -19643,15 +18205,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_secret>> {
     const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsCreateOrUpdateEnvironmentSecret(
@@ -19671,7 +18231,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -19680,8 +18240,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsDeleteEnvironmentSecret(
@@ -19695,15 +18253,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsListEnvironmentVariables(
@@ -19724,15 +18280,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsCreateEnvironmentVariable(
@@ -19751,7 +18305,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -19760,8 +18314,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsGetEnvironmentVariable(
@@ -19775,15 +18327,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_variable>> {
     const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsUpdateEnvironmentVariable(
@@ -19803,7 +18353,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -19812,8 +18362,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async actionsDeleteEnvironmentVariable(
@@ -19827,15 +18375,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async searchCode(
@@ -19864,15 +18410,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async searchCommits(
@@ -19901,15 +18445,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async searchIssuesAndPullRequests(
@@ -19949,15 +18491,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async searchLabels(
@@ -19988,15 +18528,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async searchRepos(
@@ -20025,15 +18563,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async searchTopics(
@@ -20058,15 +18594,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async searchUsers(
@@ -20095,15 +18629,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsGetLegacy(
@@ -20115,15 +18647,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_full>> {
     const url = `/teams/${p["teamId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsUpdateLegacy(
@@ -20147,7 +18677,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -20156,8 +18686,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsDeleteLegacy(
@@ -20169,15 +18697,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsListDiscussionsLegacy(
@@ -20197,15 +18723,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsCreateDiscussionLegacy(
@@ -20224,7 +18748,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20233,8 +18757,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsGetDiscussionLegacy(
@@ -20247,15 +18769,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion>> {
     const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsUpdateDiscussionLegacy(
@@ -20274,7 +18794,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -20283,8 +18803,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsDeleteDiscussionLegacy(
@@ -20297,15 +18815,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsListDiscussionCommentsLegacy(
@@ -20326,15 +18842,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsCreateDiscussionCommentLegacy(
@@ -20352,7 +18866,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20361,8 +18875,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsGetDiscussionCommentLegacy(
@@ -20376,15 +18888,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion_comment>> {
     const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsUpdateDiscussionCommentLegacy(
@@ -20403,7 +18913,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -20412,8 +18922,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsDeleteDiscussionCommentLegacy(
@@ -20427,15 +18935,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsListForTeamDiscussionCommentLegacy(
@@ -20465,15 +18971,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsCreateForTeamDiscussionCommentLegacy(
@@ -20500,7 +19004,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20509,8 +19013,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsListForTeamDiscussionLegacy(
@@ -20539,15 +19041,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reactionsCreateForTeamDiscussionLegacy(
@@ -20573,7 +19073,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20582,8 +19082,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsListPendingInvitationsLegacy(
@@ -20598,15 +19096,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/teams/${p["teamId"]}/invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsListMembersLegacy(
@@ -20626,15 +19122,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsGetMemberLegacy(
@@ -20647,15 +19141,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/members/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsAddMemberLegacy(
@@ -20668,15 +19160,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/members/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsRemoveMemberLegacy(
@@ -20689,15 +19179,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/members/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsGetMembershipForUserLegacy(
@@ -20710,15 +19198,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_membership>> {
     const url = `/teams/${p["teamId"]}/memberships/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsAddOrUpdateMembershipForUserLegacy(
@@ -20736,7 +19222,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -20745,8 +19231,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsRemoveMembershipForUserLegacy(
@@ -20759,15 +19243,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/memberships/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsListProjectsLegacy(
@@ -20782,15 +19264,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/teams/${p["teamId"]}/projects`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsCheckPermissionsForProjectLegacy(
@@ -20803,15 +19283,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_project>> {
     const url = `/teams/${p["teamId"]}/projects/${p["projectId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsAddOrUpdateProjectPermissionsLegacy(
@@ -20829,7 +19307,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -20838,8 +19316,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsRemoveProjectLegacy(
@@ -20852,15 +19328,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/projects/${p["projectId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsListReposLegacy(
@@ -20875,15 +19349,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/teams/${p["teamId"]}/repos`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsCheckPermissionsForRepoLegacy(
@@ -20897,15 +19369,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_repository> | AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsAddOrUpdateRepoPermissionsLegacy(
@@ -20924,7 +19394,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -20933,8 +19403,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsRemoveRepoLegacy(
@@ -20948,15 +19416,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsListChildLegacy(
@@ -20971,15 +19437,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/teams/${p["teamId"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersGetAuthenticated(
@@ -20988,15 +19452,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_private_user | t_public_user>> {
     const url = `/user`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersUpdateAuthenticated(
@@ -21019,7 +19481,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -21028,8 +19490,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersListBlockedByAuthenticatedUser(
@@ -21043,15 +19503,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/blocks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersCheckBlocked(
@@ -21063,15 +19521,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/blocks/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersBlock(
@@ -21083,15 +19539,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/blocks/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersUnblock(
@@ -21103,15 +19557,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/blocks/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesListForAuthenticatedUser(
@@ -21135,15 +19587,13 @@ export class ApiClient extends AbstractAxiosClient {
       repository_id: p["repositoryId"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesCreateForAuthenticatedUser(
@@ -21183,7 +19633,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21192,8 +19642,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesListSecretsForAuthenticatedUser(
@@ -21212,15 +19660,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/codespaces/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesGetPublicKeyForAuthenticatedUser(
@@ -21229,15 +19675,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespaces_user_public_key>> {
     const url = `/user/codespaces/secrets/public-key`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesGetSecretForAuthenticatedUser(
@@ -21249,15 +19693,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespaces_secret>> {
     const url = `/user/codespaces/secrets/${p["secretName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesCreateOrUpdateSecretForAuthenticatedUser(
@@ -21276,7 +19718,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -21285,8 +19727,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesDeleteSecretForAuthenticatedUser(
@@ -21298,15 +19738,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/codespaces/secrets/${p["secretName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesListRepositoriesForSecretForAuthenticatedUser(
@@ -21323,15 +19761,13 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/user/codespaces/secrets/${p["secretName"]}/repositories`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesSetRepositoriesForSecretForAuthenticatedUser(
@@ -21348,7 +19784,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -21357,8 +19793,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesAddRepositoryForSecretForAuthenticatedUser(
@@ -21371,15 +19805,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesRemoveRepositoryForSecretForAuthenticatedUser(
@@ -21392,15 +19824,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesGetForAuthenticatedUser(
@@ -21412,15 +19842,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace>> {
     const url = `/user/codespaces/${p["codespaceName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesUpdateForAuthenticatedUser(
@@ -21439,7 +19867,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -21448,8 +19876,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesDeleteForAuthenticatedUser(
@@ -21461,15 +19887,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<EmptyObject>> {
     const url = `/user/codespaces/${p["codespaceName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesExportForAuthenticatedUser(
@@ -21481,15 +19905,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace_export_details>> {
     const url = `/user/codespaces/${p["codespaceName"]}/exports`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesGetExportDetailsForAuthenticatedUser(
@@ -21502,15 +19924,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace_export_details>> {
     const url = `/user/codespaces/${p["codespaceName"]}/exports/${p["exportId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesCodespaceMachinesForAuthenticatedUser(
@@ -21527,15 +19947,13 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/user/codespaces/${p["codespaceName"]}/machines`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesPublishForAuthenticatedUser(
@@ -21553,7 +19971,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21562,8 +19980,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesStartForAuthenticatedUser(
@@ -21575,15 +19991,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace>> {
     const url = `/user/codespaces/${p["codespaceName"]}/start`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async codespacesStopForAuthenticatedUser(
@@ -21595,15 +20009,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace>> {
     const url = `/user/codespaces/${p["codespaceName"]}/stop`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesListDockerMigrationConflictingPackagesForAuthenticatedUser(
@@ -21612,15 +20024,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package[]>> {
     const url = `/user/docker/conflicts`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersSetPrimaryEmailVisibilityForAuthenticatedUser(
@@ -21636,7 +20046,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -21645,8 +20055,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersListEmailsForAuthenticatedUser(
@@ -21660,15 +20068,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/emails`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersAddEmailForAuthenticatedUser(
@@ -21687,7 +20093,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21696,8 +20102,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersDeleteEmailForAuthenticatedUser(
@@ -21716,7 +20120,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -21725,8 +20129,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersListFollowersForAuthenticatedUser(
@@ -21740,15 +20142,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/followers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersListFollowedByAuthenticatedUser(
@@ -21762,15 +20162,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/following`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersCheckPersonIsFollowedByAuthenticated(
@@ -21782,15 +20180,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/following/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersFollow(
@@ -21802,15 +20198,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/following/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersUnfollow(
@@ -21822,15 +20216,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/following/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersListGpgKeysForAuthenticatedUser(
@@ -21844,15 +20236,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/gpg_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersCreateGpgKeyForAuthenticatedUser(
@@ -21869,7 +20259,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21878,8 +20268,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersGetGpgKeyForAuthenticatedUser(
@@ -21891,15 +20279,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gpg_key>> {
     const url = `/user/gpg_keys/${p["gpgKeyId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersDeleteGpgKeyForAuthenticatedUser(
@@ -21911,15 +20297,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/gpg_keys/${p["gpgKeyId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsListInstallationsForAuthenticatedUser(
@@ -21938,15 +20322,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/installations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsListInstallationReposForAuthenticatedUser(
@@ -21967,15 +20349,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/installations/${p["installationId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsAddRepoToInstallationForAuthenticatedUser(
@@ -21988,15 +20368,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsRemoveRepoFromInstallationForAuthenticatedUser(
@@ -22009,15 +20387,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async interactionsGetRestrictionsForAuthenticatedUser(
@@ -22029,15 +20405,13 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/user/interaction-limits`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async interactionsSetRestrictionsForAuthenticatedUser(
@@ -22051,7 +20425,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -22060,8 +20434,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async interactionsRemoveRestrictionsForAuthenticatedUser(
@@ -22070,15 +20442,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/interaction-limits`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async issuesListForAuthenticatedUser(
@@ -22113,15 +20483,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersListPublicSshKeysForAuthenticatedUser(
@@ -22135,15 +20503,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersCreatePublicSshKeyForAuthenticatedUser(
@@ -22160,7 +20526,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22169,8 +20535,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersGetPublicSshKeyForAuthenticatedUser(
@@ -22182,15 +20546,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_key>> {
     const url = `/user/keys/${p["keyId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersDeletePublicSshKeyForAuthenticatedUser(
@@ -22202,15 +20564,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/keys/${p["keyId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsListSubscriptionsForAuthenticatedUser(
@@ -22224,15 +20584,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/marketplace_purchases`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsListSubscriptionsForAuthenticatedUserStubbed(
@@ -22246,15 +20604,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/marketplace_purchases/stubbed`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsListMembershipsForAuthenticatedUser(
@@ -22273,15 +20629,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsGetMembershipForAuthenticatedUser(
@@ -22293,15 +20647,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_org_membership>> {
     const url = `/user/memberships/orgs/${p["org"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsUpdateMembershipForAuthenticatedUser(
@@ -22318,7 +20670,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
@@ -22327,8 +20679,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsListForAuthenticatedUser(
@@ -22342,15 +20692,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/migrations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsStartForAuthenticatedUser(
@@ -22374,7 +20722,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22383,8 +20731,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsGetStatusForAuthenticatedUser(
@@ -22398,15 +20744,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/migrations/${p["migrationId"]}`
     const query = this._query({ exclude: p["exclude"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsGetArchiveForAuthenticatedUser(
@@ -22418,15 +20762,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/migrations/${p["migrationId"]}/archive`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsDeleteArchiveForAuthenticatedUser(
@@ -22438,15 +20780,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/migrations/${p["migrationId"]}/archive`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsUnlockRepoForAuthenticatedUser(
@@ -22459,15 +20799,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async migrationsListReposForAuthenticatedUser(
@@ -22482,15 +20820,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/migrations/${p["migrationId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsListForAuthenticatedUser(
@@ -22504,15 +20840,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/orgs`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesListPackagesForAuthenticatedUser(
@@ -22539,15 +20873,13 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesGetPackageForAuthenticatedUser(
@@ -22566,15 +20898,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package>> {
     const url = `/user/packages/${p["packageType"]}/${p["packageName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesDeletePackageForAuthenticatedUser(
@@ -22593,15 +20923,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/packages/${p["packageType"]}/${p["packageName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesRestorePackageForAuthenticatedUser(
@@ -22622,15 +20950,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const query = this._query({ token: p["token"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUser(
@@ -22657,15 +20983,13 @@ export class ApiClient extends AbstractAxiosClient {
       state: p["state"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesGetPackageVersionForAuthenticatedUser(
@@ -22685,15 +21009,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package_version>> {
     const url = `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesDeletePackageVersionForAuthenticatedUser(
@@ -22713,15 +21035,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesRestorePackageVersionForAuthenticatedUser(
@@ -22741,15 +21061,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsCreateForAuthenticatedUser(
@@ -22766,7 +21084,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22775,8 +21093,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersListPublicEmailsForAuthenticatedUser(
@@ -22790,15 +21106,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/public_emails`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListForAuthenticatedUser(
@@ -22829,15 +21143,13 @@ export class ApiClient extends AbstractAxiosClient {
       before: p["before"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposCreateForAuthenticatedUser(
@@ -22875,7 +21187,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22884,8 +21196,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListInvitationsForAuthenticatedUser(
@@ -22899,15 +21209,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/repository_invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposAcceptInvitationForAuthenticatedUser(
@@ -22919,15 +21227,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/repository_invitations/${p["invitationId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposDeclineInvitationForAuthenticatedUser(
@@ -22939,15 +21245,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/repository_invitations/${p["invitationId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersListSocialAccountsForAuthenticatedUser(
@@ -22961,15 +21265,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/social_accounts`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersAddSocialAccountForAuthenticatedUser(
@@ -22985,7 +21287,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22994,8 +21296,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersDeleteSocialAccountForAuthenticatedUser(
@@ -23011,7 +21311,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -23020,8 +21320,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersListSshSigningKeysForAuthenticatedUser(
@@ -23035,15 +21333,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/ssh_signing_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersCreateSshSigningKeyForAuthenticatedUser(
@@ -23060,7 +21356,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -23069,8 +21365,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersGetSshSigningKeyForAuthenticatedUser(
@@ -23082,15 +21376,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_ssh_signing_key>> {
     const url = `/user/ssh_signing_keys/${p["sshSigningKeyId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersDeleteSshSigningKeyForAuthenticatedUser(
@@ -23102,15 +21394,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/ssh_signing_keys/${p["sshSigningKeyId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityListReposStarredByAuthenticatedUser(
@@ -23131,15 +21421,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityCheckRepoIsStarredByAuthenticatedUser(
@@ -23152,15 +21440,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/starred/${p["owner"]}/${p["repo"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityStarRepoForAuthenticatedUser(
@@ -23173,15 +21459,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/starred/${p["owner"]}/${p["repo"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityUnstarRepoForAuthenticatedUser(
@@ -23194,15 +21478,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/starred/${p["owner"]}/${p["repo"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityListWatchedReposForAuthenticatedUser(
@@ -23216,15 +21498,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/subscriptions`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async teamsListForAuthenticatedUser(
@@ -23238,15 +21518,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersList(
@@ -23260,15 +21538,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users`
     const query = this._query({ since: p["since"], per_page: p["perPage"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersGetByUsername(
@@ -23280,15 +21556,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_private_user | t_public_user>> {
     const url = `/users/${p["username"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesListDockerMigrationConflictingPackagesForUser(
@@ -23300,15 +21574,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package[]>> {
     const url = `/users/${p["username"]}/docker/conflicts`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityListEventsForAuthenticatedUser(
@@ -23323,15 +21595,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityListOrgEventsForAuthenticatedUser(
@@ -23347,15 +21617,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/events/orgs/${p["org"]}`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityListPublicEventsForUser(
@@ -23370,15 +21638,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/events/public`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersListFollowersForUser(
@@ -23393,15 +21659,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/followers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersListFollowingForUser(
@@ -23416,15 +21680,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/following`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersCheckFollowingForUser(
@@ -23437,15 +21699,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/users/${p["username"]}/following/${p["targetUser"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async gistsListForUser(
@@ -23465,15 +21725,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersListGpgKeysForUser(
@@ -23488,15 +21746,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/gpg_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersGetContextForUser(
@@ -23514,15 +21770,13 @@ export class ApiClient extends AbstractAxiosClient {
       subject_id: p["subjectId"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async appsGetUserInstallation(
@@ -23534,15 +21788,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_installation>> {
     const url = `/users/${p["username"]}/installation`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersListPublicKeysForUser(
@@ -23557,15 +21809,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async orgsListForUser(
@@ -23580,15 +21830,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/orgs`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesListPackagesForUser(
@@ -23616,15 +21864,13 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesGetPackageForUser(
@@ -23644,15 +21890,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package>> {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesDeletePackageForUser(
@@ -23672,15 +21916,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesRestorePackageForUser(
@@ -23702,15 +21944,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const query = this._query({ token: p["token"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesGetAllPackageVersionsForPackageOwnedByUser(
@@ -23730,15 +21970,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package_version[]>> {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesGetPackageVersionForUser(
@@ -23759,15 +21997,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package_version>> {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesDeletePackageVersionForUser(
@@ -23788,15 +22024,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async packagesRestorePackageVersionForUser(
@@ -23817,15 +22051,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async projectsListForUser(
@@ -23845,15 +22077,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityListReceivedEventsForUser(
@@ -23868,15 +22098,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/received_events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityListReceivedPublicEventsForUser(
@@ -23891,15 +22119,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/received_events/public`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async reposListForUser(
@@ -23923,15 +22149,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async billingGetGithubActionsBillingUser(
@@ -23943,15 +22167,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_billing_usage>> {
     const url = `/users/${p["username"]}/settings/billing/actions`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async billingGetGithubPackagesBillingUser(
@@ -23963,15 +22185,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_packages_billing_usage>> {
     const url = `/users/${p["username"]}/settings/billing/packages`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async billingGetSharedStorageBillingUser(
@@ -23983,15 +22203,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_combined_billing_usage>> {
     const url = `/users/${p["username"]}/settings/billing/shared-storage`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersListSocialAccountsForUser(
@@ -24006,15 +22224,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/social_accounts`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async usersListSshSigningKeysForUser(
@@ -24029,15 +22245,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/ssh_signing_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityListReposStarredByUser(
@@ -24059,15 +22273,13 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async activityListReposWatchedByUser(
@@ -24082,15 +22294,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/subscriptions`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async metaGetAllVersions(
@@ -24099,15 +22309,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string[]>> {
     const url = `/versions`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async metaGetZen(
@@ -24116,14 +22324,12 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string>> {
     const url = `/zen`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 }

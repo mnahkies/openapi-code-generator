@@ -26,15 +26,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/pets`
     const query = this._query({ tags: p["tags"], limit: p["limit"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async addPet(
@@ -48,7 +46,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -57,8 +55,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async findPetById(
@@ -70,15 +66,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Pet>> {
     const url = `/pets/${p["id"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deletePet(
@@ -90,14 +84,12 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/pets/${p["id"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 }

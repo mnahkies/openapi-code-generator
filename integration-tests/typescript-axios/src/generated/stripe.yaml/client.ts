@@ -857,7 +857,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -866,8 +866,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postAccountLinks(
@@ -890,7 +888,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -899,8 +897,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postAccountSessions(
@@ -924,7 +920,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -933,8 +929,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getAccounts(
@@ -976,7 +970,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -985,8 +979,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postAccounts(
@@ -1399,7 +1391,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -1408,8 +1400,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteAccountsAccount(
@@ -1426,7 +1416,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -1435,8 +1425,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getAccountsAccount(
@@ -1455,7 +1443,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -1464,8 +1452,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postAccountsAccount(
@@ -1860,7 +1846,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -1869,8 +1855,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postAccountsAccountBankAccounts(
@@ -1911,7 +1895,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -1920,8 +1904,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteAccountsAccountBankAccountsId(
@@ -1939,7 +1921,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -1948,8 +1930,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getAccountsAccountBankAccountsId(
@@ -1969,7 +1949,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -1978,8 +1958,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postAccountsAccountBankAccountsId(
@@ -2022,7 +2000,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -2031,8 +2009,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getAccountsAccountCapabilities(
@@ -2058,7 +2034,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -2067,8 +2043,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getAccountsAccountCapabilitiesCapability(
@@ -2088,7 +2062,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -2097,8 +2071,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postAccountsAccountCapabilitiesCapability(
@@ -2119,7 +2091,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -2128,8 +2100,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getAccountsAccountExternalAccounts(
@@ -2163,7 +2133,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -2172,8 +2142,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postAccountsAccountExternalAccounts(
@@ -2214,7 +2182,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -2223,8 +2191,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteAccountsAccountExternalAccountsId(
@@ -2242,7 +2208,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -2251,8 +2217,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getAccountsAccountExternalAccountsId(
@@ -2272,7 +2236,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -2281,8 +2245,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postAccountsAccountExternalAccountsId(
@@ -2325,7 +2287,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -2334,8 +2296,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postAccountsAccountLoginLinks(
@@ -2354,7 +2314,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -2363,8 +2323,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getAccountsAccountPeople(
@@ -2405,7 +2363,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -2414,8 +2372,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postAccountsAccountPeople(
@@ -2526,7 +2482,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -2535,8 +2491,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteAccountsAccountPeoplePerson(
@@ -2554,7 +2508,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -2563,8 +2517,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getAccountsAccountPeoplePerson(
@@ -2584,7 +2536,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -2593,8 +2545,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postAccountsAccountPeoplePerson(
@@ -2706,7 +2656,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -2715,8 +2665,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getAccountsAccountPersons(
@@ -2757,7 +2705,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -2766,8 +2714,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postAccountsAccountPersons(
@@ -2878,7 +2824,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -2887,8 +2833,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteAccountsAccountPersonsPerson(
@@ -2906,7 +2850,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -2915,8 +2859,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getAccountsAccountPersonsPerson(
@@ -2936,7 +2878,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -2945,8 +2887,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postAccountsAccountPersonsPerson(
@@ -3058,7 +2998,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3067,8 +3007,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postAccountsAccountReject(
@@ -3088,7 +3026,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3097,8 +3035,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getApplePayDomains(
@@ -3133,7 +3069,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3142,8 +3078,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postApplePayDomains(
@@ -3162,7 +3096,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3171,8 +3105,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteApplePayDomainsDomain(
@@ -3189,7 +3121,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -3198,8 +3130,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getApplePayDomainsDomain(
@@ -3218,7 +3148,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3227,8 +3157,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getApplicationFees(
@@ -3272,7 +3200,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3281,8 +3209,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getApplicationFeesFeeRefundsId(
@@ -3302,7 +3228,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3311,8 +3237,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postApplicationFeesFeeRefundsId(
@@ -3337,7 +3261,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3346,8 +3270,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getApplicationFeesId(
@@ -3366,7 +3288,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3375,8 +3297,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postApplicationFeesIdRefund(
@@ -3397,7 +3317,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3406,8 +3326,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getApplicationFeesIdRefunds(
@@ -3441,7 +3359,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3450,8 +3368,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postApplicationFeesIdRefunds(
@@ -3474,7 +3390,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3483,8 +3399,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getAppsSecrets(
@@ -3522,7 +3436,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3531,8 +3445,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postAppsSecrets(
@@ -3557,7 +3469,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3566,8 +3478,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postAppsSecretsDelete(
@@ -3590,7 +3500,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3599,8 +3509,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getAppsSecretsFind(
@@ -3627,7 +3535,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3636,8 +3544,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getBalance(
@@ -3655,7 +3561,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3664,8 +3570,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getBalanceHistory(
@@ -3715,7 +3619,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3724,8 +3628,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getBalanceHistoryId(
@@ -3744,7 +3646,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3753,8 +3655,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getBalanceTransactions(
@@ -3804,7 +3704,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3813,8 +3713,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getBalanceTransactionsId(
@@ -3833,7 +3731,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3842,8 +3740,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getBillingPortalConfigurations(
@@ -3880,7 +3776,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -3889,8 +3785,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postBillingPortalConfigurations(
@@ -3977,7 +3871,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -3986,8 +3880,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getBillingPortalConfigurationsConfiguration(
@@ -4006,7 +3898,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -4015,8 +3907,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postBillingPortalConfigurationsConfiguration(
@@ -4107,7 +3997,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4116,8 +4006,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postBillingPortalSessions(
@@ -4227,7 +4115,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4236,8 +4124,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCharges(
@@ -4285,7 +4171,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -4294,8 +4180,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCharges(
@@ -4377,7 +4261,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4386,8 +4270,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getChargesSearch(
@@ -4422,7 +4304,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -4431,8 +4313,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getChargesCharge(
@@ -4451,7 +4331,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -4460,8 +4340,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postChargesCharge(
@@ -4506,7 +4384,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4515,8 +4393,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postChargesChargeCapture(
@@ -4545,7 +4421,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4554,8 +4430,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getChargesChargeDispute(
@@ -4574,7 +4448,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -4583,8 +4457,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postChargesChargeDispute(
@@ -4638,7 +4510,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4647,8 +4519,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postChargesChargeDisputeClose(
@@ -4667,7 +4537,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4676,8 +4546,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postChargesChargeRefund(
@@ -4707,7 +4575,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4716,8 +4584,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getChargesChargeRefunds(
@@ -4751,7 +4617,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -4760,8 +4626,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postChargesChargeRefunds(
@@ -4794,7 +4658,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4803,8 +4667,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getChargesChargeRefundsRefund(
@@ -4824,7 +4686,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -4833,8 +4695,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postChargesChargeRefundsRefund(
@@ -4859,7 +4719,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -4868,8 +4728,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCheckoutSessions(
@@ -4914,7 +4772,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -4923,8 +4781,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCheckoutSessions(
@@ -5654,7 +5510,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -5663,8 +5519,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCheckoutSessionsSession(
@@ -5683,7 +5537,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -5692,8 +5546,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCheckoutSessionsSessionExpire(
@@ -5712,7 +5564,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -5721,8 +5573,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCheckoutSessionsSessionLineItems(
@@ -5756,7 +5606,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -5765,8 +5615,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCountrySpecs(
@@ -5799,7 +5647,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -5808,8 +5656,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCountrySpecsCountry(
@@ -5828,7 +5674,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -5837,8 +5683,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCoupons(
@@ -5880,7 +5724,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -5889,8 +5733,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCoupons(
@@ -5930,7 +5772,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -5939,8 +5781,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteCouponsCoupon(
@@ -5957,7 +5797,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -5966,8 +5806,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCouponsCoupon(
@@ -5986,7 +5824,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -5995,8 +5833,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCouponsCoupon(
@@ -6026,7 +5862,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6035,8 +5871,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCreditNotes(
@@ -6073,7 +5907,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -6082,8 +5916,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCreditNotes(
@@ -6130,7 +5962,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6139,8 +5971,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCreditNotesPreview(
@@ -6201,7 +6031,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -6210,8 +6040,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCreditNotesPreviewLines(
@@ -6285,7 +6113,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -6294,8 +6122,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCreditNotesCreditNoteLines(
@@ -6329,7 +6155,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -6338,8 +6164,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCreditNotesId(
@@ -6358,7 +6182,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -6367,8 +6191,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCreditNotesId(
@@ -6391,7 +6213,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6400,8 +6222,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCreditNotesIdVoid(
@@ -6420,7 +6240,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6429,8 +6249,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomers(
@@ -6476,7 +6294,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -6485,8 +6303,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCustomers(
@@ -6643,7 +6459,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6652,8 +6468,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomersSearch(
@@ -6688,7 +6502,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -6697,8 +6511,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteCustomersCustomer(
@@ -6715,7 +6527,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -6724,8 +6536,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomersCustomer(
@@ -6744,7 +6554,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -6753,8 +6563,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCustomersCustomer(
@@ -6874,7 +6682,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6883,8 +6691,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomersCustomerBalanceTransactions(
@@ -6918,7 +6724,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -6927,8 +6733,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCustomersCustomerBalanceTransactions(
@@ -6955,7 +6759,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -6964,8 +6768,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomersCustomerBalanceTransactionsTransaction(
@@ -6985,7 +6787,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -6994,8 +6796,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCustomersCustomerBalanceTransactionsTransaction(
@@ -7021,7 +6821,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7030,8 +6830,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomersCustomerBankAccounts(
@@ -7065,7 +6863,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7074,8 +6872,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCustomersCustomerBankAccounts(
@@ -7129,7 +6925,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7138,8 +6934,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteCustomersCustomerBankAccountsId(
@@ -7159,7 +6953,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -7168,8 +6962,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomersCustomerBankAccountsId(
@@ -7189,7 +6981,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7198,8 +6990,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCustomersCustomerBankAccountsId(
@@ -7248,7 +7038,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7257,8 +7047,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCustomersCustomerBankAccountsIdVerify(
@@ -7279,7 +7067,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7288,8 +7076,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomersCustomerCards(
@@ -7323,7 +7109,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7332,8 +7118,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCustomersCustomerCards(
@@ -7387,7 +7171,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7396,8 +7180,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteCustomersCustomerCardsId(
@@ -7417,7 +7199,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -7426,8 +7208,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomersCustomerCardsId(
@@ -7447,7 +7227,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7456,8 +7236,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCustomersCustomerCardsId(
@@ -7506,7 +7284,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7515,8 +7293,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomersCustomerCashBalance(
@@ -7535,7 +7311,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7544,8 +7320,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCustomersCustomerCashBalance(
@@ -7567,7 +7341,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7576,8 +7350,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomersCustomerCashBalanceTransactions(
@@ -7611,7 +7383,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7620,8 +7392,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomersCustomerCashBalanceTransactionsTransaction(
@@ -7641,7 +7411,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7650,8 +7420,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteCustomersCustomerDiscount(
@@ -7668,7 +7436,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -7677,8 +7445,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomersCustomerDiscount(
@@ -7697,7 +7463,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7706,8 +7472,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCustomersCustomerFundingInstructions(
@@ -7740,7 +7504,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7749,8 +7513,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomersCustomerPaymentMethods(
@@ -7817,7 +7579,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7826,8 +7588,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomersCustomerPaymentMethodsPaymentMethod(
@@ -7847,7 +7607,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7856,8 +7616,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomersCustomerSources(
@@ -7893,7 +7651,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -7902,8 +7660,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCustomersCustomerSources(
@@ -7957,7 +7713,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -7966,8 +7722,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteCustomersCustomerSourcesId(
@@ -7987,7 +7741,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -7996,8 +7750,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomersCustomerSourcesId(
@@ -8017,7 +7769,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -8026,8 +7778,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCustomersCustomerSourcesId(
@@ -8076,7 +7826,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -8085,8 +7835,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCustomersCustomerSourcesIdVerify(
@@ -8107,7 +7855,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -8116,8 +7864,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomersCustomerSubscriptions(
@@ -8151,7 +7897,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -8160,8 +7906,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCustomersCustomerSubscriptions(
@@ -8367,7 +8111,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -8376,8 +8120,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteCustomersCustomerSubscriptionsSubscriptionExposedId(
@@ -8399,7 +8141,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -8408,8 +8150,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomersCustomerSubscriptionsSubscriptionExposedId(
@@ -8429,7 +8169,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -8438,8 +8178,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCustomersCustomerSubscriptionsSubscriptionExposedId(
@@ -8670,7 +8408,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -8679,8 +8417,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
@@ -8698,7 +8434,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -8707,8 +8443,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
@@ -8728,7 +8462,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -8737,8 +8471,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomersCustomerTaxIds(
@@ -8772,7 +8504,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -8781,8 +8513,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postCustomersCustomerTaxIds(
@@ -8869,7 +8599,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -8878,8 +8608,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteCustomersCustomerTaxIdsId(
@@ -8897,7 +8625,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -8906,8 +8634,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getCustomersCustomerTaxIdsId(
@@ -8927,7 +8653,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -8936,8 +8662,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getDisputes(
@@ -8983,7 +8707,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -8992,8 +8716,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getDisputesDispute(
@@ -9012,7 +8734,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9021,8 +8743,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postDisputesDispute(
@@ -9076,7 +8796,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9085,8 +8805,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postDisputesDisputeClose(
@@ -9105,7 +8823,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9114,8 +8832,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postEphemeralKeys(
@@ -9137,7 +8853,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9146,8 +8862,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteEphemeralKeysKey(
@@ -9166,7 +8880,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -9175,8 +8889,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getEvents(
@@ -9224,7 +8936,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9233,8 +8945,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getEventsId(
@@ -9253,7 +8963,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9262,8 +8972,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getExchangeRates(
@@ -9296,7 +9004,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9305,8 +9013,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getExchangeRatesRateId(
@@ -9325,7 +9031,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9334,8 +9040,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getFileLinks(
@@ -9381,7 +9085,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9390,8 +9094,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postFileLinks(
@@ -9416,7 +9118,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9425,8 +9127,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getFileLinksLink(
@@ -9445,7 +9145,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9454,8 +9154,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postFileLinksLink(
@@ -9480,7 +9178,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9489,8 +9187,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getFiles(
@@ -9549,7 +9245,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9558,8 +9254,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postFiles(
@@ -9596,7 +9290,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "multipart/form-data" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9605,8 +9299,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getFilesFile(
@@ -9625,7 +9317,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9634,8 +9326,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getFinancialConnectionsAccounts(
@@ -9675,7 +9365,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9684,8 +9374,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getFinancialConnectionsAccountsAccount(
@@ -9704,7 +9392,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9713,8 +9401,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postFinancialConnectionsAccountsAccountDisconnect(
@@ -9733,7 +9419,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9742,8 +9428,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getFinancialConnectionsAccountsAccountOwners(
@@ -9779,7 +9463,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9788,8 +9472,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postFinancialConnectionsAccountsAccountRefresh(
@@ -9809,7 +9491,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9818,8 +9500,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postFinancialConnectionsSessions(
@@ -9853,7 +9533,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -9862,8 +9542,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getFinancialConnectionsSessionsSession(
@@ -9882,7 +9560,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9891,8 +9569,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getIdentityVerificationReports(
@@ -9938,7 +9614,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9947,8 +9623,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getIdentityVerificationReportsReport(
@@ -9967,7 +9641,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -9976,8 +9650,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getIdentityVerificationSessions(
@@ -10021,7 +9693,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -10030,8 +9702,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postIdentityVerificationSessions(
@@ -10064,7 +9734,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -10073,8 +9743,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getIdentityVerificationSessionsSession(
@@ -10093,7 +9761,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -10102,8 +9770,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postIdentityVerificationSessionsSession(
@@ -10136,7 +9802,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -10145,8 +9811,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postIdentityVerificationSessionsSessionCancel(
@@ -10165,7 +9829,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -10174,8 +9838,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postIdentityVerificationSessionsSessionRedact(
@@ -10194,7 +9856,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -10203,8 +9865,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getInvoiceitems(
@@ -10252,7 +9912,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -10261,8 +9921,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postInvoiceitems(
@@ -10316,7 +9974,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -10325,8 +9983,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteInvoiceitemsInvoiceitem(
@@ -10343,7 +9999,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -10352,8 +10008,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getInvoiceitemsInvoiceitem(
@@ -10372,7 +10026,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -10381,8 +10035,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postInvoiceitemsInvoiceitem(
@@ -10433,7 +10085,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -10442,8 +10094,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getInvoices(
@@ -10502,7 +10152,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -10511,8 +10161,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postInvoices(
@@ -10726,7 +10374,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -10735,8 +10383,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getInvoicesSearch(
@@ -10771,7 +10417,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -10780,8 +10426,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getInvoicesUpcoming(
@@ -11015,7 +10659,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -11024,8 +10668,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getInvoicesUpcomingLines(
@@ -11272,7 +10914,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -11281,8 +10923,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteInvoicesInvoice(
@@ -11299,7 +10939,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -11308,8 +10948,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getInvoicesInvoice(
@@ -11328,7 +10966,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -11337,8 +10975,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postInvoicesInvoice(
@@ -11548,7 +11184,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11557,8 +11193,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postInvoicesInvoiceFinalize(
@@ -11578,7 +11212,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11587,8 +11221,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getInvoicesInvoiceLines(
@@ -11622,7 +11254,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -11631,8 +11263,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postInvoicesInvoiceMarkUncollectible(
@@ -11651,7 +11281,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11660,8 +11290,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postInvoicesInvoicePay(
@@ -11686,7 +11314,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11695,8 +11323,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postInvoicesInvoiceSend(
@@ -11715,7 +11341,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11724,8 +11350,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postInvoicesInvoiceVoid(
@@ -11744,7 +11368,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11753,8 +11377,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getIssuingAuthorizations(
@@ -11802,7 +11424,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -11811,8 +11433,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getIssuingAuthorizationsAuthorization(
@@ -11831,7 +11451,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -11840,8 +11460,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postIssuingAuthorizationsAuthorization(
@@ -11865,7 +11483,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11874,8 +11492,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postIssuingAuthorizationsAuthorizationApprove(
@@ -11900,7 +11516,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11909,8 +11525,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postIssuingAuthorizationsAuthorizationDecline(
@@ -11934,7 +11548,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -11943,8 +11557,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getIssuingCardholders(
@@ -11994,7 +11606,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -12003,8 +11615,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postIssuingCardholders(
@@ -12970,7 +12580,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -12979,8 +12589,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getIssuingCardholdersCardholder(
@@ -12999,7 +12607,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -13008,8 +12616,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postIssuingCardholdersCardholder(
@@ -13974,7 +13580,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -13983,8 +13589,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getIssuingCards(
@@ -14038,7 +13642,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -14047,8 +13651,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postIssuingCards(
@@ -14997,7 +14599,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -15006,8 +14608,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getIssuingCardsCard(
@@ -15026,7 +14626,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -15035,8 +14635,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postIssuingCardsCard(
@@ -15968,7 +15566,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -15977,8 +15575,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getIssuingDisputes(
@@ -16024,7 +15620,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -16033,8 +15629,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postIssuingDisputes(
@@ -16136,7 +15730,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16145,8 +15739,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getIssuingDisputesDispute(
@@ -16165,7 +15757,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -16174,8 +15766,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postIssuingDisputesDispute(
@@ -16276,7 +15866,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16285,8 +15875,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postIssuingDisputesDisputeSubmit(
@@ -16310,7 +15898,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16319,8 +15907,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getIssuingSettlements(
@@ -16362,7 +15948,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -16371,8 +15957,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getIssuingSettlementsSettlement(
@@ -16391,7 +15975,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -16400,8 +15984,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postIssuingSettlementsSettlement(
@@ -16423,7 +16005,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16432,8 +16014,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getIssuingTransactions(
@@ -16481,7 +16061,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -16490,8 +16070,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getIssuingTransactionsTransaction(
@@ -16510,7 +16088,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -16519,8 +16097,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postIssuingTransactionsTransaction(
@@ -16544,7 +16120,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16553,8 +16129,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postLinkAccountSessions(
@@ -16588,7 +16162,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16597,8 +16171,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getLinkAccountSessionsSession(
@@ -16617,7 +16189,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -16626,8 +16198,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getLinkedAccounts(
@@ -16667,7 +16237,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -16676,8 +16246,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getLinkedAccountsAccount(
@@ -16696,7 +16264,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -16705,8 +16273,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postLinkedAccountsAccountDisconnect(
@@ -16725,7 +16291,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16734,8 +16300,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getLinkedAccountsAccountOwners(
@@ -16771,7 +16335,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -16780,8 +16344,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postLinkedAccountsAccountRefresh(
@@ -16801,7 +16363,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -16810,8 +16372,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getMandatesMandate(
@@ -16830,7 +16390,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -16839,8 +16399,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getPaymentIntents(
@@ -16884,7 +16442,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -16893,8 +16451,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPaymentIntents(
@@ -17530,7 +17086,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -17539,8 +17095,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getPaymentIntentsSearch(
@@ -17575,7 +17129,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -17584,8 +17138,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getPaymentIntentsIntent(
@@ -17608,7 +17160,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -17617,8 +17169,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPaymentIntentsIntent(
@@ -18230,7 +17780,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -18239,8 +17789,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPaymentIntentsIntentApplyCustomerBalance(
@@ -18261,7 +17809,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -18270,8 +17818,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPaymentIntentsIntentCancel(
@@ -18295,7 +17841,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -18304,8 +17850,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPaymentIntentsIntentCapture(
@@ -18336,7 +17880,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -18345,8 +17889,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPaymentIntentsIntentConfirm(
@@ -18972,7 +18514,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -18981,8 +18523,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPaymentIntentsIntentIncrementAuthorization(
@@ -19011,7 +18551,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -19020,8 +18560,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPaymentIntentsIntentVerifyMicrodeposits(
@@ -19043,7 +18581,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -19052,8 +18590,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getPaymentLinks(
@@ -19088,7 +18624,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -19097,8 +18633,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPaymentLinks(
@@ -19512,7 +19046,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -19521,8 +19055,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getPaymentLinksPaymentLink(
@@ -19541,7 +19073,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -19550,8 +19082,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPaymentLinksPaymentLink(
@@ -19943,7 +19473,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -19952,8 +19482,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getPaymentLinksPaymentLinkLineItems(
@@ -19987,7 +19515,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -19996,8 +19524,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getPaymentMethodConfigurations(
@@ -20026,7 +19552,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -20035,8 +19561,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPaymentMethodConfigurations(
@@ -20221,7 +19745,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20230,8 +19754,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getPaymentMethodConfigurationsConfiguration(
@@ -20250,7 +19772,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -20259,8 +19781,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPaymentMethodConfigurationsConfiguration(
@@ -20446,7 +19966,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20455,8 +19975,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getPaymentMethodDomains(
@@ -20493,7 +20011,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -20502,8 +20020,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPaymentMethodDomains(
@@ -20523,7 +20039,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20532,8 +20048,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getPaymentMethodDomainsPaymentMethodDomain(
@@ -20552,7 +20066,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -20561,8 +20075,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPaymentMethodDomainsPaymentMethodDomain(
@@ -20582,7 +20094,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20591,8 +20103,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPaymentMethodDomainsPaymentMethodDomainValidate(
@@ -20611,7 +20121,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20620,8 +20130,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getPaymentMethods(
@@ -20689,7 +20197,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -20698,8 +20206,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPaymentMethods(
@@ -20939,7 +20445,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -20948,8 +20454,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getPaymentMethodsPaymentMethod(
@@ -20968,7 +20472,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -20977,8 +20481,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPaymentMethodsPaymentMethod(
@@ -21025,7 +20527,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21034,8 +20536,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPaymentMethodsPaymentMethodAttach(
@@ -21055,7 +20555,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21064,8 +20564,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPaymentMethodsPaymentMethodDetach(
@@ -21084,7 +20582,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21093,8 +20591,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getPayouts(
@@ -21149,7 +20645,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -21158,8 +20654,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPayouts(
@@ -21187,7 +20681,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21196,8 +20690,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getPayoutsPayout(
@@ -21216,7 +20708,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -21225,8 +20717,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPayoutsPayout(
@@ -21250,7 +20740,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21259,8 +20749,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPayoutsPayoutCancel(
@@ -21279,7 +20767,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21288,8 +20776,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPayoutsPayoutReverse(
@@ -21311,7 +20797,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21320,8 +20806,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getPlans(
@@ -21367,7 +20851,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -21376,8 +20860,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPlans(
@@ -21437,7 +20919,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21446,8 +20928,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deletePlansPlan(
@@ -21464,7 +20944,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -21473,8 +20953,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getPlansPlan(
@@ -21493,7 +20971,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -21502,8 +20980,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPlansPlan(
@@ -21531,7 +21007,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21540,8 +21016,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getPrices(
@@ -21598,7 +21072,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -21607,8 +21081,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPrices(
@@ -21694,7 +21166,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21703,8 +21175,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getPricesSearch(
@@ -21739,7 +21209,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -21748,8 +21218,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getPricesPrice(
@@ -21768,7 +21236,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -21777,8 +21245,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPricesPrice(
@@ -21829,7 +21295,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21838,8 +21304,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getProducts(
@@ -21889,7 +21353,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -21898,8 +21362,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postProducts(
@@ -21969,7 +21431,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -21978,8 +21440,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getProductsSearch(
@@ -22014,7 +21474,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22023,8 +21483,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteProductsId(
@@ -22041,7 +21499,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -22050,8 +21508,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getProductsId(
@@ -22070,7 +21526,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22079,8 +21535,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postProductsId(
@@ -22127,7 +21581,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22136,8 +21590,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getPromotionCodes(
@@ -22187,7 +21639,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22196,8 +21648,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPromotionCodes(
@@ -22234,7 +21684,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22243,8 +21693,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getPromotionCodesPromotionCode(
@@ -22263,7 +21711,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22272,8 +21720,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postPromotionCodesPromotionCode(
@@ -22305,7 +21751,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22314,8 +21760,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getQuotes(
@@ -22354,7 +21798,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22363,8 +21807,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postQuotes(
@@ -22440,7 +21882,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22449,8 +21891,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getQuotesQuote(
@@ -22469,7 +21909,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22478,8 +21918,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postQuotesQuote(
@@ -22552,7 +21990,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22561,8 +21999,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postQuotesQuoteAccept(
@@ -22581,7 +22017,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22590,8 +22026,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postQuotesQuoteCancel(
@@ -22610,7 +22044,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22619,8 +22053,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getQuotesQuoteComputedUpfrontLineItems(
@@ -22654,7 +22086,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22663,8 +22095,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postQuotesQuoteFinalize(
@@ -22684,7 +22114,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22693,8 +22123,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getQuotesQuoteLineItems(
@@ -22728,7 +22156,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22737,8 +22165,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getQuotesQuotePdf(
@@ -22757,7 +22183,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22766,8 +22192,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getRadarEarlyFraudWarnings(
@@ -22804,7 +22228,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22813,8 +22237,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getRadarEarlyFraudWarningsEarlyFraudWarning(
@@ -22833,7 +22255,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22842,8 +22264,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getRadarValueListItems(
@@ -22889,7 +22309,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22898,8 +22318,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postRadarValueListItems(
@@ -22919,7 +22337,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -22928,8 +22346,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteRadarValueListItemsItem(
@@ -22946,7 +22362,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -22955,8 +22371,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getRadarValueListItemsItem(
@@ -22975,7 +22389,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -22984,8 +22398,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getRadarValueLists(
@@ -23031,7 +22443,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -23040,8 +22452,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postRadarValueLists(
@@ -23075,7 +22485,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -23084,8 +22494,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteRadarValueListsValueList(
@@ -23102,7 +22510,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -23111,8 +22519,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getRadarValueListsValueList(
@@ -23131,7 +22537,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -23140,8 +22546,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postRadarValueListsValueList(
@@ -23165,7 +22569,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -23174,8 +22578,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getRefunds(
@@ -23221,7 +22623,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -23230,8 +22632,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postRefunds(
@@ -23264,7 +22664,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -23273,8 +22673,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getRefundsRefund(
@@ -23293,7 +22691,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -23302,8 +22700,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postRefundsRefund(
@@ -23327,7 +22723,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -23336,8 +22732,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postRefundsRefundCancel(
@@ -23356,7 +22750,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -23365,8 +22759,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getReportingReportRuns(
@@ -23408,7 +22800,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -23417,8 +22809,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postReportingReportRuns(
@@ -24080,7 +23470,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -24089,8 +23479,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getReportingReportRunsReportRun(
@@ -24109,7 +23497,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -24118,8 +23506,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getReportingReportTypes(
@@ -24144,7 +23530,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -24153,8 +23539,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getReportingReportTypesReportType(
@@ -24173,7 +23557,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -24182,8 +23566,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getReviews(
@@ -24225,7 +23607,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -24234,8 +23616,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getReviewsReview(
@@ -24254,7 +23634,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -24263,8 +23643,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postReviewsReviewApprove(
@@ -24283,7 +23661,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -24292,8 +23670,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getSetupAttempts(
@@ -24337,7 +23713,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -24346,8 +23722,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getSetupIntents(
@@ -24395,7 +23769,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -24404,8 +23778,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postSetupIntents(
@@ -24733,7 +24105,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -24742,8 +24114,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getSetupIntentsIntent(
@@ -24766,7 +24136,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -24775,8 +24145,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postSetupIntentsIntent(
@@ -25081,7 +24449,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -25090,8 +24458,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postSetupIntentsIntentCancel(
@@ -25114,7 +24480,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -25123,8 +24489,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postSetupIntentsIntentConfirm(
@@ -25443,7 +24807,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -25452,8 +24816,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postSetupIntentsIntentVerifyMicrodeposits(
@@ -25475,7 +24837,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -25484,8 +24846,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getShippingRates(
@@ -25531,7 +24891,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -25540,8 +24900,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postShippingRates(
@@ -25586,7 +24944,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -25595,8 +24953,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getShippingRatesShippingRateToken(
@@ -25615,7 +24971,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -25624,8 +24980,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postShippingRatesShippingRateToken(
@@ -25659,7 +25013,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -25668,8 +25022,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getSigmaScheduledQueryRuns(
@@ -25702,7 +25054,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -25711,8 +25063,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getSigmaScheduledQueryRunsScheduledQueryRun(
@@ -25731,7 +25081,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -25740,8 +25090,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postSources(
@@ -25840,7 +25188,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -25849,8 +25197,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getSourcesSource(
@@ -25873,7 +25219,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -25882,8 +25228,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postSourcesSource(
@@ -25971,7 +25315,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -25980,8 +25324,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getSourcesSourceMandateNotificationsMandateNotification(
@@ -26001,7 +25343,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -26010,8 +25352,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getSourcesSourceSourceTransactions(
@@ -26045,7 +25385,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -26054,8 +25394,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getSourcesSourceSourceTransactionsSourceTransaction(
@@ -26075,7 +25413,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -26084,8 +25422,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postSourcesSourceVerify(
@@ -26105,7 +25441,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -26114,8 +25450,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getSubscriptionItems(
@@ -26150,7 +25484,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -26159,8 +25493,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postSubscriptionItems(
@@ -26208,7 +25540,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -26217,8 +25549,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteSubscriptionItemsItem(
@@ -26239,7 +25569,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -26248,8 +25578,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getSubscriptionItemsItem(
@@ -26268,7 +25596,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -26277,8 +25605,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postSubscriptionItemsItem(
@@ -26329,7 +25655,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -26338,8 +25664,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getSubscriptionItemsSubscriptionItemUsageRecordSummaries(
@@ -26373,7 +25697,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -26382,8 +25706,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postSubscriptionItemsSubscriptionItemUsageRecords(
@@ -26405,7 +25727,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -26414,8 +25736,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getSubscriptionSchedules(
@@ -26488,7 +25808,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -26497,8 +25817,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postSubscriptionSchedules(
@@ -26622,7 +25940,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -26631,8 +25949,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getSubscriptionSchedulesSchedule(
@@ -26651,7 +25967,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -26660,8 +25976,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postSubscriptionSchedulesSchedule(
@@ -26784,7 +26098,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -26793,8 +26107,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postSubscriptionSchedulesScheduleCancel(
@@ -26815,7 +26127,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -26824,8 +26136,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postSubscriptionSchedulesScheduleRelease(
@@ -26845,7 +26155,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -26854,8 +26164,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getSubscriptions(
@@ -26939,7 +26247,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -26948,8 +26256,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postSubscriptions(
@@ -27157,7 +26463,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -27166,8 +26472,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getSubscriptionsSearch(
@@ -27202,7 +26506,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -27211,8 +26515,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteSubscriptionsSubscriptionExposedId(
@@ -27246,7 +26548,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -27255,8 +26557,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getSubscriptionsSubscriptionExposedId(
@@ -27275,7 +26575,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -27284,8 +26584,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postSubscriptionsSubscriptionExposedId(
@@ -27517,7 +26815,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -27526,8 +26824,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteSubscriptionsSubscriptionExposedIdDiscount(
@@ -27544,7 +26840,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -27553,8 +26849,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postSubscriptionsSubscriptionResume(
@@ -27576,7 +26870,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -27585,8 +26879,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTaxCalculations(
@@ -27704,7 +26996,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -27713,8 +27005,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTaxCalculationsCalculationLineItems(
@@ -27748,7 +27038,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -27757,8 +27047,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTaxSettings(
@@ -27776,7 +27064,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -27785,8 +27073,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTaxSettings(
@@ -27818,7 +27104,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -27827,8 +27113,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTaxTransactionsCreateFromCalculation(
@@ -27851,7 +27135,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -27860,8 +27144,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTaxTransactionsCreateReversal(
@@ -27900,7 +27182,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -27909,8 +27191,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTaxTransactionsTransaction(
@@ -27929,7 +27209,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -27938,8 +27218,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTaxTransactionsTransactionLineItems(
@@ -27973,7 +27251,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -27982,8 +27260,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTaxCodes(
@@ -28016,7 +27292,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -28025,8 +27301,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTaxCodesId(
@@ -28045,7 +27319,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -28054,8 +27328,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTaxRates(
@@ -28101,7 +27373,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -28110,8 +27382,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTaxRates(
@@ -28154,7 +27424,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28163,8 +27433,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTaxRatesTaxRate(
@@ -28183,7 +27451,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -28192,8 +27460,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTaxRatesTaxRate(
@@ -28237,7 +27503,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28246,8 +27512,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTerminalConfigurations(
@@ -28282,7 +27546,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -28291,8 +27555,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTerminalConfigurations(
@@ -28390,7 +27652,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28399,8 +27661,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteTerminalConfigurationsConfiguration(
@@ -28417,7 +27677,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -28426,8 +27686,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTerminalConfigurationsConfiguration(
@@ -28448,7 +27706,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -28457,8 +27715,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTerminalConfigurationsConfiguration(
@@ -28563,7 +27819,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28572,8 +27828,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTerminalConnectionTokens(
@@ -28592,7 +27846,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28601,8 +27855,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTerminalLocations(
@@ -28635,7 +27887,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -28644,8 +27896,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTerminalLocations(
@@ -28678,7 +27928,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28687,8 +27937,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteTerminalLocationsLocation(
@@ -28705,7 +27953,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -28714,8 +27962,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTerminalLocationsLocation(
@@ -28734,7 +27980,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -28743,8 +27989,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTerminalLocationsLocation(
@@ -28778,7 +28022,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28787,8 +28031,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTerminalReaders(
@@ -28835,7 +28077,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -28844,8 +28086,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTerminalReaders(
@@ -28871,7 +28111,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28880,8 +28120,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteTerminalReadersReader(
@@ -28898,7 +28136,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -28907,8 +28145,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTerminalReadersReader(
@@ -28927,7 +28163,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -28936,8 +28172,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTerminalReadersReader(
@@ -28962,7 +28196,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -28971,8 +28205,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTerminalReadersReaderCancelAction(
@@ -28991,7 +28223,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29000,8 +28232,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTerminalReadersReaderProcessPaymentIntent(
@@ -29027,7 +28257,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29036,8 +28266,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTerminalReadersReaderProcessSetupIntent(
@@ -29059,7 +28287,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29068,8 +28296,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTerminalReadersReaderRefundPayment(
@@ -29096,7 +28322,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29105,8 +28331,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTerminalReadersReaderSetReaderDisplay(
@@ -29136,7 +28360,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29145,8 +28369,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersCustomersCustomerFundCashBalance(
@@ -29168,7 +28390,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29177,8 +28399,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersIssuingAuthorizations(
@@ -29524,7 +28744,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29533,8 +28753,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationCapture(
@@ -29593,7 +28811,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29602,8 +28820,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationExpire(
@@ -29622,7 +28838,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29631,8 +28847,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationIncrement(
@@ -29653,7 +28867,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29662,8 +28876,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationReverse(
@@ -29683,7 +28895,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29692,8 +28904,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersIssuingCardsCardShippingDeliver(
@@ -29712,7 +28922,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29721,8 +28931,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersIssuingCardsCardShippingFail(
@@ -29741,7 +28949,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29750,8 +28958,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersIssuingCardsCardShippingReturn(
@@ -29770,7 +28976,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29779,8 +28985,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersIssuingCardsCardShippingShip(
@@ -29799,7 +29003,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -29808,8 +29012,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersIssuingTransactionsCreateForceCapture(
@@ -30172,7 +29374,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30181,8 +29383,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersIssuingTransactionsCreateUnlinkedRefund(
@@ -30545,7 +29745,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30554,8 +29754,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersIssuingTransactionsTransactionRefund(
@@ -30575,7 +29773,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30584,8 +29782,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersRefundsRefundExpire(
@@ -30604,7 +29800,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30613,8 +29809,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersTerminalReadersReaderPresentPaymentMethod(
@@ -30641,7 +29835,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30650,8 +29844,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTestHelpersTestClocks(
@@ -30684,7 +29876,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -30693,8 +29885,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersTestClocks(
@@ -30714,7 +29904,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30723,8 +29913,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteTestHelpersTestClocksTestClock(
@@ -30741,7 +29929,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -30750,8 +29938,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTestHelpersTestClocksTestClock(
@@ -30770,7 +29956,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -30779,8 +29965,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersTestClocksTestClockAdvance(
@@ -30800,7 +29984,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30809,8 +29993,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersTreasuryInboundTransfersIdFail(
@@ -30845,7 +30027,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30854,8 +30036,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersTreasuryInboundTransfersIdReturn(
@@ -30874,7 +30054,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30883,8 +30063,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersTreasuryInboundTransfersIdSucceed(
@@ -30903,7 +30081,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30912,8 +30090,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersTreasuryOutboundPaymentsIdFail(
@@ -30932,7 +30108,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30941,8 +30117,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersTreasuryOutboundPaymentsIdPost(
@@ -30961,7 +30135,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -30970,8 +30144,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersTreasuryOutboundPaymentsIdReturn(
@@ -31003,7 +30175,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31012,8 +30184,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersTreasuryOutboundTransfersOutboundTransferFail(
@@ -31032,7 +30202,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31041,8 +30211,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersTreasuryOutboundTransfersOutboundTransferPost(
@@ -31061,7 +30229,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31070,8 +30238,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn(
@@ -31103,7 +30269,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31112,8 +30278,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersTreasuryReceivedCredits(
@@ -31144,7 +30308,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31153,8 +30317,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTestHelpersTreasuryReceivedDebits(
@@ -31185,7 +30347,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31194,8 +30356,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTokens(
@@ -31496,7 +30656,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31505,8 +30665,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTokensToken(
@@ -31525,7 +30683,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -31534,8 +30692,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTopups(
@@ -31588,7 +30744,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -31597,8 +30753,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTopups(
@@ -31627,7 +30781,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31636,8 +30790,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTopupsTopup(
@@ -31656,7 +30808,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -31665,8 +30817,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTopupsTopup(
@@ -31691,7 +30841,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31700,8 +30850,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTopupsTopupCancel(
@@ -31720,7 +30868,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31729,8 +30877,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTransfers(
@@ -31776,7 +30922,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -31785,8 +30931,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTransfers(
@@ -31814,7 +30958,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31823,8 +30967,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTransfersIdReversals(
@@ -31858,7 +31000,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -31867,8 +31009,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTransfersIdReversals(
@@ -31895,7 +31035,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31904,8 +31044,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTransfersTransfer(
@@ -31924,7 +31062,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -31933,8 +31071,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTransfersTransfer(
@@ -31959,7 +31095,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -31968,8 +31104,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTransfersTransferReversalsId(
@@ -31989,7 +31123,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -31998,8 +31132,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTransfersTransferReversalsId(
@@ -32024,7 +31156,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -32033,8 +31165,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTreasuryCreditReversals(
@@ -32073,7 +31203,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32082,8 +31212,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTreasuryCreditReversals(
@@ -32105,7 +31233,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -32114,8 +31242,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTreasuryCreditReversalsCreditReversal(
@@ -32134,7 +31260,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32143,8 +31269,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTreasuryDebitReversals(
@@ -32185,7 +31309,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32194,8 +31318,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTreasuryDebitReversals(
@@ -32217,7 +31339,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -32226,8 +31348,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTreasuryDebitReversalsDebitReversal(
@@ -32246,7 +31366,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32255,8 +31375,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTreasuryFinancialAccounts(
@@ -32298,7 +31416,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32307,8 +31425,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTreasuryFinancialAccounts(
@@ -32371,7 +31487,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -32380,8 +31496,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTreasuryFinancialAccountsFinancialAccount(
@@ -32400,7 +31514,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32409,8 +31523,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTreasuryFinancialAccountsFinancialAccount(
@@ -32473,7 +31585,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -32482,8 +31594,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTreasuryFinancialAccountsFinancialAccountFeatures(
@@ -32502,7 +31612,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32511,8 +31621,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTreasuryFinancialAccountsFinancialAccountFeatures(
@@ -32566,7 +31674,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -32575,8 +31683,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTreasuryInboundTransfers(
@@ -32613,7 +31719,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32622,8 +31728,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTreasuryInboundTransfers(
@@ -32650,7 +31754,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -32659,8 +31763,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTreasuryInboundTransfersId(
@@ -32679,7 +31781,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32688,8 +31790,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTreasuryInboundTransfersInboundTransferCancel(
@@ -32708,7 +31808,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -32717,8 +31817,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTreasuryOutboundPayments(
@@ -32757,7 +31855,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32766,8 +31864,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTreasuryOutboundPayments(
@@ -32835,7 +31931,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -32844,8 +31940,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTreasuryOutboundPaymentsId(
@@ -32864,7 +31958,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32873,8 +31967,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTreasuryOutboundPaymentsIdCancel(
@@ -32893,7 +31985,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -32902,8 +31994,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTreasuryOutboundTransfers(
@@ -32940,7 +32030,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -32949,8 +32039,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTreasuryOutboundTransfers(
@@ -32984,7 +32072,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -32993,8 +32081,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTreasuryOutboundTransfersOutboundTransfer(
@@ -33013,7 +32099,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -33022,8 +32108,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postTreasuryOutboundTransfersOutboundTransferCancel(
@@ -33042,7 +32126,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -33051,8 +32135,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTreasuryReceivedCredits(
@@ -33097,7 +32179,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -33106,8 +32188,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTreasuryReceivedCreditsId(
@@ -33126,7 +32206,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -33135,8 +32215,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTreasuryReceivedDebits(
@@ -33173,7 +32251,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -33182,8 +32260,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTreasuryReceivedDebitsId(
@@ -33202,7 +32278,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -33211,8 +32287,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTreasuryTransactionEntries(
@@ -33269,7 +32343,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -33278,8 +32352,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTreasuryTransactionEntriesId(
@@ -33298,7 +32370,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -33307,8 +32379,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTreasuryTransactions(
@@ -33367,7 +32437,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -33376,8 +32446,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTreasuryTransactionsId(
@@ -33396,7 +32464,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -33405,8 +32473,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getWebhookEndpoints(
@@ -33439,7 +32505,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -33448,8 +32514,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postWebhookEndpoints(
@@ -33793,7 +32857,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -33802,8 +32866,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteWebhookEndpointsWebhookEndpoint(
@@ -33820,7 +32882,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
@@ -33829,8 +32891,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getWebhookEndpointsWebhookEndpoint(
@@ -33849,7 +32909,7 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
@@ -33858,8 +32918,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async postWebhookEndpointsWebhookEndpoint(
@@ -34104,7 +33162,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -34113,7 +33171,5 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 }

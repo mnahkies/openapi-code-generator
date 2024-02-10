@@ -50,6 +50,18 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
         builder.responseSchemas().defaultResponse
       : null
 
+    const axiosFragment = `this.axios.request({${[
+      `url: url ${queryString ? "+ query" : ""}`,
+      "baseURL: this.basePath",
+      `method: "${method}"`,
+      headers ? "headers" : "",
+      requestBodyParameter ? "data: body" : "",
+      "timeout",
+      "...(opts ?? {})",
+    ]
+      .filter(Boolean)
+      .join(",\n")}})`
+
     const body = `
     const url = \`${routeToTemplateString(route)}\`
     ${[
@@ -60,22 +72,17 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
       .filter(Boolean)
       .join("\n")}
 
-    const res = await this.axios.request({${[
-      `url: url ${queryString ? "+ query" : ""}`,
-      "baseURL: this.basePath",
-      `method: "${method}"`,
-      headers ? "headers" : "",
-      requestBodyParameter ? "data: body" : "",
-      "timeout",
-      "...(opts ?? {})",
-    ]
-      .filter(Boolean)
-      .join(",\n")}})
+    ${
+      responseSchema
+        ? `const res = await ${axiosFragment}
 
     return ${
       responseSchema
         ? `{...res, data: ${responseSchema.schema}.parse(res.data)`
         : "res"
+    }
+    `
+        : `return ${axiosFragment}`
     }
 `
     return asyncMethod({

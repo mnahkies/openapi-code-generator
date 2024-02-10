@@ -26,15 +26,13 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/list`
     const query = this._query({ created: p["created"], status: p["status"] })
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTodoListById(
@@ -46,15 +44,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_TodoList>> {
     const url = `/list/${p["listId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async updateTodoListById(
@@ -69,7 +65,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "PUT",
@@ -78,8 +74,6 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async deleteTodoListById(
@@ -91,15 +85,13 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/list/${p["listId"]}`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async getTodoListItems(
@@ -118,15 +110,13 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/list/${p["listId"]}/items`
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "GET",
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 
   async createTodoListItem(
@@ -145,7 +135,7 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    const res = await this.axios.request({
+    return this.axios.request({
       url: url,
       baseURL: this.basePath,
       method: "POST",
@@ -154,7 +144,5 @@ export class ApiClient extends AbstractAxiosClient {
       timeout,
       ...(opts ?? {}),
     })
-
-    return res
   }
 }
