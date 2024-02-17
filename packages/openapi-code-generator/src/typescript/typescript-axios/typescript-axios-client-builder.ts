@@ -76,7 +76,7 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
       responseSchema
         ? `const res = await ${axiosFragment}
 
-    return {...res, data: ${responseSchema.schema}.parse(res.data)}
+    return {...res, data: ${this.schemaBuilder.parse(responseSchema.schema, "res.data")}}
     `
         : `return ${axiosFragment}`
     }

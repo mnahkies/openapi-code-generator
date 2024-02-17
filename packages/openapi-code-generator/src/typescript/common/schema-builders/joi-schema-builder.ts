@@ -35,6 +35,10 @@ export class JoiBuilder extends AbstractSchemaBuilder {
     imports.addModule(this.joi, "@hapi/joi")
   }
 
+  public parse(schema: string, value: string): string {
+    return `await ${schema}.validateAsync(${value})`
+  }
+
   public any(): string {
     return [this.joi, "any()"].filter(isDefined).join(".")
   }
