@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 import Cors from "@koa/cors"
 import Koa, {Middleware} from "koa"
 import KoaBody from "koa-body"

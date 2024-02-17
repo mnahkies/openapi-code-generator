@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 import {
   IRModelNumeric,
   IRModelObject,

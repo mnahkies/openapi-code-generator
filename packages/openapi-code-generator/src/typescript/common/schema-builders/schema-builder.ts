@@ -7,7 +7,11 @@ import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 export type SchemaBuilder = AbstractSchemaBuilder
 export type SchemaBuilderType = "zod" | "joi"
 
-export function schemaBuilderFactory(schemaBuilderType: SchemaBuilderType, input: Input, importBuilder: ImportBuilder): AbstractSchemaBuilder {
+export function schemaBuilderFactory(
+  schemaBuilderType: SchemaBuilderType,
+  input: Input,
+  importBuilder: ImportBuilder,
+): AbstractSchemaBuilder {
   switch (schemaBuilderType) {
     case "joi": {
       return new JoiBuilder("joi", "./schemas.ts", input, importBuilder)

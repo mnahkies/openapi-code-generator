@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 import type {Schema as JoiSchema} from "@hapi/joi"
 import {KoaRuntimeError, RequestInputType} from "./errors"
 

@@ -1,4 +1,5 @@
 # @nahkies/typescript-koa-runtime
+
 ![CI/CD](https://github.com/mnahkies/openapi-code-generator/actions/workflows/ci.yml/badge.svg)
 [![npm](https://img.shields.io/npm/v/@nahkies/typescript-koa-runtime.svg)](https://www.npmjs.com/package/@nahkies/typescript-koa-runtime)
 

@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 import {Input} from "../../../core/input"
 import {isDefined} from "../../../core/utils"
 import {AbstractSchemaBuilder} from "./abstract-schema-builder"

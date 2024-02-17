@@ -1,6 +1,3 @@
-/**
- * @prettier
- */
 import {TypeBuilder} from "../common/type-builder"
 import {emitGenerationResult} from "../common/output-utils"
 import {AngularModuleBuilder} from "./angular-module-builder"

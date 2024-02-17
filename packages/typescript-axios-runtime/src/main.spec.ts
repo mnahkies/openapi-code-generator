@@ -1,6 +1,3 @@
-/**
- * @prettier
- */
 import {describe, expect} from "@jest/globals"
 import {AbstractAxiosClient, QueryParams} from "./main"
 

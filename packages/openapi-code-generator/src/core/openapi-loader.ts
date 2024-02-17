@@ -18,7 +18,6 @@ import {
 import {isRef} from "./openapi-utils"
 
 export class OpenapiLoader {
-
   private readonly virtualLibrary = new Map<string, VirtualDefinition>()
   private readonly library = new Map<string, any>()
 
@@ -31,7 +30,8 @@ export class OpenapiLoader {
   }
 
   addVirtualType(context: string, name: string, schema: Schema): Reference {
-    const def = this.virtualLibrary.get(context) ?? new VirtualDefinition(context)
+    const def =
+      this.virtualLibrary.get(context) ?? new VirtualDefinition(context)
     this.virtualLibrary.set(context, def)
     this.library.set(context, def.definition)
     def.addSchema(name, schema)
@@ -85,7 +85,7 @@ export class OpenapiLoader {
     const segments = objPath
       .split("/")
       .map(decodeSegment)
-      .filter(it => !!it)
+      .filter((it) => !!it)
 
     let result = obj
 
@@ -112,7 +112,6 @@ export class OpenapiLoader {
   }
 
   private async loadFile(file: string) {
-
     if (this.library.has(file)) {
       return
     }
@@ -130,7 +129,6 @@ export class OpenapiLoader {
 
   private async normalizeRefs(loadedFrom: string, obj: any) {
     for (const key in obj) {
-
       if (!Object.prototype.hasOwnProperty.call(obj, key)) {
         continue
       }
@@ -169,7 +167,10 @@ export class OpenapiLoader {
     }
   }
 
-  static async createFromLiteral(value: object, validator: OpenapiValidator): Promise<OpenapiLoader> {
+  static async createFromLiteral(
+    value: object,
+    validator: OpenapiValidator,
+  ): Promise<OpenapiLoader> {
     const loader = new OpenapiLoader("input.yaml", validator)
 
     await loader.loadFileContent("input.yaml", value)
@@ -177,7 +178,10 @@ export class OpenapiLoader {
     return loader
   }
 
-  static async create(entryPoint: string, validator: OpenapiValidator): Promise<OpenapiLoader> {
+  static async create(
+    entryPoint: string,
+    validator: OpenapiValidator,
+  ): Promise<OpenapiLoader> {
     entryPoint = path.resolve(entryPoint)
     const loader = new OpenapiLoader(entryPoint, validator)
 

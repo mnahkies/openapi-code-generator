@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 import {describe, expect} from "@jest/globals"
 import {intersect, object, objectProperty, union} from "./type-utils"
 

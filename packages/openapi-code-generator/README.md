@@ -128,7 +128,7 @@ const client = new ApiClient({
   basePath: `http://localhost:${address.port}`,
   defaultHeaders: {
     "Content-Type": "application/json",
-    "Authorisation": "Bearer: <TOKEN>" // can pass auth headers here
+    Authorisation: "Bearer: <TOKEN>", // can pass auth headers here
   },
 })
 
@@ -151,6 +151,7 @@ console.log(`id is: ${body.id}`)
 ```
 
 ### Typescript Axios
+
 The `typescript-axios` template outputs a client SDK based on the [axios](https://www.npmjs.com/package/axios) that gives the following:
 
 - Typed methods to call each endpoint
@@ -193,7 +194,7 @@ const client = new ApiClient({
   basePath: `http://localhost:${address.port}`,
   defaultHeaders: {
     "Content-Type": "application/json",
-    "Authorisation": "Bearer: <TOKEN>" // can pass auth headers here
+    Authorisation: "Bearer: <TOKEN>", // can pass auth headers here
   },
 })
 
@@ -209,7 +210,6 @@ const res = await client.createTodoListItem({
 // data will be typed correctly
 console.log(`id is: ${res.data.id}`)
 ```
-
 
 ### Typescript Angular
 
@@ -245,37 +245,27 @@ Once generated usage should look something like this:
 ```typescript
 // Root Angular module
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ApiModule,
-  ],
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule, ApiModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
-
   // inject into your component
   constructor(client: ApiClient) {
-
-    client.updateTodoListById({listId: "1", requestBody: {name: "Foo"}})
-      .subscribe(next => {
-        if (next.status === 200) {
-          // TODO: body is currently incorrectly `unknown` here
-          console.log(next.body.id)
-        }
-      })
+    client.updateTodoListById({listId: "1", requestBody: {name: "Foo"}}).subscribe((next) => {
+      if (next.status === 200) {
+        // TODO: body is currently incorrectly `unknown` here
+        console.log(next.body.id)
+      }
+    })
   }
 }
 ```
@@ -331,15 +321,15 @@ const createTodoList: CreateTodoList = async ({body}, respond) => {
   const list = await prisma.todoList.create({
     data: {
       // body is strongly typed and parsed at runtime
-      name: body.name
-    }
+      name: body.name,
+    },
   })
 
-  // (recommended) the respond parameter is a strongly typed helper that 
-  // provides a better intellisense experience. 
+  // (recommended) the respond parameter is a strongly typed helper that
+  // provides a better intellisense experience.
   // the body is additionally validated against the response schema/status code at runtime
   return respond.with200().body(dbListToApiList(list))
-  // alternatively, you can return a {status, body} object which is also strongly typed 
+  // alternatively, you can return a {status, body} object which is also strongly typed
   // pattern matching the status code against the response schema:
   // return {
   //   status: 200 as const,
@@ -354,7 +344,7 @@ const getTodoLists: GetTodoLists = async ({query}) => {
 // Starts a server listening on `port`
 bootstrap({
   router: createRouter({getTodoLists, createTodoList}),
-  port: 8080
+  port: 8080,
 })
 ```
 
@@ -386,7 +376,8 @@ app.use(router.allowedMethods())
 app.use(router.routes())
 
 https
-  .createServer({
+  .createServer(
+    {
       key: "...",
       cert: "...",
     },
@@ -396,20 +387,19 @@ https
 ```
 
 #### Error Handling
+
 Any errors thrown during the request processing will be wrapped in `KoaRuntimeError` objects,
 and tagged with the `phase` the error was thrown.
 
 ```typescript
 interface KoaRuntimeError extends Error {
-  cause: unknown // the originally thrown exception 
-  phase:
-    | "request_validation"
-    | "request_handler"
-    | "response_validation"
+  cause: unknown // the originally thrown exception
+  phase: "request_validation" | "request_handler" | "response_validation"
 }
 ```
 
 This allows for implementing catch-all error middleware, eg:
+
 ```typescript
 export async function genericErrorMiddleware(ctx: Context, next: Next) {
   try {
@@ -434,7 +424,6 @@ export async function genericErrorMiddleware(ctx: Context, next: Next) {
     } satisfies t_Error
   }
 }
-
 ```
 
 ## More information / contributing

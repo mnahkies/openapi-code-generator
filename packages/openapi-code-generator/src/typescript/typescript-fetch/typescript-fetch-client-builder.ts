@@ -6,7 +6,6 @@ import {ZodBuilder} from "../common/schema-builders/zod-schema-builder"
 import {JoiBuilder} from "../common/schema-builders/joi-schema-builder"
 
 export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
-
   protected buildImports(imports: ImportBuilder): void {
     imports
       .from("@nahkies/typescript-fetch-runtime/main")
@@ -26,15 +25,11 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
       if (this.schemaBuilder instanceof ZodBuilder) {
         imports
           .from("@nahkies/typescript-fetch-runtime/zod")
-          .add(
-            "responseValidationFactory",
-          )
+          .add("responseValidationFactory")
       } else if (this.schemaBuilder instanceof JoiBuilder) {
         imports
           .from("@nahkies/typescript-fetch-runtime/joi")
-          .add(
-            "responseValidationFactory",
-          )
+          .add("responseValidationFactory")
       }
     }
   }
@@ -48,7 +43,8 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
     const queryString = builder.queryString()
     const headers = builder.headers()
 
-    const returnType = builder.returnType()
+    const returnType = builder
+      .returnType()
       .map(({statusType, responseType}) => {
         return `Res<${statusType},${responseType}>`
       })
@@ -59,44 +55,47 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
       : null
 
     const fetchFragment = `this._fetch(url ${queryString ? "+ query" : ""},
-    {${
-      [
-        `method: "${method}",`,
-        headers ? "headers," : "",
-        requestBodyParameter ? "body," : "",
-        "...(opts ?? {})",
-      ]
-        .filter(Boolean)
-        .join("\n")
-    }}, timeout)`
+    {${[
+      `method: "${method}",`,
+      headers ? "headers," : "",
+      requestBodyParameter ? "body," : "",
+      "...(opts ?? {})",
+    ]
+      .filter(Boolean)
+      .join("\n")}}, timeout)`
 
     const body = `
     const url = this.basePath + \`${routeToTemplateString(route)}\`
+    ${[
+      headers ? `const headers = this._headers(${headers})` : "",
+      queryString ? `const query = this._query({ ${queryString} })` : "",
+      requestBodyParameter ? "const body = JSON.stringify(p.requestBody)" : "",
+    ]
+      .filter(Boolean)
+      .join("\n")}
+
     ${
-      [
-        headers ? `const headers = this._headers(${headers})` : "",
-        queryString ? `const query = this._query({ ${queryString} })` : "",
-        requestBodyParameter ? "const body = JSON.stringify(p.requestBody)" : "",
-      ]
-        .filter(Boolean)
-        .join("\n")
+      responseSchemas
+        ? `const res = ${fetchFragment}
+
+    return responseValidationFactory([${responseSchemas.specific.map(
+      (it) => `["${it.statusString}", ${it.schema}]`,
+    )}], ${responseSchemas.defaultResponse?.schema})(res)
+    `
+        : `return ${fetchFragment}`
     }
-
-    ${responseSchemas ? `const res = ${fetchFragment}
-
-    return responseValidationFactory([${
-      responseSchemas.specific
-        .map(it => `["${it.statusString}", ${it.schema}]`)
-    }], ${responseSchemas.defaultResponse?.schema})(res)
-    ` : `return ${fetchFragment}`}
 `
     return asyncMethod({
       name: operationId,
-      parameters: [operationParameter, {name: "timeout", type: "number", required: false}, {
-        name: "opts",
-        type: "RequestInit",
-        required: false,
-      }],
+      parameters: [
+        operationParameter,
+        {name: "timeout", type: "number", required: false},
+        {
+          name: "opts",
+          type: "RequestInit",
+          required: false,
+        },
+      ],
       returnType: `TypedFetchResponse<${returnType}>`,
       body,
     })

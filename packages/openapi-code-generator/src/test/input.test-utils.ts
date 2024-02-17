@@ -15,7 +15,8 @@ function fileForVersion(version: Version) {
       return path.join(__dirname, "unit-test-inputs-3.0.3.yaml")
     case "3.1.x":
       return path.join(__dirname, "unit-test-inputs-3.1.0.yaml")
-    default: throw new Error(`unsupported test version '${version}'`)
+    default:
+      throw new Error(`unsupported test version '${version}'`)
   }
 }
 

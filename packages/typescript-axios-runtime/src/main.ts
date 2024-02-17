@@ -1,6 +1,3 @@
-/**
- * @prettier
- */
 import qs from "qs"
 import axios, {AxiosInstance} from "axios"
 

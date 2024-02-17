@@ -85,7 +85,7 @@ export interface Operation {
   externalDocs?: ExternalDocumentation
   operationId?: string
   parameters?: (Parameter | Reference)[]
-  requestBody?: (RequestBody | Reference)
+  requestBody?: RequestBody | Reference
   responses?: Responses
   callbacks?: {
     [key: string]: Callback | Reference
@@ -146,13 +146,13 @@ export interface MediaType {
 
 export interface Components {
   schemas?: {
-    [schemaName: string]: (Schema | Reference)
+    [schemaName: string]: Schema | Reference
   }
   responses?: {
     [responseName: string]: Reference | Response
   }
   parameters?: {
-    [parameterName: string]: (Parameter | Reference)
+    [parameterName: string]: Parameter | Reference
   }
   examples?: {
     [exampleName: string]: Example | Reference
@@ -209,15 +209,32 @@ export interface Schema {
   minProperties?: number
   required?: string[] /* [] */
   enum?: string[] | number[]
-  type?: "null" | "integer" | "number" | "string" | "boolean" | "object" | "array" /* object */
+  type?:
+    | "null"
+    | "integer"
+    | "number"
+    | "string"
+    | "boolean"
+    | "object"
+    | "array" /* object */
   not?: Schema | Reference
   allOf?: (Schema | Reference)[]
   oneOf?: (Schema | Reference)[]
   anyOf?: (Schema | Reference)[]
   items?: Schema | Reference
-  properties?: { [propertyName: string]: Schema | Reference }
+  properties?: {[propertyName: string]: Schema | Reference}
   additionalProperties?: boolean | Schema | Reference
-  format?: "int32" | "int64" | "float" | "double" | "byte" | "binary" | "date" | "date-time" | "password" | "email"
+  format?:
+    | "int32"
+    | "int64"
+    | "float"
+    | "double"
+    | "byte"
+    | "binary"
+    | "date"
+    | "date-time"
+    | "password"
+    | "email"
   default?: unknown
   nullable?: boolean /* false */
   discriminator?: Discriminator

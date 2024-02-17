@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 export enum RequestInputType {
   RouteParam = "route params",
   QueryString = "querystring",

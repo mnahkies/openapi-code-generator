@@ -78,8 +78,8 @@ Each template currently has a simple signature:
 
 ```typescript
 export interface OpenapiGeneratorConfig {
-  dest: string,
-  input: Input,
+  dest: string
+  input: Input
   schemaBuilder: SchemaBuilderType
 }
 

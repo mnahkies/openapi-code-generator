@@ -27,7 +27,7 @@ PR with a detailed description is fine too.
 1. Install a node version manager that respects `.nvmrc` files, such as
    [fnm](https://github.com/Schniz/fnm)
 2. Enable [corepack](https://nodejs.org/api/corepack.html) using `corepack
-   enable`
+enable`
 3. Install `devDependencies` using `yarn`
 
 ## Workflow
@@ -44,15 +44,19 @@ yarn format
 ```
 
 To regenerate the integration tests:
+
 ```shell
 yarn integration:generate
 ```
+
 And to build them / check the code output is valid:
+
 ```shell
 yarn integration:validate
 ```
 
 There's also a `ci-pipeline` script that can be used as a pre-push check, e.g:
+
 ```shell
 yarn ci-pipeline && git push --force-with-lease
 ```
@@ -76,20 +80,9 @@ in the fetch runtime [here][ts-ignore-example]
 yarn lint
 yarn format
 ```
-We use `eslint` for linting, largely sticking to the recommended rules. 
+
+We use `prettier` for formatting, and `eslint` for linting, largely sticking to the recommended rules.
 The config can be seen here [./.eslintrc.js](./.eslintrc.js)
-
-We're incrementally adopting prettier for code formatting. 
-To include a file a pragma must be added to the beginning like so:
-
-```typescript
-/**
- * @prettier
- */
-```
-
-In general new files should include the pragma, and it should be added to old
-files if they undergo significant change.
 
 ## Testing
 
@@ -99,6 +92,7 @@ yarn integration:generate && yarn integration:validate
 ```
 
 We have two types of testing in play:
+
 - Unit tests using `jest`
 - Integration tests
 
@@ -109,6 +103,7 @@ New code, and particularly bug fixes should include unit tests.
 There is also a heavy reliance on integration tests, where we use the openapi
 specifications for large API surfaces to run the code generation and check that
 the result builds, currently this includes:
+
 - Github API
 - Stripe API
 - Okta API (partial)
@@ -127,7 +122,7 @@ For now, publishing the package is a manual process. There are two scripts to
 assist:
 
 ```shell
-# Publish a pre-release, eg: 0.0.2-alpha.107 
+# Publish a pre-release, eg: 0.0.2-alpha.107
 yarn publish:alpha
 # Publish a release, eg: 0.0.1
 yarn publish:release

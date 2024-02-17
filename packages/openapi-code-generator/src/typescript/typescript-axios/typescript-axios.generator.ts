@@ -1,6 +1,3 @@
-/**
- * @prettier
- */
 import {emitGenerationResult} from "../common/output-utils"
 import {TypeBuilder} from "../common/type-builder"
 import {TypescriptAxiosClientBuilder} from "./typescript-axios-client-builder"

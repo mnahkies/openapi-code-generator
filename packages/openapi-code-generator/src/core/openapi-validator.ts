@@ -7,12 +7,10 @@ import {logger} from "./logger"
 import AjvDraft04 from "ajv-draft-04"
 
 export class OpenapiValidator {
-
   private constructor(
     private readonly validate3_1: ValidateFunction,
     private readonly validate3_0: ValidateFunction,
-  ) {
-  }
+  ) {}
 
   private validationFunction(version: string): ValidateFunction {
     if (version.startsWith("3.0")) {
@@ -27,29 +25,41 @@ export class OpenapiValidator {
   }
 
   async validate(filename: string, schema: unknown): Promise<void> {
-    const version = (schema && typeof schema === "object" && Reflect.get(schema, "openapi")) || "unknown"
+    const version =
+      (schema &&
+        typeof schema === "object" &&
+        Reflect.get(schema, "openapi")) ||
+      "unknown"
     const validate = this.validationFunction(version)
 
     const isValid = validate(schema)
 
     if (!isValid) {
       logger.warn(`Found errors validating '${filename}'.`)
-      logger.warn("Note errors may cascade, and should be investigated top to bottom. Errors:\n")
+      logger.warn(
+        "Note errors may cascade, and should be investigated top to bottom. Errors:\n",
+      )
 
-      validate.errors?.forEach(err => {
-        logger.warn(`-> ${err.message} at path '${err.instancePath}'`, err.params)
+      validate.errors?.forEach((err) => {
+        logger.warn(
+          `-> ${err.message} at path '${err.instancePath}'`,
+          err.params,
+        )
       })
 
       logger.warn("")
 
-      await promptContinue(`Found errors validating '${filename}', continue?`, "yes")
+      await promptContinue(
+        `Found errors validating '${filename}', continue?`,
+        "yes",
+      )
     }
   }
 
   static async create(): Promise<OpenapiValidator> {
     const loadSchema = async (uri: string): Promise<any> => {
       const res = await fetch(uri)
-      return await res.json() as any
+      return (await res.json()) as any
     }
 
     const ajv2020 = new Ajv2020({
@@ -63,10 +73,11 @@ export class OpenapiValidator {
     const validate3_1 = await ajv2020.compileAsync(openapi3_1_specification)
 
     const skipValidation: ValidateFunction = (() => {
-      logger.warn("Skipping validation due to https://github.com/mnahkies/openapi-code-generator/issues/103")
+      logger.warn(
+        "Skipping validation due to https://github.com/mnahkies/openapi-code-generator/issues/103",
+      )
       return true
     }) as any
-
 
     const ajv4 = new AjvDraft04({
       strict: false,

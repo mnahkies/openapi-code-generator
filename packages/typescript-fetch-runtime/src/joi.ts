@@ -1,6 +1,3 @@
-/**
- * @prettier
- */
 import {type Schema as JoiSchema} from "@hapi/joi"
 import {Res, StatusCode, TypedFetchResponse} from "./main"
 

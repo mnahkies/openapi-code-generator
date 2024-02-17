@@ -1,6 +1,3 @@
-/**
- * @prettier
- */
 import {z} from "zod"
 import {Res, StatusCode, TypedFetchResponse} from "./main"
 

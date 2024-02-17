@@ -1,27 +1,25 @@
 import {OpenapiDocument, Schema} from "./openapi-types"
 
 export class VirtualDefinition {
-
   readonly definition: OpenapiDocument
 
   constructor(readonly key: string) {
     this.definition = {
       openapi: "3.0.3",
-        servers: [],
-        info: {
+      servers: [],
+      info: {
         title: `Code Generation Utilities (${key})`,
-          description: "Definitions internal to code generation",
-          version: "0.0.1",
-          contact: {email: ""},
+        description: "Definitions internal to code generation",
+        version: "0.0.1",
+        contact: {email: ""},
       },
       tags: [],
-        paths: {},
+      paths: {},
       components: {
         parameters: {},
         schemas: {},
       },
     }
-
   }
 
   addSchema(name: string, definition: Schema): void {

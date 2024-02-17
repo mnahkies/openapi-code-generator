@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 import {TypescriptClientBuilder} from "../common/client-builder"
 import {ImportBuilder} from "../common/import-builder"
 import {ClientOperationBuilder} from "../common/client-operation-builder"
