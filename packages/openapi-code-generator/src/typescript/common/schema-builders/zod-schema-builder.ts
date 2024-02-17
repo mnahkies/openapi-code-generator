@@ -65,9 +65,27 @@ export class ZodBuilder extends AbstractSchemaBuilder {
     }
   }
 
-  protected intersect(schemas: string[]): string {
-    return schemas.filter(isDefined).reduce((acc, it) => {
+  protected merge(schemas: string[]): string {
+    const definedSchemas = schemas.filter(isDefined)
+
+    if (definedSchemas.length == 1) {
+      return definedSchemas[0]
+    }
+
+    return definedSchemas.reduce((acc, it) => {
       return `${acc}\n.merge(${it})`
+    })
+  }
+
+  protected intersect(schemas: string[]): string {
+    const definedSchemas = schemas.filter(isDefined)
+
+    if (definedSchemas.length == 1) {
+      return definedSchemas[0]
+    }
+
+    return definedSchemas.reduce((acc, it) => {
+      return `${this.zod}.intersection(${acc}, ${it})`
     })
   }
 
@@ -115,6 +133,10 @@ export class ZodBuilder extends AbstractSchemaBuilder {
 
   protected array(items: string[]): string {
     return [this.zod, `array(${items.join(",")})`].filter(isDefined).join(".")
+  }
+
+  protected record(schema: string): string {
+    return [this.zod, `record(${schema})`].filter(isDefined).join(".")
   }
 
   protected number(model: IRModelNumeric) {

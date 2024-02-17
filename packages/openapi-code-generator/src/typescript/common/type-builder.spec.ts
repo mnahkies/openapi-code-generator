@@ -180,13 +180,63 @@ describe.each(testVersions)(
 
       expect(schemas).toMatchInlineSnapshot(`
       "export type t_AdditionalPropertiesBool = {
-        [key: string]: unknown
+        [key: string]: unknown | undefined
       }
       "
     `)
 
       expect(imports).toMatchInlineSnapshot(`
       "import { t_AdditionalPropertiesBool } from "models"
+      "
+    `)
+    })
+
+    it("handles additionalProperties set to {}", async () => {
+      const {type, schemas, imports} = await getActual(
+        "components/schemas/AdditionalPropertiesUnknownEmptySchema",
+      )
+
+      expect(type).toMatchInlineSnapshot(`
+      "const x: t_AdditionalPropertiesUnknownEmptySchema
+      "
+    `)
+
+      expect(schemas).toMatchInlineSnapshot(`
+      "export type t_AdditionalPropertiesUnknownEmptySchema = {
+        [key: string]: unknown | undefined
+      }
+      "
+    `)
+
+      expect(imports).toMatchInlineSnapshot(`
+      "import { t_AdditionalPropertiesUnknownEmptySchema } from "models"
+      "
+    `)
+    })
+
+    it("handles additionalProperties set to {type: 'object'}", async () => {
+      const {type, schemas, imports} = await getActual(
+        "components/schemas/AdditionalPropertiesUnknownEmptyObjectSchema",
+      )
+
+      expect(type).toMatchInlineSnapshot(`
+      "const x: t_AdditionalPropertiesUnknownEmptyObjectSchema
+      "
+    `)
+
+      expect(schemas).toMatchInlineSnapshot(`
+      "export type t_AdditionalPropertiesUnknownEmptyObjectSchema = {
+        [key: string]:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+      }
+      "
+    `)
+
+      expect(imports).toMatchInlineSnapshot(`
+      "import { t_AdditionalPropertiesUnknownEmptyObjectSchema } from "models"
       "
     `)
     })
@@ -225,13 +275,10 @@ describe.each(testVersions)(
     `)
 
       expect(schemas).toMatchInlineSnapshot(`
-      "export type t_AdditionalPropertiesSchema =
-        | {
-            name?: string
-          }
-        | {
-            [key: string]: t_NamedNullableStringEnum
-          }
+      "export type t_AdditionalPropertiesSchema = {
+        name?: string
+        [key: string]: t_NamedNullableStringEnum | undefined
+      }
 
       export type t_NamedNullableStringEnum = "" | "one" | "two" | "three" | null
       "
@@ -239,6 +286,31 @@ describe.each(testVersions)(
 
       expect(imports).toMatchInlineSnapshot(`
       "import { t_AdditionalPropertiesSchema, t_NamedNullableStringEnum } from "models"
+      "
+    `)
+    })
+
+    it("handles additionalProperties in conjunction with properties", async () => {
+      const {type, schemas, imports} = await getActual(
+        "components/schemas/AdditionalPropertiesMixed",
+      )
+
+      expect(type).toMatchInlineSnapshot(`
+      "const x: t_AdditionalPropertiesMixed
+      "
+    `)
+
+      expect(schemas).toMatchInlineSnapshot(`
+      "export type t_AdditionalPropertiesMixed = {
+        id?: string
+        name?: string
+        [key: string]: unknown | undefined
+      }
+      "
+    `)
+
+      expect(imports).toMatchInlineSnapshot(`
+      "import { t_AdditionalPropertiesMixed } from "models"
       "
     `)
     })

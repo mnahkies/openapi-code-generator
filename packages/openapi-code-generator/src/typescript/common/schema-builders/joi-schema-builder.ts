@@ -69,6 +69,10 @@ export class JoiBuilder extends AbstractSchemaBuilder {
     return [this.joi, `link('#${schema}')`].join(".")
   }
 
+  protected merge(schemas: string[]): string {
+    return this.intersect(schemas)
+  }
+
   protected intersect(schemas: string[]): string {
     return schemas.filter(isDefined).reduce((acc, it) => {
       return `${acc}\n.concat(${it})`
@@ -113,6 +117,12 @@ export class JoiBuilder extends AbstractSchemaBuilder {
 
   protected array(items: string[]): string {
     return [this.joi, JoiFn.Array, `items(${items.join(",")})`]
+      .filter(isDefined)
+      .join(".")
+  }
+
+  protected record(schema: string): string {
+    return [this.joi, JoiFn.Object, `pattern(${this.any()}, ${schema})`]
       .filter(isDefined)
       .join(".")
   }

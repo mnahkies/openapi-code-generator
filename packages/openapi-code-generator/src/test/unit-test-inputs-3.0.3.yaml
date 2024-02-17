@@ -135,6 +135,16 @@ components:
       type: object
       additionalProperties: true
 
+    AdditionalPropertiesUnknownEmptySchema:
+      type: object
+      additionalProperties: {}
+
+    AdditionalPropertiesUnknownEmptyObjectSchema:
+      type: object
+      additionalProperties:
+        type:
+          object
+
     AdditionalPropertiesSchema:
       type: object
       properties:
@@ -142,6 +152,15 @@ components:
           type: string
       additionalProperties:
         $ref: "#/components/schemas/NamedNullableStringEnum"
+
+    AdditionalPropertiesMixed:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      additionalProperties: true
 
     Recursive:
       type: object

@@ -332,13 +332,15 @@ export type t_base_gist = {
   created_at: string
   description: string | null
   files: {
-    [key: string]: {
-      filename?: string
-      language?: string
-      raw_url?: string
-      size?: number
-      type?: string
-    }
+    [key: string]:
+      | {
+          filename?: string
+          language?: string
+          raw_url?: string
+          size?: number
+          type?: string
+        }
+      | undefined
   }
   forks?: EmptyObject[]
   forks_url: string
@@ -1444,19 +1446,16 @@ export type t_converted_note_to_issue_issue_event = {
   url: string
 }
 
-export type t_copilot_organization_details =
-  | {
-      public_code_suggestions: "allow" | "block" | "unconfigured" | "unknown"
-      seat_breakdown: t_copilot_seat_breakdown
-      seat_management_setting:
-        | "assign_all"
-        | "assign_selected"
-        | "disabled"
-        | "unconfigured"
-    }
-  | {
-      [key: string]: unknown
-    }
+export type t_copilot_organization_details = {
+  public_code_suggestions: "allow" | "block" | "unconfigured" | "unknown"
+  seat_breakdown: t_copilot_seat_breakdown
+  seat_management_setting:
+    | "assign_all"
+    | "assign_selected"
+    | "disabled"
+    | "unconfigured"
+  [key: string]: unknown | undefined
+}
 
 export type t_copilot_seat_breakdown = {
   active_this_cycle?: number
@@ -1469,7 +1468,7 @@ export type t_copilot_seat_breakdown = {
 
 export type t_copilot_seat_details = {
   assignee: {
-    [key: string]: unknown
+    [key: string]: unknown | undefined
   }
   assigning_team?: t_team | null
   created_at: string
@@ -1688,7 +1687,7 @@ export type t_deployment = {
   original_environment?: string
   payload:
     | {
-        [key: string]: unknown
+        [key: string]: unknown | undefined
       }
     | string
   performed_via_github_app?: t_nullable_integration
@@ -2118,15 +2117,17 @@ export type t_gist_simple = {
   created_at?: string
   description?: string | null
   files?: {
-    [key: string]: {
-      content?: string
-      filename?: string
-      language?: string
-      raw_url?: string
-      size?: number
-      truncated?: boolean
-      type?: string
-    } | null
+    [key: string]:
+      | ({
+          content?: string
+          filename?: string
+          language?: string
+          raw_url?: string
+          size?: number
+          truncated?: boolean
+          type?: string
+        } | null)
+      | undefined
   }
   fork_of?: {
     comments: number
@@ -2135,13 +2136,15 @@ export type t_gist_simple = {
     created_at: string
     description: string | null
     files: {
-      [key: string]: {
-        filename?: string
-        language?: string
-        raw_url?: string
-        size?: number
-        type?: string
-      }
+      [key: string]:
+        | {
+            filename?: string
+            language?: string
+            raw_url?: string
+            size?: number
+            type?: string
+          }
+        | undefined
     }
     forks?: EmptyObject[]
     forks_url: string
@@ -2394,15 +2397,15 @@ export type t_hook_delivery = {
   repository_id: number | null
   request: {
     headers: {
-      [key: string]: unknown
+      [key: string]: unknown | undefined
     } | null
     payload: {
-      [key: string]: unknown
+      [key: string]: unknown | undefined
     } | null
   }
   response: {
     headers: {
-      [key: string]: unknown
+      [key: string]: unknown | undefined
     } | null
     payload: string | null
   }
@@ -2532,17 +2535,14 @@ export type t_integration = {
   node_id: string
   owner: t_nullable_simple_user
   pem?: string
-  permissions:
-    | {
-        checks?: string
-        contents?: string
-        deployments?: string
-        issues?: string
-        metadata?: string
-      }
-    | {
-        [key: string]: string
-      }
+  permissions: {
+    checks?: string
+    contents?: string
+    deployments?: string
+    issues?: string
+    metadata?: string
+    [key: string]: string | undefined
+  }
   slug?: string
   updated_at: string
   webhook_secret?: string | null
@@ -2869,7 +2869,7 @@ export type t_labeled_issue_event = {
 }
 
 export type t_language = {
-  [key: string]: number
+  [key: string]: number | undefined
 }
 
 export type t_license = {
@@ -2946,7 +2946,7 @@ export type t_manifest = {
   metadata?: t_metadata
   name: string
   resolved?: {
-    [key: string]: t_dependency
+    [key: string]: t_dependency | undefined
   }
 }
 
@@ -3009,7 +3009,7 @@ export type t_merged_upstream = {
 }
 
 export type t_metadata = {
-  [key: string]: string | number | boolean | null
+  [key: string]: (string | number | boolean | null) | undefined
 }
 
 export type t_migration = {
@@ -3264,17 +3264,14 @@ export type t_nullable_integration = {
   node_id: string
   owner: t_nullable_simple_user
   pem?: string
-  permissions:
-    | {
-        checks?: string
-        contents?: string
-        deployments?: string
-        issues?: string
-        metadata?: string
-      }
-    | {
-        [key: string]: string
-      }
+  permissions: {
+    checks?: string
+    contents?: string
+    deployments?: string
+    issues?: string
+    metadata?: string
+    [key: string]: string | undefined
+  }
   slug?: string
   updated_at: string
   webhook_secret?: string | null
@@ -3908,13 +3905,13 @@ export type t_organization_programmatic_access_grant = {
   owner: t_simple_user
   permissions: {
     organization?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     other?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     repository?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
   }
   repositories_url: string
@@ -3930,13 +3927,13 @@ export type t_organization_programmatic_access_grant_request = {
   owner: t_simple_user
   permissions: {
     organization?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     other?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     repository?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
   }
   reason: string | null
@@ -6255,7 +6252,7 @@ export type t_snapshot = {
     id: string
   }
   manifests?: {
-    [key: string]: t_manifest
+    [key: string]: t_manifest | undefined
   }
   metadata?: t_metadata
   ref: string

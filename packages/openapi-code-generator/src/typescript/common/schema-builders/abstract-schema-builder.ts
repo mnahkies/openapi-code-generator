@@ -153,27 +153,50 @@ export abstract class AbstractSchemaBuilder {
         result = this.array([this.fromModel(model.items, true)])
         break
       case "object":
-        // todo: additionalProperties support
         if (model.allOf.length) {
-          result = this.intersect(
-            model.allOf.map((it) => this.fromModel(it, true)),
-          )
+          const isMergable = model.allOf
+            .map((it) => this.input.schema(it))
+            .every((it) => it.type === "object" && !it.additionalProperties)
+
+          const schemas = model.allOf.map((it) => this.fromModel(it, true))
+
+          result = isMergable ? this.merge(schemas) : this.intersect(schemas)
         } else if (model.oneOf.length) {
           result = this.union(model.oneOf.map((it) => this.fromModel(it, true)))
         } else if (model.anyOf.length) {
           result = this.union(model.anyOf.map((it) => this.fromModel(it, true)))
         } else {
-          result = this.object(
-            Object.fromEntries(
-              Object.entries(model.properties).map(([key, value]) => {
-                return [
-                  key,
-                  this.fromModel(value, model.required.includes(key)),
-                ]
-              }),
-            ),
-            required,
-          )
+          const properties =
+            Object.keys(model.properties).length &&
+            this.object(
+              Object.fromEntries(
+                Object.entries(model.properties).map(([key, value]) => {
+                  return [
+                    key,
+                    this.fromModel(value, model.required.includes(key)),
+                  ]
+                }),
+              ),
+              required,
+            )
+
+          const additionalProperties =
+            model.additionalProperties &&
+            this.record(
+              typeof model.additionalProperties === "boolean"
+                ? this.any()
+                : this.fromModel(model.additionalProperties, true),
+            )
+
+          if (properties && additionalProperties) {
+            result = this.intersect([properties, additionalProperties])
+          } else if (properties) {
+            result = properties
+          } else if (additionalProperties) {
+            result = additionalProperties
+          } else {
+            result = this.object({}, required)
+          }
         }
         break
     }
@@ -195,6 +218,18 @@ export abstract class AbstractSchemaBuilder {
 
   protected abstract lazy(schema: string): string
 
+  /**
+   * Equivalent to `type z = x & y` but only works on non-record object schemas
+   * @param schemas
+   * @protected
+   */
+  protected abstract merge(schemas: string[]): string
+
+  /**
+   * Equivalent to `type z = x & y`, works on any schemas
+   * @param schemas
+   * @protected
+   */
   protected abstract intersect(schemas: string[]): string
 
   protected abstract union(schemas: string[]): string
@@ -211,6 +246,8 @@ export abstract class AbstractSchemaBuilder {
   ): string
 
   protected abstract array(items: string[]): string
+
+  protected abstract record(schema: string): string
 
   protected abstract number(model: IRModelNumeric): string
 

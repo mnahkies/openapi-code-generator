@@ -504,7 +504,9 @@ export class ApiClient extends AbstractFetchClient {
   async replaceProfile(
     p: {
       requestBody: {
-        profile?: EmptyObject
+        profile?: {
+          [key: string]: unknown | undefined
+        }
       }
     },
     timeout?: number,

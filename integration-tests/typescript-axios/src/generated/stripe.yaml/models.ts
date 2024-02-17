@@ -31,7 +31,7 @@ export type t_account = {
   id: string
   individual?: t_person
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "account"
   payouts_enabled?: boolean
@@ -505,7 +505,7 @@ export type t_bank_account = {
   id: string
   last4: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "bank_account"
   requirements?: t_external_account_requirements | null
@@ -524,20 +524,20 @@ export type t_bank_connections_resource_balance = {
   cash?: t_bank_connections_resource_balance_api_resource_cash_balance
   credit?: t_bank_connections_resource_balance_api_resource_credit_balance
   current: {
-    [key: string]: number
+    [key: string]: number | undefined
   }
   type: "cash" | "credit"
 }
 
 export type t_bank_connections_resource_balance_api_resource_cash_balance = {
   available?: {
-    [key: string]: number
+    [key: string]: number | undefined
   } | null
 }
 
 export type t_bank_connections_resource_balance_api_resource_credit_balance = {
   used?: {
-    [key: string]: number
+    [key: string]: number | undefined
   } | null
 }
 
@@ -574,7 +574,7 @@ export type t_billing_portal_configuration = {
   livemode: boolean
   login_page: t_portal_login_page
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "billing_portal.configuration"
   updated: number
@@ -697,7 +697,7 @@ export type t_card = {
   id: string
   last4: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   name?: string | null
   object: "card"
@@ -720,7 +720,7 @@ export type t_card_mandate_payment_method_details = EmptyObject
 
 export type t_cash_balance = {
   available?: {
-    [key: string]: number
+    [key: string]: number | undefined
   } | null
   customer: string
   livemode: boolean
@@ -752,7 +752,7 @@ export type t_charge = {
   invoice?: string | t_invoice | null
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "charge"
   on_behalf_of?: string | t_account | null
@@ -878,7 +878,7 @@ export type t_checkout_session = {
     | "zh-TW"
     | null
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   mode: "payment" | "setup" | "subscription"
   object: "checkout.session"
@@ -1105,7 +1105,7 @@ export type t_country_spec = {
   id: string
   object: "country_spec"
   supported_bank_account_currencies: {
-    [key: string]: string[]
+    [key: string]: string[] | undefined
   }
   supported_payment_currencies: string[]
   supported_payment_methods: string[]
@@ -1129,7 +1129,7 @@ export type t_coupon = {
   created: number
   currency?: string | null
   currency_options?: {
-    [key: string]: t_coupon_currency_option
+    [key: string]: t_coupon_currency_option | undefined
   }
   duration: "forever" | "once" | "repeating"
   duration_in_months?: number | null
@@ -1137,7 +1137,7 @@ export type t_coupon = {
   livemode: boolean
   max_redemptions?: number | null
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   name?: string | null
   object: "coupon"
@@ -1176,7 +1176,7 @@ export type t_credit_note = {
   livemode: boolean
   memo?: string | null
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   number: string
   object: "credit_note"
@@ -1270,13 +1270,13 @@ export type t_customer = {
   email?: string | null
   id: string
   invoice_credit_balance?: {
-    [key: string]: number
+    [key: string]: number | undefined
   }
   invoice_prefix?: string | null
   invoice_settings?: t_invoice_setting_customer_setting
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   name?: string | null
   next_invoice_sequence?: number
@@ -1399,7 +1399,7 @@ export type t_customer_balance_transaction = {
   invoice?: string | t_invoice | null
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "customer_balance_transaction"
   type:
@@ -1644,7 +1644,7 @@ export type t_dispute = {
   is_charge_refundable: boolean
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "dispute"
   payment_intent?: string | t_payment_intent | null
@@ -1742,7 +1742,7 @@ export type t_exchange_rate = {
   id: string
   object: "exchange_rate"
   rates: {
-    [key: string]: number
+    [key: string]: number | undefined
   }
 }
 
@@ -1771,7 +1771,7 @@ export type t_fee_refund = {
   fee: string | t_application_fee
   id: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "fee_refund"
 }
@@ -1818,7 +1818,7 @@ export type t_file_link = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "file_link"
   url?: string | null
@@ -2125,7 +2125,7 @@ export type t_identity_verification_session = {
   last_verification_report?: string | t_identity_verification_report | null
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "identity.verification_session"
   options?: t_gelato_verification_session_options | null
@@ -2214,7 +2214,7 @@ export type t_invoice = {
   }
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   next_payment_attempt?: number | null
   number?: string | null
@@ -2398,7 +2398,7 @@ export type t_invoiceitem = {
   invoice?: string | t_invoice | null
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "invoiceitem"
   period: t_invoice_line_item_period
@@ -2576,7 +2576,7 @@ export type t_issuing_authorization = {
   merchant_currency: string
   merchant_data: t_issuing_authorization_merchant_data
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   network_data?: t_issuing_authorization_network_data | null
   object: "issuing.authorization"
@@ -2603,7 +2603,7 @@ export type t_issuing_card = {
   last4: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   number?: string
   object: "issuing.card"
@@ -2626,7 +2626,7 @@ export type t_issuing_cardholder = {
   individual?: t_issuing_cardholder_individual | null
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   name: string
   object: "issuing.cardholder"
@@ -2647,7 +2647,7 @@ export type t_issuing_dispute = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "issuing.dispute"
   status: "expired" | "lost" | "submitted" | "unsubmitted" | "won"
@@ -2664,7 +2664,7 @@ export type t_issuing_settlement = {
   interchange_fees: number
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   net_total: number
   network: "visa"
@@ -2692,7 +2692,7 @@ export type t_issuing_transaction = {
   merchant_currency: string
   merchant_data: t_issuing_authorization_merchant_data
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "issuing.transaction"
   purchase_details?: t_issuing_transaction_purchase_details | null
@@ -4963,7 +4963,7 @@ export type t_line_item = {
   invoice_item?: string | t_invoiceitem
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "line_item"
   period: t_invoice_line_item_period
@@ -5221,7 +5221,7 @@ export type t_payment_intent = {
   latest_charge?: string | t_charge | null
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   next_action?: t_payment_intent_next_action | null
   object: "payment_intent"
@@ -5623,7 +5623,7 @@ export type t_payment_link = {
   }
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "payment_link"
   on_behalf_of?: string | t_account | null
@@ -5749,7 +5749,7 @@ export type t_payment_links_resource_invoice_settings = {
   description?: string | null
   footer?: string | null
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   rendering_options?: t_invoice_setting_rendering_options | null
 }
@@ -6053,7 +6053,7 @@ export type t_payment_method = {
   link?: t_payment_method_link
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "payment_method"
   oxxo?: t_payment_method_oxxo
@@ -7319,7 +7319,7 @@ export type t_payment_pages_checkout_session_invoice_settings = {
   description?: string | null
   footer?: string | null
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   rendering_options?: t_invoice_setting_rendering_options | null
 }
@@ -7695,7 +7695,7 @@ export type t_payout = {
   id: string
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   method: string
   object: "payout"
@@ -7740,7 +7740,7 @@ export type t_person = {
   last_name_kanji?: string | null
   maiden_name?: string | null
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   nationality?: string | null
   object: "person"
@@ -7793,7 +7793,7 @@ export type t_plan = {
   interval_count: number
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   nickname?: string | null
   object: "plan"
@@ -7965,14 +7965,14 @@ export type t_price = {
   created: number
   currency: string
   currency_options?: {
-    [key: string]: t_currency_option
+    [key: string]: t_currency_option | undefined
   }
   custom_unit_amount?: t_custom_unit_amount | null
   id: string
   livemode: boolean
   lookup_key?: string | null
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   nickname?: string | null
   object: "price"
@@ -8005,7 +8005,7 @@ export type t_product = {
   images: string[]
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   name: string
   object: "product"
@@ -8033,7 +8033,7 @@ export type t_promotion_code = {
   livemode: boolean
   max_redemptions?: number | null
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "promotion_code"
   restrictions: t_promotion_codes_resource_restrictions
@@ -8046,7 +8046,7 @@ export type t_promotion_code_currency_option = {
 
 export type t_promotion_codes_resource_restrictions = {
   currency_options?: {
-    [key: string]: t_promotion_code_currency_option
+    [key: string]: t_promotion_code_currency_option | undefined
   }
   first_time_transaction: boolean
   minimum_amount?: number | null
@@ -8083,7 +8083,7 @@ export type t_quote = {
   }
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   number?: string | null
   object: "quote"
@@ -8198,7 +8198,7 @@ export type t_radar_value_list = {
   }
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   name: string
   object: "radar.value_list"
@@ -8257,7 +8257,7 @@ export type t_refund = {
   id: string
   instructions_email?: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   next_action?: t_refund_next_action
   object: "refund"
@@ -8539,7 +8539,7 @@ export type t_setup_intent = {
   livemode: boolean
   mandate?: string | t_mandate | null
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   next_action?: t_setup_intent_next_action | null
   object: "setup_intent"
@@ -8681,7 +8681,7 @@ export type t_shipping_rate = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "shipping_rate"
   tax_behavior?: "exclusive" | "inclusive" | "unspecified" | null
@@ -8708,7 +8708,7 @@ export type t_shipping_rate_fixed_amount = {
   amount: number
   currency: string
   currency_options?: {
-    [key: string]: t_shipping_rate_currency_option
+    [key: string]: t_shipping_rate_currency_option | undefined
   }
 }
 
@@ -8739,7 +8739,7 @@ export type t_source = {
   klarna?: t_source_type_klarna
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   multibanco?: t_source_type_multibanco
   object: "source"
@@ -9164,7 +9164,7 @@ export type t_subscription = {
   latest_invoice?: string | t_invoice | null
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   next_pending_invoice_item_invoice?: number | null
   object: "subscription"
@@ -9203,7 +9203,7 @@ export type t_subscription_billing_thresholds = {
 
 export type t_subscription_details_data = {
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
 }
 
@@ -9212,7 +9212,7 @@ export type t_subscription_item = {
   created: number
   id: string
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "subscription_item"
   price: t_price
@@ -9260,7 +9260,7 @@ export type t_subscription_schedule = {
   id: string
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "subscription_schedule"
   phases: t_subscription_schedule_phase_configuration[]
@@ -9280,7 +9280,7 @@ export type t_subscription_schedule_add_invoice_item = {
 export type t_subscription_schedule_configuration_item = {
   billing_thresholds?: t_subscription_item_billing_thresholds | null
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   price: string | t_price | t_deleted_price
   quantity?: number
@@ -9308,7 +9308,7 @@ export type t_subscription_schedule_phase_configuration = {
   invoice_settings?: t_invoice_setting_subscription_schedule_phase_setting | null
   items: t_subscription_schedule_configuration_item[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   on_behalf_of?: string | t_account | null
   proration_behavior: "always_invoice" | "create_prorations" | "none"
@@ -9460,7 +9460,7 @@ export type t_tax_transaction = {
   } | null
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "tax.transaction"
   reference: string
@@ -9476,7 +9476,7 @@ export type t_tax_transaction_line_item = {
   id: string
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "tax.transaction_line_item"
   product?: string | null
@@ -9829,7 +9829,7 @@ export type t_tax_rate = {
   jurisdiction?: string | null
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "tax_rate"
   percentage: number
@@ -9874,7 +9874,7 @@ export type t_terminal_location = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "terminal.location"
 }
@@ -9895,7 +9895,7 @@ export type t_terminal_reader = {
   livemode: boolean
   location?: string | t_terminal_location | null
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "terminal.reader"
   serial_number: string
@@ -9981,7 +9981,7 @@ export type t_terminal_reader_reader_resource_refund_payment_action = {
   amount?: number
   charge?: string | t_charge
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   payment_intent?: string | t_payment_intent
   reason?: "duplicate" | "fraudulent" | "requested_by_customer"
@@ -10082,7 +10082,7 @@ export type t_topup = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "topup"
   source?: t_source | null
@@ -10103,7 +10103,7 @@ export type t_transfer = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "transfer"
   reversals: {
@@ -10131,7 +10131,7 @@ export type t_transfer_reversal = {
   destination_payment_refund?: string | t_refund | null
   id: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "transfer_reversal"
   source_refund?: string | t_refund | null
@@ -10164,7 +10164,7 @@ export type t_treasury_credit_reversal = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   network: "ach" | "stripe"
   object: "treasury.credit_reversal"
@@ -10184,7 +10184,7 @@ export type t_treasury_debit_reversal = {
   linked_flows?: t_treasury_received_debits_resource_debit_reversal_linked_flows | null
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   network: "ach" | "card"
   object: "treasury.debit_reversal"
@@ -10215,7 +10215,7 @@ export type t_treasury_financial_account = {
   id: string
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "treasury.financial_account"
   pending_features?: (
@@ -10272,7 +10272,7 @@ export type t_treasury_inbound_transfer = {
   linked_flows: t_treasury_inbound_transfers_resource_inbound_transfer_resource_linked_flows
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "treasury.inbound_transfer"
   origin_payment_method: string
@@ -10300,7 +10300,7 @@ export type t_treasury_outbound_payment = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "treasury.outbound_payment"
   returned_details?: t_treasury_outbound_payments_resource_returned_status | null
@@ -10324,7 +10324,7 @@ export type t_treasury_outbound_transfer = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "treasury.outbound_transfer"
   returned_details?: t_treasury_outbound_transfers_resource_returned_details | null
@@ -10476,13 +10476,13 @@ export type t_treasury_financial_accounts_resource_ach_toggle_settings = {
 
 export type t_treasury_financial_accounts_resource_balance = {
   cash: {
-    [key: string]: number
+    [key: string]: number | undefined
   }
   inbound_pending: {
-    [key: string]: number
+    [key: string]: number | undefined
   }
   outbound_pending: {
-    [key: string]: number
+    [key: string]: number | undefined
   }
 }
 
@@ -10785,7 +10785,7 @@ export type t_webhook_endpoint = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "webhook_endpoint"
   secret?: string

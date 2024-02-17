@@ -608,18 +608,13 @@ export class ApiClient {
 
   appsCreateFromManifest(p: { code: string }): Observable<
     | (HttpResponse<
-        t_integration &
-          (
-            | {
-                client_id: string
-                client_secret: string
-                pem: string
-                webhook_secret: string | null
-              }
-            | {
-                [key: string]: unknown
-              }
-          )
+        t_integration & {
+          client_id: string
+          client_secret: string
+          pem: string
+          webhook_secret: string | null
+          [key: string]: unknown | undefined
+        }
       > & { status: 201 })
     | (HttpResponse<t_basic_error> & { status: 404 })
     | (HttpResponse<t_validation_error_simple> & { status: 422 })
@@ -720,10 +715,10 @@ export class ApiClient {
     )
   }
 
-  appsRedeliverWebhookDelivery(p: {
-    deliveryId: number
-  }): Observable<
-    | (HttpResponse<EmptyObject> & { status: 202 })
+  appsRedeliverWebhookDelivery(p: { deliveryId: number }): Observable<
+    | (HttpResponse<{
+        [key: string]: unknown | undefined
+      }> & { status: 202 })
     | (HttpResponse<t_scim_error> & { status: 400 })
     | (HttpResponse<t_validation_error> & { status: 422 })
     | HttpResponse<unknown>
@@ -1206,7 +1201,7 @@ export class ApiClient {
 
   emojisGet(): Observable<
     | (HttpResponse<{
-        [key: string]: string
+        [key: string]: string | undefined
       }> & { status: 200 })
     | (HttpResponse<void> & { status: 304 })
     | HttpResponse<unknown>
@@ -1391,9 +1386,11 @@ export class ApiClient {
     requestBody: {
       description?: string
       files: {
-        [key: string]: {
-          content: string
-        }
+        [key: string]:
+          | {
+              content: string
+            }
+          | undefined
       }
       public?: boolean | "true" | "false"
     }
@@ -1510,10 +1507,12 @@ export class ApiClient {
     requestBody: {
       description?: string
       files?: {
-        [key: string]: {
-          content?: string
-          filename?: string | null
-        } | null
+        [key: string]:
+          | ({
+              content?: string
+              filename?: string | null
+            } | null)
+          | undefined
       }
     } | null
   }): Observable<
@@ -2545,10 +2544,10 @@ export class ApiClient {
     )
   }
 
-  orgsDelete(p: {
-    org: string
-  }): Observable<
-    | (HttpResponse<EmptyObject> & { status: 202 })
+  orgsDelete(p: { org: string }): Observable<
+    | (HttpResponse<{
+        [key: string]: unknown | undefined
+      }> & { status: 202 })
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
     | HttpResponse<unknown>
@@ -4722,7 +4721,9 @@ export class ApiClient {
     hookId: number
     deliveryId: number
   }): Observable<
-    | (HttpResponse<EmptyObject> & { status: 202 })
+    | (HttpResponse<{
+        [key: string]: unknown | undefined
+      }> & { status: 202 })
     | (HttpResponse<t_scim_error> & { status: 400 })
     | (HttpResponse<t_validation_error> & { status: 422 })
     | HttpResponse<unknown>
@@ -5112,7 +5113,9 @@ export class ApiClient {
     username: string
     codespaceName: string
   }): Observable<
-    | (HttpResponse<EmptyObject> & { status: 202 })
+    | (HttpResponse<{
+        [key: string]: unknown | undefined
+      }> & { status: 202 })
     | (HttpResponse<void> & { status: 304 })
     | (HttpResponse<t_basic_error> & { status: 401 })
     | (HttpResponse<t_basic_error> & { status: 403 })
@@ -5731,7 +5734,9 @@ export class ApiClient {
       reason?: string | null
     }
   }): Observable<
-    | (HttpResponse<EmptyObject> & { status: 202 })
+    | (HttpResponse<{
+        [key: string]: unknown | undefined
+      }> & { status: 202 })
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
     | (HttpResponse<t_validation_error> & { status: 422 })
@@ -5864,7 +5869,9 @@ export class ApiClient {
       pat_ids: number[]
     }
   }): Observable<
-    | (HttpResponse<EmptyObject> & { status: 202 })
+    | (HttpResponse<{
+        [key: string]: unknown | undefined
+      }> & { status: 202 })
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
     | (HttpResponse<t_validation_error> & { status: 422 })
@@ -9628,7 +9635,7 @@ export class ApiClient {
     workflowId: number | string
     requestBody: {
       inputs?: {
-        [key: string]: unknown
+        [key: string]: unknown | undefined
       }
       ref: string
     }
@@ -10921,12 +10928,11 @@ export class ApiClient {
     requestBody:
       | {
           status: EmptyObject
-        }
-      | {
-          [key: string]: unknown
+          [key: string]: unknown | undefined
         }
       | {
           status?: EmptyObject
+          [key: string]: unknown | undefined
         }
   }): Observable<
     (HttpResponse<t_check_run> & { status: 201 }) | HttpResponse<unknown>
@@ -11404,7 +11410,7 @@ export class ApiClient {
     analysisId: number
   }): Observable<
     | (HttpResponse<{
-        [key: string]: unknown
+        [key: string]: unknown | undefined
       }> & { status: 200 })
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
@@ -13116,7 +13122,7 @@ export class ApiClient {
       environment?: string
       payload?:
         | {
-            [key: string]: unknown
+            [key: string]: unknown | undefined
           }
         | string
       production_environment?: boolean
@@ -13285,7 +13291,7 @@ export class ApiClient {
     repo: string
     requestBody: {
       client_payload?: {
-        [key: string]: unknown
+        [key: string]: unknown | undefined
       }
       event_type: string
     }
@@ -14321,7 +14327,9 @@ export class ApiClient {
     hookId: number
     deliveryId: number
   }): Observable<
-    | (HttpResponse<EmptyObject> & { status: 202 })
+    | (HttpResponse<{
+        [key: string]: unknown | undefined
+      }> & { status: 202 })
     | (HttpResponse<t_scim_error> & { status: 400 })
     | (HttpResponse<t_validation_error> & { status: 422 })
     | HttpResponse<unknown>
@@ -18326,7 +18334,9 @@ export class ApiClient {
     repo: string
     ghsaId: string
   }): Observable<
-    | (HttpResponse<EmptyObject> & { status: 202 })
+    | (HttpResponse<{
+        [key: string]: unknown | undefined
+      }> & { status: 202 })
     | (HttpResponse<t_scim_error> & { status: 400 })
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
@@ -18370,12 +18380,11 @@ export class ApiClient {
     )
   }
 
-  reposGetCodeFrequencyStats(p: {
-    owner: string
-    repo: string
-  }): Observable<
+  reposGetCodeFrequencyStats(p: { owner: string; repo: string }): Observable<
     | (HttpResponse<t_code_frequency_stat[]> & { status: 200 })
-    | (HttpResponse<EmptyObject> & { status: 202 })
+    | (HttpResponse<{
+        [key: string]: unknown | undefined
+      }> & { status: 202 })
     | (HttpResponse<void> & { status: 204 })
     | HttpResponse<unknown>
   > {
@@ -18390,12 +18399,11 @@ export class ApiClient {
     )
   }
 
-  reposGetCommitActivityStats(p: {
-    owner: string
-    repo: string
-  }): Observable<
+  reposGetCommitActivityStats(p: { owner: string; repo: string }): Observable<
     | (HttpResponse<t_commit_activity[]> & { status: 200 })
-    | (HttpResponse<EmptyObject> & { status: 202 })
+    | (HttpResponse<{
+        [key: string]: unknown | undefined
+      }> & { status: 202 })
     | (HttpResponse<void> & { status: 204 })
     | HttpResponse<unknown>
   > {
@@ -18410,12 +18418,11 @@ export class ApiClient {
     )
   }
 
-  reposGetContributorsStats(p: {
-    owner: string
-    repo: string
-  }): Observable<
+  reposGetContributorsStats(p: { owner: string; repo: string }): Observable<
     | (HttpResponse<t_contributor_activity[]> & { status: 200 })
-    | (HttpResponse<EmptyObject> & { status: 202 })
+    | (HttpResponse<{
+        [key: string]: unknown | undefined
+      }> & { status: 202 })
     | (HttpResponse<void> & { status: 204 })
     | HttpResponse<unknown>
   > {
@@ -20811,7 +20818,9 @@ export class ApiClient {
   codespacesDeleteForAuthenticatedUser(p: {
     codespaceName: string
   }): Observable<
-    | (HttpResponse<EmptyObject> & { status: 202 })
+    | (HttpResponse<{
+        [key: string]: unknown | undefined
+      }> & { status: 202 })
     | (HttpResponse<void> & { status: 304 })
     | (HttpResponse<t_basic_error> & { status: 401 })
     | (HttpResponse<t_basic_error> & { status: 403 })

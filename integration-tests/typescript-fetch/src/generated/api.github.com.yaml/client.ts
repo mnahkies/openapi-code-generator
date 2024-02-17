@@ -540,18 +540,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<
       | Res<
           201,
-          t_integration &
-            (
-              | {
-                  client_id: string
-                  client_secret: string
-                  pem: string
-                  webhook_secret: string | null
-                }
-              | {
-                  [key: string]: unknown
-                }
-            )
+          t_integration & {
+            client_id: string
+            client_secret: string
+            pem: string
+            webhook_secret: string | null
+            [key: string]: unknown | undefined
+          }
         >
       | Res<404, t_basic_error>
       | Res<422, t_validation_error_simple>
@@ -645,7 +640,12 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      | Res<202, EmptyObject>
+      | Res<
+          202,
+          {
+            [key: string]: unknown | undefined
+          }
+        >
       | Res<400, t_scim_error>
       | Res<422, t_validation_error>
     >
@@ -1055,7 +1055,7 @@ export class ApiClient extends AbstractFetchClient {
       | Res<
           200,
           {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         >
       | Res<304, void>
@@ -1222,9 +1222,11 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: {
         description?: string
         files: {
-          [key: string]: {
-            content: string
-          }
+          [key: string]:
+            | {
+                content: string
+              }
+            | undefined
         }
         public?: boolean | "true" | "false"
       }
@@ -1339,10 +1341,12 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: {
         description?: string
         files?: {
-          [key: string]: {
-            content?: string
-            filename?: string | null
-          } | null
+          [key: string]:
+            | ({
+                content?: string
+                filename?: string | null
+              } | null)
+            | undefined
         }
       } | null
     },
@@ -2288,7 +2292,14 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      Res<202, EmptyObject> | Res<403, t_basic_error> | Res<404, t_basic_error>
+      | Res<
+          202,
+          {
+            [key: string]: unknown | undefined
+          }
+        >
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}`
@@ -4314,7 +4325,12 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      | Res<202, EmptyObject>
+      | Res<
+          202,
+          {
+            [key: string]: unknown | undefined
+          }
+        >
       | Res<400, t_scim_error>
       | Res<422, t_validation_error>
     >
@@ -4653,7 +4669,12 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      | Res<202, EmptyObject>
+      | Res<
+          202,
+          {
+            [key: string]: unknown | undefined
+          }
+        >
       | Res<304, void>
       | Res<401, t_basic_error>
       | Res<403, t_basic_error>
@@ -5289,7 +5310,12 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      | Res<202, EmptyObject>
+      | Res<
+          202,
+          {
+            [key: string]: unknown | undefined
+          }
+        >
       | Res<403, t_basic_error>
       | Res<404, t_basic_error>
       | Res<422, t_validation_error>
@@ -5418,7 +5444,12 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      | Res<202, EmptyObject>
+      | Res<
+          202,
+          {
+            [key: string]: unknown | undefined
+          }
+        >
       | Res<403, t_basic_error>
       | Res<404, t_basic_error>
       | Res<422, t_validation_error>
@@ -8963,7 +8994,7 @@ export class ApiClient extends AbstractFetchClient {
       workflowId: number | string
       requestBody: {
         inputs?: {
-          [key: string]: unknown
+          [key: string]: unknown | undefined
         }
         ref: string
       }
@@ -10181,12 +10212,11 @@ export class ApiClient extends AbstractFetchClient {
       requestBody:
         | {
             status: EmptyObject
-          }
-        | {
-            [key: string]: unknown
+            [key: string]: unknown | undefined
           }
         | {
             status?: EmptyObject
+            [key: string]: unknown | undefined
           }
     },
     timeout?: number,
@@ -10665,7 +10695,7 @@ export class ApiClient extends AbstractFetchClient {
       | Res<
           200,
           {
-            [key: string]: unknown
+            [key: string]: unknown | undefined
           }
         >
       | Res<403, t_basic_error>
@@ -12324,7 +12354,7 @@ export class ApiClient extends AbstractFetchClient {
         environment?: string
         payload?:
           | {
-              [key: string]: unknown
+              [key: string]: unknown | undefined
             }
           | string
         production_environment?: boolean
@@ -12490,7 +12520,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
       requestBody: {
         client_payload?: {
-          [key: string]: unknown
+          [key: string]: unknown | undefined
         }
         event_type: string
       }
@@ -13461,7 +13491,12 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      | Res<202, EmptyObject>
+      | Res<
+          202,
+          {
+            [key: string]: unknown | undefined
+          }
+        >
       | Res<400, t_scim_error>
       | Res<422, t_validation_error>
     >
@@ -17260,7 +17295,12 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      | Res<202, EmptyObject>
+      | Res<
+          202,
+          {
+            [key: string]: unknown | undefined
+          }
+        >
       | Res<400, t_scim_error>
       | Res<403, t_basic_error>
       | Res<404, t_basic_error>
@@ -17303,7 +17343,14 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      Res<200, t_code_frequency_stat[]> | Res<202, EmptyObject> | Res<204, void>
+      | Res<200, t_code_frequency_stat[]>
+      | Res<
+          202,
+          {
+            [key: string]: unknown | undefined
+          }
+        >
+      | Res<204, void>
     >
   > {
     const url =
@@ -17321,7 +17368,14 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      Res<200, t_commit_activity[]> | Res<202, EmptyObject> | Res<204, void>
+      | Res<200, t_commit_activity[]>
+      | Res<
+          202,
+          {
+            [key: string]: unknown | undefined
+          }
+        >
+      | Res<204, void>
     >
   > {
     const url =
@@ -17340,7 +17394,12 @@ export class ApiClient extends AbstractFetchClient {
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_contributor_activity[]>
-      | Res<202, EmptyObject>
+      | Res<
+          202,
+          {
+            [key: string]: unknown | undefined
+          }
+        >
       | Res<204, void>
     >
   > {
@@ -19548,7 +19607,12 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      | Res<202, EmptyObject>
+      | Res<
+          202,
+          {
+            [key: string]: unknown | undefined
+          }
+        >
       | Res<304, void>
       | Res<401, t_basic_error>
       | Res<403, t_basic_error>
