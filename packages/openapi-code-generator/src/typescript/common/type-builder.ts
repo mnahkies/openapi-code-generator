@@ -182,7 +182,7 @@ export class TypeBuilder {
             : ""
 
           const additionalProperties = additionalPropertiesType
-            ? `[key: string]: ${additionalPropertiesType}`
+            ? `[key: string]: ${union(additionalPropertiesType, "undefined")}`
             : ""
 
           const emptyObject =
@@ -190,11 +190,9 @@ export class TypeBuilder {
               ? this.addStaticType("EmptyObject")
               : ""
 
-          result.push(
-            object(properties),
-            object(additionalProperties),
-            emptyObject,
-          )
+          properties.push(additionalProperties)
+
+          result.push(object(properties), emptyObject)
           break
         }
 

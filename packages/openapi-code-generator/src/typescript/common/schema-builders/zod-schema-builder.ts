@@ -66,8 +66,14 @@ export class ZodBuilder extends AbstractSchemaBuilder {
   }
 
   protected intersect(schemas: string[]): string {
-    return schemas.filter(isDefined).reduce((acc, it) => {
-      return `${acc}\n.merge(${it})`
+    const definedSchemas = schemas.filter(isDefined)
+
+    if (definedSchemas.length == 1) {
+      return definedSchemas[0]
+    }
+
+    return definedSchemas.reduce((acc, it) => {
+      return `${this.zod}.intersection(${acc}, ${it})`
     })
   }
 

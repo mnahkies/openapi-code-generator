@@ -162,24 +162,38 @@ export abstract class AbstractSchemaBuilder {
           result = this.union(model.oneOf.map((it) => this.fromModel(it, true)))
         } else if (model.anyOf.length) {
           result = this.union(model.anyOf.map((it) => this.fromModel(it, true)))
-        } else if (model.additionalProperties) {
-          result = this.record(
-            typeof model.additionalProperties === "boolean"
-              ? this.any()
-              : this.fromModel(model.additionalProperties, true),
-          )
         } else {
-          result = this.object(
-            Object.fromEntries(
-              Object.entries(model.properties).map(([key, value]) => {
-                return [
-                  key,
-                  this.fromModel(value, model.required.includes(key)),
-                ]
-              }),
-            ),
-            required,
-          )
+          const properties =
+            Object.keys(model.properties).length &&
+            this.object(
+              Object.fromEntries(
+                Object.entries(model.properties).map(([key, value]) => {
+                  return [
+                    key,
+                    this.fromModel(value, model.required.includes(key)),
+                  ]
+                }),
+              ),
+              required,
+            )
+
+          const additionalProperties =
+            model.additionalProperties &&
+            this.record(
+              typeof model.additionalProperties === "boolean"
+                ? this.any()
+                : this.fromModel(model.additionalProperties, true),
+            )
+
+          if (properties && additionalProperties) {
+            result = this.intersect([properties, additionalProperties])
+          } else if (properties) {
+            result = properties
+          } else if (additionalProperties) {
+            result = additionalProperties
+          } else {
+            result = this.object({}, required)
+          }
         }
         break
     }

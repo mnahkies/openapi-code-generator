@@ -153,6 +153,15 @@ components:
       additionalProperties:
         $ref: "#/components/schemas/NamedNullableStringEnum"
 
+    AdditionalPropertiesMixed:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      additionalProperties: true
+
     Recursive:
       type: object
       properties:

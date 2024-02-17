@@ -112,7 +112,10 @@ describe.each(testVersions)(
         breed: z.string().optional(),
       })
 
-      export const s_AllOf = s_Base.merge(z.object({ id: z.coerce.number() }))
+      export const s_AllOf = z.intersection(
+        s_Base,
+        z.object({ id: z.coerce.number() }),
+      )
       "
     `)
     })
@@ -251,7 +254,30 @@ describe.each(testVersions)(
           .enum(["", "one", "two", "three"])
           .nullable()
 
-        export const s_AdditionalPropertiesSchema = z.record(s_NamedNullableStringEnum)
+        export const s_AdditionalPropertiesSchema = z.intersection(
+          z.object({ name: z.string().optional() }),
+          z.record(s_NamedNullableStringEnum),
+        )
+        "
+      `)
+      })
+
+      it("handles additionalProperties in conjunction with properties", async () => {
+        const {model, schemas} = await getActual(
+          "components/schemas/AdditionalPropertiesMixed",
+        )
+
+        expect(model).toMatchInlineSnapshot(`
+        "s_AdditionalPropertiesMixed
+        "
+      `)
+        expect(schemas).toMatchInlineSnapshot(`
+        "import { z } from "zod"
+
+        export const s_AdditionalPropertiesMixed = z.intersection(
+          z.object({ id: z.string().optional(), name: z.string().optional() }),
+          z.record(z.any()),
+        )
         "
       `)
       })
