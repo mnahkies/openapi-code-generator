@@ -117,6 +117,10 @@ export class ZodBuilder extends AbstractSchemaBuilder {
     return [this.zod, `array(${items.join(",")})`].filter(isDefined).join(".")
   }
 
+  protected record(schema: string): string {
+    return [this.zod, `record(${schema})`].filter(isDefined).join(".")
+  }
+
   protected number(model: IRModelNumeric) {
     if (model.enum) {
       // TODO: replace with enum after https://github.com/colinhacks/zod/issues/2686

@@ -181,6 +181,82 @@ describe.each(testVersions)(
     `)
     })
 
+    describe("additionalProperties", () => {
+      it("handles additionalProperties set to true", async () => {
+        const {model, schemas} = await getActual(
+          "components/schemas/AdditionalPropertiesBool",
+        )
+
+        expect(model).toMatchInlineSnapshot(`
+        "s_AdditionalPropertiesBool
+        "
+      `)
+        expect(schemas).toMatchInlineSnapshot(`
+        "import { z } from "zod"
+
+        export const s_AdditionalPropertiesBool = z.record(z.any())
+        "
+      `)
+      })
+
+      it("handles additionalProperties set to {}", async () => {
+        const {model, schemas} = await getActual(
+          "components/schemas/AdditionalPropertiesUnknownEmptySchema",
+        )
+
+        expect(model).toMatchInlineSnapshot(`
+        "s_AdditionalPropertiesUnknownEmptySchema
+        "
+      `)
+        expect(schemas).toMatchInlineSnapshot(`
+        "import { z } from "zod"
+
+        export const s_AdditionalPropertiesUnknownEmptySchema = z.record(z.any())
+        "
+      `)
+      })
+
+      it("handles additionalProperties set to {type: 'object'}", async () => {
+        const {model, schemas} = await getActual(
+          "components/schemas/AdditionalPropertiesUnknownEmptyObjectSchema",
+        )
+
+        expect(model).toMatchInlineSnapshot(`
+        "s_AdditionalPropertiesUnknownEmptyObjectSchema
+        "
+      `)
+        expect(schemas).toMatchInlineSnapshot(`
+        "import { z } from "zod"
+
+        export const s_AdditionalPropertiesUnknownEmptyObjectSchema = z.record(
+          z.record(z.any()),
+        )
+        "
+      `)
+      })
+
+      it("handles additionalProperties specifying a schema", async () => {
+        const {model, schemas} = await getActual(
+          "components/schemas/AdditionalPropertiesSchema",
+        )
+
+        expect(model).toMatchInlineSnapshot(`
+        "s_AdditionalPropertiesSchema
+        "
+      `)
+        expect(schemas).toMatchInlineSnapshot(`
+        "import { z } from "zod"
+
+        export const s_NamedNullableStringEnum = z
+          .enum(["", "one", "two", "three"])
+          .nullable()
+
+        export const s_AdditionalPropertiesSchema = z.record(s_NamedNullableStringEnum)
+        "
+      `)
+      })
+    })
+
     async function getActual(path: string) {
       const {input, file} = await unitTestInput(version)
 

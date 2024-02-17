@@ -137,6 +137,17 @@ components:
       type: object
       additionalProperties: true
 
+    AdditionalPropertiesUnknownEmptySchema:
+      type: object
+      additionalProperties: {}
+
+    AdditionalPropertiesUnknownEmptyObjectSchema:
+      type: object
+      additionalProperties:
+        type:
+          object
+
+
     AdditionalPropertiesSchema:
       type: object
       properties:

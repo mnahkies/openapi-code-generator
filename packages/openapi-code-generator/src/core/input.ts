@@ -10,7 +10,7 @@ import {
 } from "./openapi-types"
 import {OpenapiLoader} from "./openapi-loader"
 import {generationLib} from "./generation-lib"
-import {mediaTypeToIdentifier, isHttpMethod} from "./utils"
+import {mediaTypeToIdentifier, isHttpMethod, deepEqual} from "./utils"
 import {
   IRModel,
   IRModelArray,
@@ -239,6 +239,20 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
     case undefined:
     case "null": // TODO: HACK
     case "object": {
+
+      if (deepEqual(schemaObject, {type: "object"})) {
+        return {
+          ...base,
+          type: "object",
+          additionalProperties: true,
+          properties: {},
+          allOf: [],
+          oneOf: [],
+          anyOf: [],
+          required: [],
+        }
+      }
+
       const properties = normalizeProperties(schemaObject.properties)
       const allOf = normalizeAllOf(schemaObject.allOf)
       const oneOf = normalizeOneOf(schemaObject.oneOf)
@@ -335,6 +349,11 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
   function normalizeAdditionalProperties(additionalProperties: Schema["additionalProperties"] = false): boolean | MaybeIRModel {
     if (typeof additionalProperties === "boolean") {
       return additionalProperties
+    }
+
+    // `additionalProperties: {}` is equivalent to `additionalProperties: true`
+    if (typeof additionalProperties === "object" && (deepEqual(additionalProperties, {}))) {
+      return true
     }
 
     return normalizeSchemaObject(additionalProperties)

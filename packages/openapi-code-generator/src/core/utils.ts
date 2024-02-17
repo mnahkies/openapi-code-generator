@@ -14,6 +14,10 @@ export function isHttpMethod(method: string): boolean {
   return httpMethods.has(method.toLowerCase())
 }
 
+export function deepEqual(x: unknown, y: unknown): boolean {
+  return _.isEqual(x, y)
+}
+
 export function titleCase(str: string): string {
   const camel = _.camelCase(str)
   return _.capitalize(camel[0]) + camel.slice(1)

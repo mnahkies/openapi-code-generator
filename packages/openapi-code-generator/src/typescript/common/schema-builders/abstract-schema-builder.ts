@@ -162,6 +162,12 @@ export abstract class AbstractSchemaBuilder {
           result = this.union(model.oneOf.map((it) => this.fromModel(it, true)))
         } else if (model.anyOf.length) {
           result = this.union(model.anyOf.map((it) => this.fromModel(it, true)))
+        } else if (model.additionalProperties) {
+          result = this.record(
+            typeof model.additionalProperties === "boolean"
+              ? this.any()
+              : this.fromModel(model.additionalProperties, true),
+          )
         } else {
           result = this.object(
             Object.fromEntries(
@@ -211,6 +217,8 @@ export abstract class AbstractSchemaBuilder {
   ): string
 
   protected abstract array(items: string[]): string
+
+  protected abstract record(schema: string): string
 
   protected abstract number(model: IRModelNumeric): string
 

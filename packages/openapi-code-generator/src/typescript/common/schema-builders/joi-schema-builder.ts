@@ -117,6 +117,12 @@ export class JoiBuilder extends AbstractSchemaBuilder {
       .join(".")
   }
 
+  protected record(schema: string): string {
+    return [this.joi, JoiFn.Object, `pattern(${this.any()}, ${schema})`]
+      .filter(isDefined)
+      .join(".")
+  }
+
   protected number() {
     // todo: enum support
 

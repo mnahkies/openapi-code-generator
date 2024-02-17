@@ -191,6 +191,54 @@ describe.each(testVersions)(
     `)
     })
 
+    it("handles additionalProperties set to {}", async () => {
+      const {type, schemas, imports} = await getActual(
+        "components/schemas/AdditionalPropertiesUnknownEmptySchema",
+      )
+
+      expect(type).toMatchInlineSnapshot(`
+      "const x: t_AdditionalPropertiesUnknownEmptySchema
+      "
+    `)
+
+      expect(schemas).toMatchInlineSnapshot(`
+      "export type t_AdditionalPropertiesUnknownEmptySchema = {
+        [key: string]: unknown
+      }
+      "
+    `)
+
+      expect(imports).toMatchInlineSnapshot(`
+      "import { t_AdditionalPropertiesUnknownEmptySchema } from "models"
+      "
+    `)
+    })
+
+    it("handles additionalProperties set to {type: 'object'}", async () => {
+      const {type, schemas, imports} = await getActual(
+        "components/schemas/AdditionalPropertiesUnknownEmptyObjectSchema",
+      )
+
+      expect(type).toMatchInlineSnapshot(`
+      "const x: t_AdditionalPropertiesUnknownEmptyObjectSchema
+      "
+    `)
+
+      expect(schemas).toMatchInlineSnapshot(`
+      "export type t_AdditionalPropertiesUnknownEmptyObjectSchema = {
+        [key: string]: {
+          [key: string]: unknown
+        }
+      }
+      "
+    `)
+
+      expect(imports).toMatchInlineSnapshot(`
+      "import { t_AdditionalPropertiesUnknownEmptyObjectSchema } from "models"
+      "
+    `)
+    })
+
     it("can build a recursive type correctly", async () => {
       const {type, schemas, imports} = await getActual(
         "components/schemas/Recursive",
