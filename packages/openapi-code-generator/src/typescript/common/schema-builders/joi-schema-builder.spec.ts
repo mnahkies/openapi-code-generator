@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 import {describe, it, expect} from "@jest/globals"
 import {JoiBuilder} from "./joi-schema-builder"
 import {ImportBuilder} from "../import-builder"

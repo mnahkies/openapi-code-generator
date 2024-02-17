@@ -2,8 +2,8 @@ import {Input} from "./core/input"
 import {SchemaBuilderType} from "./typescript/common/schema-builders/schema-builder"
 
 export interface OpenapiGeneratorConfig {
-  dest: string,
-  input: Input,
+  dest: string
+  input: Input
   schemaBuilder: SchemaBuilderType
   enableRuntimeResponseValidation: boolean
 }

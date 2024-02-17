@@ -5,7 +5,7 @@ export class ImportBuilder {
   from(from: string) {
     return {
       add: (...names: string[]): this => {
-        names.forEach(it => this.addSingle(it, from))
+        names.forEach((it) => this.addSingle(it, from))
         return this
       },
       all: (name: string): this => {
@@ -42,11 +42,14 @@ export class ImportBuilder {
   }
 
   toString(): string {
-    return Array.from(new Set([...Object.keys(this.imports), ...Object.keys(this.importAll)])
-      .values())
+    return Array.from(
+      new Set([
+        ...Object.keys(this.imports),
+        ...Object.keys(this.importAll),
+      ]).values(),
+    )
       .sort()
       .map((from) => {
-
         const individualImports = Array.from(this.imports[from].values())
           .sort()
           .join(", ")
@@ -55,9 +58,8 @@ export class ImportBuilder {
           this.importAll[from] ? this.importAll[from] : "",
           individualImports.length > 0 ? `{${individualImports}}` : "",
         ]
-          .filter(it => it.length)
-          .join(", ")
-        } from '${from}'`
+          .filter((it) => it.length)
+          .join(", ")} from '${from}'`
       })
       .join("\n")
   }

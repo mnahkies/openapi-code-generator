@@ -1,6 +1,3 @@
-/**
- * @prettier
- */
 import {TypescriptFetchClientBuilder} from "./typescript-fetch-client-builder"
 import {ImportBuilder} from "../common/import-builder"
 import {TypeBuilder} from "../common/type-builder"

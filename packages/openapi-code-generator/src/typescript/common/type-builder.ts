@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 import {MaybeIRModel} from "../../core/openapi-types-normalized"
 import {Input} from "../../core/input"
 import {Reference} from "../../core/openapi-types"

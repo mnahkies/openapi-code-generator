@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 import _ from "lodash"
 
 export function isDefined<T>(it: T | undefined): it is T {

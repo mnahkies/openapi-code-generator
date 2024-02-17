@@ -2,7 +2,6 @@ import {describe, it, expect} from "@jest/globals"
 import {ImportBuilder} from "./import-builder"
 
 describe("typescript/common/import-builder", () => {
-
   it("can import whole modules", () => {
     const builder = new ImportBuilder()
     builder.addModule("_", "lodash")

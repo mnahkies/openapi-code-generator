@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 import {z} from "zod"
 import {KoaRuntimeError, RequestInputType} from "./errors"
 

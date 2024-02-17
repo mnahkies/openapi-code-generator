@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 import {describe, it, expect} from "@jest/globals"
 import {ZodBuilder} from "./zod-schema-builder"
 import {testVersions, unitTestInput} from "../../../test/input.test-utils"

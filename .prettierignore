@@ -111,3 +111,5 @@ dist
 *.json
 *.yaml
 integration-tests/*/src/generated
+
+**/CHANGELOG.md

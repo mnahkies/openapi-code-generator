@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 export interface IRRef {
   $ref: string
 }

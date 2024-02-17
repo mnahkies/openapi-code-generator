@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 import {Input} from "../../../core/input"
 import {
   IRModelNumeric,

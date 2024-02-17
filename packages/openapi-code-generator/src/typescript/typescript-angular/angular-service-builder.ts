@@ -4,23 +4,14 @@ import {ClientOperationBuilder} from "../common/client-operation-builder"
 import {buildMethod, routeToTemplateString} from "../common/typescript-common"
 
 export class AngularServiceBuilder extends TypescriptClientBuilder {
-
   protected buildImports(imports: ImportBuilder): void {
-    imports
-      .from("@angular/core")
-      .add("Injectable")
+    imports.from("@angular/core").add("Injectable")
 
     imports
       .from("@angular/common/http")
-      .add(
-        "HttpClient",
-        "HttpHeaders",
-        "HttpParams",
-        "HttpResponse",
-      )
+      .add("HttpClient", "HttpHeaders", "HttpParams", "HttpResponse")
 
-    imports.from("rxjs")
-      .add("Observable")
+    imports.from("rxjs").add("Observable")
   }
 
   protected buildOperation(builder: ClientOperationBuilder): string {
@@ -32,7 +23,8 @@ export class AngularServiceBuilder extends TypescriptClientBuilder {
     const queryString = builder.queryString()
     const headers = builder.headers()
 
-    const returnType = builder.returnType()
+    const returnType = builder
+      .returnType()
       .map(({statusType, responseType}) => {
         return `(HttpResponse<${responseType}> & {status: ${statusType}})`
       })
@@ -42,28 +34,26 @@ export class AngularServiceBuilder extends TypescriptClientBuilder {
     const url = routeToTemplateString(route)
 
     const body = `
-    ${
-        [
-            headers ? `const headers = this._headers(${headers})` : "",
-            queryString ? `const params = this._queryParams({${queryString}})` : "",
-            requestBodyParameter ? `const body = ${builder.paramName(requestBodyParameter.name)}` : "",
-        ]
-            .filter(Boolean)
-            .join("\n")
-    }
+    ${[
+      headers ? `const headers = this._headers(${headers})` : "",
+      queryString ? `const params = this._queryParams({${queryString}})` : "",
+      requestBodyParameter
+        ? `const body = ${builder.paramName(requestBodyParameter.name)}`
+        : "",
+    ]
+      .filter(Boolean)
+      .join("\n")}
 
 return this.httpClient.request<any>(
   "${method}",
   this.config.basePath + \`${url}\`, {
-    ${
-        [
-            queryString ? "params," : "",
-            headers ? "headers," : "",
-            requestBodyParameter ? "body," : "",
-        ]
-            .filter(Boolean)
-            .join("\n")
-    }
+    ${[
+      queryString ? "params," : "",
+      headers ? "headers," : "",
+      requestBodyParameter ? "body," : "",
+    ]
+      .filter(Boolean)
+      .join("\n")}
     observe: "response",
     reportProgress: false,
   });

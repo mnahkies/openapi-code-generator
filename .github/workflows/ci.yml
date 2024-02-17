@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -18,40 +18,39 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v4
-#      with:
-#        fetch-depth: ''
+      - uses: actions/checkout@v4
+      #      with:
+      #        fetch-depth: ''
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        registry-url: 'https://registry.npmjs.org'
-        node-version: ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          registry-url: "https://registry.npmjs.org"
+          node-version: ${{ matrix.node-version }}
 
-    - uses: actions/cache@v4
-      id: yarn-cache
-      with:
-        path: .yarn
-        key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-yarn-
+      - uses: actions/cache@v4
+        id: yarn-cache
+        with:
+          path: .yarn
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
-    - run: corepack enable
-    - run: yarn --immutable
+      - run: corepack enable
+      - run: yarn --immutable
 
-    - run: yarn ci-build
+      - run: yarn ci-build
 
-    - run: yarn ci-test
+      - run: yarn ci-test
 
-    - run: yarn ci-lint
-    - run: yarn ci-format
+      - run: yarn ci-lint
+      - run: yarn ci-format
 
-    - run: yarn integration:generate
-    - run: yarn integration:validate
+      - run: yarn integration:generate
+      - run: yarn integration:validate
 
-    - name: Check for uncommitted changes
-      run: ./scripts/assert-clean-working-directory.sh
-
+      - name: Check for uncommitted changes
+        run: ./scripts/assert-clean-working-directory.sh
 # TODO: figure out how to do this safely, eg: no risk of external contributors exfiltrating publish secret.
 #    - name: Configure Git User
 #      run: |

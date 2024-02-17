@@ -3,7 +3,12 @@ import {isDefined} from "../../core/utils"
 import {IROperation, IRParameter} from "../../core/openapi-types-normalized"
 import {logger} from "../../core/logger"
 
-export type MethodParameterDefinition = {name: string, type: string, required?: boolean, default?: string}
+export type MethodParameterDefinition = {
+  name: string
+  type: string
+  required?: boolean
+  default?: string
+}
 
 export type MethodDefinition = {
   name: string
@@ -16,41 +21,39 @@ export type MethodDefinition = {
   body: string
 }
 
-export function combineParams(parameters: MethodParameterDefinition[], name = "p"): MethodParameterDefinition | undefined {
+export function combineParams(
+  parameters: MethodParameterDefinition[],
+  name = "p",
+): MethodParameterDefinition | undefined {
   if (!parameters.length) {
     return undefined
   }
 
-  const required = parameters.some(it => it.required)
+  const required = parameters.some((it) => it.required)
 
   return {
     name,
     type: `{
-    ${
-      params(parameters)
-    }
+    ${params(parameters)}
     }`,
     required: true, // avoid "TS1015: Parameter cannot have question mark and initializer."
     default: !required ? "{}" : undefined,
   }
 }
 
-export function combineAndDestructureParams(parameters: MethodParameterDefinition[]): MethodParameterDefinition | undefined {
+export function combineAndDestructureParams(
+  parameters: MethodParameterDefinition[],
+): MethodParameterDefinition | undefined {
   if (!parameters.length) {
     return undefined
   }
 
   return {
     name: `{
-    ${
-      parameters.map(it => it.name)
-        .join(",\n")
-    }
+    ${parameters.map((it) => it.name).join(",\n")}
     }`,
     type: `{
-    ${
-      params(parameters)
-    }
+    ${params(parameters)}
     }`,
   }
 }
@@ -58,38 +61,53 @@ export function combineAndDestructureParams(parameters: MethodParameterDefinitio
 export function routeToTemplateString(route: string, paramName = "p"): string {
   const placeholder = /{([^{}]+)}/g
 
-  return Array.from(route.matchAll(placeholder))
-    .reduce((result, match) => {
-      return result.replace(match[0], "${" + paramName + "[\"" + _.camelCase(match[1]) + "\"]}")
-    }, route)
+  return Array.from(route.matchAll(placeholder)).reduce((result, match) => {
+    return result.replace(
+      match[0],
+      "${" + paramName + '["' + _.camelCase(match[1]) + '"]}',
+    )
+  }, route)
 }
 
-export function buildMethod({name, parameters, returnType, overloads = [], body}: MethodDefinition): string {
+export function buildMethod({
+  name,
+  parameters,
+  returnType,
+  overloads = [],
+  body,
+}: MethodDefinition): string {
   return `
-  ${overloads.map(it => `${name}(${params(it.parameters)}): ${it.returnType};`).join("\n")}
+  ${overloads.map((it) => `${name}(${params(it.parameters)}): ${it.returnType};`).join("\n")}
   ${name}(${params(parameters)}): ${returnType}
   {
     ${body}
   }`
 }
 
-export function asyncMethod({name, parameters, returnType, overloads = [], body}: MethodDefinition): string {
+export function asyncMethod({
+  name,
+  parameters,
+  returnType,
+  overloads = [],
+  body,
+}: MethodDefinition): string {
   return `
-  ${overloads.map(it => `async ${name}(${params(it.parameters)}): Promise<${it.returnType}>;`).join("\n")}
+  ${overloads.map((it) => `async ${name}(${params(it.parameters)}): Promise<${it.returnType}>;`).join("\n")}
   async ${name}(${params(parameters)}): Promise<${returnType}>
   {
     ${body}
   }`
 }
 
-export type ExportDefinition = {name: string, type?: string, value: string, kind: "const"} | {
-  name: string,
-  value: string,
-  kind: "type"
-}
+export type ExportDefinition =
+  | {name: string; type?: string; value: string; kind: "const"}
+  | {
+      name: string
+      value: string
+      kind: "type"
+    }
 
 export function buildExport(args: ExportDefinition) {
-
   if (!args.value) {
     return ""
   }
@@ -103,7 +121,7 @@ export function buildExport(args: ExportDefinition) {
 }
 
 export function requestBodyAsParameter(operation: IROperation): {
-  requestBodyParameter?: IRParameter,
+  requestBodyParameter?: IRParameter
   requestBodyContentType?: string
 } {
   const {requestBody} = operation
@@ -113,7 +131,9 @@ export function requestBodyAsParameter(operation: IROperation): {
   }
 
   // todo: https://github.com/mnahkies/openapi-code-generator/issues/42
-  for (const [requestBodyContentType, definition] of Object.entries(requestBody.content)) {
+  for (const [requestBodyContentType, definition] of Object.entries(
+    requestBody.content,
+  )) {
     return {
       requestBodyContentType,
       requestBodyParameter: {
@@ -144,10 +164,14 @@ export function statusStringToType(status: string): string {
   throw new Error(`unexpected status string '${status}'`)
 }
 
-export function ifElseIfBuilder(parts: ({condition?: string, body: string} | undefined)[]) {
+export function ifElseIfBuilder(
+  parts: ({condition?: string; body: string} | undefined)[],
+) {
   const result = []
 
-  const definedParts = parts.filter(isDefined).sort((a, b) => a.condition && !b.condition ? -1 : 1)
+  const definedParts = parts
+    .filter(isDefined)
+    .sort((a, b) => (a.condition && !b.condition ? -1 : 1))
 
   for (const {condition, body} of definedParts) {
     if (result.length === 0 && condition) {
@@ -165,12 +189,15 @@ export function ifElseIfBuilder(parts: ({condition?: string, body: string} | und
 }
 
 // todo: do we need to quote names sometimes here?
-function params(parameters: (MethodParameterDefinition | undefined)[], quoteNames = false): string {
+function params(
+  parameters: (MethodParameterDefinition | undefined)[],
+  quoteNames = false,
+): string {
   return parameters
     .filter(isDefined)
     .map((param) => {
       const name = quoteNames ? `"${param.name}"` : param.name
-      return `${name}${param.required === false ? "?" : ""}: ${(param.type)} ${param.default ? `= ${param.default}` : ""}`
+      return `${name}${param.required === false ? "?" : ""}: ${param.type} ${param.default ? `= ${param.default}` : ""}`
     })
     .join(",")
 }

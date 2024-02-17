@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 import {describe, expect, it} from "@jest/globals"
 import {mediaTypeToIdentifier, titleCase} from "./utils"
 

@@ -1,9 +1,9 @@
-import { describe, expect } from "@jest/globals"
-import { AbstractFetchClient, QueryParams } from "./main"
+import {describe, expect} from "@jest/globals"
+import {AbstractFetchClient, QueryParams} from "./main"
 
 class ConcreteFetchClient extends AbstractFetchClient {
   constructor() {
-    super({ basePath: "", defaultHeaders: {} })
+    super({basePath: "", defaultHeaders: {}})
   }
 
   query(params: QueryParams) {
@@ -16,21 +16,21 @@ describe("main", () => {
 
   describe("_query", () => {
     it("returns an empty string when all params are undefined", () => {
-      expect(client.query({ foo: undefined, bar: undefined })).toBe("")
+      expect(client.query({foo: undefined, bar: undefined})).toBe("")
     })
 
     it("returns the defined params in a simple case", () => {
-      expect(
-        client.query({ foo: undefined, bar: "baz", foobar: "value" }),
-      ).toBe("?bar=baz&foobar=value")
+      expect(client.query({foo: undefined, bar: "baz", foobar: "value"})).toBe(
+        "?bar=baz&foobar=value",
+      )
     })
 
     it("repeats array params", () => {
-      expect(client.query({ foo: ["bar", "baz"] })).toBe("?foo=bar&foo=baz")
+      expect(client.query({foo: ["bar", "baz"]})).toBe("?foo=bar&foo=baz")
     })
 
     it("handles objects", () => {
-      expect(client.query({ foo: { bar: "baz" } })).toBe(
+      expect(client.query({foo: {bar: "baz"}})).toBe(
         `?${encodeURIComponent("foo[bar]")}=baz`,
       )
     })
@@ -39,8 +39,8 @@ describe("main", () => {
       expect(
         client.query({
           foo: [
-            { prop1: "one", prop2: "two" },
-            { prop1: "foo", prop2: "bar" },
+            {prop1: "one", prop2: "two"},
+            {prop1: "foo", prop2: "bar"},
           ],
           limit: 10,
           undefined: undefined,

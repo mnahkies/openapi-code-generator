@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 function wrap<T, U>(
   fn: (arg: T[]) => U,
 ): {

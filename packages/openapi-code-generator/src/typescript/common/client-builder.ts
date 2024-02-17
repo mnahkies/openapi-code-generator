@@ -1,6 +1,3 @@
-/**
- * @prettier
- */
 import {IROperation} from "../../core/openapi-types-normalized"
 import {ImportBuilder} from "./import-builder"
 import {TypeBuilder} from "./type-builder"

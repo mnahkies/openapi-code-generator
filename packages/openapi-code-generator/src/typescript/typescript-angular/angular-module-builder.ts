@@ -1,6 +1,5 @@
 import {ImportBuilder} from "../common/import-builder"
 
-
 export class AngularModuleBuilder {
   private readonly tsImports: ImportBuilder
 
@@ -15,9 +14,7 @@ export class AngularModuleBuilder {
   ) {
     this.tsImports = new ImportBuilder()
 
-    this.tsImports
-      .from("@angular/core")
-      .add("NgModule")
+    this.tsImports.from("@angular/core").add("NgModule")
   }
 
   imports(from: string) {
@@ -39,11 +36,9 @@ export class AngularModuleBuilder {
   private imp(collection: Set<string>, from: string) {
     return {
       add: (...names: string[]) => {
-        this.tsImports
-          .from(from)
-          .add(...names)
+        this.tsImports.from(from).add(...names)
 
-        names.forEach(name => {
+        names.forEach((name) => {
           collection.add(name)
         })
       },

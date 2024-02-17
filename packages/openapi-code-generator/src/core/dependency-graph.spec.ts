@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 import {describe, it, expect} from "@jest/globals"
 import {testVersions, unitTestInput} from "../test/input.test-utils"
 import {buildDependencyGraph} from "./dependency-graph"

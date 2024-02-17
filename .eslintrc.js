@@ -3,10 +3,7 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-  ],
+  extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   plugins: ["@typescript-eslint", "jest"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -35,23 +32,18 @@ module.exports = {
       "error",
       {
         name: "isFinite",
-        message:
-          "Use Number.isFinite",
+        message: "Use Number.isFinite",
       },
       {
         name: "isNaN",
-        message:
-          "Use Number.isNaN",
+        message: "Use Number.isNaN",
       },
     ],
   },
   overrides: [
     {
       files: "**/*.spec.ts",
-      extends: [
-        "plugin:jest/recommended",
-        "plugin:jest/style",
-      ],
+      extends: ["plugin:jest/recommended", "plugin:jest/style"],
       env: {
         jest: true,
       },

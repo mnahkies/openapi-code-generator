@@ -1,7 +1,4 @@
 #!/usr/bin/env node
-/**
- * @prettier
- */
 
 import "source-map-support/register"
 
