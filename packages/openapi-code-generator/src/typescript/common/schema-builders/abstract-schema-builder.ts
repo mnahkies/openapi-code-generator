@@ -187,6 +187,8 @@ export abstract class AbstractSchemaBuilder {
     return result
   }
 
+  public abstract parse(schema: string, value: string): string
+
   public abstract any(): string
 
   public abstract void(): string

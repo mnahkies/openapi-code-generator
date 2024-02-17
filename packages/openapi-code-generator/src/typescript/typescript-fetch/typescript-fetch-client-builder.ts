@@ -3,6 +3,7 @@ import {ImportBuilder} from "../common/import-builder"
 import {ClientOperationBuilder} from "../common/client-operation-builder"
 import {asyncMethod, routeToTemplateString} from "../common/typescript-common"
 import {ZodBuilder} from "../common/schema-builders/zod-schema-builder"
+import {JoiBuilder} from "../common/schema-builders/joi-schema-builder"
 
 export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
 
@@ -25,6 +26,12 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
       if (this.schemaBuilder instanceof ZodBuilder) {
         imports
           .from("@nahkies/typescript-fetch-runtime/zod")
+          .add(
+            "responseValidationFactory",
+          )
+      } else if (this.schemaBuilder instanceof JoiBuilder) {
+        imports
+          .from("@nahkies/typescript-fetch-runtime/joi")
           .add(
             "responseValidationFactory",
           )

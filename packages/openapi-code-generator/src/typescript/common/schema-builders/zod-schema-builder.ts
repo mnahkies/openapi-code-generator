@@ -36,6 +36,10 @@ export class ZodBuilder extends AbstractSchemaBuilder {
     imports.from("zod").add(this.zod)
   }
 
+  public parse(schema: string, value: string): string {
+    return `${schema}.parse(${value})`
+  }
+
   protected schemaFromRef(
     reference: Reference,
     imports: ImportBuilder,

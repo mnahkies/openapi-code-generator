@@ -21,6 +21,11 @@
       "import": "./dist/main.js",
       "types": "./dist/main.d.ts"
     },
+    "./joi": {
+      "require": "./dist/joi.js",
+      "import": "./dist/joi.js",
+      "types": "./dist/joi.d.ts"
+    },
     "./zod": {
       "require": "./dist/zod.js",
       "import": "./dist/zod.js",
