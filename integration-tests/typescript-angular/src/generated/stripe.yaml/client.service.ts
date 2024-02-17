@@ -1371,7 +1371,7 @@ export class ApiClient {
           maiden_name?: string
           metadata?:
             | {
-                [key: string]: string
+                [key: string]: string | undefined
               }
             | ""
           phone?: string
@@ -1398,7 +1398,7 @@ export class ApiClient {
         }
         metadata?:
           | {
-              [key: string]: string
+              [key: string]: string | undefined
             }
           | ""
         settings?: {
@@ -1829,7 +1829,7 @@ export class ApiClient {
         maiden_name?: string
         metadata?:
           | {
-              [key: string]: string
+              [key: string]: string | undefined
             }
           | ""
         phone?: string
@@ -1856,7 +1856,7 @@ export class ApiClient {
       }
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       settings?: {
@@ -1965,7 +1965,7 @@ export class ApiClient {
       expand?: string[]
       external_account?: string
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     }
   }): Observable<
@@ -2071,7 +2071,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       name?: string
@@ -2257,7 +2257,7 @@ export class ApiClient {
       expand?: string[]
       external_account?: string
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     }
   }): Observable<
@@ -2363,7 +2363,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       name?: string
@@ -2528,7 +2528,7 @@ export class ApiClient {
       maiden_name?: string
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       nationality?: string
@@ -2705,7 +2705,7 @@ export class ApiClient {
       maiden_name?: string
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       nationality?: string
@@ -2873,7 +2873,7 @@ export class ApiClient {
       maiden_name?: string
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       nationality?: string
@@ -3050,7 +3050,7 @@ export class ApiClient {
       maiden_name?: string
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       nationality?: string
@@ -3350,7 +3350,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
     }
@@ -3481,7 +3481,7 @@ export class ApiClient {
       amount?: number
       expand?: string[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     }
   }): Observable<
@@ -3963,7 +3963,7 @@ export class ApiClient {
         enabled: boolean
       }
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     }
   }): Observable<
@@ -4083,7 +4083,7 @@ export class ApiClient {
       }
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
     }
@@ -4304,7 +4304,7 @@ export class ApiClient {
               exp_month: number
               exp_year: number
               metadata?: {
-                [key: string]: string
+                [key: string]: string | undefined
               }
               name?: string
               number: string
@@ -4323,7 +4323,7 @@ export class ApiClient {
         expand?: string[]
         metadata?:
           | {
-              [key: string]: string
+              [key: string]: string | undefined
             }
           | ""
         on_behalf_of?: string
@@ -4458,7 +4458,7 @@ export class ApiClient {
       }
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       receipt_email?: string
@@ -4600,7 +4600,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       submit?: boolean
@@ -4662,7 +4662,7 @@ export class ApiClient {
       instructions_email?: string
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       payment_intent?: string
@@ -4743,7 +4743,7 @@ export class ApiClient {
       instructions_email?: string
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       origin?: "customer_balance"
@@ -4811,7 +4811,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
     }
@@ -4979,7 +4979,7 @@ export class ApiClient {
           description?: string
           footer?: string
           metadata?: {
-            [key: string]: string
+            [key: string]: string | undefined
           }
           rendering_options?:
             | {
@@ -5006,7 +5006,7 @@ export class ApiClient {
             description?: string
             images?: string[]
             metadata?: {
-              [key: string]: string
+              [key: string]: string | undefined
             }
             name: string
             tax_code?: string
@@ -5065,7 +5065,7 @@ export class ApiClient {
         | "zh-HK"
         | "zh-TW"
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       mode?: "payment" | "setup" | "subscription"
       payment_intent_data?: {
@@ -5073,7 +5073,7 @@ export class ApiClient {
         capture_method?: "automatic" | "automatic_async" | "manual"
         description?: string
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         on_behalf_of?: string
         receipt_email?: string
@@ -5303,7 +5303,7 @@ export class ApiClient {
       setup_intent_data?: {
         description?: string
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         on_behalf_of?: string
       }
@@ -5566,14 +5566,16 @@ export class ApiClient {
             amount: number
             currency: string
             currency_options?: {
-              [key: string]: {
-                amount: number
-                tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-              }
+              [key: string]:
+                | {
+                    amount: number
+                    tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+                  }
+                | undefined
             }
           }
           metadata?: {
-            [key: string]: string
+            [key: string]: string | undefined
           }
           tax_behavior?: "exclusive" | "inclusive" | "unspecified"
           tax_code?: string
@@ -5587,7 +5589,7 @@ export class ApiClient {
         default_tax_rates?: string[]
         description?: string
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         on_behalf_of?: string
         proration_behavior?: "create_prorations" | "none"
@@ -5856,9 +5858,11 @@ export class ApiClient {
         }
         currency?: string
         currency_options?: {
-          [key: string]: {
-            amount_off: number
-          }
+          [key: string]:
+            | {
+                amount_off: number
+              }
+            | undefined
         }
         duration?: "forever" | "once" | "repeating"
         duration_in_months?: number
@@ -5867,7 +5871,7 @@ export class ApiClient {
         max_redemptions?: number
         metadata?:
           | {
-              [key: string]: string
+              [key: string]: string | undefined
             }
           | ""
         name?: string
@@ -5954,14 +5958,16 @@ export class ApiClient {
     coupon: string
     requestBody?: {
       currency_options?: {
-        [key: string]: {
-          amount_off: number
-        }
+        [key: string]:
+          | {
+              amount_off: number
+            }
+          | undefined
       }
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       name?: string
@@ -6053,7 +6059,7 @@ export class ApiClient {
       }[]
       memo?: string
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       out_of_band_amount?: number
       reason?:
@@ -6107,7 +6113,7 @@ export class ApiClient {
     }[]
     memo?: string
     metadata?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     outOfBandAmount?: number
     reason?:
@@ -6179,7 +6185,7 @@ export class ApiClient {
     }[]
     memo?: string
     metadata?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     outOfBandAmount?: number
     reason?:
@@ -6315,7 +6321,7 @@ export class ApiClient {
       expand?: string[]
       memo?: string
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     }
   }): Observable<
@@ -6466,7 +6472,7 @@ export class ApiClient {
         }
         metadata?:
           | {
-              [key: string]: string
+              [key: string]: string | undefined
             }
           | ""
         name?: string
@@ -6721,7 +6727,7 @@ export class ApiClient {
             exp_month: number
             exp_year: number
             metadata?: {
-              [key: string]: string
+              [key: string]: string | undefined
             }
             name?: string
             number: string
@@ -6759,7 +6765,7 @@ export class ApiClient {
       }
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       name?: string
@@ -6860,7 +6866,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
     }
@@ -6925,7 +6931,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
     }
@@ -7020,7 +7026,7 @@ export class ApiClient {
             exp_month: number
             exp_year: number
             metadata?: {
-              [key: string]: string
+              [key: string]: string | undefined
             }
             name?: string
             number: string
@@ -7029,7 +7035,7 @@ export class ApiClient {
         | string
       expand?: string[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       source?: string
     }
@@ -7133,7 +7139,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       name?: string
@@ -7272,7 +7278,7 @@ export class ApiClient {
             exp_month: number
             exp_year: number
             metadata?: {
-              [key: string]: string
+              [key: string]: string | undefined
             }
             name?: string
             number: string
@@ -7281,7 +7287,7 @@ export class ApiClient {
         | string
       expand?: string[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       source?: string
     }
@@ -7383,7 +7389,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       name?: string
@@ -7822,7 +7828,7 @@ export class ApiClient {
             exp_month: number
             exp_year: number
             metadata?: {
-              [key: string]: string
+              [key: string]: string | undefined
             }
             name?: string
             number: string
@@ -7831,7 +7837,7 @@ export class ApiClient {
         | string
       expand?: string[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       source?: string
     }
@@ -7935,7 +7941,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       name?: string
@@ -8091,7 +8097,7 @@ export class ApiClient {
             }
           | ""
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         price?: string
         price_data?: {
@@ -8110,7 +8116,7 @@ export class ApiClient {
       }[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       off_session?: boolean
@@ -8376,7 +8382,7 @@ export class ApiClient {
         id?: string
         metadata?:
           | {
-              [key: string]: string
+              [key: string]: string | undefined
             }
           | ""
         price?: string
@@ -8396,7 +8402,7 @@ export class ApiClient {
       }[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       off_session?: boolean
@@ -8918,7 +8924,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       submit?: boolean
@@ -9248,7 +9254,7 @@ export class ApiClient {
       file: string
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
     }
@@ -9309,7 +9315,7 @@ export class ApiClient {
       expires_at?: "now" | number | ""
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
     }
@@ -9412,7 +9418,7 @@ export class ApiClient {
         expires_at?: number
         metadata?:
           | {
-              [key: string]: string
+              [key: string]: string | undefined
             }
           | ""
       }
@@ -9866,7 +9872,7 @@ export class ApiClient {
     requestBody: {
       expand?: string[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       options?: {
         document?:
@@ -9937,7 +9943,7 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       options?: {
         document?:
@@ -10104,7 +10110,7 @@ export class ApiClient {
       invoice?: string
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       period?: {
@@ -10217,7 +10223,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       period?: {
@@ -10368,7 +10374,7 @@ export class ApiClient {
         }
         metadata?:
           | {
-              [key: string]: string
+              [key: string]: string | undefined
             }
           | ""
         on_behalf_of?: string
@@ -10497,14 +10503,16 @@ export class ApiClient {
               amount: number
               currency: string
               currency_options?: {
-                [key: string]: {
-                  amount: number
-                  tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-                }
+                [key: string]:
+                  | {
+                      amount: number
+                      tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+                    }
+                  | undefined
               }
             }
             metadata?: {
-              [key: string]: string
+              [key: string]: string | undefined
             }
             tax_behavior?: "exclusive" | "inclusive" | "unspecified"
             tax_code?: string
@@ -10724,7 +10732,7 @@ export class ApiClient {
         invoiceitem?: string
         metadata?:
           | {
-              [key: string]: string
+              [key: string]: string | undefined
             }
           | ""
         period?: {
@@ -10764,7 +10772,7 @@ export class ApiClient {
         id?: string
         metadata?:
           | {
-              [key: string]: string
+              [key: string]: string | undefined
             }
           | ""
         price?: string
@@ -10970,7 +10978,7 @@ export class ApiClient {
         invoiceitem?: string
         metadata?:
           | {
-              [key: string]: string
+              [key: string]: string | undefined
             }
           | ""
         period?: {
@@ -11012,7 +11020,7 @@ export class ApiClient {
         id?: string
         metadata?:
           | {
-              [key: string]: string
+              [key: string]: string | undefined
             }
           | ""
         price?: string
@@ -11182,7 +11190,7 @@ export class ApiClient {
       footer?: string
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       on_behalf_of?: string | ""
@@ -11302,14 +11310,16 @@ export class ApiClient {
                 amount: number
                 currency: string
                 currency_options?: {
-                  [key: string]: {
-                    amount: number
-                    tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-                  }
+                  [key: string]:
+                    | {
+                        amount: number
+                        tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+                      }
+                    | undefined
                 }
               }
               metadata?: {
-                [key: string]: string
+                [key: string]: string | undefined
               }
               tax_behavior?: "exclusive" | "inclusive" | "unspecified"
               tax_code?: string
@@ -11635,7 +11645,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
     }
@@ -11668,7 +11678,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
     }
@@ -11701,7 +11711,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
     }
@@ -11827,7 +11837,7 @@ export class ApiClient {
         }
       }
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       name: string
       phone_number?: string
@@ -12830,7 +12840,7 @@ export class ApiClient {
         }
       }
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       phone_number?: string
       preferred_locales?: ("de" | "en" | "es" | "fr" | "it")[]
@@ -13832,7 +13842,7 @@ export class ApiClient {
       expand?: string[]
       financial_account?: string
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       replacement_for?: string
       replacement_reason?: "damaged" | "expired" | "lost" | "stolen"
@@ -14817,7 +14827,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       pin?: {
@@ -15887,7 +15897,7 @@ export class ApiClient {
         }
         expand?: string[]
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         transaction?: string
         treasury?: {
@@ -16028,7 +16038,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
     }
@@ -16060,7 +16070,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
     }
@@ -16170,7 +16180,7 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     }
   }): Observable<
@@ -16286,7 +16296,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
     }
@@ -16669,7 +16679,7 @@ export class ApiClient {
           }
         | ""
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       off_session?: boolean | "one_off" | "recurring"
       on_behalf_of?: string
@@ -16801,7 +16811,7 @@ export class ApiClient {
         konbini?: EmptyObject
         link?: EmptyObject
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         oxxo?: EmptyObject
         p24?: {
@@ -17368,7 +17378,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       payment_method?: string
@@ -17499,7 +17509,7 @@ export class ApiClient {
         konbini?: EmptyObject
         link?: EmptyObject
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         oxxo?: EmptyObject
         p24?: {
@@ -18046,7 +18056,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       statement_descriptor?: string
@@ -18235,7 +18245,7 @@ export class ApiClient {
         konbini?: EmptyObject
         link?: EmptyObject
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         oxxo?: EmptyObject
         p24?: {
@@ -18719,7 +18729,7 @@ export class ApiClient {
       description?: string
       expand?: string[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       statement_descriptor?: string
       transfer_data?: {
@@ -18903,7 +18913,7 @@ export class ApiClient {
           footer?: string
           metadata?:
             | {
-                [key: string]: string
+                [key: string]: string | undefined
               }
             | ""
           rendering_options?:
@@ -18926,7 +18936,7 @@ export class ApiClient {
         quantity: number
       }[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       on_behalf_of?: string
       payment_intent_data?: {
@@ -19350,7 +19360,7 @@ export class ApiClient {
           footer?: string
           metadata?:
             | {
-                [key: string]: string
+                [key: string]: string | undefined
               }
             | ""
           rendering_options?:
@@ -19373,7 +19383,7 @@ export class ApiClient {
         quantity?: number
       }[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       payment_method_collection?: "always" | "if_required"
       payment_method_types?:
@@ -20549,7 +20559,7 @@ export class ApiClient {
         konbini?: EmptyObject
         link?: EmptyObject
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         oxxo?: EmptyObject
         p24?: {
@@ -20713,7 +20723,7 @@ export class ApiClient {
       link?: EmptyObject
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       us_bank_account?: {
@@ -20869,7 +20879,7 @@ export class ApiClient {
       destination?: string
       expand?: string[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       method?: "instant" | "standard"
       source_type?: "bank_account" | "card" | "fpx"
@@ -20931,7 +20941,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
     }
@@ -20989,7 +20999,7 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     }
   }): Observable<
@@ -21083,7 +21093,7 @@ export class ApiClient {
       interval_count?: number
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       nickname?: string
@@ -21092,7 +21102,7 @@ export class ApiClient {
             active?: boolean
             id?: string
             metadata?: {
-              [key: string]: string
+              [key: string]: string | undefined
             }
             name: string
             statement_descriptor?: string
@@ -21197,7 +21207,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       nickname?: string
@@ -21298,24 +21308,26 @@ export class ApiClient {
       billing_scheme?: "per_unit" | "tiered"
       currency: string
       currency_options?: {
-        [key: string]: {
-          custom_unit_amount?: {
-            enabled: boolean
-            maximum?: number
-            minimum?: number
-            preset?: number
-          }
-          tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-          tiers?: {
-            flat_amount?: number
-            flat_amount_decimal?: string
-            unit_amount?: number
-            unit_amount_decimal?: string
-            up_to: "inf" | number
-          }[]
-          unit_amount?: number
-          unit_amount_decimal?: string
-        }
+        [key: string]:
+          | {
+              custom_unit_amount?: {
+                enabled: boolean
+                maximum?: number
+                minimum?: number
+                preset?: number
+              }
+              tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+              tiers?: {
+                flat_amount?: number
+                flat_amount_decimal?: string
+                unit_amount?: number
+                unit_amount_decimal?: string
+                up_to: "inf" | number
+              }[]
+              unit_amount?: number
+              unit_amount_decimal?: string
+            }
+          | undefined
       }
       custom_unit_amount?: {
         enabled: boolean
@@ -21326,7 +21338,7 @@ export class ApiClient {
       expand?: string[]
       lookup_key?: string
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       nickname?: string
       product?: string
@@ -21334,7 +21346,7 @@ export class ApiClient {
         active?: boolean
         id?: string
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         name: string
         statement_descriptor?: string
@@ -21462,31 +21474,33 @@ export class ApiClient {
       active?: boolean
       currency_options?:
         | {
-            [key: string]: {
-              custom_unit_amount?: {
-                enabled: boolean
-                maximum?: number
-                minimum?: number
-                preset?: number
-              }
-              tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-              tiers?: {
-                flat_amount?: number
-                flat_amount_decimal?: string
-                unit_amount?: number
-                unit_amount_decimal?: string
-                up_to: "inf" | number
-              }[]
-              unit_amount?: number
-              unit_amount_decimal?: string
-            }
+            [key: string]:
+              | {
+                  custom_unit_amount?: {
+                    enabled: boolean
+                    maximum?: number
+                    minimum?: number
+                    preset?: number
+                  }
+                  tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+                  tiers?: {
+                    flat_amount?: number
+                    flat_amount_decimal?: string
+                    unit_amount?: number
+                    unit_amount_decimal?: string
+                    up_to: "inf" | number
+                  }[]
+                  unit_amount?: number
+                  unit_amount_decimal?: string
+                }
+              | undefined
           }
         | ""
       expand?: string[]
       lookup_key?: string
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       nickname?: string
@@ -21580,24 +21594,26 @@ export class ApiClient {
       default_price_data?: {
         currency: string
         currency_options?: {
-          [key: string]: {
-            custom_unit_amount?: {
-              enabled: boolean
-              maximum?: number
-              minimum?: number
-              preset?: number
-            }
-            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-            tiers?: {
-              flat_amount?: number
-              flat_amount_decimal?: string
-              unit_amount?: number
-              unit_amount_decimal?: string
-              up_to: "inf" | number
-            }[]
-            unit_amount?: number
-            unit_amount_decimal?: string
-          }
+          [key: string]:
+            | {
+                custom_unit_amount?: {
+                  enabled: boolean
+                  maximum?: number
+                  minimum?: number
+                  preset?: number
+                }
+                tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+                tiers?: {
+                  flat_amount?: number
+                  flat_amount_decimal?: string
+                  unit_amount?: number
+                  unit_amount_decimal?: string
+                  up_to: "inf" | number
+                }[]
+                unit_amount?: number
+                unit_amount_decimal?: string
+              }
+            | undefined
         }
         recurring?: {
           interval: "day" | "month" | "week" | "year"
@@ -21615,7 +21631,7 @@ export class ApiClient {
       id?: string
       images?: string[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       name: string
       package_dimensions?: {
@@ -21762,7 +21778,7 @@ export class ApiClient {
       images?: string[] | ""
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       name?: string
@@ -21871,13 +21887,15 @@ export class ApiClient {
       expires_at?: number
       max_redemptions?: number
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       restrictions?: {
         currency_options?: {
-          [key: string]: {
-            minimum_amount?: number
-          }
+          [key: string]:
+            | {
+                minimum_amount?: number
+              }
+            | undefined
         }
         first_time_transaction?: boolean
         minimum_amount?: number
@@ -21941,14 +21959,16 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       restrictions?: {
         currency_options?: {
-          [key: string]: {
-            minimum_amount?: number
-          }
+          [key: string]:
+            | {
+                minimum_amount?: number
+              }
+            | undefined
         }
       }
     }
@@ -22068,7 +22088,7 @@ export class ApiClient {
           tax_rates?: string[] | ""
         }[]
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         on_behalf_of?: string | ""
         subscription_data?: {
@@ -22179,7 +22199,7 @@ export class ApiClient {
         tax_rates?: string[] | ""
       }[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       on_behalf_of?: string | ""
       subscription_data?: {
@@ -22690,7 +22710,7 @@ export class ApiClient {
         | "string"
         | "us_bank_account_fingerprint"
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       name: string
     }
@@ -22775,7 +22795,7 @@ export class ApiClient {
       alias?: string
       expand?: string[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       name?: string
     }
@@ -22867,7 +22887,7 @@ export class ApiClient {
         instructions_email?: string
         metadata?:
           | {
-              [key: string]: string
+              [key: string]: string | undefined
             }
           | ""
         origin?: "customer_balance"
@@ -22933,7 +22953,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
     }
@@ -24038,7 +24058,7 @@ export class ApiClient {
             }
           | ""
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         on_behalf_of?: string
         payment_method?: string
@@ -24169,7 +24189,7 @@ export class ApiClient {
           konbini?: EmptyObject
           link?: EmptyObject
           metadata?: {
-            [key: string]: string
+            [key: string]: string | undefined
           }
           oxxo?: EmptyObject
           p24?: {
@@ -24391,7 +24411,7 @@ export class ApiClient {
       flow_directions?: ("inbound" | "outbound")[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       payment_method?: string
@@ -24522,7 +24542,7 @@ export class ApiClient {
         konbini?: EmptyObject
         link?: EmptyObject
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         oxxo?: EmptyObject
         p24?: {
@@ -24876,7 +24896,7 @@ export class ApiClient {
         konbini?: EmptyObject
         link?: EmptyObject
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         oxxo?: EmptyObject
         p24?: {
@@ -25153,14 +25173,16 @@ export class ApiClient {
         amount: number
         currency: string
         currency_options?: {
-          [key: string]: {
-            amount: number
-            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-          }
+          [key: string]:
+            | {
+                amount: number
+                tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+              }
+            | undefined
         }
       }
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       tax_behavior?: "exclusive" | "inclusive" | "unspecified"
       tax_code?: string
@@ -25223,15 +25245,17 @@ export class ApiClient {
       expand?: string[]
       fixed_amount?: {
         currency_options?: {
-          [key: string]: {
-            amount?: number
-            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-          }
+          [key: string]:
+            | {
+                amount?: number
+                tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+              }
+            | undefined
         }
       }
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       tax_behavior?: "exclusive" | "inclusive" | "unspecified"
@@ -25364,7 +25388,7 @@ export class ApiClient {
             | "stripe_email"
         }
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         original_source?: string
         owner?: {
@@ -25503,7 +25527,7 @@ export class ApiClient {
       }
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       owner?: {
@@ -25746,7 +25770,7 @@ export class ApiClient {
         | ""
       expand?: string[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       payment_behavior?:
         | "allow_incomplete"
@@ -25861,7 +25885,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       off_session?: boolean
@@ -26099,7 +26123,7 @@ export class ApiClient {
         from_subscription?: string
         metadata?:
           | {
-              [key: string]: string
+              [key: string]: string | undefined
             }
           | ""
         phases?: {
@@ -26143,7 +26167,7 @@ export class ApiClient {
                 }
               | ""
             metadata?: {
-              [key: string]: string
+              [key: string]: string | undefined
             }
             price?: string
             price_data?: {
@@ -26162,7 +26186,7 @@ export class ApiClient {
           }[]
           iterations?: number
           metadata?: {
-            [key: string]: string
+            [key: string]: string | undefined
           }
           on_behalf_of?: string
           proration_behavior?: "always_invoice" | "create_prorations" | "none"
@@ -26259,7 +26283,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       phases?: {
@@ -26302,7 +26326,7 @@ export class ApiClient {
               }
             | ""
           metadata?: {
-            [key: string]: string
+            [key: string]: string | undefined
           }
           price?: string
           price_data?: {
@@ -26321,7 +26345,7 @@ export class ApiClient {
         }[]
         iterations?: number
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         on_behalf_of?: string
         proration_behavior?: "always_invoice" | "create_prorations" | "none"
@@ -26554,7 +26578,7 @@ export class ApiClient {
             }
           | ""
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         price?: string
         price_data?: {
@@ -26573,7 +26597,7 @@ export class ApiClient {
       }[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       off_session?: boolean
@@ -26891,7 +26915,7 @@ export class ApiClient {
         id?: string
         metadata?:
           | {
-              [key: string]: string
+              [key: string]: string | undefined
             }
           | ""
         price?: string
@@ -26911,7 +26935,7 @@ export class ApiClient {
       }[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       off_session?: boolean
@@ -27365,7 +27389,7 @@ export class ApiClient {
       calculation: string
       expand?: string[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       reference: string
     }
@@ -27399,14 +27423,14 @@ export class ApiClient {
         amount: number
         amount_tax: number
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         original_line_item: string
         quantity?: number
         reference: string
       }[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       mode: "full" | "partial"
       original_transaction: string
@@ -27643,7 +27667,7 @@ export class ApiClient {
       inclusive: boolean
       jurisdiction?: string
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       percentage: number
       state?: string
@@ -27723,7 +27747,7 @@ export class ApiClient {
       jurisdiction?: string
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       state?: string
@@ -28173,7 +28197,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
     }
@@ -28270,7 +28294,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
     }
@@ -28361,7 +28385,7 @@ export class ApiClient {
       location?: string
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       registration_code: string
@@ -28450,7 +28474,7 @@ export class ApiClient {
       label?: string | ""
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
     }
@@ -28579,7 +28603,7 @@ export class ApiClient {
       charge?: string
       expand?: string[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       payment_intent?: string
       refund_application_fee?: boolean
@@ -30793,7 +30817,7 @@ export class ApiClient {
             maiden_name?: string
             metadata?:
               | {
-                  [key: string]: string
+                  [key: string]: string | undefined
                 }
               | ""
             phone?: string
@@ -30909,7 +30933,7 @@ export class ApiClient {
           maiden_name?: string
           metadata?:
             | {
-                [key: string]: string
+                [key: string]: string | undefined
               }
             | ""
           nationality?: string
@@ -31068,7 +31092,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       source?: string
@@ -31132,7 +31156,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
     }
@@ -31248,7 +31272,7 @@ export class ApiClient {
       destination: string
       expand?: string[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       source_transaction?: string
       source_type?: "bank_account" | "card" | "fpx"
@@ -31325,7 +31349,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       refund_application_fee?: boolean
@@ -31387,7 +31411,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
     }
@@ -31450,7 +31474,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
     }
@@ -31527,7 +31551,7 @@ export class ApiClient {
     requestBody: {
       expand?: string[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       received_credit: string
     }
@@ -31634,7 +31658,7 @@ export class ApiClient {
     requestBody: {
       expand?: string[]
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       received_debit: string
     }
@@ -31781,7 +31805,7 @@ export class ApiClient {
         }
       }
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       platform_restrictions?: {
         inbound_flows?: "restricted" | "unrestricted"
@@ -31882,7 +31906,7 @@ export class ApiClient {
         }
       }
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       platform_restrictions?: {
         inbound_flows?: "restricted" | "unrestricted"
@@ -32056,7 +32080,7 @@ export class ApiClient {
       expand?: string[]
       financial_account: string
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       origin_payment_method: string
       statement_descriptor?: string
@@ -32210,7 +32234,7 @@ export class ApiClient {
         }
         financial_account?: string
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         type: "financial_account" | "us_bank_account"
         us_bank_account?: {
@@ -32235,7 +32259,7 @@ export class ApiClient {
       expand?: string[]
       financial_account: string
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       statement_descriptor?: string
     }
@@ -32376,7 +32400,7 @@ export class ApiClient {
       expand?: string[]
       financial_account: string
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       statement_descriptor?: string
     }
@@ -33164,7 +33188,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       url: string
@@ -33470,7 +33494,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       url?: string

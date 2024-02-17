@@ -490,7 +490,9 @@ export class ApiClient extends AbstractAxiosClient {
   async replaceProfile(
     p: {
       requestBody: {
-        profile?: EmptyObject
+        profile?: {
+          [key: string]: unknown | undefined
+        }
       }
     },
     timeout?: number,

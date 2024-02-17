@@ -29,18 +29,15 @@ export type t_AmrValue =
 
 export type t_ApplicationType = "browser" | "native" | "service" | "web"
 
-export type t_BackchannelAuthorizeRequest =
-  | {
-      binding_message?: string
-      id_token_hint?: string
-      login_hint?: string
-      request?: string
-      request_expiry?: number
-      scope: string
-    }
-  | {
-      [key: string]: unknown
-    }
+export type t_BackchannelAuthorizeRequest = {
+  binding_message?: string
+  id_token_hint?: string
+  login_hint?: string
+  request?: string
+  request_expiry?: number
+  scope: string
+  [key: string]: unknown | undefined
+}
 
 export type t_BackchannelAuthorizeResponse = {
   auth_req_id?: string
@@ -122,26 +119,23 @@ export type t_IntrospectionRequest = {
   token_type_hint?: t_TokenTypeHintIntrospect
 }
 
-export type t_IntrospectionResponse =
-  | {
-      active?: boolean
-      aud?: string
-      client_id?: string
-      device_id?: string
-      exp?: number
-      iat?: number
-      iss?: string
-      jti?: string
-      nbf?: number
-      scope?: string
-      sub?: string
-      token_type?: string
-      uid?: string
-      username?: string
-    }
-  | {
-      [key: string]: unknown
-    }
+export type t_IntrospectionResponse = {
+  active?: boolean
+  aud?: string
+  client_id?: string
+  device_id?: string
+  exp?: number
+  iat?: number
+  iss?: string
+  jti?: string
+  nbf?: number
+  scope?: string
+  sub?: string
+  token_type?: string
+  uid?: string
+  username?: string
+  [key: string]: unknown | undefined
+}
 
 export type t_JsonWebKey = {
   alg?: t_SigningAlgorithm
@@ -307,10 +301,7 @@ export type t_TokenTypeHintRevoke =
   | "device_secret"
   | "refresh_token"
 
-export type t_UserInfo =
-  | {
-      sub?: string
-    }
-  | {
-      [key: string]: unknown
-    }
+export type t_UserInfo = {
+  sub?: string
+  [key: string]: unknown | undefined
+}

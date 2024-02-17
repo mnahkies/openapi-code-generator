@@ -1847,6 +1847,7 @@ import {
   s_dependabot_alert_with_repository,
   s_dependabot_public_key,
   s_dependabot_secret,
+  s_dependency,
   s_dependency_graph_diff,
   s_dependency_graph_spdx_sbom,
   s_deploy_key,
@@ -1917,6 +1918,7 @@ import {
   s_link,
   s_link_with_type,
   s_locked_issue_event,
+  s_manifest,
   s_marketplace_account,
   s_marketplace_listing_plan,
   s_marketplace_purchase,
@@ -2210,18 +2212,13 @@ export type AppsGetAuthenticated = (
 
 export type AppsCreateFromManifestResponder = {
   with201(): KoaRuntimeResponse<
-    t_integration &
-      (
-        | {
-            client_id: string
-            client_secret: string
-            pem: string
-            webhook_secret: string | null
-          }
-        | {
-            [key: string]: unknown
-          }
-      )
+    t_integration & {
+      client_id: string
+      client_secret: string
+      pem: string
+      webhook_secret: string | null
+      [key: string]: unknown | undefined
+    }
   >
   with404(): KoaRuntimeResponse<t_basic_error>
   with422(): KoaRuntimeResponse<t_validation_error_simple>
@@ -2235,18 +2232,13 @@ export type AppsCreateFromManifest = (
   | KoaRuntimeResponse<unknown>
   | Response<
       201,
-      t_integration &
-        (
-          | {
-              client_id: string
-              client_secret: string
-              pem: string
-              webhook_secret: string | null
-            }
-          | {
-              [key: string]: unknown
-            }
-        )
+      t_integration & {
+        client_id: string
+        client_secret: string
+        pem: string
+        webhook_secret: string | null
+        [key: string]: unknown | undefined
+      }
     >
   | Response<404, t_basic_error>
   | Response<422, t_validation_error_simple>
@@ -2307,7 +2299,9 @@ export type AppsGetWebhookDelivery = (
 >
 
 export type AppsRedeliverWebhookDeliveryResponder = {
-  with202(): KoaRuntimeResponse<EmptyObject>
+  with202(): KoaRuntimeResponse<{
+    [key: string]: unknown | undefined
+  }>
   with400(): KoaRuntimeResponse<t_scim_error>
   with422(): KoaRuntimeResponse<t_validation_error>
 } & KoaRuntimeResponder
@@ -2318,7 +2312,12 @@ export type AppsRedeliverWebhookDelivery = (
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<202, EmptyObject>
+  | Response<
+      202,
+      {
+        [key: string]: unknown | undefined
+      }
+    >
   | Response<400, t_scim_error>
   | Response<422, t_validation_error>
 >
@@ -2668,7 +2667,7 @@ export type CodesOfConductGetConductCode = (
 
 export type EmojisGetResponder = {
   with200(): KoaRuntimeResponse<{
-    [key: string]: string
+    [key: string]: string | undefined
   }>
   with304(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
@@ -2682,7 +2681,7 @@ export type EmojisGet = (
   | Response<
       200,
       {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     >
   | Response<304, void>
@@ -3723,7 +3722,9 @@ export type OrgsUpdate = (
 >
 
 export type OrgsDeleteResponder = {
-  with202(): KoaRuntimeResponse<EmptyObject>
+  with202(): KoaRuntimeResponse<{
+    [key: string]: unknown | undefined
+  }>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
@@ -3734,7 +3735,12 @@ export type OrgsDelete = (
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<202, EmptyObject>
+  | Response<
+      202,
+      {
+        [key: string]: unknown | undefined
+      }
+    >
   | Response<403, t_basic_error>
   | Response<404, t_basic_error>
 >
@@ -5484,7 +5490,9 @@ export type OrgsGetWebhookDelivery = (
 >
 
 export type OrgsRedeliverWebhookDeliveryResponder = {
-  with202(): KoaRuntimeResponse<EmptyObject>
+  with202(): KoaRuntimeResponse<{
+    [key: string]: unknown | undefined
+  }>
   with400(): KoaRuntimeResponse<t_scim_error>
   with422(): KoaRuntimeResponse<t_validation_error>
 } & KoaRuntimeResponder
@@ -5495,7 +5503,12 @@ export type OrgsRedeliverWebhookDelivery = (
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<202, EmptyObject>
+  | Response<
+      202,
+      {
+        [key: string]: unknown | undefined
+      }
+    >
   | Response<400, t_scim_error>
   | Response<422, t_validation_error>
 >
@@ -5776,7 +5789,9 @@ export type CodespacesGetCodespacesForUserInOrg = (
 >
 
 export type CodespacesDeleteFromOrganizationResponder = {
-  with202(): KoaRuntimeResponse<EmptyObject>
+  with202(): KoaRuntimeResponse<{
+    [key: string]: unknown | undefined
+  }>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<t_basic_error>
@@ -5790,7 +5805,12 @@ export type CodespacesDeleteFromOrganization = (
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<202, EmptyObject>
+  | Response<
+      202,
+      {
+        [key: string]: unknown | undefined
+      }
+    >
   | Response<304, void>
   | Response<401, t_basic_error>
   | Response<403, t_basic_error>
@@ -6260,7 +6280,9 @@ export type OrgsListPatGrantRequests = (
 >
 
 export type OrgsReviewPatGrantRequestsInBulkResponder = {
-  with202(): KoaRuntimeResponse<EmptyObject>
+  with202(): KoaRuntimeResponse<{
+    [key: string]: unknown | undefined
+  }>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
   with422(): KoaRuntimeResponse<t_validation_error>
@@ -6277,7 +6299,12 @@ export type OrgsReviewPatGrantRequestsInBulk = (
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<202, EmptyObject>
+  | Response<
+      202,
+      {
+        [key: string]: unknown | undefined
+      }
+    >
   | Response<403, t_basic_error>
   | Response<404, t_basic_error>
   | Response<422, t_validation_error>
@@ -6358,7 +6385,9 @@ export type OrgsListPatGrants = (
 >
 
 export type OrgsUpdatePatAccessesResponder = {
-  with202(): KoaRuntimeResponse<EmptyObject>
+  with202(): KoaRuntimeResponse<{
+    [key: string]: unknown | undefined
+  }>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
   with422(): KoaRuntimeResponse<t_validation_error>
@@ -6375,7 +6404,12 @@ export type OrgsUpdatePatAccesses = (
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<202, EmptyObject>
+  | Response<
+      202,
+      {
+        [key: string]: unknown | undefined
+      }
+    >
   | Response<403, t_basic_error>
   | Response<404, t_basic_error>
   | Response<422, t_validation_error>
@@ -10245,7 +10279,7 @@ export type CodeScanningListRecentAnalyses = (
 
 export type CodeScanningGetAnalysisResponder = {
   with200(): KoaRuntimeResponse<{
-    [key: string]: unknown
+    [key: string]: unknown | undefined
   }>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
@@ -10265,7 +10299,7 @@ export type CodeScanningGetAnalysis = (
   | Response<
       200,
       {
-        [key: string]: unknown
+        [key: string]: unknown | undefined
       }
     >
   | Response<403, t_basic_error>
@@ -12416,7 +12450,9 @@ export type ReposGetWebhookDelivery = (
 >
 
 export type ReposRedeliverWebhookDeliveryResponder = {
-  with202(): KoaRuntimeResponse<EmptyObject>
+  with202(): KoaRuntimeResponse<{
+    [key: string]: unknown | undefined
+  }>
   with400(): KoaRuntimeResponse<t_scim_error>
   with422(): KoaRuntimeResponse<t_validation_error>
 } & KoaRuntimeResponder
@@ -12427,7 +12463,12 @@ export type ReposRedeliverWebhookDelivery = (
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<202, EmptyObject>
+  | Response<
+      202,
+      {
+        [key: string]: unknown | undefined
+      }
+    >
   | Response<400, t_scim_error>
   | Response<422, t_validation_error>
 >
@@ -15213,7 +15254,9 @@ export type SecurityAdvisoriesUpdateRepositoryAdvisory = (
 >
 
 export type SecurityAdvisoriesCreateRepositoryAdvisoryCveRequestResponder = {
-  with202(): KoaRuntimeResponse<EmptyObject>
+  with202(): KoaRuntimeResponse<{
+    [key: string]: unknown | undefined
+  }>
   with400(): KoaRuntimeResponse<t_scim_error>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
@@ -15230,7 +15273,12 @@ export type SecurityAdvisoriesCreateRepositoryAdvisoryCveRequest = (
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<202, EmptyObject>
+  | Response<
+      202,
+      {
+        [key: string]: unknown | undefined
+      }
+    >
   | Response<400, t_scim_error>
   | Response<403, t_basic_error>
   | Response<404, t_basic_error>
@@ -15258,7 +15306,9 @@ export type ActivityListStargazersForRepo = (
 
 export type ReposGetCodeFrequencyStatsResponder = {
   with200(): KoaRuntimeResponse<t_code_frequency_stat[]>
-  with202(): KoaRuntimeResponse<EmptyObject>
+  with202(): KoaRuntimeResponse<{
+    [key: string]: unknown | undefined
+  }>
   with204(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
 
@@ -15269,13 +15319,20 @@ export type ReposGetCodeFrequencyStats = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_code_frequency_stat[]>
-  | Response<202, EmptyObject>
+  | Response<
+      202,
+      {
+        [key: string]: unknown | undefined
+      }
+    >
   | Response<204, void>
 >
 
 export type ReposGetCommitActivityStatsResponder = {
   with200(): KoaRuntimeResponse<t_commit_activity[]>
-  with202(): KoaRuntimeResponse<EmptyObject>
+  with202(): KoaRuntimeResponse<{
+    [key: string]: unknown | undefined
+  }>
   with204(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
 
@@ -15286,13 +15343,20 @@ export type ReposGetCommitActivityStats = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_commit_activity[]>
-  | Response<202, EmptyObject>
+  | Response<
+      202,
+      {
+        [key: string]: unknown | undefined
+      }
+    >
   | Response<204, void>
 >
 
 export type ReposGetContributorsStatsResponder = {
   with200(): KoaRuntimeResponse<t_contributor_activity[]>
-  with202(): KoaRuntimeResponse<EmptyObject>
+  with202(): KoaRuntimeResponse<{
+    [key: string]: unknown | undefined
+  }>
   with204(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
 
@@ -15303,7 +15367,12 @@ export type ReposGetContributorsStats = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_contributor_activity[]>
-  | Response<202, EmptyObject>
+  | Response<
+      202,
+      {
+        [key: string]: unknown | undefined
+      }
+    >
   | Response<204, void>
 >
 
@@ -17083,7 +17152,9 @@ export type CodespacesUpdateForAuthenticatedUser = (
 >
 
 export type CodespacesDeleteForAuthenticatedUserResponder = {
-  with202(): KoaRuntimeResponse<EmptyObject>
+  with202(): KoaRuntimeResponse<{
+    [key: string]: unknown | undefined
+  }>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<t_basic_error>
@@ -17097,7 +17168,12 @@ export type CodespacesDeleteForAuthenticatedUser = (
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<202, EmptyObject>
+  | Response<
+      202,
+      {
+        [key: string]: unknown | undefined
+      }
+    >
   | Response<304, void>
   | Response<401, t_basic_error>
   | Response<403, t_basic_error>
@@ -20468,13 +20544,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
     [
       [
         "201",
-        s_integration.merge(
-          z.object({
-            client_id: z.string(),
-            client_secret: z.string(),
-            webhook_secret: z.string().nullable(),
-            pem: z.string(),
-          }),
+        z.intersection(
+          s_integration,
+          z.intersection(
+            z.object({
+              client_id: z.string(),
+              client_secret: z.string(),
+              webhook_secret: z.string().nullable(),
+              pem: z.string(),
+            }),
+            z.record(z.any()),
+          ),
         ),
       ],
       ["404", s_basic_error],
@@ -20500,18 +20580,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const responder = {
         with201() {
           return new KoaRuntimeResponse<
-            t_integration &
-              (
-                | {
-                    client_id: string
-                    client_secret: string
-                    pem: string
-                    webhook_secret: string | null
-                  }
-                | {
-                    [key: string]: unknown
-                  }
-              )
+            t_integration & {
+              client_id: string
+              client_secret: string
+              pem: string
+              webhook_secret: string | null
+              [key: string]: unknown | undefined
+            }
           >(201)
         },
         with404() {
@@ -20750,7 +20825,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const appsRedeliverWebhookDeliveryResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.object({})],
+        ["202", z.record(z.any())],
         ["400", s_scim_error],
         ["422", s_validation_error],
       ],
@@ -20773,7 +20848,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with202() {
-          return new KoaRuntimeResponse<EmptyObject>(202)
+          return new KoaRuntimeResponse<{
+            [key: string]: unknown | undefined
+          }>(202)
         },
         with400() {
           return new KoaRuntimeResponse<t_scim_error>(400)
@@ -22002,7 +22079,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const emojisGetResponseValidator = responseValidationFactory(
     [
-      ["200", z.object({})],
+      ["200", z.record(z.string())],
       ["304", z.undefined()],
     ],
     undefined,
@@ -22018,7 +22095,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const responder = {
       with200() {
         return new KoaRuntimeResponse<{
-          [key: string]: string
+          [key: string]: string | undefined
         }>(200)
       },
       with304() {
@@ -22383,7 +22460,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const gistsCreateBodySchema = z.object({
     description: z.string().optional(),
-    files: z.object({}),
+    files: z.record(z.object({ content: z.string() })),
     public: z.union([z.coerce.boolean(), z.enum(["true", "false"])]).optional(),
   })
 
@@ -22643,7 +22720,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const gistsUpdateBodySchema = z
     .object({
       description: z.string().optional(),
-      files: z.object({}).optional(),
+      files: z
+        .record(
+          z
+            .object({
+              content: z.string().optional(),
+              filename: z.string().nullable().optional(),
+            })
+            .nullable(),
+        )
+        .optional(),
     })
     .nullable()
 
@@ -25205,7 +25291,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsDeleteResponseValidator = responseValidationFactory(
     [
-      ["202", z.object({})],
+      ["202", z.record(z.any())],
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
@@ -25225,7 +25311,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
     const responder = {
       with202() {
-        return new KoaRuntimeResponse<EmptyObject>(202)
+        return new KoaRuntimeResponse<{
+          [key: string]: unknown | undefined
+        }>(202)
       },
       with403() {
         return new KoaRuntimeResponse<t_basic_error>(403)
@@ -30891,7 +30979,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const orgsRedeliverWebhookDeliveryResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.object({})],
+        ["202", z.record(z.any())],
         ["400", s_scim_error],
         ["422", s_validation_error],
       ],
@@ -30914,7 +31002,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with202() {
-          return new KoaRuntimeResponse<EmptyObject>(202)
+          return new KoaRuntimeResponse<{
+            [key: string]: unknown | undefined
+          }>(202)
         },
         with400() {
           return new KoaRuntimeResponse<t_scim_error>(400)
@@ -31864,7 +31954,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codespacesDeleteFromOrganizationResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.object({})],
+        ["202", z.record(z.any())],
         ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
@@ -31890,7 +31980,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with202() {
-          return new KoaRuntimeResponse<EmptyObject>(202)
+          return new KoaRuntimeResponse<{
+            [key: string]: unknown | undefined
+          }>(202)
         },
         with304() {
           return new KoaRuntimeResponse<void>(304)
@@ -33548,7 +33640,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const orgsReviewPatGrantRequestsInBulkResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.object({})],
+        ["202", z.record(z.any())],
         ["403", s_basic_error],
         ["404", s_basic_error],
         ["422", s_validation_error],
@@ -33577,7 +33669,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with202() {
-          return new KoaRuntimeResponse<EmptyObject>(202)
+          return new KoaRuntimeResponse<{
+            [key: string]: unknown | undefined
+          }>(202)
         },
         with403() {
           return new KoaRuntimeResponse<t_basic_error>(403)
@@ -33851,7 +33945,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsUpdatePatAccessesResponseValidator = responseValidationFactory(
     [
-      ["202", z.object({})],
+      ["202", z.record(z.any())],
       ["403", s_basic_error],
       ["404", s_basic_error],
       ["422", s_validation_error],
@@ -33880,7 +33974,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with202() {
-          return new KoaRuntimeResponse<EmptyObject>(202)
+          return new KoaRuntimeResponse<{
+            [key: string]: unknown | undefined
+          }>(202)
         },
         with403() {
           return new KoaRuntimeResponse<t_basic_error>(403)
@@ -43171,7 +43267,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const actionsCreateWorkflowDispatchBodySchema = z.object({
     ref: z.string(),
-    inputs: z.object({}).optional(),
+    inputs: z.record(z.any()).optional(),
   })
 
   const actionsCreateWorkflowDispatchResponseValidator =
@@ -46268,8 +46364,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const checksCreateBodySchema = z.union([
-    z.object({ status: z.object({}) }),
-    z.object({ status: z.object({}).optional() }),
+    z.intersection(z.object({ status: z.object({}) }), z.record(z.any())),
+    z.intersection(
+      z.object({ status: z.object({}).optional() }),
+      z.record(z.any()),
+    ),
   ])
 
   const checksCreateResponseValidator = responseValidationFactory(
@@ -47331,7 +47430,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const codeScanningGetAnalysisResponseValidator = responseValidationFactory(
     [
-      ["200", z.object({})],
+      ["200", z.record(z.any())],
       ["403", s_basic_error],
       ["404", s_basic_error],
       [
@@ -47363,7 +47462,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const responder = {
         with200() {
           return new KoaRuntimeResponse<{
-            [key: string]: unknown
+            [key: string]: unknown | undefined
           }>(200)
         },
         with403() {
@@ -51502,7 +51601,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     task: z.string().optional(),
     auto_merge: z.coerce.boolean().optional(),
     required_contexts: z.array(z.string()).optional(),
-    payload: z.union([z.object({}), z.string()]).optional(),
+    payload: z.union([z.record(z.any()), z.string()]).optional(),
     environment: z.string().optional(),
     description: z.string().nullable().optional(),
     transient_environment: z.coerce.boolean().optional(),
@@ -51892,7 +51991,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposCreateDispatchEventBodySchema = z.object({
     event_type: z.string(),
-    client_payload: z.object({}).optional(),
+    client_payload: z.record(z.any()).optional(),
   })
 
   const reposCreateDispatchEventResponseValidator = responseValidationFactory(
@@ -54414,7 +54513,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposRedeliverWebhookDeliveryResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.object({})],
+        ["202", z.record(z.any())],
         ["400", s_scim_error],
         ["422", s_validation_error],
       ],
@@ -54437,7 +54536,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with202() {
-          return new KoaRuntimeResponse<EmptyObject>(202)
+          return new KoaRuntimeResponse<{
+            [key: string]: unknown | undefined
+          }>(202)
         },
         with400() {
           return new KoaRuntimeResponse<t_scim_error>(400)
@@ -64037,7 +64138,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const securityAdvisoriesCreateRepositoryAdvisoryCveRequestResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.object({})],
+        ["202", z.record(z.any())],
         ["400", s_scim_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -64062,7 +64163,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with202() {
-          return new KoaRuntimeResponse<EmptyObject>(202)
+          return new KoaRuntimeResponse<{
+            [key: string]: unknown | undefined
+          }>(202)
         },
         with400() {
           return new KoaRuntimeResponse<t_scim_error>(400)
@@ -64176,7 +64279,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposGetCodeFrequencyStatsResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_code_frequency_stat)],
-      ["202", z.object({})],
+      ["202", z.record(z.any())],
       ["204", z.undefined()],
     ],
     undefined,
@@ -64201,7 +64304,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<t_code_frequency_stat[]>(200)
         },
         with202() {
-          return new KoaRuntimeResponse<EmptyObject>(202)
+          return new KoaRuntimeResponse<{
+            [key: string]: unknown | undefined
+          }>(202)
         },
         with204() {
           return new KoaRuntimeResponse<void>(204)
@@ -64235,7 +64340,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_commit_activity)],
-        ["202", z.object({})],
+        ["202", z.record(z.any())],
         ["204", z.undefined()],
       ],
       undefined,
@@ -64260,7 +64365,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<t_commit_activity[]>(200)
         },
         with202() {
-          return new KoaRuntimeResponse<EmptyObject>(202)
+          return new KoaRuntimeResponse<{
+            [key: string]: unknown | undefined
+          }>(202)
         },
         with204() {
           return new KoaRuntimeResponse<void>(204)
@@ -64293,7 +64400,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposGetContributorsStatsResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_contributor_activity)],
-      ["202", z.object({})],
+      ["202", z.record(z.any())],
       ["204", z.undefined()],
     ],
     undefined,
@@ -64318,7 +64425,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<t_contributor_activity[]>(200)
         },
         with202() {
-          return new KoaRuntimeResponse<EmptyObject>(202)
+          return new KoaRuntimeResponse<{
+            [key: string]: unknown | undefined
+          }>(202)
         },
         with204() {
           return new KoaRuntimeResponse<void>(204)
@@ -70274,7 +70383,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codespacesDeleteForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.object({})],
+        ["202", z.record(z.any())],
         ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
@@ -70300,7 +70409,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with202() {
-          return new KoaRuntimeResponse<EmptyObject>(202)
+          return new KoaRuntimeResponse<{
+            [key: string]: unknown | undefined
+          }>(202)
         },
         with304() {
           return new KoaRuntimeResponse<void>(304)

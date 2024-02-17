@@ -33,14 +33,17 @@ export const s_AmrValue = z.enum([
 
 export const s_ApplicationType = z.enum(["browser", "native", "service", "web"])
 
-export const s_BackchannelAuthorizeRequest = z.object({
-  binding_message: z.string().optional(),
-  id_token_hint: z.string().optional(),
-  login_hint: z.string().optional(),
-  request: z.string().optional(),
-  request_expiry: z.coerce.number().optional(),
-  scope: z.string(),
-})
+export const s_BackchannelAuthorizeRequest = z.intersection(
+  z.object({
+    binding_message: z.string().optional(),
+    id_token_hint: z.string().optional(),
+    login_hint: z.string().optional(),
+    request: z.string().optional(),
+    request_expiry: z.coerce.number().optional(),
+    scope: z.string(),
+  }),
+  z.record(z.any()),
+)
 
 export const s_BackchannelAuthorizeResponse = z.object({
   auth_req_id: z.string().optional(),
@@ -98,22 +101,25 @@ export const s_GrantType = z.enum([
   "urn:openid:params:grant-type:ciba",
 ])
 
-export const s_IntrospectionResponse = z.object({
-  active: z.coerce.boolean().optional(),
-  aud: z.string().optional(),
-  client_id: z.string().optional(),
-  device_id: z.string().optional(),
-  exp: z.coerce.number().optional(),
-  iat: z.coerce.number().optional(),
-  iss: z.string().optional(),
-  jti: z.string().optional(),
-  nbf: z.coerce.number().optional(),
-  scope: z.string().optional(),
-  sub: z.string().optional(),
-  token_type: z.string().optional(),
-  uid: z.string().optional(),
-  username: z.string().optional(),
-})
+export const s_IntrospectionResponse = z.intersection(
+  z.object({
+    active: z.coerce.boolean().optional(),
+    aud: z.string().optional(),
+    client_id: z.string().optional(),
+    device_id: z.string().optional(),
+    exp: z.coerce.number().optional(),
+    iat: z.coerce.number().optional(),
+    iss: z.string().optional(),
+    jti: z.string().optional(),
+    nbf: z.coerce.number().optional(),
+    scope: z.string().optional(),
+    sub: z.string().optional(),
+    token_type: z.string().optional(),
+    uid: z.string().optional(),
+    username: z.string().optional(),
+  }),
+  z.record(z.any()),
+)
 
 export const s_JsonWebKeyStatus = z.enum(["ACTIVE", "EXPIRED", "NEXT"])
 
@@ -222,7 +228,10 @@ export const s_TokenTypeHintRevoke = z.enum([
   "refresh_token",
 ])
 
-export const s_UserInfo = z.object({ sub: z.string().optional() })
+export const s_UserInfo = z.intersection(
+  z.object({ sub: z.string().optional() }),
+  z.record(z.any()),
+)
 
 export const s_IntrospectionRequest = z.object({
   token: z.string().optional(),

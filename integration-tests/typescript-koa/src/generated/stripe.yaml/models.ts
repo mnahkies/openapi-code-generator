@@ -31,7 +31,7 @@ export type t_account = {
   id: string
   individual?: t_person
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "account"
   payouts_enabled?: boolean
@@ -505,7 +505,7 @@ export type t_bank_account = {
   id: string
   last4: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "bank_account"
   requirements?: t_external_account_requirements | null
@@ -524,20 +524,20 @@ export type t_bank_connections_resource_balance = {
   cash?: t_bank_connections_resource_balance_api_resource_cash_balance
   credit?: t_bank_connections_resource_balance_api_resource_credit_balance
   current: {
-    [key: string]: number
+    [key: string]: number | undefined
   }
   type: "cash" | "credit"
 }
 
 export type t_bank_connections_resource_balance_api_resource_cash_balance = {
   available?: {
-    [key: string]: number
+    [key: string]: number | undefined
   } | null
 }
 
 export type t_bank_connections_resource_balance_api_resource_credit_balance = {
   used?: {
-    [key: string]: number
+    [key: string]: number | undefined
   } | null
 }
 
@@ -574,7 +574,7 @@ export type t_billing_portal_configuration = {
   livemode: boolean
   login_page: t_portal_login_page
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "billing_portal.configuration"
   updated: number
@@ -697,7 +697,7 @@ export type t_card = {
   id: string
   last4: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   name?: string | null
   object: "card"
@@ -720,7 +720,7 @@ export type t_card_mandate_payment_method_details = EmptyObject
 
 export type t_cash_balance = {
   available?: {
-    [key: string]: number
+    [key: string]: number | undefined
   } | null
   customer: string
   livemode: boolean
@@ -752,7 +752,7 @@ export type t_charge = {
   invoice?: string | t_invoice | null
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "charge"
   on_behalf_of?: string | t_account | null
@@ -878,7 +878,7 @@ export type t_checkout_session = {
     | "zh-TW"
     | null
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   mode: "payment" | "setup" | "subscription"
   object: "checkout.session"
@@ -1105,7 +1105,7 @@ export type t_country_spec = {
   id: string
   object: "country_spec"
   supported_bank_account_currencies: {
-    [key: string]: string[]
+    [key: string]: string[] | undefined
   }
   supported_payment_currencies: string[]
   supported_payment_methods: string[]
@@ -1129,7 +1129,7 @@ export type t_coupon = {
   created: number
   currency?: string | null
   currency_options?: {
-    [key: string]: t_coupon_currency_option
+    [key: string]: t_coupon_currency_option | undefined
   }
   duration: "forever" | "once" | "repeating"
   duration_in_months?: number | null
@@ -1137,7 +1137,7 @@ export type t_coupon = {
   livemode: boolean
   max_redemptions?: number | null
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   name?: string | null
   object: "coupon"
@@ -1176,7 +1176,7 @@ export type t_credit_note = {
   livemode: boolean
   memo?: string | null
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   number: string
   object: "credit_note"
@@ -1270,13 +1270,13 @@ export type t_customer = {
   email?: string | null
   id: string
   invoice_credit_balance?: {
-    [key: string]: number
+    [key: string]: number | undefined
   }
   invoice_prefix?: string | null
   invoice_settings?: t_invoice_setting_customer_setting
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   name?: string | null
   next_invoice_sequence?: number
@@ -1399,7 +1399,7 @@ export type t_customer_balance_transaction = {
   invoice?: string | t_invoice | null
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "customer_balance_transaction"
   type:
@@ -1644,7 +1644,7 @@ export type t_dispute = {
   is_charge_refundable: boolean
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "dispute"
   payment_intent?: string | t_payment_intent | null
@@ -1742,7 +1742,7 @@ export type t_exchange_rate = {
   id: string
   object: "exchange_rate"
   rates: {
-    [key: string]: number
+    [key: string]: number | undefined
   }
 }
 
@@ -1771,7 +1771,7 @@ export type t_fee_refund = {
   fee: string | t_application_fee
   id: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "fee_refund"
 }
@@ -1818,7 +1818,7 @@ export type t_file_link = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "file_link"
   url?: string | null
@@ -2125,7 +2125,7 @@ export type t_identity_verification_session = {
   last_verification_report?: string | t_identity_verification_report | null
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "identity.verification_session"
   options?: t_gelato_verification_session_options | null
@@ -2214,7 +2214,7 @@ export type t_invoice = {
   }
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   next_payment_attempt?: number | null
   number?: string | null
@@ -2398,7 +2398,7 @@ export type t_invoiceitem = {
   invoice?: string | t_invoice | null
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "invoiceitem"
   period: t_invoice_line_item_period
@@ -2576,7 +2576,7 @@ export type t_issuing_authorization = {
   merchant_currency: string
   merchant_data: t_issuing_authorization_merchant_data
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   network_data?: t_issuing_authorization_network_data | null
   object: "issuing.authorization"
@@ -2603,7 +2603,7 @@ export type t_issuing_card = {
   last4: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   number?: string
   object: "issuing.card"
@@ -2626,7 +2626,7 @@ export type t_issuing_cardholder = {
   individual?: t_issuing_cardholder_individual | null
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   name: string
   object: "issuing.cardholder"
@@ -2647,7 +2647,7 @@ export type t_issuing_dispute = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "issuing.dispute"
   status: "expired" | "lost" | "submitted" | "unsubmitted" | "won"
@@ -2664,7 +2664,7 @@ export type t_issuing_settlement = {
   interchange_fees: number
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   net_total: number
   network: "visa"
@@ -2692,7 +2692,7 @@ export type t_issuing_transaction = {
   merchant_currency: string
   merchant_data: t_issuing_authorization_merchant_data
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "issuing.transaction"
   purchase_details?: t_issuing_transaction_purchase_details | null
@@ -4963,7 +4963,7 @@ export type t_line_item = {
   invoice_item?: string | t_invoiceitem
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "line_item"
   period: t_invoice_line_item_period
@@ -5221,7 +5221,7 @@ export type t_payment_intent = {
   latest_charge?: string | t_charge | null
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   next_action?: t_payment_intent_next_action | null
   object: "payment_intent"
@@ -5623,7 +5623,7 @@ export type t_payment_link = {
   }
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "payment_link"
   on_behalf_of?: string | t_account | null
@@ -5749,7 +5749,7 @@ export type t_payment_links_resource_invoice_settings = {
   description?: string | null
   footer?: string | null
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   rendering_options?: t_invoice_setting_rendering_options | null
 }
@@ -6053,7 +6053,7 @@ export type t_payment_method = {
   link?: t_payment_method_link
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "payment_method"
   oxxo?: t_payment_method_oxxo
@@ -7319,7 +7319,7 @@ export type t_payment_pages_checkout_session_invoice_settings = {
   description?: string | null
   footer?: string | null
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   rendering_options?: t_invoice_setting_rendering_options | null
 }
@@ -7695,7 +7695,7 @@ export type t_payout = {
   id: string
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   method: string
   object: "payout"
@@ -7740,7 +7740,7 @@ export type t_person = {
   last_name_kanji?: string | null
   maiden_name?: string | null
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   nationality?: string | null
   object: "person"
@@ -7793,7 +7793,7 @@ export type t_plan = {
   interval_count: number
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   nickname?: string | null
   object: "plan"
@@ -7965,14 +7965,14 @@ export type t_price = {
   created: number
   currency: string
   currency_options?: {
-    [key: string]: t_currency_option
+    [key: string]: t_currency_option | undefined
   }
   custom_unit_amount?: t_custom_unit_amount | null
   id: string
   livemode: boolean
   lookup_key?: string | null
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   nickname?: string | null
   object: "price"
@@ -8005,7 +8005,7 @@ export type t_product = {
   images: string[]
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   name: string
   object: "product"
@@ -8033,7 +8033,7 @@ export type t_promotion_code = {
   livemode: boolean
   max_redemptions?: number | null
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "promotion_code"
   restrictions: t_promotion_codes_resource_restrictions
@@ -8046,7 +8046,7 @@ export type t_promotion_code_currency_option = {
 
 export type t_promotion_codes_resource_restrictions = {
   currency_options?: {
-    [key: string]: t_promotion_code_currency_option
+    [key: string]: t_promotion_code_currency_option | undefined
   }
   first_time_transaction: boolean
   minimum_amount?: number | null
@@ -8083,7 +8083,7 @@ export type t_quote = {
   }
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   number?: string | null
   object: "quote"
@@ -8198,7 +8198,7 @@ export type t_radar_value_list = {
   }
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   name: string
   object: "radar.value_list"
@@ -8257,7 +8257,7 @@ export type t_refund = {
   id: string
   instructions_email?: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   next_action?: t_refund_next_action
   object: "refund"
@@ -8539,7 +8539,7 @@ export type t_setup_intent = {
   livemode: boolean
   mandate?: string | t_mandate | null
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   next_action?: t_setup_intent_next_action | null
   object: "setup_intent"
@@ -8681,7 +8681,7 @@ export type t_shipping_rate = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "shipping_rate"
   tax_behavior?: "exclusive" | "inclusive" | "unspecified" | null
@@ -8708,7 +8708,7 @@ export type t_shipping_rate_fixed_amount = {
   amount: number
   currency: string
   currency_options?: {
-    [key: string]: t_shipping_rate_currency_option
+    [key: string]: t_shipping_rate_currency_option | undefined
   }
 }
 
@@ -8739,7 +8739,7 @@ export type t_source = {
   klarna?: t_source_type_klarna
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   multibanco?: t_source_type_multibanco
   object: "source"
@@ -9164,7 +9164,7 @@ export type t_subscription = {
   latest_invoice?: string | t_invoice | null
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   next_pending_invoice_item_invoice?: number | null
   object: "subscription"
@@ -9203,7 +9203,7 @@ export type t_subscription_billing_thresholds = {
 
 export type t_subscription_details_data = {
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
 }
 
@@ -9212,7 +9212,7 @@ export type t_subscription_item = {
   created: number
   id: string
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "subscription_item"
   price: t_price
@@ -9260,7 +9260,7 @@ export type t_subscription_schedule = {
   id: string
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "subscription_schedule"
   phases: t_subscription_schedule_phase_configuration[]
@@ -9280,7 +9280,7 @@ export type t_subscription_schedule_add_invoice_item = {
 export type t_subscription_schedule_configuration_item = {
   billing_thresholds?: t_subscription_item_billing_thresholds | null
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   price: string | t_price | t_deleted_price
   quantity?: number
@@ -9308,7 +9308,7 @@ export type t_subscription_schedule_phase_configuration = {
   invoice_settings?: t_invoice_setting_subscription_schedule_phase_setting | null
   items: t_subscription_schedule_configuration_item[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   on_behalf_of?: string | t_account | null
   proration_behavior: "always_invoice" | "create_prorations" | "none"
@@ -9460,7 +9460,7 @@ export type t_tax_transaction = {
   } | null
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "tax.transaction"
   reference: string
@@ -9476,7 +9476,7 @@ export type t_tax_transaction_line_item = {
   id: string
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "tax.transaction_line_item"
   product?: string | null
@@ -9829,7 +9829,7 @@ export type t_tax_rate = {
   jurisdiction?: string | null
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "tax_rate"
   percentage: number
@@ -9874,7 +9874,7 @@ export type t_terminal_location = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "terminal.location"
 }
@@ -9895,7 +9895,7 @@ export type t_terminal_reader = {
   livemode: boolean
   location?: string | t_terminal_location | null
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "terminal.reader"
   serial_number: string
@@ -9981,7 +9981,7 @@ export type t_terminal_reader_reader_resource_refund_payment_action = {
   amount?: number
   charge?: string | t_charge
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   payment_intent?: string | t_payment_intent
   reason?: "duplicate" | "fraudulent" | "requested_by_customer"
@@ -10082,7 +10082,7 @@ export type t_topup = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "topup"
   source?: t_source | null
@@ -10103,7 +10103,7 @@ export type t_transfer = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "transfer"
   reversals: {
@@ -10131,7 +10131,7 @@ export type t_transfer_reversal = {
   destination_payment_refund?: string | t_refund | null
   id: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "transfer_reversal"
   source_refund?: string | t_refund | null
@@ -10164,7 +10164,7 @@ export type t_treasury_credit_reversal = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   network: "ach" | "stripe"
   object: "treasury.credit_reversal"
@@ -10184,7 +10184,7 @@ export type t_treasury_debit_reversal = {
   linked_flows?: t_treasury_received_debits_resource_debit_reversal_linked_flows | null
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   network: "ach" | "card"
   object: "treasury.debit_reversal"
@@ -10215,7 +10215,7 @@ export type t_treasury_financial_account = {
   id: string
   livemode: boolean
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   } | null
   object: "treasury.financial_account"
   pending_features?: (
@@ -10272,7 +10272,7 @@ export type t_treasury_inbound_transfer = {
   linked_flows: t_treasury_inbound_transfers_resource_inbound_transfer_resource_linked_flows
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "treasury.inbound_transfer"
   origin_payment_method: string
@@ -10300,7 +10300,7 @@ export type t_treasury_outbound_payment = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "treasury.outbound_payment"
   returned_details?: t_treasury_outbound_payments_resource_returned_status | null
@@ -10324,7 +10324,7 @@ export type t_treasury_outbound_transfer = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "treasury.outbound_transfer"
   returned_details?: t_treasury_outbound_transfers_resource_returned_details | null
@@ -10476,13 +10476,13 @@ export type t_treasury_financial_accounts_resource_ach_toggle_settings = {
 
 export type t_treasury_financial_accounts_resource_balance = {
   cash: {
-    [key: string]: number
+    [key: string]: number | undefined
   }
   inbound_pending: {
-    [key: string]: number
+    [key: string]: number | undefined
   }
   outbound_pending: {
-    [key: string]: number
+    [key: string]: number | undefined
   }
 }
 
@@ -10785,7 +10785,7 @@ export type t_webhook_endpoint = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   object: "webhook_endpoint"
   secret?: string
@@ -11568,7 +11568,7 @@ export type t_GetCreditNotesPreviewQuerySchema = {
   }[]
   memo?: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   out_of_band_amount?: number
   reason?:
@@ -11605,7 +11605,7 @@ export type t_GetCreditNotesPreviewLinesQuerySchema = {
   }[]
   memo?: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   out_of_band_amount?: number
   reason?:
@@ -12404,7 +12404,7 @@ export type t_GetInvoicesUpcomingQuerySchema = {
     invoiceitem?: string
     metadata?:
       | {
-          [key: string]: string
+          [key: string]: string | undefined
         }
       | ""
     period?: {
@@ -12444,7 +12444,7 @@ export type t_GetInvoicesUpcomingQuerySchema = {
     id?: string
     metadata?:
       | {
-          [key: string]: string
+          [key: string]: string | undefined
         }
       | ""
     price?: string
@@ -12604,7 +12604,7 @@ export type t_GetInvoicesUpcomingLinesQuerySchema = {
     invoiceitem?: string
     metadata?:
       | {
-          [key: string]: string
+          [key: string]: string | undefined
         }
       | ""
     period?: {
@@ -12646,7 +12646,7 @@ export type t_GetInvoicesUpcomingLinesQuerySchema = {
     id?: string
     metadata?:
       | {
-          [key: string]: string
+          [key: string]: string | undefined
         }
       | ""
     price?: string
@@ -14696,7 +14696,7 @@ export type t_PostAccountsBodySchema = {
     maiden_name?: string
     metadata?:
       | {
-          [key: string]: string
+          [key: string]: string | undefined
         }
       | ""
     phone?: string
@@ -14723,7 +14723,7 @@ export type t_PostAccountsBodySchema = {
   }
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   settings?: {
@@ -15073,7 +15073,7 @@ export type t_PostAccountsAccountBodySchema = {
     maiden_name?: string
     metadata?:
       | {
-          [key: string]: string
+          [key: string]: string | undefined
         }
       | ""
     phone?: string
@@ -15100,7 +15100,7 @@ export type t_PostAccountsAccountBodySchema = {
   }
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   settings?: {
@@ -15190,7 +15190,7 @@ export type t_PostAccountsAccountBankAccountsBodySchema = {
   expand?: string[]
   external_account?: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
 }
 
@@ -15219,7 +15219,7 @@ export type t_PostAccountsAccountBankAccountsIdBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   name?: string
@@ -15262,7 +15262,7 @@ export type t_PostAccountsAccountExternalAccountsBodySchema = {
   expand?: string[]
   external_account?: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
 }
 
@@ -15291,7 +15291,7 @@ export type t_PostAccountsAccountExternalAccountsIdBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   name?: string
@@ -15370,7 +15370,7 @@ export type t_PostAccountsAccountPeopleBodySchema = {
   maiden_name?: string
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   nationality?: string
@@ -15470,7 +15470,7 @@ export type t_PostAccountsAccountPeoplePersonBodySchema = {
   maiden_name?: string
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   nationality?: string
@@ -15571,7 +15571,7 @@ export type t_PostAccountsAccountPersonsBodySchema = {
   maiden_name?: string
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   nationality?: string
@@ -15671,7 +15671,7 @@ export type t_PostAccountsAccountPersonsPersonBodySchema = {
   maiden_name?: string
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   nationality?: string
@@ -15730,7 +15730,7 @@ export type t_PostApplicationFeesFeeRefundsIdBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
 }
@@ -15754,7 +15754,7 @@ export type t_PostApplicationFeesIdRefundsBodySchema = {
   amount?: number
   expand?: string[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
 }
 
@@ -15842,7 +15842,7 @@ export type t_PostBillingPortalConfigurationsBodySchema = {
     enabled: boolean
   }
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
 }
 
@@ -15908,7 +15908,7 @@ export type t_PostBillingPortalConfigurationsConfigurationBodySchema = {
   }
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
 }
@@ -16030,7 +16030,7 @@ export type t_PostChargesBodySchema = {
         exp_month: number
         exp_year: number
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         name?: string
         number: string
@@ -16049,7 +16049,7 @@ export type t_PostChargesBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   on_behalf_of?: string
@@ -16090,7 +16090,7 @@ export type t_PostChargesChargeBodySchema = {
   }
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   receipt_email?: string
@@ -16166,7 +16166,7 @@ export type t_PostChargesChargeDisputeBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   submit?: boolean
@@ -16190,7 +16190,7 @@ export type t_PostChargesChargeRefundBodySchema = {
   instructions_email?: string
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   payment_intent?: string
@@ -16211,7 +16211,7 @@ export type t_PostChargesChargeRefundsBodySchema = {
   instructions_email?: string
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   origin?: "customer_balance"
@@ -16229,7 +16229,7 @@ export type t_PostChargesChargeRefundsRefundBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
 }
@@ -16325,7 +16325,7 @@ export type t_PostCheckoutSessionsBodySchema = {
       description?: string
       footer?: string
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       rendering_options?:
         | {
@@ -16349,7 +16349,7 @@ export type t_PostCheckoutSessionsBodySchema = {
         description?: string
         images?: string[]
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         name: string
         tax_code?: string
@@ -16408,7 +16408,7 @@ export type t_PostCheckoutSessionsBodySchema = {
     | "zh-HK"
     | "zh-TW"
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   mode?: "payment" | "setup" | "subscription"
   payment_intent_data?: {
@@ -16416,7 +16416,7 @@ export type t_PostCheckoutSessionsBodySchema = {
     capture_method?: "automatic" | "automatic_async" | "manual"
     description?: string
     metadata?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     on_behalf_of?: string
     receipt_email?: string
@@ -16646,7 +16646,7 @@ export type t_PostCheckoutSessionsBodySchema = {
   setup_intent_data?: {
     description?: string
     metadata?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     on_behalf_of?: string
   }
@@ -16909,14 +16909,16 @@ export type t_PostCheckoutSessionsBodySchema = {
         amount: number
         currency: string
         currency_options?: {
-          [key: string]: {
-            amount: number
-            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-          }
+          [key: string]:
+            | {
+                amount: number
+                tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+              }
+            | undefined
         }
       }
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       tax_behavior?: "exclusive" | "inclusive" | "unspecified"
       tax_code?: string
@@ -16930,7 +16932,7 @@ export type t_PostCheckoutSessionsBodySchema = {
     default_tax_rates?: string[]
     description?: string
     metadata?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     on_behalf_of?: string
     proration_behavior?: "create_prorations" | "none"
@@ -16967,9 +16969,11 @@ export type t_PostCouponsBodySchema = {
   }
   currency?: string
   currency_options?: {
-    [key: string]: {
-      amount_off: number
-    }
+    [key: string]:
+      | {
+          amount_off: number
+        }
+      | undefined
   }
   duration?: "forever" | "once" | "repeating"
   duration_in_months?: number
@@ -16978,7 +16982,7 @@ export type t_PostCouponsBodySchema = {
   max_redemptions?: number
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   name?: string
@@ -16988,14 +16992,16 @@ export type t_PostCouponsBodySchema = {
 
 export type t_PostCouponsCouponBodySchema = {
   currency_options?: {
-    [key: string]: {
-      amount_off: number
-    }
+    [key: string]:
+      | {
+          amount_off: number
+        }
+      | undefined
   }
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   name?: string
@@ -17023,7 +17029,7 @@ export type t_PostCreditNotesBodySchema = {
   }[]
   memo?: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   out_of_band_amount?: number
   reason?:
@@ -17042,7 +17048,7 @@ export type t_PostCreditNotesIdBodySchema = {
   expand?: string[]
   memo?: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
 }
 
@@ -17097,7 +17103,7 @@ export type t_PostCustomersBodySchema = {
   }
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   name?: string
@@ -17233,7 +17239,7 @@ export type t_PostCustomersCustomerBodySchema = {
         exp_month: number
         exp_year: number
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         name?: string
         number: string
@@ -17271,7 +17277,7 @@ export type t_PostCustomersCustomerBodySchema = {
   }
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   name?: string
@@ -17311,7 +17317,7 @@ export type t_PostCustomersCustomerBalanceTransactionsBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
 }
@@ -17325,7 +17331,7 @@ export type t_PostCustomersCustomerBalanceTransactionsTransactionBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
 }
@@ -17360,7 +17366,7 @@ export type t_PostCustomersCustomerBankAccountsBodySchema = {
         exp_month: number
         exp_year: number
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         name?: string
         number: string
@@ -17369,7 +17375,7 @@ export type t_PostCustomersCustomerBankAccountsBodySchema = {
     | string
   expand?: string[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   source?: string
 }
@@ -17392,7 +17398,7 @@ export type t_PostCustomersCustomerBankAccountsIdBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   name?: string
@@ -17451,7 +17457,7 @@ export type t_PostCustomersCustomerCardsBodySchema = {
         exp_month: number
         exp_year: number
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         name?: string
         number: string
@@ -17460,7 +17466,7 @@ export type t_PostCustomersCustomerCardsBodySchema = {
     | string
   expand?: string[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   source?: string
 }
@@ -17483,7 +17489,7 @@ export type t_PostCustomersCustomerCardsIdBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   name?: string
@@ -17565,7 +17571,7 @@ export type t_PostCustomersCustomerSourcesBodySchema = {
         exp_month: number
         exp_year: number
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         name?: string
         number: string
@@ -17574,7 +17580,7 @@ export type t_PostCustomersCustomerSourcesBodySchema = {
     | string
   expand?: string[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   source?: string
 }
@@ -17597,7 +17603,7 @@ export type t_PostCustomersCustomerSourcesIdBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   name?: string
@@ -17673,7 +17679,7 @@ export type t_PostCustomersCustomerSubscriptionsBodySchema = {
         }
       | ""
     metadata?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     price?: string
     price_data?: {
@@ -17692,7 +17698,7 @@ export type t_PostCustomersCustomerSubscriptionsBodySchema = {
   }[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   off_session?: boolean
@@ -17878,7 +17884,7 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema 
       id?: string
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       price?: string
@@ -17898,7 +17904,7 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema 
     }[]
     metadata?:
       | {
-          [key: string]: string
+          [key: string]: string | undefined
         }
       | ""
     off_session?: boolean
@@ -18145,7 +18151,7 @@ export type t_PostDisputesDisputeBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   submit?: boolean
@@ -18177,7 +18183,7 @@ export type t_PostFileLinksBodySchema = {
   file: string
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
 }
@@ -18187,7 +18193,7 @@ export type t_PostFileLinksLinkBodySchema = {
   expires_at?: "now" | number | ""
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
 }
@@ -18204,7 +18210,7 @@ export type t_PostFilesBodySchema = {
     expires_at?: number
     metadata?:
       | {
-          [key: string]: string
+          [key: string]: string | undefined
         }
       | ""
   }
@@ -18256,7 +18262,7 @@ export type t_PostFinancialConnectionsSessionsBodySchema = {
 export type t_PostIdentityVerificationSessionsBodySchema = {
   expand?: string[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   options?: {
     document?:
@@ -18275,7 +18281,7 @@ export type t_PostIdentityVerificationSessionsBodySchema = {
 export type t_PostIdentityVerificationSessionsSessionBodySchema = {
   expand?: string[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   options?: {
     document?:
@@ -18326,7 +18332,7 @@ export type t_PostInvoiceitemsBodySchema = {
   invoice?: string
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   period?: {
@@ -18363,7 +18369,7 @@ export type t_PostInvoiceitemsInvoiceitemBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   period?: {
@@ -18427,7 +18433,7 @@ export type t_PostInvoicesBodySchema = {
   }
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   on_behalf_of?: string
@@ -18547,14 +18553,16 @@ export type t_PostInvoicesBodySchema = {
         amount: number
         currency: string
         currency_options?: {
-          [key: string]: {
-            amount: number
-            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-          }
+          [key: string]:
+            | {
+                amount: number
+                tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+              }
+            | undefined
         }
       }
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       tax_behavior?: "exclusive" | "inclusive" | "unspecified"
       tax_code?: string
@@ -18612,7 +18620,7 @@ export type t_PostInvoicesInvoiceBodySchema = {
   footer?: string
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   on_behalf_of?: string | ""
@@ -18732,14 +18740,16 @@ export type t_PostInvoicesInvoiceBodySchema = {
             amount: number
             currency: string
             currency_options?: {
-              [key: string]: {
-                amount: number
-                tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-              }
+              [key: string]:
+                | {
+                    amount: number
+                    tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+                  }
+                | undefined
             }
           }
           metadata?: {
-            [key: string]: string
+            [key: string]: string | undefined
           }
           tax_behavior?: "exclusive" | "inclusive" | "unspecified"
           tax_code?: string
@@ -18825,7 +18835,7 @@ export type t_PostIssuingAuthorizationsAuthorizationBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
 }
@@ -18839,7 +18849,7 @@ export type t_PostIssuingAuthorizationsAuthorizationApproveBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
 }
@@ -18852,7 +18862,7 @@ export type t_PostIssuingAuthorizationsAuthorizationDeclineBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
 }
@@ -18900,7 +18910,7 @@ export type t_PostIssuingCardholdersBodySchema = {
     }
   }
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   name: string
   phone_number?: string
@@ -19852,7 +19862,7 @@ export type t_PostIssuingCardholdersCardholderBodySchema = {
     }
   }
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   phone_number?: string
   preferred_locales?: ("de" | "en" | "es" | "fr" | "it")[]
@@ -20773,7 +20783,7 @@ export type t_PostIssuingCardsBodySchema = {
   expand?: string[]
   financial_account?: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   replacement_for?: string
   replacement_reason?: "damaged" | "expired" | "lost" | "stolen"
@@ -21707,7 +21717,7 @@ export type t_PostIssuingCardsCardBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   pin?: {
@@ -22703,7 +22713,7 @@ export type t_PostIssuingDisputesBodySchema = {
   }
   expand?: string[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   transaction?: string
   treasury?: {
@@ -22792,7 +22802,7 @@ export type t_PostIssuingDisputesDisputeBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
 }
@@ -22805,7 +22815,7 @@ export type t_PostIssuingDisputesDisputeSubmitBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
 }
@@ -22817,7 +22827,7 @@ export type t_PostIssuingDisputesDisputeSubmitParamSchema = {
 export type t_PostIssuingSettlementsSettlementBodySchema = {
   expand?: string[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
 }
 
@@ -22829,7 +22839,7 @@ export type t_PostIssuingTransactionsTransactionBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
 }
@@ -22900,7 +22910,7 @@ export type t_PostPaymentIntentsBodySchema = {
       }
     | ""
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   off_session?: boolean | "one_off" | "recurring"
   on_behalf_of?: string
@@ -23032,7 +23042,7 @@ export type t_PostPaymentIntentsBodySchema = {
     konbini?: EmptyObject
     link?: EmptyObject
     metadata?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     oxxo?: EmptyObject
     p24?: {
@@ -23502,7 +23512,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   payment_method?: string
@@ -23633,7 +23643,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
     konbini?: EmptyObject
     link?: EmptyObject
     metadata?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     oxxo?: EmptyObject
     p24?: {
@@ -24122,7 +24132,7 @@ export type t_PostPaymentIntentsIntentCaptureBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   statement_descriptor?: string
@@ -24292,7 +24302,7 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
     konbini?: EmptyObject
     link?: EmptyObject
     metadata?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     oxxo?: EmptyObject
     p24?: {
@@ -24757,7 +24767,7 @@ export type t_PostPaymentIntentsIntentIncrementAuthorizationBodySchema = {
   description?: string
   expand?: string[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   statement_descriptor?: string
   transfer_data?: {
@@ -24858,7 +24868,7 @@ export type t_PostPaymentLinksBodySchema = {
       footer?: string
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       rendering_options?:
@@ -24878,7 +24888,7 @@ export type t_PostPaymentLinksBodySchema = {
     quantity: number
   }[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   on_behalf_of?: string
   payment_intent_data?: {
@@ -25251,7 +25261,7 @@ export type t_PostPaymentLinksPaymentLinkBodySchema = {
       footer?: string
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       rendering_options?:
@@ -25271,7 +25281,7 @@ export type t_PostPaymentLinksPaymentLinkBodySchema = {
     quantity?: number
   }[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   payment_method_collection?: "always" | "if_required"
   payment_method_types?:
@@ -26062,7 +26072,7 @@ export type t_PostPaymentMethodsBodySchema = {
   konbini?: EmptyObject
   link?: EmptyObject
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   oxxo?: EmptyObject
   p24?: {
@@ -26174,7 +26184,7 @@ export type t_PostPaymentMethodsPaymentMethodBodySchema = {
   link?: EmptyObject
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   us_bank_account?: {
@@ -26210,7 +26220,7 @@ export type t_PostPayoutsBodySchema = {
   destination?: string
   expand?: string[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   method?: "instant" | "standard"
   source_type?: "bank_account" | "card" | "fpx"
@@ -26221,7 +26231,7 @@ export type t_PostPayoutsPayoutBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
 }
@@ -26241,7 +26251,7 @@ export type t_PostPayoutsPayoutCancelParamSchema = {
 export type t_PostPayoutsPayoutReverseBodySchema = {
   expand?: string[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
 }
 
@@ -26262,7 +26272,7 @@ export type t_PostPlansBodySchema = {
   interval_count?: number
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   nickname?: string
@@ -26271,7 +26281,7 @@ export type t_PostPlansBodySchema = {
         active?: boolean
         id?: string
         metadata?: {
-          [key: string]: string
+          [key: string]: string | undefined
         }
         name: string
         statement_descriptor?: string
@@ -26300,7 +26310,7 @@ export type t_PostPlansPlanBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   nickname?: string
@@ -26317,24 +26327,26 @@ export type t_PostPricesBodySchema = {
   billing_scheme?: "per_unit" | "tiered"
   currency: string
   currency_options?: {
-    [key: string]: {
-      custom_unit_amount?: {
-        enabled: boolean
-        maximum?: number
-        minimum?: number
-        preset?: number
-      }
-      tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-      tiers?: {
-        flat_amount?: number
-        flat_amount_decimal?: string
-        unit_amount?: number
-        unit_amount_decimal?: string
-        up_to: "inf" | number
-      }[]
-      unit_amount?: number
-      unit_amount_decimal?: string
-    }
+    [key: string]:
+      | {
+          custom_unit_amount?: {
+            enabled: boolean
+            maximum?: number
+            minimum?: number
+            preset?: number
+          }
+          tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+          tiers?: {
+            flat_amount?: number
+            flat_amount_decimal?: string
+            unit_amount?: number
+            unit_amount_decimal?: string
+            up_to: "inf" | number
+          }[]
+          unit_amount?: number
+          unit_amount_decimal?: string
+        }
+      | undefined
   }
   custom_unit_amount?: {
     enabled: boolean
@@ -26345,7 +26357,7 @@ export type t_PostPricesBodySchema = {
   expand?: string[]
   lookup_key?: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   nickname?: string
   product?: string
@@ -26353,7 +26365,7 @@ export type t_PostPricesBodySchema = {
     active?: boolean
     id?: string
     metadata?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     name: string
     statement_descriptor?: string
@@ -26388,31 +26400,33 @@ export type t_PostPricesPriceBodySchema = {
   active?: boolean
   currency_options?:
     | {
-        [key: string]: {
-          custom_unit_amount?: {
-            enabled: boolean
-            maximum?: number
-            minimum?: number
-            preset?: number
-          }
-          tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-          tiers?: {
-            flat_amount?: number
-            flat_amount_decimal?: string
-            unit_amount?: number
-            unit_amount_decimal?: string
-            up_to: "inf" | number
-          }[]
-          unit_amount?: number
-          unit_amount_decimal?: string
-        }
+        [key: string]:
+          | {
+              custom_unit_amount?: {
+                enabled: boolean
+                maximum?: number
+                minimum?: number
+                preset?: number
+              }
+              tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+              tiers?: {
+                flat_amount?: number
+                flat_amount_decimal?: string
+                unit_amount?: number
+                unit_amount_decimal?: string
+                up_to: "inf" | number
+              }[]
+              unit_amount?: number
+              unit_amount_decimal?: string
+            }
+          | undefined
       }
     | ""
   expand?: string[]
   lookup_key?: string
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   nickname?: string
@@ -26429,24 +26443,26 @@ export type t_PostProductsBodySchema = {
   default_price_data?: {
     currency: string
     currency_options?: {
-      [key: string]: {
-        custom_unit_amount?: {
-          enabled: boolean
-          maximum?: number
-          minimum?: number
-          preset?: number
-        }
-        tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-        tiers?: {
-          flat_amount?: number
-          flat_amount_decimal?: string
-          unit_amount?: number
-          unit_amount_decimal?: string
-          up_to: "inf" | number
-        }[]
-        unit_amount?: number
-        unit_amount_decimal?: string
-      }
+      [key: string]:
+        | {
+            custom_unit_amount?: {
+              enabled: boolean
+              maximum?: number
+              minimum?: number
+              preset?: number
+            }
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+            tiers?: {
+              flat_amount?: number
+              flat_amount_decimal?: string
+              unit_amount?: number
+              unit_amount_decimal?: string
+              up_to: "inf" | number
+            }[]
+            unit_amount?: number
+            unit_amount_decimal?: string
+          }
+        | undefined
     }
     recurring?: {
       interval: "day" | "month" | "week" | "year"
@@ -26464,7 +26480,7 @@ export type t_PostProductsBodySchema = {
   id?: string
   images?: string[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   name: string
   package_dimensions?: {
@@ -26493,7 +26509,7 @@ export type t_PostProductsIdBodySchema = {
   images?: string[] | ""
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   name?: string
@@ -26525,13 +26541,15 @@ export type t_PostPromotionCodesBodySchema = {
   expires_at?: number
   max_redemptions?: number
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   restrictions?: {
     currency_options?: {
-      [key: string]: {
-        minimum_amount?: number
-      }
+      [key: string]:
+        | {
+            minimum_amount?: number
+          }
+        | undefined
     }
     first_time_transaction?: boolean
     minimum_amount?: number
@@ -26544,14 +26562,16 @@ export type t_PostPromotionCodesPromotionCodeBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   restrictions?: {
     currency_options?: {
-      [key: string]: {
-        minimum_amount?: number
-      }
+      [key: string]:
+        | {
+            minimum_amount?: number
+          }
+        | undefined
     }
   }
 }
@@ -26604,7 +26624,7 @@ export type t_PostQuotesBodySchema = {
     tax_rates?: string[] | ""
   }[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   on_behalf_of?: string | ""
   subscription_data?: {
@@ -26663,7 +26683,7 @@ export type t_PostQuotesQuoteBodySchema = {
     tax_rates?: string[] | ""
   }[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   on_behalf_of?: string | ""
   subscription_data?: {
@@ -26730,7 +26750,7 @@ export type t_PostRadarValueListsBodySchema = {
     | "string"
     | "us_bank_account_fingerprint"
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   name: string
 }
@@ -26739,7 +26759,7 @@ export type t_PostRadarValueListsValueListBodySchema = {
   alias?: string
   expand?: string[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   name?: string
 }
@@ -26757,7 +26777,7 @@ export type t_PostRefundsBodySchema = {
   instructions_email?: string
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   origin?: "customer_balance"
@@ -26771,7 +26791,7 @@ export type t_PostRefundsRefundBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
 }
@@ -27469,7 +27489,7 @@ export type t_PostSetupIntentsBodySchema = {
       }
     | ""
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   on_behalf_of?: string
   payment_method?: string
@@ -27600,7 +27620,7 @@ export type t_PostSetupIntentsBodySchema = {
     konbini?: EmptyObject
     link?: EmptyObject
     metadata?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     oxxo?: EmptyObject
     p24?: {
@@ -27766,7 +27786,7 @@ export type t_PostSetupIntentsIntentBodySchema = {
   flow_directions?: ("inbound" | "outbound")[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   payment_method?: string
@@ -27897,7 +27917,7 @@ export type t_PostSetupIntentsIntentBodySchema = {
     konbini?: EmptyObject
     link?: EmptyObject
     metadata?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     oxxo?: EmptyObject
     p24?: {
@@ -28213,7 +28233,7 @@ export type t_PostSetupIntentsIntentConfirmBodySchema = {
     konbini?: EmptyObject
     link?: EmptyObject
     metadata?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     oxxo?: EmptyObject
     p24?: {
@@ -28397,14 +28417,16 @@ export type t_PostShippingRatesBodySchema = {
     amount: number
     currency: string
     currency_options?: {
-      [key: string]: {
-        amount: number
-        tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-      }
+      [key: string]:
+        | {
+            amount: number
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+          }
+        | undefined
     }
   }
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   tax_behavior?: "exclusive" | "inclusive" | "unspecified"
   tax_code?: string
@@ -28416,15 +28438,17 @@ export type t_PostShippingRatesShippingRateTokenBodySchema = {
   expand?: string[]
   fixed_amount?: {
     currency_options?: {
-      [key: string]: {
-        amount?: number
-        tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-      }
+      [key: string]:
+        | {
+            amount?: number
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+          }
+        | undefined
     }
   }
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   tax_behavior?: "exclusive" | "inclusive" | "unspecified"
@@ -28467,7 +28491,7 @@ export type t_PostSourcesBodySchema = {
       | "stripe_email"
   }
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   original_source?: string
   owner?: {
@@ -28550,7 +28574,7 @@ export type t_PostSourcesSourceBodySchema = {
   }
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   owner?: {
@@ -28613,7 +28637,7 @@ export type t_PostSubscriptionItemsBodySchema = {
     | ""
   expand?: string[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   payment_behavior?:
     | "allow_incomplete"
@@ -28648,7 +28672,7 @@ export type t_PostSubscriptionItemsItemBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   off_session?: boolean
@@ -28723,7 +28747,7 @@ export type t_PostSubscriptionSchedulesBodySchema = {
   from_subscription?: string
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   phases?: {
@@ -28767,7 +28791,7 @@ export type t_PostSubscriptionSchedulesBodySchema = {
           }
         | ""
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       price?: string
       price_data?: {
@@ -28786,7 +28810,7 @@ export type t_PostSubscriptionSchedulesBodySchema = {
     }[]
     iterations?: number
     metadata?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     on_behalf_of?: string
     proration_behavior?: "always_invoice" | "create_prorations" | "none"
@@ -28831,7 +28855,7 @@ export type t_PostSubscriptionSchedulesScheduleBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   phases?: {
@@ -28874,7 +28898,7 @@ export type t_PostSubscriptionSchedulesScheduleBodySchema = {
           }
         | ""
       metadata?: {
-        [key: string]: string
+        [key: string]: string | undefined
       }
       price?: string
       price_data?: {
@@ -28893,7 +28917,7 @@ export type t_PostSubscriptionSchedulesScheduleBodySchema = {
     }[]
     iterations?: number
     metadata?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     on_behalf_of?: string
     proration_behavior?: "always_invoice" | "create_prorations" | "none"
@@ -28975,7 +28999,7 @@ export type t_PostSubscriptionsBodySchema = {
         }
       | ""
     metadata?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     price?: string
     price_data?: {
@@ -28994,7 +29018,7 @@ export type t_PostSubscriptionsBodySchema = {
   }[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   off_session?: boolean
@@ -29177,7 +29201,7 @@ export type t_PostSubscriptionsSubscriptionExposedIdBodySchema = {
     id?: string
     metadata?:
       | {
-          [key: string]: string
+          [key: string]: string | undefined
         }
       | ""
     price?: string
@@ -29197,7 +29221,7 @@ export type t_PostSubscriptionsSubscriptionExposedIdBodySchema = {
   }[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   off_session?: boolean
@@ -29458,7 +29482,7 @@ export type t_PostTaxRatesBodySchema = {
   inclusive: boolean
   jurisdiction?: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   percentage: number
   state?: string
@@ -29487,7 +29511,7 @@ export type t_PostTaxRatesTaxRateBodySchema = {
   jurisdiction?: string
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   state?: string
@@ -29533,7 +29557,7 @@ export type t_PostTaxTransactionsCreateFromCalculationBodySchema = {
   calculation: string
   expand?: string[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   reference: string
 }
@@ -29545,14 +29569,14 @@ export type t_PostTaxTransactionsCreateReversalBodySchema = {
     amount: number
     amount_tax: number
     metadata?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     original_line_item: string
     quantity?: number
     reference: string
   }[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   mode: "full" | "partial"
   original_transaction: string
@@ -29758,7 +29782,7 @@ export type t_PostTerminalLocationsBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
 }
@@ -29777,7 +29801,7 @@ export type t_PostTerminalLocationsLocationBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
 }
@@ -29792,7 +29816,7 @@ export type t_PostTerminalReadersBodySchema = {
   location?: string
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   registration_code: string
@@ -29803,7 +29827,7 @@ export type t_PostTerminalReadersReaderBodySchema = {
   label?: string | ""
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
 }
@@ -29851,7 +29875,7 @@ export type t_PostTerminalReadersReaderRefundPaymentBodySchema = {
   charge?: string
   expand?: string[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   payment_intent?: string
   refund_application_fee?: boolean
@@ -31374,7 +31398,7 @@ export type t_PostTokensBodySchema = {
       maiden_name?: string
       metadata?:
         | {
-            [key: string]: string
+            [key: string]: string | undefined
           }
         | ""
       phone?: string
@@ -31490,7 +31514,7 @@ export type t_PostTokensBodySchema = {
     maiden_name?: string
     metadata?:
       | {
-          [key: string]: string
+          [key: string]: string | undefined
         }
       | ""
     nationality?: string
@@ -31536,7 +31560,7 @@ export type t_PostTopupsBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   source?: string
@@ -31549,7 +31573,7 @@ export type t_PostTopupsTopupBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
 }
@@ -31573,7 +31597,7 @@ export type t_PostTransfersBodySchema = {
   destination: string
   expand?: string[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   source_transaction?: string
   source_type?: "bank_account" | "card" | "fpx"
@@ -31586,7 +31610,7 @@ export type t_PostTransfersIdReversalsBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   refund_application_fee?: boolean
@@ -31601,7 +31625,7 @@ export type t_PostTransfersTransferBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
 }
@@ -31614,7 +31638,7 @@ export type t_PostTransfersTransferReversalsIdBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
 }
@@ -31627,7 +31651,7 @@ export type t_PostTransfersTransferReversalsIdParamSchema = {
 export type t_PostTreasuryCreditReversalsBodySchema = {
   expand?: string[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   received_credit: string
 }
@@ -31635,7 +31659,7 @@ export type t_PostTreasuryCreditReversalsBodySchema = {
 export type t_PostTreasuryDebitReversalsBodySchema = {
   expand?: string[]
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   received_debit: string
 }
@@ -31680,7 +31704,7 @@ export type t_PostTreasuryFinancialAccountsBodySchema = {
     }
   }
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   platform_restrictions?: {
     inbound_flows?: "restricted" | "unrestricted"
@@ -31729,7 +31753,7 @@ export type t_PostTreasuryFinancialAccountsFinancialAccountBodySchema = {
     }
   }
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   platform_restrictions?: {
     inbound_flows?: "restricted" | "unrestricted"
@@ -31793,7 +31817,7 @@ export type t_PostTreasuryInboundTransfersBodySchema = {
   expand?: string[]
   financial_account: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   origin_payment_method: string
   statement_descriptor?: string
@@ -31831,7 +31855,7 @@ export type t_PostTreasuryOutboundPaymentsBodySchema = {
     }
     financial_account?: string
     metadata?: {
-      [key: string]: string
+      [key: string]: string | undefined
     }
     type: "financial_account" | "us_bank_account"
     us_bank_account?: {
@@ -31856,7 +31880,7 @@ export type t_PostTreasuryOutboundPaymentsBodySchema = {
   expand?: string[]
   financial_account: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   statement_descriptor?: string
 }
@@ -31884,7 +31908,7 @@ export type t_PostTreasuryOutboundTransfersBodySchema = {
   expand?: string[]
   financial_account: string
   metadata?: {
-    [key: string]: string
+    [key: string]: string | undefined
   }
   statement_descriptor?: string
 }
@@ -32221,7 +32245,7 @@ export type t_PostWebhookEndpointsBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   url: string
@@ -32451,7 +32475,7 @@ export type t_PostWebhookEndpointsWebhookEndpointBodySchema = {
   expand?: string[]
   metadata?:
     | {
-        [key: string]: string
+        [key: string]: string | undefined
       }
     | ""
   url?: string

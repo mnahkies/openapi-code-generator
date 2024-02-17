@@ -99,26 +99,23 @@ export type t_GrantType =
   | "urn:ietf:params:oauth:grant-type:token-exchange"
   | "urn:openid:params:grant-type:ciba"
 
-export type t_IntrospectionResponse =
-  | {
-      active?: boolean
-      aud?: string
-      client_id?: string
-      device_id?: string
-      exp?: number
-      iat?: number
-      iss?: string
-      jti?: string
-      nbf?: number
-      scope?: string
-      sub?: string
-      token_type?: string
-      uid?: string
-      username?: string
-    }
-  | {
-      [key: string]: unknown
-    }
+export type t_IntrospectionResponse = {
+  active?: boolean
+  aud?: string
+  client_id?: string
+  device_id?: string
+  exp?: number
+  iat?: number
+  iss?: string
+  jti?: string
+  nbf?: number
+  scope?: string
+  sub?: string
+  token_type?: string
+  uid?: string
+  username?: string
+  [key: string]: unknown | undefined
+}
 
 export type t_JsonWebKey = {
   alg?: t_SigningAlgorithm
@@ -255,13 +252,10 @@ export type t_TokenTypeHintRevoke =
   | "device_secret"
   | "refresh_token"
 
-export type t_UserInfo =
-  | {
-      sub?: string
-    }
-  | {
-      [key: string]: unknown
-    }
+export type t_UserInfo = {
+  sub?: string
+  [key: string]: unknown | undefined
+}
 
 export type t_AuthorizeQuerySchema = {
   acr_values?: t_AcrValue
@@ -313,31 +307,25 @@ export type t_AuthorizeCustomAsQuerySchema = {
   state?: string
 }
 
-export type t_BcAuthorizeBodySchema =
-  | {
-      binding_message?: string
-      id_token_hint?: string
-      login_hint?: string
-      request?: string
-      request_expiry?: number
-      scope: string
-    }
-  | {
-      [key: string]: unknown
-    }
+export type t_BcAuthorizeBodySchema = {
+  binding_message?: string
+  id_token_hint?: string
+  login_hint?: string
+  request?: string
+  request_expiry?: number
+  scope: string
+  [key: string]: unknown | undefined
+}
 
-export type t_BcAuthorizeCustomAsBodySchema =
-  | {
-      binding_message?: string
-      id_token_hint?: string
-      login_hint?: string
-      request?: string
-      request_expiry?: number
-      scope: string
-    }
-  | {
-      [key: string]: unknown
-    }
+export type t_BcAuthorizeCustomAsBodySchema = {
+  binding_message?: string
+  id_token_hint?: string
+  login_hint?: string
+  request?: string
+  request_expiry?: number
+  scope: string
+  [key: string]: unknown | undefined
+}
 
 export type t_BcAuthorizeCustomAsParamSchema = {
   authorizationServerId: string

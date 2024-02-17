@@ -594,7 +594,9 @@ export class ApiClient {
 
   replaceProfile(p: {
     requestBody: {
-      profile?: EmptyObject
+      profile?: {
+        [key: string]: unknown | undefined
+      }
     }
   }): Observable<
     | (HttpResponse<t_Profile> & { status: 200 })

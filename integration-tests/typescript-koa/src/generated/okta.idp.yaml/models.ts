@@ -25,7 +25,9 @@ export type t_AppAuthenticatorEnrollment = {
     }
   }
   methods?: {
-    push?: EmptyObject
+    push?: {
+      [key: string]: unknown | undefined
+    }
   }
   readonly user?: {
     id?: string
@@ -140,7 +142,9 @@ export type t_Profile = {
   }
   readonly createdAt?: string
   readonly modifiedAt?: string
-  profile?: EmptyObject
+  profile?: {
+    [key: string]: unknown | undefined
+  }
 }
 
 export type t_PushNotificationChallenge = {
@@ -179,7 +183,9 @@ export type t_CreateAppAuthenticatorEnrollmentBodySchema = {
     clientInstanceDeviceSdkVersion: string
     clientInstanceKey: t_KeyObject
     clientInstanceVersion: string
-    deviceAttestation?: EmptyObject
+    deviceAttestation?: {
+      [key: string]: unknown | undefined
+    }
     displayName: string
     manufacturer?: string
     model?: string
@@ -249,7 +255,9 @@ export type t_PollChallengeForEmailMagicLinkParamSchema = {
 }
 
 export type t_ReplaceProfileBodySchema = {
-  profile?: EmptyObject
+  profile?: {
+    [key: string]: unknown | undefined
+  }
 }
 
 export type t_SendEmailChallengeBodySchema = {

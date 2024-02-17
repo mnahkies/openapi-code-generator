@@ -546,18 +546,13 @@ export class ApiClient extends AbstractAxiosClient {
     opts?: AxiosRequestConfig,
   ): Promise<
     AxiosResponse<
-      t_integration &
-        (
-          | {
-              client_id: string
-              client_secret: string
-              pem: string
-              webhook_secret: string | null
-            }
-          | {
-              [key: string]: unknown
-            }
-        )
+      t_integration & {
+        client_id: string
+        client_secret: string
+        pem: string
+        webhook_secret: string | null
+        [key: string]: unknown | undefined
+      }
     >
   > {
     const url = `/app-manifests/${p["code"]}/conversions`
@@ -662,7 +657,11 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<EmptyObject>> {
+  ): Promise<
+    AxiosResponse<{
+      [key: string]: unknown | undefined
+    }>
+  > {
     const url = `/app/hook/deliveries/${p["deliveryId"]}/attempts`
 
     return this.axios.request({
@@ -1122,7 +1121,7 @@ export class ApiClient extends AbstractAxiosClient {
     opts?: AxiosRequestConfig,
   ): Promise<
     AxiosResponse<{
-      [key: string]: string
+      [key: string]: string | undefined
     }>
   > {
     const url = `/emojis`
@@ -1281,9 +1280,11 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: {
         description?: string
         files: {
-          [key: string]: {
-            content: string
-          }
+          [key: string]:
+            | {
+                content: string
+              }
+            | undefined
         }
         public?: boolean | "true" | "false"
       }
@@ -1380,10 +1381,12 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: {
         description?: string
         files?: {
-          [key: string]: {
-            content?: string
-            filename?: string | null
-          } | null
+          [key: string]:
+            | ({
+                content?: string
+                filename?: string | null
+              } | null)
+            | undefined
         }
       } | null
     },
@@ -2323,7 +2326,11 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<EmptyObject>> {
+  ): Promise<
+    AxiosResponse<{
+      [key: string]: unknown | undefined
+    }>
+  > {
     const url = `/orgs/${p["org"]}`
 
     return this.axios.request({
@@ -4471,7 +4478,11 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<EmptyObject>> {
+  ): Promise<
+    AxiosResponse<{
+      [key: string]: unknown | undefined
+    }>
+  > {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`
 
     return this.axios.request({
@@ -4850,7 +4861,11 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<EmptyObject>> {
+  ): Promise<
+    AxiosResponse<{
+      [key: string]: unknown | undefined
+    }>
+  > {
     const url = `/orgs/${p["org"]}/members/${p["username"]}/codespaces/${p["codespaceName"]}`
 
     return this.axios.request({
@@ -5476,7 +5491,11 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<EmptyObject>> {
+  ): Promise<
+    AxiosResponse<{
+      [key: string]: unknown | undefined
+    }>
+  > {
     const url = `/orgs/${p["org"]}/personal-access-token-requests`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
@@ -5589,7 +5608,11 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<EmptyObject>> {
+  ): Promise<
+    AxiosResponse<{
+      [key: string]: unknown | undefined
+    }>
+  > {
     const url = `/orgs/${p["org"]}/personal-access-tokens`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
@@ -9258,7 +9281,7 @@ export class ApiClient extends AbstractAxiosClient {
       workflowId: number | string
       requestBody: {
         inputs?: {
-          [key: string]: unknown
+          [key: string]: unknown | undefined
         }
         ref: string
       }
@@ -10537,12 +10560,11 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody:
         | {
             status: EmptyObject
-          }
-        | {
-            [key: string]: unknown
+            [key: string]: unknown | undefined
           }
         | {
             status?: EmptyObject
+            [key: string]: unknown | undefined
           }
     },
     timeout?: number,
@@ -10988,7 +11010,7 @@ export class ApiClient extends AbstractAxiosClient {
     opts?: AxiosRequestConfig,
   ): Promise<
     AxiosResponse<{
-      [key: string]: unknown
+      [key: string]: unknown | undefined
     }>
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`
@@ -12532,7 +12554,7 @@ export class ApiClient extends AbstractAxiosClient {
         environment?: string
         payload?:
           | {
-              [key: string]: unknown
+              [key: string]: unknown | undefined
             }
           | string
         production_environment?: boolean
@@ -12695,7 +12717,7 @@ export class ApiClient extends AbstractAxiosClient {
       repo: string
       requestBody: {
         client_payload?: {
-          [key: string]: unknown
+          [key: string]: unknown | undefined
         }
         event_type: string
       }
@@ -13713,7 +13735,11 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<EmptyObject>> {
+  ): Promise<
+    AxiosResponse<{
+      [key: string]: unknown | undefined
+    }>
+  > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`
 
     return this.axios.request({
@@ -17479,7 +17505,11 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<EmptyObject>> {
+  ): Promise<
+    AxiosResponse<{
+      [key: string]: unknown | undefined
+    }>
+  > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}/cve`
 
     return this.axios.request({
@@ -17522,7 +17552,9 @@ export class ApiClient extends AbstractAxiosClient {
     opts?: AxiosRequestConfig,
   ): Promise<
     | AxiosResponse<t_code_frequency_stat[]>
-    | AxiosResponse<EmptyObject>
+    | AxiosResponse<{
+        [key: string]: unknown | undefined
+      }>
     | AxiosResponse<void>
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stats/code_frequency`
@@ -17545,7 +17577,9 @@ export class ApiClient extends AbstractAxiosClient {
     opts?: AxiosRequestConfig,
   ): Promise<
     | AxiosResponse<t_commit_activity[]>
-    | AxiosResponse<EmptyObject>
+    | AxiosResponse<{
+        [key: string]: unknown | undefined
+      }>
     | AxiosResponse<void>
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stats/commit_activity`
@@ -17568,7 +17602,9 @@ export class ApiClient extends AbstractAxiosClient {
     opts?: AxiosRequestConfig,
   ): Promise<
     | AxiosResponse<t_contributor_activity[]>
-    | AxiosResponse<EmptyObject>
+    | AxiosResponse<{
+        [key: string]: unknown | undefined
+      }>
     | AxiosResponse<void>
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stats/contributors`
@@ -19884,7 +19920,11 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<EmptyObject>> {
+  ): Promise<
+    AxiosResponse<{
+      [key: string]: unknown | undefined
+    }>
+  > {
     const url = `/user/codespaces/${p["codespaceName"]}`
 
     return this.axios.request({
