@@ -1,5 +1,5 @@
-import qs from "qs"
 import axios, {AxiosInstance} from "axios"
+import qs from "qs"
 
 // from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
 type Enumerate<

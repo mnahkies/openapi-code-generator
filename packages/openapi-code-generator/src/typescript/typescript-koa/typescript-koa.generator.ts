@@ -5,23 +5,23 @@ import {
   IROperation,
   IRParameter,
 } from "../../core/openapi-types-normalized"
+import {isDefined, titleCase} from "../../core/utils"
+import {OpenapiGeneratorConfig} from "../../templates.types"
 import {ImportBuilder} from "../common/import-builder"
 import {emitGenerationResult, loadPreviousResult} from "../common/output-utils"
-import {TypeBuilder} from "../common/type-builder"
-import {isDefined, titleCase} from "../../core/utils"
+import {JoiBuilder} from "../common/schema-builders/joi-schema-builder"
 import {
   SchemaBuilder,
   schemaBuilderFactory,
 } from "../common/schema-builders/schema-builder"
+import {ZodBuilder} from "../common/schema-builders/zod-schema-builder"
+import {TypeBuilder} from "../common/type-builder"
+import {intersect, object} from "../common/type-utils"
 import {
   buildExport,
   requestBodyAsParameter,
   statusStringToType,
 } from "../common/typescript-common"
-import {OpenapiGeneratorConfig} from "../../templates.types"
-import {intersect, object} from "../common/type-utils"
-import {ZodBuilder} from "../common/schema-builders/zod-schema-builder"
-import {JoiBuilder} from "../common/schema-builders/joi-schema-builder"
 
 function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
   return parameters.reduce(
@@ -226,7 +226,12 @@ export class ServerBuilder {
         buildExport({
           name: titleCase(operation.operationId),
           value: `(
-                    params: Params<${pathParamsType}, ${queryParamsType}, ${bodyParamsType + (bodyParamsType === "void" || bodyParamIsRequired ? "" : " | undefined")}>,
+                    params: Params<${pathParamsType}, ${queryParamsType}, ${
+                      bodyParamsType +
+                      (bodyParamsType === "void" || bodyParamIsRequired
+                        ? ""
+                        : " | undefined")
+                    }>,
                     respond: ${titleCase(operation.operationId) + "Responder"},
                     ctx: RouterContext
                   ) => Promise<KoaRuntimeResponse<unknown> | ${[
@@ -245,18 +250,34 @@ export class ServerBuilder {
 
     this.statements.push(
       [
-        `const ${operation.operationId}ResponseValidator = responseValidationFactory([${responseSchemas.specific.map(
+        `const ${
+          operation.operationId
+        }ResponseValidator = responseValidationFactory([${responseSchemas.specific.map(
           (it) => `["${it.statusString}", ${it.schema}]`,
         )}
       ], ${responseSchemas.defaultResponse?.schema})`,
         "",
-        `router.${operation.method.toLowerCase()}('${operation.operationId}','${route(operation.route)}',`,
+        `router.${operation.method.toLowerCase()}('${
+          operation.operationId
+        }','${route(operation.route)}',`,
         `async (ctx, next) => {
 
        const input = {
-        params: ${paramSchema ? `parseRequestInput(${operation.operationId}ParamSchema, ctx.params, RequestInputType.RouteParam)` : "undefined"},
-        query: ${querySchema ? `parseRequestInput(${operation.operationId}QuerySchema, ctx.query, RequestInputType.QueryString)` : "undefined"},
-        body: ${bodyParamSchema ? `parseRequestInput(${operation.operationId}BodySchema, ctx.request.body, RequestInputType.RequestBody)` : "undefined"},
+        params: ${
+          paramSchema
+            ? `parseRequestInput(${operation.operationId}ParamSchema, ctx.params, RequestInputType.RouteParam)`
+            : "undefined"
+        },
+        query: ${
+          querySchema
+            ? `parseRequestInput(${operation.operationId}QuerySchema, ctx.query, RequestInputType.QueryString)`
+            : "undefined"
+        },
+        body: ${
+          bodyParamSchema
+            ? `parseRequestInput(${operation.operationId}BodySchema, ctx.request.body, RequestInputType.RequestBody)`
+            : "undefined"
+        },
        }
 
       const responder = {${[

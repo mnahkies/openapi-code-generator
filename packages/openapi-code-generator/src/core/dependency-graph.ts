@@ -1,8 +1,8 @@
+import {Input} from "./input"
+import {logger} from "./logger"
 import {Reference} from "./openapi-types"
 import {IRModel, MaybeIRModel} from "./openapi-types-normalized"
 import {isRef} from "./openapi-utils"
-import {Input} from "./input"
-import {logger} from "./logger"
 
 function intersect<T>(a: Set<T>, b: Set<T>) {
   b.forEach((it) => a.add(it))

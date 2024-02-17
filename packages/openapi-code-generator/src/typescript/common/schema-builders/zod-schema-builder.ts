@@ -1,18 +1,18 @@
 import {Input} from "../../../core/input"
+import {Reference} from "../../../core/openapi-types"
 import {
   IRModelNumeric,
   IRModelString,
 } from "../../../core/openapi-types-normalized"
-import {isDefined} from "../../../core/utils"
-import {AbstractSchemaBuilder} from "./abstract-schema-builder"
-import {ImportBuilder} from "../import-builder"
-import {Reference} from "../../../core/openapi-types"
 import {
   getSchemaNameFromRef,
   getTypeNameFromRef,
 } from "../../../core/openapi-utils"
-import {ExportDefinition} from "../typescript-common"
+import {isDefined} from "../../../core/utils"
+import {ImportBuilder} from "../import-builder"
 import {quotedStringLiteral} from "../type-utils"
+import {ExportDefinition} from "../typescript-common"
+import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 
 // todo: coerce is cool for input where everything starts as strings,
 //       but for output we probably don't want that as its more likely

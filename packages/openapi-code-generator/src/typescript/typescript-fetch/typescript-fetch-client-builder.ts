@@ -1,9 +1,9 @@
 import {TypescriptClientBuilder} from "../common/client-builder"
-import {ImportBuilder} from "../common/import-builder"
 import {ClientOperationBuilder} from "../common/client-operation-builder"
-import {asyncMethod, routeToTemplateString} from "../common/typescript-common"
-import {ZodBuilder} from "../common/schema-builders/zod-schema-builder"
+import {ImportBuilder} from "../common/import-builder"
 import {JoiBuilder} from "../common/schema-builders/joi-schema-builder"
+import {ZodBuilder} from "../common/schema-builders/zod-schema-builder"
+import {asyncMethod, routeToTemplateString} from "../common/typescript-common"
 
 export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
   protected buildImports(imports: ImportBuilder): void {

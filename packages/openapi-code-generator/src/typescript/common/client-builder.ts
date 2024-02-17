@@ -1,9 +1,9 @@
-import {IROperation} from "../../core/openapi-types-normalized"
-import {ImportBuilder} from "./import-builder"
-import {TypeBuilder} from "./type-builder"
-import {ClientOperationBuilder} from "./client-operation-builder"
 import {Input} from "../../core/input"
+import {IROperation} from "../../core/openapi-types-normalized"
+import {ClientOperationBuilder} from "./client-operation-builder"
+import {ImportBuilder} from "./import-builder"
 import {SchemaBuilder} from "./schema-builders/schema-builder"
+import {TypeBuilder} from "./type-builder"
 
 export abstract class TypescriptClientBuilder {
   private readonly operations: string[] = []

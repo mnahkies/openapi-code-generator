@@ -1,6 +1,6 @@
-import {describe, it, expect} from "@jest/globals"
-import {JoiBuilder} from "./joi-schema-builder"
+import {describe, expect, it} from "@jest/globals"
 import {ImportBuilder} from "../import-builder"
+import {JoiBuilder} from "./joi-schema-builder"
 
 describe("typescript/common/schema-builders/joi-schema-builder", () => {
   const builder = new JoiBuilder(

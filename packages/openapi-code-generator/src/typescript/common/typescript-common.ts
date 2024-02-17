@@ -1,7 +1,7 @@
 import _ from "lodash"
-import {isDefined} from "../../core/utils"
-import {IROperation, IRParameter} from "../../core/openapi-types-normalized"
 import {logger} from "../../core/logger"
+import {IROperation, IRParameter} from "../../core/openapi-types-normalized"
+import {isDefined} from "../../core/utils"
 
 export type MethodParameterDefinition = {
   name: string
@@ -77,7 +77,9 @@ export function buildMethod({
   body,
 }: MethodDefinition): string {
   return `
-  ${overloads.map((it) => `${name}(${params(it.parameters)}): ${it.returnType};`).join("\n")}
+  ${overloads
+    .map((it) => `${name}(${params(it.parameters)}): ${it.returnType};`)
+    .join("\n")}
   ${name}(${params(parameters)}): ${returnType}
   {
     ${body}
@@ -92,7 +94,12 @@ export function asyncMethod({
   body,
 }: MethodDefinition): string {
   return `
-  ${overloads.map((it) => `async ${name}(${params(it.parameters)}): Promise<${it.returnType}>;`).join("\n")}
+  ${overloads
+    .map(
+      (it) =>
+        `async ${name}(${params(it.parameters)}): Promise<${it.returnType}>;`,
+    )
+    .join("\n")}
   async ${name}(${params(parameters)}): Promise<${returnType}>
   {
     ${body}
@@ -114,7 +121,9 @@ export function buildExport(args: ExportDefinition) {
 
   switch (args.kind) {
     case "const":
-      return `export const ${args.name}${args.type ? `: ${args.type}` : ""} = ${args.value}`
+      return `export const ${args.name}${args.type ? `: ${args.type}` : ""} = ${
+        args.value
+      }`
     case "type":
       return `export type ${args.name} = ${args.value}`
   }
@@ -197,7 +206,9 @@ function params(
     .filter(isDefined)
     .map((param) => {
       const name = quoteNames ? `"${param.name}"` : param.name
-      return `${name}${param.required === false ? "?" : ""}: ${param.type} ${param.default ? `= ${param.default}` : ""}`
+      return `${name}${param.required === false ? "?" : ""}: ${param.type} ${
+        param.default ? `= ${param.default}` : ""
+      }`
     })
     .join(",")
 }

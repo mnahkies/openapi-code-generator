@@ -1,6 +1,7 @@
-import {MaybeIRModel} from "../../core/openapi-types-normalized"
 import {Input} from "../../core/input"
+import {logger} from "../../core/logger"
 import {Reference} from "../../core/openapi-types"
+import {MaybeIRModel} from "../../core/openapi-types-normalized"
 import {getTypeNameFromRef, isRef} from "../../core/openapi-utils"
 import {ImportBuilder} from "./import-builder"
 import {
@@ -12,7 +13,6 @@ import {
   toString,
   union,
 } from "./type-utils"
-import {logger} from "../../core/logger"
 import {buildExport} from "./typescript-common"
 
 const staticTypes = {

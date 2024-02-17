@@ -1,10 +1,10 @@
-import Ajv2020, {ValidateFunction} from "ajv/dist/2020"
 import addFormats from "ajv-formats"
+import Ajv2020, {ValidateFunction} from "ajv/dist/2020"
 import {promptContinue} from "./cli-utils"
 import openapi3_1_specification = require("./schemas/openapi-3.1-specification-base.json")
 import openapi3_0_specification = require("./schemas/openapi-3.0-specification.json")
-import {logger} from "./logger"
 import AjvDraft04 from "ajv-draft-04"
+import {logger} from "./logger"
 
 export class OpenapiValidator {
   private constructor(

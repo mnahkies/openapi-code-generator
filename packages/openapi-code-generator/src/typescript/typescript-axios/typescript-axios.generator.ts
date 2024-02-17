@@ -1,9 +1,9 @@
+import {OpenapiGeneratorConfig} from "../../templates.types"
+import {ImportBuilder} from "../common/import-builder"
 import {emitGenerationResult} from "../common/output-utils"
+import {schemaBuilderFactory} from "../common/schema-builders/schema-builder"
 import {TypeBuilder} from "../common/type-builder"
 import {TypescriptAxiosClientBuilder} from "./typescript-axios-client-builder"
-import {ImportBuilder} from "../common/import-builder"
-import {schemaBuilderFactory} from "../common/schema-builders/schema-builder"
-import {OpenapiGeneratorConfig} from "../../templates.types"
 
 export async function generateTypescriptAxios(
   config: OpenapiGeneratorConfig,
