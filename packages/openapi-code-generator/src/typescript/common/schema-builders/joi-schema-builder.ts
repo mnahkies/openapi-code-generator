@@ -69,6 +69,10 @@ export class JoiBuilder extends AbstractSchemaBuilder {
     return [this.joi, `link('#${schema}')`].join(".")
   }
 
+  protected merge(schemas: string[]): string {
+    return this.intersect(schemas)
+  }
+
   protected intersect(schemas: string[]): string {
     return schemas.filter(isDefined).reduce((acc, it) => {
       return `${acc}\n.concat(${it})`

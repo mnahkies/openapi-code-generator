@@ -153,11 +153,14 @@ export abstract class AbstractSchemaBuilder {
         result = this.array([this.fromModel(model.items, true)])
         break
       case "object":
-        // todo: additionalProperties support
         if (model.allOf.length) {
-          result = this.intersect(
-            model.allOf.map((it) => this.fromModel(it, true)),
-          )
+          const isMergable = model.allOf
+            .map((it) => this.input.schema(it))
+            .every((it) => it.type === "object" && !it.additionalProperties)
+
+          const schemas = model.allOf.map((it) => this.fromModel(it, true))
+
+          result = isMergable ? this.merge(schemas) : this.intersect(schemas)
         } else if (model.oneOf.length) {
           result = this.union(model.oneOf.map((it) => this.fromModel(it, true)))
         } else if (model.anyOf.length) {
@@ -215,6 +218,18 @@ export abstract class AbstractSchemaBuilder {
 
   protected abstract lazy(schema: string): string
 
+  /**
+   * Equivalent to `type z = x & y` but only works on non-record object schemas
+   * @param schemas
+   * @protected
+   */
+  protected abstract merge(schemas: string[]): string
+
+  /**
+   * Equivalent to `type z = x & y`, works on any schemas
+   * @param schemas
+   * @protected
+   */
   protected abstract intersect(schemas: string[]): string
 
   protected abstract union(schemas: string[]): string

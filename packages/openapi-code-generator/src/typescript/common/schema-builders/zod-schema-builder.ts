@@ -65,6 +65,18 @@ export class ZodBuilder extends AbstractSchemaBuilder {
     }
   }
 
+  protected merge(schemas: string[]): string {
+    const definedSchemas = schemas.filter(isDefined)
+
+    if (definedSchemas.length == 1) {
+      return definedSchemas[0]
+    }
+
+    return definedSchemas.reduce((acc, it) => {
+      return `${acc}\n.merge(${it})`
+    })
+  }
+
   protected intersect(schemas: string[]): string {
     const definedSchemas = schemas.filter(isDefined)
 
