@@ -12,10 +12,7 @@ describe.each(testVersions)(
         "components/schemas/SimpleObject",
       )
 
-      expect(type).toMatchInlineSnapshot(`
-      "const x: t_SimpleObject
-      "
-    `)
+      expect(type).toMatchInlineSnapshot('"const x: t_SimpleObject"')
 
       expect(schemas).toMatchInlineSnapshot(`
       "export type t_SimpleObject = {
@@ -40,10 +37,7 @@ describe.each(testVersions)(
         "components/schemas/ObjectWithRefs",
       )
 
-      expect(type).toMatchInlineSnapshot(`
-      "const x: t_ObjectWithRefs
-      "
-    `)
+      expect(type).toMatchInlineSnapshot('"const x: t_ObjectWithRefs"')
 
       expect(schemas).toMatchInlineSnapshot(`
       "export type t_ObjectWithRefs = {
@@ -73,10 +67,7 @@ describe.each(testVersions)(
         "components/schemas/NamedNullableStringEnum",
       )
 
-      expect(type).toMatchInlineSnapshot(`
-      "const x: t_NamedNullableStringEnum
-      "
-    `)
+      expect(type).toMatchInlineSnapshot('"const x: t_NamedNullableStringEnum"')
 
       expect(schemas).toMatchInlineSnapshot(`
       "export type t_NamedNullableStringEnum = "" | "one" | "two" | "three" | null
@@ -94,10 +85,7 @@ describe.each(testVersions)(
         "components/schemas/OneOf",
       )
 
-      expect(type).toMatchInlineSnapshot(`
-      "const x: t_OneOf
-      "
-    `)
+      expect(type).toMatchInlineSnapshot('"const x: t_OneOf"')
 
       expect(schemas).toMatchInlineSnapshot(`
       "export type t_OneOf =
@@ -120,10 +108,7 @@ describe.each(testVersions)(
         "components/schemas/AnyOf",
       )
 
-      expect(type).toMatchInlineSnapshot(`
-      "const x: t_AnyOf
-      "
-    `)
+      expect(type).toMatchInlineSnapshot('"const x: t_AnyOf"')
 
       expect(schemas).toMatchInlineSnapshot(`
       "export type t_AnyOf = number | string
@@ -141,10 +126,7 @@ describe.each(testVersions)(
         "components/schemas/AllOf",
       )
 
-      expect(type).toMatchInlineSnapshot(`
-      "const x: t_AllOf
-      "
-    `)
+      expect(type).toMatchInlineSnapshot('"const x: t_AllOf"')
 
       expect(schemas).toMatchInlineSnapshot(`
       "export type t_AllOf = t_Base & {
@@ -169,10 +151,9 @@ describe.each(testVersions)(
         "components/schemas/AdditionalPropertiesBool",
       )
 
-      expect(type).toMatchInlineSnapshot(`
-      "const x: t_AdditionalPropertiesBool
-      "
-    `)
+      expect(type).toMatchInlineSnapshot(
+        '"const x: t_AdditionalPropertiesBool"',
+      )
 
       expect(schemas).toMatchInlineSnapshot(`
       "export type t_AdditionalPropertiesBool = {
@@ -192,10 +173,9 @@ describe.each(testVersions)(
         "components/schemas/AdditionalPropertiesUnknownEmptySchema",
       )
 
-      expect(type).toMatchInlineSnapshot(`
-      "const x: t_AdditionalPropertiesUnknownEmptySchema
-      "
-    `)
+      expect(type).toMatchInlineSnapshot(
+        '"const x: t_AdditionalPropertiesUnknownEmptySchema"',
+      )
 
       expect(schemas).toMatchInlineSnapshot(`
       "export type t_AdditionalPropertiesUnknownEmptySchema = {
@@ -215,10 +195,9 @@ describe.each(testVersions)(
         "components/schemas/AdditionalPropertiesUnknownEmptyObjectSchema",
       )
 
-      expect(type).toMatchInlineSnapshot(`
-      "const x: t_AdditionalPropertiesUnknownEmptyObjectSchema
-      "
-    `)
+      expect(type).toMatchInlineSnapshot(
+        '"const x: t_AdditionalPropertiesUnknownEmptyObjectSchema"',
+      )
 
       expect(schemas).toMatchInlineSnapshot(`
       "export type t_AdditionalPropertiesUnknownEmptyObjectSchema = {
@@ -242,10 +221,7 @@ describe.each(testVersions)(
         "components/schemas/Recursive",
       )
 
-      expect(type).toMatchInlineSnapshot(`
-      "const x: t_Recursive
-      "
-    `)
+      expect(type).toMatchInlineSnapshot('"const x: t_Recursive"')
 
       expect(schemas).toMatchInlineSnapshot(`
       "export type t_Recursive = {
@@ -265,10 +241,9 @@ describe.each(testVersions)(
         "components/schemas/AdditionalPropertiesSchema",
       )
 
-      expect(type).toMatchInlineSnapshot(`
-      "const x: t_AdditionalPropertiesSchema
-      "
-    `)
+      expect(type).toMatchInlineSnapshot(
+        '"const x: t_AdditionalPropertiesSchema"',
+      )
 
       expect(schemas).toMatchInlineSnapshot(`
       "export type t_AdditionalPropertiesSchema = {
@@ -291,10 +266,9 @@ describe.each(testVersions)(
         "components/schemas/AdditionalPropertiesMixed",
       )
 
-      expect(type).toMatchInlineSnapshot(`
-      "const x: t_AdditionalPropertiesMixed
-      "
-    `)
+      expect(type).toMatchInlineSnapshot(
+        '"const x: t_AdditionalPropertiesMixed"',
+      )
 
       expect(schemas).toMatchInlineSnapshot(`
       "export type t_AdditionalPropertiesMixed = {
