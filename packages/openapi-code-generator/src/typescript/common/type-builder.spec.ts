@@ -324,7 +324,7 @@ describe.each(testVersions)(
       const type = builder.schemaObjectToType(schema)
 
       return {
-        type: await formatOutput(`const x: ${type}`),
+        type: await formatOutput(`const x: ${type}`, "unit-test.ts"),
         schemas: await formatOutput(builder.toString(), "unit-test.ts"),
         imports: await formatOutput(imports.toString(), "unit-test.ts"),
       }
