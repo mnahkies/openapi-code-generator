@@ -29,7 +29,7 @@
     "ci-build": "lerna run build --stream",
     "ci-test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",
     "ci-lint": "eslint . --cache --report-unused-disable-directives",
-    "ci-format": "biome ci ." ,
+    "ci-format": "biome ci .",
     "ci-pipeline": "./scripts/ci-pipeline.sh",
     "publish:alpha": "./scripts/publish.alpha.sh",
     "publish:release": "./scripts/publish.release.sh"
@@ -60,7 +60,7 @@
   "lint-staged": {
     "*.{ts,js,tsx,jsx}": [
       "yarn lint",
-      "yarn biome format --write"
+      "yarn biome format --write --no-errors-on-unmatched"
     ],
     "*.md": [
       "sh -c 'yarn docs:generate'"

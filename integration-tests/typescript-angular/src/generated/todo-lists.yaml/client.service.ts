@@ -172,7 +172,9 @@ export class ApiClient {
     )
   }
 
-  getTodoListItems(p: { listId: string }): Observable<
+  getTodoListItems(p: {
+    listId: string
+  }): Observable<
     | (HttpResponse<{
         completedAt?: string
         content: string

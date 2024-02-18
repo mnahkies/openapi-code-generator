@@ -606,7 +606,9 @@ export class ApiClient {
     })
   }
 
-  appsCreateFromManifest(p: { code: string }): Observable<
+  appsCreateFromManifest(p: {
+    code: string
+  }): Observable<
     | (HttpResponse<
         t_integration & {
           client_id: string
@@ -715,7 +717,9 @@ export class ApiClient {
     )
   }
 
-  appsRedeliverWebhookDelivery(p: { deliveryId: number }): Observable<
+  appsRedeliverWebhookDelivery(p: {
+    deliveryId: number
+  }): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
       }> & { status: 202 })
@@ -1477,7 +1481,9 @@ export class ApiClient {
     )
   }
 
-  gistsGet(p: { gistId: string }): Observable<
+  gistsGet(p: {
+    gistId: string
+  }): Observable<
     | (HttpResponse<t_gist_simple> & { status: 200 })
     | (HttpResponse<void> & { status: 304 })
     | (HttpResponse<{
@@ -1609,7 +1615,10 @@ export class ApiClient {
     )
   }
 
-  gistsGetComment(p: { gistId: string; commentId: number }): Observable<
+  gistsGetComment(p: {
+    gistId: string
+    commentId: number
+  }): Observable<
     | (HttpResponse<t_gist_comment> & { status: 200 })
     | (HttpResponse<void> & { status: 304 })
     | (HttpResponse<{
@@ -2544,7 +2553,9 @@ export class ApiClient {
     )
   }
 
-  orgsDelete(p: { org: string }): Observable<
+  orgsDelete(p: {
+    org: string
+  }): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
       }> & { status: 202 })
@@ -7442,7 +7453,9 @@ export class ApiClient {
     )
   }
 
-  projectsDeleteCard(p: { cardId: number }): Observable<
+  projectsDeleteCard(p: {
+    cardId: number
+  }): Observable<
     | (HttpResponse<void> & { status: 204 })
     | (HttpResponse<void> & { status: 304 })
     | (HttpResponse<t_basic_error> & { status: 401 })
@@ -7735,7 +7748,9 @@ export class ApiClient {
     )
   }
 
-  projectsDelete(p: { projectId: number }): Observable<
+  projectsDelete(p: {
+    projectId: number
+  }): Observable<
     | (HttpResponse<void> & { status: 204 })
     | (HttpResponse<void> & { status: 304 })
     | (HttpResponse<t_basic_error> & { status: 401 })
@@ -8020,7 +8035,10 @@ export class ApiClient {
     )
   }
 
-  reposDelete(p: { owner: string; repo: string }): Observable<
+  reposDelete(p: {
+    owner: string
+    repo: string
+  }): Observable<
     | (HttpResponse<void> & { status: 204 })
     | (HttpResponse<t_basic_error> & { status: 307 })
     | (HttpResponse<{
@@ -11515,7 +11533,10 @@ export class ApiClient {
     )
   }
 
-  codeScanningGetDefaultSetup(p: { owner: string; repo: string }): Observable<
+  codeScanningGetDefaultSetup(p: {
+    owner: string
+    repo: string
+  }): Observable<
     | (HttpResponse<t_code_scanning_default_setup> & { status: 200 })
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
@@ -16765,7 +16786,11 @@ export class ApiClient {
     )
   }
 
-  pullsGet(p: { owner: string; repo: string; pullNumber: number }): Observable<
+  pullsGet(p: {
+    owner: string
+    repo: string
+    pullNumber: number
+  }): Observable<
     | (HttpResponse<t_pull_request> & { status: 200 })
     | (HttpResponse<void> & { status: 304 })
     | (HttpResponse<t_basic_error> & { status: 404 })
@@ -18380,7 +18405,10 @@ export class ApiClient {
     )
   }
 
-  reposGetCodeFrequencyStats(p: { owner: string; repo: string }): Observable<
+  reposGetCodeFrequencyStats(p: {
+    owner: string
+    repo: string
+  }): Observable<
     | (HttpResponse<t_code_frequency_stat[]> & { status: 200 })
     | (HttpResponse<{
         [key: string]: unknown | undefined
@@ -18399,7 +18427,10 @@ export class ApiClient {
     )
   }
 
-  reposGetCommitActivityStats(p: { owner: string; repo: string }): Observable<
+  reposGetCommitActivityStats(p: {
+    owner: string
+    repo: string
+  }): Observable<
     | (HttpResponse<t_commit_activity[]> & { status: 200 })
     | (HttpResponse<{
         [key: string]: unknown | undefined
@@ -18418,7 +18449,10 @@ export class ApiClient {
     )
   }
 
-  reposGetContributorsStats(p: { owner: string; repo: string }): Observable<
+  reposGetContributorsStats(p: {
+    owner: string
+    repo: string
+  }): Observable<
     | (HttpResponse<t_contributor_activity[]> & { status: 200 })
     | (HttpResponse<{
         [key: string]: unknown | undefined
@@ -19447,7 +19481,11 @@ export class ApiClient {
     )
   }
 
-  searchTopics(p: { q: string; perPage?: number; page?: number }): Observable<
+  searchTopics(p: {
+    q: string
+    perPage?: number
+    page?: number
+  }): Observable<
     | (HttpResponse<{
         incomplete_results: boolean
         items: t_topic_search_result_item[]
