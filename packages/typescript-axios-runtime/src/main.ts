@@ -75,9 +75,9 @@ export abstract class AbstractAxiosClient {
       return ""
     }
 
-    return (
-      "?" + qs.stringify(Object.fromEntries(definedParams), {indices: false})
-    )
+    return `?${qs.stringify(Object.fromEntries(definedParams), {
+      indices: false,
+    })}`
   }
 
   protected _headers(headers: HeaderParams): Record<string, string> {

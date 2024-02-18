@@ -176,7 +176,10 @@ export class ClientOperationBuilder {
 
     if (!responses) {
       return [
-        {status: "number", definition: {$ref: generationLib.UnknownObject$Ref}},
+        {
+          status: "number",
+          definition: {$ref: generationLib.UnknownObject$Ref},
+        },
       ]
     }
 

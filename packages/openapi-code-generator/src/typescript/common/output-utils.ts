@@ -1,6 +1,6 @@
 import fs from "fs"
 import path from "path"
-import prettier from "prettier"
+import {Biome, Distribution} from "@biomejs/js-api"
 import {logger} from "../../core/logger"
 
 export type CompilationUnit = {filename: string; toString: () => string}
@@ -38,7 +38,7 @@ export async function emitGenerationResult(
   logger.time("format output")
 
   for (const output of outputs) {
-    output.data = await formatOutput(output.data)
+    output.data = await formatOutput(output.data, output.filename)
   }
 
   logger.time("write output")
@@ -48,15 +48,42 @@ export async function emitGenerationResult(
   }
 }
 
-export async function formatOutput(raw: string): Promise<string> {
+export async function formatOutput(
+  raw: string,
+  filename: string,
+): Promise<string> {
   try {
-    return prettier.format(raw, {
-      semi: false,
-      arrowParens: "always",
-      parser: "typescript",
+    const biome = await Biome.create({
+      distribution: Distribution.NODE,
     })
+
+    biome.applyConfiguration({
+      organizeImports: {
+        enabled: true,
+      },
+      files: {
+        maxSize: 5 * 1024 * 1024,
+      },
+      formatter: {
+        enabled: true,
+        indentWidth: 2,
+        indentStyle: "space",
+      },
+      javascript: {
+        formatter: {
+          bracketSpacing: true,
+          semicolons: "asNeeded",
+        },
+      },
+    })
+
+    const formatted = biome.formatContent(raw, {
+      filePath: filename,
+    })
+
+    return formatted.content
   } catch (err) {
-    logger.error("failed to prettier", {err})
+    logger.error("failed to format", {err})
     return raw
   }
 }

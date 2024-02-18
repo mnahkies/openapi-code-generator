@@ -8,6 +8,9 @@
   "organizeImports": {
     "enabled": true
   },
+  "files": {
+    "ignore": ["integration-tests/**/*"]
+  },
   "formatter": {
     "indentWidth": 2,
     "indentStyle": "space"
@@ -18,8 +21,13 @@
       "semicolons": "asNeeded"
     }
   },
+  "json": {
+    "parser": {
+      "allowComments": true
+    }
+  },
   "linter": {
-    "enabled": true,
+    "enabled": false,
     "rules": {
       "recommended": true
     }

@@ -21,7 +21,7 @@
     "docs:generate": "./scripts/generate-docs.sh",
     "refresh": "./scripts/refresh-data.sh",
     "lint": "eslint . --cache --report-unused-disable-directives --fix",
-    "format": "biome check --apply .",
+    "format": "biome format --write .",
     "build": "lerna run build --scope '@nahkies/*'",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "integration:generate": "./scripts/generate.all.sh",
@@ -29,7 +29,7 @@
     "ci-build": "lerna run build --stream",
     "ci-test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",
     "ci-lint": "eslint . --cache --report-unused-disable-directives",
-    "ci-format": "prettier --list-different .",
+    "ci-format": "biome ci ." ,
     "ci-pipeline": "./scripts/ci-pipeline.sh",
     "publish:alpha": "./scripts/publish.alpha.sh",
     "publish:release": "./scripts/publish.release.sh"
@@ -50,7 +50,6 @@
     "lerna": "^8.1.2",
     "lint-staged": "^15.2.2",
     "markdown-toc": "^1.2.0",
-    "prettier": "^3.2.5",
     "source-map-support": "^0.5.21",
     "typescript": "~5.3.3"
   },
@@ -61,11 +60,10 @@
   "lint-staged": {
     "*.{ts,js,tsx,jsx}": [
       "yarn lint",
-      "yarn prettier --write"
+      "yarn biome format --write"
     ],
     "*.md": [
-      "sh -c 'yarn docs:generate'",
-      "yarn prettier --write"
+      "sh -c 'yarn docs:generate'"
     ]
   },
   "engines": {

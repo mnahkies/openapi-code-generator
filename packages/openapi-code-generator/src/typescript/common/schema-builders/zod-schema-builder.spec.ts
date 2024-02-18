@@ -289,8 +289,8 @@ describe.each(testVersions)(
       const model = builder.fromModel({$ref: `${file}#${path}`}, true)
 
       return {
-        model: await formatOutput(model),
-        schemas: await formatOutput(builder.toString()),
+        model: await formatOutput(model, "unit-test.ts"),
+        schemas: await formatOutput(builder.toString(), "unit-test.ts"),
       }
     }
   },
