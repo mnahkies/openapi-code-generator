@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.5.0...v0.6.0) (2024-02-19)
+
+
+### Features
+
+* support response validation for joi ([#127](https://github.com/mnahkies/openapi-code-generator/issues/127)) ([30f22a8](https://github.com/mnahkies/openapi-code-generator/commit/30f22a87b6465d251e1154216f708ea4fb9d5dc3)), closes [#112](https://github.com/mnahkies/openapi-code-generator/issues/112)
+
+
+
+
+
 # [0.5.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.4.0...v0.5.0) (2024-02-10)
 
 
