@@ -1,3 +1,4 @@
+import {CompilerOptions} from "../../core/file-loader"
 import {Input} from "../../core/input"
 import {logger} from "../../core/logger"
 import {Reference} from "../../core/openapi-types"
@@ -14,7 +15,6 @@ import {
   union,
 } from "./type-utils"
 import {buildExport} from "./typescript-common"
-import {CompilerOptions} from "../../core/file-loader"
 
 const staticTypes = {
   EmptyObject: "export type EmptyObject = { [key: string]: never }",

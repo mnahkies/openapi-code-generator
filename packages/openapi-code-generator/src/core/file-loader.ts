@@ -1,9 +1,9 @@
 import fs from "fs"
 import path from "path"
 import yaml from "js-yaml"
-import {logger} from "./logger"
-import ts from "typescript"
 import json5 from "json5"
+import ts from "typescript"
+import {logger} from "./logger"
 import {
   TsCompilerOptions,
   TsConfig,

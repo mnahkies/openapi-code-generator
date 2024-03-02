@@ -21,7 +21,7 @@
     "docs:generate": "./scripts/generate-docs.sh",
     "refresh": "./scripts/refresh-data.sh",
     "lint": "eslint . --cache --report-unused-disable-directives --fix",
-    "format": "biome format --write .",
+    "format": "biome check --apply .",
     "build": "lerna run build --scope '@nahkies/*'",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "integration:generate": "./scripts/generate.all.sh",
@@ -61,7 +61,7 @@
   "lint-staged": {
     "*.{ts,js,tsx,jsx}": [
       "yarn lint",
-      "yarn biome format --write --no-errors-on-unmatched"
+      "yarn biome check --apply --no-errors-on-unmatched"
     ],
     "*.md": [
       "sh -c 'yarn docs:generate'"
