@@ -60,7 +60,7 @@
   ],
   "lint-staged": {
     "*.{ts,js,tsx,jsx}": [
-      "yarn lint",
+      "eslint --cache --report-unused-disable-directives --fix",
       "yarn biome check --apply --no-errors-on-unmatched"
     ],
     "*.md": [
