@@ -1,6 +1,10 @@
+import path from "node:path"
+
 export class ImportBuilder {
   private readonly imports: Record<string, Set<string>> = {}
   private readonly importAll: Record<string, string> = {}
+
+  constructor(private readonly unit?: {filename: string}) {}
 
   from(from: string) {
     return {
@@ -37,8 +41,22 @@ export class ImportBuilder {
 
   private normalizeFrom(from: string) {
     if (from.endsWith(".ts")) {
-      return from.substr(0, from.length - ".ts".length)
+      from = from.substring(0, from.length - ".ts".length)
     }
+
+    if (this.unit && from.startsWith("./")) {
+      const unitDirname = path.dirname(this.unit.filename)
+      const fromDirname = path.dirname(from)
+
+      const relative = path.relative(unitDirname, fromDirname)
+
+      from = path.join(relative, path.basename(from))
+
+      if (!from.startsWith("../") && !from.startsWith("./")) {
+        from = "./" + from
+      }
+    }
+
     return from
   }
 
