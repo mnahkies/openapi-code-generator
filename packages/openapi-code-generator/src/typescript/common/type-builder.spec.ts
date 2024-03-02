@@ -38,10 +38,7 @@ describe.each(testVersions)(
         {exactOptionalPropertyTypes: true},
       )
 
-      expect(type).toMatchInlineSnapshot(`
-      "const x: t_OptionalProperties
-      "
-    `)
+      expect(type).toMatchInlineSnapshot('"const x: t_OptionalProperties"')
 
       expect(schemas).toMatchInlineSnapshot(`
       "export type t_OptionalProperties = {
