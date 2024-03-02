@@ -48,7 +48,7 @@ function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
   )
 }
 
-export class ServerBuilder {
+export class ServerRouterBuilder {
   private readonly statements: string[] = []
   private readonly operationTypes: {
     operationId: string
@@ -317,7 +317,6 @@ export class ServerBuilder {
   }
 
   toString(): string {
-    const clientName = this.name
     const routes = this.statements
     const imports = this.imports
 
@@ -345,15 +344,54 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   return router
 }
-
-export async function bootstrap(config: ServerConfig) {
-  // ${clientName}
-  return startServer(config)
-}
 `
     return `
     ${imports.toString(this.config.allowUnusedImports ? "" : code)}
 
+    ${code}
+    `
+  }
+}
+
+export class ServerBuilder {
+  constructor(
+    public readonly filename: string,
+    private readonly name: string,
+    private readonly input: Input,
+    private readonly imports: ImportBuilder = new ImportBuilder(),
+    private readonly config: {allowUnusedImports: boolean} = {
+      allowUnusedImports: false,
+    },
+  ) {
+    // todo: unsure why, but adding an export at `.` of index.ts doesn't work properly
+    this.imports
+      .from("@nahkies/typescript-koa-runtime/server")
+      .add(
+        "startServer",
+        "ServerConfig",
+        "Response",
+        "KoaRuntimeResponse",
+        "KoaRuntimeResponder",
+        "StatusCode2xx",
+        "StatusCode3xx",
+        "StatusCode4xx",
+        "StatusCode5xx",
+        "StatusCode",
+      )
+  }
+
+  toString(): string {
+    const {name, imports, config} = this
+
+    const code = `
+      export async function bootstrap(config: ServerConfig) {
+        // ${name}
+        return startServer(config)
+      }
+    `
+
+    return `
+    ${imports.toString(config.allowUnusedImports ? "" : code)}
     ${code}
     `
   }
@@ -384,21 +422,41 @@ export async function generateTypescriptKoa(
   )
 
   const server = new ServerBuilder(
-    "generated.ts",
-    "ApiClient",
+    "index.ts",
+    input.name(),
     input,
-    imports,
-    types,
-    schemaBuilder,
+    new ImportBuilder(),
     {allowUnusedImports: config.allowUnusedImports},
-    loadExistingImplementations(
-      await loadPreviousResult(config.dest, {filename: "index.ts"}),
-    ),
   )
 
-  input.allOperations().map((it) => server.add(it))
+  const routers = await Promise.all(
+    input.getGroupedOperations("all").map(async (group) => {
+      const filename = `${group.name}.ts`
+      const routerBuilder = new ServerRouterBuilder(
+        filename,
+        group.name,
+        input,
+        imports,
+        types,
+        schemaBuilder,
+        {allowUnusedImports: config.allowUnusedImports},
+        loadExistingImplementations(
+          await loadPreviousResult(config.dest, {filename}),
+        ),
+      )
 
-  await emitGenerationResult(config.dest, [types, server, schemaBuilder])
+      group.operations.forEach((it) => routerBuilder.add(it))
+
+      return routerBuilder
+    }),
+  )
+
+  await emitGenerationResult(config.dest, [
+    server,
+    types,
+    schemaBuilder,
+    ...routers,
+  ])
 }
 
 const regionBoundary = /.+safe-edit-region-(.+)/

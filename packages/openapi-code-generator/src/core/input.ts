@@ -34,6 +34,10 @@ export class Input {
     readonly config: {extractInlineSchemas: boolean},
   ) {}
 
+  name() {
+    return this.loader.entryPoint.info.title
+  }
+
   allSchemas(): Record<string, IRModel> {
     const schemas = this.loader.entryPoint.components?.schemas ?? {}
     return Object.fromEntries(
@@ -41,6 +45,18 @@ export class Input {
         return [name, this.schema(normalizeSchemaObject(maybeSchema))]
       }),
     )
+  }
+
+  getGroupedOperations(
+    strategy: "all" = "all",
+  ): {name: string; operations: IROperation[]}[] {
+    switch (strategy) {
+      case "all": {
+        return [{name: "all", operations: this.allOperations()}]
+      }
+      default:
+        throw new Error(`unsupported grouping strategy '${strategy}'`)
+    }
   }
 
   allOperations(): IROperation[] {
