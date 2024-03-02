@@ -8,6 +8,7 @@ export interface OpenapiGeneratorConfig {
   schemaBuilder: SchemaBuilderType
   enableRuntimeResponseValidation: boolean
   compilerOptions: CompilerOptions
+  allowUnusedImports: boolean
 }
 
 export interface OpenapiGenerator {

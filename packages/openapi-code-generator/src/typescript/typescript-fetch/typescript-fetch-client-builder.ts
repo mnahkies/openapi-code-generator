@@ -21,7 +21,7 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
         "StatusCode",
       )
 
-    if (this.enableRuntimeResponseValidation) {
+    if (this.config.enableRuntimeResponseValidation) {
       if (this.schemaBuilder instanceof ZodBuilder) {
         imports
           .from("@nahkies/typescript-fetch-runtime/zod")
@@ -50,7 +50,7 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
       })
       .join(" | ")
 
-    const responseSchemas = this.enableRuntimeResponseValidation
+    const responseSchemas = this.config.enableRuntimeResponseValidation
       ? builder.responseSchemas()
       : null
 

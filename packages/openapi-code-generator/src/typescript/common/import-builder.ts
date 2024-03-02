@@ -42,7 +42,24 @@ export class ImportBuilder {
     return from
   }
 
-  toString(): string {
+  toString(code: string = ""): string {
+    // HACK: eliminate unused imports by crudely tokenizing the code
+    //       and checking for instances of each import.
+    //       it would be better to track usages properly during generation
+    const tokens = new Set(
+      code
+        .split(/(?![."'])\W/)
+        .filter(Boolean)
+        .reduce((acc, it) => {
+          const [first] = it.split(".")
+          if (first) {
+            acc.push(first)
+          }
+          return acc
+        }, [] as string[]),
+    )
+    const hasImport = (it: string) => !code || tokens.has(it)
+
     return Array.from(
       new Set([
         ...Object.keys(this.imports),
@@ -53,15 +70,21 @@ export class ImportBuilder {
       .map((from) => {
         const individualImports = Array.from(this.imports[from]!.values())
           .sort()
+          .filter(hasImport)
           .join(", ")
 
-        return `import ${[
-          this.importAll[from] ?? "",
+        const importAll = this.importAll[from]
+
+        const imports = [
+          importAll && hasImport(importAll) ? importAll : "",
           individualImports.length > 0 ? `{${individualImports}}` : "",
         ]
-          .filter((it) => it.length)
-          .join(", ")} from '${from}'`
+          .filter(Boolean)
+          .join(", ")
+
+        return imports ? `import ${imports} from '${from}'` : ""
       })
+      .filter(Boolean)
       .join("\n")
   }
 }

@@ -27,7 +27,10 @@ export async function generateTypescriptAxios(
     imports,
     types,
     schemaBuilder,
-    config.enableRuntimeResponseValidation,
+    {
+      enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
+      allowUnusedImports: config.allowUnusedImports,
+    },
   )
 
   input.allOperations().map((it) => client.add(it))

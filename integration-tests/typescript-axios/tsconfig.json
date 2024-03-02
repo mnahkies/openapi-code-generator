@@ -5,6 +5,8 @@
     "rootDir": "./src",
     // TODO: currently @types/node doesn't include global fetch types
     "lib": ["es2022", "dom"],
-    "types": ["@types/node"]
+    "types": ["@types/node"],
+    "noUnusedLocals": true
+
   }
 }
