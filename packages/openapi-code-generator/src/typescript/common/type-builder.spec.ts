@@ -32,6 +32,30 @@ describe.each(testVersions)(
     `)
     })
 
+    it("can build an optional property compatible with 'exactOptionalPropertyTypes'", async () => {
+      const {type, schemas, imports} = await getActual(
+        "components/schemas/OptionalProperties",
+        {exactOptionalPropertyTypes: true},
+      )
+
+      expect(type).toMatchInlineSnapshot(`
+      "const x: t_OptionalProperties
+      "
+    `)
+
+      expect(schemas).toMatchInlineSnapshot(`
+      "export type t_OptionalProperties = {
+        optional_str?: string | undefined
+      }
+      "
+    `)
+
+      expect(imports).toMatchInlineSnapshot(`
+      "import { t_OptionalProperties } from "models"
+      "
+    `)
+    })
+
     it("can build a type for an object that references other objects correctly", async () => {
       const {type, schemas, imports} = await getActual(
         "components/schemas/ObjectWithRefs",
@@ -285,15 +309,20 @@ describe.each(testVersions)(
     `)
     })
 
-    async function getActual(path: string) {
+    async function getActual(
+      path: string,
+      compilerOptions = {exactOptionalPropertyTypes: false},
+    ) {
       const {input, file} = await unitTestInput(version)
       const schema = {$ref: `${file}#/${path}`}
 
       const imports = new ImportBuilder()
 
-      const builder = TypeBuilder.fromInput("models.ts", input).withImports(
-        imports,
-      )
+      const builder = TypeBuilder.fromInput(
+        "models.ts",
+        input,
+        compilerOptions,
+      ).withImports(imports)
 
       const type = builder.schemaObjectToType(schema)
 

@@ -8,7 +8,7 @@ import axios from "axios"
 
 const client = new ApiClient({
   axios: axios.create({
-    headers: {Authorization: `Bearer ${process.env.GITHUB_TOKEN}`},
+    headers: {Authorization: `Bearer ${process.env["GITHUB_TOKEN"]}`},
   }),
   basePath: "https://api.github.com",
   defaultTimeout: 5_000,

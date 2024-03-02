@@ -52,7 +52,9 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
       `method: "${method}"`,
       headers ? "headers" : "",
       requestBodyParameter ? "data: body" : "",
-      "timeout",
+      // ensure compatibility with `exactOptionalPropertyTypes` compiler option
+      // https://www.typescriptlang.org/tsconfig#exactOptionalPropertyTypes
+      "...(timeout ? {timeout} : {})",
       "...(opts ?? {})",
     ]
       .filter(Boolean)

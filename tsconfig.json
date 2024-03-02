@@ -5,6 +5,8 @@
     "sourceMap": true,
     "importHelpers": true,
     "resolveJsonModule": true,
+    // prefer eslint rule
+    "noUnusedLocals": false,
     "moduleResolution": "Node16",
     "paths": {
       "@nahkies/*": [

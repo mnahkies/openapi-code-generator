@@ -2927,6 +2927,7 @@ __metadata:
     ajv-formats: "npm:^2.1.1"
     commander: "npm:^12.0.0"
     js-yaml: "npm:^4.1.0"
+    json5: "npm:^2.2.3"
     lodash: "npm:^4.17.21"
     source-map-support: "npm:^0.5.21"
     tslib: "npm:^2.6.2"

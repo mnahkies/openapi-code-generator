@@ -2,9 +2,12 @@
 
 import "source-map-support/register"
 
+import path from "path"
+
 import {Command, Option} from "@commander-js/extra-typings"
 import {Input} from "./core/input"
 import {logger} from "./core/logger"
+import {loadTsConfigCompilerOptions} from "./core/file-loader"
 import {OpenapiLoader} from "./core/openapi-loader"
 import {OpenapiValidator} from "./core/openapi-validator"
 import {templates} from "./templates"
@@ -65,9 +68,10 @@ const config = program.opts()
 async function main() {
   logger.time("program starting")
   logger.info(`running on input file '${config.input}'`)
-
   logger.time("load files")
-
+  const compilerOptions = loadTsConfigCompilerOptions(
+    path.join(process.cwd(), config.output),
+  )
   const validator = await OpenapiValidator.create()
 
   const loader = await OpenapiLoader.create(config.input, validator)
@@ -83,6 +87,7 @@ async function main() {
     dest: config.output,
     schemaBuilder: config.schemaBuilder,
     enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
+    compilerOptions,
   })
 }
 
