@@ -1,3 +1,4 @@
+import path from "path"
 import _ from "lodash"
 import {Input} from "../../core/input"
 import {
@@ -409,12 +410,20 @@ export async function generateTypescriptKoa(
   config: OpenapiGeneratorConfig,
 ): Promise<void> {
   const input = config.input
-  const imports = new ImportBuilder()
+
+  const routesDirectory = "./"
+
+  // TODO: `ImportBuilder` per `RouteBuilder`
+  const imports = new ImportBuilder({
+    filename: path.join(routesDirectory, "./example.ts"),
+  })
+
   const types = TypeBuilder.fromInput(
     "./models.ts",
     input,
     config.compilerOptions,
   ).withImports(imports)
+
   const schemaBuilder = schemaBuilderFactory(
     config.schemaBuilder,
     input,
@@ -430,8 +439,9 @@ export async function generateTypescriptKoa(
   )
 
   const routers = await Promise.all(
-    input.getGroupedOperations("all").map(async (group) => {
-      const filename = `${group.name}.ts`
+    input.groupedOperations("all").map(async (group) => {
+      const filename = path.join(routesDirectory, `${group.name}.ts`)
+
       const routerBuilder = new ServerRouterBuilder(
         filename,
         group.name,

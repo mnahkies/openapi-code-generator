@@ -54,7 +54,7 @@ export class Input {
   ): OperationGroup[] {
     switch (strategy) {
       case "all": {
-        return [{name: "all", operations: this.allOperations()}]
+        return [{name: "generated", operations: this.allOperations()}]
       }
       case "first-tag":
         return this.operationsByFirstTag()

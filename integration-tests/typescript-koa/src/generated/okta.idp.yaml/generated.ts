@@ -56,9 +56,7 @@ import {
   KoaRuntimeResponder,
   KoaRuntimeResponse,
   Response,
-  ServerConfig,
   StatusCode,
-  startServer,
 } from "@nahkies/typescript-koa-runtime/server"
 import {
   Params,
@@ -1955,9 +1953,4 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   return router
-}
-
-export async function bootstrap(config: ServerConfig) {
-  // ApiClient
-  return startServer(config)
 }
