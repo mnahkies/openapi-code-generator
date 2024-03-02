@@ -3,15 +3,9 @@
 /* eslint-disable */
 
 import { t_Error, t_NewPet, t_Pet } from "./models"
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpParams,
-  HttpResponse,
-} from "@angular/common/http"
+import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
-import { z } from "zod"
 
 export class ApiClientConfig {
   basePath: string = ""

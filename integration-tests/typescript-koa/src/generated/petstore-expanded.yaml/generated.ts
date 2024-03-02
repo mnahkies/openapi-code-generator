@@ -8,7 +8,6 @@ import {
   t_Error,
   t_FindPetByIdParamSchema,
   t_FindPetsQuerySchema,
-  t_NewPet,
   t_Pet,
 } from "./models"
 import { s_Error, s_NewPet, s_Pet } from "./schemas"
@@ -23,10 +22,6 @@ import {
   Response,
   ServerConfig,
   StatusCode,
-  StatusCode2xx,
-  StatusCode3xx,
-  StatusCode4xx,
-  StatusCode5xx,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
 import {
@@ -34,7 +29,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import koaBody from "koa-body"
 import { z } from "zod"
 
 //region safe-edit-region-header
@@ -170,7 +164,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         addPetBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }

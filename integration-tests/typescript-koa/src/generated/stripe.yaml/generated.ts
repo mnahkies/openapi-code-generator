@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 import {
-  EmptyObject,
   t_DeleteAccountsAccountBankAccountsIdBodySchema,
   t_DeleteAccountsAccountBankAccountsIdParamSchema,
   t_DeleteAccountsAccountBodySchema,
@@ -1008,132 +1007,30 @@ import {
   t_PostWebhookEndpointsWebhookEndpointBodySchema,
   t_PostWebhookEndpointsWebhookEndpointParamSchema,
   t_account,
-  t_account_bacs_debit_payments_settings,
-  t_account_branding_settings,
-  t_account_business_profile,
-  t_account_capabilities,
-  t_account_capability_future_requirements,
-  t_account_capability_requirements,
-  t_account_card_issuing_settings,
-  t_account_card_payments_settings,
-  t_account_dashboard_settings,
-  t_account_decline_charge_on,
-  t_account_future_requirements,
   t_account_link,
-  t_account_monthly_estimated_revenue,
-  t_account_payments_settings,
-  t_account_payout_settings,
-  t_account_requirements,
-  t_account_requirements_alternative,
-  t_account_requirements_error,
-  t_account_sepa_debit_payments_settings,
   t_account_session,
-  t_account_settings,
-  t_account_terms_of_service,
-  t_account_tos_acceptance,
-  t_account_treasury_settings,
-  t_account_unification_account_controller,
-  t_address,
-  t_api_errors,
   t_apple_pay_domain,
-  t_application,
   t_application_fee,
   t_apps_secret,
-  t_automatic_tax,
   t_balance,
-  t_balance_amount,
-  t_balance_amount_by_source_type,
-  t_balance_detail,
   t_balance_transaction,
   t_bank_account,
-  t_bank_connections_resource_accountholder,
-  t_bank_connections_resource_balance,
-  t_bank_connections_resource_balance_api_resource_cash_balance,
-  t_bank_connections_resource_balance_api_resource_credit_balance,
-  t_bank_connections_resource_balance_refresh,
-  t_bank_connections_resource_link_account_session_filters,
-  t_bank_connections_resource_ownership_refresh,
-  t_billing_details,
   t_billing_portal_configuration,
   t_billing_portal_session,
-  t_cancellation_details,
   t_capability,
   t_card,
-  t_card_generated_from_payment_method_details,
-  t_card_issuing_account_terms_of_service,
-  t_card_mandate_payment_method_details,
   t_cash_balance,
   t_charge,
-  t_charge_fraud_details,
-  t_charge_outcome,
-  t_charge_transfer_data,
-  t_checkout_acss_debit_mandate_options,
-  t_checkout_acss_debit_payment_method_options,
-  t_checkout_affirm_payment_method_options,
-  t_checkout_afterpay_clearpay_payment_method_options,
-  t_checkout_alipay_payment_method_options,
-  t_checkout_au_becs_debit_payment_method_options,
-  t_checkout_bacs_debit_payment_method_options,
-  t_checkout_bancontact_payment_method_options,
-  t_checkout_boleto_payment_method_options,
-  t_checkout_card_installments_options,
-  t_checkout_card_payment_method_options,
-  t_checkout_cashapp_payment_method_options,
-  t_checkout_customer_balance_bank_transfer_payment_method_options,
-  t_checkout_customer_balance_payment_method_options,
-  t_checkout_eps_payment_method_options,
-  t_checkout_fpx_payment_method_options,
-  t_checkout_giropay_payment_method_options,
-  t_checkout_grab_pay_payment_method_options,
-  t_checkout_ideal_payment_method_options,
-  t_checkout_klarna_payment_method_options,
-  t_checkout_konbini_payment_method_options,
-  t_checkout_link_payment_method_options,
-  t_checkout_oxxo_payment_method_options,
-  t_checkout_p24_payment_method_options,
-  t_checkout_paynow_payment_method_options,
-  t_checkout_pix_payment_method_options,
-  t_checkout_sepa_debit_payment_method_options,
   t_checkout_session,
-  t_checkout_session_payment_method_options,
-  t_checkout_sofort_payment_method_options,
-  t_checkout_us_bank_account_payment_method_options,
-  t_connect_collection_transfer,
-  t_connect_embedded_account_session_create_components,
-  t_connect_embedded_base_config_claim,
   t_country_spec,
-  t_country_spec_verification_field_details,
-  t_country_spec_verification_fields,
   t_coupon,
-  t_coupon_applies_to,
-  t_coupon_currency_option,
   t_credit_note,
   t_credit_note_line_item,
-  t_credit_note_tax_amount,
-  t_currency_option,
-  t_custom_unit_amount,
   t_customer,
-  t_customer_acceptance,
-  t_customer_balance_customer_balance_settings,
-  t_customer_balance_resource_cash_balance_transaction_resource_adjusted_for_overdraft,
-  t_customer_balance_resource_cash_balance_transaction_resource_applied_to_payment_transaction,
-  t_customer_balance_resource_cash_balance_transaction_resource_funded_transaction,
-  t_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer,
-  t_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_eu_bank_transfer,
-  t_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_gb_bank_transfer,
-  t_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_jp_bank_transfer,
-  t_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_us_bank_transfer,
-  t_customer_balance_resource_cash_balance_transaction_resource_refunded_from_payment_transaction,
-  t_customer_balance_resource_cash_balance_transaction_resource_unapplied_from_payment_transaction,
   t_customer_balance_transaction,
   t_customer_cash_balance_transaction,
-  t_customer_tax,
-  t_customer_tax_location,
   t_deleted_account,
   t_deleted_apple_pay_domain,
-  t_deleted_application,
-  t_deleted_bank_account,
-  t_deleted_card,
   t_deleted_coupon,
   t_deleted_customer,
   t_deleted_discount,
@@ -1143,7 +1040,6 @@ import {
   t_deleted_payment_source,
   t_deleted_person,
   t_deleted_plan,
-  t_deleted_price,
   t_deleted_product,
   t_deleted_radar_value_list,
   t_deleted_radar_value_list_item,
@@ -1155,812 +1051,121 @@ import {
   t_deleted_test_helpers_test_clock,
   t_deleted_webhook_endpoint,
   t_discount,
-  t_discounts_resource_discount_amount,
   t_dispute,
-  t_dispute_evidence,
-  t_dispute_evidence_details,
-  t_dispute_payment_method_details,
-  t_dispute_payment_method_details_card,
-  t_email_sent,
   t_ephemeral_key,
   t_error,
   t_event,
   t_exchange_rate,
   t_external_account,
-  t_external_account_requirements,
-  t_fee,
   t_fee_refund,
   t_file,
   t_file_link,
   t_financial_connections_account,
   t_financial_connections_account_owner,
-  t_financial_connections_account_ownership,
   t_financial_connections_session,
-  t_financial_reporting_finance_report_run_run_parameters,
   t_funding_instructions,
-  t_funding_instructions_bank_transfer,
-  t_funding_instructions_bank_transfer_financial_address,
-  t_funding_instructions_bank_transfer_iban_record,
-  t_funding_instructions_bank_transfer_sort_code_record,
-  t_funding_instructions_bank_transfer_spei_record,
-  t_funding_instructions_bank_transfer_zengin_record,
-  t_gelato_data_document_report_date_of_birth,
-  t_gelato_data_document_report_expiration_date,
-  t_gelato_data_document_report_issued_date,
-  t_gelato_data_id_number_report_date,
-  t_gelato_data_verified_outputs_date,
-  t_gelato_document_report,
-  t_gelato_document_report_error,
-  t_gelato_id_number_report,
-  t_gelato_id_number_report_error,
-  t_gelato_report_document_options,
-  t_gelato_report_id_number_options,
-  t_gelato_selfie_report,
-  t_gelato_selfie_report_error,
-  t_gelato_session_document_options,
-  t_gelato_session_id_number_options,
-  t_gelato_session_last_error,
-  t_gelato_verification_report_options,
-  t_gelato_verification_session_options,
-  t_gelato_verified_outputs,
   t_identity_verification_report,
   t_identity_verification_session,
-  t_inbound_transfers,
-  t_inbound_transfers_payment_method_details_us_bank_account,
   t_invoice,
-  t_invoice_installments_card,
-  t_invoice_item_threshold_reason,
-  t_invoice_line_item_period,
-  t_invoice_mandate_options_card,
-  t_invoice_payment_method_options_acss_debit,
-  t_invoice_payment_method_options_acss_debit_mandate_options,
-  t_invoice_payment_method_options_bancontact,
-  t_invoice_payment_method_options_card,
-  t_invoice_payment_method_options_customer_balance,
-  t_invoice_payment_method_options_customer_balance_bank_transfer,
-  t_invoice_payment_method_options_customer_balance_bank_transfer_eu_bank_transfer,
-  t_invoice_payment_method_options_konbini,
-  t_invoice_payment_method_options_us_bank_account,
-  t_invoice_payment_method_options_us_bank_account_linked_account_options,
-  t_invoice_rendering_pdf,
-  t_invoice_setting_custom_field,
-  t_invoice_setting_customer_setting,
-  t_invoice_setting_quote_setting,
-  t_invoice_setting_rendering_options,
-  t_invoice_setting_subscription_schedule_phase_setting,
-  t_invoice_setting_subscription_schedule_setting,
-  t_invoice_tax_amount,
-  t_invoice_threshold_reason,
-  t_invoice_transfer_data,
   t_invoiceitem,
-  t_invoices_from_invoice,
-  t_invoices_invoice_rendering,
-  t_invoices_payment_method_options,
-  t_invoices_payment_settings,
-  t_invoices_resource_invoice_tax_id,
-  t_invoices_resource_line_items_credited_items,
-  t_invoices_resource_line_items_proration_details,
-  t_invoices_shipping_cost,
-  t_invoices_status_transitions,
   t_issuing_authorization,
-  t_issuing_authorization_amount_details,
-  t_issuing_authorization_merchant_data,
-  t_issuing_authorization_network_data,
-  t_issuing_authorization_pending_request,
-  t_issuing_authorization_request,
-  t_issuing_authorization_treasury,
-  t_issuing_authorization_verification_data,
   t_issuing_card,
-  t_issuing_card_apple_pay,
-  t_issuing_card_authorization_controls,
-  t_issuing_card_google_pay,
-  t_issuing_card_shipping,
-  t_issuing_card_shipping_customs,
-  t_issuing_card_spending_limit,
-  t_issuing_card_wallets,
   t_issuing_cardholder,
-  t_issuing_cardholder_address,
-  t_issuing_cardholder_authorization_controls,
-  t_issuing_cardholder_card_issuing,
-  t_issuing_cardholder_company,
-  t_issuing_cardholder_id_document,
-  t_issuing_cardholder_individual,
-  t_issuing_cardholder_individual_dob,
-  t_issuing_cardholder_requirements,
-  t_issuing_cardholder_spending_limit,
-  t_issuing_cardholder_user_terms_acceptance,
-  t_issuing_cardholder_verification,
   t_issuing_dispute,
-  t_issuing_dispute_canceled_evidence,
-  t_issuing_dispute_duplicate_evidence,
-  t_issuing_dispute_evidence,
-  t_issuing_dispute_fraudulent_evidence,
-  t_issuing_dispute_merchandise_not_as_described_evidence,
-  t_issuing_dispute_not_received_evidence,
-  t_issuing_dispute_other_evidence,
-  t_issuing_dispute_service_not_as_described_evidence,
-  t_issuing_dispute_treasury,
   t_issuing_settlement,
   t_issuing_transaction,
-  t_issuing_transaction_amount_details,
-  t_issuing_transaction_flight_data,
-  t_issuing_transaction_flight_data_leg,
-  t_issuing_transaction_fuel_data,
-  t_issuing_transaction_lodging_data,
-  t_issuing_transaction_purchase_details,
-  t_issuing_transaction_receipt_data,
-  t_issuing_transaction_treasury,
   t_item,
-  t_legal_entity_company,
-  t_legal_entity_company_verification,
-  t_legal_entity_company_verification_document,
-  t_legal_entity_dob,
-  t_legal_entity_japan_address,
-  t_legal_entity_person_verification,
-  t_legal_entity_person_verification_document,
-  t_legal_entity_ubo_declaration,
   t_line_item,
-  t_line_items_discount_amount,
-  t_line_items_tax_amount,
-  t_linked_account_options_us_bank_account,
   t_login_link,
   t_mandate,
-  t_mandate_acss_debit,
-  t_mandate_au_becs_debit,
-  t_mandate_bacs_debit,
-  t_mandate_cashapp,
-  t_mandate_link,
-  t_mandate_multi_use,
-  t_mandate_payment_method_details,
-  t_mandate_paypal,
-  t_mandate_sepa_debit,
-  t_mandate_single_use,
-  t_mandate_us_bank_account,
-  t_networks,
-  t_notification_event_data,
-  t_notification_event_request,
-  t_offline_acceptance,
-  t_online_acceptance,
-  t_outbound_payments_payment_method_details,
-  t_outbound_payments_payment_method_details_financial_account,
-  t_outbound_payments_payment_method_details_us_bank_account,
-  t_outbound_transfers_payment_method_details,
-  t_outbound_transfers_payment_method_details_us_bank_account,
-  t_package_dimensions,
-  t_payment_flows_amount_details,
-  t_payment_flows_amount_details_resource_tip,
-  t_payment_flows_automatic_payment_methods_payment_intent,
-  t_payment_flows_automatic_payment_methods_setup_intent,
-  t_payment_flows_installment_options,
-  t_payment_flows_private_payment_methods_alipay,
-  t_payment_flows_private_payment_methods_alipay_details,
-  t_payment_flows_private_payment_methods_klarna_dob,
   t_payment_intent,
-  t_payment_intent_card_processing,
-  t_payment_intent_next_action,
-  t_payment_intent_next_action_alipay_handle_redirect,
-  t_payment_intent_next_action_boleto,
-  t_payment_intent_next_action_card_await_notification,
-  t_payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code,
-  t_payment_intent_next_action_cashapp_qr_code,
-  t_payment_intent_next_action_display_bank_transfer_instructions,
-  t_payment_intent_next_action_display_oxxo_details,
-  t_payment_intent_next_action_konbini,
-  t_payment_intent_next_action_konbini_familymart,
-  t_payment_intent_next_action_konbini_lawson,
-  t_payment_intent_next_action_konbini_ministop,
-  t_payment_intent_next_action_konbini_seicomart,
-  t_payment_intent_next_action_konbini_stores,
-  t_payment_intent_next_action_paynow_display_qr_code,
-  t_payment_intent_next_action_pix_display_qr_code,
-  t_payment_intent_next_action_promptpay_display_qr_code,
-  t_payment_intent_next_action_redirect_to_url,
-  t_payment_intent_next_action_verify_with_microdeposits,
-  t_payment_intent_next_action_wechat_pay_display_qr_code,
-  t_payment_intent_next_action_wechat_pay_redirect_to_android_app,
-  t_payment_intent_next_action_wechat_pay_redirect_to_ios_app,
-  t_payment_intent_payment_method_options,
-  t_payment_intent_payment_method_options_acss_debit,
-  t_payment_intent_payment_method_options_au_becs_debit,
-  t_payment_intent_payment_method_options_blik,
-  t_payment_intent_payment_method_options_card,
-  t_payment_intent_payment_method_options_eps,
-  t_payment_intent_payment_method_options_link,
-  t_payment_intent_payment_method_options_mandate_options_acss_debit,
-  t_payment_intent_payment_method_options_mandate_options_sepa_debit,
-  t_payment_intent_payment_method_options_sepa_debit,
-  t_payment_intent_payment_method_options_us_bank_account,
-  t_payment_intent_processing,
-  t_payment_intent_processing_customer_notification,
-  t_payment_intent_type_specific_payment_method_options_client,
   t_payment_link,
-  t_payment_links_resource_after_completion,
-  t_payment_links_resource_automatic_tax,
-  t_payment_links_resource_completion_behavior_confirmation_page,
-  t_payment_links_resource_completion_behavior_redirect,
-  t_payment_links_resource_consent_collection,
-  t_payment_links_resource_custom_fields,
-  t_payment_links_resource_custom_fields_dropdown,
-  t_payment_links_resource_custom_fields_dropdown_option,
-  t_payment_links_resource_custom_fields_label,
-  t_payment_links_resource_custom_fields_numeric,
-  t_payment_links_resource_custom_fields_text,
-  t_payment_links_resource_custom_text,
-  t_payment_links_resource_custom_text_position,
-  t_payment_links_resource_invoice_creation,
-  t_payment_links_resource_invoice_settings,
-  t_payment_links_resource_payment_intent_data,
-  t_payment_links_resource_phone_number_collection,
-  t_payment_links_resource_shipping_address_collection,
-  t_payment_links_resource_shipping_option,
-  t_payment_links_resource_subscription_data,
-  t_payment_links_resource_tax_id_collection,
-  t_payment_links_resource_transfer_data,
   t_payment_method,
-  t_payment_method_acss_debit,
-  t_payment_method_affirm,
-  t_payment_method_afterpay_clearpay,
-  t_payment_method_au_becs_debit,
-  t_payment_method_bacs_debit,
-  t_payment_method_bancontact,
-  t_payment_method_blik,
-  t_payment_method_boleto,
-  t_payment_method_card,
-  t_payment_method_card_checks,
-  t_payment_method_card_generated_card,
-  t_payment_method_card_present,
-  t_payment_method_card_present_networks,
-  t_payment_method_card_wallet,
-  t_payment_method_card_wallet_amex_express_checkout,
-  t_payment_method_card_wallet_apple_pay,
-  t_payment_method_card_wallet_google_pay,
-  t_payment_method_card_wallet_link,
-  t_payment_method_card_wallet_masterpass,
-  t_payment_method_card_wallet_samsung_pay,
-  t_payment_method_card_wallet_visa_checkout,
-  t_payment_method_cashapp,
-  t_payment_method_config_biz_payment_method_configuration_details,
-  t_payment_method_config_resource_display_preference,
-  t_payment_method_config_resource_payment_method_properties,
   t_payment_method_configuration,
-  t_payment_method_customer_balance,
-  t_payment_method_details,
-  t_payment_method_details_ach_credit_transfer,
-  t_payment_method_details_ach_debit,
-  t_payment_method_details_acss_debit,
-  t_payment_method_details_affirm,
-  t_payment_method_details_afterpay_clearpay,
-  t_payment_method_details_au_becs_debit,
-  t_payment_method_details_bacs_debit,
-  t_payment_method_details_bancontact,
-  t_payment_method_details_blik,
-  t_payment_method_details_boleto,
-  t_payment_method_details_card,
-  t_payment_method_details_card_checks,
-  t_payment_method_details_card_installments,
-  t_payment_method_details_card_installments_plan,
-  t_payment_method_details_card_network_token,
-  t_payment_method_details_card_present,
-  t_payment_method_details_card_present_receipt,
-  t_payment_method_details_card_wallet,
-  t_payment_method_details_card_wallet_amex_express_checkout,
-  t_payment_method_details_card_wallet_apple_pay,
-  t_payment_method_details_card_wallet_google_pay,
-  t_payment_method_details_card_wallet_link,
-  t_payment_method_details_card_wallet_masterpass,
-  t_payment_method_details_card_wallet_samsung_pay,
-  t_payment_method_details_card_wallet_visa_checkout,
-  t_payment_method_details_cashapp,
-  t_payment_method_details_customer_balance,
-  t_payment_method_details_eps,
-  t_payment_method_details_fpx,
-  t_payment_method_details_giropay,
-  t_payment_method_details_grabpay,
-  t_payment_method_details_ideal,
-  t_payment_method_details_interac_present,
-  t_payment_method_details_interac_present_receipt,
-  t_payment_method_details_klarna,
-  t_payment_method_details_konbini,
-  t_payment_method_details_konbini_store,
-  t_payment_method_details_link,
-  t_payment_method_details_multibanco,
-  t_payment_method_details_oxxo,
-  t_payment_method_details_p24,
-  t_payment_method_details_paynow,
-  t_payment_method_details_paypal,
-  t_payment_method_details_pix,
-  t_payment_method_details_promptpay,
-  t_payment_method_details_sepa_debit,
-  t_payment_method_details_sofort,
-  t_payment_method_details_stripe_account,
-  t_payment_method_details_us_bank_account,
-  t_payment_method_details_wechat,
-  t_payment_method_details_wechat_pay,
-  t_payment_method_details_zip,
   t_payment_method_domain,
-  t_payment_method_domain_resource_payment_method_status,
-  t_payment_method_domain_resource_payment_method_status_details,
-  t_payment_method_eps,
-  t_payment_method_fpx,
-  t_payment_method_giropay,
-  t_payment_method_grabpay,
-  t_payment_method_ideal,
-  t_payment_method_interac_present,
-  t_payment_method_klarna,
-  t_payment_method_konbini,
-  t_payment_method_link,
-  t_payment_method_options_affirm,
-  t_payment_method_options_afterpay_clearpay,
-  t_payment_method_options_alipay,
-  t_payment_method_options_bacs_debit,
-  t_payment_method_options_bancontact,
-  t_payment_method_options_boleto,
-  t_payment_method_options_card_installments,
-  t_payment_method_options_card_mandate_options,
-  t_payment_method_options_card_present,
-  t_payment_method_options_cashapp,
-  t_payment_method_options_customer_balance,
-  t_payment_method_options_customer_balance_bank_transfer,
-  t_payment_method_options_customer_balance_eu_bank_account,
-  t_payment_method_options_fpx,
-  t_payment_method_options_giropay,
-  t_payment_method_options_grabpay,
-  t_payment_method_options_ideal,
-  t_payment_method_options_interac_present,
-  t_payment_method_options_klarna,
-  t_payment_method_options_konbini,
-  t_payment_method_options_oxxo,
-  t_payment_method_options_p24,
-  t_payment_method_options_paynow,
-  t_payment_method_options_paypal,
-  t_payment_method_options_pix,
-  t_payment_method_options_promptpay,
-  t_payment_method_options_sofort,
-  t_payment_method_options_wechat_pay,
-  t_payment_method_options_zip,
-  t_payment_method_oxxo,
-  t_payment_method_p24,
-  t_payment_method_paynow,
-  t_payment_method_paypal,
-  t_payment_method_pix,
-  t_payment_method_promptpay,
-  t_payment_method_sepa_debit,
-  t_payment_method_sofort,
-  t_payment_method_us_bank_account,
-  t_payment_method_us_bank_account_blocked,
-  t_payment_method_us_bank_account_status_details,
-  t_payment_method_wechat_pay,
-  t_payment_method_zip,
-  t_payment_pages_checkout_session_after_expiration,
-  t_payment_pages_checkout_session_after_expiration_recovery,
-  t_payment_pages_checkout_session_automatic_tax,
-  t_payment_pages_checkout_session_consent,
-  t_payment_pages_checkout_session_consent_collection,
-  t_payment_pages_checkout_session_currency_conversion,
-  t_payment_pages_checkout_session_custom_fields,
-  t_payment_pages_checkout_session_custom_fields_dropdown,
-  t_payment_pages_checkout_session_custom_fields_label,
-  t_payment_pages_checkout_session_custom_fields_numeric,
-  t_payment_pages_checkout_session_custom_fields_option,
-  t_payment_pages_checkout_session_custom_fields_text,
-  t_payment_pages_checkout_session_custom_text,
-  t_payment_pages_checkout_session_custom_text_position,
-  t_payment_pages_checkout_session_customer_details,
-  t_payment_pages_checkout_session_invoice_creation,
-  t_payment_pages_checkout_session_invoice_settings,
-  t_payment_pages_checkout_session_phone_number_collection,
-  t_payment_pages_checkout_session_shipping_address_collection,
-  t_payment_pages_checkout_session_shipping_cost,
-  t_payment_pages_checkout_session_shipping_option,
-  t_payment_pages_checkout_session_tax_id,
-  t_payment_pages_checkout_session_tax_id_collection,
-  t_payment_pages_checkout_session_total_details,
-  t_payment_pages_checkout_session_total_details_resource_breakdown,
   t_payment_source,
   t_payout,
-  t_paypal_seller_protection,
-  t_period,
   t_person,
-  t_person_future_requirements,
-  t_person_relationship,
-  t_person_requirements,
   t_plan,
-  t_plan_tier,
-  t_platform_tax_fee,
-  t_portal_business_profile,
-  t_portal_customer_update,
-  t_portal_features,
-  t_portal_flows_after_completion_hosted_confirmation,
-  t_portal_flows_after_completion_redirect,
-  t_portal_flows_coupon_offer,
-  t_portal_flows_flow,
-  t_portal_flows_flow_after_completion,
-  t_portal_flows_flow_subscription_cancel,
-  t_portal_flows_flow_subscription_update,
-  t_portal_flows_flow_subscription_update_confirm,
-  t_portal_flows_retention,
-  t_portal_flows_subscription_update_confirm_discount,
-  t_portal_flows_subscription_update_confirm_item,
-  t_portal_invoice_list,
-  t_portal_login_page,
-  t_portal_payment_method_update,
-  t_portal_subscription_cancel,
-  t_portal_subscription_cancellation_reason,
-  t_portal_subscription_pause,
-  t_portal_subscription_update,
-  t_portal_subscription_update_product,
   t_price,
-  t_price_tier,
   t_product,
-  t_product_feature,
   t_promotion_code,
-  t_promotion_code_currency_option,
-  t_promotion_codes_resource_restrictions,
   t_quote,
-  t_quotes_resource_automatic_tax,
-  t_quotes_resource_computed,
-  t_quotes_resource_from_quote,
-  t_quotes_resource_recurring,
-  t_quotes_resource_status_transitions,
-  t_quotes_resource_subscription_data_subscription_data,
-  t_quotes_resource_total_details,
-  t_quotes_resource_total_details_resource_breakdown,
-  t_quotes_resource_transfer_data,
-  t_quotes_resource_upfront,
   t_radar_early_fraud_warning,
-  t_radar_radar_options,
-  t_radar_review_resource_location,
-  t_radar_review_resource_session,
   t_radar_value_list,
   t_radar_value_list_item,
-  t_received_payment_method_details_financial_account,
-  t_recurring,
   t_refund,
-  t_refund_next_action,
-  t_refund_next_action_display_details,
   t_reporting_report_run,
   t_reporting_report_type,
-  t_reserve_transaction,
   t_review,
-  t_rule,
   t_scheduled_query_run,
-  t_schedules_phase_automatic_tax,
-  t_secret_service_resource_scope,
-  t_sepa_debit_generated_from,
   t_setup_attempt,
-  t_setup_attempt_payment_method_details,
-  t_setup_attempt_payment_method_details_acss_debit,
-  t_setup_attempt_payment_method_details_au_becs_debit,
-  t_setup_attempt_payment_method_details_bacs_debit,
-  t_setup_attempt_payment_method_details_bancontact,
-  t_setup_attempt_payment_method_details_boleto,
-  t_setup_attempt_payment_method_details_card,
-  t_setup_attempt_payment_method_details_card_present,
-  t_setup_attempt_payment_method_details_card_wallet,
-  t_setup_attempt_payment_method_details_cashapp,
-  t_setup_attempt_payment_method_details_ideal,
-  t_setup_attempt_payment_method_details_klarna,
-  t_setup_attempt_payment_method_details_link,
-  t_setup_attempt_payment_method_details_paypal,
-  t_setup_attempt_payment_method_details_sepa_debit,
-  t_setup_attempt_payment_method_details_sofort,
-  t_setup_attempt_payment_method_details_us_bank_account,
   t_setup_intent,
-  t_setup_intent_next_action,
-  t_setup_intent_next_action_redirect_to_url,
-  t_setup_intent_next_action_verify_with_microdeposits,
-  t_setup_intent_payment_method_options,
-  t_setup_intent_payment_method_options_acss_debit,
-  t_setup_intent_payment_method_options_card,
-  t_setup_intent_payment_method_options_card_mandate_options,
-  t_setup_intent_payment_method_options_link,
-  t_setup_intent_payment_method_options_mandate_options_acss_debit,
-  t_setup_intent_payment_method_options_mandate_options_sepa_debit,
-  t_setup_intent_payment_method_options_paypal,
-  t_setup_intent_payment_method_options_sepa_debit,
-  t_setup_intent_payment_method_options_us_bank_account,
-  t_setup_intent_type_specific_payment_method_options_client,
-  t_shipping,
   t_shipping_rate,
-  t_shipping_rate_currency_option,
-  t_shipping_rate_delivery_estimate,
-  t_shipping_rate_delivery_estimate_bound,
-  t_shipping_rate_fixed_amount,
-  t_sigma_scheduled_query_run_error,
   t_source,
-  t_source_code_verification_flow,
   t_source_mandate_notification,
-  t_source_mandate_notification_acss_debit_data,
-  t_source_mandate_notification_bacs_debit_data,
-  t_source_mandate_notification_sepa_debit_data,
-  t_source_order,
-  t_source_order_item,
-  t_source_owner,
-  t_source_receiver_flow,
-  t_source_redirect_flow,
   t_source_transaction,
-  t_source_transaction_ach_credit_transfer_data,
-  t_source_transaction_chf_credit_transfer_data,
-  t_source_transaction_gbp_credit_transfer_data,
-  t_source_transaction_paper_check_data,
-  t_source_transaction_sepa_credit_transfer_data,
-  t_source_type_ach_credit_transfer,
-  t_source_type_ach_debit,
-  t_source_type_acss_debit,
-  t_source_type_alipay,
-  t_source_type_au_becs_debit,
-  t_source_type_bancontact,
-  t_source_type_card,
-  t_source_type_card_present,
-  t_source_type_eps,
-  t_source_type_giropay,
-  t_source_type_ideal,
-  t_source_type_klarna,
-  t_source_type_multibanco,
-  t_source_type_p24,
-  t_source_type_sepa_debit,
-  t_source_type_sofort,
-  t_source_type_three_d_secure,
-  t_source_type_wechat,
   t_subscription,
-  t_subscription_automatic_tax,
-  t_subscription_billing_thresholds,
-  t_subscription_details_data,
   t_subscription_item,
-  t_subscription_item_billing_thresholds,
-  t_subscription_payment_method_options_card,
-  t_subscription_pending_invoice_item_interval,
   t_subscription_schedule,
-  t_subscription_schedule_add_invoice_item,
-  t_subscription_schedule_configuration_item,
-  t_subscription_schedule_current_phase,
-  t_subscription_schedule_phase_configuration,
-  t_subscription_schedules_resource_default_settings,
-  t_subscription_schedules_resource_default_settings_automatic_tax,
-  t_subscription_transfer_data,
-  t_subscriptions_resource_pause_collection,
-  t_subscriptions_resource_payment_method_options,
-  t_subscriptions_resource_payment_settings,
-  t_subscriptions_resource_pending_update,
-  t_subscriptions_trials_resource_end_behavior,
-  t_subscriptions_trials_resource_trial_settings,
   t_tax_calculation,
   t_tax_calculation_line_item,
   t_tax_code,
-  t_tax_deducted_at_source,
   t_tax_id,
-  t_tax_id_verification,
-  t_tax_product_resource_customer_details,
-  t_tax_product_resource_customer_details_resource_tax_id,
-  t_tax_product_resource_jurisdiction,
-  t_tax_product_resource_line_item_tax_breakdown,
-  t_tax_product_resource_line_item_tax_rate_details,
-  t_tax_product_resource_postal_address,
-  t_tax_product_resource_tax_breakdown,
-  t_tax_product_resource_tax_calculation_shipping_cost,
-  t_tax_product_resource_tax_rate_details,
-  t_tax_product_resource_tax_settings_defaults,
-  t_tax_product_resource_tax_settings_head_office,
-  t_tax_product_resource_tax_settings_status_details,
-  t_tax_product_resource_tax_settings_status_details_resource_active,
-  t_tax_product_resource_tax_settings_status_details_resource_pending,
-  t_tax_product_resource_tax_transaction_line_item_resource_reversal,
-  t_tax_product_resource_tax_transaction_resource_reversal,
-  t_tax_product_resource_tax_transaction_shipping_cost,
   t_tax_rate,
   t_tax_settings,
   t_tax_transaction,
   t_tax_transaction_line_item,
   t_terminal_configuration,
-  t_terminal_configuration_configuration_resource_currency_specific_config,
-  t_terminal_configuration_configuration_resource_device_type_specific_config,
-  t_terminal_configuration_configuration_resource_tipping,
   t_terminal_connection_token,
   t_terminal_location,
   t_terminal_reader,
-  t_terminal_reader_reader_resource_cart,
-  t_terminal_reader_reader_resource_line_item,
-  t_terminal_reader_reader_resource_process_config,
-  t_terminal_reader_reader_resource_process_payment_intent_action,
-  t_terminal_reader_reader_resource_process_setup_config,
-  t_terminal_reader_reader_resource_process_setup_intent_action,
-  t_terminal_reader_reader_resource_reader_action,
-  t_terminal_reader_reader_resource_refund_payment_action,
-  t_terminal_reader_reader_resource_set_reader_display_action,
-  t_terminal_reader_reader_resource_tipping_config,
   t_test_helpers_test_clock,
-  t_three_d_secure_details,
-  t_three_d_secure_details_charge,
-  t_three_d_secure_usage,
   t_token,
   t_topup,
   t_transfer,
-  t_transfer_data,
   t_transfer_reversal,
-  t_transfer_schedule,
-  t_transform_quantity,
-  t_transform_usage,
   t_treasury_credit_reversal,
   t_treasury_debit_reversal,
   t_treasury_financial_account,
   t_treasury_financial_account_features,
-  t_treasury_financial_accounts_resource_aba_record,
-  t_treasury_financial_accounts_resource_aba_toggle_settings,
-  t_treasury_financial_accounts_resource_ach_toggle_settings,
-  t_treasury_financial_accounts_resource_balance,
-  t_treasury_financial_accounts_resource_closed_status_details,
-  t_treasury_financial_accounts_resource_financial_address,
-  t_treasury_financial_accounts_resource_financial_addresses_features,
-  t_treasury_financial_accounts_resource_inbound_transfers,
-  t_treasury_financial_accounts_resource_outbound_payments,
-  t_treasury_financial_accounts_resource_outbound_transfers,
-  t_treasury_financial_accounts_resource_platform_restrictions,
-  t_treasury_financial_accounts_resource_status_details,
-  t_treasury_financial_accounts_resource_toggle_settings,
-  t_treasury_financial_accounts_resource_toggles_setting_status_details,
   t_treasury_inbound_transfer,
-  t_treasury_inbound_transfers_resource_failure_details,
-  t_treasury_inbound_transfers_resource_inbound_transfer_resource_linked_flows,
-  t_treasury_inbound_transfers_resource_inbound_transfer_resource_status_transitions,
   t_treasury_outbound_payment,
-  t_treasury_outbound_payments_resource_outbound_payment_resource_end_user_details,
-  t_treasury_outbound_payments_resource_outbound_payment_resource_status_transitions,
-  t_treasury_outbound_payments_resource_returned_status,
   t_treasury_outbound_transfer,
-  t_treasury_outbound_transfers_resource_returned_details,
-  t_treasury_outbound_transfers_resource_status_transitions,
   t_treasury_received_credit,
-  t_treasury_received_credits_resource_linked_flows,
-  t_treasury_received_credits_resource_reversal_details,
-  t_treasury_received_credits_resource_source_flows_details,
-  t_treasury_received_credits_resource_status_transitions,
   t_treasury_received_debit,
-  t_treasury_received_debits_resource_debit_reversal_linked_flows,
-  t_treasury_received_debits_resource_linked_flows,
-  t_treasury_received_debits_resource_reversal_details,
-  t_treasury_received_debits_resource_status_transitions,
-  t_treasury_shared_resource_billing_details,
-  t_treasury_shared_resource_initiating_payment_method_details_initiating_payment_method_details,
-  t_treasury_shared_resource_initiating_payment_method_details_us_bank_account,
   t_treasury_transaction,
   t_treasury_transaction_entry,
-  t_treasury_transactions_resource_abstract_transaction_resource_status_transitions,
-  t_treasury_transactions_resource_balance_impact,
-  t_treasury_transactions_resource_flow_details,
-  t_us_bank_account_networks,
   t_usage_record,
   t_usage_record_summary,
-  t_verification_session_redaction,
   t_webhook_endpoint,
 } from "./models"
 import {
   s_account,
-  s_account_bacs_debit_payments_settings,
-  s_account_branding_settings,
-  s_account_business_profile,
-  s_account_capabilities,
-  s_account_capability_future_requirements,
-  s_account_capability_requirements,
-  s_account_card_issuing_settings,
-  s_account_card_payments_settings,
-  s_account_dashboard_settings,
-  s_account_decline_charge_on,
-  s_account_future_requirements,
   s_account_link,
-  s_account_monthly_estimated_revenue,
-  s_account_payments_settings,
-  s_account_payout_settings,
-  s_account_requirements,
-  s_account_requirements_alternative,
-  s_account_requirements_error,
-  s_account_sepa_debit_payments_settings,
   s_account_session,
-  s_account_settings,
-  s_account_terms_of_service,
-  s_account_tos_acceptance,
-  s_account_treasury_settings,
-  s_account_unification_account_controller,
-  s_address,
-  s_api_errors,
   s_apple_pay_domain,
-  s_application,
   s_application_fee,
   s_apps_secret,
-  s_automatic_tax,
   s_balance,
-  s_balance_amount,
-  s_balance_amount_by_source_type,
-  s_balance_detail,
   s_balance_transaction,
   s_bank_account,
-  s_bank_connections_resource_accountholder,
-  s_bank_connections_resource_balance,
-  s_bank_connections_resource_balance_api_resource_cash_balance,
-  s_bank_connections_resource_balance_api_resource_credit_balance,
-  s_bank_connections_resource_balance_refresh,
-  s_bank_connections_resource_link_account_session_filters,
-  s_bank_connections_resource_ownership_refresh,
-  s_billing_details,
   s_billing_portal_configuration,
   s_billing_portal_session,
-  s_cancellation_details,
   s_capability,
   s_card,
-  s_card_generated_from_payment_method_details,
-  s_card_issuing_account_terms_of_service,
-  s_card_mandate_payment_method_details,
   s_cash_balance,
   s_charge,
-  s_charge_fraud_details,
-  s_charge_outcome,
-  s_charge_transfer_data,
-  s_checkout_acss_debit_mandate_options,
-  s_checkout_acss_debit_payment_method_options,
-  s_checkout_affirm_payment_method_options,
-  s_checkout_afterpay_clearpay_payment_method_options,
-  s_checkout_alipay_payment_method_options,
-  s_checkout_au_becs_debit_payment_method_options,
-  s_checkout_bacs_debit_payment_method_options,
-  s_checkout_bancontact_payment_method_options,
-  s_checkout_boleto_payment_method_options,
-  s_checkout_card_installments_options,
-  s_checkout_card_payment_method_options,
-  s_checkout_cashapp_payment_method_options,
-  s_checkout_customer_balance_bank_transfer_payment_method_options,
-  s_checkout_customer_balance_payment_method_options,
-  s_checkout_eps_payment_method_options,
-  s_checkout_fpx_payment_method_options,
-  s_checkout_giropay_payment_method_options,
-  s_checkout_grab_pay_payment_method_options,
-  s_checkout_ideal_payment_method_options,
-  s_checkout_klarna_payment_method_options,
-  s_checkout_konbini_payment_method_options,
-  s_checkout_link_payment_method_options,
-  s_checkout_oxxo_payment_method_options,
-  s_checkout_p24_payment_method_options,
-  s_checkout_paynow_payment_method_options,
-  s_checkout_pix_payment_method_options,
-  s_checkout_sepa_debit_payment_method_options,
   s_checkout_session,
-  s_checkout_session_payment_method_options,
-  s_checkout_sofort_payment_method_options,
-  s_checkout_us_bank_account_payment_method_options,
-  s_connect_collection_transfer,
-  s_connect_embedded_account_session_create_components,
-  s_connect_embedded_base_config_claim,
   s_country_spec,
-  s_country_spec_verification_field_details,
-  s_country_spec_verification_fields,
   s_coupon,
-  s_coupon_applies_to,
-  s_coupon_currency_option,
   s_credit_note,
   s_credit_note_line_item,
-  s_credit_note_tax_amount,
-  s_currency_option,
-  s_custom_unit_amount,
   s_customer,
-  s_customer_acceptance,
-  s_customer_balance_customer_balance_settings,
-  s_customer_balance_resource_cash_balance_transaction_resource_adjusted_for_overdraft,
-  s_customer_balance_resource_cash_balance_transaction_resource_applied_to_payment_transaction,
-  s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction,
-  s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer,
-  s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_eu_bank_transfer,
-  s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_gb_bank_transfer,
-  s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_jp_bank_transfer,
-  s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_us_bank_transfer,
-  s_customer_balance_resource_cash_balance_transaction_resource_refunded_from_payment_transaction,
-  s_customer_balance_resource_cash_balance_transaction_resource_unapplied_from_payment_transaction,
   s_customer_balance_transaction,
   s_customer_cash_balance_transaction,
-  s_customer_tax,
-  s_customer_tax_location,
   s_deleted_account,
   s_deleted_apple_pay_domain,
-  s_deleted_application,
-  s_deleted_bank_account,
-  s_deleted_card,
   s_deleted_coupon,
   s_deleted_customer,
   s_deleted_discount,
@@ -1970,7 +1175,6 @@ import {
   s_deleted_payment_source,
   s_deleted_person,
   s_deleted_plan,
-  s_deleted_price,
   s_deleted_product,
   s_deleted_radar_value_list,
   s_deleted_radar_value_list_item,
@@ -1982,682 +1186,93 @@ import {
   s_deleted_test_helpers_test_clock,
   s_deleted_webhook_endpoint,
   s_discount,
-  s_discounts_resource_discount_amount,
   s_dispute,
-  s_dispute_evidence,
-  s_dispute_evidence_details,
-  s_dispute_payment_method_details,
-  s_dispute_payment_method_details_card,
-  s_email_sent,
   s_ephemeral_key,
   s_error,
   s_event,
   s_exchange_rate,
   s_external_account,
-  s_external_account_requirements,
-  s_fee,
   s_fee_refund,
   s_file,
   s_file_link,
   s_financial_connections_account,
   s_financial_connections_account_owner,
-  s_financial_connections_account_ownership,
   s_financial_connections_session,
-  s_financial_reporting_finance_report_run_run_parameters,
   s_funding_instructions,
-  s_funding_instructions_bank_transfer,
-  s_funding_instructions_bank_transfer_financial_address,
-  s_funding_instructions_bank_transfer_iban_record,
-  s_funding_instructions_bank_transfer_sort_code_record,
-  s_funding_instructions_bank_transfer_spei_record,
-  s_funding_instructions_bank_transfer_zengin_record,
-  s_gelato_data_document_report_date_of_birth,
-  s_gelato_data_document_report_expiration_date,
-  s_gelato_data_document_report_issued_date,
-  s_gelato_data_id_number_report_date,
-  s_gelato_data_verified_outputs_date,
-  s_gelato_document_report,
-  s_gelato_document_report_error,
-  s_gelato_id_number_report,
-  s_gelato_id_number_report_error,
-  s_gelato_report_document_options,
-  s_gelato_report_id_number_options,
-  s_gelato_selfie_report,
-  s_gelato_selfie_report_error,
-  s_gelato_session_document_options,
-  s_gelato_session_id_number_options,
-  s_gelato_session_last_error,
-  s_gelato_verification_report_options,
-  s_gelato_verification_session_options,
-  s_gelato_verified_outputs,
   s_identity_verification_report,
   s_identity_verification_session,
-  s_inbound_transfers,
-  s_inbound_transfers_payment_method_details_us_bank_account,
   s_invoice,
-  s_invoice_installments_card,
-  s_invoice_item_threshold_reason,
-  s_invoice_line_item_period,
-  s_invoice_mandate_options_card,
-  s_invoice_payment_method_options_acss_debit,
-  s_invoice_payment_method_options_acss_debit_mandate_options,
-  s_invoice_payment_method_options_bancontact,
-  s_invoice_payment_method_options_card,
-  s_invoice_payment_method_options_customer_balance,
-  s_invoice_payment_method_options_customer_balance_bank_transfer,
-  s_invoice_payment_method_options_customer_balance_bank_transfer_eu_bank_transfer,
-  s_invoice_payment_method_options_konbini,
-  s_invoice_payment_method_options_us_bank_account,
-  s_invoice_payment_method_options_us_bank_account_linked_account_options,
-  s_invoice_rendering_pdf,
-  s_invoice_setting_custom_field,
-  s_invoice_setting_customer_setting,
-  s_invoice_setting_quote_setting,
-  s_invoice_setting_rendering_options,
-  s_invoice_setting_subscription_schedule_phase_setting,
-  s_invoice_setting_subscription_schedule_setting,
-  s_invoice_tax_amount,
-  s_invoice_threshold_reason,
-  s_invoice_transfer_data,
   s_invoiceitem,
-  s_invoices_from_invoice,
-  s_invoices_invoice_rendering,
-  s_invoices_payment_method_options,
-  s_invoices_payment_settings,
-  s_invoices_resource_invoice_tax_id,
-  s_invoices_resource_line_items_credited_items,
-  s_invoices_resource_line_items_proration_details,
-  s_invoices_shipping_cost,
-  s_invoices_status_transitions,
   s_issuing_authorization,
-  s_issuing_authorization_amount_details,
-  s_issuing_authorization_merchant_data,
-  s_issuing_authorization_network_data,
-  s_issuing_authorization_pending_request,
-  s_issuing_authorization_request,
-  s_issuing_authorization_treasury,
-  s_issuing_authorization_verification_data,
   s_issuing_card,
-  s_issuing_card_apple_pay,
-  s_issuing_card_authorization_controls,
-  s_issuing_card_google_pay,
-  s_issuing_card_shipping,
-  s_issuing_card_shipping_customs,
-  s_issuing_card_spending_limit,
-  s_issuing_card_wallets,
   s_issuing_cardholder,
-  s_issuing_cardholder_address,
-  s_issuing_cardholder_authorization_controls,
-  s_issuing_cardholder_card_issuing,
-  s_issuing_cardholder_company,
-  s_issuing_cardholder_id_document,
-  s_issuing_cardholder_individual,
-  s_issuing_cardholder_individual_dob,
-  s_issuing_cardholder_requirements,
-  s_issuing_cardholder_spending_limit,
-  s_issuing_cardholder_user_terms_acceptance,
-  s_issuing_cardholder_verification,
   s_issuing_dispute,
-  s_issuing_dispute_canceled_evidence,
-  s_issuing_dispute_duplicate_evidence,
-  s_issuing_dispute_evidence,
-  s_issuing_dispute_fraudulent_evidence,
-  s_issuing_dispute_merchandise_not_as_described_evidence,
-  s_issuing_dispute_not_received_evidence,
-  s_issuing_dispute_other_evidence,
-  s_issuing_dispute_service_not_as_described_evidence,
-  s_issuing_dispute_treasury,
   s_issuing_settlement,
   s_issuing_transaction,
-  s_issuing_transaction_amount_details,
-  s_issuing_transaction_flight_data,
-  s_issuing_transaction_flight_data_leg,
-  s_issuing_transaction_fuel_data,
-  s_issuing_transaction_lodging_data,
-  s_issuing_transaction_purchase_details,
-  s_issuing_transaction_receipt_data,
-  s_issuing_transaction_treasury,
   s_item,
-  s_legal_entity_company,
-  s_legal_entity_company_verification,
-  s_legal_entity_company_verification_document,
-  s_legal_entity_dob,
-  s_legal_entity_japan_address,
-  s_legal_entity_person_verification,
-  s_legal_entity_person_verification_document,
-  s_legal_entity_ubo_declaration,
   s_line_item,
-  s_line_items_discount_amount,
-  s_line_items_tax_amount,
-  s_linked_account_options_us_bank_account,
   s_login_link,
   s_mandate,
-  s_mandate_acss_debit,
-  s_mandate_au_becs_debit,
-  s_mandate_bacs_debit,
-  s_mandate_cashapp,
-  s_mandate_link,
-  s_mandate_multi_use,
-  s_mandate_payment_method_details,
-  s_mandate_paypal,
-  s_mandate_sepa_debit,
-  s_mandate_single_use,
-  s_mandate_us_bank_account,
-  s_networks,
-  s_notification_event_data,
-  s_notification_event_request,
-  s_offline_acceptance,
-  s_online_acceptance,
-  s_outbound_payments_payment_method_details,
-  s_outbound_payments_payment_method_details_financial_account,
-  s_outbound_payments_payment_method_details_us_bank_account,
-  s_outbound_transfers_payment_method_details,
-  s_outbound_transfers_payment_method_details_us_bank_account,
-  s_package_dimensions,
-  s_payment_flows_amount_details,
-  s_payment_flows_amount_details_resource_tip,
-  s_payment_flows_automatic_payment_methods_payment_intent,
-  s_payment_flows_automatic_payment_methods_setup_intent,
-  s_payment_flows_installment_options,
-  s_payment_flows_private_payment_methods_alipay,
-  s_payment_flows_private_payment_methods_alipay_details,
-  s_payment_flows_private_payment_methods_klarna_dob,
   s_payment_intent,
-  s_payment_intent_card_processing,
-  s_payment_intent_next_action,
-  s_payment_intent_next_action_alipay_handle_redirect,
-  s_payment_intent_next_action_boleto,
-  s_payment_intent_next_action_card_await_notification,
-  s_payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code,
-  s_payment_intent_next_action_cashapp_qr_code,
-  s_payment_intent_next_action_display_bank_transfer_instructions,
-  s_payment_intent_next_action_display_oxxo_details,
-  s_payment_intent_next_action_konbini,
-  s_payment_intent_next_action_konbini_familymart,
-  s_payment_intent_next_action_konbini_lawson,
-  s_payment_intent_next_action_konbini_ministop,
-  s_payment_intent_next_action_konbini_seicomart,
-  s_payment_intent_next_action_konbini_stores,
-  s_payment_intent_next_action_paynow_display_qr_code,
-  s_payment_intent_next_action_pix_display_qr_code,
-  s_payment_intent_next_action_promptpay_display_qr_code,
-  s_payment_intent_next_action_redirect_to_url,
-  s_payment_intent_next_action_verify_with_microdeposits,
-  s_payment_intent_next_action_wechat_pay_display_qr_code,
-  s_payment_intent_next_action_wechat_pay_redirect_to_android_app,
-  s_payment_intent_next_action_wechat_pay_redirect_to_ios_app,
-  s_payment_intent_payment_method_options,
-  s_payment_intent_payment_method_options_acss_debit,
-  s_payment_intent_payment_method_options_au_becs_debit,
-  s_payment_intent_payment_method_options_blik,
-  s_payment_intent_payment_method_options_card,
-  s_payment_intent_payment_method_options_eps,
-  s_payment_intent_payment_method_options_link,
-  s_payment_intent_payment_method_options_mandate_options_acss_debit,
-  s_payment_intent_payment_method_options_mandate_options_sepa_debit,
-  s_payment_intent_payment_method_options_sepa_debit,
-  s_payment_intent_payment_method_options_us_bank_account,
-  s_payment_intent_processing,
-  s_payment_intent_processing_customer_notification,
-  s_payment_intent_type_specific_payment_method_options_client,
   s_payment_link,
-  s_payment_links_resource_after_completion,
-  s_payment_links_resource_automatic_tax,
-  s_payment_links_resource_completion_behavior_confirmation_page,
-  s_payment_links_resource_completion_behavior_redirect,
-  s_payment_links_resource_consent_collection,
-  s_payment_links_resource_custom_fields,
-  s_payment_links_resource_custom_fields_dropdown,
-  s_payment_links_resource_custom_fields_dropdown_option,
-  s_payment_links_resource_custom_fields_label,
-  s_payment_links_resource_custom_fields_numeric,
-  s_payment_links_resource_custom_fields_text,
-  s_payment_links_resource_custom_text,
-  s_payment_links_resource_custom_text_position,
-  s_payment_links_resource_invoice_creation,
-  s_payment_links_resource_invoice_settings,
-  s_payment_links_resource_payment_intent_data,
-  s_payment_links_resource_phone_number_collection,
-  s_payment_links_resource_shipping_address_collection,
-  s_payment_links_resource_shipping_option,
-  s_payment_links_resource_subscription_data,
-  s_payment_links_resource_tax_id_collection,
-  s_payment_links_resource_transfer_data,
   s_payment_method,
-  s_payment_method_acss_debit,
-  s_payment_method_affirm,
-  s_payment_method_afterpay_clearpay,
-  s_payment_method_au_becs_debit,
-  s_payment_method_bacs_debit,
-  s_payment_method_bancontact,
-  s_payment_method_blik,
-  s_payment_method_boleto,
-  s_payment_method_card,
-  s_payment_method_card_checks,
-  s_payment_method_card_generated_card,
-  s_payment_method_card_present,
-  s_payment_method_card_present_networks,
-  s_payment_method_card_wallet,
-  s_payment_method_card_wallet_amex_express_checkout,
-  s_payment_method_card_wallet_apple_pay,
-  s_payment_method_card_wallet_google_pay,
-  s_payment_method_card_wallet_link,
-  s_payment_method_card_wallet_masterpass,
-  s_payment_method_card_wallet_samsung_pay,
-  s_payment_method_card_wallet_visa_checkout,
-  s_payment_method_cashapp,
-  s_payment_method_config_biz_payment_method_configuration_details,
-  s_payment_method_config_resource_display_preference,
-  s_payment_method_config_resource_payment_method_properties,
   s_payment_method_configuration,
-  s_payment_method_customer_balance,
-  s_payment_method_details,
-  s_payment_method_details_ach_credit_transfer,
-  s_payment_method_details_ach_debit,
-  s_payment_method_details_acss_debit,
-  s_payment_method_details_affirm,
-  s_payment_method_details_afterpay_clearpay,
-  s_payment_method_details_au_becs_debit,
-  s_payment_method_details_bacs_debit,
-  s_payment_method_details_bancontact,
-  s_payment_method_details_blik,
-  s_payment_method_details_boleto,
-  s_payment_method_details_card,
-  s_payment_method_details_card_checks,
-  s_payment_method_details_card_installments,
-  s_payment_method_details_card_installments_plan,
-  s_payment_method_details_card_network_token,
-  s_payment_method_details_card_present,
-  s_payment_method_details_card_present_receipt,
-  s_payment_method_details_card_wallet,
-  s_payment_method_details_card_wallet_amex_express_checkout,
-  s_payment_method_details_card_wallet_apple_pay,
-  s_payment_method_details_card_wallet_google_pay,
-  s_payment_method_details_card_wallet_link,
-  s_payment_method_details_card_wallet_masterpass,
-  s_payment_method_details_card_wallet_samsung_pay,
-  s_payment_method_details_card_wallet_visa_checkout,
-  s_payment_method_details_cashapp,
-  s_payment_method_details_customer_balance,
-  s_payment_method_details_eps,
-  s_payment_method_details_fpx,
-  s_payment_method_details_giropay,
-  s_payment_method_details_grabpay,
-  s_payment_method_details_ideal,
-  s_payment_method_details_interac_present,
-  s_payment_method_details_interac_present_receipt,
-  s_payment_method_details_klarna,
-  s_payment_method_details_konbini,
-  s_payment_method_details_konbini_store,
-  s_payment_method_details_link,
-  s_payment_method_details_multibanco,
-  s_payment_method_details_oxxo,
-  s_payment_method_details_p24,
-  s_payment_method_details_paynow,
-  s_payment_method_details_paypal,
-  s_payment_method_details_pix,
-  s_payment_method_details_promptpay,
-  s_payment_method_details_sepa_debit,
-  s_payment_method_details_sofort,
-  s_payment_method_details_stripe_account,
-  s_payment_method_details_us_bank_account,
-  s_payment_method_details_wechat,
-  s_payment_method_details_wechat_pay,
-  s_payment_method_details_zip,
   s_payment_method_domain,
-  s_payment_method_domain_resource_payment_method_status,
-  s_payment_method_domain_resource_payment_method_status_details,
-  s_payment_method_eps,
-  s_payment_method_fpx,
-  s_payment_method_giropay,
-  s_payment_method_grabpay,
-  s_payment_method_ideal,
-  s_payment_method_interac_present,
-  s_payment_method_klarna,
-  s_payment_method_konbini,
-  s_payment_method_link,
-  s_payment_method_options_affirm,
-  s_payment_method_options_afterpay_clearpay,
-  s_payment_method_options_alipay,
-  s_payment_method_options_bacs_debit,
-  s_payment_method_options_bancontact,
-  s_payment_method_options_boleto,
-  s_payment_method_options_card_installments,
-  s_payment_method_options_card_mandate_options,
-  s_payment_method_options_card_present,
-  s_payment_method_options_cashapp,
-  s_payment_method_options_customer_balance,
-  s_payment_method_options_customer_balance_bank_transfer,
-  s_payment_method_options_customer_balance_eu_bank_account,
-  s_payment_method_options_fpx,
-  s_payment_method_options_giropay,
-  s_payment_method_options_grabpay,
-  s_payment_method_options_ideal,
-  s_payment_method_options_interac_present,
-  s_payment_method_options_klarna,
-  s_payment_method_options_konbini,
-  s_payment_method_options_oxxo,
-  s_payment_method_options_p24,
-  s_payment_method_options_paynow,
-  s_payment_method_options_paypal,
-  s_payment_method_options_pix,
-  s_payment_method_options_promptpay,
-  s_payment_method_options_sofort,
-  s_payment_method_options_wechat_pay,
-  s_payment_method_options_zip,
-  s_payment_method_oxxo,
-  s_payment_method_p24,
-  s_payment_method_paynow,
-  s_payment_method_paypal,
-  s_payment_method_pix,
-  s_payment_method_promptpay,
-  s_payment_method_sepa_debit,
-  s_payment_method_sofort,
-  s_payment_method_us_bank_account,
-  s_payment_method_us_bank_account_blocked,
-  s_payment_method_us_bank_account_status_details,
-  s_payment_method_wechat_pay,
-  s_payment_method_zip,
-  s_payment_pages_checkout_session_after_expiration,
-  s_payment_pages_checkout_session_after_expiration_recovery,
-  s_payment_pages_checkout_session_automatic_tax,
-  s_payment_pages_checkout_session_consent,
-  s_payment_pages_checkout_session_consent_collection,
-  s_payment_pages_checkout_session_currency_conversion,
-  s_payment_pages_checkout_session_custom_fields,
-  s_payment_pages_checkout_session_custom_fields_dropdown,
-  s_payment_pages_checkout_session_custom_fields_label,
-  s_payment_pages_checkout_session_custom_fields_numeric,
-  s_payment_pages_checkout_session_custom_fields_option,
-  s_payment_pages_checkout_session_custom_fields_text,
-  s_payment_pages_checkout_session_custom_text,
-  s_payment_pages_checkout_session_custom_text_position,
-  s_payment_pages_checkout_session_customer_details,
-  s_payment_pages_checkout_session_invoice_creation,
-  s_payment_pages_checkout_session_invoice_settings,
-  s_payment_pages_checkout_session_phone_number_collection,
-  s_payment_pages_checkout_session_shipping_address_collection,
-  s_payment_pages_checkout_session_shipping_cost,
-  s_payment_pages_checkout_session_shipping_option,
-  s_payment_pages_checkout_session_tax_id,
-  s_payment_pages_checkout_session_tax_id_collection,
-  s_payment_pages_checkout_session_total_details,
-  s_payment_pages_checkout_session_total_details_resource_breakdown,
   s_payment_source,
   s_payout,
-  s_paypal_seller_protection,
-  s_period,
   s_person,
-  s_person_future_requirements,
-  s_person_relationship,
-  s_person_requirements,
   s_plan,
-  s_plan_tier,
-  s_platform_tax_fee,
-  s_portal_business_profile,
-  s_portal_customer_update,
-  s_portal_features,
-  s_portal_flows_after_completion_hosted_confirmation,
-  s_portal_flows_after_completion_redirect,
-  s_portal_flows_coupon_offer,
-  s_portal_flows_flow,
-  s_portal_flows_flow_after_completion,
-  s_portal_flows_flow_subscription_cancel,
-  s_portal_flows_flow_subscription_update,
-  s_portal_flows_flow_subscription_update_confirm,
-  s_portal_flows_retention,
-  s_portal_flows_subscription_update_confirm_discount,
-  s_portal_flows_subscription_update_confirm_item,
-  s_portal_invoice_list,
-  s_portal_login_page,
-  s_portal_payment_method_update,
-  s_portal_subscription_cancel,
-  s_portal_subscription_cancellation_reason,
-  s_portal_subscription_pause,
-  s_portal_subscription_update,
-  s_portal_subscription_update_product,
   s_price,
-  s_price_tier,
   s_product,
-  s_product_feature,
   s_promotion_code,
-  s_promotion_code_currency_option,
-  s_promotion_codes_resource_restrictions,
   s_quote,
-  s_quotes_resource_automatic_tax,
-  s_quotes_resource_computed,
-  s_quotes_resource_from_quote,
-  s_quotes_resource_recurring,
-  s_quotes_resource_status_transitions,
-  s_quotes_resource_subscription_data_subscription_data,
-  s_quotes_resource_total_details,
-  s_quotes_resource_total_details_resource_breakdown,
-  s_quotes_resource_transfer_data,
-  s_quotes_resource_upfront,
   s_radar_early_fraud_warning,
-  s_radar_radar_options,
-  s_radar_review_resource_location,
-  s_radar_review_resource_session,
   s_radar_value_list,
   s_radar_value_list_item,
-  s_received_payment_method_details_financial_account,
-  s_recurring,
   s_refund,
-  s_refund_next_action,
-  s_refund_next_action_display_details,
   s_reporting_report_run,
   s_reporting_report_type,
-  s_reserve_transaction,
   s_review,
-  s_rule,
   s_scheduled_query_run,
-  s_schedules_phase_automatic_tax,
-  s_secret_service_resource_scope,
-  s_sepa_debit_generated_from,
   s_setup_attempt,
-  s_setup_attempt_payment_method_details,
-  s_setup_attempt_payment_method_details_acss_debit,
-  s_setup_attempt_payment_method_details_au_becs_debit,
-  s_setup_attempt_payment_method_details_bacs_debit,
-  s_setup_attempt_payment_method_details_bancontact,
-  s_setup_attempt_payment_method_details_boleto,
-  s_setup_attempt_payment_method_details_card,
-  s_setup_attempt_payment_method_details_card_present,
-  s_setup_attempt_payment_method_details_card_wallet,
-  s_setup_attempt_payment_method_details_cashapp,
-  s_setup_attempt_payment_method_details_ideal,
-  s_setup_attempt_payment_method_details_klarna,
-  s_setup_attempt_payment_method_details_link,
-  s_setup_attempt_payment_method_details_paypal,
-  s_setup_attempt_payment_method_details_sepa_debit,
-  s_setup_attempt_payment_method_details_sofort,
-  s_setup_attempt_payment_method_details_us_bank_account,
   s_setup_intent,
-  s_setup_intent_next_action,
-  s_setup_intent_next_action_redirect_to_url,
-  s_setup_intent_next_action_verify_with_microdeposits,
-  s_setup_intent_payment_method_options,
-  s_setup_intent_payment_method_options_acss_debit,
-  s_setup_intent_payment_method_options_card,
-  s_setup_intent_payment_method_options_card_mandate_options,
-  s_setup_intent_payment_method_options_link,
-  s_setup_intent_payment_method_options_mandate_options_acss_debit,
-  s_setup_intent_payment_method_options_mandate_options_sepa_debit,
-  s_setup_intent_payment_method_options_paypal,
-  s_setup_intent_payment_method_options_sepa_debit,
-  s_setup_intent_payment_method_options_us_bank_account,
-  s_setup_intent_type_specific_payment_method_options_client,
-  s_shipping,
   s_shipping_rate,
-  s_shipping_rate_currency_option,
-  s_shipping_rate_delivery_estimate,
-  s_shipping_rate_delivery_estimate_bound,
-  s_shipping_rate_fixed_amount,
-  s_sigma_scheduled_query_run_error,
   s_source,
-  s_source_code_verification_flow,
   s_source_mandate_notification,
-  s_source_mandate_notification_acss_debit_data,
-  s_source_mandate_notification_bacs_debit_data,
-  s_source_mandate_notification_sepa_debit_data,
-  s_source_order,
-  s_source_order_item,
-  s_source_owner,
-  s_source_receiver_flow,
-  s_source_redirect_flow,
   s_source_transaction,
-  s_source_transaction_ach_credit_transfer_data,
-  s_source_transaction_chf_credit_transfer_data,
-  s_source_transaction_gbp_credit_transfer_data,
-  s_source_transaction_paper_check_data,
-  s_source_transaction_sepa_credit_transfer_data,
-  s_source_type_ach_credit_transfer,
-  s_source_type_ach_debit,
-  s_source_type_acss_debit,
-  s_source_type_alipay,
-  s_source_type_au_becs_debit,
-  s_source_type_bancontact,
-  s_source_type_card,
-  s_source_type_card_present,
-  s_source_type_eps,
-  s_source_type_giropay,
-  s_source_type_ideal,
-  s_source_type_klarna,
-  s_source_type_multibanco,
-  s_source_type_p24,
-  s_source_type_sepa_debit,
-  s_source_type_sofort,
-  s_source_type_three_d_secure,
-  s_source_type_wechat,
   s_subscription,
-  s_subscription_automatic_tax,
-  s_subscription_billing_thresholds,
-  s_subscription_details_data,
   s_subscription_item,
-  s_subscription_item_billing_thresholds,
-  s_subscription_payment_method_options_card,
-  s_subscription_pending_invoice_item_interval,
   s_subscription_schedule,
-  s_subscription_schedule_add_invoice_item,
-  s_subscription_schedule_configuration_item,
-  s_subscription_schedule_current_phase,
-  s_subscription_schedule_phase_configuration,
-  s_subscription_schedules_resource_default_settings,
-  s_subscription_schedules_resource_default_settings_automatic_tax,
-  s_subscription_transfer_data,
-  s_subscriptions_resource_pause_collection,
-  s_subscriptions_resource_payment_method_options,
-  s_subscriptions_resource_payment_settings,
-  s_subscriptions_resource_pending_update,
-  s_subscriptions_trials_resource_end_behavior,
-  s_subscriptions_trials_resource_trial_settings,
   s_tax_calculation,
   s_tax_calculation_line_item,
   s_tax_code,
-  s_tax_deducted_at_source,
   s_tax_id,
-  s_tax_id_verification,
-  s_tax_product_resource_customer_details,
-  s_tax_product_resource_customer_details_resource_tax_id,
-  s_tax_product_resource_jurisdiction,
-  s_tax_product_resource_line_item_tax_breakdown,
-  s_tax_product_resource_line_item_tax_rate_details,
-  s_tax_product_resource_postal_address,
-  s_tax_product_resource_tax_breakdown,
-  s_tax_product_resource_tax_calculation_shipping_cost,
-  s_tax_product_resource_tax_rate_details,
-  s_tax_product_resource_tax_settings_defaults,
-  s_tax_product_resource_tax_settings_head_office,
-  s_tax_product_resource_tax_settings_status_details,
-  s_tax_product_resource_tax_settings_status_details_resource_active,
-  s_tax_product_resource_tax_settings_status_details_resource_pending,
-  s_tax_product_resource_tax_transaction_line_item_resource_reversal,
-  s_tax_product_resource_tax_transaction_resource_reversal,
-  s_tax_product_resource_tax_transaction_shipping_cost,
   s_tax_rate,
   s_tax_settings,
   s_tax_transaction,
   s_tax_transaction_line_item,
   s_terminal_configuration,
-  s_terminal_configuration_configuration_resource_currency_specific_config,
-  s_terminal_configuration_configuration_resource_device_type_specific_config,
-  s_terminal_configuration_configuration_resource_tipping,
   s_terminal_connection_token,
   s_terminal_location,
   s_terminal_reader,
-  s_terminal_reader_reader_resource_cart,
-  s_terminal_reader_reader_resource_line_item,
-  s_terminal_reader_reader_resource_process_config,
-  s_terminal_reader_reader_resource_process_payment_intent_action,
-  s_terminal_reader_reader_resource_process_setup_config,
-  s_terminal_reader_reader_resource_process_setup_intent_action,
-  s_terminal_reader_reader_resource_reader_action,
-  s_terminal_reader_reader_resource_refund_payment_action,
-  s_terminal_reader_reader_resource_set_reader_display_action,
-  s_terminal_reader_reader_resource_tipping_config,
   s_test_helpers_test_clock,
-  s_three_d_secure_details,
-  s_three_d_secure_details_charge,
-  s_three_d_secure_usage,
   s_token,
   s_topup,
   s_transfer,
-  s_transfer_data,
   s_transfer_reversal,
-  s_transfer_schedule,
-  s_transform_quantity,
-  s_transform_usage,
   s_treasury_credit_reversal,
   s_treasury_debit_reversal,
   s_treasury_financial_account,
   s_treasury_financial_account_features,
-  s_treasury_financial_accounts_resource_aba_record,
-  s_treasury_financial_accounts_resource_aba_toggle_settings,
-  s_treasury_financial_accounts_resource_ach_toggle_settings,
-  s_treasury_financial_accounts_resource_balance,
-  s_treasury_financial_accounts_resource_closed_status_details,
-  s_treasury_financial_accounts_resource_financial_address,
-  s_treasury_financial_accounts_resource_financial_addresses_features,
-  s_treasury_financial_accounts_resource_inbound_transfers,
-  s_treasury_financial_accounts_resource_outbound_payments,
-  s_treasury_financial_accounts_resource_outbound_transfers,
-  s_treasury_financial_accounts_resource_platform_restrictions,
-  s_treasury_financial_accounts_resource_status_details,
-  s_treasury_financial_accounts_resource_toggle_settings,
-  s_treasury_financial_accounts_resource_toggles_setting_status_details,
   s_treasury_inbound_transfer,
-  s_treasury_inbound_transfers_resource_failure_details,
-  s_treasury_inbound_transfers_resource_inbound_transfer_resource_linked_flows,
-  s_treasury_inbound_transfers_resource_inbound_transfer_resource_status_transitions,
   s_treasury_outbound_payment,
-  s_treasury_outbound_payments_resource_outbound_payment_resource_end_user_details,
-  s_treasury_outbound_payments_resource_outbound_payment_resource_status_transitions,
-  s_treasury_outbound_payments_resource_returned_status,
   s_treasury_outbound_transfer,
-  s_treasury_outbound_transfers_resource_returned_details,
-  s_treasury_outbound_transfers_resource_status_transitions,
   s_treasury_received_credit,
-  s_treasury_received_credits_resource_linked_flows,
-  s_treasury_received_credits_resource_reversal_details,
-  s_treasury_received_credits_resource_source_flows_details,
-  s_treasury_received_credits_resource_status_transitions,
   s_treasury_received_debit,
-  s_treasury_received_debits_resource_debit_reversal_linked_flows,
-  s_treasury_received_debits_resource_linked_flows,
-  s_treasury_received_debits_resource_reversal_details,
-  s_treasury_received_debits_resource_status_transitions,
-  s_treasury_shared_resource_billing_details,
-  s_treasury_shared_resource_initiating_payment_method_details_initiating_payment_method_details,
-  s_treasury_shared_resource_initiating_payment_method_details_us_bank_account,
   s_treasury_transaction,
   s_treasury_transaction_entry,
-  s_treasury_transactions_resource_abstract_transaction_resource_status_transitions,
-  s_treasury_transactions_resource_balance_impact,
-  s_treasury_transactions_resource_flow_details,
-  s_us_bank_account_networks,
   s_usage_record,
   s_usage_record_summary,
-  s_verification_session_redaction,
   s_webhook_endpoint,
 } from "./schemas"
 import KoaRouter, { RouterContext } from "@koa/router"
@@ -2671,10 +1286,6 @@ import {
   Response,
   ServerConfig,
   StatusCode,
-  StatusCode2xx,
-  StatusCode3xx,
-  StatusCode4xx,
-  StatusCode5xx,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
 import {
@@ -2682,7 +1293,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import koaBody from "koa-body"
 import { z } from "zod"
 
 //region safe-edit-region-header
@@ -13389,7 +11999,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getAccountBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -13440,7 +12050,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postAccountLinksBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -13493,7 +12103,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postAccountSessionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -13570,7 +12180,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getAccountsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -14095,7 +12705,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postAccountsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -14148,7 +12758,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteAccountsAccountBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -14210,7 +12820,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getAccountsAccountBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -14714,7 +13324,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -14799,7 +13409,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountBankAccountsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -14854,7 +13464,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteAccountsAccountBankAccountsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -14920,7 +13530,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getAccountsAccountBankAccountsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -15000,7 +13610,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountBankAccountsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -15078,7 +13688,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getAccountsAccountCapabilitiesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -15148,7 +13758,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getAccountsAccountCapabilitiesCapabilityBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -15211,7 +13821,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountCapabilitiesCapabilityBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -15294,7 +13904,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getAccountsAccountExternalAccountsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -15387,7 +13997,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountExternalAccountsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -15447,7 +14057,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteAccountsAccountExternalAccountsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -15513,7 +14123,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getAccountsAccountExternalAccountsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -15596,7 +14206,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountExternalAccountsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -15655,7 +14265,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountLoginLinksBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -15738,7 +14348,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getAccountsAccountPeopleBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -15920,7 +14530,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountPeopleBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -15975,7 +14585,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteAccountsAccountPeoplePersonBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -16041,7 +14651,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getAccountsAccountPeoplePersonBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -16219,7 +14829,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountPeoplePersonBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -16302,7 +14912,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getAccountsAccountPersonsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -16486,7 +15096,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountPersonsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -16541,7 +15151,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteAccountsAccountPersonsPersonBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -16607,7 +15217,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getAccountsAccountPersonsPersonBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -16785,7 +15395,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountPersonsPersonBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -16842,7 +15452,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postAccountsAccountRejectBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -16912,7 +15522,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getApplePayDomainsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -16968,7 +15578,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postApplePayDomainsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -17022,7 +15632,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteApplePayDomainsDomainBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -17084,7 +15694,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getApplePayDomainsDomainBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -17165,7 +15775,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getApplicationFeesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -17233,7 +15843,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getApplicationFeesFeeRefundsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -17293,7 +15903,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postApplicationFeesFeeRefundsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -17355,7 +15965,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getApplicationFeesIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -17413,7 +16023,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postApplicationFeesIdRefundBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -17489,7 +16099,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getApplicationFeesIdRefundsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -17552,7 +16162,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postApplicationFeesIdRefundsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -17622,7 +16232,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getAppsSecretsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -17680,7 +16290,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postAppsSecretsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -17734,7 +16344,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postAppsSecretsDeleteBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -17795,7 +16405,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getAppsSecretsFindBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -17848,7 +16458,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getBalanceBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -17928,7 +16538,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getBalanceHistoryBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -17994,7 +16604,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getBalanceHistoryIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -18078,7 +16688,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getBalanceTransactionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -18145,7 +16755,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getBalanceTransactionsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -18217,7 +16827,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getBillingPortalConfigurationsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -18357,7 +16967,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postBillingPortalConfigurationsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -18424,7 +17034,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getBillingPortalConfigurationsConfigurationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -18586,7 +17196,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postBillingPortalConfigurationsConfigurationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -18749,7 +17359,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postBillingPortalSessionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -18829,7 +17439,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getChargesBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -18948,7 +17558,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postChargesBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -19015,7 +17625,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getChargesSearchBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -19080,7 +17690,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getChargesChargeBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -19158,7 +17768,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postChargesChargeBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -19225,7 +17835,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postChargesChargeCaptureBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -19287,7 +17897,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getChargesChargeDisputeBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -19378,7 +17988,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postChargesChargeDisputeBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -19434,7 +18044,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postChargesChargeDisputeCloseBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -19501,7 +18111,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postChargesChargeRefundBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -19576,7 +18186,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getChargesChargeRefundsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -19651,7 +18261,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postChargesChargeRefundsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -19714,7 +18324,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getChargesChargeRefundsRefundBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -19774,7 +18384,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postChargesChargeRefundsRefundBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -19848,7 +18458,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCheckoutSessionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -20764,7 +19374,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postCheckoutSessionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -20828,7 +19438,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCheckoutSessionsSessionBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -20884,7 +19494,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postCheckoutSessionsSessionExpireBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -20965,7 +19575,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCheckoutSessionsSessionLineItemsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -21039,7 +19649,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getCountrySpecsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -21105,7 +19715,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCountrySpecsCountryBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -21182,7 +19792,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getCouponsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -21251,7 +19861,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postCouponsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -21304,7 +19914,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteCouponsCouponBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -21363,7 +19973,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getCouponsCouponBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -21422,7 +20032,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postCouponsCouponBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -21489,7 +20099,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getCreditNotesBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -21574,7 +20184,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postCreditNotesBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -21663,7 +20273,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCreditNotesPreviewBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -21766,7 +20376,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCreditNotesPreviewLinesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -21849,7 +20459,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCreditNotesCreditNoteLinesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -21913,7 +20523,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getCreditNotesIdBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -21972,7 +20582,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postCreditNotesIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -22028,7 +20638,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postCreditNotesIdVoidBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -22107,7 +20717,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getCustomersBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -22316,7 +20926,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postCustomersBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -22386,7 +20996,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCustomersSearchBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -22447,7 +21057,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -22509,7 +21119,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCustomersCustomerBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -22684,7 +21294,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -22764,7 +21374,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCustomersCustomerBalanceTransactionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -22835,7 +21445,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerBalanceTransactionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -22903,7 +21513,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCustomersCustomerBalanceTransactionsTransactionBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -22973,7 +21583,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerBalanceTransactionsTransactionBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -23059,7 +21669,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCustomersCustomerBankAccountsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -23159,7 +21769,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerBankAccountsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -23227,7 +21837,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerBankAccountsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -23295,7 +21905,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCustomersCustomerBankAccountsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -23398,7 +22008,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerBankAccountsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -23461,7 +22071,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerBankAccountsIdVerifyBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -23541,7 +22151,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCustomersCustomerCardsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -23643,7 +22253,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerCardsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -23708,7 +22318,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerCardsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -23773,7 +22383,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCustomersCustomerCardsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -23873,7 +22483,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerCardsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -23935,7 +22545,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCustomersCustomerCashBalanceBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -24000,7 +22610,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerCashBalanceBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -24080,7 +22690,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCustomersCustomerCashBalanceTransactionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -24153,7 +22763,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCustomersCustomerCashBalanceTransactionsTransactionBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -24217,7 +22827,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerDiscountBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -24279,7 +22889,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCustomersCustomerDiscountBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -24350,7 +22960,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerFundingInstructionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -24466,7 +23076,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCustomersCustomerPaymentMethodsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -24539,7 +23149,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCustomersCustomerPaymentMethodsPaymentMethodBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -24628,7 +23238,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCustomersCustomerSourcesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -24728,7 +23338,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerSourcesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -24793,7 +23403,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerSourcesIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -24858,7 +23468,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCustomersCustomerSourcesIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -24958,7 +23568,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerSourcesIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -25018,7 +23628,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerSourcesIdVerifyBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -25099,7 +23709,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCustomersCustomerSubscriptionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -25426,7 +24036,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerSubscriptionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -25488,7 +24098,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -25558,7 +24168,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -25915,7 +24525,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -25977,7 +24587,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -26046,7 +24656,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -26131,7 +24741,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCustomersCustomerTaxIdsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -26261,7 +24871,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postCustomersCustomerTaxIdsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -26316,7 +24926,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteCustomersCustomerTaxIdsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -26379,7 +24989,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getCustomersCustomerTaxIdsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -26458,7 +25068,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getDisputesBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -26524,7 +25134,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getDisputesDisputeBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -26615,7 +25225,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postDisputesDisputeBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -26671,7 +25281,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postDisputesDisputeCloseBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -26724,7 +25334,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postEphemeralKeysBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -26779,7 +25389,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteEphemeralKeysKeyBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -26859,7 +25469,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getEventsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -26922,7 +25532,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getEventsIdBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -26987,7 +25597,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getExchangeRatesBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -27053,7 +25663,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getExchangeRatesRateIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -27132,7 +25742,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getFileLinksBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -27186,7 +25796,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postFileLinksBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -27244,7 +25854,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getFileLinksLinkBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -27305,7 +25915,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postFileLinksLinkBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -27401,7 +26011,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getFilesBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -27472,7 +26082,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postFilesBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -27530,7 +26140,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getFilesFileBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -27606,7 +26216,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getFinancialConnectionsAccountsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -27678,7 +26288,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getFinancialConnectionsAccountsAccountBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -27740,7 +26350,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postFinancialConnectionsAccountsAccountDisconnectBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -27829,7 +26439,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getFinancialConnectionsAccountsAccountOwnersBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -27897,7 +26507,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postFinancialConnectionsAccountsAccountRefreshBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -27963,7 +26573,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postFinancialConnectionsSessionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -28030,7 +26640,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getFinancialConnectionsSessionsSessionBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -28116,7 +26726,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getIdentityVerificationReportsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -28186,7 +26796,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getIdentityVerificationReportsReportBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -28273,7 +26883,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getIdentityVerificationSessionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -28349,7 +26959,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postIdentityVerificationSessionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -28416,7 +27026,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getIdentityVerificationSessionsSessionBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -28499,7 +27109,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postIdentityVerificationSessionsSessionBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -28561,7 +27171,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postIdentityVerificationSessionsSessionCancelBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -28623,7 +27233,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postIdentityVerificationSessionsSessionRedactBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -28706,7 +27316,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getInvoiceitemsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -28797,7 +27407,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postInvoiceitemsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -28850,7 +27460,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteInvoiceitemsInvoiceitemBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -28914,7 +27524,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getInvoiceitemsInvoiceitemBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -29010,7 +27620,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postInvoiceitemsInvoiceitemBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -29106,7 +27716,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getInvoicesBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -29438,7 +28048,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postInvoicesBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -29505,7 +28115,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getInvoicesSearchBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -29797,7 +28407,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getInvoicesUpcomingBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -30096,7 +28706,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getInvoicesUpcomingLinesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -30155,7 +28765,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteInvoicesInvoiceBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -30217,7 +28827,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getInvoicesInvoiceBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -30556,7 +29166,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postInvoicesInvoiceBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -30615,7 +29225,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postInvoicesInvoiceFinalizeBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -30690,7 +29300,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getInvoicesInvoiceLinesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -30751,7 +29361,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postInvoicesInvoiceMarkUncollectibleBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -30818,7 +29428,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postInvoicesInvoicePayBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -30874,7 +29484,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postInvoicesInvoiceSendBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -30930,7 +29540,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postInvoicesInvoiceVoidBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -31013,7 +29623,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getIssuingAuthorizationsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -31082,7 +29692,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getIssuingAuthorizationsAuthorizationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -31144,7 +29754,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postIssuingAuthorizationsAuthorizationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -31207,7 +29817,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postIssuingAuthorizationsAuthorizationApproveBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -31269,7 +29879,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postIssuingAuthorizationsAuthorizationDeclineBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -31356,7 +29966,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getIssuingCardholdersBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -32388,7 +30998,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postIssuingCardholdersBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -32450,7 +31060,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getIssuingCardholdersCardholderBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -33485,7 +32095,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postIssuingCardholdersCardholderBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -33568,7 +32178,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getIssuingCardsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -34569,7 +33179,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postIssuingCardsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -34630,7 +33240,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getIssuingCardsCardBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -35614,7 +34224,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postIssuingCardsCardBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -35698,7 +34308,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getIssuingDisputesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -35909,7 +34519,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postIssuingDisputesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -35971,7 +34581,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getIssuingDisputesDisputeBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -36183,7 +34793,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postIssuingDisputesDisputeBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -36242,7 +34852,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postIssuingDisputesDisputeSubmitBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -36322,7 +34932,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getIssuingSettlementsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -36389,7 +34999,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getIssuingSettlementsSettlementBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -36448,7 +35058,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postIssuingSettlementsSettlementBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -36531,7 +35141,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getIssuingTransactionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -36598,7 +35208,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getIssuingTransactionsTransactionBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -36660,7 +35270,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postIssuingTransactionsTransactionBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -36724,7 +35334,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postLinkAccountSessionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -36789,7 +35399,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getLinkAccountSessionsSessionBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -36862,7 +35472,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getLinkedAccountsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -36928,7 +35538,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getLinkedAccountsAccountBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -36987,7 +35597,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postLinkedAccountsAccountDisconnectBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -37069,7 +35679,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getLinkedAccountsAccountOwnersBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -37134,7 +35744,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postLinkedAccountsAccountRefreshBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -37196,7 +35806,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getMandatesMandateBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -37274,7 +35884,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getPaymentIntentsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -38142,7 +36752,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -38213,7 +36823,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getPaymentIntentsSearchBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -38283,7 +36893,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getPaymentIntentsIntentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -39134,7 +37744,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsIntentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -39194,7 +37804,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsIntentApplyCustomerBalanceBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -39258,7 +37868,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsIntentCancelBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -39324,7 +37934,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsIntentCaptureBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -40193,7 +38803,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsIntentConfirmBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -40257,7 +38867,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsIntentIncrementAuthorizationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -40322,7 +38932,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPaymentIntentsIntentVerifyMicrodepositsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -40392,7 +39002,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getPaymentLinksBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -40858,7 +39468,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postPaymentLinksBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -40921,7 +39531,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getPaymentLinksPaymentLinkBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -41373,7 +39983,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPaymentLinksPaymentLinkBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -41451,7 +40061,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getPaymentLinksPaymentLinkLineItemsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -41527,7 +40137,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getPaymentMethodConfigurationsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -41818,7 +40428,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPaymentMethodConfigurationsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -41885,7 +40495,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getPaymentMethodConfigurationsConfigurationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -42182,7 +40792,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPaymentMethodConfigurationsConfigurationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -42256,7 +40866,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getPaymentMethodDomainsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -42313,7 +40923,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPaymentMethodDomainsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -42377,7 +40987,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getPaymentMethodDomainsPaymentMethodDomainBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -42439,7 +41049,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPaymentMethodDomainsPaymentMethodDomainBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -42497,7 +41107,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPaymentMethodDomainsPaymentMethodDomainValidateBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -42607,7 +41217,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getPaymentMethodsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -42913,7 +41523,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPaymentMethodsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -42975,7 +41585,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getPaymentMethodsPaymentMethodBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -43066,7 +41676,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPaymentMethodsPaymentMethodBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -43123,7 +41733,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPaymentMethodsPaymentMethodAttachBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -43182,7 +41792,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPaymentMethodsPaymentMethodDetachBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -43275,7 +41885,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getPayoutsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -43334,7 +41944,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postPayoutsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -43392,7 +42002,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getPayoutsPayoutBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -43447,7 +42057,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postPayoutsPayoutBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -43502,7 +42112,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPayoutsPayoutCancelBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -43561,7 +42171,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPayoutsPayoutReverseBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -43640,7 +42250,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getPlansBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -43735,7 +42345,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postPlansBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -43785,7 +42395,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         deletePlansPlanBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -43843,7 +42453,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getPlansPlanBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -43902,7 +42512,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postPlansPlanBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -43989,7 +42599,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getPricesBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -44125,7 +42735,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postPricesBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -44192,7 +42802,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getPricesSearchBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -44257,7 +42867,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getPricesPriceBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -44352,7 +42962,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postPricesPriceBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -44432,7 +43042,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getProductsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -44549,7 +43159,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postProductsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -44616,7 +43226,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getProductsSearchBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -44673,7 +43283,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         deleteProductsIdBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -44731,7 +43341,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getProductsIdBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -44810,7 +43420,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postProductsIdBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -44890,7 +43500,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getPromotionCodesBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -44961,7 +43571,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPromotionCodesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -45023,7 +43633,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getPromotionCodesPromotionCodeBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -45090,7 +43700,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postPromotionCodesPromotionCodeBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -45159,7 +43769,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getQuotesBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -45304,7 +43914,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postQuotesBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -45362,7 +43972,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getQuotesQuoteBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -45502,7 +44112,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postQuotesQuoteBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -45557,7 +44167,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postQuotesQuoteAcceptBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -45613,7 +44223,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postQuotesQuoteCancelBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -45693,7 +44303,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getQuotesQuoteComputedUpfrontLineItemsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -45760,7 +44370,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postQuotesQuoteFinalizeBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -45835,7 +44445,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getQuotesQuoteLineItemsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -45902,7 +44512,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getQuotesQuotePdfBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -45973,7 +44583,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getRadarEarlyFraudWarningsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -46042,7 +44652,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getRadarEarlyFraudWarningsEarlyFraudWarningBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -46127,7 +44737,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getRadarValueListItemsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -46184,7 +44794,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postRadarValueListItemsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -46241,7 +44851,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteRadarValueListItemsItemBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -46303,7 +44913,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getRadarValueListItemsItemBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -46385,7 +44995,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getRadarValueListsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -46457,7 +45067,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postRadarValueListsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -46511,7 +45121,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteRadarValueListsValueListBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -46573,7 +45183,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getRadarValueListsValueListBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -46634,7 +45244,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postRadarValueListsValueListBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -46713,7 +45323,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getRefundsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -46779,7 +45389,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postRefundsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -46837,7 +45447,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getRefundsRefundBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -46892,7 +45502,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postRefundsRefundBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -46947,7 +45557,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postRefundsRefundCancelBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -47027,7 +45637,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getReportingReportRunsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -47734,7 +46344,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postReportingReportRunsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -47796,7 +46406,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getReportingReportRunsReportRunBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -47862,7 +46472,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getReportingReportTypesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -47929,7 +46539,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getReportingReportTypesReportTypeBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -48009,7 +46619,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getReviewsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -48072,7 +46682,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getReviewsReviewBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -48127,7 +46737,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postReviewsReviewApproveBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -48205,7 +46815,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getSetupAttemptsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -48289,7 +46899,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getSetupIntentsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -48723,7 +47333,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postSetupIntentsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -48785,7 +47395,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getSetupIntentsIntentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -49195,7 +47805,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postSetupIntentsIntentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -49256,7 +47866,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postSetupIntentsIntentCancelBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -49686,7 +48296,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postSetupIntentsIntentConfirmBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -49747,7 +48357,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postSetupIntentsIntentVerifyMicrodepositsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -49829,7 +48439,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getShippingRatesBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -49917,7 +48527,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postShippingRatesBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -49978,7 +48588,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getShippingRatesShippingRateTokenBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -50058,7 +48668,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postShippingRatesShippingRateTokenBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -50130,7 +48740,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getSigmaScheduledQueryRunsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -50199,7 +48809,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getSigmaScheduledQueryRunsScheduledQueryRunBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -50353,7 +48963,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postSourcesBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -50412,7 +49022,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getSourcesSourceBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -50550,7 +49160,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postSourcesSourceBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -50611,7 +49221,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getSourcesSourceMandateNotificationsMandateNotificationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -50697,7 +49307,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getSourcesSourceSourceTransactionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -50767,7 +49377,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getSourcesSourceSourceTransactionsSourceTransactionBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -50832,7 +49442,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postSourcesSourceVerifyBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -50902,7 +49512,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getSubscriptionItemsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -50992,7 +49602,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postSubscriptionItemsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -51052,7 +49662,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteSubscriptionItemsItemBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -51114,7 +49724,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getSubscriptionItemsItemBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -51207,7 +49817,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postSubscriptionItemsItemBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -51287,7 +49897,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getSubscriptionItemsSubscriptionItemUsageRecordSummariesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -51359,7 +49969,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postSubscriptionItemsSubscriptionItemUsageRecordsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -51482,7 +50092,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getSubscriptionSchedulesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -51679,7 +50289,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postSubscriptionSchedulesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -51741,7 +50351,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getSubscriptionSchedulesScheduleBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -51941,7 +50551,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postSubscriptionSchedulesScheduleBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -52004,7 +50614,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postSubscriptionSchedulesScheduleCancelBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -52066,7 +50676,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postSubscriptionSchedulesScheduleReleaseBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -52189,7 +50799,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getSubscriptionsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -52498,7 +51108,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postSubscriptionsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -52568,7 +51178,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getSubscriptionsSearchBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -52653,7 +51263,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteSubscriptionsSubscriptionExposedIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -52720,7 +51330,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getSubscriptionsSubscriptionExposedIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -53075,7 +51685,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postSubscriptionsSubscriptionExposedIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -53134,7 +51744,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteSubscriptionsSubscriptionExposedIdDiscountBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -53201,7 +51811,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postSubscriptionsSubscriptionResumeBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -53369,7 +51979,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTaxCalculationsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -53449,7 +52059,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTaxCalculationsCalculationLineItemsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -53510,7 +52120,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getTaxSettingsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -53578,7 +52188,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postTaxSettingsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -53628,7 +52238,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTaxTransactionsCreateFromCalculationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -53699,7 +52309,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTaxTransactionsCreateReversalBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -53764,7 +52374,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTaxTransactionsTransactionBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -53844,7 +52454,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTaxTransactionsTransactionLineItemsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -53918,7 +52528,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getTaxCodesBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -53981,7 +52591,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getTaxCodesIdBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -54059,7 +52669,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getTaxRatesBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -54136,7 +52746,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postTaxRatesBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -54197,7 +52807,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTaxRatesTaxRateBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -54279,7 +52889,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTaxRatesTaxRateBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -54349,7 +52959,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTerminalConfigurationsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -54521,7 +53131,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTerminalConfigurationsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -54580,7 +53190,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteTerminalConfigurationsConfigurationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -54658,7 +53268,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTerminalConfigurationsConfigurationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -54853,7 +53463,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTerminalConfigurationsConfigurationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -54909,7 +53519,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTerminalConnectionTokensBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -54978,7 +53588,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTerminalLocationsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -55044,7 +53654,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTerminalLocationsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -55098,7 +53708,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteTerminalLocationsLocationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -55163,7 +53773,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTerminalLocationsLocationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -55239,7 +53849,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTerminalLocationsLocationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -55323,7 +53933,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTerminalReadersBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -55382,7 +53992,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTerminalReadersBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -55436,7 +54046,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteTerminalReadersReaderBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -55503,7 +54113,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTerminalReadersReaderBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -55570,7 +54180,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTerminalReadersReaderBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -55628,7 +54238,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTerminalReadersReaderCancelActionBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -55696,7 +54306,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTerminalReadersReaderProcessPaymentIntentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -55758,7 +54368,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTerminalReadersReaderProcessSetupIntentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -55825,7 +54435,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTerminalReadersReaderRefundPaymentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -55899,7 +54509,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTerminalReadersReaderSetReaderDisplayBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -55964,7 +54574,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersCustomersCustomerFundCashBalanceBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -56356,7 +54966,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingAuthorizationsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -56475,7 +55085,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingAuthorizationsAuthorizationCaptureBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -56538,7 +55148,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingAuthorizationsAuthorizationExpireBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -56604,7 +55214,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingAuthorizationsAuthorizationIncrementBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -56670,7 +55280,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingAuthorizationsAuthorizationReverseBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -56734,7 +55344,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingDeliverBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -56794,7 +55404,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingFailBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -56853,7 +55463,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingReturnBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -56912,7 +55522,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingShipBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -57333,7 +55943,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingTransactionsCreateForceCaptureBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -57759,7 +56369,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingTransactionsCreateUnlinkedRefundBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -57825,7 +56435,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersIssuingTransactionsTransactionRefundBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -57889,7 +56499,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersRefundsRefundExpireBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -57953,7 +56563,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTerminalReadersReaderPresentPaymentMethodBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -58030,7 +56640,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTestHelpersTestClocksBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -58087,7 +56697,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTestClocksBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -58144,7 +56754,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteTestHelpersTestClocksTestClockBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -58209,7 +56819,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTestHelpersTestClocksTestClockBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -58269,7 +56879,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTestClocksTestClockAdvanceBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -58351,7 +56961,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryInboundTransfersIdFailBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -58410,7 +57020,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryInboundTransfersIdReturnBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -58470,7 +57080,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryInboundTransfersIdSucceedBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -58530,7 +57140,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryOutboundPaymentsIdFailBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -58589,7 +57199,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryOutboundPaymentsIdPostBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -58668,7 +57278,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryOutboundPaymentsIdReturnBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -58726,7 +57336,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryOutboundTransfersOutboundTransferFailBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -58788,7 +57398,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryOutboundTransfersOutboundTransferPostBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -58872,7 +57482,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -58945,7 +57555,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryReceivedCreditsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -59013,7 +57623,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTestHelpersTreasuryReceivedDebitsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -59424,7 +58034,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postTokensBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -59482,7 +58092,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getTokensTokenBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -59570,7 +58180,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getTopupsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -59628,7 +58238,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postTopupsBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -59686,7 +58296,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getTopupsTopupBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -59742,7 +58352,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postTopupsTopupBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -59797,7 +58407,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTopupsTopupCancelBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -59876,7 +58486,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: parseRequestInput(
         getTransfersBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -59935,7 +58545,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         postTransfersBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -60009,7 +58619,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTransfersIdReversalsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -60076,7 +58686,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTransfersIdReversalsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -60138,7 +58748,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTransfersTransferBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -60198,7 +58808,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTransfersTransferBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -60261,7 +58871,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTransfersTransferReversalsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -60321,7 +58931,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTransfersTransferReversalsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -60393,7 +59003,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTreasuryCreditReversalsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -60448,7 +59058,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTreasuryCreditReversalsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -60512,7 +59122,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTreasuryCreditReversalsCreditReversalBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -60588,7 +59198,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTreasuryDebitReversalsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -60645,7 +59255,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTreasuryDebitReversalsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -60709,7 +59319,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTreasuryDebitReversalsDebitReversalBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -60793,7 +59403,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTreasuryFinancialAccountsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -60891,7 +59501,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTreasuryFinancialAccountsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -60955,7 +59565,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTreasuryFinancialAccountsFinancialAccountBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -61060,7 +59670,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTreasuryFinancialAccountsFinancialAccountBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -61128,7 +59738,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -61225,7 +59835,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -61309,7 +59919,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTreasuryInboundTransfersBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -61369,7 +59979,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTreasuryInboundTransfersBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -61429,7 +60039,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTreasuryInboundTransfersIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -61485,7 +60095,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTreasuryInboundTransfersInboundTransferCancelBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -61568,7 +60178,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTreasuryOutboundPaymentsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -61683,7 +60293,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTreasuryOutboundPaymentsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -61743,7 +60353,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTreasuryOutboundPaymentsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -61799,7 +60409,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTreasuryOutboundPaymentsIdCancelBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -61876,7 +60486,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTreasuryOutboundTransfersBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -61948,7 +60558,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTreasuryOutboundTransfersBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -62012,7 +60622,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTreasuryOutboundTransfersOutboundTransferBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -62070,7 +60680,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postTreasuryOutboundTransfersOutboundTransferCancelBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -62159,7 +60769,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTreasuryReceivedCreditsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -62224,7 +60834,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTreasuryReceivedCreditsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -62295,7 +60905,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTreasuryReceivedDebitsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -62360,7 +60970,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTreasuryReceivedDebitsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -62455,7 +61065,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTreasuryTransactionEntriesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -62522,7 +61132,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTreasuryTransactionEntriesIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -62620,7 +61230,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTreasuryTransactionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -62687,7 +61297,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getTreasuryTransactionsIdBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -62756,7 +61366,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getWebhookEndpointsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -63138,7 +61748,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postWebhookEndpointsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -63194,7 +61804,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deleteWebhookEndpointsWebhookEndpointBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -63259,7 +61869,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           getWebhookEndpointsWebhookEndpointBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -63546,7 +62156,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           postWebhookEndpointsWebhookEndpointBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }

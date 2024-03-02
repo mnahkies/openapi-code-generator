@@ -3,9 +3,6 @@
 /* eslint-disable */
 
 import {
-  t_AcrValue,
-  t_AmrValue,
-  t_ApplicationType,
   t_AuthorizeCustomAsParamSchema,
   t_AuthorizeCustomAsQuerySchema,
   t_AuthorizeQuerySchema,
@@ -13,16 +10,13 @@ import {
   t_BcAuthorizeBodySchema,
   t_BcAuthorizeCustomAsBodySchema,
   t_BcAuthorizeCustomAsParamSchema,
-  t_Claim,
   t_Client,
-  t_CodeChallengeMethod,
   t_CreateClientBodySchema,
   t_DeleteClientParamSchema,
   t_DeviceAuthorizeBodySchema,
   t_DeviceAuthorizeCustomAsBodySchema,
   t_DeviceAuthorizeCustomAsParamSchema,
   t_DeviceAuthorizeResponse,
-  t_EndpointAuthMethod,
   t_Error,
   t_GenerateNewClientSecretParamSchema,
   t_GetClientParamSchema,
@@ -31,15 +25,10 @@ import {
   t_GetWellKnownOpenIdConfigurationCustomAsParamSchema,
   t_GetWellKnownOpenIdConfigurationCustomAsQuerySchema,
   t_GetWellKnownOpenIdConfigurationQuerySchema,
-  t_GrantType,
   t_IntrospectBodySchema,
   t_IntrospectCustomAsBodySchema,
   t_IntrospectCustomAsParamSchema,
   t_IntrospectionResponse,
-  t_JsonWebKey,
-  t_JsonWebKeyStatus,
-  t_JsonWebKeyType,
-  t_JsonWebKeyUse,
   t_ListClientsQuerySchema,
   t_LogoutCustomAsParamSchema,
   t_LogoutCustomAsQuerySchema,
@@ -54,50 +43,30 @@ import {
   t_ParCustomAsBodySchema,
   t_ParCustomAsParamSchema,
   t_ParResponse,
-  t_Prompt,
   t_ReplaceClientBodySchema,
   t_ReplaceClientParamSchema,
-  t_ResponseMode,
-  t_ResponseType,
-  t_ResponseTypesSupported,
   t_RevokeBodySchema,
   t_RevokeCustomAsBodySchema,
   t_RevokeCustomAsParamSchema,
-  t_Scope,
-  t_SigningAlgorithm,
-  t_SubjectType,
   t_TokenBodySchema,
   t_TokenCustomAsBodySchema,
   t_TokenCustomAsParamSchema,
-  t_TokenDeliveryMode,
   t_TokenResponse,
-  t_TokenResponseTokenType,
-  t_TokenType,
-  t_TokenTypeHintIntrospect,
-  t_TokenTypeHintRevoke,
   t_UserInfo,
   t_UserinfoCustomAsParamSchema,
 } from "./models"
 import {
   s_AcrValue,
   s_AmrValue,
-  s_ApplicationType,
   s_BackchannelAuthorizeRequest,
   s_BackchannelAuthorizeResponse,
-  s_Claim,
   s_Client,
   s_CodeChallengeMethod,
   s_DeviceAuthorizeRequest,
   s_DeviceAuthorizeResponse,
-  s_EndpointAuthMethod,
   s_Error,
-  s_GrantType,
   s_IntrospectionRequest,
   s_IntrospectionResponse,
-  s_JsonWebKey,
-  s_JsonWebKeyStatus,
-  s_JsonWebKeyType,
-  s_JsonWebKeyUse,
   s_OAuthError,
   s_OAuthKeys,
   s_OAuthMetadata,
@@ -106,19 +75,10 @@ import {
   s_ParResponse,
   s_Prompt,
   s_ResponseMode,
-  s_ResponseType,
   s_ResponseTypesSupported,
   s_RevokeRequest,
-  s_Scope,
-  s_SigningAlgorithm,
-  s_SubjectType,
-  s_TokenDeliveryMode,
   s_TokenRequest,
   s_TokenResponse,
-  s_TokenResponseTokenType,
-  s_TokenType,
-  s_TokenTypeHintIntrospect,
-  s_TokenTypeHintRevoke,
   s_UserInfo,
 } from "./schemas"
 import KoaRouter, { RouterContext } from "@koa/router"
@@ -132,10 +92,6 @@ import {
   Response,
   ServerConfig,
   StatusCode,
-  StatusCode2xx,
-  StatusCode3xx,
-  StatusCode4xx,
-  StatusCode5xx,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
 import {
@@ -143,7 +99,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import koaBody from "koa-body"
 import { z } from "zod"
 
 //region safe-edit-region-header
@@ -849,7 +804,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         bcAuthorizeBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -959,7 +914,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         createClientBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -1079,7 +1034,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           replaceClientBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -1259,7 +1214,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deviceAuthorizeBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -1315,7 +1270,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         introspectBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -1463,7 +1418,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         parBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -1521,7 +1476,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         revokeBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -1576,7 +1531,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         tokenBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -1903,7 +1858,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           bcAuthorizeCustomAsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -1970,7 +1925,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           deviceAuthorizeCustomAsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -2037,7 +1992,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           introspectCustomAsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -2213,7 +2168,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           parCustomAsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -2283,7 +2238,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           revokeCustomAsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -2350,7 +2305,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           tokenCustomAsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }

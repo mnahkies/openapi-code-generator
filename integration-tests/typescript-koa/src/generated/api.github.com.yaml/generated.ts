@@ -1315,9 +1315,6 @@ import {
   t_actions_cache_list,
   t_actions_cache_usage_by_repository,
   t_actions_cache_usage_org_enterprise,
-  t_actions_can_approve_pull_request_reviews,
-  t_actions_default_workflow_permissions,
-  t_actions_enabled,
   t_actions_get_default_workflow_permissions,
   t_actions_organization_permissions,
   t_actions_public_key,
@@ -1326,26 +1323,10 @@ import {
   t_actions_variable,
   t_actions_workflow_access_to_repository,
   t_activity,
-  t_actor,
-  t_added_to_project_issue_event,
-  t_alert_auto_dismissed_at,
-  t_alert_created_at,
-  t_alert_dismissed_at,
-  t_alert_fixed_at,
-  t_alert_html_url,
-  t_alert_instances_url,
-  t_alert_number,
-  t_alert_updated_at,
-  t_alert_url,
-  t_allowed_actions,
   t_api_overview,
-  t_app_permissions,
   t_artifact,
-  t_assigned_issue_event,
   t_authentication_token,
-  t_author_association,
   t_authorization,
-  t_auto_merge,
   t_autolink,
   t_base_gist,
   t_basic_error,
@@ -1366,40 +1347,15 @@ import {
   t_clone_traffic,
   t_code_frequency_stat,
   t_code_of_conduct,
-  t_code_of_conduct_simple,
   t_code_scanning_alert,
-  t_code_scanning_alert_classification,
-  t_code_scanning_alert_dismissed_comment,
-  t_code_scanning_alert_dismissed_reason,
-  t_code_scanning_alert_environment,
   t_code_scanning_alert_instance,
   t_code_scanning_alert_items,
-  t_code_scanning_alert_location,
-  t_code_scanning_alert_rule,
-  t_code_scanning_alert_rule_summary,
-  t_code_scanning_alert_set_state,
-  t_code_scanning_alert_severity,
-  t_code_scanning_alert_state,
-  t_code_scanning_alert_state_query,
   t_code_scanning_analysis,
-  t_code_scanning_analysis_analysis_key,
-  t_code_scanning_analysis_category,
-  t_code_scanning_analysis_commit_sha,
-  t_code_scanning_analysis_created_at,
   t_code_scanning_analysis_deletion,
-  t_code_scanning_analysis_environment,
-  t_code_scanning_analysis_sarif_file,
-  t_code_scanning_analysis_sarif_id,
-  t_code_scanning_analysis_tool,
-  t_code_scanning_analysis_tool_guid,
-  t_code_scanning_analysis_tool_name,
-  t_code_scanning_analysis_tool_version,
-  t_code_scanning_analysis_url,
   t_code_scanning_codeql_database,
   t_code_scanning_default_setup,
   t_code_scanning_default_setup_update_response,
   t_code_scanning_organization_alert_items,
-  t_code_scanning_ref,
   t_code_scanning_sarifs_receipt,
   t_code_scanning_sarifs_status,
   t_code_search_result_item,
@@ -1428,35 +1384,23 @@ import {
   t_content_traffic,
   t_contributor,
   t_contributor_activity,
-  t_converted_note_to_issue_issue_event,
   t_copilot_organization_details,
-  t_copilot_seat_breakdown,
   t_copilot_seat_details,
   t_custom_deployment_rule_app,
-  t_demilestoned_issue_event,
   t_dependabot_alert,
-  t_dependabot_alert_package,
-  t_dependabot_alert_security_advisory,
-  t_dependabot_alert_security_vulnerability,
   t_dependabot_alert_with_repository,
   t_dependabot_public_key,
   t_dependabot_secret,
-  t_dependency,
   t_dependency_graph_diff,
   t_dependency_graph_spdx_sbom,
   t_deploy_key,
   t_deployment,
   t_deployment_branch_policy,
-  t_deployment_branch_policy_settings,
   t_deployment_protection_rule,
-  t_deployment_reviewer_type,
-  t_deployment_simple,
   t_deployment_status,
   t_diff_entry,
   t_email,
   t_empty_object,
-  t_enabled_repositories,
-  t_enterprise,
   t_environment,
   t_environment_approvals,
   t_event,
@@ -1465,7 +1409,6 @@ import {
   t_full_repository,
   t_gist_comment,
   t_gist_commit,
-  t_gist_history,
   t_gist_simple,
   t_git_commit,
   t_git_ref,
@@ -1477,71 +1420,37 @@ import {
   t_hook,
   t_hook_delivery,
   t_hook_delivery_item,
-  t_hook_response,
   t_hovercard,
   t_import,
   t_installation,
   t_installation_token,
   t_integration,
   t_integration_installation_request,
-  t_interaction_expiry,
-  t_interaction_group,
   t_interaction_limit_response,
   t_issue,
   t_issue_comment,
   t_issue_event,
-  t_issue_event_dismissed_review,
   t_issue_event_for_issue,
-  t_issue_event_label,
-  t_issue_event_milestone,
-  t_issue_event_project_card,
-  t_issue_event_rename,
   t_issue_search_result_item,
   t_job,
   t_key,
   t_key_simple,
   t_label,
   t_label_search_result_item,
-  t_labeled_issue_event,
   t_language,
   t_license,
   t_license_content,
   t_license_simple,
-  t_link,
-  t_link_with_type,
-  t_locked_issue_event,
-  t_manifest,
-  t_marketplace_account,
   t_marketplace_listing_plan,
   t_marketplace_purchase,
   t_merged_upstream,
-  t_metadata,
   t_migration,
   t_milestone,
-  t_milestoned_issue_event,
   t_minimal_repository,
-  t_moved_column_in_project_issue_event,
-  t_nullable_alert_updated_at,
-  t_nullable_code_of_conduct_simple,
-  t_nullable_codespace_machine,
-  t_nullable_collaborator,
-  t_nullable_community_health_file,
-  t_nullable_git_user,
-  t_nullable_integration,
-  t_nullable_issue,
-  t_nullable_license_simple,
-  t_nullable_milestone,
-  t_nullable_minimal_repository,
-  t_nullable_repository,
-  t_nullable_scoped_installation,
-  t_nullable_simple_commit,
-  t_nullable_simple_user,
-  t_nullable_team_simple,
   t_oidc_custom_sub,
   t_oidc_custom_sub_repo,
   t_org_hook,
   t_org_membership,
-  t_org_ruleset_conditions,
   t_organization_actions_secret,
   t_organization_actions_variable,
   t_organization_dependabot_secret,
@@ -1559,8 +1468,6 @@ import {
   t_page_build_status,
   t_page_deployment,
   t_pages_health_check,
-  t_pages_https_certificate,
-  t_pages_source_hash,
   t_participation_stats,
   t_pending_deployment,
   t_porter_author,
@@ -1573,101 +1480,46 @@ import {
   t_protected_branch,
   t_protected_branch_admin_enforced,
   t_protected_branch_pull_request_review,
-  t_protected_branch_required_status_check,
   t_public_user,
   t_pull_request,
   t_pull_request_merge_result,
-  t_pull_request_minimal,
   t_pull_request_review,
   t_pull_request_review_comment,
   t_pull_request_review_request,
   t_pull_request_simple,
-  t_rate_limit,
   t_rate_limit_overview,
   t_reaction,
-  t_reaction_rollup,
-  t_referenced_workflow,
   t_referrer_traffic,
   t_release,
   t_release_asset,
   t_release_notes_content,
-  t_removed_from_project_issue_event,
-  t_renamed_issue_event,
   t_repo_codespaces_secret,
   t_repo_search_result_item,
   t_repository,
   t_repository_advisory,
-  t_repository_advisory_credit,
-  t_repository_advisory_vulnerability,
   t_repository_collaborator_permission,
   t_repository_invitation,
-  t_repository_rule,
-  t_repository_rule_branch_name_pattern,
-  t_repository_rule_commit_author_email_pattern,
-  t_repository_rule_commit_message_pattern,
-  t_repository_rule_committer_email_pattern,
-  t_repository_rule_creation,
-  t_repository_rule_deletion,
   t_repository_rule_detailed,
-  t_repository_rule_enforcement,
-  t_repository_rule_non_fast_forward,
-  t_repository_rule_params_status_check_configuration,
-  t_repository_rule_pull_request,
-  t_repository_rule_required_deployments,
-  t_repository_rule_required_linear_history,
-  t_repository_rule_required_signatures,
-  t_repository_rule_required_status_checks,
-  t_repository_rule_ruleset_info,
-  t_repository_rule_tag_name_pattern,
-  t_repository_rule_update,
   t_repository_ruleset,
-  t_repository_ruleset_bypass_actor,
-  t_repository_ruleset_conditions,
-  t_repository_ruleset_conditions_repository_id_target,
-  t_repository_ruleset_conditions_repository_name_target,
   t_repository_subscription,
   t_review_comment,
-  t_review_custom_gates_comment_required,
-  t_review_custom_gates_state_required,
-  t_review_dismissed_issue_event,
-  t_review_request_removed_issue_event,
-  t_review_requested_issue_event,
   t_root,
   t_runner,
   t_runner_application,
   t_runner_label,
   t_scim_error,
-  t_search_result_text_matches,
   t_secret_scanning_alert,
-  t_secret_scanning_alert_resolution,
-  t_secret_scanning_alert_resolution_comment,
-  t_secret_scanning_alert_state,
   t_secret_scanning_location,
-  t_secret_scanning_location_commit,
-  t_secret_scanning_location_issue_body,
-  t_secret_scanning_location_issue_comment,
-  t_secret_scanning_location_issue_title,
-  t_security_advisory_credit_types,
-  t_security_advisory_ecosystems,
-  t_security_and_analysis,
   t_selected_actions,
-  t_selected_actions_url,
   t_short_blob,
   t_short_branch,
   t_simple_classroom,
   t_simple_classroom_assignment,
-  t_simple_classroom_organization,
-  t_simple_classroom_repository,
-  t_simple_classroom_user,
-  t_simple_commit,
-  t_simple_commit_status,
-  t_simple_repository,
   t_simple_user,
   t_social_account,
   t_ssh_signing_key,
   t_stargazer,
   t_starred_repository,
-  t_state_change_issue_event,
   t_status,
   t_status_check_policy,
   t_tag,
@@ -1677,38 +1529,20 @@ import {
   t_team_discussion_comment,
   t_team_full,
   t_team_membership,
-  t_team_organization,
   t_team_project,
   t_team_repository,
   t_team_simple,
   t_thread,
   t_thread_subscription,
-  t_timeline_assigned_issue_event,
-  t_timeline_comment_event,
-  t_timeline_commit_commented_event,
-  t_timeline_committed_event,
-  t_timeline_cross_referenced_event,
   t_timeline_issue_events,
-  t_timeline_line_commented_event,
-  t_timeline_reviewed_event,
-  t_timeline_unassigned_issue_event,
   t_topic,
   t_topic_search_result_item,
-  t_traffic,
-  t_unassigned_issue_event,
-  t_unlabeled_issue_event,
   t_user_marketplace_purchase,
   t_user_search_result_item,
   t_validation_error,
   t_validation_error_simple,
-  t_verification,
   t_view_traffic,
-  t_wait_timer,
   t_webhook_config,
-  t_webhook_config_content_type,
-  t_webhook_config_insecure_ssl,
-  t_webhook_config_secret,
-  t_webhook_config_url,
   t_workflow,
   t_workflow_run,
   t_workflow_run_usage,
@@ -1719,8 +1553,6 @@ import {
   s_actions_cache_list,
   s_actions_cache_usage_by_repository,
   s_actions_cache_usage_org_enterprise,
-  s_actions_can_approve_pull_request_reviews,
-  s_actions_default_workflow_permissions,
   s_actions_enabled,
   s_actions_get_default_workflow_permissions,
   s_actions_organization_permissions,
@@ -1731,26 +1563,13 @@ import {
   s_actions_variable,
   s_actions_workflow_access_to_repository,
   s_activity,
-  s_actor,
-  s_added_to_project_issue_event,
-  s_alert_auto_dismissed_at,
-  s_alert_created_at,
-  s_alert_dismissed_at,
-  s_alert_fixed_at,
-  s_alert_html_url,
-  s_alert_instances_url,
   s_alert_number,
-  s_alert_updated_at,
-  s_alert_url,
   s_allowed_actions,
   s_api_overview,
   s_app_permissions,
   s_artifact,
-  s_assigned_issue_event,
   s_authentication_token,
-  s_author_association,
   s_authorization,
-  s_auto_merge,
   s_autolink,
   s_base_gist,
   s_basic_error,
@@ -1771,35 +1590,21 @@ import {
   s_clone_traffic,
   s_code_frequency_stat,
   s_code_of_conduct,
-  s_code_of_conduct_simple,
   s_code_scanning_alert,
-  s_code_scanning_alert_classification,
   s_code_scanning_alert_dismissed_comment,
   s_code_scanning_alert_dismissed_reason,
-  s_code_scanning_alert_environment,
   s_code_scanning_alert_instance,
   s_code_scanning_alert_items,
-  s_code_scanning_alert_location,
-  s_code_scanning_alert_rule,
-  s_code_scanning_alert_rule_summary,
   s_code_scanning_alert_set_state,
   s_code_scanning_alert_severity,
-  s_code_scanning_alert_state,
   s_code_scanning_alert_state_query,
   s_code_scanning_analysis,
-  s_code_scanning_analysis_analysis_key,
-  s_code_scanning_analysis_category,
   s_code_scanning_analysis_commit_sha,
-  s_code_scanning_analysis_created_at,
   s_code_scanning_analysis_deletion,
-  s_code_scanning_analysis_environment,
   s_code_scanning_analysis_sarif_file,
   s_code_scanning_analysis_sarif_id,
-  s_code_scanning_analysis_tool,
   s_code_scanning_analysis_tool_guid,
   s_code_scanning_analysis_tool_name,
-  s_code_scanning_analysis_tool_version,
-  s_code_scanning_analysis_url,
   s_code_scanning_codeql_database,
   s_code_scanning_default_setup,
   s_code_scanning_default_setup_update,
@@ -1834,20 +1639,13 @@ import {
   s_content_traffic,
   s_contributor,
   s_contributor_activity,
-  s_converted_note_to_issue_issue_event,
   s_copilot_organization_details,
-  s_copilot_seat_breakdown,
   s_copilot_seat_details,
   s_custom_deployment_rule_app,
-  s_demilestoned_issue_event,
   s_dependabot_alert,
-  s_dependabot_alert_package,
-  s_dependabot_alert_security_advisory,
-  s_dependabot_alert_security_vulnerability,
   s_dependabot_alert_with_repository,
   s_dependabot_public_key,
   s_dependabot_secret,
-  s_dependency,
   s_dependency_graph_diff,
   s_dependency_graph_spdx_sbom,
   s_deploy_key,
@@ -1857,13 +1655,11 @@ import {
   s_deployment_branch_policy_settings,
   s_deployment_protection_rule,
   s_deployment_reviewer_type,
-  s_deployment_simple,
   s_deployment_status,
   s_diff_entry,
   s_email,
   s_empty_object,
   s_enabled_repositories,
-  s_enterprise,
   s_environment,
   s_environment_approvals,
   s_event,
@@ -1872,7 +1668,6 @@ import {
   s_full_repository,
   s_gist_comment,
   s_gist_commit,
-  s_gist_history,
   s_gist_simple,
   s_git_commit,
   s_git_ref,
@@ -1884,67 +1679,34 @@ import {
   s_hook,
   s_hook_delivery,
   s_hook_delivery_item,
-  s_hook_response,
   s_hovercard,
   s_import,
   s_installation,
   s_installation_token,
   s_integration,
   s_integration_installation_request,
-  s_interaction_expiry,
-  s_interaction_group,
   s_interaction_limit,
   s_interaction_limit_response,
   s_issue,
   s_issue_comment,
   s_issue_event,
-  s_issue_event_dismissed_review,
   s_issue_event_for_issue,
-  s_issue_event_label,
-  s_issue_event_milestone,
-  s_issue_event_project_card,
-  s_issue_event_rename,
   s_issue_search_result_item,
   s_job,
   s_key,
   s_key_simple,
   s_label,
   s_label_search_result_item,
-  s_labeled_issue_event,
   s_language,
   s_license,
   s_license_content,
   s_license_simple,
-  s_link,
-  s_link_with_type,
-  s_locked_issue_event,
-  s_manifest,
-  s_marketplace_account,
   s_marketplace_listing_plan,
   s_marketplace_purchase,
   s_merged_upstream,
-  s_metadata,
   s_migration,
   s_milestone,
-  s_milestoned_issue_event,
   s_minimal_repository,
-  s_moved_column_in_project_issue_event,
-  s_nullable_alert_updated_at,
-  s_nullable_code_of_conduct_simple,
-  s_nullable_codespace_machine,
-  s_nullable_collaborator,
-  s_nullable_community_health_file,
-  s_nullable_git_user,
-  s_nullable_integration,
-  s_nullable_issue,
-  s_nullable_license_simple,
-  s_nullable_milestone,
-  s_nullable_minimal_repository,
-  s_nullable_repository,
-  s_nullable_scoped_installation,
-  s_nullable_simple_commit,
-  s_nullable_simple_user,
-  s_nullable_team_simple,
   s_oidc_custom_sub,
   s_oidc_custom_sub_repo,
   s_org_hook,
@@ -1967,8 +1729,6 @@ import {
   s_page_build_status,
   s_page_deployment,
   s_pages_health_check,
-  s_pages_https_certificate,
-  s_pages_source_hash,
   s_participation_stats,
   s_pending_deployment,
   s_porter_author,
@@ -1982,104 +1742,58 @@ import {
   s_protected_branch,
   s_protected_branch_admin_enforced,
   s_protected_branch_pull_request_review,
-  s_protected_branch_required_status_check,
   s_public_user,
   s_pull_request,
   s_pull_request_merge_result,
-  s_pull_request_minimal,
   s_pull_request_review,
   s_pull_request_review_comment,
   s_pull_request_review_request,
   s_pull_request_simple,
-  s_rate_limit,
   s_rate_limit_overview,
   s_reaction,
-  s_reaction_rollup,
-  s_referenced_workflow,
   s_referrer_traffic,
   s_release,
   s_release_asset,
   s_release_notes_content,
-  s_removed_from_project_issue_event,
-  s_renamed_issue_event,
   s_repo_codespaces_secret,
   s_repo_search_result_item,
   s_repository,
   s_repository_advisory,
   s_repository_advisory_create,
-  s_repository_advisory_credit,
   s_repository_advisory_update,
-  s_repository_advisory_vulnerability,
   s_repository_collaborator_permission,
   s_repository_invitation,
   s_repository_rule,
-  s_repository_rule_branch_name_pattern,
-  s_repository_rule_commit_author_email_pattern,
-  s_repository_rule_commit_message_pattern,
-  s_repository_rule_committer_email_pattern,
-  s_repository_rule_creation,
-  s_repository_rule_deletion,
   s_repository_rule_detailed,
   s_repository_rule_enforcement,
-  s_repository_rule_non_fast_forward,
-  s_repository_rule_params_status_check_configuration,
-  s_repository_rule_pull_request,
-  s_repository_rule_required_deployments,
-  s_repository_rule_required_linear_history,
-  s_repository_rule_required_signatures,
-  s_repository_rule_required_status_checks,
-  s_repository_rule_ruleset_info,
-  s_repository_rule_tag_name_pattern,
-  s_repository_rule_update,
   s_repository_ruleset,
   s_repository_ruleset_bypass_actor,
   s_repository_ruleset_conditions,
-  s_repository_ruleset_conditions_repository_id_target,
-  s_repository_ruleset_conditions_repository_name_target,
   s_repository_subscription,
   s_review_comment,
   s_review_custom_gates_comment_required,
   s_review_custom_gates_state_required,
-  s_review_dismissed_issue_event,
-  s_review_request_removed_issue_event,
-  s_review_requested_issue_event,
   s_root,
   s_runner,
   s_runner_application,
   s_runner_label,
   s_scim_error,
-  s_search_result_text_matches,
   s_secret_scanning_alert,
   s_secret_scanning_alert_resolution,
   s_secret_scanning_alert_resolution_comment,
   s_secret_scanning_alert_state,
   s_secret_scanning_location,
-  s_secret_scanning_location_commit,
-  s_secret_scanning_location_issue_body,
-  s_secret_scanning_location_issue_comment,
-  s_secret_scanning_location_issue_title,
-  s_security_advisory_credit_types,
-  s_security_advisory_ecosystems,
-  s_security_and_analysis,
   s_selected_actions,
-  s_selected_actions_url,
   s_short_blob,
   s_short_branch,
   s_simple_classroom,
   s_simple_classroom_assignment,
-  s_simple_classroom_organization,
-  s_simple_classroom_repository,
-  s_simple_classroom_user,
-  s_simple_commit,
-  s_simple_commit_status,
-  s_simple_repository,
   s_simple_user,
   s_snapshot,
   s_social_account,
   s_ssh_signing_key,
   s_stargazer,
   s_starred_repository,
-  s_state_change_issue_event,
   s_status,
   s_status_check_policy,
   s_tag,
@@ -2089,31 +1803,18 @@ import {
   s_team_discussion_comment,
   s_team_full,
   s_team_membership,
-  s_team_organization,
   s_team_project,
   s_team_repository,
   s_team_simple,
   s_thread,
   s_thread_subscription,
-  s_timeline_assigned_issue_event,
-  s_timeline_comment_event,
-  s_timeline_commit_commented_event,
-  s_timeline_committed_event,
-  s_timeline_cross_referenced_event,
   s_timeline_issue_events,
-  s_timeline_line_commented_event,
-  s_timeline_reviewed_event,
-  s_timeline_unassigned_issue_event,
   s_topic,
   s_topic_search_result_item,
-  s_traffic,
-  s_unassigned_issue_event,
-  s_unlabeled_issue_event,
   s_user_marketplace_purchase,
   s_user_search_result_item,
   s_validation_error,
   s_validation_error_simple,
-  s_verification,
   s_view_traffic,
   s_wait_timer,
   s_webhook_config,
@@ -2137,10 +1838,6 @@ import {
   Response,
   ServerConfig,
   StatusCode,
-  StatusCode2xx,
-  StatusCode3xx,
-  StatusCode4xx,
-  StatusCode5xx,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
 import {
@@ -2148,7 +1845,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import koaBody from "koa-body"
 import { z } from "zod"
 
 //region safe-edit-region-header
@@ -20673,7 +20369,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           appsUpdateWebhookConfigForAppBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -21136,7 +20832,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           appsCreateInstallationAccessTokenBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -21313,7 +21009,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           appsDeleteAuthorizationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -21371,7 +21067,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           appsCheckTokenBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -21431,7 +21127,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           appsResetTokenBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -21488,7 +21184,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           appsDeleteTokenBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -21555,7 +21251,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           appsScopeTokenBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -22481,7 +22177,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         gistsCreateBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -22752,7 +22448,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         gistsUpdateBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -22936,7 +22632,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           gistsCreateCommentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -23085,7 +22781,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           gistsUpdateCommentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -24006,7 +23702,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         markdownRenderBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -24053,7 +23749,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         markdownRenderRawBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -24677,7 +24373,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           activityMarkNotificationsAsReadBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -24940,7 +24636,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           activitySetThreadSubscriptionBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -25251,7 +24947,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         orgsUpdateBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -25543,7 +25239,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           oidcUpdateOidcCustomSubTemplateForOrgBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -25658,7 +25354,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsSetGithubActionsPermissionsOrganizationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -25789,7 +25485,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -26001,7 +25697,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsSetAllowedActionsOrganizationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -26112,7 +25808,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -26306,7 +26002,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsGenerateRunnerJitconfigForOrgBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -26640,7 +26336,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -26720,7 +26416,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -27102,7 +26798,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsCreateOrUpdateOrgSecretBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -27279,7 +26975,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsSetSelectedReposForOrgSecretBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -27521,7 +27217,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsCreateOrgVariableBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -27628,7 +27324,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsUpdateOrgVariableBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -27812,7 +27508,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsSetSelectedReposForOrgVariableBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -28381,7 +28077,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           codespacesSetCodespacesAccessBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -28459,7 +28155,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           codespacesSetCodespacesAccessUsersBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -28540,7 +28236,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           codespacesDeleteCodespacesAccessUsersBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -28781,7 +28477,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           codespacesCreateOrUpdateOrgSecretBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -28984,7 +28680,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           codespacesSetSelectedReposForOrgSecretBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -29340,7 +29036,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           copilotAddCopilotForBusinessSeatsForTeamsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -29423,7 +29119,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           copilotCancelCopilotSeatAssignmentForTeamsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -29506,7 +29202,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           copilotAddCopilotForBusinessSeatsForUsersBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -29589,7 +29285,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           copilotCancelCopilotSeatAssignmentForUsersBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -29918,7 +29614,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           dependabotCreateOrUpdateOrgSecretBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -30098,7 +29794,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           dependabotSetSelectedReposForOrgSecretBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -30516,7 +30212,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         orgsCreateWebhookBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -30647,7 +30343,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           orgsUpdateWebhookBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -30814,7 +30510,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           orgsUpdateWebhookConfigForOrgBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -31277,7 +30973,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           interactionsSetRestrictionsForOrgBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -31463,7 +31159,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           orgsCreateInvitationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -32254,7 +31950,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           orgsSetMembershipForUserBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -32439,7 +32135,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           migrationsStartForOrgBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -32850,7 +32546,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           orgsConvertMemberToOutsideCollaboratorBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -33662,7 +33358,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           orgsReviewPatGrantRequestsInBulkBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -33739,7 +33435,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           orgsReviewPatGrantRequestBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -33967,7 +33663,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           orgsUpdatePatAccessesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -34041,7 +33737,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           orgsUpdatePatAccessBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -34243,7 +33939,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           projectsCreateForOrgBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -34611,7 +34307,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         reposCreateInOrgBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -34742,7 +34438,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposCreateOrgRulesetBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -34873,7 +34569,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposUpdateOrgRulesetBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -35504,7 +35200,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         teamsCreateBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -35634,7 +35330,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           teamsUpdateInOrgBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -35811,7 +35507,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           teamsCreateDiscussionInOrgBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -35917,7 +35613,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           teamsUpdateDiscussionInOrgBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -36081,7 +35777,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           teamsCreateDiscussionCommentInOrgBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -36188,7 +35884,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           teamsUpdateDiscussionCommentInOrgBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -36385,7 +36081,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForTeamDiscussionCommentInOrgBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -36584,7 +36280,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForTeamDiscussionInOrgBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -36872,7 +36568,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateMembershipForUserInOrgBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -37124,7 +36820,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateProjectPermissionsInOrgBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -37359,7 +37055,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateRepoPermissionsInOrgBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -37538,7 +37234,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           orgsEnableOrDisableSecurityProductOnAllOrgReposBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -37671,7 +37367,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           projectsUpdateCardBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -37852,7 +37548,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           projectsMoveCardBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -38007,7 +37703,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           projectsUpdateColumnBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -38226,7 +37922,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           projectsCreateCardBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -38310,7 +38006,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           projectsMoveColumnBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -38450,7 +38146,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         projectsUpdateBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -38692,7 +38388,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           projectsAddCollaboratorBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -38977,7 +38673,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           projectsCreateColumnBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -39191,7 +38887,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         reposUpdateBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -39868,7 +39564,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsReRunJobForWorkflowRunBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -39996,7 +39692,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsSetCustomOidcSubClaimForRepoBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -40259,7 +39955,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsSetGithubActionsPermissionsRepositoryBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -40369,7 +40065,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsSetWorkflowAccessToRepositoryBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -40474,7 +40170,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsSetAllowedActionsRepositoryBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -40591,7 +40287,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -40791,7 +40487,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsGenerateRunnerJitconfigForRepoBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -41134,7 +40830,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -41215,7 +40911,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -42053,7 +41749,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsReviewCustomGatesForRunBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -42338,7 +42034,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsReviewPendingDeploymentsForRunBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -42399,7 +42095,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsReRunWorkflowBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -42455,7 +42151,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsReRunWorkflowFailedJobsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -42731,7 +42427,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsCreateOrUpdateRepoSecretBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -42908,7 +42604,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsCreateRepoVariableBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -43015,7 +42711,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsUpdateRepoVariableBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -43286,7 +42982,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsCreateWorkflowDispatchBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -43792,7 +43488,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposCreateAutolinkBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -44349,7 +44045,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposUpdateBranchProtectionBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -44705,7 +44401,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposUpdatePullRequestReviewProtectionBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -45078,7 +44774,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposUpdateStatusCheckProtectionBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -45250,7 +44946,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposAddStatusCheckContextsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -45321,7 +45017,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposSetStatusCheckContextsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -45390,7 +45086,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposRemoveStatusCheckContextsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -45618,7 +45314,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposAddAppAccessRestrictionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -45682,7 +45378,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposSetAppAccessRestrictionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -45747,7 +45443,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposRemoveAppAccessRestrictionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -45870,7 +45566,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposAddTeamAccessRestrictionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -45934,7 +45630,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposSetTeamAccessRestrictionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -45999,7 +45695,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposRemoveTeamAccessRestrictionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -46125,7 +45821,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposAddUserAccessRestrictionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -46189,7 +45885,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposSetUserAccessRestrictionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -46254,7 +45950,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposRemoveUserAccessRestrictionsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -46320,7 +46016,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposRenameBranchBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -46389,7 +46085,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           checksCreateBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -46552,7 +46248,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           checksUpdateBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -46730,7 +46426,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           checksCreateSuiteBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -46793,7 +46489,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           checksSetSuitesPreferencesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -47206,7 +46902,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           codeScanningUpdateAlertBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -47852,7 +47548,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           codeScanningUpdateDefaultSetupBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -47949,7 +47645,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           codeScanningUploadSarifBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -48279,7 +47975,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           codespacesCreateWithRepoForAuthenticatedUserBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -48823,7 +48519,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           codespacesCreateOrUpdateRepoSecretBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -49062,7 +48758,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposAddCollaboratorBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -49359,7 +49055,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposUpdateCommitCommentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -49565,7 +49261,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForCommitCommentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -49878,7 +49574,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposCreateCommitCommentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -50599,7 +50295,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposCreateOrUpdateFileContentsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -50689,7 +50385,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposDeleteFileBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -51006,7 +50702,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           dependabotUpdateAlertBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -51248,7 +50944,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           dependabotCreateOrUpdateRepoSecretBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -51493,7 +51189,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           dependencyGraphCreateRepositorySnapshotBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -51631,7 +51327,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposCreateDeploymentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -51896,7 +51592,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposCreateDeploymentStatusBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -52015,7 +51711,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposCreateDispatchEventBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -52209,7 +51905,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposCreateOrUpdateEnvironmentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -52395,7 +52091,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposCreateDeploymentBranchPolicyBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -52507,7 +52203,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposUpdateDeploymentBranchPolicyBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -52685,7 +52381,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposCreateDeploymentProtectionRuleBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -53056,7 +52752,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposCreateForkBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -53131,7 +52827,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           gitCreateBlobBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -53283,7 +52979,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           gitCreateCommitBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -53505,7 +53201,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           gitCreateRefBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -53569,7 +53265,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           gitUpdateRefBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -53696,7 +53392,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           gitCreateTagBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -53826,7 +53522,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           gitCreateTreeBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -54039,7 +53735,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposCreateWebhookBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -54177,7 +53873,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposUpdateWebhookBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -54345,7 +54041,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposUpdateWebhookConfigForRepoBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -54770,7 +54466,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           migrationsStartImportBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -54844,7 +54540,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           migrationsUpdateImportBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -55029,7 +54725,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           migrationsMapCommitAuthorBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -55152,7 +54848,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           migrationsSetLfsPreferenceBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -55328,7 +55024,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           interactionsSetRestrictionsForRepoBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -55510,7 +55206,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposUpdateInvitationBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -55727,7 +55423,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           issuesCreateBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -55932,7 +55628,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           issuesUpdateCommentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -56132,7 +55828,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForIssueCommentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -56475,7 +56171,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           issuesUpdateBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -56554,7 +56250,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           issuesAddAssigneesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -56611,7 +56307,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           issuesRemoveAssigneesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -56801,7 +56497,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           issuesCreateCommentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -57018,7 +56714,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           issuesAddLabelsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -57099,7 +56795,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           issuesSetLabelsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -57306,7 +57002,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           issuesLockBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -57527,7 +57223,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForIssueBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -57770,7 +57466,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposCreateDeployKeyBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -58002,7 +57698,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           issuesCreateLabelBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -58124,7 +57820,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           issuesUpdateLabelBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -58327,7 +58023,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposMergeUpstreamBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -58395,7 +58091,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         reposMergeBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -58538,7 +58234,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           issuesCreateMilestoneBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -58661,7 +58357,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           issuesUpdateMilestoneBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -58906,7 +58602,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           activityMarkRepoNotificationsAsReadBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -59034,7 +58730,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposCreatePagesSiteBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -59110,7 +58806,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposUpdateInformationAboutPagesSiteBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -59450,7 +59146,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposCreatePagesDeploymentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -59785,7 +59481,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           projectsCreateForRepoBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -59931,7 +59627,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         pullsCreateBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -60107,7 +59803,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           pullsUpdateReviewCommentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -60313,7 +60009,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForPullRequestReviewCommentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -60518,7 +60214,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           pullsUpdateBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -60609,7 +60305,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           codespacesCreateWithPrForAuthenticatedUserBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -60762,7 +60458,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           pullsCreateReviewCommentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -60830,7 +60526,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           pullsCreateReplyForReviewCommentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -61111,7 +60807,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           pullsMergeBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -61246,7 +60942,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           pullsRequestReviewersBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -61314,7 +61010,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           pullsRemoveRequestedReviewersBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -61453,7 +61149,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           pullsCreateReviewBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -61574,7 +61270,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           pullsUpdateReviewBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -61765,7 +61461,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           pullsDismissReviewBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -61835,7 +61531,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           pullsSubmitReviewBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -61912,7 +61608,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           pullsUpdateBranchBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -62183,7 +61879,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposCreateReleaseBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -62309,7 +62005,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposUpdateReleaseAssetBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -62420,7 +62116,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposGenerateReleaseNotesBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -62650,7 +62346,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposUpdateReleaseBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -62827,7 +62523,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           reposUploadReleaseAssetBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -62958,7 +62654,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForReleaseBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -63205,7 +62901,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposCreateRepoRulesetBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -63346,7 +63042,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposUpdateRepoRulesetBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -63643,7 +63339,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           secretScanningUpdateAlertBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -63878,7 +63574,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           securityAdvisoriesCreateRepositoryAdvisoryBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -63949,7 +63645,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           securityAdvisoriesCreatePrivateVulnerabilityReportBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -64091,7 +63787,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           securityAdvisoriesUpdateRepositoryAdvisoryBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -64591,7 +64287,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposCreateCommitStatusBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -64762,7 +64458,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           activitySetRepoSubscriptionBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -64977,7 +64673,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposCreateTagProtectionBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -65275,7 +64971,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposReplaceAllTopicsBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -65571,7 +65267,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposTransferBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -65825,7 +65521,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposCreateUsingTemplateBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -66102,7 +65798,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsCreateOrUpdateEnvironmentSecretBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -66279,7 +65975,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsCreateEnvironmentVariableBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -66382,7 +66078,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           actionsUpdateEnvironmentVariableBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -67103,7 +66799,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         teamsUpdateLegacyBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -67277,7 +66973,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           teamsCreateDiscussionLegacyBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -67379,7 +67075,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           teamsUpdateDiscussionLegacyBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -67541,7 +67237,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           teamsCreateDiscussionCommentLegacyBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -67646,7 +67342,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           teamsUpdateDiscussionCommentLegacyBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -67834,7 +67530,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForTeamDiscussionCommentLegacyBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -67970,7 +67666,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForTeamDiscussionLegacyBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -68383,7 +68079,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateMembershipForUserLegacyBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -68641,7 +68337,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateProjectPermissionsLegacyBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -68901,7 +68597,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateRepoPermissionsLegacyBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -69138,7 +68834,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         usersUpdateAuthenticatedBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -69582,7 +69278,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           codespacesCreateForAuthenticatedUserBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -69824,7 +69520,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           codespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -70031,7 +69727,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           codespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -70335,7 +70031,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           codespacesUpdateForAuthenticatedUserBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -70700,7 +70396,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           codespacesPublishForAuthenticatedUserBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -70969,7 +70665,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           usersSetPrimaryEmailVisibilityForAuthenticatedUserBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -71121,7 +70817,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           usersAddEmailForAuthenticatedUserBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -71196,7 +70892,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           usersDeleteEmailForAuthenticatedUserBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -71663,7 +71359,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           usersCreateGpgKeyForAuthenticatedUserBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -72227,7 +71923,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           interactionsSetRestrictionsForAuthenticatedUserBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -72472,7 +72168,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           usersCreatePublicSshKeyForAuthenticatedUserBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -72950,7 +72646,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           orgsUpdateMembershipForAuthenticatedUserBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -73090,7 +72786,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           migrationsStartForAuthenticatedUserBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -74150,7 +73846,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           projectsCreateForAuthenticatedUserBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -74391,7 +74087,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           reposCreateForAuthenticatedUserBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -74742,7 +74438,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           usersAddSocialAccountForAuthenticatedUserBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -74815,7 +74511,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           usersDeleteSocialAccountForAuthenticatedUserBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -74959,7 +74655,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           usersCreateSshSigningKeyForAuthenticatedUserBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }

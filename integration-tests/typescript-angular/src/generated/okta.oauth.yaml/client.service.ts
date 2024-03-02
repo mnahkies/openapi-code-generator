@@ -5,23 +5,15 @@
 import {
   t_AcrValue,
   t_AmrValue,
-  t_ApplicationType,
   t_BackchannelAuthorizeRequest,
   t_BackchannelAuthorizeResponse,
-  t_Claim,
   t_Client,
   t_CodeChallengeMethod,
   t_DeviceAuthorizeRequest,
   t_DeviceAuthorizeResponse,
-  t_EndpointAuthMethod,
   t_Error,
-  t_GrantType,
   t_IntrospectionRequest,
   t_IntrospectionResponse,
-  t_JsonWebKey,
-  t_JsonWebKeyStatus,
-  t_JsonWebKeyType,
-  t_JsonWebKeyUse,
   t_OAuthError,
   t_OAuthKeys,
   t_OAuthMetadata,
@@ -30,30 +22,15 @@ import {
   t_ParResponse,
   t_Prompt,
   t_ResponseMode,
-  t_ResponseType,
   t_ResponseTypesSupported,
   t_RevokeRequest,
-  t_Scope,
-  t_SigningAlgorithm,
-  t_SubjectType,
-  t_TokenDeliveryMode,
   t_TokenRequest,
   t_TokenResponse,
-  t_TokenResponseTokenType,
-  t_TokenType,
-  t_TokenTypeHintIntrospect,
-  t_TokenTypeHintRevoke,
   t_UserInfo,
 } from "./models"
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpParams,
-  HttpResponse,
-} from "@angular/common/http"
+import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
-import { z } from "zod"
 
 export class ApiClientConfig {
   basePath: string = ""

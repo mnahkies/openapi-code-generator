@@ -26,8 +26,6 @@ import {
   Response,
   ServerConfig,
   StatusCode,
-  StatusCode2xx,
-  StatusCode3xx,
   StatusCode4xx,
   StatusCode5xx,
   startServer,
@@ -37,7 +35,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import koaBody from "koa-body"
 import { z } from "zod"
 
 //region safe-edit-region-header
@@ -287,7 +284,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         updateTodoListByIdBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -460,7 +457,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           createTodoListItemBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }

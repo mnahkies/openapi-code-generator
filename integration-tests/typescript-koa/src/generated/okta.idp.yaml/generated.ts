@@ -3,9 +3,7 @@
 /* eslint-disable */
 
 import {
-  EmptyObject,
   t_AppAuthenticatorEnrollment,
-  t_AppAuthenticatorMethodCapabilities,
   t_CreateAppAuthenticatorEnrollmentBodySchema,
   t_CreateEmailBodySchema,
   t_CreatePhoneBodySchema,
@@ -16,9 +14,6 @@ import {
   t_Error,
   t_GetEmailParamSchema,
   t_GetPhoneParamSchema,
-  t_KeyEC,
-  t_KeyObject,
-  t_KeyRSA,
   t_ListAppAuthenticatorPendingPushNotificationChallengesParamSchema,
   t_Phone,
   t_PollChallengeForEmailMagicLinkParamSchema,
@@ -43,12 +38,8 @@ import {
 import {
   s_AppAuthenticatorEnrollment,
   s_AppAuthenticatorEnrollmentRequest,
-  s_AppAuthenticatorMethodCapabilities,
   s_Email,
   s_Error,
-  s_KeyEC,
-  s_KeyObject,
-  s_KeyRSA,
   s_Phone,
   s_Profile,
   s_PushNotificationChallenge,
@@ -67,10 +58,6 @@ import {
   Response,
   ServerConfig,
   StatusCode,
-  StatusCode2xx,
-  StatusCode3xx,
-  StatusCode4xx,
-  StatusCode5xx,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
 import {
@@ -78,7 +65,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import koaBody from "koa-body"
 import { z } from "zod"
 
 //region safe-edit-region-header
@@ -650,7 +636,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           createAppAuthenticatorEnrollmentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -721,7 +707,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           verifyAppAuthenticatorPushNotificationChallengeBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -791,7 +777,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           updateAppAuthenticatorEnrollmentBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -1013,7 +999,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         createEmailBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -1208,7 +1194,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           sendEmailChallengeBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -1395,7 +1381,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           verifyEmailOtpBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -1498,7 +1484,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         createPhoneBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
@@ -1697,7 +1683,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           sendPhoneChallengeBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -1781,7 +1767,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: parseRequestInput(
           verifyPhoneChallengeBodySchema,
-          ctx.request.body,
+          Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
       }
@@ -1886,7 +1872,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: parseRequestInput(
         replaceProfileBodySchema,
-        ctx.request.body,
+        Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
     }
