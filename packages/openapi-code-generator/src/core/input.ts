@@ -124,8 +124,10 @@ export class Input {
       (result, operation) => {
         const key = groupBy(operation)
         if (key) {
-          result[key] = result[key] ?? []
-          result[key].push(operation)
+          const group = result[key] ?? []
+          group.push(operation)
+
+          result[key] = group
         } else {
           logger.warn("no group criteria for operation, skipping", operation)
         }
@@ -136,9 +138,9 @@ export class Input {
     )
   }
 
-  schema(maybeRef: MaybeIRModel): IRModel {
+  schema(maybeRef: Reference | Schema): IRModel {
     const schema = this.loader.schema(maybeRef)
-    return normalizeSchemaObject(schema) as IRModel
+    return normalizeSchemaObject(schema)
   }
 
   private normalizeRequestBodyObject(
@@ -280,7 +282,14 @@ function normalizeParameterObject(parameterObject: Parameter): IRParameter {
   }
 }
 
-function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
+function normalizeSchemaObject(schemaObject: Schema): IRModel
+function normalizeSchemaObject(schemaObject: Reference): IRRef
+function normalizeSchemaObject(
+  schemaObject: Schema | Reference,
+): IRModel | IRRef
+function normalizeSchemaObject(
+  schemaObject: Schema | Reference,
+): IRModel | IRRef {
   if (isRef(schemaObject)) {
     return schemaObject satisfies IRRef
   }
@@ -310,7 +319,7 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
 
   switch (schemaObject.type) {
     case undefined:
-    case "null": // TODO: HACK
+    case "null": // TODO: HACK to support OA 3.1
     case "object": {
       if (deepEqual(schemaObject, {type: "object"})) {
         return {
@@ -384,7 +393,7 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
         nullable: nullable || base.nullable,
         type: "number",
         // todo: https://github.com/mnahkies/openapi-code-generator/issues/51
-        format: schemaObject.format as any,
+        format: schemaObject.format,
         enum: enumValues.length ? enumValues : undefined,
       } satisfies IRModelNumeric
     }
@@ -399,7 +408,7 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
         ...base,
         nullable: nullable || base.nullable,
         type: schemaObject.type,
-        format: schemaObject.format as any,
+        format: schemaObject.format,
         enum: enumValues.length ? enumValues : undefined,
       } satisfies IRModelString
     }

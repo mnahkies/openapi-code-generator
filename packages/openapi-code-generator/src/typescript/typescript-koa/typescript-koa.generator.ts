@@ -197,10 +197,12 @@ export class ServerBuilder {
           type: string
           isWildCard: boolean
         }[]
-        defaultResponse?: {
-          type: string
-          schema: string
-        }
+        defaultResponse?:
+          | {
+              type: string
+              schema: string
+            }
+          | undefined
       },
     )
 
@@ -365,7 +367,11 @@ export async function generateTypescriptKoa(
 ): Promise<void> {
   const input = config.input
   const imports = new ImportBuilder()
-  const types = TypeBuilder.fromInput("./models.ts", input).withImports(imports)
+  const types = TypeBuilder.fromInput(
+    "./models.ts",
+    input,
+    config.compilerOptions,
+  ).withImports(imports)
   const schemaBuilder = schemaBuilderFactory(
     config.schemaBuilder,
     input,
@@ -407,7 +413,7 @@ function loadExistingImplementations(data: string): Record<string, string> {
         safeRegionName = ""
       } else {
         // this is safe because we tested that the regex matched prior to
-        safeRegionName = match[1]
+        safeRegionName = match[1]!
       }
     } else if (safeRegionName) {
       buffer.push(line)

@@ -38,6 +38,7 @@
     "ajv-formats": "^2.1.1",
     "commander": "^12.0.0",
     "js-yaml": "^4.1.0",
+    "json5": "^2.2.3",
     "lodash": "^4.17.21",
     "source-map-support": "^0.5.21",
     "tslib": "^2.6.2"

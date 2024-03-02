@@ -58,7 +58,7 @@ export abstract class AbstractSchemaBuilder {
           })
           .map((name) => {
             return buildExport(
-              this.schemaFromRef(this.referenced[name], imports),
+              this.schemaFromRef(this.referenced[name]!, imports),
             )
           })
       )

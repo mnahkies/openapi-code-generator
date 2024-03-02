@@ -12,7 +12,7 @@ enum Color {
 
 export class Logger {
   private readonly startTime = process.hrtime.bigint()
-  private readonly times: [string, ...bigint[]][] = []
+  private readonly times: [string, bigint, ...bigint[]][] = []
 
   constructor(private readonly format = defaultFormat) {}
 
@@ -42,10 +42,10 @@ export class Logger {
 
   readonly endTime = (now: bigint = process.hrtime.bigint()): void => {
     const last = this.times[this.times.length - 1]
-    if (last?.length < 3) {
+    if (last && last.length < 3) {
       last.push(now)
       this.info(`complete '${last[0]}'`, {
-        elapsed: diff(last[1], last[2]),
+        elapsed: diff(last[1], now),
       })
     }
   }

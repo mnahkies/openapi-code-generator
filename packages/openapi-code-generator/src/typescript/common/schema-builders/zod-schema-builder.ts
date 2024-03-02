@@ -64,7 +64,7 @@ export class ZodBuilder extends AbstractSchemaBuilder {
   protected merge(schemas: string[]): string {
     const definedSchemas = schemas.filter(isDefined)
 
-    if (definedSchemas.length == 1) {
+    if (definedSchemas.length == 1 && definedSchemas[0]) {
       return definedSchemas[0]
     }
 
@@ -76,7 +76,7 @@ export class ZodBuilder extends AbstractSchemaBuilder {
   protected intersect(schemas: string[]): string {
     const definedSchemas = schemas.filter(isDefined)
 
-    if (definedSchemas.length == 1) {
+    if (definedSchemas.length == 1 && definedSchemas[0]) {
       return definedSchemas[0]
     }
 
@@ -92,7 +92,7 @@ export class ZodBuilder extends AbstractSchemaBuilder {
   protected union(schemas: string[]): string {
     const definedSchemas = schemas.filter(isDefined)
 
-    if (definedSchemas.length === 1) {
+    if (definedSchemas.length === 1 && definedSchemas[0]) {
       return definedSchemas[0]
     }
 

@@ -9,7 +9,7 @@ const {writeHeapSnapshot} = require("node:v8")
 
 const client = new ApiClient({
   basePath: "https://api.github.com",
-  defaultHeaders: {Authorization: `Bearer ${process.env.GITHUB_TOKEN}`},
+  defaultHeaders: {Authorization: `Bearer ${process.env["GITHUB_TOKEN"]}`},
   defaultTimeout: 5_000,
 })
 

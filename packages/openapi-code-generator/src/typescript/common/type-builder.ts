@@ -1,3 +1,4 @@
+import {CompilerOptions} from "../../core/file-loader"
 import {Input} from "../../core/input"
 import {logger} from "../../core/logger"
 import {Reference} from "../../core/openapi-types"
@@ -25,6 +26,7 @@ export class TypeBuilder {
   private constructor(
     public readonly filename: string,
     private readonly input: Input,
+    private readonly compilerOptions: CompilerOptions,
     private readonly referenced = new Set<string>(),
     private readonly referencedStaticTypes = new Set<StaticType>(),
     private readonly imports?: ImportBuilder,
@@ -34,6 +36,7 @@ export class TypeBuilder {
     return new TypeBuilder(
       this.filename,
       this.input,
+      this.compilerOptions,
       this.referenced,
       this.referencedStaticTypes,
       imports,
@@ -161,9 +164,16 @@ export class TypeBuilder {
 
               const isReadonly = isRef(definition) ? false : definition.readOnly
 
+              // ensure compatibility with `exactOptionalPropertyTypes` compiler option
+              // https://www.typescriptlang.org/tsconfig#exactOptionalPropertyTypes
+              const exactOptionalPropertyTypes =
+                !isRequired && this.compilerOptions.exactOptionalPropertyTypes
+
               return objectProperty({
                 name,
-                type,
+                type: exactOptionalPropertyTypes
+                  ? union(type, "undefined")
+                  : type,
                 isReadonly,
                 isRequired,
               })
@@ -207,7 +217,11 @@ export class TypeBuilder {
     return result
   }
 
-  static fromInput(filename: string, input: Input): TypeBuilder {
-    return new TypeBuilder(filename, input)
+  static fromInput(
+    filename: string,
+    input: Input,
+    compilerOptions: CompilerOptions,
+  ): TypeBuilder {
+    return new TypeBuilder(filename, input, compilerOptions)
   }
 }

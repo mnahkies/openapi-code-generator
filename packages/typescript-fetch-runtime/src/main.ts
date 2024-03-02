@@ -58,7 +58,7 @@ export type HeaderParams = Record<string, string | number | undefined>
 export abstract class AbstractFetchClient {
   protected readonly basePath: string
   protected readonly defaultHeaders: Record<string, string>
-  protected readonly defaultTimeout?: number
+  protected readonly defaultTimeout: number | undefined
 
   protected constructor(config: AbstractFetchClientConfig) {
     this.basePath = config.basePath

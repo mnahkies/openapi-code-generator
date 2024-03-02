@@ -10,7 +10,10 @@ export async function generateTypescriptAxios(
 ): Promise<void> {
   const input = config.input
   const imports = new ImportBuilder()
-  const types = TypeBuilder.fromInput("./models.ts", input).withImports(imports)
+  const types = TypeBuilder.fromInput("./models.ts", input, {
+    ...config.compilerOptions,
+    exactOptionalPropertyTypes: false,
+  }).withImports(imports)
   const schemaBuilder = schemaBuilderFactory(
     config.schemaBuilder,
     input,

@@ -43,11 +43,7 @@ export class JoiBuilder extends AbstractSchemaBuilder {
     return [this.joi, "any()", "valid(undefined)"].filter(isDefined).join(".")
   }
 
-  protected schemaFromRef(
-    reference: Reference,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    imports: ImportBuilder,
-  ): ExportDefinition {
+  protected schemaFromRef(reference: Reference): ExportDefinition {
     const name = getSchemaNameFromRef(reference)
     const schemaObject = this.input.schema(reference)
 

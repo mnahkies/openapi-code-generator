@@ -57,7 +57,7 @@ export abstract class AbstractAxiosClient {
   protected readonly axios: AxiosInstance
   protected readonly basePath: string
   protected readonly defaultHeaders: Record<string, string>
-  protected readonly defaultTimeout?: number
+  protected readonly defaultTimeout: number | undefined
 
   protected constructor(config: AbstractAxiosConfig) {
     this.axios = config.axios ?? axios

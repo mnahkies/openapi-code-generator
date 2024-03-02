@@ -28,6 +28,12 @@ components:
           type:
             - string
             - "null"
+
+    OptionalProperties:
+      properties:
+        optional_str:
+          type: string
+
     NamedNullableStringEnum:
       type:
         - string
@@ -38,6 +44,7 @@ components:
         - two
         - three
         - null
+
     ObjectWithRefs:
       required:
         - requiredObject

@@ -28,6 +28,12 @@ components:
         required_nullable:
           type: string
           nullable: true
+
+    OptionalProperties:
+      properties:
+        optional_str:
+          type: string
+
     NamedNullableStringEnum:
       type: string
       nullable: true
