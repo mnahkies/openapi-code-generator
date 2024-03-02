@@ -39,7 +39,7 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
       ) ||
       "AxiosResponse<void>"
 
-    const responseSchema = this.enableRuntimeResponseValidation
+    const responseSchema = this.config.enableRuntimeResponseValidation
       ? builder
           .responseSchemas()
           .specific.find((it) => it.statusType.startsWith("2")) ??

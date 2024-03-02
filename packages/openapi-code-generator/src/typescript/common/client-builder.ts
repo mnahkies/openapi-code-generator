@@ -15,7 +15,10 @@ export abstract class TypescriptClientBuilder {
     protected readonly imports: ImportBuilder,
     protected readonly models: TypeBuilder,
     protected readonly schemaBuilder: SchemaBuilder,
-    protected readonly enableRuntimeResponseValidation: boolean,
+    protected readonly config: {
+      allowUnusedImports: boolean
+      enableRuntimeResponseValidation: boolean
+    } = {allowUnusedImports: false, enableRuntimeResponseValidation: false},
   ) {
     this.buildImports(imports)
   }
@@ -40,10 +43,12 @@ export abstract class TypescriptClientBuilder {
   ): string
 
   toString(): string {
-    return `
-    ${this.imports.toString()}
+    const code = this.buildClient(this.name, this.operations)
 
-    ${this.buildClient(this.name, this.operations)}
+    return `
+    ${this.imports.toString(this.config.allowUnusedImports ? "" : code)}
+
+    ${code}
     `
   }
 }

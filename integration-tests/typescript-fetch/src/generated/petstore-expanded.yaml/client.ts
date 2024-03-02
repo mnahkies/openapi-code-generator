@@ -8,13 +8,8 @@ import {
   AbstractFetchClientConfig,
   Res,
   StatusCode,
-  StatusCode2xx,
-  StatusCode3xx,
-  StatusCode4xx,
-  StatusCode5xx,
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
-import { z } from "zod"
 
 export interface ApiClientConfig extends AbstractFetchClientConfig {}
 

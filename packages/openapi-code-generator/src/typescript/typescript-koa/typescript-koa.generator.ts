@@ -62,6 +62,9 @@ export class ServerBuilder {
     private readonly imports: ImportBuilder,
     public readonly types: TypeBuilder,
     public readonly schemaBuilder: SchemaBuilder,
+    private readonly config: {allowUnusedImports: boolean} = {
+      allowUnusedImports: false,
+    },
     private existingRegions: {
       [operationId: string]: string
     },
@@ -88,7 +91,6 @@ export class ServerBuilder {
 
     this.imports.addModule("KoaRouter", "@koa/router")
     this.imports.from("@koa/router").add("RouterContext")
-    this.imports.addModule("koaBody", "koa-body")
 
     if (schemaBuilder instanceof ZodBuilder) {
       imports
@@ -277,7 +279,7 @@ export class ServerBuilder {
         },
         body: ${
           bodyParamSchema
-            ? `parseRequestInput(${operation.operationId}BodySchema, ctx.request.body, RequestInputType.RequestBody)`
+            ? `parseRequestInput(${operation.operationId}BodySchema, Reflect.get(ctx.request, "body"), RequestInputType.RequestBody)`
             : "undefined"
         },
        }
@@ -319,9 +321,7 @@ export class ServerBuilder {
     const routes = this.statements
     const imports = this.imports
 
-    return `
-${imports.toString()}
-
+    const code = `
 //region safe-edit-region-header
 ${this.existingRegions["header"] ?? ""}
 //endregion safe-edit-region-header
@@ -351,6 +351,11 @@ export async function bootstrap(config: ServerConfig) {
   return startServer(config)
 }
 `
+    return `
+    ${imports.toString(this.config.allowUnusedImports ? "" : code)}
+
+    ${code}
+    `
   }
 }
 
@@ -385,6 +390,7 @@ export async function generateTypescriptKoa(
     imports,
     types,
     schemaBuilder,
+    {allowUnusedImports: config.allowUnusedImports},
     loadExistingImplementations(
       await loadPreviousResult(config.dest, {filename: "index.ts"}),
     ),

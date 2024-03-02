@@ -60,6 +60,14 @@ const program = new Command()
       .env("OPENAPI_EXTRACT_INLINE_SCHEMAS")
       .default(false),
   )
+  .addOption(
+    new Option(
+      "--allow-unused-imports",
+      "Keep unused imports. Especially useful if there is a bug in the unused-import elimination.",
+    )
+      .env("OPENAPI_ALLOW_UNUSED_IMPORTS")
+      .default(false),
+  )
   .showHelpAfterError()
   .parse()
 
@@ -88,6 +96,7 @@ async function main() {
     schemaBuilder: config.schemaBuilder,
     enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
     compilerOptions,
+    allowUnusedImports: config.allowUnusedImports,
   })
 }
 

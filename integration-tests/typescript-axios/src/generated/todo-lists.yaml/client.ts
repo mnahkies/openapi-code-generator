@@ -2,13 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { t_CreateUpdateTodoList, t_Error, t_TodoList } from "./models"
+import { t_CreateUpdateTodoList, t_TodoList } from "./models"
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
 } from "@nahkies/typescript-axios-runtime/main"
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
-import { z } from "zod"
+import { AxiosRequestConfig, AxiosResponse } from "axios"
 
 export class ApiClient extends AbstractAxiosClient {
   constructor(config: AbstractAxiosConfig) {
