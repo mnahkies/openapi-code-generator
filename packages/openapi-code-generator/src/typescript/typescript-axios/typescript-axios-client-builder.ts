@@ -1,8 +1,8 @@
 import {TypescriptClientBuilder} from "../common/client-builder"
-import {ImportBuilder} from "../common/import-builder"
 import {ClientOperationBuilder} from "../common/client-operation-builder"
-import {asyncMethod, routeToTemplateString} from "../common/typescript-common"
+import {ImportBuilder} from "../common/import-builder"
 import {union} from "../common/type-utils"
+import {asyncMethod, routeToTemplateString} from "../common/typescript-common"
 
 export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
   protected buildImports(imports: ImportBuilder): void {
@@ -72,7 +72,10 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
       responseSchema
         ? `const res = await ${axiosFragment}
 
-    return {...res, data: ${this.schemaBuilder.parse(responseSchema.schema, "res.data")}}
+    return {...res, data: ${this.schemaBuilder.parse(
+      responseSchema.schema,
+      "res.data",
+    )}}
     `
         : `return ${axiosFragment}`
     }

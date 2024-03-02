@@ -1,19 +1,19 @@
 import _ from "lodash"
+import {generationLib} from "../../core/generation-lib"
 import {
   IROperation,
   IRParameter,
   MaybeIRModel,
 } from "../../core/openapi-types-normalized"
 import {isDefined} from "../../core/utils"
-import {generationLib} from "../../core/generation-lib"
+import {SchemaBuilder} from "./schema-builders/schema-builder"
 import {TypeBuilder} from "./type-builder"
 import {
-  combineParams,
   MethodParameterDefinition,
+  combineParams,
   requestBodyAsParameter,
   statusStringToType,
 } from "./typescript-common"
-import {SchemaBuilder} from "./schema-builders/schema-builder"
 
 export type ClientOperationResponseSchemas = {
   specific: {
@@ -176,7 +176,10 @@ export class ClientOperationBuilder {
 
     if (!responses) {
       return [
-        {status: "number", definition: {$ref: generationLib.UnknownObject$Ref}},
+        {
+          status: "number",
+          definition: {$ref: generationLib.UnknownObject$Ref},
+        },
       ]
     }
 

@@ -2,12 +2,12 @@
 
 import "source-map-support/register"
 
-import {OpenapiLoader} from "./core/openapi-loader"
+import {Command, Option} from "@commander-js/extra-typings"
 import {Input} from "./core/input"
-import {OpenapiValidator} from "./core/openapi-validator"
-import {Option, Command} from "@commander-js/extra-typings"
-import {templates} from "./templates"
 import {logger} from "./core/logger"
+import {OpenapiLoader} from "./core/openapi-loader"
+import {OpenapiValidator} from "./core/openapi-validator"
+import {templates} from "./templates"
 
 const program = new Command()
   .addOption(

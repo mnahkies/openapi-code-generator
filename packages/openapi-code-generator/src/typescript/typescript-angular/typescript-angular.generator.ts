@@ -1,10 +1,10 @@
-import {TypeBuilder} from "../common/type-builder"
-import {emitGenerationResult} from "../common/output-utils"
-import {AngularModuleBuilder} from "./angular-module-builder"
-import {AngularServiceBuilder} from "./angular-service-builder"
 import {OpenapiGeneratorConfig} from "../../templates.types"
 import {ImportBuilder} from "../common/import-builder"
+import {emitGenerationResult} from "../common/output-utils"
 import {schemaBuilderFactory} from "../common/schema-builders/schema-builder"
+import {TypeBuilder} from "../common/type-builder"
+import {AngularModuleBuilder} from "./angular-module-builder"
+import {AngularServiceBuilder} from "./angular-service-builder"
 
 export async function generateTypescriptAngular(
   config: OpenapiGeneratorConfig,

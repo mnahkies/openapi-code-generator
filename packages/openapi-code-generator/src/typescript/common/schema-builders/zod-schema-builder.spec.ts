@@ -1,8 +1,8 @@
-import {describe, it, expect} from "@jest/globals"
-import {ZodBuilder} from "./zod-schema-builder"
+import {describe, expect, it} from "@jest/globals"
 import {testVersions, unitTestInput} from "../../../test/input.test-utils"
 import {ImportBuilder} from "../import-builder"
 import {formatOutput} from "../output-utils"
+import {ZodBuilder} from "./zod-schema-builder"
 
 describe.each(testVersions)(
   "%s - typescript/common/schema-builders/zod-schema-builder",
@@ -289,8 +289,8 @@ describe.each(testVersions)(
       const model = builder.fromModel({$ref: `${file}#${path}`}, true)
 
       return {
-        model: await formatOutput(model),
-        schemas: await formatOutput(builder.toString()),
+        model: await formatOutput(model, "unit-test.ts"),
+        schemas: await formatOutput(builder.toString(), "unit-test.ts"),
       }
     }
   },

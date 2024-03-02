@@ -1,10 +1,10 @@
 import {Input} from "../../../core/input"
-import {isDefined} from "../../../core/utils"
-import {AbstractSchemaBuilder} from "./abstract-schema-builder"
-import {ImportBuilder} from "../import-builder"
 import {Reference} from "../../../core/openapi-types"
 import {getSchemaNameFromRef} from "../../../core/openapi-utils"
+import {isDefined} from "../../../core/utils"
+import {ImportBuilder} from "../import-builder"
 import {ExportDefinition} from "../typescript-common"
+import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 
 enum JoiFn {
   Object = "object()",

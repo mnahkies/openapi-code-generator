@@ -1,3 +1,7 @@
+import {buildDependencyGraph} from "../../../core/dependency-graph"
+import {Input} from "../../../core/input"
+import {logger} from "../../../core/logger"
+import {Reference} from "../../../core/openapi-types"
 import {
   IRModelNumeric,
   IRModelObject,
@@ -5,13 +9,9 @@ import {
   IRParameter,
   MaybeIRModel,
 } from "../../../core/openapi-types-normalized"
-import {ImportBuilder} from "../import-builder"
-import {Input} from "../../../core/input"
 import {getSchemaNameFromRef, isRef} from "../../../core/openapi-utils"
-import {Reference} from "../../../core/openapi-types"
-import {buildDependencyGraph} from "../../../core/dependency-graph"
-import {logger} from "../../../core/logger"
-import {buildExport, ExportDefinition} from "../typescript-common"
+import {ImportBuilder} from "../import-builder"
+import {ExportDefinition, buildExport} from "../typescript-common"
 
 export abstract class AbstractSchemaBuilder {
   private readonly graph

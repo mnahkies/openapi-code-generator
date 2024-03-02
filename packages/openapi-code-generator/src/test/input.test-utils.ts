@@ -1,9 +1,9 @@
-import {OpenapiValidator} from "../core/openapi-validator"
-import {jest} from "@jest/globals"
-import {OpenapiLoader} from "../core/openapi-loader"
-import {Input} from "../core/input"
 import path from "path"
+import {jest} from "@jest/globals"
 import yaml from "js-yaml"
+import {Input} from "../core/input"
+import {OpenapiLoader} from "../core/openapi-loader"
+import {OpenapiValidator} from "../core/openapi-validator"
 
 type Version = "3.0.x" | "3.1.x"
 

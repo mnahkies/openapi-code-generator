@@ -58,8 +58,9 @@ export class Logger {
       (result, [description, startTime, endTime], i) => {
         const ms = diff(startTime, endTime || now)
 
-        result[`${i} - ${description}`] =
-          `${ms} ms, ${Math.round((ms / total) * 100)}%`
+        result[`${i} - ${description}`] = `${ms} ms, ${Math.round(
+          (ms / total) * 100,
+        )}%`
 
         return result
       },
@@ -74,7 +75,9 @@ function defaultFormat(
   meta?: LoggerMeta,
   color = Color.Reset,
 ) {
-  return `${color}[${level}]${Color.Reset} ${message} ${meta ? util.inspect(meta) : ""}`
+  return `${color}[${level}]${Color.Reset} ${message} ${
+    meta ? util.inspect(meta) : ""
+  }`
 }
 
 function diff(start: bigint, end: bigint) {

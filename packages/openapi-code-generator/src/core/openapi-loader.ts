@@ -3,8 +3,7 @@ import util from "util"
 
 import {isRemote, loadFile} from "./file-loader"
 
-import {generationLib, VirtualDefinition} from "./generation-lib"
-import {OpenapiValidator} from "./openapi-validator"
+import {VirtualDefinition, generationLib} from "./generation-lib"
 import {
   OpenapiDocument,
   Operation,
@@ -16,6 +15,7 @@ import {
   Schema,
 } from "./openapi-types"
 import {isRef} from "./openapi-utils"
+import {OpenapiValidator} from "./openapi-validator"
 
 export class OpenapiLoader {
   private readonly virtualLibrary = new Map<string, VirtualDefinition>()
@@ -199,7 +199,9 @@ export class OpenapiLoader {
   }
 
   toString(): string {
-    return `loaded ${this.library.size} files: ${Array.from(this.library.keys()).map(prettyKey).join(", ")}`
+    return `loaded ${this.library.size} files: ${Array.from(this.library.keys())
+      .map(prettyKey)
+      .join(", ")}`
   }
 
   [util.inspect.custom](): Record<string, unknown> {

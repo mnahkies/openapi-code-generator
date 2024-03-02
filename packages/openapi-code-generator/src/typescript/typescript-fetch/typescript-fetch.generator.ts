@@ -1,9 +1,9 @@
-import {TypescriptFetchClientBuilder} from "./typescript-fetch-client-builder"
-import {ImportBuilder} from "../common/import-builder"
-import {TypeBuilder} from "../common/type-builder"
-import {schemaBuilderFactory} from "../common/schema-builders/schema-builder"
 import {OpenapiGeneratorConfig} from "../../templates.types"
+import {ImportBuilder} from "../common/import-builder"
 import {emitGenerationResult} from "../common/output-utils"
+import {schemaBuilderFactory} from "../common/schema-builders/schema-builder"
+import {TypeBuilder} from "../common/type-builder"
+import {TypescriptFetchClientBuilder} from "./typescript-fetch-client-builder"
 
 export async function generateTypescriptFetch(
   config: OpenapiGeneratorConfig,

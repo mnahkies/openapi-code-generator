@@ -1,4 +1,7 @@
 import _ from "lodash"
+import {generationLib} from "./generation-lib"
+import {logger} from "./logger"
+import {OpenapiLoader} from "./openapi-loader"
 import {
   MediaType,
   Operation,
@@ -8,9 +11,6 @@ import {
   Responses,
   Schema,
 } from "./openapi-types"
-import {OpenapiLoader} from "./openapi-loader"
-import {generationLib} from "./generation-lib"
-import {mediaTypeToIdentifier, isHttpMethod, deepEqual} from "./utils"
 import {
   IRModel,
   IRModelArray,
@@ -26,7 +26,7 @@ import {
   MaybeIRModel,
 } from "./openapi-types-normalized"
 import {isRef} from "./openapi-utils"
-import {logger} from "./logger"
+import {deepEqual, isHttpMethod, mediaTypeToIdentifier} from "./utils"
 
 export class Input {
   constructor(
@@ -249,7 +249,9 @@ export class Input {
     suffix: string,
   ): MaybeIRModel {
     // TODO: omit media type when only one possible?
-    const syntheticName = `${operationId}${mediaTypeToIdentifier(mediaType)}${suffix}`
+    const syntheticName = `${operationId}${mediaTypeToIdentifier(
+      mediaType,
+    )}${suffix}`
     const result = normalizeSchemaObject(schema)
 
     const shouldCreateVirtualType =
