@@ -48,7 +48,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "POST",
       headers,
       data: body,
-      timeout,
+      ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
   }
@@ -71,7 +71,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "POST",
       headers,
       data: body,
-      timeout,
+      ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
   }
@@ -94,7 +94,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "PATCH",
       headers,
       data: body,
-      timeout,
+      ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
   }
@@ -112,7 +112,7 @@ export class ApiClient extends AbstractAxiosClient {
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
-      timeout,
+      ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
   }
@@ -130,7 +130,7 @@ export class ApiClient extends AbstractAxiosClient {
       url: url,
       baseURL: this.basePath,
       method: "GET",
-      timeout,
+      ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
   }
@@ -145,7 +145,7 @@ export class ApiClient extends AbstractAxiosClient {
       url: url,
       baseURL: this.basePath,
       method: "GET",
-      timeout,
+      ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
   }
@@ -174,7 +174,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "POST",
       headers,
       data: body,
-      timeout,
+      ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
   }
@@ -192,7 +192,7 @@ export class ApiClient extends AbstractAxiosClient {
       url: url,
       baseURL: this.basePath,
       method: "GET",
-      timeout,
+      ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
   }
@@ -210,7 +210,7 @@ export class ApiClient extends AbstractAxiosClient {
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
-      timeout,
+      ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
   }
@@ -258,7 +258,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "POST",
       headers,
       data: body,
-      timeout,
+      ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
   }
@@ -300,7 +300,7 @@ export class ApiClient extends AbstractAxiosClient {
       url: url,
       baseURL: this.basePath,
       method: "GET",
-      timeout,
+      ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
   }
@@ -326,7 +326,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "POST",
       headers,
       data: body,
-      timeout,
+      ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
   }
@@ -341,7 +341,7 @@ export class ApiClient extends AbstractAxiosClient {
       url: url,
       baseURL: this.basePath,
       method: "GET",
-      timeout,
+      ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
   }
@@ -369,7 +369,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "POST",
       headers,
       data: body,
-      timeout,
+      ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
   }
@@ -387,7 +387,7 @@ export class ApiClient extends AbstractAxiosClient {
       url: url,
       baseURL: this.basePath,
       method: "GET",
-      timeout,
+      ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
   }
@@ -405,7 +405,7 @@ export class ApiClient extends AbstractAxiosClient {
       url: url,
       baseURL: this.basePath,
       method: "DELETE",
-      timeout,
+      ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
   }
@@ -442,7 +442,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "POST",
       headers,
       data: body,
-      timeout,
+      ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
   }
@@ -467,7 +467,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "POST",
       headers,
       data: body,
-      timeout,
+      ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
   }
@@ -482,7 +482,7 @@ export class ApiClient extends AbstractAxiosClient {
       url: url,
       baseURL: this.basePath,
       method: "GET",
-      timeout,
+      ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
   }
@@ -508,7 +508,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "PUT",
       headers,
       data: body,
-      timeout,
+      ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
   }
@@ -523,7 +523,7 @@ export class ApiClient extends AbstractAxiosClient {
       url: url,
       baseURL: this.basePath,
       method: "GET",
-      timeout,
+      ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
   }
