@@ -1,4 +1,7 @@
-import {buildDependencyGraph} from "../../../core/dependency-graph"
+import {
+  DependencyGraph,
+  buildDependencyGraph,
+} from "../../../core/dependency-graph"
 import {Input} from "../../../core/input"
 import {logger} from "../../../core/logger"
 import {Reference} from "../../../core/openapi-types"
@@ -19,7 +22,7 @@ export abstract class AbstractSchemaBuilder<
   SubClass extends AbstractSchemaBuilder<SubClass>,
 > implements ICompilable
 {
-  private readonly graph
+  private readonly graph: DependencyGraph
 
   private readonly schemaBuilderImports = new ImportBuilder()
 
@@ -30,7 +33,8 @@ export abstract class AbstractSchemaBuilder<
     private readonly imports?: ImportBuilder,
     private readonly parent?: SubClass,
   ) {
-    this.graph = buildDependencyGraph(this.input, getSchemaNameFromRef)
+    this.graph =
+      parent?.graph ?? buildDependencyGraph(this.input, getSchemaNameFromRef)
     this.importHelpers(this.schemaBuilderImports)
   }
 

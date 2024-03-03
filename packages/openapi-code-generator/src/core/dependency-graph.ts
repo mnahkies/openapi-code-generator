@@ -79,6 +79,7 @@ function split<T>(
   return [left, right]
 }
 
+export type DependencyGraph = {order: string[]; circular: Set<string>}
 /**
  * Pretty horrible function that works out the order that schemas should be output, based on their dependencies.
  * The result is an ordering that will allow code to reference dependencies without causing uninitialised errors.
@@ -92,7 +93,7 @@ function split<T>(
 export function buildDependencyGraph(
   input: Input,
   getNameForRef: (reference: Reference) => string,
-): {order: string[]; circular: Set<string>} {
+): DependencyGraph {
   logger.time("calculate schema dependency graph")
 
   /**
