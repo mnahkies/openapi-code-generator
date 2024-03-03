@@ -52,6 +52,10 @@ export async function formatOutput(
   filename: string,
 ): Promise<string> {
   try {
+    raw = raw
+      .split("\n")
+      .map((it) => it.trim())
+      .join("\n")
     const biome = await Biome.create({
       distribution: Distribution.NODE,
     })

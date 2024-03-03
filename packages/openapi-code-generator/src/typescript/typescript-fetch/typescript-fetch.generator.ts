@@ -9,24 +9,26 @@ export async function generateTypescriptFetch(
   config: OpenapiGeneratorConfig,
 ): Promise<void> {
   const input = config.input
-  const imports = new ImportBuilder()
-  const types = TypeBuilder.fromInput("./models.ts", input, {
+
+  const rootTypeBuilder = await TypeBuilder.fromInput("./models.ts", input, {
     ...config.compilerOptions,
     exactOptionalPropertyTypes: false,
-  }).withImports(imports)
-  const schemaBuilder = schemaBuilderFactory(
-    config.schemaBuilder,
+  })
+  const rootSchemaBuilder = await schemaBuilderFactory(
+    "./schemas.ts",
     input,
-    imports,
+    config.schemaBuilder,
   )
+
+  const imports = new ImportBuilder()
 
   const client = new TypescriptFetchClientBuilder(
     "client.ts",
     "ApiClient",
     input,
     imports,
-    types,
-    schemaBuilder,
+    rootTypeBuilder.withImports(imports),
+    rootSchemaBuilder.withImports(imports),
     {
       enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
       allowUnusedImports: config.allowUnusedImports,
@@ -35,5 +37,9 @@ export async function generateTypescriptFetch(
 
   input.allOperations().map((it) => client.add(it))
 
-  await emitGenerationResult(config.dest, [types, client, schemaBuilder])
+  await emitGenerationResult(config.dest, [
+    rootTypeBuilder,
+    client,
+    rootSchemaBuilder,
+  ])
 }

@@ -10,22 +10,30 @@ import {
   MaybeIRModel,
 } from "../../../core/openapi-types-normalized"
 import {getSchemaNameFromRef, isRef} from "../../../core/openapi-utils"
+import {hasSingleElement} from "../../../core/utils"
 import {ImportBuilder} from "../import-builder"
 import {ExportDefinition, buildExport} from "../typescript-common"
 
-export abstract class AbstractSchemaBuilder {
+export abstract class AbstractSchemaBuilder<
+  SubClass extends AbstractSchemaBuilder<SubClass>,
+> {
   private readonly graph
 
   protected constructor(
     public readonly filename: string,
     protected readonly input: Input,
-    private readonly imports: ImportBuilder,
     private readonly referenced: Record<string, Reference> = {},
+    private readonly imports?: ImportBuilder,
+    private readonly parent?: SubClass,
   ) {
     this.graph = buildDependencyGraph(this.input, getSchemaNameFromRef)
   }
 
+  abstract withImports(imports: ImportBuilder): SubClass
+
   private add(reference: Reference): string {
+    this.parent?.add(reference)
+
     const name = getSchemaNameFromRef(reference)
     this.referenced[name] = reference
 
@@ -39,7 +47,7 @@ export abstract class AbstractSchemaBuilder {
   toString(): string {
     logger.time(`generate ${this.filename}`)
 
-    const imports = new ImportBuilder()
+    const schemaBuilderImports = new ImportBuilder()
 
     const generate = () => {
       const seen = new Set()
@@ -58,7 +66,7 @@ export abstract class AbstractSchemaBuilder {
           })
           .map((name) => {
             return buildExport(
-              this.schemaFromRef(this.referenced[name]!, imports),
+              this.schemaFromRef(this.referenced[name]!, schemaBuilderImports),
             )
           })
       )
@@ -78,16 +86,16 @@ export abstract class AbstractSchemaBuilder {
       return ""
     }
 
-    this.importHelpers(imports)
+    this.importHelpers(schemaBuilderImports)
 
-    return `${imports.toString()}\n\n${next.join("\n\n")}`
+    return `${schemaBuilderImports.toString()}\n\n${next.join("\n\n")}`
   }
 
   protected abstract importHelpers(importBuilder: ImportBuilder): void
 
   protected abstract schemaFromRef(
     reference: Reference,
-    imports: ImportBuilder,
+    schemaBuilderImports: ImportBuilder,
   ): ExportDefinition
 
   fromParameters(parameters: IRParameter[]): string {
@@ -148,8 +156,12 @@ export abstract class AbstractSchemaBuilder {
       case "array":
         result = this.array([this.fromModel(model.items, true)])
         break
-      case "object":
+      case "object": {
         if (model.allOf.length) {
+          if (hasSingleElement(model.allOf)) {
+            return this.fromModel(model.allOf[0], required, isAnonymous)
+          }
+
           const isMergable = model.allOf
             .map((it) => this.input.schema(it))
             .every((it) => it.type === "object" && !it.additionalProperties)
@@ -158,8 +170,16 @@ export abstract class AbstractSchemaBuilder {
 
           result = isMergable ? this.merge(schemas) : this.intersect(schemas)
         } else if (model.oneOf.length) {
+          if (hasSingleElement(model.oneOf)) {
+            return this.fromModel(model.oneOf[0], required, isAnonymous)
+          }
+
           result = this.union(model.oneOf.map((it) => this.fromModel(it, true)))
         } else if (model.anyOf.length) {
+          if (hasSingleElement(model.anyOf)) {
+            return this.fromModel(model.anyOf[0], required, isAnonymous)
+          }
+
           result = this.union(model.anyOf.map((it) => this.fromModel(it, true)))
         } else {
           const properties =
@@ -195,6 +215,7 @@ export abstract class AbstractSchemaBuilder {
           }
         }
         break
+      }
     }
 
     if (model.nullable) {
@@ -207,10 +228,6 @@ export abstract class AbstractSchemaBuilder {
   }
 
   public abstract parse(schema: string, value: string): string
-
-  public abstract any(): string
-
-  public abstract void(): string
 
   protected abstract lazy(schema: string): string
 
@@ -241,13 +258,17 @@ export abstract class AbstractSchemaBuilder {
     required: boolean,
   ): string
 
-  protected abstract array(items: string[]): string
-
   protected abstract record(schema: string): string
+
+  protected abstract array(items: string[]): string
 
   protected abstract number(model: IRModelNumeric): string
 
   protected abstract string(model: IRModelString): string
 
   protected abstract boolean(): string
+
+  public abstract any(): string
+
+  public abstract void(): string
 }

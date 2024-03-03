@@ -1,30 +1,25 @@
 import {Input} from "../../../core/input"
 import {Reference} from "../../../core/openapi-types"
+import {
+  IRModelNumeric,
+  IRModelString,
+} from "../../../core/openapi-types-normalized"
 import {getSchemaNameFromRef} from "../../../core/openapi-utils"
-import {isDefined} from "../../../core/utils"
+import {hasSingleElement, isDefined} from "../../../core/utils"
 import {ImportBuilder} from "../import-builder"
+import {quotedStringLiteral} from "../type-utils"
 import {ExportDefinition} from "../typescript-common"
 import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 
-enum JoiFn {
-  Object = "object()",
-  Array = "array()",
-  Number = "number()",
-  String = "string()",
-  Boolean = "boolean()",
-  Required = "required()",
-}
+export class JoiBuilder extends AbstractSchemaBuilder<JoiBuilder> {
+  private readonly joi = "joi"
 
-export class JoiBuilder extends AbstractSchemaBuilder {
-  constructor(
-    private readonly joi = "joi",
-    filename: string,
-    input: Input,
-    imports: ImportBuilder,
-  ) {
-    super(filename, input, imports)
+  static async fromInput(filename: string, input: Input): Promise<JoiBuilder> {
+    return new JoiBuilder(filename, input)
+  }
 
-    this.importHelpers(imports)
+  override withImports(imports: ImportBuilder): JoiBuilder {
+    return new JoiBuilder(this.filename, this.input, {}, imports, this)
   }
 
   protected importHelpers(imports: ImportBuilder) {
@@ -33,14 +28,6 @@ export class JoiBuilder extends AbstractSchemaBuilder {
 
   public parse(schema: string, value: string): string {
     return `await ${schema}.validateAsync(${value})`
-  }
-
-  public any(): string {
-    return [this.joi, "any()"].filter(isDefined).join(".")
-  }
-
-  public void(): string {
-    return [this.joi, "any()", "valid(undefined)"].filter(isDefined).join(".")
   }
 
   protected schemaFromRef(reference: Reference): ExportDefinition {
@@ -62,22 +49,37 @@ export class JoiBuilder extends AbstractSchemaBuilder {
   }
 
   protected merge(schemas: string[]): string {
-    return this.intersect(schemas)
+    const definedSchemas = schemas.filter(isDefined)
+
+    if (hasSingleElement(definedSchemas)) {
+      return definedSchemas[0]
+    }
+
+    return this.intersect(definedSchemas)
   }
 
   protected intersect(schemas: string[]): string {
-    return schemas.filter(isDefined).reduce((acc, it) => {
+    const definedSchemas = schemas.filter(isDefined)
+
+    if (hasSingleElement(definedSchemas)) {
+      return definedSchemas[0]
+    }
+
+    return definedSchemas.reduce((acc, it) => {
       return `${acc}\n.concat(${it})`
     })
   }
 
   protected union(schemas: string[]): string {
+    const definedSchemas = schemas.filter(isDefined)
+
+    if (hasSingleElement(definedSchemas)) {
+      return definedSchemas[0]
+    }
+
     return [
       this.joi,
-      `alternatives().try(${schemas
-        .filter(isDefined)
-        .map((it) => it)
-        .join(",")})`,
+      `alternatives().try(${definedSchemas.map((it) => it).join(",")})`,
     ]
       .filter(isDefined)
       .join(".")
@@ -92,13 +94,18 @@ export class JoiBuilder extends AbstractSchemaBuilder {
   }
 
   protected required(schema: string): string {
-    return [schema, JoiFn.Required].join(".")
+    // HACK: avoid `joi.string().allow(null).required().required()`
+    if (schema.split(".").pop() === "required()") {
+      return schema
+    }
+
+    return [schema, "required()"].join(".")
   }
 
   protected object(keys: Record<string, string>): string {
     return [
       this.joi,
-      JoiFn.Object,
+      "object()",
       `keys({${Object.entries(keys)
         .map(([key, value]) => `"${key}": ${value}`)
         .join(",")} })`,
@@ -107,31 +114,54 @@ export class JoiBuilder extends AbstractSchemaBuilder {
       .join(".")
   }
 
-  protected array(items: string[]): string {
-    return [this.joi, JoiFn.Array, `items(${items.join(",")})`]
-      .filter(isDefined)
-      .join(".")
-  }
-
   protected record(schema: string): string {
-    return [this.joi, JoiFn.Object, `pattern(${this.any()}, ${schema})`]
+    return [this.joi, "object()", `pattern(${this.any()}, ${schema})`]
       .filter(isDefined)
       .join(".")
   }
 
-  protected number() {
-    // todo: enum support
-
-    return [this.joi, JoiFn.Number].filter(isDefined).join(".")
+  protected array(items: string[]): string {
+    return [this.joi, "array()", `items(${items.join(",")})`]
+      .filter(isDefined)
+      .join(".")
   }
 
-  protected string() {
-    // todo: enum support
+  protected number(model: IRModelNumeric) {
+    const result = [this.joi, "number()"].filter(isDefined).join(".")
 
-    return [this.joi, JoiFn.String].filter(isDefined).join(".")
+    if (model.enum) {
+      return [result, `valid(${model.enum.join(", ")})`]
+        .filter(isDefined)
+        .join(".")
+    }
+
+    return result
+  }
+
+  protected string(model: IRModelString) {
+    const result = [this.joi, "string()"].filter(isDefined).join(".")
+
+    if (model.enum) {
+      return [
+        result,
+        `valid(${model.enum.map(quotedStringLiteral).join(", ")})`,
+      ]
+        .filter(isDefined)
+        .join(".")
+    }
+
+    return result
   }
 
   protected boolean() {
-    return [this.joi, JoiFn.Boolean].filter(isDefined).join(".")
+    return [this.joi, "boolean()"].filter(isDefined).join(".")
+  }
+
+  public any(): string {
+    return [this.joi, "any()"].filter(isDefined).join(".")
+  }
+
+  public void(): string {
+    return [this.joi, "any()", "valid(undefined)"].filter(isDefined).join(".")
   }
 }

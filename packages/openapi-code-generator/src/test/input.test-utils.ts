@@ -2,12 +2,22 @@ import path from "path"
 import {jest} from "@jest/globals"
 import yaml from "js-yaml"
 import {Input} from "../core/input"
+import {logger} from "../core/logger"
 import {OpenapiLoader} from "../core/openapi-loader"
 import {OpenapiValidator} from "../core/openapi-validator"
 
 type Version = "3.0.x" | "3.1.x"
 
-export const testVersions = ["3.0.x", "3.1.x"] satisfies Version[]
+function getTestVersions(): Version[] {
+  if (process.argv.find((arg) => ["--updateSnapshot", "-u"].includes(arg))) {
+    logger.warn("Running with --updateSnapshot - only testing one version")
+    return ["3.0.x"]
+  }
+
+  return ["3.0.x", "3.1.x"]
+}
+
+export const testVersions = getTestVersions()
 
 function fileForVersion(version: Version) {
   switch (version) {

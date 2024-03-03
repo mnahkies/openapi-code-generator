@@ -413,21 +413,16 @@ export async function generateTypescriptKoa(
 
   const routesDirectory = "./"
 
-  // TODO: `ImportBuilder` per `RouteBuilder`
-  const imports = new ImportBuilder({
-    filename: path.join(routesDirectory, "./example.ts"),
-  })
-
-  const types = TypeBuilder.fromInput(
+  const rootTypeBuilder = await TypeBuilder.fromInput(
     "./models.ts",
     input,
     config.compilerOptions,
-  ).withImports(imports)
+  )
 
-  const schemaBuilder = schemaBuilderFactory(
-    config.schemaBuilder,
+  const rootSchemaBuilder = await schemaBuilderFactory(
+    "./schemas.ts",
     input,
-    imports,
+    config.schemaBuilder,
   )
 
   const server = new ServerBuilder(
@@ -442,13 +437,15 @@ export async function generateTypescriptKoa(
     input.groupedOperations("all").map(async (group) => {
       const filename = path.join(routesDirectory, `${group.name}.ts`)
 
+      const imports = new ImportBuilder({filename})
+
       const routerBuilder = new ServerRouterBuilder(
         filename,
         group.name,
         input,
         imports,
-        types,
-        schemaBuilder,
+        rootTypeBuilder.withImports(imports),
+        rootSchemaBuilder.withImports(imports),
         {allowUnusedImports: config.allowUnusedImports},
         loadExistingImplementations(
           await loadPreviousResult(config.dest, {filename}),
@@ -463,8 +460,8 @@ export async function generateTypescriptKoa(
 
   await emitGenerationResult(config.dest, [
     server,
-    types,
-    schemaBuilder,
+    rootTypeBuilder,
+    rootSchemaBuilder,
     ...routers,
   ])
 }

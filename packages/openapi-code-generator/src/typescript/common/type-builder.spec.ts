@@ -8,13 +8,17 @@ describe.each(testVersions)(
   "%s - typescript/common/type-builder",
   (version) => {
     it("can build a type for a simple object correctly", async () => {
-      const {type, schemas, imports} = await getActual(
-        "components/schemas/SimpleObject",
-      )
+      const {code, types} = await getActual("components/schemas/SimpleObject")
 
-      expect(type).toMatchInlineSnapshot('"const x: t_SimpleObject"')
+      expect(code).toMatchInlineSnapshot(`
+      "
+      import {t_SimpleObject} from './unit-test.types'
 
-      expect(schemas).toMatchInlineSnapshot(`
+      const x: t_SimpleObject
+      "
+      `)
+
+      expect(types).toMatchInlineSnapshot(`
       "export type t_SimpleObject = {
         date: string
         datetime: string
@@ -24,43 +28,43 @@ describe.each(testVersions)(
         str: string
       }
       "
-    `)
-
-      expect(imports).toMatchInlineSnapshot(`
-      "import { t_SimpleObject } from "models"
-      "
-    `)
+      `)
     })
 
     it("can build an optional property compatible with 'exactOptionalPropertyTypes'", async () => {
-      const {type, schemas, imports} = await getActual(
+      const {code, types} = await getActual(
         "components/schemas/OptionalProperties",
         {exactOptionalPropertyTypes: true},
       )
 
-      expect(type).toMatchInlineSnapshot('"const x: t_OptionalProperties"')
+      expect(code).toMatchInlineSnapshot(`
+      "
+      import {t_OptionalProperties} from './unit-test.types'
 
-      expect(schemas).toMatchInlineSnapshot(`
+      const x: t_OptionalProperties
+      "
+      `)
+
+      expect(types).toMatchInlineSnapshot(`
       "export type t_OptionalProperties = {
         optional_str?: string | undefined
       }
       "
-    `)
-
-      expect(imports).toMatchInlineSnapshot(`
-      "import { t_OptionalProperties } from "models"
-      "
-    `)
+      `)
     })
 
     it("can build a type for an object that references other objects correctly", async () => {
-      const {type, schemas, imports} = await getActual(
-        "components/schemas/ObjectWithRefs",
-      )
+      const {code, types} = await getActual("components/schemas/ObjectWithRefs")
 
-      expect(type).toMatchInlineSnapshot('"const x: t_ObjectWithRefs"')
+      expect(code).toMatchInlineSnapshot(`
+      "
+      import {t_ObjectWithRefs} from './unit-test.types'
 
-      expect(schemas).toMatchInlineSnapshot(`
+      const x: t_ObjectWithRefs
+      "
+      `)
+
+      expect(types).toMatchInlineSnapshot(`
       "export type t_ObjectWithRefs = {
         optionalObject?: t_SimpleObject
         requiredObject: t_SimpleObject
@@ -75,40 +79,40 @@ describe.each(testVersions)(
         str: string
       }
       "
-    `)
-
-      expect(imports).toMatchInlineSnapshot(`
-      "import { t_ObjectWithRefs, t_SimpleObject } from "models"
-      "
-    `)
+      `)
     })
 
     it("can build a type for a named nullable string enum", async () => {
-      const {type, schemas, imports} = await getActual(
+      const {code, types} = await getActual(
         "components/schemas/NamedNullableStringEnum",
       )
 
-      expect(type).toMatchInlineSnapshot('"const x: t_NamedNullableStringEnum"')
+      expect(code).toMatchInlineSnapshot(`
+      "
+      import {t_NamedNullableStringEnum} from './unit-test.types'
 
-      expect(schemas).toMatchInlineSnapshot(`
+      const x: t_NamedNullableStringEnum
+      "
+      `)
+
+      expect(types).toMatchInlineSnapshot(`
       "export type t_NamedNullableStringEnum = "" | "one" | "two" | "three" | null
       "
-    `)
-
-      expect(imports).toMatchInlineSnapshot(`
-      "import { t_NamedNullableStringEnum } from "models"
-      "
-    `)
+      `)
     })
 
     it("can build a type for a oneOf correctly", async () => {
-      const {type, schemas, imports} = await getActual(
-        "components/schemas/OneOf",
-      )
+      const {code, types} = await getActual("components/schemas/OneOf")
 
-      expect(type).toMatchInlineSnapshot('"const x: t_OneOf"')
+      expect(code).toMatchInlineSnapshot(`
+      "
+      import {t_OneOf} from './unit-test.types'
 
-      expect(schemas).toMatchInlineSnapshot(`
+      const x: t_OneOf
+      "
+      `)
+
+      expect(types).toMatchInlineSnapshot(`
       "export type t_OneOf =
         | {
             strs: string[]
@@ -116,40 +120,38 @@ describe.each(testVersions)(
         | string[]
         | string
       "
-    `)
-
-      expect(imports).toMatchInlineSnapshot(`
-      "import { t_OneOf } from "models"
-      "
-    `)
+      `)
     })
 
     it("can build a type for a anyOf correctly", async () => {
-      const {type, schemas, imports} = await getActual(
-        "components/schemas/AnyOf",
-      )
+      const {code, types} = await getActual("components/schemas/AnyOf")
 
-      expect(type).toMatchInlineSnapshot('"const x: t_AnyOf"')
+      expect(code).toMatchInlineSnapshot(`
+      "
+      import {t_AnyOf} from './unit-test.types'
 
-      expect(schemas).toMatchInlineSnapshot(`
+      const x: t_AnyOf
+      "
+      `)
+
+      expect(types).toMatchInlineSnapshot(`
       "export type t_AnyOf = number | string
       "
-    `)
-
-      expect(imports).toMatchInlineSnapshot(`
-      "import { t_AnyOf } from "models"
-      "
-    `)
+      `)
     })
 
     it("can build a type for a allOf correctly", async () => {
-      const {type, schemas, imports} = await getActual(
-        "components/schemas/AllOf",
-      )
+      const {code, types} = await getActual("components/schemas/AllOf")
 
-      expect(type).toMatchInlineSnapshot('"const x: t_AllOf"')
+      expect(code).toMatchInlineSnapshot(`
+      "
+      import {t_AllOf} from './unit-test.types'
 
-      expect(schemas).toMatchInlineSnapshot(`
+      const x: t_AllOf
+      "
+      `)
+
+      expect(types).toMatchInlineSnapshot(`
       "export type t_AllOf = t_Base & {
         id: number
       }
@@ -159,68 +161,65 @@ describe.each(testVersions)(
         name: string
       }
       "
-    `)
-
-      expect(imports).toMatchInlineSnapshot(`
-      "import { t_AllOf, t_Base } from "models"
-      "
-    `)
+      `)
     })
 
     it("handles additionalProperties set to true", async () => {
-      const {type, schemas, imports} = await getActual(
+      const {code, types} = await getActual(
         "components/schemas/AdditionalPropertiesBool",
       )
 
-      expect(type).toMatchInlineSnapshot(
-        '"const x: t_AdditionalPropertiesBool"',
-      )
+      expect(code).toMatchInlineSnapshot(`
+      "
+      import {t_AdditionalPropertiesBool} from './unit-test.types'
 
-      expect(schemas).toMatchInlineSnapshot(`
+      const x: t_AdditionalPropertiesBool
+      "
+      `)
+
+      expect(types).toMatchInlineSnapshot(`
       "export type t_AdditionalPropertiesBool = {
         [key: string]: unknown | undefined
       }
       "
-    `)
-
-      expect(imports).toMatchInlineSnapshot(`
-      "import { t_AdditionalPropertiesBool } from "models"
-      "
-    `)
+      `)
     })
 
     it("handles additionalProperties set to {}", async () => {
-      const {type, schemas, imports} = await getActual(
+      const {code, types} = await getActual(
         "components/schemas/AdditionalPropertiesUnknownEmptySchema",
       )
 
-      expect(type).toMatchInlineSnapshot(
-        '"const x: t_AdditionalPropertiesUnknownEmptySchema"',
-      )
+      expect(code).toMatchInlineSnapshot(`
+      "
+      import {t_AdditionalPropertiesUnknownEmptySchema} from './unit-test.types'
 
-      expect(schemas).toMatchInlineSnapshot(`
+      const x: t_AdditionalPropertiesUnknownEmptySchema
+      "
+      `)
+
+      expect(types).toMatchInlineSnapshot(`
       "export type t_AdditionalPropertiesUnknownEmptySchema = {
         [key: string]: unknown | undefined
       }
       "
-    `)
-
-      expect(imports).toMatchInlineSnapshot(`
-      "import { t_AdditionalPropertiesUnknownEmptySchema } from "models"
-      "
-    `)
+      `)
     })
 
     it("handles additionalProperties set to {type: 'object'}", async () => {
-      const {type, schemas, imports} = await getActual(
+      const {code, types} = await getActual(
         "components/schemas/AdditionalPropertiesUnknownEmptyObjectSchema",
       )
 
-      expect(type).toMatchInlineSnapshot(
-        '"const x: t_AdditionalPropertiesUnknownEmptyObjectSchema"',
-      )
+      expect(code).toMatchInlineSnapshot(`
+      "
+      import {t_AdditionalPropertiesUnknownEmptyObjectSchema} from './unit-test.types'
 
-      expect(schemas).toMatchInlineSnapshot(`
+      const x: t_AdditionalPropertiesUnknownEmptyObjectSchema
+      "
+      `)
+
+      expect(types).toMatchInlineSnapshot(`
       "export type t_AdditionalPropertiesUnknownEmptyObjectSchema = {
         [key: string]:
           | {
@@ -229,44 +228,42 @@ describe.each(testVersions)(
           | undefined
       }
       "
-    `)
-
-      expect(imports).toMatchInlineSnapshot(`
-      "import { t_AdditionalPropertiesUnknownEmptyObjectSchema } from "models"
-      "
-    `)
+      `)
     })
 
     it("can build a recursive type correctly", async () => {
-      const {type, schemas, imports} = await getActual(
-        "components/schemas/Recursive",
-      )
+      const {code, types} = await getActual("components/schemas/Recursive")
 
-      expect(type).toMatchInlineSnapshot('"const x: t_Recursive"')
+      expect(code).toMatchInlineSnapshot(`
+      "
+      import {t_Recursive} from './unit-test.types'
 
-      expect(schemas).toMatchInlineSnapshot(`
+      const x: t_Recursive
+      "
+      `)
+
+      expect(types).toMatchInlineSnapshot(`
       "export type t_Recursive = {
         child?: t_Recursive
       }
       "
-    `)
-
-      expect(imports).toMatchInlineSnapshot(`
-      "import { t_Recursive } from "models"
-      "
-    `)
+      `)
     })
 
     it("handles additionalProperties specifying a schema", async () => {
-      const {type, schemas, imports} = await getActual(
+      const {code, types} = await getActual(
         "components/schemas/AdditionalPropertiesSchema",
       )
 
-      expect(type).toMatchInlineSnapshot(
-        '"const x: t_AdditionalPropertiesSchema"',
-      )
+      expect(code).toMatchInlineSnapshot(`
+      "
+      import {t_AdditionalPropertiesSchema} from './unit-test.types'
 
-      expect(schemas).toMatchInlineSnapshot(`
+      const x: t_AdditionalPropertiesSchema
+      "
+      `)
+
+      expect(types).toMatchInlineSnapshot(`
       "export type t_AdditionalPropertiesSchema = {
         name?: string
         [key: string]: t_NamedNullableStringEnum | undefined
@@ -274,36 +271,30 @@ describe.each(testVersions)(
 
       export type t_NamedNullableStringEnum = "" | "one" | "two" | "three" | null
       "
-    `)
-
-      expect(imports).toMatchInlineSnapshot(`
-      "import { t_AdditionalPropertiesSchema, t_NamedNullableStringEnum } from "models"
-      "
-    `)
+      `)
     })
 
     it("handles additionalProperties in conjunction with properties", async () => {
-      const {type, schemas, imports} = await getActual(
+      const {code, types} = await getActual(
         "components/schemas/AdditionalPropertiesMixed",
       )
 
-      expect(type).toMatchInlineSnapshot(
-        '"const x: t_AdditionalPropertiesMixed"',
-      )
+      expect(code).toMatchInlineSnapshot(`
+      "
+      import {t_AdditionalPropertiesMixed} from './unit-test.types'
 
-      expect(schemas).toMatchInlineSnapshot(`
+      const x: t_AdditionalPropertiesMixed
+      "
+      `)
+
+      expect(types).toMatchInlineSnapshot(`
       "export type t_AdditionalPropertiesMixed = {
         id?: string
         name?: string
         [key: string]: unknown | undefined
       }
       "
-    `)
-
-      expect(imports).toMatchInlineSnapshot(`
-      "import { t_AdditionalPropertiesMixed } from "models"
-      "
-    `)
+      `)
     })
 
     async function getActual(
@@ -315,18 +306,24 @@ describe.each(testVersions)(
 
       const imports = new ImportBuilder()
 
-      const builder = TypeBuilder.fromInput(
-        "models.ts",
+      const builder = await TypeBuilder.fromInput(
+        "./unit-test.types.ts",
         input,
         compilerOptions,
-      ).withImports(imports)
+      )
 
-      const type = builder.schemaObjectToType(schema)
+      const type = builder.withImports(imports).schemaObjectToType(schema)
 
       return {
-        type: await formatOutput(`const x: ${type}`, "unit-test.ts"),
-        schemas: await formatOutput(builder.toString(), "unit-test.ts"),
-        imports: await formatOutput(imports.toString(), "unit-test.ts"),
+        code: await formatOutput(
+          `
+          ${imports.toString()}
+
+          const x: ${type}
+        `,
+          "./unit-test.code.ts",
+        ),
+        types: await formatOutput(builder.toString(), "unit-test.types.ts"),
       }
     }
   },

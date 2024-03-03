@@ -8,7 +8,7 @@ import {
   getSchemaNameFromRef,
   getTypeNameFromRef,
 } from "../../../core/openapi-utils"
-import {isDefined} from "../../../core/utils"
+import {hasSingleElement, isDefined} from "../../../core/utils"
 import {ImportBuilder} from "../import-builder"
 import {quotedStringLiteral} from "../type-utils"
 import {ExportDefinition} from "../typescript-common"
@@ -17,15 +17,15 @@ import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 // todo: coerce is cool for input where everything starts as strings,
 //       but for output we probably don't want that as its more likely
 //       to mask mistakes. https://en.wikipedia.org/wiki/Robustness_principle
-export class ZodBuilder extends AbstractSchemaBuilder {
-  constructor(
-    private readonly zod = "z",
-    filename: string,
-    input: Input,
-    imports: ImportBuilder,
-  ) {
-    super(filename, input, imports)
-    this.importHelpers(imports)
+export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
+  private readonly zod = "z"
+
+  static async fromInput(filename: string, input: Input): Promise<ZodBuilder> {
+    return new ZodBuilder(filename, input)
+  }
+
+  override withImports(imports: ImportBuilder): ZodBuilder {
+    return new ZodBuilder(this.filename, this.input, {}, imports, this)
   }
 
   protected importHelpers(imports: ImportBuilder) {
@@ -38,7 +38,7 @@ export class ZodBuilder extends AbstractSchemaBuilder {
 
   protected schemaFromRef(
     reference: Reference,
-    imports: ImportBuilder,
+    schemaBuilderImports: ImportBuilder,
   ): ExportDefinition {
     const name = getSchemaNameFromRef(reference)
     const schemaObject = this.input.schema(reference)
@@ -50,7 +50,7 @@ export class ZodBuilder extends AbstractSchemaBuilder {
     // todo: bit hacky, but it will work for now.
     if (value.includes("z.lazy(")) {
       type = getTypeNameFromRef(reference)
-      imports.addSingle(type, "./models")
+      schemaBuilderImports.addSingle(type, "./models")
     }
 
     return {
@@ -59,6 +59,10 @@ export class ZodBuilder extends AbstractSchemaBuilder {
       value,
       kind: "const",
     }
+  }
+
+  protected lazy(schema: string): string {
+    return [this.zod, `lazy(() => ${schema})`].join(".")
   }
 
   protected merge(schemas: string[]): string {
@@ -85,14 +89,10 @@ export class ZodBuilder extends AbstractSchemaBuilder {
     })
   }
 
-  protected lazy(schema: string): string {
-    return [this.zod, `lazy(() => ${schema})`].join(".")
-  }
-
   protected union(schemas: string[]): string {
     const definedSchemas = schemas.filter(isDefined)
 
-    if (definedSchemas.length === 1 && definedSchemas[0]) {
+    if (hasSingleElement(definedSchemas)) {
       return definedSchemas[0]
     }
 
@@ -127,12 +127,12 @@ export class ZodBuilder extends AbstractSchemaBuilder {
       .join(".")
   }
 
-  protected array(items: string[]): string {
-    return [this.zod, `array(${items.join(",")})`].filter(isDefined).join(".")
-  }
-
   protected record(schema: string): string {
     return [this.zod, `record(${schema})`].filter(isDefined).join(".")
+  }
+
+  protected array(items: string[]): string {
+    return [this.zod, `array(${items.join(",")})`].filter(isDefined).join(".")
   }
 
   protected number(model: IRModelNumeric) {
@@ -152,7 +152,7 @@ export class ZodBuilder extends AbstractSchemaBuilder {
 
   protected string(model: IRModelString) {
     if (model.enum) {
-      return this.enum(model)
+      return this.stringEnum(model)
     }
 
     return [
@@ -165,7 +165,7 @@ export class ZodBuilder extends AbstractSchemaBuilder {
       .join(".")
   }
 
-  protected enum(model: IRModelString) {
+  private stringEnum(model: IRModelString) {
     if (!model.enum) {
       throw new Error("model is not an enum")
     }

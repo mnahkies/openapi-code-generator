@@ -30,37 +30,44 @@ export class TypeBuilder {
     private readonly referenced = new Set<string>(),
     private readonly referencedStaticTypes = new Set<StaticType>(),
     private readonly imports?: ImportBuilder,
+    private readonly parent?: TypeBuilder,
   ) {}
+
+  static async fromInput(
+    filename: string,
+    input: Input,
+    compilerOptions: CompilerOptions,
+  ): Promise<TypeBuilder> {
+    return new TypeBuilder(filename, input, compilerOptions)
+  }
 
   withImports(imports: ImportBuilder): TypeBuilder {
     return new TypeBuilder(
       this.filename,
       this.input,
       this.compilerOptions,
-      this.referenced,
-      this.referencedStaticTypes,
+      new Set(),
+      new Set(),
       imports,
+      this,
     )
   }
 
-  private add({$ref}: Reference): string {
+  protected add({$ref}: Reference): string {
+    this.parent?.add({$ref})
     this.referenced.add($ref)
 
     const name = getTypeNameFromRef({$ref})
 
-    if (this.imports) {
-      this.imports.addSingle(name, this.filename)
-    }
+    this.imports?.addSingle(name, this.filename)
 
     return name
   }
 
-  private addStaticType(name: StaticType): string {
+  protected addStaticType(name: StaticType): string {
+    this.parent?.addStaticType(name)
     this.referencedStaticTypes.add(name)
-
-    if (this.imports) {
-      this.imports.addSingle(name, this.filename)
-    }
+    this.imports?.addSingle(name, this.filename)
 
     return name
   }
@@ -215,13 +222,5 @@ export class TypeBuilder {
     }
 
     return result
-  }
-
-  static fromInput(
-    filename: string,
-    input: Input,
-    compilerOptions: CompilerOptions,
-  ): TypeBuilder {
-    return new TypeBuilder(filename, input, compilerOptions)
   }
 }

@@ -6,3 +6,4 @@
 **/coverage
 # TODO: start linting integration test output
 integration-tests
+.eslintrc.js

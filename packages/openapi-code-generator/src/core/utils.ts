@@ -4,6 +4,10 @@ export function isDefined<T>(it: T | undefined): it is T {
   return it !== undefined
 }
 
+export function hasSingleElement<T>(it: T[]): it is [T] {
+  return it.length === 1
+}
+
 const httpMethods = new Set(["get", "put", "patch", "delete", "post"])
 
 export function isHttpMethod(method: string): boolean {

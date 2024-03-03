@@ -7,6 +7,7 @@ module.exports = {
   plugins: ["@typescript-eslint", "jest"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
+    project: "./tsconfig.json",
     ecmaVersion: "latest",
   },
   rules: {
