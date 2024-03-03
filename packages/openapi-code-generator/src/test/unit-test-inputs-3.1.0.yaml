@@ -2,6 +2,7 @@ openapi: "3.1.0"
 info:
   title: unit-test-inputs
   version: '0.0.1'
+paths: {}
 components:
   schemas:
     SimpleObject:
@@ -71,6 +72,14 @@ components:
             - type: number
         optionalOneOfRef:
           $ref: '#/components/schemas/OneOf'
+        nullableSingularOneOf:
+          oneOf:
+            - type: boolean
+          nullable: true
+        nullableSingularOneOfRef:
+          oneOf:
+            - $ref: '#/components/schemas/AString'
+          nullable: true
 
     OneOf:
       oneOf:
@@ -204,3 +213,8 @@ components:
             - "ignored"
             - 10
             - 20
+
+    AString:
+        type: string
+
+  parameters: {}

@@ -47,6 +47,8 @@ describe.each(testVersions)(
       expect(schemas).toMatchInlineSnapshot(`
       "import { z } from "zod"
 
+      export const s_AString = z.string()
+
       export const s_OneOf = z.union([
         z.object({ strs: z.array(z.string()) }),
         z.array(z.string()),
@@ -58,9 +60,11 @@ describe.each(testVersions)(
         requiredOneOfRef: s_OneOf,
         optionalOneOf: z.union([z.string(), z.coerce.number()]).optional(),
         optionalOneOfRef: s_OneOf.optional(),
+        nullableSingularOneOf: z.coerce.boolean().nullable().optional(),
+        nullableSingularOneOfRef: s_AString.nullable().optional(),
       })
       "
-    `)
+      `)
     })
 
     it("supports unions / oneOf", async () => {

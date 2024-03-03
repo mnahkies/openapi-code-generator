@@ -126,11 +126,25 @@ export abstract class AbstractSchemaBuilder<
     maybeModel: MaybeIRModel,
     required: boolean,
     isAnonymous = false,
+    nullable: boolean = false,
   ): string {
+    // if we generate an inline/anonymous schema then we'll need to import
+    // the schema library.
+    if (isAnonymous && this.imports) {
+      this.importHelpers(this.imports)
+    }
+
+    let result: string
+
     if (isRef(maybeModel)) {
       const name = this.add(maybeModel)
+      result = name
 
-      const result = required ? this.required(name) : this.optional(name)
+      if (nullable) {
+        result = this.nullable(result)
+      }
+
+      result = required ? this.required(result) : this.optional(result)
 
       if (this.graph.circular.has(name) && !isAnonymous) {
         return this.lazy(result)
@@ -140,8 +154,6 @@ export abstract class AbstractSchemaBuilder<
     }
 
     const model = this.input.schema(maybeModel)
-
-    let result: string
 
     switch (model.type) {
       case "string":
@@ -159,7 +171,12 @@ export abstract class AbstractSchemaBuilder<
       case "object": {
         if (model.allOf.length) {
           if (hasSingleElement(model.allOf)) {
-            return this.fromModel(model.allOf[0], required, isAnonymous)
+            return this.fromModel(
+              model.allOf[0],
+              required,
+              isAnonymous,
+              model.nullable,
+            )
           }
 
           const isMergable = model.allOf
@@ -171,13 +188,23 @@ export abstract class AbstractSchemaBuilder<
           result = isMergable ? this.merge(schemas) : this.intersect(schemas)
         } else if (model.oneOf.length) {
           if (hasSingleElement(model.oneOf)) {
-            return this.fromModel(model.oneOf[0], required, isAnonymous)
+            return this.fromModel(
+              model.oneOf[0],
+              required,
+              isAnonymous,
+              model.nullable,
+            )
           }
 
           result = this.union(model.oneOf.map((it) => this.fromModel(it, true)))
         } else if (model.anyOf.length) {
           if (hasSingleElement(model.anyOf)) {
-            return this.fromModel(model.anyOf[0], required, isAnonymous)
+            return this.fromModel(
+              model.anyOf[0],
+              required,
+              isAnonymous,
+              model.nullable,
+            )
           }
 
           result = this.union(model.anyOf.map((it) => this.fromModel(it, true)))
@@ -218,7 +245,7 @@ export abstract class AbstractSchemaBuilder<
       }
     }
 
-    if (model.nullable) {
+    if (nullable || model.nullable) {
       result = this.nullable(result)
     }
 

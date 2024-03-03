@@ -51,6 +51,8 @@ describe.each(testVersions)(
       expect(schemas).toMatchInlineSnapshot(`
       "import joi from "@hapi/joi"
 
+      export const s_AString = joi.string().required().id("s_AString")
+
       export const s_OneOf = joi
         .alternatives()
         .try(
@@ -76,6 +78,8 @@ describe.each(testVersions)(
             .alternatives()
             .try(joi.string().required(), joi.number().required()),
           optionalOneOfRef: s_OneOf,
+          nullableSingularOneOf: joi.boolean().allow(null),
+          nullableSingularOneOfRef: s_AString.allow(null),
         })
         .required()
         .id("s_ObjectWithComplexProperties")
