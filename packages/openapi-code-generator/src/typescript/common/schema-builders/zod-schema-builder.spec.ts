@@ -8,14 +8,15 @@ describe.each(testVersions)(
   "%s - typescript/common/schema-builders/zod-schema-builder",
   (version) => {
     it("supports the SimpleObject", async () => {
-      const {model, schemas} = await getActual(
-        "components/schemas/SimpleObject",
-      )
+      const {code, schemas} = await getActual("components/schemas/SimpleObject")
 
-      expect(model).toMatchInlineSnapshot(`
-      "s_SimpleObject
+      expect(code).toMatchInlineSnapshot(`
+      "import { s_SimpleObject } from "./unit-test.schemas"
+
+      const x = s_SimpleObject
       "
-    `)
+      `)
+
       expect(schemas).toMatchInlineSnapshot(`
       "import { z } from "zod"
 
@@ -32,16 +33,21 @@ describe.each(testVersions)(
     })
 
     it("supports the ObjectWithComplexProperties", async () => {
-      const {model, schemas} = await getActual(
+      const {code, schemas} = await getActual(
         "components/schemas/ObjectWithComplexProperties",
       )
 
-      expect(model).toMatchInlineSnapshot(`
-      "s_ObjectWithComplexProperties
+      expect(code).toMatchInlineSnapshot(`
+      "import { s_ObjectWithComplexProperties } from "./unit-test.schemas"
+
+      const x = s_ObjectWithComplexProperties
       "
-    `)
+      `)
+
       expect(schemas).toMatchInlineSnapshot(`
       "import { z } from "zod"
+
+      export const s_AString = z.string()
 
       export const s_OneOf = z.union([
         z.object({ strs: z.array(z.string()) }),
@@ -54,18 +60,23 @@ describe.each(testVersions)(
         requiredOneOfRef: s_OneOf,
         optionalOneOf: z.union([z.string(), z.coerce.number()]).optional(),
         optionalOneOfRef: s_OneOf.optional(),
+        nullableSingularOneOf: z.coerce.boolean().nullable().optional(),
+        nullableSingularOneOfRef: s_AString.nullable().optional(),
       })
       "
-    `)
+      `)
     })
 
     it("supports unions / oneOf", async () => {
-      const {model, schemas} = await getActual("components/schemas/OneOf")
+      const {code, schemas} = await getActual("components/schemas/OneOf")
 
-      expect(model).toMatchInlineSnapshot(`
-      "s_OneOf
+      expect(code).toMatchInlineSnapshot(`
+      "import { s_OneOf } from "./unit-test.schemas"
+
+      const x = s_OneOf
       "
-    `)
+      `)
+
       expect(schemas).toMatchInlineSnapshot(`
       "import { z } from "zod"
 
@@ -79,12 +90,15 @@ describe.each(testVersions)(
     })
 
     it("supports unions / anyOf", async () => {
-      const {model, schemas} = await getActual("components/schemas/AnyOf")
+      const {code, schemas} = await getActual("components/schemas/AnyOf")
 
-      expect(model).toMatchInlineSnapshot(`
-      "s_AnyOf
+      expect(code).toMatchInlineSnapshot(`
+      "import { s_AnyOf } from "./unit-test.schemas"
+
+      const x = s_AnyOf
       "
-    `)
+      `)
+
       expect(schemas).toMatchInlineSnapshot(`
       "import { z } from "zod"
 
@@ -94,12 +108,15 @@ describe.each(testVersions)(
     })
 
     it("supports allOf", async () => {
-      const {model, schemas} = await getActual("components/schemas/AllOf")
+      const {code, schemas} = await getActual("components/schemas/AllOf")
 
-      expect(model).toMatchInlineSnapshot(`
-      "s_AllOf
+      expect(code).toMatchInlineSnapshot(`
+      "import { s_AllOf } from "./unit-test.schemas"
+
+      const x = s_AllOf
       "
-    `)
+      `)
+
       expect(schemas).toMatchInlineSnapshot(`
       "import { z } from "zod"
 
@@ -114,12 +131,15 @@ describe.each(testVersions)(
     })
 
     it("supports recursion", async () => {
-      const {model, schemas} = await getActual("components/schemas/Recursive")
+      const {code, schemas} = await getActual("components/schemas/Recursive")
 
-      expect(model).toMatchInlineSnapshot(`
-      "z.lazy(() => s_Recursive)
+      expect(code).toMatchInlineSnapshot(`
+      "import { s_Recursive } from "./unit-test.schemas"
+
+      const x = z.lazy(() => s_Recursive)
       "
-    `)
+      `)
+
       expect(schemas).toMatchInlineSnapshot(`
       "import { t_Recursive } from "./models"
       import { z } from "zod"
@@ -132,12 +152,15 @@ describe.each(testVersions)(
     })
 
     it("orders schemas such that dependencies are defined first", async () => {
-      const {model, schemas} = await getActual("components/schemas/Ordering")
+      const {code, schemas} = await getActual("components/schemas/Ordering")
 
-      expect(model).toMatchInlineSnapshot(`
-      "s_Ordering
+      expect(code).toMatchInlineSnapshot(`
+      "import { s_Ordering } from "./unit-test.schemas"
+
+      const x = s_Ordering
       "
-    `)
+      `)
+
       expect(schemas).toMatchInlineSnapshot(`
       "import { z } from "zod"
 
@@ -157,12 +180,15 @@ describe.each(testVersions)(
     })
 
     it("supports string and numeric enums", async () => {
-      const {model, schemas} = await getActual("components/schemas/Enums")
+      const {code, schemas} = await getActual("components/schemas/Enums")
 
-      expect(model).toMatchInlineSnapshot(`
-      "s_Enums
+      expect(code).toMatchInlineSnapshot(`
+      "import { s_Enums } from "./unit-test.schemas"
+
+      const x = s_Enums
       "
-    `)
+      `)
+
       expect(schemas).toMatchInlineSnapshot(`
       "import { z } from "zod"
 
@@ -179,14 +205,17 @@ describe.each(testVersions)(
 
     describe("additionalProperties", () => {
       it("handles additionalProperties set to true", async () => {
-        const {model, schemas} = await getActual(
+        const {code, schemas} = await getActual(
           "components/schemas/AdditionalPropertiesBool",
         )
 
-        expect(model).toMatchInlineSnapshot(`
-        "s_AdditionalPropertiesBool
+        expect(code).toMatchInlineSnapshot(`
+        "import { s_AdditionalPropertiesBool } from "./unit-test.schemas"
+
+        const x = s_AdditionalPropertiesBool
         "
-      `)
+        `)
+
         expect(schemas).toMatchInlineSnapshot(`
         "import { z } from "zod"
 
@@ -196,14 +225,17 @@ describe.each(testVersions)(
       })
 
       it("handles additionalProperties set to {}", async () => {
-        const {model, schemas} = await getActual(
+        const {code, schemas} = await getActual(
           "components/schemas/AdditionalPropertiesUnknownEmptySchema",
         )
 
-        expect(model).toMatchInlineSnapshot(`
-        "s_AdditionalPropertiesUnknownEmptySchema
+        expect(code).toMatchInlineSnapshot(`
+        "import { s_AdditionalPropertiesUnknownEmptySchema } from "./unit-test.schemas"
+
+        const x = s_AdditionalPropertiesUnknownEmptySchema
         "
-      `)
+        `)
+
         expect(schemas).toMatchInlineSnapshot(`
         "import { z } from "zod"
 
@@ -213,14 +245,17 @@ describe.each(testVersions)(
       })
 
       it("handles additionalProperties set to {type: 'object'}", async () => {
-        const {model, schemas} = await getActual(
+        const {code, schemas} = await getActual(
           "components/schemas/AdditionalPropertiesUnknownEmptyObjectSchema",
         )
 
-        expect(model).toMatchInlineSnapshot(`
-        "s_AdditionalPropertiesUnknownEmptyObjectSchema
+        expect(code).toMatchInlineSnapshot(`
+        "import { s_AdditionalPropertiesUnknownEmptyObjectSchema } from "./unit-test.schemas"
+
+        const x = s_AdditionalPropertiesUnknownEmptyObjectSchema
         "
-      `)
+        `)
+
         expect(schemas).toMatchInlineSnapshot(`
         "import { z } from "zod"
 
@@ -232,14 +267,17 @@ describe.each(testVersions)(
       })
 
       it("handles additionalProperties specifying a schema", async () => {
-        const {model, schemas} = await getActual(
+        const {code, schemas} = await getActual(
           "components/schemas/AdditionalPropertiesSchema",
         )
 
-        expect(model).toMatchInlineSnapshot(`
-        "s_AdditionalPropertiesSchema
+        expect(code).toMatchInlineSnapshot(`
+        "import { s_AdditionalPropertiesSchema } from "./unit-test.schemas"
+
+        const x = s_AdditionalPropertiesSchema
         "
-      `)
+        `)
+
         expect(schemas).toMatchInlineSnapshot(`
         "import { z } from "zod"
 
@@ -256,14 +294,17 @@ describe.each(testVersions)(
       })
 
       it("handles additionalProperties in conjunction with properties", async () => {
-        const {model, schemas} = await getActual(
+        const {code, schemas} = await getActual(
           "components/schemas/AdditionalPropertiesMixed",
         )
 
-        expect(model).toMatchInlineSnapshot(`
-        "s_AdditionalPropertiesMixed
+        expect(code).toMatchInlineSnapshot(`
+        "import { s_AdditionalPropertiesMixed } from "./unit-test.schemas"
+
+        const x = s_AdditionalPropertiesMixed
         "
-      `)
+        `)
+
         expect(schemas).toMatchInlineSnapshot(`
         "import { z } from "zod"
 
@@ -279,18 +320,33 @@ describe.each(testVersions)(
     async function getActual(path: string) {
       const {input, file} = await unitTestInput(version)
 
-      const builder = new ZodBuilder(
-        "z",
-        "schemas.ts",
+      const imports = new ImportBuilder()
+
+      const builder = await ZodBuilder.fromInput(
+        "./unit-test.schemas.ts",
         input,
-        new ImportBuilder(),
       )
 
-      const model = builder.fromModel({$ref: `${file}#${path}`}, true)
+      const schema = builder
+        .withImports(imports)
+        .fromModel({$ref: `${file}#${path}`}, true)
 
       return {
-        model: await formatOutput(model, "unit-test.ts"),
-        schemas: await formatOutput(builder.toString(), "unit-test.ts"),
+        code: await formatOutput(
+          `
+          ${imports.toString()}
+
+          const x = ${schema}
+        `,
+          "unit-test.code.ts",
+        ),
+        schemas: await formatOutput(
+          builder.toCompilationUnit().getRawFileContent({
+            allowUnusedImports: false,
+            includeHeader: false,
+          }),
+          "unit-test.schemas.ts",
+        ),
       }
     }
   },

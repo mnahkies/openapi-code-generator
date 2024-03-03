@@ -1,6 +1,7 @@
+import {CompilationUnit, ICompilable} from "../common/compilation-units"
 import {ImportBuilder} from "../common/import-builder"
 
-export class AngularModuleBuilder {
+export class AngularModuleBuilder implements ICompilable {
   private readonly tsImports: ImportBuilder
 
   private readonly ngImports = new Set<string>()
@@ -50,25 +51,26 @@ export class AngularModuleBuilder {
   }
 
   toString(): string {
-    const name = this.name
     return `
-${this.tsImports.toString()}
+    @NgModule({
+      imports: [
+        ${this.sorted(this.ngImports).join(",\n")}
+      ],
+      declarations: [
+        ${this.sorted(this.ngDeclarations).join(",\n")}
+      ],
+      exports: [
+        ${this.sorted(this.ngExports).join(",\n")}
+      ],
+      providers: [
+        ${this.sorted(this.ngProviders).join(",\n")}
+      ],
+    })
+    export class ${this.name}Module {}
+    `
+  }
 
-@NgModule({
-  imports: [
-    ${this.sorted(this.ngImports).join(",\n")}
-  ],
-  declarations: [
-    ${this.sorted(this.ngDeclarations).join(",\n")}
-  ],
-  exports: [
-    ${this.sorted(this.ngExports).join(",\n")}
-  ],
-  providers: [
-    ${this.sorted(this.ngProviders).join(",\n")}
-  ],
-})
-export class ${name}Module {}
-`
+  toCompilationUnit(): CompilationUnit {
+    return new CompilationUnit(this.filename, this.tsImports, this.toString())
   }
 }

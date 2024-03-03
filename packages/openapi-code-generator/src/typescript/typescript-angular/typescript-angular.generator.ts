@@ -10,28 +10,29 @@ export async function generateTypescriptAngular(
   config: OpenapiGeneratorConfig,
 ): Promise<void> {
   const input = config.input
-  const imports = new ImportBuilder()
-  const types = TypeBuilder.fromInput(
+
+  const rootTypeBuilder = await TypeBuilder.fromInput(
     "./models.ts",
     input,
     config.compilerOptions,
-  ).withImports(imports)
-  const schemaBuilder = schemaBuilderFactory(
-    config.schemaBuilder,
-    input,
-    imports,
   )
+  const rootSchemaBuilder = await schemaBuilderFactory(
+    "./schemas.ts",
+    input,
+    config.schemaBuilder,
+  )
+
+  const imports = new ImportBuilder()
 
   const client = new AngularServiceBuilder(
     "client.service.ts",
     "ApiClient",
     input,
     imports,
-    types,
-    schemaBuilder,
+    rootTypeBuilder.withImports(imports),
+    rootSchemaBuilder.withImports(imports),
     {
       enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
-      allowUnusedImports: config.allowUnusedImports,
     },
   )
 
@@ -41,10 +42,14 @@ export async function generateTypescriptAngular(
 
   module.provides("./" + client.filename).add(client.name)
 
-  await emitGenerationResult(config.dest, [
-    types,
-    client,
-    module,
-    schemaBuilder,
-  ])
+  await emitGenerationResult(
+    config.dest,
+    [
+      module.toCompilationUnit(),
+      client.toCompilationUnit(),
+      rootTypeBuilder.toCompilationUnit(),
+      rootSchemaBuilder.toCompilationUnit(),
+    ],
+    {allowUnusedImports: config.allowUnusedImports},
+  )
 }

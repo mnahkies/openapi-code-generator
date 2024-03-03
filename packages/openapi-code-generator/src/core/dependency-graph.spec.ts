@@ -39,6 +39,6 @@ describe.each(testVersions)("%s - core/dependency-graph", (version) => {
 
     expect(graph.order.indexOf("s_Recursive")).toBe(-1)
 
-    expect(graph.circular).toEqual(new Set(["s_Recursive"]))
+    expect(graph.circular).toStrictEqual(new Set(["s_Recursive"]))
   })
 })

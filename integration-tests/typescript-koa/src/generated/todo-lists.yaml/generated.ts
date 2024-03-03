@@ -490,6 +490,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 }
 
 export async function bootstrap(config: ServerConfig) {
-  // ApiClient
+  // Todo Lists Example API
   return startServer(config)
 }

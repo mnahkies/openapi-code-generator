@@ -1,3 +1,4 @@
+import path from "path"
 import _ from "lodash"
 import {Input} from "../../core/input"
 import {
@@ -7,6 +8,7 @@ import {
 } from "../../core/openapi-types-normalized"
 import {isDefined, titleCase} from "../../core/utils"
 import {OpenapiGeneratorConfig} from "../../templates.types"
+import {CompilationUnit, ICompilable} from "../common/compilation-units"
 import {ImportBuilder} from "../common/import-builder"
 import {emitGenerationResult, loadPreviousResult} from "../common/output-utils"
 import {JoiBuilder} from "../common/schema-builders/joi-schema-builder"
@@ -48,7 +50,7 @@ function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
   )
 }
 
-export class ServerBuilder {
+export class ServerRouterBuilder implements ICompilable {
   private readonly statements: string[] = []
   private readonly operationTypes: {
     operationId: string
@@ -62,9 +64,6 @@ export class ServerBuilder {
     private readonly imports: ImportBuilder,
     public readonly types: TypeBuilder,
     public readonly schemaBuilder: SchemaBuilder,
-    private readonly config: {allowUnusedImports: boolean} = {
-      allowUnusedImports: false,
-    },
     private existingRegions: {
       [operationId: string]: string
     },
@@ -317,10 +316,7 @@ export class ServerBuilder {
   }
 
   toString(): string {
-    const clientName = this.name
     const routes = this.statements
-    const imports = this.imports
-
     const code = `
 //region safe-edit-region-header
 ${this.existingRegions["header"] ?? ""}
@@ -345,17 +341,52 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   return router
 }
-
-export async function bootstrap(config: ServerConfig) {
-  // ${clientName}
-  return startServer(config)
-}
 `
-    return `
-    ${imports.toString(this.config.allowUnusedImports ? "" : code)}
+    return code
+  }
 
-    ${code}
+  toCompilationUnit(): CompilationUnit {
+    return new CompilationUnit(this.filename, this.imports, this.toString())
+  }
+}
+
+export class ServerBuilder implements ICompilable {
+  constructor(
+    public readonly filename: string,
+    private readonly name: string,
+    private readonly input: Input,
+    private readonly imports: ImportBuilder = new ImportBuilder(),
+  ) {
+    // todo: unsure why, but adding an export at `.` of index.ts doesn't work properly
+    this.imports
+      .from("@nahkies/typescript-koa-runtime/server")
+      .add(
+        "startServer",
+        "ServerConfig",
+        "Response",
+        "KoaRuntimeResponse",
+        "KoaRuntimeResponder",
+        "StatusCode2xx",
+        "StatusCode3xx",
+        "StatusCode4xx",
+        "StatusCode5xx",
+        "StatusCode",
+      )
+  }
+
+  toString(): string {
+    const {name} = this
+
+    return `
+      export async function bootstrap(config: ServerConfig) {
+        // ${name}
+        return startServer(config)
+      }
     `
+  }
+
+  toCompilationUnit(): CompilationUnit {
+    return new CompilationUnit(this.filename, this.imports, this.toString())
   }
 }
 
@@ -371,34 +402,81 @@ export async function generateTypescriptKoa(
   config: OpenapiGeneratorConfig,
 ): Promise<void> {
   const input = config.input
-  const imports = new ImportBuilder()
-  const types = TypeBuilder.fromInput(
+
+  const routesDirectory =
+    config.groupingStrategy === "none" ? "./" : "./routes/"
+
+  const rootTypeBuilder = await TypeBuilder.fromInput(
     "./models.ts",
     input,
     config.compilerOptions,
-  ).withImports(imports)
-  const schemaBuilder = schemaBuilderFactory(
-    config.schemaBuilder,
+  )
+
+  const rootSchemaBuilder = await schemaBuilderFactory(
+    "./schemas.ts",
     input,
-    imports,
+    config.schemaBuilder,
   )
 
   const server = new ServerBuilder(
-    "generated.ts",
-    "ApiClient",
+    "index.ts",
+    input.name(),
     input,
-    imports,
-    types,
-    schemaBuilder,
-    {allowUnusedImports: config.allowUnusedImports},
-    loadExistingImplementations(
-      await loadPreviousResult(config.dest, {filename: "index.ts"}),
-    ),
+    new ImportBuilder(),
   )
 
-  input.allOperations().map((it) => server.add(it))
+  const routers = await Promise.all(
+    input.groupedOperations(config.groupingStrategy).map(async (group) => {
+      const filename = path.join(routesDirectory, `${group.name}.ts`)
 
-  await emitGenerationResult(config.dest, [types, server, schemaBuilder])
+      const imports = new ImportBuilder({filename})
+
+      const routerBuilder = new ServerRouterBuilder(
+        filename,
+        group.name,
+        input,
+        imports,
+        rootTypeBuilder.withImports(imports),
+        rootSchemaBuilder.withImports(imports),
+        loadExistingImplementations(
+          await loadPreviousResult(config.dest, {filename}),
+        ),
+      )
+
+      group.operations.forEach((it) => routerBuilder.add(it))
+
+      return routerBuilder.toCompilationUnit()
+    }),
+  )
+
+  if (config.groupingStrategy === "none") {
+    await emitGenerationResult(
+      config.dest,
+      [
+        CompilationUnit.merge(
+          "./generated.ts",
+          ...routers,
+          server.toCompilationUnit(),
+        ),
+        rootTypeBuilder.toCompilationUnit(),
+        rootSchemaBuilder.toCompilationUnit(),
+      ],
+      {allowUnusedImports: config.allowUnusedImports},
+    )
+  } else {
+    await emitGenerationResult(
+      config.dest,
+      [
+        server.toCompilationUnit(),
+        ...routers,
+        rootTypeBuilder.toCompilationUnit(),
+        rootSchemaBuilder.toCompilationUnit(),
+      ],
+      {
+        allowUnusedImports: config.allowUnusedImports,
+      },
+    )
+  }
 }
 
 const regionBoundary = /.+safe-edit-region-(.+)/

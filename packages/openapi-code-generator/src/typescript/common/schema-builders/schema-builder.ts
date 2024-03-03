@@ -1,24 +1,24 @@
 import {Input} from "../../../core/input"
-import {ImportBuilder} from "../import-builder"
-import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 import {JoiBuilder} from "./joi-schema-builder"
 import {ZodBuilder} from "./zod-schema-builder"
 
-export type SchemaBuilder = AbstractSchemaBuilder
+export type SchemaBuilder = ZodBuilder | JoiBuilder
 export type SchemaBuilderType = "zod" | "joi"
 
 export function schemaBuilderFactory(
-  schemaBuilderType: SchemaBuilderType,
+  filename: string = "./schemas.ts",
   input: Input,
-  importBuilder: ImportBuilder,
-): AbstractSchemaBuilder {
+  schemaBuilderType: SchemaBuilderType,
+): Promise<SchemaBuilder> {
   switch (schemaBuilderType) {
     case "joi": {
-      return new JoiBuilder("joi", "./schemas.ts", input, importBuilder)
+      return JoiBuilder.fromInput(filename, input)
     }
+
     case "zod": {
-      return new ZodBuilder("z", "./schemas.ts", input, importBuilder)
+      return ZodBuilder.fromInput(filename, input)
     }
+
     default:
       throw new Error(`schemaBuilderType '${schemaBuilderType}' not recognized`)
   }

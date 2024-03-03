@@ -1,11 +1,12 @@
 import {Input} from "../../core/input"
 import {IROperation} from "../../core/openapi-types-normalized"
 import {ClientOperationBuilder} from "./client-operation-builder"
+import {CompilationUnit, ICompilable} from "./compilation-units"
 import {ImportBuilder} from "./import-builder"
 import {SchemaBuilder} from "./schema-builders/schema-builder"
 import {TypeBuilder} from "./type-builder"
 
-export abstract class TypescriptClientBuilder {
+export abstract class TypescriptClientBuilder implements ICompilable {
   private readonly operations: string[] = []
 
   constructor(
@@ -16,9 +17,8 @@ export abstract class TypescriptClientBuilder {
     protected readonly models: TypeBuilder,
     protected readonly schemaBuilder: SchemaBuilder,
     protected readonly config: {
-      allowUnusedImports: boolean
       enableRuntimeResponseValidation: boolean
-    } = {allowUnusedImports: false, enableRuntimeResponseValidation: false},
+    } = {enableRuntimeResponseValidation: false},
   ) {
     this.buildImports(imports)
   }
@@ -43,12 +43,10 @@ export abstract class TypescriptClientBuilder {
   ): string
 
   toString(): string {
-    const code = this.buildClient(this.name, this.operations)
+    return this.buildClient(this.name, this.operations)
+  }
 
-    return `
-    ${this.imports.toString(this.config.allowUnusedImports ? "" : code)}
-
-    ${code}
-    `
+  toCompilationUnit(): CompilationUnit {
+    return new CompilationUnit(this.filename, this.imports, this.toString())
   }
 }

@@ -62195,6 +62195,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 }
 
 export async function bootstrap(config: ServerConfig) {
-  // ApiClient
+  // Stripe API
   return startServer(config)
 }

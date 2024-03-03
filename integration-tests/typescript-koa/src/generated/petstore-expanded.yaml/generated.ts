@@ -287,6 +287,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 }
 
 export async function bootstrap(config: ServerConfig) {
-  // ApiClient
+  // Swagger Petstore
   return startServer(config)
 }

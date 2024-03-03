@@ -1,6 +1,10 @@
+import path from "node:path"
+
 export class ImportBuilder {
   private readonly imports: Record<string, Set<string>> = {}
   private readonly importAll: Record<string, string> = {}
+
+  constructor(private readonly unit?: {filename: string}) {}
 
   from(from: string) {
     return {
@@ -16,11 +20,51 @@ export class ImportBuilder {
   }
 
   addSingle(name: string, from: string): void {
+    if (!name) {
+      throw new Error(`cannot addSingle with name '${name}'`)
+    }
+
+    if (!from) {
+      throw new Error(`cannot addSingle with from '${from}'`)
+    }
+
     return this.add(name, from, false)
   }
 
   addModule(name: string, from: string): void {
+    if (!name) {
+      throw new Error(`cannot addModule with name '${name}'`)
+    }
+
+    if (!from) {
+      throw new Error(`cannot addModule with from '${from}'`)
+    }
+
     return this.add(name, from, true)
+  }
+
+  static merge(
+    unit: {filename: string} | undefined,
+    ...builders: ImportBuilder[]
+  ): ImportBuilder {
+    const result = new ImportBuilder(unit)
+
+    builders.forEach((builder) => {
+      Object.entries(builder.imports).forEach(([key, value]) => {
+        const imports = (result.imports[key] = result.imports[key] ?? new Set())
+        value.forEach((it) => imports.add(it))
+      })
+
+      Object.entries(builder.importAll).forEach(([key, value]) => {
+        if (result.importAll[key] && result.importAll[key] !== value) {
+          throw new Error("cannot merge imports with colliding importAlls")
+        }
+
+        result.importAll[key] = value
+      })
+    })
+
+    return result
   }
 
   private add(name: string, from: string, isAll: boolean): void {
@@ -37,8 +81,22 @@ export class ImportBuilder {
 
   private normalizeFrom(from: string) {
     if (from.endsWith(".ts")) {
-      return from.substr(0, from.length - ".ts".length)
+      from = from.substring(0, from.length - ".ts".length)
     }
+
+    if (this.unit && from.startsWith("./")) {
+      const unitDirname = path.dirname(this.unit.filename)
+      const fromDirname = path.dirname(from)
+
+      const relative = path.relative(unitDirname, fromDirname)
+
+      from = path.join(relative, path.basename(from))
+
+      if (!from.startsWith("../") && !from.startsWith("./")) {
+        from = "./" + from
+      }
+    }
+
     return from
   }
 

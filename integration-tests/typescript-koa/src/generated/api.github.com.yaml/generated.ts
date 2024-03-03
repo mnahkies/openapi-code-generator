@@ -77334,6 +77334,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 }
 
 export async function bootstrap(config: ServerConfig) {
-  // ApiClient
+  // GitHub v3 REST API
   return startServer(config)
 }

@@ -1958,6 +1958,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 }
 
 export async function bootstrap(config: ServerConfig) {
-  // ApiClient
+  // MyAccount Management
   return startServer(config)
 }

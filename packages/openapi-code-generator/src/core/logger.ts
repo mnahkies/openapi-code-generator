@@ -10,26 +10,31 @@ enum Color {
   Reset = "\x1b[0m",
 }
 
+const ConsoleSink = {
+  info: (it: string) => console.info(it),
+  warn: (it: string) => console.info(it),
+  error: (it: string) => console.info(it),
+}
+
 export class Logger {
   private readonly startTime = process.hrtime.bigint()
   private readonly times: [string, bigint, ...bigint[]][] = []
 
-  constructor(private readonly format = defaultFormat) {}
+  constructor(
+    private readonly format = defaultFormat,
+    private readonly sink = ConsoleSink,
+  ) {}
 
   readonly info = (message: string, meta?: LoggerMeta): void => {
-    process.stderr.write(this.format("info", message, meta) + "\n")
+    this.sink.info(this.format("info", message, meta))
   }
 
   readonly warn = (message: string, meta?: LoggerMeta): void => {
-    process.stderr.write(
-      this.format("warn", message, meta, Color.FgYellow) + "\n",
-    )
+    this.sink.warn(this.format("warn", message, meta, Color.FgYellow))
   }
 
   readonly error = (message: string, meta?: LoggerMeta): void => {
-    process.stderr.write(
-      this.format("error", message, meta, Color.FgRed) + "\n",
-    )
+    this.sink.error(this.format("error", message, meta, Color.FgRed))
   }
 
   readonly time = (description: string): void => {

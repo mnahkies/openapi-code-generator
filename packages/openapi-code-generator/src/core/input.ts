@@ -28,11 +28,17 @@ import {
 import {isRef} from "./openapi-utils"
 import {deepEqual, isHttpMethod, mediaTypeToIdentifier} from "./utils"
 
+export type OperationGroup = {name: string; operations: IROperation[]}
+export type OperationGroupStrategy = "none" | "first-tag" | "first-slug"
 export class Input {
   constructor(
     readonly loader: OpenapiLoader,
     readonly config: {extractInlineSchemas: boolean},
   ) {}
+
+  name() {
+    return this.loader.entryPoint.info.title
+  }
 
   allSchemas(): Record<string, IRModel> {
     const schemas = this.loader.entryPoint.components?.schemas ?? {}
@@ -41,6 +47,22 @@ export class Input {
         return [name, this.schema(normalizeSchemaObject(maybeSchema))]
       }),
     )
+  }
+
+  groupedOperations(
+    strategy: OperationGroupStrategy = "none",
+  ): OperationGroup[] {
+    switch (strategy) {
+      case "none": {
+        return [{name: "generated", operations: this.allOperations()}]
+      }
+      case "first-tag":
+        return this.operationsByFirstTag()
+      case "first-slug":
+        return this.operationsByFirstSlug()
+      default:
+        throw new Error(`unsupported grouping strategy '${strategy}'`)
+    }
   }
 
   allOperations(): IROperation[] {
@@ -104,38 +126,57 @@ export class Input {
     return result
   }
 
-  operationsByFirstTag(): Record<string, IROperation[]> {
-    return this.groupedOperations((operation) => operation.tags[0])
-  }
+  private operationsByFirstTag(): OperationGroup[] {
+    return this.groupOperations((operation) => {
+      const tag = operation.tags[0] ?? "generated"
 
-  operationsByFirstSlug(): Record<string, IROperation[]> {
-    return this.groupedOperations((operation) => {
-      return (operation.route.split("/").find((it) => !!it) ?? "").replace(
-        /[{}]*/g,
-        "",
-      )
+      if (!tag) {
+        throw new Error(
+          `cannot group operations by first tag as operationId: '${operation.operationId}' has no tags`,
+        )
+      }
+
+      return tag.toLowerCase()
     })
   }
 
-  groupedOperations(
+  private operationsByFirstSlug(): OperationGroup[] {
+    return this.groupOperations((operation) => {
+      const slug = (
+        operation.route.split("/").find((it) => !!it) ?? ""
+      ).replace(/[{}]*/g, "")
+
+      if (!slug) {
+        throw new Error(
+          `cannot group operations by first slug as operationId: '${operation.operationId}' has no slugs`,
+        )
+      }
+
+      return slug.toLowerCase()
+    })
+  }
+
+  private groupOperations(
     groupBy: (operation: IROperation) => string | undefined,
-  ): Record<string, IROperation[]> {
-    return this.allOperations().reduce(
-      (result, operation) => {
-        const key = groupBy(operation)
-        if (key) {
-          const group = result[key] ?? []
-          group.push(operation)
+  ): OperationGroup[] {
+    return Object.entries(
+      this.allOperations().reduce(
+        (result, operation) => {
+          const key = groupBy(operation)
+          if (key) {
+            const group = result[key] ?? []
+            group.push(operation)
 
-          result[key] = group
-        } else {
-          logger.warn("no group criteria for operation, skipping", operation)
-        }
+            result[key] = group
+          } else {
+            logger.warn("no group criteria for operation, skipping", operation)
+          }
 
-        return result
-      },
-      {} as Record<string, IROperation[]>,
-    )
+          return result
+        },
+        {} as Record<string, IROperation[]>,
+      ),
+    ).map(([name, operations]) => ({name, operations}))
   }
 
   schema(maybeRef: Reference | Schema): IRModel {
