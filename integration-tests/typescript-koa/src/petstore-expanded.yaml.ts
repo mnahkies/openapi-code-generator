@@ -1,4 +1,5 @@
 import {
+  bootstrap,
   createRouter,
   FindPetById,
 } from "./generated/petstore-expanded.yaml/generated"
@@ -8,7 +9,6 @@ import {KoaRuntimeError} from "@nahkies/typescript-koa-runtime/errors"
 import {ZodError} from "zod"
 import {KoaRuntimeResponder} from "@nahkies/typescript-koa-runtime/server"
 import {t_Error} from "./generated/petstore-expanded.yaml/models"
-import {bootstrap} from "./generated/petstore-expanded.yaml"
 
 const notImplemented = async (
   _: unknown,
