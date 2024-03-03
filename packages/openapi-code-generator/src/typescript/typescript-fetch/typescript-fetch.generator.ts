@@ -31,15 +31,14 @@ export async function generateTypescriptFetch(
     rootSchemaBuilder.withImports(imports),
     {
       enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
-      allowUnusedImports: config.allowUnusedImports,
     },
   )
 
   input.allOperations().map((it) => client.add(it))
 
-  await emitGenerationResult(config.dest, [
-    rootTypeBuilder,
-    client,
-    rootSchemaBuilder,
-  ])
+  await emitGenerationResult(
+    config.dest,
+    [rootTypeBuilder, client, rootSchemaBuilder],
+    {allowUnusedImports: config.allowUnusedImports},
+  )
 }

@@ -4,6 +4,7 @@ import {logger} from "../../core/logger"
 import {Reference} from "../../core/openapi-types"
 import {MaybeIRModel} from "../../core/openapi-types-normalized"
 import {getTypeNameFromRef, isRef} from "../../core/openapi-utils"
+import {CompilationUnit, ICompilable} from "./compilation-units"
 import {ImportBuilder} from "./import-builder"
 import {
   array,
@@ -22,7 +23,7 @@ const staticTypes = {
 
 type StaticType = keyof typeof staticTypes
 
-export class TypeBuilder {
+export class TypeBuilder implements ICompilable {
   private constructor(
     public readonly filename: string,
     private readonly input: Input,
@@ -222,5 +223,13 @@ export class TypeBuilder {
     }
 
     return result
+  }
+
+  toCompilationUnit(): CompilationUnit {
+    return {
+      filename: this.filename,
+      imports: this.imports,
+      code: this.toString(),
+    }
   }
 }

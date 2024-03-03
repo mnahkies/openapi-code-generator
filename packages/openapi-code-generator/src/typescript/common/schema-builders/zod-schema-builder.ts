@@ -14,12 +14,12 @@ import {quotedStringLiteral} from "../type-utils"
 import {ExportDefinition} from "../typescript-common"
 import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 
+const zod = "z"
+
 // todo: coerce is cool for input where everything starts as strings,
 //       but for output we probably don't want that as its more likely
 //       to mask mistakes. https://en.wikipedia.org/wiki/Robustness_principle
 export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
-  private readonly zod = "z"
-
   static async fromInput(filename: string, input: Input): Promise<ZodBuilder> {
     return new ZodBuilder(filename, input)
   }
@@ -29,7 +29,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
   }
 
   protected importHelpers(imports: ImportBuilder) {
-    imports.from("zod").add(this.zod)
+    imports.from("zod").add(zod)
   }
 
   public parse(schema: string, value: string): string {
@@ -55,14 +55,14 @@ export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
 
     return {
       name,
-      type: type ? `${this.zod}.ZodType<${type}>` : "",
+      type: type ? `${zod}.ZodType<${type}>` : "",
       value,
       kind: "const",
     }
   }
 
   protected lazy(schema: string): string {
-    return [this.zod, `lazy(() => ${schema})`].join(".")
+    return [zod, `lazy(() => ${schema})`].join(".")
   }
 
   protected merge(schemas: string[]): string {
@@ -85,7 +85,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
     }
 
     return definedSchemas.reduce((acc, it) => {
-      return `${this.zod}.intersection(${acc}, ${it})`
+      return `${zod}.intersection(${acc}, ${it})`
     })
   }
 
@@ -97,7 +97,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
     }
 
     return [
-      this.zod,
+      zod,
       `union([\n${definedSchemas.map((it) => it + ",").join("\n")}\n])`,
     ]
       .filter(isDefined)
@@ -118,7 +118,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
 
   protected object(keys: Record<string, string>): string {
     return [
-      this.zod,
+      zod,
       `object({${Object.entries(keys)
         .map(([key, value]) => `"${key}": ${value}`)
         .join(",")}})`,
@@ -128,26 +128,24 @@ export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
   }
 
   protected record(schema: string): string {
-    return [this.zod, `record(${schema})`].filter(isDefined).join(".")
+    return [zod, `record(${schema})`].filter(isDefined).join(".")
   }
 
   protected array(items: string[]): string {
-    return [this.zod, `array(${items.join(",")})`].filter(isDefined).join(".")
+    return [zod, `array(${items.join(",")})`].filter(isDefined).join(".")
   }
 
   protected number(model: IRModelNumeric) {
     if (model.enum) {
       // TODO: replace with enum after https://github.com/colinhacks/zod/issues/2686
       return [
-        this.union(
-          model.enum.map((it) => [this.zod, `literal(${it})`].join(".")),
-        ),
+        this.union(model.enum.map((it) => [zod, `literal(${it})`].join("."))),
       ]
         .filter(isDefined)
         .join(".")
     }
 
-    return [this.zod, "coerce.number()"].filter(isDefined).join(".")
+    return [zod, "coerce.number()"].filter(isDefined).join(".")
   }
 
   protected string(model: IRModelString) {
@@ -156,7 +154,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
     }
 
     return [
-      this.zod,
+      zod,
       "string()",
       model.format === "date-time" ? "datetime({offset:true})" : undefined,
       model.format === "email" ? "email()" : undefined,
@@ -170,17 +168,14 @@ export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
       throw new Error("model is not an enum")
     }
 
-    return [
-      this.zod,
-      `enum([${model.enum.map(quotedStringLiteral).join(",")}])`,
-    ]
+    return [zod, `enum([${model.enum.map(quotedStringLiteral).join(",")}])`]
       .filter(isDefined)
       .join(".")
   }
 
   protected boolean() {
     return [
-      this.zod,
+      zod,
       // todo: this would mean the literal string "false" as a query parameter is coerced to true
       "coerce.boolean()",
     ]
@@ -189,10 +184,10 @@ export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
   }
 
   public any(): string {
-    return [this.zod, "any()"].filter(isDefined).join(".")
+    return [zod, "any()"].filter(isDefined).join(".")
   }
 
   public void(): string {
-    return [this.zod, "undefined()"].filter(isDefined).join(".")
+    return [zod, "undefined()"].filter(isDefined).join(".")
   }
 }

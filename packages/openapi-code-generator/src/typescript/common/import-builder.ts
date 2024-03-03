@@ -20,10 +20,26 @@ export class ImportBuilder {
   }
 
   addSingle(name: string, from: string): void {
+    if (!name) {
+      throw new Error(`cannot addSingle with name '${name}'`)
+    }
+
+    if (!from) {
+      throw new Error(`cannot addSingle with from '${from}'`)
+    }
+
     return this.add(name, from, false)
   }
 
   addModule(name: string, from: string): void {
+    if (!name) {
+      throw new Error(`cannot addModule with name '${name}'`)
+    }
+
+    if (!from) {
+      throw new Error(`cannot addModule with from '${from}'`)
+    }
+
     return this.add(name, from, true)
   }
 

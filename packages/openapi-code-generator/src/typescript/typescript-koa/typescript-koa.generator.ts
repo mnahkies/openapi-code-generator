@@ -8,6 +8,7 @@ import {
 } from "../../core/openapi-types-normalized"
 import {isDefined, titleCase} from "../../core/utils"
 import {OpenapiGeneratorConfig} from "../../templates.types"
+import {CompilationUnit, ICompilable} from "../common/compilation-units"
 import {ImportBuilder} from "../common/import-builder"
 import {emitGenerationResult, loadPreviousResult} from "../common/output-utils"
 import {JoiBuilder} from "../common/schema-builders/joi-schema-builder"
@@ -49,7 +50,7 @@ function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
   )
 }
 
-export class ServerRouterBuilder {
+export class ServerRouterBuilder implements ICompilable {
   private readonly statements: string[] = []
   private readonly operationTypes: {
     operationId: string
@@ -63,9 +64,6 @@ export class ServerRouterBuilder {
     private readonly imports: ImportBuilder,
     public readonly types: TypeBuilder,
     public readonly schemaBuilder: SchemaBuilder,
-    private readonly config: {allowUnusedImports: boolean} = {
-      allowUnusedImports: false,
-    },
     private existingRegions: {
       [operationId: string]: string
     },
@@ -319,8 +317,6 @@ export class ServerRouterBuilder {
 
   toString(): string {
     const routes = this.statements
-    const imports = this.imports
-
     const code = `
 //region safe-edit-region-header
 ${this.existingRegions["header"] ?? ""}
@@ -346,23 +342,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
   return router
 }
 `
-    return `
-    ${imports.toString(this.config.allowUnusedImports ? "" : code)}
+    return code
+  }
 
-    ${code}
-    `
+  toCompilationUnit(): CompilationUnit {
+    return {
+      filename: this.filename,
+      imports: this.imports,
+      code: this.toString(),
+    }
   }
 }
 
-export class ServerBuilder {
+export class ServerBuilder implements ICompilable {
   constructor(
     public readonly filename: string,
     private readonly name: string,
     private readonly input: Input,
     private readonly imports: ImportBuilder = new ImportBuilder(),
-    private readonly config: {allowUnusedImports: boolean} = {
-      allowUnusedImports: false,
-    },
   ) {
     // todo: unsure why, but adding an export at `.` of index.ts doesn't work properly
     this.imports
@@ -382,19 +379,22 @@ export class ServerBuilder {
   }
 
   toString(): string {
-    const {name, imports, config} = this
+    const {name} = this
 
-    const code = `
+    return `
       export async function bootstrap(config: ServerConfig) {
         // ${name}
         return startServer(config)
       }
     `
+  }
 
-    return `
-    ${imports.toString(config.allowUnusedImports ? "" : code)}
-    ${code}
-    `
+  toCompilationUnit(): CompilationUnit {
+    return {
+      filename: this.filename,
+      imports: this.imports,
+      code: this.toString(),
+    }
   }
 }
 
@@ -430,7 +430,6 @@ export async function generateTypescriptKoa(
     input.name(),
     input,
     new ImportBuilder(),
-    {allowUnusedImports: config.allowUnusedImports},
   )
 
   const routers = await Promise.all(
@@ -446,7 +445,6 @@ export async function generateTypescriptKoa(
         imports,
         rootTypeBuilder.withImports(imports),
         rootSchemaBuilder.withImports(imports),
-        {allowUnusedImports: config.allowUnusedImports},
         loadExistingImplementations(
           await loadPreviousResult(config.dest, {filename}),
         ),
@@ -458,12 +456,11 @@ export async function generateTypescriptKoa(
     }),
   )
 
-  await emitGenerationResult(config.dest, [
-    server,
-    rootTypeBuilder,
-    rootSchemaBuilder,
-    ...routers,
-  ])
+  await emitGenerationResult(
+    config.dest,
+    [server, rootTypeBuilder, rootSchemaBuilder, ...routers],
+    {allowUnusedImports: config.allowUnusedImports},
+  )
 }
 
 const regionBoundary = /.+safe-edit-region-(.+)/

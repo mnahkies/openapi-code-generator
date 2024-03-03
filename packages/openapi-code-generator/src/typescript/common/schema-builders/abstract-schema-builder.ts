@@ -11,13 +11,17 @@ import {
 } from "../../../core/openapi-types-normalized"
 import {getSchemaNameFromRef, isRef} from "../../../core/openapi-utils"
 import {hasSingleElement} from "../../../core/utils"
+import {CompilationUnit, ICompilable} from "../compilation-units"
 import {ImportBuilder} from "../import-builder"
 import {ExportDefinition, buildExport} from "../typescript-common"
 
 export abstract class AbstractSchemaBuilder<
   SubClass extends AbstractSchemaBuilder<SubClass>,
-> {
+> implements ICompilable
+{
   private readonly graph
+
+  private readonly schemaBuilderImports = new ImportBuilder()
 
   protected constructor(
     public readonly filename: string,
@@ -27,6 +31,7 @@ export abstract class AbstractSchemaBuilder<
     private readonly parent?: SubClass,
   ) {
     this.graph = buildDependencyGraph(this.input, getSchemaNameFromRef)
+    this.importHelpers(this.schemaBuilderImports)
   }
 
   abstract withImports(imports: ImportBuilder): SubClass
@@ -47,8 +52,6 @@ export abstract class AbstractSchemaBuilder<
   toString(): string {
     logger.time(`generate ${this.filename}`)
 
-    const schemaBuilderImports = new ImportBuilder()
-
     const generate = () => {
       const seen = new Set()
 
@@ -66,7 +69,10 @@ export abstract class AbstractSchemaBuilder<
           })
           .map((name) => {
             return buildExport(
-              this.schemaFromRef(this.referenced[name]!, schemaBuilderImports),
+              this.schemaFromRef(
+                this.referenced[name]!,
+                this.schemaBuilderImports,
+              ),
             )
           })
       )
@@ -86,9 +92,7 @@ export abstract class AbstractSchemaBuilder<
       return ""
     }
 
-    this.importHelpers(schemaBuilderImports)
-
-    return `${schemaBuilderImports.toString()}\n\n${next.join("\n\n")}`
+    return `${next.join("\n\n")}`
   }
 
   protected abstract importHelpers(importBuilder: ImportBuilder): void
@@ -298,4 +302,12 @@ export abstract class AbstractSchemaBuilder<
   public abstract any(): string
 
   public abstract void(): string
+
+  toCompilationUnit(): CompilationUnit {
+    return {
+      filename: this.filename,
+      imports: this.schemaBuilderImports,
+      code: this.toString(),
+    }
+  }
 }

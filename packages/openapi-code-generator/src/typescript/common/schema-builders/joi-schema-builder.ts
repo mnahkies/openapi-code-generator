@@ -11,9 +11,9 @@ import {quotedStringLiteral} from "../type-utils"
 import {ExportDefinition} from "../typescript-common"
 import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 
-export class JoiBuilder extends AbstractSchemaBuilder<JoiBuilder> {
-  private readonly joi = "joi"
+const joi = "joi"
 
+export class JoiBuilder extends AbstractSchemaBuilder<JoiBuilder> {
   static async fromInput(filename: string, input: Input): Promise<JoiBuilder> {
     return new JoiBuilder(filename, input)
   }
@@ -23,7 +23,7 @@ export class JoiBuilder extends AbstractSchemaBuilder<JoiBuilder> {
   }
 
   protected importHelpers(imports: ImportBuilder) {
-    imports.addModule(this.joi, "@hapi/joi")
+    imports.addModule(joi, "@hapi/joi")
   }
 
   public parse(schema: string, value: string): string {
@@ -45,7 +45,7 @@ export class JoiBuilder extends AbstractSchemaBuilder<JoiBuilder> {
   }
 
   protected lazy(schema: string): string {
-    return [this.joi, `link('#${schema}')`].join(".")
+    return [joi, `link('#${schema}')`].join(".")
   }
 
   protected merge(schemas: string[]): string {
@@ -78,7 +78,7 @@ export class JoiBuilder extends AbstractSchemaBuilder<JoiBuilder> {
     }
 
     return [
-      this.joi,
+      joi,
       `alternatives().try(${definedSchemas.map((it) => it).join(",")})`,
     ]
       .filter(isDefined)
@@ -104,7 +104,7 @@ export class JoiBuilder extends AbstractSchemaBuilder<JoiBuilder> {
 
   protected object(keys: Record<string, string>): string {
     return [
-      this.joi,
+      joi,
       "object()",
       `keys({${Object.entries(keys)
         .map(([key, value]) => `"${key}": ${value}`)
@@ -115,19 +115,19 @@ export class JoiBuilder extends AbstractSchemaBuilder<JoiBuilder> {
   }
 
   protected record(schema: string): string {
-    return [this.joi, "object()", `pattern(${this.any()}, ${schema})`]
+    return [joi, "object()", `pattern(${this.any()}, ${schema})`]
       .filter(isDefined)
       .join(".")
   }
 
   protected array(items: string[]): string {
-    return [this.joi, "array()", `items(${items.join(",")})`]
+    return [joi, "array()", `items(${items.join(",")})`]
       .filter(isDefined)
       .join(".")
   }
 
   protected number(model: IRModelNumeric) {
-    const result = [this.joi, "number()"].filter(isDefined).join(".")
+    const result = [joi, "number()"].filter(isDefined).join(".")
 
     if (model.enum) {
       return [result, `valid(${model.enum.join(", ")})`]
@@ -139,7 +139,7 @@ export class JoiBuilder extends AbstractSchemaBuilder<JoiBuilder> {
   }
 
   protected string(model: IRModelString) {
-    const result = [this.joi, "string()"].filter(isDefined).join(".")
+    const result = [joi, "string()"].filter(isDefined).join(".")
 
     if (model.enum) {
       return [
@@ -154,14 +154,14 @@ export class JoiBuilder extends AbstractSchemaBuilder<JoiBuilder> {
   }
 
   protected boolean() {
-    return [this.joi, "boolean()"].filter(isDefined).join(".")
+    return [joi, "boolean()"].filter(isDefined).join(".")
   }
 
   public any(): string {
-    return [this.joi, "any()"].filter(isDefined).join(".")
+    return [joi, "any()"].filter(isDefined).join(".")
   }
 
   public void(): string {
-    return [this.joi, "any()", "valid(undefined)"].filter(isDefined).join(".")
+    return [joi, "any()", "valid(undefined)"].filter(isDefined).join(".")
   }
 }

@@ -33,7 +33,6 @@ export async function generateTypescriptAngular(
     rootSchemaBuilder.withImports(imports),
     {
       enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
-      allowUnusedImports: config.allowUnusedImports,
     },
   )
 
@@ -43,10 +42,9 @@ export async function generateTypescriptAngular(
 
   module.provides("./" + client.filename).add(client.name)
 
-  await emitGenerationResult(config.dest, [
-    rootTypeBuilder,
-    client,
-    module,
-    rootSchemaBuilder,
-  ])
+  await emitGenerationResult(
+    config.dest,
+    [rootTypeBuilder, client, module, rootSchemaBuilder],
+    {allowUnusedImports: config.allowUnusedImports},
+  )
 }
