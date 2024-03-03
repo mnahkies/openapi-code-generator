@@ -401,10 +401,10 @@ function route(route: string): string {
 export async function generateTypescriptKoa(
   config: OpenapiGeneratorConfig,
 ): Promise<void> {
-  const strategy = "all"
   const input = config.input
 
-  const routesDirectory = "./"
+  const routesDirectory =
+    config.groupingStrategy === "none" ? "./" : "./routes/"
 
   const rootTypeBuilder = await TypeBuilder.fromInput(
     "./models.ts",
@@ -449,7 +449,7 @@ export async function generateTypescriptKoa(
     }),
   )
 
-  if (strategy === "all") {
+  if (config.groupingStrategy === "none") {
     await emitGenerationResult(
       config.dest,
       [

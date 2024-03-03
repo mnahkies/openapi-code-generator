@@ -128,7 +128,7 @@ export class Input {
 
   private operationsByFirstTag(): OperationGroup[] {
     return this.groupOperations((operation) => {
-      const tag = operation.tags[0]
+      const tag = operation.tags[0] ?? "generated"
 
       if (!tag) {
         throw new Error(
