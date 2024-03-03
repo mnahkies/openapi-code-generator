@@ -1,5 +1,5 @@
 import {CompilerOptions} from "./core/file-loader"
-import {Input} from "./core/input"
+import {Input, OperationGroupStrategy} from "./core/input"
 import {SchemaBuilderType} from "./typescript/common/schema-builders/schema-builder"
 
 export interface OpenapiGeneratorConfig {
@@ -9,6 +9,7 @@ export interface OpenapiGeneratorConfig {
   enableRuntimeResponseValidation: boolean
   compilerOptions: CompilerOptions
   allowUnusedImports: boolean
+  groupingStrategy: OperationGroupStrategy
 }
 
 export interface OpenapiGenerator {

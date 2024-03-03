@@ -29,7 +29,7 @@ import {isRef} from "./openapi-utils"
 import {deepEqual, isHttpMethod, mediaTypeToIdentifier} from "./utils"
 
 export type OperationGroup = {name: string; operations: IROperation[]}
-
+export type OperationGroupStrategy = "none" | "first-tag" | "first-slug"
 export class Input {
   constructor(
     readonly loader: OpenapiLoader,
@@ -50,10 +50,10 @@ export class Input {
   }
 
   groupedOperations(
-    strategy: "all" | "first-tag" | "first-slug" = "all",
+    strategy: OperationGroupStrategy = "none",
   ): OperationGroup[] {
     switch (strategy) {
-      case "all": {
+      case "none": {
         return [{name: "generated", operations: this.allOperations()}]
       }
       case "first-tag":

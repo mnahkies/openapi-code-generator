@@ -426,7 +426,7 @@ export async function generateTypescriptKoa(
   )
 
   const routers = await Promise.all(
-    input.groupedOperations(strategy).map(async (group) => {
+    input.groupedOperations(config.groupingStrategy).map(async (group) => {
       const filename = path.join(routesDirectory, `${group.name}.ts`)
 
       const imports = new ImportBuilder({filename})

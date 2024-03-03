@@ -6,7 +6,7 @@ import path from "path"
 
 import {Command, Option} from "@commander-js/extra-typings"
 import {loadTsConfigCompilerOptions} from "./core/file-loader"
-import {Input} from "./core/input"
+import {Input, OperationGroupStrategy} from "./core/input"
 import {logger} from "./core/logger"
 import {OpenapiLoader} from "./core/openapi-loader"
 import {OpenapiValidator} from "./core/openapi-validator"
@@ -68,6 +68,20 @@ const program = new Command()
       .env("OPENAPI_ALLOW_UNUSED_IMPORTS")
       .default(false),
   )
+  .addOption(
+    new Option(
+      "--grouping-strategy <value>",
+      "(experimental) Strategy to use for splitting output into separate files. Set to none for a single generated.ts",
+    )
+      .env("OPENAPI_GROUPING_STRATEGY")
+      .choices([
+        "none",
+        "first-tag",
+        "first-slug",
+      ] as const satisfies OperationGroupStrategy[])
+      .default("none" as const)
+      .makeOptionMandatory(),
+  )
   .showHelpAfterError()
   .parse()
 
@@ -97,6 +111,7 @@ async function main() {
     enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
     compilerOptions,
     allowUnusedImports: config.allowUnusedImports,
+    groupingStrategy: config.groupingStrategy,
   })
 }
 
