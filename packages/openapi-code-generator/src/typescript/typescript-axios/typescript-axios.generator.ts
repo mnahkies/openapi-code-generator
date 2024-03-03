@@ -39,7 +39,11 @@ export async function generateTypescriptAxios(
 
   await emitGenerationResult(
     config.dest,
-    [rootTypeBuilder, client, rootSchemaBuilder],
+    [
+      client.toCompilationUnit(),
+      rootTypeBuilder.toCompilationUnit(),
+      rootSchemaBuilder.toCompilationUnit(),
+    ],
     {allowUnusedImports: config.allowUnusedImports},
   )
 }

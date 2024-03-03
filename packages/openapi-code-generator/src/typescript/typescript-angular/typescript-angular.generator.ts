@@ -44,7 +44,12 @@ export async function generateTypescriptAngular(
 
   await emitGenerationResult(
     config.dest,
-    [rootTypeBuilder, client, module, rootSchemaBuilder],
+    [
+      module.toCompilationUnit(),
+      client.toCompilationUnit(),
+      rootTypeBuilder.toCompilationUnit(),
+      rootSchemaBuilder.toCompilationUnit(),
+    ],
     {allowUnusedImports: config.allowUnusedImports},
   )
 }

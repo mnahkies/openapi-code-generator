@@ -346,11 +346,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   }
 
   toCompilationUnit(): CompilationUnit {
-    return {
-      filename: this.filename,
-      imports: this.imports,
-      code: this.toString(),
-    }
+    return new CompilationUnit(this.filename, this.imports, this.toString())
   }
 }
 
@@ -390,11 +386,7 @@ export class ServerBuilder implements ICompilable {
   }
 
   toCompilationUnit(): CompilationUnit {
-    return {
-      filename: this.filename,
-      imports: this.imports,
-      code: this.toString(),
-    }
+    return new CompilationUnit(this.filename, this.imports, this.toString())
   }
 }
 
@@ -409,6 +401,7 @@ function route(route: string): string {
 export async function generateTypescriptKoa(
   config: OpenapiGeneratorConfig,
 ): Promise<void> {
+  const strategy = "all"
   const input = config.input
 
   const routesDirectory = "./"
@@ -433,7 +426,7 @@ export async function generateTypescriptKoa(
   )
 
   const routers = await Promise.all(
-    input.groupedOperations("all").map(async (group) => {
+    input.groupedOperations(strategy).map(async (group) => {
       const filename = path.join(routesDirectory, `${group.name}.ts`)
 
       const imports = new ImportBuilder({filename})
@@ -452,15 +445,38 @@ export async function generateTypescriptKoa(
 
       group.operations.forEach((it) => routerBuilder.add(it))
 
-      return routerBuilder
+      return routerBuilder.toCompilationUnit()
     }),
   )
 
-  await emitGenerationResult(
-    config.dest,
-    [server, rootTypeBuilder, rootSchemaBuilder, ...routers],
-    {allowUnusedImports: config.allowUnusedImports},
-  )
+  if (strategy === "all") {
+    await emitGenerationResult(
+      config.dest,
+      [
+        CompilationUnit.merge(
+          "./generated.ts",
+          ...routers,
+          server.toCompilationUnit(),
+        ),
+        rootTypeBuilder.toCompilationUnit(),
+        rootSchemaBuilder.toCompilationUnit(),
+      ],
+      {allowUnusedImports: config.allowUnusedImports},
+    )
+  } else {
+    await emitGenerationResult(
+      config.dest,
+      [
+        server.toCompilationUnit(),
+        ...routers,
+        rootTypeBuilder.toCompilationUnit(),
+        rootSchemaBuilder.toCompilationUnit(),
+      ],
+      {
+        allowUnusedImports: config.allowUnusedImports,
+      },
+    )
+  }
 }
 
 const regionBoundary = /.+safe-edit-region-(.+)/

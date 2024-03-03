@@ -304,10 +304,10 @@ export abstract class AbstractSchemaBuilder<
   public abstract void(): string
 
   toCompilationUnit(): CompilationUnit {
-    return {
-      filename: this.filename,
-      imports: this.schemaBuilderImports,
-      code: this.toString(),
-    }
+    return new CompilationUnit(
+      this.filename,
+      this.schemaBuilderImports,
+      this.toString(),
+    )
   }
 }

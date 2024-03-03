@@ -47,10 +47,6 @@ export abstract class TypescriptClientBuilder implements ICompilable {
   }
 
   toCompilationUnit(): CompilationUnit {
-    return {
-      filename: this.filename,
-      imports: this.imports,
-      code: this.toString(),
-    }
+    return new CompilationUnit(this.filename, this.imports, this.toString())
   }
 }

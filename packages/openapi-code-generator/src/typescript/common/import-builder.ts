@@ -43,6 +43,30 @@ export class ImportBuilder {
     return this.add(name, from, true)
   }
 
+  static merge(
+    unit: {filename: string} | undefined,
+    ...builders: ImportBuilder[]
+  ): ImportBuilder {
+    const result = new ImportBuilder(unit)
+
+    builders.forEach((builder) => {
+      Object.entries(builder.imports).forEach(([key, value]) => {
+        const imports = (result.imports[key] = result.imports[key] ?? new Set())
+        value.forEach((it) => imports.add(it))
+      })
+
+      Object.entries(builder.importAll).forEach(([key, value]) => {
+        if (result.importAll[key] && result.importAll[key] !== value) {
+          throw new Error("cannot merge imports with colliding importAlls")
+        }
+
+        result.importAll[key] = value
+      })
+    })
+
+    return result
+  }
+
   private add(name: string, from: string, isAll: boolean): void {
     from = this.normalizeFrom(from)
     const imports = (this.imports[from] =

@@ -71,10 +71,6 @@ export class AngularModuleBuilder implements ICompilable {
   }
 
   toCompilationUnit(): CompilationUnit {
-    return {
-      filename: this.filename,
-      imports: this.tsImports,
-      code: this.toString(),
-    }
+    return new CompilationUnit(this.filename, this.tsImports, this.toString())
   }
 }

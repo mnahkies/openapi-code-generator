@@ -340,7 +340,13 @@ describe.each(testVersions)(
         `,
           "unit-test.code.ts",
         ),
-        schemas: await formatOutput(builder.toString(), "unit-test.schemas.ts"),
+        schemas: await formatOutput(
+          builder.toCompilationUnit().getRawFileContent({
+            allowUnusedImports: false,
+            includeHeader: false,
+          }),
+          "unit-test.schemas.ts",
+        ),
       }
     }
   },
