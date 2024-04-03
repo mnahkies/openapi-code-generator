@@ -28,22 +28,16 @@
     "test": "jest"
   },
   "dependencies": {
-    "qs": "^6.11.2"
+    "qs": "^6.12.0"
   },
   "peerDependencies": {
     "axios": "^1.6.0"
   },
   "devDependencies": {
-    "@types/qs": "^6.9.12",
-    "axios": "^1.6.7"
+    "@types/qs": "^6.9.14",
+    "axios": "^1.6.8"
   },
-  "files": [
-    "src",
-    "dist",
-    "README.md",
-    "CHANGELOG.md",
-    "tsconfig.json"
-  ],
+  "files": ["src", "dist", "README.md", "CHANGELOG.md", "tsconfig.json"],
   "keywords": [
     "@nahkies/openapi-code-generator",
     "runtime",

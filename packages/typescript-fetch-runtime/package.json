@@ -38,22 +38,16 @@
     "test": "jest"
   },
   "dependencies": {
-    "qs": "^6.11.2"
+    "qs": "^6.12.0"
   },
   "peerDependencies": {
     "zod": "^3.20.6"
   },
   "devDependencies": {
-    "@types/qs": "^6.9.12",
+    "@types/qs": "^6.9.14",
     "zod": "^3.22.4"
   },
-  "files": [
-    "src",
-    "dist",
-    "README.md",
-    "CHANGELOG.md",
-    "tsconfig.json"
-  ],
+  "files": ["src", "dist", "README.md", "CHANGELOG.md", "tsconfig.json"],
   "keywords": [
     "@nahkies/openapi-code-generator",
     "runtime",

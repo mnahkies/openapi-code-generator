@@ -10,9 +10,7 @@
     "noUnusedParameters": false,
     "moduleResolution": "Node16",
     "paths": {
-      "@nahkies/*": [
-        "./packages/*/src"
-      ]
+      "@nahkies/*": ["./packages/*/src"]
     }
   }
 }
