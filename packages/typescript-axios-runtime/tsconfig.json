@@ -5,7 +5,5 @@
     "rootDir": "./src",
     "lib": ["dom"]
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }
