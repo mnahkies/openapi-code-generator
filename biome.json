@@ -9,7 +9,11 @@
     "enabled": true
   },
   "files": {
-    "ignore": ["integration-tests/**/*"]
+    "ignore": [
+      "integration-tests/**/*",
+      "packages/*/package.json",
+      "package.json"
+    ]
   },
   "formatter": {
     "indentWidth": 2,

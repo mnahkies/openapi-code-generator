@@ -37,7 +37,13 @@
     "@types/qs": "^6.9.14",
     "axios": "^1.6.8"
   },
-  "files": ["src", "dist", "README.md", "CHANGELOG.md", "tsconfig.json"],
+  "files": [
+    "src",
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "tsconfig.json"
+  ],
   "keywords": [
     "@nahkies/openapi-code-generator",
     "runtime",

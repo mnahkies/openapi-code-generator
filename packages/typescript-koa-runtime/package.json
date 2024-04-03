@@ -61,7 +61,13 @@
     "koa-body": "^6.0.1",
     "zod": "^3.22.4"
   },
-  "files": ["src", "dist", "README.md", "CHANGELOG.md", "tsconfig.json"],
+  "files": [
+    "src",
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "tsconfig.json"
+  ],
   "keywords": [
     "@nahkies/openapi-code-generator",
     "runtime",
