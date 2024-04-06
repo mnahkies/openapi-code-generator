@@ -1,38 +1,41 @@
+import vm from "node:vm"
 import {describe, expect, it} from "@jest/globals"
-import {testVersions, unitTestInput} from "../../../test/input.test-utils"
-import {ImportBuilder} from "../import-builder"
-import {formatOutput} from "../output-utils"
-import {JoiBuilder} from "./joi-schema-builder"
+import {IRModelNumeric} from "../../../core/openapi-types-normalized"
+import {testVersions} from "../../../test/input.test-utils"
+import {schemaBuilderTestHarness} from "./schema-builder.test-utils"
 
 describe.each(testVersions)(
   "%s - typescript/common/schema-builders/joi-schema-builder",
   (version) => {
+    const {getActual, getActualFromModel} = schemaBuilderTestHarness(
+      "joi",
+      version,
+    )
+
     it("supports the SimpleObject", async () => {
       const {code, schemas} = await getActual("components/schemas/SimpleObject")
 
       expect(code).toMatchInlineSnapshot(`
-      "import { s_SimpleObject } from "./unit-test.schemas"
+        "import { s_SimpleObject } from "./unit-test.schemas"
 
-      const x = s_SimpleObject.required()
-      "
+        const x = s_SimpleObject.required()"
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-      "import joi from "@hapi/joi"
+        "import joi from "@hapi/joi"
 
-      export const s_SimpleObject = joi
-        .object()
-        .keys({
-          str: joi.string().required(),
-          num: joi.number().required(),
-          date: joi.string().required(),
-          datetime: joi.string().required(),
-          optional_str: joi.string(),
-          required_nullable: joi.string().allow(null).required(),
-        })
-        .required()
-        .id("s_SimpleObject")
-      "
+        export const s_SimpleObject = joi
+          .object()
+          .keys({
+            str: joi.string().required(),
+            num: joi.number().required(),
+            date: joi.string().required(),
+            datetime: joi.string().required(),
+            optional_str: joi.string(),
+            required_nullable: joi.string().allow(null).required(),
+          })
+          .required()
+          .id("s_SimpleObject")"
       `)
     })
 
@@ -42,48 +45,46 @@ describe.each(testVersions)(
       )
 
       expect(code).toMatchInlineSnapshot(`
-      "import { s_ObjectWithComplexProperties } from "./unit-test.schemas"
+        "import { s_ObjectWithComplexProperties } from "./unit-test.schemas"
 
-      const x = s_ObjectWithComplexProperties.required()
-      "
+        const x = s_ObjectWithComplexProperties.required()"
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-      "import joi from "@hapi/joi"
+        "import joi from "@hapi/joi"
 
-      export const s_AString = joi.string().required().id("s_AString")
+        export const s_AString = joi.string().required().id("s_AString")
 
-      export const s_OneOf = joi
-        .alternatives()
-        .try(
-          joi
-            .object()
-            .keys({ strs: joi.array().items(joi.string().required()).required() })
-            .required(),
-          joi.array().items(joi.string().required()).required(),
-          joi.string().required(),
-        )
-        .required()
-        .id("s_OneOf")
+        export const s_OneOf = joi
+          .alternatives()
+          .try(
+            joi
+              .object()
+              .keys({ strs: joi.array().items(joi.string().required()).required() })
+              .required(),
+            joi.array().items(joi.string().required()).required(),
+            joi.string().required(),
+          )
+          .required()
+          .id("s_OneOf")
 
-      export const s_ObjectWithComplexProperties = joi
-        .object()
-        .keys({
-          requiredOneOf: joi
-            .alternatives()
-            .try(joi.string().required(), joi.number().required())
-            .required(),
-          requiredOneOfRef: s_OneOf.required(),
-          optionalOneOf: joi
-            .alternatives()
-            .try(joi.string().required(), joi.number().required()),
-          optionalOneOfRef: s_OneOf,
-          nullableSingularOneOf: joi.boolean().allow(null),
-          nullableSingularOneOfRef: s_AString.allow(null),
-        })
-        .required()
-        .id("s_ObjectWithComplexProperties")
-      "
+        export const s_ObjectWithComplexProperties = joi
+          .object()
+          .keys({
+            requiredOneOf: joi
+              .alternatives()
+              .try(joi.string().required(), joi.number().required())
+              .required(),
+            requiredOneOfRef: s_OneOf.required(),
+            optionalOneOf: joi
+              .alternatives()
+              .try(joi.string().required(), joi.number().required()),
+            optionalOneOfRef: s_OneOf,
+            nullableSingularOneOf: joi.boolean().allow(null),
+            nullableSingularOneOfRef: s_AString.allow(null),
+          })
+          .required()
+          .id("s_ObjectWithComplexProperties")"
       `)
     })
 
@@ -91,28 +92,26 @@ describe.each(testVersions)(
       const {code, schemas} = await getActual("components/schemas/OneOf")
 
       expect(code).toMatchInlineSnapshot(`
-      "import { s_OneOf } from "./unit-test.schemas"
+        "import { s_OneOf } from "./unit-test.schemas"
 
-      const x = s_OneOf.required()
-      "
+        const x = s_OneOf.required()"
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-      "import joi from "@hapi/joi"
+        "import joi from "@hapi/joi"
 
-      export const s_OneOf = joi
-        .alternatives()
-        .try(
-          joi
-            .object()
-            .keys({ strs: joi.array().items(joi.string().required()).required() })
-            .required(),
-          joi.array().items(joi.string().required()).required(),
-          joi.string().required(),
-        )
-        .required()
-        .id("s_OneOf")
-      "
+        export const s_OneOf = joi
+          .alternatives()
+          .try(
+            joi
+              .object()
+              .keys({ strs: joi.array().items(joi.string().required()).required() })
+              .required(),
+            joi.array().items(joi.string().required()).required(),
+            joi.string().required(),
+          )
+          .required()
+          .id("s_OneOf")"
       `)
     })
 
@@ -120,21 +119,19 @@ describe.each(testVersions)(
       const {code, schemas} = await getActual("components/schemas/AnyOf")
 
       expect(code).toMatchInlineSnapshot(`
-      "import { s_AnyOf } from "./unit-test.schemas"
+        "import { s_AnyOf } from "./unit-test.schemas"
 
-      const x = s_AnyOf.required()
-      "
+        const x = s_AnyOf.required()"
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-      "import joi from "@hapi/joi"
+        "import joi from "@hapi/joi"
 
-      export const s_AnyOf = joi
-        .alternatives()
-        .try(joi.number().required(), joi.string().required())
-        .required()
-        .id("s_AnyOf")
-      "
+        export const s_AnyOf = joi
+          .alternatives()
+          .try(joi.number().required(), joi.string().required())
+          .required()
+          .id("s_AnyOf")"
       `)
     })
 
@@ -142,27 +139,25 @@ describe.each(testVersions)(
       const {code, schemas} = await getActual("components/schemas/AllOf")
 
       expect(code).toMatchInlineSnapshot(`
-      "import { s_AllOf } from "./unit-test.schemas"
+        "import { s_AllOf } from "./unit-test.schemas"
 
-      const x = s_AllOf.required()
-      "
+        const x = s_AllOf.required()"
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-      "import joi from "@hapi/joi"
+        "import joi from "@hapi/joi"
 
-      export const s_Base = joi
-        .object()
-        .keys({ name: joi.string().required(), breed: joi.string() })
-        .required()
-        .id("s_Base")
+        export const s_Base = joi
+          .object()
+          .keys({ name: joi.string().required(), breed: joi.string() })
+          .required()
+          .id("s_Base")
 
-      export const s_AllOf = s_Base
-        .required()
-        .concat(joi.object().keys({ id: joi.number().required() }).required())
-        .required()
-        .id("s_AllOf")
-      "
+        export const s_AllOf = s_Base
+          .required()
+          .concat(joi.object().keys({ id: joi.number().required() }).required())
+          .required()
+          .id("s_AllOf")"
       `)
     })
 
@@ -170,21 +165,19 @@ describe.each(testVersions)(
       const {code, schemas} = await getActual("components/schemas/Recursive")
 
       expect(code).toMatchInlineSnapshot(`
-      "import { s_Recursive } from "./unit-test.schemas"
+        "import { s_Recursive } from "./unit-test.schemas"
 
-      const x = joi.link("#s_Recursive.required()")
-      "
+        const x = joi.link("#s_Recursive.required()")"
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-      "import joi from "@hapi/joi"
+        "import joi from "@hapi/joi"
 
-      export const s_Recursive = joi
-        .object()
-        .keys({ child: joi.link("#s_Recursive") })
-        .required()
-        .id("s_Recursive")
-      "
+        export const s_Recursive = joi
+          .object()
+          .keys({ child: joi.link("#s_Recursive") })
+          .required()
+          .id("s_Recursive")"
       `)
     })
 
@@ -192,36 +185,34 @@ describe.each(testVersions)(
       const {code, schemas} = await getActual("components/schemas/Ordering")
 
       expect(code).toMatchInlineSnapshot(`
-      "import { s_Ordering } from "./unit-test.schemas"
+        "import { s_Ordering } from "./unit-test.schemas"
 
-      const x = s_Ordering.required()
-      "
+        const x = s_Ordering.required()"
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-      "import joi from "@hapi/joi"
+        "import joi from "@hapi/joi"
 
-      export const s_AOrdering = joi
-        .object()
-        .keys({ name: joi.string() })
-        .required()
-        .id("s_AOrdering")
+        export const s_AOrdering = joi
+          .object()
+          .keys({ name: joi.string() })
+          .required()
+          .id("s_AOrdering")
 
-      export const s_ZOrdering = joi
-        .object()
-        .keys({ name: joi.string(), dependency1: s_AOrdering.required() })
-        .required()
-        .id("s_ZOrdering")
+        export const s_ZOrdering = joi
+          .object()
+          .keys({ name: joi.string(), dependency1: s_AOrdering.required() })
+          .required()
+          .id("s_ZOrdering")
 
-      export const s_Ordering = joi
-        .object()
-        .keys({
-          dependency1: s_ZOrdering.required(),
-          dependency2: s_AOrdering.required(),
-        })
-        .required()
-        .id("s_Ordering")
-      "
+        export const s_Ordering = joi
+          .object()
+          .keys({
+            dependency1: s_ZOrdering.required(),
+            dependency2: s_AOrdering.required(),
+          })
+          .required()
+          .id("s_Ordering")"
       `)
     })
 
@@ -229,24 +220,22 @@ describe.each(testVersions)(
       const {code, schemas} = await getActual("components/schemas/Enums")
 
       expect(code).toMatchInlineSnapshot(`
-      "import { s_Enums } from "./unit-test.schemas"
+        "import { s_Enums } from "./unit-test.schemas"
 
-      const x = s_Enums.required()
-      "
+        const x = s_Enums.required()"
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-      "import joi from "@hapi/joi"
+        "import joi from "@hapi/joi"
 
-      export const s_Enums = joi
-        .object()
-        .keys({
-          str: joi.string().valid("foo", "bar").allow(null),
-          num: joi.number().valid(10, 20).allow(null),
-        })
-        .required()
-        .id("s_Enums")
-      "
+        export const s_Enums = joi
+          .object()
+          .keys({
+            str: joi.string().valid("foo", "bar").allow(null),
+            num: joi.number().valid(10, 20).allow(null),
+          })
+          .required()
+          .id("s_Enums")"
       `)
     })
 
@@ -257,21 +246,19 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-        "import { s_AdditionalPropertiesBool } from "./unit-test.schemas"
+          "import { s_AdditionalPropertiesBool } from "./unit-test.schemas"
 
-        const x = s_AdditionalPropertiesBool.required()
-        "
+          const x = s_AdditionalPropertiesBool.required()"
         `)
 
         expect(schemas).toMatchInlineSnapshot(`
-        "import joi from "@hapi/joi"
+          "import joi from "@hapi/joi"
 
-        export const s_AdditionalPropertiesBool = joi
-          .object()
-          .pattern(joi.any(), joi.any())
-          .required()
-          .id("s_AdditionalPropertiesBool")
-        "
+          export const s_AdditionalPropertiesBool = joi
+            .object()
+            .pattern(joi.any(), joi.any())
+            .required()
+            .id("s_AdditionalPropertiesBool")"
         `)
       })
 
@@ -281,21 +268,19 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-        "import { s_AdditionalPropertiesUnknownEmptySchema } from "./unit-test.schemas"
+          "import { s_AdditionalPropertiesUnknownEmptySchema } from "./unit-test.schemas"
 
-        const x = s_AdditionalPropertiesUnknownEmptySchema.required()
-        "
+          const x = s_AdditionalPropertiesUnknownEmptySchema.required()"
         `)
 
         expect(schemas).toMatchInlineSnapshot(`
-        "import joi from "@hapi/joi"
+          "import joi from "@hapi/joi"
 
-        export const s_AdditionalPropertiesUnknownEmptySchema = joi
-          .object()
-          .pattern(joi.any(), joi.any())
-          .required()
-          .id("s_AdditionalPropertiesUnknownEmptySchema")
-        "
+          export const s_AdditionalPropertiesUnknownEmptySchema = joi
+            .object()
+            .pattern(joi.any(), joi.any())
+            .required()
+            .id("s_AdditionalPropertiesUnknownEmptySchema")"
         `)
       })
 
@@ -305,21 +290,19 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-        "import { s_AdditionalPropertiesUnknownEmptyObjectSchema } from "./unit-test.schemas"
+          "import { s_AdditionalPropertiesUnknownEmptyObjectSchema } from "./unit-test.schemas"
 
-        const x = s_AdditionalPropertiesUnknownEmptyObjectSchema.required()
-        "
+          const x = s_AdditionalPropertiesUnknownEmptyObjectSchema.required()"
         `)
 
         expect(schemas).toMatchInlineSnapshot(`
-        "import joi from "@hapi/joi"
+          "import joi from "@hapi/joi"
 
-        export const s_AdditionalPropertiesUnknownEmptyObjectSchema = joi
-          .object()
-          .pattern(joi.any(), joi.object().pattern(joi.any(), joi.any()).required())
-          .required()
-          .id("s_AdditionalPropertiesUnknownEmptyObjectSchema")
-        "
+          export const s_AdditionalPropertiesUnknownEmptyObjectSchema = joi
+            .object()
+            .pattern(joi.any(), joi.object().pattern(joi.any(), joi.any()).required())
+            .required()
+            .id("s_AdditionalPropertiesUnknownEmptyObjectSchema")"
         `)
       })
 
@@ -329,29 +312,27 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-        "import { s_AdditionalPropertiesSchema } from "./unit-test.schemas"
+          "import { s_AdditionalPropertiesSchema } from "./unit-test.schemas"
 
-        const x = s_AdditionalPropertiesSchema.required()
-        "
+          const x = s_AdditionalPropertiesSchema.required()"
         `)
 
         expect(schemas).toMatchInlineSnapshot(`
-        "import joi from "@hapi/joi"
+          "import joi from "@hapi/joi"
 
-        export const s_NamedNullableStringEnum = joi
-          .string()
-          .valid("", "one", "two", "three")
-          .allow(null)
-          .required()
-          .id("s_NamedNullableStringEnum")
+          export const s_NamedNullableStringEnum = joi
+            .string()
+            .valid("", "one", "two", "three")
+            .allow(null)
+            .required()
+            .id("s_NamedNullableStringEnum")
 
-        export const s_AdditionalPropertiesSchema = joi
-          .object()
-          .keys({ name: joi.string() })
-          .concat(joi.object().pattern(joi.any(), s_NamedNullableStringEnum.required()))
-          .required()
-          .id("s_AdditionalPropertiesSchema")
-        "
+          export const s_AdditionalPropertiesSchema = joi
+            .object()
+            .keys({ name: joi.string() })
+            .concat(joi.object().pattern(joi.any(), s_NamedNullableStringEnum.required()))
+            .required()
+            .id("s_AdditionalPropertiesSchema")"
         `)
       })
 
@@ -361,57 +342,131 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-        "import { s_AdditionalPropertiesMixed } from "./unit-test.schemas"
+          "import { s_AdditionalPropertiesMixed } from "./unit-test.schemas"
 
-        const x = s_AdditionalPropertiesMixed.required()
-        "
+          const x = s_AdditionalPropertiesMixed.required()"
         `)
 
         expect(schemas).toMatchInlineSnapshot(`
-        "import joi from "@hapi/joi"
+          "import joi from "@hapi/joi"
 
-        export const s_AdditionalPropertiesMixed = joi
-          .object()
-          .keys({ id: joi.string(), name: joi.string() })
-          .concat(joi.object().pattern(joi.any(), joi.any()))
-          .required()
-          .id("s_AdditionalPropertiesMixed")
-        "
+          export const s_AdditionalPropertiesMixed = joi
+            .object()
+            .keys({ id: joi.string(), name: joi.string() })
+            .concat(joi.object().pattern(joi.any(), joi.any()))
+            .required()
+            .id("s_AdditionalPropertiesMixed")"
         `)
       })
     })
 
-    async function getActual(path: string) {
-      const {input, file} = await unitTestInput(version)
-
-      const imports = new ImportBuilder()
-
-      const builder = await JoiBuilder.fromInput(
-        "./unit-test.schemas.ts",
-        input,
-      )
-
-      const schema = builder
-        .withImports(imports)
-        .fromModel({$ref: `${file}#${path}`}, true)
-
-      return {
-        code: await formatOutput(
-          `
-          ${imports.toString()}
-
-          const x = ${schema}
-        `,
-          "unit-test.code.ts",
-        ),
-        schemas: await formatOutput(
-          builder.toCompilationUnit().getRawFileContent({
-            allowUnusedImports: false,
-            includeHeader: false,
-          }),
-          "unit-test.schemas.ts",
-        ),
+    describe("numbers", () => {
+      const base: IRModelNumeric = {
+        nullable: false,
+        readOnly: false,
+        type: "number",
       }
+
+      it("supports plain number", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.number().required()"',
+        )
+        await expect(executeParseSchema(code, 123)).resolves.toBe(123)
+        await expect(
+          executeParseSchema(code, "not a number 123"),
+        ).rejects.toThrow('"value" must be a number')
+      })
+
+      it("supports enum number", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          enum: [200, 301, 404],
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.number().valid(200, 301, 404).required()"',
+        )
+
+        await expect(executeParseSchema(code, 123)).rejects.toThrow(
+          '"value" must be one of [200, 301, 404]',
+        )
+        await expect(executeParseSchema(code, 404)).resolves.toBe(404)
+      })
+
+      it("supports minimum", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          minimum: 10,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.number().min(10).required()"',
+        )
+
+        await expect(executeParseSchema(code, 5)).rejects.toThrow(
+          '"value" must be larger than or equal to 10',
+        )
+        await expect(executeParseSchema(code, 20)).resolves.toBe(20)
+      })
+
+      it("supports maximum", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          maximum: 16,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.number().max(16).required()"',
+        )
+
+        await expect(executeParseSchema(code, 25)).rejects.toThrow(
+          '"value" must be less than or equal to 16',
+        )
+        await expect(executeParseSchema(code, 8)).resolves.toBe(8)
+      })
+
+      it("supports minimum/maximum", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          minimum: 10,
+          maximum: 24,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.number().min(10).max(24).required()"',
+        )
+
+        await expect(executeParseSchema(code, 5)).rejects.toThrow(
+          '"value" must be larger than or equal to 10',
+        )
+        await expect(executeParseSchema(code, 25)).rejects.toThrow(
+          '"value" must be less than or equal to 24',
+        )
+        await expect(executeParseSchema(code, 20)).resolves.toBe(20)
+      })
+    })
+
+    async function executeParseSchema(code: string, input: unknown) {
+      const context = {joi: require("@hapi/joi")}
+      vm.createContext(context)
+      return vm.runInContext(
+        `
+        ${code}
+
+        const result = x.validate(${JSON.stringify(input)})
+
+        if(result.error) {
+          throw result.error
+        }
+
+        result.value
+      `,
+        context,
+      )
     }
   },
 )

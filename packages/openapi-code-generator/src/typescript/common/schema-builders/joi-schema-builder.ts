@@ -135,7 +135,13 @@ export class JoiBuilder extends AbstractSchemaBuilder<JoiBuilder> {
         .join(".")
     }
 
-    return result
+    return [
+      result,
+      model.minimum ? `min(${model.minimum})` : undefined,
+      model.maximum ? `max(${model.maximum})` : undefined,
+    ]
+      .filter(isDefined)
+      .join(".")
   }
 
   protected string(model: IRModelString) {
