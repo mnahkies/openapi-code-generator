@@ -1,11 +1,16 @@
+import vm from "node:vm"
 import {describe, expect, it} from "@jest/globals"
+import {IRModelNumeric} from "../../../core/openapi-types-normalized"
 import {testVersions} from "../../../test/input.test-utils"
 import {schemaBuilderTestHarness} from "./schema-builder.test-utils"
 
 describe.each(testVersions)(
   "%s - typescript/common/schema-builders/joi-schema-builder",
   (version) => {
-    const {getActual} = schemaBuilderTestHarness("joi", version)
+    const {getActual, getActualFromModel} = schemaBuilderTestHarness(
+      "joi",
+      version,
+    )
 
     it("supports the SimpleObject", async () => {
       const {code, schemas} = await getActual("components/schemas/SimpleObject")
@@ -354,5 +359,114 @@ describe.each(testVersions)(
         `)
       })
     })
+
+    describe("numbers", () => {
+      const base: IRModelNumeric = {
+        nullable: false,
+        readOnly: false,
+        type: "number",
+      }
+
+      it("supports plain number", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.number().required()"',
+        )
+        await expect(executeParseSchema(code, 123)).resolves.toBe(123)
+        await expect(
+          executeParseSchema(code, "not a number 123"),
+        ).rejects.toThrow('"value" must be a number')
+      })
+
+      it("supports enum number", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          enum: [200, 301, 404],
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.number().valid(200, 301, 404).required()"',
+        )
+
+        await expect(executeParseSchema(code, 123)).rejects.toThrow(
+          '"value" must be one of [200, 301, 404]',
+        )
+        await expect(executeParseSchema(code, 404)).resolves.toBe(404)
+      })
+
+      it("supports minimum", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          minimum: 10,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.number().min(10).required()"',
+        )
+
+        await expect(executeParseSchema(code, 5)).rejects.toThrow(
+          '"value" must be larger than or equal to 10',
+        )
+        await expect(executeParseSchema(code, 20)).resolves.toBe(20)
+      })
+
+      it("supports maximum", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          maximum: 16,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.number().max(16).required()"',
+        )
+
+        await expect(executeParseSchema(code, 25)).rejects.toThrow(
+          '"value" must be less than or equal to 16',
+        )
+        await expect(executeParseSchema(code, 8)).resolves.toBe(8)
+      })
+
+      it("supports minimum/maximum", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          minimum: 10,
+          maximum: 24,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.number().min(10).max(24).required()"',
+        )
+
+        await expect(executeParseSchema(code, 5)).rejects.toThrow(
+          '"value" must be larger than or equal to 10',
+        )
+        await expect(executeParseSchema(code, 25)).rejects.toThrow(
+          '"value" must be less than or equal to 24',
+        )
+        await expect(executeParseSchema(code, 20)).resolves.toBe(20)
+      })
+    })
+
+    async function executeParseSchema(code: string, input: unknown) {
+      const context = {joi: require("@hapi/joi")}
+      vm.createContext(context)
+      return vm.runInContext(
+        `
+        ${code}
+
+        const result = x.validate(${JSON.stringify(input)})
+
+        if(result.error) {
+          throw result.error
+        }
+
+        result.value
+      `,
+        context,
+      )
+    }
   },
 )
