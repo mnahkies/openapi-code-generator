@@ -11,6 +11,8 @@
   "files": {
     "ignore": [
       "integration-tests/**/*",
+      "integration-tests-definitions/**/*",
+      "schemas/*.json",
       "packages/*/package.json",
       "package.json"
     ]
