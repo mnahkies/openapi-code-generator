@@ -196,9 +196,9 @@ export interface Schema {
   title?: string | undefined
   multipleOf?: number | undefined
   maximum?: number | undefined
-  exclusiveMaximum?: boolean | undefined
+  exclusiveMaximum?: number | undefined
   minimum?: number | undefined
-  exclusiveMinimum?: boolean | undefined
+  exclusiveMinimum?: number | undefined
   maxLength?: number | undefined
   minLength?: number | undefined
   pattern?: string | undefined

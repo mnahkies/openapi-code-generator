@@ -14,8 +14,11 @@ export interface IRModelNumeric extends IRModelBase {
   type: "number"
   format?: IRModelNumericFormat | string | undefined
   enum?: number[] | undefined
-  minimum?: number | undefined
+  exclusiveMaximum?: number | undefined
+  exclusiveMinimum?: number | undefined
   maximum?: number | undefined
+  minimum?: number | undefined
+  multipleOf?: number | undefined
 }
 
 export type IRModelStringFormat =

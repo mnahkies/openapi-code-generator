@@ -137,8 +137,19 @@ export class JoiBuilder extends AbstractSchemaBuilder<JoiBuilder> {
 
     return [
       result,
-      model.minimum ? `min(${model.minimum})` : undefined,
-      model.maximum ? `max(${model.maximum})` : undefined,
+      Number.isFinite(model.multipleOf)
+        ? `multiple(${model.multipleOf})`
+        : undefined,
+      Number.isFinite(model.exclusiveMinimum)
+        ? `greater(${model.exclusiveMinimum})`
+        : Number.isFinite(model.minimum)
+          ? `min(${model.minimum})`
+          : undefined,
+      Number.isFinite(model.exclusiveMaximum)
+        ? `less(${model.exclusiveMaximum})`
+        : Number.isFinite(model.maximum)
+          ? `max(${model.maximum})`
+          : undefined,
     ]
       .filter(isDefined)
       .join(".")
