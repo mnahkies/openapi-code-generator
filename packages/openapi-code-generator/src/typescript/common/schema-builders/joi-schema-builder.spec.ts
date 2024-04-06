@@ -1,6 +1,9 @@
 import vm from "node:vm"
 import {describe, expect, it} from "@jest/globals"
-import {IRModelNumeric} from "../../../core/openapi-types-normalized"
+import {
+  IRModelNumeric,
+  IRModelString,
+} from "../../../core/openapi-types-normalized"
 import {testVersions} from "../../../test/input.test-utils"
 import {schemaBuilderTestHarness} from "./schema-builder.test-utils"
 
@@ -530,6 +533,102 @@ describe.each(testVersions)(
 
         await expect(executeParseSchema(code, -1)).rejects.toThrow(
           '"value" must be larger than or equal to 0',
+        )
+      })
+    })
+
+    describe("strings", () => {
+      const base: IRModelString = {
+        nullable: false,
+        readOnly: false,
+        type: "string",
+      }
+
+      it("supports plain string", async () => {
+        const {code} = await getActualFromModel({...base})
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.string().required()"',
+        )
+
+        await expect(executeParseSchema(code, "a string")).resolves.toBe(
+          "a string",
+        )
+        await expect(executeParseSchema(code, 123)).rejects.toThrow(
+          '"value" must be a string',
+        )
+      })
+
+      it("supports minLength", async () => {
+        const {code} = await getActualFromModel({...base, minLength: 8})
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.string().min(8).required()"',
+        )
+
+        await expect(executeParseSchema(code, "12345678")).resolves.toBe(
+          "12345678",
+        )
+        await expect(executeParseSchema(code, "1234567")).rejects.toThrow(
+          '"value" length must be at least 8 characters long',
+        )
+      })
+
+      it("supports maxLength", async () => {
+        const {code} = await getActualFromModel({...base, maxLength: 8})
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.string().max(8).required()"',
+        )
+
+        await expect(executeParseSchema(code, "12345678")).resolves.toBe(
+          "12345678",
+        )
+        await expect(executeParseSchema(code, "123456789")).rejects.toThrow(
+          '"value" length must be less than or equal to 8 characters long',
+        )
+      })
+
+      it("supports pattern", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          pattern: "pk-\\d+",
+        })
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.string().pattern(/pk-d+/).required()"',
+        )
+
+        await expect(executeParseSchema(code, "pk-1234")).resolves.toBe(
+          "pk-1234",
+        )
+        await expect(executeParseSchema(code, "pk-abcd")).rejects.toThrow(
+          "invalid_string",
+        )
+      })
+
+      it("supports pattern with minLength / maxLength", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          pattern: "pk-\\d+",
+          minLength: 5,
+          maxLength: 8,
+        })
+        expect(code).toMatchInlineSnapshot(`
+          "const x = joi
+            .string()
+            .min(5)
+            .max(8)
+            .pattern(/pk-\\d+/)
+            .required()"
+        `)
+
+        await expect(executeParseSchema(code, "pk-12")).resolves.toBe("pk-12")
+        await expect(executeParseSchema(code, "pk-ab")).rejects.toThrow(
+          "invalid_string",
+        )
+        await expect(executeParseSchema(code, "pk-1")).rejects.toThrow(
+          "String must contain at least 5 character(s)",
+        )
+        await expect(executeParseSchema(code, "pk-123456")).rejects.toThrow(
+          "String must contain at most 8 character(s)",
         )
       })
     })

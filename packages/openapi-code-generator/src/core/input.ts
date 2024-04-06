@@ -456,6 +456,9 @@ function normalizeSchemaObject(
         type: schemaObject.type,
         format: schemaObject.format,
         enum: enumValues.length ? enumValues : undefined,
+        maxLength: schemaObject.maxLength,
+        minLength: schemaObject.minLength,
+        pattern: schemaObject.pattern,
       } satisfies IRModelString
     }
     case "boolean":

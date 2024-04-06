@@ -33,6 +33,9 @@ export interface IRModelString extends IRModelBase {
   type: "string"
   format?: IRModelStringFormat | string | undefined
   enum?: string[] | undefined
+  maxLength?: number | undefined
+  minLength?: number | undefined
+  pattern?: string | undefined
 }
 
 export interface IRModelBoolean extends IRModelBase {
