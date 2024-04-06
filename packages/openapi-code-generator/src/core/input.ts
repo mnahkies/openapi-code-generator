@@ -436,6 +436,8 @@ function normalizeSchemaObject(
         // todo: https://github.com/mnahkies/openapi-code-generator/issues/51
         format: schemaObject.format,
         enum: enumValues.length ? enumValues : undefined,
+        minimum: schemaObject.minimum,
+        maximum: schemaObject.maximum,
       } satisfies IRModelNumeric
     }
     case "string": {

@@ -145,7 +145,14 @@ export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
         .join(".")
     }
 
-    return [zod, "coerce.number()"].filter(isDefined).join(".")
+    return [
+      zod,
+      "coerce.number()",
+      model.minimum ? `min(${model.minimum})` : undefined,
+      model.maximum ? `max(${model.maximum})` : undefined,
+    ]
+      .filter(isDefined)
+      .join(".")
   }
 
   protected string(model: IRModelString) {
