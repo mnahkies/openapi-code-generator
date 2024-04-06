@@ -309,7 +309,7 @@ export const s_Client = z.object({
   client_id_issued_at: z.coerce.number().optional(),
   client_name: z.string().optional(),
   client_secret: z.string().nullable().optional(),
-  client_secret_expires_at: z.coerce.number().nullable().optional(),
+  client_secret_expires_at: z.coerce.number().min(0).nullable().optional(),
   grant_types: z.array(s_GrantType).optional(),
   initiate_login_uri: z.string().optional(),
   jwks: z.array(s_JsonWebKey).optional(),
