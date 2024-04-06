@@ -31,7 +31,11 @@ export class OpenapiValidator {
     throw new Error(`unsupported openapi version '${version}'`)
   }
 
-  async validate(filename: string, schema: unknown): Promise<void> {
+  async validate(
+    filename: string,
+    schema: unknown,
+    strict = false,
+  ): Promise<void> {
     const version =
       (schema &&
         typeof schema === "object" &&
@@ -47,12 +51,26 @@ export class OpenapiValidator {
         "Note errors may cascade, and should be investigated top to bottom. Errors:\n",
       )
 
-      validate.errors?.forEach((err) => {
-        logger.warn(
-          `-> ${err.message} at path '${err.instancePath}'`,
-          err.params,
+      const messages =
+        validate.errors?.map((err) => {
+          return [
+            `-> ${err.message} at path '${err.instancePath}'`,
+            err.params,
+          ] as const
+        }) ?? []
+
+      if (strict) {
+        throw new Error(
+          "Validation failed: " +
+            messages
+              .map((it) => `${it[0]} (${JSON.stringify(it[1])})`)
+              .join("\n"),
         )
-      })
+      } else {
+        messages.forEach(([message, metadata]) => {
+          logger.warn(message, metadata)
+        })
+      }
 
       logger.warn("")
 
