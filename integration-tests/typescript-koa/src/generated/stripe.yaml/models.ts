@@ -41,8 +41,15 @@ export type t_account = {
   type?: "custom" | "express" | "standard"
 }
 
+export type t_account_annual_revenue = {
+  amount?: number | null
+  currency?: string | null
+  fiscal_year_end?: string | null
+}
+
 export type t_account_bacs_debit_payments_settings = {
-  display_name?: string
+  display_name?: string | null
+  service_user_number?: string | null
 }
 
 export type t_account_branding_settings = {
@@ -53,6 +60,8 @@ export type t_account_branding_settings = {
 }
 
 export type t_account_business_profile = {
+  annual_revenue?: t_account_annual_revenue | null
+  estimated_worker_count?: number | null
   mcc?: string | null
   monthly_estimated_revenue?: t_account_monthly_estimated_revenue
   name?: string | null
@@ -68,6 +77,7 @@ export type t_account_capabilities = {
   acss_debit_payments?: "active" | "inactive" | "pending"
   affirm_payments?: "active" | "inactive" | "pending"
   afterpay_clearpay_payments?: "active" | "inactive" | "pending"
+  amazon_pay_payments?: "active" | "inactive" | "pending"
   au_becs_debit_payments?: "active" | "inactive" | "pending"
   bacs_debit_payments?: "active" | "inactive" | "pending"
   bancontact_payments?: "active" | "inactive" | "pending"
@@ -89,12 +99,15 @@ export type t_account_capabilities = {
   konbini_payments?: "active" | "inactive" | "pending"
   legacy_payments?: "active" | "inactive" | "pending"
   link_payments?: "active" | "inactive" | "pending"
+  mobilepay_payments?: "active" | "inactive" | "pending"
   oxxo_payments?: "active" | "inactive" | "pending"
   p24_payments?: "active" | "inactive" | "pending"
   paynow_payments?: "active" | "inactive" | "pending"
   promptpay_payments?: "active" | "inactive" | "pending"
+  revolut_pay_payments?: "active" | "inactive" | "pending"
   sepa_debit_payments?: "active" | "inactive" | "pending"
   sofort_payments?: "active" | "inactive" | "pending"
+  swish_payments?: "active" | "inactive" | "pending"
   tax_reporting_us_1099_k?: "active" | "inactive" | "pending"
   tax_reporting_us_1099_misc?: "active" | "inactive" | "pending"
   transfers?: "active" | "inactive" | "pending"
@@ -157,6 +170,10 @@ export type t_account_future_requirements = {
   pending_verification?: string[] | null
 }
 
+export type t_account_invoices_settings = {
+  default_account_tax_ids?: (string | t_tax_id)[] | null
+}
+
 export type t_account_link = {
   created: number
   expires_at: number
@@ -202,10 +219,43 @@ export type t_account_requirements_alternative = {
 export type t_account_requirements_error = {
   code:
     | "invalid_address_city_state_postal_code"
+    | "invalid_address_highway_contract_box"
+    | "invalid_address_private_mailbox"
+    | "invalid_business_profile_name"
+    | "invalid_business_profile_name_denylisted"
+    | "invalid_company_name_denylisted"
+    | "invalid_dob_age_over_maximum"
     | "invalid_dob_age_under_18"
+    | "invalid_dob_age_under_minimum"
+    | "invalid_product_description_length"
+    | "invalid_product_description_url_match"
     | "invalid_representative_country"
+    | "invalid_statement_descriptor_business_mismatch"
+    | "invalid_statement_descriptor_denylisted"
+    | "invalid_statement_descriptor_length"
+    | "invalid_statement_descriptor_prefix_denylisted"
+    | "invalid_statement_descriptor_prefix_mismatch"
     | "invalid_street_address"
+    | "invalid_tax_id"
+    | "invalid_tax_id_format"
     | "invalid_tos_acceptance"
+    | "invalid_url_denylisted"
+    | "invalid_url_format"
+    | "invalid_url_web_presence_detected"
+    | "invalid_url_website_business_information_mismatch"
+    | "invalid_url_website_empty"
+    | "invalid_url_website_inaccessible"
+    | "invalid_url_website_inaccessible_geoblocked"
+    | "invalid_url_website_inaccessible_password_protected"
+    | "invalid_url_website_incomplete"
+    | "invalid_url_website_incomplete_cancellation_policy"
+    | "invalid_url_website_incomplete_customer_service_details"
+    | "invalid_url_website_incomplete_legal_restrictions"
+    | "invalid_url_website_incomplete_refund_policy"
+    | "invalid_url_website_incomplete_return_policy"
+    | "invalid_url_website_incomplete_terms_and_conditions"
+    | "invalid_url_website_incomplete_under_construction"
+    | "invalid_url_website_other"
     | "invalid_value_other"
     | "verification_directors_mismatch"
     | "verification_document_address_mismatch"
@@ -247,6 +297,7 @@ export type t_account_requirements_error = {
     | "verification_failed_keyed_match"
     | "verification_failed_name_match"
     | "verification_failed_other"
+    | "verification_failed_representative_authority"
     | "verification_failed_residential_address"
     | "verification_failed_tax_id_match"
     | "verification_failed_tax_id_not_issued"
@@ -277,6 +328,7 @@ export type t_account_settings = {
   card_issuing?: t_account_card_issuing_settings
   card_payments: t_account_card_payments_settings
   dashboard: t_account_dashboard_settings
+  invoices?: t_account_invoices_settings
   payments: t_account_payments_settings
   payouts?: t_account_payout_settings
   sepa_debit_payments?: t_account_sepa_debit_payments_settings
@@ -384,13 +436,14 @@ export type t_apps_secret = {
 
 export type t_automatic_tax = {
   enabled: boolean
+  liability?: t_connect_account_reference | null
   status?: "complete" | "failed" | "requires_location_inputs" | null
 }
 
 export type t_balance = {
   available: t_balance_amount[]
   connect_reserved?: t_balance_amount[]
-  instant_available?: t_balance_amount[]
+  instant_available?: t_balance_amount_net[]
   issuing?: t_balance_detail
   livemode: boolean
   object: "balance"
@@ -407,6 +460,12 @@ export type t_balance_amount_by_source_type = {
   bank_account?: number
   card?: number
   fpx?: number
+}
+
+export type t_balance_amount_net = {
+  amount: number
+  currency: string
+  source_types?: t_balance_amount_by_source_type
 }
 
 export type t_balance_detail = {
@@ -455,22 +514,23 @@ export type t_balance_transaction = {
     | "application_fee"
     | "application_fee_refund"
     | "charge"
+    | "climate_order_purchase"
+    | "climate_order_refund"
     | "connect_collection_transfer"
     | "contribution"
     | "issuing_authorization_hold"
     | "issuing_authorization_release"
     | "issuing_dispute"
     | "issuing_transaction"
-    | "obligation_inbound"
     | "obligation_outbound"
-    | "obligation_payout"
-    | "obligation_payout_failure"
     | "obligation_reversal_inbound"
-    | "obligation_reversal_outbound"
     | "payment"
     | "payment_failure_refund"
+    | "payment_network_reserve_hold"
+    | "payment_network_reserve_release"
     | "payment_refund"
     | "payment_reversal"
+    | "payment_unreconciled"
     | "payout"
     | "payout_cancel"
     | "payout_failure"
@@ -543,6 +603,7 @@ export type t_bank_connections_resource_balance_api_resource_credit_balance = {
 
 export type t_bank_connections_resource_balance_refresh = {
   last_attempted_at: number
+  next_refresh_available_at?: number | null
   status: "failed" | "pending" | "succeeded"
 }
 
@@ -555,11 +616,92 @@ export type t_bank_connections_resource_ownership_refresh = {
   status: "failed" | "pending" | "succeeded"
 }
 
+export type t_bank_connections_resource_transaction_refresh = {
+  id: string
+  last_attempted_at: number
+  next_refresh_available_at?: number | null
+  status: "failed" | "pending" | "succeeded"
+}
+
+export type t_bank_connections_resource_transaction_resource_status_transitions =
+  {
+    posted_at?: number | null
+    void_at?: number | null
+  }
+
+export type t_billing_meter = {
+  created: number
+  customer_mapping: t_billing_meter_resource_customer_mapping_settings
+  default_aggregation: t_billing_meter_resource_aggregation_settings
+  display_name: string
+  event_name: string
+  event_time_window?: "day" | "hour" | null
+  id: string
+  livemode: boolean
+  object: "billing.meter"
+  status: "active" | "inactive"
+  status_transitions: t_billing_meter_resource_billing_meter_status_transitions
+  updated: number
+  value_settings: t_billing_meter_resource_billing_meter_value
+}
+
+export type t_billing_meter_event = {
+  created: number
+  event_name: string
+  identifier: string
+  livemode: boolean
+  object: "billing.meter_event"
+  payload: {
+    [key: string]: string | undefined
+  }
+  timestamp: number
+}
+
+export type t_billing_meter_event_adjustment = {
+  cancel: t_billing_meter_resource_billing_meter_event_adjustment_cancel
+  event_name: string
+  livemode: boolean
+  object: "billing.meter_event_adjustment"
+  status: "complete" | "pending"
+  type: "cancel"
+}
+
+export type t_billing_meter_event_summary = {
+  aggregated_value: number
+  end_time: number
+  id: string
+  livemode: boolean
+  meter: string
+  object: "billing.meter_event_summary"
+  start_time: number
+}
+
 export type t_billing_details = {
   address?: t_address | null
   email?: string | null
   name?: string | null
   phone?: string | null
+}
+
+export type t_billing_meter_resource_aggregation_settings = {
+  formula: "count" | "sum"
+}
+
+export type t_billing_meter_resource_billing_meter_event_adjustment_cancel = {
+  identifier: string
+}
+
+export type t_billing_meter_resource_billing_meter_status_transitions = {
+  deactivated_at?: number | null
+}
+
+export type t_billing_meter_resource_billing_meter_value = {
+  event_payload_key: string
+}
+
+export type t_billing_meter_resource_customer_mapping_settings = {
+  event_payload_key: string
+  type: "by_id"
 }
 
 export type t_billing_portal_configuration = {
@@ -700,6 +842,7 @@ export type t_card = {
     [key: string]: string | undefined
   } | null
   name?: string | null
+  networks?: t_token_card_networks
   object: "card"
   status?: string | null
   tokenization_method?: string | null
@@ -812,6 +955,7 @@ export type t_checkout_session = {
   billing_address_collection?: "auto" | "required" | null
   cancel_url?: string | null
   client_reference_id?: string | null
+  client_secret?: string | null
   consent?: t_payment_pages_checkout_session_consent | null
   consent_collection?: t_payment_pages_checkout_session_consent_collection | null
   created: number
@@ -891,6 +1035,8 @@ export type t_checkout_session = {
   payment_status: "no_payment_required" | "paid" | "unpaid"
   phone_number_collection?: t_payment_pages_checkout_session_phone_number_collection
   recovered_from?: string | null
+  redirect_on_completion?: "always" | "if_required" | "never"
+  return_url?: string
   setup_intent?: string | t_setup_intent | null
   shipping_address_collection?: t_payment_pages_checkout_session_shipping_address_collection | null
   shipping_cost?: t_payment_pages_checkout_session_shipping_cost | null
@@ -902,6 +1048,7 @@ export type t_checkout_session = {
   success_url?: string | null
   tax_id_collection?: t_payment_pages_checkout_session_tax_id_collection
   total_details?: t_payment_pages_checkout_session_total_details | null
+  ui_mode?: "embedded" | "hosted" | null
   url?: string | null
 }
 
@@ -955,6 +1102,7 @@ export type t_checkout_card_installments_options = {
 
 export type t_checkout_card_payment_method_options = {
   installments?: t_checkout_card_installments_options
+  request_three_d_secure: "any" | "automatic" | "challenge"
   setup_future_usage?: "none" | "off_session" | "on_session"
   statement_descriptor_suffix_kana?: string
   statement_descriptor_suffix_kanji?: string
@@ -1036,9 +1184,18 @@ export type t_checkout_paynow_payment_method_options = {
   setup_future_usage?: "none"
 }
 
+export type t_checkout_paypal_payment_method_options = {
+  capture_method?: "manual"
+  preferred_locale?: string | null
+  reference?: string | null
+  setup_future_usage?: "none" | "off_session"
+}
+
 export type t_checkout_pix_payment_method_options = {
   expires_after_seconds?: number | null
 }
+
+export type t_checkout_revolut_pay_payment_method_options = EmptyObject
 
 export type t_checkout_sepa_debit_payment_method_options = {
   setup_future_usage?: "none" | "off_session" | "on_session"
@@ -1067,9 +1224,12 @@ export type t_checkout_session_payment_method_options = {
   oxxo?: t_checkout_oxxo_payment_method_options
   p24?: t_checkout_p24_payment_method_options
   paynow?: t_checkout_paynow_payment_method_options
+  paypal?: t_checkout_paypal_payment_method_options
   pix?: t_checkout_pix_payment_method_options
+  revolut_pay?: t_checkout_revolut_pay_payment_method_options
   sepa_debit?: t_checkout_sepa_debit_payment_method_options
   sofort?: t_checkout_sofort_payment_method_options
+  swish?: t_checkout_swish_payment_method_options
   us_bank_account?: t_checkout_us_bank_account_payment_method_options
 }
 
@@ -1077,10 +1237,214 @@ export type t_checkout_sofort_payment_method_options = {
   setup_future_usage?: "none"
 }
 
+export type t_checkout_swish_payment_method_options = {
+  reference?: string | null
+}
+
 export type t_checkout_us_bank_account_payment_method_options = {
   financial_connections?: t_linked_account_options_us_bank_account
   setup_future_usage?: "none" | "off_session" | "on_session"
   verification_method?: "automatic" | "instant"
+}
+
+export type t_climate_order = {
+  amount_fees: number
+  amount_subtotal: number
+  amount_total: number
+  beneficiary?: t_climate_removals_beneficiary
+  canceled_at?: number | null
+  cancellation_reason?: "expired" | "product_unavailable" | "requested" | null
+  certificate?: string | null
+  confirmed_at?: number | null
+  created: number
+  currency: string
+  delayed_at?: number | null
+  delivered_at?: number | null
+  delivery_details: t_climate_removals_order_deliveries[]
+  expected_delivery_year: number
+  id: string
+  livemode: boolean
+  metadata: {
+    [key: string]: string | undefined
+  }
+  metric_tons: string
+  object: "climate.order"
+  product: string | t_climate_product
+  product_substituted_at?: number | null
+  status: "awaiting_funds" | "canceled" | "confirmed" | "delivered" | "open"
+}
+
+export type t_climate_product = {
+  created: number
+  current_prices_per_metric_ton: {
+    [key: string]: t_climate_removals_products_price | undefined
+  }
+  delivery_year?: number | null
+  id: string
+  livemode: boolean
+  metric_tons_available: string
+  name: string
+  object: "climate.product"
+  suppliers: t_climate_supplier[]
+}
+
+export type t_climate_supplier = {
+  id: string
+  info_url: string
+  livemode: boolean
+  locations: t_climate_removals_location[]
+  name: string
+  object: "climate.supplier"
+  removal_pathway:
+    | "biomass_carbon_removal_and_storage"
+    | "direct_air_capture"
+    | "enhanced_weathering"
+}
+
+export type t_climate_removals_beneficiary = {
+  public_name: string
+}
+
+export type t_climate_removals_location = {
+  city?: string | null
+  country: string
+  latitude?: number | null
+  longitude?: number | null
+  region?: string | null
+}
+
+export type t_climate_removals_order_deliveries = {
+  delivered_at: number
+  location?: t_climate_removals_location | null
+  metric_tons: string
+  registry_url?: string | null
+  supplier: t_climate_supplier
+}
+
+export type t_climate_removals_products_price = {
+  amount_fees: number
+  amount_subtotal: number
+  amount_total: number
+}
+
+export type t_confirmation_token = {
+  created: number
+  expires_at?: number | null
+  id: string
+  livemode: boolean
+  mandate_data?: t_confirmation_tokens_resource_mandate_data | null
+  object: "confirmation_token"
+  payment_intent?: string | null
+  payment_method_preview?: t_confirmation_tokens_resource_payment_method_preview | null
+  return_url?: string | null
+  setup_future_usage?: "off_session" | "on_session" | null
+  setup_intent?: string | null
+  shipping?: t_confirmation_tokens_resource_shipping | null
+  use_stripe_sdk: boolean
+}
+
+export type t_confirmation_tokens_resource_mandate_data = {
+  customer_acceptance: t_confirmation_tokens_resource_mandate_data_resource_customer_acceptance
+}
+
+export type t_confirmation_tokens_resource_mandate_data_resource_customer_acceptance =
+  {
+    online?: t_confirmation_tokens_resource_mandate_data_resource_customer_acceptance_resource_online | null
+    type: string
+  }
+
+export type t_confirmation_tokens_resource_mandate_data_resource_customer_acceptance_resource_online =
+  {
+    ip_address?: string | null
+    user_agent?: string | null
+  }
+
+export type t_confirmation_tokens_resource_payment_method_preview = {
+  acss_debit?: t_payment_method_acss_debit
+  affirm?: t_payment_method_affirm
+  afterpay_clearpay?: t_payment_method_afterpay_clearpay
+  alipay?: t_payment_flows_private_payment_methods_alipay
+  au_becs_debit?: t_payment_method_au_becs_debit
+  bacs_debit?: t_payment_method_bacs_debit
+  bancontact?: t_payment_method_bancontact
+  billing_details: t_billing_details
+  blik?: t_payment_method_blik
+  boleto?: t_payment_method_boleto
+  card?: t_payment_method_card
+  card_present?: t_payment_method_card_present
+  cashapp?: t_payment_method_cashapp
+  customer_balance?: t_payment_method_customer_balance
+  eps?: t_payment_method_eps
+  fpx?: t_payment_method_fpx
+  giropay?: t_payment_method_giropay
+  grabpay?: t_payment_method_grabpay
+  ideal?: t_payment_method_ideal
+  interac_present?: t_payment_method_interac_present
+  klarna?: t_payment_method_klarna
+  konbini?: t_payment_method_konbini
+  link?: t_payment_method_link
+  mobilepay?: t_payment_method_mobilepay
+  oxxo?: t_payment_method_oxxo
+  p24?: t_payment_method_p24
+  paynow?: t_payment_method_paynow
+  paypal?: t_payment_method_paypal
+  pix?: t_payment_method_pix
+  promptpay?: t_payment_method_promptpay
+  revolut_pay?: t_payment_method_revolut_pay
+  sepa_debit?: t_payment_method_sepa_debit
+  sofort?: t_payment_method_sofort
+  swish?: t_payment_method_swish
+  type:
+    | "acss_debit"
+    | "affirm"
+    | "afterpay_clearpay"
+    | "alipay"
+    | "au_becs_debit"
+    | "bacs_debit"
+    | "bancontact"
+    | "blik"
+    | "boleto"
+    | "card"
+    | "card_present"
+    | "cashapp"
+    | "customer_balance"
+    | "eps"
+    | "fpx"
+    | "giropay"
+    | "grabpay"
+    | "ideal"
+    | "interac_present"
+    | "klarna"
+    | "konbini"
+    | "link"
+    | "mobilepay"
+    | "oxxo"
+    | "p24"
+    | "paynow"
+    | "paypal"
+    | "pix"
+    | "promptpay"
+    | "revolut_pay"
+    | "sepa_debit"
+    | "sofort"
+    | "swish"
+    | "us_bank_account"
+    | "wechat_pay"
+    | "zip"
+  us_bank_account?: t_payment_method_us_bank_account
+  wechat_pay?: t_payment_method_wechat_pay
+  zip?: t_payment_method_zip
+}
+
+export type t_confirmation_tokens_resource_shipping = {
+  address: t_address
+  name: string
+  phone?: string | null
+}
+
+export type t_connect_account_reference = {
+  account?: string | t_account
+  type: "account" | "self"
 }
 
 export type t_connect_collection_transfer = {
@@ -1092,12 +1456,49 @@ export type t_connect_collection_transfer = {
   object: "connect_collection_transfer"
 }
 
+export type t_connect_embedded_account_config = {
+  enabled: boolean
+  features: t_connect_embedded_account_features
+}
+
+export type t_connect_embedded_account_features = EmptyObject
+
 export type t_connect_embedded_account_session_create_components = {
-  account_onboarding: t_connect_embedded_base_config_claim
+  account_onboarding: t_connect_embedded_account_config
+  documents: t_connect_embedded_base_config_claim
+  payment_details: t_connect_embedded_payments_config
+  payments: t_connect_embedded_payments_config
+  payouts: t_connect_embedded_payouts_config
 }
 
 export type t_connect_embedded_base_config_claim = {
   enabled: boolean
+  features: t_connect_embedded_base_features
+}
+
+export type t_connect_embedded_base_features = EmptyObject
+
+export type t_connect_embedded_payments_config = {
+  enabled: boolean
+  features: t_connect_embedded_payments_features
+}
+
+export type t_connect_embedded_payments_features = {
+  capture_payments: boolean
+  destination_on_behalf_of_charge_management?: boolean
+  dispute_management: boolean
+  refund_management: boolean
+}
+
+export type t_connect_embedded_payouts_config = {
+  enabled: boolean
+  features: t_connect_embedded_payouts_features
+}
+
+export type t_connect_embedded_payouts_features = {
+  edit_payout_schedule: boolean
+  instant_payouts: boolean
+  standard_payouts: boolean
 }
 
 export type t_country_spec = {
@@ -1189,7 +1590,7 @@ export type t_credit_note = {
     | "product_unsatisfactory"
     | null
   refund?: string | t_refund | null
-  shipping_cost?: t_invoices_shipping_cost | null
+  shipping_cost?: t_invoices_resource_shipping_cost | null
   status: "issued" | "void"
   subtotal: number
   subtotal_excluding_tax?: number | null
@@ -1382,6 +1783,11 @@ export type t_customer_balance_resource_cash_balance_transaction_resource_refund
     refund: string | t_refund
   }
 
+export type t_customer_balance_resource_cash_balance_transaction_resource_transferred_to_balance =
+  {
+    balance_transaction: string | t_balance_transaction
+  }
+
 export type t_customer_balance_resource_cash_balance_transaction_resource_unapplied_from_payment_transaction =
   {
     payment_intent: string | t_payment_intent
@@ -1428,6 +1834,7 @@ export type t_customer_cash_balance_transaction = {
   net_amount: number
   object: "customer_cash_balance_transaction"
   refunded_from_payment?: t_customer_balance_resource_cash_balance_transaction_resource_refunded_from_payment_transaction
+  transferred_to_balance?: t_customer_balance_resource_cash_balance_transaction_resource_transferred_to_balance
   type:
     | "adjusted_for_overdraft"
     | "applied_to_payment"
@@ -1436,8 +1843,32 @@ export type t_customer_cash_balance_transaction = {
     | "refunded_from_payment"
     | "return_canceled"
     | "return_initiated"
+    | "transferred_to_balance"
     | "unapplied_from_payment"
   unapplied_from_payment?: t_customer_balance_resource_cash_balance_transaction_resource_unapplied_from_payment_transaction
+}
+
+export type t_customer_session = {
+  client_secret: string
+  components?: t_customer_session_resource_components
+  created: number
+  customer: string | t_customer
+  expires_at: number
+  livemode: boolean
+  object: "customer_session"
+}
+
+export type t_customer_session_resource_components = {
+  buy_button: t_customer_session_resource_components_resource_buy_button
+  pricing_table: t_customer_session_resource_components_resource_pricing_table
+}
+
+export type t_customer_session_resource_components_resource_buy_button = {
+  enabled: boolean
+}
+
+export type t_customer_session_resource_components_resource_pricing_table = {
+  enabled: boolean
 }
 
 export type t_customer_tax = {
@@ -1517,6 +1948,7 @@ export type t_deleted_discount = {
   promotion_code?: string | t_promotion_code | null
   start: number
   subscription?: string | null
+  subscription_item?: string | null
 }
 
 export type t_deleted_external_account = t_deleted_bank_account | t_deleted_card
@@ -1613,6 +2045,8 @@ export type t_deleted_webhook_endpoint = {
   object: "webhook_endpoint"
 }
 
+export type t_destination_details_unimplemented = EmptyObject
+
 export type t_discount = {
   checkout_session?: string | null
   coupon: t_coupon
@@ -1625,11 +2059,18 @@ export type t_discount = {
   promotion_code?: string | t_promotion_code | null
   start: number
   subscription?: string | null
+  subscription_item?: string | null
 }
 
 export type t_discounts_resource_discount_amount = {
   amount: number
   discount: string | t_discount | t_deleted_discount
+}
+
+export type t_discounts_resource_stackable_discount = {
+  coupon?: string | t_coupon | null
+  discount?: string | t_discount | null
+  promotion_code?: string | t_promotion_code | null
 }
 
 export type t_dispute = {
@@ -1849,7 +2290,9 @@ export type t_financial_connections_account = {
     | "mortgage"
     | "other"
     | "savings"
+  subscriptions?: "transactions"[] | null
   supported_payment_method_types: ("link" | "us_bank_account")[]
+  transaction_refresh?: t_bank_connections_resource_transaction_refresh | null
 }
 
 export type t_financial_connections_account_owner = {
@@ -1889,8 +2332,23 @@ export type t_financial_connections_session = {
   livemode: boolean
   object: "financial_connections.session"
   permissions: ("balances" | "ownership" | "payment_method" | "transactions")[]
-  prefetch?: ("balances" | "ownership")[] | null
+  prefetch?: ("balances" | "ownership" | "transactions")[] | null
   return_url?: string
+}
+
+export type t_financial_connections_transaction = {
+  account: string
+  amount: number
+  currency: string
+  description: string
+  id: string
+  livemode: boolean
+  object: "financial_connections.transaction"
+  status: "pending" | "posted" | "void"
+  status_transitions: t_bank_connections_resource_transaction_resource_status_transitions
+  transacted_at: number
+  transaction_refresh: string
+  updated: number
 }
 
 export type t_financial_reporting_finance_report_run_run_parameters = {
@@ -1902,6 +2360,47 @@ export type t_financial_reporting_finance_report_run_run_parameters = {
   payout?: string
   reporting_category?: string
   timezone?: string
+}
+
+export type t_forwarded_request_context = {
+  destination_duration: number
+  destination_ip_address: string
+}
+
+export type t_forwarded_request_details = {
+  body: string
+  headers: t_forwarded_request_header[]
+  http_method: "POST"
+}
+
+export type t_forwarded_request_header = {
+  name: string
+  value: string
+}
+
+export type t_forwarded_response_details = {
+  body: string
+  headers: t_forwarded_request_header[]
+  status: number
+}
+
+export type t_forwarding_request = {
+  config: string
+  created: number
+  id: string
+  livemode: boolean
+  object: "forwarding.request"
+  payment_method: string
+  replacements: (
+    | "card_cvc"
+    | "card_expiry"
+    | "card_number"
+    | "cardholder_name"
+  )[]
+  request_context?: t_forwarded_request_context | null
+  request_details?: t_forwarded_request_details | null
+  response_details?: t_forwarded_response_details | null
+  url?: string | null
 }
 
 export type t_funding_instructions = {
@@ -1918,12 +2417,29 @@ export type t_funding_instructions_bank_transfer = {
   type: "eu_bank_transfer" | "jp_bank_transfer"
 }
 
+export type t_funding_instructions_bank_transfer_aba_record = {
+  account_number: string
+  bank_name: string
+  routing_number: string
+}
+
 export type t_funding_instructions_bank_transfer_financial_address = {
+  aba?: t_funding_instructions_bank_transfer_aba_record
   iban?: t_funding_instructions_bank_transfer_iban_record
   sort_code?: t_funding_instructions_bank_transfer_sort_code_record
   spei?: t_funding_instructions_bank_transfer_spei_record
-  supported_networks?: ("bacs" | "fps" | "sepa" | "spei" | "zengin")[]
-  type: "iban" | "sort_code" | "spei" | "zengin"
+  supported_networks?: (
+    | "ach"
+    | "bacs"
+    | "domestic_wire_us"
+    | "fps"
+    | "sepa"
+    | "spei"
+    | "swift"
+    | "zengin"
+  )[]
+  swift?: t_funding_instructions_bank_transfer_swift_record
+  type: "aba" | "iban" | "sort_code" | "spei" | "swift" | "zengin"
   zengin?: t_funding_instructions_bank_transfer_zengin_record
 }
 
@@ -1944,6 +2460,12 @@ export type t_funding_instructions_bank_transfer_spei_record = {
   bank_code: string
   bank_name: string
   clabe: string
+}
+
+export type t_funding_instructions_bank_transfer_swift_record = {
+  account_number: string
+  bank_name: string
+  swift_code: string
 }
 
 export type t_funding_instructions_bank_transfer_zengin_record = {
@@ -2010,6 +2532,17 @@ export type t_gelato_document_report_error = {
   reason?: string | null
 }
 
+export type t_gelato_email_report = {
+  email?: string | null
+  error?: t_gelato_email_report_error | null
+  status: "unverified" | "verified"
+}
+
+export type t_gelato_email_report_error = {
+  code?: "email_unverified_other" | "email_verification_declined" | null
+  reason?: string | null
+}
+
 export type t_gelato_id_number_report = {
   dob?: t_gelato_data_id_number_report_date | null
   error?: t_gelato_id_number_report_error | null
@@ -2027,6 +2560,22 @@ export type t_gelato_id_number_report_error = {
     | "id_number_unverified_other"
     | null
   reason?: string | null
+}
+
+export type t_gelato_phone_report = {
+  error?: t_gelato_phone_report_error | null
+  phone?: string | null
+  status: "unverified" | "verified"
+}
+
+export type t_gelato_phone_report_error = {
+  code?: "phone_unverified_other" | "phone_verification_declined" | null
+  reason?: string | null
+}
+
+export type t_gelato_provided_details = {
+  email?: string
+  phone?: string
 }
 
 export type t_gelato_report_document_options = {
@@ -2062,6 +2611,10 @@ export type t_gelato_session_document_options = {
   require_matching_selfie?: boolean
 }
 
+export type t_gelato_session_email_options = {
+  require_verification?: boolean
+}
+
 export type t_gelato_session_id_number_options = EmptyObject
 
 export type t_gelato_session_last_error = {
@@ -2073,9 +2626,13 @@ export type t_gelato_session_last_error = {
     | "document_expired"
     | "document_type_not_supported"
     | "document_unverified_other"
+    | "email_unverified_other"
+    | "email_verification_declined"
     | "id_number_insufficient_document_data"
     | "id_number_mismatch"
     | "id_number_unverified_other"
+    | "phone_unverified_other"
+    | "phone_verification_declined"
     | "selfie_document_missing_photo"
     | "selfie_face_mismatch"
     | "selfie_manipulated"
@@ -2085,6 +2642,10 @@ export type t_gelato_session_last_error = {
   reason?: string | null
 }
 
+export type t_gelato_session_phone_options = {
+  require_verification?: boolean
+}
+
 export type t_gelato_verification_report_options = {
   document?: t_gelato_report_document_options
   id_number?: t_gelato_report_id_number_options
@@ -2092,32 +2653,41 @@ export type t_gelato_verification_report_options = {
 
 export type t_gelato_verification_session_options = {
   document?: t_gelato_session_document_options
+  email?: t_gelato_session_email_options
   id_number?: t_gelato_session_id_number_options
+  phone?: t_gelato_session_phone_options
 }
 
 export type t_gelato_verified_outputs = {
   address?: t_address | null
   dob?: t_gelato_data_verified_outputs_date | null
+  email?: string | null
   first_name?: string | null
   id_number?: string | null
   id_number_type?: "br_cpf" | "sg_nric" | "us_ssn" | null
   last_name?: string | null
+  phone?: string | null
 }
 
 export type t_identity_verification_report = {
+  client_reference_id?: string | null
   created: number
   document?: t_gelato_document_report
+  email?: t_gelato_email_report
   id: string
   id_number?: t_gelato_id_number_report
   livemode: boolean
   object: "identity.verification_report"
   options?: t_gelato_verification_report_options
+  phone?: t_gelato_phone_report
   selfie?: t_gelato_selfie_report
-  type?: "document" | "id_number"
+  type: "document" | "id_number" | "verification_flow"
+  verification_flow?: string
   verification_session?: string | null
 }
 
 export type t_identity_verification_session = {
+  client_reference_id?: string | null
   client_secret?: string | null
   created: number
   id: string
@@ -2129,10 +2699,12 @@ export type t_identity_verification_session = {
   }
   object: "identity.verification_session"
   options?: t_gelato_verification_session_options | null
+  provided_details?: t_gelato_provided_details | null
   redaction?: t_verification_session_redaction | null
   status: "canceled" | "processing" | "requires_input" | "verified"
-  type?: "document" | "id_number" | null
+  type: "document" | "id_number" | "verification_flow"
   url?: string | null
+  verification_flow?: string
   verified_outputs?: t_gelato_verified_outputs | null
 }
 
@@ -2148,8 +2720,17 @@ export type t_inbound_transfers_payment_method_details_us_bank_account = {
   bank_name?: string | null
   fingerprint?: string | null
   last4?: string | null
+  mandate?: string | t_mandate
   network: "ach"
   routing_number?: string | null
+}
+
+export type t_internal_card = {
+  brand?: string | null
+  country?: string | null
+  exp_month?: number | null
+  exp_year?: number | null
+  last4?: string | null
 }
 
 export type t_invoice = {
@@ -2195,15 +2776,16 @@ export type t_invoice = {
   default_tax_rates: t_tax_rate[]
   description?: string | null
   discount?: t_discount | null
-  discounts?: (string | t_discount | t_deleted_discount)[] | null
+  discounts: (string | t_discount | t_deleted_discount)[]
   due_date?: number | null
   effective_at?: number | null
   ending_balance?: number | null
   footer?: string | null
-  from_invoice?: t_invoices_from_invoice | null
+  from_invoice?: t_invoices_resource_from_invoice | null
   hosted_invoice_url?: string | null
   id?: string
   invoice_pdf?: string | null
+  issuer: t_connect_account_reference
   last_finalization_error?: t_api_errors | null
   latest_revision?: string | t_invoice | null
   lines: {
@@ -2230,14 +2812,13 @@ export type t_invoice = {
   pre_payment_credit_notes_amount: number
   quote?: string | t_quote | null
   receipt_number?: string | null
-  rendering?: t_invoices_invoice_rendering | null
-  rendering_options?: t_invoice_setting_rendering_options | null
-  shipping_cost?: t_invoices_shipping_cost | null
+  rendering?: t_invoices_resource_invoice_rendering | null
+  shipping_cost?: t_invoices_resource_shipping_cost | null
   shipping_details?: t_shipping | null
   starting_balance: number
   statement_descriptor?: string | null
   status?: "draft" | "open" | "paid" | "uncollectible" | "void" | null
-  status_transitions: t_invoices_status_transitions
+  status_transitions: t_invoices_resource_status_transitions
   subscription?: string | t_subscription | null
   subscription_details?: t_subscription_details_data | null
   subscription_proration_date?: number
@@ -2289,7 +2870,7 @@ export type t_invoice_payment_method_options_bancontact = {
 
 export type t_invoice_payment_method_options_card = {
   installments?: t_invoice_installments_card
-  request_three_d_secure?: "any" | "automatic" | null
+  request_three_d_secure?: "any" | "automatic" | "challenge" | null
 }
 
 export type t_invoice_payment_method_options_customer_balance = {
@@ -2309,6 +2890,8 @@ export type t_invoice_payment_method_options_customer_balance_bank_transfer_eu_b
 
 export type t_invoice_payment_method_options_konbini = EmptyObject
 
+export type t_invoice_payment_method_options_sepa_debit = EmptyObject
+
 export type t_invoice_payment_method_options_us_bank_account = {
   financial_connections?: t_invoice_payment_method_options_us_bank_account_linked_account_options
   verification_method?: "automatic" | "instant" | "microdeposits"
@@ -2317,7 +2900,7 @@ export type t_invoice_payment_method_options_us_bank_account = {
 export type t_invoice_payment_method_options_us_bank_account_linked_account_options =
   {
     permissions?: ("balances" | "payment_method" | "transactions")[]
-    prefetch?: "balances"[] | null
+    prefetch?: ("balances" | "transactions")[] | null
   }
 
 export type t_invoice_rendering_pdf = {
@@ -2338,6 +2921,7 @@ export type t_invoice_setting_customer_setting = {
 
 export type t_invoice_setting_quote_setting = {
   days_until_due?: number | null
+  issuer: t_connect_account_reference
 }
 
 export type t_invoice_setting_rendering_options = {
@@ -2345,11 +2929,15 @@ export type t_invoice_setting_rendering_options = {
 }
 
 export type t_invoice_setting_subscription_schedule_phase_setting = {
+  account_tax_ids?: (string | t_tax_id | t_deleted_tax_id)[] | null
   days_until_due?: number | null
+  issuer?: t_connect_account_reference | null
 }
 
 export type t_invoice_setting_subscription_schedule_setting = {
+  account_tax_ids?: (string | t_tax_id | t_deleted_tax_id)[] | null
   days_until_due?: number | null
+  issuer: t_connect_account_reference
 }
 
 export type t_invoice_tax_amount = {
@@ -2413,22 +3001,13 @@ export type t_invoiceitem = {
   unit_amount_decimal?: string | null
 }
 
-export type t_invoices_from_invoice = {
-  action: string
-  invoice: string | t_invoice
-}
-
-export type t_invoices_invoice_rendering = {
-  amount_tax_display?: string | null
-  pdf?: t_invoice_rendering_pdf | null
-}
-
 export type t_invoices_payment_method_options = {
   acss_debit?: t_invoice_payment_method_options_acss_debit | null
   bancontact?: t_invoice_payment_method_options_bancontact | null
   card?: t_invoice_payment_method_options_card | null
   customer_balance?: t_invoice_payment_method_options_customer_balance | null
   konbini?: t_invoice_payment_method_options_konbini | null
+  sepa_debit?: t_invoice_payment_method_options_sepa_debit | null
   us_bank_account?: t_invoice_payment_method_options_us_bank_account | null
 }
 
@@ -2447,12 +3026,14 @@ export type t_invoices_payment_settings = {
         | "card"
         | "cashapp"
         | "customer_balance"
+        | "eps"
         | "fpx"
         | "giropay"
         | "grabpay"
         | "ideal"
         | "konbini"
         | "link"
+        | "p24"
         | "paynow"
         | "paypal"
         | "promptpay"
@@ -2462,6 +3043,16 @@ export type t_invoices_payment_settings = {
         | "wechat_pay"
       )[]
     | null
+}
+
+export type t_invoices_resource_from_invoice = {
+  action: string
+  invoice: string | t_invoice
+}
+
+export type t_invoices_resource_invoice_rendering = {
+  amount_tax_display?: string | null
+  pdf?: t_invoice_rendering_pdf | null
 }
 
 export type t_invoices_resource_invoice_tax_id = {
@@ -2511,6 +3102,7 @@ export type t_invoices_resource_invoice_tax_id = {
     | "my_itn"
     | "my_sst"
     | "no_vat"
+    | "no_voec"
     | "nz_gst"
     | "pe_ruc"
     | "ph_tin"
@@ -2545,7 +3137,7 @@ export type t_invoices_resource_line_items_proration_details = {
   credited_items?: t_invoices_resource_line_items_credited_items | null
 }
 
-export type t_invoices_shipping_cost = {
+export type t_invoices_resource_shipping_cost = {
   amount_subtotal: number
   amount_tax: number
   amount_total: number
@@ -2553,7 +3145,7 @@ export type t_invoices_shipping_cost = {
   taxes?: t_line_items_tax_amount[]
 }
 
-export type t_invoices_status_transitions = {
+export type t_invoices_resource_status_transitions = {
   finalized_at?: number | null
   marked_uncollectible_at?: number | null
   paid_at?: number | null
@@ -2583,6 +3175,7 @@ export type t_issuing_authorization = {
   pending_request?: t_issuing_authorization_pending_request | null
   request_history: t_issuing_authorization_request[]
   status: "closed" | "pending" | "reversed"
+  token?: string | t_issuing_token | null
   transactions: t_issuing_transaction[]
   treasury?: t_issuing_authorization_treasury | null
   verification_data: t_issuing_authorization_verification_data
@@ -2607,6 +3200,7 @@ export type t_issuing_card = {
   }
   number?: string
   object: "issuing.card"
+  personalization_design?: string | t_issuing_personalization_design | null
   replaced_by?: string | t_issuing_card | null
   replacement_for?: string | t_issuing_card | null
   replacement_reason?: "damaged" | "expired" | "lost" | "stolen" | null
@@ -2655,6 +3249,34 @@ export type t_issuing_dispute = {
   treasury?: t_issuing_dispute_treasury | null
 }
 
+export type t_issuing_personalization_design = {
+  card_logo?: string | t_file | null
+  carrier_text?: t_issuing_personalization_design_carrier_text | null
+  created: number
+  id: string
+  livemode: boolean
+  lookup_key?: string | null
+  metadata: {
+    [key: string]: string | undefined
+  }
+  name?: string | null
+  object: "issuing.personalization_design"
+  physical_bundle: string | t_issuing_physical_bundle
+  preferences: t_issuing_personalization_design_preferences
+  rejection_reasons: t_issuing_personalization_design_rejection_reasons
+  status: "active" | "inactive" | "rejected" | "review"
+}
+
+export type t_issuing_physical_bundle = {
+  features?: t_issuing_physical_bundle_features
+  id: string
+  livemode: boolean
+  name: string
+  object: "issuing.physical_bundle"
+  status: "active" | "inactive" | "review"
+  type: "custom" | "standard"
+}
+
 export type t_issuing_settlement = {
   bin: string
   clearing_date: number
@@ -2676,6 +3298,21 @@ export type t_issuing_settlement = {
   transaction_volume: number
 }
 
+export type t_issuing_token = {
+  card: string | t_issuing_card
+  created: number
+  device_fingerprint?: string | null
+  id: string
+  last4?: string
+  livemode: boolean
+  network: "mastercard" | "visa"
+  network_data?: t_issuing_network_token_network_data
+  network_updated_at: number
+  object: "issuing.token"
+  status: "active" | "deleted" | "requested" | "suspended"
+  wallet_provider?: "apple_pay" | "google_pay" | "samsung_pay"
+}
+
 export type t_issuing_transaction = {
   amount: number
   amount_details?: t_issuing_transaction_amount_details | null
@@ -2694,8 +3331,10 @@ export type t_issuing_transaction = {
   metadata: {
     [key: string]: string | undefined
   }
+  network_data?: t_issuing_transaction_network_data | null
   object: "issuing.transaction"
   purchase_details?: t_issuing_transaction_purchase_details | null
+  token?: string | t_issuing_token | null
   treasury?: t_issuing_transaction_treasury | null
   type: "capture" | "refund"
   wallet?: "apple_pay" | "google_pay" | "samsung_pay" | null
@@ -2704,6 +3343,11 @@ export type t_issuing_transaction = {
 export type t_issuing_authorization_amount_details = {
   atm_fee?: number | null
   cashback_amount?: number | null
+}
+
+export type t_issuing_authorization_authentication_exemption = {
+  claimed_by: "acquirer" | "issuer"
+  type: "low_value_transaction" | "transaction_risk_analysis" | "unknown"
 }
 
 export type t_issuing_authorization_merchant_data = {
@@ -2716,10 +3360,13 @@ export type t_issuing_authorization_merchant_data = {
   postal_code?: string | null
   state?: string | null
   terminal_id?: string | null
+  url?: string | null
 }
 
 export type t_issuing_authorization_network_data = {
   acquiring_institution_id?: string | null
+  system_trace_audit_number?: string | null
+  transaction_id?: string | null
 }
 
 export type t_issuing_authorization_pending_request = {
@@ -2729,16 +3376,19 @@ export type t_issuing_authorization_pending_request = {
   is_amount_controllable: boolean
   merchant_amount: number
   merchant_currency: string
+  network_risk_score?: number | null
 }
 
 export type t_issuing_authorization_request = {
   amount: number
   amount_details?: t_issuing_authorization_amount_details | null
   approved: boolean
+  authorization_code?: string | null
   created: number
   currency: string
   merchant_amount: number
   merchant_currency: string
+  network_risk_score?: number | null
   reason:
     | "account_disabled"
     | "card_active"
@@ -2755,6 +3405,11 @@ export type t_issuing_authorization_request = {
     | "webhook_error"
     | "webhook_timeout"
   reason_message?: string | null
+  requested_at?: number | null
+}
+
+export type t_issuing_authorization_three_d_secure = {
+  result: "attempt_acknowledged" | "authenticated" | "failed" | "required"
 }
 
 export type t_issuing_authorization_treasury = {
@@ -2766,8 +3421,11 @@ export type t_issuing_authorization_treasury = {
 export type t_issuing_authorization_verification_data = {
   address_line1_check: "match" | "mismatch" | "not_provided"
   address_postal_code_check: "match" | "mismatch" | "not_provided"
+  authentication_exemption?: t_issuing_authorization_authentication_exemption | null
   cvc_check: "match" | "mismatch" | "not_provided"
   expiry_check: "match" | "mismatch" | "not_provided"
+  postal_code?: string | null
+  three_d_secure?: t_issuing_authorization_three_d_secure | null
 }
 
 export type t_issuing_card_apple_pay = {
@@ -3079,6 +3737,7 @@ export type t_issuing_card_authorization_controls = {
         | "wrecking_and_salvage_yards"
       )[]
     | null
+  allowed_merchant_countries?: string[] | null
   blocked_categories?:
     | (
         | "ac_refrigeration_repair"
@@ -3378,6 +4037,7 @@ export type t_issuing_card_authorization_controls = {
         | "wrecking_and_salvage_yards"
       )[]
     | null
+  blocked_merchant_countries?: string[] | null
   spending_limits?: t_issuing_card_spending_limit[] | null
   spending_limits_currency?: string | null
 }
@@ -4037,6 +4697,7 @@ export type t_issuing_cardholder_authorization_controls = {
         | "wrecking_and_salvage_yards"
       )[]
     | null
+  allowed_merchant_countries?: string[] | null
   blocked_categories?:
     | (
         | "ac_refrigeration_repair"
@@ -4336,6 +4997,7 @@ export type t_issuing_cardholder_authorization_controls = {
         | "wrecking_and_salvage_yards"
       )[]
     | null
+  blocked_merchant_countries?: string[] | null
   spending_limits?: t_issuing_cardholder_spending_limit[] | null
   spending_limits_currency?: string | null
 }
@@ -4791,6 +5453,128 @@ export type t_issuing_dispute_treasury = {
   received_debit: string
 }
 
+export type t_issuing_network_token_address = {
+  line1: string
+  postal_code: string
+}
+
+export type t_issuing_network_token_device = {
+  device_fingerprint?: string
+  ip_address?: string
+  location?: string
+  name?: string
+  phone_number?: string
+  type?: "other" | "phone" | "watch"
+}
+
+export type t_issuing_network_token_mastercard = {
+  card_reference_id?: string
+  token_reference_id: string
+  token_requestor_id: string
+  token_requestor_name?: string
+}
+
+export type t_issuing_network_token_network_data = {
+  device?: t_issuing_network_token_device
+  mastercard?: t_issuing_network_token_mastercard
+  type: "mastercard" | "visa"
+  visa?: t_issuing_network_token_visa
+  wallet_provider?: t_issuing_network_token_wallet_provider
+}
+
+export type t_issuing_network_token_visa = {
+  card_reference_id: string
+  token_reference_id: string
+  token_requestor_id: string
+  token_risk_score?: string
+}
+
+export type t_issuing_network_token_wallet_provider = {
+  account_id?: string
+  account_trust_score?: number
+  card_number_source?: "app" | "manual" | "on_file" | "other"
+  cardholder_address?: t_issuing_network_token_address
+  cardholder_name?: string
+  device_trust_score?: number
+  hashed_account_email_address?: string
+  reason_codes?: (
+    | "account_card_too_new"
+    | "account_recently_changed"
+    | "account_too_new"
+    | "account_too_new_since_launch"
+    | "additional_device"
+    | "data_expired"
+    | "defer_id_v_decision"
+    | "device_recently_lost"
+    | "good_activity_history"
+    | "has_suspended_tokens"
+    | "high_risk"
+    | "inactive_account"
+    | "long_account_tenure"
+    | "low_account_score"
+    | "low_device_score"
+    | "low_phone_number_score"
+    | "network_service_error"
+    | "outside_home_territory"
+    | "provisioning_cardholder_mismatch"
+    | "provisioning_device_and_cardholder_mismatch"
+    | "provisioning_device_mismatch"
+    | "same_device_no_prior_authentication"
+    | "same_device_successful_prior_authentication"
+    | "software_update"
+    | "suspicious_activity"
+    | "too_many_different_cardholders"
+    | "too_many_recent_attempts"
+    | "too_many_recent_tokens"
+  )[]
+  suggested_decision?: "approve" | "decline" | "require_auth"
+  suggested_decision_version?: string
+}
+
+export type t_issuing_personalization_design_carrier_text = {
+  footer_body?: string | null
+  footer_title?: string | null
+  header_body?: string | null
+  header_title?: string | null
+}
+
+export type t_issuing_personalization_design_preferences = {
+  is_default: boolean
+  is_platform_default?: boolean | null
+}
+
+export type t_issuing_personalization_design_rejection_reasons = {
+  card_logo?:
+    | (
+        | "geographic_location"
+        | "inappropriate"
+        | "network_name"
+        | "non_binary_image"
+        | "non_fiat_currency"
+        | "other"
+        | "other_entity"
+        | "promotional_material"
+      )[]
+    | null
+  carrier_text?:
+    | (
+        | "geographic_location"
+        | "inappropriate"
+        | "network_name"
+        | "non_fiat_currency"
+        | "other"
+        | "other_entity"
+        | "promotional_material"
+      )[]
+    | null
+}
+
+export type t_issuing_physical_bundle_features = {
+  card_logo: "optional" | "required" | "unsupported"
+  carrier_text: "optional" | "required" | "unsupported"
+  second_line: "optional" | "required" | "unsupported"
+}
+
 export type t_issuing_transaction_amount_details = {
   atm_fee?: number | null
   cashback_amount?: number | null
@@ -4823,6 +5607,12 @@ export type t_issuing_transaction_fuel_data = {
 export type t_issuing_transaction_lodging_data = {
   check_in_at?: number | null
   nights?: number | null
+}
+
+export type t_issuing_transaction_network_data = {
+  authorization_code?: string | null
+  processing_date?: string | null
+  transaction_id?: string | null
 }
 
 export type t_issuing_transaction_purchase_details = {
@@ -4890,6 +5680,7 @@ export type t_legal_entity_company = {
     | "public_company"
     | "public_corporation"
     | "public_partnership"
+    | "registered_charity"
     | "single_member_llc"
     | "sole_establishment"
     | "sole_proprietorship"
@@ -4958,8 +5749,9 @@ export type t_line_item = {
   description?: string | null
   discount_amounts?: t_discounts_resource_discount_amount[] | null
   discountable: boolean
-  discounts?: (string | t_discount)[] | null
+  discounts: (string | t_discount)[]
   id: string
+  invoice?: string | null
   invoice_item?: string | t_invoiceitem
   livemode: boolean
   metadata: {
@@ -5009,7 +5801,7 @@ export type t_line_items_tax_amount = {
 
 export type t_linked_account_options_us_bank_account = {
   permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[]
-  prefetch?: "balances"[] | null
+  prefetch?: ("balances" | "transactions")[] | null
   return_url?: string
 }
 
@@ -5047,6 +5839,13 @@ export type t_mandate_au_becs_debit = {
 export type t_mandate_bacs_debit = {
   network_status: "accepted" | "pending" | "refused" | "revoked"
   reference: string
+  revocation_reason?:
+    | "account_closed"
+    | "bank_account_restricted"
+    | "bank_ownership_changed"
+    | "could_not_process"
+    | "debit_not_authorized"
+    | null
   url: string
 }
 
@@ -5084,7 +5883,9 @@ export type t_mandate_single_use = {
   currency: string
 }
 
-export type t_mandate_us_bank_account = EmptyObject
+export type t_mandate_us_bank_account = {
+  collection_method?: "paper"
+}
 
 export type t_networks = {
   available: string[]
@@ -5126,6 +5927,7 @@ export type t_outbound_payments_payment_method_details_us_bank_account = {
   bank_name?: string | null
   fingerprint?: string | null
   last4?: string | null
+  mandate?: string | t_mandate
   network: "ach" | "us_domestic_wire"
   routing_number?: string | null
 }
@@ -5142,6 +5944,7 @@ export type t_outbound_transfers_payment_method_details_us_bank_account = {
   bank_name?: string | null
   fingerprint?: string | null
   last4?: string | null
+  mandate?: string | t_mandate
   network: "ach" | "us_domestic_wire"
   routing_number?: string | null
 }
@@ -5183,6 +5986,27 @@ export type t_payment_flows_private_payment_methods_alipay_details = {
   fingerprint?: string | null
   transaction_id?: string | null
 }
+
+export type t_payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_extended_authorization_extended_authorization =
+  {
+    status: "disabled" | "enabled"
+  }
+
+export type t_payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_incremental_authorization_incremental_authorization =
+  {
+    status: "available" | "unavailable"
+  }
+
+export type t_payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_overcapture_overcapture =
+  {
+    maximum_amount_capturable: number
+    status: "available" | "unavailable"
+  }
+
+export type t_payment_flows_private_payment_methods_card_details_api_resource_multicapture =
+  {
+    status: "available" | "unavailable"
+  }
 
 export type t_payment_flows_private_payment_methods_klarna_dob = {
   day?: number | null
@@ -5265,6 +6089,7 @@ export type t_payment_intent_next_action = {
   pix_display_qr_code?: t_payment_intent_next_action_pix_display_qr_code
   promptpay_display_qr_code?: t_payment_intent_next_action_promptpay_display_qr_code
   redirect_to_url?: t_payment_intent_next_action_redirect_to_url
+  swish_handle_redirect_or_display_qr_code?: t_payment_intent_next_action_swish_handle_redirect_or_display_qr_code
   type: string
   use_stripe_sdk?: EmptyObject
   verify_with_microdeposits?: t_payment_intent_next_action_verify_with_microdeposits
@@ -5385,6 +6210,18 @@ export type t_payment_intent_next_action_redirect_to_url = {
   url?: string | null
 }
 
+export type t_payment_intent_next_action_swish_handle_redirect_or_display_qr_code =
+  {
+    hosted_instructions_url: string
+    qr_code: t_payment_intent_next_action_swish_qr_code
+  }
+
+export type t_payment_intent_next_action_swish_qr_code = {
+  data: string
+  image_url_png: string
+  image_url_svg: string
+}
+
 export type t_payment_intent_next_action_verify_with_microdeposits = {
   arrival_date: number
   hosted_verification_url: string
@@ -5480,6 +6317,9 @@ export type t_payment_intent_payment_method_options = {
   link?:
     | t_payment_intent_payment_method_options_link
     | t_payment_intent_type_specific_payment_method_options_client
+  mobilepay?:
+    | t_payment_intent_payment_method_options_mobilepay
+    | t_payment_intent_type_specific_payment_method_options_client
   oxxo?:
     | t_payment_method_options_oxxo
     | t_payment_intent_type_specific_payment_method_options_client
@@ -5498,11 +6338,17 @@ export type t_payment_intent_payment_method_options = {
   promptpay?:
     | t_payment_method_options_promptpay
     | t_payment_intent_type_specific_payment_method_options_client
+  revolut_pay?:
+    | t_payment_method_options_revolut_pay
+    | t_payment_intent_type_specific_payment_method_options_client
   sepa_debit?:
     | t_payment_intent_payment_method_options_sepa_debit
     | t_payment_intent_type_specific_payment_method_options_client
   sofort?:
     | t_payment_method_options_sofort
+    | t_payment_intent_type_specific_payment_method_options_client
+  swish?:
+    | t_payment_intent_payment_method_options_swish
     | t_payment_intent_type_specific_payment_method_options_client
   us_bank_account?:
     | t_payment_intent_payment_method_options_us_bank_account
@@ -5525,7 +6371,9 @@ export type t_payment_intent_payment_method_options_au_becs_debit = {
   setup_future_usage?: "none" | "off_session" | "on_session"
 }
 
-export type t_payment_intent_payment_method_options_blik = EmptyObject
+export type t_payment_intent_payment_method_options_blik = {
+  setup_future_usage?: "none"
+}
 
 export type t_payment_intent_payment_method_options_card = {
   capture_method?: "manual"
@@ -5544,7 +6392,12 @@ export type t_payment_intent_payment_method_options_card = {
     | "unknown"
     | "visa"
     | null
-  request_three_d_secure?: "any" | "automatic" | "challenge_only" | null
+  request_extended_authorization?: "if_available" | "never"
+  request_incremental_authorization?: "if_available" | "never"
+  request_multicapture?: "if_available" | "never"
+  request_overcapture?: "if_available" | "never"
+  request_three_d_secure?: "any" | "automatic" | "challenge" | null
+  require_cvc_recollection?: boolean
   setup_future_usage?: "none" | "off_session" | "on_session"
   statement_descriptor_suffix_kana?: string
   statement_descriptor_suffix_kanji?: string
@@ -5570,13 +6423,24 @@ export type t_payment_intent_payment_method_options_mandate_options_acss_debit =
 export type t_payment_intent_payment_method_options_mandate_options_sepa_debit =
   EmptyObject
 
+export type t_payment_intent_payment_method_options_mobilepay = {
+  capture_method?: "manual"
+  setup_future_usage?: "none"
+}
+
 export type t_payment_intent_payment_method_options_sepa_debit = {
   mandate_options?: t_payment_intent_payment_method_options_mandate_options_sepa_debit
   setup_future_usage?: "none" | "off_session" | "on_session"
 }
 
+export type t_payment_intent_payment_method_options_swish = {
+  reference?: string | null
+  setup_future_usage?: "none"
+}
+
 export type t_payment_intent_payment_method_options_us_bank_account = {
   financial_connections?: t_linked_account_options_us_bank_account
+  mandate_options?: t_payment_method_options_us_bank_account_mandate_options
   preferred_settlement_speed?: "fastest" | "standard"
   setup_future_usage?: "none" | "off_session" | "on_session"
   verification_method?: "automatic" | "instant" | "microdeposits"
@@ -5595,6 +6459,7 @@ export type t_payment_intent_processing_customer_notification = {
 export type t_payment_intent_type_specific_payment_method_options_client = {
   capture_method?: "manual" | "manual_preferred"
   installments?: t_payment_flows_installment_options
+  require_cvc_recollection?: boolean
   setup_future_usage?: "none" | "off_session" | "on_session"
   verification_method?: "automatic" | "instant" | "microdeposits"
 }
@@ -5614,6 +6479,7 @@ export type t_payment_link = {
   custom_text: t_payment_links_resource_custom_text
   customer_creation: "always" | "if_required"
   id: string
+  inactive_message?: string | null
   invoice_creation?: t_payment_links_resource_invoice_creation | null
   line_items?: {
     data: t_item[]
@@ -5657,11 +6523,13 @@ export type t_payment_link = {
         | "promptpay"
         | "sepa_debit"
         | "sofort"
+        | "swish"
         | "us_bank_account"
         | "wechat_pay"
       )[]
     | null
   phone_number_collection: t_payment_links_resource_phone_number_collection
+  restrictions?: t_payment_links_resource_restrictions | null
   shipping_address_collection?: t_payment_links_resource_shipping_address_collection | null
   shipping_options: t_payment_links_resource_shipping_option[]
   submit_type: "auto" | "book" | "donate" | "pay"
@@ -5679,6 +6547,12 @@ export type t_payment_links_resource_after_completion = {
 
 export type t_payment_links_resource_automatic_tax = {
   enabled: boolean
+  liability?: t_connect_account_reference | null
+}
+
+export type t_payment_links_resource_completed_sessions = {
+  count: number
+  limit: number
 }
 
 export type t_payment_links_resource_completion_behavior_confirmation_page = {
@@ -5690,17 +6564,18 @@ export type t_payment_links_resource_completion_behavior_redirect = {
 }
 
 export type t_payment_links_resource_consent_collection = {
+  payment_method_reuse_agreement?: t_payment_links_resource_payment_method_reuse_agreement | null
   promotions?: "auto" | "none" | null
   terms_of_service?: "none" | "required" | null
 }
 
 export type t_payment_links_resource_custom_fields = {
-  dropdown?: t_payment_links_resource_custom_fields_dropdown | null
+  dropdown?: t_payment_links_resource_custom_fields_dropdown
   key: string
   label: t_payment_links_resource_custom_fields_label
-  numeric?: t_payment_links_resource_custom_fields_numeric | null
+  numeric?: t_payment_links_resource_custom_fields_numeric
   optional: boolean
-  text?: t_payment_links_resource_custom_fields_text | null
+  text?: t_payment_links_resource_custom_fields_text
   type: "dropdown" | "numeric" | "text"
 }
 
@@ -5729,6 +6604,7 @@ export type t_payment_links_resource_custom_fields_text = {
 }
 
 export type t_payment_links_resource_custom_text = {
+  after_submit?: t_payment_links_resource_custom_text_position | null
   shipping_address?: t_payment_links_resource_custom_text_position | null
   submit?: t_payment_links_resource_custom_text_position | null
   terms_of_service_acceptance?: t_payment_links_resource_custom_text_position | null
@@ -5748,6 +6624,7 @@ export type t_payment_links_resource_invoice_settings = {
   custom_fields?: t_invoice_setting_custom_field[] | null
   description?: string | null
   footer?: string | null
+  issuer?: t_connect_account_reference | null
   metadata?: {
     [key: string]: string | undefined
   } | null
@@ -5756,11 +6633,26 @@ export type t_payment_links_resource_invoice_settings = {
 
 export type t_payment_links_resource_payment_intent_data = {
   capture_method?: "automatic" | "automatic_async" | "manual" | null
+  description?: string | null
+  metadata: {
+    [key: string]: string | undefined
+  }
   setup_future_usage?: "off_session" | "on_session" | null
+  statement_descriptor?: string | null
+  statement_descriptor_suffix?: string | null
+  transfer_group?: string | null
+}
+
+export type t_payment_links_resource_payment_method_reuse_agreement = {
+  position: "auto" | "hidden"
 }
 
 export type t_payment_links_resource_phone_number_collection = {
   enabled: boolean
+}
+
+export type t_payment_links_resource_restrictions = {
+  completed_sessions: t_payment_links_resource_completed_sessions
 }
 
 export type t_payment_links_resource_shipping_address_collection = {
@@ -6012,7 +6904,16 @@ export type t_payment_links_resource_shipping_option = {
 
 export type t_payment_links_resource_subscription_data = {
   description?: string | null
+  invoice_settings: t_payment_links_resource_subscription_data_invoice_settings
+  metadata: {
+    [key: string]: string | undefined
+  }
   trial_period_days?: number | null
+  trial_settings?: t_subscriptions_trials_resource_trial_settings | null
+}
+
+export type t_payment_links_resource_subscription_data_invoice_settings = {
+  issuer: t_connect_account_reference
 }
 
 export type t_payment_links_resource_tax_id_collection = {
@@ -6055,6 +6956,7 @@ export type t_payment_method = {
   metadata?: {
     [key: string]: string | undefined
   } | null
+  mobilepay?: t_payment_method_mobilepay
   object: "payment_method"
   oxxo?: t_payment_method_oxxo
   p24?: t_payment_method_p24
@@ -6063,8 +6965,10 @@ export type t_payment_method = {
   pix?: t_payment_method_pix
   promptpay?: t_payment_method_promptpay
   radar_options?: t_radar_radar_options
+  revolut_pay?: t_payment_method_revolut_pay
   sepa_debit?: t_payment_method_sepa_debit
   sofort?: t_payment_method_sofort
+  swish?: t_payment_method_swish
   type:
     | "acss_debit"
     | "affirm"
@@ -6088,14 +6992,17 @@ export type t_payment_method = {
     | "klarna"
     | "konbini"
     | "link"
+    | "mobilepay"
     | "oxxo"
     | "p24"
     | "paynow"
     | "paypal"
     | "pix"
     | "promptpay"
+    | "revolut_pay"
     | "sepa_debit"
     | "sofort"
+    | "swish"
     | "us_bank_account"
     | "wechat_pay"
     | "zip"
@@ -6140,6 +7047,7 @@ export type t_payment_method_card = {
   brand: string
   checks?: t_payment_method_card_checks | null
   country?: string | null
+  display_brand?: string | null
   exp_month: number
   exp_year: number
   fingerprint?: string | null
@@ -6267,13 +7175,13 @@ export type t_payment_method_configuration = {
   card?: t_payment_method_config_resource_payment_method_properties
   cartes_bancaires?: t_payment_method_config_resource_payment_method_properties
   cashapp?: t_payment_method_config_resource_payment_method_properties
+  customer_balance?: t_payment_method_config_resource_payment_method_properties
   eps?: t_payment_method_config_resource_payment_method_properties
   fpx?: t_payment_method_config_resource_payment_method_properties
   giropay?: t_payment_method_config_resource_payment_method_properties
   google_pay?: t_payment_method_config_resource_payment_method_properties
   grabpay?: t_payment_method_config_resource_payment_method_properties
   id: string
-  id_bank_transfer?: t_payment_method_config_resource_payment_method_properties
   ideal?: t_payment_method_config_resource_payment_method_properties
   is_default: boolean
   jcb?: t_payment_method_config_resource_payment_method_properties
@@ -6281,22 +7189,20 @@ export type t_payment_method_configuration = {
   konbini?: t_payment_method_config_resource_payment_method_properties
   link?: t_payment_method_config_resource_payment_method_properties
   livemode: boolean
-  multibanco?: t_payment_method_config_resource_payment_method_properties
   name: string
-  netbanking?: t_payment_method_config_resource_payment_method_properties
   object: "payment_method_configuration"
   oxxo?: t_payment_method_config_resource_payment_method_properties
   p24?: t_payment_method_config_resource_payment_method_properties
   parent?: string | null
-  pay_by_bank?: t_payment_method_config_resource_payment_method_properties
   paynow?: t_payment_method_config_resource_payment_method_properties
   paypal?: t_payment_method_config_resource_payment_method_properties
   promptpay?: t_payment_method_config_resource_payment_method_properties
+  revolut_pay?: t_payment_method_config_resource_payment_method_properties
   sepa_debit?: t_payment_method_config_resource_payment_method_properties
   sofort?: t_payment_method_config_resource_payment_method_properties
-  upi?: t_payment_method_config_resource_payment_method_properties
   us_bank_account?: t_payment_method_config_resource_payment_method_properties
   wechat_pay?: t_payment_method_config_resource_payment_method_properties
+  zip?: t_payment_method_config_resource_payment_method_properties
 }
 
 export type t_payment_method_customer_balance = EmptyObject
@@ -6326,6 +7232,7 @@ export type t_payment_method_details = {
   klarna?: t_payment_method_details_klarna
   konbini?: t_payment_method_details_konbini
   link?: t_payment_method_details_link
+  mobilepay?: t_payment_method_details_mobilepay
   multibanco?: t_payment_method_details_multibanco
   oxxo?: t_payment_method_details_oxxo
   p24?: t_payment_method_details_p24
@@ -6333,9 +7240,11 @@ export type t_payment_method_details = {
   paypal?: t_payment_method_details_paypal
   pix?: t_payment_method_details_pix
   promptpay?: t_payment_method_details_promptpay
+  revolut_pay?: t_payment_method_details_revolut_pay
   sepa_debit?: t_payment_method_details_sepa_debit
   sofort?: t_payment_method_details_sofort
   stripe_account?: t_payment_method_details_stripe_account
+  swish?: t_payment_method_details_swish
   type: string
   us_bank_account?: t_payment_method_details_us_bank_account
   wechat?: t_payment_method_details_wechat
@@ -6407,18 +7316,24 @@ export type t_payment_method_details_boleto = {
 }
 
 export type t_payment_method_details_card = {
+  amount_authorized?: number | null
   brand?: string | null
+  capture_before?: number
   checks?: t_payment_method_details_card_checks | null
   country?: string | null
   exp_month: number
   exp_year: number
+  extended_authorization?: t_payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_extended_authorization_extended_authorization
   fingerprint?: string | null
   funding?: string | null
+  incremental_authorization?: t_payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_incremental_authorization_incremental_authorization
   installments?: t_payment_method_details_card_installments | null
   last4?: string | null
   mandate?: string | null
+  multicapture?: t_payment_flows_private_payment_methods_card_details_api_resource_multicapture
   network?: string | null
   network_token?: t_payment_method_details_card_network_token | null
+  overcapture?: t_payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_overcapture_overcapture
   three_d_secure?: t_three_d_secure_details_charge | null
   wallet?: t_payment_method_details_card_wallet | null
 }
@@ -6458,6 +7373,7 @@ export type t_payment_method_details_card_present = {
   incremental_authorization_supported: boolean
   last4?: string | null
   network?: string | null
+  offline?: t_payment_method_details_card_present_offline | null
   overcapture_supported: boolean
   read_method?:
     | "contact_emv"
@@ -6467,6 +7383,10 @@ export type t_payment_method_details_card_present = {
     | "magnetic_stripe_track2"
     | null
   receipt?: t_payment_method_details_card_present_receipt | null
+}
+
+export type t_payment_method_details_card_present_offline = {
+  stored_at?: number | null
 }
 
 export type t_payment_method_details_card_present_receipt = {
@@ -6614,6 +7534,7 @@ export type t_payment_method_details_ideal = {
     | "knab"
     | "moneyou"
     | "n26"
+    | "nn"
     | "rabobank"
     | "regiobank"
     | "revolut"
@@ -6632,6 +7553,7 @@ export type t_payment_method_details_ideal = {
     | "INGBNL2A"
     | "KNABNL2H"
     | "MOYONL21"
+    | "NNBANL2G"
     | "NTSBDEB1"
     | "RABONL2U"
     | "RBRBNL21"
@@ -6698,6 +7620,10 @@ export type t_payment_method_details_link = {
   country?: string | null
 }
 
+export type t_payment_method_details_mobilepay = {
+  card?: t_internal_card | null
+}
+
 export type t_payment_method_details_multibanco = {
   entity?: string | null
   reference?: string | null
@@ -6733,6 +7659,7 @@ export type t_payment_method_details_p24 = {
     | "santander_przelew24"
     | "tmobile_usbugi_bankowe"
     | "toyota_bank"
+    | "velobank"
     | "volkswagen_bank"
     | null
   reference?: string | null
@@ -6759,6 +7686,8 @@ export type t_payment_method_details_promptpay = {
   reference?: string | null
 }
 
+export type t_payment_method_details_revolut_pay = EmptyObject
+
 export type t_payment_method_details_sepa_debit = {
   bank_code?: string | null
   branch_code?: string | null
@@ -6782,12 +7711,20 @@ export type t_payment_method_details_sofort = {
 
 export type t_payment_method_details_stripe_account = EmptyObject
 
+export type t_payment_method_details_swish = {
+  fingerprint?: string | null
+  payment_reference?: string | null
+  verified_phone_last4?: string | null
+}
+
 export type t_payment_method_details_us_bank_account = {
   account_holder_type?: "company" | "individual" | null
   account_type?: "checking" | "savings" | null
   bank_name?: string | null
   fingerprint?: string | null
   last4?: string | null
+  mandate?: string | t_mandate
+  payment_reference?: string | null
   routing_number?: string | null
 }
 
@@ -6895,6 +7832,7 @@ export type t_payment_method_ideal = {
     | "knab"
     | "moneyou"
     | "n26"
+    | "nn"
     | "rabobank"
     | "regiobank"
     | "revolut"
@@ -6913,6 +7851,7 @@ export type t_payment_method_ideal = {
     | "INGBNL2A"
     | "KNABNL2H"
     | "MOYONL21"
+    | "NNBANL2G"
     | "NTSBDEB1"
     | "RABONL2U"
     | "RBRBNL21"
@@ -6952,6 +7891,8 @@ export type t_payment_method_konbini = EmptyObject
 export type t_payment_method_link = {
   email?: string | null
 }
+
+export type t_payment_method_mobilepay = EmptyObject
 
 export type t_payment_method_options_affirm = {
   capture_method?: "manual"
@@ -7103,9 +8044,15 @@ export type t_payment_method_options_promptpay = {
   setup_future_usage?: "none"
 }
 
+export type t_payment_method_options_revolut_pay = EmptyObject
+
 export type t_payment_method_options_sofort = {
   preferred_language?: "de" | "en" | "es" | "fr" | "it" | "nl" | "pl" | null
   setup_future_usage?: "none" | "off_session"
+}
+
+export type t_payment_method_options_us_bank_account_mandate_options = {
+  collection_method?: "paper"
 }
 
 export type t_payment_method_options_wechat_pay = {
@@ -7146,6 +8093,7 @@ export type t_payment_method_p24 = {
     | "santander_przelew24"
     | "tmobile_usbugi_bankowe"
     | "toyota_bank"
+    | "velobank"
     | "volkswagen_bank"
     | null
 }
@@ -7161,6 +8109,8 @@ export type t_payment_method_pix = EmptyObject
 
 export type t_payment_method_promptpay = EmptyObject
 
+export type t_payment_method_revolut_pay = EmptyObject
+
 export type t_payment_method_sepa_debit = {
   bank_code?: string | null
   branch_code?: string | null
@@ -7173,6 +8123,8 @@ export type t_payment_method_sepa_debit = {
 export type t_payment_method_sofort = {
   country?: string | null
 }
+
+export type t_payment_method_swish = EmptyObject
 
 export type t_payment_method_us_bank_account = {
   account_holder_type?: "company" | "individual" | null
@@ -7232,6 +8184,7 @@ export type t_payment_pages_checkout_session_after_expiration_recovery = {
 
 export type t_payment_pages_checkout_session_automatic_tax = {
   enabled: boolean
+  liability?: t_connect_account_reference | null
   status?: "complete" | "failed" | "requires_location_inputs" | null
 }
 
@@ -7241,6 +8194,7 @@ export type t_payment_pages_checkout_session_consent = {
 }
 
 export type t_payment_pages_checkout_session_consent_collection = {
+  payment_method_reuse_agreement?: t_payment_pages_checkout_session_payment_method_reuse_agreement | null
   promotions?: "auto" | "none" | null
   terms_of_service?: "none" | "required" | null
 }
@@ -7253,12 +8207,12 @@ export type t_payment_pages_checkout_session_currency_conversion = {
 }
 
 export type t_payment_pages_checkout_session_custom_fields = {
-  dropdown?: t_payment_pages_checkout_session_custom_fields_dropdown | null
+  dropdown?: t_payment_pages_checkout_session_custom_fields_dropdown
   key: string
   label: t_payment_pages_checkout_session_custom_fields_label
-  numeric?: t_payment_pages_checkout_session_custom_fields_numeric | null
+  numeric?: t_payment_pages_checkout_session_custom_fields_numeric
   optional: boolean
-  text?: t_payment_pages_checkout_session_custom_fields_text | null
+  text?: t_payment_pages_checkout_session_custom_fields_text
   type: "dropdown" | "numeric" | "text"
 }
 
@@ -7290,6 +8244,7 @@ export type t_payment_pages_checkout_session_custom_fields_text = {
 }
 
 export type t_payment_pages_checkout_session_custom_text = {
+  after_submit?: t_payment_pages_checkout_session_custom_text_position | null
   shipping_address?: t_payment_pages_checkout_session_custom_text_position | null
   submit?: t_payment_pages_checkout_session_custom_text_position | null
   terms_of_service_acceptance?: t_payment_pages_checkout_session_custom_text_position | null
@@ -7318,10 +8273,15 @@ export type t_payment_pages_checkout_session_invoice_settings = {
   custom_fields?: t_invoice_setting_custom_field[] | null
   description?: string | null
   footer?: string | null
+  issuer?: t_connect_account_reference | null
   metadata?: {
     [key: string]: string | undefined
   } | null
   rendering_options?: t_invoice_setting_rendering_options | null
+}
+
+export type t_payment_pages_checkout_session_payment_method_reuse_agreement = {
+  position: "auto" | "hidden"
 }
 
 export type t_payment_pages_checkout_session_phone_number_collection = {
@@ -7630,6 +8590,7 @@ export type t_payment_pages_checkout_session_tax_id = {
     | "my_itn"
     | "my_sst"
     | "no_vat"
+    | "no_voec"
     | "nz_gst"
     | "pe_ruc"
     | "ph_tin"
@@ -7720,6 +8681,7 @@ export type t_period = {
 
 export type t_person = {
   account: string
+  additional_tos_acceptances?: t_person_additional_tos_acceptances
   address?: t_address
   address_kana?: t_legal_entity_japan_address | null
   address_kanji?: t_legal_entity_japan_address | null
@@ -7753,6 +8715,16 @@ export type t_person = {
   verification?: t_legal_entity_person_verification
 }
 
+export type t_person_additional_tos_acceptance = {
+  date?: number | null
+  ip?: string | null
+  user_agent?: string | null
+}
+
+export type t_person_additional_tos_acceptances = {
+  account: t_person_additional_tos_acceptance
+}
+
 export type t_person_future_requirements = {
   alternatives?: t_account_requirements_alternative[] | null
   currently_due: string[]
@@ -7765,6 +8737,7 @@ export type t_person_future_requirements = {
 export type t_person_relationship = {
   director?: boolean | null
   executive?: boolean | null
+  legal_guardian?: boolean | null
   owner?: boolean | null
   percent_ownership?: number | null
   representative?: boolean | null
@@ -7795,6 +8768,7 @@ export type t_plan = {
   metadata?: {
     [key: string]: string | undefined
   } | null
+  meter?: string | null
   nickname?: string | null
   object: "plan"
   product?: string | t_product | t_deleted_product | null
@@ -7844,7 +8818,6 @@ export type t_portal_features = {
   invoice_history: t_portal_invoice_list
   payment_method_update: t_portal_payment_method_update
   subscription_cancel: t_portal_subscription_cancel
-  subscription_pause: t_portal_subscription_pause
   subscription_update: t_portal_subscription_update
 }
 
@@ -7943,10 +8916,6 @@ export type t_portal_subscription_cancellation_reason = {
   )[]
 }
 
-export type t_portal_subscription_pause = {
-  enabled: boolean
-}
-
 export type t_portal_subscription_update = {
   default_allowed_updates: ("price" | "promotion_code" | "quantity")[]
   enabled: boolean
@@ -8000,7 +8969,7 @@ export type t_product = {
   created: number
   default_price?: string | t_price | null
   description?: string | null
-  features: t_product_feature[]
+  features: t_product_marketing_feature[]
   id: string
   images: string[]
   livemode: boolean
@@ -8018,8 +8987,8 @@ export type t_product = {
   url?: string | null
 }
 
-export type t_product_feature = {
-  name: string
+export type t_product_marketing_feature = {
+  name?: string
 }
 
 export type t_promotion_code = {
@@ -8074,7 +9043,7 @@ export type t_quote = {
   header?: string | null
   id: string
   invoice?: string | t_invoice | t_deleted_invoice | null
-  invoice_settings?: t_invoice_setting_quote_setting | null
+  invoice_settings: t_invoice_setting_quote_setting
   line_items?: {
     data: t_item[]
     has_more: boolean
@@ -8100,6 +9069,7 @@ export type t_quote = {
 
 export type t_quotes_resource_automatic_tax = {
   enabled: boolean
+  liability?: t_connect_account_reference | null
   status?: "complete" | "failed" | "requires_location_inputs" | null
 }
 
@@ -8130,6 +9100,9 @@ export type t_quotes_resource_status_transitions = {
 export type t_quotes_resource_subscription_data_subscription_data = {
   description?: string | null
   effective_date?: number | null
+  metadata?: {
+    [key: string]: string | undefined
+  } | null
   trial_period_days?: number | null
 }
 
@@ -8242,6 +9215,7 @@ export type t_recurring = {
   aggregate_usage?: "last_during_period" | "last_ever" | "max" | "sum" | null
   interval: "day" | "month" | "week" | "year"
   interval_count: number
+  meter?: string | null
   usage_type: "licensed" | "metered"
 }
 
@@ -8252,6 +9226,7 @@ export type t_refund = {
   created: number
   currency: string
   description?: string
+  destination_details?: t_refund_destination_details
   failure_balance_transaction?: string | t_balance_transaction
   failure_reason?: string
   id: string
@@ -8272,6 +9247,50 @@ export type t_refund = {
   source_transfer_reversal?: string | t_transfer_reversal | null
   status?: string | null
   transfer_reversal?: string | t_transfer_reversal | null
+}
+
+export type t_refund_destination_details = {
+  affirm?: t_destination_details_unimplemented
+  afterpay_clearpay?: t_destination_details_unimplemented
+  alipay?: t_destination_details_unimplemented
+  au_bank_transfer?: t_destination_details_unimplemented
+  blik?: t_refund_destination_details_generic
+  br_bank_transfer?: t_refund_destination_details_generic
+  card?: t_refund_destination_details_card
+  cashapp?: t_destination_details_unimplemented
+  customer_cash_balance?: t_destination_details_unimplemented
+  eps?: t_destination_details_unimplemented
+  eu_bank_transfer?: t_refund_destination_details_generic
+  gb_bank_transfer?: t_refund_destination_details_generic
+  giropay?: t_destination_details_unimplemented
+  grabpay?: t_destination_details_unimplemented
+  jp_bank_transfer?: t_refund_destination_details_generic
+  klarna?: t_destination_details_unimplemented
+  mx_bank_transfer?: t_refund_destination_details_generic
+  p24?: t_refund_destination_details_generic
+  paynow?: t_destination_details_unimplemented
+  paypal?: t_destination_details_unimplemented
+  pix?: t_destination_details_unimplemented
+  revolut?: t_destination_details_unimplemented
+  sofort?: t_destination_details_unimplemented
+  swish?: t_refund_destination_details_generic
+  th_bank_transfer?: t_refund_destination_details_generic
+  type: string
+  us_bank_transfer?: t_refund_destination_details_generic
+  wechat_pay?: t_destination_details_unimplemented
+  zip?: t_destination_details_unimplemented
+}
+
+export type t_refund_destination_details_card = {
+  reference?: string
+  reference_status?: string
+  reference_type?: string
+  type: "pending" | "refund" | "reversal"
+}
+
+export type t_refund_destination_details_generic = {
+  reference?: string | null
+  reference_status?: string | null
 }
 
 export type t_refund_next_action = {
@@ -8362,6 +9381,7 @@ export type t_scheduled_query_run = {
 
 export type t_schedules_phase_automatic_tax = {
   enabled: boolean
+  liability?: t_connect_account_reference | null
 }
 
 export type t_secret_service_resource_scope = {
@@ -8432,7 +9452,7 @@ export type t_setup_attempt_payment_method_details_boleto = EmptyObject
 
 export type t_setup_attempt_payment_method_details_card = {
   brand?: string | null
-  checks?: t_payment_method_details_card_checks | null
+  checks?: t_setup_attempt_payment_method_details_card_checks | null
   country?: string | null
   exp_month?: number | null
   exp_year?: number | null
@@ -8444,8 +9464,15 @@ export type t_setup_attempt_payment_method_details_card = {
   wallet?: t_setup_attempt_payment_method_details_card_wallet | null
 }
 
+export type t_setup_attempt_payment_method_details_card_checks = {
+  address_line1_check?: string | null
+  address_postal_code_check?: string | null
+  cvc_check?: string | null
+}
+
 export type t_setup_attempt_payment_method_details_card_present = {
   generated_card?: string | t_payment_method | null
+  offline?: t_payment_method_details_card_present_offline | null
 }
 
 export type t_setup_attempt_payment_method_details_card_wallet = {
@@ -8466,6 +9493,7 @@ export type t_setup_attempt_payment_method_details_ideal = {
     | "knab"
     | "moneyou"
     | "n26"
+    | "nn"
     | "rabobank"
     | "regiobank"
     | "revolut"
@@ -8484,6 +9512,7 @@ export type t_setup_attempt_payment_method_details_ideal = {
     | "INGBNL2A"
     | "KNABNL2H"
     | "MOYONL21"
+    | "NNBANL2G"
     | "NTSBDEB1"
     | "RABONL2U"
     | "RBRBNL21"
@@ -8583,6 +9612,9 @@ export type t_setup_intent_payment_method_options = {
     | t_setup_intent_payment_method_options_acss_debit
     | t_setup_intent_type_specific_payment_method_options_client
   card?: t_setup_intent_payment_method_options_card
+  card_present?:
+    | t_setup_intent_payment_method_options_card_present
+    | t_setup_intent_type_specific_payment_method_options_client
   link?:
     | t_setup_intent_payment_method_options_link
     | t_setup_intent_type_specific_payment_method_options_client
@@ -8618,7 +9650,7 @@ export type t_setup_intent_payment_method_options_card = {
     | "unknown"
     | "visa"
     | null
-  request_three_d_secure?: "any" | "automatic" | "challenge_only" | null
+  request_three_d_secure?: "any" | "automatic" | "challenge" | null
 }
 
 export type t_setup_intent_payment_method_options_card_mandate_options = {
@@ -8633,6 +9665,8 @@ export type t_setup_intent_payment_method_options_card_mandate_options = {
   start_date: number
   supported_types?: "india"[] | null
 }
+
+export type t_setup_intent_payment_method_options_card_present = EmptyObject
 
 export type t_setup_intent_payment_method_options_link = EmptyObject
 
@@ -8657,6 +9691,7 @@ export type t_setup_intent_payment_method_options_sepa_debit = {
 
 export type t_setup_intent_payment_method_options_us_bank_account = {
   financial_connections?: t_linked_account_options_us_bank_account
+  mandate_options?: t_payment_method_options_us_bank_account_mandate_options
   verification_method?: "automatic" | "instant" | "microdeposits"
 }
 
@@ -9136,6 +10171,7 @@ export type t_subscription = {
   application_fee_percent?: number | null
   automatic_tax: t_subscription_automatic_tax
   billing_cycle_anchor: number
+  billing_cycle_anchor_config?: t_subscriptions_resource_billing_cycle_anchor_config | null
   billing_thresholds?: t_subscription_billing_thresholds | null
   cancel_at?: number | null
   cancel_at_period_end: boolean
@@ -9153,6 +10189,7 @@ export type t_subscription = {
   default_tax_rates?: t_tax_rate[] | null
   description?: string | null
   discount?: t_discount | null
+  discounts: (string | t_discount)[]
   ended_at?: number | null
   id: string
   items: {
@@ -9194,6 +10231,7 @@ export type t_subscription = {
 
 export type t_subscription_automatic_tax = {
   enabled: boolean
+  liability?: t_connect_account_reference | null
 }
 
 export type t_subscription_billing_thresholds = {
@@ -9210,6 +10248,7 @@ export type t_subscription_details_data = {
 export type t_subscription_item = {
   billing_thresholds?: t_subscription_item_billing_thresholds | null
   created: number
+  discounts: (string | t_discount)[]
   id: string
   metadata: {
     [key: string]: string | undefined
@@ -9240,7 +10279,7 @@ export type t_subscription_payment_method_options_card = {
     | "unknown"
     | "visa"
     | null
-  request_three_d_secure?: "any" | "automatic" | null
+  request_three_d_secure?: "any" | "automatic" | "challenge" | null
 }
 
 export type t_subscription_pending_invoice_item_interval = {
@@ -9272,6 +10311,7 @@ export type t_subscription_schedule = {
 }
 
 export type t_subscription_schedule_add_invoice_item = {
+  discounts: t_discounts_resource_stackable_discount[]
   price: string | t_price | t_deleted_price
   quantity?: number | null
   tax_rates?: t_tax_rate[] | null
@@ -9279,6 +10319,7 @@ export type t_subscription_schedule_add_invoice_item = {
 
 export type t_subscription_schedule_configuration_item = {
   billing_thresholds?: t_subscription_item_billing_thresholds | null
+  discounts: t_discounts_resource_stackable_discount[]
   metadata?: {
     [key: string]: string | undefined
   } | null
@@ -9304,6 +10345,7 @@ export type t_subscription_schedule_phase_configuration = {
   default_payment_method?: string | t_payment_method | null
   default_tax_rates?: t_tax_rate[] | null
   description?: string | null
+  discounts: t_discounts_resource_stackable_discount[]
   end_date: number
   invoice_settings?: t_invoice_setting_subscription_schedule_phase_setting | null
   items: t_subscription_schedule_configuration_item[]
@@ -9325,18 +10367,27 @@ export type t_subscription_schedules_resource_default_settings = {
   collection_method?: "charge_automatically" | "send_invoice" | null
   default_payment_method?: string | t_payment_method | null
   description?: string | null
-  invoice_settings?: t_invoice_setting_subscription_schedule_setting | null
+  invoice_settings: t_invoice_setting_subscription_schedule_setting
   on_behalf_of?: string | t_account | null
   transfer_data?: t_subscription_transfer_data | null
 }
 
 export type t_subscription_schedules_resource_default_settings_automatic_tax = {
   enabled: boolean
+  liability?: t_connect_account_reference | null
 }
 
 export type t_subscription_transfer_data = {
   amount_percent?: number | null
   destination: string | t_account
+}
+
+export type t_subscriptions_resource_billing_cycle_anchor_config = {
+  day_of_month: number
+  hour?: number | null
+  minute?: number | null
+  month?: number | null
+  second?: number | null
 }
 
 export type t_subscriptions_resource_pause_collection = {
@@ -9350,6 +10401,7 @@ export type t_subscriptions_resource_payment_method_options = {
   card?: t_subscription_payment_method_options_card | null
   customer_balance?: t_invoice_payment_method_options_customer_balance | null
   konbini?: t_invoice_payment_method_options_konbini | null
+  sepa_debit?: t_invoice_payment_method_options_sepa_debit | null
   us_bank_account?: t_invoice_payment_method_options_us_bank_account | null
 }
 
@@ -9367,12 +10419,14 @@ export type t_subscriptions_resource_payment_settings = {
         | "card"
         | "cashapp"
         | "customer_balance"
+        | "eps"
         | "fpx"
         | "giropay"
         | "grabpay"
         | "ideal"
         | "konbini"
         | "link"
+        | "p24"
         | "paynow"
         | "paypal"
         | "promptpay"
@@ -9435,6 +10489,18 @@ export type t_tax_calculation_line_item = {
   tax_behavior: "exclusive" | "inclusive"
   tax_breakdown?: t_tax_product_resource_line_item_tax_breakdown[] | null
   tax_code: string
+}
+
+export type t_tax_registration = {
+  active_from: number
+  country: string
+  country_options: t_tax_product_registrations_resource_country_options
+  created: number
+  expires_at?: number | null
+  id: string
+  livemode: boolean
+  object: "tax.registration"
+  status: "active" | "expired" | "scheduled"
 }
 
 export type t_tax_settings = {
@@ -9503,6 +10569,13 @@ export type t_tax_deducted_at_source = {
   tax_deduction_account_number: string
 }
 
+export type t_tax_i_ds_owner = {
+  account?: string | t_account
+  application?: string | t_application
+  customer?: string | t_customer
+  type: "account" | "application" | "customer" | "self"
+}
+
 export type t_tax_id = {
   country?: string | null
   created: number
@@ -9510,6 +10583,7 @@ export type t_tax_id = {
   id: string
   livemode: boolean
   object: "tax_id"
+  owner?: t_tax_i_ds_owner | null
   type:
     | "ad_nrt"
     | "ae_trn"
@@ -9556,6 +10630,7 @@ export type t_tax_id = {
     | "my_itn"
     | "my_sst"
     | "no_vat"
+    | "no_voec"
     | "nz_gst"
     | "pe_ruc"
     | "ph_tin"
@@ -9587,6 +10662,107 @@ export type t_tax_id_verification = {
   verified_address?: string | null
   verified_name?: string | null
 }
+
+export type t_tax_product_registrations_resource_country_options = {
+  ae?: t_tax_product_registrations_resource_country_options_default
+  at?: t_tax_product_registrations_resource_country_options_europe
+  au?: t_tax_product_registrations_resource_country_options_default
+  be?: t_tax_product_registrations_resource_country_options_europe
+  bg?: t_tax_product_registrations_resource_country_options_europe
+  ca?: t_tax_product_registrations_resource_country_options_canada
+  ch?: t_tax_product_registrations_resource_country_options_default
+  cl?: t_tax_product_registrations_resource_country_options_simplified
+  co?: t_tax_product_registrations_resource_country_options_simplified
+  cy?: t_tax_product_registrations_resource_country_options_europe
+  cz?: t_tax_product_registrations_resource_country_options_europe
+  de?: t_tax_product_registrations_resource_country_options_europe
+  dk?: t_tax_product_registrations_resource_country_options_europe
+  ee?: t_tax_product_registrations_resource_country_options_europe
+  es?: t_tax_product_registrations_resource_country_options_europe
+  fi?: t_tax_product_registrations_resource_country_options_europe
+  fr?: t_tax_product_registrations_resource_country_options_europe
+  gb?: t_tax_product_registrations_resource_country_options_default
+  gr?: t_tax_product_registrations_resource_country_options_europe
+  hr?: t_tax_product_registrations_resource_country_options_europe
+  hu?: t_tax_product_registrations_resource_country_options_europe
+  id?: t_tax_product_registrations_resource_country_options_simplified
+  ie?: t_tax_product_registrations_resource_country_options_europe
+  is?: t_tax_product_registrations_resource_country_options_default
+  it?: t_tax_product_registrations_resource_country_options_europe
+  jp?: t_tax_product_registrations_resource_country_options_default
+  kr?: t_tax_product_registrations_resource_country_options_simplified
+  lt?: t_tax_product_registrations_resource_country_options_europe
+  lu?: t_tax_product_registrations_resource_country_options_europe
+  lv?: t_tax_product_registrations_resource_country_options_europe
+  mt?: t_tax_product_registrations_resource_country_options_europe
+  mx?: t_tax_product_registrations_resource_country_options_simplified
+  my?: t_tax_product_registrations_resource_country_options_simplified
+  nl?: t_tax_product_registrations_resource_country_options_europe
+  no?: t_tax_product_registrations_resource_country_options_default
+  nz?: t_tax_product_registrations_resource_country_options_default
+  pl?: t_tax_product_registrations_resource_country_options_europe
+  pt?: t_tax_product_registrations_resource_country_options_europe
+  ro?: t_tax_product_registrations_resource_country_options_europe
+  sa?: t_tax_product_registrations_resource_country_options_simplified
+  se?: t_tax_product_registrations_resource_country_options_europe
+  sg?: t_tax_product_registrations_resource_country_options_default
+  si?: t_tax_product_registrations_resource_country_options_europe
+  sk?: t_tax_product_registrations_resource_country_options_europe
+  th?: t_tax_product_registrations_resource_country_options_simplified
+  tr?: t_tax_product_registrations_resource_country_options_simplified
+  us?: t_tax_product_registrations_resource_country_options_united_states
+  vn?: t_tax_product_registrations_resource_country_options_simplified
+  za?: t_tax_product_registrations_resource_country_options_default
+}
+
+export type t_tax_product_registrations_resource_country_options_ca_province_standard =
+  {
+    province: string
+  }
+
+export type t_tax_product_registrations_resource_country_options_canada = {
+  province_standard?: t_tax_product_registrations_resource_country_options_ca_province_standard
+  type: "province_standard" | "simplified" | "standard"
+}
+
+export type t_tax_product_registrations_resource_country_options_default = {
+  type: "standard"
+}
+
+export type t_tax_product_registrations_resource_country_options_eu_standard = {
+  place_of_supply_scheme: "small_seller" | "standard"
+}
+
+export type t_tax_product_registrations_resource_country_options_europe = {
+  standard?: t_tax_product_registrations_resource_country_options_eu_standard
+  type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+}
+
+export type t_tax_product_registrations_resource_country_options_simplified = {
+  type: "simplified"
+}
+
+export type t_tax_product_registrations_resource_country_options_united_states =
+  {
+    local_amusement_tax?: t_tax_product_registrations_resource_country_options_us_local_amusement_tax
+    local_lease_tax?: t_tax_product_registrations_resource_country_options_us_local_lease_tax
+    state: string
+    type:
+      | "local_amusement_tax"
+      | "local_lease_tax"
+      | "state_communications_tax"
+      | "state_sales_tax"
+  }
+
+export type t_tax_product_registrations_resource_country_options_us_local_amusement_tax =
+  {
+    jurisdiction: string
+  }
+
+export type t_tax_product_registrations_resource_country_options_us_local_lease_tax =
+  {
+    jurisdiction: string
+  }
 
 export type t_tax_product_resource_customer_details = {
   address?: t_tax_product_resource_postal_address | null
@@ -9643,6 +10819,7 @@ export type t_tax_product_resource_customer_details_resource_tax_id = {
     | "my_itn"
     | "my_sst"
     | "no_vat"
+    | "no_voec"
     | "nz_gst"
     | "pe_ruc"
     | "ph_tin"
@@ -9827,6 +11004,14 @@ export type t_tax_rate = {
   id: string
   inclusive: boolean
   jurisdiction?: string | null
+  jurisdiction_level?:
+    | "city"
+    | "country"
+    | "county"
+    | "district"
+    | "multiple"
+    | "state"
+    | null
   livemode: boolean
   metadata?: {
     [key: string]: string | undefined
@@ -9846,7 +11031,6 @@ export type t_tax_rate = {
     | "qst"
     | "rst"
     | "sales_tax"
-    | "service_tax"
     | "vat"
     | null
 }
@@ -9856,7 +11040,9 @@ export type t_terminal_configuration = {
   id: string
   is_account_default?: boolean | null
   livemode: boolean
+  name?: string | null
   object: "terminal.configuration"
+  offline?: t_terminal_configuration_configuration_resource_offline_config
   tipping?: t_terminal_configuration_configuration_resource_tipping
   verifone_p400?: t_terminal_configuration_configuration_resource_device_type_specific_config
 }
@@ -9886,6 +11072,7 @@ export type t_terminal_reader = {
     | "bbpos_chipper2x"
     | "bbpos_wisepad3"
     | "bbpos_wisepos_e"
+    | "mobile_phone_reader"
     | "simulated_wisepos_e"
     | "stripe_m2"
     | "verifone_P400"
@@ -9899,7 +11086,7 @@ export type t_terminal_reader = {
   }
   object: "terminal.reader"
   serial_number: string
-  status?: string | null
+  status?: "offline" | "online" | null
 }
 
 export type t_terminal_configuration_configuration_resource_currency_specific_config =
@@ -9913,6 +11100,10 @@ export type t_terminal_configuration_configuration_resource_device_type_specific
   {
     splashscreen?: string | t_file
   }
+
+export type t_terminal_configuration_configuration_resource_offline_config = {
+  enabled?: boolean | null
+}
 
 export type t_terminal_configuration_configuration_resource_tipping = {
   aud?: t_terminal_configuration_configuration_resource_currency_specific_config
@@ -9945,6 +11136,7 @@ export type t_terminal_reader_reader_resource_line_item = {
 }
 
 export type t_terminal_reader_reader_resource_process_config = {
+  enable_customer_cancellation?: boolean
   skip_tipping?: boolean
   tipping?: t_terminal_reader_reader_resource_tipping_config
 }
@@ -9954,7 +11146,9 @@ export type t_terminal_reader_reader_resource_process_payment_intent_action = {
   process_config?: t_terminal_reader_reader_resource_process_config
 }
 
-export type t_terminal_reader_reader_resource_process_setup_config = EmptyObject
+export type t_terminal_reader_reader_resource_process_setup_config = {
+  enable_customer_cancellation?: boolean
+}
 
 export type t_terminal_reader_reader_resource_process_setup_intent_action = {
   generated_card?: string
@@ -9987,7 +11181,12 @@ export type t_terminal_reader_reader_resource_refund_payment_action = {
   reason?: "duplicate" | "fraudulent" | "requested_by_customer"
   refund?: string | t_refund
   refund_application_fee?: boolean
+  refund_payment_config?: t_terminal_reader_reader_resource_refund_payment_config
   reverse_transfer?: boolean
+}
+
+export type t_terminal_reader_reader_resource_refund_payment_config = {
+  enable_customer_cancellation?: boolean
 }
 
 export type t_terminal_reader_reader_resource_set_reader_display_action = {
@@ -10012,6 +11211,7 @@ export type t_test_helpers_test_clock = {
 
 export type t_three_d_secure_details = {
   authentication_flow?: "challenge" | "frictionless" | null
+  electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07" | null
   result?:
     | "attempt_acknowledged"
     | "authenticated"
@@ -10029,11 +11229,15 @@ export type t_three_d_secure_details = {
     | "protocol_error"
     | "rejected"
     | null
+  transaction_id?: string | null
   version?: "1.0.2" | "2.1.0" | "2.2.0" | null
 }
 
 export type t_three_d_secure_details_charge = {
   authentication_flow?: "challenge" | "frictionless" | null
+  electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07" | null
+  exemption_indicator?: "low_risk" | "none" | null
+  exemption_indicator_applied?: boolean
   result?:
     | "attempt_acknowledged"
     | "authenticated"
@@ -10051,6 +11255,7 @@ export type t_three_d_secure_details_charge = {
     | "protocol_error"
     | "rejected"
     | null
+  transaction_id?: string | null
   version?: "1.0.2" | "2.1.0" | "2.2.0" | null
 }
 
@@ -10068,6 +11273,10 @@ export type t_token = {
   object: "token"
   type: string
   used: boolean
+}
+
+export type t_token_card_networks = {
+  preferred?: string | null
 }
 
 export type t_topup = {
@@ -10670,6 +11879,7 @@ export type t_treasury_received_debits_resource_linked_flows = {
   inbound_transfer?: string | null
   issuing_authorization?: string | null
   issuing_transaction?: string | null
+  payout?: string | null
 }
 
 export type t_treasury_received_debits_resource_reversal_details = {
@@ -10991,6 +12201,12 @@ export type t_DeleteSubscriptionsSubscriptionExposedIdDiscountParamSchema = {
   subscription_exposed_id: string
 }
 
+export type t_DeleteTaxIdsIdBodySchema = EmptyObject
+
+export type t_DeleteTaxIdsIdParamSchema = {
+  id: string
+}
+
 export type t_DeleteTerminalConfigurationsConfigurationBodySchema = EmptyObject
 
 export type t_DeleteTerminalConfigurationsConfigurationParamSchema = {
@@ -11096,6 +12312,7 @@ export type t_GetAccountsAccountExternalAccountsQuerySchema = {
   ending_before?: string
   expand?: string[]
   limit?: number
+  object?: "bank_account" | "card"
   starting_after?: string
 }
 
@@ -11123,6 +12340,7 @@ export type t_GetAccountsAccountPeopleQuerySchema = {
   relationship?: {
     director?: boolean
     executive?: boolean
+    legal_guardian?: boolean
     owner?: boolean
     representative?: boolean
   }
@@ -11153,6 +12371,7 @@ export type t_GetAccountsAccountPersonsQuerySchema = {
   relationship?: {
     director?: boolean
     executive?: boolean
+    legal_guardian?: boolean
     owner?: boolean
     representative?: boolean
   }
@@ -11334,6 +12553,43 @@ export type t_GetBalanceTransactionsIdQuerySchema = {
   expand?: string[]
 }
 
+export type t_GetBillingMetersBodySchema = EmptyObject
+
+export type t_GetBillingMetersQuerySchema = {
+  ending_before?: string
+  expand?: string[]
+  limit?: number
+  starting_after?: string
+  status?: "active" | "inactive"
+}
+
+export type t_GetBillingMetersIdBodySchema = EmptyObject
+
+export type t_GetBillingMetersIdParamSchema = {
+  id: string
+}
+
+export type t_GetBillingMetersIdQuerySchema = {
+  expand?: string[]
+}
+
+export type t_GetBillingMetersIdEventSummariesBodySchema = EmptyObject
+
+export type t_GetBillingMetersIdEventSummariesParamSchema = {
+  id: string
+}
+
+export type t_GetBillingMetersIdEventSummariesQuerySchema = {
+  customer: string
+  end_time: number
+  ending_before?: string
+  expand?: string[]
+  limit?: number
+  start_time: number
+  starting_after?: string
+  value_grouping_window?: "hour"
+}
+
 export type t_GetBillingPortalConfigurationsBodySchema = EmptyObject
 
 export type t_GetBillingPortalConfigurationsQuerySchema = {
@@ -11432,6 +12688,14 @@ export type t_GetChargesSearchQuerySchema = {
 export type t_GetCheckoutSessionsBodySchema = EmptyObject
 
 export type t_GetCheckoutSessionsQuerySchema = {
+  created?:
+    | {
+        gt?: number
+        gte?: number
+        lt?: number
+        lte?: number
+      }
+    | number
   customer?: string
   customer_details?: {
     email: string
@@ -11442,6 +12706,7 @@ export type t_GetCheckoutSessionsQuerySchema = {
   payment_intent?: string
   payment_link?: string
   starting_after?: string
+  status?: "complete" | "expired" | "open"
   subscription?: string
 }
 
@@ -11466,6 +12731,73 @@ export type t_GetCheckoutSessionsSessionLineItemsQuerySchema = {
   expand?: string[]
   limit?: number
   starting_after?: string
+}
+
+export type t_GetClimateOrdersBodySchema = EmptyObject
+
+export type t_GetClimateOrdersQuerySchema = {
+  ending_before?: string
+  expand?: string[]
+  limit?: number
+  starting_after?: string
+}
+
+export type t_GetClimateOrdersOrderBodySchema = EmptyObject
+
+export type t_GetClimateOrdersOrderParamSchema = {
+  order: string
+}
+
+export type t_GetClimateOrdersOrderQuerySchema = {
+  expand?: string[]
+}
+
+export type t_GetClimateProductsBodySchema = EmptyObject
+
+export type t_GetClimateProductsQuerySchema = {
+  ending_before?: string
+  expand?: string[]
+  limit?: number
+  starting_after?: string
+}
+
+export type t_GetClimateProductsProductBodySchema = EmptyObject
+
+export type t_GetClimateProductsProductParamSchema = {
+  product: string
+}
+
+export type t_GetClimateProductsProductQuerySchema = {
+  expand?: string[]
+}
+
+export type t_GetClimateSuppliersBodySchema = EmptyObject
+
+export type t_GetClimateSuppliersQuerySchema = {
+  ending_before?: string
+  expand?: string[]
+  limit?: number
+  starting_after?: string
+}
+
+export type t_GetClimateSuppliersSupplierBodySchema = EmptyObject
+
+export type t_GetClimateSuppliersSupplierParamSchema = {
+  supplier: string
+}
+
+export type t_GetClimateSuppliersSupplierQuerySchema = {
+  expand?: string[]
+}
+
+export type t_GetConfirmationTokensConfirmationTokenBodySchema = EmptyObject
+
+export type t_GetConfirmationTokensConfirmationTokenParamSchema = {
+  confirmation_token: string
+}
+
+export type t_GetConfirmationTokensConfirmationTokenQuerySchema = {
+  expand?: string[]
 }
 
 export type t_GetCountrySpecsBodySchema = EmptyObject
@@ -11517,6 +12849,14 @@ export type t_GetCouponsCouponQuerySchema = {
 export type t_GetCreditNotesBodySchema = EmptyObject
 
 export type t_GetCreditNotesQuerySchema = {
+  created?:
+    | {
+        gt?: number
+        gte?: number
+        lt?: number
+        lte?: number
+      }
+    | number
   customer?: string
   ending_before?: string
   expand?: string[]
@@ -11561,6 +12901,13 @@ export type t_GetCreditNotesPreviewQuerySchema = {
     description?: string
     invoice_line_item?: string
     quantity?: number
+    tax_amounts?:
+      | {
+          amount: number
+          tax_rate: string
+          taxable_amount: number
+        }[]
+      | ""
     tax_rates?: string[] | ""
     type: "custom_line_item" | "invoice_line_item"
     unit_amount?: number
@@ -11598,6 +12945,13 @@ export type t_GetCreditNotesPreviewLinesQuerySchema = {
     description?: string
     invoice_line_item?: string
     quantity?: number
+    tax_amounts?:
+      | {
+          amount: number
+          tax_rate: string
+          taxable_amount: number
+        }[]
+      | ""
     tax_rates?: string[] | ""
     type: "custom_line_item" | "invoice_line_item"
     unit_amount?: number
@@ -11803,14 +13157,17 @@ export type t_GetCustomersCustomerPaymentMethodsQuerySchema = {
     | "klarna"
     | "konbini"
     | "link"
+    | "mobilepay"
     | "oxxo"
     | "p24"
     | "paynow"
     | "paypal"
     | "pix"
     | "promptpay"
+    | "revolut_pay"
     | "sepa_debit"
     | "sofort"
+    | "swish"
     | "us_bank_account"
     | "wechat_pay"
     | "zip"
@@ -12126,9 +13483,67 @@ export type t_GetFinancialConnectionsSessionsSessionQuerySchema = {
   expand?: string[]
 }
 
+export type t_GetFinancialConnectionsTransactionsBodySchema = EmptyObject
+
+export type t_GetFinancialConnectionsTransactionsQuerySchema = {
+  account: string
+  ending_before?: string
+  expand?: string[]
+  limit?: number
+  starting_after?: string
+  transacted_at?:
+    | {
+        gt?: number
+        gte?: number
+        lt?: number
+        lte?: number
+      }
+    | number
+  transaction_refresh?: {
+    after: string
+  }
+}
+
+export type t_GetFinancialConnectionsTransactionsTransactionBodySchema =
+  EmptyObject
+
+export type t_GetFinancialConnectionsTransactionsTransactionParamSchema = {
+  transaction: string
+}
+
+export type t_GetFinancialConnectionsTransactionsTransactionQuerySchema = {
+  expand?: string[]
+}
+
+export type t_GetForwardingRequestsBodySchema = EmptyObject
+
+export type t_GetForwardingRequestsQuerySchema = {
+  created?: {
+    gt?: number
+    gte?: number
+    lt?: number
+    lte?: number
+  }
+  ending_before?: string
+  expand?: string[]
+  limit?: number
+  starting_after?: string
+}
+
+export type t_GetForwardingRequestsIdBodySchema = EmptyObject
+
+export type t_GetForwardingRequestsIdParamSchema = {
+  id: string
+}
+
+export type t_GetForwardingRequestsIdQuerySchema = {
+  expand?: string[]
+}
+
 export type t_GetIdentityVerificationReportsBodySchema = EmptyObject
 
 export type t_GetIdentityVerificationReportsQuerySchema = {
+  client_reference_id?: string
   created?:
     | {
         gt?: number
@@ -12158,6 +13573,7 @@ export type t_GetIdentityVerificationReportsReportQuerySchema = {
 export type t_GetIdentityVerificationSessionsBodySchema = EmptyObject
 
 export type t_GetIdentityVerificationSessionsQuerySchema = {
+  client_reference_id?: string
   created?:
     | {
         gt?: number
@@ -12279,6 +13695,10 @@ export type t_GetInvoicesUpcomingBodySchema = EmptyObject
 export type t_GetInvoicesUpcomingQuerySchema = {
   automatic_tax?: {
     enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self"
+    }
   }
   coupon?: string
   currency?: string
@@ -12359,6 +13779,7 @@ export type t_GetInvoicesUpcomingQuerySchema = {
         | "my_itn"
         | "my_sst"
         | "no_vat"
+        | "no_voec"
         | "nz_gst"
         | "pe_ruc"
         | "ph_tin"
@@ -12387,6 +13808,7 @@ export type t_GetInvoicesUpcomingQuerySchema = {
     | {
         coupon?: string
         discount?: string
+        promotion_code?: string
       }[]
     | ""
   expand?: string[]
@@ -12399,6 +13821,7 @@ export type t_GetInvoicesUpcomingQuerySchema = {
       | {
           coupon?: string
           discount?: string
+          promotion_code?: string
         }[]
       | ""
     invoiceitem?: string
@@ -12426,6 +13849,11 @@ export type t_GetInvoicesUpcomingQuerySchema = {
     unit_amount?: number
     unit_amount_decimal?: string
   }[]
+  issuer?: {
+    account?: string
+    type: "account" | "self"
+  }
+  on_behalf_of?: string | ""
   schedule?: string
   subscription?: string
   subscription_billing_cycle_anchor?: "now" | "unchanged" | number
@@ -12441,6 +13869,13 @@ export type t_GetInvoicesUpcomingQuerySchema = {
       | ""
     clear_usage?: boolean
     deleted?: boolean
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
     id?: string
     metadata?:
       | {
@@ -12478,6 +13913,10 @@ export type t_GetInvoicesUpcomingLinesBodySchema = EmptyObject
 export type t_GetInvoicesUpcomingLinesQuerySchema = {
   automatic_tax?: {
     enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self"
+    }
   }
   coupon?: string
   currency?: string
@@ -12558,6 +13997,7 @@ export type t_GetInvoicesUpcomingLinesQuerySchema = {
         | "my_itn"
         | "my_sst"
         | "no_vat"
+        | "no_voec"
         | "nz_gst"
         | "pe_ruc"
         | "ph_tin"
@@ -12586,6 +14026,7 @@ export type t_GetInvoicesUpcomingLinesQuerySchema = {
     | {
         coupon?: string
         discount?: string
+        promotion_code?: string
       }[]
     | ""
   ending_before?: string
@@ -12599,6 +14040,7 @@ export type t_GetInvoicesUpcomingLinesQuerySchema = {
       | {
           coupon?: string
           discount?: string
+          promotion_code?: string
         }[]
       | ""
     invoiceitem?: string
@@ -12626,7 +14068,12 @@ export type t_GetInvoicesUpcomingLinesQuerySchema = {
     unit_amount?: number
     unit_amount_decimal?: string
   }[]
+  issuer?: {
+    account?: string
+    type: "account" | "self"
+  }
   limit?: number
+  on_behalf_of?: string | ""
   schedule?: string
   starting_after?: string
   subscription?: string
@@ -12643,6 +14090,13 @@ export type t_GetInvoicesUpcomingLinesQuerySchema = {
       | ""
     clear_usage?: boolean
     deleted?: boolean
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
     id?: string
     metadata?:
       | {
@@ -12754,6 +14208,7 @@ export type t_GetIssuingCardsQuerySchema = {
   expand?: string[]
   last4?: string
   limit?: number
+  personalization_design?: string
   starting_after?: string
   status?: "active" | "canceled" | "inactive"
   type?: "physical" | "virtual"
@@ -12798,6 +14253,55 @@ export type t_GetIssuingDisputesDisputeQuerySchema = {
   expand?: string[]
 }
 
+export type t_GetIssuingPersonalizationDesignsBodySchema = EmptyObject
+
+export type t_GetIssuingPersonalizationDesignsQuerySchema = {
+  ending_before?: string
+  expand?: string[]
+  limit?: number
+  lookup_keys?: string[]
+  preferences?: {
+    is_default?: boolean
+    is_platform_default?: boolean
+  }
+  starting_after?: string
+  status?: "active" | "inactive" | "rejected" | "review"
+}
+
+export type t_GetIssuingPersonalizationDesignsPersonalizationDesignBodySchema =
+  EmptyObject
+
+export type t_GetIssuingPersonalizationDesignsPersonalizationDesignParamSchema =
+  {
+    personalization_design: string
+  }
+
+export type t_GetIssuingPersonalizationDesignsPersonalizationDesignQuerySchema =
+  {
+    expand?: string[]
+  }
+
+export type t_GetIssuingPhysicalBundlesBodySchema = EmptyObject
+
+export type t_GetIssuingPhysicalBundlesQuerySchema = {
+  ending_before?: string
+  expand?: string[]
+  limit?: number
+  starting_after?: string
+  status?: "active" | "inactive" | "review"
+  type?: "custom" | "standard"
+}
+
+export type t_GetIssuingPhysicalBundlesPhysicalBundleBodySchema = EmptyObject
+
+export type t_GetIssuingPhysicalBundlesPhysicalBundleParamSchema = {
+  physical_bundle: string
+}
+
+export type t_GetIssuingPhysicalBundlesPhysicalBundleQuerySchema = {
+  expand?: string[]
+}
+
 export type t_GetIssuingSettlementsBodySchema = EmptyObject
 
 export type t_GetIssuingSettlementsQuerySchema = {
@@ -12822,6 +14326,35 @@ export type t_GetIssuingSettlementsSettlementParamSchema = {
 }
 
 export type t_GetIssuingSettlementsSettlementQuerySchema = {
+  expand?: string[]
+}
+
+export type t_GetIssuingTokensBodySchema = EmptyObject
+
+export type t_GetIssuingTokensQuerySchema = {
+  card: string
+  created?:
+    | {
+        gt?: number
+        gte?: number
+        lt?: number
+        lte?: number
+      }
+    | number
+  ending_before?: string
+  expand?: string[]
+  limit?: number
+  starting_after?: string
+  status?: "active" | "deleted" | "requested" | "suspended"
+}
+
+export type t_GetIssuingTokensTokenBodySchema = EmptyObject
+
+export type t_GetIssuingTokensTokenParamSchema = {
+  token: string
+}
+
+export type t_GetIssuingTokensTokenQuerySchema = {
   expand?: string[]
 }
 
@@ -13052,14 +14585,17 @@ export type t_GetPaymentMethodsQuerySchema = {
     | "klarna"
     | "konbini"
     | "link"
+    | "mobilepay"
     | "oxxo"
     | "p24"
     | "paynow"
     | "paypal"
     | "pix"
     | "promptpay"
+    | "revolut_pay"
     | "sepa_debit"
     | "sofort"
+    | "swish"
     | "us_bank_account"
     | "wechat_pay"
     | "zip"
@@ -13161,6 +14697,7 @@ export type t_GetPricesQuerySchema = {
   product?: string
   recurring?: {
     interval?: "day" | "month" | "week" | "year"
+    meter?: string
     usage_type?: "licensed" | "metered"
   }
   starting_after?: string
@@ -13319,6 +14856,14 @@ export type t_GetRadarEarlyFraudWarningsBodySchema = EmptyObject
 
 export type t_GetRadarEarlyFraudWarningsQuerySchema = {
   charge?: string
+  created?:
+    | {
+        gt?: number
+        gte?: number
+        lt?: number
+        lte?: number
+      }
+    | number
   ending_before?: string
   expand?: string[]
   limit?: number
@@ -13833,6 +15378,30 @@ export type t_GetTaxCodesIdQuerySchema = {
   expand?: string[]
 }
 
+export type t_GetTaxIdsBodySchema = EmptyObject
+
+export type t_GetTaxIdsQuerySchema = {
+  ending_before?: string
+  expand?: string[]
+  limit?: number
+  owner?: {
+    account?: string
+    customer?: string
+    type: "account" | "application" | "customer" | "self"
+  }
+  starting_after?: string
+}
+
+export type t_GetTaxIdsIdBodySchema = EmptyObject
+
+export type t_GetTaxIdsIdParamSchema = {
+  id: string
+}
+
+export type t_GetTaxIdsIdQuerySchema = {
+  expand?: string[]
+}
+
 export type t_GetTaxRatesBodySchema = EmptyObject
 
 export type t_GetTaxRatesQuerySchema = {
@@ -13859,6 +15428,26 @@ export type t_GetTaxRatesTaxRateParamSchema = {
 }
 
 export type t_GetTaxRatesTaxRateQuerySchema = {
+  expand?: string[]
+}
+
+export type t_GetTaxRegistrationsBodySchema = EmptyObject
+
+export type t_GetTaxRegistrationsQuerySchema = {
+  ending_before?: string
+  expand?: string[]
+  limit?: number
+  starting_after?: string
+  status?: "active" | "all" | "expired" | "scheduled"
+}
+
+export type t_GetTaxRegistrationsIdBodySchema = EmptyObject
+
+export type t_GetTaxRegistrationsIdParamSchema = {
+  id: string
+}
+
+export type t_GetTaxRegistrationsIdQuerySchema = {
   expand?: string[]
 }
 
@@ -13937,6 +15526,7 @@ export type t_GetTerminalReadersQuerySchema = {
     | "bbpos_chipper2x"
     | "bbpos_wisepad3"
     | "bbpos_wisepos_e"
+    | "mobile_phone_reader"
     | "simulated_wisepos_e"
     | "stripe_m2"
     | "verifone_P400"
@@ -14187,6 +15777,14 @@ export type t_GetTreasuryInboundTransfersIdQuerySchema = {
 export type t_GetTreasuryOutboundPaymentsBodySchema = EmptyObject
 
 export type t_GetTreasuryOutboundPaymentsQuerySchema = {
+  created?:
+    | {
+        gt?: number
+        gte?: number
+        lt?: number
+        lte?: number
+      }
+    | number
   customer?: string
   ending_before?: string
   expand?: string[]
@@ -14377,6 +15975,10 @@ export type t_GetWebhookEndpointsWebhookEndpointQuerySchema = {
 export type t_PostAccountLinksBodySchema = {
   account: string
   collect?: "currently_due" | "eventually_due"
+  collection_options?: {
+    fields: "currently_due" | "eventually_due"
+    future_requirements?: "include" | "omit"
+  }
   expand?: string[]
   refresh_url?: string
   return_url?: string
@@ -14388,6 +15990,37 @@ export type t_PostAccountSessionsBodySchema = {
   components: {
     account_onboarding?: {
       enabled: boolean
+      features?: EmptyObject
+    }
+    documents?: {
+      enabled: boolean
+      features?: EmptyObject
+    }
+    payment_details?: {
+      enabled: boolean
+      features?: {
+        capture_payments?: boolean
+        destination_on_behalf_of_charge_management?: boolean
+        dispute_management?: boolean
+        refund_management?: boolean
+      }
+    }
+    payments?: {
+      enabled: boolean
+      features?: {
+        capture_payments?: boolean
+        destination_on_behalf_of_charge_management?: boolean
+        dispute_management?: boolean
+        refund_management?: boolean
+      }
+    }
+    payouts?: {
+      enabled: boolean
+      features?: {
+        edit_payout_schedule?: boolean
+        instant_payouts?: boolean
+        standard_payouts?: boolean
+      }
     }
   }
   expand?: string[]
@@ -14413,6 +16046,12 @@ export type t_PostAccountsBodySchema = {
       }
     | string
   business_profile?: {
+    annual_revenue?: {
+      amount: number
+      currency: string
+      fiscal_year_end: string
+    }
+    estimated_worker_count?: number
     mcc?: string
     monthly_estimated_revenue?: {
       amount: number
@@ -14442,6 +16081,9 @@ export type t_PostAccountsBodySchema = {
       requested?: boolean
     }
     afterpay_clearpay_payments?: {
+      requested?: boolean
+    }
+    amazon_pay_payments?: {
       requested?: boolean
     }
     au_becs_debit_payments?: {
@@ -14507,6 +16149,9 @@ export type t_PostAccountsBodySchema = {
     link_payments?: {
       requested?: boolean
     }
+    mobilepay_payments?: {
+      requested?: boolean
+    }
     oxxo_payments?: {
       requested?: boolean
     }
@@ -14519,10 +16164,16 @@ export type t_PostAccountsBodySchema = {
     promptpay_payments?: {
       requested?: boolean
     }
+    revolut_pay_payments?: {
+      requested?: boolean
+    }
     sepa_debit_payments?: {
       requested?: boolean
     }
     sofort_payments?: {
+      requested?: boolean
+    }
+    swish_payments?: {
       requested?: boolean
     }
     tax_reporting_us_1099_k?: {
@@ -14603,6 +16254,7 @@ export type t_PostAccountsBodySchema = {
       | "public_company"
       | "public_corporation"
       | "public_partnership"
+      | "registered_charity"
       | "single_member_llc"
       | "sole_establishment"
       | "sole_proprietorship"
@@ -14709,6 +16361,13 @@ export type t_PostAccountsBodySchema = {
       postal_code?: string
       state?: string
     }
+    relationship?: {
+      director?: boolean
+      executive?: boolean
+      owner?: boolean
+      percent_ownership?: number | ""
+      title?: string
+    }
     ssn_last_4?: string
     verification?: {
       additional_document?: {
@@ -14727,6 +16386,9 @@ export type t_PostAccountsBodySchema = {
       }
     | ""
   settings?: {
+    bacs_debit_payments?: {
+      display_name?: string
+    }
     branding?: {
       icon?: string
       logo?: string
@@ -14791,6 +16453,12 @@ export type t_PostAccountsBodySchema = {
 export type t_PostAccountsAccountBodySchema = {
   account_token?: string
   business_profile?: {
+    annual_revenue?: {
+      amount: number
+      currency: string
+      fiscal_year_end: string
+    }
+    estimated_worker_count?: number
     mcc?: string
     monthly_estimated_revenue?: {
       amount: number
@@ -14820,6 +16488,9 @@ export type t_PostAccountsAccountBodySchema = {
       requested?: boolean
     }
     afterpay_clearpay_payments?: {
+      requested?: boolean
+    }
+    amazon_pay_payments?: {
       requested?: boolean
     }
     au_becs_debit_payments?: {
@@ -14885,6 +16556,9 @@ export type t_PostAccountsAccountBodySchema = {
     link_payments?: {
       requested?: boolean
     }
+    mobilepay_payments?: {
+      requested?: boolean
+    }
     oxxo_payments?: {
       requested?: boolean
     }
@@ -14897,10 +16571,16 @@ export type t_PostAccountsAccountBodySchema = {
     promptpay_payments?: {
       requested?: boolean
     }
+    revolut_pay_payments?: {
+      requested?: boolean
+    }
     sepa_debit_payments?: {
       requested?: boolean
     }
     sofort_payments?: {
+      requested?: boolean
+    }
+    swish_payments?: {
       requested?: boolean
     }
     tax_reporting_us_1099_k?: {
@@ -14981,6 +16661,7 @@ export type t_PostAccountsAccountBodySchema = {
       | "public_company"
       | "public_corporation"
       | "public_partnership"
+      | "registered_charity"
       | "single_member_llc"
       | "sole_establishment"
       | "sole_proprietorship"
@@ -15086,6 +16767,13 @@ export type t_PostAccountsAccountBodySchema = {
       postal_code?: string
       state?: string
     }
+    relationship?: {
+      director?: boolean
+      executive?: boolean
+      owner?: boolean
+      percent_ownership?: number | ""
+      title?: string
+    }
     ssn_last_4?: string
     verification?: {
       additional_document?: {
@@ -15104,6 +16792,9 @@ export type t_PostAccountsAccountBodySchema = {
       }
     | ""
   settings?: {
+    bacs_debit_payments?: {
+      display_name?: string
+    }
     branding?: {
       icon?: string
       logo?: string
@@ -15125,6 +16816,9 @@ export type t_PostAccountsAccountBodySchema = {
       statement_descriptor_prefix?: string
       statement_descriptor_prefix_kana?: string | ""
       statement_descriptor_prefix_kanji?: string | ""
+    }
+    invoices?: {
+      default_account_tax_ids?: string[] | ""
     }
     payments?: {
       statement_descriptor?: string
@@ -15311,6 +17005,13 @@ export type t_PostAccountsAccountLoginLinksParamSchema = {
 }
 
 export type t_PostAccountsAccountPeopleBodySchema = {
+  additional_tos_acceptances?: {
+    account?: {
+      date?: number
+      ip?: string
+      user_agent?: string | ""
+    }
+  }
   address?: {
     city?: string
     country?: string
@@ -15388,6 +17089,7 @@ export type t_PostAccountsAccountPeopleBodySchema = {
   relationship?: {
     director?: boolean
     executive?: boolean
+    legal_guardian?: boolean
     owner?: boolean
     percent_ownership?: number | ""
     representative?: boolean
@@ -15411,6 +17113,13 @@ export type t_PostAccountsAccountPeopleParamSchema = {
 }
 
 export type t_PostAccountsAccountPeoplePersonBodySchema = {
+  additional_tos_acceptances?: {
+    account?: {
+      date?: number
+      ip?: string
+      user_agent?: string | ""
+    }
+  }
   address?: {
     city?: string
     country?: string
@@ -15488,6 +17197,7 @@ export type t_PostAccountsAccountPeoplePersonBodySchema = {
   relationship?: {
     director?: boolean
     executive?: boolean
+    legal_guardian?: boolean
     owner?: boolean
     percent_ownership?: number | ""
     representative?: boolean
@@ -15512,6 +17222,13 @@ export type t_PostAccountsAccountPeoplePersonParamSchema = {
 }
 
 export type t_PostAccountsAccountPersonsBodySchema = {
+  additional_tos_acceptances?: {
+    account?: {
+      date?: number
+      ip?: string
+      user_agent?: string | ""
+    }
+  }
   address?: {
     city?: string
     country?: string
@@ -15589,6 +17306,7 @@ export type t_PostAccountsAccountPersonsBodySchema = {
   relationship?: {
     director?: boolean
     executive?: boolean
+    legal_guardian?: boolean
     owner?: boolean
     percent_ownership?: number | ""
     representative?: boolean
@@ -15612,6 +17330,13 @@ export type t_PostAccountsAccountPersonsParamSchema = {
 }
 
 export type t_PostAccountsAccountPersonsPersonBodySchema = {
+  additional_tos_acceptances?: {
+    account?: {
+      date?: number
+      ip?: string
+      user_agent?: string | ""
+    }
+  }
   address?: {
     city?: string
     country?: string
@@ -15689,6 +17414,7 @@ export type t_PostAccountsAccountPersonsPersonBodySchema = {
   relationship?: {
     director?: boolean
     executive?: boolean
+    legal_guardian?: boolean
     owner?: boolean
     percent_ownership?: number | ""
     representative?: boolean
@@ -15782,6 +17508,67 @@ export type t_PostAppsSecretsDeleteBodySchema = {
   }
 }
 
+export type t_PostBillingMeterEventAdjustmentsBodySchema = {
+  cancel: {
+    identifier: string
+  }
+  event_name: string
+  expand?: string[]
+  type?: "cancel"
+}
+
+export type t_PostBillingMeterEventsBodySchema = {
+  event_name: string
+  expand?: string[]
+  identifier?: string
+  payload: {
+    [key: string]: string | undefined
+  }
+  timestamp: number
+}
+
+export type t_PostBillingMetersBodySchema = {
+  customer_mapping?: {
+    event_payload_key: string
+    type: "by_id"
+  }
+  default_aggregation: {
+    formula: "count" | "sum"
+  }
+  display_name: string
+  event_name: string
+  event_time_window?: "day" | "hour"
+  expand?: string[]
+  value_settings?: {
+    event_payload_key: string
+  }
+}
+
+export type t_PostBillingMetersIdBodySchema = {
+  display_name?: string
+  expand?: string[]
+}
+
+export type t_PostBillingMetersIdParamSchema = {
+  id: string
+}
+
+export type t_PostBillingMetersIdDeactivateBodySchema = {
+  expand?: string[]
+}
+
+export type t_PostBillingMetersIdDeactivateParamSchema = {
+  id: string
+}
+
+export type t_PostBillingMetersIdReactivateBodySchema = {
+  expand?: string[]
+}
+
+export type t_PostBillingMetersIdReactivateParamSchema = {
+  id: string
+}
+
 export type t_PostBillingPortalConfigurationsBodySchema = {
   business_profile: {
     headline?: string | ""
@@ -15822,9 +17609,6 @@ export type t_PostBillingPortalConfigurationsBodySchema = {
       enabled: boolean
       mode?: "at_period_end" | "immediately"
       proration_behavior?: "always_invoice" | "create_prorations" | "none"
-    }
-    subscription_pause?: {
-      enabled?: boolean
     }
     subscription_update?: {
       default_allowed_updates: ("price" | "promotion_code" | "quantity")[] | ""
@@ -15887,9 +17671,6 @@ export type t_PostBillingPortalConfigurationsConfigurationBodySchema = {
       enabled?: boolean
       mode?: "at_period_end" | "immediately"
       proration_behavior?: "always_invoice" | "create_prorations" | "none"
-    }
-    subscription_pause?: {
-      enabled?: boolean
     }
     subscription_update?: {
       default_allowed_updates?: ("price" | "promotion_code" | "quantity")[] | ""
@@ -16249,11 +18030,18 @@ export type t_PostCheckoutSessionsBodySchema = {
   allow_promotion_codes?: boolean
   automatic_tax?: {
     enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self"
+    }
   }
   billing_address_collection?: "auto" | "required"
   cancel_url?: string
   client_reference_id?: string
   consent_collection?: {
+    payment_method_reuse_agreement?: {
+      position: "auto" | "hidden"
+    }
     promotions?: "auto" | "none"
     terms_of_service?: "none" | "required"
   }
@@ -16282,6 +18070,11 @@ export type t_PostCheckoutSessionsBodySchema = {
     type: "dropdown" | "numeric" | "text"
   }[]
   custom_text?: {
+    after_submit?:
+      | {
+          message: string
+        }
+      | ""
     shipping_address?:
       | {
           message: string
@@ -16324,6 +18117,10 @@ export type t_PostCheckoutSessionsBodySchema = {
         | ""
       description?: string
       footer?: string
+      issuer?: {
+        account?: string
+        type: "account" | "self"
+      }
       metadata?: {
         [key: string]: string | undefined
       }
@@ -16484,6 +18281,7 @@ export type t_PostCheckoutSessionsBodySchema = {
       installments?: {
         enabled?: boolean
       }
+      request_three_d_secure?: "any" | "automatic" | "challenge"
       setup_future_usage?: "off_session" | "on_session"
       statement_descriptor_suffix_kana?: string
       statement_descriptor_suffix_kanji?: string
@@ -16582,11 +18380,17 @@ export type t_PostCheckoutSessionsBodySchema = {
     pix?: {
       expires_after_seconds?: number
     }
+    revolut_pay?: {
+      setup_future_usage?: "none" | "off_session"
+    }
     sepa_debit?: {
       setup_future_usage?: "none" | "off_session" | "on_session"
     }
     sofort?: {
       setup_future_usage?: "none"
+    }
+    swish?: {
+      reference?: string
     }
     us_bank_account?: {
       financial_connections?: {
@@ -16596,7 +18400,7 @@ export type t_PostCheckoutSessionsBodySchema = {
           | "payment_method"
           | "transactions"
         )[]
-        prefetch?: "balances"[]
+        prefetch?: ("balances" | "transactions")[]
       }
       setup_future_usage?: "none" | "off_session" | "on_session"
       verification_method?: "automatic" | "instant"
@@ -16634,8 +18438,10 @@ export type t_PostCheckoutSessionsBodySchema = {
     | "paypal"
     | "pix"
     | "promptpay"
+    | "revolut_pay"
     | "sepa_debit"
     | "sofort"
+    | "swish"
     | "us_bank_account"
     | "wechat_pay"
     | "zip"
@@ -16643,6 +18449,8 @@ export type t_PostCheckoutSessionsBodySchema = {
   phone_number_collection?: {
     enabled: boolean
   }
+  redirect_on_completion?: "always" | "if_required" | "never"
+  return_url?: string
   setup_intent_data?: {
     description?: string
     metadata?: {
@@ -16931,6 +18739,12 @@ export type t_PostCheckoutSessionsBodySchema = {
     billing_cycle_anchor?: number
     default_tax_rates?: string[]
     description?: string
+    invoice_settings?: {
+      issuer?: {
+        account?: string
+        type: "account" | "self"
+      }
+    }
     metadata?: {
       [key: string]: string | undefined
     }
@@ -16948,10 +18762,11 @@ export type t_PostCheckoutSessionsBodySchema = {
       }
     }
   }
-  success_url: string
+  success_url?: string
   tax_id_collection?: {
     enabled: boolean
   }
+  ui_mode?: "embedded" | "hosted"
 }
 
 export type t_PostCheckoutSessionsSessionExpireBodySchema = {
@@ -16960,6 +18775,44 @@ export type t_PostCheckoutSessionsSessionExpireBodySchema = {
 
 export type t_PostCheckoutSessionsSessionExpireParamSchema = {
   session: string
+}
+
+export type t_PostClimateOrdersBodySchema = {
+  amount?: number
+  beneficiary?: {
+    public_name: string
+  }
+  currency?: string
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  metric_tons?: string
+  product: string
+}
+
+export type t_PostClimateOrdersOrderBodySchema = {
+  beneficiary?:
+    | {
+        public_name: string | ""
+      }
+    | ""
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+}
+
+export type t_PostClimateOrdersOrderParamSchema = {
+  order: string
+}
+
+export type t_PostClimateOrdersOrderCancelBodySchema = {
+  expand?: string[]
+}
+
+export type t_PostClimateOrdersOrderCancelParamSchema = {
+  order: string
 }
 
 export type t_PostCouponsBodySchema = {
@@ -17022,6 +18875,13 @@ export type t_PostCreditNotesBodySchema = {
     description?: string
     invoice_line_item?: string
     quantity?: number
+    tax_amounts?:
+      | {
+          amount: number
+          tax_rate: string
+          taxable_amount: number
+        }[]
+      | ""
     tax_rates?: string[] | ""
     type: "custom_line_item" | "invoice_line_item"
     unit_amount?: number
@@ -17062,6 +18922,19 @@ export type t_PostCreditNotesIdVoidBodySchema = {
 
 export type t_PostCreditNotesIdVoidParamSchema = {
   id: string
+}
+
+export type t_PostCustomerSessionsBodySchema = {
+  components: {
+    buy_button?: {
+      enabled: boolean
+    }
+    pricing_table?: {
+      enabled: boolean
+    }
+  }
+  customer: string
+  expand?: string[]
 }
 
 export type t_PostCustomersBodySchema = {
@@ -17129,6 +19002,7 @@ export type t_PostCustomersBodySchema = {
   source?: string
   tax?: {
     ip_address?: string | ""
+    validate_location?: "deferred" | "immediately"
   }
   tax_exempt?: "" | "exempt" | "none" | "reverse"
   tax_id_data?: {
@@ -17178,6 +19052,7 @@ export type t_PostCustomersBodySchema = {
       | "my_itn"
       | "my_sst"
       | "no_vat"
+      | "no_voec"
       | "nz_gst"
       | "pe_ruc"
       | "ph_tin"
@@ -17302,6 +19177,7 @@ export type t_PostCustomersCustomerBodySchema = {
   source?: string
   tax?: {
     ip_address?: string | ""
+    validate_location?: "deferred" | "immediately"
   }
   tax_exempt?: "" | "exempt" | "none" | "reverse"
 }
@@ -17639,6 +19515,11 @@ export type t_PostCustomersCustomerSourcesIdVerifyParamSchema = {
 
 export type t_PostCustomersCustomerSubscriptionsBodySchema = {
   add_invoice_items?: {
+    discounts?: {
+      coupon?: string
+      discount?: string
+      promotion_code?: string
+    }[]
     price?: string
     price_data?: {
       currency: string
@@ -17650,9 +19531,13 @@ export type t_PostCustomersCustomerSubscriptionsBodySchema = {
     quantity?: number
     tax_rates?: string[] | ""
   }[]
-  application_fee_percent?: number
+  application_fee_percent?: number | ""
   automatic_tax?: {
     enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self"
+    }
   }
   backdate_start_date?: number
   billing_cycle_anchor?: number
@@ -17671,12 +19556,33 @@ export type t_PostCustomersCustomerSubscriptionsBodySchema = {
   default_payment_method?: string
   default_source?: string
   default_tax_rates?: string[] | ""
+  discounts?:
+    | {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
+    | ""
   expand?: string[]
+  invoice_settings?: {
+    account_tax_ids?: string[] | ""
+    issuer?: {
+      account?: string
+      type: "account" | "self"
+    }
+  }
   items?: {
     billing_thresholds?:
       | {
           usage_gte: number
         }
+      | ""
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
       | ""
     metadata?: {
       [key: string]: string | undefined
@@ -17741,7 +19647,7 @@ export type t_PostCustomersCustomerSubscriptionsBodySchema = {
               | "unionpay"
               | "unknown"
               | "visa"
-            request_three_d_secure?: "any" | "automatic"
+            request_three_d_secure?: "any" | "automatic" | "challenge"
           }
         | ""
       customer_balance?:
@@ -17756,6 +19662,7 @@ export type t_PostCustomersCustomerSubscriptionsBodySchema = {
           }
         | ""
       konbini?: EmptyObject | ""
+      sepa_debit?: EmptyObject | ""
       us_bank_account?:
         | {
             financial_connections?: {
@@ -17765,7 +19672,7 @@ export type t_PostCustomersCustomerSubscriptionsBodySchema = {
                 | "payment_method"
                 | "transactions"
               )[]
-              prefetch?: "balances"[]
+              prefetch?: ("balances" | "transactions")[]
             }
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
@@ -17783,12 +19690,14 @@ export type t_PostCustomersCustomerSubscriptionsBodySchema = {
           | "card"
           | "cashapp"
           | "customer_balance"
+          | "eps"
           | "fpx"
           | "giropay"
           | "grabpay"
           | "ideal"
           | "konbini"
           | "link"
+          | "p24"
           | "paynow"
           | "paypal"
           | "promptpay"
@@ -17829,6 +19738,11 @@ export type t_PostCustomersCustomerSubscriptionsParamSchema = {
 export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema =
   {
     add_invoice_items?: {
+      discounts?: {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
       price?: string
       price_data?: {
         currency: string
@@ -17840,9 +19754,13 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema 
       quantity?: number
       tax_rates?: string[] | ""
     }[]
-    application_fee_percent?: number
+    application_fee_percent?: number | ""
     automatic_tax?: {
       enabled: boolean
+      liability?: {
+        account?: string
+        type: "account" | "self"
+      }
     }
     billing_cycle_anchor?: "now" | "unchanged"
     billing_thresholds?:
@@ -17872,7 +19790,21 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema 
     default_payment_method?: string
     default_source?: string | ""
     default_tax_rates?: string[] | ""
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
     expand?: string[]
+    invoice_settings?: {
+      account_tax_ids?: string[] | ""
+      issuer?: {
+        account?: string
+        type: "account" | "self"
+      }
+    }
     items?: {
       billing_thresholds?:
         | {
@@ -17881,6 +19813,13 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema 
         | ""
       clear_usage?: boolean
       deleted?: boolean
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
+        | ""
       id?: string
       metadata?:
         | {
@@ -17953,7 +19892,7 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema 
                 | "unionpay"
                 | "unknown"
                 | "visa"
-              request_three_d_secure?: "any" | "automatic"
+              request_three_d_secure?: "any" | "automatic" | "challenge"
             }
           | ""
         customer_balance?:
@@ -17968,6 +19907,7 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema 
             }
           | ""
         konbini?: EmptyObject | ""
+        sepa_debit?: EmptyObject | ""
         us_bank_account?:
           | {
               financial_connections?: {
@@ -17977,7 +19917,7 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema 
                   | "payment_method"
                   | "transactions"
                 )[]
-                prefetch?: "balances"[]
+                prefetch?: ("balances" | "transactions")[]
               }
               verification_method?: "automatic" | "instant" | "microdeposits"
             }
@@ -17995,12 +19935,14 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema 
             | "card"
             | "cashapp"
             | "customer_balance"
+            | "eps"
             | "fpx"
             | "giropay"
             | "grabpay"
             | "ideal"
             | "konbini"
             | "link"
+            | "p24"
             | "paynow"
             | "paypal"
             | "promptpay"
@@ -18090,6 +20032,7 @@ export type t_PostCustomersCustomerTaxIdsBodySchema = {
     | "my_itn"
     | "my_sst"
     | "no_vat"
+    | "no_voec"
     | "nz_gst"
     | "pe_ruc"
     | "ph_tin"
@@ -18237,10 +20180,28 @@ export type t_PostFinancialConnectionsAccountsAccountDisconnectParamSchema = {
 
 export type t_PostFinancialConnectionsAccountsAccountRefreshBodySchema = {
   expand?: string[]
-  features: ("balance" | "ownership")[]
+  features: ("balance" | "ownership" | "transactions")[]
 }
 
 export type t_PostFinancialConnectionsAccountsAccountRefreshParamSchema = {
+  account: string
+}
+
+export type t_PostFinancialConnectionsAccountsAccountSubscribeBodySchema = {
+  expand?: string[]
+  features: "transactions"[]
+}
+
+export type t_PostFinancialConnectionsAccountsAccountSubscribeParamSchema = {
+  account: string
+}
+
+export type t_PostFinancialConnectionsAccountsAccountUnsubscribeBodySchema = {
+  expand?: string[]
+  features: "transactions"[]
+}
+
+export type t_PostFinancialConnectionsAccountsAccountUnsubscribeParamSchema = {
   account: string
 }
 
@@ -18255,11 +20216,32 @@ export type t_PostFinancialConnectionsSessionsBodySchema = {
     countries: string[]
   }
   permissions: ("balances" | "ownership" | "payment_method" | "transactions")[]
-  prefetch?: ("balances" | "ownership")[]
+  prefetch?: ("balances" | "ownership" | "transactions")[]
   return_url?: string
 }
 
+export type t_PostForwardingRequestsBodySchema = {
+  config: string
+  expand?: string[]
+  payment_method: string
+  replacements: (
+    | "card_cvc"
+    | "card_expiry"
+    | "card_number"
+    | "cardholder_name"
+  )[]
+  request?: {
+    body?: string
+    headers?: {
+      name: string
+      value: string
+    }[]
+  }
+  url: string
+}
+
 export type t_PostIdentityVerificationSessionsBodySchema = {
+  client_reference_id?: string
   expand?: string[]
   metadata?: {
     [key: string]: string | undefined
@@ -18273,9 +20255,24 @@ export type t_PostIdentityVerificationSessionsBodySchema = {
           require_matching_selfie?: boolean
         }
       | ""
+    email?:
+      | {
+          require_verification?: boolean
+        }
+      | ""
+    phone?:
+      | {
+          require_verification?: boolean
+        }
+      | ""
+  }
+  provided_details?: {
+    email?: string
+    phone?: string
   }
   return_url?: string
-  type: "document" | "id_number"
+  type?: "document" | "id_number"
+  verification_flow?: string
 }
 
 export type t_PostIdentityVerificationSessionsSessionBodySchema = {
@@ -18292,6 +20289,20 @@ export type t_PostIdentityVerificationSessionsSessionBodySchema = {
           require_matching_selfie?: boolean
         }
       | ""
+    email?:
+      | {
+          require_verification?: boolean
+        }
+      | ""
+    phone?:
+      | {
+          require_verification?: boolean
+        }
+      | ""
+  }
+  provided_details?: {
+    email?: string
+    phone?: string
   }
   type?: "document" | "id_number"
 }
@@ -18326,6 +20337,7 @@ export type t_PostInvoiceitemsBodySchema = {
     | {
         coupon?: string
         discount?: string
+        promotion_code?: string
       }[]
     | ""
   expand?: string[]
@@ -18364,6 +20376,7 @@ export type t_PostInvoiceitemsInvoiceitemBodySchema = {
     | {
         coupon?: string
         discount?: string
+        promotion_code?: string
       }[]
     | ""
   expand?: string[]
@@ -18402,6 +20415,10 @@ export type t_PostInvoicesBodySchema = {
   auto_advance?: boolean
   automatic_tax?: {
     enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self"
+    }
   }
   collection_method?: "charge_automatically" | "send_invoice"
   currency?: string
@@ -18421,6 +20438,7 @@ export type t_PostInvoicesBodySchema = {
     | {
         coupon?: string
         discount?: string
+        promotion_code?: string
       }[]
     | ""
   due_date?: number
@@ -18431,11 +20449,16 @@ export type t_PostInvoicesBodySchema = {
     action: "revision"
     invoice: string
   }
+  issuer?: {
+    account?: string
+    type: "account" | "self"
+  }
   metadata?:
     | {
         [key: string]: string | undefined
       }
     | ""
+  number?: string
   on_behalf_of?: string
   payment_settings?: {
     default_mandate?: string | ""
@@ -18465,7 +20488,7 @@ export type t_PostInvoicesBodySchema = {
                   }
                 | ""
             }
-            request_three_d_secure?: "any" | "automatic"
+            request_three_d_secure?: "any" | "automatic" | "challenge"
           }
         | ""
       customer_balance?:
@@ -18480,6 +20503,7 @@ export type t_PostInvoicesBodySchema = {
           }
         | ""
       konbini?: EmptyObject | ""
+      sepa_debit?: EmptyObject | ""
       us_bank_account?:
         | {
             financial_connections?: {
@@ -18489,7 +20513,7 @@ export type t_PostInvoicesBodySchema = {
                 | "payment_method"
                 | "transactions"
               )[]
-              prefetch?: "balances"[]
+              prefetch?: ("balances" | "transactions")[]
             }
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
@@ -18507,12 +20531,14 @@ export type t_PostInvoicesBodySchema = {
           | "card"
           | "cashapp"
           | "customer_balance"
+          | "eps"
           | "fpx"
           | "giropay"
           | "grabpay"
           | "ideal"
           | "konbini"
           | "link"
+          | "p24"
           | "paynow"
           | "paypal"
           | "promptpay"
@@ -18523,18 +20549,13 @@ export type t_PostInvoicesBodySchema = {
         )[]
       | ""
   }
-  pending_invoice_items_behavior?: "exclude" | "include" | "include_and_require"
+  pending_invoice_items_behavior?: "exclude" | "include"
   rendering?: {
     amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax"
     pdf?: {
       page_size?: "a4" | "auto" | "letter"
     }
   }
-  rendering_options?:
-    | {
-        amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax"
-      }
-    | ""
   shipping_cost?: {
     shipping_rate?: string
     shipping_rate_data?: {
@@ -18595,6 +20616,10 @@ export type t_PostInvoicesInvoiceBodySchema = {
   auto_advance?: boolean
   automatic_tax?: {
     enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self"
+    }
   }
   collection_method?: "charge_automatically" | "send_invoice"
   custom_fields?:
@@ -18612,17 +20637,23 @@ export type t_PostInvoicesInvoiceBodySchema = {
     | {
         coupon?: string
         discount?: string
+        promotion_code?: string
       }[]
     | ""
   due_date?: number
   effective_at?: number | ""
   expand?: string[]
   footer?: string
+  issuer?: {
+    account?: string
+    type: "account" | "self"
+  }
   metadata?:
     | {
         [key: string]: string | undefined
       }
     | ""
+  number?: string | ""
   on_behalf_of?: string | ""
   payment_settings?: {
     default_mandate?: string | ""
@@ -18652,7 +20683,7 @@ export type t_PostInvoicesInvoiceBodySchema = {
                   }
                 | ""
             }
-            request_three_d_secure?: "any" | "automatic"
+            request_three_d_secure?: "any" | "automatic" | "challenge"
           }
         | ""
       customer_balance?:
@@ -18667,6 +20698,7 @@ export type t_PostInvoicesInvoiceBodySchema = {
           }
         | ""
       konbini?: EmptyObject | ""
+      sepa_debit?: EmptyObject | ""
       us_bank_account?:
         | {
             financial_connections?: {
@@ -18676,7 +20708,7 @@ export type t_PostInvoicesInvoiceBodySchema = {
                 | "payment_method"
                 | "transactions"
               )[]
-              prefetch?: "balances"[]
+              prefetch?: ("balances" | "transactions")[]
             }
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
@@ -18694,12 +20726,14 @@ export type t_PostInvoicesInvoiceBodySchema = {
           | "card"
           | "cashapp"
           | "customer_balance"
+          | "eps"
           | "fpx"
           | "giropay"
           | "grabpay"
           | "ideal"
           | "konbini"
           | "link"
+          | "p24"
           | "paynow"
           | "paypal"
           | "promptpay"
@@ -18716,11 +20750,6 @@ export type t_PostInvoicesInvoiceBodySchema = {
       page_size?: "a4" | "auto" | "letter"
     }
   }
-  rendering_options?:
-    | {
-        amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax"
-      }
-    | ""
   shipping_cost?:
     | {
         shipping_rate?: string
@@ -18791,6 +20820,81 @@ export type t_PostInvoicesInvoiceFinalizeBodySchema = {
 
 export type t_PostInvoicesInvoiceFinalizeParamSchema = {
   invoice: string
+}
+
+export type t_PostInvoicesInvoiceLinesLineItemIdBodySchema = {
+  amount?: number
+  description?: string
+  discountable?: boolean
+  discounts?:
+    | {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
+    | ""
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+  period?: {
+    end: number
+    start: number
+  }
+  price?: string
+  price_data?: {
+    currency: string
+    product?: string
+    product_data?: {
+      description?: string
+      images?: string[]
+      metadata?: {
+        [key: string]: string | undefined
+      }
+      name: string
+      tax_code?: string
+    }
+    tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+    unit_amount?: number
+    unit_amount_decimal?: string
+  }
+  quantity?: number
+  tax_amounts?:
+    | {
+        amount: number
+        tax_rate_data: {
+          country?: string
+          description?: string
+          display_name: string
+          inclusive: boolean
+          jurisdiction?: string
+          percentage: number
+          state?: string
+          tax_type?:
+            | "amusement_tax"
+            | "communications_tax"
+            | "gst"
+            | "hst"
+            | "igst"
+            | "jct"
+            | "lease_tax"
+            | "pst"
+            | "qst"
+            | "rst"
+            | "sales_tax"
+            | "vat"
+        }
+        taxable_amount: number
+      }[]
+    | ""
+  tax_rates?: string[] | ""
+}
+
+export type t_PostInvoicesInvoiceLinesLineItemIdParamSchema = {
+  invoice: string
+  line_item_id: string
 }
 
 export type t_PostInvoicesInvoiceMarkUncollectibleBodySchema = {
@@ -19213,6 +21317,7 @@ export type t_PostIssuingCardholdersBodySchema = {
       | "womens_ready_to_wear_stores"
       | "wrecking_and_salvage_yards"
     )[]
+    allowed_merchant_countries?: string[]
     blocked_categories?: (
       | "ac_refrigeration_repair"
       | "accounting_bookkeeping_services"
@@ -19510,6 +21615,7 @@ export type t_PostIssuingCardholdersBodySchema = {
       | "womens_ready_to_wear_stores"
       | "wrecking_and_salvage_yards"
     )[]
+    blocked_merchant_countries?: string[]
     spending_limits?: {
       amount: number
       categories?: (
@@ -20164,6 +22270,7 @@ export type t_PostIssuingCardholdersCardholderBodySchema = {
       | "womens_ready_to_wear_stores"
       | "wrecking_and_salvage_yards"
     )[]
+    allowed_merchant_countries?: string[]
     blocked_categories?: (
       | "ac_refrigeration_repair"
       | "accounting_bookkeeping_services"
@@ -20461,6 +22568,7 @@ export type t_PostIssuingCardholdersCardholderBodySchema = {
       | "womens_ready_to_wear_stores"
       | "wrecking_and_salvage_yards"
     )[]
+    blocked_merchant_countries?: string[]
     spending_limits?: {
       amount: number
       categories?: (
@@ -20785,8 +22893,13 @@ export type t_PostIssuingCardsBodySchema = {
   metadata?: {
     [key: string]: string | undefined
   }
+  personalization_design?: string
+  pin?: {
+    encrypted_number?: string
+  }
   replacement_for?: string
   replacement_reason?: "damaged" | "expired" | "lost" | "stolen"
+  second_line?: string | ""
   shipping?: {
     address: {
       city: string
@@ -21103,6 +23216,7 @@ export type t_PostIssuingCardsBodySchema = {
       | "womens_ready_to_wear_stores"
       | "wrecking_and_salvage_yards"
     )[]
+    allowed_merchant_countries?: string[]
     blocked_categories?: (
       | "ac_refrigeration_repair"
       | "accounting_bookkeeping_services"
@@ -21400,6 +23514,7 @@ export type t_PostIssuingCardsBodySchema = {
       | "womens_ready_to_wear_stores"
       | "wrecking_and_salvage_yards"
     )[]
+    blocked_merchant_countries?: string[]
     spending_limits?: {
       amount: number
       categories?: (
@@ -21720,6 +23835,7 @@ export type t_PostIssuingCardsCardBodySchema = {
         [key: string]: string | undefined
       }
     | ""
+  personalization_design?: string
   pin?: {
     encrypted_number?: string
   }
@@ -22021,6 +24137,7 @@ export type t_PostIssuingCardsCardBodySchema = {
       | "womens_ready_to_wear_stores"
       | "wrecking_and_salvage_yards"
     )[]
+    allowed_merchant_countries?: string[]
     blocked_categories?: (
       | "ac_refrigeration_repair"
       | "accounting_bookkeeping_services"
@@ -22318,6 +24435,7 @@ export type t_PostIssuingCardsCardBodySchema = {
       | "womens_ready_to_wear_stores"
       | "wrecking_and_salvage_yards"
     )[]
+    blocked_merchant_countries?: string[]
     spending_limits?: {
       amount: number
       categories?: (
@@ -22824,6 +24942,56 @@ export type t_PostIssuingDisputesDisputeSubmitParamSchema = {
   dispute: string
 }
 
+export type t_PostIssuingPersonalizationDesignsBodySchema = {
+  card_logo?: string
+  carrier_text?: {
+    footer_body?: string | ""
+    footer_title?: string | ""
+    header_body?: string | ""
+    header_title?: string | ""
+  }
+  expand?: string[]
+  lookup_key?: string
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  name?: string
+  physical_bundle: string
+  preferences?: {
+    is_default: boolean
+  }
+  transfer_lookup_key?: boolean
+}
+
+export type t_PostIssuingPersonalizationDesignsPersonalizationDesignBodySchema =
+  {
+    card_logo?: string | ""
+    carrier_text?:
+      | {
+          footer_body?: string | ""
+          footer_title?: string | ""
+          header_body?: string | ""
+          header_title?: string | ""
+        }
+      | ""
+    expand?: string[]
+    lookup_key?: string | ""
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    name?: string | ""
+    physical_bundle?: string
+    preferences?: {
+      is_default: boolean
+    }
+    transfer_lookup_key?: boolean
+  }
+
+export type t_PostIssuingPersonalizationDesignsPersonalizationDesignParamSchema =
+  {
+    personalization_design: string
+  }
+
 export type t_PostIssuingSettlementsSettlementBodySchema = {
   expand?: string[]
   metadata?: {
@@ -22833,6 +25001,15 @@ export type t_PostIssuingSettlementsSettlementBodySchema = {
 
 export type t_PostIssuingSettlementsSettlementParamSchema = {
   settlement: string
+}
+
+export type t_PostIssuingTokensTokenBodySchema = {
+  expand?: string[]
+  status: "active" | "deleted" | "suspended"
+}
+
+export type t_PostIssuingTokensTokenParamSchema = {
+  token: string
 }
 
 export type t_PostIssuingTransactionsTransactionBodySchema = {
@@ -22859,7 +25036,7 @@ export type t_PostLinkAccountSessionsBodySchema = {
     countries: string[]
   }
   permissions: ("balances" | "ownership" | "payment_method" | "transactions")[]
-  prefetch?: ("balances" | "ownership")[]
+  prefetch?: ("balances" | "ownership" | "transactions")[]
   return_url?: string
 }
 
@@ -22873,7 +25050,7 @@ export type t_PostLinkedAccountsAccountDisconnectParamSchema = {
 
 export type t_PostLinkedAccountsAccountRefreshBodySchema = {
   expand?: string[]
-  features: ("balance" | "ownership")[]
+  features: ("balance" | "ownership" | "transactions")[]
 }
 
 export type t_PostLinkedAccountsAccountRefreshParamSchema = {
@@ -22890,6 +25067,7 @@ export type t_PostPaymentIntentsBodySchema = {
   capture_method?: "automatic" | "automatic_async" | "manual"
   confirm?: boolean
   confirmation_method?: "automatic" | "manual"
+  confirmation_token?: string
   currency: string
   customer?: string
   description?: string
@@ -23023,6 +25201,7 @@ export type t_PostPaymentIntentsBodySchema = {
         | "knab"
         | "moneyou"
         | "n26"
+        | "nn"
         | "rabobank"
         | "regiobank"
         | "revolut"
@@ -23044,6 +25223,7 @@ export type t_PostPaymentIntentsBodySchema = {
     metadata?: {
       [key: string]: string | undefined
     }
+    mobilepay?: EmptyObject
     oxxo?: EmptyObject
     p24?: {
       bank?:
@@ -23071,6 +25251,7 @@ export type t_PostPaymentIntentsBodySchema = {
         | "santander_przelew24"
         | "tmobile_usbugi_bankowe"
         | "toyota_bank"
+        | "velobank"
         | "volkswagen_bank"
     }
     paynow?: EmptyObject
@@ -23080,12 +25261,14 @@ export type t_PostPaymentIntentsBodySchema = {
     radar_options?: {
       session?: string
     }
+    revolut_pay?: EmptyObject
     sepa_debit?: {
       iban: string
     }
     sofort?: {
       country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
     }
+    swish?: EmptyObject
     type:
       | "acss_debit"
       | "affirm"
@@ -23106,14 +25289,17 @@ export type t_PostPaymentIntentsBodySchema = {
       | "klarna"
       | "konbini"
       | "link"
+      | "mobilepay"
       | "oxxo"
       | "p24"
       | "paynow"
       | "paypal"
       | "pix"
       | "promptpay"
+      | "revolut_pay"
       | "sepa_debit"
       | "sofort"
+      | "swish"
       | "us_bank_account"
       | "wechat_pay"
       | "zip"
@@ -23178,6 +25364,7 @@ export type t_PostPaymentIntentsBodySchema = {
     blik?:
       | {
           code?: string
+          setup_future_usage?: "" | "none"
         }
       | ""
     boleto?:
@@ -23223,10 +25410,31 @@ export type t_PostPaymentIntentsBodySchema = {
             | "unionpay"
             | "unknown"
             | "visa"
-          request_three_d_secure?: "any" | "automatic"
+          request_extended_authorization?: "if_available" | "never"
+          request_incremental_authorization?: "if_available" | "never"
+          request_multicapture?: "if_available" | "never"
+          request_overcapture?: "if_available" | "never"
+          request_three_d_secure?: "any" | "automatic" | "challenge"
+          require_cvc_recollection?: boolean
           setup_future_usage?: "" | "none" | "off_session" | "on_session"
           statement_descriptor_suffix_kana?: string | ""
           statement_descriptor_suffix_kanji?: string | ""
+          three_d_secure?: {
+            ares_trans_status?: "A" | "C" | "I" | "N" | "R" | "U" | "Y"
+            cryptogram: string
+            electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07"
+            exemption_indicator?: "low_risk" | "none"
+            network_options?: {
+              cartes_bancaires?: {
+                cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
+                cb_exemption?: string
+                cb_score?: number
+              }
+            }
+            requestor_challenge_indicator?: string
+            transaction_id: string
+            version: "1.0.2" | "2.1.0" | "2.2.0"
+          }
         }
       | ""
     card_present?:
@@ -23359,6 +25567,12 @@ export type t_PostPaymentIntentsBodySchema = {
           setup_future_usage?: "" | "none" | "off_session"
         }
       | ""
+    mobilepay?:
+      | {
+          capture_method?: "" | "manual"
+          setup_future_usage?: "none"
+        }
+      | ""
     oxxo?:
       | {
           expires_after_days?: number
@@ -23418,6 +25632,11 @@ export type t_PostPaymentIntentsBodySchema = {
           setup_future_usage?: "none"
         }
       | ""
+    revolut_pay?:
+      | {
+          setup_future_usage?: "" | "none" | "off_session"
+        }
+      | ""
     sepa_debit?:
       | {
           mandate_options?: EmptyObject
@@ -23438,6 +25657,12 @@ export type t_PostPaymentIntentsBodySchema = {
           setup_future_usage?: "" | "none" | "off_session"
         }
       | ""
+    swish?:
+      | {
+          reference?: string | ""
+          setup_future_usage?: "none"
+        }
+      | ""
     us_bank_account?:
       | {
           financial_connections?: {
@@ -23447,8 +25672,11 @@ export type t_PostPaymentIntentsBodySchema = {
               | "payment_method"
               | "transactions"
             )[]
-            prefetch?: "balances"[]
+            prefetch?: ("balances" | "transactions")[]
             return_url?: string
+          }
+          mandate_options?: {
+            collection_method?: "" | "paper"
           }
           networks?: {
             requested?: ("ach" | "us_domestic_wire")[]
@@ -23624,6 +25852,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
         | "knab"
         | "moneyou"
         | "n26"
+        | "nn"
         | "rabobank"
         | "regiobank"
         | "revolut"
@@ -23645,6 +25874,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
     metadata?: {
       [key: string]: string | undefined
     }
+    mobilepay?: EmptyObject
     oxxo?: EmptyObject
     p24?: {
       bank?:
@@ -23672,6 +25902,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
         | "santander_przelew24"
         | "tmobile_usbugi_bankowe"
         | "toyota_bank"
+        | "velobank"
         | "volkswagen_bank"
     }
     paynow?: EmptyObject
@@ -23681,12 +25912,14 @@ export type t_PostPaymentIntentsIntentBodySchema = {
     radar_options?: {
       session?: string
     }
+    revolut_pay?: EmptyObject
     sepa_debit?: {
       iban: string
     }
     sofort?: {
       country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
     }
+    swish?: EmptyObject
     type:
       | "acss_debit"
       | "affirm"
@@ -23707,14 +25940,17 @@ export type t_PostPaymentIntentsIntentBodySchema = {
       | "klarna"
       | "konbini"
       | "link"
+      | "mobilepay"
       | "oxxo"
       | "p24"
       | "paynow"
       | "paypal"
       | "pix"
       | "promptpay"
+      | "revolut_pay"
       | "sepa_debit"
       | "sofort"
+      | "swish"
       | "us_bank_account"
       | "wechat_pay"
       | "zip"
@@ -23779,6 +26015,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
     blik?:
       | {
           code?: string
+          setup_future_usage?: "" | "none"
         }
       | ""
     boleto?:
@@ -23824,10 +26061,31 @@ export type t_PostPaymentIntentsIntentBodySchema = {
             | "unionpay"
             | "unknown"
             | "visa"
-          request_three_d_secure?: "any" | "automatic"
+          request_extended_authorization?: "if_available" | "never"
+          request_incremental_authorization?: "if_available" | "never"
+          request_multicapture?: "if_available" | "never"
+          request_overcapture?: "if_available" | "never"
+          request_three_d_secure?: "any" | "automatic" | "challenge"
+          require_cvc_recollection?: boolean
           setup_future_usage?: "" | "none" | "off_session" | "on_session"
           statement_descriptor_suffix_kana?: string | ""
           statement_descriptor_suffix_kanji?: string | ""
+          three_d_secure?: {
+            ares_trans_status?: "A" | "C" | "I" | "N" | "R" | "U" | "Y"
+            cryptogram: string
+            electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07"
+            exemption_indicator?: "low_risk" | "none"
+            network_options?: {
+              cartes_bancaires?: {
+                cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
+                cb_exemption?: string
+                cb_score?: number
+              }
+            }
+            requestor_challenge_indicator?: string
+            transaction_id: string
+            version: "1.0.2" | "2.1.0" | "2.2.0"
+          }
         }
       | ""
     card_present?:
@@ -23960,6 +26218,12 @@ export type t_PostPaymentIntentsIntentBodySchema = {
           setup_future_usage?: "" | "none" | "off_session"
         }
       | ""
+    mobilepay?:
+      | {
+          capture_method?: "" | "manual"
+          setup_future_usage?: "none"
+        }
+      | ""
     oxxo?:
       | {
           expires_after_days?: number
@@ -24019,6 +26283,11 @@ export type t_PostPaymentIntentsIntentBodySchema = {
           setup_future_usage?: "none"
         }
       | ""
+    revolut_pay?:
+      | {
+          setup_future_usage?: "" | "none" | "off_session"
+        }
+      | ""
     sepa_debit?:
       | {
           mandate_options?: EmptyObject
@@ -24039,6 +26308,12 @@ export type t_PostPaymentIntentsIntentBodySchema = {
           setup_future_usage?: "" | "none" | "off_session"
         }
       | ""
+    swish?:
+      | {
+          reference?: string | ""
+          setup_future_usage?: "none"
+        }
+      | ""
     us_bank_account?:
       | {
           financial_connections?: {
@@ -24048,8 +26323,11 @@ export type t_PostPaymentIntentsIntentBodySchema = {
               | "payment_method"
               | "transactions"
             )[]
-            prefetch?: "balances"[]
+            prefetch?: ("balances" | "transactions")[]
             return_url?: string
+          }
+          mandate_options?: {
+            collection_method?: "" | "paper"
           }
           networks?: {
             requested?: ("ach" | "us_domestic_wire")[]
@@ -24130,6 +26408,7 @@ export type t_PostPaymentIntentsIntentCaptureBodySchema = {
   amount_to_capture?: number
   application_fee_amount?: number
   expand?: string[]
+  final_capture?: boolean
   metadata?:
     | {
         [key: string]: string | undefined
@@ -24149,6 +26428,7 @@ export type t_PostPaymentIntentsIntentCaptureParamSchema = {
 export type t_PostPaymentIntentsIntentConfirmBodySchema = {
   capture_method?: "automatic" | "automatic_async" | "manual"
   client_secret?: string
+  confirmation_token?: string
   error_on_requires_action?: boolean
   expand?: string[]
   mandate?: string
@@ -24283,6 +26563,7 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
         | "knab"
         | "moneyou"
         | "n26"
+        | "nn"
         | "rabobank"
         | "regiobank"
         | "revolut"
@@ -24304,6 +26585,7 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
     metadata?: {
       [key: string]: string | undefined
     }
+    mobilepay?: EmptyObject
     oxxo?: EmptyObject
     p24?: {
       bank?:
@@ -24331,6 +26613,7 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
         | "santander_przelew24"
         | "tmobile_usbugi_bankowe"
         | "toyota_bank"
+        | "velobank"
         | "volkswagen_bank"
     }
     paynow?: EmptyObject
@@ -24340,12 +26623,14 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
     radar_options?: {
       session?: string
     }
+    revolut_pay?: EmptyObject
     sepa_debit?: {
       iban: string
     }
     sofort?: {
       country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
     }
+    swish?: EmptyObject
     type:
       | "acss_debit"
       | "affirm"
@@ -24366,14 +26651,17 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
       | "klarna"
       | "konbini"
       | "link"
+      | "mobilepay"
       | "oxxo"
       | "p24"
       | "paynow"
       | "paypal"
       | "pix"
       | "promptpay"
+      | "revolut_pay"
       | "sepa_debit"
       | "sofort"
+      | "swish"
       | "us_bank_account"
       | "wechat_pay"
       | "zip"
@@ -24438,6 +26726,7 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
     blik?:
       | {
           code?: string
+          setup_future_usage?: "" | "none"
         }
       | ""
     boleto?:
@@ -24483,10 +26772,31 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
             | "unionpay"
             | "unknown"
             | "visa"
-          request_three_d_secure?: "any" | "automatic"
+          request_extended_authorization?: "if_available" | "never"
+          request_incremental_authorization?: "if_available" | "never"
+          request_multicapture?: "if_available" | "never"
+          request_overcapture?: "if_available" | "never"
+          request_three_d_secure?: "any" | "automatic" | "challenge"
+          require_cvc_recollection?: boolean
           setup_future_usage?: "" | "none" | "off_session" | "on_session"
           statement_descriptor_suffix_kana?: string | ""
           statement_descriptor_suffix_kanji?: string | ""
+          three_d_secure?: {
+            ares_trans_status?: "A" | "C" | "I" | "N" | "R" | "U" | "Y"
+            cryptogram: string
+            electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07"
+            exemption_indicator?: "low_risk" | "none"
+            network_options?: {
+              cartes_bancaires?: {
+                cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
+                cb_exemption?: string
+                cb_score?: number
+              }
+            }
+            requestor_challenge_indicator?: string
+            transaction_id: string
+            version: "1.0.2" | "2.1.0" | "2.2.0"
+          }
         }
       | ""
     card_present?:
@@ -24619,6 +26929,12 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
           setup_future_usage?: "" | "none" | "off_session"
         }
       | ""
+    mobilepay?:
+      | {
+          capture_method?: "" | "manual"
+          setup_future_usage?: "none"
+        }
+      | ""
     oxxo?:
       | {
           expires_after_days?: number
@@ -24678,6 +26994,11 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
           setup_future_usage?: "none"
         }
       | ""
+    revolut_pay?:
+      | {
+          setup_future_usage?: "" | "none" | "off_session"
+        }
+      | ""
     sepa_debit?:
       | {
           mandate_options?: EmptyObject
@@ -24698,6 +27019,12 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
           setup_future_usage?: "" | "none" | "off_session"
         }
       | ""
+    swish?:
+      | {
+          reference?: string | ""
+          setup_future_usage?: "none"
+        }
+      | ""
     us_bank_account?:
       | {
           financial_connections?: {
@@ -24707,8 +27034,11 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
               | "payment_method"
               | "transactions"
             )[]
-            prefetch?: "balances"[]
+            prefetch?: ("balances" | "transactions")[]
             return_url?: string
+          }
+          mandate_options?: {
+            collection_method?: "" | "paper"
           }
           networks?: {
             requested?: ("ach" | "us_domestic_wire")[]
@@ -24805,9 +27135,16 @@ export type t_PostPaymentLinksBodySchema = {
   application_fee_percent?: number
   automatic_tax?: {
     enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self"
+    }
   }
   billing_address_collection?: "auto" | "required"
   consent_collection?: {
+    payment_method_reuse_agreement?: {
+      position: "auto" | "hidden"
+    }
     promotions?: "auto" | "none"
     terms_of_service?: "none" | "required"
   }
@@ -24836,6 +27173,11 @@ export type t_PostPaymentLinksBodySchema = {
     type: "dropdown" | "numeric" | "text"
   }[]
   custom_text?: {
+    after_submit?:
+      | {
+          message: string
+        }
+      | ""
     shipping_address?:
       | {
           message: string
@@ -24854,6 +27196,7 @@ export type t_PostPaymentLinksBodySchema = {
   }
   customer_creation?: "always" | "if_required"
   expand?: string[]
+  inactive_message?: string
   invoice_creation?: {
     enabled: boolean
     invoice_data?: {
@@ -24866,6 +27209,10 @@ export type t_PostPaymentLinksBodySchema = {
         | ""
       description?: string
       footer?: string
+      issuer?: {
+        account?: string
+        type: "account" | "self"
+      }
       metadata?:
         | {
             [key: string]: string | undefined
@@ -24893,7 +27240,14 @@ export type t_PostPaymentLinksBodySchema = {
   on_behalf_of?: string
   payment_intent_data?: {
     capture_method?: "automatic" | "automatic_async" | "manual"
+    description?: string
+    metadata?: {
+      [key: string]: string | undefined
+    }
     setup_future_usage?: "off_session" | "on_session"
+    statement_descriptor?: string
+    statement_descriptor_suffix?: string
+    transfer_group?: string
   }
   payment_method_collection?: "always" | "if_required"
   payment_method_types?: (
@@ -24923,11 +27277,17 @@ export type t_PostPaymentLinksBodySchema = {
     | "promptpay"
     | "sepa_debit"
     | "sofort"
+    | "swish"
     | "us_bank_account"
     | "wechat_pay"
   )[]
   phone_number_collection?: {
     enabled: boolean
+  }
+  restrictions?: {
+    completed_sessions: {
+      limit: number
+    }
   }
   shipping_address_collection?: {
     allowed_countries: (
@@ -25176,7 +27536,21 @@ export type t_PostPaymentLinksBodySchema = {
   submit_type?: "auto" | "book" | "donate" | "pay"
   subscription_data?: {
     description?: string
+    invoice_settings?: {
+      issuer?: {
+        account?: string
+        type: "account" | "self"
+      }
+    }
+    metadata?: {
+      [key: string]: string | undefined
+    }
     trial_period_days?: number
+    trial_settings?: {
+      end_behavior: {
+        missing_payment_method: "cancel" | "create_invoice" | "pause"
+      }
+    }
   }
   tax_id_collection?: {
     enabled: boolean
@@ -25201,6 +27575,10 @@ export type t_PostPaymentLinksPaymentLinkBodySchema = {
   allow_promotion_codes?: boolean
   automatic_tax?: {
     enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self"
+    }
   }
   billing_address_collection?: "auto" | "required"
   custom_fields?:
@@ -25229,6 +27607,11 @@ export type t_PostPaymentLinksPaymentLinkBodySchema = {
       }[]
     | ""
   custom_text?: {
+    after_submit?:
+      | {
+          message: string
+        }
+      | ""
     shipping_address?:
       | {
           message: string
@@ -25247,6 +27630,7 @@ export type t_PostPaymentLinksPaymentLinkBodySchema = {
   }
   customer_creation?: "always" | "if_required"
   expand?: string[]
+  inactive_message?: string | ""
   invoice_creation?: {
     enabled: boolean
     invoice_data?: {
@@ -25259,6 +27643,10 @@ export type t_PostPaymentLinksPaymentLinkBodySchema = {
         | ""
       description?: string
       footer?: string
+      issuer?: {
+        account?: string
+        type: "account" | "self"
+      }
       metadata?:
         | {
             [key: string]: string | undefined
@@ -25282,6 +27670,17 @@ export type t_PostPaymentLinksPaymentLinkBodySchema = {
   }[]
   metadata?: {
     [key: string]: string | undefined
+  }
+  payment_intent_data?: {
+    description?: string | ""
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    statement_descriptor?: string | ""
+    statement_descriptor_suffix?: string | ""
+    transfer_group?: string | ""
   }
   payment_method_collection?: "always" | "if_required"
   payment_method_types?:
@@ -25312,9 +27711,17 @@ export type t_PostPaymentLinksPaymentLinkBodySchema = {
         | "promptpay"
         | "sepa_debit"
         | "sofort"
+        | "swish"
         | "us_bank_account"
         | "wechat_pay"
       )[]
+    | ""
+  restrictions?:
+    | {
+        completed_sessions: {
+          limit: number
+        }
+      }
     | ""
   shipping_address_collection?:
     | {
@@ -25559,6 +27966,26 @@ export type t_PostPaymentLinksPaymentLinkBodySchema = {
         )[]
       }
     | ""
+  subscription_data?: {
+    invoice_settings?: {
+      issuer?: {
+        account?: string
+        type: "account" | "self"
+      }
+    }
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    trial_settings?:
+      | {
+          end_behavior: {
+            missing_payment_method: "cancel" | "create_invoice" | "pause"
+          }
+        }
+      | ""
+  }
 }
 
 export type t_PostPaymentLinksPaymentLinkParamSchema = {
@@ -25632,6 +28059,11 @@ export type t_PostPaymentMethodConfigurationsBodySchema = {
     }
   }
   cashapp?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on"
+    }
+  }
+  customer_balance?: {
     display_preference?: {
       preference?: "none" | "off" | "on"
     }
@@ -25714,6 +28146,11 @@ export type t_PostPaymentMethodConfigurationsBodySchema = {
       preference?: "none" | "off" | "on"
     }
   }
+  revolut_pay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on"
+    }
+  }
   sepa_debit?: {
     display_preference?: {
       preference?: "none" | "off" | "on"
@@ -25730,6 +28167,11 @@ export type t_PostPaymentMethodConfigurationsBodySchema = {
     }
   }
   wechat_pay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on"
+    }
+  }
+  zip?: {
     display_preference?: {
       preference?: "none" | "off" | "on"
     }
@@ -25804,6 +28246,11 @@ export type t_PostPaymentMethodConfigurationsConfigurationBodySchema = {
     }
   }
   cashapp?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on"
+    }
+  }
+  customer_balance?: {
     display_preference?: {
       preference?: "none" | "off" | "on"
     }
@@ -25885,6 +28332,11 @@ export type t_PostPaymentMethodConfigurationsConfigurationBodySchema = {
       preference?: "none" | "off" | "on"
     }
   }
+  revolut_pay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on"
+    }
+  }
   sepa_debit?: {
     display_preference?: {
       preference?: "none" | "off" | "on"
@@ -25901,6 +28353,11 @@ export type t_PostPaymentMethodConfigurationsConfigurationBodySchema = {
     }
   }
   wechat_pay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on"
+    }
+  }
+  zip?: {
     display_preference?: {
       preference?: "none" | "off" | "on"
     }
@@ -25976,6 +28433,9 @@ export type t_PostPaymentMethodsBodySchema = {
         cvc?: string
         exp_month: number
         exp_year: number
+        networks?: {
+          preferred?: "cartes_bancaires" | "mastercard" | "visa"
+        }
         number: string
       }
     | {
@@ -26053,6 +28513,7 @@ export type t_PostPaymentMethodsBodySchema = {
       | "knab"
       | "moneyou"
       | "n26"
+      | "nn"
       | "rabobank"
       | "regiobank"
       | "revolut"
@@ -26074,6 +28535,7 @@ export type t_PostPaymentMethodsBodySchema = {
   metadata?: {
     [key: string]: string | undefined
   }
+  mobilepay?: EmptyObject
   oxxo?: EmptyObject
   p24?: {
     bank?:
@@ -26101,6 +28563,7 @@ export type t_PostPaymentMethodsBodySchema = {
       | "santander_przelew24"
       | "tmobile_usbugi_bankowe"
       | "toyota_bank"
+      | "velobank"
       | "volkswagen_bank"
   }
   payment_method?: string
@@ -26111,12 +28574,14 @@ export type t_PostPaymentMethodsBodySchema = {
   radar_options?: {
     session?: string
   }
+  revolut_pay?: EmptyObject
   sepa_debit?: {
     iban: string
   }
   sofort?: {
     country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
   }
+  swish?: EmptyObject
   type?:
     | "acss_debit"
     | "affirm"
@@ -26138,14 +28603,17 @@ export type t_PostPaymentMethodsBodySchema = {
     | "klarna"
     | "konbini"
     | "link"
+    | "mobilepay"
     | "oxxo"
     | "p24"
     | "paynow"
     | "paypal"
     | "pix"
     | "promptpay"
+    | "revolut_pay"
     | "sepa_debit"
     | "sofort"
+    | "swish"
     | "us_bank_account"
     | "wechat_pay"
     | "zip"
@@ -26179,6 +28647,9 @@ export type t_PostPaymentMethodsPaymentMethodBodySchema = {
   card?: {
     exp_month?: number
     exp_year?: number
+    networks?: {
+      preferred?: "" | "cartes_bancaires" | "mastercard" | "visa"
+    }
   }
   expand?: string[]
   link?: EmptyObject
@@ -26189,6 +28660,7 @@ export type t_PostPaymentMethodsPaymentMethodBodySchema = {
     | ""
   us_bank_account?: {
     account_holder_type?: "company" | "individual"
+    account_type?: "checking" | "savings"
   }
 }
 
@@ -26275,6 +28747,7 @@ export type t_PostPlansBodySchema = {
         [key: string]: string | undefined
       }
     | ""
+  meter?: string
   nickname?: string
   product?:
     | {
@@ -26376,6 +28849,7 @@ export type t_PostPricesBodySchema = {
     aggregate_usage?: "last_during_period" | "last_ever" | "max" | "sum"
     interval: "day" | "month" | "week" | "year"
     interval_count?: number
+    meter?: string
     usage_type?: "licensed" | "metered"
   }
   tax_behavior?: "exclusive" | "inclusive" | "unspecified"
@@ -26585,6 +29059,10 @@ export type t_PostQuotesBodySchema = {
   application_fee_percent?: number | ""
   automatic_tax?: {
     enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self"
+    }
   }
   collection_method?: "charge_automatically" | "send_invoice"
   customer?: string
@@ -26594,6 +29072,7 @@ export type t_PostQuotesBodySchema = {
     | {
         coupon?: string
         discount?: string
+        promotion_code?: string
       }[]
     | ""
   expand?: string[]
@@ -26606,8 +29085,19 @@ export type t_PostQuotesBodySchema = {
   header?: string | ""
   invoice_settings?: {
     days_until_due?: number
+    issuer?: {
+      account?: string
+      type: "account" | "self"
+    }
   }
   line_items?: {
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
     price?: string
     price_data?: {
       currency: string
@@ -26630,6 +29120,9 @@ export type t_PostQuotesBodySchema = {
   subscription_data?: {
     description?: string
     effective_date?: "current_period_end" | number | ""
+    metadata?: {
+      [key: string]: string | undefined
+    }
     trial_period_days?: number | ""
   }
   test_clock?: string
@@ -26647,6 +29140,10 @@ export type t_PostQuotesQuoteBodySchema = {
   application_fee_percent?: number | ""
   automatic_tax?: {
     enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self"
+    }
   }
   collection_method?: "charge_automatically" | "send_invoice"
   customer?: string
@@ -26656,6 +29153,7 @@ export type t_PostQuotesQuoteBodySchema = {
     | {
         coupon?: string
         discount?: string
+        promotion_code?: string
       }[]
     | ""
   expand?: string[]
@@ -26664,8 +29162,19 @@ export type t_PostQuotesQuoteBodySchema = {
   header?: string | ""
   invoice_settings?: {
     days_until_due?: number
+    issuer?: {
+      account?: string
+      type: "account" | "self"
+    }
   }
   line_items?: {
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
     id?: string
     price?: string
     price_data?: {
@@ -26689,6 +29198,9 @@ export type t_PostQuotesQuoteBodySchema = {
   subscription_data?: {
     description?: string | ""
     effective_date?: "current_period_end" | number | ""
+    metadata?: {
+      [key: string]: string | undefined
+    }
     trial_period_days?: number | ""
   }
   transfer_data?:
@@ -26823,6 +29335,8 @@ export type t_PostReportingReportRunsBodySchema = {
       | "anticipation_repayment"
       | "charge"
       | "charge_failure"
+      | "climate_order_purchase"
+      | "climate_order_refund"
       | "connect_collection_transfer"
       | "connect_reserved_funds"
       | "contribution"
@@ -26838,7 +29352,6 @@ export type t_PostReportingReportRunsBodySchema = {
       | "issuing_dispute"
       | "issuing_transaction"
       | "network_cost"
-      | "obligation"
       | "other_adjustment"
       | "partial_capture_reversal"
       | "payout"
@@ -26853,6 +29366,7 @@ export type t_PostReportingReportRunsBodySchema = {
       | "topup_reversal"
       | "transfer"
       | "transfer_reversal"
+      | "unreconciled_customer_funds"
     timezone?:
       | "Africa/Abidjan"
       | "Africa/Accra"
@@ -27471,6 +29985,7 @@ export type t_PostSetupIntentsBodySchema = {
     enabled: boolean
   }
   confirm?: boolean
+  confirmation_token?: string
   customer?: string
   description?: string
   expand?: string[]
@@ -27601,6 +30116,7 @@ export type t_PostSetupIntentsBodySchema = {
         | "knab"
         | "moneyou"
         | "n26"
+        | "nn"
         | "rabobank"
         | "regiobank"
         | "revolut"
@@ -27622,6 +30138,7 @@ export type t_PostSetupIntentsBodySchema = {
     metadata?: {
       [key: string]: string | undefined
     }
+    mobilepay?: EmptyObject
     oxxo?: EmptyObject
     p24?: {
       bank?:
@@ -27649,6 +30166,7 @@ export type t_PostSetupIntentsBodySchema = {
         | "santander_przelew24"
         | "tmobile_usbugi_bankowe"
         | "toyota_bank"
+        | "velobank"
         | "volkswagen_bank"
     }
     paynow?: EmptyObject
@@ -27658,12 +30176,14 @@ export type t_PostSetupIntentsBodySchema = {
     radar_options?: {
       session?: string
     }
+    revolut_pay?: EmptyObject
     sepa_debit?: {
       iban: string
     }
     sofort?: {
       country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
     }
+    swish?: EmptyObject
     type:
       | "acss_debit"
       | "affirm"
@@ -27684,14 +30204,17 @@ export type t_PostSetupIntentsBodySchema = {
       | "klarna"
       | "konbini"
       | "link"
+      | "mobilepay"
       | "oxxo"
       | "p24"
       | "paynow"
       | "paypal"
       | "pix"
       | "promptpay"
+      | "revolut_pay"
       | "sepa_debit"
       | "sofort"
+      | "swish"
       | "us_bank_account"
       | "wechat_pay"
       | "zip"
@@ -27742,8 +30265,24 @@ export type t_PostSetupIntentsBodySchema = {
         | "unionpay"
         | "unknown"
         | "visa"
-      request_three_d_secure?: "any" | "automatic"
+      request_three_d_secure?: "any" | "automatic" | "challenge"
+      three_d_secure?: {
+        ares_trans_status?: "A" | "C" | "I" | "N" | "R" | "U" | "Y"
+        cryptogram?: string
+        electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07"
+        network_options?: {
+          cartes_bancaires?: {
+            cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
+            cb_exemption?: string
+            cb_score?: number
+          }
+        }
+        requestor_challenge_indicator?: string
+        transaction_id?: string
+        version?: "1.0.2" | "2.1.0" | "2.2.0"
+      }
     }
+    card_present?: EmptyObject
     link?: EmptyObject
     paypal?: {
       billing_agreement_id?: string
@@ -27759,8 +30298,11 @@ export type t_PostSetupIntentsBodySchema = {
           | "payment_method"
           | "transactions"
         )[]
-        prefetch?: "balances"[]
+        prefetch?: ("balances" | "transactions")[]
         return_url?: string
+      }
+      mandate_options?: {
+        collection_method?: "" | "paper"
       }
       networks?: {
         requested?: ("ach" | "us_domestic_wire")[]
@@ -27898,6 +30440,7 @@ export type t_PostSetupIntentsIntentBodySchema = {
         | "knab"
         | "moneyou"
         | "n26"
+        | "nn"
         | "rabobank"
         | "regiobank"
         | "revolut"
@@ -27919,6 +30462,7 @@ export type t_PostSetupIntentsIntentBodySchema = {
     metadata?: {
       [key: string]: string | undefined
     }
+    mobilepay?: EmptyObject
     oxxo?: EmptyObject
     p24?: {
       bank?:
@@ -27946,6 +30490,7 @@ export type t_PostSetupIntentsIntentBodySchema = {
         | "santander_przelew24"
         | "tmobile_usbugi_bankowe"
         | "toyota_bank"
+        | "velobank"
         | "volkswagen_bank"
     }
     paynow?: EmptyObject
@@ -27955,12 +30500,14 @@ export type t_PostSetupIntentsIntentBodySchema = {
     radar_options?: {
       session?: string
     }
+    revolut_pay?: EmptyObject
     sepa_debit?: {
       iban: string
     }
     sofort?: {
       country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
     }
+    swish?: EmptyObject
     type:
       | "acss_debit"
       | "affirm"
@@ -27981,14 +30528,17 @@ export type t_PostSetupIntentsIntentBodySchema = {
       | "klarna"
       | "konbini"
       | "link"
+      | "mobilepay"
       | "oxxo"
       | "p24"
       | "paynow"
       | "paypal"
       | "pix"
       | "promptpay"
+      | "revolut_pay"
       | "sepa_debit"
       | "sofort"
+      | "swish"
       | "us_bank_account"
       | "wechat_pay"
       | "zip"
@@ -28039,8 +30589,24 @@ export type t_PostSetupIntentsIntentBodySchema = {
         | "unionpay"
         | "unknown"
         | "visa"
-      request_three_d_secure?: "any" | "automatic"
+      request_three_d_secure?: "any" | "automatic" | "challenge"
+      three_d_secure?: {
+        ares_trans_status?: "A" | "C" | "I" | "N" | "R" | "U" | "Y"
+        cryptogram?: string
+        electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07"
+        network_options?: {
+          cartes_bancaires?: {
+            cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
+            cb_exemption?: string
+            cb_score?: number
+          }
+        }
+        requestor_challenge_indicator?: string
+        transaction_id?: string
+        version?: "1.0.2" | "2.1.0" | "2.2.0"
+      }
     }
+    card_present?: EmptyObject
     link?: EmptyObject
     paypal?: {
       billing_agreement_id?: string
@@ -28056,8 +30622,11 @@ export type t_PostSetupIntentsIntentBodySchema = {
           | "payment_method"
           | "transactions"
         )[]
-        prefetch?: "balances"[]
+        prefetch?: ("balances" | "transactions")[]
         return_url?: string
+      }
+      mandate_options?: {
+        collection_method?: "" | "paper"
       }
       networks?: {
         requested?: ("ach" | "us_domestic_wire")[]
@@ -28083,6 +30652,7 @@ export type t_PostSetupIntentsIntentCancelParamSchema = {
 
 export type t_PostSetupIntentsIntentConfirmBodySchema = {
   client_secret?: string
+  confirmation_token?: string
   expand?: string[]
   mandate_data?:
     | {
@@ -28214,6 +30784,7 @@ export type t_PostSetupIntentsIntentConfirmBodySchema = {
         | "knab"
         | "moneyou"
         | "n26"
+        | "nn"
         | "rabobank"
         | "regiobank"
         | "revolut"
@@ -28235,6 +30806,7 @@ export type t_PostSetupIntentsIntentConfirmBodySchema = {
     metadata?: {
       [key: string]: string | undefined
     }
+    mobilepay?: EmptyObject
     oxxo?: EmptyObject
     p24?: {
       bank?:
@@ -28262,6 +30834,7 @@ export type t_PostSetupIntentsIntentConfirmBodySchema = {
         | "santander_przelew24"
         | "tmobile_usbugi_bankowe"
         | "toyota_bank"
+        | "velobank"
         | "volkswagen_bank"
     }
     paynow?: EmptyObject
@@ -28271,12 +30844,14 @@ export type t_PostSetupIntentsIntentConfirmBodySchema = {
     radar_options?: {
       session?: string
     }
+    revolut_pay?: EmptyObject
     sepa_debit?: {
       iban: string
     }
     sofort?: {
       country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
     }
+    swish?: EmptyObject
     type:
       | "acss_debit"
       | "affirm"
@@ -28297,14 +30872,17 @@ export type t_PostSetupIntentsIntentConfirmBodySchema = {
       | "klarna"
       | "konbini"
       | "link"
+      | "mobilepay"
       | "oxxo"
       | "p24"
       | "paynow"
       | "paypal"
       | "pix"
       | "promptpay"
+      | "revolut_pay"
       | "sepa_debit"
       | "sofort"
+      | "swish"
       | "us_bank_account"
       | "wechat_pay"
       | "zip"
@@ -28355,8 +30933,24 @@ export type t_PostSetupIntentsIntentConfirmBodySchema = {
         | "unionpay"
         | "unknown"
         | "visa"
-      request_three_d_secure?: "any" | "automatic"
+      request_three_d_secure?: "any" | "automatic" | "challenge"
+      three_d_secure?: {
+        ares_trans_status?: "A" | "C" | "I" | "N" | "R" | "U" | "Y"
+        cryptogram?: string
+        electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07"
+        network_options?: {
+          cartes_bancaires?: {
+            cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
+            cb_exemption?: string
+            cb_score?: number
+          }
+        }
+        requestor_challenge_indicator?: string
+        transaction_id?: string
+        version?: "1.0.2" | "2.1.0" | "2.2.0"
+      }
     }
+    card_present?: EmptyObject
     link?: EmptyObject
     paypal?: {
       billing_agreement_id?: string
@@ -28372,8 +30966,11 @@ export type t_PostSetupIntentsIntentConfirmBodySchema = {
           | "payment_method"
           | "transactions"
         )[]
-        prefetch?: "balances"[]
+        prefetch?: ("balances" | "transactions")[]
         return_url?: string
+      }
+      mandate_options?: {
+        collection_method?: "" | "paper"
       }
       networks?: {
         requested?: ("ach" | "us_domestic_wire")[]
@@ -28635,6 +31232,13 @@ export type t_PostSubscriptionItemsBodySchema = {
         usage_gte: number
       }
     | ""
+  discounts?:
+    | {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
+    | ""
   expand?: string[]
   metadata?: {
     [key: string]: string | undefined
@@ -28668,6 +31272,13 @@ export type t_PostSubscriptionItemsItemBodySchema = {
     | {
         usage_gte: number
       }
+    | ""
+  discounts?:
+    | {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
     | ""
   expand?: string[]
   metadata?:
@@ -28720,6 +31331,10 @@ export type t_PostSubscriptionSchedulesBodySchema = {
     application_fee_percent?: number
     automatic_tax?: {
       enabled: boolean
+      liability?: {
+        account?: string
+        type: "account" | "self"
+      }
     }
     billing_cycle_anchor?: "automatic" | "phase_start"
     billing_thresholds?:
@@ -28732,7 +31347,12 @@ export type t_PostSubscriptionSchedulesBodySchema = {
     default_payment_method?: string
     description?: string | ""
     invoice_settings?: {
+      account_tax_ids?: string[] | ""
       days_until_due?: number
+      issuer?: {
+        account?: string
+        type: "account" | "self"
+      }
     }
     on_behalf_of?: string | ""
     transfer_data?:
@@ -28752,6 +31372,11 @@ export type t_PostSubscriptionSchedulesBodySchema = {
     | ""
   phases?: {
     add_invoice_items?: {
+      discounts?: {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
       price?: string
       price_data?: {
         currency: string
@@ -28766,6 +31391,10 @@ export type t_PostSubscriptionSchedulesBodySchema = {
     application_fee_percent?: number
     automatic_tax?: {
       enabled: boolean
+      liability?: {
+        account?: string
+        type: "account" | "self"
+      }
     }
     billing_cycle_anchor?: "automatic" | "phase_start"
     billing_thresholds?:
@@ -28780,15 +31409,34 @@ export type t_PostSubscriptionSchedulesBodySchema = {
     default_payment_method?: string
     default_tax_rates?: string[] | ""
     description?: string | ""
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
     end_date?: number
     invoice_settings?: {
+      account_tax_ids?: string[] | ""
       days_until_due?: number
+      issuer?: {
+        account?: string
+        type: "account" | "self"
+      }
     }
     items: {
       billing_thresholds?:
         | {
             usage_gte: number
           }
+        | ""
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
         | ""
       metadata?: {
         [key: string]: string | undefined
@@ -28829,6 +31477,10 @@ export type t_PostSubscriptionSchedulesScheduleBodySchema = {
     application_fee_percent?: number
     automatic_tax?: {
       enabled: boolean
+      liability?: {
+        account?: string
+        type: "account" | "self"
+      }
     }
     billing_cycle_anchor?: "automatic" | "phase_start"
     billing_thresholds?:
@@ -28841,7 +31493,12 @@ export type t_PostSubscriptionSchedulesScheduleBodySchema = {
     default_payment_method?: string
     description?: string | ""
     invoice_settings?: {
+      account_tax_ids?: string[] | ""
       days_until_due?: number
+      issuer?: {
+        account?: string
+        type: "account" | "self"
+      }
     }
     on_behalf_of?: string | ""
     transfer_data?:
@@ -28860,6 +31517,11 @@ export type t_PostSubscriptionSchedulesScheduleBodySchema = {
     | ""
   phases?: {
     add_invoice_items?: {
+      discounts?: {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
       price?: string
       price_data?: {
         currency: string
@@ -28874,6 +31536,10 @@ export type t_PostSubscriptionSchedulesScheduleBodySchema = {
     application_fee_percent?: number
     automatic_tax?: {
       enabled: boolean
+      liability?: {
+        account?: string
+        type: "account" | "self"
+      }
     }
     billing_cycle_anchor?: "automatic" | "phase_start"
     billing_thresholds?:
@@ -28887,15 +31553,34 @@ export type t_PostSubscriptionSchedulesScheduleBodySchema = {
     default_payment_method?: string
     default_tax_rates?: string[] | ""
     description?: string | ""
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
     end_date?: number | "now"
     invoice_settings?: {
+      account_tax_ids?: string[] | ""
       days_until_due?: number
+      issuer?: {
+        account?: string
+        type: "account" | "self"
+      }
     }
     items: {
       billing_thresholds?:
         | {
             usage_gte: number
           }
+        | ""
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
         | ""
       metadata?: {
         [key: string]: string | undefined
@@ -28957,6 +31642,11 @@ export type t_PostSubscriptionSchedulesScheduleReleaseParamSchema = {
 
 export type t_PostSubscriptionsBodySchema = {
   add_invoice_items?: {
+    discounts?: {
+      coupon?: string
+      discount?: string
+      promotion_code?: string
+    }[]
     price?: string
     price_data?: {
       currency: string
@@ -28968,12 +31658,23 @@ export type t_PostSubscriptionsBodySchema = {
     quantity?: number
     tax_rates?: string[] | ""
   }[]
-  application_fee_percent?: number
+  application_fee_percent?: number | ""
   automatic_tax?: {
     enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self"
+    }
   }
   backdate_start_date?: number
   billing_cycle_anchor?: number
+  billing_cycle_anchor_config?: {
+    day_of_month: number
+    hour?: number
+    minute?: number
+    month?: number
+    second?: number
+  }
   billing_thresholds?:
     | {
         amount_gte?: number
@@ -28991,12 +31692,33 @@ export type t_PostSubscriptionsBodySchema = {
   default_source?: string
   default_tax_rates?: string[] | ""
   description?: string
+  discounts?:
+    | {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
+    | ""
   expand?: string[]
+  invoice_settings?: {
+    account_tax_ids?: string[] | ""
+    issuer?: {
+      account?: string
+      type: "account" | "self"
+    }
+  }
   items?: {
     billing_thresholds?:
       | {
           usage_gte: number
         }
+      | ""
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
       | ""
     metadata?: {
       [key: string]: string | undefined
@@ -29062,7 +31784,7 @@ export type t_PostSubscriptionsBodySchema = {
               | "unionpay"
               | "unknown"
               | "visa"
-            request_three_d_secure?: "any" | "automatic"
+            request_three_d_secure?: "any" | "automatic" | "challenge"
           }
         | ""
       customer_balance?:
@@ -29077,6 +31799,7 @@ export type t_PostSubscriptionsBodySchema = {
           }
         | ""
       konbini?: EmptyObject | ""
+      sepa_debit?: EmptyObject | ""
       us_bank_account?:
         | {
             financial_connections?: {
@@ -29086,7 +31809,7 @@ export type t_PostSubscriptionsBodySchema = {
                 | "payment_method"
                 | "transactions"
               )[]
-              prefetch?: "balances"[]
+              prefetch?: ("balances" | "transactions")[]
             }
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
@@ -29104,12 +31827,14 @@ export type t_PostSubscriptionsBodySchema = {
           | "card"
           | "cashapp"
           | "customer_balance"
+          | "eps"
           | "fpx"
           | "giropay"
           | "grabpay"
           | "ideal"
           | "konbini"
           | "link"
+          | "p24"
           | "paynow"
           | "paypal"
           | "promptpay"
@@ -29145,6 +31870,11 @@ export type t_PostSubscriptionsBodySchema = {
 
 export type t_PostSubscriptionsSubscriptionExposedIdBodySchema = {
   add_invoice_items?: {
+    discounts?: {
+      coupon?: string
+      discount?: string
+      promotion_code?: string
+    }[]
     price?: string
     price_data?: {
       currency: string
@@ -29156,9 +31886,13 @@ export type t_PostSubscriptionsSubscriptionExposedIdBodySchema = {
     quantity?: number
     tax_rates?: string[] | ""
   }[]
-  application_fee_percent?: number
+  application_fee_percent?: number | ""
   automatic_tax?: {
     enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self"
+    }
   }
   billing_cycle_anchor?: "now" | "unchanged"
   billing_thresholds?:
@@ -29189,7 +31923,21 @@ export type t_PostSubscriptionsSubscriptionExposedIdBodySchema = {
   default_source?: string | ""
   default_tax_rates?: string[] | ""
   description?: string | ""
+  discounts?:
+    | {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
+    | ""
   expand?: string[]
+  invoice_settings?: {
+    account_tax_ids?: string[] | ""
+    issuer?: {
+      account?: string
+      type: "account" | "self"
+    }
+  }
   items?: {
     billing_thresholds?:
       | {
@@ -29198,6 +31946,13 @@ export type t_PostSubscriptionsSubscriptionExposedIdBodySchema = {
       | ""
     clear_usage?: boolean
     deleted?: boolean
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
     id?: string
     metadata?:
       | {
@@ -29271,7 +32026,7 @@ export type t_PostSubscriptionsSubscriptionExposedIdBodySchema = {
               | "unionpay"
               | "unknown"
               | "visa"
-            request_three_d_secure?: "any" | "automatic"
+            request_three_d_secure?: "any" | "automatic" | "challenge"
           }
         | ""
       customer_balance?:
@@ -29286,6 +32041,7 @@ export type t_PostSubscriptionsSubscriptionExposedIdBodySchema = {
           }
         | ""
       konbini?: EmptyObject | ""
+      sepa_debit?: EmptyObject | ""
       us_bank_account?:
         | {
             financial_connections?: {
@@ -29295,7 +32051,7 @@ export type t_PostSubscriptionsSubscriptionExposedIdBodySchema = {
                 | "payment_method"
                 | "transactions"
               )[]
-              prefetch?: "balances"[]
+              prefetch?: ("balances" | "transactions")[]
             }
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
@@ -29313,12 +32069,14 @@ export type t_PostSubscriptionsSubscriptionExposedIdBodySchema = {
           | "card"
           | "cashapp"
           | "customer_balance"
+          | "eps"
           | "fpx"
           | "giropay"
           | "grabpay"
           | "ideal"
           | "konbini"
           | "link"
+          | "p24"
           | "paynow"
           | "paypal"
           | "promptpay"
@@ -29430,6 +32188,7 @@ export type t_PostTaxCalculationsBodySchema = {
         | "my_itn"
         | "my_sst"
         | "no_vat"
+        | "no_voec"
         | "nz_gst"
         | "pe_ruc"
         | "ph_tin"
@@ -29473,6 +32232,84 @@ export type t_PostTaxCalculationsBodySchema = {
   tax_date?: number
 }
 
+export type t_PostTaxIdsBodySchema = {
+  expand?: string[]
+  owner?: {
+    account?: string
+    customer?: string
+    type: "account" | "application" | "customer" | "self"
+  }
+  type:
+    | "ad_nrt"
+    | "ae_trn"
+    | "ar_cuit"
+    | "au_abn"
+    | "au_arn"
+    | "bg_uic"
+    | "bo_tin"
+    | "br_cnpj"
+    | "br_cpf"
+    | "ca_bn"
+    | "ca_gst_hst"
+    | "ca_pst_bc"
+    | "ca_pst_mb"
+    | "ca_pst_sk"
+    | "ca_qst"
+    | "ch_vat"
+    | "cl_tin"
+    | "cn_tin"
+    | "co_nit"
+    | "cr_tin"
+    | "do_rcn"
+    | "ec_ruc"
+    | "eg_tin"
+    | "es_cif"
+    | "eu_oss_vat"
+    | "eu_vat"
+    | "gb_vat"
+    | "ge_vat"
+    | "hk_br"
+    | "hu_tin"
+    | "id_npwp"
+    | "il_vat"
+    | "in_gst"
+    | "is_vat"
+    | "jp_cn"
+    | "jp_rn"
+    | "jp_trn"
+    | "ke_pin"
+    | "kr_brn"
+    | "li_uid"
+    | "mx_rfc"
+    | "my_frp"
+    | "my_itn"
+    | "my_sst"
+    | "no_vat"
+    | "no_voec"
+    | "nz_gst"
+    | "pe_ruc"
+    | "ph_tin"
+    | "ro_tin"
+    | "rs_pib"
+    | "ru_inn"
+    | "ru_kpp"
+    | "sa_vat"
+    | "sg_gst"
+    | "sg_uen"
+    | "si_tin"
+    | "sv_nit"
+    | "th_vat"
+    | "tr_tin"
+    | "tw_vat"
+    | "ua_vat"
+    | "us_ein"
+    | "uy_ruc"
+    | "ve_rif"
+    | "vn_tin"
+    | "za_vat"
+  value: string
+}
+
 export type t_PostTaxRatesBodySchema = {
   active?: boolean
   country?: string
@@ -29498,7 +32335,6 @@ export type t_PostTaxRatesBodySchema = {
     | "qst"
     | "rst"
     | "sales_tax"
-    | "service_tax"
     | "vat"
 }
 
@@ -29527,12 +32363,272 @@ export type t_PostTaxRatesTaxRateBodySchema = {
     | "qst"
     | "rst"
     | "sales_tax"
-    | "service_tax"
     | "vat"
 }
 
 export type t_PostTaxRatesTaxRateParamSchema = {
   tax_rate: string
+}
+
+export type t_PostTaxRegistrationsBodySchema = {
+  active_from: "now" | number
+  country: string
+  country_options: {
+    ae?: {
+      type: "standard"
+    }
+    at?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    au?: {
+      type: "standard"
+    }
+    be?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    bg?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    ca?: {
+      province_standard?: {
+        province: string
+      }
+      type: "province_standard" | "simplified" | "standard"
+    }
+    ch?: {
+      type: "standard"
+    }
+    cl?: {
+      type: "simplified"
+    }
+    co?: {
+      type: "simplified"
+    }
+    cy?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    cz?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    de?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    dk?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    ee?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    es?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    fi?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    fr?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    gb?: {
+      type: "standard"
+    }
+    gr?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    hr?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    hu?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    id?: {
+      type: "simplified"
+    }
+    ie?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    is?: {
+      type: "standard"
+    }
+    it?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    jp?: {
+      type: "standard"
+    }
+    kr?: {
+      type: "simplified"
+    }
+    lt?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    lu?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    lv?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    mt?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    mx?: {
+      type: "simplified"
+    }
+    my?: {
+      type: "simplified"
+    }
+    nl?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    no?: {
+      type: "standard"
+    }
+    nz?: {
+      type: "standard"
+    }
+    pl?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    pt?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    ro?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    sa?: {
+      type: "simplified"
+    }
+    se?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    sg?: {
+      type: "standard"
+    }
+    si?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    sk?: {
+      standard?: {
+        place_of_supply_scheme: "small_seller" | "standard"
+      }
+      type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+    }
+    th?: {
+      type: "simplified"
+    }
+    tr?: {
+      type: "simplified"
+    }
+    us?: {
+      local_amusement_tax?: {
+        jurisdiction: string
+      }
+      local_lease_tax?: {
+        jurisdiction: string
+      }
+      state: string
+      type:
+        | "local_amusement_tax"
+        | "local_lease_tax"
+        | "state_communications_tax"
+        | "state_sales_tax"
+    }
+    vn?: {
+      type: "simplified"
+    }
+    za?: {
+      type: "standard"
+    }
+  }
+  expand?: string[]
+  expires_at?: number
+}
+
+export type t_PostTaxRegistrationsIdBodySchema = {
+  active_from?: "now" | number
+  expand?: string[]
+  expires_at?: "now" | number | ""
+}
+
+export type t_PostTaxRegistrationsIdParamSchema = {
+  id: string
 }
 
 export type t_PostTaxSettingsBodySchema = {
@@ -29592,6 +32688,12 @@ export type t_PostTerminalConfigurationsBodySchema = {
     splashscreen?: string | ""
   }
   expand?: string[]
+  name?: string
+  offline?:
+    | {
+        enabled: boolean
+      }
+    | ""
   tipping?:
     | {
         aud?: {
@@ -29678,6 +32780,12 @@ export type t_PostTerminalConfigurationsConfigurationBodySchema = {
       }
     | ""
   expand?: string[]
+  name?: string
+  offline?:
+    | {
+        enabled: boolean
+      }
+    | ""
   tipping?:
     | {
         aud?: {
@@ -29848,6 +32956,7 @@ export type t_PostTerminalReadersReaderProcessPaymentIntentBodySchema = {
   expand?: string[]
   payment_intent: string
   process_config?: {
+    enable_customer_cancellation?: boolean
     skip_tipping?: boolean
     tipping?: {
       amount_eligible?: number
@@ -29862,7 +32971,9 @@ export type t_PostTerminalReadersReaderProcessPaymentIntentParamSchema = {
 export type t_PostTerminalReadersReaderProcessSetupIntentBodySchema = {
   customer_consent_collected: boolean
   expand?: string[]
-  process_config?: EmptyObject
+  process_config?: {
+    enable_customer_cancellation?: boolean
+  }
   setup_intent: string
 }
 
@@ -29879,6 +32990,9 @@ export type t_PostTerminalReadersReaderRefundPaymentBodySchema = {
   }
   payment_intent?: string
   refund_application_fee?: boolean
+  refund_payment_config?: {
+    enable_customer_cancellation?: boolean
+  }
   reverse_transfer?: boolean
 }
 
@@ -29903,6 +33017,244 @@ export type t_PostTerminalReadersReaderSetReaderDisplayBodySchema = {
 
 export type t_PostTerminalReadersReaderSetReaderDisplayParamSchema = {
   reader: string
+}
+
+export type t_PostTestHelpersConfirmationTokensBodySchema = {
+  expand?: string[]
+  payment_method?: string
+  payment_method_data?: {
+    acss_debit?: {
+      account_number: string
+      institution_number: string
+      transit_number: string
+    }
+    affirm?: EmptyObject
+    afterpay_clearpay?: EmptyObject
+    alipay?: EmptyObject
+    au_becs_debit?: {
+      account_number: string
+      bsb_number: string
+    }
+    bacs_debit?: {
+      account_number?: string
+      sort_code?: string
+    }
+    bancontact?: EmptyObject
+    billing_details?: {
+      address?:
+        | {
+            city?: string
+            country?: string
+            line1?: string
+            line2?: string
+            postal_code?: string
+            state?: string
+          }
+        | ""
+      email?: string | ""
+      name?: string | ""
+      phone?: string | ""
+    }
+    blik?: EmptyObject
+    boleto?: {
+      tax_id: string
+    }
+    cashapp?: EmptyObject
+    customer_balance?: EmptyObject
+    eps?: {
+      bank?:
+        | "arzte_und_apotheker_bank"
+        | "austrian_anadi_bank_ag"
+        | "bank_austria"
+        | "bankhaus_carl_spangler"
+        | "bankhaus_schelhammer_und_schattera_ag"
+        | "bawag_psk_ag"
+        | "bks_bank_ag"
+        | "brull_kallmus_bank_ag"
+        | "btv_vier_lander_bank"
+        | "capital_bank_grawe_gruppe_ag"
+        | "deutsche_bank_ag"
+        | "dolomitenbank"
+        | "easybank_ag"
+        | "erste_bank_und_sparkassen"
+        | "hypo_alpeadriabank_international_ag"
+        | "hypo_bank_burgenland_aktiengesellschaft"
+        | "hypo_noe_lb_fur_niederosterreich_u_wien"
+        | "hypo_oberosterreich_salzburg_steiermark"
+        | "hypo_tirol_bank_ag"
+        | "hypo_vorarlberg_bank_ag"
+        | "marchfelder_bank"
+        | "oberbank_ag"
+        | "raiffeisen_bankengruppe_osterreich"
+        | "schoellerbank_ag"
+        | "sparda_bank_wien"
+        | "volksbank_gruppe"
+        | "volkskreditbank_ag"
+        | "vr_bank_braunau"
+    }
+    fpx?: {
+      bank:
+        | "affin_bank"
+        | "agrobank"
+        | "alliance_bank"
+        | "ambank"
+        | "bank_islam"
+        | "bank_muamalat"
+        | "bank_of_china"
+        | "bank_rakyat"
+        | "bsn"
+        | "cimb"
+        | "deutsche_bank"
+        | "hong_leong_bank"
+        | "hsbc"
+        | "kfh"
+        | "maybank2e"
+        | "maybank2u"
+        | "ocbc"
+        | "pb_enterprise"
+        | "public_bank"
+        | "rhb"
+        | "standard_chartered"
+        | "uob"
+    }
+    giropay?: EmptyObject
+    grabpay?: EmptyObject
+    ideal?: {
+      bank?:
+        | "abn_amro"
+        | "asn_bank"
+        | "bunq"
+        | "handelsbanken"
+        | "ing"
+        | "knab"
+        | "moneyou"
+        | "n26"
+        | "nn"
+        | "rabobank"
+        | "regiobank"
+        | "revolut"
+        | "sns_bank"
+        | "triodos_bank"
+        | "van_lanschot"
+        | "yoursafe"
+    }
+    interac_present?: EmptyObject
+    klarna?: {
+      dob?: {
+        day: number
+        month: number
+        year: number
+      }
+    }
+    konbini?: EmptyObject
+    link?: EmptyObject
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    mobilepay?: EmptyObject
+    oxxo?: EmptyObject
+    p24?: {
+      bank?:
+        | "alior_bank"
+        | "bank_millennium"
+        | "bank_nowy_bfg_sa"
+        | "bank_pekao_sa"
+        | "banki_spbdzielcze"
+        | "blik"
+        | "bnp_paribas"
+        | "boz"
+        | "citi_handlowy"
+        | "credit_agricole"
+        | "envelobank"
+        | "etransfer_pocztowy24"
+        | "getin_bank"
+        | "ideabank"
+        | "ing"
+        | "inteligo"
+        | "mbank_mtransfer"
+        | "nest_przelew"
+        | "noble_pay"
+        | "pbac_z_ipko"
+        | "plus_bank"
+        | "santander_przelew24"
+        | "tmobile_usbugi_bankowe"
+        | "toyota_bank"
+        | "velobank"
+        | "volkswagen_bank"
+    }
+    paynow?: EmptyObject
+    paypal?: EmptyObject
+    pix?: EmptyObject
+    promptpay?: EmptyObject
+    radar_options?: {
+      session?: string
+    }
+    revolut_pay?: EmptyObject
+    sepa_debit?: {
+      iban: string
+    }
+    sofort?: {
+      country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
+    }
+    swish?: EmptyObject
+    type:
+      | "acss_debit"
+      | "affirm"
+      | "afterpay_clearpay"
+      | "alipay"
+      | "au_becs_debit"
+      | "bacs_debit"
+      | "bancontact"
+      | "blik"
+      | "boleto"
+      | "cashapp"
+      | "customer_balance"
+      | "eps"
+      | "fpx"
+      | "giropay"
+      | "grabpay"
+      | "ideal"
+      | "klarna"
+      | "konbini"
+      | "link"
+      | "mobilepay"
+      | "oxxo"
+      | "p24"
+      | "paynow"
+      | "paypal"
+      | "pix"
+      | "promptpay"
+      | "revolut_pay"
+      | "sepa_debit"
+      | "sofort"
+      | "swish"
+      | "us_bank_account"
+      | "wechat_pay"
+      | "zip"
+    us_bank_account?: {
+      account_holder_type?: "company" | "individual"
+      account_number?: string
+      account_type?: "checking" | "savings"
+      financial_connections_account?: string
+      routing_number?: string
+    }
+    wechat_pay?: EmptyObject
+    zip?: EmptyObject
+  }
+  return_url?: string
+  setup_future_usage?: "off_session" | "on_session"
+  shipping?: {
+    address: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    name: string
+    phone?: string | ""
+  }
 }
 
 export type t_PostTestHelpersCustomersCustomerFundCashBalanceBodySchema = {
@@ -30235,6 +33587,7 @@ export type t_PostTestHelpersIssuingAuthorizationsBodySchema = {
     postal_code?: string
     state?: string
     terminal_id?: string
+    url?: string
   }
   network_data?: {
     acquiring_institution_id?: string
@@ -30242,8 +33595,15 @@ export type t_PostTestHelpersIssuingAuthorizationsBodySchema = {
   verification_data?: {
     address_line1_check?: "match" | "mismatch" | "not_provided"
     address_postal_code_check?: "match" | "mismatch" | "not_provided"
+    authentication_exemption?: {
+      claimed_by: "acquirer" | "issuer"
+      type: "low_value_transaction" | "transaction_risk_analysis" | "unknown"
+    }
     cvc_check?: "match" | "mismatch" | "not_provided"
     expiry_check?: "match" | "mismatch" | "not_provided"
+    three_d_secure?: {
+      result: "attempt_acknowledged" | "authenticated" | "failed" | "required"
+    }
   }
   wallet?: "apple_pay" | "google_pay" | "samsung_pay"
 }
@@ -30362,6 +33722,57 @@ export type t_PostTestHelpersIssuingCardsCardShippingShipBodySchema = {
 export type t_PostTestHelpersIssuingCardsCardShippingShipParamSchema = {
   card: string
 }
+
+export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateBodySchema =
+  {
+    expand?: string[]
+  }
+
+export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateParamSchema =
+  {
+    personalization_design: string
+  }
+
+export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateBodySchema =
+  {
+    expand?: string[]
+  }
+
+export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateParamSchema =
+  {
+    personalization_design: string
+  }
+
+export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectBodySchema =
+  {
+    expand?: string[]
+    rejection_reasons: {
+      card_logo?: (
+        | "geographic_location"
+        | "inappropriate"
+        | "network_name"
+        | "non_binary_image"
+        | "non_fiat_currency"
+        | "other"
+        | "other_entity"
+        | "promotional_material"
+      )[]
+      carrier_text?: (
+        | "geographic_location"
+        | "inappropriate"
+        | "network_name"
+        | "non_fiat_currency"
+        | "other"
+        | "other_entity"
+        | "promotional_material"
+      )[]
+    }
+  }
+
+export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectParamSchema =
+  {
+    personalization_design: string
+  }
 
 export type t_PostTestHelpersIssuingTransactionsCreateForceCaptureBodySchema = {
   amount: number
@@ -30671,6 +34082,7 @@ export type t_PostTestHelpersIssuingTransactionsCreateForceCaptureBodySchema = {
     postal_code?: string
     state?: string
     terminal_id?: string
+    url?: string
   }
   purchase_details?: {
     flight?: {
@@ -31021,6 +34433,7 @@ export type t_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundBodySchema =
       postal_code?: string
       state?: string
       terminal_id?: string
+      url?: string
     }
     purchase_details?: {
       flight?: {
@@ -31333,6 +34746,7 @@ export type t_PostTokensBodySchema = {
         | "public_company"
         | "public_corporation"
         | "public_partnership"
+        | "registered_charity"
         | "single_member_llc"
         | "sole_establishment"
         | "sole_proprietorship"
@@ -31411,6 +34825,13 @@ export type t_PostTokensBodySchema = {
         postal_code?: string
         state?: string
       }
+      relationship?: {
+        director?: boolean
+        executive?: boolean
+        owner?: boolean
+        percent_ownership?: number | ""
+        title?: string
+      }
       ssn_last_4?: string
       verification?: {
         additional_document?: {
@@ -31432,6 +34853,7 @@ export type t_PostTokensBodySchema = {
     account_type?: "checking" | "futsu" | "savings" | "toza"
     country: string
     currency?: string
+    payment_method?: string
     routing_number?: string
   }
   card?:
@@ -31447,6 +34869,9 @@ export type t_PostTokensBodySchema = {
         exp_month: string
         exp_year: string
         name?: string
+        networks?: {
+          preferred?: "cartes_bancaires" | "mastercard" | "visa"
+        }
         number: string
       }
     | string
@@ -31456,6 +34881,13 @@ export type t_PostTokensBodySchema = {
   }
   expand?: string[]
   person?: {
+    additional_tos_acceptances?: {
+      account?: {
+        date?: number
+        ip?: string
+        user_agent?: string | ""
+      }
+    }
     address?: {
       city?: string
       country?: string
@@ -31531,6 +34963,7 @@ export type t_PostTokensBodySchema = {
     relationship?: {
       director?: boolean
       executive?: boolean
+      legal_guardian?: boolean
       owner?: boolean
       percent_ownership?: number | ""
       representative?: boolean
@@ -32022,6 +35455,8 @@ export type t_PostWebhookEndpointsBodySchema = {
     | "2022-08-01"
     | "2022-11-15"
     | "2023-08-16"
+    | "2023-10-16"
+    | "2024-04-10"
   connect?: boolean
   description?: string | ""
   enabled_events: (
@@ -32058,6 +35493,13 @@ export type t_PostWebhookEndpointsBodySchema = {
     | "checkout.session.async_payment_succeeded"
     | "checkout.session.completed"
     | "checkout.session.expired"
+    | "climate.order.canceled"
+    | "climate.order.created"
+    | "climate.order.delayed"
+    | "climate.order.delivered"
+    | "climate.order.product_substituted"
+    | "climate.product.created"
+    | "climate.product.pricing_updated"
     | "coupon.created"
     | "coupon.deleted"
     | "coupon.updated"
@@ -32092,6 +35534,8 @@ export type t_PostWebhookEndpointsBodySchema = {
     | "financial_connections.account.disconnected"
     | "financial_connections.account.reactivated"
     | "financial_connections.account.refreshed_balance"
+    | "financial_connections.account.refreshed_ownership"
+    | "financial_connections.account.refreshed_transactions"
     | "identity.verification_session.canceled"
     | "identity.verification_session.created"
     | "identity.verification_session.processing"
@@ -32125,6 +35569,8 @@ export type t_PostWebhookEndpointsBodySchema = {
     | "issuing_dispute.funds_reinstated"
     | "issuing_dispute.submitted"
     | "issuing_dispute.updated"
+    | "issuing_token.created"
+    | "issuing_token.updated"
     | "issuing_transaction.created"
     | "issuing_transaction.updated"
     | "mandate.updated"
@@ -32288,6 +35734,13 @@ export type t_PostWebhookEndpointsWebhookEndpointBodySchema = {
     | "checkout.session.async_payment_succeeded"
     | "checkout.session.completed"
     | "checkout.session.expired"
+    | "climate.order.canceled"
+    | "climate.order.created"
+    | "climate.order.delayed"
+    | "climate.order.delivered"
+    | "climate.order.product_substituted"
+    | "climate.product.created"
+    | "climate.product.pricing_updated"
     | "coupon.created"
     | "coupon.deleted"
     | "coupon.updated"
@@ -32322,6 +35775,8 @@ export type t_PostWebhookEndpointsWebhookEndpointBodySchema = {
     | "financial_connections.account.disconnected"
     | "financial_connections.account.reactivated"
     | "financial_connections.account.refreshed_balance"
+    | "financial_connections.account.refreshed_ownership"
+    | "financial_connections.account.refreshed_transactions"
     | "identity.verification_session.canceled"
     | "identity.verification_session.created"
     | "identity.verification_session.processing"
@@ -32355,6 +35810,8 @@ export type t_PostWebhookEndpointsWebhookEndpointBodySchema = {
     | "issuing_dispute.funds_reinstated"
     | "issuing_dispute.submitted"
     | "issuing_dispute.updated"
+    | "issuing_token.created"
+    | "issuing_token.updated"
     | "issuing_transaction.created"
     | "issuing_transaction.updated"
     | "mandate.updated"

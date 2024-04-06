@@ -13,6 +13,10 @@ import {
   t_balance,
   t_balance_transaction,
   t_bank_account,
+  t_billing_meter,
+  t_billing_meter_event,
+  t_billing_meter_event_adjustment,
+  t_billing_meter_event_summary,
   t_billing_portal_configuration,
   t_billing_portal_session,
   t_capability,
@@ -20,6 +24,10 @@ import {
   t_cash_balance,
   t_charge,
   t_checkout_session,
+  t_climate_order,
+  t_climate_product,
+  t_climate_supplier,
+  t_confirmation_token,
   t_country_spec,
   t_coupon,
   t_credit_note,
@@ -27,6 +35,7 @@ import {
   t_customer,
   t_customer_balance_transaction,
   t_customer_cash_balance_transaction,
+  t_customer_session,
   t_deleted_account,
   t_deleted_apple_pay_domain,
   t_deleted_coupon,
@@ -61,6 +70,8 @@ import {
   t_financial_connections_account,
   t_financial_connections_account_owner,
   t_financial_connections_session,
+  t_financial_connections_transaction,
+  t_forwarding_request,
   t_funding_instructions,
   t_identity_verification_report,
   t_identity_verification_session,
@@ -70,7 +81,10 @@ import {
   t_issuing_card,
   t_issuing_cardholder,
   t_issuing_dispute,
+  t_issuing_personalization_design,
+  t_issuing_physical_bundle,
   t_issuing_settlement,
+  t_issuing_token,
   t_issuing_transaction,
   t_item,
   t_line_item,
@@ -111,6 +125,7 @@ import {
   t_tax_code,
   t_tax_id,
   t_tax_rate,
+  t_tax_registration,
   t_tax_settings,
   t_tax_transaction,
   t_tax_transaction_line_item,
@@ -254,6 +269,10 @@ export class ApiClient {
     requestBody: {
       account: string
       collect?: "currently_due" | "eventually_due"
+      collection_options?: {
+        fields: "currently_due" | "eventually_due"
+        future_requirements?: "include" | "omit"
+      }
       expand?: string[]
       refresh_url?: string
       return_url?: string
@@ -287,6 +306,37 @@ export class ApiClient {
       components: {
         account_onboarding?: {
           enabled: boolean
+          features?: EmptyObject
+        }
+        documents?: {
+          enabled: boolean
+          features?: EmptyObject
+        }
+        payment_details?: {
+          enabled: boolean
+          features?: {
+            capture_payments?: boolean
+            destination_on_behalf_of_charge_management?: boolean
+            dispute_management?: boolean
+            refund_management?: boolean
+          }
+        }
+        payments?: {
+          enabled: boolean
+          features?: {
+            capture_payments?: boolean
+            destination_on_behalf_of_charge_management?: boolean
+            dispute_management?: boolean
+            refund_management?: boolean
+          }
+        }
+        payouts?: {
+          enabled: boolean
+          features?: {
+            edit_payout_schedule?: boolean
+            instant_payouts?: boolean
+            standard_payouts?: boolean
+          }
         }
       }
       expand?: string[]
@@ -386,6 +436,12 @@ export class ApiClient {
             }
           | string
         business_profile?: {
+          annual_revenue?: {
+            amount: number
+            currency: string
+            fiscal_year_end: string
+          }
+          estimated_worker_count?: number
           mcc?: string
           monthly_estimated_revenue?: {
             amount: number
@@ -419,6 +475,9 @@ export class ApiClient {
             requested?: boolean
           }
           afterpay_clearpay_payments?: {
+            requested?: boolean
+          }
+          amazon_pay_payments?: {
             requested?: boolean
           }
           au_becs_debit_payments?: {
@@ -484,6 +543,9 @@ export class ApiClient {
           link_payments?: {
             requested?: boolean
           }
+          mobilepay_payments?: {
+            requested?: boolean
+          }
           oxxo_payments?: {
             requested?: boolean
           }
@@ -496,10 +558,16 @@ export class ApiClient {
           promptpay_payments?: {
             requested?: boolean
           }
+          revolut_pay_payments?: {
+            requested?: boolean
+          }
           sepa_debit_payments?: {
             requested?: boolean
           }
           sofort_payments?: {
+            requested?: boolean
+          }
+          swish_payments?: {
             requested?: boolean
           }
           tax_reporting_us_1099_k?: {
@@ -580,6 +648,7 @@ export class ApiClient {
             | "public_company"
             | "public_corporation"
             | "public_partnership"
+            | "registered_charity"
             | "single_member_llc"
             | "sole_establishment"
             | "sole_proprietorship"
@@ -686,6 +755,13 @@ export class ApiClient {
             postal_code?: string
             state?: string
           }
+          relationship?: {
+            director?: boolean
+            executive?: boolean
+            owner?: boolean
+            percent_ownership?: number | ""
+            title?: string
+          }
           ssn_last_4?: string
           verification?: {
             additional_document?: {
@@ -704,6 +780,9 @@ export class ApiClient {
             }
           | ""
         settings?: {
+          bacs_debit_payments?: {
+            display_name?: string
+          }
           branding?: {
             icon?: string
             logo?: string
@@ -845,6 +924,12 @@ export class ApiClient {
     requestBody?: {
       account_token?: string
       business_profile?: {
+        annual_revenue?: {
+          amount: number
+          currency: string
+          fiscal_year_end: string
+        }
+        estimated_worker_count?: number
         mcc?: string
         monthly_estimated_revenue?: {
           amount: number
@@ -878,6 +963,9 @@ export class ApiClient {
           requested?: boolean
         }
         afterpay_clearpay_payments?: {
+          requested?: boolean
+        }
+        amazon_pay_payments?: {
           requested?: boolean
         }
         au_becs_debit_payments?: {
@@ -943,6 +1031,9 @@ export class ApiClient {
         link_payments?: {
           requested?: boolean
         }
+        mobilepay_payments?: {
+          requested?: boolean
+        }
         oxxo_payments?: {
           requested?: boolean
         }
@@ -955,10 +1046,16 @@ export class ApiClient {
         promptpay_payments?: {
           requested?: boolean
         }
+        revolut_pay_payments?: {
+          requested?: boolean
+        }
         sepa_debit_payments?: {
           requested?: boolean
         }
         sofort_payments?: {
+          requested?: boolean
+        }
+        swish_payments?: {
           requested?: boolean
         }
         tax_reporting_us_1099_k?: {
@@ -1039,6 +1136,7 @@ export class ApiClient {
           | "public_company"
           | "public_corporation"
           | "public_partnership"
+          | "registered_charity"
           | "single_member_llc"
           | "sole_establishment"
           | "sole_proprietorship"
@@ -1144,6 +1242,13 @@ export class ApiClient {
           postal_code?: string
           state?: string
         }
+        relationship?: {
+          director?: boolean
+          executive?: boolean
+          owner?: boolean
+          percent_ownership?: number | ""
+          title?: string
+        }
         ssn_last_4?: string
         verification?: {
           additional_document?: {
@@ -1162,6 +1267,9 @@ export class ApiClient {
           }
         | ""
       settings?: {
+        bacs_debit_payments?: {
+          display_name?: string
+        }
         branding?: {
           icon?: string
           logo?: string
@@ -1183,6 +1291,9 @@ export class ApiClient {
           statement_descriptor_prefix?: string
           statement_descriptor_prefix_kana?: string | ""
           statement_descriptor_prefix_kanji?: string | ""
+        }
+        invoices?: {
+          default_account_tax_ids?: string[] | ""
         }
         payments?: {
           statement_descriptor?: string
@@ -1499,6 +1610,7 @@ export class ApiClient {
     endingBefore?: string
     expand?: string[]
     limit?: number
+    object?: "bank_account" | "card"
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
@@ -1518,6 +1630,7 @@ export class ApiClient {
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
+      object: p["object"],
       starting_after: p["startingAfter"],
     })
     const body = p["requestBody"]
@@ -1728,6 +1841,7 @@ export class ApiClient {
     relationship?: {
       director?: boolean
       executive?: boolean
+      legal_guardian?: boolean
       owner?: boolean
       representative?: boolean
     }
@@ -1771,6 +1885,13 @@ export class ApiClient {
   postAccountsAccountPeople(p: {
     account: string
     requestBody?: {
+      additional_tos_acceptances?: {
+        account?: {
+          date?: number
+          ip?: string
+          user_agent?: string | ""
+        }
+      }
       address?: {
         city?: string
         country?: string
@@ -1848,6 +1969,7 @@ export class ApiClient {
       relationship?: {
         director?: boolean
         executive?: boolean
+        legal_guardian?: boolean
         owner?: boolean
         percent_ownership?: number | ""
         representative?: boolean
@@ -1948,6 +2070,13 @@ export class ApiClient {
     account: string
     person: string
     requestBody?: {
+      additional_tos_acceptances?: {
+        account?: {
+          date?: number
+          ip?: string
+          user_agent?: string | ""
+        }
+      }
       address?: {
         city?: string
         country?: string
@@ -2025,6 +2154,7 @@ export class ApiClient {
       relationship?: {
         director?: boolean
         executive?: boolean
+        legal_guardian?: boolean
         owner?: boolean
         percent_ownership?: number | ""
         representative?: boolean
@@ -2073,6 +2203,7 @@ export class ApiClient {
     relationship?: {
       director?: boolean
       executive?: boolean
+      legal_guardian?: boolean
       owner?: boolean
       representative?: boolean
     }
@@ -2116,6 +2247,13 @@ export class ApiClient {
   postAccountsAccountPersons(p: {
     account: string
     requestBody?: {
+      additional_tos_acceptances?: {
+        account?: {
+          date?: number
+          ip?: string
+          user_agent?: string | ""
+        }
+      }
       address?: {
         city?: string
         country?: string
@@ -2193,6 +2331,7 @@ export class ApiClient {
       relationship?: {
         director?: boolean
         executive?: boolean
+        legal_guardian?: boolean
         owner?: boolean
         percent_ownership?: number | ""
         representative?: boolean
@@ -2293,6 +2432,13 @@ export class ApiClient {
     account: string
     person: string
     requestBody?: {
+      additional_tos_acceptances?: {
+        account?: {
+          date?: number
+          ip?: string
+          user_agent?: string | ""
+        }
+      }
       address?: {
         city?: string
         country?: string
@@ -2370,6 +2516,7 @@ export class ApiClient {
       relationship?: {
         director?: boolean
         executive?: boolean
+        legal_guardian?: boolean
         owner?: boolean
         percent_ownership?: number | ""
         representative?: boolean
@@ -3156,6 +3303,311 @@ export class ApiClient {
     )
   }
 
+  postBillingMeterEventAdjustments(p: {
+    requestBody: {
+      cancel: {
+        identifier: string
+      }
+      event_name: string
+      expand?: string[]
+      type?: "cancel"
+    }
+  }): Observable<
+    | (HttpResponse<t_billing_meter_event_adjustment> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/billing/meter_event_adjustments`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postBillingMeterEvents(p: {
+    requestBody: {
+      event_name: string
+      expand?: string[]
+      identifier?: string
+      payload: {
+        [key: string]: string | undefined
+      }
+      timestamp: number
+    }
+  }): Observable<
+    | (HttpResponse<t_billing_meter_event> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/billing/meter_events`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getBillingMeters(
+    p: {
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      startingAfter?: string
+      status?: "active" | "inactive"
+      requestBody?: EmptyObject
+    } = {},
+  ): Observable<
+    | (HttpResponse<{
+        data: t_billing_meter[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      starting_after: p["startingAfter"],
+      status: p["status"],
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/billing/meters`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postBillingMeters(p: {
+    requestBody: {
+      customer_mapping?: {
+        event_payload_key: string
+        type: "by_id"
+      }
+      default_aggregation: {
+        formula: "count" | "sum"
+      }
+      display_name: string
+      event_name: string
+      event_time_window?: "day" | "hour"
+      expand?: string[]
+      value_settings?: {
+        event_payload_key: string
+      }
+    }
+  }): Observable<
+    | (HttpResponse<t_billing_meter> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/billing/meters`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getBillingMetersId(p: {
+    expand?: string[]
+    id: string
+    requestBody?: EmptyObject
+  }): Observable<
+    | (HttpResponse<t_billing_meter> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({ expand: p["expand"] })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/billing/meters/${p["id"]}`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postBillingMetersId(p: {
+    id: string
+    requestBody?: {
+      display_name?: string
+      expand?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_billing_meter> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/billing/meters/${p["id"]}`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postBillingMetersIdDeactivate(p: {
+    id: string
+    requestBody?: {
+      expand?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_billing_meter> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/billing/meters/${p["id"]}/deactivate`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getBillingMetersIdEventSummaries(p: {
+    customer: string
+    endTime: number
+    endingBefore?: string
+    expand?: string[]
+    id: string
+    limit?: number
+    startTime: number
+    startingAfter?: string
+    valueGroupingWindow?: "hour"
+    requestBody?: EmptyObject
+  }): Observable<
+    | (HttpResponse<{
+        data: t_billing_meter_event_summary[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({
+      customer: p["customer"],
+      end_time: p["endTime"],
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      start_time: p["startTime"],
+      starting_after: p["startingAfter"],
+      value_grouping_window: p["valueGroupingWindow"],
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/billing/meters/${p["id"]}/event_summaries`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postBillingMetersIdReactivate(p: {
+    id: string
+    requestBody?: {
+      expand?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_billing_meter> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/billing/meters/${p["id"]}/reactivate`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   getBillingPortalConfigurations(
     p: {
       active?: boolean
@@ -3243,9 +3695,6 @@ export class ApiClient {
           enabled: boolean
           mode?: "at_period_end" | "immediately"
           proration_behavior?: "always_invoice" | "create_prorations" | "none"
-        }
-        subscription_pause?: {
-          enabled?: boolean
         }
         subscription_update?: {
           default_allowed_updates:
@@ -3362,9 +3811,6 @@ export class ApiClient {
           enabled?: boolean
           mode?: "at_period_end" | "immediately"
           proration_behavior?: "always_invoice" | "create_prorations" | "none"
-        }
-        subscription_pause?: {
-          enabled?: boolean
         }
         subscription_update?: {
           default_allowed_updates?:
@@ -4142,6 +4588,14 @@ export class ApiClient {
 
   getCheckoutSessions(
     p: {
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       customer?: string
       customerDetails?: {
         email: string
@@ -4152,6 +4606,7 @@ export class ApiClient {
       paymentIntent?: string
       paymentLink?: string
       startingAfter?: string
+      status?: "complete" | "expired" | "open"
       subscription?: string
       requestBody?: EmptyObject
     } = {},
@@ -4169,6 +4624,7 @@ export class ApiClient {
       "Content-Type": "application/x-www-form-urlencoded",
     })
     const params = this._queryParams({
+      created: p["created"],
       customer: p["customer"],
       customer_details: p["customerDetails"],
       ending_before: p["endingBefore"],
@@ -4177,6 +4633,7 @@ export class ApiClient {
       payment_intent: p["paymentIntent"],
       payment_link: p["paymentLink"],
       starting_after: p["startingAfter"],
+      status: p["status"],
       subscription: p["subscription"],
     })
     const body = p["requestBody"]
@@ -4194,725 +4651,761 @@ export class ApiClient {
     )
   }
 
-  postCheckoutSessions(p: {
-    requestBody: {
-      after_expiration?: {
-        recovery?: {
-          allow_promotion_codes?: boolean
-          enabled: boolean
-        }
-      }
-      allow_promotion_codes?: boolean
-      automatic_tax?: {
-        enabled: boolean
-      }
-      billing_address_collection?: "auto" | "required"
-      cancel_url?: string
-      client_reference_id?: string
-      consent_collection?: {
-        promotions?: "auto" | "none"
-        terms_of_service?: "none" | "required"
-      }
-      currency?: string
-      custom_fields?: {
-        dropdown?: {
-          options: {
-            label: string
-            value: string
-          }[]
-        }
-        key: string
-        label: {
-          custom: string
-          type: "custom"
-        }
-        numeric?: {
-          maximum_length?: number
-          minimum_length?: number
-        }
-        optional?: boolean
-        text?: {
-          maximum_length?: number
-          minimum_length?: number
-        }
-        type: "dropdown" | "numeric" | "text"
-      }[]
-      custom_text?: {
-        shipping_address?:
-          | {
-              message: string
-            }
-          | ""
-        submit?:
-          | {
-              message: string
-            }
-          | ""
-        terms_of_service_acceptance?:
-          | {
-              message: string
-            }
-          | ""
-      }
-      customer?: string
-      customer_creation?: "always" | "if_required"
-      customer_email?: string
-      customer_update?: {
-        address?: "auto" | "never"
-        name?: "auto" | "never"
-        shipping?: "auto" | "never"
-      }
-      discounts?: {
-        coupon?: string
-        promotion_code?: string
-      }[]
-      expand?: string[]
-      expires_at?: number
-      invoice_creation?: {
-        enabled: boolean
-        invoice_data?: {
-          account_tax_ids?: string[] | ""
-          custom_fields?:
-            | {
-                name: string
-                value: string
-              }[]
-            | ""
-          description?: string
-          footer?: string
-          metadata?: {
-            [key: string]: string | undefined
+  postCheckoutSessions(
+    p: {
+      requestBody?: {
+        after_expiration?: {
+          recovery?: {
+            allow_promotion_codes?: boolean
+            enabled: boolean
           }
-          rendering_options?:
+        }
+        allow_promotion_codes?: boolean
+        automatic_tax?: {
+          enabled: boolean
+          liability?: {
+            account?: string
+            type: "account" | "self"
+          }
+        }
+        billing_address_collection?: "auto" | "required"
+        cancel_url?: string
+        client_reference_id?: string
+        consent_collection?: {
+          payment_method_reuse_agreement?: {
+            position: "auto" | "hidden"
+          }
+          promotions?: "auto" | "none"
+          terms_of_service?: "none" | "required"
+        }
+        currency?: string
+        custom_fields?: {
+          dropdown?: {
+            options: {
+              label: string
+              value: string
+            }[]
+          }
+          key: string
+          label: {
+            custom: string
+            type: "custom"
+          }
+          numeric?: {
+            maximum_length?: number
+            minimum_length?: number
+          }
+          optional?: boolean
+          text?: {
+            maximum_length?: number
+            minimum_length?: number
+          }
+          type: "dropdown" | "numeric" | "text"
+        }[]
+        custom_text?: {
+          after_submit?:
             | {
-                amount_tax_display?:
-                  | ""
-                  | "exclude_tax"
-                  | "include_inclusive_tax"
+                message: string
+              }
+            | ""
+          shipping_address?:
+            | {
+                message: string
+              }
+            | ""
+          submit?:
+            | {
+                message: string
+              }
+            | ""
+          terms_of_service_acceptance?:
+            | {
+                message: string
               }
             | ""
         }
-      }
-      line_items?: {
-        adjustable_quantity?: {
-          enabled: boolean
-          maximum?: number
-          minimum?: number
+        customer?: string
+        customer_creation?: "always" | "if_required"
+        customer_email?: string
+        customer_update?: {
+          address?: "auto" | "never"
+          name?: "auto" | "never"
+          shipping?: "auto" | "never"
         }
-        dynamic_tax_rates?: string[]
-        price?: string
-        price_data?: {
-          currency: string
-          product?: string
-          product_data?: {
+        discounts?: {
+          coupon?: string
+          promotion_code?: string
+        }[]
+        expand?: string[]
+        expires_at?: number
+        invoice_creation?: {
+          enabled: boolean
+          invoice_data?: {
+            account_tax_ids?: string[] | ""
+            custom_fields?:
+              | {
+                  name: string
+                  value: string
+                }[]
+              | ""
             description?: string
-            images?: string[]
+            footer?: string
+            issuer?: {
+              account?: string
+              type: "account" | "self"
+            }
             metadata?: {
               [key: string]: string | undefined
             }
-            name: string
-            tax_code?: string
+            rendering_options?:
+              | {
+                  amount_tax_display?:
+                    | ""
+                    | "exclude_tax"
+                    | "include_inclusive_tax"
+                }
+              | ""
           }
-          recurring?: {
-            interval: "day" | "month" | "week" | "year"
-            interval_count?: number
+        }
+        line_items?: {
+          adjustable_quantity?: {
+            enabled: boolean
+            maximum?: number
+            minimum?: number
           }
-          tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-          unit_amount?: number
-          unit_amount_decimal?: string
-        }
-        quantity?: number
-        tax_rates?: string[]
-      }[]
-      locale?:
-        | "auto"
-        | "bg"
-        | "cs"
-        | "da"
-        | "de"
-        | "el"
-        | "en"
-        | "en-GB"
-        | "es"
-        | "es-419"
-        | "et"
-        | "fi"
-        | "fil"
-        | "fr"
-        | "fr-CA"
-        | "hr"
-        | "hu"
-        | "id"
-        | "it"
-        | "ja"
-        | "ko"
-        | "lt"
-        | "lv"
-        | "ms"
-        | "mt"
-        | "nb"
-        | "nl"
-        | "pl"
-        | "pt"
-        | "pt-BR"
-        | "ro"
-        | "ru"
-        | "sk"
-        | "sl"
-        | "sv"
-        | "th"
-        | "tr"
-        | "vi"
-        | "zh"
-        | "zh-HK"
-        | "zh-TW"
-      metadata?: {
-        [key: string]: string | undefined
-      }
-      mode?: "payment" | "setup" | "subscription"
-      payment_intent_data?: {
-        application_fee_amount?: number
-        capture_method?: "automatic" | "automatic_async" | "manual"
-        description?: string
-        metadata?: {
-          [key: string]: string | undefined
-        }
-        on_behalf_of?: string
-        receipt_email?: string
-        setup_future_usage?: "off_session" | "on_session"
-        shipping?: {
-          address: {
-            city?: string
-            country?: string
-            line1: string
-            line2?: string
-            postal_code?: string
-            state?: string
-          }
-          carrier?: string
-          name: string
-          phone?: string
-          tracking_number?: string
-        }
-        statement_descriptor?: string
-        statement_descriptor_suffix?: string
-        transfer_data?: {
-          amount?: number
-          destination: string
-        }
-        transfer_group?: string
-      }
-      payment_method_collection?: "always" | "if_required"
-      payment_method_configuration?: string
-      payment_method_options?: {
-        acss_debit?: {
-          currency?: "cad" | "usd"
-          mandate_options?: {
-            custom_mandate_url?: string | ""
-            default_for?: ("invoice" | "subscription")[]
-            interval_description?: string
-            payment_schedule?: "combined" | "interval" | "sporadic"
-            transaction_type?: "business" | "personal"
-          }
-          setup_future_usage?: "none" | "off_session" | "on_session"
-          verification_method?: "automatic" | "instant" | "microdeposits"
-        }
-        affirm?: {
-          setup_future_usage?: "none"
-        }
-        afterpay_clearpay?: {
-          setup_future_usage?: "none"
-        }
-        alipay?: {
-          setup_future_usage?: "none"
-        }
-        au_becs_debit?: {
-          setup_future_usage?: "none"
-        }
-        bacs_debit?: {
-          setup_future_usage?: "none" | "off_session" | "on_session"
-        }
-        bancontact?: {
-          setup_future_usage?: "none"
-        }
-        boleto?: {
-          expires_after_days?: number
-          setup_future_usage?: "none" | "off_session" | "on_session"
-        }
-        card?: {
-          installments?: {
-            enabled?: boolean
-          }
-          setup_future_usage?: "off_session" | "on_session"
-          statement_descriptor_suffix_kana?: string
-          statement_descriptor_suffix_kanji?: string
-        }
-        cashapp?: {
-          setup_future_usage?: "none" | "off_session" | "on_session"
-        }
-        customer_balance?: {
-          bank_transfer?: {
-            eu_bank_transfer?: {
-              country: string
-            }
-            requested_address_types?: (
-              | "aba"
-              | "iban"
-              | "sepa"
-              | "sort_code"
-              | "spei"
-              | "swift"
-              | "zengin"
-            )[]
-            type:
-              | "eu_bank_transfer"
-              | "gb_bank_transfer"
-              | "jp_bank_transfer"
-              | "mx_bank_transfer"
-              | "us_bank_transfer"
-          }
-          funding_type?: "bank_transfer"
-          setup_future_usage?: "none"
-        }
-        eps?: {
-          setup_future_usage?: "none"
-        }
-        fpx?: {
-          setup_future_usage?: "none"
-        }
-        giropay?: {
-          setup_future_usage?: "none"
-        }
-        grabpay?: {
-          setup_future_usage?: "none"
-        }
-        ideal?: {
-          setup_future_usage?: "none"
-        }
-        klarna?: {
-          setup_future_usage?: "none"
-        }
-        konbini?: {
-          expires_after_days?: number
-          setup_future_usage?: "none"
-        }
-        link?: {
-          setup_future_usage?: "none" | "off_session"
-        }
-        oxxo?: {
-          expires_after_days?: number
-          setup_future_usage?: "none"
-        }
-        p24?: {
-          setup_future_usage?: "none"
-          tos_shown_and_accepted?: boolean
-        }
-        paynow?: {
-          setup_future_usage?: "none"
-        }
-        paypal?: {
-          capture_method?: "" | "manual"
-          preferred_locale?:
-            | "cs-CZ"
-            | "da-DK"
-            | "de-AT"
-            | "de-DE"
-            | "de-LU"
-            | "el-GR"
-            | "en-GB"
-            | "en-US"
-            | "es-ES"
-            | "fi-FI"
-            | "fr-BE"
-            | "fr-FR"
-            | "fr-LU"
-            | "hu-HU"
-            | "it-IT"
-            | "nl-BE"
-            | "nl-NL"
-            | "pl-PL"
-            | "pt-PT"
-            | "sk-SK"
-            | "sv-SE"
-          reference?: string
-          risk_correlation_id?: string
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-        pix?: {
-          expires_after_seconds?: number
-        }
-        sepa_debit?: {
-          setup_future_usage?: "none" | "off_session" | "on_session"
-        }
-        sofort?: {
-          setup_future_usage?: "none"
-        }
-        us_bank_account?: {
-          financial_connections?: {
-            permissions?: (
-              | "balances"
-              | "ownership"
-              | "payment_method"
-              | "transactions"
-            )[]
-            prefetch?: "balances"[]
-          }
-          setup_future_usage?: "none" | "off_session" | "on_session"
-          verification_method?: "automatic" | "instant"
-        }
-        wechat_pay?: {
-          app_id?: string
-          client: "android" | "ios" | "web"
-          setup_future_usage?: "none"
-        }
-      }
-      payment_method_types?: (
-        | "acss_debit"
-        | "affirm"
-        | "afterpay_clearpay"
-        | "alipay"
-        | "au_becs_debit"
-        | "bacs_debit"
-        | "bancontact"
-        | "blik"
-        | "boleto"
-        | "card"
-        | "cashapp"
-        | "customer_balance"
-        | "eps"
-        | "fpx"
-        | "giropay"
-        | "grabpay"
-        | "ideal"
-        | "klarna"
-        | "konbini"
-        | "link"
-        | "oxxo"
-        | "p24"
-        | "paynow"
-        | "paypal"
-        | "pix"
-        | "promptpay"
-        | "sepa_debit"
-        | "sofort"
-        | "us_bank_account"
-        | "wechat_pay"
-        | "zip"
-      )[]
-      phone_number_collection?: {
-        enabled: boolean
-      }
-      setup_intent_data?: {
-        description?: string
-        metadata?: {
-          [key: string]: string | undefined
-        }
-        on_behalf_of?: string
-      }
-      shipping_address_collection?: {
-        allowed_countries: (
-          | "AC"
-          | "AD"
-          | "AE"
-          | "AF"
-          | "AG"
-          | "AI"
-          | "AL"
-          | "AM"
-          | "AO"
-          | "AQ"
-          | "AR"
-          | "AT"
-          | "AU"
-          | "AW"
-          | "AX"
-          | "AZ"
-          | "BA"
-          | "BB"
-          | "BD"
-          | "BE"
-          | "BF"
-          | "BG"
-          | "BH"
-          | "BI"
-          | "BJ"
-          | "BL"
-          | "BM"
-          | "BN"
-          | "BO"
-          | "BQ"
-          | "BR"
-          | "BS"
-          | "BT"
-          | "BV"
-          | "BW"
-          | "BY"
-          | "BZ"
-          | "CA"
-          | "CD"
-          | "CF"
-          | "CG"
-          | "CH"
-          | "CI"
-          | "CK"
-          | "CL"
-          | "CM"
-          | "CN"
-          | "CO"
-          | "CR"
-          | "CV"
-          | "CW"
-          | "CY"
-          | "CZ"
-          | "DE"
-          | "DJ"
-          | "DK"
-          | "DM"
-          | "DO"
-          | "DZ"
-          | "EC"
-          | "EE"
-          | "EG"
-          | "EH"
-          | "ER"
-          | "ES"
-          | "ET"
-          | "FI"
-          | "FJ"
-          | "FK"
-          | "FO"
-          | "FR"
-          | "GA"
-          | "GB"
-          | "GD"
-          | "GE"
-          | "GF"
-          | "GG"
-          | "GH"
-          | "GI"
-          | "GL"
-          | "GM"
-          | "GN"
-          | "GP"
-          | "GQ"
-          | "GR"
-          | "GS"
-          | "GT"
-          | "GU"
-          | "GW"
-          | "GY"
-          | "HK"
-          | "HN"
-          | "HR"
-          | "HT"
-          | "HU"
-          | "ID"
-          | "IE"
-          | "IL"
-          | "IM"
-          | "IN"
-          | "IO"
-          | "IQ"
-          | "IS"
-          | "IT"
-          | "JE"
-          | "JM"
-          | "JO"
-          | "JP"
-          | "KE"
-          | "KG"
-          | "KH"
-          | "KI"
-          | "KM"
-          | "KN"
-          | "KR"
-          | "KW"
-          | "KY"
-          | "KZ"
-          | "LA"
-          | "LB"
-          | "LC"
-          | "LI"
-          | "LK"
-          | "LR"
-          | "LS"
-          | "LT"
-          | "LU"
-          | "LV"
-          | "LY"
-          | "MA"
-          | "MC"
-          | "MD"
-          | "ME"
-          | "MF"
-          | "MG"
-          | "MK"
-          | "ML"
-          | "MM"
-          | "MN"
-          | "MO"
-          | "MQ"
-          | "MR"
-          | "MS"
-          | "MT"
-          | "MU"
-          | "MV"
-          | "MW"
-          | "MX"
-          | "MY"
-          | "MZ"
-          | "NA"
-          | "NC"
-          | "NE"
-          | "NG"
-          | "NI"
-          | "NL"
-          | "NO"
-          | "NP"
-          | "NR"
-          | "NU"
-          | "NZ"
-          | "OM"
-          | "PA"
-          | "PE"
-          | "PF"
-          | "PG"
-          | "PH"
-          | "PK"
-          | "PL"
-          | "PM"
-          | "PN"
-          | "PR"
-          | "PS"
-          | "PT"
-          | "PY"
-          | "QA"
-          | "RE"
-          | "RO"
-          | "RS"
-          | "RU"
-          | "RW"
-          | "SA"
-          | "SB"
-          | "SC"
-          | "SE"
-          | "SG"
-          | "SH"
-          | "SI"
-          | "SJ"
-          | "SK"
-          | "SL"
-          | "SM"
-          | "SN"
-          | "SO"
-          | "SR"
-          | "SS"
-          | "ST"
-          | "SV"
-          | "SX"
-          | "SZ"
-          | "TA"
-          | "TC"
-          | "TD"
-          | "TF"
-          | "TG"
-          | "TH"
-          | "TJ"
-          | "TK"
-          | "TL"
-          | "TM"
-          | "TN"
-          | "TO"
-          | "TR"
-          | "TT"
-          | "TV"
-          | "TW"
-          | "TZ"
-          | "UA"
-          | "UG"
-          | "US"
-          | "UY"
-          | "UZ"
-          | "VA"
-          | "VC"
-          | "VE"
-          | "VG"
-          | "VN"
-          | "VU"
-          | "WF"
-          | "WS"
-          | "XK"
-          | "YE"
-          | "YT"
-          | "ZA"
-          | "ZM"
-          | "ZW"
-          | "ZZ"
-        )[]
-      }
-      shipping_options?: {
-        shipping_rate?: string
-        shipping_rate_data?: {
-          delivery_estimate?: {
-            maximum?: {
-              unit: "business_day" | "day" | "hour" | "month" | "week"
-              value: number
-            }
-            minimum?: {
-              unit: "business_day" | "day" | "hour" | "month" | "week"
-              value: number
-            }
-          }
-          display_name: string
-          fixed_amount?: {
-            amount: number
+          dynamic_tax_rates?: string[]
+          price?: string
+          price_data?: {
             currency: string
-            currency_options?: {
-              [key: string]:
-                | {
-                    amount: number
-                    tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-                  }
-                | undefined
+            product?: string
+            product_data?: {
+              description?: string
+              images?: string[]
+              metadata?: {
+                [key: string]: string | undefined
+              }
+              name: string
+              tax_code?: string
+            }
+            recurring?: {
+              interval: "day" | "month" | "week" | "year"
+              interval_count?: number
+            }
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+            unit_amount?: number
+            unit_amount_decimal?: string
+          }
+          quantity?: number
+          tax_rates?: string[]
+        }[]
+        locale?:
+          | "auto"
+          | "bg"
+          | "cs"
+          | "da"
+          | "de"
+          | "el"
+          | "en"
+          | "en-GB"
+          | "es"
+          | "es-419"
+          | "et"
+          | "fi"
+          | "fil"
+          | "fr"
+          | "fr-CA"
+          | "hr"
+          | "hu"
+          | "id"
+          | "it"
+          | "ja"
+          | "ko"
+          | "lt"
+          | "lv"
+          | "ms"
+          | "mt"
+          | "nb"
+          | "nl"
+          | "pl"
+          | "pt"
+          | "pt-BR"
+          | "ro"
+          | "ru"
+          | "sk"
+          | "sl"
+          | "sv"
+          | "th"
+          | "tr"
+          | "vi"
+          | "zh"
+          | "zh-HK"
+          | "zh-TW"
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        mode?: "payment" | "setup" | "subscription"
+        payment_intent_data?: {
+          application_fee_amount?: number
+          capture_method?: "automatic" | "automatic_async" | "manual"
+          description?: string
+          metadata?: {
+            [key: string]: string | undefined
+          }
+          on_behalf_of?: string
+          receipt_email?: string
+          setup_future_usage?: "off_session" | "on_session"
+          shipping?: {
+            address: {
+              city?: string
+              country?: string
+              line1: string
+              line2?: string
+              postal_code?: string
+              state?: string
+            }
+            carrier?: string
+            name: string
+            phone?: string
+            tracking_number?: string
+          }
+          statement_descriptor?: string
+          statement_descriptor_suffix?: string
+          transfer_data?: {
+            amount?: number
+            destination: string
+          }
+          transfer_group?: string
+        }
+        payment_method_collection?: "always" | "if_required"
+        payment_method_configuration?: string
+        payment_method_options?: {
+          acss_debit?: {
+            currency?: "cad" | "usd"
+            mandate_options?: {
+              custom_mandate_url?: string | ""
+              default_for?: ("invoice" | "subscription")[]
+              interval_description?: string
+              payment_schedule?: "combined" | "interval" | "sporadic"
+              transaction_type?: "business" | "personal"
+            }
+            setup_future_usage?: "none" | "off_session" | "on_session"
+            verification_method?: "automatic" | "instant" | "microdeposits"
+          }
+          affirm?: {
+            setup_future_usage?: "none"
+          }
+          afterpay_clearpay?: {
+            setup_future_usage?: "none"
+          }
+          alipay?: {
+            setup_future_usage?: "none"
+          }
+          au_becs_debit?: {
+            setup_future_usage?: "none"
+          }
+          bacs_debit?: {
+            setup_future_usage?: "none" | "off_session" | "on_session"
+          }
+          bancontact?: {
+            setup_future_usage?: "none"
+          }
+          boleto?: {
+            expires_after_days?: number
+            setup_future_usage?: "none" | "off_session" | "on_session"
+          }
+          card?: {
+            installments?: {
+              enabled?: boolean
+            }
+            request_three_d_secure?: "any" | "automatic" | "challenge"
+            setup_future_usage?: "off_session" | "on_session"
+            statement_descriptor_suffix_kana?: string
+            statement_descriptor_suffix_kanji?: string
+          }
+          cashapp?: {
+            setup_future_usage?: "none" | "off_session" | "on_session"
+          }
+          customer_balance?: {
+            bank_transfer?: {
+              eu_bank_transfer?: {
+                country: string
+              }
+              requested_address_types?: (
+                | "aba"
+                | "iban"
+                | "sepa"
+                | "sort_code"
+                | "spei"
+                | "swift"
+                | "zengin"
+              )[]
+              type:
+                | "eu_bank_transfer"
+                | "gb_bank_transfer"
+                | "jp_bank_transfer"
+                | "mx_bank_transfer"
+                | "us_bank_transfer"
+            }
+            funding_type?: "bank_transfer"
+            setup_future_usage?: "none"
+          }
+          eps?: {
+            setup_future_usage?: "none"
+          }
+          fpx?: {
+            setup_future_usage?: "none"
+          }
+          giropay?: {
+            setup_future_usage?: "none"
+          }
+          grabpay?: {
+            setup_future_usage?: "none"
+          }
+          ideal?: {
+            setup_future_usage?: "none"
+          }
+          klarna?: {
+            setup_future_usage?: "none"
+          }
+          konbini?: {
+            expires_after_days?: number
+            setup_future_usage?: "none"
+          }
+          link?: {
+            setup_future_usage?: "none" | "off_session"
+          }
+          oxxo?: {
+            expires_after_days?: number
+            setup_future_usage?: "none"
+          }
+          p24?: {
+            setup_future_usage?: "none"
+            tos_shown_and_accepted?: boolean
+          }
+          paynow?: {
+            setup_future_usage?: "none"
+          }
+          paypal?: {
+            capture_method?: "" | "manual"
+            preferred_locale?:
+              | "cs-CZ"
+              | "da-DK"
+              | "de-AT"
+              | "de-DE"
+              | "de-LU"
+              | "el-GR"
+              | "en-GB"
+              | "en-US"
+              | "es-ES"
+              | "fi-FI"
+              | "fr-BE"
+              | "fr-FR"
+              | "fr-LU"
+              | "hu-HU"
+              | "it-IT"
+              | "nl-BE"
+              | "nl-NL"
+              | "pl-PL"
+              | "pt-PT"
+              | "sk-SK"
+              | "sv-SE"
+            reference?: string
+            risk_correlation_id?: string
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+          pix?: {
+            expires_after_seconds?: number
+          }
+          revolut_pay?: {
+            setup_future_usage?: "none" | "off_session"
+          }
+          sepa_debit?: {
+            setup_future_usage?: "none" | "off_session" | "on_session"
+          }
+          sofort?: {
+            setup_future_usage?: "none"
+          }
+          swish?: {
+            reference?: string
+          }
+          us_bank_account?: {
+            financial_connections?: {
+              permissions?: (
+                | "balances"
+                | "ownership"
+                | "payment_method"
+                | "transactions"
+              )[]
+              prefetch?: ("balances" | "transactions")[]
+            }
+            setup_future_usage?: "none" | "off_session" | "on_session"
+            verification_method?: "automatic" | "instant"
+          }
+          wechat_pay?: {
+            app_id?: string
+            client: "android" | "ios" | "web"
+            setup_future_usage?: "none"
+          }
+        }
+        payment_method_types?: (
+          | "acss_debit"
+          | "affirm"
+          | "afterpay_clearpay"
+          | "alipay"
+          | "au_becs_debit"
+          | "bacs_debit"
+          | "bancontact"
+          | "blik"
+          | "boleto"
+          | "card"
+          | "cashapp"
+          | "customer_balance"
+          | "eps"
+          | "fpx"
+          | "giropay"
+          | "grabpay"
+          | "ideal"
+          | "klarna"
+          | "konbini"
+          | "link"
+          | "oxxo"
+          | "p24"
+          | "paynow"
+          | "paypal"
+          | "pix"
+          | "promptpay"
+          | "revolut_pay"
+          | "sepa_debit"
+          | "sofort"
+          | "swish"
+          | "us_bank_account"
+          | "wechat_pay"
+          | "zip"
+        )[]
+        phone_number_collection?: {
+          enabled: boolean
+        }
+        redirect_on_completion?: "always" | "if_required" | "never"
+        return_url?: string
+        setup_intent_data?: {
+          description?: string
+          metadata?: {
+            [key: string]: string | undefined
+          }
+          on_behalf_of?: string
+        }
+        shipping_address_collection?: {
+          allowed_countries: (
+            | "AC"
+            | "AD"
+            | "AE"
+            | "AF"
+            | "AG"
+            | "AI"
+            | "AL"
+            | "AM"
+            | "AO"
+            | "AQ"
+            | "AR"
+            | "AT"
+            | "AU"
+            | "AW"
+            | "AX"
+            | "AZ"
+            | "BA"
+            | "BB"
+            | "BD"
+            | "BE"
+            | "BF"
+            | "BG"
+            | "BH"
+            | "BI"
+            | "BJ"
+            | "BL"
+            | "BM"
+            | "BN"
+            | "BO"
+            | "BQ"
+            | "BR"
+            | "BS"
+            | "BT"
+            | "BV"
+            | "BW"
+            | "BY"
+            | "BZ"
+            | "CA"
+            | "CD"
+            | "CF"
+            | "CG"
+            | "CH"
+            | "CI"
+            | "CK"
+            | "CL"
+            | "CM"
+            | "CN"
+            | "CO"
+            | "CR"
+            | "CV"
+            | "CW"
+            | "CY"
+            | "CZ"
+            | "DE"
+            | "DJ"
+            | "DK"
+            | "DM"
+            | "DO"
+            | "DZ"
+            | "EC"
+            | "EE"
+            | "EG"
+            | "EH"
+            | "ER"
+            | "ES"
+            | "ET"
+            | "FI"
+            | "FJ"
+            | "FK"
+            | "FO"
+            | "FR"
+            | "GA"
+            | "GB"
+            | "GD"
+            | "GE"
+            | "GF"
+            | "GG"
+            | "GH"
+            | "GI"
+            | "GL"
+            | "GM"
+            | "GN"
+            | "GP"
+            | "GQ"
+            | "GR"
+            | "GS"
+            | "GT"
+            | "GU"
+            | "GW"
+            | "GY"
+            | "HK"
+            | "HN"
+            | "HR"
+            | "HT"
+            | "HU"
+            | "ID"
+            | "IE"
+            | "IL"
+            | "IM"
+            | "IN"
+            | "IO"
+            | "IQ"
+            | "IS"
+            | "IT"
+            | "JE"
+            | "JM"
+            | "JO"
+            | "JP"
+            | "KE"
+            | "KG"
+            | "KH"
+            | "KI"
+            | "KM"
+            | "KN"
+            | "KR"
+            | "KW"
+            | "KY"
+            | "KZ"
+            | "LA"
+            | "LB"
+            | "LC"
+            | "LI"
+            | "LK"
+            | "LR"
+            | "LS"
+            | "LT"
+            | "LU"
+            | "LV"
+            | "LY"
+            | "MA"
+            | "MC"
+            | "MD"
+            | "ME"
+            | "MF"
+            | "MG"
+            | "MK"
+            | "ML"
+            | "MM"
+            | "MN"
+            | "MO"
+            | "MQ"
+            | "MR"
+            | "MS"
+            | "MT"
+            | "MU"
+            | "MV"
+            | "MW"
+            | "MX"
+            | "MY"
+            | "MZ"
+            | "NA"
+            | "NC"
+            | "NE"
+            | "NG"
+            | "NI"
+            | "NL"
+            | "NO"
+            | "NP"
+            | "NR"
+            | "NU"
+            | "NZ"
+            | "OM"
+            | "PA"
+            | "PE"
+            | "PF"
+            | "PG"
+            | "PH"
+            | "PK"
+            | "PL"
+            | "PM"
+            | "PN"
+            | "PR"
+            | "PS"
+            | "PT"
+            | "PY"
+            | "QA"
+            | "RE"
+            | "RO"
+            | "RS"
+            | "RU"
+            | "RW"
+            | "SA"
+            | "SB"
+            | "SC"
+            | "SE"
+            | "SG"
+            | "SH"
+            | "SI"
+            | "SJ"
+            | "SK"
+            | "SL"
+            | "SM"
+            | "SN"
+            | "SO"
+            | "SR"
+            | "SS"
+            | "ST"
+            | "SV"
+            | "SX"
+            | "SZ"
+            | "TA"
+            | "TC"
+            | "TD"
+            | "TF"
+            | "TG"
+            | "TH"
+            | "TJ"
+            | "TK"
+            | "TL"
+            | "TM"
+            | "TN"
+            | "TO"
+            | "TR"
+            | "TT"
+            | "TV"
+            | "TW"
+            | "TZ"
+            | "UA"
+            | "UG"
+            | "US"
+            | "UY"
+            | "UZ"
+            | "VA"
+            | "VC"
+            | "VE"
+            | "VG"
+            | "VN"
+            | "VU"
+            | "WF"
+            | "WS"
+            | "XK"
+            | "YE"
+            | "YT"
+            | "ZA"
+            | "ZM"
+            | "ZW"
+            | "ZZ"
+          )[]
+        }
+        shipping_options?: {
+          shipping_rate?: string
+          shipping_rate_data?: {
+            delivery_estimate?: {
+              maximum?: {
+                unit: "business_day" | "day" | "hour" | "month" | "week"
+                value: number
+              }
+              minimum?: {
+                unit: "business_day" | "day" | "hour" | "month" | "week"
+                value: number
+              }
+            }
+            display_name: string
+            fixed_amount?: {
+              amount: number
+              currency: string
+              currency_options?: {
+                [key: string]:
+                  | {
+                      amount: number
+                      tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+                    }
+                  | undefined
+              }
+            }
+            metadata?: {
+              [key: string]: string | undefined
+            }
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+            tax_code?: string
+            type?: "fixed_amount"
+          }
+        }[]
+        submit_type?: "auto" | "book" | "donate" | "pay"
+        subscription_data?: {
+          application_fee_percent?: number
+          billing_cycle_anchor?: number
+          default_tax_rates?: string[]
+          description?: string
+          invoice_settings?: {
+            issuer?: {
+              account?: string
+              type: "account" | "self"
             }
           }
           metadata?: {
             [key: string]: string | undefined
           }
-          tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-          tax_code?: string
-          type?: "fixed_amount"
-        }
-      }[]
-      submit_type?: "auto" | "book" | "donate" | "pay"
-      subscription_data?: {
-        application_fee_percent?: number
-        billing_cycle_anchor?: number
-        default_tax_rates?: string[]
-        description?: string
-        metadata?: {
-          [key: string]: string | undefined
-        }
-        on_behalf_of?: string
-        proration_behavior?: "create_prorations" | "none"
-        transfer_data?: {
-          amount_percent?: number
-          destination: string
-        }
-        trial_end?: number
-        trial_period_days?: number
-        trial_settings?: {
-          end_behavior: {
-            missing_payment_method: "cancel" | "create_invoice" | "pause"
+          on_behalf_of?: string
+          proration_behavior?: "create_prorations" | "none"
+          transfer_data?: {
+            amount_percent?: number
+            destination: string
+          }
+          trial_end?: number
+          trial_period_days?: number
+          trial_settings?: {
+            end_behavior: {
+              missing_payment_method: "cancel" | "create_invoice" | "pause"
+            }
           }
         }
+        success_url?: string
+        tax_id_collection?: {
+          enabled: boolean
+        }
+        ui_mode?: "embedded" | "hosted"
       }
-      success_url: string
-      tax_id_collection?: {
-        enabled: boolean
-      }
-    }
-  }): Observable<
+    } = {},
+  ): Observable<
     | (HttpResponse<t_checkout_session> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
     | HttpResponse<unknown>
@@ -5020,6 +5513,343 @@ export class ApiClient {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/checkout/sessions/${p["session"]}/line_items`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getClimateOrders(
+    p: {
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      startingAfter?: string
+      requestBody?: EmptyObject
+    } = {},
+  ): Observable<
+    | (HttpResponse<{
+        data: t_climate_order[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      starting_after: p["startingAfter"],
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/climate/orders`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postClimateOrders(p: {
+    requestBody: {
+      amount?: number
+      beneficiary?: {
+        public_name: string
+      }
+      currency?: string
+      expand?: string[]
+      metadata?: {
+        [key: string]: string | undefined
+      }
+      metric_tons?: string
+      product: string
+    }
+  }): Observable<
+    | (HttpResponse<t_climate_order> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/climate/orders`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getClimateOrdersOrder(p: {
+    expand?: string[]
+    order: string
+    requestBody?: EmptyObject
+  }): Observable<
+    | (HttpResponse<t_climate_order> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({ expand: p["expand"] })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/climate/orders/${p["order"]}`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postClimateOrdersOrder(p: {
+    order: string
+    requestBody?: {
+      beneficiary?:
+        | {
+            public_name: string | ""
+          }
+        | ""
+      expand?: string[]
+      metadata?: {
+        [key: string]: string | undefined
+      }
+    }
+  }): Observable<
+    | (HttpResponse<t_climate_order> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/climate/orders/${p["order"]}`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postClimateOrdersOrderCancel(p: {
+    order: string
+    requestBody?: {
+      expand?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_climate_order> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/climate/orders/${p["order"]}/cancel`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getClimateProducts(
+    p: {
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      startingAfter?: string
+      requestBody?: EmptyObject
+    } = {},
+  ): Observable<
+    | (HttpResponse<{
+        data: t_climate_product[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      starting_after: p["startingAfter"],
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/climate/products`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getClimateProductsProduct(p: {
+    expand?: string[]
+    product: string
+    requestBody?: EmptyObject
+  }): Observable<
+    | (HttpResponse<t_climate_product> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({ expand: p["expand"] })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/climate/products/${p["product"]}`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getClimateSuppliers(
+    p: {
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      startingAfter?: string
+      requestBody?: EmptyObject
+    } = {},
+  ): Observable<
+    | (HttpResponse<{
+        data: t_climate_supplier[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      starting_after: p["startingAfter"],
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/climate/suppliers`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getClimateSuppliersSupplier(p: {
+    expand?: string[]
+    supplier: string
+    requestBody?: EmptyObject
+  }): Observable<
+    | (HttpResponse<t_climate_supplier> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({ expand: p["expand"] })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/climate/suppliers/${p["supplier"]}`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getConfirmationTokensConfirmationToken(p: {
+    confirmationToken: string
+    expand?: string[]
+    requestBody?: EmptyObject
+  }): Observable<
+    | (HttpResponse<t_confirmation_token> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({ expand: p["expand"] })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/v1/confirmation_tokens/${p["confirmationToken"]}`,
       {
         params,
         headers,
@@ -5298,6 +6128,14 @@ export class ApiClient {
 
   getCreditNotes(
     p: {
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       customer?: string
       endingBefore?: string
       expand?: string[]
@@ -5320,6 +6158,7 @@ export class ApiClient {
       "Content-Type": "application/x-www-form-urlencoded",
     })
     const params = this._queryParams({
+      created: p["created"],
       customer: p["customer"],
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -5354,6 +6193,13 @@ export class ApiClient {
         description?: string
         invoice_line_item?: string
         quantity?: number
+        tax_amounts?:
+          | {
+              amount: number
+              tax_rate: string
+              taxable_amount: number
+            }[]
+          | ""
         tax_rates?: string[] | ""
         type: "custom_line_item" | "invoice_line_item"
         unit_amount?: number
@@ -5408,6 +6254,13 @@ export class ApiClient {
       description?: string
       invoice_line_item?: string
       quantity?: number
+      tax_amounts?:
+        | {
+            amount: number
+            tax_rate: string
+            taxable_amount: number
+          }[]
+        | ""
       tax_rates?: string[] | ""
       type: "custom_line_item" | "invoice_line_item"
       unit_amount?: number
@@ -5480,6 +6333,13 @@ export class ApiClient {
       description?: string
       invoice_line_item?: string
       quantity?: number
+      tax_amounts?:
+        | {
+            amount: number
+            tax_rate: string
+            taxable_amount: number
+          }[]
+        | ""
       tax_rates?: string[] | ""
       type: "custom_line_item" | "invoice_line_item"
       unit_amount?: number
@@ -5675,6 +6535,41 @@ export class ApiClient {
     )
   }
 
+  postCustomerSessions(p: {
+    requestBody: {
+      components: {
+        buy_button?: {
+          enabled: boolean
+        }
+        pricing_table?: {
+          enabled: boolean
+        }
+      }
+      customer: string
+      expand?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_customer_session> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/customer_sessions`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   getCustomers(
     p: {
       created?:
@@ -5800,6 +6695,7 @@ export class ApiClient {
         source?: string
         tax?: {
           ip_address?: string | ""
+          validate_location?: "deferred" | "immediately"
         }
         tax_exempt?: "" | "exempt" | "none" | "reverse"
         tax_id_data?: {
@@ -5849,6 +6745,7 @@ export class ApiClient {
             | "my_itn"
             | "my_sst"
             | "no_vat"
+            | "no_voec"
             | "nz_gst"
             | "pe_ruc"
             | "ph_tin"
@@ -6092,6 +6989,7 @@ export class ApiClient {
       source?: string
       tax?: {
         ip_address?: string | ""
+        validate_location?: "deferred" | "immediately"
       }
       tax_exempt?: "" | "exempt" | "none" | "reverse"
     }
@@ -6983,14 +7881,17 @@ export class ApiClient {
       | "klarna"
       | "konbini"
       | "link"
+      | "mobilepay"
       | "oxxo"
       | "p24"
       | "paynow"
       | "paypal"
       | "pix"
       | "promptpay"
+      | "revolut_pay"
       | "sepa_debit"
       | "sofort"
+      | "swish"
       | "us_bank_account"
       | "wechat_pay"
       | "zip"
@@ -7359,6 +8260,11 @@ export class ApiClient {
     customer: string
     requestBody?: {
       add_invoice_items?: {
+        discounts?: {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
         price?: string
         price_data?: {
           currency: string
@@ -7370,9 +8276,13 @@ export class ApiClient {
         quantity?: number
         tax_rates?: string[] | ""
       }[]
-      application_fee_percent?: number
+      application_fee_percent?: number | ""
       automatic_tax?: {
         enabled: boolean
+        liability?: {
+          account?: string
+          type: "account" | "self"
+        }
       }
       backdate_start_date?: number
       billing_cycle_anchor?: number
@@ -7391,12 +8301,33 @@ export class ApiClient {
       default_payment_method?: string
       default_source?: string
       default_tax_rates?: string[] | ""
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
+        | ""
       expand?: string[]
+      invoice_settings?: {
+        account_tax_ids?: string[] | ""
+        issuer?: {
+          account?: string
+          type: "account" | "self"
+        }
+      }
       items?: {
         billing_thresholds?:
           | {
               usage_gte: number
             }
+          | ""
+        discounts?:
+          | {
+              coupon?: string
+              discount?: string
+              promotion_code?: string
+            }[]
           | ""
         metadata?: {
           [key: string]: string | undefined
@@ -7461,7 +8392,7 @@ export class ApiClient {
                   | "unionpay"
                   | "unknown"
                   | "visa"
-                request_three_d_secure?: "any" | "automatic"
+                request_three_d_secure?: "any" | "automatic" | "challenge"
               }
             | ""
           customer_balance?:
@@ -7476,6 +8407,7 @@ export class ApiClient {
               }
             | ""
           konbini?: EmptyObject | ""
+          sepa_debit?: EmptyObject | ""
           us_bank_account?:
             | {
                 financial_connections?: {
@@ -7485,7 +8417,7 @@ export class ApiClient {
                     | "payment_method"
                     | "transactions"
                   )[]
-                  prefetch?: "balances"[]
+                  prefetch?: ("balances" | "transactions")[]
                 }
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
@@ -7503,12 +8435,14 @@ export class ApiClient {
               | "card"
               | "cashapp"
               | "customer_balance"
+              | "eps"
               | "fpx"
               | "giropay"
               | "grabpay"
               | "ideal"
               | "konbini"
               | "link"
+              | "p24"
               | "paynow"
               | "paypal"
               | "promptpay"
@@ -7629,6 +8563,11 @@ export class ApiClient {
     subscriptionExposedId: string
     requestBody?: {
       add_invoice_items?: {
+        discounts?: {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
         price?: string
         price_data?: {
           currency: string
@@ -7640,9 +8579,13 @@ export class ApiClient {
         quantity?: number
         tax_rates?: string[] | ""
       }[]
-      application_fee_percent?: number
+      application_fee_percent?: number | ""
       automatic_tax?: {
         enabled: boolean
+        liability?: {
+          account?: string
+          type: "account" | "self"
+        }
       }
       billing_cycle_anchor?: "now" | "unchanged"
       billing_thresholds?:
@@ -7672,7 +8615,21 @@ export class ApiClient {
       default_payment_method?: string
       default_source?: string | ""
       default_tax_rates?: string[] | ""
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
+        | ""
       expand?: string[]
+      invoice_settings?: {
+        account_tax_ids?: string[] | ""
+        issuer?: {
+          account?: string
+          type: "account" | "self"
+        }
+      }
       items?: {
         billing_thresholds?:
           | {
@@ -7681,6 +8638,13 @@ export class ApiClient {
           | ""
         clear_usage?: boolean
         deleted?: boolean
+        discounts?:
+          | {
+              coupon?: string
+              discount?: string
+              promotion_code?: string
+            }[]
+          | ""
         id?: string
         metadata?:
           | {
@@ -7753,7 +8717,7 @@ export class ApiClient {
                   | "unionpay"
                   | "unknown"
                   | "visa"
-                request_three_d_secure?: "any" | "automatic"
+                request_three_d_secure?: "any" | "automatic" | "challenge"
               }
             | ""
           customer_balance?:
@@ -7768,6 +8732,7 @@ export class ApiClient {
               }
             | ""
           konbini?: EmptyObject | ""
+          sepa_debit?: EmptyObject | ""
           us_bank_account?:
             | {
                 financial_connections?: {
@@ -7777,7 +8742,7 @@ export class ApiClient {
                     | "payment_method"
                     | "transactions"
                   )[]
-                  prefetch?: "balances"[]
+                  prefetch?: ("balances" | "transactions")[]
                 }
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
@@ -7795,12 +8760,14 @@ export class ApiClient {
               | "card"
               | "cashapp"
               | "customer_balance"
+              | "eps"
               | "fpx"
               | "giropay"
               | "grabpay"
               | "ideal"
               | "konbini"
               | "link"
+              | "p24"
               | "paynow"
               | "paypal"
               | "promptpay"
@@ -8006,6 +8973,7 @@ export class ApiClient {
         | "my_itn"
         | "my_sst"
         | "no_vat"
+        | "no_voec"
         | "nz_gst"
         | "pe_ruc"
         | "ph_tin"
@@ -8938,7 +9906,7 @@ export class ApiClient {
     account: string
     requestBody: {
       expand?: string[]
-      features: ("balance" | "ownership")[]
+      features: ("balance" | "ownership" | "transactions")[]
     }
   }): Observable<
     | (HttpResponse<t_financial_connections_account> & { status: 200 })
@@ -8954,6 +9922,64 @@ export class ApiClient {
       "POST",
       this.config.basePath +
         `/v1/financial_connections/accounts/${p["account"]}/refresh`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postFinancialConnectionsAccountsAccountSubscribe(p: {
+    account: string
+    requestBody: {
+      expand?: string[]
+      features: "transactions"[]
+    }
+  }): Observable<
+    | (HttpResponse<t_financial_connections_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/financial_connections/accounts/${p["account"]}/subscribe`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postFinancialConnectionsAccountsAccountUnsubscribe(p: {
+    account: string
+    requestBody: {
+      expand?: string[]
+      features: "transactions"[]
+    }
+  }): Observable<
+    | (HttpResponse<t_financial_connections_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/financial_connections/accounts/${p["account"]}/unsubscribe`,
       {
         headers,
         body,
@@ -8980,7 +10006,7 @@ export class ApiClient {
         | "payment_method"
         | "transactions"
       )[]
-      prefetch?: ("balances" | "ownership")[]
+      prefetch?: ("balances" | "ownership" | "transactions")[]
       return_url?: string
     }
   }): Observable<
@@ -9034,8 +10060,212 @@ export class ApiClient {
     )
   }
 
+  getFinancialConnectionsTransactions(p: {
+    account: string
+    endingBefore?: string
+    expand?: string[]
+    limit?: number
+    startingAfter?: string
+    transactedAt?:
+      | {
+          gt?: number
+          gte?: number
+          lt?: number
+          lte?: number
+        }
+      | number
+    transactionRefresh?: {
+      after: string
+    }
+    requestBody?: EmptyObject
+  }): Observable<
+    | (HttpResponse<{
+        data: t_financial_connections_transaction[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({
+      account: p["account"],
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      starting_after: p["startingAfter"],
+      transacted_at: p["transactedAt"],
+      transaction_refresh: p["transactionRefresh"],
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/financial_connections/transactions`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getFinancialConnectionsTransactionsTransaction(p: {
+    expand?: string[]
+    transaction: string
+    requestBody?: EmptyObject
+  }): Observable<
+    | (HttpResponse<t_financial_connections_transaction> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({ expand: p["expand"] })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/v1/financial_connections/transactions/${p["transaction"]}`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getForwardingRequests(
+    p: {
+      created?: {
+        gt?: number
+        gte?: number
+        lt?: number
+        lte?: number
+      }
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      startingAfter?: string
+      requestBody?: EmptyObject
+    } = {},
+  ): Observable<
+    | (HttpResponse<{
+        data: t_forwarding_request[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({
+      created: p["created"],
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      starting_after: p["startingAfter"],
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/forwarding/requests`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postForwardingRequests(p: {
+    requestBody: {
+      config: string
+      expand?: string[]
+      payment_method: string
+      replacements: (
+        | "card_cvc"
+        | "card_expiry"
+        | "card_number"
+        | "cardholder_name"
+      )[]
+      request?: {
+        body?: string
+        headers?: {
+          name: string
+          value: string
+        }[]
+      }
+      url: string
+    }
+  }): Observable<
+    | (HttpResponse<t_forwarding_request> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/forwarding/requests`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getForwardingRequestsId(p: {
+    expand?: string[]
+    id: string
+    requestBody?: EmptyObject
+  }): Observable<
+    | (HttpResponse<t_forwarding_request> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({ expand: p["expand"] })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/forwarding/requests/${p["id"]}`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   getIdentityVerificationReports(
     p: {
+      clientReferenceId?: string
       created?:
         | {
             gt?: number
@@ -9066,6 +10296,7 @@ export class ApiClient {
       "Content-Type": "application/x-www-form-urlencoded",
     })
     const params = this._queryParams({
+      client_reference_id: p["clientReferenceId"],
       created: p["created"],
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -9119,6 +10350,7 @@ export class ApiClient {
 
   getIdentityVerificationSessions(
     p: {
+      clientReferenceId?: string
       created?:
         | {
             gt?: number
@@ -9148,6 +10380,7 @@ export class ApiClient {
       "Content-Type": "application/x-www-form-urlencoded",
     })
     const params = this._queryParams({
+      client_reference_id: p["clientReferenceId"],
       created: p["created"],
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -9170,26 +10403,44 @@ export class ApiClient {
     )
   }
 
-  postIdentityVerificationSessions(p: {
-    requestBody: {
-      expand?: string[]
-      metadata?: {
-        [key: string]: string | undefined
+  postIdentityVerificationSessions(
+    p: {
+      requestBody?: {
+        client_reference_id?: string
+        expand?: string[]
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        options?: {
+          document?:
+            | {
+                allowed_types?: ("driving_license" | "id_card" | "passport")[]
+                require_id_number?: boolean
+                require_live_capture?: boolean
+                require_matching_selfie?: boolean
+              }
+            | ""
+          email?:
+            | {
+                require_verification?: boolean
+              }
+            | ""
+          phone?:
+            | {
+                require_verification?: boolean
+              }
+            | ""
+        }
+        provided_details?: {
+          email?: string
+          phone?: string
+        }
+        return_url?: string
+        type?: "document" | "id_number"
+        verification_flow?: string
       }
-      options?: {
-        document?:
-          | {
-              allowed_types?: ("driving_license" | "id_card" | "passport")[]
-              require_id_number?: boolean
-              require_live_capture?: boolean
-              require_matching_selfie?: boolean
-            }
-          | ""
-      }
-      return_url?: string
-      type: "document" | "id_number"
-    }
-  }): Observable<
+    } = {},
+  ): Observable<
     | (HttpResponse<t_identity_verification_session> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
     | HttpResponse<unknown>
@@ -9256,6 +10507,20 @@ export class ApiClient {
               require_matching_selfie?: boolean
             }
           | ""
+        email?:
+          | {
+              require_verification?: boolean
+            }
+          | ""
+        phone?:
+          | {
+              require_verification?: boolean
+            }
+          | ""
+      }
+      provided_details?: {
+        email?: string
+        phone?: string
       }
       type?: "document" | "id_number"
     }
@@ -9406,6 +10671,7 @@ export class ApiClient {
         | {
             coupon?: string
             discount?: string
+            promotion_code?: string
           }[]
         | ""
       expand?: string[]
@@ -9520,6 +10786,7 @@ export class ApiClient {
         | {
             coupon?: string
             discount?: string
+            promotion_code?: string
           }[]
         | ""
       expand?: string[]
@@ -9645,6 +10912,10 @@ export class ApiClient {
         auto_advance?: boolean
         automatic_tax?: {
           enabled: boolean
+          liability?: {
+            account?: string
+            type: "account" | "self"
+          }
         }
         collection_method?: "charge_automatically" | "send_invoice"
         currency?: string
@@ -9664,6 +10935,7 @@ export class ApiClient {
           | {
               coupon?: string
               discount?: string
+              promotion_code?: string
             }[]
           | ""
         due_date?: number
@@ -9674,11 +10946,16 @@ export class ApiClient {
           action: "revision"
           invoice: string
         }
+        issuer?: {
+          account?: string
+          type: "account" | "self"
+        }
         metadata?:
           | {
               [key: string]: string | undefined
             }
           | ""
+        number?: string
         on_behalf_of?: string
         payment_settings?: {
           default_mandate?: string | ""
@@ -9711,7 +10988,7 @@ export class ApiClient {
                         }
                       | ""
                   }
-                  request_three_d_secure?: "any" | "automatic"
+                  request_three_d_secure?: "any" | "automatic" | "challenge"
                 }
               | ""
             customer_balance?:
@@ -9726,6 +11003,7 @@ export class ApiClient {
                 }
               | ""
             konbini?: EmptyObject | ""
+            sepa_debit?: EmptyObject | ""
             us_bank_account?:
               | {
                   financial_connections?: {
@@ -9735,7 +11013,7 @@ export class ApiClient {
                       | "payment_method"
                       | "transactions"
                     )[]
-                    prefetch?: "balances"[]
+                    prefetch?: ("balances" | "transactions")[]
                   }
                   verification_method?:
                     | "automatic"
@@ -9756,12 +11034,14 @@ export class ApiClient {
                 | "card"
                 | "cashapp"
                 | "customer_balance"
+                | "eps"
                 | "fpx"
                 | "giropay"
                 | "grabpay"
                 | "ideal"
                 | "konbini"
                 | "link"
+                | "p24"
                 | "paynow"
                 | "paypal"
                 | "promptpay"
@@ -9772,21 +11052,13 @@ export class ApiClient {
               )[]
             | ""
         }
-        pending_invoice_items_behavior?:
-          | "exclude"
-          | "include"
-          | "include_and_require"
+        pending_invoice_items_behavior?: "exclude" | "include"
         rendering?: {
           amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax"
           pdf?: {
             page_size?: "a4" | "auto" | "letter"
           }
         }
-        rendering_options?:
-          | {
-              amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax"
-            }
-          | ""
         shipping_cost?: {
           shipping_rate?: string
           shipping_rate_data?: {
@@ -9909,6 +11181,10 @@ export class ApiClient {
     p: {
       automaticTax?: {
         enabled: boolean
+        liability?: {
+          account?: string
+          type: "account" | "self"
+        }
       }
       coupon?: string
       currency?: string
@@ -9989,6 +11265,7 @@ export class ApiClient {
             | "my_itn"
             | "my_sst"
             | "no_vat"
+            | "no_voec"
             | "nz_gst"
             | "pe_ruc"
             | "ph_tin"
@@ -10017,6 +11294,7 @@ export class ApiClient {
         | {
             coupon?: string
             discount?: string
+            promotion_code?: string
           }[]
         | ""
       expand?: string[]
@@ -10029,6 +11307,7 @@ export class ApiClient {
           | {
               coupon?: string
               discount?: string
+              promotion_code?: string
             }[]
           | ""
         invoiceitem?: string
@@ -10056,6 +11335,11 @@ export class ApiClient {
         unit_amount?: number
         unit_amount_decimal?: string
       }[]
+      issuer?: {
+        account?: string
+        type: "account" | "self"
+      }
+      onBehalfOf?: string | ""
       schedule?: string
       subscription?: string
       subscriptionBillingCycleAnchor?: "now" | "unchanged" | number
@@ -10071,6 +11355,13 @@ export class ApiClient {
           | ""
         clear_usage?: boolean
         deleted?: boolean
+        discounts?:
+          | {
+              coupon?: string
+              discount?: string
+              promotion_code?: string
+            }[]
+          | ""
         id?: string
         metadata?:
           | {
@@ -10120,6 +11411,8 @@ export class ApiClient {
       discounts: p["discounts"],
       expand: p["expand"],
       invoice_items: p["invoiceItems"],
+      issuer: p["issuer"],
+      on_behalf_of: p["onBehalfOf"],
       schedule: p["schedule"],
       subscription: p["subscription"],
       subscription_billing_cycle_anchor: p["subscriptionBillingCycleAnchor"],
@@ -10154,6 +11447,10 @@ export class ApiClient {
     p: {
       automaticTax?: {
         enabled: boolean
+        liability?: {
+          account?: string
+          type: "account" | "self"
+        }
       }
       coupon?: string
       currency?: string
@@ -10234,6 +11531,7 @@ export class ApiClient {
             | "my_itn"
             | "my_sst"
             | "no_vat"
+            | "no_voec"
             | "nz_gst"
             | "pe_ruc"
             | "ph_tin"
@@ -10262,6 +11560,7 @@ export class ApiClient {
         | {
             coupon?: string
             discount?: string
+            promotion_code?: string
           }[]
         | ""
       endingBefore?: string
@@ -10275,6 +11574,7 @@ export class ApiClient {
           | {
               coupon?: string
               discount?: string
+              promotion_code?: string
             }[]
           | ""
         invoiceitem?: string
@@ -10302,7 +11602,12 @@ export class ApiClient {
         unit_amount?: number
         unit_amount_decimal?: string
       }[]
+      issuer?: {
+        account?: string
+        type: "account" | "self"
+      }
       limit?: number
+      onBehalfOf?: string | ""
       schedule?: string
       startingAfter?: string
       subscription?: string
@@ -10319,6 +11624,13 @@ export class ApiClient {
           | ""
         clear_usage?: boolean
         deleted?: boolean
+        discounts?:
+          | {
+              coupon?: string
+              discount?: string
+              promotion_code?: string
+            }[]
+          | ""
         id?: string
         metadata?:
           | {
@@ -10374,7 +11686,9 @@ export class ApiClient {
       ending_before: p["endingBefore"],
       expand: p["expand"],
       invoice_items: p["invoiceItems"],
+      issuer: p["issuer"],
       limit: p["limit"],
+      on_behalf_of: p["onBehalfOf"],
       schedule: p["schedule"],
       starting_after: p["startingAfter"],
       subscription: p["subscription"],
@@ -10467,6 +11781,10 @@ export class ApiClient {
       auto_advance?: boolean
       automatic_tax?: {
         enabled: boolean
+        liability?: {
+          account?: string
+          type: "account" | "self"
+        }
       }
       collection_method?: "charge_automatically" | "send_invoice"
       custom_fields?:
@@ -10484,17 +11802,23 @@ export class ApiClient {
         | {
             coupon?: string
             discount?: string
+            promotion_code?: string
           }[]
         | ""
       due_date?: number
       effective_at?: number | ""
       expand?: string[]
       footer?: string
+      issuer?: {
+        account?: string
+        type: "account" | "self"
+      }
       metadata?:
         | {
             [key: string]: string | undefined
           }
         | ""
+      number?: string | ""
       on_behalf_of?: string | ""
       payment_settings?: {
         default_mandate?: string | ""
@@ -10524,7 +11848,7 @@ export class ApiClient {
                       }
                     | ""
                 }
-                request_three_d_secure?: "any" | "automatic"
+                request_three_d_secure?: "any" | "automatic" | "challenge"
               }
             | ""
           customer_balance?:
@@ -10539,6 +11863,7 @@ export class ApiClient {
               }
             | ""
           konbini?: EmptyObject | ""
+          sepa_debit?: EmptyObject | ""
           us_bank_account?:
             | {
                 financial_connections?: {
@@ -10548,7 +11873,7 @@ export class ApiClient {
                     | "payment_method"
                     | "transactions"
                   )[]
-                  prefetch?: "balances"[]
+                  prefetch?: ("balances" | "transactions")[]
                 }
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
@@ -10566,12 +11891,14 @@ export class ApiClient {
               | "card"
               | "cashapp"
               | "customer_balance"
+              | "eps"
               | "fpx"
               | "giropay"
               | "grabpay"
               | "ideal"
               | "konbini"
               | "link"
+              | "p24"
               | "paynow"
               | "paypal"
               | "promptpay"
@@ -10588,11 +11915,6 @@ export class ApiClient {
           page_size?: "a4" | "auto" | "letter"
         }
       }
-      rendering_options?:
-        | {
-            amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax"
-          }
-        | ""
       shipping_cost?:
         | {
             shipping_rate?: string
@@ -10734,6 +12056,101 @@ export class ApiClient {
       this.config.basePath + `/v1/invoices/${p["invoice"]}/lines`,
       {
         params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postInvoicesInvoiceLinesLineItemId(p: {
+    invoice: string
+    lineItemId: string
+    requestBody?: {
+      amount?: number
+      description?: string
+      discountable?: boolean
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
+        | ""
+      expand?: string[]
+      metadata?:
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      period?: {
+        end: number
+        start: number
+      }
+      price?: string
+      price_data?: {
+        currency: string
+        product?: string
+        product_data?: {
+          description?: string
+          images?: string[]
+          metadata?: {
+            [key: string]: string | undefined
+          }
+          name: string
+          tax_code?: string
+        }
+        tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+        unit_amount?: number
+        unit_amount_decimal?: string
+      }
+      quantity?: number
+      tax_amounts?:
+        | {
+            amount: number
+            tax_rate_data: {
+              country?: string
+              description?: string
+              display_name: string
+              inclusive: boolean
+              jurisdiction?: string
+              percentage: number
+              state?: string
+              tax_type?:
+                | "amusement_tax"
+                | "communications_tax"
+                | "gst"
+                | "hst"
+                | "igst"
+                | "jct"
+                | "lease_tax"
+                | "pst"
+                | "qst"
+                | "rst"
+                | "sales_tax"
+                | "vat"
+            }
+            taxable_amount: number
+          }[]
+        | ""
+      tax_rates?: string[] | ""
+    }
+  }): Observable<
+    | (HttpResponse<t_line_item> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/invoices/${p["invoice"]}/lines/${p["lineItemId"]}`,
+      {
         headers,
         body,
         observe: "response",
@@ -11442,6 +12859,7 @@ export class ApiClient {
           | "womens_ready_to_wear_stores"
           | "wrecking_and_salvage_yards"
         )[]
+        allowed_merchant_countries?: string[]
         blocked_categories?: (
           | "ac_refrigeration_repair"
           | "accounting_bookkeeping_services"
@@ -11739,6 +13157,7 @@ export class ApiClient {
           | "womens_ready_to_wear_stores"
           | "wrecking_and_salvage_yards"
         )[]
+        blocked_merchant_countries?: string[]
         spending_limits?: {
           amount: number
           categories?: (
@@ -12444,6 +13863,7 @@ export class ApiClient {
           | "womens_ready_to_wear_stores"
           | "wrecking_and_salvage_yards"
         )[]
+        allowed_merchant_countries?: string[]
         blocked_categories?: (
           | "ac_refrigeration_repair"
           | "accounting_bookkeeping_services"
@@ -12741,6 +14161,7 @@ export class ApiClient {
           | "womens_ready_to_wear_stores"
           | "wrecking_and_salvage_yards"
         )[]
+        blocked_merchant_countries?: string[]
         spending_limits?: {
           amount: number
           categories?: (
@@ -13091,6 +14512,7 @@ export class ApiClient {
       expand?: string[]
       last4?: string
       limit?: number
+      personalizationDesign?: string
       startingAfter?: string
       status?: "active" | "canceled" | "inactive"
       type?: "physical" | "virtual"
@@ -13118,6 +14540,7 @@ export class ApiClient {
       expand: p["expand"],
       last4: p["last4"],
       limit: p["limit"],
+      personalization_design: p["personalizationDesign"],
       starting_after: p["startingAfter"],
       status: p["status"],
       type: p["type"],
@@ -13146,8 +14569,13 @@ export class ApiClient {
       metadata?: {
         [key: string]: string | undefined
       }
+      personalization_design?: string
+      pin?: {
+        encrypted_number?: string
+      }
       replacement_for?: string
       replacement_reason?: "damaged" | "expired" | "lost" | "stolen"
+      second_line?: string | ""
       shipping?: {
         address: {
           city: string
@@ -13464,6 +14892,7 @@ export class ApiClient {
           | "womens_ready_to_wear_stores"
           | "wrecking_and_salvage_yards"
         )[]
+        allowed_merchant_countries?: string[]
         blocked_categories?: (
           | "ac_refrigeration_repair"
           | "accounting_bookkeeping_services"
@@ -13761,6 +15190,7 @@ export class ApiClient {
           | "womens_ready_to_wear_stores"
           | "wrecking_and_salvage_yards"
         )[]
+        blocked_merchant_countries?: string[]
         spending_limits?: {
           amount: number
           categories?: (
@@ -14132,6 +15562,7 @@ export class ApiClient {
             [key: string]: string | undefined
           }
         | ""
+      personalization_design?: string
       pin?: {
         encrypted_number?: string
       }
@@ -14433,6 +15864,7 @@ export class ApiClient {
           | "womens_ready_to_wear_stores"
           | "wrecking_and_salvage_yards"
         )[]
+        allowed_merchant_countries?: string[]
         blocked_categories?: (
           | "ac_refrigeration_repair"
           | "accounting_bookkeeping_services"
@@ -14730,6 +16162,7 @@ export class ApiClient {
           | "womens_ready_to_wear_stores"
           | "wrecking_and_salvage_yards"
         )[]
+        blocked_merchant_countries?: string[]
         spending_limits?: {
           amount: number
           categories?: (
@@ -15398,6 +16831,251 @@ export class ApiClient {
     )
   }
 
+  getIssuingPersonalizationDesigns(
+    p: {
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      lookupKeys?: string[]
+      preferences?: {
+        is_default?: boolean
+        is_platform_default?: boolean
+      }
+      startingAfter?: string
+      status?: "active" | "inactive" | "rejected" | "review"
+      requestBody?: EmptyObject
+    } = {},
+  ): Observable<
+    | (HttpResponse<{
+        data: t_issuing_personalization_design[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      lookup_keys: p["lookupKeys"],
+      preferences: p["preferences"],
+      starting_after: p["startingAfter"],
+      status: p["status"],
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/issuing/personalization_designs`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postIssuingPersonalizationDesigns(p: {
+    requestBody: {
+      card_logo?: string
+      carrier_text?: {
+        footer_body?: string | ""
+        footer_title?: string | ""
+        header_body?: string | ""
+        header_title?: string | ""
+      }
+      expand?: string[]
+      lookup_key?: string
+      metadata?: {
+        [key: string]: string | undefined
+      }
+      name?: string
+      physical_bundle: string
+      preferences?: {
+        is_default: boolean
+      }
+      transfer_lookup_key?: boolean
+    }
+  }): Observable<
+    | (HttpResponse<t_issuing_personalization_design> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/issuing/personalization_designs`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getIssuingPersonalizationDesignsPersonalizationDesign(p: {
+    expand?: string[]
+    personalizationDesign: string
+    requestBody?: EmptyObject
+  }): Observable<
+    | (HttpResponse<t_issuing_personalization_design> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({ expand: p["expand"] })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/v1/issuing/personalization_designs/${p["personalizationDesign"]}`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postIssuingPersonalizationDesignsPersonalizationDesign(p: {
+    personalizationDesign: string
+    requestBody?: {
+      card_logo?: string | ""
+      carrier_text?:
+        | {
+            footer_body?: string | ""
+            footer_title?: string | ""
+            header_body?: string | ""
+            header_title?: string | ""
+          }
+        | ""
+      expand?: string[]
+      lookup_key?: string | ""
+      metadata?: {
+        [key: string]: string | undefined
+      }
+      name?: string | ""
+      physical_bundle?: string
+      preferences?: {
+        is_default: boolean
+      }
+      transfer_lookup_key?: boolean
+    }
+  }): Observable<
+    | (HttpResponse<t_issuing_personalization_design> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/issuing/personalization_designs/${p["personalizationDesign"]}`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getIssuingPhysicalBundles(
+    p: {
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      startingAfter?: string
+      status?: "active" | "inactive" | "review"
+      type?: "custom" | "standard"
+      requestBody?: EmptyObject
+    } = {},
+  ): Observable<
+    | (HttpResponse<{
+        data: t_issuing_physical_bundle[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      starting_after: p["startingAfter"],
+      status: p["status"],
+      type: p["type"],
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/issuing/physical_bundles`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getIssuingPhysicalBundlesPhysicalBundle(p: {
+    expand?: string[]
+    physicalBundle: string
+    requestBody?: EmptyObject
+  }): Observable<
+    | (HttpResponse<t_issuing_physical_bundle> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({ expand: p["expand"] })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/v1/issuing/physical_bundles/${p["physicalBundle"]}`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   getIssuingSettlements(
     p: {
       created?:
@@ -15498,6 +17176,115 @@ export class ApiClient {
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/v1/issuing/settlements/${p["settlement"]}`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getIssuingTokens(p: {
+    card: string
+    created?:
+      | {
+          gt?: number
+          gte?: number
+          lt?: number
+          lte?: number
+        }
+      | number
+    endingBefore?: string
+    expand?: string[]
+    limit?: number
+    startingAfter?: string
+    status?: "active" | "deleted" | "requested" | "suspended"
+    requestBody?: EmptyObject
+  }): Observable<
+    | (HttpResponse<{
+        data: t_issuing_token[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({
+      card: p["card"],
+      created: p["created"],
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      starting_after: p["startingAfter"],
+      status: p["status"],
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/issuing/tokens`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getIssuingTokensToken(p: {
+    expand?: string[]
+    token: string
+    requestBody?: EmptyObject
+  }): Observable<
+    | (HttpResponse<t_issuing_token> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({ expand: p["expand"] })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/issuing/tokens/${p["token"]}`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postIssuingTokensToken(p: {
+    token: string
+    requestBody: {
+      expand?: string[]
+      status: "active" | "deleted" | "suspended"
+    }
+  }): Observable<
+    | (HttpResponse<t_issuing_token> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/issuing/tokens/${p["token"]}`,
       {
         headers,
         body,
@@ -15641,7 +17428,7 @@ export class ApiClient {
         | "payment_method"
         | "transactions"
       )[]
-      prefetch?: ("balances" | "ownership")[]
+      prefetch?: ("balances" | "ownership" | "transactions")[]
       return_url?: string
     }
   }): Observable<
@@ -15845,7 +17632,7 @@ export class ApiClient {
     account: string
     requestBody: {
       expand?: string[]
-      features: ("balance" | "ownership")[]
+      features: ("balance" | "ownership" | "transactions")[]
     }
   }): Observable<
     | (HttpResponse<t_financial_connections_account> & { status: 200 })
@@ -15961,6 +17748,7 @@ export class ApiClient {
       capture_method?: "automatic" | "automatic_async" | "manual"
       confirm?: boolean
       confirmation_method?: "automatic" | "manual"
+      confirmation_token?: string
       currency: string
       customer?: string
       description?: string
@@ -16094,6 +17882,7 @@ export class ApiClient {
             | "knab"
             | "moneyou"
             | "n26"
+            | "nn"
             | "rabobank"
             | "regiobank"
             | "revolut"
@@ -16115,6 +17904,7 @@ export class ApiClient {
         metadata?: {
           [key: string]: string | undefined
         }
+        mobilepay?: EmptyObject
         oxxo?: EmptyObject
         p24?: {
           bank?:
@@ -16142,6 +17932,7 @@ export class ApiClient {
             | "santander_przelew24"
             | "tmobile_usbugi_bankowe"
             | "toyota_bank"
+            | "velobank"
             | "volkswagen_bank"
         }
         paynow?: EmptyObject
@@ -16151,12 +17942,14 @@ export class ApiClient {
         radar_options?: {
           session?: string
         }
+        revolut_pay?: EmptyObject
         sepa_debit?: {
           iban: string
         }
         sofort?: {
           country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
         }
+        swish?: EmptyObject
         type:
           | "acss_debit"
           | "affirm"
@@ -16177,14 +17970,17 @@ export class ApiClient {
           | "klarna"
           | "konbini"
           | "link"
+          | "mobilepay"
           | "oxxo"
           | "p24"
           | "paynow"
           | "paypal"
           | "pix"
           | "promptpay"
+          | "revolut_pay"
           | "sepa_debit"
           | "sofort"
+          | "swish"
           | "us_bank_account"
           | "wechat_pay"
           | "zip"
@@ -16249,6 +18045,7 @@ export class ApiClient {
         blik?:
           | {
               code?: string
+              setup_future_usage?: "" | "none"
             }
           | ""
         boleto?:
@@ -16294,10 +18091,31 @@ export class ApiClient {
                 | "unionpay"
                 | "unknown"
                 | "visa"
-              request_three_d_secure?: "any" | "automatic"
+              request_extended_authorization?: "if_available" | "never"
+              request_incremental_authorization?: "if_available" | "never"
+              request_multicapture?: "if_available" | "never"
+              request_overcapture?: "if_available" | "never"
+              request_three_d_secure?: "any" | "automatic" | "challenge"
+              require_cvc_recollection?: boolean
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
               statement_descriptor_suffix_kana?: string | ""
               statement_descriptor_suffix_kanji?: string | ""
+              three_d_secure?: {
+                ares_trans_status?: "A" | "C" | "I" | "N" | "R" | "U" | "Y"
+                cryptogram: string
+                electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07"
+                exemption_indicator?: "low_risk" | "none"
+                network_options?: {
+                  cartes_bancaires?: {
+                    cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
+                    cb_exemption?: string
+                    cb_score?: number
+                  }
+                }
+                requestor_challenge_indicator?: string
+                transaction_id: string
+                version: "1.0.2" | "2.1.0" | "2.2.0"
+              }
             }
           | ""
         card_present?:
@@ -16430,6 +18248,12 @@ export class ApiClient {
               setup_future_usage?: "" | "none" | "off_session"
             }
           | ""
+        mobilepay?:
+          | {
+              capture_method?: "" | "manual"
+              setup_future_usage?: "none"
+            }
+          | ""
         oxxo?:
           | {
               expires_after_days?: number
@@ -16489,6 +18313,11 @@ export class ApiClient {
               setup_future_usage?: "none"
             }
           | ""
+        revolut_pay?:
+          | {
+              setup_future_usage?: "" | "none" | "off_session"
+            }
+          | ""
         sepa_debit?:
           | {
               mandate_options?: EmptyObject
@@ -16509,6 +18338,12 @@ export class ApiClient {
               setup_future_usage?: "" | "none" | "off_session"
             }
           | ""
+        swish?:
+          | {
+              reference?: string | ""
+              setup_future_usage?: "none"
+            }
+          | ""
         us_bank_account?:
           | {
               financial_connections?: {
@@ -16518,8 +18353,11 @@ export class ApiClient {
                   | "payment_method"
                   | "transactions"
                 )[]
-                prefetch?: "balances"[]
+                prefetch?: ("balances" | "transactions")[]
                 return_url?: string
+              }
+              mandate_options?: {
+                collection_method?: "" | "paper"
               }
               networks?: {
                 requested?: ("ach" | "us_domestic_wire")[]
@@ -16792,6 +18630,7 @@ export class ApiClient {
             | "knab"
             | "moneyou"
             | "n26"
+            | "nn"
             | "rabobank"
             | "regiobank"
             | "revolut"
@@ -16813,6 +18652,7 @@ export class ApiClient {
         metadata?: {
           [key: string]: string | undefined
         }
+        mobilepay?: EmptyObject
         oxxo?: EmptyObject
         p24?: {
           bank?:
@@ -16840,6 +18680,7 @@ export class ApiClient {
             | "santander_przelew24"
             | "tmobile_usbugi_bankowe"
             | "toyota_bank"
+            | "velobank"
             | "volkswagen_bank"
         }
         paynow?: EmptyObject
@@ -16849,12 +18690,14 @@ export class ApiClient {
         radar_options?: {
           session?: string
         }
+        revolut_pay?: EmptyObject
         sepa_debit?: {
           iban: string
         }
         sofort?: {
           country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
         }
+        swish?: EmptyObject
         type:
           | "acss_debit"
           | "affirm"
@@ -16875,14 +18718,17 @@ export class ApiClient {
           | "klarna"
           | "konbini"
           | "link"
+          | "mobilepay"
           | "oxxo"
           | "p24"
           | "paynow"
           | "paypal"
           | "pix"
           | "promptpay"
+          | "revolut_pay"
           | "sepa_debit"
           | "sofort"
+          | "swish"
           | "us_bank_account"
           | "wechat_pay"
           | "zip"
@@ -16947,6 +18793,7 @@ export class ApiClient {
         blik?:
           | {
               code?: string
+              setup_future_usage?: "" | "none"
             }
           | ""
         boleto?:
@@ -16992,10 +18839,31 @@ export class ApiClient {
                 | "unionpay"
                 | "unknown"
                 | "visa"
-              request_three_d_secure?: "any" | "automatic"
+              request_extended_authorization?: "if_available" | "never"
+              request_incremental_authorization?: "if_available" | "never"
+              request_multicapture?: "if_available" | "never"
+              request_overcapture?: "if_available" | "never"
+              request_three_d_secure?: "any" | "automatic" | "challenge"
+              require_cvc_recollection?: boolean
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
               statement_descriptor_suffix_kana?: string | ""
               statement_descriptor_suffix_kanji?: string | ""
+              three_d_secure?: {
+                ares_trans_status?: "A" | "C" | "I" | "N" | "R" | "U" | "Y"
+                cryptogram: string
+                electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07"
+                exemption_indicator?: "low_risk" | "none"
+                network_options?: {
+                  cartes_bancaires?: {
+                    cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
+                    cb_exemption?: string
+                    cb_score?: number
+                  }
+                }
+                requestor_challenge_indicator?: string
+                transaction_id: string
+                version: "1.0.2" | "2.1.0" | "2.2.0"
+              }
             }
           | ""
         card_present?:
@@ -17128,6 +18996,12 @@ export class ApiClient {
               setup_future_usage?: "" | "none" | "off_session"
             }
           | ""
+        mobilepay?:
+          | {
+              capture_method?: "" | "manual"
+              setup_future_usage?: "none"
+            }
+          | ""
         oxxo?:
           | {
               expires_after_days?: number
@@ -17187,6 +19061,11 @@ export class ApiClient {
               setup_future_usage?: "none"
             }
           | ""
+        revolut_pay?:
+          | {
+              setup_future_usage?: "" | "none" | "off_session"
+            }
+          | ""
         sepa_debit?:
           | {
               mandate_options?: EmptyObject
@@ -17207,6 +19086,12 @@ export class ApiClient {
               setup_future_usage?: "" | "none" | "off_session"
             }
           | ""
+        swish?:
+          | {
+              reference?: string | ""
+              setup_future_usage?: "none"
+            }
+          | ""
         us_bank_account?:
           | {
               financial_connections?: {
@@ -17216,8 +19101,11 @@ export class ApiClient {
                   | "payment_method"
                   | "transactions"
                 )[]
-                prefetch?: "balances"[]
+                prefetch?: ("balances" | "transactions")[]
                 return_url?: string
+              }
+              mandate_options?: {
+                collection_method?: "" | "paper"
               }
               networks?: {
                 requested?: ("ach" | "us_domestic_wire")[]
@@ -17356,6 +19244,7 @@ export class ApiClient {
       amount_to_capture?: number
       application_fee_amount?: number
       expand?: string[]
+      final_capture?: boolean
       metadata?:
         | {
             [key: string]: string | undefined
@@ -17394,6 +19283,7 @@ export class ApiClient {
     requestBody?: {
       capture_method?: "automatic" | "automatic_async" | "manual"
       client_secret?: string
+      confirmation_token?: string
       error_on_requires_action?: boolean
       expand?: string[]
       mandate?: string
@@ -17528,6 +19418,7 @@ export class ApiClient {
             | "knab"
             | "moneyou"
             | "n26"
+            | "nn"
             | "rabobank"
             | "regiobank"
             | "revolut"
@@ -17549,6 +19440,7 @@ export class ApiClient {
         metadata?: {
           [key: string]: string | undefined
         }
+        mobilepay?: EmptyObject
         oxxo?: EmptyObject
         p24?: {
           bank?:
@@ -17576,6 +19468,7 @@ export class ApiClient {
             | "santander_przelew24"
             | "tmobile_usbugi_bankowe"
             | "toyota_bank"
+            | "velobank"
             | "volkswagen_bank"
         }
         paynow?: EmptyObject
@@ -17585,12 +19478,14 @@ export class ApiClient {
         radar_options?: {
           session?: string
         }
+        revolut_pay?: EmptyObject
         sepa_debit?: {
           iban: string
         }
         sofort?: {
           country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
         }
+        swish?: EmptyObject
         type:
           | "acss_debit"
           | "affirm"
@@ -17611,14 +19506,17 @@ export class ApiClient {
           | "klarna"
           | "konbini"
           | "link"
+          | "mobilepay"
           | "oxxo"
           | "p24"
           | "paynow"
           | "paypal"
           | "pix"
           | "promptpay"
+          | "revolut_pay"
           | "sepa_debit"
           | "sofort"
+          | "swish"
           | "us_bank_account"
           | "wechat_pay"
           | "zip"
@@ -17683,6 +19581,7 @@ export class ApiClient {
         blik?:
           | {
               code?: string
+              setup_future_usage?: "" | "none"
             }
           | ""
         boleto?:
@@ -17728,10 +19627,31 @@ export class ApiClient {
                 | "unionpay"
                 | "unknown"
                 | "visa"
-              request_three_d_secure?: "any" | "automatic"
+              request_extended_authorization?: "if_available" | "never"
+              request_incremental_authorization?: "if_available" | "never"
+              request_multicapture?: "if_available" | "never"
+              request_overcapture?: "if_available" | "never"
+              request_three_d_secure?: "any" | "automatic" | "challenge"
+              require_cvc_recollection?: boolean
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
               statement_descriptor_suffix_kana?: string | ""
               statement_descriptor_suffix_kanji?: string | ""
+              three_d_secure?: {
+                ares_trans_status?: "A" | "C" | "I" | "N" | "R" | "U" | "Y"
+                cryptogram: string
+                electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07"
+                exemption_indicator?: "low_risk" | "none"
+                network_options?: {
+                  cartes_bancaires?: {
+                    cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
+                    cb_exemption?: string
+                    cb_score?: number
+                  }
+                }
+                requestor_challenge_indicator?: string
+                transaction_id: string
+                version: "1.0.2" | "2.1.0" | "2.2.0"
+              }
             }
           | ""
         card_present?:
@@ -17864,6 +19784,12 @@ export class ApiClient {
               setup_future_usage?: "" | "none" | "off_session"
             }
           | ""
+        mobilepay?:
+          | {
+              capture_method?: "" | "manual"
+              setup_future_usage?: "none"
+            }
+          | ""
         oxxo?:
           | {
               expires_after_days?: number
@@ -17923,6 +19849,11 @@ export class ApiClient {
               setup_future_usage?: "none"
             }
           | ""
+        revolut_pay?:
+          | {
+              setup_future_usage?: "" | "none" | "off_session"
+            }
+          | ""
         sepa_debit?:
           | {
               mandate_options?: EmptyObject
@@ -17943,6 +19874,12 @@ export class ApiClient {
               setup_future_usage?: "" | "none" | "off_session"
             }
           | ""
+        swish?:
+          | {
+              reference?: string | ""
+              setup_future_usage?: "none"
+            }
+          | ""
         us_bank_account?:
           | {
               financial_connections?: {
@@ -17952,8 +19889,11 @@ export class ApiClient {
                   | "payment_method"
                   | "transactions"
                 )[]
-                prefetch?: "balances"[]
+                prefetch?: ("balances" | "transactions")[]
                 return_url?: string
+              }
+              mandate_options?: {
+                collection_method?: "" | "paper"
               }
               networks?: {
                 requested?: ("ach" | "us_domestic_wire")[]
@@ -18152,9 +20092,16 @@ export class ApiClient {
       application_fee_percent?: number
       automatic_tax?: {
         enabled: boolean
+        liability?: {
+          account?: string
+          type: "account" | "self"
+        }
       }
       billing_address_collection?: "auto" | "required"
       consent_collection?: {
+        payment_method_reuse_agreement?: {
+          position: "auto" | "hidden"
+        }
         promotions?: "auto" | "none"
         terms_of_service?: "none" | "required"
       }
@@ -18183,6 +20130,11 @@ export class ApiClient {
         type: "dropdown" | "numeric" | "text"
       }[]
       custom_text?: {
+        after_submit?:
+          | {
+              message: string
+            }
+          | ""
         shipping_address?:
           | {
               message: string
@@ -18201,6 +20153,7 @@ export class ApiClient {
       }
       customer_creation?: "always" | "if_required"
       expand?: string[]
+      inactive_message?: string
       invoice_creation?: {
         enabled: boolean
         invoice_data?: {
@@ -18213,6 +20166,10 @@ export class ApiClient {
             | ""
           description?: string
           footer?: string
+          issuer?: {
+            account?: string
+            type: "account" | "self"
+          }
           metadata?:
             | {
                 [key: string]: string | undefined
@@ -18243,7 +20200,14 @@ export class ApiClient {
       on_behalf_of?: string
       payment_intent_data?: {
         capture_method?: "automatic" | "automatic_async" | "manual"
+        description?: string
+        metadata?: {
+          [key: string]: string | undefined
+        }
         setup_future_usage?: "off_session" | "on_session"
+        statement_descriptor?: string
+        statement_descriptor_suffix?: string
+        transfer_group?: string
       }
       payment_method_collection?: "always" | "if_required"
       payment_method_types?: (
@@ -18273,11 +20237,17 @@ export class ApiClient {
         | "promptpay"
         | "sepa_debit"
         | "sofort"
+        | "swish"
         | "us_bank_account"
         | "wechat_pay"
       )[]
       phone_number_collection?: {
         enabled: boolean
+      }
+      restrictions?: {
+        completed_sessions: {
+          limit: number
+        }
       }
       shipping_address_collection?: {
         allowed_countries: (
@@ -18526,7 +20496,21 @@ export class ApiClient {
       submit_type?: "auto" | "book" | "donate" | "pay"
       subscription_data?: {
         description?: string
+        invoice_settings?: {
+          issuer?: {
+            account?: string
+            type: "account" | "self"
+          }
+        }
+        metadata?: {
+          [key: string]: string | undefined
+        }
         trial_period_days?: number
+        trial_settings?: {
+          end_behavior: {
+            missing_payment_method: "cancel" | "create_invoice" | "pause"
+          }
+        }
       }
       tax_id_collection?: {
         enabled: boolean
@@ -18602,6 +20586,10 @@ export class ApiClient {
       allow_promotion_codes?: boolean
       automatic_tax?: {
         enabled: boolean
+        liability?: {
+          account?: string
+          type: "account" | "self"
+        }
       }
       billing_address_collection?: "auto" | "required"
       custom_fields?:
@@ -18630,6 +20618,11 @@ export class ApiClient {
           }[]
         | ""
       custom_text?: {
+        after_submit?:
+          | {
+              message: string
+            }
+          | ""
         shipping_address?:
           | {
               message: string
@@ -18648,6 +20641,7 @@ export class ApiClient {
       }
       customer_creation?: "always" | "if_required"
       expand?: string[]
+      inactive_message?: string | ""
       invoice_creation?: {
         enabled: boolean
         invoice_data?: {
@@ -18660,6 +20654,10 @@ export class ApiClient {
             | ""
           description?: string
           footer?: string
+          issuer?: {
+            account?: string
+            type: "account" | "self"
+          }
           metadata?:
             | {
                 [key: string]: string | undefined
@@ -18686,6 +20684,17 @@ export class ApiClient {
       }[]
       metadata?: {
         [key: string]: string | undefined
+      }
+      payment_intent_data?: {
+        description?: string | ""
+        metadata?:
+          | {
+              [key: string]: string | undefined
+            }
+          | ""
+        statement_descriptor?: string | ""
+        statement_descriptor_suffix?: string | ""
+        transfer_group?: string | ""
       }
       payment_method_collection?: "always" | "if_required"
       payment_method_types?:
@@ -18716,9 +20725,17 @@ export class ApiClient {
             | "promptpay"
             | "sepa_debit"
             | "sofort"
+            | "swish"
             | "us_bank_account"
             | "wechat_pay"
           )[]
+        | ""
+      restrictions?:
+        | {
+            completed_sessions: {
+              limit: number
+            }
+          }
         | ""
       shipping_address_collection?:
         | {
@@ -18963,6 +20980,26 @@ export class ApiClient {
             )[]
           }
         | ""
+      subscription_data?: {
+        invoice_settings?: {
+          issuer?: {
+            account?: string
+            type: "account" | "self"
+          }
+        }
+        metadata?:
+          | {
+              [key: string]: string | undefined
+            }
+          | ""
+        trial_settings?:
+          | {
+              end_behavior: {
+                missing_payment_method: "cancel" | "create_invoice" | "pause"
+              }
+            }
+          | ""
+      }
     }
   }): Observable<
     | (HttpResponse<t_payment_link> & { status: 200 })
@@ -19138,6 +21175,11 @@ export class ApiClient {
             preference?: "none" | "off" | "on"
           }
         }
+        customer_balance?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
         eps?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
@@ -19216,6 +21258,11 @@ export class ApiClient {
             preference?: "none" | "off" | "on"
           }
         }
+        revolut_pay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
         sepa_debit?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
@@ -19232,6 +21279,11 @@ export class ApiClient {
           }
         }
         wechat_pay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        zip?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
           }
@@ -19363,6 +21415,11 @@ export class ApiClient {
           preference?: "none" | "off" | "on"
         }
       }
+      customer_balance?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
       eps?: {
         display_preference?: {
           preference?: "none" | "off" | "on"
@@ -19440,6 +21497,11 @@ export class ApiClient {
           preference?: "none" | "off" | "on"
         }
       }
+      revolut_pay?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
       sepa_debit?: {
         display_preference?: {
           preference?: "none" | "off" | "on"
@@ -19456,6 +21518,11 @@ export class ApiClient {
         }
       }
       wechat_pay?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      zip?: {
         display_preference?: {
           preference?: "none" | "off" | "on"
         }
@@ -19672,14 +21739,17 @@ export class ApiClient {
         | "klarna"
         | "konbini"
         | "link"
+        | "mobilepay"
         | "oxxo"
         | "p24"
         | "paynow"
         | "paypal"
         | "pix"
         | "promptpay"
+        | "revolut_pay"
         | "sepa_debit"
         | "sofort"
+        | "swish"
         | "us_bank_account"
         | "wechat_pay"
         | "zip"
@@ -19765,6 +21835,9 @@ export class ApiClient {
               cvc?: string
               exp_month: number
               exp_year: number
+              networks?: {
+                preferred?: "cartes_bancaires" | "mastercard" | "visa"
+              }
               number: string
             }
           | {
@@ -19842,6 +21915,7 @@ export class ApiClient {
             | "knab"
             | "moneyou"
             | "n26"
+            | "nn"
             | "rabobank"
             | "regiobank"
             | "revolut"
@@ -19863,6 +21937,7 @@ export class ApiClient {
         metadata?: {
           [key: string]: string | undefined
         }
+        mobilepay?: EmptyObject
         oxxo?: EmptyObject
         p24?: {
           bank?:
@@ -19890,6 +21965,7 @@ export class ApiClient {
             | "santander_przelew24"
             | "tmobile_usbugi_bankowe"
             | "toyota_bank"
+            | "velobank"
             | "volkswagen_bank"
         }
         payment_method?: string
@@ -19900,12 +21976,14 @@ export class ApiClient {
         radar_options?: {
           session?: string
         }
+        revolut_pay?: EmptyObject
         sepa_debit?: {
           iban: string
         }
         sofort?: {
           country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
         }
+        swish?: EmptyObject
         type?:
           | "acss_debit"
           | "affirm"
@@ -19927,14 +22005,17 @@ export class ApiClient {
           | "klarna"
           | "konbini"
           | "link"
+          | "mobilepay"
           | "oxxo"
           | "p24"
           | "paynow"
           | "paypal"
           | "pix"
           | "promptpay"
+          | "revolut_pay"
           | "sepa_debit"
           | "sofort"
+          | "swish"
           | "us_bank_account"
           | "wechat_pay"
           | "zip"
@@ -20020,6 +22101,9 @@ export class ApiClient {
       card?: {
         exp_month?: number
         exp_year?: number
+        networks?: {
+          preferred?: "" | "cartes_bancaires" | "mastercard" | "visa"
+        }
       }
       expand?: string[]
       link?: EmptyObject
@@ -20030,6 +22114,7 @@ export class ApiClient {
         | ""
       us_bank_account?: {
         account_holder_type?: "company" | "individual"
+        account_type?: "checking" | "savings"
       }
     }
   }): Observable<
@@ -20398,6 +22483,7 @@ export class ApiClient {
             [key: string]: string | undefined
           }
         | ""
+      meter?: string
       nickname?: string
       product?:
         | {
@@ -20557,6 +22643,7 @@ export class ApiClient {
       product?: string
       recurring?: {
         interval?: "day" | "month" | "week" | "year"
+        meter?: string
         usage_type?: "licensed" | "metered"
       }
       startingAfter?: string
@@ -20659,6 +22746,7 @@ export class ApiClient {
         aggregate_usage?: "last_during_period" | "last_ever" | "max" | "sum"
         interval: "day" | "month" | "week" | "year"
         interval_count?: number
+        meter?: string
         usage_type?: "licensed" | "metered"
       }
       tax_behavior?: "exclusive" | "inclusive" | "unspecified"
@@ -21351,6 +23439,10 @@ export class ApiClient {
         application_fee_percent?: number | ""
         automatic_tax?: {
           enabled: boolean
+          liability?: {
+            account?: string
+            type: "account" | "self"
+          }
         }
         collection_method?: "charge_automatically" | "send_invoice"
         customer?: string
@@ -21360,6 +23452,7 @@ export class ApiClient {
           | {
               coupon?: string
               discount?: string
+              promotion_code?: string
             }[]
           | ""
         expand?: string[]
@@ -21372,8 +23465,19 @@ export class ApiClient {
         header?: string | ""
         invoice_settings?: {
           days_until_due?: number
+          issuer?: {
+            account?: string
+            type: "account" | "self"
+          }
         }
         line_items?: {
+          discounts?:
+            | {
+                coupon?: string
+                discount?: string
+                promotion_code?: string
+              }[]
+            | ""
           price?: string
           price_data?: {
             currency: string
@@ -21396,6 +23500,9 @@ export class ApiClient {
         subscription_data?: {
           description?: string
           effective_date?: "current_period_end" | number | ""
+          metadata?: {
+            [key: string]: string | undefined
+          }
           trial_period_days?: number | ""
         }
         test_clock?: string
@@ -21465,6 +23572,10 @@ export class ApiClient {
       application_fee_percent?: number | ""
       automatic_tax?: {
         enabled: boolean
+        liability?: {
+          account?: string
+          type: "account" | "self"
+        }
       }
       collection_method?: "charge_automatically" | "send_invoice"
       customer?: string
@@ -21474,6 +23585,7 @@ export class ApiClient {
         | {
             coupon?: string
             discount?: string
+            promotion_code?: string
           }[]
         | ""
       expand?: string[]
@@ -21482,8 +23594,19 @@ export class ApiClient {
       header?: string | ""
       invoice_settings?: {
         days_until_due?: number
+        issuer?: {
+          account?: string
+          type: "account" | "self"
+        }
       }
       line_items?: {
+        discounts?:
+          | {
+              coupon?: string
+              discount?: string
+              promotion_code?: string
+            }[]
+          | ""
         id?: string
         price?: string
         price_data?: {
@@ -21507,6 +23630,9 @@ export class ApiClient {
       subscription_data?: {
         description?: string | ""
         effective_date?: "current_period_end" | number | ""
+        metadata?: {
+          [key: string]: string | undefined
+        }
         trial_period_days?: number | ""
       }
       transfer_data?:
@@ -21735,6 +23861,14 @@ export class ApiClient {
   getRadarEarlyFraudWarnings(
     p: {
       charge?: string
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -21757,6 +23891,7 @@ export class ApiClient {
     })
     const params = this._queryParams({
       charge: p["charge"],
+      created: p["created"],
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
@@ -22375,6 +24510,8 @@ export class ApiClient {
           | "anticipation_repayment"
           | "charge"
           | "charge_failure"
+          | "climate_order_purchase"
+          | "climate_order_refund"
           | "connect_collection_transfer"
           | "connect_reserved_funds"
           | "contribution"
@@ -22390,7 +24527,6 @@ export class ApiClient {
           | "issuing_dispute"
           | "issuing_transaction"
           | "network_cost"
-          | "obligation"
           | "other_adjustment"
           | "partial_capture_reversal"
           | "payout"
@@ -22405,6 +24541,7 @@ export class ApiClient {
           | "topup_reversal"
           | "transfer"
           | "transfer_reversal"
+          | "unreconciled_customer_funds"
         timezone?:
           | "Africa/Abidjan"
           | "Africa/Accra"
@@ -23342,6 +25479,7 @@ export class ApiClient {
           enabled: boolean
         }
         confirm?: boolean
+        confirmation_token?: string
         customer?: string
         description?: string
         expand?: string[]
@@ -23472,6 +25610,7 @@ export class ApiClient {
               | "knab"
               | "moneyou"
               | "n26"
+              | "nn"
               | "rabobank"
               | "regiobank"
               | "revolut"
@@ -23493,6 +25632,7 @@ export class ApiClient {
           metadata?: {
             [key: string]: string | undefined
           }
+          mobilepay?: EmptyObject
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -23520,6 +25660,7 @@ export class ApiClient {
               | "santander_przelew24"
               | "tmobile_usbugi_bankowe"
               | "toyota_bank"
+              | "velobank"
               | "volkswagen_bank"
           }
           paynow?: EmptyObject
@@ -23529,12 +25670,14 @@ export class ApiClient {
           radar_options?: {
             session?: string
           }
+          revolut_pay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
           sofort?: {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
+          swish?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
@@ -23555,14 +25698,17 @@ export class ApiClient {
             | "klarna"
             | "konbini"
             | "link"
+            | "mobilepay"
             | "oxxo"
             | "p24"
             | "paynow"
             | "paypal"
             | "pix"
             | "promptpay"
+            | "revolut_pay"
             | "sepa_debit"
             | "sofort"
+            | "swish"
             | "us_bank_account"
             | "wechat_pay"
             | "zip"
@@ -23613,8 +25759,24 @@ export class ApiClient {
               | "unionpay"
               | "unknown"
               | "visa"
-            request_three_d_secure?: "any" | "automatic"
+            request_three_d_secure?: "any" | "automatic" | "challenge"
+            three_d_secure?: {
+              ares_trans_status?: "A" | "C" | "I" | "N" | "R" | "U" | "Y"
+              cryptogram?: string
+              electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07"
+              network_options?: {
+                cartes_bancaires?: {
+                  cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
+                  cb_exemption?: string
+                  cb_score?: number
+                }
+              }
+              requestor_challenge_indicator?: string
+              transaction_id?: string
+              version?: "1.0.2" | "2.1.0" | "2.2.0"
+            }
           }
+          card_present?: EmptyObject
           link?: EmptyObject
           paypal?: {
             billing_agreement_id?: string
@@ -23630,8 +25792,11 @@ export class ApiClient {
                 | "payment_method"
                 | "transactions"
               )[]
-              prefetch?: "balances"[]
+              prefetch?: ("balances" | "transactions")[]
               return_url?: string
+            }
+            mandate_options?: {
+              collection_method?: "" | "paper"
             }
             networks?: {
               requested?: ("ach" | "us_domestic_wire")[]
@@ -23825,6 +25990,7 @@ export class ApiClient {
             | "knab"
             | "moneyou"
             | "n26"
+            | "nn"
             | "rabobank"
             | "regiobank"
             | "revolut"
@@ -23846,6 +26012,7 @@ export class ApiClient {
         metadata?: {
           [key: string]: string | undefined
         }
+        mobilepay?: EmptyObject
         oxxo?: EmptyObject
         p24?: {
           bank?:
@@ -23873,6 +26040,7 @@ export class ApiClient {
             | "santander_przelew24"
             | "tmobile_usbugi_bankowe"
             | "toyota_bank"
+            | "velobank"
             | "volkswagen_bank"
         }
         paynow?: EmptyObject
@@ -23882,12 +26050,14 @@ export class ApiClient {
         radar_options?: {
           session?: string
         }
+        revolut_pay?: EmptyObject
         sepa_debit?: {
           iban: string
         }
         sofort?: {
           country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
         }
+        swish?: EmptyObject
         type:
           | "acss_debit"
           | "affirm"
@@ -23908,14 +26078,17 @@ export class ApiClient {
           | "klarna"
           | "konbini"
           | "link"
+          | "mobilepay"
           | "oxxo"
           | "p24"
           | "paynow"
           | "paypal"
           | "pix"
           | "promptpay"
+          | "revolut_pay"
           | "sepa_debit"
           | "sofort"
+          | "swish"
           | "us_bank_account"
           | "wechat_pay"
           | "zip"
@@ -23966,8 +26139,24 @@ export class ApiClient {
             | "unionpay"
             | "unknown"
             | "visa"
-          request_three_d_secure?: "any" | "automatic"
+          request_three_d_secure?: "any" | "automatic" | "challenge"
+          three_d_secure?: {
+            ares_trans_status?: "A" | "C" | "I" | "N" | "R" | "U" | "Y"
+            cryptogram?: string
+            electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07"
+            network_options?: {
+              cartes_bancaires?: {
+                cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
+                cb_exemption?: string
+                cb_score?: number
+              }
+            }
+            requestor_challenge_indicator?: string
+            transaction_id?: string
+            version?: "1.0.2" | "2.1.0" | "2.2.0"
+          }
         }
+        card_present?: EmptyObject
         link?: EmptyObject
         paypal?: {
           billing_agreement_id?: string
@@ -23983,8 +26172,11 @@ export class ApiClient {
               | "payment_method"
               | "transactions"
             )[]
-            prefetch?: "balances"[]
+            prefetch?: ("balances" | "transactions")[]
             return_url?: string
+          }
+          mandate_options?: {
+            collection_method?: "" | "paper"
           }
           networks?: {
             requested?: ("ach" | "us_domestic_wire")[]
@@ -24048,6 +26240,7 @@ export class ApiClient {
     intent: string
     requestBody?: {
       client_secret?: string
+      confirmation_token?: string
       expand?: string[]
       mandate_data?:
         | {
@@ -24179,6 +26372,7 @@ export class ApiClient {
             | "knab"
             | "moneyou"
             | "n26"
+            | "nn"
             | "rabobank"
             | "regiobank"
             | "revolut"
@@ -24200,6 +26394,7 @@ export class ApiClient {
         metadata?: {
           [key: string]: string | undefined
         }
+        mobilepay?: EmptyObject
         oxxo?: EmptyObject
         p24?: {
           bank?:
@@ -24227,6 +26422,7 @@ export class ApiClient {
             | "santander_przelew24"
             | "tmobile_usbugi_bankowe"
             | "toyota_bank"
+            | "velobank"
             | "volkswagen_bank"
         }
         paynow?: EmptyObject
@@ -24236,12 +26432,14 @@ export class ApiClient {
         radar_options?: {
           session?: string
         }
+        revolut_pay?: EmptyObject
         sepa_debit?: {
           iban: string
         }
         sofort?: {
           country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
         }
+        swish?: EmptyObject
         type:
           | "acss_debit"
           | "affirm"
@@ -24262,14 +26460,17 @@ export class ApiClient {
           | "klarna"
           | "konbini"
           | "link"
+          | "mobilepay"
           | "oxxo"
           | "p24"
           | "paynow"
           | "paypal"
           | "pix"
           | "promptpay"
+          | "revolut_pay"
           | "sepa_debit"
           | "sofort"
+          | "swish"
           | "us_bank_account"
           | "wechat_pay"
           | "zip"
@@ -24320,8 +26521,24 @@ export class ApiClient {
             | "unionpay"
             | "unknown"
             | "visa"
-          request_three_d_secure?: "any" | "automatic"
+          request_three_d_secure?: "any" | "automatic" | "challenge"
+          three_d_secure?: {
+            ares_trans_status?: "A" | "C" | "I" | "N" | "R" | "U" | "Y"
+            cryptogram?: string
+            electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07"
+            network_options?: {
+              cartes_bancaires?: {
+                cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
+                cb_exemption?: string
+                cb_score?: number
+              }
+            }
+            requestor_challenge_indicator?: string
+            transaction_id?: string
+            version?: "1.0.2" | "2.1.0" | "2.2.0"
+          }
         }
+        card_present?: EmptyObject
         link?: EmptyObject
         paypal?: {
           billing_agreement_id?: string
@@ -24337,8 +26554,11 @@ export class ApiClient {
               | "payment_method"
               | "transactions"
             )[]
-            prefetch?: "balances"[]
+            prefetch?: ("balances" | "transactions")[]
             return_url?: string
+          }
+          mandate_options?: {
+            collection_method?: "" | "paper"
           }
           networks?: {
             requested?: ("ach" | "us_domestic_wire")[]
@@ -25070,6 +27290,13 @@ export class ApiClient {
             usage_gte: number
           }
         | ""
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
+        | ""
       expand?: string[]
       metadata?: {
         [key: string]: string | undefined
@@ -25183,6 +27410,13 @@ export class ApiClient {
         | {
             usage_gte: number
           }
+        | ""
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
         | ""
       expand?: string[]
       metadata?:
@@ -25398,6 +27632,10 @@ export class ApiClient {
           application_fee_percent?: number
           automatic_tax?: {
             enabled: boolean
+            liability?: {
+              account?: string
+              type: "account" | "self"
+            }
           }
           billing_cycle_anchor?: "automatic" | "phase_start"
           billing_thresholds?:
@@ -25410,7 +27648,12 @@ export class ApiClient {
           default_payment_method?: string
           description?: string | ""
           invoice_settings?: {
+            account_tax_ids?: string[] | ""
             days_until_due?: number
+            issuer?: {
+              account?: string
+              type: "account" | "self"
+            }
           }
           on_behalf_of?: string | ""
           transfer_data?:
@@ -25430,6 +27673,11 @@ export class ApiClient {
           | ""
         phases?: {
           add_invoice_items?: {
+            discounts?: {
+              coupon?: string
+              discount?: string
+              promotion_code?: string
+            }[]
             price?: string
             price_data?: {
               currency: string
@@ -25444,6 +27692,10 @@ export class ApiClient {
           application_fee_percent?: number
           automatic_tax?: {
             enabled: boolean
+            liability?: {
+              account?: string
+              type: "account" | "self"
+            }
           }
           billing_cycle_anchor?: "automatic" | "phase_start"
           billing_thresholds?:
@@ -25458,15 +27710,34 @@ export class ApiClient {
           default_payment_method?: string
           default_tax_rates?: string[] | ""
           description?: string | ""
+          discounts?:
+            | {
+                coupon?: string
+                discount?: string
+                promotion_code?: string
+              }[]
+            | ""
           end_date?: number
           invoice_settings?: {
+            account_tax_ids?: string[] | ""
             days_until_due?: number
+            issuer?: {
+              account?: string
+              type: "account" | "self"
+            }
           }
           items: {
             billing_thresholds?:
               | {
                   usage_gte: number
                 }
+              | ""
+            discounts?:
+              | {
+                  coupon?: string
+                  discount?: string
+                  promotion_code?: string
+                }[]
               | ""
             metadata?: {
               [key: string]: string | undefined
@@ -25559,6 +27830,10 @@ export class ApiClient {
         application_fee_percent?: number
         automatic_tax?: {
           enabled: boolean
+          liability?: {
+            account?: string
+            type: "account" | "self"
+          }
         }
         billing_cycle_anchor?: "automatic" | "phase_start"
         billing_thresholds?:
@@ -25571,7 +27846,12 @@ export class ApiClient {
         default_payment_method?: string
         description?: string | ""
         invoice_settings?: {
+          account_tax_ids?: string[] | ""
           days_until_due?: number
+          issuer?: {
+            account?: string
+            type: "account" | "self"
+          }
         }
         on_behalf_of?: string | ""
         transfer_data?:
@@ -25590,6 +27870,11 @@ export class ApiClient {
         | ""
       phases?: {
         add_invoice_items?: {
+          discounts?: {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
           price?: string
           price_data?: {
             currency: string
@@ -25604,6 +27889,10 @@ export class ApiClient {
         application_fee_percent?: number
         automatic_tax?: {
           enabled: boolean
+          liability?: {
+            account?: string
+            type: "account" | "self"
+          }
         }
         billing_cycle_anchor?: "automatic" | "phase_start"
         billing_thresholds?:
@@ -25617,15 +27906,34 @@ export class ApiClient {
         default_payment_method?: string
         default_tax_rates?: string[] | ""
         description?: string | ""
+        discounts?:
+          | {
+              coupon?: string
+              discount?: string
+              promotion_code?: string
+            }[]
+          | ""
         end_date?: number | "now"
         invoice_settings?: {
+          account_tax_ids?: string[] | ""
           days_until_due?: number
+          issuer?: {
+            account?: string
+            type: "account" | "self"
+          }
         }
         items: {
           billing_thresholds?:
             | {
                 usage_gte: number
               }
+            | ""
+          discounts?:
+            | {
+                coupon?: string
+                discount?: string
+                promotion_code?: string
+              }[]
             | ""
           metadata?: {
             [key: string]: string | undefined
@@ -25838,6 +28146,11 @@ export class ApiClient {
   postSubscriptions(p: {
     requestBody: {
       add_invoice_items?: {
+        discounts?: {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
         price?: string
         price_data?: {
           currency: string
@@ -25849,12 +28162,23 @@ export class ApiClient {
         quantity?: number
         tax_rates?: string[] | ""
       }[]
-      application_fee_percent?: number
+      application_fee_percent?: number | ""
       automatic_tax?: {
         enabled: boolean
+        liability?: {
+          account?: string
+          type: "account" | "self"
+        }
       }
       backdate_start_date?: number
       billing_cycle_anchor?: number
+      billing_cycle_anchor_config?: {
+        day_of_month: number
+        hour?: number
+        minute?: number
+        month?: number
+        second?: number
+      }
       billing_thresholds?:
         | {
             amount_gte?: number
@@ -25872,12 +28196,33 @@ export class ApiClient {
       default_source?: string
       default_tax_rates?: string[] | ""
       description?: string
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
+        | ""
       expand?: string[]
+      invoice_settings?: {
+        account_tax_ids?: string[] | ""
+        issuer?: {
+          account?: string
+          type: "account" | "self"
+        }
+      }
       items?: {
         billing_thresholds?:
           | {
               usage_gte: number
             }
+          | ""
+        discounts?:
+          | {
+              coupon?: string
+              discount?: string
+              promotion_code?: string
+            }[]
           | ""
         metadata?: {
           [key: string]: string | undefined
@@ -25943,7 +28288,7 @@ export class ApiClient {
                   | "unionpay"
                   | "unknown"
                   | "visa"
-                request_three_d_secure?: "any" | "automatic"
+                request_three_d_secure?: "any" | "automatic" | "challenge"
               }
             | ""
           customer_balance?:
@@ -25958,6 +28303,7 @@ export class ApiClient {
               }
             | ""
           konbini?: EmptyObject | ""
+          sepa_debit?: EmptyObject | ""
           us_bank_account?:
             | {
                 financial_connections?: {
@@ -25967,7 +28313,7 @@ export class ApiClient {
                     | "payment_method"
                     | "transactions"
                   )[]
-                  prefetch?: "balances"[]
+                  prefetch?: ("balances" | "transactions")[]
                 }
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
@@ -25985,12 +28331,14 @@ export class ApiClient {
               | "card"
               | "cashapp"
               | "customer_balance"
+              | "eps"
               | "fpx"
               | "giropay"
               | "grabpay"
               | "ideal"
               | "konbini"
               | "link"
+              | "p24"
               | "paynow"
               | "paypal"
               | "promptpay"
@@ -26161,6 +28509,11 @@ export class ApiClient {
     subscriptionExposedId: string
     requestBody?: {
       add_invoice_items?: {
+        discounts?: {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
         price?: string
         price_data?: {
           currency: string
@@ -26172,9 +28525,13 @@ export class ApiClient {
         quantity?: number
         tax_rates?: string[] | ""
       }[]
-      application_fee_percent?: number
+      application_fee_percent?: number | ""
       automatic_tax?: {
         enabled: boolean
+        liability?: {
+          account?: string
+          type: "account" | "self"
+        }
       }
       billing_cycle_anchor?: "now" | "unchanged"
       billing_thresholds?:
@@ -26205,7 +28562,21 @@ export class ApiClient {
       default_source?: string | ""
       default_tax_rates?: string[] | ""
       description?: string | ""
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
+        | ""
       expand?: string[]
+      invoice_settings?: {
+        account_tax_ids?: string[] | ""
+        issuer?: {
+          account?: string
+          type: "account" | "self"
+        }
+      }
       items?: {
         billing_thresholds?:
           | {
@@ -26214,6 +28585,13 @@ export class ApiClient {
           | ""
         clear_usage?: boolean
         deleted?: boolean
+        discounts?:
+          | {
+              coupon?: string
+              discount?: string
+              promotion_code?: string
+            }[]
+          | ""
         id?: string
         metadata?:
           | {
@@ -26287,7 +28665,7 @@ export class ApiClient {
                   | "unionpay"
                   | "unknown"
                   | "visa"
-                request_three_d_secure?: "any" | "automatic"
+                request_three_d_secure?: "any" | "automatic" | "challenge"
               }
             | ""
           customer_balance?:
@@ -26302,6 +28680,7 @@ export class ApiClient {
               }
             | ""
           konbini?: EmptyObject | ""
+          sepa_debit?: EmptyObject | ""
           us_bank_account?:
             | {
                 financial_connections?: {
@@ -26311,7 +28690,7 @@ export class ApiClient {
                     | "payment_method"
                     | "transactions"
                   )[]
-                  prefetch?: "balances"[]
+                  prefetch?: ("balances" | "transactions")[]
                 }
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
@@ -26329,12 +28708,14 @@ export class ApiClient {
               | "card"
               | "cashapp"
               | "customer_balance"
+              | "eps"
               | "fpx"
               | "giropay"
               | "grabpay"
               | "ideal"
               | "konbini"
               | "link"
+              | "p24"
               | "paynow"
               | "paypal"
               | "promptpay"
@@ -26509,6 +28890,7 @@ export class ApiClient {
             | "my_itn"
             | "my_sst"
             | "no_vat"
+            | "no_voec"
             | "nz_gst"
             | "pe_ruc"
             | "ph_tin"
@@ -26607,6 +28989,380 @@ export class ApiClient {
         `/v1/tax/calculations/${p["calculation"]}/line_items`,
       {
         params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getTaxRegistrations(
+    p: {
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      startingAfter?: string
+      status?: "active" | "all" | "expired" | "scheduled"
+      requestBody?: EmptyObject
+    } = {},
+  ): Observable<
+    | (HttpResponse<{
+        data: t_tax_registration[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      starting_after: p["startingAfter"],
+      status: p["status"],
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/tax/registrations`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postTaxRegistrations(p: {
+    requestBody: {
+      active_from: "now" | number
+      country: string
+      country_options: {
+        ae?: {
+          type: "standard"
+        }
+        at?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        au?: {
+          type: "standard"
+        }
+        be?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        bg?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        ca?: {
+          province_standard?: {
+            province: string
+          }
+          type: "province_standard" | "simplified" | "standard"
+        }
+        ch?: {
+          type: "standard"
+        }
+        cl?: {
+          type: "simplified"
+        }
+        co?: {
+          type: "simplified"
+        }
+        cy?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        cz?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        de?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        dk?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        ee?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        es?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        fi?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        fr?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        gb?: {
+          type: "standard"
+        }
+        gr?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        hr?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        hu?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        id?: {
+          type: "simplified"
+        }
+        ie?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        is?: {
+          type: "standard"
+        }
+        it?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        jp?: {
+          type: "standard"
+        }
+        kr?: {
+          type: "simplified"
+        }
+        lt?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        lu?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        lv?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        mt?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        mx?: {
+          type: "simplified"
+        }
+        my?: {
+          type: "simplified"
+        }
+        nl?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        no?: {
+          type: "standard"
+        }
+        nz?: {
+          type: "standard"
+        }
+        pl?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        pt?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        ro?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        sa?: {
+          type: "simplified"
+        }
+        se?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        sg?: {
+          type: "standard"
+        }
+        si?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        sk?: {
+          standard?: {
+            place_of_supply_scheme: "small_seller" | "standard"
+          }
+          type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+        }
+        th?: {
+          type: "simplified"
+        }
+        tr?: {
+          type: "simplified"
+        }
+        us?: {
+          local_amusement_tax?: {
+            jurisdiction: string
+          }
+          local_lease_tax?: {
+            jurisdiction: string
+          }
+          state: string
+          type:
+            | "local_amusement_tax"
+            | "local_lease_tax"
+            | "state_communications_tax"
+            | "state_sales_tax"
+        }
+        vn?: {
+          type: "simplified"
+        }
+        za?: {
+          type: "standard"
+        }
+      }
+      expand?: string[]
+      expires_at?: number
+    }
+  }): Observable<
+    | (HttpResponse<t_tax_registration> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/tax/registrations`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getTaxRegistrationsId(p: {
+    expand?: string[]
+    id: string
+    requestBody?: EmptyObject
+  }): Observable<
+    | (HttpResponse<t_tax_registration> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({ expand: p["expand"] })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/tax/registrations/${p["id"]}`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postTaxRegistrationsId(p: {
+    id: string
+    requestBody?: {
+      active_from?: "now" | number
+      expand?: string[]
+      expires_at?: "now" | number | ""
+    }
+  }): Observable<
+    | (HttpResponse<t_tax_registration> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/tax/registrations/${p["id"]}`,
+      {
         headers,
         body,
         observe: "response",
@@ -26904,6 +29660,207 @@ export class ApiClient {
     )
   }
 
+  getTaxIds(
+    p: {
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      owner?: {
+        account?: string
+        customer?: string
+        type: "account" | "application" | "customer" | "self"
+      }
+      startingAfter?: string
+      requestBody?: EmptyObject
+    } = {},
+  ): Observable<
+    | (HttpResponse<{
+        data: t_tax_id[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      owner: p["owner"],
+      starting_after: p["startingAfter"],
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/tax_ids`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postTaxIds(p: {
+    requestBody: {
+      expand?: string[]
+      owner?: {
+        account?: string
+        customer?: string
+        type: "account" | "application" | "customer" | "self"
+      }
+      type:
+        | "ad_nrt"
+        | "ae_trn"
+        | "ar_cuit"
+        | "au_abn"
+        | "au_arn"
+        | "bg_uic"
+        | "bo_tin"
+        | "br_cnpj"
+        | "br_cpf"
+        | "ca_bn"
+        | "ca_gst_hst"
+        | "ca_pst_bc"
+        | "ca_pst_mb"
+        | "ca_pst_sk"
+        | "ca_qst"
+        | "ch_vat"
+        | "cl_tin"
+        | "cn_tin"
+        | "co_nit"
+        | "cr_tin"
+        | "do_rcn"
+        | "ec_ruc"
+        | "eg_tin"
+        | "es_cif"
+        | "eu_oss_vat"
+        | "eu_vat"
+        | "gb_vat"
+        | "ge_vat"
+        | "hk_br"
+        | "hu_tin"
+        | "id_npwp"
+        | "il_vat"
+        | "in_gst"
+        | "is_vat"
+        | "jp_cn"
+        | "jp_rn"
+        | "jp_trn"
+        | "ke_pin"
+        | "kr_brn"
+        | "li_uid"
+        | "mx_rfc"
+        | "my_frp"
+        | "my_itn"
+        | "my_sst"
+        | "no_vat"
+        | "no_voec"
+        | "nz_gst"
+        | "pe_ruc"
+        | "ph_tin"
+        | "ro_tin"
+        | "rs_pib"
+        | "ru_inn"
+        | "ru_kpp"
+        | "sa_vat"
+        | "sg_gst"
+        | "sg_uen"
+        | "si_tin"
+        | "sv_nit"
+        | "th_vat"
+        | "tr_tin"
+        | "tw_vat"
+        | "ua_vat"
+        | "us_ein"
+        | "uy_ruc"
+        | "ve_rif"
+        | "vn_tin"
+        | "za_vat"
+      value: string
+    }
+  }): Observable<
+    | (HttpResponse<t_tax_id> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/tax_ids`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  deleteTaxIdsId(p: {
+    id: string
+    requestBody?: EmptyObject
+  }): Observable<
+    | (HttpResponse<t_deleted_tax_id> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath + `/v1/tax_ids/${p["id"]}`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getTaxIdsId(p: {
+    expand?: string[]
+    id: string
+    requestBody?: EmptyObject
+  }): Observable<
+    | (HttpResponse<t_tax_id> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({ expand: p["expand"] })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/tax_ids/${p["id"]}`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   getTaxRates(
     p: {
       active?: boolean
@@ -26985,7 +29942,6 @@ export class ApiClient {
         | "qst"
         | "rst"
         | "sales_tax"
-        | "service_tax"
         | "vat"
     }
   }): Observable<
@@ -27065,7 +30021,6 @@ export class ApiClient {
         | "qst"
         | "rst"
         | "sales_tax"
-        | "service_tax"
         | "vat"
     }
   }): Observable<
@@ -27141,6 +30096,12 @@ export class ApiClient {
           splashscreen?: string | ""
         }
         expand?: string[]
+        name?: string
+        offline?:
+          | {
+              enabled: boolean
+            }
+          | ""
         tipping?:
           | {
               aud?: {
@@ -27308,6 +30269,12 @@ export class ApiClient {
           }
         | ""
       expand?: string[]
+      name?: string
+      offline?:
+        | {
+            enabled: boolean
+          }
+        | ""
       tipping?:
         | {
             aud?: {
@@ -27630,6 +30597,7 @@ export class ApiClient {
         | "bbpos_chipper2x"
         | "bbpos_wisepad3"
         | "bbpos_wisepos_e"
+        | "mobile_phone_reader"
         | "simulated_wisepos_e"
         | "stripe_m2"
         | "verifone_P400"
@@ -27838,6 +30806,7 @@ export class ApiClient {
       expand?: string[]
       payment_intent: string
       process_config?: {
+        enable_customer_cancellation?: boolean
         skip_tipping?: boolean
         tipping?: {
           amount_eligible?: number
@@ -27872,7 +30841,9 @@ export class ApiClient {
     requestBody: {
       customer_consent_collected: boolean
       expand?: string[]
-      process_config?: EmptyObject
+      process_config?: {
+        enable_customer_cancellation?: boolean
+      }
       setup_intent: string
     }
   }): Observable<
@@ -27909,6 +30880,9 @@ export class ApiClient {
       }
       payment_intent?: string
       refund_application_fee?: boolean
+      refund_payment_config?: {
+        enable_customer_cancellation?: boolean
+      }
       reverse_transfer?: boolean
     }
   }): Observable<
@@ -27964,6 +30938,268 @@ export class ApiClient {
       "POST",
       this.config.basePath +
         `/v1/terminal/readers/${p["reader"]}/set_reader_display`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postTestHelpersConfirmationTokens(
+    p: {
+      requestBody?: {
+        expand?: string[]
+        payment_method?: string
+        payment_method_data?: {
+          acss_debit?: {
+            account_number: string
+            institution_number: string
+            transit_number: string
+          }
+          affirm?: EmptyObject
+          afterpay_clearpay?: EmptyObject
+          alipay?: EmptyObject
+          au_becs_debit?: {
+            account_number: string
+            bsb_number: string
+          }
+          bacs_debit?: {
+            account_number?: string
+            sort_code?: string
+          }
+          bancontact?: EmptyObject
+          billing_details?: {
+            address?:
+              | {
+                  city?: string
+                  country?: string
+                  line1?: string
+                  line2?: string
+                  postal_code?: string
+                  state?: string
+                }
+              | ""
+            email?: string | ""
+            name?: string | ""
+            phone?: string | ""
+          }
+          blik?: EmptyObject
+          boleto?: {
+            tax_id: string
+          }
+          cashapp?: EmptyObject
+          customer_balance?: EmptyObject
+          eps?: {
+            bank?:
+              | "arzte_und_apotheker_bank"
+              | "austrian_anadi_bank_ag"
+              | "bank_austria"
+              | "bankhaus_carl_spangler"
+              | "bankhaus_schelhammer_und_schattera_ag"
+              | "bawag_psk_ag"
+              | "bks_bank_ag"
+              | "brull_kallmus_bank_ag"
+              | "btv_vier_lander_bank"
+              | "capital_bank_grawe_gruppe_ag"
+              | "deutsche_bank_ag"
+              | "dolomitenbank"
+              | "easybank_ag"
+              | "erste_bank_und_sparkassen"
+              | "hypo_alpeadriabank_international_ag"
+              | "hypo_bank_burgenland_aktiengesellschaft"
+              | "hypo_noe_lb_fur_niederosterreich_u_wien"
+              | "hypo_oberosterreich_salzburg_steiermark"
+              | "hypo_tirol_bank_ag"
+              | "hypo_vorarlberg_bank_ag"
+              | "marchfelder_bank"
+              | "oberbank_ag"
+              | "raiffeisen_bankengruppe_osterreich"
+              | "schoellerbank_ag"
+              | "sparda_bank_wien"
+              | "volksbank_gruppe"
+              | "volkskreditbank_ag"
+              | "vr_bank_braunau"
+          }
+          fpx?: {
+            bank:
+              | "affin_bank"
+              | "agrobank"
+              | "alliance_bank"
+              | "ambank"
+              | "bank_islam"
+              | "bank_muamalat"
+              | "bank_of_china"
+              | "bank_rakyat"
+              | "bsn"
+              | "cimb"
+              | "deutsche_bank"
+              | "hong_leong_bank"
+              | "hsbc"
+              | "kfh"
+              | "maybank2e"
+              | "maybank2u"
+              | "ocbc"
+              | "pb_enterprise"
+              | "public_bank"
+              | "rhb"
+              | "standard_chartered"
+              | "uob"
+          }
+          giropay?: EmptyObject
+          grabpay?: EmptyObject
+          ideal?: {
+            bank?:
+              | "abn_amro"
+              | "asn_bank"
+              | "bunq"
+              | "handelsbanken"
+              | "ing"
+              | "knab"
+              | "moneyou"
+              | "n26"
+              | "nn"
+              | "rabobank"
+              | "regiobank"
+              | "revolut"
+              | "sns_bank"
+              | "triodos_bank"
+              | "van_lanschot"
+              | "yoursafe"
+          }
+          interac_present?: EmptyObject
+          klarna?: {
+            dob?: {
+              day: number
+              month: number
+              year: number
+            }
+          }
+          konbini?: EmptyObject
+          link?: EmptyObject
+          metadata?: {
+            [key: string]: string | undefined
+          }
+          mobilepay?: EmptyObject
+          oxxo?: EmptyObject
+          p24?: {
+            bank?:
+              | "alior_bank"
+              | "bank_millennium"
+              | "bank_nowy_bfg_sa"
+              | "bank_pekao_sa"
+              | "banki_spbdzielcze"
+              | "blik"
+              | "bnp_paribas"
+              | "boz"
+              | "citi_handlowy"
+              | "credit_agricole"
+              | "envelobank"
+              | "etransfer_pocztowy24"
+              | "getin_bank"
+              | "ideabank"
+              | "ing"
+              | "inteligo"
+              | "mbank_mtransfer"
+              | "nest_przelew"
+              | "noble_pay"
+              | "pbac_z_ipko"
+              | "plus_bank"
+              | "santander_przelew24"
+              | "tmobile_usbugi_bankowe"
+              | "toyota_bank"
+              | "velobank"
+              | "volkswagen_bank"
+          }
+          paynow?: EmptyObject
+          paypal?: EmptyObject
+          pix?: EmptyObject
+          promptpay?: EmptyObject
+          radar_options?: {
+            session?: string
+          }
+          revolut_pay?: EmptyObject
+          sepa_debit?: {
+            iban: string
+          }
+          sofort?: {
+            country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
+          }
+          swish?: EmptyObject
+          type:
+            | "acss_debit"
+            | "affirm"
+            | "afterpay_clearpay"
+            | "alipay"
+            | "au_becs_debit"
+            | "bacs_debit"
+            | "bancontact"
+            | "blik"
+            | "boleto"
+            | "cashapp"
+            | "customer_balance"
+            | "eps"
+            | "fpx"
+            | "giropay"
+            | "grabpay"
+            | "ideal"
+            | "klarna"
+            | "konbini"
+            | "link"
+            | "mobilepay"
+            | "oxxo"
+            | "p24"
+            | "paynow"
+            | "paypal"
+            | "pix"
+            | "promptpay"
+            | "revolut_pay"
+            | "sepa_debit"
+            | "sofort"
+            | "swish"
+            | "us_bank_account"
+            | "wechat_pay"
+            | "zip"
+          us_bank_account?: {
+            account_holder_type?: "company" | "individual"
+            account_number?: string
+            account_type?: "checking" | "savings"
+            financial_connections_account?: string
+            routing_number?: string
+          }
+          wechat_pay?: EmptyObject
+          zip?: EmptyObject
+        }
+        return_url?: string
+        setup_future_usage?: "off_session" | "on_session"
+        shipping?: {
+          address: {
+            city?: string
+            country?: string
+            line1?: string
+            line2?: string
+            postal_code?: string
+            state?: string
+          }
+          name: string
+          phone?: string | ""
+        }
+      }
+    } = {},
+  ): Observable<
+    | (HttpResponse<t_confirmation_token> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/test_helpers/confirmation_tokens`,
       {
         headers,
         body,
@@ -28324,6 +31560,7 @@ export class ApiClient {
         postal_code?: string
         state?: string
         terminal_id?: string
+        url?: string
       }
       network_data?: {
         acquiring_institution_id?: string
@@ -28331,8 +31568,22 @@ export class ApiClient {
       verification_data?: {
         address_line1_check?: "match" | "mismatch" | "not_provided"
         address_postal_code_check?: "match" | "mismatch" | "not_provided"
+        authentication_exemption?: {
+          claimed_by: "acquirer" | "issuer"
+          type:
+            | "low_value_transaction"
+            | "transaction_risk_analysis"
+            | "unknown"
+        }
         cvc_check?: "match" | "mismatch" | "not_provided"
         expiry_check?: "match" | "mismatch" | "not_provided"
+        three_d_secure?: {
+          result:
+            | "attempt_acknowledged"
+            | "authenticated"
+            | "failed"
+            | "required"
+        }
       }
       wallet?: "apple_pay" | "google_pay" | "samsung_pay"
     }
@@ -28616,6 +31867,111 @@ export class ApiClient {
       "POST",
       this.config.basePath +
         `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/ship`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate(p: {
+    personalizationDesign: string
+    requestBody?: {
+      expand?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_issuing_personalization_design> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/test_helpers/issuing/personalization_designs/${p["personalizationDesign"]}/activate`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate(p: {
+    personalizationDesign: string
+    requestBody?: {
+      expand?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_issuing_personalization_design> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/test_helpers/issuing/personalization_designs/${p["personalizationDesign"]}/deactivate`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject(p: {
+    personalizationDesign: string
+    requestBody: {
+      expand?: string[]
+      rejection_reasons: {
+        card_logo?: (
+          | "geographic_location"
+          | "inappropriate"
+          | "network_name"
+          | "non_binary_image"
+          | "non_fiat_currency"
+          | "other"
+          | "other_entity"
+          | "promotional_material"
+        )[]
+        carrier_text?: (
+          | "geographic_location"
+          | "inappropriate"
+          | "network_name"
+          | "non_fiat_currency"
+          | "other"
+          | "other_entity"
+          | "promotional_material"
+        )[]
+      }
+    }
+  }): Observable<
+    | (HttpResponse<t_issuing_personalization_design> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/test_helpers/issuing/personalization_designs/${p["personalizationDesign"]}/reject`,
       {
         headers,
         body,
@@ -28934,6 +32290,7 @@ export class ApiClient {
         postal_code?: string
         state?: string
         terminal_id?: string
+        url?: string
       }
       purchase_details?: {
         flight?: {
@@ -29306,6 +32663,7 @@ export class ApiClient {
         postal_code?: string
         state?: string
         terminal_id?: string
+        url?: string
       }
       purchase_details?: {
         flight?: {
@@ -30054,6 +33412,7 @@ export class ApiClient {
               | "public_company"
               | "public_corporation"
               | "public_partnership"
+              | "registered_charity"
               | "single_member_llc"
               | "sole_establishment"
               | "sole_proprietorship"
@@ -30132,6 +33491,13 @@ export class ApiClient {
               postal_code?: string
               state?: string
             }
+            relationship?: {
+              director?: boolean
+              executive?: boolean
+              owner?: boolean
+              percent_ownership?: number | ""
+              title?: string
+            }
             ssn_last_4?: string
             verification?: {
               additional_document?: {
@@ -30153,6 +33519,7 @@ export class ApiClient {
           account_type?: "checking" | "futsu" | "savings" | "toza"
           country: string
           currency?: string
+          payment_method?: string
           routing_number?: string
         }
         card?:
@@ -30168,6 +33535,9 @@ export class ApiClient {
               exp_month: string
               exp_year: string
               name?: string
+              networks?: {
+                preferred?: "cartes_bancaires" | "mastercard" | "visa"
+              }
               number: string
             }
           | string
@@ -30177,6 +33547,13 @@ export class ApiClient {
         }
         expand?: string[]
         person?: {
+          additional_tos_acceptances?: {
+            account?: {
+              date?: number
+              ip?: string
+              user_agent?: string | ""
+            }
+          }
           address?: {
             city?: string
             country?: string
@@ -30252,6 +33629,7 @@ export class ApiClient {
           relationship?: {
             director?: boolean
             executive?: boolean
+            legal_guardian?: boolean
             owner?: boolean
             percent_ownership?: number | ""
             representative?: boolean
@@ -31466,6 +34844,14 @@ export class ApiClient {
   }
 
   getTreasuryOutboundPayments(p: {
+    created?:
+      | {
+          gt?: number
+          gte?: number
+          lt?: number
+          lte?: number
+        }
+      | number
     customer?: string
     endingBefore?: string
     expand?: string[]
@@ -31488,6 +34874,7 @@ export class ApiClient {
       "Content-Type": "application/x-www-form-urlencoded",
     })
     const params = this._queryParams({
+      created: p["created"],
       customer: p["customer"],
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -32267,6 +35654,8 @@ export class ApiClient {
         | "2022-08-01"
         | "2022-11-15"
         | "2023-08-16"
+        | "2023-10-16"
+        | "2024-04-10"
       connect?: boolean
       description?: string | ""
       enabled_events: (
@@ -32303,6 +35692,13 @@ export class ApiClient {
         | "checkout.session.async_payment_succeeded"
         | "checkout.session.completed"
         | "checkout.session.expired"
+        | "climate.order.canceled"
+        | "climate.order.created"
+        | "climate.order.delayed"
+        | "climate.order.delivered"
+        | "climate.order.product_substituted"
+        | "climate.product.created"
+        | "climate.product.pricing_updated"
         | "coupon.created"
         | "coupon.deleted"
         | "coupon.updated"
@@ -32337,6 +35733,8 @@ export class ApiClient {
         | "financial_connections.account.disconnected"
         | "financial_connections.account.reactivated"
         | "financial_connections.account.refreshed_balance"
+        | "financial_connections.account.refreshed_ownership"
+        | "financial_connections.account.refreshed_transactions"
         | "identity.verification_session.canceled"
         | "identity.verification_session.created"
         | "identity.verification_session.processing"
@@ -32370,6 +35768,8 @@ export class ApiClient {
         | "issuing_dispute.funds_reinstated"
         | "issuing_dispute.submitted"
         | "issuing_dispute.updated"
+        | "issuing_token.created"
+        | "issuing_token.updated"
         | "issuing_transaction.created"
         | "issuing_transaction.updated"
         | "mandate.updated"
@@ -32609,6 +36009,13 @@ export class ApiClient {
         | "checkout.session.async_payment_succeeded"
         | "checkout.session.completed"
         | "checkout.session.expired"
+        | "climate.order.canceled"
+        | "climate.order.created"
+        | "climate.order.delayed"
+        | "climate.order.delivered"
+        | "climate.order.product_substituted"
+        | "climate.product.created"
+        | "climate.product.pricing_updated"
         | "coupon.created"
         | "coupon.deleted"
         | "coupon.updated"
@@ -32643,6 +36050,8 @@ export class ApiClient {
         | "financial_connections.account.disconnected"
         | "financial_connections.account.reactivated"
         | "financial_connections.account.refreshed_balance"
+        | "financial_connections.account.refreshed_ownership"
+        | "financial_connections.account.refreshed_transactions"
         | "identity.verification_session.canceled"
         | "identity.verification_session.created"
         | "identity.verification_session.processing"
@@ -32676,6 +36085,8 @@ export class ApiClient {
         | "issuing_dispute.funds_reinstated"
         | "issuing_dispute.submitted"
         | "issuing_dispute.updated"
+        | "issuing_token.created"
+        | "issuing_token.updated"
         | "issuing_transaction.created"
         | "issuing_transaction.updated"
         | "mandate.updated"

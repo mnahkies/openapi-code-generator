@@ -66,6 +66,7 @@ import {
   t_code_scanning_default_setup_update_response,
   t_code_scanning_organization_alert_items,
   t_code_scanning_ref,
+  t_code_scanning_ref_full,
   t_code_scanning_sarifs_receipt,
   t_code_scanning_sarifs_status,
   t_code_search_result_item,
@@ -75,6 +76,7 @@ import {
   t_codespace_machine,
   t_codespace_with_full_repository,
   t_codespaces_org_secret,
+  t_codespaces_permissions_check_for_devcontainer,
   t_codespaces_public_key,
   t_codespaces_secret,
   t_codespaces_user_public_key,
@@ -97,6 +99,7 @@ import {
   t_copilot_organization_details,
   t_copilot_seat_details,
   t_custom_deployment_rule_app,
+  t_custom_property_value,
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
   t_dependabot_public_key,
@@ -107,6 +110,7 @@ import {
   t_deployment,
   t_deployment_branch_policy,
   t_deployment_branch_policy_name_pattern,
+  t_deployment_branch_policy_name_pattern_with_type,
   t_deployment_branch_policy_settings,
   t_deployment_protection_rule,
   t_deployment_reviewer_type,
@@ -164,16 +168,20 @@ import {
   t_minimal_repository,
   t_oidc_custom_sub,
   t_oidc_custom_sub_repo,
+  t_org_custom_property,
   t_org_hook,
   t_org_membership,
+  t_org_repo_custom_property_values,
   t_org_ruleset_conditions,
   t_organization_actions_secret,
   t_organization_actions_variable,
   t_organization_dependabot_secret,
+  t_organization_fine_grained_permission,
   t_organization_full,
   t_organization_invitation,
   t_organization_programmatic_access_grant,
   t_organization_programmatic_access_grant_request,
+  t_organization_role,
   t_organization_secret_scanning_alert,
   t_organization_simple,
   t_package,
@@ -183,11 +191,13 @@ import {
   t_page_build,
   t_page_build_status,
   t_page_deployment,
+  t_pages_deployment_status,
   t_pages_health_check,
   t_participation_stats,
   t_pending_deployment,
   t_porter_author,
   t_porter_large_file,
+  t_prevent_self_review,
   t_private_user,
   t_private_vulnerability_report_create,
   t_project,
@@ -229,6 +239,8 @@ import {
   t_review_custom_gates_comment_required,
   t_review_custom_gates_state_required,
   t_root,
+  t_rule_suite,
+  t_rule_suites,
   t_runner,
   t_runner_application,
   t_runner_label,
@@ -238,6 +250,7 @@ import {
   t_secret_scanning_alert_resolution_comment,
   t_secret_scanning_alert_state,
   t_secret_scanning_location,
+  t_security_advisory_ecosystems,
   t_selected_actions,
   t_short_blob,
   t_short_branch,
@@ -310,19 +323,7 @@ export class ApiClient extends AbstractFetchClient {
       ghsaId?: string
       type?: "reviewed" | "malware" | "unreviewed"
       cveId?: string
-      ecosystem?:
-        | "actions"
-        | "composer"
-        | "erlang"
-        | "go"
-        | "maven"
-        | "npm"
-        | "nuget"
-        | "other"
-        | "pip"
-        | "pub"
-        | "rubygems"
-        | "rust"
+      ecosystem?: t_security_advisory_ecosystems
       severity?: "unknown" | "low" | "medium" | "high" | "critical"
       cwes?: string | string[]
       isWithdrawn?: boolean
@@ -985,6 +986,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
       before?: string
       after?: string
+      validity?: string
     },
     timeout?: number,
     opts?: RequestInit,
@@ -1013,6 +1015,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
+      validity: p["validity"],
     })
 
     return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
@@ -1976,6 +1979,18 @@ export class ApiClient extends AbstractFetchClient {
     const url = this.basePath + `/notifications/threads/${p["threadId"]}`
 
     return this._fetch(url, { method: "PATCH", ...(opts ?? {}) }, timeout)
+  }
+
+  async activityMarkThreadAsDone(
+    p: {
+      threadId: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url = this.basePath + `/notifications/threads/${p["threadId"]}`
+
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
   async activityGetThreadSubscriptionForAuthenticatedUser(
@@ -3516,6 +3531,7 @@ export class ApiClient extends AbstractFetchClient {
       | Res<401, t_basic_error>
       | Res<403, t_basic_error>
       | Res<404, t_basic_error>
+      | Res<422, void>
       | Res<500, t_basic_error>
     >
   > {
@@ -3553,7 +3569,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async copilotAddCopilotForBusinessSeatsForTeams(
+  async copilotAddCopilotSeatsForTeams(
     p: {
       org: string
       requestBody: {
@@ -3625,7 +3641,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  async copilotAddCopilotForBusinessSeatsForUsers(
+  async copilotAddCopilotSeatsForUsers(
     p: {
       org: string
       requestBody: {
@@ -4339,7 +4355,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: {
         email?: string
         invitee_id?: number
-        role?: "admin" | "direct_member" | "billing_manager"
+        role?: "admin" | "direct_member" | "billing_manager" | "reinstate"
         team_ids?: number[]
       }
     },
@@ -4575,7 +4591,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async copilotGetCopilotSeatAssignmentDetailsForUser(
+  async copilotGetCopilotSeatDetailsForUser(
     p: {
       org: string
       username: string
@@ -4796,6 +4812,285 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repositories`
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async orgsListOrganizationFineGrainedPermissions(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_organization_fine_grained_permission[]>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/organization-fine-grained-permissions`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async orgsListOrgRoles(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            roles?: t_organization_role[]
+            total_count?: number
+          }
+        >
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/organization-roles`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async orgsCreateCustomOrganizationRole(
+    p: {
+      org: string
+      requestBody: {
+        description?: string
+        name: string
+        permissions: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_organization_role>
+      | Res<404, t_basic_error>
+      | Res<409, t_basic_error>
+      | Res<422, t_validation_error>
+    >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/organization-roles`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async orgsRevokeAllOrgRolesTeam(
+    p: {
+      org: string
+      teamSlug: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/organization-roles/teams/${p["teamSlug"]}`
+
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+  }
+
+  async orgsAssignTeamToOrgRole(
+    p: {
+      org: string
+      teamSlug: string
+      roleId: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<Res<204, void> | Res<404, void> | Res<422, void>>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/organization-roles/teams/${p["teamSlug"]}/${p["roleId"]}`
+
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+  }
+
+  async orgsRevokeOrgRoleTeam(
+    p: {
+      org: string
+      teamSlug: string
+      roleId: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/organization-roles/teams/${p["teamSlug"]}/${p["roleId"]}`
+
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+  }
+
+  async orgsRevokeAllOrgRolesUser(
+    p: {
+      org: string
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/organization-roles/users/${p["username"]}`
+
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+  }
+
+  async orgsAssignUserToOrgRole(
+    p: {
+      org: string
+      username: string
+      roleId: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<Res<204, void> | Res<404, void> | Res<422, void>>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/organization-roles/users/${p["username"]}/${p["roleId"]}`
+
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+  }
+
+  async orgsRevokeOrgRoleUser(
+    p: {
+      org: string
+      username: string
+      roleId: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/organization-roles/users/${p["username"]}/${p["roleId"]}`
+
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+  }
+
+  async orgsGetOrgRole(
+    p: {
+      org: string
+      roleId: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_organization_role>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async orgsPatchCustomOrganizationRole(
+    p: {
+      org: string
+      roleId: number
+      requestBody: {
+        description?: string
+        name?: string
+        permissions?: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_organization_role>
+      | Res<404, t_basic_error>
+      | Res<409, t_basic_error>
+      | Res<422, t_validation_error>
+    >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async orgsDeleteCustomOrganizationRole(
+    p: {
+      org: string
+      roleId: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`
+
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+  }
+
+  async orgsListOrgRoleTeams(
+    p: {
+      org: string
+      roleId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<Res<200, t_team[]> | Res<404, void> | Res<422, void>>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/organization-roles/${p["roleId"]}/teams`
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async orgsListOrgRoleUsers(
+    p: {
+      org: string
+      roleId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_simple_user[]> | Res<404, void> | Res<422, void>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/organization-roles/${p["roleId"]}/users`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
     return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
@@ -5439,6 +5734,180 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
+  async orgsGetAllCustomProperties(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_org_custom_property[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/properties/schema`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async orgsCreateOrUpdateCustomProperties(
+    p: {
+      org: string
+      requestBody: {
+        properties: t_org_custom_property[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_org_custom_property[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/properties/schema`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async orgsGetCustomProperty(
+    p: {
+      org: string
+      customPropertyName: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_org_custom_property>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/properties/schema/${p["customPropertyName"]}`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async orgsCreateOrUpdateCustomProperty(
+    p: {
+      org: string
+      customPropertyName: string
+      requestBody: {
+        allowed_values?: string[] | null
+        default_value?: string | string[] | null
+        description?: string | null
+        required?: boolean
+        value_type: "string" | "single_select"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_org_custom_property>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/properties/schema/${p["customPropertyName"]}`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async orgsRemoveCustomProperty(
+    p: {
+      org: string
+      customPropertyName: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/properties/schema/${p["customPropertyName"]}`
+
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+  }
+
+  async orgsListCustomPropertiesValuesForRepos(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+      repositoryQuery?: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_org_repo_custom_property_values[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/properties/values`
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+      repository_query: p["repositoryQuery"],
+    })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async orgsCreateOrUpdateCustomPropertiesValuesForRepos(
+    p: {
+      org: string
+      requestBody: {
+        properties: t_custom_property_value[]
+        repository_names: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/properties/values`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
   async orgsListPublicMembers(
     p: {
       org: string
@@ -5529,6 +5998,9 @@ export class ApiClient extends AbstractFetchClient {
         allow_rebase_merge?: boolean
         allow_squash_merge?: boolean
         auto_init?: boolean
+        custom_properties?: {
+          [key: string]: unknown | undefined
+        }
         delete_branch_on_merge?: boolean
         description?: string
         gitignore_template?: string
@@ -5554,7 +6026,7 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      | Res<201, t_repository>
+      | Res<201, t_full_repository>
       | Res<403, t_basic_error>
       | Res<422, t_validation_error>
     >
@@ -5621,6 +6093,57 @@ export class ApiClient extends AbstractFetchClient {
       { method: "POST", headers, body, ...(opts ?? {}) },
       timeout,
     )
+  }
+
+  async reposGetOrgRuleSuites(
+    p: {
+      org: string
+      repositoryName?: number
+      timePeriod?: "hour" | "day" | "week" | "month"
+      actorName?: string
+      ruleSuiteResult?: "pass" | "fail" | "bypass" | "all"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_rule_suites>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/rulesets/rule-suites`
+    const query = this._query({
+      repository_name: p["repositoryName"],
+      time_period: p["timePeriod"],
+      actor_name: p["actorName"],
+      rule_suite_result: p["ruleSuiteResult"],
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async reposGetOrgRuleSuite(
+    p: {
+      org: string
+      ruleSuiteId: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_rule_suite> | Res<404, t_basic_error> | Res<500, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/rulesets/rule-suites/${p["ruleSuiteId"]}`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async reposGetOrgRuleset(
@@ -5704,6 +6227,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
       before?: string
       after?: string
+      validity?: string
     },
     timeout?: number,
     opts?: RequestInit,
@@ -5732,6 +6256,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
+      validity: p["validity"],
     })
 
     return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
@@ -8401,6 +8926,24 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
+  async actionsForceCancelWorkflowRun(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<Res<202, t_empty_object> | Res<409, t_basic_error>>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/force-cancel`
+
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+  }
+
   async actionsListJobsForWorkflowRun(
     p: {
       owner: string
@@ -9049,15 +9592,13 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      page?: number
     },
     timeout?: number,
     opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_autolink[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/autolinks`
-    const query = this._query({ page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async reposCreateAutolink(
@@ -10156,7 +10697,13 @@ export class ApiClient extends AbstractFetchClient {
           title?: string
         }
         started_at?: string
-        status?: "queued" | "in_progress" | "completed"
+        status?:
+          | "queued"
+          | "in_progress"
+          | "completed"
+          | "waiting"
+          | "requested"
+          | "pending"
       }
     },
     timeout?: number,
@@ -10749,7 +11296,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: {
         checkout_uri?: string
         commit_sha: t_code_scanning_analysis_commit_sha
-        ref: t_code_scanning_ref
+        ref: t_code_scanning_ref_full
         sarif: t_code_scanning_analysis_sarif_file
         started_at?: string
         tool_name?: string
@@ -11017,6 +11564,43 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces/new`
     const query = this._query({ ref: p["ref"], client_ip: p["clientIp"] })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async codespacesCheckPermissionsForDevcontainer(
+    p: {
+      owner: string
+      repo: string
+      ref: string
+      devcontainerPath: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_codespaces_permissions_check_for_devcontainer>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/codespaces/permissions_check`
+    const query = this._query({
+      ref: p["ref"],
+      devcontainer_path: p["devcontainerPath"],
+    })
 
     return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
@@ -11449,7 +12033,9 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      Res<200, t_branch_short[]> | Res<422, t_validation_error>
+      | Res<200, t_branch_short[]>
+      | Res<409, t_basic_error>
+      | Res<422, t_validation_error>
     >
   > {
     const url =
@@ -11522,7 +12108,11 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_pull_request_simple[]>>> {
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_pull_request_simple[]> | Res<409, t_basic_error>
+    >
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/pulls`
@@ -11545,6 +12135,7 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<
       | Res<200, t_commit>
       | Res<404, t_basic_error>
+      | Res<409, t_basic_error>
       | Res<422, t_validation_error>
       | Res<500, t_basic_error>
       | Res<
@@ -12389,7 +12980,9 @@ export class ApiClient extends AbstractFetchClient {
     timeout?: number,
     opts?: RequestInit,
   ): Promise<
-    TypedFetchResponse<Res<204, void> | Res<422, t_validation_error>>
+    TypedFetchResponse<
+      Res<204, void> | Res<404, t_basic_error> | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/dispatches`
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -12451,6 +13044,7 @@ export class ApiClient extends AbstractFetchClient {
       environmentName: string
       requestBody?: {
         deployment_branch_policy?: t_deployment_branch_policy_settings
+        prevent_self_review?: t_prevent_self_review
         reviewers?:
           | {
               id?: number
@@ -12528,7 +13122,7 @@ export class ApiClient extends AbstractFetchClient {
       owner: string
       repo: string
       environmentName: string
-      requestBody: t_deployment_branch_policy_name_pattern
+      requestBody: t_deployment_branch_policy_name_pattern_with_type
     },
     timeout?: number,
     opts?: RequestInit,
@@ -12722,6 +13316,228 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
+  async actionsListEnvironmentSecrets(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          secrets: t_actions_secret[]
+          total_count: number
+        }
+      >
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets`
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsGetEnvironmentPublicKey(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<200, t_actions_public_key>>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets/public-key`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsGetEnvironmentSecret(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+      secretName: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<200, t_actions_secret>>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsCreateOrUpdateEnvironmentSecret(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+      secretName: string
+      requestBody: {
+        encrypted_value: string
+        key_id: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<201, t_empty_object> | Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async actionsDeleteEnvironmentSecret(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+      secretName: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
+
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsListEnvironmentVariables(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          total_count: number
+          variables: t_actions_variable[]
+        }
+      >
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables`
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsCreateEnvironmentVariable(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+      requestBody: {
+        name: string
+        value: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<201, t_empty_object>>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async actionsGetEnvironmentVariable(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+      name: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<200, t_actions_variable>>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsUpdateEnvironmentVariable(
+    p: {
+      owner: string
+      repo: string
+      name: string
+      environmentName: string
+      requestBody: {
+        name?: string
+        value?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async actionsDeleteEnvironmentVariable(
+    p: {
+      owner: string
+      repo: string
+      name: string
+      environmentName: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
+
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+  }
+
   async activityListRepoEvents(
     p: {
       owner: string
@@ -12839,6 +13655,7 @@ export class ApiClient extends AbstractFetchClient {
       | Res<200, t_blob>
       | Res<403, t_basic_error>
       | Res<404, t_basic_error>
+      | Res<409, t_basic_error>
       | Res<422, t_validation_error>
     >
   > {
@@ -12876,6 +13693,7 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<
       | Res<201, t_git_commit>
       | Res<404, t_basic_error>
+      | Res<409, t_basic_error>
       | Res<422, t_validation_error>
     >
   > {
@@ -12899,7 +13717,9 @@ export class ApiClient extends AbstractFetchClient {
     timeout?: number,
     opts?: RequestInit,
   ): Promise<
-    TypedFetchResponse<Res<200, t_git_commit> | Res<404, t_basic_error>>
+    TypedFetchResponse<
+      Res<200, t_git_commit> | Res<404, t_basic_error> | Res<409, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
@@ -12916,7 +13736,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_git_ref[]>>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_git_ref[]> | Res<409, t_basic_error>>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/git/matching-refs/${p["ref"]}`
@@ -12933,7 +13755,9 @@ export class ApiClient extends AbstractFetchClient {
     timeout?: number,
     opts?: RequestInit,
   ): Promise<
-    TypedFetchResponse<Res<200, t_git_ref> | Res<404, t_basic_error>>
+    TypedFetchResponse<
+      Res<200, t_git_ref> | Res<404, t_basic_error> | Res<409, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/ref/${p["ref"]}`
@@ -12953,7 +13777,11 @@ export class ApiClient extends AbstractFetchClient {
     timeout?: number,
     opts?: RequestInit,
   ): Promise<
-    TypedFetchResponse<Res<201, t_git_ref> | Res<422, t_validation_error>>
+    TypedFetchResponse<
+      | Res<201, t_git_ref>
+      | Res<409, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/refs`
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -12979,7 +13807,11 @@ export class ApiClient extends AbstractFetchClient {
     timeout?: number,
     opts?: RequestInit,
   ): Promise<
-    TypedFetchResponse<Res<200, t_git_ref> | Res<422, t_validation_error>>
+    TypedFetchResponse<
+      | Res<200, t_git_ref>
+      | Res<409, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`
@@ -13002,7 +13834,9 @@ export class ApiClient extends AbstractFetchClient {
     timeout?: number,
     opts?: RequestInit,
   ): Promise<
-    TypedFetchResponse<Res<204, void> | Res<422, t_validation_error>>
+    TypedFetchResponse<
+      Res<204, void> | Res<409, t_basic_error> | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`
@@ -13029,7 +13863,11 @@ export class ApiClient extends AbstractFetchClient {
     timeout?: number,
     opts?: RequestInit,
   ): Promise<
-    TypedFetchResponse<Res<201, t_git_tag> | Res<422, t_validation_error>>
+    TypedFetchResponse<
+      | Res<201, t_git_tag>
+      | Res<409, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/tags`
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -13051,7 +13889,9 @@ export class ApiClient extends AbstractFetchClient {
     timeout?: number,
     opts?: RequestInit,
   ): Promise<
-    TypedFetchResponse<Res<200, t_git_tag> | Res<404, t_basic_error>>
+    TypedFetchResponse<
+      Res<200, t_git_tag> | Res<404, t_basic_error> | Res<409, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
@@ -13082,6 +13922,7 @@ export class ApiClient extends AbstractFetchClient {
       | Res<201, t_git_tree>
       | Res<403, t_basic_error>
       | Res<404, t_basic_error>
+      | Res<409, t_basic_error>
       | Res<422, t_validation_error>
     >
   > {
@@ -13109,6 +13950,7 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<
       | Res<200, t_git_tree>
       | Res<404, t_basic_error>
+      | Res<409, t_basic_error>
       | Res<422, t_validation_error>
     >
   > {
@@ -13144,10 +13986,8 @@ export class ApiClient extends AbstractFetchClient {
         active?: boolean
         config?: {
           content_type?: t_webhook_config_content_type
-          digest?: string
           insecure_ssl?: t_webhook_config_insecure_ssl
           secret?: t_webhook_config_secret
-          token?: string
           url?: t_webhook_config_url
         }
         events?: string[]
@@ -13198,14 +14038,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: {
         active?: boolean
         add_events?: string[]
-        config?: {
-          address?: string
-          content_type?: t_webhook_config_content_type
-          insecure_ssl?: t_webhook_config_insecure_ssl
-          room?: string
-          secret?: t_webhook_config_secret
-          url: t_webhook_config_url
-        }
+        config?: t_webhook_config
         events?: string[]
         remove_events?: string[]
       }
@@ -14794,13 +15627,17 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
+      ref?: t_code_scanning_ref
     },
     timeout?: number,
     opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_license_content>>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_license_content> | Res<404, t_basic_error>>
+  > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/license`
+    const query = this._query({ ref: p["ref"] })
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async reposMergeUpstream(
@@ -15230,7 +16067,8 @@ export class ApiClient extends AbstractFetchClient {
       owner: string
       repo: string
       requestBody: {
-        artifact_url: string
+        artifact_id?: number
+        artifact_url?: string
         environment?: string
         oidc_token: string
         pages_build_version: string
@@ -15247,7 +16085,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url =
-      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/deployment`
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/deployments`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
@@ -15256,6 +16094,42 @@ export class ApiClient extends AbstractFetchClient {
       { method: "POST", headers, body, ...(opts ?? {}) },
       timeout,
     )
+  }
+
+  async reposGetPagesDeployment(
+    p: {
+      owner: string
+      repo: string
+      pagesDeploymentId: number | string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_pages_deployment_status> | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pages/deployments/${p["pagesDeploymentId"]}`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async reposCancelPagesDeployment(
+    p: {
+      owner: string
+      repo: string
+      pagesDeploymentId: number | string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pages/deployments/${p["pagesDeploymentId"]}/cancel`
+
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
   async reposGetPagesHealthCheck(
@@ -15275,6 +16149,31 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/health`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async reposCheckPrivateVulnerabilityReporting(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            enabled: boolean
+          }
+        >
+      | Res<422, t_scim_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/private-vulnerability-reporting`
 
     return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
@@ -15367,6 +16266,56 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async reposGetCustomPropertiesValues(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_custom_property_value[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/properties/values`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async reposCreateOrUpdateCustomPropertiesValues(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        properties: t_custom_property_value[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
+  > {
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/properties/values`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
       timeout,
     )
   }
@@ -15629,6 +16578,7 @@ export class ApiClient extends AbstractFetchClient {
       | Res<200, t_pull_request>
       | Res<304, void>
       | Res<404, t_basic_error>
+      | Res<406, t_basic_error>
       | Res<500, t_basic_error>
       | Res<
           503,
@@ -16772,6 +17722,60 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
+  async reposGetRepoRuleSuites(
+    p: {
+      owner: string
+      repo: string
+      ref?: string
+      timePeriod?: "hour" | "day" | "week" | "month"
+      actorName?: string
+      ruleSuiteResult?: "pass" | "fail" | "bypass" | "all"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_rule_suites>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/rulesets/rule-suites`
+    const query = this._query({
+      ref: p["ref"],
+      time_period: p["timePeriod"],
+      actor_name: p["actorName"],
+      rule_suite_result: p["ruleSuiteResult"],
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async reposGetRepoRuleSuite(
+    p: {
+      owner: string
+      repo: string
+      ruleSuiteId: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_rule_suite> | Res<404, t_basic_error> | Res<500, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/rulesets/rule-suites/${p["ruleSuiteId"]}`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
   async reposGetRepoRuleset(
     p: {
       owner: string
@@ -16865,6 +17869,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
       before?: string
       after?: string
+      validity?: string
     },
     timeout?: number,
     opts?: RequestInit,
@@ -16894,6 +17899,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
+      validity: p["validity"],
     })
 
     return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
@@ -17175,6 +18181,30 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
+  async securityAdvisoriesCreateFork(
+    p: {
+      owner: string
+      repo: string
+      ghsaId: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<202, t_full_repository>
+      | Res<400, t_scim_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}/forks`
+
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+  }
+
   async activityListStargazersForRepo(
     p: {
       owner: string
@@ -17212,6 +18242,7 @@ export class ApiClient extends AbstractFetchClient {
           }
         >
       | Res<204, void>
+      | Res<422, void>
     >
   > {
     const url =
@@ -17726,7 +18757,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<201, t_repository>>> {
+  ): Promise<TypedFetchResponse<Res<201, t_full_repository>>> {
     const url =
       this.basePath +
       `/repos/${p["templateOwner"]}/${p["templateRepo"]}/generate`
@@ -17757,218 +18788,6 @@ export class ApiClient extends AbstractFetchClient {
     const query = this._query({ since: p["since"] })
 
     return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
-  }
-
-  async actionsListEnvironmentSecrets(
-    p: {
-      repositoryId: number
-      environmentName: string
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<
-        200,
-        {
-          secrets: t_actions_secret[]
-          total_count: number
-        }
-      >
-    >
-  > {
-    const url =
-      this.basePath +
-      `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets`
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
-
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
-  }
-
-  async actionsGetEnvironmentPublicKey(
-    p: {
-      repositoryId: number
-      environmentName: string
-    },
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_actions_public_key>>> {
-    const url =
-      this.basePath +
-      `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/public-key`
-
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
-  }
-
-  async actionsGetEnvironmentSecret(
-    p: {
-      repositoryId: number
-      environmentName: string
-      secretName: string
-    },
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_actions_secret>>> {
-    const url =
-      this.basePath +
-      `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
-
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
-  }
-
-  async actionsCreateOrUpdateEnvironmentSecret(
-    p: {
-      repositoryId: number
-      environmentName: string
-      secretName: string
-      requestBody: {
-        encrypted_value: string
-        key_id: string
-      }
-    },
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<201, t_empty_object> | Res<204, void>>> {
-    const url =
-      this.basePath +
-      `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
-  }
-
-  async actionsDeleteEnvironmentSecret(
-    p: {
-      repositoryId: number
-      environmentName: string
-      secretName: string
-    },
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<204, void>>> {
-    const url =
-      this.basePath +
-      `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
-
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
-  }
-
-  async actionsListEnvironmentVariables(
-    p: {
-      repositoryId: number
-      environmentName: string
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<
-        200,
-        {
-          total_count: number
-          variables: t_actions_variable[]
-        }
-      >
-    >
-  > {
-    const url =
-      this.basePath +
-      `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables`
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
-
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
-  }
-
-  async actionsCreateEnvironmentVariable(
-    p: {
-      repositoryId: number
-      environmentName: string
-      requestBody: {
-        name: string
-        value: string
-      }
-    },
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<201, t_empty_object>>> {
-    const url =
-      this.basePath +
-      `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
-  }
-
-  async actionsGetEnvironmentVariable(
-    p: {
-      repositoryId: number
-      environmentName: string
-      name: string
-    },
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_actions_variable>>> {
-    const url =
-      this.basePath +
-      `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
-
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
-  }
-
-  async actionsUpdateEnvironmentVariable(
-    p: {
-      repositoryId: number
-      name: string
-      environmentName: string
-      requestBody: {
-        name?: string
-        value?: string
-      }
-    },
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<204, void>>> {
-    const url =
-      this.basePath +
-      `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(
-      url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
-  }
-
-  async actionsDeleteEnvironmentVariable(
-    p: {
-      repositoryId: number
-      name: string
-      environmentName: string
-    },
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<204, void>>> {
-    const url =
-      this.basePath +
-      `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
-
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
   async searchCode(
@@ -20866,7 +21685,7 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      | Res<201, t_repository>
+      | Res<201, t_full_repository>
       | Res<304, void>
       | Res<400, t_scim_error>
       | Res<401, t_basic_error>
