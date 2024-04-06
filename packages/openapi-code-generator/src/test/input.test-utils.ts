@@ -1,6 +1,7 @@
 import path from "path"
 import {jest} from "@jest/globals"
 import yaml from "js-yaml"
+import _ from "lodash"
 import {Input} from "../core/input"
 import {logger} from "../core/logger"
 import {OpenapiLoader} from "../core/openapi-loader"
@@ -30,12 +31,18 @@ function fileForVersion(version: Version) {
   }
 }
 
-export async function unitTestInput(version: Version, skipValidation = false) {
+const getValidator = _.memoize(async (skipValidation: boolean) => {
   const validator = await OpenapiValidator.create()
 
   if (skipValidation) {
     jest.spyOn(validator, "validate").mockResolvedValue()
   }
+
+  return validator
+})
+
+export async function unitTestInput(version: Version, skipValidation = false) {
+  const validator = await getValidator(skipValidation)
 
   const file = fileForVersion(version)
   const loader = await OpenapiLoader.create(file, validator)

@@ -8,6 +8,8 @@ const config = {
   },
   resetMocks: true,
   testMatch: ["**/*.spec.ts"],
+  // Note: prettier is required for inline snapshot indentation to work correctly
+  prettierPath: require.resolve("prettier"),
 }
 
 module.exports = config
