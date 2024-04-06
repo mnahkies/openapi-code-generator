@@ -6,9 +6,9 @@ import {logger} from "../core/logger"
 import {OpenapiLoader} from "../core/openapi-loader"
 import {OpenapiValidator} from "../core/openapi-validator"
 
-type Version = "3.0.x" | "3.1.x"
+export type OpenApiVersion = "3.0.x" | "3.1.x"
 
-function getTestVersions(): Version[] {
+function getTestVersions(): OpenApiVersion[] {
   if (process.argv.find((arg) => ["--updateSnapshot", "-u"].includes(arg))) {
     logger.warn("Running with --updateSnapshot - only testing one version")
     return ["3.0.x"]
@@ -19,7 +19,7 @@ function getTestVersions(): Version[] {
 
 export const testVersions = getTestVersions()
 
-function fileForVersion(version: Version) {
+function fileForVersion(version: OpenApiVersion) {
   switch (version) {
     case "3.0.x":
       return path.join(__dirname, "unit-test-inputs-3.0.3.yaml")
@@ -30,7 +30,10 @@ function fileForVersion(version: Version) {
   }
 }
 
-export async function unitTestInput(version: Version, skipValidation = false) {
+export async function unitTestInput(
+  version: OpenApiVersion,
+  skipValidation = false,
+) {
   const validator = await OpenapiValidator.create()
 
   if (skipValidation) {
