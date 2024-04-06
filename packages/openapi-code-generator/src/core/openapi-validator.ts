@@ -1,12 +1,11 @@
-import addFormats from "ajv-formats"
-import Ajv2020 from "ajv/dist/2020"
 import {promptContinue} from "./cli-utils"
-import openapi3_1_specification = require("./schemas/openapi-3.1-specification-base.json")
-import openapi3_0_specification = require("./schemas/openapi-3.0-specification.json")
-import AjvDraft04 from "ajv-draft-04"
+
 import {logger} from "./logger"
 
 import {ErrorObject} from "ajv"
+
+import validate3_0 = require("./schemas/openapi-3.0-specification-validator")
+import validate3_1 = require("./schemas/openapi-3.1-specification-validator")
 
 interface ValidateFunction {
   (data: any): boolean
@@ -65,45 +64,12 @@ export class OpenapiValidator {
   }
 
   static async create(): Promise<OpenapiValidator> {
-    const skipValidationOA31: ValidateFunction = () => {
-      logger.warn(
-        "Skipping validation due to https://github.com/mnahkies/openapi-code-generator/issues/103",
-      )
-      return true
-    }
-
     const skipValidationLoadSpecificationError: ValidateFunction = () => {
       return true
     }
 
     try {
-      const loadSchema = async (uri: string): Promise<any> => {
-        const res = await fetch(uri)
-        return (await res.json()) as any
-      }
-
-      const ajv2020 = new Ajv2020({
-        strict: false,
-        verbose: true,
-        loadSchema,
-      })
-      addFormats(ajv2020)
-      ajv2020.addFormat("media-range", true)
-
-      const validate3_1 = await ajv2020.compileAsync(openapi3_1_specification)
-
-      const ajv4 = new AjvDraft04({
-        strict: false,
-        loadSchema,
-      })
-      addFormats(ajv4)
-
-      const validate3_0 = await ajv4.compileAsync(openapi3_0_specification)
-
-      return new OpenapiValidator(
-        skipValidationOA31 || validate3_1,
-        validate3_0,
-      )
+      return new OpenapiValidator(validate3_1, validate3_0)
     } catch (err) {
       logger.warn(
         "Skipping validation as failed to load schema specification",
