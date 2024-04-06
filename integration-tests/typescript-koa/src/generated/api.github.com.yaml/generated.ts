@@ -20081,7 +20081,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     before: z.string().optional(),
     after: z.string().optional(),
     direction: z.enum(["asc", "desc"]).optional(),
-    per_page: z.coerce.number().optional(),
+    per_page: z.coerce.number().min(1).max(100).optional(),
     sort: z.enum(["updated", "published"]).optional(),
   })
 
@@ -21830,8 +21830,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     direction: z.enum(["asc", "desc"]).optional(),
     before: z.string().optional(),
     after: z.string().optional(),
-    first: z.coerce.number().optional(),
-    last: z.coerce.number().optional(),
+    first: z.coerce.number().min(1).max(100).optional(),
+    last: z.coerce.number().min(1).max(100).optional(),
     per_page: z.coerce.number().optional(),
   })
 
@@ -29346,8 +29346,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     direction: z.enum(["asc", "desc"]).optional(),
     before: z.string().optional(),
     after: z.string().optional(),
-    first: z.coerce.number().optional(),
-    last: z.coerce.number().optional(),
+    first: z.coerce.number().min(1).max(100).optional(),
+    last: z.coerce.number().min(1).max(100).optional(),
     per_page: z.coerce.number().optional(),
   })
 
@@ -34758,7 +34758,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     sort: z.enum(["created", "updated", "published"]).optional(),
     before: z.string().optional(),
     after: z.string().optional(),
-    per_page: z.coerce.number().optional(),
+    per_page: z.coerce.number().min(1).max(100).optional(),
     state: z.enum(["triage", "draft", "published", "closed"]).optional(),
   })
 
@@ -50520,8 +50520,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     per_page: z.coerce.number().optional(),
     before: z.string().optional(),
     after: z.string().optional(),
-    first: z.coerce.number().optional(),
-    last: z.coerce.number().optional(),
+    first: z.coerce.number().min(1).max(100).optional(),
+    last: z.coerce.number().min(1).max(100).optional(),
   })
 
   const dependabotListAlertsForRepoResponseValidator =
@@ -63477,7 +63477,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     sort: z.enum(["created", "updated", "published"]).optional(),
     before: z.string().optional(),
     after: z.string().optional(),
-    per_page: z.coerce.number().optional(),
+    per_page: z.coerce.number().min(1).max(100).optional(),
     state: z.enum(["triage", "draft", "published", "closed"]).optional(),
   })
 

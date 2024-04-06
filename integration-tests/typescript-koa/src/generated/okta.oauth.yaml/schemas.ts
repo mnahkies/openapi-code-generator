@@ -39,7 +39,7 @@ export const s_BackchannelAuthorizeRequest = z.intersection(
     id_token_hint: z.string().optional(),
     login_hint: z.string().optional(),
     request: z.string().optional(),
-    request_expiry: z.coerce.number().optional(),
+    request_expiry: z.coerce.number().min(1).max(300).optional(),
     scope: z.string(),
   }),
   z.record(z.any()),
@@ -47,7 +47,7 @@ export const s_BackchannelAuthorizeRequest = z.intersection(
 
 export const s_BackchannelAuthorizeResponse = z.object({
   auth_req_id: z.string().optional(),
-  expires_in: z.coerce.number().optional(),
+  expires_in: z.coerce.number().min(1).max(300).optional(),
   interval: z.coerce.number().optional(),
 })
 

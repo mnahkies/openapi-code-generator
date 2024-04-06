@@ -843,7 +843,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const listClientsQuerySchema = z.object({
     after: z.string().optional(),
-    limit: z.coerce.number().optional(),
+    limit: z.coerce.number().min(1).max(200).optional(),
     q: z.string().optional(),
   })
 
