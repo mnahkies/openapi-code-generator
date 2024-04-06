@@ -448,6 +448,90 @@ describe.each(testVersions)(
         )
         await expect(executeParseSchema(code, 20)).resolves.toBe(20)
       })
+
+      it("supports exclusiveMinimum", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          exclusiveMinimum: 4,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.number().greater(4).required()"',
+        )
+
+        await expect(executeParseSchema(code, 4)).rejects.toThrow(
+          '"value" must be greater than 4',
+        )
+        await expect(executeParseSchema(code, 20)).resolves.toBe(20)
+      })
+
+      it("supports exclusiveMaximum", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          exclusiveMaximum: 4,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.number().less(4).required()"',
+        )
+
+        await expect(executeParseSchema(code, 4)).rejects.toThrow(
+          '"value" must be less than 4',
+        )
+        await expect(executeParseSchema(code, 3)).resolves.toBe(3)
+      })
+
+      it("supports multipleOf", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          multipleOf: 4,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.number().multiple(4).required()"',
+        )
+
+        await expect(executeParseSchema(code, 11)).rejects.toThrow(
+          '"value" must be a multiple of 4',
+        )
+        await expect(executeParseSchema(code, 16)).resolves.toBe(16)
+      })
+
+      it("supports combining multipleOf and min/max", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          multipleOf: 4,
+          minimum: 10,
+          maximum: 20,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.number().multiple(4).min(10).max(20).required()"',
+        )
+
+        await expect(executeParseSchema(code, 11)).rejects.toThrow(
+          '"value" must be a multiple of 4',
+        )
+        await expect(executeParseSchema(code, 8)).rejects.toThrow(
+          '"value" must be larger than or equal to 10',
+        )
+        await expect(executeParseSchema(code, 24)).rejects.toThrow(
+          '"value" must be less than or equal to 20',
+        )
+        await expect(executeParseSchema(code, 16)).resolves.toBe(16)
+      })
+
+      it("supports 0", async () => {
+        const {code} = await getActualFromModel({...base, minimum: 0})
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.number().min(0).required()"',
+        )
+
+        await expect(executeParseSchema(code, -1)).rejects.toThrow(
+          '"value" must be larger than or equal to 0',
+        )
+      })
     })
 
     async function executeParseSchema(code: string, input: unknown) {

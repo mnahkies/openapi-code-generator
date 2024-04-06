@@ -2245,7 +2245,7 @@ export const s_repository_rule_pull_request = z.object({
       dismiss_stale_reviews_on_push: z.coerce.boolean(),
       require_code_owner_review: z.coerce.boolean(),
       require_last_push_approval: z.coerce.boolean(),
-      required_approving_review_count: z.coerce.number().max(10),
+      required_approving_review_count: z.coerce.number().min(0).max(10),
       required_review_thread_resolution: z.coerce.boolean(),
     })
     .optional(),
@@ -3369,7 +3369,7 @@ export const s_global_advisory = z.object({
   cvss: z
     .object({
       vector_string: z.string().nullable(),
-      score: z.coerce.number().max(10).nullable(),
+      score: z.coerce.number().min(0).max(10).nullable(),
     })
     .nullable(),
   cwes: z.array(z.object({ cwe_id: z.string(), name: z.string() })).nullable(),
@@ -5473,7 +5473,7 @@ export const s_dependabot_alert_security_advisory = z.object({
   vulnerabilities: z.array(s_dependabot_alert_security_vulnerability),
   severity: z.enum(["low", "medium", "high", "critical"]),
   cvss: z.object({
-    score: z.coerce.number().max(10),
+    score: z.coerce.number().min(0).max(10),
     vector_string: z.string().nullable(),
   }),
   cwes: z.array(z.object({ cwe_id: z.string(), name: z.string() })),
@@ -6252,7 +6252,7 @@ export const s_protected_branch_pull_request_review = z.object({
     .optional(),
   dismiss_stale_reviews: z.coerce.boolean(),
   require_code_owner_reviews: z.coerce.boolean(),
-  required_approving_review_count: z.coerce.number().max(6).optional(),
+  required_approving_review_count: z.coerce.number().min(0).max(6).optional(),
   require_last_push_approval: z.coerce.boolean().optional(),
 })
 
@@ -6772,7 +6772,7 @@ export const s_repository_advisory = z.object({
   cvss: z
     .object({
       vector_string: z.string().nullable(),
-      score: z.coerce.number().max(10).nullable(),
+      score: z.coerce.number().min(0).max(10).nullable(),
     })
     .nullable(),
   cwes: z.array(z.object({ cwe_id: z.string(), name: z.string() })).nullable(),

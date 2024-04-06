@@ -148,8 +148,19 @@ export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
     return [
       zod,
       "coerce.number()",
-      model.minimum ? `min(${model.minimum})` : undefined,
-      model.maximum ? `max(${model.maximum})` : undefined,
+      Number.isFinite(model.multipleOf)
+        ? `multipleOf(${model.multipleOf})`
+        : undefined,
+      Number.isFinite(model.exclusiveMinimum)
+        ? `gt(${model.exclusiveMinimum})`
+        : Number.isFinite(model.minimum)
+          ? `min(${model.minimum})`
+          : undefined,
+      Number.isFinite(model.exclusiveMaximum)
+        ? `lt(${model.exclusiveMaximum})`
+        : Number.isFinite(model.maximum)
+          ? `max(${model.maximum})`
+          : undefined,
     ]
       .filter(isDefined)
       .join(".")
