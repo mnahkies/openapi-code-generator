@@ -65,6 +65,7 @@ import {
   t_code_scanning_default_setup_update_response,
   t_code_scanning_organization_alert_items,
   t_code_scanning_ref,
+  t_code_scanning_ref_full,
   t_code_scanning_sarifs_receipt,
   t_code_scanning_sarifs_status,
   t_code_search_result_item,
@@ -74,6 +75,7 @@ import {
   t_codespace_machine,
   t_codespace_with_full_repository,
   t_codespaces_org_secret,
+  t_codespaces_permissions_check_for_devcontainer,
   t_codespaces_public_key,
   t_codespaces_secret,
   t_codespaces_user_public_key,
@@ -96,6 +98,7 @@ import {
   t_copilot_organization_details,
   t_copilot_seat_details,
   t_custom_deployment_rule_app,
+  t_custom_property_value,
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
   t_dependabot_public_key,
@@ -106,6 +109,7 @@ import {
   t_deployment,
   t_deployment_branch_policy,
   t_deployment_branch_policy_name_pattern,
+  t_deployment_branch_policy_name_pattern_with_type,
   t_deployment_branch_policy_settings,
   t_deployment_protection_rule,
   t_deployment_reviewer_type,
@@ -163,16 +167,20 @@ import {
   t_minimal_repository,
   t_oidc_custom_sub,
   t_oidc_custom_sub_repo,
+  t_org_custom_property,
   t_org_hook,
   t_org_membership,
+  t_org_repo_custom_property_values,
   t_org_ruleset_conditions,
   t_organization_actions_secret,
   t_organization_actions_variable,
   t_organization_dependabot_secret,
+  t_organization_fine_grained_permission,
   t_organization_full,
   t_organization_invitation,
   t_organization_programmatic_access_grant,
   t_organization_programmatic_access_grant_request,
+  t_organization_role,
   t_organization_secret_scanning_alert,
   t_organization_simple,
   t_package,
@@ -182,11 +190,13 @@ import {
   t_page_build,
   t_page_build_status,
   t_page_deployment,
+  t_pages_deployment_status,
   t_pages_health_check,
   t_participation_stats,
   t_pending_deployment,
   t_porter_author,
   t_porter_large_file,
+  t_prevent_self_review,
   t_private_user,
   t_private_vulnerability_report_create,
   t_project,
@@ -228,6 +238,8 @@ import {
   t_review_custom_gates_comment_required,
   t_review_custom_gates_state_required,
   t_root,
+  t_rule_suite,
+  t_rule_suites,
   t_runner,
   t_runner_application,
   t_runner_label,
@@ -236,6 +248,7 @@ import {
   t_secret_scanning_alert_resolution_comment,
   t_secret_scanning_alert_state,
   t_secret_scanning_location,
+  t_security_advisory_ecosystems,
   t_selected_actions,
   t_short_blob,
   t_short_branch,
@@ -309,19 +322,7 @@ export class ApiClient extends AbstractAxiosClient {
       ghsaId?: string
       type?: "reviewed" | "malware" | "unreviewed"
       cveId?: string
-      ecosystem?:
-        | "actions"
-        | "composer"
-        | "erlang"
-        | "go"
-        | "maven"
-        | "npm"
-        | "nuget"
-        | "other"
-        | "pip"
-        | "pub"
-        | "rubygems"
-        | "rust"
+      ecosystem?: t_security_advisory_ecosystems
       severity?: "unknown" | "low" | "medium" | "high" | "critical"
       cwes?: string | string[]
       isWithdrawn?: boolean
@@ -1052,6 +1053,7 @@ export class ApiClient extends AbstractAxiosClient {
       perPage?: number
       before?: string
       after?: string
+      validity?: string
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -1066,6 +1068,7 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
+      validity: p["validity"],
     })
 
     return this.axios.request({
@@ -2006,6 +2009,24 @@ export class ApiClient extends AbstractAxiosClient {
       url: url,
       baseURL: this.basePath,
       method: "PATCH",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async activityMarkThreadAsDone(
+    p: {
+      threadId: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/notifications/threads/${p["threadId"]}`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
@@ -3685,7 +3706,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
-  async copilotAddCopilotForBusinessSeatsForTeams(
+  async copilotAddCopilotSeatsForTeams(
     p: {
       org: string
       requestBody: {
@@ -3743,7 +3764,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
-  async copilotAddCopilotForBusinessSeatsForUsers(
+  async copilotAddCopilotSeatsForUsers(
     p: {
       org: string
       requestBody: {
@@ -4517,7 +4538,7 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody?: {
         email?: string
         invitee_id?: number
-        role?: "admin" | "direct_member" | "billing_manager"
+        role?: "admin" | "direct_member" | "billing_manager" | "reinstate"
         team_ids?: number[]
       }
     },
@@ -4759,7 +4780,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
-  async copilotGetCopilotSeatAssignmentDetailsForUser(
+  async copilotGetCopilotSeatDetailsForUser(
     p: {
       org: string
       username: string
@@ -4991,6 +5012,302 @@ export class ApiClient extends AbstractAxiosClient {
     opts?: AxiosRequestConfig,
   ): Promise<AxiosResponse<t_minimal_repository[]>> {
     const url = `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repositories`
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this.axios.request({
+      url: url + query,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async orgsListOrganizationFineGrainedPermissions(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_organization_fine_grained_permission[]>> {
+    const url = `/orgs/${p["org"]}/organization-fine-grained-permissions`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async orgsListOrgRoles(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<
+    AxiosResponse<{
+      roles?: t_organization_role[]
+      total_count?: number
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/organization-roles`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async orgsCreateCustomOrganizationRole(
+    p: {
+      org: string
+      requestBody: {
+        description?: string
+        name: string
+        permissions: string[]
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_organization_role>> {
+    const url = `/orgs/${p["org"]}/organization-roles`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "POST",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async orgsRevokeAllOrgRolesTeam(
+    p: {
+      org: string
+      teamSlug: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/organization-roles/teams/${p["teamSlug"]}`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async orgsAssignTeamToOrgRole(
+    p: {
+      org: string
+      teamSlug: string
+      roleId: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/organization-roles/teams/${p["teamSlug"]}/${p["roleId"]}`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "PUT",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async orgsRevokeOrgRoleTeam(
+    p: {
+      org: string
+      teamSlug: string
+      roleId: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/organization-roles/teams/${p["teamSlug"]}/${p["roleId"]}`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async orgsRevokeAllOrgRolesUser(
+    p: {
+      org: string
+      username: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/organization-roles/users/${p["username"]}`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async orgsAssignUserToOrgRole(
+    p: {
+      org: string
+      username: string
+      roleId: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/organization-roles/users/${p["username"]}/${p["roleId"]}`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "PUT",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async orgsRevokeOrgRoleUser(
+    p: {
+      org: string
+      username: string
+      roleId: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/organization-roles/users/${p["username"]}/${p["roleId"]}`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async orgsGetOrgRole(
+    p: {
+      org: string
+      roleId: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_organization_role>> {
+    const url = `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async orgsPatchCustomOrganizationRole(
+    p: {
+      org: string
+      roleId: number
+      requestBody: {
+        description?: string
+        name?: string
+        permissions?: string[]
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_organization_role>> {
+    const url = `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "PATCH",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async orgsDeleteCustomOrganizationRole(
+    p: {
+      org: string
+      roleId: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async orgsListOrgRoleTeams(
+    p: {
+      org: string
+      roleId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_team[]>> {
+    const url = `/orgs/${p["org"]}/organization-roles/${p["roleId"]}/teams`
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this.axios.request({
+      url: url + query,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async orgsListOrgRoleUsers(
+    p: {
+      org: string
+      roleId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_simple_user[]>> {
+    const url = `/orgs/${p["org"]}/organization-roles/${p["roleId"]}/users`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
     return this.axios.request({
@@ -5590,6 +5907,169 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
+  async orgsGetAllCustomProperties(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_org_custom_property[]>> {
+    const url = `/orgs/${p["org"]}/properties/schema`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async orgsCreateOrUpdateCustomProperties(
+    p: {
+      org: string
+      requestBody: {
+        properties: t_org_custom_property[]
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_org_custom_property[]>> {
+    const url = `/orgs/${p["org"]}/properties/schema`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "PATCH",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async orgsGetCustomProperty(
+    p: {
+      org: string
+      customPropertyName: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_org_custom_property>> {
+    const url = `/orgs/${p["org"]}/properties/schema/${p["customPropertyName"]}`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async orgsCreateOrUpdateCustomProperty(
+    p: {
+      org: string
+      customPropertyName: string
+      requestBody: {
+        allowed_values?: string[] | null
+        default_value?: string | string[] | null
+        description?: string | null
+        required?: boolean
+        value_type: "string" | "single_select"
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_org_custom_property>> {
+    const url = `/orgs/${p["org"]}/properties/schema/${p["customPropertyName"]}`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "PUT",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async orgsRemoveCustomProperty(
+    p: {
+      org: string
+      customPropertyName: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/properties/schema/${p["customPropertyName"]}`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async orgsListCustomPropertiesValuesForRepos(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+      repositoryQuery?: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_org_repo_custom_property_values[]>> {
+    const url = `/orgs/${p["org"]}/properties/values`
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+      repository_query: p["repositoryQuery"],
+    })
+
+    return this.axios.request({
+      url: url + query,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async orgsCreateOrUpdateCustomPropertiesValuesForRepos(
+    p: {
+      org: string
+      requestBody: {
+        properties: t_custom_property_value[]
+        repository_names: string[]
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/properties/values`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "PATCH",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
   async orgsListPublicMembers(
     p: {
       org: string
@@ -5707,6 +6187,9 @@ export class ApiClient extends AbstractAxiosClient {
         allow_rebase_merge?: boolean
         allow_squash_merge?: boolean
         auto_init?: boolean
+        custom_properties?: {
+          [key: string]: unknown | undefined
+        }
         delete_branch_on_merge?: boolean
         description?: string
         gitignore_template?: string
@@ -5730,7 +6213,7 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_repository>> {
+  ): Promise<AxiosResponse<t_full_repository>> {
     const url = `/orgs/${p["org"]}/repos`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
@@ -5792,6 +6275,57 @@ export class ApiClient extends AbstractAxiosClient {
       method: "POST",
       headers,
       data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async reposGetOrgRuleSuites(
+    p: {
+      org: string
+      repositoryName?: number
+      timePeriod?: "hour" | "day" | "week" | "month"
+      actorName?: string
+      ruleSuiteResult?: "pass" | "fail" | "bypass" | "all"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_rule_suites>> {
+    const url = `/orgs/${p["org"]}/rulesets/rule-suites`
+    const query = this._query({
+      repository_name: p["repositoryName"],
+      time_period: p["timePeriod"],
+      actor_name: p["actorName"],
+      rule_suite_result: p["ruleSuiteResult"],
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this.axios.request({
+      url: url + query,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async reposGetOrgRuleSuite(
+    p: {
+      org: string
+      ruleSuiteId: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_rule_suite>> {
+    const url = `/orgs/${p["org"]}/rulesets/rule-suites/${p["ruleSuiteId"]}`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
@@ -5878,6 +6412,7 @@ export class ApiClient extends AbstractAxiosClient {
       perPage?: number
       before?: string
       after?: string
+      validity?: string
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -5893,6 +6428,7 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
+      validity: p["validity"],
     })
 
     return this.axios.request({
@@ -8637,6 +9173,26 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
+  async actionsForceCancelWorkflowRun(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_empty_object>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/force-cancel`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "POST",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
   async actionsListJobsForWorkflowRun(
     p: {
       owner: string
@@ -9356,16 +9912,14 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      page?: number
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
   ): Promise<AxiosResponse<t_autolink[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/autolinks`
-    const query = this._query({ page: p["page"] })
 
     return this.axios.request({
-      url: url + query,
+      url: url,
       baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
@@ -10513,7 +11067,13 @@ export class ApiClient extends AbstractAxiosClient {
           title?: string
         }
         started_at?: string
-        status?: "queued" | "in_progress" | "completed"
+        status?:
+          | "queued"
+          | "in_progress"
+          | "completed"
+          | "waiting"
+          | "requested"
+          | "pending"
       }
     },
     timeout?: number,
@@ -11000,7 +11560,7 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: {
         checkout_uri?: string
         commit_sha: t_code_scanning_analysis_commit_sha
-        ref: t_code_scanning_ref
+        ref: t_code_scanning_ref_full
         sarif: t_code_scanning_analysis_sarif_file
         started_at?: string
         tool_name?: string
@@ -11212,6 +11772,31 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/new`
     const query = this._query({ ref: p["ref"], client_ip: p["clientIp"] })
+
+    return this.axios.request({
+      url: url + query,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async codespacesCheckPermissionsForDevcontainer(
+    p: {
+      owner: string
+      repo: string
+      ref: string
+      devcontainerPath: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_codespaces_permissions_check_for_devcontainer>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/permissions_check`
+    const query = this._query({
+      ref: p["ref"],
+      devcontainer_path: p["devcontainerPath"],
+    })
 
     return this.axios.request({
       url: url + query,
@@ -12656,6 +13241,7 @@ export class ApiClient extends AbstractAxiosClient {
       environmentName: string
       requestBody?: {
         deployment_branch_policy?: t_deployment_branch_policy_settings
+        prevent_self_review?: t_prevent_self_review
         reviewers?:
           | {
               id?: number
@@ -12736,7 +13322,7 @@ export class ApiClient extends AbstractAxiosClient {
       owner: string
       repo: string
       environmentName: string
-      requestBody: t_deployment_branch_policy_name_pattern
+      requestBody: t_deployment_branch_policy_name_pattern_with_type
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -12936,6 +13522,252 @@ export class ApiClient extends AbstractAxiosClient {
     opts?: AxiosRequestConfig,
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/${p["protectionRuleId"]}`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async actionsListEnvironmentSecrets(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<
+    AxiosResponse<{
+      secrets: t_actions_secret[]
+      total_count: number
+    }>
+  > {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets`
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this.axios.request({
+      url: url + query,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async actionsGetEnvironmentPublicKey(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_actions_public_key>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets/public-key`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async actionsGetEnvironmentSecret(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+      secretName: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_actions_secret>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async actionsCreateOrUpdateEnvironmentSecret(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+      secretName: string
+      requestBody: {
+        encrypted_value: string
+        key_id: string
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_empty_object> | AxiosResponse<void>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "PUT",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async actionsDeleteEnvironmentSecret(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+      secretName: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async actionsListEnvironmentVariables(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<
+    AxiosResponse<{
+      total_count: number
+      variables: t_actions_variable[]
+    }>
+  > {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables`
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this.axios.request({
+      url: url + query,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async actionsCreateEnvironmentVariable(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+      requestBody: {
+        name: string
+        value: string
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_empty_object>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "POST",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async actionsGetEnvironmentVariable(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+      name: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_actions_variable>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async actionsUpdateEnvironmentVariable(
+    p: {
+      owner: string
+      repo: string
+      name: string
+      environmentName: string
+      requestBody: {
+        name?: string
+        value?: string
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "PATCH",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async actionsDeleteEnvironmentVariable(
+    p: {
+      owner: string
+      repo: string
+      name: string
+      environmentName: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
 
     return this.axios.request({
       url: url,
@@ -13383,10 +14215,8 @@ export class ApiClient extends AbstractAxiosClient {
         active?: boolean
         config?: {
           content_type?: t_webhook_config_content_type
-          digest?: string
           insecure_ssl?: t_webhook_config_insecure_ssl
           secret?: t_webhook_config_secret
-          token?: string
           url?: t_webhook_config_url
         }
         events?: string[]
@@ -13439,14 +14269,7 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: {
         active?: boolean
         add_events?: string[]
-        config?: {
-          address?: string
-          content_type?: t_webhook_config_content_type
-          insecure_ssl?: t_webhook_config_insecure_ssl
-          room?: string
-          secret?: t_webhook_config_secret
-          url: t_webhook_config_url
-        }
+        config?: t_webhook_config
         events?: string[]
         remove_events?: string[]
       }
@@ -15057,14 +15880,16 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
+      ref?: t_code_scanning_ref
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
   ): Promise<AxiosResponse<t_license_content>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/license`
+    const query = this._query({ ref: p["ref"] })
 
     return this.axios.request({
-      url: url,
+      url: url + query,
       baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
@@ -15533,7 +16358,8 @@ export class ApiClient extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        artifact_url: string
+        artifact_id?: number
+        artifact_url?: string
         environment?: string
         oidc_token: string
         pages_build_version: string
@@ -15542,7 +16368,7 @@ export class ApiClient extends AbstractAxiosClient {
     timeout?: number,
     opts?: AxiosRequestConfig,
   ): Promise<AxiosResponse<t_page_deployment>> {
-    const url = `/repos/${p["owner"]}/${p["repo"]}/pages/deployment`
+    const url = `/repos/${p["owner"]}/${p["repo"]}/pages/deployments`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
@@ -15552,6 +16378,46 @@ export class ApiClient extends AbstractAxiosClient {
       method: "POST",
       headers,
       data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async reposGetPagesDeployment(
+    p: {
+      owner: string
+      repo: string
+      pagesDeploymentId: number | string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_pages_deployment_status>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/pages/deployments/${p["pagesDeploymentId"]}`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async reposCancelPagesDeployment(
+    p: {
+      owner: string
+      repo: string
+      pagesDeploymentId: number | string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/pages/deployments/${p["pagesDeploymentId"]}/cancel`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
@@ -15568,6 +16434,29 @@ export class ApiClient extends AbstractAxiosClient {
     AxiosResponse<t_pages_health_check> | AxiosResponse<t_empty_object>
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages/health`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async reposCheckPrivateVulnerabilityReporting(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<
+    AxiosResponse<{
+      enabled: boolean
+    }>
+  > {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/private-vulnerability-reporting`
 
     return this.axios.request({
       url: url,
@@ -15663,6 +16552,51 @@ export class ApiClient extends AbstractAxiosClient {
       url: url,
       baseURL: this.basePath,
       method: "POST",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async reposGetCustomPropertiesValues(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_custom_property_value[]>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/properties/values`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async reposCreateOrUpdateCustomPropertiesValues(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        properties: t_custom_property_value[]
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/properties/values`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "PATCH",
       headers,
       data: body,
       ...(timeout ? { timeout } : {}),
@@ -17048,6 +17982,59 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
+  async reposGetRepoRuleSuites(
+    p: {
+      owner: string
+      repo: string
+      ref?: string
+      timePeriod?: "hour" | "day" | "week" | "month"
+      actorName?: string
+      ruleSuiteResult?: "pass" | "fail" | "bypass" | "all"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_rule_suites>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/rulesets/rule-suites`
+    const query = this._query({
+      ref: p["ref"],
+      time_period: p["timePeriod"],
+      actor_name: p["actorName"],
+      rule_suite_result: p["ruleSuiteResult"],
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this.axios.request({
+      url: url + query,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async reposGetRepoRuleSuite(
+    p: {
+      owner: string
+      repo: string
+      ruleSuiteId: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_rule_suite>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/rulesets/rule-suites/${p["ruleSuiteId"]}`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
   async reposGetRepoRuleset(
     p: {
       owner: string
@@ -17135,6 +18122,7 @@ export class ApiClient extends AbstractAxiosClient {
       perPage?: number
       before?: string
       after?: string
+      validity?: string
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -17150,6 +18138,7 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
+      validity: p["validity"],
     })
 
     return this.axios.request({
@@ -17373,6 +18362,26 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}/cve`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "POST",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async securityAdvisoriesCreateFork(
+    p: {
+      owner: string
+      repo: string
+      ghsaId: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_full_repository>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}/forks`
 
     return this.axios.request({
       url: url,
@@ -18011,7 +19020,7 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_repository>> {
+  ): Promise<AxiosResponse<t_full_repository>> {
     const url = `/repos/${p["templateOwner"]}/${p["templateRepo"]}/generate`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
@@ -18041,242 +19050,6 @@ export class ApiClient extends AbstractAxiosClient {
       url: url + query,
       baseURL: this.basePath,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
-    })
-  }
-
-  async actionsListEnvironmentSecrets(
-    p: {
-      repositoryId: number
-      environmentName: string
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts?: AxiosRequestConfig,
-  ): Promise<
-    AxiosResponse<{
-      secrets: t_actions_secret[]
-      total_count: number
-    }>
-  > {
-    const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets`
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
-
-    return this.axios.request({
-      url: url + query,
-      baseURL: this.basePath,
-      method: "GET",
-      ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
-    })
-  }
-
-  async actionsGetEnvironmentPublicKey(
-    p: {
-      repositoryId: number
-      environmentName: string
-    },
-    timeout?: number,
-    opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_actions_public_key>> {
-    const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/public-key`
-
-    return this.axios.request({
-      url: url,
-      baseURL: this.basePath,
-      method: "GET",
-      ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
-    })
-  }
-
-  async actionsGetEnvironmentSecret(
-    p: {
-      repositoryId: number
-      environmentName: string
-      secretName: string
-    },
-    timeout?: number,
-    opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_actions_secret>> {
-    const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
-
-    return this.axios.request({
-      url: url,
-      baseURL: this.basePath,
-      method: "GET",
-      ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
-    })
-  }
-
-  async actionsCreateOrUpdateEnvironmentSecret(
-    p: {
-      repositoryId: number
-      environmentName: string
-      secretName: string
-      requestBody: {
-        encrypted_value: string
-        key_id: string
-      }
-    },
-    timeout?: number,
-    opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_empty_object> | AxiosResponse<void>> {
-    const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-
-    return this.axios.request({
-      url: url,
-      baseURL: this.basePath,
-      method: "PUT",
-      headers,
-      data: body,
-      ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
-    })
-  }
-
-  async actionsDeleteEnvironmentSecret(
-    p: {
-      repositoryId: number
-      environmentName: string
-      secretName: string
-    },
-    timeout?: number,
-    opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<void>> {
-    const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
-
-    return this.axios.request({
-      url: url,
-      baseURL: this.basePath,
-      method: "DELETE",
-      ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
-    })
-  }
-
-  async actionsListEnvironmentVariables(
-    p: {
-      repositoryId: number
-      environmentName: string
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts?: AxiosRequestConfig,
-  ): Promise<
-    AxiosResponse<{
-      total_count: number
-      variables: t_actions_variable[]
-    }>
-  > {
-    const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables`
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
-
-    return this.axios.request({
-      url: url + query,
-      baseURL: this.basePath,
-      method: "GET",
-      ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
-    })
-  }
-
-  async actionsCreateEnvironmentVariable(
-    p: {
-      repositoryId: number
-      environmentName: string
-      requestBody: {
-        name: string
-        value: string
-      }
-    },
-    timeout?: number,
-    opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_empty_object>> {
-    const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-
-    return this.axios.request({
-      url: url,
-      baseURL: this.basePath,
-      method: "POST",
-      headers,
-      data: body,
-      ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
-    })
-  }
-
-  async actionsGetEnvironmentVariable(
-    p: {
-      repositoryId: number
-      environmentName: string
-      name: string
-    },
-    timeout?: number,
-    opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_actions_variable>> {
-    const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
-
-    return this.axios.request({
-      url: url,
-      baseURL: this.basePath,
-      method: "GET",
-      ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
-    })
-  }
-
-  async actionsUpdateEnvironmentVariable(
-    p: {
-      repositoryId: number
-      name: string
-      environmentName: string
-      requestBody: {
-        name?: string
-        value?: string
-      }
-    },
-    timeout?: number,
-    opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<void>> {
-    const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-
-    return this.axios.request({
-      url: url,
-      baseURL: this.basePath,
-      method: "PATCH",
-      headers,
-      data: body,
-      ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
-    })
-  }
-
-  async actionsDeleteEnvironmentVariable(
-    p: {
-      repositoryId: number
-      name: string
-      environmentName: string
-    },
-    timeout?: number,
-    opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<void>> {
-    const url = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
-
-    return this.axios.request({
-      url: url,
-      baseURL: this.basePath,
-      method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
@@ -21084,7 +21857,7 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_repository>> {
+  ): Promise<AxiosResponse<t_full_repository>> {
     const url = `/user/repos`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
