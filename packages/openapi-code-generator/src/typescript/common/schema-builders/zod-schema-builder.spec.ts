@@ -1,6 +1,9 @@
 import * as vm from "node:vm"
 import {describe, expect, it} from "@jest/globals"
-import {IRModelNumeric} from "../../../core/openapi-types-normalized"
+import {
+  IRModelNumeric,
+  IRModelString,
+} from "../../../core/openapi-types-normalized"
 import {testVersions} from "../../../test/input.test-utils"
 import {schemaBuilderTestHarness} from "./schema-builder.test-utils"
 
@@ -468,18 +471,101 @@ describe.each(testVersions)(
       })
     })
 
+    describe("strings", () => {
+      const base: IRModelString = {
+        nullable: false,
+        readOnly: false,
+        type: "string",
+      }
+
+      it("supports plain string", async () => {
+        const {code} = await getActualFromModel({...base})
+
+        expect(code).toMatchInlineSnapshot('"const x = z.string()"')
+
+        await expect(executeParseSchema(code, "a string")).resolves.toBe(
+          "a string",
+        )
+        await expect(executeParseSchema(code, 123)).rejects.toThrow(
+          "Expected string, received number",
+        )
+      })
+
+      it("supports minLength", async () => {
+        const {code} = await getActualFromModel({...base, minLength: 8})
+        expect(code).toMatchInlineSnapshot('"const x = z.string().min(8)"')
+
+        await expect(executeParseSchema(code, "12345678")).resolves.toBe(
+          "12345678",
+        )
+        await expect(executeParseSchema(code, "1234567")).rejects.toThrow(
+          "String must contain at least 8 character(s)",
+        )
+      })
+
+      it("supports maxLength", async () => {
+        const {code} = await getActualFromModel({...base, maxLength: 8})
+        expect(code).toMatchInlineSnapshot('"const x = z.string().max(8)"')
+
+        await expect(executeParseSchema(code, "12345678")).resolves.toBe(
+          "12345678",
+        )
+        await expect(executeParseSchema(code, "123456789")).rejects.toThrow(
+          "String must contain at most 8 character(s)",
+        )
+      })
+
+      it("supports pattern", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          pattern: '"pk/\\d+"',
+        })
+        expect(code).toMatchInlineSnapshot(
+          '"const x = z.string().regex(new RegExp(\'"pk/\\\\d+"\'))"',
+        )
+
+        await expect(executeParseSchema(code, '"pk/1234"')).resolves.toBe(
+          '"pk/1234"',
+        )
+        await expect(executeParseSchema(code, "pk/abcd")).rejects.toThrow(
+          "invalid_string",
+        )
+      })
+
+      it("supports pattern with minLength / maxLength", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          pattern: "pk-\\d+",
+          minLength: 5,
+          maxLength: 8,
+        })
+        expect(code).toMatchInlineSnapshot(
+          '"const x = z.string().min(5).max(8).regex(new RegExp("pk-\\\\d+"))"',
+        )
+
+        await expect(executeParseSchema(code, "pk-12")).resolves.toBe("pk-12")
+        await expect(executeParseSchema(code, "pk-ab")).rejects.toThrow(
+          "invalid_string",
+        )
+        await expect(executeParseSchema(code, "pk-1")).rejects.toThrow(
+          "String must contain at least 5 character(s)",
+        )
+        await expect(executeParseSchema(code, "pk-123456")).rejects.toThrow(
+          "String must contain at most 8 character(s)",
+        )
+      })
+    })
+
     async function executeParseSchema(code: string, input: unknown) {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const context = {z: require("zod").z}
-      vm.createContext(context)
-      return vm.runInContext(
+      return vm.runInNewContext(
         `
         ${code}
 
         x.parse(${JSON.stringify(input)})
-
       `,
-        context,
+        // Note: done this way for consistency with joi tests
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        {z: require("zod").z, RegExp},
       )
     }
   },

@@ -184,12 +184,12 @@ import { z } from "zod"
 export const s_account_annual_revenue = z.object({
   amount: z.coerce.number().nullable().optional(),
   currency: z.string().nullable().optional(),
-  fiscal_year_end: z.string().nullable().optional(),
+  fiscal_year_end: z.string().max(5000).nullable().optional(),
 })
 
 export const s_account_bacs_debit_payments_settings = z.object({
-  display_name: z.string().nullable().optional(),
-  service_user_number: z.string().nullable().optional(),
+  display_name: z.string().max(5000).nullable().optional(),
+  service_user_number: z.string().max(5000).nullable().optional(),
 })
 
 export const s_account_capabilities = z.object({
@@ -246,8 +246,8 @@ export const s_account_capabilities = z.object({
 })
 
 export const s_account_dashboard_settings = z.object({
-  display_name: z.string().nullable().optional(),
-  timezone: z.string().nullable().optional(),
+  display_name: z.string().max(5000).nullable().optional(),
+  timezone: z.string().max(5000).nullable().optional(),
 })
 
 export const s_account_decline_charge_on = z.object({
@@ -259,7 +259,7 @@ export const s_account_link = z.object({
   created: z.coerce.number(),
   expires_at: z.coerce.number(),
   object: z.enum(["account_link"]),
-  url: z.string(),
+  url: z.string().max(5000),
 })
 
 export const s_account_monthly_estimated_revenue = z.object({
@@ -268,16 +268,16 @@ export const s_account_monthly_estimated_revenue = z.object({
 })
 
 export const s_account_payments_settings = z.object({
-  statement_descriptor: z.string().nullable().optional(),
-  statement_descriptor_kana: z.string().nullable().optional(),
-  statement_descriptor_kanji: z.string().nullable().optional(),
-  statement_descriptor_prefix_kana: z.string().nullable().optional(),
-  statement_descriptor_prefix_kanji: z.string().nullable().optional(),
+  statement_descriptor: z.string().max(5000).nullable().optional(),
+  statement_descriptor_kana: z.string().max(5000).nullable().optional(),
+  statement_descriptor_kanji: z.string().max(5000).nullable().optional(),
+  statement_descriptor_prefix_kana: z.string().max(5000).nullable().optional(),
+  statement_descriptor_prefix_kanji: z.string().max(5000).nullable().optional(),
 })
 
 export const s_account_requirements_alternative = z.object({
-  alternative_fields_due: z.array(z.string()),
-  original_fields_due: z.array(z.string()),
+  alternative_fields_due: z.array(z.string().max(5000)),
+  original_fields_due: z.array(z.string().max(5000)),
 })
 
 export const s_account_requirements_error = z.object({
@@ -370,25 +370,25 @@ export const s_account_requirements_error = z.object({
     "verification_missing_owners",
     "verification_requires_additional_memorandum_of_associations",
   ]),
-  reason: z.string(),
-  requirement: z.string(),
+  reason: z.string().max(5000),
+  requirement: z.string().max(5000),
 })
 
 export const s_account_sepa_debit_payments_settings = z.object({
-  creditor_id: z.string().optional(),
+  creditor_id: z.string().max(5000).optional(),
 })
 
 export const s_account_terms_of_service = z.object({
   date: z.coerce.number().nullable().optional(),
-  ip: z.string().nullable().optional(),
-  user_agent: z.string().optional(),
+  ip: z.string().max(5000).nullable().optional(),
+  user_agent: z.string().max(5000).optional(),
 })
 
 export const s_account_tos_acceptance = z.object({
   date: z.coerce.number().nullable().optional(),
-  ip: z.string().nullable().optional(),
-  service_agreement: z.string().optional(),
-  user_agent: z.string().nullable().optional(),
+  ip: z.string().max(5000).nullable().optional(),
+  service_agreement: z.string().max(5000).optional(),
+  user_agent: z.string().max(5000).nullable().optional(),
 })
 
 export const s_account_unification_account_controller = z.object({
@@ -397,25 +397,25 @@ export const s_account_unification_account_controller = z.object({
 })
 
 export const s_address = z.object({
-  city: z.string().nullable().optional(),
-  country: z.string().nullable().optional(),
-  line1: z.string().nullable().optional(),
-  line2: z.string().nullable().optional(),
-  postal_code: z.string().nullable().optional(),
-  state: z.string().nullable().optional(),
+  city: z.string().max(5000).nullable().optional(),
+  country: z.string().max(5000).nullable().optional(),
+  line1: z.string().max(5000).nullable().optional(),
+  line2: z.string().max(5000).nullable().optional(),
+  postal_code: z.string().max(5000).nullable().optional(),
+  state: z.string().max(5000).nullable().optional(),
 })
 
 export const s_apple_pay_domain = z.object({
   created: z.coerce.number(),
-  domain_name: z.string(),
-  id: z.string(),
+  domain_name: z.string().max(5000),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   object: z.enum(["apple_pay_domain"]),
 })
 
 export const s_application = z.object({
-  id: z.string(),
-  name: z.string().nullable().optional(),
+  id: z.string().max(5000),
+  name: z.string().max(5000).nullable().optional(),
   object: z.enum(["application"]),
 })
 
@@ -438,7 +438,7 @@ export const s_bank_connections_resource_balance_refresh = z.object({
 })
 
 export const s_bank_connections_resource_link_account_session_filters =
-  z.object({ countries: z.array(z.string()).nullable().optional() })
+  z.object({ countries: z.array(z.string().max(5000)).nullable().optional() })
 
 export const s_bank_connections_resource_ownership_refresh = z.object({
   last_attempted_at: z.coerce.number(),
@@ -446,7 +446,7 @@ export const s_bank_connections_resource_ownership_refresh = z.object({
 })
 
 export const s_bank_connections_resource_transaction_refresh = z.object({
-  id: z.string(),
+  id: z.string().max(5000),
   last_attempted_at: z.coerce.number(),
   next_refresh_available_at: z.coerce.number().nullable().optional(),
   status: z.enum(["failed", "pending", "succeeded"]),
@@ -460,20 +460,20 @@ export const s_bank_connections_resource_transaction_resource_status_transitions
 
 export const s_billing_meter_event = z.object({
   created: z.coerce.number(),
-  event_name: z.string(),
-  identifier: z.string(),
+  event_name: z.string().max(100),
+  identifier: z.string().max(5000),
   livemode: z.coerce.boolean(),
   object: z.enum(["billing.meter_event"]),
-  payload: z.record(z.string()),
+  payload: z.record(z.string().max(100)),
   timestamp: z.coerce.number(),
 })
 
 export const s_billing_meter_event_summary = z.object({
   aggregated_value: z.coerce.number(),
   end_time: z.coerce.number(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
-  meter: z.string(),
+  meter: z.string().max(5000),
   object: z.enum(["billing.meter_event_summary"]),
   start_time: z.coerce.number(),
 })
@@ -483,22 +483,22 @@ export const s_billing_meter_resource_aggregation_settings = z.object({
 })
 
 export const s_billing_meter_resource_billing_meter_event_adjustment_cancel =
-  z.object({ identifier: z.string() })
+  z.object({ identifier: z.string().max(100) })
 
 export const s_billing_meter_resource_billing_meter_status_transitions =
   z.object({ deactivated_at: z.coerce.number().nullable().optional() })
 
 export const s_billing_meter_resource_billing_meter_value = z.object({
-  event_payload_key: z.string(),
+  event_payload_key: z.string().max(5000),
 })
 
 export const s_billing_meter_resource_customer_mapping_settings = z.object({
-  event_payload_key: z.string(),
+  event_payload_key: z.string().max(5000),
   type: z.enum(["by_id"]),
 })
 
 export const s_cancellation_details = z.object({
-  comment: z.string().nullable().optional(),
+  comment: z.string().max(5000).nullable().optional(),
   feedback: z
     .enum([
       "customer_service",
@@ -520,21 +520,21 @@ export const s_cancellation_details = z.object({
 
 export const s_card_issuing_account_terms_of_service = z.object({
   date: z.coerce.number().nullable().optional(),
-  ip: z.string().nullable().optional(),
-  user_agent: z.string().optional(),
+  ip: z.string().max(5000).nullable().optional(),
+  user_agent: z.string().max(5000).optional(),
 })
 
 export const s_card_mandate_payment_method_details = z.object({})
 
 export const s_charge_fraud_details = z.object({
-  stripe_report: z.string().optional(),
-  user_report: z.string().optional(),
+  stripe_report: z.string().max(5000).optional(),
+  user_report: z.string().max(5000).optional(),
 })
 
 export const s_checkout_acss_debit_mandate_options = z.object({
-  custom_mandate_url: z.string().optional(),
+  custom_mandate_url: z.string().max(5000).optional(),
   default_for: z.array(z.enum(["invoice", "subscription"])).optional(),
-  interval_description: z.string().nullable().optional(),
+  interval_description: z.string().max(5000).nullable().optional(),
   payment_schedule: z
     .enum(["combined", "interval", "sporadic"])
     .nullable()
@@ -627,8 +627,8 @@ export const s_checkout_paynow_payment_method_options = z.object({
 
 export const s_checkout_paypal_payment_method_options = z.object({
   capture_method: z.enum(["manual"]).optional(),
-  preferred_locale: z.string().nullable().optional(),
-  reference: z.string().nullable().optional(),
+  preferred_locale: z.string().max(5000).nullable().optional(),
+  reference: z.string().max(5000).nullable().optional(),
   setup_future_usage: z.enum(["none", "off_session"]).optional(),
 })
 
@@ -647,19 +647,19 @@ export const s_checkout_sofort_payment_method_options = z.object({
 })
 
 export const s_checkout_swish_payment_method_options = z.object({
-  reference: z.string().nullable().optional(),
+  reference: z.string().max(5000).nullable().optional(),
 })
 
 export const s_climate_removals_beneficiary = z.object({
-  public_name: z.string(),
+  public_name: z.string().max(5000),
 })
 
 export const s_climate_removals_location = z.object({
-  city: z.string().nullable().optional(),
-  country: z.string(),
+  city: z.string().max(5000).nullable().optional(),
+  country: z.string().max(5000),
   latitude: z.coerce.number().nullable().optional(),
   longitude: z.coerce.number().nullable().optional(),
-  region: z.string().nullable().optional(),
+  region: z.string().max(5000).nullable().optional(),
 })
 
 export const s_climate_removals_products_price = z.object({
@@ -670,8 +670,8 @@ export const s_climate_removals_products_price = z.object({
 
 export const s_confirmation_tokens_resource_mandate_data_resource_customer_acceptance_resource_online =
   z.object({
-    ip_address: z.string().nullable().optional(),
-    user_agent: z.string().nullable().optional(),
+    ip_address: z.string().max(5000).nullable().optional(),
+    user_agent: z.string().max(5000).nullable().optional(),
   })
 
 export const s_connect_embedded_account_features = z.object({})
@@ -692,11 +692,13 @@ export const s_connect_embedded_payouts_features = z.object({
 })
 
 export const s_country_spec_verification_field_details = z.object({
-  additional: z.array(z.string()),
-  minimum: z.array(z.string()),
+  additional: z.array(z.string().max(5000)),
+  minimum: z.array(z.string().max(5000)),
 })
 
-export const s_coupon_applies_to = z.object({ products: z.array(z.string()) })
+export const s_coupon_applies_to = z.object({
+  products: z.array(z.string().max(5000)),
+})
 
 export const s_coupon_currency_option = z.object({
   amount_off: z.coerce.number(),
@@ -715,29 +717,29 @@ export const s_customer_balance_customer_balance_settings = z.object({
 
 export const s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_eu_bank_transfer =
   z.object({
-    bic: z.string().nullable().optional(),
-    iban_last4: z.string().nullable().optional(),
-    sender_name: z.string().nullable().optional(),
+    bic: z.string().max(5000).nullable().optional(),
+    iban_last4: z.string().max(5000).nullable().optional(),
+    sender_name: z.string().max(5000).nullable().optional(),
   })
 
 export const s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_gb_bank_transfer =
   z.object({
-    account_number_last4: z.string().nullable().optional(),
-    sender_name: z.string().nullable().optional(),
-    sort_code: z.string().nullable().optional(),
+    account_number_last4: z.string().max(5000).nullable().optional(),
+    sender_name: z.string().max(5000).nullable().optional(),
+    sort_code: z.string().max(5000).nullable().optional(),
   })
 
 export const s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_jp_bank_transfer =
   z.object({
-    sender_bank: z.string().nullable().optional(),
-    sender_branch: z.string().nullable().optional(),
-    sender_name: z.string().nullable().optional(),
+    sender_bank: z.string().max(5000).nullable().optional(),
+    sender_branch: z.string().max(5000).nullable().optional(),
+    sender_name: z.string().max(5000).nullable().optional(),
   })
 
 export const s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_us_bank_transfer =
   z.object({
     network: z.enum(["ach", "domestic_wire_us", "swift"]).optional(),
-    sender_name: z.string().nullable().optional(),
+    sender_name: z.string().max(5000).nullable().optional(),
   })
 
 export const s_customer_session_resource_components_resource_buy_button =
@@ -747,148 +749,148 @@ export const s_customer_session_resource_components_resource_pricing_table =
   z.object({ enabled: z.coerce.boolean() })
 
 export const s_customer_tax_location = z.object({
-  country: z.string(),
+  country: z.string().max(5000),
   source: z.enum([
     "billing_address",
     "ip_address",
     "payment_method",
     "shipping_destination",
   ]),
-  state: z.string().nullable().optional(),
+  state: z.string().max(5000).nullable().optional(),
 })
 
 export const s_deleted_account = z.object({
   deleted: z.coerce.boolean(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["account"]),
 })
 
 export const s_deleted_apple_pay_domain = z.object({
   deleted: z.coerce.boolean(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["apple_pay_domain"]),
 })
 
 export const s_deleted_application = z.object({
   deleted: z.coerce.boolean(),
-  id: z.string(),
-  name: z.string().nullable().optional(),
+  id: z.string().max(5000),
+  name: z.string().max(5000).nullable().optional(),
   object: z.enum(["application"]),
 })
 
 export const s_deleted_bank_account = z.object({
-  currency: z.string().nullable().optional(),
+  currency: z.string().max(5000).nullable().optional(),
   deleted: z.coerce.boolean(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["bank_account"]),
 })
 
 export const s_deleted_card = z.object({
-  currency: z.string().nullable().optional(),
+  currency: z.string().max(5000).nullable().optional(),
   deleted: z.coerce.boolean(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["card"]),
 })
 
 export const s_deleted_coupon = z.object({
   deleted: z.coerce.boolean(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["coupon"]),
 })
 
 export const s_deleted_customer = z.object({
   deleted: z.coerce.boolean(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["customer"]),
 })
 
 export const s_deleted_invoice = z.object({
   deleted: z.coerce.boolean(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["invoice"]),
 })
 
 export const s_deleted_invoiceitem = z.object({
   deleted: z.coerce.boolean(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["invoiceitem"]),
 })
 
 export const s_deleted_person = z.object({
   deleted: z.coerce.boolean(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["person"]),
 })
 
 export const s_deleted_plan = z.object({
   deleted: z.coerce.boolean(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["plan"]),
 })
 
 export const s_deleted_price = z.object({
   deleted: z.coerce.boolean(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["price"]),
 })
 
 export const s_deleted_product = z.object({
   deleted: z.coerce.boolean(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["product"]),
 })
 
 export const s_deleted_radar_value_list = z.object({
   deleted: z.coerce.boolean(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["radar.value_list"]),
 })
 
 export const s_deleted_radar_value_list_item = z.object({
   deleted: z.coerce.boolean(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["radar.value_list_item"]),
 })
 
 export const s_deleted_subscription_item = z.object({
   deleted: z.coerce.boolean(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["subscription_item"]),
 })
 
 export const s_deleted_tax_id = z.object({
   deleted: z.coerce.boolean(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["tax_id"]),
 })
 
 export const s_deleted_terminal_configuration = z.object({
   deleted: z.coerce.boolean(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["terminal.configuration"]),
 })
 
 export const s_deleted_terminal_location = z.object({
   deleted: z.coerce.boolean(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["terminal.location"]),
 })
 
 export const s_deleted_terminal_reader = z.object({
   deleted: z.coerce.boolean(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["terminal.reader"]),
 })
 
 export const s_deleted_test_helpers_test_clock = z.object({
   deleted: z.coerce.boolean(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["test_helpers.test_clock"]),
 })
 
 export const s_deleted_webhook_endpoint = z.object({
   deleted: z.coerce.boolean(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["webhook_endpoint"]),
 })
 
@@ -902,111 +904,111 @@ export const s_dispute_evidence_details = z.object({
 })
 
 export const s_dispute_payment_method_details_card = z.object({
-  brand: z.string(),
-  network_reason_code: z.string().nullable().optional(),
+  brand: z.string().max(5000),
+  network_reason_code: z.string().max(5000).nullable().optional(),
 })
 
 export const s_email_sent = z.object({
   email_sent_at: z.coerce.number(),
-  email_sent_to: z.string(),
+  email_sent_to: z.string().max(5000),
 })
 
 export const s_ephemeral_key = z.object({
   created: z.coerce.number(),
   expires: z.coerce.number(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   object: z.enum(["ephemeral_key"]),
-  secret: z.string().optional(),
+  secret: z.string().max(5000).optional(),
 })
 
 export const s_exchange_rate = z.object({
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["exchange_rate"]),
   rates: z.record(z.coerce.number()),
 })
 
 export const s_fee = z.object({
   amount: z.coerce.number(),
-  application: z.string().nullable().optional(),
+  application: z.string().max(5000).nullable().optional(),
   currency: z.string(),
-  description: z.string().nullable().optional(),
-  type: z.string(),
+  description: z.string().max(5000).nullable().optional(),
+  type: z.string().max(5000),
 })
 
 export const s_financial_connections_account_owner = z.object({
-  email: z.string().nullable().optional(),
-  id: z.string(),
-  name: z.string(),
+  email: z.string().max(5000).nullable().optional(),
+  id: z.string().max(5000),
+  name: z.string().max(5000),
   object: z.enum(["financial_connections.account_owner"]),
-  ownership: z.string(),
-  phone: z.string().nullable().optional(),
-  raw_address: z.string().nullable().optional(),
+  ownership: z.string().max(5000),
+  phone: z.string().max(5000).nullable().optional(),
+  raw_address: z.string().max(5000).nullable().optional(),
   refreshed_at: z.coerce.number().nullable().optional(),
 })
 
 export const s_financial_reporting_finance_report_run_run_parameters = z.object(
   {
-    columns: z.array(z.string()).optional(),
-    connected_account: z.string().optional(),
+    columns: z.array(z.string().max(5000)).optional(),
+    connected_account: z.string().max(5000).optional(),
     currency: z.string().optional(),
     interval_end: z.coerce.number().optional(),
     interval_start: z.coerce.number().optional(),
-    payout: z.string().optional(),
-    reporting_category: z.string().optional(),
-    timezone: z.string().optional(),
+    payout: z.string().max(5000).optional(),
+    reporting_category: z.string().max(5000).optional(),
+    timezone: z.string().max(5000).optional(),
   },
 )
 
 export const s_forwarded_request_context = z.object({
   destination_duration: z.coerce.number(),
-  destination_ip_address: z.string(),
+  destination_ip_address: z.string().max(5000),
 })
 
 export const s_forwarded_request_header = z.object({
-  name: z.string(),
-  value: z.string(),
+  name: z.string().max(5000),
+  value: z.string().max(5000),
 })
 
 export const s_funding_instructions_bank_transfer_aba_record = z.object({
-  account_number: z.string(),
-  bank_name: z.string(),
-  routing_number: z.string(),
+  account_number: z.string().max(5000),
+  bank_name: z.string().max(5000),
+  routing_number: z.string().max(5000),
 })
 
 export const s_funding_instructions_bank_transfer_iban_record = z.object({
-  account_holder_name: z.string(),
-  bic: z.string(),
-  country: z.string(),
-  iban: z.string(),
+  account_holder_name: z.string().max(5000),
+  bic: z.string().max(5000),
+  country: z.string().max(5000),
+  iban: z.string().max(5000),
 })
 
 export const s_funding_instructions_bank_transfer_sort_code_record = z.object({
-  account_holder_name: z.string(),
-  account_number: z.string(),
-  sort_code: z.string(),
+  account_holder_name: z.string().max(5000),
+  account_number: z.string().max(5000),
+  sort_code: z.string().max(5000),
 })
 
 export const s_funding_instructions_bank_transfer_spei_record = z.object({
-  bank_code: z.string(),
-  bank_name: z.string(),
-  clabe: z.string(),
+  bank_code: z.string().max(5000),
+  bank_name: z.string().max(5000),
+  clabe: z.string().max(5000),
 })
 
 export const s_funding_instructions_bank_transfer_swift_record = z.object({
-  account_number: z.string(),
-  bank_name: z.string(),
-  swift_code: z.string(),
+  account_number: z.string().max(5000),
+  bank_name: z.string().max(5000),
+  swift_code: z.string().max(5000),
 })
 
 export const s_funding_instructions_bank_transfer_zengin_record = z.object({
-  account_holder_name: z.string().nullable().optional(),
-  account_number: z.string().nullable().optional(),
-  account_type: z.string().nullable().optional(),
-  bank_code: z.string().nullable().optional(),
-  bank_name: z.string().nullable().optional(),
-  branch_code: z.string().nullable().optional(),
-  branch_name: z.string().nullable().optional(),
+  account_holder_name: z.string().max(5000).nullable().optional(),
+  account_number: z.string().max(5000).nullable().optional(),
+  account_type: z.string().max(5000).nullable().optional(),
+  bank_code: z.string().max(5000).nullable().optional(),
+  bank_name: z.string().max(5000).nullable().optional(),
+  branch_code: z.string().max(5000).nullable().optional(),
+  branch_name: z.string().max(5000).nullable().optional(),
 })
 
 export const s_gelato_data_document_report_date_of_birth = z.object({
@@ -1048,7 +1050,7 @@ export const s_gelato_document_report_error = z.object({
     ])
     .nullable()
     .optional(),
-  reason: z.string().nullable().optional(),
+  reason: z.string().max(5000).nullable().optional(),
 })
 
 export const s_gelato_email_report_error = z.object({
@@ -1056,7 +1058,7 @@ export const s_gelato_email_report_error = z.object({
     .enum(["email_unverified_other", "email_verification_declined"])
     .nullable()
     .optional(),
-  reason: z.string().nullable().optional(),
+  reason: z.string().max(5000).nullable().optional(),
 })
 
 export const s_gelato_id_number_report_error = z.object({
@@ -1068,7 +1070,7 @@ export const s_gelato_id_number_report_error = z.object({
     ])
     .nullable()
     .optional(),
-  reason: z.string().nullable().optional(),
+  reason: z.string().max(5000).nullable().optional(),
 })
 
 export const s_gelato_phone_report_error = z.object({
@@ -1076,12 +1078,12 @@ export const s_gelato_phone_report_error = z.object({
     .enum(["phone_unverified_other", "phone_verification_declined"])
     .nullable()
     .optional(),
-  reason: z.string().nullable().optional(),
+  reason: z.string().max(5000).nullable().optional(),
 })
 
 export const s_gelato_provided_details = z.object({
-  email: z.string().optional(),
-  phone: z.string().optional(),
+  email: z.string().max(5000).optional(),
+  phone: z.string().max(5000).optional(),
 })
 
 export const s_gelato_report_document_options = z.object({
@@ -1105,7 +1107,7 @@ export const s_gelato_selfie_report_error = z.object({
     ])
     .nullable()
     .optional(),
-  reason: z.string().nullable().optional(),
+  reason: z.string().max(5000).nullable().optional(),
 })
 
 export const s_gelato_session_document_options = z.object({
@@ -1148,7 +1150,7 @@ export const s_gelato_session_last_error = z.object({
     ])
     .nullable()
     .optional(),
-  reason: z.string().nullable().optional(),
+  reason: z.string().max(5000).nullable().optional(),
 })
 
 export const s_gelato_session_phone_options = z.object({
@@ -1156,11 +1158,11 @@ export const s_gelato_session_phone_options = z.object({
 })
 
 export const s_internal_card = z.object({
-  brand: z.string().nullable().optional(),
-  country: z.string().nullable().optional(),
+  brand: z.string().max(5000).nullable().optional(),
+  country: z.string().max(5000).nullable().optional(),
   exp_month: z.coerce.number().nullable().optional(),
   exp_year: z.coerce.number().nullable().optional(),
-  last4: z.string().nullable().optional(),
+  last4: z.string().max(5000).nullable().optional(),
 })
 
 export const s_invoice_installments_card = z.object({
@@ -1168,7 +1170,7 @@ export const s_invoice_installments_card = z.object({
 })
 
 export const s_invoice_item_threshold_reason = z.object({
-  line_item_ids: z.array(z.string()),
+  line_item_ids: z.array(z.string().max(5000)),
   usage_gte: z.coerce.number(),
 })
 
@@ -1180,7 +1182,7 @@ export const s_invoice_line_item_period = z.object({
 export const s_invoice_mandate_options_card = z.object({
   amount: z.coerce.number().nullable().optional(),
   amount_type: z.enum(["fixed", "maximum"]).nullable().optional(),
-  description: z.string().nullable().optional(),
+  description: z.string().max(200).nullable().optional(),
 })
 
 export const s_invoice_payment_method_options_acss_debit_mandate_options =
@@ -1215,12 +1217,12 @@ export const s_invoice_rendering_pdf = z.object({
 })
 
 export const s_invoice_setting_custom_field = z.object({
-  name: z.string(),
-  value: z.string(),
+  name: z.string().max(5000),
+  value: z.string().max(5000),
 })
 
 export const s_invoice_setting_rendering_options = z.object({
-  amount_tax_display: z.string().nullable().optional(),
+  amount_tax_display: z.string().max(5000).nullable().optional(),
 })
 
 export const s_invoices_resource_invoice_tax_id = z.object({
@@ -1294,12 +1296,12 @@ export const s_invoices_resource_invoice_tax_id = z.object({
     "vn_tin",
     "za_vat",
   ]),
-  value: z.string().nullable().optional(),
+  value: z.string().max(5000).nullable().optional(),
 })
 
 export const s_invoices_resource_line_items_credited_items = z.object({
-  invoice: z.string(),
-  invoice_line_items: z.array(z.string()),
+  invoice: z.string().max(5000),
+  invoice_line_items: z.array(z.string().max(5000)),
 })
 
 export const s_invoices_resource_status_transitions = z.object({
@@ -1324,22 +1326,22 @@ export const s_issuing_authorization_authentication_exemption = z.object({
 })
 
 export const s_issuing_authorization_merchant_data = z.object({
-  category: z.string(),
-  category_code: z.string(),
-  city: z.string().nullable().optional(),
-  country: z.string().nullable().optional(),
-  name: z.string().nullable().optional(),
-  network_id: z.string(),
-  postal_code: z.string().nullable().optional(),
-  state: z.string().nullable().optional(),
-  terminal_id: z.string().nullable().optional(),
-  url: z.string().nullable().optional(),
+  category: z.string().max(5000),
+  category_code: z.string().max(5000),
+  city: z.string().max(5000).nullable().optional(),
+  country: z.string().max(5000).nullable().optional(),
+  name: z.string().max(5000).nullable().optional(),
+  network_id: z.string().max(5000),
+  postal_code: z.string().max(5000).nullable().optional(),
+  state: z.string().max(5000).nullable().optional(),
+  terminal_id: z.string().max(5000).nullable().optional(),
+  url: z.string().max(5000).nullable().optional(),
 })
 
 export const s_issuing_authorization_network_data = z.object({
-  acquiring_institution_id: z.string().nullable().optional(),
-  system_trace_audit_number: z.string().nullable().optional(),
-  transaction_id: z.string().nullable().optional(),
+  acquiring_institution_id: z.string().max(5000).nullable().optional(),
+  system_trace_audit_number: z.string().max(5000).nullable().optional(),
+  transaction_id: z.string().max(5000).nullable().optional(),
 })
 
 export const s_issuing_authorization_three_d_secure = z.object({
@@ -1352,9 +1354,9 @@ export const s_issuing_authorization_three_d_secure = z.object({
 })
 
 export const s_issuing_authorization_treasury = z.object({
-  received_credits: z.array(z.string()),
-  received_debits: z.array(z.string()),
-  transaction: z.string().nullable().optional(),
+  received_credits: z.array(z.string().max(5000)),
+  received_debits: z.array(z.string().max(5000)),
+  transaction: z.string().max(5000).nullable().optional(),
 })
 
 export const s_issuing_card_apple_pay = z.object({
@@ -1382,7 +1384,7 @@ export const s_issuing_card_google_pay = z.object({
 })
 
 export const s_issuing_card_shipping_customs = z.object({
-  eori_number: z.string().nullable().optional(),
+  eori_number: z.string().max(5000).nullable().optional(),
 })
 
 export const s_issuing_card_spending_limit = z.object({
@@ -2053,48 +2055,48 @@ export const s_issuing_cardholder_spending_limit = z.object({
 
 export const s_issuing_cardholder_user_terms_acceptance = z.object({
   date: z.coerce.number().nullable().optional(),
-  ip: z.string().nullable().optional(),
-  user_agent: z.string().nullable().optional(),
+  ip: z.string().max(5000).nullable().optional(),
+  user_agent: z.string().max(5000).nullable().optional(),
 })
 
 export const s_issuing_dispute_treasury = z.object({
-  debit_reversal: z.string().nullable().optional(),
-  received_debit: z.string(),
+  debit_reversal: z.string().max(5000).nullable().optional(),
+  received_debit: z.string().max(5000),
 })
 
 export const s_issuing_network_token_address = z.object({
-  line1: z.string(),
-  postal_code: z.string(),
+  line1: z.string().max(5000),
+  postal_code: z.string().max(5000),
 })
 
 export const s_issuing_network_token_device = z.object({
-  device_fingerprint: z.string().optional(),
-  ip_address: z.string().optional(),
-  location: z.string().optional(),
-  name: z.string().optional(),
-  phone_number: z.string().optional(),
+  device_fingerprint: z.string().max(5000).optional(),
+  ip_address: z.string().max(5000).optional(),
+  location: z.string().max(5000).optional(),
+  name: z.string().max(5000).optional(),
+  phone_number: z.string().max(5000).optional(),
   type: z.enum(["other", "phone", "watch"]).optional(),
 })
 
 export const s_issuing_network_token_mastercard = z.object({
-  card_reference_id: z.string().optional(),
-  token_reference_id: z.string(),
-  token_requestor_id: z.string(),
-  token_requestor_name: z.string().optional(),
+  card_reference_id: z.string().max(5000).optional(),
+  token_reference_id: z.string().max(5000),
+  token_requestor_id: z.string().max(5000),
+  token_requestor_name: z.string().max(5000).optional(),
 })
 
 export const s_issuing_network_token_visa = z.object({
-  card_reference_id: z.string(),
-  token_reference_id: z.string(),
-  token_requestor_id: z.string(),
-  token_risk_score: z.string().optional(),
+  card_reference_id: z.string().max(5000),
+  token_reference_id: z.string().max(5000),
+  token_requestor_id: z.string().max(5000),
+  token_risk_score: z.string().max(5000).optional(),
 })
 
 export const s_issuing_personalization_design_carrier_text = z.object({
-  footer_body: z.string().nullable().optional(),
-  footer_title: z.string().nullable().optional(),
-  header_body: z.string().nullable().optional(),
-  header_title: z.string().nullable().optional(),
+  footer_body: z.string().max(5000).nullable().optional(),
+  footer_title: z.string().max(5000).nullable().optional(),
+  header_body: z.string().max(5000).nullable().optional(),
+  header_title: z.string().max(5000).nullable().optional(),
 })
 
 export const s_issuing_personalization_design_preferences = z.object({
@@ -2141,20 +2143,20 @@ export const s_issuing_physical_bundle_features = z.object({
 })
 
 export const s_issuing_settlement = z.object({
-  bin: z.string(),
+  bin: z.string().max(5000),
   clearing_date: z.coerce.number(),
   created: z.coerce.number(),
   currency: z.string(),
-  id: z.string(),
+  id: z.string().max(5000),
   interchange_fees: z.coerce.number(),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()),
+  metadata: z.record(z.string().max(500)),
   net_total: z.coerce.number(),
   network: z.enum(["visa"]),
   network_fees: z.coerce.number(),
-  network_settlement_identifier: z.string(),
+  network_settlement_identifier: z.string().max(5000),
   object: z.enum(["issuing.settlement"]),
-  settlement_service: z.string(),
+  settlement_service: z.string().max(5000),
   transaction_count: z.coerce.number(),
   transaction_volume: z.coerce.number(),
 })
@@ -2165,17 +2167,17 @@ export const s_issuing_transaction_amount_details = z.object({
 })
 
 export const s_issuing_transaction_flight_data_leg = z.object({
-  arrival_airport_code: z.string().nullable().optional(),
-  carrier: z.string().nullable().optional(),
-  departure_airport_code: z.string().nullable().optional(),
-  flight_number: z.string().nullable().optional(),
-  service_class: z.string().nullable().optional(),
+  arrival_airport_code: z.string().max(5000).nullable().optional(),
+  carrier: z.string().max(5000).nullable().optional(),
+  departure_airport_code: z.string().max(5000).nullable().optional(),
+  flight_number: z.string().max(5000).nullable().optional(),
+  service_class: z.string().max(5000).nullable().optional(),
   stopover_allowed: z.coerce.boolean().nullable().optional(),
 })
 
 export const s_issuing_transaction_fuel_data = z.object({
-  type: z.string(),
-  unit: z.string(),
+  type: z.string().max(5000),
+  unit: z.string().max(5000),
   unit_cost_decimal: z.string(),
   volume_decimal: z.string().nullable().optional(),
 })
@@ -2186,21 +2188,21 @@ export const s_issuing_transaction_lodging_data = z.object({
 })
 
 export const s_issuing_transaction_network_data = z.object({
-  authorization_code: z.string().nullable().optional(),
-  processing_date: z.string().nullable().optional(),
-  transaction_id: z.string().nullable().optional(),
+  authorization_code: z.string().max(5000).nullable().optional(),
+  processing_date: z.string().max(5000).nullable().optional(),
+  transaction_id: z.string().max(5000).nullable().optional(),
 })
 
 export const s_issuing_transaction_receipt_data = z.object({
-  description: z.string().nullable().optional(),
+  description: z.string().max(5000).nullable().optional(),
   quantity: z.coerce.number().nullable().optional(),
   total: z.coerce.number().nullable().optional(),
   unit_cost: z.coerce.number().nullable().optional(),
 })
 
 export const s_issuing_transaction_treasury = z.object({
-  received_credit: z.string().nullable().optional(),
-  received_debit: z.string().nullable().optional(),
+  received_credit: z.string().max(5000).nullable().optional(),
+  received_debit: z.string().max(5000).nullable().optional(),
 })
 
 export const s_legal_entity_dob = z.object({
@@ -2210,19 +2212,19 @@ export const s_legal_entity_dob = z.object({
 })
 
 export const s_legal_entity_japan_address = z.object({
-  city: z.string().nullable().optional(),
-  country: z.string().nullable().optional(),
-  line1: z.string().nullable().optional(),
-  line2: z.string().nullable().optional(),
-  postal_code: z.string().nullable().optional(),
-  state: z.string().nullable().optional(),
-  town: z.string().nullable().optional(),
+  city: z.string().max(5000).nullable().optional(),
+  country: z.string().max(5000).nullable().optional(),
+  line1: z.string().max(5000).nullable().optional(),
+  line2: z.string().max(5000).nullable().optional(),
+  postal_code: z.string().max(5000).nullable().optional(),
+  state: z.string().max(5000).nullable().optional(),
+  town: z.string().max(5000).nullable().optional(),
 })
 
 export const s_legal_entity_ubo_declaration = z.object({
   date: z.coerce.number().nullable().optional(),
-  ip: z.string().nullable().optional(),
-  user_agent: z.string().nullable().optional(),
+  ip: z.string().max(5000).nullable().optional(),
+  user_agent: z.string().max(5000).nullable().optional(),
 })
 
 export const s_linked_account_options_us_bank_account = z.object({
@@ -2233,27 +2235,27 @@ export const s_linked_account_options_us_bank_account = z.object({
     .array(z.enum(["balances", "transactions"]))
     .nullable()
     .optional(),
-  return_url: z.string().optional(),
+  return_url: z.string().max(5000).optional(),
 })
 
 export const s_login_link = z.object({
   created: z.coerce.number(),
   object: z.enum(["login_link"]),
-  url: z.string(),
+  url: z.string().max(5000),
 })
 
 export const s_mandate_acss_debit = z.object({
   default_for: z.array(z.enum(["invoice", "subscription"])).optional(),
-  interval_description: z.string().nullable().optional(),
+  interval_description: z.string().max(5000).nullable().optional(),
   payment_schedule: z.enum(["combined", "interval", "sporadic"]),
   transaction_type: z.enum(["business", "personal"]),
 })
 
-export const s_mandate_au_becs_debit = z.object({ url: z.string() })
+export const s_mandate_au_becs_debit = z.object({ url: z.string().max(5000) })
 
 export const s_mandate_bacs_debit = z.object({
   network_status: z.enum(["accepted", "pending", "refused", "revoked"]),
-  reference: z.string(),
+  reference: z.string().max(5000),
   revocation_reason: z
     .enum([
       "account_closed",
@@ -2264,7 +2266,7 @@ export const s_mandate_bacs_debit = z.object({
     ])
     .nullable()
     .optional(),
-  url: z.string(),
+  url: z.string().max(5000),
 })
 
 export const s_mandate_cashapp = z.object({})
@@ -2274,13 +2276,13 @@ export const s_mandate_link = z.object({})
 export const s_mandate_multi_use = z.object({})
 
 export const s_mandate_paypal = z.object({
-  billing_agreement_id: z.string().nullable().optional(),
-  payer_id: z.string().nullable().optional(),
+  billing_agreement_id: z.string().max(5000).nullable().optional(),
+  payer_id: z.string().max(5000).nullable().optional(),
 })
 
 export const s_mandate_sepa_debit = z.object({
-  reference: z.string(),
-  url: z.string(),
+  reference: z.string().max(5000),
+  url: z.string().max(5000),
 })
 
 export const s_mandate_single_use = z.object({
@@ -2293,8 +2295,8 @@ export const s_mandate_us_bank_account = z.object({
 })
 
 export const s_networks = z.object({
-  available: z.array(z.string()),
-  preferred: z.string().nullable().optional(),
+  available: z.array(z.string().max(5000)),
+  preferred: z.string().max(5000).nullable().optional(),
 })
 
 export const s_notification_event_data = z.object({
@@ -2303,19 +2305,19 @@ export const s_notification_event_data = z.object({
 })
 
 export const s_notification_event_request = z.object({
-  id: z.string().nullable().optional(),
-  idempotency_key: z.string().nullable().optional(),
+  id: z.string().max(5000).nullable().optional(),
+  idempotency_key: z.string().max(5000).nullable().optional(),
 })
 
 export const s_offline_acceptance = z.object({})
 
 export const s_online_acceptance = z.object({
-  ip_address: z.string().nullable().optional(),
-  user_agent: z.string().nullable().optional(),
+  ip_address: z.string().max(5000).nullable().optional(),
+  user_agent: z.string().max(5000).nullable().optional(),
 })
 
 export const s_outbound_payments_payment_method_details_financial_account =
-  z.object({ id: z.string(), network: z.enum(["stripe"]) })
+  z.object({ id: z.string().max(5000), network: z.enum(["stripe"]) })
 
 export const s_package_dimensions = z.object({
   height: z.coerce.number(),
@@ -2342,9 +2344,9 @@ export const s_payment_flows_automatic_payment_methods_setup_intent = z.object({
 export const s_payment_flows_private_payment_methods_alipay = z.object({})
 
 export const s_payment_flows_private_payment_methods_alipay_details = z.object({
-  buyer_id: z.string().optional(),
-  fingerprint: z.string().nullable().optional(),
-  transaction_id: z.string().nullable().optional(),
+  buyer_id: z.string().max(5000).optional(),
+  fingerprint: z.string().max(5000).nullable().optional(),
+  transaction_id: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_extended_authorization_extended_authorization =
@@ -2369,17 +2371,17 @@ export const s_payment_flows_private_payment_methods_klarna_dob = z.object({
 })
 
 export const s_payment_intent_next_action_alipay_handle_redirect = z.object({
-  native_data: z.string().nullable().optional(),
-  native_url: z.string().nullable().optional(),
-  return_url: z.string().nullable().optional(),
-  url: z.string().nullable().optional(),
+  native_data: z.string().max(5000).nullable().optional(),
+  native_url: z.string().max(5000).nullable().optional(),
+  return_url: z.string().max(5000).nullable().optional(),
+  url: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_intent_next_action_boleto = z.object({
   expires_at: z.coerce.number().nullable().optional(),
-  hosted_voucher_url: z.string().nullable().optional(),
-  number: z.string().nullable().optional(),
-  pdf: z.string().nullable().optional(),
+  hosted_voucher_url: z.string().max(5000).nullable().optional(),
+  number: z.string().max(5000).nullable().optional(),
+  pdf: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_intent_next_action_card_await_notification = z.object({
@@ -2389,72 +2391,72 @@ export const s_payment_intent_next_action_card_await_notification = z.object({
 
 export const s_payment_intent_next_action_cashapp_qr_code = z.object({
   expires_at: z.coerce.number(),
-  image_url_png: z.string(),
-  image_url_svg: z.string(),
+  image_url_png: z.string().max(5000),
+  image_url_svg: z.string().max(5000),
 })
 
 export const s_payment_intent_next_action_display_oxxo_details = z.object({
   expires_after: z.coerce.number().nullable().optional(),
-  hosted_voucher_url: z.string().nullable().optional(),
-  number: z.string().nullable().optional(),
+  hosted_voucher_url: z.string().max(5000).nullable().optional(),
+  number: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_intent_next_action_konbini_familymart = z.object({
-  confirmation_number: z.string().optional(),
-  payment_code: z.string(),
+  confirmation_number: z.string().max(5000).optional(),
+  payment_code: z.string().max(5000),
 })
 
 export const s_payment_intent_next_action_konbini_lawson = z.object({
-  confirmation_number: z.string().optional(),
-  payment_code: z.string(),
+  confirmation_number: z.string().max(5000).optional(),
+  payment_code: z.string().max(5000),
 })
 
 export const s_payment_intent_next_action_konbini_ministop = z.object({
-  confirmation_number: z.string().optional(),
-  payment_code: z.string(),
+  confirmation_number: z.string().max(5000).optional(),
+  payment_code: z.string().max(5000),
 })
 
 export const s_payment_intent_next_action_konbini_seicomart = z.object({
-  confirmation_number: z.string().optional(),
-  payment_code: z.string(),
+  confirmation_number: z.string().max(5000).optional(),
+  payment_code: z.string().max(5000),
 })
 
 export const s_payment_intent_next_action_paynow_display_qr_code = z.object({
-  data: z.string(),
-  hosted_instructions_url: z.string().nullable().optional(),
-  image_url_png: z.string(),
-  image_url_svg: z.string(),
+  data: z.string().max(5000),
+  hosted_instructions_url: z.string().max(5000).nullable().optional(),
+  image_url_png: z.string().max(5000),
+  image_url_svg: z.string().max(5000),
 })
 
 export const s_payment_intent_next_action_pix_display_qr_code = z.object({
-  data: z.string().optional(),
+  data: z.string().max(5000).optional(),
   expires_at: z.coerce.number().optional(),
-  hosted_instructions_url: z.string().optional(),
-  image_url_png: z.string().optional(),
-  image_url_svg: z.string().optional(),
+  hosted_instructions_url: z.string().max(5000).optional(),
+  image_url_png: z.string().max(5000).optional(),
+  image_url_svg: z.string().max(5000).optional(),
 })
 
 export const s_payment_intent_next_action_promptpay_display_qr_code = z.object({
-  data: z.string(),
-  hosted_instructions_url: z.string(),
-  image_url_png: z.string(),
-  image_url_svg: z.string(),
+  data: z.string().max(5000),
+  hosted_instructions_url: z.string().max(5000),
+  image_url_png: z.string().max(5000),
+  image_url_svg: z.string().max(5000),
 })
 
 export const s_payment_intent_next_action_redirect_to_url = z.object({
-  return_url: z.string().nullable().optional(),
-  url: z.string().nullable().optional(),
+  return_url: z.string().max(5000).nullable().optional(),
+  url: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_intent_next_action_swish_qr_code = z.object({
-  data: z.string(),
-  image_url_png: z.string(),
-  image_url_svg: z.string(),
+  data: z.string().max(5000),
+  image_url_png: z.string().max(5000),
+  image_url_svg: z.string().max(5000),
 })
 
 export const s_payment_intent_next_action_verify_with_microdeposits = z.object({
   arrival_date: z.coerce.number(),
-  hosted_verification_url: z.string(),
+  hosted_verification_url: z.string().max(5000),
   microdeposit_type: z
     .enum(["amounts", "descriptor_code"])
     .nullable()
@@ -2463,27 +2465,27 @@ export const s_payment_intent_next_action_verify_with_microdeposits = z.object({
 
 export const s_payment_intent_next_action_wechat_pay_display_qr_code = z.object(
   {
-    data: z.string(),
-    hosted_instructions_url: z.string(),
-    image_data_url: z.string(),
-    image_url_png: z.string(),
-    image_url_svg: z.string(),
+    data: z.string().max(5000),
+    hosted_instructions_url: z.string().max(5000),
+    image_data_url: z.string().max(5000),
+    image_url_png: z.string().max(5000),
+    image_url_svg: z.string().max(5000),
   },
 )
 
 export const s_payment_intent_next_action_wechat_pay_redirect_to_android_app =
   z.object({
-    app_id: z.string(),
-    nonce_str: z.string(),
-    package: z.string(),
-    partner_id: z.string(),
-    prepay_id: z.string(),
-    sign: z.string(),
-    timestamp: z.string(),
+    app_id: z.string().max(5000),
+    nonce_str: z.string().max(5000),
+    package: z.string().max(5000),
+    partner_id: z.string().max(5000),
+    prepay_id: z.string().max(5000),
+    sign: z.string().max(5000),
+    timestamp: z.string().max(5000),
   })
 
 export const s_payment_intent_next_action_wechat_pay_redirect_to_ios_app =
-  z.object({ native_url: z.string() })
+  z.object({ native_url: z.string().max(5000) })
 
 export const s_payment_intent_payment_method_options_au_becs_debit = z.object({
   setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
@@ -2504,8 +2506,8 @@ export const s_payment_intent_payment_method_options_link = z.object({
 
 export const s_payment_intent_payment_method_options_mandate_options_acss_debit =
   z.object({
-    custom_mandate_url: z.string().optional(),
-    interval_description: z.string().nullable().optional(),
+    custom_mandate_url: z.string().max(5000).optional(),
+    interval_description: z.string().max(5000).nullable().optional(),
     payment_schedule: z
       .enum(["combined", "interval", "sporadic"])
       .nullable()
@@ -2522,7 +2524,7 @@ export const s_payment_intent_payment_method_options_mobilepay = z.object({
 })
 
 export const s_payment_intent_payment_method_options_swish = z.object({
-  reference: z.string().nullable().optional(),
+  reference: z.string().max(35).nullable().optional(),
   setup_future_usage: z.enum(["none"]).optional(),
 })
 
@@ -2537,19 +2539,19 @@ export const s_payment_links_resource_completed_sessions = z.object({
 })
 
 export const s_payment_links_resource_completion_behavior_confirmation_page =
-  z.object({ custom_message: z.string().nullable().optional() })
+  z.object({ custom_message: z.string().max(5000).nullable().optional() })
 
 export const s_payment_links_resource_completion_behavior_redirect = z.object({
-  url: z.string(),
+  url: z.string().max(5000),
 })
 
 export const s_payment_links_resource_custom_fields_dropdown_option = z.object({
-  label: z.string(),
-  value: z.string(),
+  label: z.string().max(5000),
+  value: z.string().max(5000),
 })
 
 export const s_payment_links_resource_custom_fields_label = z.object({
-  custom: z.string().nullable().optional(),
+  custom: z.string().max(5000).nullable().optional(),
   type: z.enum(["custom"]),
 })
 
@@ -2564,7 +2566,7 @@ export const s_payment_links_resource_custom_fields_text = z.object({
 })
 
 export const s_payment_links_resource_custom_text_position = z.object({
-  message: z.string(),
+  message: z.string().max(500),
 })
 
 export const s_payment_links_resource_payment_intent_data = z.object({
@@ -2572,15 +2574,15 @@ export const s_payment_links_resource_payment_intent_data = z.object({
     .enum(["automatic", "automatic_async", "manual"])
     .nullable()
     .optional(),
-  description: z.string().nullable().optional(),
-  metadata: z.record(z.string()),
+  description: z.string().max(5000).nullable().optional(),
+  metadata: z.record(z.string().max(500)),
   setup_future_usage: z
     .enum(["off_session", "on_session"])
     .nullable()
     .optional(),
-  statement_descriptor: z.string().nullable().optional(),
-  statement_descriptor_suffix: z.string().nullable().optional(),
-  transfer_group: z.string().nullable().optional(),
+  statement_descriptor: z.string().max(5000).nullable().optional(),
+  statement_descriptor_suffix: z.string().max(5000).nullable().optional(),
+  transfer_group: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_links_resource_payment_method_reuse_agreement = z.object(
@@ -2840,11 +2842,11 @@ export const s_payment_links_resource_tax_id_collection = z.object({
 })
 
 export const s_payment_method_acss_debit = z.object({
-  bank_name: z.string().nullable().optional(),
-  fingerprint: z.string().nullable().optional(),
-  institution_number: z.string().nullable().optional(),
-  last4: z.string().nullable().optional(),
-  transit_number: z.string().nullable().optional(),
+  bank_name: z.string().max(5000).nullable().optional(),
+  fingerprint: z.string().max(5000).nullable().optional(),
+  institution_number: z.string().max(5000).nullable().optional(),
+  last4: z.string().max(5000).nullable().optional(),
+  transit_number: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_affirm = z.object({})
@@ -2852,32 +2854,34 @@ export const s_payment_method_affirm = z.object({})
 export const s_payment_method_afterpay_clearpay = z.object({})
 
 export const s_payment_method_au_becs_debit = z.object({
-  bsb_number: z.string().nullable().optional(),
-  fingerprint: z.string().nullable().optional(),
-  last4: z.string().nullable().optional(),
+  bsb_number: z.string().max(5000).nullable().optional(),
+  fingerprint: z.string().max(5000).nullable().optional(),
+  last4: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_bacs_debit = z.object({
-  fingerprint: z.string().nullable().optional(),
-  last4: z.string().nullable().optional(),
-  sort_code: z.string().nullable().optional(),
+  fingerprint: z.string().max(5000).nullable().optional(),
+  last4: z.string().max(5000).nullable().optional(),
+  sort_code: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_bancontact = z.object({})
 
 export const s_payment_method_blik = z.object({})
 
-export const s_payment_method_boleto = z.object({ tax_id: z.string() })
+export const s_payment_method_boleto = z.object({
+  tax_id: z.string().max(5000),
+})
 
 export const s_payment_method_card_checks = z.object({
-  address_line1_check: z.string().nullable().optional(),
-  address_postal_code_check: z.string().nullable().optional(),
-  cvc_check: z.string().nullable().optional(),
+  address_line1_check: z.string().max(5000).nullable().optional(),
+  address_postal_code_check: z.string().max(5000).nullable().optional(),
+  cvc_check: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_card_present_networks = z.object({
-  available: z.array(z.string()),
-  preferred: z.string().nullable().optional(),
+  available: z.array(z.string().max(5000)),
+  preferred: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_card_wallet_amex_express_checkout = z.object({})
@@ -2891,12 +2895,15 @@ export const s_payment_method_card_wallet_link = z.object({})
 export const s_payment_method_card_wallet_samsung_pay = z.object({})
 
 export const s_payment_method_cashapp = z.object({
-  buyer_id: z.string().nullable().optional(),
-  cashtag: z.string().nullable().optional(),
+  buyer_id: z.string().max(5000).nullable().optional(),
+  cashtag: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_config_biz_payment_method_configuration_details =
-  z.object({ id: z.string(), parent: z.string().nullable().optional() })
+  z.object({
+    id: z.string().max(5000),
+    parent: z.string().max(5000).nullable().optional(),
+  })
 
 export const s_payment_method_config_resource_display_preference = z.object({
   overridable: z.coerce.boolean().nullable().optional(),
@@ -2907,59 +2914,61 @@ export const s_payment_method_config_resource_display_preference = z.object({
 export const s_payment_method_customer_balance = z.object({})
 
 export const s_payment_method_details_ach_credit_transfer = z.object({
-  account_number: z.string().nullable().optional(),
-  bank_name: z.string().nullable().optional(),
-  routing_number: z.string().nullable().optional(),
-  swift_code: z.string().nullable().optional(),
+  account_number: z.string().max(5000).nullable().optional(),
+  bank_name: z.string().max(5000).nullable().optional(),
+  routing_number: z.string().max(5000).nullable().optional(),
+  swift_code: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_ach_debit = z.object({
   account_holder_type: z.enum(["company", "individual"]).nullable().optional(),
-  bank_name: z.string().nullable().optional(),
-  country: z.string().nullable().optional(),
-  fingerprint: z.string().nullable().optional(),
-  last4: z.string().nullable().optional(),
-  routing_number: z.string().nullable().optional(),
+  bank_name: z.string().max(5000).nullable().optional(),
+  country: z.string().max(5000).nullable().optional(),
+  fingerprint: z.string().max(5000).nullable().optional(),
+  last4: z.string().max(5000).nullable().optional(),
+  routing_number: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_acss_debit = z.object({
-  bank_name: z.string().nullable().optional(),
-  fingerprint: z.string().nullable().optional(),
-  institution_number: z.string().nullable().optional(),
-  last4: z.string().nullable().optional(),
-  mandate: z.string().optional(),
-  transit_number: z.string().nullable().optional(),
+  bank_name: z.string().max(5000).nullable().optional(),
+  fingerprint: z.string().max(5000).nullable().optional(),
+  institution_number: z.string().max(5000).nullable().optional(),
+  last4: z.string().max(5000).nullable().optional(),
+  mandate: z.string().max(5000).optional(),
+  transit_number: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_affirm = z.object({})
 
 export const s_payment_method_details_afterpay_clearpay = z.object({
-  order_id: z.string().nullable().optional(),
-  reference: z.string().nullable().optional(),
+  order_id: z.string().max(5000).nullable().optional(),
+  reference: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_au_becs_debit = z.object({
-  bsb_number: z.string().nullable().optional(),
-  fingerprint: z.string().nullable().optional(),
-  last4: z.string().nullable().optional(),
-  mandate: z.string().optional(),
+  bsb_number: z.string().max(5000).nullable().optional(),
+  fingerprint: z.string().max(5000).nullable().optional(),
+  last4: z.string().max(5000).nullable().optional(),
+  mandate: z.string().max(5000).optional(),
 })
 
 export const s_payment_method_details_bacs_debit = z.object({
-  fingerprint: z.string().nullable().optional(),
-  last4: z.string().nullable().optional(),
-  mandate: z.string().nullable().optional(),
-  sort_code: z.string().nullable().optional(),
+  fingerprint: z.string().max(5000).nullable().optional(),
+  last4: z.string().max(5000).nullable().optional(),
+  mandate: z.string().max(5000).nullable().optional(),
+  sort_code: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_blik = z.object({})
 
-export const s_payment_method_details_boleto = z.object({ tax_id: z.string() })
+export const s_payment_method_details_boleto = z.object({
+  tax_id: z.string().max(5000),
+})
 
 export const s_payment_method_details_card_checks = z.object({
-  address_line1_check: z.string().nullable().optional(),
-  address_postal_code_check: z.string().nullable().optional(),
-  cvc_check: z.string().nullable().optional(),
+  address_line1_check: z.string().max(5000).nullable().optional(),
+  address_postal_code_check: z.string().max(5000).nullable().optional(),
+  cvc_check: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_card_installments_plan = z.object({
@@ -2978,14 +2987,14 @@ export const s_payment_method_details_card_present_offline = z.object({
 
 export const s_payment_method_details_card_present_receipt = z.object({
   account_type: z.enum(["checking", "credit", "prepaid", "unknown"]).optional(),
-  application_cryptogram: z.string().nullable().optional(),
-  application_preferred_name: z.string().nullable().optional(),
-  authorization_code: z.string().nullable().optional(),
-  authorization_response_code: z.string().nullable().optional(),
-  cardholder_verification_method: z.string().nullable().optional(),
-  dedicated_file_name: z.string().nullable().optional(),
-  terminal_verification_results: z.string().nullable().optional(),
-  transaction_status_information: z.string().nullable().optional(),
+  application_cryptogram: z.string().max(5000).nullable().optional(),
+  application_preferred_name: z.string().max(5000).nullable().optional(),
+  authorization_code: z.string().max(5000).nullable().optional(),
+  authorization_response_code: z.string().max(5000).nullable().optional(),
+  cardholder_verification_method: z.string().max(5000).nullable().optional(),
+  dedicated_file_name: z.string().max(5000).nullable().optional(),
+  terminal_verification_results: z.string().max(5000).nullable().optional(),
+  transaction_status_information: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_card_wallet_amex_express_checkout =
@@ -3000,8 +3009,8 @@ export const s_payment_method_details_card_wallet_link = z.object({})
 export const s_payment_method_details_card_wallet_samsung_pay = z.object({})
 
 export const s_payment_method_details_cashapp = z.object({
-  buyer_id: z.string().nullable().optional(),
-  cashtag: z.string().nullable().optional(),
+  buyer_id: z.string().max(5000).nullable().optional(),
+  cashtag: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_customer_balance = z.object({})
@@ -3040,7 +3049,7 @@ export const s_payment_method_details_eps = z.object({
     ])
     .nullable()
     .optional(),
-  verified_name: z.string().nullable().optional(),
+  verified_name: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_fpx = z.object({
@@ -3068,35 +3077,35 @@ export const s_payment_method_details_fpx = z.object({
     "standard_chartered",
     "uob",
   ]),
-  transaction_id: z.string().nullable().optional(),
+  transaction_id: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_giropay = z.object({
-  bank_code: z.string().nullable().optional(),
-  bank_name: z.string().nullable().optional(),
-  bic: z.string().nullable().optional(),
-  verified_name: z.string().nullable().optional(),
+  bank_code: z.string().max(5000).nullable().optional(),
+  bank_name: z.string().max(5000).nullable().optional(),
+  bic: z.string().max(5000).nullable().optional(),
+  verified_name: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_grabpay = z.object({
-  transaction_id: z.string().nullable().optional(),
+  transaction_id: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_interac_present_receipt = z.object({
   account_type: z.enum(["checking", "savings", "unknown"]).optional(),
-  application_cryptogram: z.string().nullable().optional(),
-  application_preferred_name: z.string().nullable().optional(),
-  authorization_code: z.string().nullable().optional(),
-  authorization_response_code: z.string().nullable().optional(),
-  cardholder_verification_method: z.string().nullable().optional(),
-  dedicated_file_name: z.string().nullable().optional(),
-  terminal_verification_results: z.string().nullable().optional(),
-  transaction_status_information: z.string().nullable().optional(),
+  application_cryptogram: z.string().max(5000).nullable().optional(),
+  application_preferred_name: z.string().max(5000).nullable().optional(),
+  authorization_code: z.string().max(5000).nullable().optional(),
+  authorization_response_code: z.string().max(5000).nullable().optional(),
+  cardholder_verification_method: z.string().max(5000).nullable().optional(),
+  dedicated_file_name: z.string().max(5000).nullable().optional(),
+  terminal_verification_results: z.string().max(5000).nullable().optional(),
+  transaction_status_information: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_klarna = z.object({
-  payment_method_category: z.string().nullable().optional(),
-  preferred_locale: z.string().nullable().optional(),
+  payment_method_category: z.string().max(5000).nullable().optional(),
+  preferred_locale: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_konbini_store = z.object({
@@ -3107,16 +3116,16 @@ export const s_payment_method_details_konbini_store = z.object({
 })
 
 export const s_payment_method_details_link = z.object({
-  country: z.string().nullable().optional(),
+  country: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_multibanco = z.object({
-  entity: z.string().nullable().optional(),
-  reference: z.string().nullable().optional(),
+  entity: z.string().max(5000).nullable().optional(),
+  reference: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_oxxo = z.object({
-  number: z.string().nullable().optional(),
+  number: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_p24 = z.object({
@@ -3151,52 +3160,52 @@ export const s_payment_method_details_p24 = z.object({
     ])
     .nullable()
     .optional(),
-  reference: z.string().nullable().optional(),
-  verified_name: z.string().nullable().optional(),
+  reference: z.string().max(5000).nullable().optional(),
+  verified_name: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_paynow = z.object({
-  reference: z.string().nullable().optional(),
+  reference: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_pix = z.object({
-  bank_transaction_id: z.string().nullable().optional(),
+  bank_transaction_id: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_promptpay = z.object({
-  reference: z.string().nullable().optional(),
+  reference: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_revolut_pay = z.object({})
 
 export const s_payment_method_details_sepa_debit = z.object({
-  bank_code: z.string().nullable().optional(),
-  branch_code: z.string().nullable().optional(),
-  country: z.string().nullable().optional(),
-  fingerprint: z.string().nullable().optional(),
-  last4: z.string().nullable().optional(),
-  mandate: z.string().nullable().optional(),
+  bank_code: z.string().max(5000).nullable().optional(),
+  branch_code: z.string().max(5000).nullable().optional(),
+  country: z.string().max(5000).nullable().optional(),
+  fingerprint: z.string().max(5000).nullable().optional(),
+  last4: z.string().max(5000).nullable().optional(),
+  mandate: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_stripe_account = z.object({})
 
 export const s_payment_method_details_swish = z.object({
-  fingerprint: z.string().nullable().optional(),
-  payment_reference: z.string().nullable().optional(),
-  verified_phone_last4: z.string().nullable().optional(),
+  fingerprint: z.string().max(5000).nullable().optional(),
+  payment_reference: z.string().max(5000).nullable().optional(),
+  verified_phone_last4: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_wechat = z.object({})
 
 export const s_payment_method_details_wechat_pay = z.object({
-  fingerprint: z.string().nullable().optional(),
-  transaction_id: z.string().nullable().optional(),
+  fingerprint: z.string().max(5000).nullable().optional(),
+  transaction_id: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_zip = z.object({})
 
 export const s_payment_method_domain_resource_payment_method_status_details =
-  z.object({ error_message: z.string() })
+  z.object({ error_message: z.string().max(5000) })
 
 export const s_payment_method_eps = z.object({
   bank: z
@@ -3314,20 +3323,20 @@ export const s_payment_method_ideal = z.object({
 export const s_payment_method_konbini = z.object({})
 
 export const s_payment_method_link = z.object({
-  email: z.string().nullable().optional(),
+  email: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_mobilepay = z.object({})
 
 export const s_payment_method_options_affirm = z.object({
   capture_method: z.enum(["manual"]).optional(),
-  preferred_locale: z.string().optional(),
+  preferred_locale: z.string().max(30).optional(),
   setup_future_usage: z.enum(["none"]).optional(),
 })
 
 export const s_payment_method_options_afterpay_clearpay = z.object({
   capture_method: z.enum(["manual"]).optional(),
-  reference: z.string().nullable().optional(),
+  reference: z.string().max(5000).nullable().optional(),
   setup_future_usage: z.enum(["none"]).optional(),
 })
 
@@ -3352,11 +3361,11 @@ export const s_payment_method_options_boleto = z.object({
 export const s_payment_method_options_card_mandate_options = z.object({
   amount: z.coerce.number(),
   amount_type: z.enum(["fixed", "maximum"]),
-  description: z.string().nullable().optional(),
+  description: z.string().max(200).nullable().optional(),
   end_date: z.coerce.number().nullable().optional(),
   interval: z.enum(["day", "month", "sporadic", "week", "year"]),
   interval_count: z.coerce.number().nullable().optional(),
-  reference: z.string(),
+  reference: z.string().max(80),
   start_date: z.coerce.number(),
   supported_types: z
     .array(z.enum(["india"]))
@@ -3400,15 +3409,15 @@ export const s_payment_method_options_interac_present = z.object({})
 
 export const s_payment_method_options_klarna = z.object({
   capture_method: z.enum(["manual"]).optional(),
-  preferred_locale: z.string().nullable().optional(),
+  preferred_locale: z.string().max(5000).nullable().optional(),
   setup_future_usage: z.enum(["none"]).optional(),
 })
 
 export const s_payment_method_options_konbini = z.object({
-  confirmation_number: z.string().nullable().optional(),
+  confirmation_number: z.string().max(5000).nullable().optional(),
   expires_after_days: z.coerce.number().nullable().optional(),
   expires_at: z.coerce.number().nullable().optional(),
-  product_description: z.string().nullable().optional(),
+  product_description: z.string().max(5000).nullable().optional(),
   setup_future_usage: z.enum(["none"]).optional(),
 })
 
@@ -3427,8 +3436,8 @@ export const s_payment_method_options_paynow = z.object({
 
 export const s_payment_method_options_paypal = z.object({
   capture_method: z.enum(["manual"]).optional(),
-  preferred_locale: z.string().nullable().optional(),
-  reference: z.string().nullable().optional(),
+  preferred_locale: z.string().max(5000).nullable().optional(),
+  reference: z.string().max(5000).nullable().optional(),
   setup_future_usage: z.enum(["none", "off_session"]).optional(),
 })
 
@@ -3456,7 +3465,7 @@ export const s_payment_method_options_us_bank_account_mandate_options =
   z.object({ collection_method: z.enum(["paper"]).optional() })
 
 export const s_payment_method_options_wechat_pay = z.object({
-  app_id: z.string().nullable().optional(),
+  app_id: z.string().max(5000).nullable().optional(),
   client: z.enum(["android", "ios", "web"]).nullable().optional(),
   setup_future_usage: z.enum(["none"]).optional(),
 })
@@ -3504,8 +3513,8 @@ export const s_payment_method_p24 = z.object({
 export const s_payment_method_paynow = z.object({})
 
 export const s_payment_method_paypal = z.object({
-  payer_email: z.string().nullable().optional(),
-  payer_id: z.string().nullable().optional(),
+  payer_email: z.string().max(5000).nullable().optional(),
+  payer_id: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_pix = z.object({})
@@ -3515,7 +3524,7 @@ export const s_payment_method_promptpay = z.object({})
 export const s_payment_method_revolut_pay = z.object({})
 
 export const s_payment_method_sofort = z.object({
-  country: z.string().nullable().optional(),
+  country: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_swish = z.object({})
@@ -3560,7 +3569,7 @@ export const s_payment_pages_checkout_session_after_expiration_recovery =
     allow_promotion_codes: z.coerce.boolean(),
     enabled: z.coerce.boolean(),
     expires_at: z.coerce.number().nullable().optional(),
-    url: z.string().nullable().optional(),
+    url: z.string().max(5000).nullable().optional(),
   })
 
 export const s_payment_pages_checkout_session_consent = z.object({
@@ -3572,33 +3581,33 @@ export const s_payment_pages_checkout_session_currency_conversion = z.object({
   amount_subtotal: z.coerce.number(),
   amount_total: z.coerce.number(),
   fx_rate: z.string(),
-  source_currency: z.string(),
+  source_currency: z.string().max(5000),
 })
 
 export const s_payment_pages_checkout_session_custom_fields_label = z.object({
-  custom: z.string().nullable().optional(),
+  custom: z.string().max(5000).nullable().optional(),
   type: z.enum(["custom"]),
 })
 
 export const s_payment_pages_checkout_session_custom_fields_numeric = z.object({
   maximum_length: z.coerce.number().nullable().optional(),
   minimum_length: z.coerce.number().nullable().optional(),
-  value: z.string().nullable().optional(),
+  value: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_pages_checkout_session_custom_fields_option = z.object({
-  label: z.string(),
-  value: z.string(),
+  label: z.string().max(5000),
+  value: z.string().max(5000),
 })
 
 export const s_payment_pages_checkout_session_custom_fields_text = z.object({
   maximum_length: z.coerce.number().nullable().optional(),
   minimum_length: z.coerce.number().nullable().optional(),
-  value: z.string().nullable().optional(),
+  value: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_pages_checkout_session_custom_text_position = z.object({
-  message: z.string(),
+  message: z.string().max(500),
 })
 
 export const s_payment_pages_checkout_session_payment_method_reuse_agreement =
@@ -3923,7 +3932,7 @@ export const s_payment_pages_checkout_session_tax_id = z.object({
     "vn_tin",
     "za_vat",
   ]),
-  value: z.string().nullable().optional(),
+  value: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_pages_checkout_session_tax_id_collection = z.object({
@@ -3945,8 +3954,8 @@ export const s_period = z.object({
 
 export const s_person_additional_tos_acceptance = z.object({
   date: z.coerce.number().nullable().optional(),
-  ip: z.string().nullable().optional(),
-  user_agent: z.string().nullable().optional(),
+  ip: z.string().max(5000).nullable().optional(),
+  user_agent: z.string().max(5000).nullable().optional(),
 })
 
 export const s_person_relationship = z.object({
@@ -3956,7 +3965,7 @@ export const s_person_relationship = z.object({
   owner: z.coerce.boolean().nullable().optional(),
   percent_ownership: z.coerce.number().nullable().optional(),
   representative: z.coerce.boolean().nullable().optional(),
-  title: z.string().nullable().optional(),
+  title: z.string().max(5000).nullable().optional(),
 })
 
 export const s_plan_tier = z.object({
@@ -3968,17 +3977,17 @@ export const s_plan_tier = z.object({
 })
 
 export const s_platform_tax_fee = z.object({
-  account: z.string(),
-  id: z.string(),
+  account: z.string().max(5000),
+  id: z.string().max(5000),
   object: z.enum(["platform_tax_fee"]),
-  source_transaction: z.string(),
-  type: z.string(),
+  source_transaction: z.string().max(5000),
+  type: z.string().max(5000),
 })
 
 export const s_portal_business_profile = z.object({
-  headline: z.string().nullable().optional(),
-  privacy_policy_url: z.string().nullable().optional(),
-  terms_of_service_url: z.string().nullable().optional(),
+  headline: z.string().max(5000).nullable().optional(),
+  privacy_policy_url: z.string().max(5000).nullable().optional(),
+  terms_of_service_url: z.string().max(5000).nullable().optional(),
 })
 
 export const s_portal_customer_update = z.object({
@@ -3989,27 +3998,29 @@ export const s_portal_customer_update = z.object({
 })
 
 export const s_portal_flows_after_completion_hosted_confirmation = z.object({
-  custom_message: z.string().nullable().optional(),
+  custom_message: z.string().max(5000).nullable().optional(),
 })
 
 export const s_portal_flows_after_completion_redirect = z.object({
-  return_url: z.string(),
+  return_url: z.string().max(5000),
 })
 
-export const s_portal_flows_coupon_offer = z.object({ coupon: z.string() })
+export const s_portal_flows_coupon_offer = z.object({
+  coupon: z.string().max(5000),
+})
 
 export const s_portal_flows_flow_subscription_update = z.object({
-  subscription: z.string(),
+  subscription: z.string().max(5000),
 })
 
 export const s_portal_flows_subscription_update_confirm_discount = z.object({
-  coupon: z.string().nullable().optional(),
-  promotion_code: z.string().nullable().optional(),
+  coupon: z.string().max(5000).nullable().optional(),
+  promotion_code: z.string().max(5000).nullable().optional(),
 })
 
 export const s_portal_flows_subscription_update_confirm_item = z.object({
-  id: z.string().nullable().optional(),
-  price: z.string().nullable().optional(),
+  id: z.string().max(5000).nullable().optional(),
+  price: z.string().max(5000).nullable().optional(),
   quantity: z.coerce.number().optional(),
 })
 
@@ -4017,7 +4028,7 @@ export const s_portal_invoice_list = z.object({ enabled: z.coerce.boolean() })
 
 export const s_portal_login_page = z.object({
   enabled: z.coerce.boolean(),
-  url: z.string().nullable().optional(),
+  url: z.string().max(5000).nullable().optional(),
 })
 
 export const s_portal_payment_method_update = z.object({
@@ -4041,8 +4052,8 @@ export const s_portal_subscription_cancellation_reason = z.object({
 })
 
 export const s_portal_subscription_update_product = z.object({
-  prices: z.array(z.string()),
-  product: z.string(),
+  prices: z.array(z.string().max(5000)),
+  product: z.string().max(5000),
 })
 
 export const s_price_tier = z.object({
@@ -4054,7 +4065,7 @@ export const s_price_tier = z.object({
 })
 
 export const s_product_marketing_feature = z.object({
-  name: z.string().optional(),
+  name: z.string().max(5000).optional(),
 })
 
 export const s_promotion_code_currency_option = z.object({
@@ -4068,43 +4079,43 @@ export const s_quotes_resource_status_transitions = z.object({
 })
 
 export const s_quotes_resource_subscription_data_subscription_data = z.object({
-  description: z.string().nullable().optional(),
+  description: z.string().max(5000).nullable().optional(),
   effective_date: z.coerce.number().nullable().optional(),
-  metadata: z.record(z.string()).nullable().optional(),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
   trial_period_days: z.coerce.number().nullable().optional(),
 })
 
 export const s_radar_radar_options = z.object({
-  session: z.string().optional(),
+  session: z.string().max(5000).optional(),
 })
 
 export const s_radar_review_resource_location = z.object({
-  city: z.string().nullable().optional(),
-  country: z.string().nullable().optional(),
+  city: z.string().max(5000).nullable().optional(),
+  country: z.string().max(5000).nullable().optional(),
   latitude: z.coerce.number().nullable().optional(),
   longitude: z.coerce.number().nullable().optional(),
-  region: z.string().nullable().optional(),
+  region: z.string().max(5000).nullable().optional(),
 })
 
 export const s_radar_review_resource_session = z.object({
-  browser: z.string().nullable().optional(),
-  device: z.string().nullable().optional(),
-  platform: z.string().nullable().optional(),
-  version: z.string().nullable().optional(),
+  browser: z.string().max(5000).nullable().optional(),
+  device: z.string().max(5000).nullable().optional(),
+  platform: z.string().max(5000).nullable().optional(),
+  version: z.string().max(5000).nullable().optional(),
 })
 
 export const s_radar_value_list_item = z.object({
   created: z.coerce.number(),
-  created_by: z.string(),
-  id: z.string(),
+  created_by: z.string().max(5000),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   object: z.enum(["radar.value_list_item"]),
-  value: z.string(),
-  value_list: z.string(),
+  value: z.string().max(5000),
+  value_list: z.string().max(5000),
 })
 
 export const s_received_payment_method_details_financial_account = z.object({
-  id: z.string(),
+  id: z.string().max(5000),
   network: z.enum(["stripe"]),
 })
 
@@ -4115,29 +4126,29 @@ export const s_recurring = z.object({
     .optional(),
   interval: z.enum(["day", "month", "week", "year"]),
   interval_count: z.coerce.number(),
-  meter: z.string().nullable().optional(),
+  meter: z.string().max(5000).nullable().optional(),
   usage_type: z.enum(["licensed", "metered"]),
 })
 
 export const s_refund_destination_details_card = z.object({
-  reference: z.string().optional(),
-  reference_status: z.string().optional(),
-  reference_type: z.string().optional(),
+  reference: z.string().max(5000).optional(),
+  reference_status: z.string().max(5000).optional(),
+  reference_type: z.string().max(5000).optional(),
   type: z.enum(["pending", "refund", "reversal"]),
 })
 
 export const s_refund_destination_details_generic = z.object({
-  reference: z.string().nullable().optional(),
-  reference_status: z.string().nullable().optional(),
+  reference: z.string().max(5000).nullable().optional(),
+  reference_status: z.string().max(5000).nullable().optional(),
 })
 
 export const s_reporting_report_type = z.object({
   data_available_end: z.coerce.number(),
   data_available_start: z.coerce.number(),
-  default_columns: z.array(z.string()).nullable().optional(),
-  id: z.string(),
+  default_columns: z.array(z.string().max(5000)).nullable().optional(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
-  name: z.string(),
+  name: z.string().max(5000),
   object: z.enum(["reporting.report_type"]),
   updated: z.coerce.number(),
   version: z.coerce.number(),
@@ -4146,20 +4157,20 @@ export const s_reporting_report_type = z.object({
 export const s_reserve_transaction = z.object({
   amount: z.coerce.number(),
   currency: z.string(),
-  description: z.string().nullable().optional(),
-  id: z.string(),
+  description: z.string().max(5000).nullable().optional(),
+  id: z.string().max(5000),
   object: z.enum(["reserve_transaction"]),
 })
 
 export const s_rule = z.object({
-  action: z.string(),
-  id: z.string(),
-  predicate: z.string(),
+  action: z.string().max(5000),
+  id: z.string().max(5000),
+  predicate: z.string().max(5000),
 })
 
 export const s_secret_service_resource_scope = z.object({
   type: z.enum(["account", "user"]),
-  user: z.string().optional(),
+  user: z.string().max(5000).optional(),
 })
 
 export const s_setup_attempt_payment_method_details_acss_debit = z.object({})
@@ -4171,9 +4182,9 @@ export const s_setup_attempt_payment_method_details_bacs_debit = z.object({})
 export const s_setup_attempt_payment_method_details_boleto = z.object({})
 
 export const s_setup_attempt_payment_method_details_card_checks = z.object({
-  address_line1_check: z.string().nullable().optional(),
-  address_postal_code_check: z.string().nullable().optional(),
-  cvc_check: z.string().nullable().optional(),
+  address_line1_check: z.string().max(5000).nullable().optional(),
+  address_postal_code_check: z.string().max(5000).nullable().optional(),
+  cvc_check: z.string().max(5000).nullable().optional(),
 })
 
 export const s_setup_attempt_payment_method_details_cashapp = z.object({})
@@ -4191,13 +4202,13 @@ export const s_setup_attempt_payment_method_details_us_bank_account = z.object(
 )
 
 export const s_setup_intent_next_action_redirect_to_url = z.object({
-  return_url: z.string().nullable().optional(),
-  url: z.string().nullable().optional(),
+  return_url: z.string().max(5000).nullable().optional(),
+  url: z.string().max(5000).nullable().optional(),
 })
 
 export const s_setup_intent_next_action_verify_with_microdeposits = z.object({
   arrival_date: z.coerce.number(),
-  hosted_verification_url: z.string(),
+  hosted_verification_url: z.string().max(5000),
   microdeposit_type: z
     .enum(["amounts", "descriptor_code"])
     .nullable()
@@ -4209,11 +4220,11 @@ export const s_setup_intent_payment_method_options_card_mandate_options =
     amount: z.coerce.number(),
     amount_type: z.enum(["fixed", "maximum"]),
     currency: z.string(),
-    description: z.string().nullable().optional(),
+    description: z.string().max(200).nullable().optional(),
     end_date: z.coerce.number().nullable().optional(),
     interval: z.enum(["day", "month", "sporadic", "week", "year"]),
     interval_count: z.coerce.number().nullable().optional(),
-    reference: z.string(),
+    reference: z.string().max(80),
     start_date: z.coerce.number(),
     supported_types: z
       .array(z.enum(["india"]))
@@ -4227,9 +4238,9 @@ export const s_setup_intent_payment_method_options_link = z.object({})
 
 export const s_setup_intent_payment_method_options_mandate_options_acss_debit =
   z.object({
-    custom_mandate_url: z.string().optional(),
+    custom_mandate_url: z.string().max(5000).optional(),
     default_for: z.array(z.enum(["invoice", "subscription"])).optional(),
-    interval_description: z.string().nullable().optional(),
+    interval_description: z.string().max(5000).nullable().optional(),
     payment_schedule: z
       .enum(["combined", "interval", "sporadic"])
       .nullable()
@@ -4241,7 +4252,7 @@ export const s_setup_intent_payment_method_options_mandate_options_sepa_debit =
   z.object({})
 
 export const s_setup_intent_payment_method_options_paypal = z.object({
-  billing_agreement_id: z.string().nullable().optional(),
+  billing_agreement_id: z.string().max(5000).nullable().optional(),
 })
 
 export const s_setup_intent_type_specific_payment_method_options_client =
@@ -4262,87 +4273,87 @@ export const s_shipping_rate_delivery_estimate_bound = z.object({
 })
 
 export const s_sigma_scheduled_query_run_error = z.object({
-  message: z.string(),
+  message: z.string().max(5000),
 })
 
 export const s_source_code_verification_flow = z.object({
   attempts_remaining: z.coerce.number(),
-  status: z.string(),
+  status: z.string().max(5000),
 })
 
 export const s_source_mandate_notification_acss_debit_data = z.object({
-  statement_descriptor: z.string().optional(),
+  statement_descriptor: z.string().max(5000).optional(),
 })
 
 export const s_source_mandate_notification_bacs_debit_data = z.object({
-  last4: z.string().optional(),
+  last4: z.string().max(5000).optional(),
 })
 
 export const s_source_mandate_notification_sepa_debit_data = z.object({
-  creditor_identifier: z.string().optional(),
-  last4: z.string().optional(),
-  mandate_reference: z.string().optional(),
+  creditor_identifier: z.string().max(5000).optional(),
+  last4: z.string().max(5000).optional(),
+  mandate_reference: z.string().max(5000).optional(),
 })
 
 export const s_source_order_item = z.object({
   amount: z.coerce.number().nullable().optional(),
-  currency: z.string().nullable().optional(),
-  description: z.string().nullable().optional(),
-  parent: z.string().nullable().optional(),
+  currency: z.string().max(5000).nullable().optional(),
+  description: z.string().max(5000).nullable().optional(),
+  parent: z.string().max(5000).nullable().optional(),
   quantity: z.coerce.number().optional(),
-  type: z.string().nullable().optional(),
+  type: z.string().max(5000).nullable().optional(),
 })
 
 export const s_source_receiver_flow = z.object({
-  address: z.string().nullable().optional(),
+  address: z.string().max(5000).nullable().optional(),
   amount_charged: z.coerce.number(),
   amount_received: z.coerce.number(),
   amount_returned: z.coerce.number(),
-  refund_attributes_method: z.string(),
-  refund_attributes_status: z.string(),
+  refund_attributes_method: z.string().max(5000),
+  refund_attributes_status: z.string().max(5000),
 })
 
 export const s_source_redirect_flow = z.object({
-  failure_reason: z.string().nullable().optional(),
-  return_url: z.string(),
-  status: z.string(),
-  url: z.string(),
+  failure_reason: z.string().max(5000).nullable().optional(),
+  return_url: z.string().max(5000),
+  status: z.string().max(5000),
+  url: z.string().max(2048),
 })
 
 export const s_source_transaction_ach_credit_transfer_data = z.object({
-  customer_data: z.string().optional(),
-  fingerprint: z.string().optional(),
-  last4: z.string().optional(),
-  routing_number: z.string().optional(),
+  customer_data: z.string().max(5000).optional(),
+  fingerprint: z.string().max(5000).optional(),
+  last4: z.string().max(5000).optional(),
+  routing_number: z.string().max(5000).optional(),
 })
 
 export const s_source_transaction_chf_credit_transfer_data = z.object({
-  reference: z.string().optional(),
-  sender_address_country: z.string().optional(),
-  sender_address_line1: z.string().optional(),
-  sender_iban: z.string().optional(),
-  sender_name: z.string().optional(),
+  reference: z.string().max(5000).optional(),
+  sender_address_country: z.string().max(5000).optional(),
+  sender_address_line1: z.string().max(5000).optional(),
+  sender_iban: z.string().max(5000).optional(),
+  sender_name: z.string().max(5000).optional(),
 })
 
 export const s_source_transaction_gbp_credit_transfer_data = z.object({
-  fingerprint: z.string().optional(),
-  funding_method: z.string().optional(),
-  last4: z.string().optional(),
-  reference: z.string().optional(),
-  sender_account_number: z.string().optional(),
-  sender_name: z.string().optional(),
-  sender_sort_code: z.string().optional(),
+  fingerprint: z.string().max(5000).optional(),
+  funding_method: z.string().max(5000).optional(),
+  last4: z.string().max(5000).optional(),
+  reference: z.string().max(5000).optional(),
+  sender_account_number: z.string().max(5000).optional(),
+  sender_name: z.string().max(5000).optional(),
+  sender_sort_code: z.string().max(5000).optional(),
 })
 
 export const s_source_transaction_paper_check_data = z.object({
-  available_at: z.string().optional(),
-  invoices: z.string().optional(),
+  available_at: z.string().max(5000).optional(),
+  invoices: z.string().max(5000).optional(),
 })
 
 export const s_source_transaction_sepa_credit_transfer_data = z.object({
-  reference: z.string().optional(),
-  sender_iban: z.string().optional(),
-  sender_name: z.string().optional(),
+  reference: z.string().max(5000).optional(),
+  sender_iban: z.string().max(5000).optional(),
+  sender_name: z.string().max(5000).optional(),
 })
 
 export const s_source_type_ach_credit_transfer = z.object({
@@ -4559,7 +4570,7 @@ export const s_subscription_billing_thresholds = z.object({
 })
 
 export const s_subscription_details_data = z.object({
-  metadata: z.record(z.string()).nullable().optional(),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
 })
 
 export const s_subscription_item_billing_thresholds = z.object({
@@ -4594,28 +4605,28 @@ export const s_subscriptions_trials_resource_end_behavior = z.object({
 })
 
 export const s_tax_code = z.object({
-  description: z.string(),
-  id: z.string(),
-  name: z.string(),
+  description: z.string().max(5000),
+  id: z.string().max(5000),
+  name: z.string().max(5000),
   object: z.enum(["tax_code"]),
 })
 
 export const s_tax_deducted_at_source = z.object({
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["tax_deducted_at_source"]),
   period_end: z.coerce.number(),
   period_start: z.coerce.number(),
-  tax_deduction_account_number: z.string(),
+  tax_deduction_account_number: z.string().max(5000),
 })
 
 export const s_tax_id_verification = z.object({
   status: z.enum(["pending", "unavailable", "unverified", "verified"]),
-  verified_address: z.string().nullable().optional(),
-  verified_name: z.string().nullable().optional(),
+  verified_address: z.string().max(5000).nullable().optional(),
+  verified_name: z.string().max(5000).nullable().optional(),
 })
 
 export const s_tax_product_registrations_resource_country_options_ca_province_standard =
-  z.object({ province: z.string() })
+  z.object({ province: z.string().max(5000) })
 
 export const s_tax_product_registrations_resource_country_options_default =
   z.object({ type: z.enum(["standard"]) })
@@ -4627,10 +4638,10 @@ export const s_tax_product_registrations_resource_country_options_simplified =
   z.object({ type: z.enum(["simplified"]) })
 
 export const s_tax_product_registrations_resource_country_options_us_local_amusement_tax =
-  z.object({ jurisdiction: z.string() })
+  z.object({ jurisdiction: z.string().max(5000) })
 
 export const s_tax_product_registrations_resource_country_options_us_local_lease_tax =
-  z.object({ jurisdiction: z.string() })
+  z.object({ jurisdiction: z.string().max(5000) })
 
 export const s_tax_product_resource_customer_details_resource_tax_id = z.object(
   {
@@ -4704,20 +4715,20 @@ export const s_tax_product_resource_customer_details_resource_tax_id = z.object(
       "vn_tin",
       "za_vat",
     ]),
-    value: z.string(),
+    value: z.string().max(5000),
   },
 )
 
 export const s_tax_product_resource_jurisdiction = z.object({
-  country: z.string(),
-  display_name: z.string(),
+  country: z.string().max(5000),
+  display_name: z.string().max(5000),
   level: z.enum(["city", "country", "county", "district", "state"]),
-  state: z.string().nullable().optional(),
+  state: z.string().max(5000).nullable().optional(),
 })
 
 export const s_tax_product_resource_line_item_tax_rate_details = z.object({
-  display_name: z.string(),
-  percentage_decimal: z.string(),
+  display_name: z.string().max(5000),
+  percentage_decimal: z.string().max(5000),
   tax_type: z.enum([
     "amusement_tax",
     "communications_tax",
@@ -4735,18 +4746,18 @@ export const s_tax_product_resource_line_item_tax_rate_details = z.object({
 })
 
 export const s_tax_product_resource_postal_address = z.object({
-  city: z.string().nullable().optional(),
-  country: z.string(),
-  line1: z.string().nullable().optional(),
-  line2: z.string().nullable().optional(),
-  postal_code: z.string().nullable().optional(),
-  state: z.string().nullable().optional(),
+  city: z.string().max(5000).nullable().optional(),
+  country: z.string().max(5000),
+  line1: z.string().max(5000).nullable().optional(),
+  line2: z.string().max(5000).nullable().optional(),
+  postal_code: z.string().max(5000).nullable().optional(),
+  state: z.string().max(5000).nullable().optional(),
 })
 
 export const s_tax_product_resource_tax_rate_details = z.object({
-  country: z.string().nullable().optional(),
-  percentage_decimal: z.string(),
-  state: z.string().nullable().optional(),
+  country: z.string().max(5000).nullable().optional(),
+  percentage_decimal: z.string().max(5000),
+  state: z.string().max(5000).nullable().optional(),
   tax_type: z
     .enum([
       "amusement_tax",
@@ -4771,48 +4782,50 @@ export const s_tax_product_resource_tax_settings_defaults = z.object({
     .enum(["exclusive", "inclusive", "inferred_by_currency"])
     .nullable()
     .optional(),
-  tax_code: z.string().nullable().optional(),
+  tax_code: z.string().max(5000).nullable().optional(),
 })
 
 export const s_tax_product_resource_tax_settings_status_details_resource_active =
   z.object({})
 
 export const s_tax_product_resource_tax_settings_status_details_resource_pending =
-  z.object({ missing_fields: z.array(z.string()).nullable().optional() })
+  z.object({
+    missing_fields: z.array(z.string().max(5000)).nullable().optional(),
+  })
 
 export const s_tax_product_resource_tax_transaction_line_item_resource_reversal =
-  z.object({ original_line_item: z.string() })
+  z.object({ original_line_item: z.string().max(5000) })
 
 export const s_tax_product_resource_tax_transaction_resource_reversal =
-  z.object({ original_transaction: z.string().nullable().optional() })
+  z.object({ original_transaction: z.string().max(5000).nullable().optional() })
 
 export const s_tax_product_resource_tax_transaction_shipping_cost = z.object({
   amount: z.coerce.number(),
   amount_tax: z.coerce.number(),
-  shipping_rate: z.string().optional(),
+  shipping_rate: z.string().max(5000).optional(),
   tax_behavior: z.enum(["exclusive", "inclusive"]),
-  tax_code: z.string(),
+  tax_code: z.string().max(5000),
 })
 
 export const s_tax_rate = z.object({
   active: z.coerce.boolean(),
-  country: z.string().nullable().optional(),
+  country: z.string().max(5000).nullable().optional(),
   created: z.coerce.number(),
-  description: z.string().nullable().optional(),
-  display_name: z.string(),
+  description: z.string().max(5000).nullable().optional(),
+  display_name: z.string().max(5000),
   effective_percentage: z.coerce.number().nullable().optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   inclusive: z.coerce.boolean(),
-  jurisdiction: z.string().nullable().optional(),
+  jurisdiction: z.string().max(5000).nullable().optional(),
   jurisdiction_level: z
     .enum(["city", "country", "county", "district", "multiple", "state"])
     .nullable()
     .optional(),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()).nullable().optional(),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
   object: z.enum(["tax_rate"]),
   percentage: z.coerce.number(),
-  state: z.string().nullable().optional(),
+  state: z.string().max(5000).nullable().optional(),
   tax_type: z
     .enum([
       "amusement_tax",
@@ -4843,14 +4856,14 @@ export const s_terminal_configuration_configuration_resource_offline_config =
   z.object({ enabled: z.coerce.boolean().nullable().optional() })
 
 export const s_terminal_connection_token = z.object({
-  location: z.string().optional(),
+  location: z.string().max(5000).optional(),
   object: z.enum(["terminal.connection_token"]),
-  secret: z.string(),
+  secret: z.string().max(5000),
 })
 
 export const s_terminal_reader_reader_resource_line_item = z.object({
   amount: z.coerce.number(),
-  description: z.string(),
+  description: z.string().max(5000),
   quantity: z.coerce.number(),
 })
 
@@ -4870,9 +4883,9 @@ export const s_test_helpers_test_clock = z.object({
   created: z.coerce.number(),
   deletes_after: z.coerce.number(),
   frozen_time: z.coerce.number(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
-  name: z.string().nullable().optional(),
+  name: z.string().max(5000).nullable().optional(),
   object: z.enum(["test_helpers.test_clock"]),
   status: z.enum(["advancing", "internal_failure", "ready"]),
 })
@@ -4909,7 +4922,7 @@ export const s_three_d_secure_details = z.object({
     ])
     .nullable()
     .optional(),
-  transaction_id: z.string().nullable().optional(),
+  transaction_id: z.string().max(5000).nullable().optional(),
   version: z.enum(["1.0.2", "2.1.0", "2.2.0"]).nullable().optional(),
 })
 
@@ -4947,7 +4960,7 @@ export const s_three_d_secure_details_charge = z.object({
     ])
     .nullable()
     .optional(),
-  transaction_id: z.string().nullable().optional(),
+  transaction_id: z.string().max(5000).nullable().optional(),
   version: z.enum(["1.0.2", "2.1.0", "2.2.0"]).nullable().optional(),
 })
 
@@ -4956,14 +4969,14 @@ export const s_three_d_secure_usage = z.object({
 })
 
 export const s_token_card_networks = z.object({
-  preferred: z.string().nullable().optional(),
+  preferred: z.string().max(5000).nullable().optional(),
 })
 
 export const s_transfer_schedule = z.object({
   delay_days: z.coerce.number(),
-  interval: z.string(),
+  interval: z.string().max(5000),
   monthly_anchor: z.coerce.number().optional(),
-  weekly_anchor: z.string().optional(),
+  weekly_anchor: z.string().max(5000).optional(),
 })
 
 export const s_transform_quantity = z.object({
@@ -4977,11 +4990,11 @@ export const s_transform_usage = z.object({
 })
 
 export const s_treasury_financial_accounts_resource_aba_record = z.object({
-  account_holder_name: z.string(),
-  account_number: z.string().nullable().optional(),
-  account_number_last4: z.string(),
-  bank_name: z.string(),
-  routing_number: z.string(),
+  account_holder_name: z.string().max(5000),
+  account_number: z.string().max(5000).nullable().optional(),
+  account_number_last4: z.string().max(5000),
+  bank_name: z.string().max(5000),
+  routing_number: z.string().max(5000),
 })
 
 export const s_treasury_financial_accounts_resource_balance = z.object({
@@ -5045,7 +5058,7 @@ export const s_treasury_inbound_transfers_resource_failure_details = z.object({
 })
 
 export const s_treasury_inbound_transfers_resource_inbound_transfer_resource_linked_flows =
-  z.object({ received_debit: z.string().nullable().optional() })
+  z.object({ received_debit: z.string().max(5000).nullable().optional() })
 
 export const s_treasury_inbound_transfers_resource_inbound_transfer_resource_status_transitions =
   z.object({
@@ -5056,7 +5069,7 @@ export const s_treasury_inbound_transfers_resource_inbound_transfer_resource_sta
 
 export const s_treasury_outbound_payments_resource_outbound_payment_resource_end_user_details =
   z.object({
-    ip_address: z.string().nullable().optional(),
+    ip_address: z.string().max(5000).nullable().optional(),
     present: z.coerce.boolean(),
   })
 
@@ -5095,14 +5108,14 @@ export const s_treasury_received_credits_resource_status_transitions = z.object(
 )
 
 export const s_treasury_received_debits_resource_debit_reversal_linked_flows =
-  z.object({ issuing_dispute: z.string().nullable().optional() })
+  z.object({ issuing_dispute: z.string().max(5000).nullable().optional() })
 
 export const s_treasury_received_debits_resource_linked_flows = z.object({
-  debit_reversal: z.string().nullable().optional(),
-  inbound_transfer: z.string().nullable().optional(),
-  issuing_authorization: z.string().nullable().optional(),
-  issuing_transaction: z.string().nullable().optional(),
-  payout: z.string().nullable().optional(),
+  debit_reversal: z.string().max(5000).nullable().optional(),
+  inbound_transfer: z.string().max(5000).nullable().optional(),
+  issuing_authorization: z.string().max(5000).nullable().optional(),
+  issuing_transaction: z.string().max(5000).nullable().optional(),
+  payout: z.string().max(5000).nullable().optional(),
 })
 
 export const s_treasury_received_debits_resource_reversal_details = z.object({
@@ -5125,9 +5138,9 @@ export const s_treasury_received_debits_resource_status_transitions = z.object({
 
 export const s_treasury_shared_resource_initiating_payment_method_details_us_bank_account =
   z.object({
-    bank_name: z.string().nullable().optional(),
-    last4: z.string().nullable().optional(),
-    routing_number: z.string().nullable().optional(),
+    bank_name: z.string().max(5000).nullable().optional(),
+    last4: z.string().max(5000).nullable().optional(),
+    routing_number: z.string().max(5000).nullable().optional(),
   })
 
 export const s_treasury_transactions_resource_abstract_transaction_resource_status_transitions =
@@ -5143,16 +5156,16 @@ export const s_treasury_transactions_resource_balance_impact = z.object({
 })
 
 export const s_us_bank_account_networks = z.object({
-  preferred: z.string().nullable().optional(),
+  preferred: z.string().max(5000).nullable().optional(),
   supported: z.array(z.enum(["ach", "us_domestic_wire"])),
 })
 
 export const s_usage_record = z.object({
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   object: z.enum(["usage_record"]),
   quantity: z.coerce.number(),
-  subscription_item: z.string(),
+  subscription_item: z.string().max(5000),
   timestamp: z.coerce.number(),
 })
 
@@ -5161,32 +5174,32 @@ export const s_verification_session_redaction = z.object({
 })
 
 export const s_webhook_endpoint = z.object({
-  api_version: z.string().nullable().optional(),
-  application: z.string().nullable().optional(),
+  api_version: z.string().max(5000).nullable().optional(),
+  application: z.string().max(5000).nullable().optional(),
   created: z.coerce.number(),
-  description: z.string().nullable().optional(),
-  enabled_events: z.array(z.string()),
-  id: z.string(),
+  description: z.string().max(5000).nullable().optional(),
+  enabled_events: z.array(z.string().max(5000)),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()),
+  metadata: z.record(z.string().max(500)),
   object: z.enum(["webhook_endpoint"]),
-  secret: z.string().optional(),
-  status: z.string(),
-  url: z.string(),
+  secret: z.string().max(5000).optional(),
+  status: z.string().max(5000),
+  url: z.string().max(5000),
 })
 
 export const s_account_business_profile = z.object({
   annual_revenue: s_account_annual_revenue.nullable().optional(),
   estimated_worker_count: z.coerce.number().nullable().optional(),
-  mcc: z.string().nullable().optional(),
+  mcc: z.string().max(5000).nullable().optional(),
   monthly_estimated_revenue: s_account_monthly_estimated_revenue.optional(),
-  name: z.string().nullable().optional(),
-  product_description: z.string().nullable().optional(),
+  name: z.string().max(5000).nullable().optional(),
+  product_description: z.string().max(40000).nullable().optional(),
   support_address: s_address.nullable().optional(),
-  support_email: z.string().nullable().optional(),
-  support_phone: z.string().nullable().optional(),
-  support_url: z.string().nullable().optional(),
-  url: z.string().nullable().optional(),
+  support_email: z.string().max(5000).nullable().optional(),
+  support_phone: z.string().max(5000).nullable().optional(),
+  support_url: z.string().max(5000).nullable().optional(),
+  url: z.string().max(5000).nullable().optional(),
 })
 
 export const s_account_capability_future_requirements = z.object({
@@ -5195,12 +5208,12 @@ export const s_account_capability_future_requirements = z.object({
     .nullable()
     .optional(),
   current_deadline: z.coerce.number().nullable().optional(),
-  currently_due: z.array(z.string()),
-  disabled_reason: z.string().nullable().optional(),
+  currently_due: z.array(z.string().max(5000)),
+  disabled_reason: z.string().max(5000).nullable().optional(),
   errors: z.array(s_account_requirements_error),
-  eventually_due: z.array(z.string()),
-  past_due: z.array(z.string()),
-  pending_verification: z.array(z.string()),
+  eventually_due: z.array(z.string().max(5000)),
+  past_due: z.array(z.string().max(5000)),
+  pending_verification: z.array(z.string().max(5000)),
 })
 
 export const s_account_capability_requirements = z.object({
@@ -5209,12 +5222,12 @@ export const s_account_capability_requirements = z.object({
     .nullable()
     .optional(),
   current_deadline: z.coerce.number().nullable().optional(),
-  currently_due: z.array(z.string()),
-  disabled_reason: z.string().nullable().optional(),
+  currently_due: z.array(z.string().max(5000)),
+  disabled_reason: z.string().max(5000).nullable().optional(),
   errors: z.array(s_account_requirements_error),
-  eventually_due: z.array(z.string()),
-  past_due: z.array(z.string()),
-  pending_verification: z.array(z.string()),
+  eventually_due: z.array(z.string().max(5000)),
+  past_due: z.array(z.string().max(5000)),
+  pending_verification: z.array(z.string().max(5000)),
 })
 
 export const s_account_card_issuing_settings = z.object({
@@ -5223,9 +5236,9 @@ export const s_account_card_issuing_settings = z.object({
 
 export const s_account_card_payments_settings = z.object({
   decline_on: s_account_decline_charge_on.optional(),
-  statement_descriptor_prefix: z.string().nullable().optional(),
-  statement_descriptor_prefix_kana: z.string().nullable().optional(),
-  statement_descriptor_prefix_kanji: z.string().nullable().optional(),
+  statement_descriptor_prefix: z.string().max(5000).nullable().optional(),
+  statement_descriptor_prefix_kana: z.string().max(5000).nullable().optional(),
+  statement_descriptor_prefix_kanji: z.string().max(5000).nullable().optional(),
 })
 
 export const s_account_future_requirements = z.object({
@@ -5234,18 +5247,18 @@ export const s_account_future_requirements = z.object({
     .nullable()
     .optional(),
   current_deadline: z.coerce.number().nullable().optional(),
-  currently_due: z.array(z.string()).nullable().optional(),
-  disabled_reason: z.string().nullable().optional(),
+  currently_due: z.array(z.string().max(5000)).nullable().optional(),
+  disabled_reason: z.string().max(5000).nullable().optional(),
   errors: z.array(s_account_requirements_error).nullable().optional(),
-  eventually_due: z.array(z.string()).nullable().optional(),
-  past_due: z.array(z.string()).nullable().optional(),
-  pending_verification: z.array(z.string()).nullable().optional(),
+  eventually_due: z.array(z.string().max(5000)).nullable().optional(),
+  past_due: z.array(z.string().max(5000)).nullable().optional(),
+  pending_verification: z.array(z.string().max(5000)).nullable().optional(),
 })
 
 export const s_account_payout_settings = z.object({
   debit_negative_balances: z.coerce.boolean(),
   schedule: s_transfer_schedule,
-  statement_descriptor: z.string().nullable().optional(),
+  statement_descriptor: z.string().max(5000).nullable().optional(),
 })
 
 export const s_account_requirements = z.object({
@@ -5254,12 +5267,12 @@ export const s_account_requirements = z.object({
     .nullable()
     .optional(),
   current_deadline: z.coerce.number().nullable().optional(),
-  currently_due: z.array(z.string()).nullable().optional(),
-  disabled_reason: z.string().nullable().optional(),
+  currently_due: z.array(z.string().max(5000)).nullable().optional(),
+  disabled_reason: z.string().max(5000).nullable().optional(),
   errors: z.array(s_account_requirements_error).nullable().optional(),
-  eventually_due: z.array(z.string()).nullable().optional(),
-  past_due: z.array(z.string()).nullable().optional(),
-  pending_verification: z.array(z.string()).nullable().optional(),
+  eventually_due: z.array(z.string().max(5000)).nullable().optional(),
+  past_due: z.array(z.string().max(5000)).nullable().optional(),
+  pending_verification: z.array(z.string().max(5000)).nullable().optional(),
 })
 
 export const s_account_treasury_settings = z.object({
@@ -5270,11 +5283,11 @@ export const s_apps_secret = z.object({
   created: z.coerce.number(),
   deleted: z.coerce.boolean().optional(),
   expires_at: z.coerce.number().nullable().optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
-  name: z.string(),
+  name: z.string().max(5000),
   object: z.enum(["apps.secret"]),
-  payload: z.string().nullable().optional(),
+  payload: z.string().max(5000).nullable().optional(),
   scope: s_secret_service_resource_scope,
 })
 
@@ -5301,19 +5314,19 @@ export const s_bank_connections_resource_balance = z.object({
 
 export const s_billing_details = z.object({
   address: s_address.nullable().optional(),
-  email: z.string().nullable().optional(),
-  name: z.string().nullable().optional(),
-  phone: z.string().nullable().optional(),
+  email: z.string().max(5000).nullable().optional(),
+  name: z.string().max(5000).nullable().optional(),
+  phone: z.string().max(5000).nullable().optional(),
 })
 
 export const s_billing_meter = z.object({
   created: z.coerce.number(),
   customer_mapping: s_billing_meter_resource_customer_mapping_settings,
   default_aggregation: s_billing_meter_resource_aggregation_settings,
-  display_name: z.string(),
-  event_name: z.string(),
+  display_name: z.string().max(5000),
+  event_name: z.string().max(5000),
   event_time_window: z.enum(["day", "hour"]).nullable().optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   object: z.enum(["billing.meter"]),
   status: z.enum(["active", "inactive"]),
@@ -5324,7 +5337,7 @@ export const s_billing_meter = z.object({
 
 export const s_billing_meter_event_adjustment = z.object({
   cancel: s_billing_meter_resource_billing_meter_event_adjustment_cancel,
-  event_name: z.string(),
+  event_name: z.string().max(100),
   livemode: z.coerce.boolean(),
   object: z.enum(["billing.meter_event_adjustment"]),
   status: z.enum(["complete", "pending"]),
@@ -5333,20 +5346,20 @@ export const s_billing_meter_event_adjustment = z.object({
 
 export const s_cash_balance = z.object({
   available: z.record(z.coerce.number()).nullable().optional(),
-  customer: z.string(),
+  customer: z.string().max(5000),
   livemode: z.coerce.boolean(),
   object: z.enum(["cash_balance"]),
   settings: s_customer_balance_customer_balance_settings,
 })
 
 export const s_charge_outcome = z.object({
-  network_status: z.string().nullable().optional(),
-  reason: z.string().nullable().optional(),
-  risk_level: z.string().optional(),
+  network_status: z.string().max(5000).nullable().optional(),
+  reason: z.string().max(5000).nullable().optional(),
+  risk_level: z.string().max(5000).optional(),
   risk_score: z.coerce.number().optional(),
-  rule: z.union([z.string(), s_rule]).optional(),
-  seller_message: z.string().nullable().optional(),
-  type: z.string(),
+  rule: z.union([z.string().max(5000), s_rule]).optional(),
+  seller_message: z.string().max(5000).nullable().optional(),
+  type: z.string().max(5000),
 })
 
 export const s_checkout_acss_debit_payment_method_options = z.object({
@@ -5362,8 +5375,8 @@ export const s_checkout_card_payment_method_options = z.object({
   installments: s_checkout_card_installments_options.optional(),
   request_three_d_secure: z.enum(["any", "automatic", "challenge"]),
   setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
-  statement_descriptor_suffix_kana: z.string().optional(),
-  statement_descriptor_suffix_kanji: z.string().optional(),
+  statement_descriptor_suffix_kana: z.string().max(5000).optional(),
+  statement_descriptor_suffix_kanji: z.string().max(5000).optional(),
 })
 
 export const s_checkout_customer_balance_bank_transfer_payment_method_options =
@@ -5394,11 +5407,11 @@ export const s_checkout_us_bank_account_payment_method_options = z.object({
 })
 
 export const s_climate_supplier = z.object({
-  id: z.string(),
-  info_url: z.string(),
+  id: z.string().max(5000),
+  info_url: z.string().max(5000),
   livemode: z.coerce.boolean(),
   locations: z.array(s_climate_removals_location),
-  name: z.string(),
+  name: z.string().max(5000),
   object: z.enum(["climate.supplier"]),
   removal_pathway: z.enum([
     "biomass_carbon_removal_and_storage",
@@ -5413,13 +5426,13 @@ export const s_confirmation_tokens_resource_mandate_data_resource_customer_accep
       s_confirmation_tokens_resource_mandate_data_resource_customer_acceptance_resource_online
         .nullable()
         .optional(),
-    type: z.string(),
+    type: z.string().max(5000),
   })
 
 export const s_confirmation_tokens_resource_shipping = z.object({
   address: s_address,
-  name: z.string(),
-  phone: z.string().nullable().optional(),
+  name: z.string().max(5000),
+  phone: z.string().max(5000).nullable().optional(),
 })
 
 export const s_connect_embedded_account_config = z.object({
@@ -5455,11 +5468,11 @@ export const s_coupon = z.object({
   currency_options: z.record(s_coupon_currency_option).optional(),
   duration: z.enum(["forever", "once", "repeating"]),
   duration_in_months: z.coerce.number().nullable().optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   max_redemptions: z.coerce.number().nullable().optional(),
-  metadata: z.record(z.string()).nullable().optional(),
-  name: z.string().nullable().optional(),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
+  name: z.string().max(5000).nullable().optional(),
   object: z.enum(["coupon"]),
   percent_off: z.coerce.number().nullable().optional(),
   redeem_by: z.coerce.number().nullable().optional(),
@@ -5470,7 +5483,7 @@ export const s_coupon = z.object({
 export const s_credit_note_tax_amount = z.object({
   amount: z.coerce.number(),
   inclusive: z.coerce.boolean(),
-  tax_rate: z.union([z.string(), s_tax_rate]),
+  tax_rate: z.union([z.string().max(5000), s_tax_rate]),
   taxability_reason: z
     .enum([
       "customer_exempt",
@@ -5520,7 +5533,7 @@ export const s_customer_balance_resource_cash_balance_transaction_resource_funde
       s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_gb_bank_transfer.optional(),
     jp_bank_transfer:
       s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_jp_bank_transfer.optional(),
-    reference: z.string().nullable().optional(),
+    reference: z.string().max(5000).nullable().optional(),
     type: z.enum([
       "eu_bank_transfer",
       "gb_bank_transfer",
@@ -5544,7 +5557,7 @@ export const s_customer_tax = z.object({
     "supported",
     "unrecognized_location",
   ]),
-  ip_address: z.string().nullable().optional(),
+  ip_address: z.string().max(5000).nullable().optional(),
   location: s_customer_tax_location.nullable().optional(),
 })
 
@@ -5564,61 +5577,61 @@ export const s_dispute_payment_method_details = z.object({
 })
 
 export const s_event = z.object({
-  account: z.string().optional(),
-  api_version: z.string().nullable().optional(),
+  account: z.string().max(5000).optional(),
+  api_version: z.string().max(5000).nullable().optional(),
   created: z.coerce.number(),
   data: s_notification_event_data,
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   object: z.enum(["event"]),
   pending_webhooks: z.coerce.number(),
   request: s_notification_event_request.nullable().optional(),
-  type: z.string(),
+  type: z.string().max(5000),
 })
 
 export const s_external_account_requirements = z.object({
-  currently_due: z.array(z.string()).nullable().optional(),
+  currently_due: z.array(z.string().max(5000)).nullable().optional(),
   errors: z.array(s_account_requirements_error).nullable().optional(),
-  past_due: z.array(z.string()).nullable().optional(),
-  pending_verification: z.array(z.string()).nullable().optional(),
+  past_due: z.array(z.string().max(5000)).nullable().optional(),
+  pending_verification: z.array(z.string().max(5000)).nullable().optional(),
 })
 
 export const s_financial_connections_account_ownership = z.object({
   created: z.coerce.number(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["financial_connections.account_ownership"]),
   owners: z.object({
     data: z.array(s_financial_connections_account_owner),
     has_more: z.coerce.boolean(),
     object: z.enum(["list"]),
-    url: z.string(),
+    url: z.string().max(5000),
   }),
 })
 
 export const s_financial_connections_transaction = z.object({
-  account: z.string(),
+  account: z.string().max(5000),
   amount: z.coerce.number(),
-  currency: z.string(),
-  description: z.string(),
-  id: z.string(),
+  currency: z.string().max(5000),
+  description: z.string().max(5000),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   object: z.enum(["financial_connections.transaction"]),
   status: z.enum(["pending", "posted", "void"]),
   status_transitions:
     s_bank_connections_resource_transaction_resource_status_transitions,
   transacted_at: z.coerce.number(),
-  transaction_refresh: z.string(),
+  transaction_refresh: z.string().max(5000),
   updated: z.coerce.number(),
 })
 
 export const s_forwarded_request_details = z.object({
-  body: z.string(),
+  body: z.string().max(5000),
   headers: z.array(s_forwarded_request_header),
   http_method: z.enum(["POST"]),
 })
 
 export const s_forwarded_response_details = z.object({
-  body: z.string(),
+  body: z.string().max(5000),
   headers: z.array(s_forwarded_request_header),
   status: z.coerce.number(),
 })
@@ -5654,12 +5667,12 @@ export const s_gelato_document_report = z.object({
   expiration_date: s_gelato_data_document_report_expiration_date
     .nullable()
     .optional(),
-  files: z.array(z.string()).nullable().optional(),
-  first_name: z.string().nullable().optional(),
+  files: z.array(z.string().max(5000)).nullable().optional(),
+  first_name: z.string().max(5000).nullable().optional(),
   issued_date: s_gelato_data_document_report_issued_date.nullable().optional(),
-  issuing_country: z.string().nullable().optional(),
-  last_name: z.string().nullable().optional(),
-  number: z.string().nullable().optional(),
+  issuing_country: z.string().max(5000).nullable().optional(),
+  last_name: z.string().max(5000).nullable().optional(),
+  number: z.string().max(5000).nullable().optional(),
   status: z.enum(["unverified", "verified"]),
   type: z
     .enum(["driving_license", "id_card", "passport"])
@@ -5668,7 +5681,7 @@ export const s_gelato_document_report = z.object({
 })
 
 export const s_gelato_email_report = z.object({
-  email: z.string().nullable().optional(),
+  email: z.string().max(5000).nullable().optional(),
   error: s_gelato_email_report_error.nullable().optional(),
   status: z.enum(["unverified", "verified"]),
 })
@@ -5676,23 +5689,23 @@ export const s_gelato_email_report = z.object({
 export const s_gelato_id_number_report = z.object({
   dob: s_gelato_data_id_number_report_date.nullable().optional(),
   error: s_gelato_id_number_report_error.nullable().optional(),
-  first_name: z.string().nullable().optional(),
-  id_number: z.string().nullable().optional(),
+  first_name: z.string().max(5000).nullable().optional(),
+  id_number: z.string().max(5000).nullable().optional(),
   id_number_type: z.enum(["br_cpf", "sg_nric", "us_ssn"]).nullable().optional(),
-  last_name: z.string().nullable().optional(),
+  last_name: z.string().max(5000).nullable().optional(),
   status: z.enum(["unverified", "verified"]),
 })
 
 export const s_gelato_phone_report = z.object({
   error: s_gelato_phone_report_error.nullable().optional(),
-  phone: z.string().nullable().optional(),
+  phone: z.string().max(5000).nullable().optional(),
   status: z.enum(["unverified", "verified"]),
 })
 
 export const s_gelato_selfie_report = z.object({
-  document: z.string().nullable().optional(),
+  document: z.string().max(5000).nullable().optional(),
   error: s_gelato_selfie_report_error.nullable().optional(),
-  selfie: z.string().nullable().optional(),
+  selfie: z.string().max(5000).nullable().optional(),
   status: z.enum(["unverified", "verified"]),
 })
 
@@ -5711,12 +5724,12 @@ export const s_gelato_verification_session_options = z.object({
 export const s_gelato_verified_outputs = z.object({
   address: s_address.nullable().optional(),
   dob: s_gelato_data_verified_outputs_date.nullable().optional(),
-  email: z.string().nullable().optional(),
-  first_name: z.string().nullable().optional(),
-  id_number: z.string().nullable().optional(),
+  email: z.string().max(5000).nullable().optional(),
+  first_name: z.string().max(5000).nullable().optional(),
+  id_number: z.string().max(5000).nullable().optional(),
   id_number_type: z.enum(["br_cpf", "sg_nric", "us_ssn"]).nullable().optional(),
-  last_name: z.string().nullable().optional(),
-  phone: z.string().nullable().optional(),
+  last_name: z.string().max(5000).nullable().optional(),
+  phone: z.string().max(5000).nullable().optional(),
 })
 
 export const s_invoice_payment_method_options_acss_debit = z.object({
@@ -5753,7 +5766,7 @@ export const s_invoice_payment_method_options_us_bank_account = z.object({
 export const s_invoice_tax_amount = z.object({
   amount: z.coerce.number(),
   inclusive: z.coerce.boolean(),
-  tax_rate: z.union([z.string(), s_tax_rate]),
+  tax_rate: z.union([z.string().max(5000), s_tax_rate]),
   taxability_reason: z
     .enum([
       "customer_exempt",
@@ -5783,7 +5796,7 @@ export const s_invoice_threshold_reason = z.object({
 })
 
 export const s_invoices_resource_invoice_rendering = z.object({
-  amount_tax_display: z.string().nullable().optional(),
+  amount_tax_display: z.string().max(5000).nullable().optional(),
   pdf: s_invoice_rendering_pdf.nullable().optional(),
 })
 
@@ -5807,11 +5820,11 @@ export const s_issuing_authorization_request = z.object({
   amount: z.coerce.number(),
   amount_details: s_issuing_authorization_amount_details.nullable().optional(),
   approved: z.coerce.boolean(),
-  authorization_code: z.string().nullable().optional(),
+  authorization_code: z.string().max(5000).nullable().optional(),
   created: z.coerce.number(),
-  currency: z.string(),
+  currency: z.string().max(5000),
   merchant_amount: z.coerce.number(),
-  merchant_currency: z.string(),
+  merchant_currency: z.string().max(5000),
   network_risk_score: z.coerce.number().nullable().optional(),
   reason: z.enum([
     "account_disabled",
@@ -5829,7 +5842,7 @@ export const s_issuing_authorization_request = z.object({
     "webhook_error",
     "webhook_timeout",
   ]),
-  reason_message: z.string().nullable().optional(),
+  reason_message: z.string().max(5000).nullable().optional(),
   requested_at: z.coerce.number().nullable().optional(),
 })
 
@@ -5841,7 +5854,7 @@ export const s_issuing_authorization_verification_data = z.object({
     .optional(),
   cvc_check: z.enum(["match", "mismatch", "not_provided"]),
   expiry_check: z.enum(["match", "mismatch", "not_provided"]),
-  postal_code: z.string().nullable().optional(),
+  postal_code: z.string().max(5000).nullable().optional(),
   three_d_secure: s_issuing_authorization_three_d_secure.nullable().optional(),
 })
 
@@ -6148,7 +6161,10 @@ export const s_issuing_card_authorization_controls = z.object({
     )
     .nullable()
     .optional(),
-  allowed_merchant_countries: z.array(z.string()).nullable().optional(),
+  allowed_merchant_countries: z
+    .array(z.string().max(5000))
+    .nullable()
+    .optional(),
   blocked_categories: z
     .array(
       z.enum([
@@ -6451,7 +6467,10 @@ export const s_issuing_card_authorization_controls = z.object({
     )
     .nullable()
     .optional(),
-  blocked_merchant_countries: z.array(z.string()).nullable().optional(),
+  blocked_merchant_countries: z
+    .array(z.string().max(5000))
+    .nullable()
+    .optional(),
   spending_limits: z.array(s_issuing_card_spending_limit).nullable().optional(),
   spending_limits_currency: z.string().nullable().optional(),
 })
@@ -6461,8 +6480,8 @@ export const s_issuing_card_shipping = z.object({
   carrier: z.enum(["dhl", "fedex", "royal_mail", "usps"]).nullable().optional(),
   customs: s_issuing_card_shipping_customs.nullable().optional(),
   eta: z.coerce.number().nullable().optional(),
-  name: z.string(),
-  phone_number: z.string().nullable().optional(),
+  name: z.string().max(5000),
+  phone_number: z.string().max(5000).nullable().optional(),
   require_signature: z.coerce.boolean().nullable().optional(),
   service: z.enum(["express", "priority", "standard"]),
   status: z
@@ -6476,15 +6495,15 @@ export const s_issuing_card_shipping = z.object({
     ])
     .nullable()
     .optional(),
-  tracking_number: z.string().nullable().optional(),
-  tracking_url: z.string().nullable().optional(),
+  tracking_number: z.string().max(5000).nullable().optional(),
+  tracking_url: z.string().max(5000).nullable().optional(),
   type: z.enum(["bulk", "individual"]),
 })
 
 export const s_issuing_card_wallets = z.object({
   apple_pay: s_issuing_card_apple_pay,
   google_pay: s_issuing_card_google_pay,
-  primary_account_identifier: z.string().nullable().optional(),
+  primary_account_identifier: z.string().max(5000).nullable().optional(),
 })
 
 export const s_issuing_cardholder_address = z.object({ address: s_address })
@@ -6792,7 +6811,10 @@ export const s_issuing_cardholder_authorization_controls = z.object({
     )
     .nullable()
     .optional(),
-  allowed_merchant_countries: z.array(z.string()).nullable().optional(),
+  allowed_merchant_countries: z
+    .array(z.string().max(5000))
+    .nullable()
+    .optional(),
   blocked_categories: z
     .array(
       z.enum([
@@ -7095,7 +7117,10 @@ export const s_issuing_cardholder_authorization_controls = z.object({
     )
     .nullable()
     .optional(),
-  blocked_merchant_countries: z.array(z.string()).nullable().optional(),
+  blocked_merchant_countries: z
+    .array(z.string().max(5000))
+    .nullable()
+    .optional(),
   spending_limits: z
     .array(s_issuing_cardholder_spending_limit)
     .nullable()
@@ -7110,13 +7135,13 @@ export const s_issuing_cardholder_card_issuing = z.object({
 })
 
 export const s_issuing_network_token_wallet_provider = z.object({
-  account_id: z.string().optional(),
+  account_id: z.string().max(5000).optional(),
   account_trust_score: z.coerce.number().optional(),
   card_number_source: z.enum(["app", "manual", "on_file", "other"]).optional(),
   cardholder_address: s_issuing_network_token_address.optional(),
-  cardholder_name: z.string().optional(),
+  cardholder_name: z.string().max(5000).optional(),
   device_trust_score: z.coerce.number().optional(),
-  hashed_account_email_address: z.string().optional(),
+  hashed_account_email_address: z.string().max(5000).optional(),
   reason_codes: z
     .array(
       z.enum([
@@ -7152,14 +7177,14 @@ export const s_issuing_network_token_wallet_provider = z.object({
     )
     .optional(),
   suggested_decision: z.enum(["approve", "decline", "require_auth"]).optional(),
-  suggested_decision_version: z.string().optional(),
+  suggested_decision_version: z.string().max(5000).optional(),
 })
 
 export const s_issuing_physical_bundle = z.object({
   features: s_issuing_physical_bundle_features.optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
-  name: z.string(),
+  name: z.string().max(5000),
   object: z.enum(["issuing.physical_bundle"]),
   status: z.enum(["active", "inactive", "review"]),
   type: z.enum(["custom", "standard"]),
@@ -7167,13 +7192,13 @@ export const s_issuing_physical_bundle = z.object({
 
 export const s_issuing_transaction_flight_data = z.object({
   departure_at: z.coerce.number().nullable().optional(),
-  passenger_name: z.string().nullable().optional(),
+  passenger_name: z.string().max(5000).nullable().optional(),
   refundable: z.coerce.boolean().nullable().optional(),
   segments: z
     .array(s_issuing_transaction_flight_data_leg)
     .nullable()
     .optional(),
-  travel_agency: z.string().nullable().optional(),
+  travel_agency: z.string().max(5000).nullable().optional(),
 })
 
 export const s_line_items_tax_amount = z.object({
@@ -7211,7 +7236,7 @@ export const s_mandate_payment_method_details = z.object({
   link: s_mandate_link.optional(),
   paypal: s_mandate_paypal.optional(),
   sepa_debit: s_mandate_sepa_debit.optional(),
-  type: z.string(),
+  type: z.string().max(5000),
   us_bank_account: s_mandate_us_bank_account.optional(),
 })
 
@@ -7231,8 +7256,8 @@ export const s_payment_intent_card_processing = z.object({
 
 export const s_payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code =
   z.object({
-    hosted_instructions_url: z.string(),
-    mobile_auth_url: z.string(),
+    hosted_instructions_url: z.string().max(5000),
+    mobile_auth_url: z.string().max(5000),
     qr_code: s_payment_intent_next_action_cashapp_qr_code,
   })
 
@@ -7249,7 +7274,7 @@ export const s_payment_intent_next_action_konbini_stores = z.object({
 
 export const s_payment_intent_next_action_swish_handle_redirect_or_display_qr_code =
   z.object({
-    hosted_instructions_url: z.string(),
+    hosted_instructions_url: z.string().max(5000),
     qr_code: s_payment_intent_next_action_swish_qr_code,
   })
 
@@ -7321,14 +7346,14 @@ export const s_payment_links_resource_restrictions = z.object({
 })
 
 export const s_payment_method_card_present = z.object({
-  brand: z.string().nullable().optional(),
-  cardholder_name: z.string().nullable().optional(),
-  country: z.string().nullable().optional(),
+  brand: z.string().max(5000).nullable().optional(),
+  cardholder_name: z.string().max(5000).nullable().optional(),
+  country: z.string().max(5000).nullable().optional(),
   exp_month: z.coerce.number(),
   exp_year: z.coerce.number(),
-  fingerprint: z.string().nullable().optional(),
-  funding: z.string().nullable().optional(),
-  last4: z.string().nullable().optional(),
+  fingerprint: z.string().max(5000).nullable().optional(),
+  funding: z.string().max(5000).nullable().optional(),
+  last4: z.string().max(5000).nullable().optional(),
   networks: s_payment_method_card_present_networks.nullable().optional(),
   read_method: z
     .enum([
@@ -7344,15 +7369,15 @@ export const s_payment_method_card_present = z.object({
 
 export const s_payment_method_card_wallet_masterpass = z.object({
   billing_address: s_address.nullable().optional(),
-  email: z.string().nullable().optional(),
-  name: z.string().nullable().optional(),
+  email: z.string().max(5000).nullable().optional(),
+  name: z.string().max(5000).nullable().optional(),
   shipping_address: s_address.nullable().optional(),
 })
 
 export const s_payment_method_card_wallet_visa_checkout = z.object({
   billing_address: s_address.nullable().optional(),
-  email: z.string().nullable().optional(),
-  name: z.string().nullable().optional(),
+  email: z.string().max(5000).nullable().optional(),
+  name: z.string().max(5000).nullable().optional(),
   shipping_address: s_address.nullable().optional(),
 })
 
@@ -7368,19 +7393,19 @@ export const s_payment_method_details_card_installments = z.object({
 
 export const s_payment_method_details_card_present = z.object({
   amount_authorized: z.coerce.number().nullable().optional(),
-  brand: z.string().nullable().optional(),
+  brand: z.string().max(5000).nullable().optional(),
   capture_before: z.coerce.number().optional(),
-  cardholder_name: z.string().nullable().optional(),
-  country: z.string().nullable().optional(),
-  emv_auth_data: z.string().nullable().optional(),
+  cardholder_name: z.string().max(5000).nullable().optional(),
+  country: z.string().max(5000).nullable().optional(),
+  emv_auth_data: z.string().max(5000).nullable().optional(),
   exp_month: z.coerce.number(),
   exp_year: z.coerce.number(),
-  fingerprint: z.string().nullable().optional(),
-  funding: z.string().nullable().optional(),
-  generated_card: z.string().nullable().optional(),
+  fingerprint: z.string().max(5000).nullable().optional(),
+  funding: z.string().max(5000).nullable().optional(),
+  generated_card: z.string().max(5000).nullable().optional(),
   incremental_authorization_supported: z.coerce.boolean(),
-  last4: z.string().nullable().optional(),
-  network: z.string().nullable().optional(),
+  last4: z.string().max(5000).nullable().optional(),
+  network: z.string().max(5000).nullable().optional(),
   offline: s_payment_method_details_card_present_offline.nullable().optional(),
   overcapture_supported: z.coerce.boolean(),
   read_method: z
@@ -7398,31 +7423,31 @@ export const s_payment_method_details_card_present = z.object({
 
 export const s_payment_method_details_card_wallet_masterpass = z.object({
   billing_address: s_address.nullable().optional(),
-  email: z.string().nullable().optional(),
-  name: z.string().nullable().optional(),
+  email: z.string().max(5000).nullable().optional(),
+  name: z.string().max(5000).nullable().optional(),
   shipping_address: s_address.nullable().optional(),
 })
 
 export const s_payment_method_details_card_wallet_visa_checkout = z.object({
   billing_address: s_address.nullable().optional(),
-  email: z.string().nullable().optional(),
-  name: z.string().nullable().optional(),
+  email: z.string().max(5000).nullable().optional(),
+  name: z.string().max(5000).nullable().optional(),
   shipping_address: s_address.nullable().optional(),
 })
 
 export const s_payment_method_details_interac_present = z.object({
-  brand: z.string().nullable().optional(),
-  cardholder_name: z.string().nullable().optional(),
-  country: z.string().nullable().optional(),
-  emv_auth_data: z.string().nullable().optional(),
+  brand: z.string().max(5000).nullable().optional(),
+  cardholder_name: z.string().max(5000).nullable().optional(),
+  country: z.string().max(5000).nullable().optional(),
+  emv_auth_data: z.string().max(5000).nullable().optional(),
   exp_month: z.coerce.number(),
   exp_year: z.coerce.number(),
-  fingerprint: z.string().nullable().optional(),
-  funding: z.string().nullable().optional(),
-  generated_card: z.string().nullable().optional(),
-  last4: z.string().nullable().optional(),
-  network: z.string().nullable().optional(),
-  preferred_locales: z.array(z.string()).nullable().optional(),
+  fingerprint: z.string().max(5000).nullable().optional(),
+  funding: z.string().max(5000).nullable().optional(),
+  generated_card: z.string().max(5000).nullable().optional(),
+  last4: z.string().max(5000).nullable().optional(),
+  network: z.string().max(5000).nullable().optional(),
+  preferred_locales: z.array(z.string().max(5000)).nullable().optional(),
   read_method: z
     .enum([
       "contact_emv",
@@ -7447,11 +7472,11 @@ export const s_payment_method_details_mobilepay = z.object({
 })
 
 export const s_payment_method_details_paypal = z.object({
-  payer_email: z.string().nullable().optional(),
-  payer_id: z.string().nullable().optional(),
-  payer_name: z.string().nullable().optional(),
+  payer_email: z.string().max(5000).nullable().optional(),
+  payer_id: z.string().max(5000).nullable().optional(),
+  payer_name: z.string().max(5000).nullable().optional(),
   seller_protection: s_paypal_seller_protection.nullable().optional(),
-  transaction_id: z.string().nullable().optional(),
+  transaction_id: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_domain_resource_payment_method_status = z.object({
@@ -7461,16 +7486,16 @@ export const s_payment_method_domain_resource_payment_method_status = z.object({
 })
 
 export const s_payment_method_interac_present = z.object({
-  brand: z.string().nullable().optional(),
-  cardholder_name: z.string().nullable().optional(),
-  country: z.string().nullable().optional(),
+  brand: z.string().max(5000).nullable().optional(),
+  cardholder_name: z.string().max(5000).nullable().optional(),
+  country: z.string().max(5000).nullable().optional(),
   exp_month: z.coerce.number(),
   exp_year: z.coerce.number(),
-  fingerprint: z.string().nullable().optional(),
-  funding: z.string().nullable().optional(),
-  last4: z.string().nullable().optional(),
+  fingerprint: z.string().max(5000).nullable().optional(),
+  funding: z.string().max(5000).nullable().optional(),
+  last4: z.string().max(5000).nullable().optional(),
   networks: s_payment_method_card_present_networks.nullable().optional(),
-  preferred_locales: z.array(z.string()).nullable().optional(),
+  preferred_locales: z.array(z.string().max(5000)).nullable().optional(),
   read_method: z
     .enum([
       "contact_emv",
@@ -7540,7 +7565,7 @@ export const s_payment_pages_checkout_session_consent_collection = z.object({
 export const s_payment_pages_checkout_session_custom_fields_dropdown = z.object(
   {
     options: z.array(s_payment_pages_checkout_session_custom_fields_option),
-    value: z.string().nullable().optional(),
+    value: z.string().max(5000).nullable().optional(),
   },
 )
 
@@ -7560,9 +7585,9 @@ export const s_payment_pages_checkout_session_custom_text = z.object({
 
 export const s_payment_pages_checkout_session_customer_details = z.object({
   address: s_address.nullable().optional(),
-  email: z.string().nullable().optional(),
-  name: z.string().nullable().optional(),
-  phone: z.string().nullable().optional(),
+  email: z.string().max(5000).nullable().optional(),
+  name: z.string().max(5000).nullable().optional(),
+  phone: z.string().max(5000).nullable().optional(),
   tax_exempt: z.enum(["exempt", "none", "reverse"]).nullable().optional(),
   tax_ids: z
     .array(s_payment_pages_checkout_session_tax_id)
@@ -7579,11 +7604,11 @@ export const s_person_future_requirements = z.object({
     .array(s_account_requirements_alternative)
     .nullable()
     .optional(),
-  currently_due: z.array(z.string()),
+  currently_due: z.array(z.string().max(5000)),
   errors: z.array(s_account_requirements_error),
-  eventually_due: z.array(z.string()),
-  past_due: z.array(z.string()),
-  pending_verification: z.array(z.string()),
+  eventually_due: z.array(z.string().max(5000)),
+  past_due: z.array(z.string().max(5000)),
+  pending_verification: z.array(z.string().max(5000)),
 })
 
 export const s_person_requirements = z.object({
@@ -7591,11 +7616,11 @@ export const s_person_requirements = z.object({
     .array(s_account_requirements_alternative)
     .nullable()
     .optional(),
-  currently_due: z.array(z.string()),
+  currently_due: z.array(z.string().max(5000)),
   errors: z.array(s_account_requirements_error),
-  eventually_due: z.array(z.string()),
-  past_due: z.array(z.string()),
-  pending_verification: z.array(z.string()),
+  eventually_due: z.array(z.string().max(5000)),
+  past_due: z.array(z.string().max(5000)),
+  pending_verification: z.array(z.string().max(5000)),
 })
 
 export const s_portal_flows_flow_after_completion = z.object({
@@ -7612,7 +7637,7 @@ export const s_portal_flows_flow_subscription_update_confirm = z.object({
     .nullable()
     .optional(),
   items: z.array(s_portal_flows_subscription_update_confirm_item),
-  subscription: z.string(),
+  subscription: z.string().max(5000),
 })
 
 export const s_portal_flows_retention = z.object({
@@ -7640,14 +7665,14 @@ export const s_promotion_codes_resource_restrictions = z.object({
   currency_options: z.record(s_promotion_code_currency_option).optional(),
   first_time_transaction: z.coerce.boolean(),
   minimum_amount: z.coerce.number().nullable().optional(),
-  minimum_amount_currency: z.string().nullable().optional(),
+  minimum_amount_currency: z.string().max(5000).nullable().optional(),
 })
 
 export const s_radar_value_list = z.object({
-  alias: z.string(),
+  alias: z.string().max(5000),
   created: z.coerce.number(),
-  created_by: z.string(),
-  id: z.string(),
+  created_by: z.string().max(5000),
+  id: z.string().max(5000),
   item_type: z.enum([
     "card_bin",
     "card_fingerprint",
@@ -7664,11 +7689,11 @@ export const s_radar_value_list = z.object({
     data: z.array(s_radar_value_list_item),
     has_more: z.coerce.boolean(),
     object: z.enum(["list"]),
-    url: z.string(),
+    url: z.string().max(5000),
   }),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()),
-  name: z.string(),
+  metadata: z.record(z.string().max(500)),
+  name: z.string().max(5000),
   object: z.enum(["radar.value_list"]),
 })
 
@@ -7698,7 +7723,7 @@ export const s_refund_destination_details = z.object({
   sofort: s_destination_details_unimplemented.optional(),
   swish: s_refund_destination_details_generic.optional(),
   th_bank_transfer: s_refund_destination_details_generic.optional(),
-  type: z.string(),
+  type: z.string().max(5000),
   us_bank_transfer: s_refund_destination_details_generic.optional(),
   wechat_pay: s_destination_details_unimplemented.optional(),
   zip: s_destination_details_unimplemented.optional(),
@@ -7766,10 +7791,10 @@ export const s_setup_intent_payment_method_options_us_bank_account = z.object({
 
 export const s_shipping = z.object({
   address: s_address.optional(),
-  carrier: z.string().nullable().optional(),
-  name: z.string().optional(),
-  phone: z.string().nullable().optional(),
-  tracking_number: z.string().nullable().optional(),
+  carrier: z.string().max(5000).nullable().optional(),
+  name: z.string().max(5000).optional(),
+  phone: z.string().max(5000).nullable().optional(),
+  tracking_number: z.string().max(5000).nullable().optional(),
 })
 
 export const s_shipping_rate_delivery_estimate = z.object({
@@ -7785,13 +7810,13 @@ export const s_shipping_rate_fixed_amount = z.object({
 
 export const s_source_owner = z.object({
   address: s_address.nullable().optional(),
-  email: z.string().nullable().optional(),
-  name: z.string().nullable().optional(),
-  phone: z.string().nullable().optional(),
+  email: z.string().max(5000).nullable().optional(),
+  name: z.string().max(5000).nullable().optional(),
+  phone: z.string().max(5000).nullable().optional(),
   verified_address: s_address.nullable().optional(),
-  verified_email: z.string().nullable().optional(),
-  verified_name: z.string().nullable().optional(),
-  verified_phone: z.string().nullable().optional(),
+  verified_email: z.string().max(5000).nullable().optional(),
+  verified_name: z.string().max(5000).nullable().optional(),
+  verified_phone: z.string().max(5000).nullable().optional(),
 })
 
 export const s_source_transaction = z.object({
@@ -7801,14 +7826,14 @@ export const s_source_transaction = z.object({
   created: z.coerce.number(),
   currency: z.string(),
   gbp_credit_transfer: s_source_transaction_gbp_credit_transfer_data.optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   object: z.enum(["source_transaction"]),
   paper_check: s_source_transaction_paper_check_data.optional(),
   sepa_credit_transfer:
     s_source_transaction_sepa_credit_transfer_data.optional(),
-  source: z.string(),
-  status: z.string(),
+  source: z.string().max(5000),
+  status: z.string().max(5000),
   type: z.enum([
     "ach_credit_transfer",
     "ach_debit",
@@ -7877,7 +7902,7 @@ export const s_tax_product_registrations_resource_country_options_united_states 
       s_tax_product_registrations_resource_country_options_us_local_amusement_tax.optional(),
     local_lease_tax:
       s_tax_product_registrations_resource_country_options_us_local_lease_tax.optional(),
-    state: z.string(),
+    state: z.string().max(5000),
     type: z.enum([
       "local_amusement_tax",
       "local_lease_tax",
@@ -7889,7 +7914,7 @@ export const s_tax_product_registrations_resource_country_options_united_states 
 export const s_tax_product_resource_customer_details = z.object({
   address: s_tax_product_resource_postal_address.nullable().optional(),
   address_source: z.enum(["billing", "shipping"]).nullable().optional(),
-  ip_address: z.string().nullable().optional(),
+  ip_address: z.string().max(5000).nullable().optional(),
   tax_ids: z.array(s_tax_product_resource_customer_details_resource_tax_id),
   taxability_override: z.enum(["customer_exempt", "none", "reverse_charge"]),
 })
@@ -7959,18 +7984,18 @@ export const s_tax_product_resource_tax_settings_status_details = z.object({
 export const s_tax_transaction_line_item = z.object({
   amount: z.coerce.number(),
   amount_tax: z.coerce.number(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()).nullable().optional(),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
   object: z.enum(["tax.transaction_line_item"]),
-  product: z.string().nullable().optional(),
+  product: z.string().max(5000).nullable().optional(),
   quantity: z.coerce.number(),
-  reference: z.string(),
+  reference: z.string().max(5000),
   reversal: s_tax_product_resource_tax_transaction_line_item_resource_reversal
     .nullable()
     .optional(),
   tax_behavior: z.enum(["exclusive", "inclusive"]),
-  tax_code: z.string(),
+  tax_code: z.string().max(5000),
   type: z.enum(["reversal", "transaction"]),
 })
 
@@ -7995,11 +8020,11 @@ export const s_terminal_configuration_configuration_resource_tipping = z.object(
 
 export const s_terminal_location = z.object({
   address: s_address,
-  configuration_overrides: z.string().optional(),
-  display_name: z.string(),
-  id: z.string(),
+  configuration_overrides: z.string().max(5000).optional(),
+  display_name: z.string().max(5000),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()),
+  metadata: z.record(z.string().max(500)),
   object: z.enum(["terminal.location"]),
 })
 
@@ -8057,17 +8082,17 @@ export const s_treasury_financial_accounts_resource_toggle_settings = z.object({
 
 export const s_treasury_shared_resource_billing_details = z.object({
   address: s_address,
-  email: z.string().nullable().optional(),
-  name: z.string().nullable().optional(),
+  email: z.string().max(5000).nullable().optional(),
+  name: z.string().max(5000).nullable().optional(),
 })
 
 export const s_usage_record_summary = z.object({
-  id: z.string(),
-  invoice: z.string().nullable().optional(),
+  id: z.string().max(5000),
+  invoice: z.string().max(5000).nullable().optional(),
   livemode: z.coerce.boolean(),
   object: z.enum(["usage_record_summary"]),
   period: s_period,
-  subscription_item: z.string(),
+  subscription_item: z.string().max(5000),
   total_usage: z.coerce.number(),
 })
 
@@ -8077,7 +8102,7 @@ export const s_balance_detail = z.object({
 
 export const s_card_generated_from_payment_method_details = z.object({
   card_present: s_payment_method_details_card_present.optional(),
-  type: z.string(),
+  type: z.string().max(5000),
 })
 
 export const s_checkout_customer_balance_payment_method_options = z.object({
@@ -8091,10 +8116,10 @@ export const s_climate_product = z.object({
   created: z.coerce.number(),
   current_prices_per_metric_ton: z.record(s_climate_removals_products_price),
   delivery_year: z.coerce.number().nullable().optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   metric_tons_available: z.string(),
-  name: z.string(),
+  name: z.string().max(5000),
   object: z.enum(["climate.product"]),
   suppliers: z.array(s_climate_supplier),
 })
@@ -8102,8 +8127,8 @@ export const s_climate_product = z.object({
 export const s_climate_removals_order_deliveries = z.object({
   delivered_at: z.coerce.number(),
   location: s_climate_removals_location.nullable().optional(),
-  metric_tons: z.string(),
-  registry_url: z.string().nullable().optional(),
+  metric_tons: z.string().max(5000),
+  registry_url: z.string().max(5000).nullable().optional(),
   supplier: s_climate_supplier,
 })
 
@@ -8121,13 +8146,13 @@ export const s_connect_embedded_account_session_create_components = z.object({
 })
 
 export const s_country_spec = z.object({
-  default_currency: z.string(),
-  id: z.string(),
+  default_currency: z.string().max(5000),
+  id: z.string().max(5000),
   object: z.enum(["country_spec"]),
-  supported_bank_account_currencies: z.record(z.array(z.string())),
-  supported_payment_currencies: z.array(z.string()),
-  supported_payment_methods: z.array(z.string()),
-  supported_transfer_countries: z.array(z.string()),
+  supported_bank_account_currencies: z.record(z.array(z.string().max(5000))),
+  supported_payment_currencies: z.array(z.string().max(5000)),
+  supported_payment_methods: z.array(z.string().max(5000)),
+  supported_transfer_countries: z.array(z.string().max(5000)),
   verification_fields: s_country_spec_verification_fields,
 })
 
@@ -8138,23 +8163,23 @@ export const s_customer_balance_resource_cash_balance_transaction_resource_funde
   })
 
 export const s_forwarding_request = z.object({
-  config: z.string(),
+  config: z.string().max(5000),
   created: z.coerce.number(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   object: z.enum(["forwarding.request"]),
-  payment_method: z.string(),
+  payment_method: z.string().max(5000),
   replacements: z.array(
     z.enum(["card_cvc", "card_expiry", "card_number", "cardholder_name"]),
   ),
   request_context: s_forwarded_request_context.nullable().optional(),
   request_details: s_forwarded_request_details.nullable().optional(),
   response_details: s_forwarded_response_details.nullable().optional(),
-  url: z.string().nullable().optional(),
+  url: z.string().max(5000).nullable().optional(),
 })
 
 export const s_funding_instructions_bank_transfer = z.object({
-  country: z.string(),
+  country: z.string().max(5000),
   financial_addresses: z.array(
     s_funding_instructions_bank_transfer_financial_address,
   ),
@@ -8162,11 +8187,11 @@ export const s_funding_instructions_bank_transfer = z.object({
 })
 
 export const s_identity_verification_report = z.object({
-  client_reference_id: z.string().nullable().optional(),
+  client_reference_id: z.string().max(5000).nullable().optional(),
   created: z.coerce.number(),
   document: s_gelato_document_report.optional(),
   email: s_gelato_email_report.optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   id_number: s_gelato_id_number_report.optional(),
   livemode: z.coerce.boolean(),
   object: z.enum(["identity.verification_report"]),
@@ -8174,8 +8199,8 @@ export const s_identity_verification_report = z.object({
   phone: s_gelato_phone_report.optional(),
   selfie: s_gelato_selfie_report.optional(),
   type: z.enum(["document", "id_number", "verification_flow"]),
-  verification_flow: z.string().optional(),
-  verification_session: z.string().nullable().optional(),
+  verification_flow: z.string().max(5000).optional(),
+  verification_session: z.string().max(5000).nullable().optional(),
 })
 
 export const s_invoice_payment_method_options_customer_balance = z.object({
@@ -8197,7 +8222,7 @@ export const s_issuing_transaction_purchase_details = z.object({
   fuel: s_issuing_transaction_fuel_data.nullable().optional(),
   lodging: s_issuing_transaction_lodging_data.nullable().optional(),
   receipt: z.array(s_issuing_transaction_receipt_data).nullable().optional(),
-  reference: z.string().nullable().optional(),
+  reference: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_intent_next_action_display_bank_transfer_instructions =
@@ -8207,8 +8232,8 @@ export const s_payment_intent_next_action_display_bank_transfer_instructions =
     financial_addresses: z
       .array(s_funding_instructions_bank_transfer_financial_address)
       .optional(),
-    hosted_instructions_url: z.string().nullable().optional(),
-    reference: z.string().nullable().optional(),
+    hosted_instructions_url: z.string().max(5000).nullable().optional(),
+    reference: z.string().max(5000).nullable().optional(),
     type: z.enum([
       "eu_bank_transfer",
       "gb_bank_transfer",
@@ -8220,7 +8245,7 @@ export const s_payment_intent_next_action_display_bank_transfer_instructions =
 
 export const s_payment_intent_next_action_konbini = z.object({
   expires_at: z.coerce.number(),
-  hosted_voucher_url: z.string().nullable().optional(),
+  hosted_voucher_url: z.string().max(5000).nullable().optional(),
   stores: s_payment_intent_next_action_konbini_stores,
 })
 
@@ -8260,8 +8285,8 @@ export const s_payment_intent_payment_method_options_card = z.object({
     .optional(),
   require_cvc_recollection: z.coerce.boolean().optional(),
   setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
-  statement_descriptor_suffix_kana: z.string().optional(),
-  statement_descriptor_suffix_kanji: z.string().optional(),
+  statement_descriptor_suffix_kana: z.string().max(5000).optional(),
+  statement_descriptor_suffix_kanji: z.string().max(5000).optional(),
 })
 
 export const s_payment_intent_processing = z.object({
@@ -8284,7 +8309,7 @@ export const s_payment_intent_type_specific_payment_method_options_client =
 
 export const s_payment_links_resource_custom_fields = z.object({
   dropdown: s_payment_links_resource_custom_fields_dropdown.optional(),
-  key: z.string(),
+  key: z.string().max(5000),
   label: s_payment_links_resource_custom_fields_label,
   numeric: s_payment_links_resource_custom_fields_numeric.optional(),
   optional: z.coerce.boolean(),
@@ -8296,7 +8321,7 @@ export const s_payment_method_card_wallet = z.object({
   amex_express_checkout:
     s_payment_method_card_wallet_amex_express_checkout.optional(),
   apple_pay: s_payment_method_card_wallet_apple_pay.optional(),
-  dynamic_last4: z.string().nullable().optional(),
+  dynamic_last4: z.string().max(5000).nullable().optional(),
   google_pay: s_payment_method_card_wallet_google_pay.optional(),
   link: s_payment_method_card_wallet_link.optional(),
   masterpass: s_payment_method_card_wallet_masterpass.optional(),
@@ -8323,7 +8348,7 @@ export const s_payment_method_configuration = z.object({
   alipay: s_payment_method_config_resource_payment_method_properties.optional(),
   apple_pay:
     s_payment_method_config_resource_payment_method_properties.optional(),
-  application: z.string().nullable().optional(),
+  application: z.string().max(5000).nullable().optional(),
   au_becs_debit:
     s_payment_method_config_resource_payment_method_properties.optional(),
   bacs_debit:
@@ -8347,7 +8372,7 @@ export const s_payment_method_configuration = z.object({
     s_payment_method_config_resource_payment_method_properties.optional(),
   grabpay:
     s_payment_method_config_resource_payment_method_properties.optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   ideal: s_payment_method_config_resource_payment_method_properties.optional(),
   is_default: z.coerce.boolean(),
   jcb: s_payment_method_config_resource_payment_method_properties.optional(),
@@ -8356,11 +8381,11 @@ export const s_payment_method_configuration = z.object({
     s_payment_method_config_resource_payment_method_properties.optional(),
   link: s_payment_method_config_resource_payment_method_properties.optional(),
   livemode: z.coerce.boolean(),
-  name: z.string(),
+  name: z.string().max(5000),
   object: z.enum(["payment_method_configuration"]),
   oxxo: s_payment_method_config_resource_payment_method_properties.optional(),
   p24: s_payment_method_config_resource_payment_method_properties.optional(),
-  parent: z.string().nullable().optional(),
+  parent: z.string().max(5000).nullable().optional(),
   paynow: s_payment_method_config_resource_payment_method_properties.optional(),
   paypal: s_payment_method_config_resource_payment_method_properties.optional(),
   promptpay:
@@ -8381,7 +8406,7 @@ export const s_payment_method_details_card_wallet = z.object({
   amex_express_checkout:
     s_payment_method_details_card_wallet_amex_express_checkout.optional(),
   apple_pay: s_payment_method_details_card_wallet_apple_pay.optional(),
-  dynamic_last4: z.string().nullable().optional(),
+  dynamic_last4: z.string().max(5000).nullable().optional(),
   google_pay: s_payment_method_details_card_wallet_google_pay.optional(),
   link: s_payment_method_details_card_wallet_link.optional(),
   masterpass: s_payment_method_details_card_wallet_masterpass.optional(),
@@ -8401,10 +8426,10 @@ export const s_payment_method_details_card_wallet = z.object({
 export const s_payment_method_domain = z.object({
   apple_pay: s_payment_method_domain_resource_payment_method_status,
   created: z.coerce.number(),
-  domain_name: z.string(),
+  domain_name: z.string().max(5000),
   enabled: z.coerce.boolean(),
   google_pay: s_payment_method_domain_resource_payment_method_status,
-  id: z.string(),
+  id: z.string().max(5000),
   link: s_payment_method_domain_resource_payment_method_status,
   livemode: z.coerce.boolean(),
   object: z.enum(["payment_method_domain"]),
@@ -8421,12 +8446,12 @@ export const s_payment_method_options_customer_balance = z.object({
 export const s_payment_method_us_bank_account = z.object({
   account_holder_type: z.enum(["company", "individual"]).nullable().optional(),
   account_type: z.enum(["checking", "savings"]).nullable().optional(),
-  bank_name: z.string().nullable().optional(),
-  financial_connections_account: z.string().nullable().optional(),
-  fingerprint: z.string().nullable().optional(),
-  last4: z.string().nullable().optional(),
+  bank_name: z.string().max(5000).nullable().optional(),
+  financial_connections_account: z.string().max(5000).nullable().optional(),
+  fingerprint: z.string().max(5000).nullable().optional(),
+  last4: z.string().max(5000).nullable().optional(),
   networks: s_us_bank_account_networks.nullable().optional(),
-  routing_number: z.string().nullable().optional(),
+  routing_number: z.string().max(5000).nullable().optional(),
   status_details: s_payment_method_us_bank_account_status_details
     .nullable()
     .optional(),
@@ -8434,7 +8459,7 @@ export const s_payment_method_us_bank_account = z.object({
 
 export const s_payment_pages_checkout_session_custom_fields = z.object({
   dropdown: s_payment_pages_checkout_session_custom_fields_dropdown.optional(),
-  key: z.string(),
+  key: z.string().max(5000),
   label: s_payment_pages_checkout_session_custom_fields_label,
   numeric: s_payment_pages_checkout_session_custom_fields_numeric.optional(),
   optional: z.coerce.boolean(),
@@ -8452,26 +8477,26 @@ export const s_portal_features = z.object({
 
 export const s_portal_flows_flow_subscription_cancel = z.object({
   retention: s_portal_flows_retention.nullable().optional(),
-  subscription: z.string(),
+  subscription: z.string().max(5000),
 })
 
 export const s_refund_next_action = z.object({
   display_details: s_refund_next_action_display_details.nullable().optional(),
-  type: z.string(),
+  type: z.string().max(5000),
 })
 
 export const s_setup_attempt_payment_method_details_card = z.object({
-  brand: z.string().nullable().optional(),
+  brand: z.string().max(5000).nullable().optional(),
   checks: s_setup_attempt_payment_method_details_card_checks
     .nullable()
     .optional(),
-  country: z.string().nullable().optional(),
+  country: z.string().max(5000).nullable().optional(),
   exp_month: z.coerce.number().nullable().optional(),
   exp_year: z.coerce.number().nullable().optional(),
-  fingerprint: z.string().nullable().optional(),
-  funding: z.string().nullable().optional(),
-  last4: z.string().nullable().optional(),
-  network: z.string().nullable().optional(),
+  fingerprint: z.string().max(5000).nullable().optional(),
+  funding: z.string().max(5000).nullable().optional(),
+  last4: z.string().max(5000).nullable().optional(),
+  network: z.string().max(5000).nullable().optional(),
   three_d_secure: s_three_d_secure_details.nullable().optional(),
   wallet: s_setup_attempt_payment_method_details_card_wallet
     .nullable()
@@ -8482,7 +8507,7 @@ export const s_setup_intent_next_action = z.object({
   cashapp_handle_redirect_or_display_qr_code:
     s_payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code.optional(),
   redirect_to_url: s_setup_intent_next_action_redirect_to_url.optional(),
-  type: z.string(),
+  type: z.string().max(5000),
   use_stripe_sdk: z.object({}).optional(),
   verify_with_microdeposits:
     s_setup_intent_next_action_verify_with_microdeposits.optional(),
@@ -8532,24 +8557,27 @@ export const s_shipping_rate = z.object({
   active: z.coerce.boolean(),
   created: z.coerce.number(),
   delivery_estimate: s_shipping_rate_delivery_estimate.nullable().optional(),
-  display_name: z.string().nullable().optional(),
+  display_name: z.string().max(5000).nullable().optional(),
   fixed_amount: s_shipping_rate_fixed_amount.optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()),
+  metadata: z.record(z.string().max(500)),
   object: z.enum(["shipping_rate"]),
   tax_behavior: z
     .enum(["exclusive", "inclusive", "unspecified"])
     .nullable()
     .optional(),
-  tax_code: z.union([z.string(), s_tax_code]).nullable().optional(),
+  tax_code: z
+    .union([z.string().max(5000), s_tax_code])
+    .nullable()
+    .optional(),
   type: z.enum(["fixed_amount"]),
 })
 
 export const s_source_order = z.object({
   amount: z.coerce.number(),
   currency: z.string(),
-  email: z.string().optional(),
+  email: z.string().max(5000).optional(),
   items: z.array(s_source_order_item).nullable().optional(),
   shipping: s_shipping.optional(),
 })
@@ -8557,18 +8585,18 @@ export const s_source_order = z.object({
 export const s_tax_calculation_line_item = z.object({
   amount: z.coerce.number(),
   amount_tax: z.coerce.number(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   object: z.enum(["tax.calculation_line_item"]),
-  product: z.string().nullable().optional(),
+  product: z.string().max(5000).nullable().optional(),
   quantity: z.coerce.number(),
-  reference: z.string().nullable().optional(),
+  reference: z.string().max(5000).nullable().optional(),
   tax_behavior: z.enum(["exclusive", "inclusive"]),
   tax_breakdown: z
     .array(s_tax_product_resource_line_item_tax_breakdown)
     .nullable()
     .optional(),
-  tax_code: z.string(),
+  tax_code: z.string().max(5000),
 })
 
 export const s_tax_product_registrations_resource_country_options = z.object({
@@ -8626,12 +8654,12 @@ export const s_tax_product_registrations_resource_country_options = z.object({
 export const s_tax_product_resource_tax_calculation_shipping_cost = z.object({
   amount: z.coerce.number(),
   amount_tax: z.coerce.number(),
-  shipping_rate: z.string().optional(),
+  shipping_rate: z.string().max(5000).optional(),
   tax_behavior: z.enum(["exclusive", "inclusive"]),
   tax_breakdown: z
     .array(s_tax_product_resource_line_item_tax_breakdown)
     .optional(),
-  tax_code: z.string(),
+  tax_code: z.string().max(5000),
 })
 
 export const s_tax_settings = z.object({
@@ -8647,23 +8675,26 @@ export const s_tax_settings = z.object({
 
 export const s_tax_transaction = z.object({
   created: z.coerce.number(),
-  currency: z.string(),
-  customer: z.string().nullable().optional(),
+  currency: z.string().max(5000),
+  customer: z.string().max(5000).nullable().optional(),
   customer_details: s_tax_product_resource_customer_details,
-  id: z.string(),
+  id: z.string().max(5000),
   line_items: z
     .object({
       data: z.array(s_tax_transaction_line_item),
       has_more: z.coerce.boolean(),
       object: z.enum(["list"]),
-      url: z.string(),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/tax/transactions/[^/]+/line_items")),
     })
     .nullable()
     .optional(),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()).nullable().optional(),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
   object: z.enum(["tax.transaction"]),
-  reference: z.string(),
+  reference: z.string().max(5000),
   reversal: s_tax_product_resource_tax_transaction_resource_reversal
     .nullable()
     .optional(),
@@ -8710,7 +8741,7 @@ export const s_treasury_shared_resource_initiating_payment_method_details_initia
     billing_details: s_treasury_shared_resource_billing_details,
     financial_account:
       s_received_payment_method_details_financial_account.optional(),
-    issuing_card: z.string().optional(),
+    issuing_card: z.string().max(5000).optional(),
     type: z.enum([
       "balance",
       "financial_account",
@@ -8723,8 +8754,8 @@ export const s_treasury_shared_resource_initiating_payment_method_details_initia
   })
 
 export const s_account_session = z.object({
-  account: z.string(),
-  client_secret: z.string(),
+  account: z.string().max(5000),
+  client_secret: z.string().max(5000),
   components: s_connect_embedded_account_session_create_components,
   expires_at: z.coerce.number(),
   livemode: z.coerce.boolean(),
@@ -8744,18 +8775,18 @@ export const s_balance = z.object({
 export const s_billing_portal_configuration = z.object({
   active: z.coerce.boolean(),
   application: z
-    .union([z.string(), s_application, s_deleted_application])
+    .union([z.string().max(5000), s_application, s_deleted_application])
     .nullable()
     .optional(),
   business_profile: s_portal_business_profile,
   created: z.coerce.number(),
-  default_return_url: z.string().nullable().optional(),
+  default_return_url: z.string().max(5000).nullable().optional(),
   features: s_portal_features,
-  id: z.string(),
+  id: z.string().max(5000),
   is_default: z.coerce.boolean(),
   livemode: z.coerce.boolean(),
   login_page: s_portal_login_page,
-  metadata: z.record(z.string()).nullable().optional(),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
   object: z.enum(["billing_portal.configuration"]),
   updated: z.coerce.number(),
 })
@@ -8804,20 +8835,20 @@ export const s_climate_order = z.object({
     .enum(["expired", "product_unavailable", "requested"])
     .nullable()
     .optional(),
-  certificate: z.string().nullable().optional(),
+  certificate: z.string().max(5000).nullable().optional(),
   confirmed_at: z.coerce.number().nullable().optional(),
   created: z.coerce.number(),
-  currency: z.string(),
+  currency: z.string().max(5000),
   delayed_at: z.coerce.number().nullable().optional(),
   delivered_at: z.coerce.number().nullable().optional(),
   delivery_details: z.array(s_climate_removals_order_deliveries),
   expected_delivery_year: z.coerce.number(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()),
+  metadata: z.record(z.string().max(500)),
   metric_tons: z.string(),
   object: z.enum(["climate.order"]),
-  product: z.union([z.string(), s_climate_product]),
+  product: z.union([z.string().max(5000), s_climate_product]),
   product_substituted_at: z.coerce.number().nullable().optional(),
   status: z.enum([
     "awaiting_funds",
@@ -8830,32 +8861,32 @@ export const s_climate_order = z.object({
 
 export const s_funding_instructions = z.object({
   bank_transfer: s_funding_instructions_bank_transfer,
-  currency: z.string(),
+  currency: z.string().max(5000),
   funding_type: z.enum(["bank_transfer"]),
   livemode: z.coerce.boolean(),
   object: z.enum(["funding_instructions"]),
 })
 
 export const s_identity_verification_session = z.object({
-  client_reference_id: z.string().nullable().optional(),
-  client_secret: z.string().nullable().optional(),
+  client_reference_id: z.string().max(5000).nullable().optional(),
+  client_secret: z.string().max(5000).nullable().optional(),
   created: z.coerce.number(),
-  id: z.string(),
+  id: z.string().max(5000),
   last_error: s_gelato_session_last_error.nullable().optional(),
   last_verification_report: z
-    .union([z.string(), s_identity_verification_report])
+    .union([z.string().max(5000), s_identity_verification_report])
     .nullable()
     .optional(),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()),
+  metadata: z.record(z.string().max(500)),
   object: z.enum(["identity.verification_session"]),
   options: s_gelato_verification_session_options.nullable().optional(),
   provided_details: s_gelato_provided_details.nullable().optional(),
   redaction: s_verification_session_redaction.nullable().optional(),
   status: z.enum(["canceled", "processing", "requires_input", "verified"]),
   type: z.enum(["document", "id_number", "verification_flow"]),
-  url: z.string().nullable().optional(),
-  verification_flow: z.string().optional(),
+  url: z.string().max(5000).nullable().optional(),
+  verification_flow: z.string().max(5000).optional(),
   verified_outputs: s_gelato_verified_outputs.nullable().optional(),
 })
 
@@ -8877,7 +8908,10 @@ export const s_invoices_resource_shipping_cost = z.object({
   amount_subtotal: z.coerce.number(),
   amount_tax: z.coerce.number(),
   amount_total: z.coerce.number(),
-  shipping_rate: z.union([z.string(), s_shipping_rate]).nullable().optional(),
+  shipping_rate: z
+    .union([z.string().max(5000), s_shipping_rate])
+    .nullable()
+    .optional(),
   taxes: z.array(s_line_items_tax_amount).optional(),
 })
 
@@ -8903,7 +8937,7 @@ export const s_payment_intent_next_action = z.object({
   redirect_to_url: s_payment_intent_next_action_redirect_to_url.optional(),
   swish_handle_redirect_or_display_qr_code:
     s_payment_intent_next_action_swish_handle_redirect_or_display_qr_code.optional(),
-  type: z.string(),
+  type: z.string().max(5000),
   use_stripe_sdk: z.object({}).optional(),
   verify_with_microdeposits:
     s_payment_intent_next_action_verify_with_microdeposits.optional(),
@@ -9136,31 +9170,31 @@ export const s_payment_intent_payment_method_options = z.object({
 
 export const s_payment_links_resource_shipping_option = z.object({
   shipping_amount: z.coerce.number(),
-  shipping_rate: z.union([z.string(), s_shipping_rate]),
+  shipping_rate: z.union([z.string().max(5000), s_shipping_rate]),
 })
 
 export const s_payment_method_details_card = z.object({
   amount_authorized: z.coerce.number().nullable().optional(),
-  brand: z.string().nullable().optional(),
+  brand: z.string().max(5000).nullable().optional(),
   capture_before: z.coerce.number().optional(),
   checks: s_payment_method_details_card_checks.nullable().optional(),
-  country: z.string().nullable().optional(),
+  country: z.string().max(5000).nullable().optional(),
   exp_month: z.coerce.number(),
   exp_year: z.coerce.number(),
   extended_authorization:
     s_payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_extended_authorization_extended_authorization.optional(),
-  fingerprint: z.string().nullable().optional(),
-  funding: z.string().nullable().optional(),
+  fingerprint: z.string().max(5000).nullable().optional(),
+  funding: z.string().max(5000).nullable().optional(),
   incremental_authorization:
     s_payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_incremental_authorization_incremental_authorization.optional(),
   installments: s_payment_method_details_card_installments
     .nullable()
     .optional(),
-  last4: z.string().nullable().optional(),
-  mandate: z.string().nullable().optional(),
+  last4: z.string().max(5000).nullable().optional(),
+  mandate: z.string().max(5000).nullable().optional(),
   multicapture:
     s_payment_flows_private_payment_methods_card_details_api_resource_multicapture.optional(),
-  network: z.string().nullable().optional(),
+  network: z.string().max(5000).nullable().optional(),
   network_token: s_payment_method_details_card_network_token
     .nullable()
     .optional(),
@@ -9174,13 +9208,16 @@ export const s_payment_pages_checkout_session_shipping_cost = z.object({
   amount_subtotal: z.coerce.number(),
   amount_tax: z.coerce.number(),
   amount_total: z.coerce.number(),
-  shipping_rate: z.union([z.string(), s_shipping_rate]).nullable().optional(),
+  shipping_rate: z
+    .union([z.string().max(5000), s_shipping_rate])
+    .nullable()
+    .optional(),
   taxes: z.array(s_line_items_tax_amount).optional(),
 })
 
 export const s_payment_pages_checkout_session_shipping_option = z.object({
   shipping_amount: z.coerce.number(),
-  shipping_rate: z.union([z.string(), s_shipping_rate]),
+  shipping_rate: z.union([z.string().max(5000), s_shipping_rate]),
 })
 
 export const s_portal_flows_flow = z.object({
@@ -9212,19 +9249,19 @@ export const s_source = z.object({
   bancontact: s_source_type_bancontact.optional(),
   card: s_source_type_card.optional(),
   card_present: s_source_type_card_present.optional(),
-  client_secret: z.string(),
+  client_secret: z.string().max(5000),
   code_verification: s_source_code_verification_flow.optional(),
   created: z.coerce.number(),
   currency: z.string().nullable().optional(),
-  customer: z.string().optional(),
+  customer: z.string().max(5000).optional(),
   eps: s_source_type_eps.optional(),
-  flow: z.string(),
+  flow: z.string().max(5000),
   giropay: s_source_type_giropay.optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   ideal: s_source_type_ideal.optional(),
   klarna: s_source_type_klarna.optional(),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()).nullable().optional(),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
   multibanco: s_source_type_multibanco.optional(),
   object: z.enum(["source"]),
   owner: s_source_owner.nullable().optional(),
@@ -9234,8 +9271,8 @@ export const s_source = z.object({
   sepa_debit: s_source_type_sepa_debit.optional(),
   sofort: s_source_type_sofort.optional(),
   source_order: s_source_order.optional(),
-  statement_descriptor: z.string().nullable().optional(),
-  status: z.string(),
+  statement_descriptor: z.string().max(5000).nullable().optional(),
+  status: z.string().max(5000),
   three_d_secure: s_source_type_three_d_secure.optional(),
   type: z.enum([
     "ach_credit_transfer",
@@ -9257,7 +9294,7 @@ export const s_source = z.object({
     "three_d_secure",
     "wechat",
   ]),
-  usage: z.string().nullable().optional(),
+  usage: z.string().max(5000).nullable().optional(),
   wechat: s_source_type_wechat.optional(),
 })
 
@@ -9277,17 +9314,20 @@ export const s_subscriptions_resource_payment_method_options = z.object({
 
 export const s_tax_calculation = z.object({
   amount_total: z.coerce.number(),
-  currency: z.string(),
-  customer: z.string().nullable().optional(),
+  currency: z.string().max(5000),
+  customer: z.string().max(5000).nullable().optional(),
   customer_details: s_tax_product_resource_customer_details,
   expires_at: z.coerce.number().nullable().optional(),
-  id: z.string().nullable().optional(),
+  id: z.string().max(5000).nullable().optional(),
   line_items: z
     .object({
       data: z.array(s_tax_calculation_line_item),
       has_more: z.coerce.boolean(),
       object: z.enum(["list"]),
-      url: z.string(),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/tax/calculations/[^/]+/line_items")),
     })
     .nullable()
     .optional(),
@@ -9304,11 +9344,11 @@ export const s_tax_calculation = z.object({
 
 export const s_tax_registration = z.object({
   active_from: z.coerce.number(),
-  country: z.string(),
+  country: z.string().max(5000),
   country_options: s_tax_product_registrations_resource_country_options,
   created: z.coerce.number(),
   expires_at: z.coerce.number().nullable().optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   object: z.enum(["tax.registration"]),
   status: z.enum(["active", "expired", "scheduled"]),
@@ -9333,11 +9373,14 @@ export const s_treasury_financial_account_features = z.object({
 })
 
 export const s_billing_portal_session = z.object({
-  configuration: z.union([z.string(), s_billing_portal_configuration]),
+  configuration: z.union([
+    z.string().max(5000),
+    s_billing_portal_configuration,
+  ]),
   created: z.coerce.number(),
-  customer: z.string(),
+  customer: z.string().max(5000),
   flow: s_portal_flows_flow.nullable().optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   locale: z
     .enum([
@@ -9392,13 +9435,13 @@ export const s_billing_portal_session = z.object({
     .nullable()
     .optional(),
   object: z.enum(["billing_portal.session"]),
-  on_behalf_of: z.string().nullable().optional(),
-  return_url: z.string().nullable().optional(),
-  url: z.string(),
+  on_behalf_of: z.string().max(5000).nullable().optional(),
+  return_url: z.string().max(5000).nullable().optional(),
+  url: z.string().max(5000),
 })
 
 export const s_invoices_payment_settings = z.object({
-  default_mandate: z.string().nullable().optional(),
+  default_mandate: z.string().max(5000).nullable().optional(),
   payment_method_options: s_invoices_payment_method_options
     .nullable()
     .optional(),
@@ -9441,14 +9484,14 @@ export const s_source_mandate_notification = z.object({
   amount: z.coerce.number().nullable().optional(),
   bacs_debit: s_source_mandate_notification_bacs_debit_data.optional(),
   created: z.coerce.number(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   object: z.enum(["source_mandate_notification"]),
-  reason: z.string(),
+  reason: z.string().max(5000),
   sepa_debit: s_source_mandate_notification_sepa_debit_data.optional(),
   source: s_source,
-  status: z.string(),
-  type: z.string(),
+  status: z.string().max(5000),
+  type: z.string().max(5000),
 })
 
 export const s_subscriptions_resource_payment_settings = z.object({
@@ -9511,15 +9554,15 @@ export const s_treasury_financial_account = z.object({
     )
     .optional(),
   balance: s_treasury_financial_accounts_resource_balance,
-  country: z.string(),
+  country: z.string().max(5000),
   created: z.coerce.number(),
   features: s_treasury_financial_account_features.optional(),
   financial_addresses: z.array(
     s_treasury_financial_accounts_resource_financial_address,
   ),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()).nullable().optional(),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
   object: z.enum(["treasury.financial_account"]),
   pending_features: z
     .array(
@@ -9572,11 +9615,11 @@ export const s_account: z.ZodType<t_account> = z.object({
   charges_enabled: z.coerce.boolean().optional(),
   company: z.lazy(() => s_legal_entity_company.optional()),
   controller: s_account_unification_account_controller.optional(),
-  country: z.string().optional(),
+  country: z.string().max(5000).optional(),
   created: z.coerce.number().optional(),
-  default_currency: z.string().optional(),
+  default_currency: z.string().max(5000).optional(),
   details_submitted: z.coerce.boolean().optional(),
-  email: z.string().nullable().optional(),
+  email: z.string().max(5000).nullable().optional(),
   external_accounts: z
     .object({
       data: z.array(
@@ -9584,13 +9627,13 @@ export const s_account: z.ZodType<t_account> = z.object({
       ),
       has_more: z.coerce.boolean(),
       object: z.enum(["list"]),
-      url: z.string(),
+      url: z.string().max(5000),
     })
     .optional(),
   future_requirements: s_account_future_requirements.optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   individual: z.lazy(() => s_person.optional()),
-  metadata: z.record(z.string()).optional(),
+  metadata: z.record(z.string().max(500)).optional(),
   object: z.enum(["account"]),
   payouts_enabled: z.coerce.boolean().optional(),
   requirements: s_account_requirements.optional(),
@@ -9609,9 +9652,9 @@ export const s_external_account: z.ZodType<t_external_account> = z.union([
 ])
 
 export const s_capability: z.ZodType<t_capability> = z.object({
-  account: z.union([z.string(), z.lazy(() => s_account)]),
+  account: z.union([z.string().max(5000), z.lazy(() => s_account)]),
   future_requirements: s_account_capability_future_requirements.optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["capability"]),
   requested: z.coerce.boolean(),
   requested_at: z.coerce.number().nullable().optional(),
@@ -9621,102 +9664,102 @@ export const s_capability: z.ZodType<t_capability> = z.object({
 
 export const s_bank_account: z.ZodType<t_bank_account> = z.object({
   account: z
-    .union([z.string(), z.lazy(() => s_account)])
+    .union([z.string().max(5000), z.lazy(() => s_account)])
     .nullable()
     .optional(),
-  account_holder_name: z.string().nullable().optional(),
-  account_holder_type: z.string().nullable().optional(),
-  account_type: z.string().nullable().optional(),
+  account_holder_name: z.string().max(5000).nullable().optional(),
+  account_holder_type: z.string().max(5000).nullable().optional(),
+  account_type: z.string().max(5000).nullable().optional(),
   available_payout_methods: z
     .array(z.enum(["instant", "standard"]))
     .nullable()
     .optional(),
-  bank_name: z.string().nullable().optional(),
-  country: z.string(),
+  bank_name: z.string().max(5000).nullable().optional(),
+  country: z.string().max(5000),
   currency: z.string(),
   customer: z
-    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .union([z.string().max(5000), z.lazy(() => s_customer), s_deleted_customer])
     .nullable()
     .optional(),
   default_for_currency: z.coerce.boolean().nullable().optional(),
-  fingerprint: z.string().nullable().optional(),
+  fingerprint: z.string().max(5000).nullable().optional(),
   future_requirements: s_external_account_requirements.nullable().optional(),
-  id: z.string(),
-  last4: z.string(),
-  metadata: z.record(z.string()).nullable().optional(),
+  id: z.string().max(5000),
+  last4: z.string().max(5000),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
   object: z.enum(["bank_account"]),
   requirements: s_external_account_requirements.nullable().optional(),
-  routing_number: z.string().nullable().optional(),
-  status: z.string(),
+  routing_number: z.string().max(5000).nullable().optional(),
+  status: z.string().max(5000),
 })
 
 export const s_card: z.ZodType<t_card> = z.object({
   account: z
-    .union([z.string(), z.lazy(() => s_account)])
+    .union([z.string().max(5000), z.lazy(() => s_account)])
     .nullable()
     .optional(),
-  address_city: z.string().nullable().optional(),
-  address_country: z.string().nullable().optional(),
-  address_line1: z.string().nullable().optional(),
-  address_line1_check: z.string().nullable().optional(),
-  address_line2: z.string().nullable().optional(),
-  address_state: z.string().nullable().optional(),
-  address_zip: z.string().nullable().optional(),
-  address_zip_check: z.string().nullable().optional(),
+  address_city: z.string().max(5000).nullable().optional(),
+  address_country: z.string().max(5000).nullable().optional(),
+  address_line1: z.string().max(5000).nullable().optional(),
+  address_line1_check: z.string().max(5000).nullable().optional(),
+  address_line2: z.string().max(5000).nullable().optional(),
+  address_state: z.string().max(5000).nullable().optional(),
+  address_zip: z.string().max(5000).nullable().optional(),
+  address_zip_check: z.string().max(5000).nullable().optional(),
   available_payout_methods: z
     .array(z.enum(["instant", "standard"]))
     .nullable()
     .optional(),
-  brand: z.string(),
-  country: z.string().nullable().optional(),
+  brand: z.string().max(5000),
+  country: z.string().max(5000).nullable().optional(),
   currency: z.string().nullable().optional(),
   customer: z
-    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .union([z.string().max(5000), z.lazy(() => s_customer), s_deleted_customer])
     .nullable()
     .optional(),
-  cvc_check: z.string().nullable().optional(),
+  cvc_check: z.string().max(5000).nullable().optional(),
   default_for_currency: z.coerce.boolean().nullable().optional(),
-  dynamic_last4: z.string().nullable().optional(),
+  dynamic_last4: z.string().max(5000).nullable().optional(),
   exp_month: z.coerce.number(),
   exp_year: z.coerce.number(),
-  fingerprint: z.string().nullable().optional(),
-  funding: z.string(),
-  id: z.string(),
-  last4: z.string(),
-  metadata: z.record(z.string()).nullable().optional(),
-  name: z.string().nullable().optional(),
+  fingerprint: z.string().max(5000).nullable().optional(),
+  funding: z.string().max(5000),
+  id: z.string().max(5000),
+  last4: z.string().max(5000),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
+  name: z.string().max(5000).nullable().optional(),
   networks: s_token_card_networks.optional(),
   object: z.enum(["card"]),
-  status: z.string().nullable().optional(),
-  tokenization_method: z.string().nullable().optional(),
+  status: z.string().max(5000).nullable().optional(),
+  tokenization_method: z.string().max(5000).nullable().optional(),
 })
 
 export const s_person: z.ZodType<t_person> = z.object({
-  account: z.string(),
+  account: z.string().max(5000),
   additional_tos_acceptances: s_person_additional_tos_acceptances.optional(),
   address: s_address.optional(),
   address_kana: s_legal_entity_japan_address.nullable().optional(),
   address_kanji: s_legal_entity_japan_address.nullable().optional(),
   created: z.coerce.number(),
   dob: s_legal_entity_dob.optional(),
-  email: z.string().nullable().optional(),
-  first_name: z.string().nullable().optional(),
-  first_name_kana: z.string().nullable().optional(),
-  first_name_kanji: z.string().nullable().optional(),
-  full_name_aliases: z.array(z.string()).optional(),
+  email: z.string().max(5000).nullable().optional(),
+  first_name: z.string().max(5000).nullable().optional(),
+  first_name_kana: z.string().max(5000).nullable().optional(),
+  first_name_kanji: z.string().max(5000).nullable().optional(),
+  full_name_aliases: z.array(z.string().max(5000)).optional(),
   future_requirements: s_person_future_requirements.nullable().optional(),
   gender: z.string().nullable().optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   id_number_provided: z.coerce.boolean().optional(),
   id_number_secondary_provided: z.coerce.boolean().optional(),
-  last_name: z.string().nullable().optional(),
-  last_name_kana: z.string().nullable().optional(),
-  last_name_kanji: z.string().nullable().optional(),
-  maiden_name: z.string().nullable().optional(),
-  metadata: z.record(z.string()).optional(),
-  nationality: z.string().nullable().optional(),
+  last_name: z.string().max(5000).nullable().optional(),
+  last_name_kana: z.string().max(5000).nullable().optional(),
+  last_name_kanji: z.string().max(5000).nullable().optional(),
+  maiden_name: z.string().max(5000).nullable().optional(),
+  metadata: z.record(z.string().max(500)).optional(),
+  nationality: z.string().max(5000).nullable().optional(),
   object: z.enum(["person"]),
-  phone: z.string().nullable().optional(),
+  phone: z.string().max(5000).nullable().optional(),
   political_exposure: z.enum(["existing", "none"]).optional(),
   registered_address: s_address.optional(),
   relationship: s_person_relationship.optional(),
@@ -9726,22 +9769,22 @@ export const s_person: z.ZodType<t_person> = z.object({
 })
 
 export const s_application_fee: z.ZodType<t_application_fee> = z.object({
-  account: z.union([z.string(), z.lazy(() => s_account)]),
+  account: z.union([z.string().max(5000), z.lazy(() => s_account)]),
   amount: z.coerce.number(),
   amount_refunded: z.coerce.number(),
-  application: z.union([z.string(), s_application]),
+  application: z.union([z.string().max(5000), s_application]),
   balance_transaction: z
-    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .union([z.string().max(5000), z.lazy(() => s_balance_transaction)])
     .nullable()
     .optional(),
-  charge: z.union([z.string(), z.lazy(() => s_charge)]),
+  charge: z.union([z.string().max(5000), z.lazy(() => s_charge)]),
   created: z.coerce.number(),
   currency: z.string(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   object: z.enum(["application_fee"]),
   originating_transaction: z
-    .union([z.string(), z.lazy(() => s_charge)])
+    .union([z.string().max(5000), z.lazy(() => s_charge)])
     .nullable()
     .optional(),
   refunded: z.coerce.boolean(),
@@ -9749,21 +9792,21 @@ export const s_application_fee: z.ZodType<t_application_fee> = z.object({
     data: z.array(z.lazy(() => s_fee_refund)),
     has_more: z.coerce.boolean(),
     object: z.enum(["list"]),
-    url: z.string(),
+    url: z.string().max(5000),
   }),
 })
 
 export const s_fee_refund: z.ZodType<t_fee_refund> = z.object({
   amount: z.coerce.number(),
   balance_transaction: z
-    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .union([z.string().max(5000), z.lazy(() => s_balance_transaction)])
     .nullable()
     .optional(),
   created: z.coerce.number(),
   currency: z.string(),
-  fee: z.union([z.string(), z.lazy(() => s_application_fee)]),
-  id: z.string(),
-  metadata: z.record(z.string()).nullable().optional(),
+  fee: z.union([z.string().max(5000), z.lazy(() => s_application_fee)]),
+  id: z.string().max(5000),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
   object: z.enum(["fee_refund"]),
 })
 
@@ -9773,17 +9816,17 @@ export const s_balance_transaction: z.ZodType<t_balance_transaction> = z.object(
     available_on: z.coerce.number(),
     created: z.coerce.number(),
     currency: z.string(),
-    description: z.string().nullable().optional(),
+    description: z.string().max(5000).nullable().optional(),
     exchange_rate: z.coerce.number().nullable().optional(),
     fee: z.coerce.number(),
     fee_details: z.array(s_fee),
-    id: z.string(),
+    id: z.string().max(5000),
     net: z.coerce.number(),
     object: z.enum(["balance_transaction"]),
-    reporting_category: z.string(),
+    reporting_category: z.string().max(5000),
     source: z
       .union([
-        z.string(),
+        z.string().max(5000),
         z.lazy(() => s_application_fee),
         z.lazy(() => s_charge),
         z.lazy(() => s_connect_collection_transfer),
@@ -9804,7 +9847,7 @@ export const s_balance_transaction: z.ZodType<t_balance_transaction> = z.object(
       ])
       .nullable()
       .optional(),
-    status: z.string(),
+    status: z.string().max(5000),
     type: z.enum([
       "adjustment",
       "advance",
@@ -9854,106 +9897,111 @@ export const s_charge: z.ZodType<t_charge> = z.object({
   amount: z.coerce.number(),
   amount_captured: z.coerce.number(),
   amount_refunded: z.coerce.number(),
-  application: z.union([z.string(), s_application]).nullable().optional(),
+  application: z
+    .union([z.string().max(5000), s_application])
+    .nullable()
+    .optional(),
   application_fee: z
-    .union([z.string(), z.lazy(() => s_application_fee)])
+    .union([z.string().max(5000), z.lazy(() => s_application_fee)])
     .nullable()
     .optional(),
   application_fee_amount: z.coerce.number().nullable().optional(),
   balance_transaction: z
-    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .union([z.string().max(5000), z.lazy(() => s_balance_transaction)])
     .nullable()
     .optional(),
   billing_details: s_billing_details,
-  calculated_statement_descriptor: z.string().nullable().optional(),
+  calculated_statement_descriptor: z.string().max(5000).nullable().optional(),
   captured: z.coerce.boolean(),
   created: z.coerce.number(),
   currency: z.string(),
   customer: z
-    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .union([z.string().max(5000), z.lazy(() => s_customer), s_deleted_customer])
     .nullable()
     .optional(),
-  description: z.string().nullable().optional(),
+  description: z.string().max(40000).nullable().optional(),
   disputed: z.coerce.boolean(),
   failure_balance_transaction: z
-    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .union([z.string().max(5000), z.lazy(() => s_balance_transaction)])
     .nullable()
     .optional(),
-  failure_code: z.string().nullable().optional(),
-  failure_message: z.string().nullable().optional(),
+  failure_code: z.string().max(5000).nullable().optional(),
+  failure_message: z.string().max(5000).nullable().optional(),
   fraud_details: s_charge_fraud_details.nullable().optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   invoice: z
-    .union([z.string(), z.lazy(() => s_invoice)])
+    .union([z.string().max(5000), z.lazy(() => s_invoice)])
     .nullable()
     .optional(),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()),
+  metadata: z.record(z.string().max(500)),
   object: z.enum(["charge"]),
   on_behalf_of: z
-    .union([z.string(), z.lazy(() => s_account)])
+    .union([z.string().max(5000), z.lazy(() => s_account)])
     .nullable()
     .optional(),
   outcome: s_charge_outcome.nullable().optional(),
   paid: z.coerce.boolean(),
   payment_intent: z
-    .union([z.string(), z.lazy(() => s_payment_intent)])
+    .union([z.string().max(5000), z.lazy(() => s_payment_intent)])
     .nullable()
     .optional(),
-  payment_method: z.string().nullable().optional(),
+  payment_method: z.string().max(5000).nullable().optional(),
   payment_method_details: z.lazy(() =>
     s_payment_method_details.nullable().optional(),
   ),
   radar_options: s_radar_radar_options.optional(),
-  receipt_email: z.string().nullable().optional(),
-  receipt_number: z.string().nullable().optional(),
-  receipt_url: z.string().nullable().optional(),
+  receipt_email: z.string().max(5000).nullable().optional(),
+  receipt_number: z.string().max(5000).nullable().optional(),
+  receipt_url: z.string().max(5000).nullable().optional(),
   refunded: z.coerce.boolean(),
   refunds: z
     .object({
       data: z.array(z.lazy(() => s_refund)),
       has_more: z.coerce.boolean(),
       object: z.enum(["list"]),
-      url: z.string(),
+      url: z.string().max(5000),
     })
     .nullable()
     .optional(),
   review: z
-    .union([z.string(), z.lazy(() => s_review)])
+    .union([z.string().max(5000), z.lazy(() => s_review)])
     .nullable()
     .optional(),
   shipping: s_shipping.nullable().optional(),
   source_transfer: z
-    .union([z.string(), z.lazy(() => s_transfer)])
+    .union([z.string().max(5000), z.lazy(() => s_transfer)])
     .nullable()
     .optional(),
-  statement_descriptor: z.string().nullable().optional(),
-  statement_descriptor_suffix: z.string().nullable().optional(),
+  statement_descriptor: z.string().max(5000).nullable().optional(),
+  statement_descriptor_suffix: z.string().max(5000).nullable().optional(),
   status: z.enum(["failed", "pending", "succeeded"]),
-  transfer: z.union([z.string(), z.lazy(() => s_transfer)]).optional(),
+  transfer: z
+    .union([z.string().max(5000), z.lazy(() => s_transfer)])
+    .optional(),
   transfer_data: z.lazy(() => s_charge_transfer_data.nullable().optional()),
-  transfer_group: z.string().nullable().optional(),
+  transfer_group: z.string().max(5000).nullable().optional(),
 })
 
 export const s_dispute: z.ZodType<t_dispute> = z.object({
   amount: z.coerce.number(),
   balance_transactions: z.array(z.lazy(() => s_balance_transaction)),
-  charge: z.union([z.string(), z.lazy(() => s_charge)]),
+  charge: z.union([z.string().max(5000), z.lazy(() => s_charge)]),
   created: z.coerce.number(),
   currency: z.string(),
   evidence: z.lazy(() => s_dispute_evidence),
   evidence_details: s_dispute_evidence_details,
-  id: z.string(),
+  id: z.string().max(5000),
   is_charge_refundable: z.coerce.boolean(),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()),
+  metadata: z.record(z.string().max(500)),
   object: z.enum(["dispute"]),
   payment_intent: z
-    .union([z.string(), z.lazy(() => s_payment_intent)])
+    .union([z.string().max(5000), z.lazy(() => s_payment_intent)])
     .nullable()
     .optional(),
   payment_method_details: s_dispute_payment_method_details.optional(),
-  reason: z.string(),
+  reason: z.string().max(5000),
   status: z.enum([
     "lost",
     "needs_response",
@@ -9968,28 +10016,28 @@ export const s_dispute: z.ZodType<t_dispute> = z.object({
 export const s_refund: z.ZodType<t_refund> = z.object({
   amount: z.coerce.number(),
   balance_transaction: z
-    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .union([z.string().max(5000), z.lazy(() => s_balance_transaction)])
     .nullable()
     .optional(),
   charge: z
-    .union([z.string(), z.lazy(() => s_charge)])
+    .union([z.string().max(5000), z.lazy(() => s_charge)])
     .nullable()
     .optional(),
   created: z.coerce.number(),
   currency: z.string(),
-  description: z.string().optional(),
+  description: z.string().max(5000).optional(),
   destination_details: s_refund_destination_details.optional(),
   failure_balance_transaction: z
-    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .union([z.string().max(5000), z.lazy(() => s_balance_transaction)])
     .optional(),
-  failure_reason: z.string().optional(),
-  id: z.string(),
-  instructions_email: z.string().optional(),
-  metadata: z.record(z.string()).nullable().optional(),
+  failure_reason: z.string().max(5000).optional(),
+  id: z.string().max(5000),
+  instructions_email: z.string().max(5000).optional(),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
   next_action: s_refund_next_action.optional(),
   object: z.enum(["refund"]),
   payment_intent: z
-    .union([z.string(), z.lazy(() => s_payment_intent)])
+    .union([z.string().max(5000), z.lazy(() => s_payment_intent)])
     .nullable()
     .optional(),
   reason: z
@@ -10001,14 +10049,14 @@ export const s_refund: z.ZodType<t_refund> = z.object({
     ])
     .nullable()
     .optional(),
-  receipt_number: z.string().nullable().optional(),
+  receipt_number: z.string().max(5000).nullable().optional(),
   source_transfer_reversal: z
-    .union([z.string(), z.lazy(() => s_transfer_reversal)])
+    .union([z.string().max(5000), z.lazy(() => s_transfer_reversal)])
     .nullable()
     .optional(),
-  status: z.string().nullable().optional(),
+  status: z.string().max(5000).nullable().optional(),
   transfer_reversal: z
-    .union([z.string(), z.lazy(() => s_transfer_reversal)])
+    .union([z.string().max(5000), z.lazy(() => s_transfer_reversal)])
     .nullable()
     .optional(),
 })
@@ -10025,9 +10073,9 @@ export const s_checkout_session: z.ZodType<t_checkout_session> = z.object({
     .enum(["auto", "required"])
     .nullable()
     .optional(),
-  cancel_url: z.string().nullable().optional(),
-  client_reference_id: z.string().nullable().optional(),
-  client_secret: z.string().nullable().optional(),
+  cancel_url: z.string().max(5000).nullable().optional(),
+  client_reference_id: z.string().max(5000).nullable().optional(),
+  client_secret: z.string().max(5000).nullable().optional(),
   consent: s_payment_pages_checkout_session_consent.nullable().optional(),
   consent_collection: s_payment_pages_checkout_session_consent_collection
     .nullable()
@@ -10040,18 +10088,18 @@ export const s_checkout_session: z.ZodType<t_checkout_session> = z.object({
   custom_fields: z.array(s_payment_pages_checkout_session_custom_fields),
   custom_text: s_payment_pages_checkout_session_custom_text,
   customer: z
-    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .union([z.string().max(5000), z.lazy(() => s_customer), s_deleted_customer])
     .nullable()
     .optional(),
   customer_creation: z.enum(["always", "if_required"]).nullable().optional(),
   customer_details: s_payment_pages_checkout_session_customer_details
     .nullable()
     .optional(),
-  customer_email: z.string().nullable().optional(),
+  customer_email: z.string().max(5000).nullable().optional(),
   expires_at: z.coerce.number(),
-  id: z.string(),
+  id: z.string().max(5000),
   invoice: z
-    .union([z.string(), z.lazy(() => s_invoice)])
+    .union([z.string().max(5000), z.lazy(() => s_invoice)])
     .nullable()
     .optional(),
   invoice_creation: z.lazy(() =>
@@ -10062,7 +10110,7 @@ export const s_checkout_session: z.ZodType<t_checkout_session> = z.object({
       data: z.array(z.lazy(() => s_item)),
       has_more: z.coerce.boolean(),
       object: z.enum(["list"]),
-      url: z.string(),
+      url: z.string().max(5000),
     })
     .optional(),
   livemode: z.coerce.boolean(),
@@ -10112,15 +10160,15 @@ export const s_checkout_session: z.ZodType<t_checkout_session> = z.object({
     ])
     .nullable()
     .optional(),
-  metadata: z.record(z.string()).nullable().optional(),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
   mode: z.enum(["payment", "setup", "subscription"]),
   object: z.enum(["checkout.session"]),
   payment_intent: z
-    .union([z.string(), z.lazy(() => s_payment_intent)])
+    .union([z.string().max(5000), z.lazy(() => s_payment_intent)])
     .nullable()
     .optional(),
   payment_link: z
-    .union([z.string(), z.lazy(() => s_payment_link)])
+    .union([z.string().max(5000), z.lazy(() => s_payment_link)])
     .nullable()
     .optional(),
   payment_method_collection: z
@@ -10134,15 +10182,15 @@ export const s_checkout_session: z.ZodType<t_checkout_session> = z.object({
   payment_method_options: s_checkout_session_payment_method_options
     .nullable()
     .optional(),
-  payment_method_types: z.array(z.string()),
+  payment_method_types: z.array(z.string().max(5000)),
   payment_status: z.enum(["no_payment_required", "paid", "unpaid"]),
   phone_number_collection:
     s_payment_pages_checkout_session_phone_number_collection.optional(),
-  recovered_from: z.string().nullable().optional(),
+  recovered_from: z.string().max(5000).nullable().optional(),
   redirect_on_completion: z.enum(["always", "if_required", "never"]).optional(),
-  return_url: z.string().optional(),
+  return_url: z.string().max(5000).optional(),
   setup_intent: z
-    .union([z.string(), z.lazy(() => s_setup_intent)])
+    .union([z.string().max(5000), z.lazy(() => s_setup_intent)])
     .nullable()
     .optional(),
   shipping_address_collection:
@@ -10157,17 +10205,17 @@ export const s_checkout_session: z.ZodType<t_checkout_session> = z.object({
   status: z.enum(["complete", "expired", "open"]).nullable().optional(),
   submit_type: z.enum(["auto", "book", "donate", "pay"]).nullable().optional(),
   subscription: z
-    .union([z.string(), z.lazy(() => s_subscription)])
+    .union([z.string().max(5000), z.lazy(() => s_subscription)])
     .nullable()
     .optional(),
-  success_url: z.string().nullable().optional(),
+  success_url: z.string().max(5000).nullable().optional(),
   tax_id_collection:
     s_payment_pages_checkout_session_tax_id_collection.optional(),
   total_details: z.lazy(() =>
     s_payment_pages_checkout_session_total_details.nullable().optional(),
   ),
   ui_mode: z.enum(["embedded", "hosted"]).nullable().optional(),
-  url: z.string().nullable().optional(),
+  url: z.string().max(5000).nullable().optional(),
 })
 
 export const s_item: z.ZodType<t_item> = z.object({
@@ -10176,9 +10224,9 @@ export const s_item: z.ZodType<t_item> = z.object({
   amount_tax: z.coerce.number(),
   amount_total: z.coerce.number(),
   currency: z.string(),
-  description: z.string(),
+  description: z.string().max(5000),
   discounts: z.array(z.lazy(() => s_line_items_discount_amount)).optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   object: z.enum(["item"]),
   price: z.lazy(() => s_price.nullable().optional()),
   quantity: z.coerce.number().nullable().optional(),
@@ -10188,22 +10236,22 @@ export const s_item: z.ZodType<t_item> = z.object({
 export const s_confirmation_token: z.ZodType<t_confirmation_token> = z.object({
   created: z.coerce.number(),
   expires_at: z.coerce.number().nullable().optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   mandate_data: s_confirmation_tokens_resource_mandate_data
     .nullable()
     .optional(),
   object: z.enum(["confirmation_token"]),
-  payment_intent: z.string().nullable().optional(),
+  payment_intent: z.string().max(5000).nullable().optional(),
   payment_method_preview: z.lazy(() =>
     s_confirmation_tokens_resource_payment_method_preview.nullable().optional(),
   ),
-  return_url: z.string().nullable().optional(),
+  return_url: z.string().max(5000).nullable().optional(),
   setup_future_usage: z
     .enum(["off_session", "on_session"])
     .nullable()
     .optional(),
-  setup_intent: z.string().nullable().optional(),
+  setup_intent: z.string().max(5000).nullable().optional(),
   shipping: s_confirmation_tokens_resource_shipping.nullable().optional(),
   use_stripe_sdk: z.coerce.boolean(),
 })
@@ -10213,35 +10261,39 @@ export const s_credit_note: z.ZodType<t_credit_note> = z.object({
   amount_shipping: z.coerce.number(),
   created: z.coerce.number(),
   currency: z.string(),
-  customer: z.union([z.string(), z.lazy(() => s_customer), s_deleted_customer]),
+  customer: z.union([
+    z.string().max(5000),
+    z.lazy(() => s_customer),
+    s_deleted_customer,
+  ]),
   customer_balance_transaction: z
-    .union([z.string(), z.lazy(() => s_customer_balance_transaction)])
+    .union([z.string().max(5000), z.lazy(() => s_customer_balance_transaction)])
     .nullable()
     .optional(),
   discount_amount: z.coerce.number(),
   discount_amounts: z.array(z.lazy(() => s_discounts_resource_discount_amount)),
   effective_at: z.coerce.number().nullable().optional(),
-  id: z.string(),
-  invoice: z.union([z.string(), z.lazy(() => s_invoice)]),
+  id: z.string().max(5000),
+  invoice: z.union([z.string().max(5000), z.lazy(() => s_invoice)]),
   lines: z.object({
     data: z.array(z.lazy(() => s_credit_note_line_item)),
     has_more: z.coerce.boolean(),
     object: z.enum(["list"]),
-    url: z.string(),
+    url: z.string().max(5000),
   }),
   livemode: z.coerce.boolean(),
-  memo: z.string().nullable().optional(),
-  metadata: z.record(z.string()).nullable().optional(),
-  number: z.string(),
+  memo: z.string().max(5000).nullable().optional(),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
+  number: z.string().max(5000),
   object: z.enum(["credit_note"]),
   out_of_band_amount: z.coerce.number().nullable().optional(),
-  pdf: z.string(),
+  pdf: z.string().max(5000),
   reason: z
     .enum(["duplicate", "fraudulent", "order_change", "product_unsatisfactory"])
     .nullable()
     .optional(),
   refund: z
-    .union([z.string(), z.lazy(() => s_refund)])
+    .union([z.string().max(5000), z.lazy(() => s_refund)])
     .nullable()
     .optional(),
   shipping_cost: s_invoices_resource_shipping_cost.nullable().optional(),
@@ -10259,13 +10311,13 @@ export const s_credit_note_line_item: z.ZodType<t_credit_note_line_item> =
   z.object({
     amount: z.coerce.number(),
     amount_excluding_tax: z.coerce.number().nullable().optional(),
-    description: z.string().nullable().optional(),
+    description: z.string().max(5000).nullable().optional(),
     discount_amount: z.coerce.number(),
     discount_amounts: z.array(
       z.lazy(() => s_discounts_resource_discount_amount),
     ),
-    id: z.string(),
-    invoice_line_item: z.string().optional(),
+    id: z.string().max(5000),
+    invoice_line_item: z.string().max(5000).optional(),
     livemode: z.coerce.boolean(),
     object: z.enum(["credit_note_line_item"]),
     quantity: z.coerce.number().nullable().optional(),
@@ -10278,10 +10330,10 @@ export const s_credit_note_line_item: z.ZodType<t_credit_note_line_item> =
   })
 
 export const s_customer_session: z.ZodType<t_customer_session> = z.object({
-  client_secret: z.string(),
+  client_secret: z.string().max(5000),
   components: s_customer_session_resource_components.optional(),
   created: z.coerce.number(),
-  customer: z.union([z.string(), z.lazy(() => s_customer)]),
+  customer: z.union([z.string().max(5000), z.lazy(() => s_customer)]),
   expires_at: z.coerce.number(),
   livemode: z.coerce.boolean(),
   object: z.enum(["customer_session"]),
@@ -10292,10 +10344,10 @@ export const s_customer: z.ZodType<t_customer> = z.object({
   balance: z.coerce.number().optional(),
   cash_balance: s_cash_balance.nullable().optional(),
   created: z.coerce.number(),
-  currency: z.string().nullable().optional(),
+  currency: z.string().max(5000).nullable().optional(),
   default_source: z
     .union([
-      z.string(),
+      z.string().max(5000),
       z.lazy(() => s_bank_account),
       z.lazy(() => s_card),
       s_source,
@@ -10303,20 +10355,20 @@ export const s_customer: z.ZodType<t_customer> = z.object({
     .nullable()
     .optional(),
   delinquent: z.coerce.boolean().nullable().optional(),
-  description: z.string().nullable().optional(),
+  description: z.string().max(5000).nullable().optional(),
   discount: z.lazy(() => s_discount.nullable().optional()),
-  email: z.string().nullable().optional(),
-  id: z.string(),
+  email: z.string().max(5000).nullable().optional(),
+  id: z.string().max(5000),
   invoice_credit_balance: z.record(z.coerce.number()).optional(),
-  invoice_prefix: z.string().nullable().optional(),
+  invoice_prefix: z.string().max(5000).nullable().optional(),
   invoice_settings: z.lazy(() => s_invoice_setting_customer_setting.optional()),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()).optional(),
-  name: z.string().nullable().optional(),
+  metadata: z.record(z.string().max(500)).optional(),
+  name: z.string().max(5000).nullable().optional(),
   next_invoice_sequence: z.coerce.number().optional(),
   object: z.enum(["customer"]),
-  phone: z.string().nullable().optional(),
-  preferred_locales: z.array(z.string()).nullable().optional(),
+  phone: z.string().max(5000).nullable().optional(),
+  preferred_locales: z.array(z.string().max(5000)).nullable().optional(),
   shipping: s_shipping.nullable().optional(),
   sources: z
     .object({
@@ -10325,7 +10377,7 @@ export const s_customer: z.ZodType<t_customer> = z.object({
       ),
       has_more: z.coerce.boolean(),
       object: z.enum(["list"]),
-      url: z.string(),
+      url: z.string().max(5000),
     })
     .optional(),
   subscriptions: z
@@ -10333,7 +10385,7 @@ export const s_customer: z.ZodType<t_customer> = z.object({
       data: z.array(z.lazy(() => s_subscription)),
       has_more: z.coerce.boolean(),
       object: z.enum(["list"]),
-      url: z.string(),
+      url: z.string().max(5000),
     })
     .optional(),
   tax: s_customer_tax.optional(),
@@ -10343,11 +10395,11 @@ export const s_customer: z.ZodType<t_customer> = z.object({
       data: z.array(z.lazy(() => s_tax_id)),
       has_more: z.coerce.boolean(),
       object: z.enum(["list"]),
-      url: z.string(),
+      url: z.string().max(5000),
     })
     .optional(),
   test_clock: z
-    .union([z.string(), s_test_helpers_test_clock])
+    .union([z.string().max(5000), s_test_helpers_test_clock])
     .nullable()
     .optional(),
 })
@@ -10357,20 +10409,20 @@ export const s_customer_balance_transaction: z.ZodType<t_customer_balance_transa
     amount: z.coerce.number(),
     created: z.coerce.number(),
     credit_note: z
-      .union([z.string(), z.lazy(() => s_credit_note)])
+      .union([z.string().max(5000), z.lazy(() => s_credit_note)])
       .nullable()
       .optional(),
     currency: z.string(),
-    customer: z.union([z.string(), z.lazy(() => s_customer)]),
-    description: z.string().nullable().optional(),
+    customer: z.union([z.string().max(5000), z.lazy(() => s_customer)]),
+    description: z.string().max(5000).nullable().optional(),
     ending_balance: z.coerce.number(),
-    id: z.string(),
+    id: z.string().max(5000),
     invoice: z
-      .union([z.string(), z.lazy(() => s_invoice)])
+      .union([z.string().max(5000), z.lazy(() => s_invoice)])
       .nullable()
       .optional(),
     livemode: z.coerce.boolean(),
-    metadata: z.record(z.string()).nullable().optional(),
+    metadata: z.record(z.string().max(500)).nullable().optional(),
     object: z.enum(["customer_balance_transaction"]),
     type: z.enum([
       "adjustment",
@@ -10402,12 +10454,12 @@ export const s_customer_cash_balance_transaction: z.ZodType<t_customer_cash_bala
       s_customer_balance_resource_cash_balance_transaction_resource_applied_to_payment_transaction.optional(),
     ),
     created: z.coerce.number(),
-    currency: z.string(),
-    customer: z.union([z.string(), z.lazy(() => s_customer)]),
+    currency: z.string().max(5000),
+    customer: z.union([z.string().max(5000), z.lazy(() => s_customer)]),
     ending_balance: z.coerce.number(),
     funded:
       s_customer_balance_resource_cash_balance_transaction_resource_funded_transaction.optional(),
-    id: z.string(),
+    id: z.string().max(5000),
     livemode: z.coerce.boolean(),
     net_amount: z.coerce.number(),
     object: z.enum(["customer_cash_balance_transaction"]),
@@ -10434,45 +10486,45 @@ export const s_customer_cash_balance_transaction: z.ZodType<t_customer_cash_bala
   })
 
 export const s_deleted_discount: z.ZodType<t_deleted_discount> = z.object({
-  checkout_session: z.string().nullable().optional(),
+  checkout_session: z.string().max(5000).nullable().optional(),
   coupon: s_coupon,
   customer: z
-    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .union([z.string().max(5000), z.lazy(() => s_customer), s_deleted_customer])
     .nullable()
     .optional(),
   deleted: z.coerce.boolean(),
-  id: z.string(),
-  invoice: z.string().nullable().optional(),
-  invoice_item: z.string().nullable().optional(),
+  id: z.string().max(5000),
+  invoice: z.string().max(5000).nullable().optional(),
+  invoice_item: z.string().max(5000).nullable().optional(),
   object: z.enum(["discount"]),
   promotion_code: z
-    .union([z.string(), z.lazy(() => s_promotion_code)])
+    .union([z.string().max(5000), z.lazy(() => s_promotion_code)])
     .nullable()
     .optional(),
   start: z.coerce.number(),
-  subscription: z.string().nullable().optional(),
-  subscription_item: z.string().nullable().optional(),
+  subscription: z.string().max(5000).nullable().optional(),
+  subscription_item: z.string().max(5000).nullable().optional(),
 })
 
 export const s_discount: z.ZodType<t_discount> = z.object({
-  checkout_session: z.string().nullable().optional(),
+  checkout_session: z.string().max(5000).nullable().optional(),
   coupon: s_coupon,
   customer: z
-    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .union([z.string().max(5000), z.lazy(() => s_customer), s_deleted_customer])
     .nullable()
     .optional(),
   end: z.coerce.number().nullable().optional(),
-  id: z.string(),
-  invoice: z.string().nullable().optional(),
-  invoice_item: z.string().nullable().optional(),
+  id: z.string().max(5000),
+  invoice: z.string().max(5000).nullable().optional(),
+  invoice_item: z.string().max(5000).nullable().optional(),
   object: z.enum(["discount"]),
   promotion_code: z
-    .union([z.string(), z.lazy(() => s_promotion_code)])
+    .union([z.string().max(5000), z.lazy(() => s_promotion_code)])
     .nullable()
     .optional(),
   start: z.coerce.number(),
-  subscription: z.string().nullable().optional(),
-  subscription_item: z.string().nullable().optional(),
+  subscription: z.string().max(5000).nullable().optional(),
+  subscription_item: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method: z.ZodType<t_payment_method> = z.object({
@@ -10491,7 +10543,7 @@ export const s_payment_method: z.ZodType<t_payment_method> = z.object({
   cashapp: s_payment_method_cashapp.optional(),
   created: z.coerce.number(),
   customer: z
-    .union([z.string(), z.lazy(() => s_customer)])
+    .union([z.string().max(5000), z.lazy(() => s_customer)])
     .nullable()
     .optional(),
   customer_balance: s_payment_method_customer_balance.optional(),
@@ -10499,14 +10551,14 @@ export const s_payment_method: z.ZodType<t_payment_method> = z.object({
   fpx: s_payment_method_fpx.optional(),
   giropay: s_payment_method_giropay.optional(),
   grabpay: s_payment_method_grabpay.optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   ideal: s_payment_method_ideal.optional(),
   interac_present: s_payment_method_interac_present.optional(),
   klarna: s_payment_method_klarna.optional(),
   konbini: s_payment_method_konbini.optional(),
   link: s_payment_method_link.optional(),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()).nullable().optional(),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
   mobilepay: s_payment_method_mobilepay.optional(),
   object: z.enum(["payment_method"]),
   oxxo: s_payment_method_oxxo.optional(),
@@ -10565,7 +10617,7 @@ export const s_payment_method: z.ZodType<t_payment_method> = z.object({
 
 export const s_subscription: z.ZodType<t_subscription> = z.object({
   application: z
-    .union([z.string(), s_application, s_deleted_application])
+    .union([z.string().max(5000), s_application, s_deleted_application])
     .nullable()
     .optional(),
   application_fee_percent: z.coerce.number().nullable().optional(),
@@ -10583,15 +10635,19 @@ export const s_subscription: z.ZodType<t_subscription> = z.object({
   currency: z.string(),
   current_period_end: z.coerce.number(),
   current_period_start: z.coerce.number(),
-  customer: z.union([z.string(), z.lazy(() => s_customer), s_deleted_customer]),
+  customer: z.union([
+    z.string().max(5000),
+    z.lazy(() => s_customer),
+    s_deleted_customer,
+  ]),
   days_until_due: z.coerce.number().nullable().optional(),
   default_payment_method: z
-    .union([z.string(), z.lazy(() => s_payment_method)])
+    .union([z.string().max(5000), z.lazy(() => s_payment_method)])
     .nullable()
     .optional(),
   default_source: z
     .union([
-      z.string(),
+      z.string().max(5000),
       z.lazy(() => s_bank_account),
       z.lazy(() => s_card),
       s_source,
@@ -10599,27 +10655,27 @@ export const s_subscription: z.ZodType<t_subscription> = z.object({
     .nullable()
     .optional(),
   default_tax_rates: z.array(s_tax_rate).nullable().optional(),
-  description: z.string().nullable().optional(),
+  description: z.string().max(500).nullable().optional(),
   discount: z.lazy(() => s_discount.nullable().optional()),
-  discounts: z.array(z.union([z.string(), z.lazy(() => s_discount)])),
+  discounts: z.array(z.union([z.string().max(5000), z.lazy(() => s_discount)])),
   ended_at: z.coerce.number().nullable().optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   items: z.object({
     data: z.array(z.lazy(() => s_subscription_item)),
     has_more: z.coerce.boolean(),
     object: z.enum(["list"]),
-    url: z.string(),
+    url: z.string().max(5000),
   }),
   latest_invoice: z
-    .union([z.string(), z.lazy(() => s_invoice)])
+    .union([z.string().max(5000), z.lazy(() => s_invoice)])
     .nullable()
     .optional(),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()),
+  metadata: z.record(z.string().max(500)),
   next_pending_invoice_item_invoice: z.coerce.number().nullable().optional(),
   object: z.enum(["subscription"]),
   on_behalf_of: z
-    .union([z.string(), z.lazy(() => s_account)])
+    .union([z.string().max(5000), z.lazy(() => s_account)])
     .nullable()
     .optional(),
   pause_collection: s_subscriptions_resource_pause_collection
@@ -10632,14 +10688,14 @@ export const s_subscription: z.ZodType<t_subscription> = z.object({
     .nullable()
     .optional(),
   pending_setup_intent: z
-    .union([z.string(), z.lazy(() => s_setup_intent)])
+    .union([z.string().max(5000), z.lazy(() => s_setup_intent)])
     .nullable()
     .optional(),
   pending_update: z.lazy(() =>
     s_subscriptions_resource_pending_update.nullable().optional(),
   ),
   schedule: z
-    .union([z.string(), z.lazy(() => s_subscription_schedule)])
+    .union([z.string().max(5000), z.lazy(() => s_subscription_schedule)])
     .nullable()
     .optional(),
   start_date: z.coerce.number(),
@@ -10654,7 +10710,7 @@ export const s_subscription: z.ZodType<t_subscription> = z.object({
     "unpaid",
   ]),
   test_clock: z
-    .union([z.string(), s_test_helpers_test_clock])
+    .union([z.string().max(5000), s_test_helpers_test_clock])
     .nullable()
     .optional(),
   transfer_data: z.lazy(() =>
@@ -10668,13 +10724,13 @@ export const s_subscription: z.ZodType<t_subscription> = z.object({
 })
 
 export const s_tax_id: z.ZodType<t_tax_id> = z.object({
-  country: z.string().nullable().optional(),
+  country: z.string().max(5000).nullable().optional(),
   created: z.coerce.number(),
   customer: z
-    .union([z.string(), z.lazy(() => s_customer)])
+    .union([z.string().max(5000), z.lazy(() => s_customer)])
     .nullable()
     .optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   object: z.enum(["tax_id"]),
   owner: z.lazy(() => s_tax_i_ds_owner.nullable().optional()),
@@ -10748,7 +10804,7 @@ export const s_tax_id: z.ZodType<t_tax_id> = z.object({
     "vn_tin",
     "za_vat",
   ]),
-  value: z.string(),
+  value: z.string().max(5000),
   verification: s_tax_id_verification.nullable().optional(),
 })
 
@@ -10756,25 +10812,25 @@ export const s_file_link: z.ZodType<t_file_link> = z.object({
   created: z.coerce.number(),
   expired: z.coerce.boolean(),
   expires_at: z.coerce.number().nullable().optional(),
-  file: z.union([z.string(), z.lazy(() => s_file)]),
-  id: z.string(),
+  file: z.union([z.string().max(5000), z.lazy(() => s_file)]),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()),
+  metadata: z.record(z.string().max(500)),
   object: z.enum(["file_link"]),
-  url: z.string().nullable().optional(),
+  url: z.string().max(5000).nullable().optional(),
 })
 
 export const s_file: z.ZodType<t_file> = z.object({
   created: z.coerce.number(),
   expires_at: z.coerce.number().nullable().optional(),
-  filename: z.string().nullable().optional(),
-  id: z.string(),
+  filename: z.string().max(5000).nullable().optional(),
+  id: z.string().max(5000),
   links: z
     .object({
       data: z.array(z.lazy(() => s_file_link)),
       has_more: z.coerce.boolean(),
       object: z.enum(["list"]),
-      url: z.string(),
+      url: z.string().max(5000).regex(new RegExp("^/v1/file_links")),
     })
     .nullable()
     .optional(),
@@ -10797,9 +10853,9 @@ export const s_file: z.ZodType<t_file> = z.object({
     "terminal_reader_splashscreen",
   ]),
   size: z.coerce.number(),
-  title: z.string().nullable().optional(),
-  type: z.string().nullable().optional(),
-  url: z.string().nullable().optional(),
+  title: z.string().max(5000).nullable().optional(),
+  type: z.string().max(5000).nullable().optional(),
+  url: z.string().max(5000).nullable().optional(),
 })
 
 export const s_financial_connections_account: z.ZodType<t_financial_connections_account> =
@@ -10813,14 +10869,14 @@ export const s_financial_connections_account: z.ZodType<t_financial_connections_
       .optional(),
     category: z.enum(["cash", "credit", "investment", "other"]),
     created: z.coerce.number(),
-    display_name: z.string().nullable().optional(),
-    id: z.string(),
-    institution_name: z.string(),
-    last4: z.string().nullable().optional(),
+    display_name: z.string().max(5000).nullable().optional(),
+    id: z.string().max(5000),
+    institution_name: z.string().max(5000),
+    last4: z.string().max(5000).nullable().optional(),
     livemode: z.coerce.boolean(),
     object: z.enum(["financial_connections.account"]),
     ownership: z
-      .union([z.string(), s_financial_connections_account_ownership])
+      .union([z.string().max(5000), s_financial_connections_account_ownership])
       .nullable()
       .optional(),
     ownership_refresh: s_bank_connections_resource_ownership_refresh
@@ -10862,12 +10918,15 @@ export const s_financial_connections_session: z.ZodType<t_financial_connections_
       data: z.array(z.lazy(() => s_financial_connections_account)),
       has_more: z.coerce.boolean(),
       object: z.enum(["list"]),
-      url: z.string(),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/financial_connections/accounts")),
     }),
-    client_secret: z.string(),
+    client_secret: z.string().max(5000),
     filters:
       s_bank_connections_resource_link_account_session_filters.optional(),
-    id: z.string(),
+    id: z.string().max(5000),
     livemode: z.coerce.boolean(),
     object: z.enum(["financial_connections.session"]),
     permissions: z.array(
@@ -10877,40 +10936,44 @@ export const s_financial_connections_session: z.ZodType<t_financial_connections_
       .array(z.enum(["balances", "ownership", "transactions"]))
       .nullable()
       .optional(),
-    return_url: z.string().optional(),
+    return_url: z.string().max(5000).optional(),
   })
 
 export const s_invoiceitem: z.ZodType<t_invoiceitem> = z.object({
   amount: z.coerce.number(),
   currency: z.string(),
-  customer: z.union([z.string(), z.lazy(() => s_customer), s_deleted_customer]),
+  customer: z.union([
+    z.string().max(5000),
+    z.lazy(() => s_customer),
+    s_deleted_customer,
+  ]),
   date: z.coerce.number(),
-  description: z.string().nullable().optional(),
+  description: z.string().max(5000).nullable().optional(),
   discountable: z.coerce.boolean(),
   discounts: z
-    .array(z.union([z.string(), z.lazy(() => s_discount)]))
+    .array(z.union([z.string().max(5000), z.lazy(() => s_discount)]))
     .nullable()
     .optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   invoice: z
-    .union([z.string(), z.lazy(() => s_invoice)])
+    .union([z.string().max(5000), z.lazy(() => s_invoice)])
     .nullable()
     .optional(),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()).nullable().optional(),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
   object: z.enum(["invoiceitem"]),
   period: s_invoice_line_item_period,
   price: z.lazy(() => s_price.nullable().optional()),
   proration: z.coerce.boolean(),
   quantity: z.coerce.number(),
   subscription: z
-    .union([z.string(), z.lazy(() => s_subscription)])
+    .union([z.string().max(5000), z.lazy(() => s_subscription)])
     .nullable()
     .optional(),
-  subscription_item: z.string().optional(),
+  subscription_item: z.string().max(5000).optional(),
   tax_rates: z.array(s_tax_rate).nullable().optional(),
   test_clock: z
-    .union([z.string(), s_test_helpers_test_clock])
+    .union([z.string().max(5000), s_test_helpers_test_clock])
     .nullable()
     .optional(),
   unit_amount: z.coerce.number().nullable().optional(),
@@ -10918,10 +10981,12 @@ export const s_invoiceitem: z.ZodType<t_invoiceitem> = z.object({
 })
 
 export const s_invoice: z.ZodType<t_invoice> = z.object({
-  account_country: z.string().nullable().optional(),
-  account_name: z.string().nullable().optional(),
+  account_country: z.string().max(5000).nullable().optional(),
+  account_name: z.string().max(5000).nullable().optional(),
   account_tax_ids: z
-    .array(z.union([z.string(), z.lazy(() => s_tax_id), s_deleted_tax_id]))
+    .array(
+      z.union([z.string().max(5000), z.lazy(() => s_tax_id), s_deleted_tax_id]),
+    )
     .nullable()
     .optional(),
   amount_due: z.coerce.number(),
@@ -10929,7 +10994,7 @@ export const s_invoice: z.ZodType<t_invoice> = z.object({
   amount_remaining: z.coerce.number(),
   amount_shipping: z.coerce.number(),
   application: z
-    .union([z.string(), s_application, s_deleted_application])
+    .union([z.string().max(5000), s_application, s_deleted_application])
     .nullable()
     .optional(),
   application_fee_amount: z.coerce.number().nullable().optional(),
@@ -10952,7 +11017,7 @@ export const s_invoice: z.ZodType<t_invoice> = z.object({
     .nullable()
     .optional(),
   charge: z
-    .union([z.string(), z.lazy(() => s_charge)])
+    .union([z.string().max(5000), z.lazy(() => s_charge)])
     .nullable()
     .optional(),
   collection_method: z.enum(["charge_automatically", "send_invoice"]),
@@ -10960,13 +11025,13 @@ export const s_invoice: z.ZodType<t_invoice> = z.object({
   currency: z.string(),
   custom_fields: z.array(s_invoice_setting_custom_field).nullable().optional(),
   customer: z
-    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .union([z.string().max(5000), z.lazy(() => s_customer), s_deleted_customer])
     .nullable()
     .optional(),
   customer_address: s_address.nullable().optional(),
-  customer_email: z.string().nullable().optional(),
-  customer_name: z.string().nullable().optional(),
-  customer_phone: z.string().nullable().optional(),
+  customer_email: z.string().max(5000).nullable().optional(),
+  customer_name: z.string().max(5000).nullable().optional(),
+  customer_phone: z.string().max(5000).nullable().optional(),
   customer_shipping: s_shipping.nullable().optional(),
   customer_tax_exempt: z
     .enum(["exempt", "none", "reverse"])
@@ -10977,12 +11042,12 @@ export const s_invoice: z.ZodType<t_invoice> = z.object({
     .nullable()
     .optional(),
   default_payment_method: z
-    .union([z.string(), z.lazy(() => s_payment_method)])
+    .union([z.string().max(5000), z.lazy(() => s_payment_method)])
     .nullable()
     .optional(),
   default_source: z
     .union([
-      z.string(),
+      z.string().max(5000),
       z.lazy(() => s_bank_account),
       z.lazy(() => s_card),
       s_source,
@@ -10990,11 +11055,11 @@ export const s_invoice: z.ZodType<t_invoice> = z.object({
     .nullable()
     .optional(),
   default_tax_rates: z.array(s_tax_rate),
-  description: z.string().nullable().optional(),
+  description: z.string().max(5000).nullable().optional(),
   discount: z.lazy(() => s_discount.nullable().optional()),
   discounts: z.array(
     z.union([
-      z.string(),
+      z.string().max(5000),
       z.lazy(() => s_discount),
       z.lazy(() => s_deleted_discount),
     ]),
@@ -11002,38 +11067,38 @@ export const s_invoice: z.ZodType<t_invoice> = z.object({
   due_date: z.coerce.number().nullable().optional(),
   effective_at: z.coerce.number().nullable().optional(),
   ending_balance: z.coerce.number().nullable().optional(),
-  footer: z.string().nullable().optional(),
+  footer: z.string().max(5000).nullable().optional(),
   from_invoice: z.lazy(() =>
     s_invoices_resource_from_invoice.nullable().optional(),
   ),
-  hosted_invoice_url: z.string().nullable().optional(),
-  id: z.string().optional(),
-  invoice_pdf: z.string().nullable().optional(),
+  hosted_invoice_url: z.string().max(5000).nullable().optional(),
+  id: z.string().max(5000).optional(),
+  invoice_pdf: z.string().max(5000).nullable().optional(),
   issuer: z.lazy(() => s_connect_account_reference),
   last_finalization_error: z.lazy(() => s_api_errors.nullable().optional()),
   latest_revision: z
-    .union([z.string(), z.lazy(() => s_invoice)])
+    .union([z.string().max(5000), z.lazy(() => s_invoice)])
     .nullable()
     .optional(),
   lines: z.object({
     data: z.array(z.lazy(() => s_line_item)),
     has_more: z.coerce.boolean(),
     object: z.enum(["list"]),
-    url: z.string(),
+    url: z.string().max(5000),
   }),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()).nullable().optional(),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
   next_payment_attempt: z.coerce.number().nullable().optional(),
-  number: z.string().nullable().optional(),
+  number: z.string().max(5000).nullable().optional(),
   object: z.enum(["invoice"]),
   on_behalf_of: z
-    .union([z.string(), z.lazy(() => s_account)])
+    .union([z.string().max(5000), z.lazy(() => s_account)])
     .nullable()
     .optional(),
   paid: z.coerce.boolean(),
   paid_out_of_band: z.coerce.boolean(),
   payment_intent: z
-    .union([z.string(), z.lazy(() => s_payment_intent)])
+    .union([z.string().max(5000), z.lazy(() => s_payment_intent)])
     .nullable()
     .optional(),
   payment_settings: s_invoices_payment_settings,
@@ -11042,22 +11107,22 @@ export const s_invoice: z.ZodType<t_invoice> = z.object({
   post_payment_credit_notes_amount: z.coerce.number(),
   pre_payment_credit_notes_amount: z.coerce.number(),
   quote: z
-    .union([z.string(), z.lazy(() => s_quote)])
+    .union([z.string().max(5000), z.lazy(() => s_quote)])
     .nullable()
     .optional(),
-  receipt_number: z.string().nullable().optional(),
+  receipt_number: z.string().max(5000).nullable().optional(),
   rendering: s_invoices_resource_invoice_rendering.nullable().optional(),
   shipping_cost: s_invoices_resource_shipping_cost.nullable().optional(),
   shipping_details: s_shipping.nullable().optional(),
   starting_balance: z.coerce.number(),
-  statement_descriptor: z.string().nullable().optional(),
+  statement_descriptor: z.string().max(5000).nullable().optional(),
   status: z
     .enum(["draft", "open", "paid", "uncollectible", "void"])
     .nullable()
     .optional(),
   status_transitions: s_invoices_resource_status_transitions,
   subscription: z
-    .union([z.string(), z.lazy(() => s_subscription)])
+    .union([z.string().max(5000), z.lazy(() => s_subscription)])
     .nullable()
     .optional(),
   subscription_details: s_subscription_details_data.nullable().optional(),
@@ -11066,7 +11131,7 @@ export const s_invoice: z.ZodType<t_invoice> = z.object({
   subtotal_excluding_tax: z.coerce.number().nullable().optional(),
   tax: z.coerce.number().nullable().optional(),
   test_clock: z
-    .union([z.string(), s_test_helpers_test_clock])
+    .union([z.string().max(5000), s_test_helpers_test_clock])
     .nullable()
     .optional(),
   threshold_reason: s_invoice_threshold_reason.optional(),
@@ -11085,18 +11150,20 @@ export const s_line_item: z.ZodType<t_line_item> = z.object({
   amount: z.coerce.number(),
   amount_excluding_tax: z.coerce.number().nullable().optional(),
   currency: z.string(),
-  description: z.string().nullable().optional(),
+  description: z.string().max(5000).nullable().optional(),
   discount_amounts: z
     .array(z.lazy(() => s_discounts_resource_discount_amount))
     .nullable()
     .optional(),
   discountable: z.coerce.boolean(),
-  discounts: z.array(z.union([z.string(), z.lazy(() => s_discount)])),
-  id: z.string(),
-  invoice: z.string().nullable().optional(),
-  invoice_item: z.union([z.string(), z.lazy(() => s_invoiceitem)]).optional(),
+  discounts: z.array(z.union([z.string().max(5000), z.lazy(() => s_discount)])),
+  id: z.string().max(5000),
+  invoice: z.string().max(5000).nullable().optional(),
+  invoice_item: z
+    .union([z.string().max(5000), z.lazy(() => s_invoiceitem)])
+    .optional(),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()),
+  metadata: z.record(z.string().max(500)),
   object: z.enum(["line_item"]),
   period: s_invoice_line_item_period,
   price: z.lazy(() => s_price.nullable().optional()),
@@ -11106,11 +11173,11 @@ export const s_line_item: z.ZodType<t_line_item> = z.object({
     .optional(),
   quantity: z.coerce.number().nullable().optional(),
   subscription: z
-    .union([z.string(), z.lazy(() => s_subscription)])
+    .union([z.string().max(5000), z.lazy(() => s_subscription)])
     .nullable()
     .optional(),
   subscription_item: z
-    .union([z.string(), z.lazy(() => s_subscription_item)])
+    .union([z.string().max(5000), z.lazy(() => s_subscription_item)])
     .optional(),
   tax_amounts: z.array(s_invoice_tax_amount).optional(),
   tax_rates: z.array(s_tax_rate).optional(),
@@ -11135,17 +11202,17 @@ export const s_issuing_authorization: z.ZodType<t_issuing_authorization> =
     balance_transactions: z.array(z.lazy(() => s_balance_transaction)),
     card: z.lazy(() => s_issuing_card),
     cardholder: z
-      .union([z.string(), z.lazy(() => s_issuing_cardholder)])
+      .union([z.string().max(5000), z.lazy(() => s_issuing_cardholder)])
       .nullable()
       .optional(),
     created: z.coerce.number(),
     currency: z.string(),
-    id: z.string(),
+    id: z.string().max(5000),
     livemode: z.coerce.boolean(),
     merchant_amount: z.coerce.number(),
     merchant_currency: z.string(),
     merchant_data: s_issuing_authorization_merchant_data,
-    metadata: z.record(z.string()),
+    metadata: z.record(z.string().max(500)),
     network_data: s_issuing_authorization_network_data.nullable().optional(),
     object: z.enum(["issuing.authorization"]),
     pending_request: s_issuing_authorization_pending_request
@@ -11154,29 +11221,29 @@ export const s_issuing_authorization: z.ZodType<t_issuing_authorization> =
     request_history: z.array(s_issuing_authorization_request),
     status: z.enum(["closed", "pending", "reversed"]),
     token: z
-      .union([z.string(), z.lazy(() => s_issuing_token)])
+      .union([z.string().max(5000), z.lazy(() => s_issuing_token)])
       .nullable()
       .optional(),
     transactions: z.array(z.lazy(() => s_issuing_transaction)),
     treasury: s_issuing_authorization_treasury.nullable().optional(),
     verification_data: s_issuing_authorization_verification_data,
-    wallet: z.string().nullable().optional(),
+    wallet: z.string().max(5000).nullable().optional(),
   })
 
 export const s_issuing_cardholder: z.ZodType<t_issuing_cardholder> = z.object({
   billing: s_issuing_cardholder_address,
   company: s_issuing_cardholder_company.nullable().optional(),
   created: z.coerce.number(),
-  email: z.string().nullable().optional(),
-  id: z.string(),
+  email: z.string().max(5000).nullable().optional(),
+  id: z.string().max(5000),
   individual: z.lazy(() =>
     s_issuing_cardholder_individual.nullable().optional(),
   ),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()),
-  name: z.string(),
+  metadata: z.record(z.string().max(500)),
+  name: z.string().max(5000),
   object: z.enum(["issuing.cardholder"]),
-  phone_number: z.string().nullable().optional(),
+  phone_number: z.string().max(5000).nullable().optional(),
   preferred_locales: z
     .array(z.enum(["de", "en", "es", "fr", "it"]))
     .nullable()
@@ -11190,7 +11257,7 @@ export const s_issuing_cardholder: z.ZodType<t_issuing_cardholder> = z.object({
 })
 
 export const s_issuing_card: z.ZodType<t_issuing_card> = z.object({
-  brand: z.string(),
+  brand: z.string().max(5000),
   cancellation_reason: z
     .enum(["design_rejected", "lost", "stolen"])
     .nullable()
@@ -11198,26 +11265,29 @@ export const s_issuing_card: z.ZodType<t_issuing_card> = z.object({
   cardholder: z.lazy(() => s_issuing_cardholder),
   created: z.coerce.number(),
   currency: z.string(),
-  cvc: z.string().optional(),
+  cvc: z.string().max(5000).optional(),
   exp_month: z.coerce.number(),
   exp_year: z.coerce.number(),
-  financial_account: z.string().nullable().optional(),
-  id: z.string(),
-  last4: z.string(),
+  financial_account: z.string().max(5000).nullable().optional(),
+  id: z.string().max(5000),
+  last4: z.string().max(5000),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()),
-  number: z.string().optional(),
+  metadata: z.record(z.string().max(500)),
+  number: z.string().max(5000).optional(),
   object: z.enum(["issuing.card"]),
   personalization_design: z
-    .union([z.string(), z.lazy(() => s_issuing_personalization_design)])
+    .union([
+      z.string().max(5000),
+      z.lazy(() => s_issuing_personalization_design),
+    ])
     .nullable()
     .optional(),
   replaced_by: z
-    .union([z.string(), z.lazy(() => s_issuing_card)])
+    .union([z.string().max(5000), z.lazy(() => s_issuing_card)])
     .nullable()
     .optional(),
   replacement_for: z
-    .union([z.string(), z.lazy(() => s_issuing_card)])
+    .union([z.string().max(5000), z.lazy(() => s_issuing_card)])
     .nullable()
     .optional(),
   replacement_reason: z
@@ -11240,43 +11310,46 @@ export const s_issuing_dispute: z.ZodType<t_issuing_dispute> = z.object({
   created: z.coerce.number(),
   currency: z.string(),
   evidence: z.lazy(() => s_issuing_dispute_evidence),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()),
+  metadata: z.record(z.string().max(500)),
   object: z.enum(["issuing.dispute"]),
   status: z.enum(["expired", "lost", "submitted", "unsubmitted", "won"]),
-  transaction: z.union([z.string(), z.lazy(() => s_issuing_transaction)]),
+  transaction: z.union([
+    z.string().max(5000),
+    z.lazy(() => s_issuing_transaction),
+  ]),
   treasury: s_issuing_dispute_treasury.nullable().optional(),
 })
 
 export const s_issuing_personalization_design: z.ZodType<t_issuing_personalization_design> =
   z.object({
     card_logo: z
-      .union([z.string(), z.lazy(() => s_file)])
+      .union([z.string().max(5000), z.lazy(() => s_file)])
       .nullable()
       .optional(),
     carrier_text: s_issuing_personalization_design_carrier_text
       .nullable()
       .optional(),
     created: z.coerce.number(),
-    id: z.string(),
+    id: z.string().max(5000),
     livemode: z.coerce.boolean(),
-    lookup_key: z.string().nullable().optional(),
-    metadata: z.record(z.string()),
-    name: z.string().nullable().optional(),
+    lookup_key: z.string().max(5000).nullable().optional(),
+    metadata: z.record(z.string().max(500)),
+    name: z.string().max(5000).nullable().optional(),
     object: z.enum(["issuing.personalization_design"]),
-    physical_bundle: z.union([z.string(), s_issuing_physical_bundle]),
+    physical_bundle: z.union([z.string().max(5000), s_issuing_physical_bundle]),
     preferences: s_issuing_personalization_design_preferences,
     rejection_reasons: s_issuing_personalization_design_rejection_reasons,
     status: z.enum(["active", "inactive", "rejected", "review"]),
   })
 
 export const s_issuing_token: z.ZodType<t_issuing_token> = z.object({
-  card: z.union([z.string(), z.lazy(() => s_issuing_card)]),
+  card: z.union([z.string().max(5000), z.lazy(() => s_issuing_card)]),
   created: z.coerce.number(),
-  device_fingerprint: z.string().nullable().optional(),
-  id: z.string(),
-  last4: z.string().optional(),
+  device_fingerprint: z.string().max(5000).nullable().optional(),
+  id: z.string().max(5000),
+  last4: z.string().max(5000).optional(),
   livemode: z.coerce.boolean(),
   network: z.enum(["mastercard", "visa"]),
   network_data: s_issuing_network_token_network_data.optional(),
@@ -11293,37 +11366,37 @@ export const s_issuing_transaction: z.ZodType<t_issuing_transaction> = z.object(
     amount: z.coerce.number(),
     amount_details: s_issuing_transaction_amount_details.nullable().optional(),
     authorization: z
-      .union([z.string(), z.lazy(() => s_issuing_authorization)])
+      .union([z.string().max(5000), z.lazy(() => s_issuing_authorization)])
       .nullable()
       .optional(),
     balance_transaction: z
-      .union([z.string(), z.lazy(() => s_balance_transaction)])
+      .union([z.string().max(5000), z.lazy(() => s_balance_transaction)])
       .nullable()
       .optional(),
-    card: z.union([z.string(), z.lazy(() => s_issuing_card)]),
+    card: z.union([z.string().max(5000), z.lazy(() => s_issuing_card)]),
     cardholder: z
-      .union([z.string(), z.lazy(() => s_issuing_cardholder)])
+      .union([z.string().max(5000), z.lazy(() => s_issuing_cardholder)])
       .nullable()
       .optional(),
     created: z.coerce.number(),
     currency: z.string(),
     dispute: z
-      .union([z.string(), z.lazy(() => s_issuing_dispute)])
+      .union([z.string().max(5000), z.lazy(() => s_issuing_dispute)])
       .nullable()
       .optional(),
-    id: z.string(),
+    id: z.string().max(5000),
     livemode: z.coerce.boolean(),
     merchant_amount: z.coerce.number(),
     merchant_currency: z.string(),
     merchant_data: s_issuing_authorization_merchant_data,
-    metadata: z.record(z.string()),
+    metadata: z.record(z.string().max(500)),
     network_data: s_issuing_transaction_network_data.nullable().optional(),
     object: z.enum(["issuing.transaction"]),
     purchase_details: s_issuing_transaction_purchase_details
       .nullable()
       .optional(),
     token: z
-      .union([z.string(), z.lazy(() => s_issuing_token)])
+      .union([z.string().max(5000), z.lazy(() => s_issuing_token)])
       .nullable()
       .optional(),
     treasury: s_issuing_transaction_treasury.nullable().optional(),
@@ -11337,12 +11410,15 @@ export const s_issuing_transaction: z.ZodType<t_issuing_transaction> = z.object(
 
 export const s_mandate: z.ZodType<t_mandate> = z.object({
   customer_acceptance: s_customer_acceptance,
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   multi_use: s_mandate_multi_use.optional(),
   object: z.enum(["mandate"]),
-  on_behalf_of: z.string().optional(),
-  payment_method: z.union([z.string(), z.lazy(() => s_payment_method)]),
+  on_behalf_of: z.string().max(5000).optional(),
+  payment_method: z.union([
+    z.string().max(5000),
+    z.lazy(() => s_payment_method),
+  ]),
   payment_method_details: s_mandate_payment_method_details,
   single_use: s_mandate_single_use.optional(),
   status: z.enum(["active", "inactive", "pending"]),
@@ -11354,7 +11430,10 @@ export const s_payment_intent: z.ZodType<t_payment_intent> = z.object({
   amount_capturable: z.coerce.number().optional(),
   amount_details: s_payment_flows_amount_details.optional(),
   amount_received: z.coerce.number().optional(),
-  application: z.union([z.string(), s_application]).nullable().optional(),
+  application: z
+    .union([z.string().max(5000), s_application])
+    .nullable()
+    .optional(),
   application_fee_amount: z.coerce.number().nullable().optional(),
   automatic_payment_methods:
     s_payment_flows_automatic_payment_methods_payment_intent
@@ -11374,35 +11453,35 @@ export const s_payment_intent: z.ZodType<t_payment_intent> = z.object({
     .nullable()
     .optional(),
   capture_method: z.enum(["automatic", "automatic_async", "manual"]),
-  client_secret: z.string().nullable().optional(),
+  client_secret: z.string().max(5000).nullable().optional(),
   confirmation_method: z.enum(["automatic", "manual"]),
   created: z.coerce.number(),
   currency: z.string(),
   customer: z
-    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .union([z.string().max(5000), z.lazy(() => s_customer), s_deleted_customer])
     .nullable()
     .optional(),
-  description: z.string().nullable().optional(),
-  id: z.string(),
+  description: z.string().max(5000).nullable().optional(),
+  id: z.string().max(5000),
   invoice: z
-    .union([z.string(), z.lazy(() => s_invoice)])
+    .union([z.string().max(5000), z.lazy(() => s_invoice)])
     .nullable()
     .optional(),
   last_payment_error: z.lazy(() => s_api_errors.nullable().optional()),
   latest_charge: z
-    .union([z.string(), z.lazy(() => s_charge)])
+    .union([z.string().max(5000), z.lazy(() => s_charge)])
     .nullable()
     .optional(),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()).optional(),
+  metadata: z.record(z.string().max(500)).optional(),
   next_action: s_payment_intent_next_action.nullable().optional(),
   object: z.enum(["payment_intent"]),
   on_behalf_of: z
-    .union([z.string(), z.lazy(() => s_account)])
+    .union([z.string().max(5000), z.lazy(() => s_account)])
     .nullable()
     .optional(),
   payment_method: z
-    .union([z.string(), z.lazy(() => s_payment_method)])
+    .union([z.string().max(5000), z.lazy(() => s_payment_method)])
     .nullable()
     .optional(),
   payment_method_configuration_details:
@@ -11412,11 +11491,11 @@ export const s_payment_intent: z.ZodType<t_payment_intent> = z.object({
   payment_method_options: s_payment_intent_payment_method_options
     .nullable()
     .optional(),
-  payment_method_types: z.array(z.string()),
+  payment_method_types: z.array(z.string().max(5000)),
   processing: s_payment_intent_processing.nullable().optional(),
-  receipt_email: z.string().nullable().optional(),
+  receipt_email: z.string().max(5000).nullable().optional(),
   review: z
-    .union([z.string(), z.lazy(() => s_review)])
+    .union([z.string().max(5000), z.lazy(() => s_review)])
     .nullable()
     .optional(),
   setup_future_usage: z
@@ -11424,8 +11503,8 @@ export const s_payment_intent: z.ZodType<t_payment_intent> = z.object({
     .nullable()
     .optional(),
   shipping: s_shipping.nullable().optional(),
-  statement_descriptor: z.string().nullable().optional(),
-  statement_descriptor_suffix: z.string().nullable().optional(),
+  statement_descriptor: z.string().max(5000).nullable().optional(),
+  statement_descriptor_suffix: z.string().max(5000).nullable().optional(),
   status: z.enum([
     "canceled",
     "processing",
@@ -11436,7 +11515,7 @@ export const s_payment_intent: z.ZodType<t_payment_intent> = z.object({
     "succeeded",
   ]),
   transfer_data: z.lazy(() => s_transfer_data.nullable().optional()),
-  transfer_group: z.string().nullable().optional(),
+  transfer_group: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_link: z.ZodType<t_payment_link> = z.object({
@@ -11444,7 +11523,7 @@ export const s_payment_link: z.ZodType<t_payment_link> = z.object({
   after_completion: s_payment_links_resource_after_completion,
   allow_promotion_codes: z.coerce.boolean(),
   application: z
-    .union([z.string(), s_application, s_deleted_application])
+    .union([z.string().max(5000), s_application, s_deleted_application])
     .nullable()
     .optional(),
   application_fee_amount: z.coerce.number().nullable().optional(),
@@ -11458,8 +11537,8 @@ export const s_payment_link: z.ZodType<t_payment_link> = z.object({
   custom_fields: z.array(s_payment_links_resource_custom_fields),
   custom_text: s_payment_links_resource_custom_text,
   customer_creation: z.enum(["always", "if_required"]),
-  id: z.string(),
-  inactive_message: z.string().nullable().optional(),
+  id: z.string().max(5000),
+  inactive_message: z.string().max(5000).nullable().optional(),
   invoice_creation: z.lazy(() =>
     s_payment_links_resource_invoice_creation.nullable().optional(),
   ),
@@ -11468,14 +11547,14 @@ export const s_payment_link: z.ZodType<t_payment_link> = z.object({
       data: z.array(z.lazy(() => s_item)),
       has_more: z.coerce.boolean(),
       object: z.enum(["list"]),
-      url: z.string(),
+      url: z.string().max(5000),
     })
     .optional(),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()),
+  metadata: z.record(z.string().max(500)),
   object: z.enum(["payment_link"]),
   on_behalf_of: z
-    .union([z.string(), z.lazy(() => s_account)])
+    .union([z.string().max(5000), z.lazy(() => s_account)])
     .nullable()
     .optional(),
   payment_intent_data: s_payment_links_resource_payment_intent_data
@@ -11531,7 +11610,7 @@ export const s_payment_link: z.ZodType<t_payment_link> = z.object({
   transfer_data: z.lazy(() =>
     s_payment_links_resource_transfer_data.nullable().optional(),
   ),
-  url: z.string(),
+  url: z.string().max(5000),
 })
 
 export const s_payout: z.ZodType<t_payout> = z.object({
@@ -11539,15 +11618,15 @@ export const s_payout: z.ZodType<t_payout> = z.object({
   arrival_date: z.coerce.number(),
   automatic: z.coerce.boolean(),
   balance_transaction: z
-    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .union([z.string().max(5000), z.lazy(() => s_balance_transaction)])
     .nullable()
     .optional(),
   created: z.coerce.number(),
   currency: z.string(),
-  description: z.string().nullable().optional(),
+  description: z.string().max(5000).nullable().optional(),
   destination: z
     .union([
-      z.string(),
+      z.string().max(5000),
       z.lazy(() => s_bank_account),
       z.lazy(() => s_card),
       s_deleted_bank_account,
@@ -11556,28 +11635,28 @@ export const s_payout: z.ZodType<t_payout> = z.object({
     .nullable()
     .optional(),
   failure_balance_transaction: z
-    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .union([z.string().max(5000), z.lazy(() => s_balance_transaction)])
     .nullable()
     .optional(),
-  failure_code: z.string().nullable().optional(),
-  failure_message: z.string().nullable().optional(),
-  id: z.string(),
+  failure_code: z.string().max(5000).nullable().optional(),
+  failure_message: z.string().max(5000).nullable().optional(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()).nullable().optional(),
-  method: z.string(),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
+  method: z.string().max(5000),
   object: z.enum(["payout"]),
   original_payout: z
-    .union([z.string(), z.lazy(() => s_payout)])
+    .union([z.string().max(5000), z.lazy(() => s_payout)])
     .nullable()
     .optional(),
   reconciliation_status: z.enum(["completed", "in_progress", "not_applicable"]),
   reversed_by: z
-    .union([z.string(), z.lazy(() => s_payout)])
+    .union([z.string().max(5000), z.lazy(() => s_payout)])
     .nullable()
     .optional(),
-  source_type: z.string(),
-  statement_descriptor: z.string().nullable().optional(),
-  status: z.string(),
+  source_type: z.string().max(5000),
+  statement_descriptor: z.string().max(5000).nullable().optional(),
+  status: z.string().max(5000),
   type: z.enum(["bank_account", "card"]),
 })
 
@@ -11592,16 +11671,16 @@ export const s_plan: z.ZodType<t_plan> = z.object({
   billing_scheme: z.enum(["per_unit", "tiered"]),
   created: z.coerce.number(),
   currency: z.string(),
-  id: z.string(),
+  id: z.string().max(5000),
   interval: z.enum(["day", "month", "week", "year"]),
   interval_count: z.coerce.number(),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()).nullable().optional(),
-  meter: z.string().nullable().optional(),
-  nickname: z.string().nullable().optional(),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
+  meter: z.string().max(5000).nullable().optional(),
+  nickname: z.string().max(5000).nullable().optional(),
   object: z.enum(["plan"]),
   product: z
-    .union([z.string(), z.lazy(() => s_product), s_deleted_product])
+    .union([z.string().max(5000), z.lazy(() => s_product), s_deleted_product])
     .nullable()
     .optional(),
   tiers: z.array(s_plan_tier).optional(),
@@ -11618,13 +11697,17 @@ export const s_price: z.ZodType<t_price> = z.object({
   currency: z.string(),
   currency_options: z.record(s_currency_option).optional(),
   custom_unit_amount: s_custom_unit_amount.nullable().optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
-  lookup_key: z.string().nullable().optional(),
-  metadata: z.record(z.string()),
-  nickname: z.string().nullable().optional(),
+  lookup_key: z.string().max(5000).nullable().optional(),
+  metadata: z.record(z.string().max(500)),
+  nickname: z.string().max(5000).nullable().optional(),
   object: z.enum(["price"]),
-  product: z.union([z.string(), z.lazy(() => s_product), s_deleted_product]),
+  product: z.union([
+    z.string().max(5000),
+    z.lazy(() => s_product),
+    s_deleted_product,
+  ]),
   recurring: s_recurring.nullable().optional(),
   tax_behavior: z
     .enum(["exclusive", "inclusive", "unspecified"])
@@ -11642,40 +11725,43 @@ export const s_product: z.ZodType<t_product> = z.object({
   active: z.coerce.boolean(),
   created: z.coerce.number(),
   default_price: z
-    .union([z.string(), z.lazy(() => s_price)])
+    .union([z.string().max(5000), z.lazy(() => s_price)])
     .nullable()
     .optional(),
-  description: z.string().nullable().optional(),
+  description: z.string().max(5000).nullable().optional(),
   features: z.array(s_product_marketing_feature),
-  id: z.string(),
-  images: z.array(z.string()),
+  id: z.string().max(5000),
+  images: z.array(z.string().max(5000)),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()),
-  name: z.string(),
+  metadata: z.record(z.string().max(500)),
+  name: z.string().max(5000),
   object: z.enum(["product"]),
   package_dimensions: s_package_dimensions.nullable().optional(),
   shippable: z.coerce.boolean().nullable().optional(),
-  statement_descriptor: z.string().nullable().optional(),
-  tax_code: z.union([z.string(), s_tax_code]).nullable().optional(),
-  unit_label: z.string().nullable().optional(),
+  statement_descriptor: z.string().max(5000).nullable().optional(),
+  tax_code: z
+    .union([z.string().max(5000), s_tax_code])
+    .nullable()
+    .optional(),
+  unit_label: z.string().max(5000).nullable().optional(),
   updated: z.coerce.number(),
-  url: z.string().nullable().optional(),
+  url: z.string().max(2048).nullable().optional(),
 })
 
 export const s_promotion_code: z.ZodType<t_promotion_code> = z.object({
   active: z.coerce.boolean(),
-  code: z.string(),
+  code: z.string().max(5000),
   coupon: s_coupon,
   created: z.coerce.number(),
   customer: z
-    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .union([z.string().max(5000), z.lazy(() => s_customer), s_deleted_customer])
     .nullable()
     .optional(),
   expires_at: z.coerce.number().nullable().optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   max_redemptions: z.coerce.number().nullable().optional(),
-  metadata: z.record(z.string()).nullable().optional(),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
   object: z.enum(["promotion_code"]),
   restrictions: s_promotion_codes_resource_restrictions,
   times_redeemed: z.coerce.number(),
@@ -11685,7 +11771,7 @@ export const s_quote: z.ZodType<t_quote> = z.object({
   amount_subtotal: z.coerce.number(),
   amount_total: z.coerce.number(),
   application: z
-    .union([z.string(), s_application, s_deleted_application])
+    .union([z.string().max(5000), s_application, s_deleted_application])
     .nullable()
     .optional(),
   application_fee_amount: z.coerce.number().nullable().optional(),
@@ -11694,21 +11780,23 @@ export const s_quote: z.ZodType<t_quote> = z.object({
   collection_method: z.enum(["charge_automatically", "send_invoice"]),
   computed: z.lazy(() => s_quotes_resource_computed),
   created: z.coerce.number(),
-  currency: z.string().nullable().optional(),
+  currency: z.string().max(5000).nullable().optional(),
   customer: z
-    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .union([z.string().max(5000), z.lazy(() => s_customer), s_deleted_customer])
     .nullable()
     .optional(),
-  default_tax_rates: z.array(z.union([z.string(), s_tax_rate])).optional(),
-  description: z.string().nullable().optional(),
-  discounts: z.array(z.union([z.string(), z.lazy(() => s_discount)])),
+  default_tax_rates: z
+    .array(z.union([z.string().max(5000), s_tax_rate]))
+    .optional(),
+  description: z.string().max(5000).nullable().optional(),
+  discounts: z.array(z.union([z.string().max(5000), z.lazy(() => s_discount)])),
   expires_at: z.coerce.number(),
-  footer: z.string().nullable().optional(),
+  footer: z.string().max(5000).nullable().optional(),
   from_quote: z.lazy(() => s_quotes_resource_from_quote.nullable().optional()),
-  header: z.string().nullable().optional(),
-  id: z.string(),
+  header: z.string().max(5000).nullable().optional(),
+  id: z.string().max(5000),
   invoice: z
-    .union([z.string(), z.lazy(() => s_invoice), s_deleted_invoice])
+    .union([z.string().max(5000), z.lazy(() => s_invoice), s_deleted_invoice])
     .nullable()
     .optional(),
   invoice_settings: z.lazy(() => s_invoice_setting_quote_setting),
@@ -11717,30 +11805,30 @@ export const s_quote: z.ZodType<t_quote> = z.object({
       data: z.array(z.lazy(() => s_item)),
       has_more: z.coerce.boolean(),
       object: z.enum(["list"]),
-      url: z.string(),
+      url: z.string().max(5000),
     })
     .optional(),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()),
-  number: z.string().nullable().optional(),
+  metadata: z.record(z.string().max(500)),
+  number: z.string().max(5000).nullable().optional(),
   object: z.enum(["quote"]),
   on_behalf_of: z
-    .union([z.string(), z.lazy(() => s_account)])
+    .union([z.string().max(5000), z.lazy(() => s_account)])
     .nullable()
     .optional(),
   status: z.enum(["accepted", "canceled", "draft", "open"]),
   status_transitions: s_quotes_resource_status_transitions,
   subscription: z
-    .union([z.string(), z.lazy(() => s_subscription)])
+    .union([z.string().max(5000), z.lazy(() => s_subscription)])
     .nullable()
     .optional(),
   subscription_data: s_quotes_resource_subscription_data_subscription_data,
   subscription_schedule: z
-    .union([z.string(), z.lazy(() => s_subscription_schedule)])
+    .union([z.string().max(5000), z.lazy(() => s_subscription_schedule)])
     .nullable()
     .optional(),
   test_clock: z
-    .union([z.string(), s_test_helpers_test_clock])
+    .union([z.string().max(5000), s_test_helpers_test_clock])
     .nullable()
     .optional(),
   total_details: z.lazy(() => s_quotes_resource_total_details),
@@ -11752,35 +11840,35 @@ export const s_quote: z.ZodType<t_quote> = z.object({
 export const s_radar_early_fraud_warning: z.ZodType<t_radar_early_fraud_warning> =
   z.object({
     actionable: z.coerce.boolean(),
-    charge: z.union([z.string(), z.lazy(() => s_charge)]),
+    charge: z.union([z.string().max(5000), z.lazy(() => s_charge)]),
     created: z.coerce.number(),
-    fraud_type: z.string(),
-    id: z.string(),
+    fraud_type: z.string().max(5000),
+    id: z.string().max(5000),
     livemode: z.coerce.boolean(),
     object: z.enum(["radar.early_fraud_warning"]),
     payment_intent: z
-      .union([z.string(), z.lazy(() => s_payment_intent)])
+      .union([z.string().max(5000), z.lazy(() => s_payment_intent)])
       .optional(),
   })
 
 export const s_reporting_report_run: z.ZodType<t_reporting_report_run> =
   z.object({
     created: z.coerce.number(),
-    error: z.string().nullable().optional(),
-    id: z.string(),
+    error: z.string().max(5000).nullable().optional(),
+    id: z.string().max(5000),
     livemode: z.coerce.boolean(),
     object: z.enum(["reporting.report_run"]),
     parameters: s_financial_reporting_finance_report_run_run_parameters,
-    report_type: z.string(),
+    report_type: z.string().max(5000),
     result: z.lazy(() => s_file.nullable().optional()),
-    status: z.string(),
+    status: z.string().max(5000),
     succeeded_at: z.coerce.number().nullable().optional(),
   })
 
 export const s_review: z.ZodType<t_review> = z.object({
-  billing_zip: z.string().nullable().optional(),
+  billing_zip: z.string().max(5000).nullable().optional(),
   charge: z
-    .union([z.string(), z.lazy(() => s_charge)])
+    .union([z.string().max(5000), z.lazy(() => s_charge)])
     .nullable()
     .optional(),
   closed_reason: z
@@ -11788,49 +11876,58 @@ export const s_review: z.ZodType<t_review> = z.object({
     .nullable()
     .optional(),
   created: z.coerce.number(),
-  id: z.string(),
-  ip_address: z.string().nullable().optional(),
+  id: z.string().max(5000),
+  ip_address: z.string().max(5000).nullable().optional(),
   ip_address_location: s_radar_review_resource_location.nullable().optional(),
   livemode: z.coerce.boolean(),
   object: z.enum(["review"]),
   open: z.coerce.boolean(),
   opened_reason: z.enum(["manual", "rule"]),
   payment_intent: z
-    .union([z.string(), z.lazy(() => s_payment_intent)])
+    .union([z.string().max(5000), z.lazy(() => s_payment_intent)])
     .optional(),
-  reason: z.string(),
+  reason: z.string().max(5000),
   session: s_radar_review_resource_session.nullable().optional(),
 })
 
 export const s_setup_attempt: z.ZodType<t_setup_attempt> = z.object({
-  application: z.union([z.string(), s_application]).nullable().optional(),
+  application: z
+    .union([z.string().max(5000), s_application])
+    .nullable()
+    .optional(),
   attach_to_self: z.coerce.boolean().optional(),
   created: z.coerce.number(),
   customer: z
-    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .union([z.string().max(5000), z.lazy(() => s_customer), s_deleted_customer])
     .nullable()
     .optional(),
   flow_directions: z
     .array(z.enum(["inbound", "outbound"]))
     .nullable()
     .optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   object: z.enum(["setup_attempt"]),
   on_behalf_of: z
-    .union([z.string(), z.lazy(() => s_account)])
+    .union([z.string().max(5000), z.lazy(() => s_account)])
     .nullable()
     .optional(),
-  payment_method: z.union([z.string(), z.lazy(() => s_payment_method)]),
+  payment_method: z.union([
+    z.string().max(5000),
+    z.lazy(() => s_payment_method),
+  ]),
   payment_method_details: z.lazy(() => s_setup_attempt_payment_method_details),
   setup_error: z.lazy(() => s_api_errors.nullable().optional()),
-  setup_intent: z.union([z.string(), z.lazy(() => s_setup_intent)]),
-  status: z.string(),
-  usage: z.string(),
+  setup_intent: z.union([z.string().max(5000), z.lazy(() => s_setup_intent)]),
+  status: z.string().max(5000),
+  usage: z.string().max(5000),
 })
 
 export const s_setup_intent: z.ZodType<t_setup_intent> = z.object({
-  application: z.union([z.string(), s_application]).nullable().optional(),
+  application: z
+    .union([z.string().max(5000), s_application])
+    .nullable()
+    .optional(),
   attach_to_self: z.coerce.boolean().optional(),
   automatic_payment_methods:
     s_payment_flows_automatic_payment_methods_setup_intent
@@ -11840,37 +11937,37 @@ export const s_setup_intent: z.ZodType<t_setup_intent> = z.object({
     .enum(["abandoned", "duplicate", "requested_by_customer"])
     .nullable()
     .optional(),
-  client_secret: z.string().nullable().optional(),
+  client_secret: z.string().max(5000).nullable().optional(),
   created: z.coerce.number(),
   customer: z
-    .union([z.string(), z.lazy(() => s_customer), s_deleted_customer])
+    .union([z.string().max(5000), z.lazy(() => s_customer), s_deleted_customer])
     .nullable()
     .optional(),
-  description: z.string().nullable().optional(),
+  description: z.string().max(5000).nullable().optional(),
   flow_directions: z
     .array(z.enum(["inbound", "outbound"]))
     .nullable()
     .optional(),
-  id: z.string(),
+  id: z.string().max(5000),
   last_setup_error: z.lazy(() => s_api_errors.nullable().optional()),
   latest_attempt: z
-    .union([z.string(), z.lazy(() => s_setup_attempt)])
+    .union([z.string().max(5000), z.lazy(() => s_setup_attempt)])
     .nullable()
     .optional(),
   livemode: z.coerce.boolean(),
   mandate: z
-    .union([z.string(), z.lazy(() => s_mandate)])
+    .union([z.string().max(5000), z.lazy(() => s_mandate)])
     .nullable()
     .optional(),
-  metadata: z.record(z.string()).nullable().optional(),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
   next_action: s_setup_intent_next_action.nullable().optional(),
   object: z.enum(["setup_intent"]),
   on_behalf_of: z
-    .union([z.string(), z.lazy(() => s_account)])
+    .union([z.string().max(5000), z.lazy(() => s_account)])
     .nullable()
     .optional(),
   payment_method: z
-    .union([z.string(), z.lazy(() => s_payment_method)])
+    .union([z.string().max(5000), z.lazy(() => s_payment_method)])
     .nullable()
     .optional(),
   payment_method_configuration_details:
@@ -11880,9 +11977,9 @@ export const s_setup_intent: z.ZodType<t_setup_intent> = z.object({
   payment_method_options: s_setup_intent_payment_method_options
     .nullable()
     .optional(),
-  payment_method_types: z.array(z.string()),
+  payment_method_types: z.array(z.string().max(5000)),
   single_use_mandate: z
-    .union([z.string(), z.lazy(() => s_mandate)])
+    .union([z.string().max(5000), z.lazy(() => s_mandate)])
     .nullable()
     .optional(),
   status: z.enum([
@@ -11893,7 +11990,7 @@ export const s_setup_intent: z.ZodType<t_setup_intent> = z.object({
     "requires_payment_method",
     "succeeded",
   ]),
-  usage: z.string(),
+  usage: z.string().max(5000),
 })
 
 export const s_scheduled_query_run: z.ZodType<t_scheduled_query_run> = z.object(
@@ -11902,13 +11999,13 @@ export const s_scheduled_query_run: z.ZodType<t_scheduled_query_run> = z.object(
     data_load_time: z.coerce.number(),
     error: s_sigma_scheduled_query_run_error.optional(),
     file: z.lazy(() => s_file.nullable().optional()),
-    id: z.string(),
+    id: z.string().max(5000),
     livemode: z.coerce.boolean(),
     object: z.enum(["scheduled_query_run"]),
     result_available_until: z.coerce.number(),
-    sql: z.string(),
-    status: z.string(),
-    title: z.string(),
+    sql: z.string().max(100000),
+    status: z.string().max(5000),
+    title: z.string().max(5000),
   },
 )
 
@@ -11917,20 +12014,20 @@ export const s_subscription_item: z.ZodType<t_subscription_item> = z.object({
     .nullable()
     .optional(),
   created: z.coerce.number(),
-  discounts: z.array(z.union([z.string(), z.lazy(() => s_discount)])),
-  id: z.string(),
-  metadata: z.record(z.string()),
+  discounts: z.array(z.union([z.string().max(5000), z.lazy(() => s_discount)])),
+  id: z.string().max(5000),
+  metadata: z.record(z.string().max(500)),
   object: z.enum(["subscription_item"]),
   price: z.lazy(() => s_price),
   quantity: z.coerce.number().optional(),
-  subscription: z.string(),
+  subscription: z.string().max(5000),
   tax_rates: z.array(s_tax_rate).nullable().optional(),
 })
 
 export const s_subscription_schedule: z.ZodType<t_subscription_schedule> =
   z.object({
     application: z
-      .union([z.string(), s_application, s_deleted_application])
+      .union([z.string().max(5000), s_application, s_deleted_application])
       .nullable()
       .optional(),
     canceled_at: z.coerce.number().nullable().optional(),
@@ -11938,7 +12035,7 @@ export const s_subscription_schedule: z.ZodType<t_subscription_schedule> =
     created: z.coerce.number(),
     current_phase: s_subscription_schedule_current_phase.nullable().optional(),
     customer: z.union([
-      z.string(),
+      z.string().max(5000),
       z.lazy(() => s_customer),
       s_deleted_customer,
     ]),
@@ -11946,13 +12043,13 @@ export const s_subscription_schedule: z.ZodType<t_subscription_schedule> =
       () => s_subscription_schedules_resource_default_settings,
     ),
     end_behavior: z.enum(["cancel", "none", "release", "renew"]),
-    id: z.string(),
+    id: z.string().max(5000),
     livemode: z.coerce.boolean(),
-    metadata: z.record(z.string()).nullable().optional(),
+    metadata: z.record(z.string().max(500)).nullable().optional(),
     object: z.enum(["subscription_schedule"]),
     phases: z.array(z.lazy(() => s_subscription_schedule_phase_configuration)),
     released_at: z.coerce.number().nullable().optional(),
-    released_subscription: z.string().nullable().optional(),
+    released_subscription: z.string().max(5000).nullable().optional(),
     status: z.enum([
       "active",
       "canceled",
@@ -11961,11 +12058,11 @@ export const s_subscription_schedule: z.ZodType<t_subscription_schedule> =
       "released",
     ]),
     subscription: z
-      .union([z.string(), z.lazy(() => s_subscription)])
+      .union([z.string().max(5000), z.lazy(() => s_subscription)])
       .nullable()
       .optional(),
     test_clock: z
-      .union([z.string(), s_test_helpers_test_clock])
+      .union([z.string().max(5000), s_test_helpers_test_clock])
       .nullable()
       .optional(),
   })
@@ -11975,10 +12072,10 @@ export const s_terminal_configuration: z.ZodType<t_terminal_configuration> =
     bbpos_wisepos_e: z.lazy(() =>
       s_terminal_configuration_configuration_resource_device_type_specific_config.optional(),
     ),
-    id: z.string(),
+    id: z.string().max(5000),
     is_account_default: z.coerce.boolean().nullable().optional(),
     livemode: z.coerce.boolean(),
-    name: z.string().nullable().optional(),
+    name: z.string().max(5000).nullable().optional(),
     object: z.enum(["terminal.configuration"]),
     offline:
       s_terminal_configuration_configuration_resource_offline_config.optional(),
@@ -11992,7 +12089,7 @@ export const s_terminal_reader: z.ZodType<t_terminal_reader> = z.object({
   action: z.lazy(() =>
     s_terminal_reader_reader_resource_reader_action.nullable().optional(),
   ),
-  device_sw_version: z.string().nullable().optional(),
+  device_sw_version: z.string().max(5000).nullable().optional(),
   device_type: z.enum([
     "bbpos_chipper2x",
     "bbpos_wisepad3",
@@ -12002,14 +12099,17 @@ export const s_terminal_reader: z.ZodType<t_terminal_reader> = z.object({
     "stripe_m2",
     "verifone_P400",
   ]),
-  id: z.string(),
-  ip_address: z.string().nullable().optional(),
-  label: z.string(),
+  id: z.string().max(5000),
+  ip_address: z.string().max(5000).nullable().optional(),
+  label: z.string().max(5000),
   livemode: z.coerce.boolean(),
-  location: z.union([z.string(), s_terminal_location]).nullable().optional(),
-  metadata: z.record(z.string()),
+  location: z
+    .union([z.string().max(5000), s_terminal_location])
+    .nullable()
+    .optional(),
+  metadata: z.record(z.string().max(500)),
   object: z.enum(["terminal.reader"]),
-  serial_number: z.string(),
+  serial_number: z.string().max(5000),
   status: z.enum(["offline", "online"]).nullable().optional(),
 })
 
@@ -12019,29 +12119,29 @@ export const s_treasury_inbound_transfer: z.ZodType<t_treasury_inbound_transfer>
     cancelable: z.coerce.boolean(),
     created: z.coerce.number(),
     currency: z.string(),
-    description: z.string().nullable().optional(),
+    description: z.string().max(5000).nullable().optional(),
     failure_details: s_treasury_inbound_transfers_resource_failure_details
       .nullable()
       .optional(),
-    financial_account: z.string(),
-    hosted_regulatory_receipt_url: z.string().nullable().optional(),
-    id: z.string(),
+    financial_account: z.string().max(5000),
+    hosted_regulatory_receipt_url: z.string().max(5000).nullable().optional(),
+    id: z.string().max(5000),
     linked_flows:
       s_treasury_inbound_transfers_resource_inbound_transfer_resource_linked_flows,
     livemode: z.coerce.boolean(),
-    metadata: z.record(z.string()),
+    metadata: z.record(z.string().max(500)),
     object: z.enum(["treasury.inbound_transfer"]),
-    origin_payment_method: z.string(),
+    origin_payment_method: z.string().max(5000),
     origin_payment_method_details: z.lazy(() =>
       s_inbound_transfers.nullable().optional(),
     ),
     returned: z.coerce.boolean().nullable().optional(),
-    statement_descriptor: z.string(),
+    statement_descriptor: z.string().max(5000),
     status: z.enum(["canceled", "failed", "processing", "succeeded"]),
     status_transitions:
       s_treasury_inbound_transfers_resource_inbound_transfer_resource_status_transitions,
     transaction: z
-      .union([z.string(), z.lazy(() => s_treasury_transaction)])
+      .union([z.string().max(5000), z.lazy(() => s_treasury_transaction)])
       .nullable()
       .optional(),
   })
@@ -12052,9 +12152,9 @@ export const s_treasury_outbound_payment: z.ZodType<t_treasury_outbound_payment>
     cancelable: z.coerce.boolean(),
     created: z.coerce.number(),
     currency: z.string(),
-    customer: z.string().nullable().optional(),
-    description: z.string().nullable().optional(),
-    destination_payment_method: z.string().nullable().optional(),
+    customer: z.string().max(5000).nullable().optional(),
+    description: z.string().max(5000).nullable().optional(),
+    destination_payment_method: z.string().max(5000).nullable().optional(),
     destination_payment_method_details: z.lazy(() =>
       s_outbound_payments_payment_method_details.nullable().optional(),
     ),
@@ -12063,22 +12163,25 @@ export const s_treasury_outbound_payment: z.ZodType<t_treasury_outbound_payment>
         .nullable()
         .optional(),
     expected_arrival_date: z.coerce.number(),
-    financial_account: z.string(),
-    hosted_regulatory_receipt_url: z.string().nullable().optional(),
-    id: z.string(),
+    financial_account: z.string().max(5000),
+    hosted_regulatory_receipt_url: z.string().max(5000).nullable().optional(),
+    id: z.string().max(5000),
     livemode: z.coerce.boolean(),
-    metadata: z.record(z.string()),
+    metadata: z.record(z.string().max(500)),
     object: z.enum(["treasury.outbound_payment"]),
     returned_details: z.lazy(() =>
       s_treasury_outbound_payments_resource_returned_status
         .nullable()
         .optional(),
     ),
-    statement_descriptor: z.string(),
+    statement_descriptor: z.string().max(5000),
     status: z.enum(["canceled", "failed", "posted", "processing", "returned"]),
     status_transitions:
       s_treasury_outbound_payments_resource_outbound_payment_resource_status_transitions,
-    transaction: z.union([z.string(), z.lazy(() => s_treasury_transaction)]),
+    transaction: z.union([
+      z.string().max(5000),
+      z.lazy(() => s_treasury_transaction),
+    ]),
   })
 
 export const s_treasury_outbound_transfer: z.ZodType<t_treasury_outbound_transfer> =
@@ -12087,28 +12190,31 @@ export const s_treasury_outbound_transfer: z.ZodType<t_treasury_outbound_transfe
     cancelable: z.coerce.boolean(),
     created: z.coerce.number(),
     currency: z.string(),
-    description: z.string().nullable().optional(),
-    destination_payment_method: z.string().nullable().optional(),
+    description: z.string().max(5000).nullable().optional(),
+    destination_payment_method: z.string().max(5000).nullable().optional(),
     destination_payment_method_details: z.lazy(
       () => s_outbound_transfers_payment_method_details,
     ),
     expected_arrival_date: z.coerce.number(),
-    financial_account: z.string(),
-    hosted_regulatory_receipt_url: z.string().nullable().optional(),
-    id: z.string(),
+    financial_account: z.string().max(5000),
+    hosted_regulatory_receipt_url: z.string().max(5000).nullable().optional(),
+    id: z.string().max(5000),
     livemode: z.coerce.boolean(),
-    metadata: z.record(z.string()),
+    metadata: z.record(z.string().max(500)),
     object: z.enum(["treasury.outbound_transfer"]),
     returned_details: z.lazy(() =>
       s_treasury_outbound_transfers_resource_returned_details
         .nullable()
         .optional(),
     ),
-    statement_descriptor: z.string(),
+    statement_descriptor: z.string().max(5000),
     status: z.enum(["canceled", "failed", "posted", "processing", "returned"]),
     status_transitions:
       s_treasury_outbound_transfers_resource_status_transitions,
-    transaction: z.union([z.string(), z.lazy(() => s_treasury_transaction)]),
+    transaction: z.union([
+      z.string().max(5000),
+      z.lazy(() => s_treasury_transaction),
+    ]),
   })
 
 export const s_treasury_received_credit: z.ZodType<t_treasury_received_credit> =
@@ -12116,14 +12222,14 @@ export const s_treasury_received_credit: z.ZodType<t_treasury_received_credit> =
     amount: z.coerce.number(),
     created: z.coerce.number(),
     currency: z.string(),
-    description: z.string(),
+    description: z.string().max(5000),
     failure_code: z
       .enum(["account_closed", "account_frozen", "other"])
       .nullable()
       .optional(),
-    financial_account: z.string().nullable().optional(),
-    hosted_regulatory_receipt_url: z.string().nullable().optional(),
-    id: z.string(),
+    financial_account: z.string().max(5000).nullable().optional(),
+    hosted_regulatory_receipt_url: z.string().max(5000).nullable().optional(),
+    id: z.string().max(5000),
     initiating_payment_method_details:
       s_treasury_shared_resource_initiating_payment_method_details_initiating_payment_method_details,
     linked_flows: z.lazy(
@@ -12137,7 +12243,7 @@ export const s_treasury_received_credit: z.ZodType<t_treasury_received_credit> =
       .optional(),
     status: z.enum(["failed", "succeeded"]),
     transaction: z
-      .union([z.string(), z.lazy(() => s_treasury_transaction)])
+      .union([z.string().max(5000), z.lazy(() => s_treasury_transaction)])
       .nullable()
       .optional(),
   })
@@ -12147,14 +12253,14 @@ export const s_treasury_received_debit: z.ZodType<t_treasury_received_debit> =
     amount: z.coerce.number(),
     created: z.coerce.number(),
     currency: z.string(),
-    description: z.string(),
+    description: z.string().max(5000),
     failure_code: z
       .enum(["account_closed", "account_frozen", "insufficient_funds", "other"])
       .nullable()
       .optional(),
-    financial_account: z.string().nullable().optional(),
-    hosted_regulatory_receipt_url: z.string().nullable().optional(),
-    id: z.string(),
+    financial_account: z.string().max(5000).nullable().optional(),
+    hosted_regulatory_receipt_url: z.string().max(5000).nullable().optional(),
+    id: z.string().max(5000),
     initiating_payment_method_details:
       s_treasury_shared_resource_initiating_payment_method_details_initiating_payment_method_details.optional(),
     linked_flows: s_treasury_received_debits_resource_linked_flows,
@@ -12166,7 +12272,7 @@ export const s_treasury_received_debit: z.ZodType<t_treasury_received_debit> =
       .optional(),
     status: z.enum(["failed", "succeeded"]),
     transaction: z
-      .union([z.string(), z.lazy(() => s_treasury_transaction)])
+      .union([z.string().max(5000), z.lazy(() => s_treasury_transaction)])
       .nullable()
       .optional(),
   })
@@ -12174,91 +12280,93 @@ export const s_treasury_received_debit: z.ZodType<t_treasury_received_debit> =
 export const s_token: z.ZodType<t_token> = z.object({
   bank_account: z.lazy(() => s_bank_account.optional()),
   card: z.lazy(() => s_card.optional()),
-  client_ip: z.string().nullable().optional(),
+  client_ip: z.string().max(5000).nullable().optional(),
   created: z.coerce.number(),
-  id: z.string(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
   object: z.enum(["token"]),
-  type: z.string(),
+  type: z.string().max(5000),
   used: z.coerce.boolean(),
 })
 
 export const s_topup: z.ZodType<t_topup> = z.object({
   amount: z.coerce.number(),
   balance_transaction: z
-    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .union([z.string().max(5000), z.lazy(() => s_balance_transaction)])
     .nullable()
     .optional(),
   created: z.coerce.number(),
-  currency: z.string(),
-  description: z.string().nullable().optional(),
+  currency: z.string().max(5000),
+  description: z.string().max(5000).nullable().optional(),
   expected_availability_date: z.coerce.number().nullable().optional(),
-  failure_code: z.string().nullable().optional(),
-  failure_message: z.string().nullable().optional(),
-  id: z.string(),
+  failure_code: z.string().max(5000).nullable().optional(),
+  failure_message: z.string().max(5000).nullable().optional(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()),
+  metadata: z.record(z.string().max(500)),
   object: z.enum(["topup"]),
   source: s_source.nullable().optional(),
-  statement_descriptor: z.string().nullable().optional(),
+  statement_descriptor: z.string().max(5000).nullable().optional(),
   status: z.enum(["canceled", "failed", "pending", "reversed", "succeeded"]),
-  transfer_group: z.string().nullable().optional(),
+  transfer_group: z.string().max(5000).nullable().optional(),
 })
 
 export const s_transfer: z.ZodType<t_transfer> = z.object({
   amount: z.coerce.number(),
   amount_reversed: z.coerce.number(),
   balance_transaction: z
-    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .union([z.string().max(5000), z.lazy(() => s_balance_transaction)])
     .nullable()
     .optional(),
   created: z.coerce.number(),
   currency: z.string(),
-  description: z.string().nullable().optional(),
+  description: z.string().max(5000).nullable().optional(),
   destination: z
-    .union([z.string(), z.lazy(() => s_account)])
+    .union([z.string().max(5000), z.lazy(() => s_account)])
     .nullable()
     .optional(),
-  destination_payment: z.union([z.string(), z.lazy(() => s_charge)]).optional(),
-  id: z.string(),
+  destination_payment: z
+    .union([z.string().max(5000), z.lazy(() => s_charge)])
+    .optional(),
+  id: z.string().max(5000),
   livemode: z.coerce.boolean(),
-  metadata: z.record(z.string()),
+  metadata: z.record(z.string().max(500)),
   object: z.enum(["transfer"]),
   reversals: z.object({
     data: z.array(z.lazy(() => s_transfer_reversal)),
     has_more: z.coerce.boolean(),
     object: z.enum(["list"]),
-    url: z.string(),
+    url: z.string().max(5000),
   }),
   reversed: z.coerce.boolean(),
   source_transaction: z
-    .union([z.string(), z.lazy(() => s_charge)])
+    .union([z.string().max(5000), z.lazy(() => s_charge)])
     .nullable()
     .optional(),
-  source_type: z.string().optional(),
-  transfer_group: z.string().nullable().optional(),
+  source_type: z.string().max(5000).optional(),
+  transfer_group: z.string().max(5000).nullable().optional(),
 })
 
 export const s_transfer_reversal: z.ZodType<t_transfer_reversal> = z.object({
   amount: z.coerce.number(),
   balance_transaction: z
-    .union([z.string(), z.lazy(() => s_balance_transaction)])
+    .union([z.string().max(5000), z.lazy(() => s_balance_transaction)])
     .nullable()
     .optional(),
   created: z.coerce.number(),
   currency: z.string(),
   destination_payment_refund: z
-    .union([z.string(), z.lazy(() => s_refund)])
+    .union([z.string().max(5000), z.lazy(() => s_refund)])
     .nullable()
     .optional(),
-  id: z.string(),
-  metadata: z.record(z.string()).nullable().optional(),
+  id: z.string().max(5000),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
   object: z.enum(["transfer_reversal"]),
   source_refund: z
-    .union([z.string(), z.lazy(() => s_refund)])
+    .union([z.string().max(5000), z.lazy(() => s_refund)])
     .nullable()
     .optional(),
-  transfer: z.union([z.string(), z.lazy(() => s_transfer)]),
+  transfer: z.union([z.string().max(5000), z.lazy(() => s_transfer)]),
 })
 
 export const s_treasury_credit_reversal: z.ZodType<t_treasury_credit_reversal> =
@@ -12266,18 +12374,18 @@ export const s_treasury_credit_reversal: z.ZodType<t_treasury_credit_reversal> =
     amount: z.coerce.number(),
     created: z.coerce.number(),
     currency: z.string(),
-    financial_account: z.string(),
-    hosted_regulatory_receipt_url: z.string().nullable().optional(),
-    id: z.string(),
+    financial_account: z.string().max(5000),
+    hosted_regulatory_receipt_url: z.string().max(5000).nullable().optional(),
+    id: z.string().max(5000),
     livemode: z.coerce.boolean(),
-    metadata: z.record(z.string()),
+    metadata: z.record(z.string().max(500)),
     network: z.enum(["ach", "stripe"]),
     object: z.enum(["treasury.credit_reversal"]),
-    received_credit: z.string(),
+    received_credit: z.string().max(5000),
     status: z.enum(["canceled", "posted", "processing"]),
     status_transitions: s_treasury_received_credits_resource_status_transitions,
     transaction: z
-      .union([z.string(), z.lazy(() => s_treasury_transaction)])
+      .union([z.string().max(5000), z.lazy(() => s_treasury_transaction)])
       .nullable()
       .optional(),
   })
@@ -12287,22 +12395,22 @@ export const s_treasury_debit_reversal: z.ZodType<t_treasury_debit_reversal> =
     amount: z.coerce.number(),
     created: z.coerce.number(),
     currency: z.string(),
-    financial_account: z.string().nullable().optional(),
-    hosted_regulatory_receipt_url: z.string().nullable().optional(),
-    id: z.string(),
+    financial_account: z.string().max(5000).nullable().optional(),
+    hosted_regulatory_receipt_url: z.string().max(5000).nullable().optional(),
+    id: z.string().max(5000),
     linked_flows:
       s_treasury_received_debits_resource_debit_reversal_linked_flows
         .nullable()
         .optional(),
     livemode: z.coerce.boolean(),
-    metadata: z.record(z.string()),
+    metadata: z.record(z.string().max(500)),
     network: z.enum(["ach", "card"]),
     object: z.enum(["treasury.debit_reversal"]),
-    received_debit: z.string(),
+    received_debit: z.string().max(5000),
     status: z.enum(["failed", "processing", "succeeded"]),
     status_transitions: s_treasury_received_debits_resource_status_transitions,
     transaction: z
-      .union([z.string(), z.lazy(() => s_treasury_transaction)])
+      .union([z.string().max(5000), z.lazy(() => s_treasury_transaction)])
       .nullable()
       .optional(),
   })
@@ -12313,8 +12421,8 @@ export const s_treasury_transaction_entry: z.ZodType<t_treasury_transaction_entr
     created: z.coerce.number(),
     currency: z.string(),
     effective_at: z.coerce.number(),
-    financial_account: z.string(),
-    flow: z.string().nullable().optional(),
+    financial_account: z.string().max(5000),
+    flow: z.string().max(5000).nullable().optional(),
     flow_details: z.lazy(() =>
       s_treasury_transactions_resource_flow_details.nullable().optional(),
     ),
@@ -12329,10 +12437,13 @@ export const s_treasury_transaction_entry: z.ZodType<t_treasury_transaction_entr
       "received_credit",
       "received_debit",
     ]),
-    id: z.string(),
+    id: z.string().max(5000),
     livemode: z.coerce.boolean(),
     object: z.enum(["treasury.transaction_entry"]),
-    transaction: z.union([z.string(), z.lazy(() => s_treasury_transaction)]),
+    transaction: z.union([
+      z.string().max(5000),
+      z.lazy(() => s_treasury_transaction),
+    ]),
     type: z.enum([
       "credit_reversal",
       "credit_reversal_posting",
@@ -12363,18 +12474,21 @@ export const s_treasury_transaction: z.ZodType<t_treasury_transaction> =
     balance_impact: s_treasury_transactions_resource_balance_impact,
     created: z.coerce.number(),
     currency: z.string(),
-    description: z.string(),
+    description: z.string().max(5000),
     entries: z
       .object({
         data: z.array(z.lazy(() => s_treasury_transaction_entry)),
         has_more: z.coerce.boolean(),
         object: z.enum(["list"]),
-        url: z.string(),
+        url: z
+          .string()
+          .max(5000)
+          .regex(new RegExp("^/v1/treasury/transaction_entries")),
       })
       .nullable()
       .optional(),
-    financial_account: z.string(),
-    flow: z.string().nullable().optional(),
+    financial_account: z.string().max(5000),
+    flow: z.string().max(5000).nullable().optional(),
     flow_details: z.lazy(() =>
       s_treasury_transactions_resource_flow_details.nullable().optional(),
     ),
@@ -12389,7 +12503,7 @@ export const s_treasury_transaction: z.ZodType<t_treasury_transaction> =
       "received_credit",
       "received_debit",
     ]),
-    id: z.string(),
+    id: z.string().max(5000),
     livemode: z.coerce.boolean(),
     object: z.enum(["treasury.transaction"]),
     status: z.enum(["open", "posted", "void"]),
@@ -12404,14 +12518,14 @@ export const s_legal_entity_company: z.ZodType<t_legal_entity_company> =
     address_kanji: s_legal_entity_japan_address.nullable().optional(),
     directors_provided: z.coerce.boolean().optional(),
     executives_provided: z.coerce.boolean().optional(),
-    export_license_id: z.string().optional(),
-    export_purpose_code: z.string().optional(),
-    name: z.string().nullable().optional(),
-    name_kana: z.string().nullable().optional(),
-    name_kanji: z.string().nullable().optional(),
+    export_license_id: z.string().max(5000).optional(),
+    export_purpose_code: z.string().max(5000).optional(),
+    name: z.string().max(5000).nullable().optional(),
+    name_kana: z.string().max(5000).nullable().optional(),
+    name_kanji: z.string().max(5000).nullable().optional(),
     owners_provided: z.coerce.boolean().optional(),
     ownership_declaration: s_legal_entity_ubo_declaration.nullable().optional(),
-    phone: z.string().nullable().optional(),
+    phone: z.string().max(5000).nullable().optional(),
     structure: z
       .enum([
         "free_zone_establishment",
@@ -12440,7 +12554,7 @@ export const s_legal_entity_company: z.ZodType<t_legal_entity_company> =
       ])
       .optional(),
     tax_id_provided: z.coerce.boolean().optional(),
-    tax_id_registrar: z.string().optional(),
+    tax_id_registrar: z.string().max(5000).optional(),
     vat_id_provided: z.coerce.boolean().optional(),
     verification: z.lazy(() =>
       s_legal_entity_company_verification.nullable().optional(),
@@ -12461,16 +12575,16 @@ export const s_account_settings: z.ZodType<t_account_settings> = z.object({
 })
 
 export const s_api_errors: z.ZodType<t_api_errors> = z.object({
-  charge: z.string().optional(),
-  code: z.string().optional(),
-  decline_code: z.string().optional(),
-  doc_url: z.string().optional(),
-  message: z.string().optional(),
-  param: z.string().optional(),
+  charge: z.string().max(5000).optional(),
+  code: z.string().max(5000).optional(),
+  decline_code: z.string().max(5000).optional(),
+  doc_url: z.string().max(5000).optional(),
+  message: z.string().max(40000).optional(),
+  param: z.string().max(5000).optional(),
   payment_intent: z.lazy(() => s_payment_intent.optional()),
   payment_method: z.lazy(() => s_payment_method.optional()),
-  payment_method_type: z.string().optional(),
-  request_log_url: z.string().optional(),
+  payment_method_type: z.string().max(5000).optional(),
+  request_log_url: z.string().max(5000).optional(),
   setup_intent: z.lazy(() => s_setup_intent.optional()),
   source: z
     .union([z.lazy(() => s_bank_account), z.lazy(() => s_card), s_source])
@@ -12488,20 +12602,20 @@ export const s_legal_entity_person_verification: z.ZodType<t_legal_entity_person
     additional_document: z.lazy(() =>
       s_legal_entity_person_verification_document.nullable().optional(),
     ),
-    details: z.string().nullable().optional(),
-    details_code: z.string().nullable().optional(),
+    details: z.string().max(5000).nullable().optional(),
+    details_code: z.string().max(5000).nullable().optional(),
     document: z.lazy(() =>
       s_legal_entity_person_verification_document.optional(),
     ),
-    status: z.string(),
+    status: z.string().max(5000),
   })
 
 export const s_connect_collection_transfer: z.ZodType<t_connect_collection_transfer> =
   z.object({
     amount: z.coerce.number(),
     currency: z.string(),
-    destination: z.union([z.string(), z.lazy(() => s_account)]),
-    id: z.string(),
+    destination: z.union([z.string().max(5000), z.lazy(() => s_account)]),
+    id: z.string().max(5000),
     livemode: z.coerce.boolean(),
     object: z.enum(["connect_collection_transfer"]),
   })
@@ -12546,7 +12660,7 @@ export const s_payment_method_details: z.ZodType<t_payment_method_details> =
     sofort: z.lazy(() => s_payment_method_details_sofort.optional()),
     stripe_account: s_payment_method_details_stripe_account.optional(),
     swish: s_payment_method_details_swish.optional(),
-    type: z.string(),
+    type: z.string().max(5000),
     us_bank_account: z.lazy(() =>
       s_payment_method_details_us_bank_account.optional(),
     ),
@@ -12558,64 +12672,64 @@ export const s_payment_method_details: z.ZodType<t_payment_method_details> =
 export const s_charge_transfer_data: z.ZodType<t_charge_transfer_data> =
   z.object({
     amount: z.coerce.number().nullable().optional(),
-    destination: z.union([z.string(), z.lazy(() => s_account)]),
+    destination: z.union([z.string().max(5000), z.lazy(() => s_account)]),
   })
 
 export const s_dispute_evidence: z.ZodType<t_dispute_evidence> = z.object({
-  access_activity_log: z.string().nullable().optional(),
-  billing_address: z.string().nullable().optional(),
+  access_activity_log: z.string().max(150000).nullable().optional(),
+  billing_address: z.string().max(5000).nullable().optional(),
   cancellation_policy: z
-    .union([z.string(), z.lazy(() => s_file)])
+    .union([z.string().max(5000), z.lazy(() => s_file)])
     .nullable()
     .optional(),
-  cancellation_policy_disclosure: z.string().nullable().optional(),
-  cancellation_rebuttal: z.string().nullable().optional(),
+  cancellation_policy_disclosure: z.string().max(150000).nullable().optional(),
+  cancellation_rebuttal: z.string().max(150000).nullable().optional(),
   customer_communication: z
-    .union([z.string(), z.lazy(() => s_file)])
+    .union([z.string().max(5000), z.lazy(() => s_file)])
     .nullable()
     .optional(),
-  customer_email_address: z.string().nullable().optional(),
-  customer_name: z.string().nullable().optional(),
-  customer_purchase_ip: z.string().nullable().optional(),
+  customer_email_address: z.string().max(5000).nullable().optional(),
+  customer_name: z.string().max(5000).nullable().optional(),
+  customer_purchase_ip: z.string().max(5000).nullable().optional(),
   customer_signature: z
-    .union([z.string(), z.lazy(() => s_file)])
+    .union([z.string().max(5000), z.lazy(() => s_file)])
     .nullable()
     .optional(),
   duplicate_charge_documentation: z
-    .union([z.string(), z.lazy(() => s_file)])
+    .union([z.string().max(5000), z.lazy(() => s_file)])
     .nullable()
     .optional(),
-  duplicate_charge_explanation: z.string().nullable().optional(),
-  duplicate_charge_id: z.string().nullable().optional(),
-  product_description: z.string().nullable().optional(),
+  duplicate_charge_explanation: z.string().max(150000).nullable().optional(),
+  duplicate_charge_id: z.string().max(5000).nullable().optional(),
+  product_description: z.string().max(150000).nullable().optional(),
   receipt: z
-    .union([z.string(), z.lazy(() => s_file)])
+    .union([z.string().max(5000), z.lazy(() => s_file)])
     .nullable()
     .optional(),
   refund_policy: z
-    .union([z.string(), z.lazy(() => s_file)])
+    .union([z.string().max(5000), z.lazy(() => s_file)])
     .nullable()
     .optional(),
-  refund_policy_disclosure: z.string().nullable().optional(),
-  refund_refusal_explanation: z.string().nullable().optional(),
-  service_date: z.string().nullable().optional(),
+  refund_policy_disclosure: z.string().max(150000).nullable().optional(),
+  refund_refusal_explanation: z.string().max(150000).nullable().optional(),
+  service_date: z.string().max(5000).nullable().optional(),
   service_documentation: z
-    .union([z.string(), z.lazy(() => s_file)])
+    .union([z.string().max(5000), z.lazy(() => s_file)])
     .nullable()
     .optional(),
-  shipping_address: z.string().nullable().optional(),
-  shipping_carrier: z.string().nullable().optional(),
-  shipping_date: z.string().nullable().optional(),
+  shipping_address: z.string().max(5000).nullable().optional(),
+  shipping_carrier: z.string().max(5000).nullable().optional(),
+  shipping_date: z.string().max(5000).nullable().optional(),
   shipping_documentation: z
-    .union([z.string(), z.lazy(() => s_file)])
+    .union([z.string().max(5000), z.lazy(() => s_file)])
     .nullable()
     .optional(),
-  shipping_tracking_number: z.string().nullable().optional(),
+  shipping_tracking_number: z.string().max(5000).nullable().optional(),
   uncategorized_file: z
-    .union([z.string(), z.lazy(() => s_file)])
+    .union([z.string().max(5000), z.lazy(() => s_file)])
     .nullable()
     .optional(),
-  uncategorized_text: z.string().nullable().optional(),
+  uncategorized_text: z.string().max(150000).nullable().optional(),
 })
 
 export const s_payment_pages_checkout_session_automatic_tax: z.ZodType<t_payment_pages_checkout_session_automatic_tax> =
@@ -12732,7 +12846,7 @@ export const s_discounts_resource_discount_amount: z.ZodType<t_discounts_resourc
   z.object({
     amount: z.coerce.number(),
     discount: z.union([
-      z.string(),
+      z.string().max(5000),
       z.lazy(() => s_discount),
       z.lazy(() => s_deleted_discount),
     ]),
@@ -12745,10 +12859,10 @@ export const s_invoice_setting_customer_setting: z.ZodType<t_invoice_setting_cus
       .nullable()
       .optional(),
     default_payment_method: z
-      .union([z.string(), z.lazy(() => s_payment_method)])
+      .union([z.string().max(5000), z.lazy(() => s_payment_method)])
       .nullable()
       .optional(),
-    footer: z.string().nullable().optional(),
+    footer: z.string().max(5000).nullable().optional(),
     rendering_options: s_invoice_setting_rendering_options
       .nullable()
       .optional(),
@@ -12757,50 +12871,56 @@ export const s_invoice_setting_customer_setting: z.ZodType<t_invoice_setting_cus
 export const s_customer_balance_resource_cash_balance_transaction_resource_adjusted_for_overdraft: z.ZodType<t_customer_balance_resource_cash_balance_transaction_resource_adjusted_for_overdraft> =
   z.object({
     balance_transaction: z.union([
-      z.string(),
+      z.string().max(5000),
       z.lazy(() => s_balance_transaction),
     ]),
     linked_transaction: z.union([
-      z.string(),
+      z.string().max(5000),
       z.lazy(() => s_customer_cash_balance_transaction),
     ]),
   })
 
 export const s_customer_balance_resource_cash_balance_transaction_resource_applied_to_payment_transaction: z.ZodType<t_customer_balance_resource_cash_balance_transaction_resource_applied_to_payment_transaction> =
   z.object({
-    payment_intent: z.union([z.string(), z.lazy(() => s_payment_intent)]),
+    payment_intent: z.union([
+      z.string().max(5000),
+      z.lazy(() => s_payment_intent),
+    ]),
   })
 
 export const s_customer_balance_resource_cash_balance_transaction_resource_refunded_from_payment_transaction: z.ZodType<t_customer_balance_resource_cash_balance_transaction_resource_refunded_from_payment_transaction> =
-  z.object({ refund: z.union([z.string(), z.lazy(() => s_refund)]) })
+  z.object({ refund: z.union([z.string().max(5000), z.lazy(() => s_refund)]) })
 
 export const s_customer_balance_resource_cash_balance_transaction_resource_transferred_to_balance: z.ZodType<t_customer_balance_resource_cash_balance_transaction_resource_transferred_to_balance> =
   z.object({
     balance_transaction: z.union([
-      z.string(),
+      z.string().max(5000),
       z.lazy(() => s_balance_transaction),
     ]),
   })
 
 export const s_customer_balance_resource_cash_balance_transaction_resource_unapplied_from_payment_transaction: z.ZodType<t_customer_balance_resource_cash_balance_transaction_resource_unapplied_from_payment_transaction> =
   z.object({
-    payment_intent: z.union([z.string(), z.lazy(() => s_payment_intent)]),
+    payment_intent: z.union([
+      z.string().max(5000),
+      z.lazy(() => s_payment_intent),
+    ]),
   })
 
 export const s_payment_method_card: z.ZodType<t_payment_method_card> = z.object(
   {
-    brand: z.string(),
+    brand: z.string().max(5000),
     checks: s_payment_method_card_checks.nullable().optional(),
-    country: z.string().nullable().optional(),
-    display_brand: z.string().nullable().optional(),
+    country: z.string().max(5000).nullable().optional(),
+    display_brand: z.string().max(5000).nullable().optional(),
     exp_month: z.coerce.number(),
     exp_year: z.coerce.number(),
-    fingerprint: z.string().nullable().optional(),
-    funding: z.string(),
+    fingerprint: z.string().max(5000).nullable().optional(),
+    funding: z.string().max(5000),
     generated_from: z.lazy(() =>
       s_payment_method_card_generated_card.nullable().optional(),
     ),
-    last4: z.string(),
+    last4: z.string().max(5000),
     networks: s_networks.nullable().optional(),
     three_d_secure_usage: s_three_d_secure_usage.nullable().optional(),
     wallet: s_payment_method_card_wallet.nullable().optional(),
@@ -12809,14 +12929,14 @@ export const s_payment_method_card: z.ZodType<t_payment_method_card> = z.object(
 
 export const s_payment_method_sepa_debit: z.ZodType<t_payment_method_sepa_debit> =
   z.object({
-    bank_code: z.string().nullable().optional(),
-    branch_code: z.string().nullable().optional(),
-    country: z.string().nullable().optional(),
-    fingerprint: z.string().nullable().optional(),
+    bank_code: z.string().max(5000).nullable().optional(),
+    branch_code: z.string().max(5000).nullable().optional(),
+    country: z.string().max(5000).nullable().optional(),
+    fingerprint: z.string().max(5000).nullable().optional(),
     generated_from: z.lazy(() =>
       s_sepa_debit_generated_from.nullable().optional(),
     ),
-    last4: z.string().nullable().optional(),
+    last4: z.string().max(5000).nullable().optional(),
   })
 
 export const s_subscription_automatic_tax: z.ZodType<t_subscription_automatic_tax> =
@@ -12840,20 +12960,26 @@ export const s_subscriptions_resource_pending_update: z.ZodType<t_subscriptions_
 export const s_subscription_transfer_data: z.ZodType<t_subscription_transfer_data> =
   z.object({
     amount_percent: z.coerce.number().nullable().optional(),
-    destination: z.union([z.string(), z.lazy(() => s_account)]),
+    destination: z.union([z.string().max(5000), z.lazy(() => s_account)]),
   })
 
 export const s_tax_i_ds_owner: z.ZodType<t_tax_i_ds_owner> = z.object({
-  account: z.union([z.string(), z.lazy(() => s_account)]).optional(),
-  application: z.union([z.string(), s_application]).optional(),
-  customer: z.union([z.string(), z.lazy(() => s_customer)]).optional(),
+  account: z.union([z.string().max(5000), z.lazy(() => s_account)]).optional(),
+  application: z.union([z.string().max(5000), s_application]).optional(),
+  customer: z
+    .union([z.string().max(5000), z.lazy(() => s_customer)])
+    .optional(),
   type: z.enum(["account", "application", "customer", "self"]),
 })
 
 export const s_bank_connections_resource_accountholder: z.ZodType<t_bank_connections_resource_accountholder> =
   z.object({
-    account: z.union([z.string(), z.lazy(() => s_account)]).optional(),
-    customer: z.union([z.string(), z.lazy(() => s_customer)]).optional(),
+    account: z
+      .union([z.string().max(5000), z.lazy(() => s_account)])
+      .optional(),
+    customer: z
+      .union([z.string().max(5000), z.lazy(() => s_customer)])
+      .optional(),
     type: z.enum(["account", "customer"]),
   })
 
@@ -12868,28 +12994,30 @@ export const s_automatic_tax: z.ZodType<t_automatic_tax> = z.object({
 
 export const s_invoices_resource_from_invoice: z.ZodType<t_invoices_resource_from_invoice> =
   z.object({
-    action: z.string(),
-    invoice: z.union([z.string(), z.lazy(() => s_invoice)]),
+    action: z.string().max(5000),
+    invoice: z.union([z.string().max(5000), z.lazy(() => s_invoice)]),
   })
 
 export const s_connect_account_reference: z.ZodType<t_connect_account_reference> =
   z.object({
-    account: z.union([z.string(), z.lazy(() => s_account)]).optional(),
+    account: z
+      .union([z.string().max(5000), z.lazy(() => s_account)])
+      .optional(),
     type: z.enum(["account", "self"]),
   })
 
 export const s_invoice_transfer_data: z.ZodType<t_invoice_transfer_data> =
   z.object({
     amount: z.coerce.number().nullable().optional(),
-    destination: z.union([z.string(), z.lazy(() => s_account)]),
+    destination: z.union([z.string().max(5000), z.lazy(() => s_account)]),
   })
 
 export const s_issuing_cardholder_individual: z.ZodType<t_issuing_cardholder_individual> =
   z.object({
     card_issuing: s_issuing_cardholder_card_issuing.nullable().optional(),
     dob: s_issuing_cardholder_individual_dob.nullable().optional(),
-    first_name: z.string().nullable().optional(),
-    last_name: z.string().nullable().optional(),
+    first_name: z.string().max(5000).nullable().optional(),
+    last_name: z.string().max(5000).nullable().optional(),
     verification: z.lazy(() =>
       s_issuing_cardholder_verification.nullable().optional(),
     ),
@@ -12923,7 +13051,7 @@ export const s_issuing_dispute_evidence: z.ZodType<t_issuing_dispute_evidence> =
 
 export const s_transfer_data: z.ZodType<t_transfer_data> = z.object({
   amount: z.coerce.number().optional(),
-  destination: z.union([z.string(), z.lazy(() => s_account)]),
+  destination: z.union([z.string().max(5000), z.lazy(() => s_account)]),
 })
 
 export const s_payment_links_resource_automatic_tax: z.ZodType<t_payment_links_resource_automatic_tax> =
@@ -12942,11 +13070,11 @@ export const s_payment_links_resource_invoice_creation: z.ZodType<t_payment_link
 
 export const s_payment_links_resource_subscription_data: z.ZodType<t_payment_links_resource_subscription_data> =
   z.object({
-    description: z.string().nullable().optional(),
+    description: z.string().max(5000).nullable().optional(),
     invoice_settings: z.lazy(
       () => s_payment_links_resource_subscription_data_invoice_settings,
     ),
-    metadata: z.record(z.string()),
+    metadata: z.record(z.string().max(500)),
     trial_period_days: z.coerce.number().nullable().optional(),
     trial_settings: s_subscriptions_trials_resource_trial_settings
       .nullable()
@@ -12956,7 +13084,7 @@ export const s_payment_links_resource_subscription_data: z.ZodType<t_payment_lin
 export const s_payment_links_resource_transfer_data: z.ZodType<t_payment_links_resource_transfer_data> =
   z.object({
     amount: z.coerce.number().nullable().optional(),
-    destination: z.union([z.string(), z.lazy(() => s_account)]),
+    destination: z.union([z.string().max(5000), z.lazy(() => s_account)]),
   })
 
 export const s_quotes_resource_automatic_tax: z.ZodType<t_quotes_resource_automatic_tax> =
@@ -12978,7 +13106,7 @@ export const s_quotes_resource_computed: z.ZodType<t_quotes_resource_computed> =
 export const s_quotes_resource_from_quote: z.ZodType<t_quotes_resource_from_quote> =
   z.object({
     is_revision: z.coerce.boolean(),
-    quote: z.union([z.string(), z.lazy(() => s_quote)]),
+    quote: z.union([z.string().max(5000), z.lazy(() => s_quote)]),
   })
 
 export const s_invoice_setting_quote_setting: z.ZodType<t_invoice_setting_quote_setting> =
@@ -13001,7 +13129,7 @@ export const s_quotes_resource_transfer_data: z.ZodType<t_quotes_resource_transf
   z.object({
     amount: z.coerce.number().nullable().optional(),
     amount_percent: z.coerce.number().nullable().optional(),
-    destination: z.union([z.string(), z.lazy(() => s_account)]),
+    destination: z.union([z.string().max(5000), z.lazy(() => s_account)]),
   })
 
 export const s_setup_attempt_payment_method_details: z.ZodType<t_setup_attempt_payment_method_details> =
@@ -13029,7 +13157,7 @@ export const s_setup_attempt_payment_method_details: z.ZodType<t_setup_attempt_p
     sofort: z.lazy(() =>
       s_setup_attempt_payment_method_details_sofort.optional(),
     ),
-    type: z.string(),
+    type: z.string().max(5000),
     us_bank_account:
       s_setup_attempt_payment_method_details_us_bank_account.optional(),
   })
@@ -13047,15 +13175,15 @@ export const s_subscription_schedules_resource_default_settings: z.ZodType<t_sub
       .nullable()
       .optional(),
     default_payment_method: z
-      .union([z.string(), z.lazy(() => s_payment_method)])
+      .union([z.string().max(5000), z.lazy(() => s_payment_method)])
       .nullable()
       .optional(),
-    description: z.string().nullable().optional(),
+    description: z.string().max(5000).nullable().optional(),
     invoice_settings: z.lazy(
       () => s_invoice_setting_subscription_schedule_setting,
     ),
     on_behalf_of: z
-      .union([z.string(), z.lazy(() => s_account)])
+      .union([z.string().max(5000), z.lazy(() => s_account)])
       .nullable()
       .optional(),
     transfer_data: z.lazy(() =>
@@ -13080,16 +13208,16 @@ export const s_subscription_schedule_phase_configuration: z.ZodType<t_subscripti
       .nullable()
       .optional(),
     coupon: z
-      .union([z.string(), s_coupon, s_deleted_coupon])
+      .union([z.string().max(5000), s_coupon, s_deleted_coupon])
       .nullable()
       .optional(),
     currency: z.string(),
     default_payment_method: z
-      .union([z.string(), z.lazy(() => s_payment_method)])
+      .union([z.string().max(5000), z.lazy(() => s_payment_method)])
       .nullable()
       .optional(),
     default_tax_rates: z.array(s_tax_rate).nullable().optional(),
-    description: z.string().nullable().optional(),
+    description: z.string().max(5000).nullable().optional(),
     discounts: z.array(z.lazy(() => s_discounts_resource_stackable_discount)),
     end_date: z.coerce.number(),
     invoice_settings: z.lazy(() =>
@@ -13098,9 +13226,9 @@ export const s_subscription_schedule_phase_configuration: z.ZodType<t_subscripti
         .optional(),
     ),
     items: z.array(z.lazy(() => s_subscription_schedule_configuration_item)),
-    metadata: z.record(z.string()).nullable().optional(),
+    metadata: z.record(z.string().max(500)).nullable().optional(),
     on_behalf_of: z
-      .union([z.string(), z.lazy(() => s_account)])
+      .union([z.string().max(5000), z.lazy(() => s_account)])
       .nullable()
       .optional(),
     proration_behavior: z.enum(["always_invoice", "create_prorations", "none"]),
@@ -13113,13 +13241,15 @@ export const s_subscription_schedule_phase_configuration: z.ZodType<t_subscripti
 
 export const s_terminal_configuration_configuration_resource_device_type_specific_config: z.ZodType<t_terminal_configuration_configuration_resource_device_type_specific_config> =
   z.object({
-    splashscreen: z.union([z.string(), z.lazy(() => s_file)]).optional(),
+    splashscreen: z
+      .union([z.string().max(5000), z.lazy(() => s_file)])
+      .optional(),
   })
 
 export const s_terminal_reader_reader_resource_reader_action: z.ZodType<t_terminal_reader_reader_resource_reader_action> =
   z.object({
-    failure_code: z.string().nullable().optional(),
-    failure_message: z.string().nullable().optional(),
+    failure_code: z.string().max(5000).nullable().optional(),
+    failure_message: z.string().max(5000).nullable().optional(),
     process_payment_intent: z.lazy(() =>
       s_terminal_reader_reader_resource_process_payment_intent_action.optional(),
     ),
@@ -13173,7 +13303,10 @@ export const s_treasury_outbound_payments_resource_returned_status: z.ZodType<t_
       "no_account",
       "other",
     ]),
-    transaction: z.union([z.string(), z.lazy(() => s_treasury_transaction)]),
+    transaction: z.union([
+      z.string().max(5000),
+      z.lazy(() => s_treasury_transaction),
+    ]),
   })
 
 export const s_outbound_transfers_payment_method_details: z.ZodType<t_outbound_transfers_payment_method_details> =
@@ -13199,21 +13332,24 @@ export const s_treasury_outbound_transfers_resource_returned_details: z.ZodType<
       "no_account",
       "other",
     ]),
-    transaction: z.union([z.string(), z.lazy(() => s_treasury_transaction)]),
+    transaction: z.union([
+      z.string().max(5000),
+      z.lazy(() => s_treasury_transaction),
+    ]),
   })
 
 export const s_treasury_received_credits_resource_linked_flows: z.ZodType<t_treasury_received_credits_resource_linked_flows> =
   z.object({
-    credit_reversal: z.string().nullable().optional(),
-    issuing_authorization: z.string().nullable().optional(),
-    issuing_transaction: z.string().nullable().optional(),
-    source_flow: z.string().nullable().optional(),
+    credit_reversal: z.string().max(5000).nullable().optional(),
+    issuing_authorization: z.string().max(5000).nullable().optional(),
+    issuing_transaction: z.string().max(5000).nullable().optional(),
+    source_flow: z.string().max(5000).nullable().optional(),
     source_flow_details: z.lazy(() =>
       s_treasury_received_credits_resource_source_flows_details
         .nullable()
         .optional(),
     ),
-    source_flow_type: z.string().nullable().optional(),
+    source_flow_type: z.string().max(5000).nullable().optional(),
   })
 
 export const s_treasury_transactions_resource_flow_details: z.ZodType<t_treasury_transactions_resource_flow_details> =
@@ -13247,21 +13383,21 @@ export const s_legal_entity_company_verification: z.ZodType<t_legal_entity_compa
 export const s_account_branding_settings: z.ZodType<t_account_branding_settings> =
   z.object({
     icon: z
-      .union([z.string(), z.lazy(() => s_file)])
+      .union([z.string().max(5000), z.lazy(() => s_file)])
       .nullable()
       .optional(),
     logo: z
-      .union([z.string(), z.lazy(() => s_file)])
+      .union([z.string().max(5000), z.lazy(() => s_file)])
       .nullable()
       .optional(),
-    primary_color: z.string().nullable().optional(),
-    secondary_color: z.string().nullable().optional(),
+    primary_color: z.string().max(5000).nullable().optional(),
+    secondary_color: z.string().max(5000).nullable().optional(),
   })
 
 export const s_account_invoices_settings: z.ZodType<t_account_invoices_settings> =
   z.object({
     default_account_tax_ids: z
-      .array(z.union([z.string(), z.lazy(() => s_tax_id)]))
+      .array(z.union([z.string().max(5000), z.lazy(() => s_tax_id)]))
       .nullable()
       .optional(),
   })
@@ -13269,33 +13405,33 @@ export const s_account_invoices_settings: z.ZodType<t_account_invoices_settings>
 export const s_legal_entity_person_verification_document: z.ZodType<t_legal_entity_person_verification_document> =
   z.object({
     back: z
-      .union([z.string(), z.lazy(() => s_file)])
+      .union([z.string().max(5000), z.lazy(() => s_file)])
       .nullable()
       .optional(),
-    details: z.string().nullable().optional(),
-    details_code: z.string().nullable().optional(),
+    details: z.string().max(5000).nullable().optional(),
+    details_code: z.string().max(5000).nullable().optional(),
     front: z
-      .union([z.string(), z.lazy(() => s_file)])
+      .union([z.string().max(5000), z.lazy(() => s_file)])
       .nullable()
       .optional(),
   })
 
 export const s_payment_method_details_bancontact: z.ZodType<t_payment_method_details_bancontact> =
   z.object({
-    bank_code: z.string().nullable().optional(),
-    bank_name: z.string().nullable().optional(),
-    bic: z.string().nullable().optional(),
+    bank_code: z.string().max(5000).nullable().optional(),
+    bank_name: z.string().max(5000).nullable().optional(),
+    bic: z.string().max(5000).nullable().optional(),
     generated_sepa_debit: z
-      .union([z.string(), z.lazy(() => s_payment_method)])
+      .union([z.string().max(5000), z.lazy(() => s_payment_method)])
       .nullable()
       .optional(),
     generated_sepa_debit_mandate: z
-      .union([z.string(), z.lazy(() => s_mandate)])
+      .union([z.string().max(5000), z.lazy(() => s_mandate)])
       .nullable()
       .optional(),
-    iban_last4: z.string().nullable().optional(),
+    iban_last4: z.string().max(5000).nullable().optional(),
     preferred_language: z.enum(["de", "en", "fr", "nl"]).nullable().optional(),
-    verified_name: z.string().nullable().optional(),
+    verified_name: z.string().max(5000).nullable().optional(),
   })
 
 export const s_payment_method_details_ideal: z.ZodType<t_payment_method_details_ideal> =
@@ -13344,37 +13480,37 @@ export const s_payment_method_details_ideal: z.ZodType<t_payment_method_details_
       .nullable()
       .optional(),
     generated_sepa_debit: z
-      .union([z.string(), z.lazy(() => s_payment_method)])
+      .union([z.string().max(5000), z.lazy(() => s_payment_method)])
       .nullable()
       .optional(),
     generated_sepa_debit_mandate: z
-      .union([z.string(), z.lazy(() => s_mandate)])
+      .union([z.string().max(5000), z.lazy(() => s_mandate)])
       .nullable()
       .optional(),
-    iban_last4: z.string().nullable().optional(),
-    verified_name: z.string().nullable().optional(),
+    iban_last4: z.string().max(5000).nullable().optional(),
+    verified_name: z.string().max(5000).nullable().optional(),
   })
 
 export const s_payment_method_details_sofort: z.ZodType<t_payment_method_details_sofort> =
   z.object({
-    bank_code: z.string().nullable().optional(),
-    bank_name: z.string().nullable().optional(),
-    bic: z.string().nullable().optional(),
-    country: z.string().nullable().optional(),
+    bank_code: z.string().max(5000).nullable().optional(),
+    bank_name: z.string().max(5000).nullable().optional(),
+    bic: z.string().max(5000).nullable().optional(),
+    country: z.string().max(5000).nullable().optional(),
     generated_sepa_debit: z
-      .union([z.string(), z.lazy(() => s_payment_method)])
+      .union([z.string().max(5000), z.lazy(() => s_payment_method)])
       .nullable()
       .optional(),
     generated_sepa_debit_mandate: z
-      .union([z.string(), z.lazy(() => s_mandate)])
+      .union([z.string().max(5000), z.lazy(() => s_mandate)])
       .nullable()
       .optional(),
-    iban_last4: z.string().nullable().optional(),
+    iban_last4: z.string().max(5000).nullable().optional(),
     preferred_language: z
       .enum(["de", "en", "es", "fr", "it", "nl", "pl"])
       .nullable()
       .optional(),
-    verified_name: z.string().nullable().optional(),
+    verified_name: z.string().max(5000).nullable().optional(),
   })
 
 export const s_payment_method_details_us_bank_account: z.ZodType<t_payment_method_details_us_bank_account> =
@@ -13384,28 +13520,36 @@ export const s_payment_method_details_us_bank_account: z.ZodType<t_payment_metho
       .nullable()
       .optional(),
     account_type: z.enum(["checking", "savings"]).nullable().optional(),
-    bank_name: z.string().nullable().optional(),
-    fingerprint: z.string().nullable().optional(),
-    last4: z.string().nullable().optional(),
-    mandate: z.union([z.string(), z.lazy(() => s_mandate)]).optional(),
-    payment_reference: z.string().nullable().optional(),
-    routing_number: z.string().nullable().optional(),
+    bank_name: z.string().max(5000).nullable().optional(),
+    fingerprint: z.string().max(5000).nullable().optional(),
+    last4: z.string().max(5000).nullable().optional(),
+    mandate: z
+      .union([z.string().max(5000), z.lazy(() => s_mandate)])
+      .optional(),
+    payment_reference: z.string().max(5000).nullable().optional(),
+    routing_number: z.string().max(5000).nullable().optional(),
   })
 
 export const s_payment_pages_checkout_session_invoice_settings: z.ZodType<t_payment_pages_checkout_session_invoice_settings> =
   z.object({
     account_tax_ids: z
-      .array(z.union([z.string(), z.lazy(() => s_tax_id), s_deleted_tax_id]))
+      .array(
+        z.union([
+          z.string().max(5000),
+          z.lazy(() => s_tax_id),
+          s_deleted_tax_id,
+        ]),
+      )
       .nullable()
       .optional(),
     custom_fields: z
       .array(s_invoice_setting_custom_field)
       .nullable()
       .optional(),
-    description: z.string().nullable().optional(),
-    footer: z.string().nullable().optional(),
+    description: z.string().max(5000).nullable().optional(),
+    footer: z.string().max(5000).nullable().optional(),
     issuer: z.lazy(() => s_connect_account_reference.nullable().optional()),
-    metadata: z.record(z.string()).nullable().optional(),
+    metadata: z.record(z.string().max(500)).nullable().optional(),
     rendering_options: s_invoice_setting_rendering_options
       .nullable()
       .optional(),
@@ -13419,12 +13563,12 @@ export const s_payment_pages_checkout_session_total_details_resource_breakdown: 
 
 export const s_payment_method_card_generated_card: z.ZodType<t_payment_method_card_generated_card> =
   z.object({
-    charge: z.string().nullable().optional(),
+    charge: z.string().max(5000).nullable().optional(),
     payment_method_details: s_card_generated_from_payment_method_details
       .nullable()
       .optional(),
     setup_attempt: z
-      .union([z.string(), z.lazy(() => s_setup_attempt)])
+      .union([z.string().max(5000), z.lazy(() => s_setup_attempt)])
       .nullable()
       .optional(),
   })
@@ -13432,11 +13576,11 @@ export const s_payment_method_card_generated_card: z.ZodType<t_payment_method_ca
 export const s_sepa_debit_generated_from: z.ZodType<t_sepa_debit_generated_from> =
   z.object({
     charge: z
-      .union([z.string(), z.lazy(() => s_charge)])
+      .union([z.string().max(5000), z.lazy(() => s_charge)])
       .nullable()
       .optional(),
     setup_attempt: z
-      .union([z.string(), z.lazy(() => s_setup_attempt)])
+      .union([z.string().max(5000), z.lazy(() => s_setup_attempt)])
       .nullable()
       .optional(),
   })
@@ -13451,15 +13595,15 @@ export const s_issuing_cardholder_verification: z.ZodType<t_issuing_cardholder_v
 export const s_issuing_dispute_canceled_evidence: z.ZodType<t_issuing_dispute_canceled_evidence> =
   z.object({
     additional_documentation: z
-      .union([z.string(), z.lazy(() => s_file)])
+      .union([z.string().max(5000), z.lazy(() => s_file)])
       .nullable()
       .optional(),
     canceled_at: z.coerce.number().nullable().optional(),
     cancellation_policy_provided: z.coerce.boolean().nullable().optional(),
-    cancellation_reason: z.string().nullable().optional(),
+    cancellation_reason: z.string().max(5000).nullable().optional(),
     expected_at: z.coerce.number().nullable().optional(),
-    explanation: z.string().nullable().optional(),
-    product_description: z.string().nullable().optional(),
+    explanation: z.string().max(5000).nullable().optional(),
+    product_description: z.string().max(5000).nullable().optional(),
     product_type: z.enum(["merchandise", "service"]).nullable().optional(),
     return_status: z
       .enum(["merchant_rejected", "successful"])
@@ -13471,43 +13615,43 @@ export const s_issuing_dispute_canceled_evidence: z.ZodType<t_issuing_dispute_ca
 export const s_issuing_dispute_duplicate_evidence: z.ZodType<t_issuing_dispute_duplicate_evidence> =
   z.object({
     additional_documentation: z
-      .union([z.string(), z.lazy(() => s_file)])
+      .union([z.string().max(5000), z.lazy(() => s_file)])
       .nullable()
       .optional(),
     card_statement: z
-      .union([z.string(), z.lazy(() => s_file)])
+      .union([z.string().max(5000), z.lazy(() => s_file)])
       .nullable()
       .optional(),
     cash_receipt: z
-      .union([z.string(), z.lazy(() => s_file)])
+      .union([z.string().max(5000), z.lazy(() => s_file)])
       .nullable()
       .optional(),
     check_image: z
-      .union([z.string(), z.lazy(() => s_file)])
+      .union([z.string().max(5000), z.lazy(() => s_file)])
       .nullable()
       .optional(),
-    explanation: z.string().nullable().optional(),
-    original_transaction: z.string().nullable().optional(),
+    explanation: z.string().max(5000).nullable().optional(),
+    original_transaction: z.string().max(5000).nullable().optional(),
   })
 
 export const s_issuing_dispute_fraudulent_evidence: z.ZodType<t_issuing_dispute_fraudulent_evidence> =
   z.object({
     additional_documentation: z
-      .union([z.string(), z.lazy(() => s_file)])
+      .union([z.string().max(5000), z.lazy(() => s_file)])
       .nullable()
       .optional(),
-    explanation: z.string().nullable().optional(),
+    explanation: z.string().max(5000).nullable().optional(),
   })
 
 export const s_issuing_dispute_merchandise_not_as_described_evidence: z.ZodType<t_issuing_dispute_merchandise_not_as_described_evidence> =
   z.object({
     additional_documentation: z
-      .union([z.string(), z.lazy(() => s_file)])
+      .union([z.string().max(5000), z.lazy(() => s_file)])
       .nullable()
       .optional(),
-    explanation: z.string().nullable().optional(),
+    explanation: z.string().max(5000).nullable().optional(),
     received_at: z.coerce.number().nullable().optional(),
-    return_description: z.string().nullable().optional(),
+    return_description: z.string().max(5000).nullable().optional(),
     return_status: z
       .enum(["merchant_rejected", "successful"])
       .nullable()
@@ -13518,52 +13662,58 @@ export const s_issuing_dispute_merchandise_not_as_described_evidence: z.ZodType<
 export const s_issuing_dispute_not_received_evidence: z.ZodType<t_issuing_dispute_not_received_evidence> =
   z.object({
     additional_documentation: z
-      .union([z.string(), z.lazy(() => s_file)])
+      .union([z.string().max(5000), z.lazy(() => s_file)])
       .nullable()
       .optional(),
     expected_at: z.coerce.number().nullable().optional(),
-    explanation: z.string().nullable().optional(),
-    product_description: z.string().nullable().optional(),
+    explanation: z.string().max(5000).nullable().optional(),
+    product_description: z.string().max(5000).nullable().optional(),
     product_type: z.enum(["merchandise", "service"]).nullable().optional(),
   })
 
 export const s_issuing_dispute_other_evidence: z.ZodType<t_issuing_dispute_other_evidence> =
   z.object({
     additional_documentation: z
-      .union([z.string(), z.lazy(() => s_file)])
+      .union([z.string().max(5000), z.lazy(() => s_file)])
       .nullable()
       .optional(),
-    explanation: z.string().nullable().optional(),
-    product_description: z.string().nullable().optional(),
+    explanation: z.string().max(5000).nullable().optional(),
+    product_description: z.string().max(5000).nullable().optional(),
     product_type: z.enum(["merchandise", "service"]).nullable().optional(),
   })
 
 export const s_issuing_dispute_service_not_as_described_evidence: z.ZodType<t_issuing_dispute_service_not_as_described_evidence> =
   z.object({
     additional_documentation: z
-      .union([z.string(), z.lazy(() => s_file)])
+      .union([z.string().max(5000), z.lazy(() => s_file)])
       .nullable()
       .optional(),
     canceled_at: z.coerce.number().nullable().optional(),
-    cancellation_reason: z.string().nullable().optional(),
-    explanation: z.string().nullable().optional(),
+    cancellation_reason: z.string().max(5000).nullable().optional(),
+    explanation: z.string().max(5000).nullable().optional(),
     received_at: z.coerce.number().nullable().optional(),
   })
 
 export const s_payment_links_resource_invoice_settings: z.ZodType<t_payment_links_resource_invoice_settings> =
   z.object({
     account_tax_ids: z
-      .array(z.union([z.string(), z.lazy(() => s_tax_id), s_deleted_tax_id]))
+      .array(
+        z.union([
+          z.string().max(5000),
+          z.lazy(() => s_tax_id),
+          s_deleted_tax_id,
+        ]),
+      )
       .nullable()
       .optional(),
     custom_fields: z
       .array(s_invoice_setting_custom_field)
       .nullable()
       .optional(),
-    description: z.string().nullable().optional(),
-    footer: z.string().nullable().optional(),
+    description: z.string().max(5000).nullable().optional(),
+    footer: z.string().max(5000).nullable().optional(),
     issuer: z.lazy(() => s_connect_account_reference.nullable().optional()),
-    metadata: z.record(z.string()).nullable().optional(),
+    metadata: z.record(z.string().max(500)).nullable().optional(),
     rendering_options: s_invoice_setting_rendering_options
       .nullable()
       .optional(),
@@ -13590,7 +13740,7 @@ export const s_quotes_resource_upfront: z.ZodType<t_quotes_resource_upfront> =
         data: z.array(z.lazy(() => s_item)),
         has_more: z.coerce.boolean(),
         object: z.enum(["list"]),
-        url: z.string(),
+        url: z.string().max(5000),
       })
       .optional(),
     total_details: z.lazy(() => s_quotes_resource_total_details),
@@ -13604,26 +13754,26 @@ export const s_quotes_resource_total_details_resource_breakdown: z.ZodType<t_quo
 
 export const s_setup_attempt_payment_method_details_bancontact: z.ZodType<t_setup_attempt_payment_method_details_bancontact> =
   z.object({
-    bank_code: z.string().nullable().optional(),
-    bank_name: z.string().nullable().optional(),
-    bic: z.string().nullable().optional(),
+    bank_code: z.string().max(5000).nullable().optional(),
+    bank_name: z.string().max(5000).nullable().optional(),
+    bic: z.string().max(5000).nullable().optional(),
     generated_sepa_debit: z
-      .union([z.string(), z.lazy(() => s_payment_method)])
+      .union([z.string().max(5000), z.lazy(() => s_payment_method)])
       .nullable()
       .optional(),
     generated_sepa_debit_mandate: z
-      .union([z.string(), z.lazy(() => s_mandate)])
+      .union([z.string().max(5000), z.lazy(() => s_mandate)])
       .nullable()
       .optional(),
-    iban_last4: z.string().nullable().optional(),
+    iban_last4: z.string().max(5000).nullable().optional(),
     preferred_language: z.enum(["de", "en", "fr", "nl"]).nullable().optional(),
-    verified_name: z.string().nullable().optional(),
+    verified_name: z.string().max(5000).nullable().optional(),
   })
 
 export const s_setup_attempt_payment_method_details_card_present: z.ZodType<t_setup_attempt_payment_method_details_card_present> =
   z.object({
     generated_card: z
-      .union([z.string(), z.lazy(() => s_payment_method)])
+      .union([z.string().max(5000), z.lazy(() => s_payment_method)])
       .nullable()
       .optional(),
     offline: s_payment_method_details_card_present_offline
@@ -13677,33 +13827,33 @@ export const s_setup_attempt_payment_method_details_ideal: z.ZodType<t_setup_att
       .nullable()
       .optional(),
     generated_sepa_debit: z
-      .union([z.string(), z.lazy(() => s_payment_method)])
+      .union([z.string().max(5000), z.lazy(() => s_payment_method)])
       .nullable()
       .optional(),
     generated_sepa_debit_mandate: z
-      .union([z.string(), z.lazy(() => s_mandate)])
+      .union([z.string().max(5000), z.lazy(() => s_mandate)])
       .nullable()
       .optional(),
-    iban_last4: z.string().nullable().optional(),
-    verified_name: z.string().nullable().optional(),
+    iban_last4: z.string().max(5000).nullable().optional(),
+    verified_name: z.string().max(5000).nullable().optional(),
   })
 
 export const s_setup_attempt_payment_method_details_sofort: z.ZodType<t_setup_attempt_payment_method_details_sofort> =
   z.object({
-    bank_code: z.string().nullable().optional(),
-    bank_name: z.string().nullable().optional(),
-    bic: z.string().nullable().optional(),
+    bank_code: z.string().max(5000).nullable().optional(),
+    bank_name: z.string().max(5000).nullable().optional(),
+    bic: z.string().max(5000).nullable().optional(),
     generated_sepa_debit: z
-      .union([z.string(), z.lazy(() => s_payment_method)])
+      .union([z.string().max(5000), z.lazy(() => s_payment_method)])
       .nullable()
       .optional(),
     generated_sepa_debit_mandate: z
-      .union([z.string(), z.lazy(() => s_mandate)])
+      .union([z.string().max(5000), z.lazy(() => s_mandate)])
       .nullable()
       .optional(),
-    iban_last4: z.string().nullable().optional(),
+    iban_last4: z.string().max(5000).nullable().optional(),
     preferred_language: z.enum(["de", "en", "fr", "nl"]).nullable().optional(),
-    verified_name: z.string().nullable().optional(),
+    verified_name: z.string().max(5000).nullable().optional(),
   })
 
 export const s_subscription_schedules_resource_default_settings_automatic_tax: z.ZodType<t_subscription_schedules_resource_default_settings_automatic_tax> =
@@ -13715,7 +13865,13 @@ export const s_subscription_schedules_resource_default_settings_automatic_tax: z
 export const s_invoice_setting_subscription_schedule_setting: z.ZodType<t_invoice_setting_subscription_schedule_setting> =
   z.object({
     account_tax_ids: z
-      .array(z.union([z.string(), z.lazy(() => s_tax_id), s_deleted_tax_id]))
+      .array(
+        z.union([
+          z.string().max(5000),
+          z.lazy(() => s_tax_id),
+          s_deleted_tax_id,
+        ]),
+      )
       .nullable()
       .optional(),
     days_until_due: z.coerce.number().nullable().optional(),
@@ -13725,7 +13881,11 @@ export const s_invoice_setting_subscription_schedule_setting: z.ZodType<t_invoic
 export const s_subscription_schedule_add_invoice_item: z.ZodType<t_subscription_schedule_add_invoice_item> =
   z.object({
     discounts: z.array(z.lazy(() => s_discounts_resource_stackable_discount)),
-    price: z.union([z.string(), z.lazy(() => s_price), s_deleted_price]),
+    price: z.union([
+      z.string().max(5000),
+      z.lazy(() => s_price),
+      s_deleted_price,
+    ]),
     quantity: z.coerce.number().nullable().optional(),
     tax_rates: z.array(s_tax_rate).nullable().optional(),
   })
@@ -13738,13 +13898,16 @@ export const s_schedules_phase_automatic_tax: z.ZodType<t_schedules_phase_automa
 
 export const s_discounts_resource_stackable_discount: z.ZodType<t_discounts_resource_stackable_discount> =
   z.object({
-    coupon: z.union([z.string(), s_coupon]).nullable().optional(),
+    coupon: z
+      .union([z.string().max(5000), s_coupon])
+      .nullable()
+      .optional(),
     discount: z
-      .union([z.string(), z.lazy(() => s_discount)])
+      .union([z.string().max(5000), z.lazy(() => s_discount)])
       .nullable()
       .optional(),
     promotion_code: z
-      .union([z.string(), z.lazy(() => s_promotion_code)])
+      .union([z.string().max(5000), z.lazy(() => s_promotion_code)])
       .nullable()
       .optional(),
   })
@@ -13752,7 +13915,13 @@ export const s_discounts_resource_stackable_discount: z.ZodType<t_discounts_reso
 export const s_invoice_setting_subscription_schedule_phase_setting: z.ZodType<t_invoice_setting_subscription_schedule_phase_setting> =
   z.object({
     account_tax_ids: z
-      .array(z.union([z.string(), z.lazy(() => s_tax_id), s_deleted_tax_id]))
+      .array(
+        z.union([
+          z.string().max(5000),
+          z.lazy(() => s_tax_id),
+          s_deleted_tax_id,
+        ]),
+      )
       .nullable()
       .optional(),
     days_until_due: z.coerce.number().nullable().optional(),
@@ -13765,38 +13934,45 @@ export const s_subscription_schedule_configuration_item: z.ZodType<t_subscriptio
       .nullable()
       .optional(),
     discounts: z.array(z.lazy(() => s_discounts_resource_stackable_discount)),
-    metadata: z.record(z.string()).nullable().optional(),
-    price: z.union([z.string(), z.lazy(() => s_price), s_deleted_price]),
+    metadata: z.record(z.string().max(500)).nullable().optional(),
+    price: z.union([
+      z.string().max(5000),
+      z.lazy(() => s_price),
+      s_deleted_price,
+    ]),
     quantity: z.coerce.number().optional(),
     tax_rates: z.array(s_tax_rate).nullable().optional(),
   })
 
 export const s_terminal_reader_reader_resource_process_payment_intent_action: z.ZodType<t_terminal_reader_reader_resource_process_payment_intent_action> =
   z.object({
-    payment_intent: z.union([z.string(), z.lazy(() => s_payment_intent)]),
+    payment_intent: z.union([
+      z.string().max(5000),
+      z.lazy(() => s_payment_intent),
+    ]),
     process_config: s_terminal_reader_reader_resource_process_config.optional(),
   })
 
 export const s_terminal_reader_reader_resource_process_setup_intent_action: z.ZodType<t_terminal_reader_reader_resource_process_setup_intent_action> =
   z.object({
-    generated_card: z.string().optional(),
+    generated_card: z.string().max(5000).optional(),
     process_config:
       s_terminal_reader_reader_resource_process_setup_config.optional(),
-    setup_intent: z.union([z.string(), z.lazy(() => s_setup_intent)]),
+    setup_intent: z.union([z.string().max(5000), z.lazy(() => s_setup_intent)]),
   })
 
 export const s_terminal_reader_reader_resource_refund_payment_action: z.ZodType<t_terminal_reader_reader_resource_refund_payment_action> =
   z.object({
     amount: z.coerce.number().optional(),
-    charge: z.union([z.string(), z.lazy(() => s_charge)]).optional(),
-    metadata: z.record(z.string()).optional(),
+    charge: z.union([z.string().max(5000), z.lazy(() => s_charge)]).optional(),
+    metadata: z.record(z.string().max(500)).optional(),
     payment_intent: z
-      .union([z.string(), z.lazy(() => s_payment_intent)])
+      .union([z.string().max(5000), z.lazy(() => s_payment_intent)])
       .optional(),
     reason: z
       .enum(["duplicate", "fraudulent", "requested_by_customer"])
       .optional(),
-    refund: z.union([z.string(), z.lazy(() => s_refund)]).optional(),
+    refund: z.union([z.string().max(5000), z.lazy(() => s_refund)]).optional(),
     refund_application_fee: z.coerce.boolean().optional(),
     refund_payment_config:
       s_terminal_reader_reader_resource_refund_payment_config.optional(),
@@ -13810,12 +13986,14 @@ export const s_inbound_transfers_payment_method_details_us_bank_account: z.ZodTy
       .nullable()
       .optional(),
     account_type: z.enum(["checking", "savings"]).nullable().optional(),
-    bank_name: z.string().nullable().optional(),
-    fingerprint: z.string().nullable().optional(),
-    last4: z.string().nullable().optional(),
-    mandate: z.union([z.string(), z.lazy(() => s_mandate)]).optional(),
+    bank_name: z.string().max(5000).nullable().optional(),
+    fingerprint: z.string().max(5000).nullable().optional(),
+    last4: z.string().max(5000).nullable().optional(),
+    mandate: z
+      .union([z.string().max(5000), z.lazy(() => s_mandate)])
+      .optional(),
     network: z.enum(["ach"]),
-    routing_number: z.string().nullable().optional(),
+    routing_number: z.string().max(5000).nullable().optional(),
   })
 
 export const s_outbound_payments_payment_method_details_us_bank_account: z.ZodType<t_outbound_payments_payment_method_details_us_bank_account> =
@@ -13825,12 +14003,14 @@ export const s_outbound_payments_payment_method_details_us_bank_account: z.ZodTy
       .nullable()
       .optional(),
     account_type: z.enum(["checking", "savings"]).nullable().optional(),
-    bank_name: z.string().nullable().optional(),
-    fingerprint: z.string().nullable().optional(),
-    last4: z.string().nullable().optional(),
-    mandate: z.union([z.string(), z.lazy(() => s_mandate)]).optional(),
+    bank_name: z.string().max(5000).nullable().optional(),
+    fingerprint: z.string().max(5000).nullable().optional(),
+    last4: z.string().max(5000).nullable().optional(),
+    mandate: z
+      .union([z.string().max(5000), z.lazy(() => s_mandate)])
+      .optional(),
     network: z.enum(["ach", "us_domestic_wire"]),
-    routing_number: z.string().nullable().optional(),
+    routing_number: z.string().max(5000).nullable().optional(),
   })
 
 export const s_outbound_transfers_payment_method_details_us_bank_account: z.ZodType<t_outbound_transfers_payment_method_details_us_bank_account> =
@@ -13840,12 +14020,14 @@ export const s_outbound_transfers_payment_method_details_us_bank_account: z.ZodT
       .nullable()
       .optional(),
     account_type: z.enum(["checking", "savings"]).nullable().optional(),
-    bank_name: z.string().nullable().optional(),
-    fingerprint: z.string().nullable().optional(),
-    last4: z.string().nullable().optional(),
-    mandate: z.union([z.string(), z.lazy(() => s_mandate)]).optional(),
+    bank_name: z.string().max(5000).nullable().optional(),
+    fingerprint: z.string().max(5000).nullable().optional(),
+    last4: z.string().max(5000).nullable().optional(),
+    mandate: z
+      .union([z.string().max(5000), z.lazy(() => s_mandate)])
+      .optional(),
     network: z.enum(["ach", "us_domestic_wire"]),
-    routing_number: z.string().nullable().optional(),
+    routing_number: z.string().max(5000).nullable().optional(),
   })
 
 export const s_treasury_received_credits_resource_source_flows_details: z.ZodType<t_treasury_received_credits_resource_source_flows_details> =
@@ -13859,13 +14041,13 @@ export const s_treasury_received_credits_resource_source_flows_details: z.ZodTyp
 export const s_legal_entity_company_verification_document: z.ZodType<t_legal_entity_company_verification_document> =
   z.object({
     back: z
-      .union([z.string(), z.lazy(() => s_file)])
+      .union([z.string().max(5000), z.lazy(() => s_file)])
       .nullable()
       .optional(),
-    details: z.string().nullable().optional(),
-    details_code: z.string().nullable().optional(),
+    details: z.string().max(5000).nullable().optional(),
+    details_code: z.string().max(5000).nullable().optional(),
     front: z
-      .union([z.string(), z.lazy(() => s_file)])
+      .union([z.string().max(5000), z.lazy(() => s_file)])
       .nullable()
       .optional(),
   })
@@ -13873,11 +14055,11 @@ export const s_legal_entity_company_verification_document: z.ZodType<t_legal_ent
 export const s_issuing_cardholder_id_document: z.ZodType<t_issuing_cardholder_id_document> =
   z.object({
     back: z
-      .union([z.string(), z.lazy(() => s_file)])
+      .union([z.string().max(5000), z.lazy(() => s_file)])
       .nullable()
       .optional(),
     front: z
-      .union([z.string(), z.lazy(() => s_file)])
+      .union([z.string().max(5000), z.lazy(() => s_file)])
       .nullable()
       .optional(),
   })

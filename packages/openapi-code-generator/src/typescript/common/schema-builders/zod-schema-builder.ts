@@ -174,6 +174,13 @@ export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
     return [
       zod,
       "string()",
+      Number.isFinite(model.minLength) ? `min(${model.minLength})` : undefined,
+      Number.isFinite(model.maxLength) ? `max(${model.maxLength})` : undefined,
+      model.pattern
+        ? `regex(new RegExp("${model.pattern
+            .replaceAll("\\", "\\\\")
+            .replaceAll('"', '\\"')}"))`
+        : undefined,
       model.format === "date-time" ? "datetime({offset:true})" : undefined,
       model.format === "email" ? "email()" : undefined,
     ]

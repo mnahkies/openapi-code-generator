@@ -417,7 +417,10 @@ export const s_code_scanning_alert_classification = z
   .enum(["source", "generated", "test", "library"])
   .nullable()
 
-export const s_code_scanning_alert_dismissed_comment = z.string().nullable()
+export const s_code_scanning_alert_dismissed_comment = z
+  .string()
+  .max(280)
+  .nullable()
 
 export const s_code_scanning_alert_dismissed_reason = z
   .enum(["false positive", "won't fix", "used in tests"])
@@ -489,7 +492,11 @@ export const s_code_scanning_analysis_analysis_key = z.string()
 
 export const s_code_scanning_analysis_category = z.string()
 
-export const s_code_scanning_analysis_commit_sha = z.string()
+export const s_code_scanning_analysis_commit_sha = z
+  .string()
+  .min(40)
+  .max(40)
+  .regex(new RegExp("^[0-9a-fA-F]+$"))
 
 export const s_code_scanning_analysis_created_at = z
   .string()
@@ -563,7 +570,9 @@ export const s_code_scanning_default_setup_update_response = z.object({
 
 export const s_code_scanning_ref = z.string()
 
-export const s_code_scanning_ref_full = z.string()
+export const s_code_scanning_ref_full = z
+  .string()
+  .regex(new RegExp("^refs/(heads|tags|pull)/.*$"))
 
 export const s_code_scanning_sarifs_status = z.object({
   processing_status: z.enum(["pending", "complete", "failed"]).optional(),
@@ -1066,7 +1075,11 @@ export const s_git_ref = z.object({
   ref: z.string(),
   node_id: z.string(),
   url: z.string(),
-  object: z.object({ type: z.string(), sha: z.string(), url: z.string() }),
+  object: z.object({
+    type: z.string(),
+    sha: z.string().min(40).max(40),
+    url: z.string(),
+  }),
 })
 
 export const s_git_tree = z.object({
@@ -1585,7 +1598,7 @@ export const s_org_custom_property = z.object({
     .nullable()
     .optional(),
   description: z.string().nullable().optional(),
-  allowed_values: z.array(z.string()).nullable().optional(),
+  allowed_values: z.array(z.string().max(75)).nullable().optional(),
   values_editable_by: z
     .enum(["org_actors", "org_and_repo_actors"])
     .nullable()
@@ -3227,7 +3240,7 @@ export const s_dependabot_alert_security_vulnerability = z.object({
 })
 
 export const s_dependency = z.object({
-  package_url: z.string().optional(),
+  package_url: z.string().regex(new RegExp("^pkg")).optional(),
   metadata: s_metadata.optional(),
   relationship: z.enum(["direct", "indirect"]).optional(),
   scope: z.enum(["runtime", "development"]).optional(),
@@ -3287,7 +3300,7 @@ export const s_gist_comment = z.object({
   id: z.coerce.number(),
   node_id: z.string(),
   url: z.string(),
-  body: z.string(),
+  body: z.string().max(65535),
   user: s_nullable_simple_user,
   created_at: z.string().datetime({ offset: true }),
   updated_at: z.string().datetime({ offset: true }),
@@ -3337,8 +3350,8 @@ export const s_global_advisory = z.object({
   url: z.string(),
   html_url: z.string(),
   repository_advisory_url: z.string().nullable(),
-  summary: z.string(),
-  description: z.string().nullable(),
+  summary: z.string().max(1024),
+  description: z.string().max(65535).nullable(),
   type: z.enum(["reviewed", "unreviewed", "malware"]),
   severity: z.enum(["critical", "high", "medium", "low", "unknown"]),
   source_code_location: z.string().nullable(),
@@ -4034,8 +4047,8 @@ export const s_page_build = z.object({
 })
 
 export const s_private_vulnerability_report_create = z.object({
-  summary: z.string(),
-  description: z.string(),
+  summary: z.string().max(1024),
+  description: z.string().max(65535),
   vulnerabilities: z
     .array(
       z.object({
@@ -4412,8 +4425,8 @@ export const s_repository = z.object({
 })
 
 export const s_repository_advisory_create = z.object({
-  summary: z.string(),
-  description: z.string(),
+  summary: z.string().max(1024),
+  description: z.string().max(65535),
   cve_id: z.string().nullable().optional(),
   vulnerabilities: z.array(
     z.object({
@@ -4445,8 +4458,8 @@ export const s_repository_advisory_credit = z.object({
 })
 
 export const s_repository_advisory_update = z.object({
-  summary: z.string().optional(),
-  description: z.string().optional(),
+  summary: z.string().max(1024).optional(),
+  description: z.string().max(65535).optional(),
   cve_id: z.string().nullable().optional(),
   vulnerabilities: z
     .array(
@@ -5468,7 +5481,7 @@ export const s_demilestoned_issue_event = z.object({
 export const s_dependabot_alert_security_advisory = z.object({
   ghsa_id: z.string(),
   cve_id: z.string().nullable(),
-  summary: z.string(),
+  summary: z.string().max(1024),
   description: z.string(),
   vulnerabilities: z.array(s_dependabot_alert_security_vulnerability),
   severity: z.enum(["low", "medium", "high", "critical"]),
@@ -5538,7 +5551,7 @@ export const s_deployment_status = z.object({
     "in_progress",
   ]),
   creator: s_nullable_simple_user,
-  description: z.string(),
+  description: z.string().max(140),
   environment: z.string().optional(),
   target_url: z.string(),
   created_at: z.string().datetime({ offset: true }),
@@ -6753,8 +6766,8 @@ export const s_repository_advisory = z.object({
   cve_id: z.string().nullable(),
   url: z.string(),
   html_url: z.string(),
-  summary: z.string(),
-  description: z.string().nullable(),
+  summary: z.string().max(1024),
+  description: z.string().max(65535).nullable(),
   severity: z.enum(["critical", "high", "medium", "low"]).nullable(),
   author: s_simple_user.nullable(),
   publisher: s_simple_user.nullable(),
@@ -7225,7 +7238,7 @@ export const s_dependabot_alert = z.object({
       "tolerable_risk",
     ])
     .nullable(),
-  dismissed_comment: z.string().nullable(),
+  dismissed_comment: z.string().max(280).nullable(),
   fixed_at: s_alert_fixed_at,
   auto_dismissed_at: s_alert_auto_dismissed_at.optional(),
 })
@@ -7255,7 +7268,7 @@ export const s_dependabot_alert_with_repository = z.object({
       "tolerable_risk",
     ])
     .nullable(),
-  dismissed_comment: z.string().nullable(),
+  dismissed_comment: z.string().max(280).nullable(),
   fixed_at: s_alert_fixed_at,
   auto_dismissed_at: s_alert_auto_dismissed_at.optional(),
   repository: s_simple_repository,
@@ -7365,8 +7378,8 @@ export const s_snapshot = z.object({
     correlator: z.string(),
     html_url: z.string().optional(),
   }),
-  sha: z.string(),
-  ref: z.string(),
+  sha: z.string().min(40).max(40),
+  ref: z.string().regex(new RegExp("^refs/")),
   detector: z.object({
     name: z.string(),
     version: z.string(),

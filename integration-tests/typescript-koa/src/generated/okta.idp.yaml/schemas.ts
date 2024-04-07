@@ -22,7 +22,7 @@ export const s_AppAuthenticatorEnrollment = z.object({
     .object({
       self: z
         .object({
-          href: z.string().optional(),
+          href: z.string().min(1).optional(),
           hints: z
             .object({ allow: z.array(z.enum(["PATCH", "DELETE"])).optional() })
             .optional(),
@@ -41,33 +41,33 @@ export const s_AppAuthenticatorMethodCapabilities = z.object({
 })
 
 export const s_Email = z.object({
-  id: z.string(),
-  profile: z.object({ email: z.string() }),
+  id: z.string().min(1),
+  profile: z.object({ email: z.string().min(1) }),
   roles: z.array(z.string()),
-  status: z.string(),
+  status: z.string().min(1),
   _links: z
     .object({
       self: z
         .object({
-          href: z.string().optional(),
+          href: z.string().min(1).optional(),
           hints: z.object({ allow: z.array(z.string()).optional() }).optional(),
         })
         .optional(),
       challenge: z
         .object({
-          href: z.string().optional(),
+          href: z.string().min(1).optional(),
           hints: z.object({ allow: z.array(z.string()).optional() }).optional(),
         })
         .optional(),
       verify: z
         .object({
-          href: z.string().optional(),
+          href: z.string().min(1).optional(),
           hints: z.object({ allow: z.array(z.string()).optional() }).optional(),
         })
         .optional(),
       poll: z
         .object({
-          href: z.string().optional(),
+          href: z.string().min(1).optional(),
           hints: z.object({ allow: z.array(z.string()).optional() }).optional(),
         })
         .optional(),
@@ -103,26 +103,26 @@ export const s_KeyRSA = z.object({
 })
 
 export const s_Phone = z.object({
-  id: z.string(),
-  profile: z.object({ phoneNumber: z.string() }),
-  status: z.string(),
+  id: z.string().min(1),
+  profile: z.object({ phoneNumber: z.string().min(1) }),
+  status: z.string().min(1),
   _links: z
     .object({
       self: z
         .object({
-          href: z.string().optional(),
+          href: z.string().min(1).optional(),
           hints: z.object({ allow: z.array(z.string()).optional() }).optional(),
         })
         .optional(),
       challenge: z
         .object({
-          href: z.string().optional(),
+          href: z.string().min(1).optional(),
           hints: z.object({ allow: z.array(z.string()).optional() }).optional(),
         })
         .optional(),
       verify: z
         .object({
-          href: z.string().optional(),
+          href: z.string().min(1).optional(),
           hints: z.object({ allow: z.array(z.string()).optional() }).optional(),
         })
         .optional(),

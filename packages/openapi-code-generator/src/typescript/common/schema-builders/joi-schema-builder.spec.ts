@@ -1,6 +1,9 @@
 import vm from "node:vm"
 import {describe, expect, it} from "@jest/globals"
-import {IRModelNumeric} from "../../../core/openapi-types-normalized"
+import {
+  IRModelNumeric,
+  IRModelString,
+} from "../../../core/openapi-types-normalized"
 import {testVersions} from "../../../test/input.test-utils"
 import {schemaBuilderTestHarness} from "./schema-builder.test-utils"
 
@@ -534,10 +537,99 @@ describe.each(testVersions)(
       })
     })
 
+    describe("strings", () => {
+      const base: IRModelString = {
+        nullable: false,
+        readOnly: false,
+        type: "string",
+      }
+
+      it("supports plain string", async () => {
+        const {code} = await getActualFromModel({...base})
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.string().required()"',
+        )
+
+        await expect(executeParseSchema(code, "a string")).resolves.toBe(
+          "a string",
+        )
+        await expect(executeParseSchema(code, 123)).rejects.toThrow(
+          '"value" must be a string',
+        )
+      })
+
+      it("supports minLength", async () => {
+        const {code} = await getActualFromModel({...base, minLength: 8})
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.string().min(8).required()"',
+        )
+
+        await expect(executeParseSchema(code, "12345678")).resolves.toBe(
+          "12345678",
+        )
+        await expect(executeParseSchema(code, "1234567")).rejects.toThrow(
+          '"value" length must be at least 8 characters long',
+        )
+      })
+
+      it("supports maxLength", async () => {
+        const {code} = await getActualFromModel({...base, maxLength: 8})
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.string().max(8).required()"',
+        )
+
+        await expect(executeParseSchema(code, "12345678")).resolves.toBe(
+          "12345678",
+        )
+        await expect(executeParseSchema(code, "123456789")).rejects.toThrow(
+          '"value" length must be less than or equal to 8 characters long',
+        )
+      })
+
+      it("supports pattern", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          pattern: '"pk/\\d+"',
+        })
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.string().pattern(new RegExp(\'"pk/\\\\d+"\')).required()"',
+        )
+
+        await expect(executeParseSchema(code, '"pk/1234"')).resolves.toBe(
+          '"pk/1234"',
+        )
+        await expect(executeParseSchema(code, "pk/abcd")).rejects.toThrow(
+          '"value" with value "pk/abcd" fails to match the required pattern: /"pk\\/\\d+"/',
+        )
+      })
+
+      it("supports pattern with minLength / maxLength", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          pattern: "pk-\\d+",
+          minLength: 5,
+          maxLength: 8,
+        })
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.string().min(5).max(8).pattern(new RegExp("pk-\\\\d+")).required()"',
+        )
+
+        await expect(executeParseSchema(code, "pk-12")).resolves.toBe("pk-12")
+        await expect(executeParseSchema(code, "pk-ab")).rejects.toThrow(
+          '"value" with value "pk-ab" fails to match the required pattern: /pk-\\d+/',
+        )
+        await expect(executeParseSchema(code, "pk-1")).rejects.toThrow(
+          '"value" length must be at least 5 characters long',
+        )
+        await expect(executeParseSchema(code, "pk-123456")).rejects.toThrow(
+          '"value" length must be less than or equal to 8 characters long',
+        )
+      })
+    })
+
     async function executeParseSchema(code: string, input: unknown) {
-      const context = {joi: require("@hapi/joi")}
-      vm.createContext(context)
-      return vm.runInContext(
+      return vm.runInNewContext(
         `
         ${code}
 
@@ -549,7 +641,13 @@ describe.each(testVersions)(
 
         result.value
       `,
-        context,
+        // Note: joi relies on `pattern instanceof RegExp` which makes using regex literals
+        //       problematic since the RegExp that joi sees isn't the same as the RegExp inside
+        //       the context.
+        //       I think it should be possible move loading of joi into the context, such that
+        //       it gets the contexts global RegExp correctly, but I can't figure it out right now.
+
+        {joi: require("@hapi/joi"), RegExp},
       )
     }
   },
