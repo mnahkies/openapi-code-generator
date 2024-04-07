@@ -36,6 +36,7 @@ import {
   t_VerifyPhoneChallengeParamSchema,
 } from "./models"
 import {
+  PermissiveBoolean,
   s_AppAuthenticatorEnrollment,
   s_AppAuthenticatorEnrollmentRequest,
   s_Email,
@@ -977,7 +978,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const createEmailBodySchema = z.object({
     profile: z.object({ email: z.string().email() }),
-    sendEmail: z.coerce.boolean().optional(),
+    sendEmail: PermissiveBoolean.optional(),
     state: z.string().optional(),
     role: z.enum(["PRIMARY", "SECONDARY"]).optional(),
   })
@@ -1462,7 +1463,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const createPhoneBodySchema = z.object({
     profile: z.object({ phoneNumber: z.string().optional() }).optional(),
-    sendCode: z.coerce.boolean().optional(),
+    sendCode: PermissiveBoolean.optional(),
     method: z.enum(["SMS", "CALL"]).optional(),
   })
 
@@ -1641,7 +1642,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const sendPhoneChallengeBodySchema = z.object({
     method: z.enum(["SMS", "CALL"]),
-    retry: z.coerce.boolean().optional(),
+    retry: PermissiveBoolean.optional(),
   })
 
   const sendPhoneChallengeResponseValidator = responseValidationFactory(

@@ -1257,6 +1257,7 @@ import {
   t_webhook_endpoint,
 } from "./models"
 import {
+  PermissiveBoolean,
   s_account,
   s_account_link,
   s_account_session,
@@ -13337,54 +13338,52 @@ export function createRouter(implementation: Implementation): KoaRouter {
     components: z.object({
       account_onboarding: z
         .object({
-          enabled: z.coerce.boolean(),
+          enabled: PermissiveBoolean,
           features: z.object({}).optional(),
         })
         .optional(),
       documents: z
         .object({
-          enabled: z.coerce.boolean(),
+          enabled: PermissiveBoolean,
           features: z.object({}).optional(),
         })
         .optional(),
       payment_details: z
         .object({
-          enabled: z.coerce.boolean(),
+          enabled: PermissiveBoolean,
           features: z
             .object({
-              capture_payments: z.coerce.boolean().optional(),
-              destination_on_behalf_of_charge_management: z.coerce
-                .boolean()
-                .optional(),
-              dispute_management: z.coerce.boolean().optional(),
-              refund_management: z.coerce.boolean().optional(),
+              capture_payments: PermissiveBoolean.optional(),
+              destination_on_behalf_of_charge_management:
+                PermissiveBoolean.optional(),
+              dispute_management: PermissiveBoolean.optional(),
+              refund_management: PermissiveBoolean.optional(),
             })
             .optional(),
         })
         .optional(),
       payments: z
         .object({
-          enabled: z.coerce.boolean(),
+          enabled: PermissiveBoolean,
           features: z
             .object({
-              capture_payments: z.coerce.boolean().optional(),
-              destination_on_behalf_of_charge_management: z.coerce
-                .boolean()
-                .optional(),
-              dispute_management: z.coerce.boolean().optional(),
-              refund_management: z.coerce.boolean().optional(),
+              capture_payments: PermissiveBoolean.optional(),
+              destination_on_behalf_of_charge_management:
+                PermissiveBoolean.optional(),
+              dispute_management: PermissiveBoolean.optional(),
+              refund_management: PermissiveBoolean.optional(),
             })
             .optional(),
         })
         .optional(),
       payouts: z
         .object({
-          enabled: z.coerce.boolean(),
+          enabled: PermissiveBoolean,
           features: z
             .object({
-              edit_payout_schedule: z.coerce.boolean().optional(),
-              instant_payouts: z.coerce.boolean().optional(),
-              standard_payouts: z.coerce.boolean().optional(),
+              edit_payout_schedule: PermissiveBoolean.optional(),
+              instant_payouts: PermissiveBoolean.optional(),
+              standard_payouts: PermissiveBoolean.optional(),
             })
             .optional(),
         })
@@ -13465,7 +13464,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_account)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/accounts")),
         }),
@@ -13585,124 +13584,124 @@ export function createRouter(implementation: Implementation): KoaRouter {
       capabilities: z
         .object({
           acss_debit_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           affirm_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           afterpay_clearpay_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           amazon_pay_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           au_becs_debit_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           bacs_debit_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           bancontact_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           bank_transfer_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           blik_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           boleto_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           card_issuing: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           card_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           cartes_bancaires_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           cashapp_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           eps_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           fpx_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           giropay_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           grabpay_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           ideal_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           india_international_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           jcb_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           klarna_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           konbini_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           legacy_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           link_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           mobilepay_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           oxxo_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           p24_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           paynow_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           promptpay_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           revolut_pay_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           sepa_debit_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           sofort_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           swish_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           tax_reporting_us_1099_k: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           tax_reporting_us_1099_misc: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           transfers: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           treasury: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           us_bank_account_ach_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           zip_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
         })
         .optional(),
@@ -13740,14 +13739,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
               town: z.string().max(5000).optional(),
             })
             .optional(),
-          directors_provided: z.coerce.boolean().optional(),
-          executives_provided: z.coerce.boolean().optional(),
+          directors_provided: PermissiveBoolean.optional(),
+          executives_provided: PermissiveBoolean.optional(),
           export_license_id: z.string().max(5000).optional(),
           export_purpose_code: z.string().max(5000).optional(),
           name: z.string().max(100).optional(),
           name_kana: z.string().max(100).optional(),
           name_kanji: z.string().max(100).optional(),
-          owners_provided: z.coerce.boolean().optional(),
+          owners_provided: PermissiveBoolean.optional(),
           ownership_declaration: z
             .object({
               date: z.coerce.number().optional(),
@@ -13903,9 +13902,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           relationship: z
             .object({
-              director: z.coerce.boolean().optional(),
-              executive: z.coerce.boolean().optional(),
-              owner: z.coerce.boolean().optional(),
+              director: PermissiveBoolean.optional(),
+              executive: PermissiveBoolean.optional(),
+              owner: PermissiveBoolean.optional(),
               percent_ownership: z
                 .union([z.coerce.number(), z.enum([""])])
                 .optional(),
@@ -13962,8 +13961,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({
               decline_on: z
                 .object({
-                  avs_failure: z.coerce.boolean().optional(),
-                  cvc_failure: z.coerce.boolean().optional(),
+                  avs_failure: PermissiveBoolean.optional(),
+                  cvc_failure: PermissiveBoolean.optional(),
                 })
                 .optional(),
               statement_descriptor_prefix: z.string().max(10).optional(),
@@ -13984,7 +13983,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           payouts: z
             .object({
-              debit_negative_balances: z.coerce.boolean().optional(),
+              debit_negative_balances: PermissiveBoolean.optional(),
               schedule: z
                 .object({
                   delay_days: z
@@ -14244,124 +14243,124 @@ export function createRouter(implementation: Implementation): KoaRouter {
       capabilities: z
         .object({
           acss_debit_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           affirm_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           afterpay_clearpay_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           amazon_pay_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           au_becs_debit_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           bacs_debit_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           bancontact_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           bank_transfer_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           blik_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           boleto_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           card_issuing: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           card_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           cartes_bancaires_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           cashapp_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           eps_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           fpx_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           giropay_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           grabpay_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           ideal_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           india_international_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           jcb_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           klarna_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           konbini_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           legacy_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           link_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           mobilepay_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           oxxo_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           p24_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           paynow_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           promptpay_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           revolut_pay_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           sepa_debit_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           sofort_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           swish_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           tax_reporting_us_1099_k: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           tax_reporting_us_1099_misc: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           transfers: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           treasury: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           us_bank_account_ach_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           zip_payments: z
-            .object({ requested: z.coerce.boolean().optional() })
+            .object({ requested: PermissiveBoolean.optional() })
             .optional(),
         })
         .optional(),
@@ -14399,14 +14398,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
               town: z.string().max(5000).optional(),
             })
             .optional(),
-          directors_provided: z.coerce.boolean().optional(),
-          executives_provided: z.coerce.boolean().optional(),
+          directors_provided: PermissiveBoolean.optional(),
+          executives_provided: PermissiveBoolean.optional(),
           export_license_id: z.string().max(5000).optional(),
           export_purpose_code: z.string().max(5000).optional(),
           name: z.string().max(100).optional(),
           name_kana: z.string().max(100).optional(),
           name_kanji: z.string().max(100).optional(),
-          owners_provided: z.coerce.boolean().optional(),
+          owners_provided: PermissiveBoolean.optional(),
           ownership_declaration: z
             .object({
               date: z.coerce.number().optional(),
@@ -14561,9 +14560,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           relationship: z
             .object({
-              director: z.coerce.boolean().optional(),
-              executive: z.coerce.boolean().optional(),
-              owner: z.coerce.boolean().optional(),
+              director: PermissiveBoolean.optional(),
+              executive: PermissiveBoolean.optional(),
+              owner: PermissiveBoolean.optional(),
               percent_ownership: z
                 .union([z.coerce.number(), z.enum([""])])
                 .optional(),
@@ -14620,8 +14619,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({
               decline_on: z
                 .object({
-                  avs_failure: z.coerce.boolean().optional(),
-                  cvc_failure: z.coerce.boolean().optional(),
+                  avs_failure: PermissiveBoolean.optional(),
+                  cvc_failure: PermissiveBoolean.optional(),
                 })
                 .optional(),
               statement_descriptor_prefix: z.string().max(10).optional(),
@@ -14649,7 +14648,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           payouts: z
             .object({
-              debit_negative_balances: z.coerce.boolean().optional(),
+              debit_negative_balances: PermissiveBoolean.optional(),
               schedule: z
                 .object({
                   delay_days: z
@@ -14781,7 +14780,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           z.string().max(5000),
         ])
         .optional(),
-      default_for_currency: z.coerce.boolean().optional(),
+      default_for_currency: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
       external_account: z.string().max(5000).optional(),
       metadata: z.record(z.string()).optional(),
@@ -14973,7 +14972,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       address_line2: z.string().max(5000).optional(),
       address_state: z.string().max(5000).optional(),
       address_zip: z.string().max(5000).optional(),
-      default_for_currency: z.coerce.boolean().optional(),
+      default_for_currency: PermissiveBoolean.optional(),
       documents: z
         .object({
           bank_account_ownership_verification: z
@@ -15057,7 +15056,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(z.lazy(() => s_capability)),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z.string().max(5000),
           }),
@@ -15196,7 +15195,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postAccountsAccountCapabilitiesCapabilityBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      requested: z.coerce.boolean().optional(),
+      requested: PermissiveBoolean.optional(),
     })
     .optional()
 
@@ -15274,7 +15273,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             data: z.array(
               z.union([z.lazy(() => s_bank_account), z.lazy(() => s_card)]),
             ),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z.string().max(5000),
           }),
@@ -15370,7 +15369,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           z.string().max(5000),
         ])
         .optional(),
-      default_for_currency: z.coerce.boolean().optional(),
+      default_for_currency: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
       external_account: z.string().max(5000).optional(),
       metadata: z.record(z.string()).optional(),
@@ -15570,7 +15569,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       address_line2: z.string().max(5000).optional(),
       address_state: z.string().max(5000).optional(),
       address_zip: z.string().max(5000).optional(),
-      default_for_currency: z.coerce.boolean().optional(),
+      default_for_currency: PermissiveBoolean.optional(),
       documents: z
         .object({
           bank_account_ownership_verification: z
@@ -15703,11 +15702,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
     limit: z.coerce.number().optional(),
     relationship: z
       .object({
-        director: z.coerce.boolean().optional(),
-        executive: z.coerce.boolean().optional(),
-        legal_guardian: z.coerce.boolean().optional(),
-        owner: z.coerce.boolean().optional(),
-        representative: z.coerce.boolean().optional(),
+        director: PermissiveBoolean.optional(),
+        executive: PermissiveBoolean.optional(),
+        legal_guardian: PermissiveBoolean.optional(),
+        owner: PermissiveBoolean.optional(),
+        representative: PermissiveBoolean.optional(),
       })
       .optional(),
     starting_after: z.string().max(5000).optional(),
@@ -15721,7 +15720,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_person)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -15902,14 +15901,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       relationship: z
         .object({
-          director: z.coerce.boolean().optional(),
-          executive: z.coerce.boolean().optional(),
-          legal_guardian: z.coerce.boolean().optional(),
-          owner: z.coerce.boolean().optional(),
+          director: PermissiveBoolean.optional(),
+          executive: PermissiveBoolean.optional(),
+          legal_guardian: PermissiveBoolean.optional(),
+          owner: PermissiveBoolean.optional(),
           percent_ownership: z
             .union([z.coerce.number(), z.enum([""])])
             .optional(),
-          representative: z.coerce.boolean().optional(),
+          representative: PermissiveBoolean.optional(),
           title: z.string().max(5000).optional(),
         })
         .optional(),
@@ -16223,14 +16222,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       relationship: z
         .object({
-          director: z.coerce.boolean().optional(),
-          executive: z.coerce.boolean().optional(),
-          legal_guardian: z.coerce.boolean().optional(),
-          owner: z.coerce.boolean().optional(),
+          director: PermissiveBoolean.optional(),
+          executive: PermissiveBoolean.optional(),
+          legal_guardian: PermissiveBoolean.optional(),
+          owner: PermissiveBoolean.optional(),
           percent_ownership: z
             .union([z.coerce.number(), z.enum([""])])
             .optional(),
-          representative: z.coerce.boolean().optional(),
+          representative: PermissiveBoolean.optional(),
           title: z.string().max(5000).optional(),
         })
         .optional(),
@@ -16312,11 +16311,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
     limit: z.coerce.number().optional(),
     relationship: z
       .object({
-        director: z.coerce.boolean().optional(),
-        executive: z.coerce.boolean().optional(),
-        legal_guardian: z.coerce.boolean().optional(),
-        owner: z.coerce.boolean().optional(),
-        representative: z.coerce.boolean().optional(),
+        director: PermissiveBoolean.optional(),
+        executive: PermissiveBoolean.optional(),
+        legal_guardian: PermissiveBoolean.optional(),
+        owner: PermissiveBoolean.optional(),
+        representative: PermissiveBoolean.optional(),
       })
       .optional(),
     starting_after: z.string().max(5000).optional(),
@@ -16330,7 +16329,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_person)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -16511,14 +16510,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       relationship: z
         .object({
-          director: z.coerce.boolean().optional(),
-          executive: z.coerce.boolean().optional(),
-          legal_guardian: z.coerce.boolean().optional(),
-          owner: z.coerce.boolean().optional(),
+          director: PermissiveBoolean.optional(),
+          executive: PermissiveBoolean.optional(),
+          legal_guardian: PermissiveBoolean.optional(),
+          owner: PermissiveBoolean.optional(),
           percent_ownership: z
             .union([z.coerce.number(), z.enum([""])])
             .optional(),
-          representative: z.coerce.boolean().optional(),
+          representative: PermissiveBoolean.optional(),
           title: z.string().max(5000).optional(),
         })
         .optional(),
@@ -16832,14 +16831,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       relationship: z
         .object({
-          director: z.coerce.boolean().optional(),
-          executive: z.coerce.boolean().optional(),
-          legal_guardian: z.coerce.boolean().optional(),
-          owner: z.coerce.boolean().optional(),
+          director: PermissiveBoolean.optional(),
+          executive: PermissiveBoolean.optional(),
+          legal_guardian: PermissiveBoolean.optional(),
+          owner: PermissiveBoolean.optional(),
           percent_ownership: z
             .union([z.coerce.number(), z.enum([""])])
             .optional(),
-          representative: z.coerce.boolean().optional(),
+          representative: PermissiveBoolean.optional(),
           title: z.string().max(5000).optional(),
         })
         .optional(),
@@ -16986,7 +16985,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_apple_pay_domain),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/apple_pay/domains")),
         }),
@@ -17241,7 +17240,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_application_fee)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/application_fees")),
         }),
@@ -17565,7 +17564,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(z.lazy(() => s_fee_refund)),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z.string().max(5000),
           }),
@@ -17707,7 +17706,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_apps_secret),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/apps/secrets")),
         }),
@@ -18013,7 +18012,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_balance_transaction)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z
             .string()
@@ -18163,7 +18162,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_balance_transaction)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z
             .string()
@@ -18413,7 +18412,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_billing_meter),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/billing/meters")),
         }),
@@ -18728,7 +18727,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(s_billing_meter_event_summary),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z
               .string()
@@ -18851,10 +18850,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const getBillingPortalConfigurationsQuerySchema = z.object({
-    active: z.coerce.boolean().optional(),
+    active: PermissiveBoolean.optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z.array(z.string().max(5000)).optional(),
-    is_default: z.coerce.boolean().optional(),
+    is_default: PermissiveBoolean.optional(),
     limit: z.coerce.number().optional(),
     starting_after: z.string().max(5000).optional(),
   })
@@ -18868,7 +18867,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(s_billing_portal_configuration),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z
               .string()
@@ -18956,18 +18955,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
               z.enum([""]),
             ])
             .optional(),
-          enabled: z.coerce.boolean(),
+          enabled: PermissiveBoolean,
         })
         .optional(),
-      invoice_history: z.object({ enabled: z.coerce.boolean() }).optional(),
+      invoice_history: z.object({ enabled: PermissiveBoolean }).optional(),
       payment_method_update: z
-        .object({ enabled: z.coerce.boolean() })
+        .object({ enabled: PermissiveBoolean })
         .optional(),
       subscription_cancel: z
         .object({
           cancellation_reason: z
             .object({
-              enabled: z.coerce.boolean(),
+              enabled: PermissiveBoolean,
               options: z.union([
                 z.array(
                   z.enum([
@@ -18985,7 +18984,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               ]),
             })
             .optional(),
-          enabled: z.coerce.boolean(),
+          enabled: PermissiveBoolean,
           mode: z.enum(["at_period_end", "immediately"]).optional(),
           proration_behavior: z
             .enum(["always_invoice", "create_prorations", "none"])
@@ -18998,7 +18997,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             z.array(z.enum(["price", "promotion_code", "quantity"])),
             z.enum([""]),
           ]),
-          enabled: z.coerce.boolean(),
+          enabled: PermissiveBoolean,
           products: z.union([
             z.array(
               z.object({
@@ -19014,7 +19013,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
     }),
-    login_page: z.object({ enabled: z.coerce.boolean() }).optional(),
+    login_page: z.object({ enabled: PermissiveBoolean }).optional(),
     metadata: z.record(z.string()).optional(),
   })
 
@@ -19141,7 +19140,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postBillingPortalConfigurationsConfigurationBodySchema = z
     .object({
-      active: z.coerce.boolean().optional(),
+      active: PermissiveBoolean.optional(),
       business_profile: z
         .object({
           headline: z.union([z.string().max(60), z.enum([""])]).optional(),
@@ -19170,18 +19169,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   z.enum([""]),
                 ])
                 .optional(),
-              enabled: z.coerce.boolean().optional(),
+              enabled: PermissiveBoolean.optional(),
             })
             .optional(),
-          invoice_history: z.object({ enabled: z.coerce.boolean() }).optional(),
+          invoice_history: z.object({ enabled: PermissiveBoolean }).optional(),
           payment_method_update: z
-            .object({ enabled: z.coerce.boolean() })
+            .object({ enabled: PermissiveBoolean })
             .optional(),
           subscription_cancel: z
             .object({
               cancellation_reason: z
                 .object({
-                  enabled: z.coerce.boolean(),
+                  enabled: PermissiveBoolean,
                   options: z
                     .union([
                       z.array(
@@ -19201,7 +19200,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     .optional(),
                 })
                 .optional(),
-              enabled: z.coerce.boolean().optional(),
+              enabled: PermissiveBoolean.optional(),
               mode: z.enum(["at_period_end", "immediately"]).optional(),
               proration_behavior: z
                 .enum(["always_invoice", "create_prorations", "none"])
@@ -19216,7 +19215,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   z.enum([""]),
                 ])
                 .optional(),
-              enabled: z.coerce.boolean().optional(),
+              enabled: PermissiveBoolean.optional(),
               products: z
                 .union([
                   z.array(
@@ -19235,7 +19234,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
-      login_page: z.object({ enabled: z.coerce.boolean() }).optional(),
+      login_page: z.object({ enabled: PermissiveBoolean }).optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
     })
     .optional()
@@ -19485,7 +19484,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_charge)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/charges")),
         }),
@@ -19545,7 +19544,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       amount: z.coerce.number().optional(),
       application_fee: z.coerce.number().optional(),
       application_fee_amount: z.coerce.number().optional(),
-      capture: z.coerce.boolean().optional(),
+      capture: PermissiveBoolean.optional(),
       card: z
         .union([
           z.object({
@@ -19671,7 +19670,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_charge)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           next_page: z.string().max(5000).nullable().optional(),
           object: z.enum(["search_result"]),
           total_count: z.coerce.number().optional(),
@@ -20041,7 +20040,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
-      submit: z.coerce.boolean().optional(),
+      submit: PermissiveBoolean.optional(),
     })
     .optional()
 
@@ -20165,8 +20164,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
       reason: z
         .enum(["duplicate", "fraudulent", "requested_by_customer"])
         .optional(),
-      refund_application_fee: z.coerce.boolean().optional(),
-      reverse_transfer: z.coerce.boolean().optional(),
+      refund_application_fee: PermissiveBoolean.optional(),
+      reverse_transfer: PermissiveBoolean.optional(),
     })
     .optional()
 
@@ -20237,7 +20236,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_refund)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -20317,8 +20316,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
       reason: z
         .enum(["duplicate", "fraudulent", "requested_by_customer"])
         .optional(),
-      refund_application_fee: z.coerce.boolean().optional(),
-      reverse_transfer: z.coerce.boolean().optional(),
+      refund_application_fee: PermissiveBoolean.optional(),
+      reverse_transfer: PermissiveBoolean.optional(),
     })
     .optional()
 
@@ -20527,7 +20526,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_checkout_session)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -20592,16 +20591,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .object({
           recovery: z
             .object({
-              allow_promotion_codes: z.coerce.boolean().optional(),
-              enabled: z.coerce.boolean(),
+              allow_promotion_codes: PermissiveBoolean.optional(),
+              enabled: PermissiveBoolean,
             })
             .optional(),
         })
         .optional(),
-      allow_promotion_codes: z.coerce.boolean().optional(),
+      allow_promotion_codes: PermissiveBoolean.optional(),
       automatic_tax: z
         .object({
-          enabled: z.coerce.boolean(),
+          enabled: PermissiveBoolean,
           liability: z
             .object({
               account: z.string().optional(),
@@ -20647,7 +20646,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 minimum_length: z.coerce.number().optional(),
               })
               .optional(),
-            optional: z.coerce.boolean().optional(),
+            optional: PermissiveBoolean.optional(),
             text: z
               .object({
                 maximum_length: z.coerce.number().optional(),
@@ -20696,7 +20695,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       expires_at: z.coerce.number().optional(),
       invoice_creation: z
         .object({
-          enabled: z.coerce.boolean(),
+          enabled: PermissiveBoolean,
           invoice_data: z
             .object({
               account_tax_ids: z
@@ -20741,7 +20740,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           z.object({
             adjustable_quantity: z
               .object({
-                enabled: z.coerce.boolean(),
+                enabled: PermissiveBoolean,
                 maximum: z.coerce.number().optional(),
                 minimum: z.coerce.number().optional(),
               })
@@ -20927,7 +20926,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           card: z
             .object({
               installments: z
-                .object({ enabled: z.coerce.boolean().optional() })
+                .object({ enabled: PermissiveBoolean.optional() })
                 .optional(),
               request_three_d_secure: z
                 .enum(["any", "automatic", "challenge"])
@@ -21017,7 +21016,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           p24: z
             .object({
               setup_future_usage: z.enum(["none"]).optional(),
-              tos_shown_and_accepted: z.coerce.boolean().optional(),
+              tos_shown_and_accepted: PermissiveBoolean.optional(),
             })
             .optional(),
           paynow: z
@@ -21153,7 +21152,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         )
         .optional(),
       phone_number_collection: z
-        .object({ enabled: z.coerce.boolean() })
+        .object({ enabled: PermissiveBoolean })
         .optional(),
       redirect_on_completion: z
         .enum(["always", "if_required", "never"])
@@ -21515,7 +21514,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       success_url: z.string().max(5000).optional(),
-      tax_id_collection: z.object({ enabled: z.coerce.boolean() }).optional(),
+      tax_id_collection: z.object({ enabled: PermissiveBoolean }).optional(),
       ui_mode: z.enum(["embedded", "hosted"]).optional(),
     })
     .optional()
@@ -21709,7 +21708,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(z.lazy(() => s_item)),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z.string().max(5000),
           }),
@@ -21790,7 +21789,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_climate_order),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/climate/orders")),
         }),
@@ -22101,7 +22100,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_climate_product),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/climate/products")),
         }),
@@ -22239,7 +22238,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_climate_supplier),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/climate/suppliers")),
         }),
@@ -22442,7 +22441,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_country_spec),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/country_specs")),
         }),
@@ -22587,7 +22586,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_coupon),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/coupons")),
         }),
@@ -22909,7 +22908,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_credit_note)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -23225,7 +23224,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_credit_note_line_item)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -23304,7 +23303,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(z.lazy(() => s_credit_note_line_item)),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z.string().max(5000),
           }),
@@ -23545,8 +23544,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postCustomerSessionsBodySchema = z.object({
     components: z.object({
-      buy_button: z.object({ enabled: z.coerce.boolean() }).optional(),
-      pricing_table: z.object({ enabled: z.coerce.boolean() }).optional(),
+      buy_button: z.object({ enabled: PermissiveBoolean }).optional(),
+      pricing_table: z.object({ enabled: PermissiveBoolean }).optional(),
     }),
     customer: z.string().max(5000),
     expand: z.array(z.string().max(5000)).optional(),
@@ -23626,7 +23625,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_customer)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/customers")),
         }),
@@ -23909,7 +23908,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_customer)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           next_page: z.string().max(5000).nullable().optional(),
           object: z.enum(["search_result"]),
           total_count: z.coerce.number().optional(),
@@ -24299,7 +24298,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(z.lazy(() => s_customer_balance_transaction)),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z.string().max(5000),
           }),
@@ -24597,7 +24596,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(z.lazy(() => s_bank_account)),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z.string().max(5000),
           }),
@@ -25079,7 +25078,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_card)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -25618,7 +25617,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(z.lazy(() => s_customer_cash_balance_transaction)),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z.string().max(5000),
           }),
@@ -26007,7 +26006,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(z.lazy(() => s_payment_method)),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z.string().max(5000),
           }),
@@ -26169,7 +26168,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 s_source,
               ]),
             ),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z.string().max(5000),
           }),
@@ -26640,7 +26639,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(z.lazy(() => s_subscription)),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z.string().max(5000),
           }),
@@ -26748,7 +26747,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       automatic_tax: z
         .object({
-          enabled: z.coerce.boolean(),
+          enabled: PermissiveBoolean,
           liability: z
             .object({
               account: z.string().optional(),
@@ -26763,13 +26762,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .union([
           z.object({
             amount_gte: z.coerce.number().optional(),
-            reset_billing_cycle_anchor: z.coerce.boolean().optional(),
+            reset_billing_cycle_anchor: PermissiveBoolean.optional(),
           }),
           z.enum([""]),
         ])
         .optional(),
       cancel_at: z.coerce.number().optional(),
-      cancel_at_period_end: z.coerce.boolean().optional(),
+      cancel_at_period_end: PermissiveBoolean.optional(),
       collection_method: z
         .enum(["charge_automatically", "send_invoice"])
         .optional(),
@@ -26850,7 +26849,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         )
         .optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
-      off_session: z.coerce.boolean().optional(),
+      off_session: PermissiveBoolean.optional(),
       payment_behavior: z
         .enum([
           "allow_incomplete",
@@ -27028,7 +27027,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       trial_end: z.union([z.enum(["now"]), z.coerce.number()]).optional(),
-      trial_from_plan: z.coerce.boolean().optional(),
+      trial_from_plan: PermissiveBoolean.optional(),
       trial_period_days: z.coerce.number().optional(),
       trial_settings: z
         .object({
@@ -27104,8 +27103,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      invoice_now: z.coerce.boolean().optional(),
-      prorate: z.coerce.boolean().optional(),
+      invoice_now: PermissiveBoolean.optional(),
+      prorate: PermissiveBoolean.optional(),
     })
     .optional()
 
@@ -27282,7 +27281,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       automatic_tax: z
         .object({
-          enabled: z.coerce.boolean(),
+          enabled: PermissiveBoolean,
           liability: z
             .object({
               account: z.string().optional(),
@@ -27296,13 +27295,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .union([
           z.object({
             amount_gte: z.coerce.number().optional(),
-            reset_billing_cycle_anchor: z.coerce.boolean().optional(),
+            reset_billing_cycle_anchor: PermissiveBoolean.optional(),
           }),
           z.enum([""]),
         ])
         .optional(),
       cancel_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
-      cancel_at_period_end: z.coerce.boolean().optional(),
+      cancel_at_period_end: PermissiveBoolean.optional(),
       cancellation_details: z
         .object({
           comment: z.union([z.string().max(5000), z.enum([""])]).optional(),
@@ -27363,8 +27362,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
             billing_thresholds: z
               .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
               .optional(),
-            clear_usage: z.coerce.boolean().optional(),
-            deleted: z.coerce.boolean().optional(),
+            clear_usage: PermissiveBoolean.optional(),
+            deleted: PermissiveBoolean.optional(),
             discounts: z
               .union([
                 z.array(
@@ -27403,7 +27402,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         )
         .optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
-      off_session: z.coerce.boolean().optional(),
+      off_session: PermissiveBoolean.optional(),
       pause_collection: z
         .union([
           z.object({
@@ -27594,7 +27593,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ])
         .optional(),
       trial_end: z.union([z.enum(["now"]), z.coerce.number()]).optional(),
-      trial_from_plan: z.coerce.boolean().optional(),
+      trial_from_plan: PermissiveBoolean.optional(),
       trial_settings: z
         .object({
           end_behavior: z.object({
@@ -27821,7 +27820,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_tax_id)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -28156,7 +28155,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_dispute)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/disputes")),
         }),
@@ -28314,7 +28313,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
-      submit: z.coerce.boolean().optional(),
+      submit: PermissiveBoolean.optional(),
     })
     .optional()
 
@@ -28548,7 +28547,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         z.coerce.number(),
       ])
       .optional(),
-    delivery_success: z.coerce.boolean().optional(),
+    delivery_success: PermissiveBoolean.optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z.array(z.string().max(5000)).optional(),
     limit: z.coerce.number().optional(),
@@ -28565,7 +28564,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_event),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/events")),
         }),
@@ -28693,7 +28692,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_exchange_rate),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/exchange_rates")),
         }),
@@ -28826,7 +28825,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     ending_before: z.string().optional(),
     expand: z.array(z.string().max(5000)).optional(),
-    expired: z.coerce.boolean().optional(),
+    expired: PermissiveBoolean.optional(),
     file: z.string().max(5000).optional(),
     limit: z.coerce.number().optional(),
     starting_after: z.string().optional(),
@@ -28840,7 +28839,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_file_link)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/file_links")),
         }),
@@ -29109,7 +29108,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_file)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/files")),
         }),
@@ -29169,7 +29168,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     file: z.string(),
     file_link_data: z
       .object({
-        create: z.coerce.boolean(),
+        create: PermissiveBoolean,
         expires_at: z.coerce.number().optional(),
         metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
       })
@@ -29311,7 +29310,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(z.lazy(() => s_financial_connections_account)),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z
               .string()
@@ -29533,7 +29532,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(s_financial_connections_account_owner),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z.string().max(5000),
           }),
@@ -29959,7 +29958,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(s_financial_connections_transaction),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z
               .string()
@@ -30120,7 +30119,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_forwarding_request),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -30342,7 +30341,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(s_identity_verification_report),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z
               .string()
@@ -30503,7 +30502,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(s_identity_verification_session),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z
               .string()
@@ -30578,22 +30577,22 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 allowed_types: z
                   .array(z.enum(["driving_license", "id_card", "passport"]))
                   .optional(),
-                require_id_number: z.coerce.boolean().optional(),
-                require_live_capture: z.coerce.boolean().optional(),
-                require_matching_selfie: z.coerce.boolean().optional(),
+                require_id_number: PermissiveBoolean.optional(),
+                require_live_capture: PermissiveBoolean.optional(),
+                require_matching_selfie: PermissiveBoolean.optional(),
               }),
               z.enum([""]),
             ])
             .optional(),
           email: z
             .union([
-              z.object({ require_verification: z.coerce.boolean().optional() }),
+              z.object({ require_verification: PermissiveBoolean.optional() }),
               z.enum([""]),
             ])
             .optional(),
           phone: z
             .union([
-              z.object({ require_verification: z.coerce.boolean().optional() }),
+              z.object({ require_verification: PermissiveBoolean.optional() }),
               z.enum([""]),
             ])
             .optional(),
@@ -30741,22 +30740,22 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 allowed_types: z
                   .array(z.enum(["driving_license", "id_card", "passport"]))
                   .optional(),
-                require_id_number: z.coerce.boolean().optional(),
-                require_live_capture: z.coerce.boolean().optional(),
-                require_matching_selfie: z.coerce.boolean().optional(),
+                require_id_number: PermissiveBoolean.optional(),
+                require_live_capture: PermissiveBoolean.optional(),
+                require_matching_selfie: PermissiveBoolean.optional(),
               }),
               z.enum([""]),
             ])
             .optional(),
           email: z
             .union([
-              z.object({ require_verification: z.coerce.boolean().optional() }),
+              z.object({ require_verification: PermissiveBoolean.optional() }),
               z.enum([""]),
             ])
             .optional(),
           phone: z
             .union([
-              z.object({ require_verification: z.coerce.boolean().optional() }),
+              z.object({ require_verification: PermissiveBoolean.optional() }),
               z.enum([""]),
             ])
             .optional(),
@@ -30964,7 +30963,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
     invoice: z.string().max(5000).optional(),
     limit: z.coerce.number().optional(),
-    pending: z.coerce.boolean().optional(),
+    pending: PermissiveBoolean.optional(),
     starting_after: z.string().max(5000).optional(),
   })
 
@@ -30976,7 +30975,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_invoiceitem)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/invoiceitems")),
         }),
@@ -31036,7 +31035,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     currency: z.string().optional(),
     customer: z.string().max(5000),
     description: z.string().max(5000).optional(),
-    discountable: z.coerce.boolean().optional(),
+    discountable: PermissiveBoolean.optional(),
     discounts: z
       .union([
         z.array(
@@ -31244,7 +31243,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .object({
       amount: z.coerce.number().optional(),
       description: z.string().max(5000).optional(),
-      discountable: z.coerce.boolean().optional(),
+      discountable: PermissiveBoolean.optional(),
       discounts: z
         .union([
           z.array(
@@ -31380,7 +31379,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_invoice)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/invoices")),
         }),
@@ -31441,10 +31440,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .union([z.array(z.string().max(5000)), z.enum([""])])
         .optional(),
       application_fee_amount: z.coerce.number().optional(),
-      auto_advance: z.coerce.boolean().optional(),
+      auto_advance: PermissiveBoolean.optional(),
       automatic_tax: z
         .object({
-          enabled: z.coerce.boolean(),
+          enabled: PermissiveBoolean,
           liability: z
             .object({
               account: z.string().optional(),
@@ -31538,7 +31537,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   z.object({
                     installments: z
                       .object({
-                        enabled: z.coerce.boolean().optional(),
+                        enabled: PermissiveBoolean.optional(),
                         plan: z
                           .union([
                             z.object({
@@ -31794,7 +31793,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_invoice)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           next_page: z.string().max(5000).nullable().optional(),
           object: z.enum(["search_result"]),
           total_count: z.coerce.number().optional(),
@@ -31856,7 +31855,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getInvoicesUpcomingQuerySchema = z.object({
     automatic_tax: z
       .object({
-        enabled: z.coerce.boolean(),
+        enabled: PermissiveBoolean,
         liability: z
           .object({
             account: z.string().optional(),
@@ -32003,7 +32002,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           amount: z.coerce.number().optional(),
           currency: z.string().optional(),
           description: z.string().max(5000).optional(),
-          discountable: z.coerce.boolean().optional(),
+          discountable: PermissiveBoolean.optional(),
           discounts: z
             .union([
               z.array(
@@ -32061,8 +32060,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     subscription_cancel_at: z
       .union([z.coerce.number(), z.enum([""])])
       .optional(),
-    subscription_cancel_at_period_end: z.coerce.boolean().optional(),
-    subscription_cancel_now: z.coerce.boolean().optional(),
+    subscription_cancel_at_period_end: PermissiveBoolean.optional(),
+    subscription_cancel_now: PermissiveBoolean.optional(),
     subscription_default_tax_rates: z
       .union([z.array(z.string().max(5000)), z.enum([""])])
       .optional(),
@@ -32072,8 +32071,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
           billing_thresholds: z
             .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
             .optional(),
-          clear_usage: z.coerce.boolean().optional(),
-          deleted: z.coerce.boolean().optional(),
+          clear_usage: PermissiveBoolean.optional(),
+          deleted: PermissiveBoolean.optional(),
           discounts: z
             .union([
               z.array(
@@ -32120,7 +32119,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     subscription_trial_end: z
       .union([z.enum(["now"]), z.coerce.number()])
       .optional(),
-    subscription_trial_from_plan: z.coerce.boolean().optional(),
+    subscription_trial_from_plan: PermissiveBoolean.optional(),
   })
 
   const getInvoicesUpcomingBodySchema = z.object({}).optional()
@@ -32178,7 +32177,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getInvoicesUpcomingLinesQuerySchema = z.object({
     automatic_tax: z
       .object({
-        enabled: z.coerce.boolean(),
+        enabled: PermissiveBoolean,
         liability: z
           .object({
             account: z.string().optional(),
@@ -32326,7 +32325,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           amount: z.coerce.number().optional(),
           currency: z.string().optional(),
           description: z.string().max(5000).optional(),
-          discountable: z.coerce.boolean().optional(),
+          discountable: PermissiveBoolean.optional(),
           discounts: z
             .union([
               z.array(
@@ -32386,8 +32385,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     subscription_cancel_at: z
       .union([z.coerce.number(), z.enum([""])])
       .optional(),
-    subscription_cancel_at_period_end: z.coerce.boolean().optional(),
-    subscription_cancel_now: z.coerce.boolean().optional(),
+    subscription_cancel_at_period_end: PermissiveBoolean.optional(),
+    subscription_cancel_now: PermissiveBoolean.optional(),
     subscription_default_tax_rates: z
       .union([z.array(z.string().max(5000)), z.enum([""])])
       .optional(),
@@ -32397,8 +32396,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
           billing_thresholds: z
             .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
             .optional(),
-          clear_usage: z.coerce.boolean().optional(),
-          deleted: z.coerce.boolean().optional(),
+          clear_usage: PermissiveBoolean.optional(),
+          deleted: PermissiveBoolean.optional(),
           discounts: z
             .union([
               z.array(
@@ -32445,7 +32444,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     subscription_trial_end: z
       .union([z.enum(["now"]), z.coerce.number()])
       .optional(),
-    subscription_trial_from_plan: z.coerce.boolean().optional(),
+    subscription_trial_from_plan: PermissiveBoolean.optional(),
   })
 
   const getInvoicesUpcomingLinesBodySchema = z.object({}).optional()
@@ -32456,7 +32455,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_line_item)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -32645,10 +32644,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .union([z.array(z.string().max(5000)), z.enum([""])])
         .optional(),
       application_fee_amount: z.coerce.number().optional(),
-      auto_advance: z.coerce.boolean().optional(),
+      auto_advance: PermissiveBoolean.optional(),
       automatic_tax: z
         .object({
-          enabled: z.coerce.boolean(),
+          enabled: PermissiveBoolean,
           liability: z
             .object({
               account: z.string().optional(),
@@ -32739,7 +32738,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   z.object({
                     installments: z
                       .object({
-                        enabled: z.coerce.boolean().optional(),
+                        enabled: PermissiveBoolean.optional(),
                         plan: z
                           .union([
                             z.object({
@@ -33001,7 +33000,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postInvoicesInvoiceFinalizeBodySchema = z
     .object({
-      auto_advance: z.coerce.boolean().optional(),
+      auto_advance: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
     })
     .optional()
@@ -33073,7 +33072,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_line_item)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -33145,7 +33144,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .object({
       amount: z.coerce.number().optional(),
       description: z.string().max(5000).optional(),
-      discountable: z.coerce.boolean().optional(),
+      discountable: PermissiveBoolean.optional(),
       discounts: z
         .union([
           z.array(
@@ -33194,7 +33193,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 country: z.string().max(5000).optional(),
                 description: z.string().max(5000).optional(),
                 display_name: z.string().max(50),
-                inclusive: z.coerce.boolean(),
+                inclusive: PermissiveBoolean,
                 jurisdiction: z.string().max(50).optional(),
                 percentage: z.coerce.number(),
                 state: z.string().max(2).optional(),
@@ -33344,10 +33343,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postInvoicesInvoicePayBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      forgive: z.coerce.boolean().optional(),
+      forgive: PermissiveBoolean.optional(),
       mandate: z.union([z.string().max(5000), z.enum([""])]).optional(),
-      off_session: z.coerce.boolean().optional(),
-      paid_out_of_band: z.coerce.boolean().optional(),
+      off_session: PermissiveBoolean.optional(),
+      paid_out_of_band: PermissiveBoolean.optional(),
       payment_method: z.string().max(5000).optional(),
       source: z.string().max(5000).optional(),
     })
@@ -33548,7 +33547,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_issuing_authorization)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z
             .string()
@@ -33894,7 +33893,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_issuing_cardholder)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z
             .string()
@@ -36121,7 +36120,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_issuing_card)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/issuing/cards")),
         }),
@@ -36206,7 +36205,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .optional(),
         name: z.string().max(5000),
         phone_number: z.string().optional(),
-        require_signature: z.coerce.boolean().optional(),
+        require_signature: PermissiveBoolean.optional(),
         service: z.enum(["express", "priority", "standard"]).optional(),
         type: z.enum(["bulk", "individual"]).optional(),
       })
@@ -38266,7 +38265,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_issuing_dispute)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/issuing/disputes")),
         }),
@@ -38340,7 +38339,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   .union([z.coerce.number(), z.enum([""])])
                   .optional(),
                 cancellation_policy_provided: z
-                  .union([z.coerce.boolean(), z.enum([""])])
+                  .union([PermissiveBoolean, z.enum([""])])
                   .optional(),
                 cancellation_reason: z
                   .union([z.string().max(1500), z.enum([""])])
@@ -38628,7 +38627,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   .union([z.coerce.number(), z.enum([""])])
                   .optional(),
                 cancellation_policy_provided: z
-                  .union([z.coerce.boolean(), z.enum([""])])
+                  .union([PermissiveBoolean, z.enum([""])])
                   .optional(),
                 cancellation_reason: z
                   .union([z.string().max(1500), z.enum([""])])
@@ -38901,8 +38900,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     lookup_keys: z.array(z.string().max(200)).optional(),
     preferences: z
       .object({
-        is_default: z.coerce.boolean().optional(),
-        is_platform_default: z.coerce.boolean().optional(),
+        is_default: PermissiveBoolean.optional(),
+        is_platform_default: PermissiveBoolean.optional(),
       })
       .optional(),
     starting_after: z.string().max(5000).optional(),
@@ -38918,7 +38917,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(z.lazy(() => s_issuing_personalization_design)),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z
               .string()
@@ -38995,8 +38994,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     metadata: z.record(z.string()).optional(),
     name: z.string().max(200).optional(),
     physical_bundle: z.string().max(5000),
-    preferences: z.object({ is_default: z.coerce.boolean() }).optional(),
-    transfer_lookup_key: z.coerce.boolean().optional(),
+    preferences: z.object({ is_default: PermissiveBoolean }).optional(),
+    transfer_lookup_key: PermissiveBoolean.optional(),
   })
 
   const postIssuingPersonalizationDesignsResponseValidator =
@@ -39152,8 +39151,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
       metadata: z.record(z.string()).optional(),
       name: z.union([z.string().max(200), z.enum([""])]).optional(),
       physical_bundle: z.string().max(5000).optional(),
-      preferences: z.object({ is_default: z.coerce.boolean() }).optional(),
-      transfer_lookup_key: z.coerce.boolean().optional(),
+      preferences: z.object({ is_default: PermissiveBoolean }).optional(),
+      transfer_lookup_key: PermissiveBoolean.optional(),
     })
     .optional()
 
@@ -39233,7 +39232,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_issuing_physical_bundle),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z
             .string()
@@ -39388,7 +39387,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_issuing_settlement),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z
             .string()
@@ -39599,7 +39598,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_issuing_token)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -39806,7 +39805,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_issuing_transaction)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z
             .string()
@@ -40145,7 +40144,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_financial_connections_account)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z
             .string()
@@ -40350,7 +40349,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(s_financial_connections_account_owner),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z.string().max(5000),
           }),
@@ -40562,7 +40561,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_payment_intent)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/payment_intents")),
         }),
@@ -40623,19 +40622,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
     automatic_payment_methods: z
       .object({
         allow_redirects: z.enum(["always", "never"]).optional(),
-        enabled: z.coerce.boolean(),
+        enabled: PermissiveBoolean,
       })
       .optional(),
     capture_method: z
       .enum(["automatic", "automatic_async", "manual"])
       .optional(),
-    confirm: z.coerce.boolean().optional(),
+    confirm: PermissiveBoolean.optional(),
     confirmation_method: z.enum(["automatic", "manual"]).optional(),
     confirmation_token: z.string().max(5000).optional(),
     currency: z.string(),
     customer: z.string().max(5000).optional(),
     description: z.string().max(1000).optional(),
-    error_on_requires_action: z.coerce.boolean().optional(),
+    error_on_requires_action: PermissiveBoolean.optional(),
     expand: z.array(z.string().max(5000)).optional(),
     mandate: z.string().max(5000).optional(),
     mandate_data: z
@@ -40658,7 +40657,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     metadata: z.record(z.string()).optional(),
     off_session: z
-      .union([z.coerce.boolean(), z.enum(["one_off", "recurring"])])
+      .union([PermissiveBoolean, z.enum(["one_off", "recurring"])])
       .optional(),
     on_behalf_of: z.string().optional(),
     payment_method: z.string().max(5000).optional(),
@@ -41029,7 +41028,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               cvc_token: z.string().max(5000).optional(),
               installments: z
                 .object({
-                  enabled: z.coerce.boolean().optional(),
+                  enabled: PermissiveBoolean.optional(),
                   plan: z
                     .union([
                       z.object({
@@ -41089,7 +41088,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               request_three_d_secure: z
                 .enum(["any", "automatic", "challenge"])
                 .optional(),
-              require_cvc_recollection: z.coerce.boolean().optional(),
+              require_cvc_recollection: PermissiveBoolean.optional(),
               setup_future_usage: z
                 .enum(["", "none", "off_session", "on_session"])
                 .optional(),
@@ -41132,10 +41131,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         card_present: z
           .union([
             z.object({
-              request_extended_authorization: z.coerce.boolean().optional(),
-              request_incremental_authorization_support: z.coerce
-                .boolean()
-                .optional(),
+              request_extended_authorization: PermissiveBoolean.optional(),
+              request_incremental_authorization_support:
+                PermissiveBoolean.optional(),
             }),
             z.enum([""]),
           ])
@@ -41330,7 +41328,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .union([
             z.object({
               setup_future_usage: z.enum(["none"]).optional(),
-              tos_shown_and_accepted: z.coerce.boolean().optional(),
+              tos_shown_and_accepted: PermissiveBoolean.optional(),
             }),
             z.enum([""]),
           ])
@@ -41531,7 +41529,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .object({ amount: z.coerce.number().optional(), destination: z.string() })
       .optional(),
     transfer_group: z.string().optional(),
-    use_stripe_sdk: z.coerce.boolean().optional(),
+    use_stripe_sdk: PermissiveBoolean.optional(),
   })
 
   const postPaymentIntentsResponseValidator = responseValidationFactory(
@@ -41595,7 +41593,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_payment_intent)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           next_page: z.string().max(5000).nullable().optional(),
           object: z.enum(["search_result"]),
           total_count: z.coerce.number().optional(),
@@ -42111,7 +42109,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 cvc_token: z.string().max(5000).optional(),
                 installments: z
                   .object({
-                    enabled: z.coerce.boolean().optional(),
+                    enabled: PermissiveBoolean.optional(),
                     plan: z
                       .union([
                         z.object({
@@ -42173,7 +42171,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 request_three_d_secure: z
                   .enum(["any", "automatic", "challenge"])
                   .optional(),
-                require_cvc_recollection: z.coerce.boolean().optional(),
+                require_cvc_recollection: PermissiveBoolean.optional(),
                 setup_future_usage: z
                   .enum(["", "none", "off_session", "on_session"])
                   .optional(),
@@ -42218,10 +42216,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           card_present: z
             .union([
               z.object({
-                request_extended_authorization: z.coerce.boolean().optional(),
-                request_incremental_authorization_support: z.coerce
-                  .boolean()
-                  .optional(),
+                request_extended_authorization: PermissiveBoolean.optional(),
+                request_incremental_authorization_support:
+                  PermissiveBoolean.optional(),
               }),
               z.enum([""]),
             ])
@@ -42418,7 +42415,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .union([
               z.object({
                 setup_future_usage: z.enum(["none"]).optional(),
-                tos_shown_and_accepted: z.coerce.boolean().optional(),
+                tos_shown_and_accepted: PermissiveBoolean.optional(),
               }),
               z.enum([""]),
             ])
@@ -42806,7 +42803,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       amount_to_capture: z.coerce.number().optional(),
       application_fee_amount: z.coerce.number().optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      final_capture: z.coerce.boolean().optional(),
+      final_capture: PermissiveBoolean.optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
       statement_descriptor: z.string().max(22).optional(),
       statement_descriptor_suffix: z.string().max(22).optional(),
@@ -42875,7 +42872,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       client_secret: z.string().max(5000).optional(),
       confirmation_token: z.string().max(5000).optional(),
-      error_on_requires_action: z.coerce.boolean().optional(),
+      error_on_requires_action: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
       mandate: z.string().max(5000).optional(),
       mandate_data: z
@@ -42906,7 +42903,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ])
         .optional(),
       off_session: z
-        .union([z.coerce.boolean(), z.enum(["one_off", "recurring"])])
+        .union([PermissiveBoolean, z.enum(["one_off", "recurring"])])
         .optional(),
       payment_method: z.string().max(5000).optional(),
       payment_method_data: z
@@ -43277,7 +43274,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 cvc_token: z.string().max(5000).optional(),
                 installments: z
                   .object({
-                    enabled: z.coerce.boolean().optional(),
+                    enabled: PermissiveBoolean.optional(),
                     plan: z
                       .union([
                         z.object({
@@ -43339,7 +43336,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 request_three_d_secure: z
                   .enum(["any", "automatic", "challenge"])
                   .optional(),
-                require_cvc_recollection: z.coerce.boolean().optional(),
+                require_cvc_recollection: PermissiveBoolean.optional(),
                 setup_future_usage: z
                   .enum(["", "none", "off_session", "on_session"])
                   .optional(),
@@ -43384,10 +43381,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           card_present: z
             .union([
               z.object({
-                request_extended_authorization: z.coerce.boolean().optional(),
-                request_incremental_authorization_support: z.coerce
-                  .boolean()
-                  .optional(),
+                request_extended_authorization: PermissiveBoolean.optional(),
+                request_incremental_authorization_support:
+                  PermissiveBoolean.optional(),
               }),
               z.enum([""]),
             ])
@@ -43584,7 +43580,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .union([
               z.object({
                 setup_future_usage: z.enum(["none"]).optional(),
-                tos_shown_and_accepted: z.coerce.boolean().optional(),
+                tos_shown_and_accepted: PermissiveBoolean.optional(),
               }),
               z.enum([""]),
             ])
@@ -43784,7 +43780,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           z.enum([""]),
         ])
         .optional(),
-      use_stripe_sdk: z.coerce.boolean().optional(),
+      use_stripe_sdk: PermissiveBoolean.optional(),
     })
     .optional()
 
@@ -43969,7 +43965,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const getPaymentLinksQuerySchema = z.object({
-    active: z.coerce.boolean().optional(),
+    active: PermissiveBoolean.optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z.array(z.string().max(5000)).optional(),
     limit: z.coerce.number().optional(),
@@ -43984,7 +43980,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_payment_link)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/payment_links")),
         }),
@@ -44049,12 +44045,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
         type: z.enum(["hosted_confirmation", "redirect"]),
       })
       .optional(),
-    allow_promotion_codes: z.coerce.boolean().optional(),
+    allow_promotion_codes: PermissiveBoolean.optional(),
     application_fee_amount: z.coerce.number().optional(),
     application_fee_percent: z.coerce.number().optional(),
     automatic_tax: z
       .object({
-        enabled: z.coerce.boolean(),
+        enabled: PermissiveBoolean,
         liability: z
           .object({
             account: z.string().optional(),
@@ -44098,7 +44094,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               minimum_length: z.coerce.number().optional(),
             })
             .optional(),
-          optional: z.coerce.boolean().optional(),
+          optional: PermissiveBoolean.optional(),
           text: z
             .object({
               maximum_length: z.coerce.number().optional(),
@@ -44130,7 +44126,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     inactive_message: z.string().max(500).optional(),
     invoice_creation: z
       .object({
-        enabled: z.coerce.boolean(),
+        enabled: PermissiveBoolean,
         invoice_data: z
           .object({
             account_tax_ids: z
@@ -44174,7 +44170,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       z.object({
         adjustable_quantity: z
           .object({
-            enabled: z.coerce.boolean(),
+            enabled: PermissiveBoolean,
             maximum: z.coerce.number().optional(),
             minimum: z.coerce.number().optional(),
           })
@@ -44235,7 +44231,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       )
       .optional(),
     phone_number_collection: z
-      .object({ enabled: z.coerce.boolean() })
+      .object({ enabled: PermissiveBoolean })
       .optional(),
     restrictions: z
       .object({ completed_sessions: z.object({ limit: z.coerce.number() }) })
@@ -44517,7 +44513,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .optional(),
       })
       .optional(),
-    tax_id_collection: z.object({ enabled: z.coerce.boolean() }).optional(),
+    tax_id_collection: z.object({ enabled: PermissiveBoolean }).optional(),
     transfer_data: z
       .object({ amount: z.coerce.number().optional(), destination: z.string() })
       .optional(),
@@ -44635,7 +44631,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postPaymentLinksPaymentLinkBodySchema = z
     .object({
-      active: z.coerce.boolean().optional(),
+      active: PermissiveBoolean.optional(),
       after_completion: z
         .object({
           hosted_confirmation: z
@@ -44645,10 +44641,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["hosted_confirmation", "redirect"]),
         })
         .optional(),
-      allow_promotion_codes: z.coerce.boolean().optional(),
+      allow_promotion_codes: PermissiveBoolean.optional(),
       automatic_tax: z
         .object({
-          enabled: z.coerce.boolean(),
+          enabled: PermissiveBoolean,
           liability: z
             .object({
               account: z.string().optional(),
@@ -44683,7 +44679,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   minimum_length: z.coerce.number().optional(),
                 })
                 .optional(),
-              optional: z.coerce.boolean().optional(),
+              optional: PermissiveBoolean.optional(),
               text: z
                 .object({
                   maximum_length: z.coerce.number().optional(),
@@ -44717,7 +44713,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       inactive_message: z.union([z.string().max(500), z.enum([""])]).optional(),
       invoice_creation: z
         .object({
-          enabled: z.coerce.boolean(),
+          enabled: PermissiveBoolean,
           invoice_data: z
             .object({
               account_tax_ids: z
@@ -44764,7 +44760,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           z.object({
             adjustable_quantity: z
               .object({
-                enabled: z.coerce.boolean(),
+                enabled: PermissiveBoolean,
                 maximum: z.coerce.number().optional(),
                 minimum: z.coerce.number().optional(),
               })
@@ -45185,7 +45181,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(z.lazy(() => s_item)),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z.string().max(5000),
           }),
@@ -45265,7 +45261,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(s_payment_method_configuration),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z.string().max(5000),
           }),
@@ -45714,7 +45710,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
-      active: z.coerce.boolean().optional(),
+      active: PermissiveBoolean.optional(),
       affirm: z
         .object({
           display_preference: z
@@ -46021,7 +46017,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const getPaymentMethodDomainsQuerySchema = z.object({
     domain_name: z.string().max(5000).optional(),
-    enabled: z.coerce.boolean().optional(),
+    enabled: PermissiveBoolean.optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z.array(z.string().max(5000)).optional(),
     limit: z.coerce.number().optional(),
@@ -46036,7 +46032,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_payment_method_domain),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z
             .string()
@@ -46100,7 +46096,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postPaymentMethodDomainsBodySchema = z.object({
     domain_name: z.string().max(5000),
-    enabled: z.coerce.boolean().optional(),
+    enabled: PermissiveBoolean.optional(),
     expand: z.array(z.string().max(5000)).optional(),
   })
 
@@ -46223,7 +46219,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postPaymentMethodDomainsPaymentMethodDomainBodySchema = z
     .object({
-      enabled: z.coerce.boolean().optional(),
+      enabled: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
     })
     .optional()
@@ -46396,7 +46392,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_payment_method)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/payment_methods")),
         }),
@@ -47092,7 +47088,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_payout)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/payouts")),
         }),
@@ -47436,7 +47432,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const getPlansQuerySchema = z.object({
-    active: z.coerce.boolean().optional(),
+    active: PermissiveBoolean.optional(),
     created: z
       .union([
         z.object({
@@ -47463,7 +47459,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_plan)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/plans")),
         }),
@@ -47519,7 +47515,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postPlansBodySchema = z.object({
-    active: z.coerce.boolean().optional(),
+    active: PermissiveBoolean.optional(),
     aggregate_usage: z
       .enum(["last_during_period", "last_ever", "max", "sum"])
       .optional(),
@@ -47537,7 +47533,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     product: z
       .union([
         z.object({
-          active: z.coerce.boolean().optional(),
+          active: PermissiveBoolean.optional(),
           id: z.string().max(5000).optional(),
           metadata: z.record(z.string()).optional(),
           name: z.string().max(5000),
@@ -47721,7 +47717,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postPlansPlanBodySchema = z
     .object({
-      active: z.coerce.boolean().optional(),
+      active: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
       nickname: z.string().max(5000).optional(),
@@ -47777,7 +47773,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const getPricesQuerySchema = z.object({
-    active: z.coerce.boolean().optional(),
+    active: PermissiveBoolean.optional(),
     created: z
       .union([
         z.object({
@@ -47814,7 +47810,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_price)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/prices")),
         }),
@@ -47870,7 +47866,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postPricesBodySchema = z.object({
-    active: z.coerce.boolean().optional(),
+    active: PermissiveBoolean.optional(),
     billing_scheme: z.enum(["per_unit", "tiered"]).optional(),
     currency: z.string(),
     currency_options: z
@@ -47878,7 +47874,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         z.object({
           custom_unit_amount: z
             .object({
-              enabled: z.coerce.boolean(),
+              enabled: PermissiveBoolean,
               maximum: z.coerce.number().optional(),
               minimum: z.coerce.number().optional(),
               preset: z.coerce.number().optional(),
@@ -47905,7 +47901,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     custom_unit_amount: z
       .object({
-        enabled: z.coerce.boolean(),
+        enabled: PermissiveBoolean,
         maximum: z.coerce.number().optional(),
         minimum: z.coerce.number().optional(),
         preset: z.coerce.number().optional(),
@@ -47918,7 +47914,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     product: z.string().max(5000).optional(),
     product_data: z
       .object({
-        active: z.coerce.boolean().optional(),
+        active: PermissiveBoolean.optional(),
         id: z.string().max(5000).optional(),
         metadata: z.record(z.string()).optional(),
         name: z.string().max(5000),
@@ -47951,7 +47947,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       )
       .optional(),
     tiers_mode: z.enum(["graduated", "volume"]).optional(),
-    transfer_lookup_key: z.coerce.boolean().optional(),
+    transfer_lookup_key: PermissiveBoolean.optional(),
     transform_quantity: z
       .object({ divide_by: z.coerce.number(), round: z.enum(["down", "up"]) })
       .optional(),
@@ -48016,7 +48012,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_price)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           next_page: z.string().max(5000).nullable().optional(),
           object: z.enum(["search_result"]),
           total_count: z.coerce.number().optional(),
@@ -48137,14 +48133,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postPricesPriceBodySchema = z
     .object({
-      active: z.coerce.boolean().optional(),
+      active: PermissiveBoolean.optional(),
       currency_options: z
         .union([
           z.record(
             z.object({
               custom_unit_amount: z
                 .object({
-                  enabled: z.coerce.boolean(),
+                  enabled: PermissiveBoolean,
                   maximum: z.coerce.number().optional(),
                   minimum: z.coerce.number().optional(),
                   preset: z.coerce.number().optional(),
@@ -48178,7 +48174,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       tax_behavior: z
         .enum(["exclusive", "inclusive", "unspecified"])
         .optional(),
-      transfer_lookup_key: z.coerce.boolean().optional(),
+      transfer_lookup_key: PermissiveBoolean.optional(),
     })
     .optional()
 
@@ -48229,7 +48225,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const getProductsQuerySchema = z.object({
-    active: z.coerce.boolean().optional(),
+    active: PermissiveBoolean.optional(),
     created: z
       .union([
         z.object({
@@ -48245,7 +48241,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
     ids: z.array(z.string().max(5000)).optional(),
     limit: z.coerce.number().optional(),
-    shippable: z.coerce.boolean().optional(),
+    shippable: PermissiveBoolean.optional(),
     starting_after: z.string().max(5000).optional(),
     url: z.string().max(5000).optional(),
   })
@@ -48258,7 +48254,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_product)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/products")),
         }),
@@ -48314,7 +48310,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postProductsBodySchema = z.object({
-    active: z.coerce.boolean().optional(),
+    active: PermissiveBoolean.optional(),
     default_price_data: z
       .object({
         currency: z.string(),
@@ -48323,7 +48319,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             z.object({
               custom_unit_amount: z
                 .object({
-                  enabled: z.coerce.boolean(),
+                  enabled: PermissiveBoolean,
                   maximum: z.coerce.number().optional(),
                   minimum: z.coerce.number().optional(),
                   preset: z.coerce.number().optional(),
@@ -48376,7 +48372,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         width: z.coerce.number(),
       })
       .optional(),
-    shippable: z.coerce.boolean().optional(),
+    shippable: PermissiveBoolean.optional(),
     statement_descriptor: z.string().max(22).optional(),
     tax_code: z.string().optional(),
     unit_label: z.string().max(12).optional(),
@@ -48440,7 +48436,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_product)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           next_page: z.string().max(5000).nullable().optional(),
           object: z.enum(["search_result"]),
           total_count: z.coerce.number().optional(),
@@ -48611,7 +48607,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postProductsIdBodySchema = z
     .object({
-      active: z.coerce.boolean().optional(),
+      active: PermissiveBoolean.optional(),
       default_price: z.string().max(5000).optional(),
       description: z.union([z.string().max(40000), z.enum([""])]).optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -48635,7 +48631,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           z.enum([""]),
         ])
         .optional(),
-      shippable: z.coerce.boolean().optional(),
+      shippable: PermissiveBoolean.optional(),
       statement_descriptor: z.string().max(22).optional(),
       tax_code: z.union([z.string(), z.enum([""])]).optional(),
       unit_label: z.union([z.string().max(12), z.enum([""])]).optional(),
@@ -48690,7 +48686,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const getPromotionCodesQuerySchema = z.object({
-    active: z.coerce.boolean().optional(),
+    active: PermissiveBoolean.optional(),
     code: z.string().max(5000).optional(),
     coupon: z.string().max(5000).optional(),
     created: z
@@ -48719,7 +48715,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_promotion_code)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/promotion_codes")),
         }),
@@ -48775,7 +48771,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postPromotionCodesBodySchema = z.object({
-    active: z.coerce.boolean().optional(),
+    active: PermissiveBoolean.optional(),
     code: z.string().max(500).optional(),
     coupon: z.string().max(5000),
     customer: z.string().max(5000).optional(),
@@ -48788,7 +48784,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         currency_options: z
           .record(z.object({ minimum_amount: z.coerce.number().optional() }))
           .optional(),
-        first_time_transaction: z.coerce.boolean().optional(),
+        first_time_transaction: PermissiveBoolean.optional(),
         minimum_amount: z.coerce.number().optional(),
         minimum_amount_currency: z.string().optional(),
       })
@@ -48909,7 +48905,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postPromotionCodesPromotionCodeBodySchema = z
     .object({
-      active: z.coerce.boolean().optional(),
+      active: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
       restrictions: z
@@ -48988,7 +48984,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_quote)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/quotes")),
         }),
@@ -49053,7 +49049,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       automatic_tax: z
         .object({
-          enabled: z.coerce.boolean(),
+          enabled: PermissiveBoolean,
           liability: z
             .object({
               account: z.string().optional(),
@@ -49087,7 +49083,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       footer: z.union([z.string().max(500), z.enum([""])]).optional(),
       from_quote: z
         .object({
-          is_revision: z.coerce.boolean().optional(),
+          is_revision: PermissiveBoolean.optional(),
           quote: z.string().max(5000),
         })
         .optional(),
@@ -49287,7 +49283,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       automatic_tax: z
         .object({
-          enabled: z.coerce.boolean(),
+          enabled: PermissiveBoolean,
           liability: z
             .object({
               account: z.string().optional(),
@@ -49587,7 +49583,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(z.lazy(() => s_item)),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z.string().max(5000),
           }),
@@ -49733,7 +49729,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_item)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -49886,7 +49882,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_radar_early_fraud_warning)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z
             .string()
@@ -50043,7 +50039,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_radar_value_list_item),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z
             .string()
@@ -50306,7 +50302,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_radar_value_list),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/radar/value_lists")),
         }),
@@ -50637,7 +50633,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_refund)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/refunds")),
         }),
@@ -50706,8 +50702,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
       reason: z
         .enum(["duplicate", "fraudulent", "requested_by_customer"])
         .optional(),
-      refund_application_fee: z.coerce.boolean().optional(),
-      reverse_transfer: z.coerce.boolean().optional(),
+      refund_application_fee: PermissiveBoolean.optional(),
+      reverse_transfer: PermissiveBoolean.optional(),
     })
     .optional()
 
@@ -50948,7 +50944,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_reporting_report_run)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z
             .string()
@@ -51788,7 +51784,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_reporting_report_type),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -51938,7 +51934,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_review)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -52136,7 +52132,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_setup_attempt)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/setup_attempts")),
         }),
@@ -52192,7 +52188,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const getSetupIntentsQuerySchema = z.object({
-    attach_to_self: z.coerce.boolean().optional(),
+    attach_to_self: PermissiveBoolean.optional(),
     created: z
       .union([
         z.object({
@@ -52220,7 +52216,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_setup_intent)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/setup_intents")),
         }),
@@ -52277,14 +52273,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postSetupIntentsBodySchema = z
     .object({
-      attach_to_self: z.coerce.boolean().optional(),
+      attach_to_self: PermissiveBoolean.optional(),
       automatic_payment_methods: z
         .object({
           allow_redirects: z.enum(["always", "never"]).optional(),
-          enabled: z.coerce.boolean(),
+          enabled: PermissiveBoolean,
         })
         .optional(),
-      confirm: z.coerce.boolean().optional(),
+      confirm: PermissiveBoolean.optional(),
       confirmation_token: z.string().max(5000).optional(),
       customer: z.string().max(5000).optional(),
       description: z.string().max(1000).optional(),
@@ -52706,7 +52702,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .object({ amount: z.coerce.number(), currency: z.string() })
         .optional(),
       usage: z.enum(["off_session", "on_session"]).optional(),
-      use_stripe_sdk: z.coerce.boolean().optional(),
+      use_stripe_sdk: PermissiveBoolean.optional(),
     })
     .optional()
 
@@ -52823,7 +52819,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postSetupIntentsIntentBodySchema = z
     .object({
-      attach_to_self: z.coerce.boolean().optional(),
+      attach_to_self: PermissiveBoolean.optional(),
       customer: z.string().max(5000).optional(),
       description: z.string().max(1000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -53760,7 +53756,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       return_url: z.string().optional(),
-      use_stripe_sdk: z.coerce.boolean().optional(),
+      use_stripe_sdk: PermissiveBoolean.optional(),
     })
     .optional()
 
@@ -53877,7 +53873,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const getShippingRatesQuerySchema = z.object({
-    active: z.coerce.boolean().optional(),
+    active: PermissiveBoolean.optional(),
     created: z
       .union([
         z.object({
@@ -53904,7 +53900,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_shipping_rate),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/shipping_rates")),
         }),
@@ -54113,7 +54109,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postShippingRatesShippingRateTokenBodySchema = z
     .object({
-      active: z.coerce.boolean().optional(),
+      active: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
       fixed_amount: z
         .object({
@@ -54202,7 +54198,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_scheduled_query_run)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z
             .string()
@@ -54773,7 +54769,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(s_source_transaction),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z.string().max(5000),
           }),
@@ -54987,7 +54983,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_subscription_item)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z
             .string()
@@ -55154,7 +55150,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const deleteSubscriptionItemsItemBodySchema = z
     .object({
-      clear_usage: z.coerce.boolean().optional(),
+      clear_usage: PermissiveBoolean.optional(),
       proration_behavior: z
         .enum(["always_invoice", "create_prorations", "none"])
         .optional(),
@@ -55297,7 +55293,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
-      off_session: z.coerce.boolean().optional(),
+      off_session: PermissiveBoolean.optional(),
       payment_behavior: z
         .enum([
           "allow_incomplete",
@@ -55405,7 +55401,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(s_usage_record_summary),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z.string().max(5000),
           }),
@@ -55592,7 +55588,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         z.coerce.number(),
       ])
       .optional(),
-    scheduled: z.coerce.boolean().optional(),
+    scheduled: PermissiveBoolean.optional(),
     starting_after: z.string().max(5000).optional(),
   })
 
@@ -55604,7 +55600,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_subscription_schedule)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z
             .string()
@@ -55674,7 +55670,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           application_fee_percent: z.coerce.number().optional(),
           automatic_tax: z
             .object({
-              enabled: z.coerce.boolean(),
+              enabled: PermissiveBoolean,
               liability: z
                 .object({
                   account: z.string().optional(),
@@ -55688,7 +55684,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .union([
               z.object({
                 amount_gte: z.coerce.number().optional(),
-                reset_billing_cycle_anchor: z.coerce.boolean().optional(),
+                reset_billing_cycle_anchor: PermissiveBoolean.optional(),
               }),
               z.enum([""]),
             ])
@@ -55765,7 +55761,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             application_fee_percent: z.coerce.number().optional(),
             automatic_tax: z
               .object({
-                enabled: z.coerce.boolean(),
+                enabled: PermissiveBoolean,
                 liability: z
                   .object({
                     account: z.string().optional(),
@@ -55781,7 +55777,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               .union([
                 z.object({
                   amount_gte: z.coerce.number().optional(),
-                  reset_billing_cycle_anchor: z.coerce.boolean().optional(),
+                  reset_billing_cycle_anchor: PermissiveBoolean.optional(),
                 }),
                 z.enum([""]),
               ])
@@ -55880,7 +55876,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 destination: z.string(),
               })
               .optional(),
-            trial: z.coerce.boolean().optional(),
+            trial: PermissiveBoolean.optional(),
             trial_end: z.coerce.number().optional(),
           }),
         )
@@ -56008,7 +56004,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           application_fee_percent: z.coerce.number().optional(),
           automatic_tax: z
             .object({
-              enabled: z.coerce.boolean(),
+              enabled: PermissiveBoolean,
               liability: z
                 .object({
                   account: z.string().optional(),
@@ -56022,7 +56018,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .union([
               z.object({
                 amount_gte: z.coerce.number().optional(),
-                reset_billing_cycle_anchor: z.coerce.boolean().optional(),
+                reset_billing_cycle_anchor: PermissiveBoolean.optional(),
               }),
               z.enum([""]),
             ])
@@ -56098,7 +56094,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             application_fee_percent: z.coerce.number().optional(),
             automatic_tax: z
               .object({
-                enabled: z.coerce.boolean(),
+                enabled: PermissiveBoolean,
                 liability: z
                   .object({
                     account: z.string().optional(),
@@ -56114,7 +56110,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               .union([
                 z.object({
                   amount_gte: z.coerce.number().optional(),
-                  reset_billing_cycle_anchor: z.coerce.boolean().optional(),
+                  reset_billing_cycle_anchor: PermissiveBoolean.optional(),
                 }),
                 z.enum([""]),
               ])
@@ -56215,7 +56211,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 destination: z.string(),
               })
               .optional(),
-            trial: z.coerce.boolean().optional(),
+            trial: PermissiveBoolean.optional(),
             trial_end: z.union([z.coerce.number(), z.enum(["now"])]).optional(),
           }),
         )
@@ -56284,8 +56280,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postSubscriptionSchedulesScheduleCancelBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      invoice_now: z.coerce.boolean().optional(),
-      prorate: z.coerce.boolean().optional(),
+      invoice_now: PermissiveBoolean.optional(),
+      prorate: PermissiveBoolean.optional(),
     })
     .optional()
 
@@ -56347,7 +56343,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postSubscriptionSchedulesScheduleReleaseBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      preserve_cancel_date: z.coerce.boolean().optional(),
+      preserve_cancel_date: PermissiveBoolean.optional(),
     })
     .optional()
 
@@ -56403,7 +56399,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const getSubscriptionsQuerySchema = z.object({
-    automatic_tax: z.object({ enabled: z.coerce.boolean() }).optional(),
+    automatic_tax: z.object({ enabled: PermissiveBoolean }).optional(),
     collection_method: z
       .enum(["charge_automatically", "send_invoice"])
       .optional(),
@@ -56471,7 +56467,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_subscription)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/subscriptions")),
         }),
@@ -56563,7 +56559,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     automatic_tax: z
       .object({
-        enabled: z.coerce.boolean(),
+        enabled: PermissiveBoolean,
         liability: z
           .object({
             account: z.string().optional(),
@@ -56587,13 +56583,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .union([
         z.object({
           amount_gte: z.coerce.number().optional(),
-          reset_billing_cycle_anchor: z.coerce.boolean().optional(),
+          reset_billing_cycle_anchor: PermissiveBoolean.optional(),
         }),
         z.enum([""]),
       ])
       .optional(),
     cancel_at: z.coerce.number().optional(),
-    cancel_at_period_end: z.coerce.boolean().optional(),
+    cancel_at_period_end: PermissiveBoolean.optional(),
     collection_method: z
       .enum(["charge_automatically", "send_invoice"])
       .optional(),
@@ -56676,7 +56672,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       )
       .optional(),
     metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
-    off_session: z.coerce.boolean().optional(),
+    off_session: PermissiveBoolean.optional(),
     on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
     payment_behavior: z
       .enum([
@@ -56855,7 +56851,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       })
       .optional(),
     trial_end: z.union([z.enum(["now"]), z.coerce.number()]).optional(),
-    trial_from_plan: z.coerce.boolean().optional(),
+    trial_from_plan: PermissiveBoolean.optional(),
     trial_period_days: z.coerce.number().optional(),
     trial_settings: z
       .object({
@@ -56923,7 +56919,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_subscription)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           next_page: z.string().max(5000).nullable().optional(),
           object: z.enum(["search_result"]),
           total_count: z.coerce.number().optional(),
@@ -57011,8 +57007,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      invoice_now: z.coerce.boolean().optional(),
-      prorate: z.coerce.boolean().optional(),
+      invoice_now: PermissiveBoolean.optional(),
+      prorate: PermissiveBoolean.optional(),
     })
     .optional()
 
@@ -57176,7 +57172,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       automatic_tax: z
         .object({
-          enabled: z.coerce.boolean(),
+          enabled: PermissiveBoolean,
           liability: z
             .object({
               account: z.string().optional(),
@@ -57190,13 +57186,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .union([
           z.object({
             amount_gte: z.coerce.number().optional(),
-            reset_billing_cycle_anchor: z.coerce.boolean().optional(),
+            reset_billing_cycle_anchor: PermissiveBoolean.optional(),
           }),
           z.enum([""]),
         ])
         .optional(),
       cancel_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
-      cancel_at_period_end: z.coerce.boolean().optional(),
+      cancel_at_period_end: PermissiveBoolean.optional(),
       cancellation_details: z
         .object({
           comment: z.union([z.string().max(5000), z.enum([""])]).optional(),
@@ -57258,8 +57254,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
             billing_thresholds: z
               .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
               .optional(),
-            clear_usage: z.coerce.boolean().optional(),
-            deleted: z.coerce.boolean().optional(),
+            clear_usage: PermissiveBoolean.optional(),
+            deleted: PermissiveBoolean.optional(),
             discounts: z
               .union([
                 z.array(
@@ -57298,7 +57294,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         )
         .optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
-      off_session: z.coerce.boolean().optional(),
+      off_session: PermissiveBoolean.optional(),
       on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
       pause_collection: z
         .union([
@@ -57490,7 +57486,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ])
         .optional(),
       trial_end: z.union([z.enum(["now"]), z.coerce.number()]).optional(),
-      trial_from_plan: z.coerce.boolean().optional(),
+      trial_from_plan: PermissiveBoolean.optional(),
       trial_settings: z
         .object({
           end_behavior: z.object({
@@ -57872,7 +57868,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(s_tax_calculation_line_item),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z
               .string()
@@ -57957,7 +57953,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_tax_registration),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/tax/registrations")),
         }),
@@ -58843,7 +58839,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(s_tax_transaction_line_item),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z
               .string()
@@ -58927,7 +58923,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_tax_code),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -59062,7 +59058,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_tax_id)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -59349,7 +59345,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const getTaxRatesQuerySchema = z.object({
-    active: z.coerce.boolean().optional(),
+    active: PermissiveBoolean.optional(),
     created: z
       .union([
         z.object({
@@ -59363,7 +59359,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z.array(z.string().max(5000)).optional(),
-    inclusive: z.coerce.boolean().optional(),
+    inclusive: PermissiveBoolean.optional(),
     limit: z.coerce.number().optional(),
     starting_after: z.string().max(5000).optional(),
   })
@@ -59376,7 +59372,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_tax_rate),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/tax_rates")),
         }),
@@ -59432,12 +59428,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postTaxRatesBodySchema = z.object({
-    active: z.coerce.boolean().optional(),
+    active: PermissiveBoolean.optional(),
     country: z.string().max(5000).optional(),
     description: z.string().max(5000).optional(),
     display_name: z.string().max(50),
     expand: z.array(z.string().max(5000)).optional(),
-    inclusive: z.coerce.boolean(),
+    inclusive: PermissiveBoolean,
     jurisdiction: z.string().max(50).optional(),
     metadata: z.record(z.string()).optional(),
     percentage: z.coerce.number(),
@@ -59572,7 +59568,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postTaxRatesTaxRateBodySchema = z
     .object({
-      active: z.coerce.boolean().optional(),
+      active: PermissiveBoolean.optional(),
       country: z.string().max(5000).optional(),
       description: z.string().max(5000).optional(),
       display_name: z.string().max(50).optional(),
@@ -59652,7 +59648,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTerminalConfigurationsQuerySchema = z.object({
     ending_before: z.string().max(5000).optional(),
     expand: z.array(z.string().max(5000)).optional(),
-    is_account_default: z.coerce.boolean().optional(),
+    is_account_default: PermissiveBoolean.optional(),
     limit: z.coerce.number().optional(),
     starting_after: z.string().max(5000).optional(),
   })
@@ -59665,7 +59661,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_terminal_configuration)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z
             .string()
@@ -59737,7 +59733,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       expand: z.array(z.string().max(5000)).optional(),
       name: z.string().max(100).optional(),
       offline: z
-        .union([z.object({ enabled: z.coerce.boolean() }), z.enum([""])])
+        .union([z.object({ enabled: PermissiveBoolean }), z.enum([""])])
         .optional(),
       tipping: z
         .union([
@@ -60057,7 +60053,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       expand: z.array(z.string().max(5000)).optional(),
       name: z.string().max(100).optional(),
       offline: z
-        .union([z.object({ enabled: z.coerce.boolean() }), z.enum([""])])
+        .union([z.object({ enabled: PermissiveBoolean }), z.enum([""])])
         .optional(),
       tipping: z
         .union([
@@ -60305,7 +60301,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_terminal_location),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z
             .string()
@@ -60656,7 +60652,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_terminal_reader)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -61031,8 +61027,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     payment_intent: z.string().max(5000),
     process_config: z
       .object({
-        enable_customer_cancellation: z.coerce.boolean().optional(),
-        skip_tipping: z.coerce.boolean().optional(),
+        enable_customer_cancellation: PermissiveBoolean.optional(),
+        skip_tipping: PermissiveBoolean.optional(),
         tipping: z
           .object({ amount_eligible: z.coerce.number().optional() })
           .optional(),
@@ -61096,10 +61092,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postTerminalReadersReaderProcessSetupIntentBodySchema = z.object({
-    customer_consent_collected: z.coerce.boolean(),
+    customer_consent_collected: PermissiveBoolean,
     expand: z.array(z.string().max(5000)).optional(),
     process_config: z
-      .object({ enable_customer_cancellation: z.coerce.boolean().optional() })
+      .object({ enable_customer_cancellation: PermissiveBoolean.optional() })
       .optional(),
     setup_intent: z.string().max(5000),
   })
@@ -61166,11 +61162,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z.record(z.string()).optional(),
       payment_intent: z.string().max(5000).optional(),
-      refund_application_fee: z.coerce.boolean().optional(),
+      refund_application_fee: PermissiveBoolean.optional(),
       refund_payment_config: z
-        .object({ enable_customer_cancellation: z.coerce.boolean().optional() })
+        .object({ enable_customer_cancellation: PermissiveBoolean.optional() })
         .optional(),
-      reverse_transfer: z.coerce.boolean().optional(),
+      reverse_transfer: PermissiveBoolean.optional(),
     })
     .optional()
 
@@ -61702,7 +61698,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     card: z.string().max(5000),
     currency: z.string().optional(),
     expand: z.array(z.string().max(5000)).optional(),
-    is_amount_controllable: z.coerce.boolean().optional(),
+    is_amount_controllable: PermissiveBoolean.optional(),
     merchant_data: z
       .object({
         category: z
@@ -62104,7 +62100,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingAuthorizationsAuthorizationCaptureBodySchema = z
     .object({
       capture_amount: z.coerce.number().optional(),
-      close_authorization: z.coerce.boolean().optional(),
+      close_authorization: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
       purchase_details: z
         .object({
@@ -62112,7 +62108,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({
               departure_at: z.coerce.number().optional(),
               passenger_name: z.string().max(5000).optional(),
-              refundable: z.coerce.boolean().optional(),
+              refundable: PermissiveBoolean.optional(),
               segments: z
                 .array(
                   z.object({
@@ -62121,7 +62117,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     departure_airport_code: z.string().max(3).optional(),
                     flight_number: z.string().max(5000).optional(),
                     service_class: z.string().max(5000).optional(),
-                    stopover_allowed: z.coerce.boolean().optional(),
+                    stopover_allowed: PermissiveBoolean.optional(),
                   }),
                 )
                 .optional(),
@@ -62292,7 +62288,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.object({
       expand: z.array(z.string().max(5000)).optional(),
       increment_amount: z.coerce.number(),
-      is_amount_controllable: z.coerce.boolean().optional(),
+      is_amount_controllable: PermissiveBoolean.optional(),
     })
 
   const postTestHelpersIssuingAuthorizationsAuthorizationIncrementResponseValidator =
@@ -63202,7 +63198,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({
               departure_at: z.coerce.number().optional(),
               passenger_name: z.string().max(5000).optional(),
-              refundable: z.coerce.boolean().optional(),
+              refundable: PermissiveBoolean.optional(),
               segments: z
                 .array(
                   z.object({
@@ -63211,7 +63207,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     departure_airport_code: z.string().max(3).optional(),
                     flight_number: z.string().max(5000).optional(),
                     service_class: z.string().max(5000).optional(),
-                    stopover_allowed: z.coerce.boolean().optional(),
+                    stopover_allowed: PermissiveBoolean.optional(),
                   }),
                 )
                 .optional(),
@@ -63629,7 +63625,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({
               departure_at: z.coerce.number().optional(),
               passenger_name: z.string().max(5000).optional(),
-              refundable: z.coerce.boolean().optional(),
+              refundable: PermissiveBoolean.optional(),
               segments: z
                 .array(
                   z.object({
@@ -63638,7 +63634,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     departure_airport_code: z.string().max(3).optional(),
                     flight_number: z.string().max(5000).optional(),
                     service_class: z.string().max(5000).optional(),
-                    stopover_allowed: z.coerce.boolean().optional(),
+                    stopover_allowed: PermissiveBoolean.optional(),
                   }),
                 )
                 .optional(),
@@ -63947,7 +63943,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_test_helpers_test_clock),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z
             .string()
@@ -65031,14 +65027,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   town: z.string().max(5000).optional(),
                 })
                 .optional(),
-              directors_provided: z.coerce.boolean().optional(),
-              executives_provided: z.coerce.boolean().optional(),
+              directors_provided: PermissiveBoolean.optional(),
+              executives_provided: PermissiveBoolean.optional(),
               export_license_id: z.string().max(5000).optional(),
               export_purpose_code: z.string().max(5000).optional(),
               name: z.string().max(100).optional(),
               name_kana: z.string().max(100).optional(),
               name_kanji: z.string().max(100).optional(),
-              owners_provided: z.coerce.boolean().optional(),
+              owners_provided: PermissiveBoolean.optional(),
               ownership_declaration: z
                 .object({
                   date: z.coerce.number().optional(),
@@ -65046,9 +65042,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   user_agent: z.string().max(5000).optional(),
                 })
                 .optional(),
-              ownership_declaration_shown_and_signed: z.coerce
-                .boolean()
-                .optional(),
+              ownership_declaration_shown_and_signed:
+                PermissiveBoolean.optional(),
               phone: z.string().max(5000).optional(),
               registration_number: z.string().max(5000).optional(),
               structure: z
@@ -65169,9 +65164,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
               relationship: z
                 .object({
-                  director: z.coerce.boolean().optional(),
-                  executive: z.coerce.boolean().optional(),
-                  owner: z.coerce.boolean().optional(),
+                  director: PermissiveBoolean.optional(),
+                  executive: PermissiveBoolean.optional(),
+                  owner: PermissiveBoolean.optional(),
                   percent_ownership: z
                     .union([z.coerce.number(), z.enum([""])])
                     .optional(),
@@ -65197,7 +65192,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          tos_shown_and_accepted: z.coerce.boolean().optional(),
+          tos_shown_and_accepted: PermissiveBoolean.optional(),
         })
         .optional(),
       bank_account: z
@@ -65355,14 +65350,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           relationship: z
             .object({
-              director: z.coerce.boolean().optional(),
-              executive: z.coerce.boolean().optional(),
-              legal_guardian: z.coerce.boolean().optional(),
-              owner: z.coerce.boolean().optional(),
+              director: PermissiveBoolean.optional(),
+              executive: PermissiveBoolean.optional(),
+              legal_guardian: PermissiveBoolean.optional(),
+              owner: PermissiveBoolean.optional(),
               percent_ownership: z
                 .union([z.coerce.number(), z.enum([""])])
                 .optional(),
-              representative: z.coerce.boolean().optional(),
+              representative: PermissiveBoolean.optional(),
               title: z.string().max(5000).optional(),
             })
             .optional(),
@@ -65527,7 +65522,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_topup)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/topups")),
         }),
@@ -65835,7 +65830,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_transfer)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/transfers")),
         }),
@@ -65963,7 +65958,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_transfer_reversal)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -66036,7 +66031,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       description: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
-      refund_application_fee: z.coerce.boolean().optional(),
+      refund_application_fee: PermissiveBoolean.optional(),
     })
     .optional()
 
@@ -66357,7 +66352,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_treasury_credit_reversal)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -66552,7 +66547,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_treasury_debit_reversal)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -66757,7 +66752,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(s_treasury_financial_account),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z
               .string()
@@ -66823,36 +66818,36 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
     features: z
       .object({
-        card_issuing: z.object({ requested: z.coerce.boolean() }).optional(),
+        card_issuing: z.object({ requested: PermissiveBoolean }).optional(),
         deposit_insurance: z
-          .object({ requested: z.coerce.boolean() })
+          .object({ requested: PermissiveBoolean })
           .optional(),
         financial_addresses: z
           .object({
-            aba: z.object({ requested: z.coerce.boolean() }).optional(),
+            aba: z.object({ requested: PermissiveBoolean }).optional(),
           })
           .optional(),
         inbound_transfers: z
           .object({
-            ach: z.object({ requested: z.coerce.boolean() }).optional(),
+            ach: z.object({ requested: PermissiveBoolean }).optional(),
           })
           .optional(),
         intra_stripe_flows: z
-          .object({ requested: z.coerce.boolean() })
+          .object({ requested: PermissiveBoolean })
           .optional(),
         outbound_payments: z
           .object({
-            ach: z.object({ requested: z.coerce.boolean() }).optional(),
+            ach: z.object({ requested: PermissiveBoolean }).optional(),
             us_domestic_wire: z
-              .object({ requested: z.coerce.boolean() })
+              .object({ requested: PermissiveBoolean })
               .optional(),
           })
           .optional(),
         outbound_transfers: z
           .object({
-            ach: z.object({ requested: z.coerce.boolean() }).optional(),
+            ach: z.object({ requested: PermissiveBoolean }).optional(),
             us_domestic_wire: z
-              .object({ requested: z.coerce.boolean() })
+              .object({ requested: PermissiveBoolean })
               .optional(),
           })
           .optional(),
@@ -66988,36 +66983,36 @@ export function createRouter(implementation: Implementation): KoaRouter {
       expand: z.array(z.string().max(5000)).optional(),
       features: z
         .object({
-          card_issuing: z.object({ requested: z.coerce.boolean() }).optional(),
+          card_issuing: z.object({ requested: PermissiveBoolean }).optional(),
           deposit_insurance: z
-            .object({ requested: z.coerce.boolean() })
+            .object({ requested: PermissiveBoolean })
             .optional(),
           financial_addresses: z
             .object({
-              aba: z.object({ requested: z.coerce.boolean() }).optional(),
+              aba: z.object({ requested: PermissiveBoolean }).optional(),
             })
             .optional(),
           inbound_transfers: z
             .object({
-              ach: z.object({ requested: z.coerce.boolean() }).optional(),
+              ach: z.object({ requested: PermissiveBoolean }).optional(),
             })
             .optional(),
           intra_stripe_flows: z
-            .object({ requested: z.coerce.boolean() })
+            .object({ requested: PermissiveBoolean })
             .optional(),
           outbound_payments: z
             .object({
-              ach: z.object({ requested: z.coerce.boolean() }).optional(),
+              ach: z.object({ requested: PermissiveBoolean }).optional(),
               us_domestic_wire: z
-                .object({ requested: z.coerce.boolean() })
+                .object({ requested: PermissiveBoolean })
                 .optional(),
             })
             .optional(),
           outbound_transfers: z
             .object({
-              ach: z.object({ requested: z.coerce.boolean() }).optional(),
+              ach: z.object({ requested: PermissiveBoolean }).optional(),
               us_domestic_wire: z
-                .object({ requested: z.coerce.boolean() })
+                .object({ requested: PermissiveBoolean })
                 .optional(),
             })
             .optional(),
@@ -67164,31 +67159,29 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema = z
     .object({
-      card_issuing: z.object({ requested: z.coerce.boolean() }).optional(),
-      deposit_insurance: z.object({ requested: z.coerce.boolean() }).optional(),
+      card_issuing: z.object({ requested: PermissiveBoolean }).optional(),
+      deposit_insurance: z.object({ requested: PermissiveBoolean }).optional(),
       expand: z.array(z.string().max(5000)).optional(),
       financial_addresses: z
-        .object({ aba: z.object({ requested: z.coerce.boolean() }).optional() })
+        .object({ aba: z.object({ requested: PermissiveBoolean }).optional() })
         .optional(),
       inbound_transfers: z
-        .object({ ach: z.object({ requested: z.coerce.boolean() }).optional() })
+        .object({ ach: z.object({ requested: PermissiveBoolean }).optional() })
         .optional(),
-      intra_stripe_flows: z
-        .object({ requested: z.coerce.boolean() })
-        .optional(),
+      intra_stripe_flows: z.object({ requested: PermissiveBoolean }).optional(),
       outbound_payments: z
         .object({
-          ach: z.object({ requested: z.coerce.boolean() }).optional(),
+          ach: z.object({ requested: PermissiveBoolean }).optional(),
           us_domestic_wire: z
-            .object({ requested: z.coerce.boolean() })
+            .object({ requested: PermissiveBoolean })
             .optional(),
         })
         .optional(),
       outbound_transfers: z
         .object({
-          ach: z.object({ requested: z.coerce.boolean() }).optional(),
+          ach: z.object({ requested: PermissiveBoolean }).optional(),
           us_domestic_wire: z
-            .object({ requested: z.coerce.boolean() })
+            .object({ requested: PermissiveBoolean })
             .optional(),
         })
         .optional(),
@@ -67276,7 +67269,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(z.lazy(() => s_treasury_inbound_transfer)),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z.string().max(5000),
           }),
@@ -67548,7 +67541,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(z.lazy(() => s_treasury_outbound_payment)),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z
               .string()
@@ -67665,10 +67658,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       })
       .optional(),
     end_user_details: z
-      .object({
-        ip_address: z.string().optional(),
-        present: z.coerce.boolean(),
-      })
+      .object({ ip_address: z.string().optional(), present: PermissiveBoolean })
       .optional(),
     expand: z.array(z.string().max(5000)).optional(),
     financial_account: z.string(),
@@ -67861,7 +67851,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(z.lazy(() => s_treasury_outbound_transfer)),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z.string().max(5000),
           }),
@@ -68144,7 +68134,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_treasury_received_credit)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -68282,7 +68272,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_treasury_received_debit)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -68444,7 +68434,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             data: z.array(z.lazy(() => s_treasury_transaction_entry)),
-            has_more: z.coerce.boolean(),
+            has_more: PermissiveBoolean,
             object: z.enum(["list"]),
             url: z
               .string()
@@ -68612,7 +68602,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(z.lazy(() => s_treasury_transaction)),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000),
         }),
@@ -68750,7 +68740,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           data: z.array(s_webhook_endpoint),
-          has_more: z.coerce.boolean(),
+          has_more: PermissiveBoolean,
           object: z.enum(["list"]),
           url: z.string().max(5000).regex(new RegExp("^/v1/webhook_endpoints")),
         }),
@@ -68915,7 +68905,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "2024-04-10",
       ])
       .optional(),
-    connect: z.coerce.boolean().optional(),
+    connect: PermissiveBoolean.optional(),
     description: z.union([z.string().max(5000), z.enum([""])]).optional(),
     enabled_events: z.array(
       z.enum([
@@ -69330,7 +69320,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postWebhookEndpointsWebhookEndpointBodySchema = z
     .object({
       description: z.union([z.string().max(5000), z.enum([""])]).optional(),
-      disabled: z.coerce.boolean().optional(),
+      disabled: PermissiveBoolean.optional(),
       enabled_events: z
         .array(
           z.enum([
