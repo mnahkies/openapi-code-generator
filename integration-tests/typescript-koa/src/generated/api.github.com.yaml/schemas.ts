@@ -1607,7 +1607,7 @@ export const s_org_custom_property = z.object({
     .nullable()
     .optional(),
   description: z.string().nullable().optional(),
-  allowed_values: z.array(z.string().max(75)).nullable().optional(),
+  allowed_values: z.array(z.string().max(75)).max(200).nullable().optional(),
   values_editable_by: z
     .enum(["org_actors", "org_and_repo_actors"])
     .nullable()

@@ -1,6 +1,7 @@
 import {Input} from "../../../core/input"
 import {Reference} from "../../../core/openapi-types"
 import {
+  IRModelArray,
   IRModelNumeric,
   IRModelString,
 } from "../../../core/openapi-types-normalized"
@@ -134,8 +135,23 @@ export class JoiBuilder extends AbstractSchemaBuilder<
       .join(".")
   }
 
-  protected array(items: string[]): string {
-    return [joi, "array()", `items(${items.join(",")})`]
+  protected array(model: IRModelArray, items: string[]): string {
+    return [
+      joi,
+      "array()",
+      `items(${items.join(",")})`,
+      model.uniqueItems ? "unique()" : undefined,
+      Number.isFinite(model.minItems) &&
+      model.minItems !== undefined &&
+      model.minItems >= 0
+        ? `min(${model.minItems})`
+        : undefined,
+      Number.isFinite(model.maxItems) &&
+      model.maxItems !== undefined &&
+      model.maxItems >= 0
+        ? `max(${model.maxItems})`
+        : undefined,
+    ]
       .filter(isDefined)
       .join(".")
   }

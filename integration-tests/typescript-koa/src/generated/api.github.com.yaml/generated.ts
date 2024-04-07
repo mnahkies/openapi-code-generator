@@ -20834,7 +20834,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     cwes: z.union([z.string(), z.array(z.string())]).optional(),
     is_withdrawn: PermissiveBoolean.optional(),
-    affects: z.union([z.string(), z.array(z.string())]).optional(),
+    affects: z.union([z.string(), z.array(z.string()).max(1000)]).optional(),
     published: z.string().optional(),
     updated: z.string().optional(),
     modified: z.string().optional(),
@@ -26776,7 +26776,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const actionsGenerateRunnerJitconfigForOrgBodySchema = z.object({
     name: z.string(),
     runner_group_id: z.coerce.number(),
-    labels: z.array(z.string()),
+    labels: z.array(z.string()).min(1).max(100),
     work_folder: z.string().optional(),
   })
 
@@ -27105,7 +27105,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema = z.object({
-    labels: z.array(z.string()),
+    labels: z.array(z.string()).min(1).max(100),
   })
 
   const actionsAddCustomLabelsToSelfHostedRunnerForOrgResponseValidator =
@@ -27185,7 +27185,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema = z.object({
-    labels: z.array(z.string()),
+    labels: z.array(z.string()).min(0).max(100),
   })
 
   const actionsSetCustomLabelsForSelfHostedRunnerForOrgResponseValidator =
@@ -28856,7 +28856,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "all_members",
       "all_members_and_outside_collaborators",
     ]),
-    selected_usernames: z.array(z.string()).optional(),
+    selected_usernames: z.array(z.string()).max(100).optional(),
   })
 
   const codespacesSetCodespacesAccessResponseValidator =
@@ -28934,7 +28934,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const codespacesSetCodespacesAccessUsersBodySchema = z.object({
-    selected_usernames: z.array(z.string()),
+    selected_usernames: z.array(z.string()).max(100),
   })
 
   const codespacesSetCodespacesAccessUsersResponseValidator =
@@ -29015,7 +29015,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const codespacesDeleteCodespacesAccessUsersBodySchema = z.object({
-    selected_usernames: z.array(z.string()),
+    selected_usernames: z.array(z.string()).max(100),
   })
 
   const codespacesDeleteCodespacesAccessUsersResponseValidator =
@@ -29826,7 +29826,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const copilotAddCopilotSeatsForTeamsBodySchema = z.object({
-    selected_teams: z.array(z.string()),
+    selected_teams: z.array(z.string()).min(1),
   })
 
   const copilotAddCopilotSeatsForTeamsResponseValidator =
@@ -29906,7 +29906,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const copilotCancelCopilotSeatAssignmentForTeamsBodySchema = z.object({
-    selected_teams: z.array(z.string()),
+    selected_teams: z.array(z.string()).min(1),
   })
 
   const copilotCancelCopilotSeatAssignmentForTeamsResponseValidator =
@@ -29989,7 +29989,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const copilotAddCopilotSeatsForUsersBodySchema = z.object({
-    selected_usernames: z.array(z.string()),
+    selected_usernames: z.array(z.string()).min(1),
   })
 
   const copilotAddCopilotSeatsForUsersResponseValidator =
@@ -30069,7 +30069,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const copilotCancelCopilotSeatAssignmentForUsersBodySchema = z.object({
-    selected_usernames: z.array(z.string()),
+    selected_usernames: z.array(z.string()).min(1),
   })
 
   const copilotCancelCopilotSeatAssignmentForUsersResponseValidator =
@@ -34893,7 +34893,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     page: z.coerce.number().optional(),
     sort: z.enum(["created_at"]).optional(),
     direction: z.enum(["asc", "desc"]).optional(),
-    owner: z.array(z.string()).optional(),
+    owner: z.array(z.string()).max(10).optional(),
     repository: z.string().optional(),
     permission: z.string().optional(),
     last_used_before: z.string().datetime({ offset: true }).optional(),
@@ -34972,7 +34972,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const orgsReviewPatGrantRequestsInBulkBodySchema = z.object({
-    pat_request_ids: z.array(z.coerce.number()).optional(),
+    pat_request_ids: z.array(z.coerce.number()).min(1).max(100).optional(),
     action: z.enum(["approve", "deny"]),
     reason: z.string().max(1024).nullable().optional(),
   })
@@ -35202,7 +35202,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     page: z.coerce.number().optional(),
     sort: z.enum(["created_at"]).optional(),
     direction: z.enum(["asc", "desc"]).optional(),
-    owner: z.array(z.string()).optional(),
+    owner: z.array(z.string()).max(10).optional(),
     repository: z.string().optional(),
     permission: z.string().optional(),
     last_used_before: z.string().datetime({ offset: true }).optional(),
@@ -35280,7 +35280,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsUpdatePatAccessesBodySchema = z.object({
     action: z.enum(["revoke"]),
-    pat_ids: z.array(z.coerce.number()),
+    pat_ids: z.array(z.coerce.number()).min(1).max(100),
   })
 
   const orgsUpdatePatAccessesResponseValidator = responseValidationFactory(
@@ -35687,7 +35687,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const orgsCreateOrUpdateCustomPropertiesBodySchema = z.object({
-    properties: z.array(s_org_custom_property),
+    properties: z.array(s_org_custom_property).min(1).max(100),
   })
 
   const orgsCreateOrUpdateCustomPropertiesResponseValidator =
@@ -35822,7 +35822,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .nullable()
       .optional(),
     description: z.string().nullable().optional(),
-    allowed_values: z.array(z.string().max(75)).nullable().optional(),
+    allowed_values: z.array(z.string().max(75)).max(200).nullable().optional(),
   })
 
   const orgsCreateOrUpdateCustomPropertyResponseValidator =
@@ -36019,7 +36019,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const orgsCreateOrUpdateCustomPropertiesValuesForReposBodySchema = z.object({
-    repository_names: z.array(z.string()),
+    repository_names: z.array(z.string()).min(1).max(30),
     properties: z.array(s_custom_property_value),
   })
 
@@ -42696,7 +42696,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const actionsGenerateRunnerJitconfigForRepoBodySchema = z.object({
     name: z.string(),
     runner_group_id: z.coerce.number(),
-    labels: z.array(z.string()),
+    labels: z.array(z.string()).min(1).max(100),
     work_folder: z.string().optional(),
   })
 
@@ -43034,7 +43034,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema = z.object({
-    labels: z.array(z.string()),
+    labels: z.array(z.string()).min(1).max(100),
   })
 
   const actionsAddCustomLabelsToSelfHostedRunnerForRepoResponseValidator =
@@ -43115,7 +43115,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema = z.object({
-    labels: z.array(z.string()),
+    labels: z.array(z.string()).min(0).max(100),
   })
 
   const actionsSetCustomLabelsForSelfHostedRunnerForRepoResponseValidator =
@@ -48507,6 +48507,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               raw_details: z.string().optional(),
             }),
           )
+          .max(50)
           .optional(),
         images: z
           .array(
@@ -48527,6 +48528,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           identifier: z.string().max(20),
         }),
       )
+      .max(3)
       .optional(),
   })
 
@@ -59717,10 +59719,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const issuesAddLabelsBodySchema = z
     .union([
-      z.object({ labels: z.array(z.string()).optional() }),
-      z.array(z.string()),
-      z.object({ labels: z.array(z.object({ name: z.string() })).optional() }),
-      z.array(z.object({ name: z.string() })),
+      z.object({ labels: z.array(z.string()).min(1).optional() }),
+      z.array(z.string()).min(1),
+      z.object({
+        labels: z
+          .array(z.object({ name: z.string() }))
+          .min(1)
+          .optional(),
+      }),
+      z.array(z.object({ name: z.string() })).min(1),
       z.string(),
     ])
     .optional()
@@ -59798,10 +59805,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const issuesSetLabelsBodySchema = z
     .union([
-      z.object({ labels: z.array(z.string()).optional() }),
-      z.array(z.string()),
-      z.object({ labels: z.array(z.object({ name: z.string() })).optional() }),
-      z.array(z.object({ name: z.string() })),
+      z.object({ labels: z.array(z.string()).min(1).optional() }),
+      z.array(z.string()).min(1),
+      z.object({
+        labels: z
+          .array(z.object({ name: z.string() }))
+          .min(1)
+          .optional(),
+      }),
+      z.array(z.object({ name: z.string() })).min(1),
       z.string(),
     ])
     .optional()

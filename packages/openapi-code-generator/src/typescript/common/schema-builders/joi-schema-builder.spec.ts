@@ -1,6 +1,7 @@
 import vm from "node:vm"
 import {describe, expect, it} from "@jest/globals"
 import {
+  IRModelArray,
   IRModelBoolean,
   IRModelNumeric,
   IRModelString,
@@ -663,6 +664,112 @@ describe.each(testVersions)(
         )
         await expect(executeParseSchema(code, {})).rejects.toThrow(
           '"value" must be a boolean',
+        )
+      })
+    })
+
+    describe("arrays", () => {
+      const base: IRModelArray = {
+        nullable: false,
+        readOnly: false,
+        type: "array",
+        items: {nullable: false, readOnly: false, type: "string"},
+        uniqueItems: false,
+      }
+
+      it("supports arrays", async () => {
+        const {code} = await getActualFromModel({...base})
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.array().items(joi.string().required()).required()"',
+        )
+
+        await expect(
+          executeParseSchema(code, ["foo", "bar"]),
+        ).resolves.toStrictEqual(["foo", "bar"])
+        await expect(executeParseSchema(code, [1, 2])).rejects.toThrow(
+          '"[0]" must be a string',
+        )
+      })
+
+      it("supports uniqueItems", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          uniqueItems: true,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.array().items(joi.string().required()).unique().required()"',
+        )
+
+        await expect(
+          executeParseSchema(code, ["foo", "bar"]),
+        ).resolves.toStrictEqual(["foo", "bar"])
+        await expect(executeParseSchema(code, ["foo", "foo"])).rejects.toThrow(
+          '"[1]" contains a duplicate value',
+        )
+      })
+
+      it("supports minItems", async () => {
+        const {code} = await getActualFromModel({...base, minItems: 2})
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.array().items(joi.string().required()).min(2).required()"',
+        )
+
+        await expect(
+          executeParseSchema(code, ["foo", "bar"]),
+        ).resolves.toStrictEqual(["foo", "bar"])
+        await expect(executeParseSchema(code, ["foo"])).rejects.toThrow(
+          '"value" must contain at least 2 items',
+        )
+      })
+
+      it("supports maxItems", async () => {
+        const {code} = await getActualFromModel({...base, maxItems: 2})
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.array().items(joi.string().required()).max(2).required()"',
+        )
+
+        await expect(
+          executeParseSchema(code, ["foo", "bar"]),
+        ).resolves.toStrictEqual(["foo", "bar"])
+        await expect(
+          executeParseSchema(code, ["foo", "bar", "foobar"]),
+        ).rejects.toThrow('"value" must contain less than or equal to 2 items')
+      })
+
+      it("supports minItems / maxItems / uniqueItems", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          items: {type: "number", nullable: false, readOnly: false},
+          minItems: 1,
+          maxItems: 3,
+          uniqueItems: true,
+        })
+
+        expect(code).toMatchInlineSnapshot(`
+          "const x = joi
+            .array()
+            .items(joi.number().required())
+            .unique()
+            .min(1)
+            .max(3)
+            .required()"
+        `)
+
+        await expect(executeParseSchema(code, [1, 2])).resolves.toStrictEqual([
+          1, 2,
+        ])
+        await expect(executeParseSchema(code, [])).rejects.toThrow(
+          '"value" does not contain 1 required value(s)',
+        )
+        await expect(executeParseSchema(code, [1, 2, 3, 4])).rejects.toThrow(
+          '"value" must contain less than or equal to 3 items',
+        )
+        await expect(executeParseSchema(code, [3, 3, 3])).rejects.toThrow(
+          '"[1]" contains a duplicate value',
         )
       })
     })

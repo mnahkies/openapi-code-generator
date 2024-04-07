@@ -1,6 +1,7 @@
 import * as vm from "node:vm"
 import {describe, expect, it} from "@jest/globals"
 import {
+  IRModelArray,
   IRModelBoolean,
   IRModelNumeric,
   IRModelString,
@@ -607,6 +608,114 @@ describe.each(testVersions)(
         )
         await expect(executeParseSchema(code, {})).rejects.toThrow(
           "Expected boolean, received object",
+        )
+      })
+    })
+
+    describe("arrays", () => {
+      const base: IRModelArray = {
+        nullable: false,
+        readOnly: false,
+        type: "array",
+        items: {nullable: false, readOnly: false, type: "string"},
+        uniqueItems: false,
+      }
+
+      it("supports arrays", async () => {
+        const {code} = await getActualFromModel({...base})
+
+        expect(code).toMatchInlineSnapshot('"const x = z.array(z.string())"')
+
+        await expect(
+          executeParseSchema(code, ["foo", "bar"]),
+        ).resolves.toStrictEqual(["foo", "bar"])
+        await expect(executeParseSchema(code, [1, 2])).rejects.toThrow(
+          "Expected string, received number",
+        )
+      })
+
+      it("supports uniqueItems", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          uniqueItems: true,
+        })
+
+        expect(code).toMatchInlineSnapshot(`
+          "const x = z
+            .array(z.string())
+            .refine((array) => new Set([...array]).size === array.length, {
+              message: "Array must contain unique element(s)",
+            })"
+        `)
+
+        await expect(
+          executeParseSchema(code, ["foo", "bar"]),
+        ).resolves.toStrictEqual(["foo", "bar"])
+        await expect(executeParseSchema(code, ["foo", "foo"])).rejects.toThrow(
+          "Array must contain unique element(s)",
+        )
+      })
+
+      it("supports minItems", async () => {
+        const {code} = await getActualFromModel({...base, minItems: 2})
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = z.array(z.string()).min(2)"',
+        )
+
+        await expect(
+          executeParseSchema(code, ["foo", "bar"]),
+        ).resolves.toStrictEqual(["foo", "bar"])
+        await expect(executeParseSchema(code, ["foo"])).rejects.toThrow(
+          "Array must contain at least 2 element(s)",
+        )
+      })
+
+      it("supports maxItems", async () => {
+        const {code} = await getActualFromModel({...base, maxItems: 2})
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = z.array(z.string()).max(2)"',
+        )
+
+        await expect(
+          executeParseSchema(code, ["foo", "bar"]),
+        ).resolves.toStrictEqual(["foo", "bar"])
+        await expect(
+          executeParseSchema(code, ["foo", "bar", "foobar"]),
+        ).rejects.toThrow("Array must contain at most 2 element(s)")
+      })
+
+      it("supports minItems / maxItems / uniqueItems", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          items: {type: "number", nullable: false, readOnly: false},
+          minItems: 1,
+          maxItems: 3,
+          uniqueItems: true,
+        })
+
+        expect(code).toMatchInlineSnapshot(`
+          "const x = z
+            .array(z.coerce.number())
+            .min(1)
+            .max(3)
+            .refine((array) => new Set([...array]).size === array.length, {
+              message: "Array must contain unique element(s)",
+            })"
+        `)
+
+        await expect(executeParseSchema(code, [1, 2])).resolves.toStrictEqual([
+          1, 2,
+        ])
+        await expect(executeParseSchema(code, [])).rejects.toThrow(
+          "Array must contain at least 1 element(s)",
+        )
+        await expect(executeParseSchema(code, [1, 2, 3, 4])).rejects.toThrow(
+          "Array must contain at most 3 element(s)",
+        )
+        await expect(executeParseSchema(code, [3, 3, 3])).rejects.toThrow(
+          "Array must contain unique element(s)",
         )
       })
     })

@@ -6,6 +6,7 @@ import {Input} from "../../../core/input"
 import {logger} from "../../../core/logger"
 import {Reference} from "../../../core/openapi-types"
 import {
+  IRModelArray,
   IRModelNumeric,
   IRModelObject,
   IRModelString,
@@ -208,7 +209,7 @@ export abstract class AbstractSchemaBuilder<
         result = this.boolean()
         break
       case "array":
-        result = this.array([this.fromModel(model.items, true)])
+        result = this.array(model, [this.fromModel(model.items, true)])
         break
       case "object": {
         if (model.allOf.length) {
@@ -329,7 +330,7 @@ export abstract class AbstractSchemaBuilder<
 
   protected abstract record(schema: string): string
 
-  protected abstract array(items: string[]): string
+  protected abstract array(model: IRModelArray, items: string[]): string
 
   protected abstract number(model: IRModelNumeric): string
 
