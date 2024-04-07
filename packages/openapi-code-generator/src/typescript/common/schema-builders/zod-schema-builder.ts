@@ -16,16 +16,36 @@ import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 
 const zod = "z"
 
-// todo: coerce is cool for input where everything starts as strings,
-//       but for output we probably don't want that as its more likely
-//       to mask mistakes. https://en.wikipedia.org/wiki/Robustness_principle
-export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
+export const staticSchemas = {
+  PermissiveBoolean: `${zod}.preprocess((value) => {
+          if(typeof value === "string" && (value === "true" || value === "false")) {
+            return value === "true"
+          } else if(typeof value === "number" && (value === 1 || value === 0)) {
+            return value === 1
+          }
+          return value
+        }, ${zod}.boolean())`,
+}
+type StaticSchemas = typeof staticSchemas
+
+export class ZodBuilder extends AbstractSchemaBuilder<
+  ZodBuilder,
+  StaticSchemas
+> {
   static async fromInput(filename: string, input: Input): Promise<ZodBuilder> {
-    return new ZodBuilder(filename, input)
+    return new ZodBuilder(filename, input, staticSchemas)
   }
 
   override withImports(imports: ImportBuilder): ZodBuilder {
-    return new ZodBuilder(this.filename, this.input, {}, imports, this)
+    return new ZodBuilder(
+      this.filename,
+      this.input,
+      staticSchemas,
+      {},
+      new Set(),
+      imports,
+      this,
+    )
   }
 
   protected importHelpers(imports: ImportBuilder) {
@@ -55,7 +75,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
 
     return {
       name,
-      type: type ? `${zod}.ZodType<${type}>` : "",
+      type: type ? `${zod}.ZodType<${type}, z.ZodTypeDef, unknown>` : "",
       value,
       kind: "const",
     }
@@ -199,13 +219,12 @@ export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
   }
 
   protected boolean() {
-    return [
-      zod,
-      // todo: this would mean the literal string "false" as a query parameter is coerced to true
-      "coerce.boolean()",
-    ]
-      .filter(isDefined)
-      .join(".")
+    // if a boolean is coming from a query string / url parameter, then we need
+    // to be a bit more lenient in our parsing.
+    // todo: switch to stricter parsing when property is part of a request body/response
+    // todo: might be nice to have an x-extension prop that lets the user define the
+    //       true/false mapping in their schema.
+    return this.addStaticSchema("PermissiveBoolean")
   }
 
   public any(): string {

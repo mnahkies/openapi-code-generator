@@ -4,6 +4,15 @@
 
 import { z } from "zod"
 
+export const PermissiveBoolean = z.preprocess((value) => {
+  if (typeof value === "string" && (value === "true" || value === "false")) {
+    return value === "true"
+  } else if (typeof value === "number" && (value === 1 || value === 0)) {
+    return value === 1
+  }
+  return value
+}, z.boolean())
+
 export const s_AppAuthenticatorEnrollment = z.object({
   authenticatorId: z.string().optional(),
   createdDate: z.string().datetime({ offset: true }).optional(),
@@ -167,7 +176,7 @@ export const s_KeyObject = z.union([s_KeyEC, s_KeyRSA])
 export const s_AppAuthenticatorEnrollmentRequest = z.object({
   authenticatorId: z.string(),
   device: z.object({
-    secureHardwarePresent: z.coerce.boolean().optional(),
+    secureHardwarePresent: PermissiveBoolean.optional(),
     clientInstanceKey: s_KeyObject,
     osVersion: z.string(),
     clientInstanceBundleId: z.string(),

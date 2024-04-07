@@ -19,7 +19,8 @@ import {ImportBuilder} from "../import-builder"
 import {ExportDefinition, buildExport} from "../typescript-common"
 
 export abstract class AbstractSchemaBuilder<
-  SubClass extends AbstractSchemaBuilder<SubClass>,
+  SubClass extends AbstractSchemaBuilder<SubClass, StaticSchemas>,
+  StaticSchemas extends {[key: string]: string},
 > implements ICompilable
 {
   private readonly graph: DependencyGraph
@@ -29,7 +30,9 @@ export abstract class AbstractSchemaBuilder<
   protected constructor(
     public readonly filename: string,
     protected readonly input: Input,
+    private readonly availableStaticSchemas: StaticSchemas,
     private readonly referenced: Record<string, Reference> = {},
+    private readonly referencedStaticSchemas = new Set<keyof StaticSchemas>(),
     private readonly imports?: ImportBuilder,
     private readonly parent?: SubClass,
   ) {
@@ -53,6 +56,22 @@ export abstract class AbstractSchemaBuilder<
     return name
   }
 
+  protected addStaticSchema(name: keyof StaticSchemas): string {
+    if (typeof name !== "string") {
+      throw new Error("static schemas must be strings")
+    }
+
+    this.parent?.addStaticSchema(name)
+    this.referencedStaticSchemas.add(name)
+    this.imports?.addSingle(name, this.filename)
+
+    return name
+  }
+
+  private staticSchemas(): string[] {
+    return Array.from(this.referencedStaticSchemas.values()).sort() as string[]
+  }
+
   toString(): string {
     logger.time(`generate ${this.filename}`)
 
@@ -60,8 +79,8 @@ export abstract class AbstractSchemaBuilder<
       const seen = new Set()
 
       return (
-        this.graph.order
-          .filter((it) => this.referenced[it])
+        this.staticSchemas()
+          .concat(this.graph.order.filter((it) => this.referenced[it]))
           // todo: this is needed because the dependency graph only considers schemas from the entrypoint
           //       specification - ideally we'd recurse into all referenced specifications and include their
           //       schemas in the ordering
@@ -72,12 +91,27 @@ export abstract class AbstractSchemaBuilder<
             return !alreadySeen
           })
           .map((name) => {
-            return buildExport(
-              this.schemaFromRef(
-                this.referenced[name]!,
-                this.schemaBuilderImports,
-              ),
-            )
+            const $ref = this.referenced[name]
+            if ($ref) {
+              return buildExport(
+                this.schemaFromRef($ref, this.schemaBuilderImports),
+              )
+            }
+
+            const staticSchemaName = this.referencedStaticSchemas.has(name)
+              ? (name as keyof StaticSchemas & string)
+              : undefined
+            const staticSchemaValue =
+              staticSchemaName && this.availableStaticSchemas[staticSchemaName]
+            if (staticSchemaName && staticSchemaValue) {
+              return buildExport({
+                name: staticSchemaName,
+                kind: "const",
+                value: staticSchemaValue,
+              })
+            }
+
+            throw new Error("unreachable")
           })
       )
     }

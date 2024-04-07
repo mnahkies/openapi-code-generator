@@ -13,13 +13,27 @@ import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 
 const joi = "joi"
 
-export class JoiBuilder extends AbstractSchemaBuilder<JoiBuilder> {
+const staticSchemas = {}
+type StaticSchemas = typeof staticSchemas
+
+export class JoiBuilder extends AbstractSchemaBuilder<
+  JoiBuilder,
+  StaticSchemas
+> {
   static async fromInput(filename: string, input: Input): Promise<JoiBuilder> {
-    return new JoiBuilder(filename, input)
+    return new JoiBuilder(filename, input, staticSchemas)
   }
 
   override withImports(imports: ImportBuilder): JoiBuilder {
-    return new JoiBuilder(this.filename, this.input, {}, imports, this)
+    return new JoiBuilder(
+      this.filename,
+      this.input,
+      staticSchemas,
+      {},
+      new Set(),
+      imports,
+      this,
+    )
   }
 
   protected importHelpers(imports: ImportBuilder) {
@@ -182,7 +196,9 @@ export class JoiBuilder extends AbstractSchemaBuilder<JoiBuilder> {
   }
 
   protected boolean() {
-    return [joi, "boolean()"].filter(isDefined).join(".")
+    return [joi, "boolean()", "truthy(1)", "falsy(0)"]
+      .filter(isDefined)
+      .join(".")
   }
 
   public any(): string {

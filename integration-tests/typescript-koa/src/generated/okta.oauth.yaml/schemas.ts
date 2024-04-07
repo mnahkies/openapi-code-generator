@@ -4,6 +4,15 @@
 
 import { z } from "zod"
 
+export const PermissiveBoolean = z.preprocess((value) => {
+  if (typeof value === "string" && (value === "true" || value === "false")) {
+    return value === "true"
+  } else if (typeof value === "number" && (value === 1 || value === 0)) {
+    return value === 1
+  }
+  return value
+}, z.boolean())
+
 export const s_AcrValue = z.enum([
   "phr",
   "phrh",
@@ -103,7 +112,7 @@ export const s_GrantType = z.enum([
 
 export const s_IntrospectionResponse = z.intersection(
   z.object({
-    active: z.coerce.boolean().optional(),
+    active: PermissiveBoolean.optional(),
     aud: z.string().optional(),
     client_id: z.string().optional(),
     device_id: z.string().optional(),
@@ -270,7 +279,7 @@ export const s_OAuthMetadata = z.object({
   request_object_signing_alg_values_supported: z
     .array(s_SigningAlgorithm)
     .optional(),
-  request_parameter_supported: z.coerce.boolean().optional(),
+  request_parameter_supported: PermissiveBoolean.optional(),
   response_modes_supported: z.array(s_ResponseMode).optional(),
   response_types_supported: z.array(s_ResponseTypesSupported).optional(),
   revocation_endpoint: z.string().optional(),
