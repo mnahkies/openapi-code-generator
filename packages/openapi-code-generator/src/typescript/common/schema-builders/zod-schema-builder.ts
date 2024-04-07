@@ -16,13 +16,36 @@ import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 
 const zod = "z"
 
-export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
+export const staticSchemas = {
+  PermissiveBoolean: `${zod}.preprocess((value) => {
+          if(typeof value === "string" && (value === "true" || value === "false")) {
+            return value === "true"
+          } else if(typeof value === "number" && (value === 1 || value === 0)) {
+            return value === 1
+          }
+          return value
+        }, ${zod}.boolean())`,
+}
+type StaticSchemas = typeof staticSchemas
+
+export class ZodBuilder extends AbstractSchemaBuilder<
+  ZodBuilder,
+  StaticSchemas
+> {
   static async fromInput(filename: string, input: Input): Promise<ZodBuilder> {
-    return new ZodBuilder(filename, input)
+    return new ZodBuilder(filename, input, staticSchemas)
   }
 
   override withImports(imports: ImportBuilder): ZodBuilder {
-    return new ZodBuilder(this.filename, this.input, {}, imports, this)
+    return new ZodBuilder(
+      this.filename,
+      this.input,
+      staticSchemas,
+      {},
+      new Set(),
+      imports,
+      this,
+    )
   }
 
   protected importHelpers(imports: ImportBuilder) {
@@ -201,21 +224,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
     // todo: switch to stricter parsing when property is part of a request body/response
     // todo: might be nice to have an x-extension prop that lets the user define the
     //       true/false mapping in their schema.
-    // todo: promote this block to a static schema to reduce repetition?
-    return [
-      zod,
-      `preprocess((value) => {
-          if(typeof value === "string" && (value === "true" || value === "false")) {
-            return value === "true"
-          } else if(typeof value === "number" && (value === 1 || value === 0)) {
-            return value === 1
-          }
-          return value
-        }, ${zod}.boolean())
-        `,
-    ]
-      .filter(isDefined)
-      .join(".")
+    return this.addStaticSchema("PermissiveBoolean")
   }
 
   public any(): string {

@@ -7,6 +7,7 @@ import {
 } from "../../../core/openapi-types-normalized"
 import {testVersions} from "../../../test/input.test-utils"
 import {schemaBuilderTestHarness} from "./schema-builder.test-utils"
+import {staticSchemas} from "./zod-schema-builder"
 
 describe.each(testVersions)(
   "%s - typescript/common/schema-builders/zod-schema-builder",
@@ -53,6 +54,15 @@ describe.each(testVersions)(
       expect(schemas).toMatchInlineSnapshot(`
         "import { z } from "zod"
 
+        export const PermissiveBoolean = z.preprocess((value) => {
+          if (typeof value === "string" && (value === "true" || value === "false")) {
+            return value === "true"
+          } else if (typeof value === "number" && (value === 1 || value === 0)) {
+            return value === 1
+          }
+          return value
+        }, z.boolean())
+
         export const s_AString = z.string()
 
         export const s_OneOf = z.union([
@@ -66,20 +76,7 @@ describe.each(testVersions)(
           requiredOneOfRef: s_OneOf,
           optionalOneOf: z.union([z.string(), z.coerce.number()]).optional(),
           optionalOneOfRef: s_OneOf.optional(),
-          nullableSingularOneOf: z
-            .preprocess((value) => {
-              if (
-                typeof value === "string" &&
-                (value === "true" || value === "false")
-              ) {
-                return value === "true"
-              } else if (typeof value === "number" && (value === 1 || value === 0)) {
-                return value === 1
-              }
-              return value
-            }, z.boolean())
-            .nullable()
-            .optional(),
+          nullableSingularOneOf: PermissiveBoolean.nullable().optional(),
           nullableSingularOneOfRef: s_AString.nullable().optional(),
         })"
       `)
@@ -155,9 +152,8 @@ describe.each(testVersions)(
         "import { t_Recursive } from "./models"
         import { z } from "zod"
 
-        export const s_Recursive: z.ZodType<t_Recursive> = z.object({
-          child: z.lazy(() => s_Recursive.optional()),
-        })"
+        export const s_Recursive: z.ZodType<t_Recursive, z.ZodTypeDef, unknown> =
+          z.object({ child: z.lazy(() => s_Recursive.optional()) })"
       `)
     })
 
@@ -581,15 +577,15 @@ describe.each(testVersions)(
         const {code} = await getActualFromModel({...base})
 
         expect(code).toMatchInlineSnapshot(`
-          "const x = z.preprocess((value) => {
-            if (typeof value === "string" && (value === "true" || value === "false")) {
-              return value === "true"
-            } else if (typeof value === "number" && (value === 1 || value === 0)) {
-              return value === 1
-            }
-            return value
-          }, z.boolean())"
+          "import { PermissiveBoolean } from "./unit-test.schemas"
+
+          const x = PermissiveBoolean"
         `)
+      })
+      it("PermissiveBoolean works as expected", async () => {
+        const code = `
+        const x = ${staticSchemas.PermissiveBoolean}
+        `
 
         await expect(executeParseSchema(code, true)).resolves.toBe(true)
         await expect(executeParseSchema(code, false)).resolves.toBe(false)
