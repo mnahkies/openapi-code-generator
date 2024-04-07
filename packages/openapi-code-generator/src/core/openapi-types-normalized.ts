@@ -56,6 +56,10 @@ export interface IRModelObject extends IRModelBase {
 export interface IRModelArray extends IRModelBase {
   type: "array"
   items: MaybeIRModel
+  maxItems?: number | undefined
+  minItems?: number | undefined
+  uniqueItems: boolean
+  // TODO: contains / maxContains / minContains
 }
 
 export type IRModel =

@@ -419,6 +419,9 @@ function normalizeSchemaObject(
         ...base,
         type: schemaObject.type,
         items: normalizeSchemaObject(items),
+        uniqueItems: schemaObject.uniqueItems || false,
+        minItems: schemaObject.minItems,
+        maxItems: schemaObject.maxItems,
       } satisfies IRModelArray
     }
     case "number":

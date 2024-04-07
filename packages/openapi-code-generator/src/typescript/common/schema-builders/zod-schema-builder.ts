@@ -1,6 +1,7 @@
 import {Input} from "../../../core/input"
 import {Reference} from "../../../core/openapi-types"
 import {
+  IRModelArray,
   IRModelNumeric,
   IRModelString,
 } from "../../../core/openapi-types-normalized"
@@ -151,8 +152,28 @@ export class ZodBuilder extends AbstractSchemaBuilder<
     return [zod, `record(${schema})`].filter(isDefined).join(".")
   }
 
-  protected array(items: string[]): string {
-    return [zod, `array(${items.join(",")})`].filter(isDefined).join(".")
+  protected array(model: IRModelArray, items: string[]): string {
+    return [
+      zod,
+      `array(${items.join(",")})`,
+      Number.isFinite(model.minItems) &&
+      model.minItems !== undefined &&
+      model.minItems >= 0
+        ? `min(${model.minItems})`
+        : undefined,
+      Number.isFinite(model.maxItems) &&
+      model.maxItems !== undefined &&
+      model.maxItems >= 0
+        ? `max(${model.maxItems})`
+        : undefined,
+      // TODO: this will always fail validation for object/array item types, as it
+      //       does a strict equality. Need to implement a deep equals check
+      model.uniqueItems
+        ? 'refine((array) => new Set([...array]).size === array.length, {message: "Array must contain unique element(s)"})'
+        : undefined,
+    ]
+      .filter(isDefined)
+      .join(".")
   }
 
   protected number(model: IRModelNumeric) {
