@@ -590,17 +590,17 @@ describe.each(testVersions)(
       it("supports pattern", async () => {
         const {code} = await getActualFromModel({
           ...base,
-          pattern: "pk-\\d+",
+          pattern: '"pk/\\d+"',
         })
         expect(code).toMatchInlineSnapshot(
-          '"const x = joi.string().pattern(/pk-d+/).required()"',
+          '"const x = joi.string().pattern(new RegExp(\'"pk/\\\\d+"\')).required()"',
         )
 
-        await expect(executeParseSchema(code, "pk-1234")).resolves.toBe(
-          "pk-1234",
+        await expect(executeParseSchema(code, '"pk/1234"')).resolves.toBe(
+          '"pk/1234"',
         )
-        await expect(executeParseSchema(code, "pk-abcd")).rejects.toThrow(
-          "invalid_string",
+        await expect(executeParseSchema(code, "pk/abcd")).rejects.toThrow(
+          '"value" with value "pk/abcd" fails to match the required pattern: /"pk\\/\\d+"/',
         )
       })
 
@@ -611,32 +611,25 @@ describe.each(testVersions)(
           minLength: 5,
           maxLength: 8,
         })
-        expect(code).toMatchInlineSnapshot(`
-          "const x = joi
-            .string()
-            .min(5)
-            .max(8)
-            .pattern(/pk-\\d+/)
-            .required()"
-        `)
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.string().min(5).max(8).pattern(new RegExp("pk-\\\\d+")).required()"',
+        )
 
         await expect(executeParseSchema(code, "pk-12")).resolves.toBe("pk-12")
         await expect(executeParseSchema(code, "pk-ab")).rejects.toThrow(
-          "invalid_string",
+          '"value" with value "pk-ab" fails to match the required pattern: /pk-\\d+/',
         )
         await expect(executeParseSchema(code, "pk-1")).rejects.toThrow(
-          "String must contain at least 5 character(s)",
+          '"value" length must be at least 5 characters long',
         )
         await expect(executeParseSchema(code, "pk-123456")).rejects.toThrow(
-          "String must contain at most 8 character(s)",
+          '"value" length must be less than or equal to 8 characters long',
         )
       })
     })
 
     async function executeParseSchema(code: string, input: unknown) {
-      const context = {joi: require("@hapi/joi")}
-      vm.createContext(context)
-      return vm.runInContext(
+      return vm.runInNewContext(
         `
         ${code}
 
@@ -648,7 +641,13 @@ describe.each(testVersions)(
 
         result.value
       `,
-        context,
+        // Note: joi relies on `pattern instanceof RegExp` which makes using regex literals
+        //       problematic since the RegExp that joi sees isn't the same as the RegExp inside
+        //       the context.
+        //       I think it should be possible move loading of joi into the context, such that
+        //       it gets the contexts global RegExp correctly, but I can't figure it out right now.
+
+        {joi: require("@hapi/joi"), RegExp},
       )
     }
   },

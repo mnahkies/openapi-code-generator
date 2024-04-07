@@ -518,16 +518,16 @@ describe.each(testVersions)(
       it("supports pattern", async () => {
         const {code} = await getActualFromModel({
           ...base,
-          pattern: "pk-\\d+",
+          pattern: '"pk/\\d+"',
         })
         expect(code).toMatchInlineSnapshot(
-          '"const x = z.string().regex(/pk-\\d+/)"',
+          '"const x = z.string().regex(new RegExp(\'"pk/\\\\d+"\'))"',
         )
 
-        await expect(executeParseSchema(code, "pk-1234")).resolves.toBe(
-          "pk-1234",
+        await expect(executeParseSchema(code, '"pk/1234"')).resolves.toBe(
+          '"pk/1234"',
         )
-        await expect(executeParseSchema(code, "pk-abcd")).rejects.toThrow(
+        await expect(executeParseSchema(code, "pk/abcd")).rejects.toThrow(
           "invalid_string",
         )
       })
@@ -539,13 +539,9 @@ describe.each(testVersions)(
           minLength: 5,
           maxLength: 8,
         })
-        expect(code).toMatchInlineSnapshot(`
-          "const x = z
-            .string()
-            .min(5)
-            .max(8)
-            .regex(/pk-\\d+/)"
-        `)
+        expect(code).toMatchInlineSnapshot(
+          '"const x = z.string().min(5).max(8).regex(new RegExp("pk-\\\\d+"))"',
+        )
 
         await expect(executeParseSchema(code, "pk-12")).resolves.toBe("pk-12")
         await expect(executeParseSchema(code, "pk-ab")).rejects.toThrow(
@@ -561,17 +557,15 @@ describe.each(testVersions)(
     })
 
     async function executeParseSchema(code: string, input: unknown) {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const context = {z: require("zod").z}
-      vm.createContext(context)
-      return vm.runInContext(
+      return vm.runInNewContext(
         `
         ${code}
 
         x.parse(${JSON.stringify(input)})
-
       `,
-        context,
+        // Note: done this way for consistency with joi tests
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        {z: require("zod").z, RegExp},
       )
     }
   },

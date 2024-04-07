@@ -171,7 +171,11 @@ export class JoiBuilder extends AbstractSchemaBuilder<JoiBuilder> {
       result,
       Number.isFinite(model.minLength) ? `min(${model.minLength})` : undefined,
       Number.isFinite(model.maxLength) ? `max(${model.maxLength})` : undefined,
-      model.pattern ? `pattern(/${model.pattern}/)` : undefined,
+      model.pattern
+        ? `pattern(new RegExp("${model.pattern
+            .replaceAll("\\", "\\\\")
+            .replaceAll('"', '\\"')}"))`
+        : undefined,
     ]
       .filter(isDefined)
       .join(".")
