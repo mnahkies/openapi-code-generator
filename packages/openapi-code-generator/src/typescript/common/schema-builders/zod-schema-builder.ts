@@ -16,9 +16,6 @@ import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 
 const zod = "z"
 
-// todo: coerce is cool for input where everything starts as strings,
-//       but for output we probably don't want that as its more likely
-//       to mask mistakes. https://en.wikipedia.org/wiki/Robustness_principle
 export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
   static async fromInput(filename: string, input: Input): Promise<ZodBuilder> {
     return new ZodBuilder(filename, input)
@@ -55,7 +52,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
 
     return {
       name,
-      type: type ? `${zod}.ZodType<${type}>` : "",
+      type: type ? `${zod}.ZodType<${type}, z.ZodTypeDef, unknown>` : "",
       value,
       kind: "const",
     }
