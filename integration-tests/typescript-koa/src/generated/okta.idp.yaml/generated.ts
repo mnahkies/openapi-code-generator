@@ -1158,17 +1158,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
       [
         "201",
         z.object({
-          id: z.string(),
-          status: z.string(),
-          expiresAt: z.string(),
-          profile: z.object({ email: z.string() }),
+          id: z.string().min(1),
+          status: z.string().min(1),
+          expiresAt: z.string().min(1),
+          profile: z.object({ email: z.string().min(1) }),
           _links: z.object({
             verify: z.object({
-              href: z.string(),
+              href: z.string().min(1),
               hints: z.object({ allow: z.array(z.string()) }),
             }),
             poll: z.object({
-              href: z.string(),
+              href: z.string().min(1),
               hints: z.object({ allow: z.array(z.string()) }),
             }),
           }),
@@ -1264,17 +1264,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         [
           "200",
           z.object({
-            id: z.string(),
-            status: z.string(),
-            expiresAt: z.string(),
-            profile: z.object({ email: z.string() }),
+            id: z.string().min(1),
+            status: z.string().min(1),
+            expiresAt: z.string().min(1),
+            profile: z.object({ email: z.string().min(1) }),
             _links: z.object({
               verify: z.object({
-                href: z.string(),
+                href: z.string().min(1),
                 hints: z.object({ allow: z.array(z.string()) }),
               }),
               poll: z.object({
-                href: z.string(),
+                href: z.string().min(1),
                 hints: z.object({ allow: z.array(z.string()) }),
               }),
             }),
@@ -1653,7 +1653,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({
               verify: z
                 .object({
-                  href: z.string(),
+                  href: z.string().min(1),
                   hints: z.object({ allow: z.array(z.string()) }),
                 })
                 .optional(),

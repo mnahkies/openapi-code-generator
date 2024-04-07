@@ -23367,7 +23367,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const gistsCreateCommentParamSchema = z.object({ gist_id: z.string() })
 
-  const gistsCreateCommentBodySchema = z.object({ body: z.string() })
+  const gistsCreateCommentBodySchema = z.object({ body: z.string().max(65535) })
 
   const gistsCreateCommentResponseValidator = responseValidationFactory(
     [
@@ -23518,7 +23518,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_id: z.coerce.number(),
   })
 
-  const gistsUpdateCommentBodySchema = z.object({ body: z.string() })
+  const gistsUpdateCommentBodySchema = z.object({ body: z.string().max(65535) })
 
   const gistsUpdateCommentResponseValidator = responseValidationFactory(
     [
@@ -27577,7 +27577,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsCreateOrUpdateOrgSecretBodySchema = z.object({
-    encrypted_value: z.string().optional(),
+    encrypted_value: z
+      .string()
+      .regex(
+        new RegExp(
+          "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$",
+        ),
+      )
+      .optional(),
     key_id: z.string().optional(),
     visibility: z.enum(["all", "private", "selected"]),
     selected_repository_ids: z.array(z.coerce.number()).optional(),
@@ -29254,7 +29261,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const codespacesCreateOrUpdateOrgSecretBodySchema = z.object({
-    encrypted_value: z.string().optional(),
+    encrypted_value: z
+      .string()
+      .regex(
+        new RegExp(
+          "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$",
+        ),
+      )
+      .optional(),
     key_id: z.string().optional(),
     visibility: z.enum(["all", "private", "selected"]),
     selected_repository_ids: z.array(z.coerce.number()).optional(),
@@ -30391,7 +30405,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const dependabotCreateOrUpdateOrgSecretBodySchema = z.object({
-    encrypted_value: z.string().optional(),
+    encrypted_value: z
+      .string()
+      .regex(
+        new RegExp(
+          "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$",
+        ),
+      )
+      .optional(),
     key_id: z.string().optional(),
     visibility: z.enum(["all", "private", "selected"]),
     selected_repository_ids: z.array(z.string()).optional(),
@@ -34959,7 +34980,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const orgsReviewPatGrantRequestsInBulkBodySchema = z.object({
     pat_request_ids: z.array(z.coerce.number()).optional(),
     action: z.enum(["approve", "deny"]),
-    reason: z.string().nullable().optional(),
+    reason: z.string().max(1024).nullable().optional(),
   })
 
   const orgsReviewPatGrantRequestsInBulkResponseValidator =
@@ -35037,7 +35058,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsReviewPatGrantRequestBodySchema = z.object({
     action: z.enum(["approve", "deny"]),
-    reason: z.string().nullable().optional(),
+    reason: z.string().max(1024).nullable().optional(),
   })
 
   const orgsReviewPatGrantRequestResponseValidator = responseValidationFactory(
@@ -35807,7 +35828,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .nullable()
       .optional(),
     description: z.string().nullable().optional(),
-    allowed_values: z.array(z.string()).nullable().optional(),
+    allowed_values: z.array(z.string().max(75)).nullable().optional(),
   })
 
   const orgsCreateOrUpdateCustomPropertyResponseValidator =
@@ -39707,7 +39728,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const projectsMoveCardParamSchema = z.object({ card_id: z.coerce.number() })
 
   const projectsMoveCardBodySchema = z.object({
-    position: z.string(),
+    position: z.string().regex(new RegExp("^(?:top|bottom|after:\\d+)$")),
     column_id: z.coerce.number().optional(),
   })
 
@@ -40199,7 +40220,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     column_id: z.coerce.number(),
   })
 
-  const projectsMoveColumnBodySchema = z.object({ position: z.string() })
+  const projectsMoveColumnBodySchema = z.object({
+    position: z.string().regex(new RegExp("^(?:first|last|after:\\d+)$")),
+  })
 
   const projectsMoveColumnResponseValidator = responseValidationFactory(
     [
@@ -44676,7 +44699,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsCreateOrUpdateRepoSecretBodySchema = z.object({
-    encrypted_value: z.string().optional(),
+    encrypted_value: z
+      .string()
+      .regex(
+        new RegExp(
+          "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$",
+        ),
+      )
+      .optional(),
     key_id: z.string().optional(),
   })
 
@@ -48467,8 +48497,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     output: z
       .object({
         title: z.string().optional(),
-        summary: z.string(),
-        text: z.string().optional(),
+        summary: z.string().max(65535),
+        text: z.string().max(65535).optional(),
         annotations: z
           .array(
             z.object({
@@ -48498,9 +48528,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     actions: z
       .array(
         z.object({
-          label: z.string(),
-          description: z.string(),
-          identifier: z.string(),
+          label: z.string().max(20),
+          description: z.string().max(40),
+          identifier: z.string().max(20),
         }),
       )
       .optional(),
@@ -50865,7 +50895,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const codespacesCreateOrUpdateRepoSecretBodySchema = z.object({
-    encrypted_value: z.string().optional(),
+    encrypted_value: z
+      .string()
+      .regex(
+        new RegExp(
+          "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$",
+        ),
+      )
+      .optional(),
     key_id: z.string().optional(),
   })
 
@@ -53060,7 +53097,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "tolerable_risk",
       ])
       .optional(),
-    dismissed_comment: z.string().optional(),
+    dismissed_comment: z.string().max(280).optional(),
   })
 
   const dependabotUpdateAlertResponseValidator = responseValidationFactory(
@@ -53304,7 +53341,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const dependabotCreateOrUpdateRepoSecretBodySchema = z.object({
-    encrypted_value: z.string().optional(),
+    encrypted_value: z
+      .string()
+      .regex(
+        new RegExp(
+          "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$",
+        ),
+      )
+      .optional(),
     key_id: z.string().optional(),
   })
 
@@ -54072,7 +54116,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const reposCreateDispatchEventBodySchema = z.object({
-    event_type: z.string(),
+    event_type: z.string().min(1).max(100),
     client_payload: z.record(z.any()).optional(),
   })
 
@@ -55157,7 +55201,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsCreateOrUpdateEnvironmentSecretBodySchema = z.object({
-    encrypted_value: z.string(),
+    encrypted_value: z
+      .string()
+      .regex(
+        new RegExp(
+          "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$",
+        ),
+      ),
     key_id: z.string(),
   })
 
@@ -72453,7 +72503,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const codespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema = z.object(
     {
-      encrypted_value: z.string().optional(),
+      encrypted_value: z
+        .string()
+        .regex(
+          new RegExp(
+            "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$",
+          ),
+        )
+        .optional(),
       key_id: z.string(),
       selected_repository_ids: z
         .array(z.union([z.coerce.number(), z.string()]))
@@ -75108,7 +75165,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const usersCreatePublicSshKeyForAuthenticatedUserBodySchema = z.object({
     title: z.string().optional(),
-    key: z.string(),
+    key: z
+      .string()
+      .regex(
+        new RegExp("^ssh-(rsa|dss|ed25519) |^ecdsa-sha2-nistp(256|384|521) "),
+      ),
   })
 
   const usersCreatePublicSshKeyForAuthenticatedUserResponseValidator =
@@ -77595,7 +77656,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const usersCreateSshSigningKeyForAuthenticatedUserBodySchema = z.object({
     title: z.string().optional(),
-    key: z.string(),
+    key: z
+      .string()
+      .regex(
+        new RegExp(
+          "^ssh-(rsa|dss|ed25519) |^ecdsa-sha2-nistp(256|384|521) |^(sk-ssh-ed25519|sk-ecdsa-sha2-nistp256)@openssh.com ",
+        ),
+      ),
   })
 
   const usersCreateSshSigningKeyForAuthenticatedUserResponseValidator =
