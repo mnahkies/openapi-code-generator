@@ -1,6 +1,7 @@
 import vm from "node:vm"
 import {describe, expect, it} from "@jest/globals"
 import {
+  IRModelBoolean,
   IRModelNumeric,
   IRModelString,
 } from "../../../core/openapi-types-normalized"
@@ -83,7 +84,7 @@ describe.each(testVersions)(
               .alternatives()
               .try(joi.string().required(), joi.number().required()),
             optionalOneOfRef: s_OneOf,
-            nullableSingularOneOf: joi.boolean().allow(null),
+            nullableSingularOneOf: joi.boolean().truthy(1).falsy(0).allow(null),
             nullableSingularOneOfRef: s_AString.allow(null),
           })
           .required()
@@ -624,6 +625,44 @@ describe.each(testVersions)(
         )
         await expect(executeParseSchema(code, "pk-123456")).rejects.toThrow(
           '"value" length must be less than or equal to 8 characters long',
+        )
+      })
+    })
+
+    describe("booleans", () => {
+      const base: IRModelBoolean = {
+        nullable: false,
+        readOnly: false,
+        type: "boolean",
+      }
+
+      it("supports plain boolean", async () => {
+        const {code} = await getActualFromModel({...base})
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.boolean().truthy(1).falsy(0).required()"',
+        )
+
+        await expect(executeParseSchema(code, true)).resolves.toBe(true)
+        await expect(executeParseSchema(code, false)).resolves.toBe(false)
+
+        await expect(executeParseSchema(code, "false")).resolves.toBe(false)
+        await expect(executeParseSchema(code, "true")).resolves.toBe(true)
+
+        await expect(executeParseSchema(code, 0)).resolves.toBe(false)
+        await expect(executeParseSchema(code, 1)).resolves.toBe(true)
+
+        await expect(executeParseSchema(code, 12)).rejects.toThrow(
+          '"value" must be a boolean',
+        )
+        await expect(executeParseSchema(code, "yup")).rejects.toThrow(
+          '"value" must be a boolean',
+        )
+        await expect(executeParseSchema(code, [])).rejects.toThrow(
+          '"value" must be a boolean',
+        )
+        await expect(executeParseSchema(code, {})).rejects.toThrow(
+          '"value" must be a boolean',
         )
       })
     })

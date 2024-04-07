@@ -199,10 +199,23 @@ export class ZodBuilder extends AbstractSchemaBuilder<ZodBuilder> {
   }
 
   protected boolean() {
+    // if a boolean is coming from a query string / url parameter, then we need
+    // to be a bit more lenient in our parsing.
+    // todo: switch to stricter parsing when property is part of a request body/response
+    // todo: might be nice to have an x-extension prop that lets the user define the
+    //       true/false mapping in their schema.
+    // todo: promote this block to a static schema to reduce repetition?
     return [
       zod,
-      // todo: this would mean the literal string "false" as a query parameter is coerced to true
-      "coerce.boolean()",
+      `preprocess((value) => {
+          if(typeof value === "string" && (value === "true" || value === "false")) {
+            return value === "true"
+          } else if(typeof value === "number" && (value === 1 || value === 0)) {
+            return value === 1
+          }
+          return value
+        }, ${zod}.boolean())
+        `,
     ]
       .filter(isDefined)
       .join(".")

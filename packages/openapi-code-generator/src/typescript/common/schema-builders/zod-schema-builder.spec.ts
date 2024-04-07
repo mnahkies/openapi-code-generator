@@ -1,6 +1,7 @@
 import * as vm from "node:vm"
 import {describe, expect, it} from "@jest/globals"
 import {
+  IRModelBoolean,
   IRModelNumeric,
   IRModelString,
 } from "../../../core/openapi-types-normalized"
@@ -65,7 +66,20 @@ describe.each(testVersions)(
           requiredOneOfRef: s_OneOf,
           optionalOneOf: z.union([z.string(), z.coerce.number()]).optional(),
           optionalOneOfRef: s_OneOf.optional(),
-          nullableSingularOneOf: z.coerce.boolean().nullable().optional(),
+          nullableSingularOneOf: z
+            .preprocess((value) => {
+              if (
+                typeof value === "string" &&
+                (value === "true" || value === "false")
+              ) {
+                return value === "true"
+              } else if (typeof value === "number" && (value === 1 || value === 0)) {
+                return value === 1
+              }
+              return value
+            }, z.boolean())
+            .nullable()
+            .optional(),
           nullableSingularOneOfRef: s_AString.nullable().optional(),
         })"
       `)
@@ -552,6 +566,51 @@ describe.each(testVersions)(
         )
         await expect(executeParseSchema(code, "pk-123456")).rejects.toThrow(
           "String must contain at most 8 character(s)",
+        )
+      })
+    })
+
+    describe("booleans", () => {
+      const base: IRModelBoolean = {
+        nullable: false,
+        readOnly: false,
+        type: "boolean",
+      }
+
+      it("supports plain boolean", async () => {
+        const {code} = await getActualFromModel({...base})
+
+        expect(code).toMatchInlineSnapshot(`
+          "const x = z.preprocess((value) => {
+            if (typeof value === "string" && (value === "true" || value === "false")) {
+              return value === "true"
+            } else if (typeof value === "number" && (value === 1 || value === 0)) {
+              return value === 1
+            }
+            return value
+          }, z.boolean())"
+        `)
+
+        await expect(executeParseSchema(code, true)).resolves.toBe(true)
+        await expect(executeParseSchema(code, false)).resolves.toBe(false)
+
+        await expect(executeParseSchema(code, "false")).resolves.toBe(false)
+        await expect(executeParseSchema(code, "true")).resolves.toBe(true)
+
+        await expect(executeParseSchema(code, 0)).resolves.toBe(false)
+        await expect(executeParseSchema(code, 1)).resolves.toBe(true)
+
+        await expect(executeParseSchema(code, 12)).rejects.toThrow(
+          "Expected boolean, received number",
+        )
+        await expect(executeParseSchema(code, "yup")).rejects.toThrow(
+          "Expected boolean, received string",
+        )
+        await expect(executeParseSchema(code, [])).rejects.toThrow(
+          "Expected boolean, received array",
+        )
+        await expect(executeParseSchema(code, {})).rejects.toThrow(
+          "Expected boolean, received object",
         )
       })
     })

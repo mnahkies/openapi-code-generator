@@ -182,7 +182,9 @@ export class JoiBuilder extends AbstractSchemaBuilder<JoiBuilder> {
   }
 
   protected boolean() {
-    return [joi, "boolean()"].filter(isDefined).join(".")
+    return [joi, "boolean()", "truthy(1)", "falsy(0)"]
+      .filter(isDefined)
+      .join(".")
   }
 
   public any(): string {
