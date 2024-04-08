@@ -85,6 +85,7 @@ export function categorizeImportSource(source: string): ImportCategory {
 export type ImportBuilderConfig = {
   unit?: {filename: string} | undefined
   includeFileExtensions: boolean
+  importAlias?: string
 }
 
 export class ImportBuilder {
@@ -230,7 +231,13 @@ export class ImportBuilder {
       from = from.substring(0, from.length - ".ts".length)
     }
 
+    // TODO: does this work on windows?
     if (this.config.unit && from.startsWith("./")) {
+
+      if (this.config.importAlias) {
+        return this.config.importAlias + from.split(path.sep).slice(1).join(path.sep)
+      }
+
       const unitDirname = path.dirname(this.config.unit.filename)
       const fromDirname = path.dirname(from)
 

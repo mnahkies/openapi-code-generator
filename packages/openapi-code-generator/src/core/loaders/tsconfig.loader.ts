@@ -11,7 +11,7 @@ import {
 
 export type CompilerOptions = Pick<
   TsCompilerOptions,
-  "exactOptionalPropertyTypes" | "rewriteRelativeImportExtensions"
+  "exactOptionalPropertyTypes" | "rewriteRelativeImportExtensions" | "paths"
 >
 
 export async function loadTsConfigCompilerOptions(
