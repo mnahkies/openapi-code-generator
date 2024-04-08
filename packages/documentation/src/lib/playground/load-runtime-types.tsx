@@ -19,7 +19,8 @@ export const loadRuntimeTypes = async (
     | "typescript-angular"
     | "typescript-fetch"
     | "typescript-axios"
-    | "typescript-koa",
+    | "typescript-koa"
+    | "typescript-nextjs",
 ) => {
   const fileRootPath = "file:///"
 
@@ -71,6 +72,29 @@ export const loadRuntimeTypes = async (
       },
     ],
     "typescript-koa": [
+      {
+        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/package.json",
+        path: "/node_modules/@nahkies/typescript-koa-runtime/package.json",
+      },
+      {
+        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/server.d.ts",
+        path: "/node_modules/@nahkies/typescript-koa-runtime/server.d.ts",
+      },
+      {
+        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/errors.d.ts",
+        path: "/node_modules/@nahkies/typescript-koa-runtime/errors.d.ts",
+      },
+      {
+        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/zod.d.ts",
+        path: "/node_modules/@nahkies/typescript-koa-runtime/zod.d.ts",
+      },
+      {
+        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/joi.d.ts",
+        path: "/node_modules/@nahkies/typescript-koa-runtime/joi.d.ts",
+      },
+    ],
+    // TODO: adjust
+    "typescript-nextjs": [
       {
         uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/package.json",
         path: "/node_modules/@nahkies/typescript-koa-runtime/package.json",

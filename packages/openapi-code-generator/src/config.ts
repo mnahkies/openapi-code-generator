@@ -15,6 +15,7 @@ export type Config = {
     | "typescript-axios"
     | "typescript-angular"
     | "typescript-koa"
+    | "typescript-nextjs"
   schemaBuilder: "zod" | "joi"
   enableRuntimeResponseValidation: boolean
   enableTypedBasePaths: boolean
@@ -34,6 +35,7 @@ const templatesSchema = z.enum([
   "typescript-fetch",
   "typescript-axios",
   "typescript-angular",
+  "typescript-nextjs",
 ])
 
 const schemaBuilderSchema = z.enum(["zod", "joi"])
