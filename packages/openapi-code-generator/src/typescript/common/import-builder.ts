@@ -89,6 +89,7 @@ export function categorizeImportSource(source: string): ImportCategory {
 
 export type ImportBuilderConfig = {
   unit?: {filename: string} | undefined
+  importAlias?: string
   includeFileExtensions: boolean
 }
 
@@ -203,7 +204,7 @@ export class ImportBuilder {
     isType: boolean,
   ): void {
     // biome-ignore lint/style/noParameterAssign: normalization
-    from = this.normalizeFrom(from)
+    from = this.normalizeFrom(from, this.config.unit?.filename)
 
     if (!this.imports[from]) {
       this.imports[from] = {
@@ -233,7 +234,7 @@ export class ImportBuilder {
     }
   }
 
-  private normalizeFrom(from: string) {
+  public normalizeFrom(from: string, filename?: string) {
     if (!this.config.includeFileExtensions && from.endsWith(".ts")) {
       // biome-ignore lint/style/noParameterAssign: normalization
       from = from.substring(0, from.length - ".ts".length)
@@ -251,6 +252,11 @@ export class ImportBuilder {
         path.posix.isAbsolute(from)
 
       if (isFromPath) {
+
+        if (this.config.importAlias) {
+          return this.config.importAlias + from.split(path.posix.sep).slice(1).join(path.posix.sep)
+        }
+
         const root = path.posix.isAbsolute(unitFilename)
           ? path.posix.parse(unitFilename).root
           : "/"
