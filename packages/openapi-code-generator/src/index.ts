@@ -31,6 +31,7 @@ const program = new Command()
         "typescript-axios",
         "typescript-fetch",
         "typescript-angular",
+        "typescript-nextjs",
       ] as const satisfies Readonly<Array<keyof typeof templates>>)
       .makeOptionMandatory(),
   )
