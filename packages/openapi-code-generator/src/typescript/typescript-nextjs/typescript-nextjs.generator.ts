@@ -6,7 +6,7 @@ import {
   IROperation,
   IRParameter,
 } from "../../core/openapi-types-normalized"
-import {isDefined, titleCase} from "../../core/utils"
+import {titleCase} from "../../core/utils"
 import {OpenapiGeneratorConfig} from "../../templates.types"
 import {CompilationUnit, ICompilable} from "../common/compilation-units"
 import {ImportBuilder} from "../common/import-builder"
@@ -74,7 +74,6 @@ export class ServerRouterBuilder implements ICompilable {
       .add(
         "startServer",
         "ServerConfig",
-        "Response",
         "KoaRuntimeResponse",
         "KoaRuntimeResponder",
         "StatusCode2xx",
@@ -84,12 +83,11 @@ export class ServerRouterBuilder implements ICompilable {
         "StatusCode",
       )
 
+    this.imports.from("next/server").add("NextRequest")
+
     this.imports
       .from("@nahkies/typescript-koa-runtime/errors")
       .add("KoaRuntimeError", "RequestInputType")
-
-    this.imports.addModule("KoaRouter", "@koa/router")
-    this.imports.from("@koa/router").add("RouterContext")
 
     if (schemaBuilder instanceof ZodBuilder) {
       imports
@@ -236,82 +234,63 @@ export class ServerRouterBuilder implements ICompilable {
                         : " | undefined")
                     }>,
                     respond: ${titleCase(operation.operationId) + "Responder"},
-                    ctx: RouterContext
-                  ) => Promise<KoaRuntimeResponse<unknown> | ${[
-                    ...responseSchemas.specific.map(
-                      (it) => `Response<${it.statusType}, ${it.type}>`,
-                    ),
-                    responseSchemas.defaultResponse &&
-                      `Response<StatusCode, ${responseSchemas.defaultResponse.type}>`,
-                  ]
-                    .filter(isDefined)
-                    .join(" | ")}>`,
+                    ctx: {request: NextRequest}
+                  ) => Promise<KoaRuntimeResponse<unknown>>`,
           kind: "type",
         }),
       ],
     })
 
     this.statements.push(
-      [
-        `const ${
-          operation.operationId
-        }ResponseValidator = responseValidationFactory([${responseSchemas.specific.map(
-          (it) => `["${it.statusString}", ${it.schema}]`,
-        )}
-      ], ${responseSchemas.defaultResponse?.schema})`,
-        "",
-        `router.${operation.method.toLowerCase()}('${
-          operation.operationId
-        }','${route(operation.route)}',`,
-        `async (ctx, next) => {
-
-       const input = {
+      buildExport({
+        name: operation.method.toUpperCase(),
+        kind: "const",
+        value: `async (request: NextRequest, {params}: {params: unknown}): Promise<Response> => {
+  const input = {
         params: ${
           paramSchema
-            ? `parseRequestInput(${operation.operationId}ParamSchema, ctx.params, RequestInputType.RouteParam)`
+            ? `parseRequestInput(${operation.operationId}ParamSchema, params, RequestInputType.RouteParam)`
             : "undefined"
         },
+        // TODO: this swallows repeated parameters
         query: ${
           querySchema
-            ? `parseRequestInput(${operation.operationId}QuerySchema, ctx.query, RequestInputType.QueryString)`
+            ? `parseRequestInput(${operation.operationId}QuerySchema, Object.fromEntries(request.nextUrl.searchParams.entries()), RequestInputType.QueryString)`
             : "undefined"
         },
         body: ${
           bodyParamSchema
-            ? `parseRequestInput(${operation.operationId}BodySchema, Reflect.get(ctx.request, "body"), RequestInputType.RequestBody)`
+            ? `parseRequestInput(${operation.operationId}BodySchema, await request.json(), RequestInputType.RequestBody)`
             : "undefined"
-        },
+        }
        }
 
-      const responder = {${[
-        ...responseSchemas.specific.map((it) =>
-          it.isWildCard
-            ? `with${it.statusType}(status: ${it.statusType}) {return new KoaRuntimeResponse<${it.type}>(status) }`
-            : `with${it.statusType}() {return new KoaRuntimeResponse<${it.type}>(${it.statusType}) }`,
-        ),
-        responseSchemas.defaultResponse &&
-          `withDefault(status: StatusCode) { return new KoaRuntimeResponse<${responseSchemas.defaultResponse.type}>(status) }`,
-        "withStatus(status: StatusCode) { return new KoaRuntimeResponse(status)}",
-      ]
-        .filter(Boolean)
-        .join(",\n")}}
+       const responder = {${[
+         ...responseSchemas.specific.map((it) =>
+           it.isWildCard
+             ? `with${it.statusType}(status: ${it.statusType}) {return new KoaRuntimeResponse<${it.type}>(status) }`
+             : `with${it.statusType}() {return new KoaRuntimeResponse<${it.type}>(${it.statusType}) }`,
+         ),
+         responseSchemas.defaultResponse &&
+           `withDefault(status: StatusCode) { return new KoaRuntimeResponse<${responseSchemas.defaultResponse.type}>(status) }`,
+         "withStatus(status: StatusCode) { return new KoaRuntimeResponse(status)}",
+       ]
+         .filter(Boolean)
+         .join(",\n")}}
 
-      const response = await implementation.${operation.operationId}(input, responder, ctx)
-        .catch(err => { throw KoaRuntimeError.HandlerError(err) })
-
-
-      const {
+       const {
         status,
         body,
-      } = response instanceof KoaRuntimeResponse ? response.unpack() : response
+      } =  await import('@/${this.filename
+        .replace("src/app", "lib")
+        .replace(".ts", "")}')
+                          .then(it => it.GET(input, responder, { request }))
+                          .then(it => it.unpack())
+                          .catch(err => { throw KoaRuntimeError.HandlerError(err) })
 
-        ctx.body = ${operation.operationId}ResponseValidator(status, body)
-        ctx.status = status
-        return next();
-      })`,
-      ]
-        .filter(isDefined)
-        .join("\n"),
+  return Response.json(body, {status})
+  }`,
+      }),
     )
   }
 
@@ -323,24 +302,7 @@ ${this.existingRegions["header"] ?? ""}
 //endregion safe-edit-region-header
 ${this.operationTypes.flatMap((it) => it.statements).join("\n\n")}
 
-${buildExport({
-  name: "Implementation",
-  value: object(
-    this.operationTypes
-      .map((it) => it.operationId)
-      .map((key) => `${key}: ${titleCase(key)}`)
-      .join(","),
-  ),
-  kind: "type",
-})}
-
-export function createRouter(implementation: Implementation): KoaRouter {
-  const router = new KoaRouter()
-
-  ${routes.join("\n\n")}
-
-  return router
-}
+${routes.join("\n\n")}
 `
     return code
   }
@@ -388,14 +350,6 @@ export class ServerBuilder implements ICompilable {
   toCompilationUnit(): CompilationUnit {
     return new CompilationUnit(this.filename, this.imports, this.toString())
   }
-}
-
-function route(route: string): string {
-  const placeholder = /{([^{}]+)}/g
-
-  return Array.from(route.matchAll(placeholder)).reduce((result, match) => {
-    return result.replace(match[0], ":" + match[1])
-  }, route)
 }
 
 export async function generateTypescriptNextJS(
@@ -470,7 +424,7 @@ function routeToNextJSFilepath(route: string): string {
     .split("/")
     .map((part) => part.replaceAll("{", "[").replaceAll("}", "]"))
 
-  parts.push("route")
+  parts.push("route.ts")
 
   return path.join(...parts)
 }
