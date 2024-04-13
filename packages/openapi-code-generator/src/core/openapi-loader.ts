@@ -153,6 +153,7 @@ export class OpenapiLoader {
         throw new Error(`invalid $ref '${$ref}`)
       }
 
+      // TODO: support relative urls
       if (isRemote(file)) {
         return $ref
       }
@@ -192,7 +193,7 @@ export class OpenapiLoader {
     entryPoint: string,
     validator: OpenapiValidator,
   ): Promise<OpenapiLoader> {
-    entryPoint = path.resolve(entryPoint)
+    entryPoint = isRemote(entryPoint) ? entryPoint : path.resolve(entryPoint)
     const loader = new OpenapiLoader(entryPoint, validator)
 
     await loader.loadFile(entryPoint)
