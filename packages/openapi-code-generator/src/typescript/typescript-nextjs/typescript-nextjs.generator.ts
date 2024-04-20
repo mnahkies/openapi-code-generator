@@ -428,18 +428,18 @@ export async function generateTypescriptNextJS(
     : ""
 
   const appDirectory = ["./app", subDirectory].filter(isDefined).join(path.sep)
-  const routesDirectory = ["./generated", subDirectory]
+  const generatedDirectory = ["./generated", subDirectory]
     .filter(isDefined)
     .join(path.sep)
 
   const rootTypeBuilder = await TypeBuilder.fromInput(
-    "./generated/api/models.ts",
+    [generatedDirectory, "models.ts"].join(path.sep),
     input,
     config.compilerOptions,
   )
 
   const rootSchemaBuilder = await schemaBuilderFactory(
-    "./generated/api/schemas.ts",
+    [generatedDirectory, "schemas.ts"].join(path.sep),
     input,
     config.schemaBuilder,
   )
@@ -450,7 +450,7 @@ export async function generateTypescriptNextJS(
     await Promise.all(
       input.groupedOperations("route").map(async (group) => {
         const filename = path.join(
-          routesDirectory,
+          generatedDirectory,
           routeToNextJSFilepath(group.name),
         )
 
