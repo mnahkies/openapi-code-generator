@@ -43,6 +43,8 @@ import {
   t_DeletePlansPlanParamSchema,
   t_DeleteProductsIdBodySchema,
   t_DeleteProductsIdParamSchema,
+  t_DeleteProductsProductFeaturesIdBodySchema,
+  t_DeleteProductsProductFeaturesIdParamSchema,
   t_DeleteRadarValueListItemsItemBodySchema,
   t_DeleteRadarValueListItemsItemParamSchema,
   t_DeleteRadarValueListsValueListBodySchema,
@@ -277,6 +279,16 @@ import {
   t_GetDisputesDisputeParamSchema,
   t_GetDisputesDisputeQuerySchema,
   t_GetDisputesQuerySchema,
+  t_GetEntitlementsActiveEntitlementsBodySchema,
+  t_GetEntitlementsActiveEntitlementsIdBodySchema,
+  t_GetEntitlementsActiveEntitlementsIdParamSchema,
+  t_GetEntitlementsActiveEntitlementsIdQuerySchema,
+  t_GetEntitlementsActiveEntitlementsQuerySchema,
+  t_GetEntitlementsFeaturesBodySchema,
+  t_GetEntitlementsFeaturesIdBodySchema,
+  t_GetEntitlementsFeaturesIdParamSchema,
+  t_GetEntitlementsFeaturesIdQuerySchema,
+  t_GetEntitlementsFeaturesQuerySchema,
   t_GetEventsBodySchema,
   t_GetEventsIdBodySchema,
   t_GetEventsIdParamSchema,
@@ -457,6 +469,12 @@ import {
   t_GetProductsIdBodySchema,
   t_GetProductsIdParamSchema,
   t_GetProductsIdQuerySchema,
+  t_GetProductsProductFeaturesBodySchema,
+  t_GetProductsProductFeaturesIdBodySchema,
+  t_GetProductsProductFeaturesIdParamSchema,
+  t_GetProductsProductFeaturesIdQuerySchema,
+  t_GetProductsProductFeaturesParamSchema,
+  t_GetProductsProductFeaturesQuerySchema,
   t_GetProductsQuerySchema,
   t_GetProductsSearchBodySchema,
   t_GetProductsSearchQuerySchema,
@@ -809,6 +827,9 @@ import {
   t_PostDisputesDisputeCloseBodySchema,
   t_PostDisputesDisputeCloseParamSchema,
   t_PostDisputesDisputeParamSchema,
+  t_PostEntitlementsFeaturesBodySchema,
+  t_PostEntitlementsFeaturesIdBodySchema,
+  t_PostEntitlementsFeaturesIdParamSchema,
   t_PostEphemeralKeysBodySchema,
   t_PostFileLinksBodySchema,
   t_PostFileLinksLinkBodySchema,
@@ -835,6 +856,7 @@ import {
   t_PostInvoiceitemsInvoiceitemBodySchema,
   t_PostInvoiceitemsInvoiceitemParamSchema,
   t_PostInvoicesBodySchema,
+  t_PostInvoicesCreatePreviewBodySchema,
   t_PostInvoicesInvoiceBodySchema,
   t_PostInvoicesInvoiceFinalizeBodySchema,
   t_PostInvoicesInvoiceFinalizeParamSchema,
@@ -929,6 +951,8 @@ import {
   t_PostProductsBodySchema,
   t_PostProductsIdBodySchema,
   t_PostProductsIdParamSchema,
+  t_PostProductsProductFeaturesBodySchema,
+  t_PostProductsProductFeaturesParamSchema,
   t_PostPromotionCodesBodySchema,
   t_PostPromotionCodesPromotionCodeBodySchema,
   t_PostPromotionCodesPromotionCodeParamSchema,
@@ -1151,6 +1175,7 @@ import {
   t_deleted_person,
   t_deleted_plan,
   t_deleted_product,
+  t_deleted_product_feature,
   t_deleted_radar_value_list,
   t_deleted_radar_value_list_item,
   t_deleted_subscription_item,
@@ -1162,6 +1187,8 @@ import {
   t_deleted_webhook_endpoint,
   t_discount,
   t_dispute,
+  t_entitlements_active_entitlement,
+  t_entitlements_feature,
   t_ephemeral_key,
   t_error,
   t_event,
@@ -1204,6 +1231,7 @@ import {
   t_plan,
   t_price,
   t_product,
+  t_product_feature,
   t_promotion_code,
   t_quote,
   t_radar_early_fraud_warning,
@@ -1302,6 +1330,7 @@ import {
   s_deleted_person,
   s_deleted_plan,
   s_deleted_product,
+  s_deleted_product_feature,
   s_deleted_radar_value_list,
   s_deleted_radar_value_list_item,
   s_deleted_subscription_item,
@@ -1313,6 +1342,8 @@ import {
   s_deleted_webhook_endpoint,
   s_discount,
   s_dispute,
+  s_entitlements_active_entitlement,
+  s_entitlements_feature,
   s_ephemeral_key,
   s_error,
   s_event,
@@ -1355,6 +1386,7 @@ import {
   s_plan,
   s_price,
   s_product,
+  s_product_feature,
   s_promotion_code,
   s_quote,
   s_radar_early_fraud_warning,
@@ -4948,6 +4980,142 @@ export type PostDisputesDisputeClose = (
   | Response<StatusCode, t_error>
 >
 
+export type GetEntitlementsActiveEntitlementsResponder = {
+  with200(): KoaRuntimeResponse<{
+    data: t_entitlements_active_entitlement[]
+    has_more: boolean
+    object: "list"
+    url: string
+  }>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type GetEntitlementsActiveEntitlements = (
+  params: Params<
+    void,
+    t_GetEntitlementsActiveEntitlementsQuerySchema,
+    t_GetEntitlementsActiveEntitlementsBodySchema | undefined
+  >,
+  respond: GetEntitlementsActiveEntitlementsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        data: t_entitlements_active_entitlement[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }
+    >
+  | Response<StatusCode, t_error>
+>
+
+export type GetEntitlementsActiveEntitlementsIdResponder = {
+  with200(): KoaRuntimeResponse<t_entitlements_active_entitlement>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type GetEntitlementsActiveEntitlementsId = (
+  params: Params<
+    t_GetEntitlementsActiveEntitlementsIdParamSchema,
+    t_GetEntitlementsActiveEntitlementsIdQuerySchema,
+    t_GetEntitlementsActiveEntitlementsIdBodySchema | undefined
+  >,
+  respond: GetEntitlementsActiveEntitlementsIdResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_entitlements_active_entitlement>
+  | Response<StatusCode, t_error>
+>
+
+export type GetEntitlementsFeaturesResponder = {
+  with200(): KoaRuntimeResponse<{
+    data: t_entitlements_feature[]
+    has_more: boolean
+    object: "list"
+    url: string
+  }>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type GetEntitlementsFeatures = (
+  params: Params<
+    void,
+    t_GetEntitlementsFeaturesQuerySchema,
+    t_GetEntitlementsFeaturesBodySchema | undefined
+  >,
+  respond: GetEntitlementsFeaturesResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        data: t_entitlements_feature[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }
+    >
+  | Response<StatusCode, t_error>
+>
+
+export type PostEntitlementsFeaturesResponder = {
+  with200(): KoaRuntimeResponse<t_entitlements_feature>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type PostEntitlementsFeatures = (
+  params: Params<void, void, t_PostEntitlementsFeaturesBodySchema>,
+  respond: PostEntitlementsFeaturesResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_entitlements_feature>
+  | Response<StatusCode, t_error>
+>
+
+export type GetEntitlementsFeaturesIdResponder = {
+  with200(): KoaRuntimeResponse<t_entitlements_feature>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type GetEntitlementsFeaturesId = (
+  params: Params<
+    t_GetEntitlementsFeaturesIdParamSchema,
+    t_GetEntitlementsFeaturesIdQuerySchema,
+    t_GetEntitlementsFeaturesIdBodySchema | undefined
+  >,
+  respond: GetEntitlementsFeaturesIdResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_entitlements_feature>
+  | Response<StatusCode, t_error>
+>
+
+export type PostEntitlementsFeaturesIdResponder = {
+  with200(): KoaRuntimeResponse<t_entitlements_feature>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type PostEntitlementsFeaturesId = (
+  params: Params<
+    t_PostEntitlementsFeaturesIdParamSchema,
+    void,
+    t_PostEntitlementsFeaturesIdBodySchema | undefined
+  >,
+  respond: PostEntitlementsFeaturesIdResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_entitlements_feature>
+  | Response<StatusCode, t_error>
+>
+
 export type PostEphemeralKeysResponder = {
   with200(): KoaRuntimeResponse<t_ephemeral_key>
   withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
@@ -5863,6 +6031,21 @@ export type PostInvoicesResponder = {
 export type PostInvoices = (
   params: Params<void, void, t_PostInvoicesBodySchema | undefined>,
   respond: PostInvoicesResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_invoice>
+  | Response<StatusCode, t_error>
+>
+
+export type PostInvoicesCreatePreviewResponder = {
+  with200(): KoaRuntimeResponse<t_invoice>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type PostInvoicesCreatePreview = (
+  params: Params<void, void, t_PostInvoicesCreatePreviewBodySchema | undefined>,
+  respond: PostInvoicesCreatePreviewResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8213,6 +8396,95 @@ export type PostProductsId = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_product>
+  | Response<StatusCode, t_error>
+>
+
+export type GetProductsProductFeaturesResponder = {
+  with200(): KoaRuntimeResponse<{
+    data: t_product_feature[]
+    has_more: boolean
+    object: "list"
+    url: string
+  }>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type GetProductsProductFeatures = (
+  params: Params<
+    t_GetProductsProductFeaturesParamSchema,
+    t_GetProductsProductFeaturesQuerySchema,
+    t_GetProductsProductFeaturesBodySchema | undefined
+  >,
+  respond: GetProductsProductFeaturesResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        data: t_product_feature[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }
+    >
+  | Response<StatusCode, t_error>
+>
+
+export type PostProductsProductFeaturesResponder = {
+  with200(): KoaRuntimeResponse<t_product_feature>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type PostProductsProductFeatures = (
+  params: Params<
+    t_PostProductsProductFeaturesParamSchema,
+    void,
+    t_PostProductsProductFeaturesBodySchema
+  >,
+  respond: PostProductsProductFeaturesResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_product_feature>
+  | Response<StatusCode, t_error>
+>
+
+export type DeleteProductsProductFeaturesIdResponder = {
+  with200(): KoaRuntimeResponse<t_deleted_product_feature>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type DeleteProductsProductFeaturesId = (
+  params: Params<
+    t_DeleteProductsProductFeaturesIdParamSchema,
+    void,
+    t_DeleteProductsProductFeaturesIdBodySchema | undefined
+  >,
+  respond: DeleteProductsProductFeaturesIdResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_deleted_product_feature>
+  | Response<StatusCode, t_error>
+>
+
+export type GetProductsProductFeaturesIdResponder = {
+  with200(): KoaRuntimeResponse<t_product_feature>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type GetProductsProductFeaturesId = (
+  params: Params<
+    t_GetProductsProductFeaturesIdParamSchema,
+    t_GetProductsProductFeaturesIdQuerySchema,
+    t_GetProductsProductFeaturesIdBodySchema | undefined
+  >,
+  respond: GetProductsProductFeaturesIdResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_product_feature>
   | Response<StatusCode, t_error>
 >
 
@@ -12860,6 +13132,12 @@ export type Implementation = {
   getDisputesDispute: GetDisputesDispute
   postDisputesDispute: PostDisputesDispute
   postDisputesDisputeClose: PostDisputesDisputeClose
+  getEntitlementsActiveEntitlements: GetEntitlementsActiveEntitlements
+  getEntitlementsActiveEntitlementsId: GetEntitlementsActiveEntitlementsId
+  getEntitlementsFeatures: GetEntitlementsFeatures
+  postEntitlementsFeatures: PostEntitlementsFeatures
+  getEntitlementsFeaturesId: GetEntitlementsFeaturesId
+  postEntitlementsFeaturesId: PostEntitlementsFeaturesId
   postEphemeralKeys: PostEphemeralKeys
   deleteEphemeralKeysKey: DeleteEphemeralKeysKey
   getEvents: GetEvents
@@ -12902,6 +13180,7 @@ export type Implementation = {
   postInvoiceitemsInvoiceitem: PostInvoiceitemsInvoiceitem
   getInvoices: GetInvoices
   postInvoices: PostInvoices
+  postInvoicesCreatePreview: PostInvoicesCreatePreview
   getInvoicesSearch: GetInvoicesSearch
   getInvoicesUpcoming: GetInvoicesUpcoming
   getInvoicesUpcomingLines: GetInvoicesUpcomingLines
@@ -13009,6 +13288,10 @@ export type Implementation = {
   deleteProductsId: DeleteProductsId
   getProductsId: GetProductsId
   postProductsId: PostProductsId
+  getProductsProductFeatures: GetProductsProductFeatures
+  postProductsProductFeatures: PostProductsProductFeatures
+  deleteProductsProductFeaturesId: DeleteProductsProductFeaturesId
+  getProductsProductFeaturesId: GetProductsProductFeaturesId
   getPromotionCodes: GetPromotionCodes
   postPromotionCodes: PostPromotionCodes
   getPromotionCodesPromotionCode: GetPromotionCodesPromotionCode
@@ -13336,16 +13619,52 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postAccountSessionsBodySchema = z.object({
     account: z.string(),
     components: z.object({
+      account_management: z
+        .object({
+          enabled: PermissiveBoolean,
+          features: z
+            .object({
+              external_account_collection: PermissiveBoolean.optional(),
+            })
+            .optional(),
+        })
+        .optional(),
       account_onboarding: z
         .object({
           enabled: PermissiveBoolean,
-          features: z.object({}).optional(),
+          features: z
+            .object({
+              external_account_collection: PermissiveBoolean.optional(),
+            })
+            .optional(),
+        })
+        .optional(),
+      balances: z
+        .object({
+          enabled: PermissiveBoolean,
+          features: z
+            .object({
+              edit_payout_schedule: PermissiveBoolean.optional(),
+              instant_payouts: PermissiveBoolean.optional(),
+              standard_payouts: PermissiveBoolean.optional(),
+            })
+            .optional(),
         })
         .optional(),
       documents: z
         .object({
           enabled: PermissiveBoolean,
           features: z.object({}).optional(),
+        })
+        .optional(),
+      notification_banner: z
+        .object({
+          enabled: PermissiveBoolean,
+          features: z
+            .object({
+              external_account_collection: PermissiveBoolean.optional(),
+            })
+            .optional(),
         })
         .optional(),
       payment_details: z
@@ -13386,6 +13705,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
               standard_payouts: PermissiveBoolean.optional(),
             })
             .optional(),
+        })
+        .optional(),
+      payouts_list: z
+        .object({
+          enabled: PermissiveBoolean,
+          features: z.object({}).optional(),
         })
         .optional(),
     }),
@@ -13796,6 +14121,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 })
                 .optional(),
             })
+            .optional(),
+        })
+        .optional(),
+      controller: z
+        .object({
+          fees: z
+            .object({ payer: z.enum(["account", "application"]).optional() })
+            .optional(),
+          losses: z
+            .object({ payments: z.enum(["application", "stripe"]).optional() })
+            .optional(),
+          requirement_collection: z.enum(["application", "stripe"]).optional(),
+          stripe_dashboard: z
+            .object({ type: z.enum(["express", "full", "none"]).optional() })
             .optional(),
         })
         .optional(),
@@ -18289,10 +18628,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postBillingMeterEventAdjustmentsBodySchema = z.object({
-    cancel: z.object({ identifier: z.string().max(100) }),
+    cancel: z.object({ identifier: z.string().max(100).optional() }).optional(),
     event_name: z.string().max(100),
     expand: z.array(z.string().max(5000)).optional(),
-    type: z.enum(["cancel"]).optional(),
+    type: z.enum(["cancel"]),
   })
 
   const postBillingMeterEventAdjustmentsResponseValidator =
@@ -18347,7 +18686,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
     identifier: z.string().max(100).optional(),
     payload: z.record(z.string()),
-    timestamp: z.coerce.number(),
+    timestamp: z.coerce.number().optional(),
   })
 
   const postBillingMeterEventsResponseValidator = responseValidationFactory(
@@ -20865,6 +21204,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       payment_method_collection: z.enum(["always", "if_required"]).optional(),
       payment_method_configuration: z.string().max(100).optional(),
+      payment_method_data: z
+        .object({
+          allow_redisplay: z
+            .enum(["always", "limited", "unspecified"])
+            .optional(),
+        })
+        .optional(),
       payment_method_options: z
         .object({
           acss_debit: z
@@ -20901,6 +21247,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           alipay: z
             .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .optional(),
+          amazon_pay: z
+            .object({
+              setup_future_usage: z.enum(["none", "off_session"]).optional(),
+            })
             .optional(),
           au_becs_debit: z
             .object({ setup_future_usage: z.enum(["none"]).optional() })
@@ -21007,6 +21358,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
               setup_future_usage: z.enum(["none", "off_session"]).optional(),
             })
             .optional(),
+          mobilepay: z
+            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .optional(),
           oxxo: z
             .object({
               expires_after_days: z.coerce.number().optional(),
@@ -21093,7 +21447,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     )
                     .optional(),
                   prefetch: z
-                    .array(z.enum(["balances", "transactions"]))
+                    .array(z.enum(["balances", "ownership", "transactions"]))
                     .optional(),
                 })
                 .optional(),
@@ -21119,6 +21473,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
@@ -21135,6 +21490,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
             "oxxo",
             "p24",
             "paynow",
@@ -21158,6 +21514,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .enum(["always", "if_required", "never"])
         .optional(),
       return_url: z.string().max(5000).optional(),
+      saved_payment_method_options: z
+        .object({
+          allow_redisplay_filters: z
+            .array(z.enum(["always", "limited", "unspecified"]))
+            .optional(),
+          payment_method_save: z.enum(["disabled", "enabled"]).optional(),
+        })
+        .optional(),
       setup_intent_data: z
         .object({
           description: z.string().max(1000).optional(),
@@ -23781,6 +24145,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               "au_abn",
               "au_arn",
               "bg_uic",
+              "bh_vat",
               "bo_tin",
               "br_cnpj",
               "br_cpf",
@@ -23814,14 +24179,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
               "jp_trn",
               "ke_pin",
               "kr_brn",
+              "kz_bin",
               "li_uid",
               "mx_rfc",
               "my_frp",
               "my_itn",
               "my_sst",
+              "ng_tin",
               "no_vat",
               "no_voec",
               "nz_gst",
+              "om_vat",
               "pe_ruc",
               "ph_tin",
               "ro_tin",
@@ -25953,6 +26321,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const getCustomersCustomerPaymentMethodsQuerySchema = z.object({
+    allow_redisplay: z.enum(["always", "limited", "unspecified"]).optional(),
     ending_before: z.string().optional(),
     expand: z.array(z.string().max(5000)).optional(),
     limit: z.coerce.number().optional(),
@@ -25963,6 +26332,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "affirm",
         "afterpay_clearpay",
         "alipay",
+        "amazon_pay",
         "au_becs_debit",
         "bacs_debit",
         "bancontact",
@@ -26955,7 +27325,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
                           )
                           .optional(),
                         prefetch: z
-                          .array(z.enum(["balances", "transactions"]))
+                          .array(
+                            z.enum(["balances", "ownership", "transactions"]),
+                          )
                           .optional(),
                       })
                       .optional(),
@@ -27517,7 +27889,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
                           )
                           .optional(),
                         prefetch: z
-                          .array(z.enum(["balances", "transactions"]))
+                          .array(
+                            z.enum(["balances", "ownership", "transactions"]),
+                          )
                           .optional(),
                       })
                       .optional(),
@@ -27896,6 +28270,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "au_abn",
       "au_arn",
       "bg_uic",
+      "bh_vat",
       "bo_tin",
       "br_cnpj",
       "br_cpf",
@@ -27929,14 +28304,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "jp_trn",
       "ke_pin",
       "kr_brn",
+      "kz_bin",
       "li_uid",
       "mx_rfc",
       "my_frp",
       "my_itn",
       "my_sst",
+      "ng_tin",
       "no_vat",
       "no_voec",
       "nz_gst",
+      "om_vat",
       "pe_ruc",
       "ph_tin",
       "ro_tin",
@@ -28420,6 +28798,410 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postDisputesDisputeCloseResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const getEntitlementsActiveEntitlementsQuerySchema = z.object({
+    customer: z.string().max(5000),
+    ending_before: z.string().max(5000).optional(),
+    expand: z.array(z.string().max(5000)).optional(),
+    limit: z.coerce.number().optional(),
+    starting_after: z.string().max(5000).optional(),
+  })
+
+  const getEntitlementsActiveEntitlementsBodySchema = z.object({}).optional()
+
+  const getEntitlementsActiveEntitlementsResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            data: z.array(s_entitlements_active_entitlement),
+            has_more: PermissiveBoolean,
+            object: z.enum(["list"]),
+            url: z.string().max(5000),
+          }),
+        ],
+      ],
+      s_error,
+    )
+
+  router.get(
+    "getEntitlementsActiveEntitlements",
+    "/v1/entitlements/active_entitlements",
+    async (ctx, next) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          getEntitlementsActiveEntitlementsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getEntitlementsActiveEntitlementsBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            data: t_entitlements_active_entitlement[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .getEntitlementsActiveEntitlements(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = getEntitlementsActiveEntitlementsResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const getEntitlementsActiveEntitlementsIdParamSchema = z.object({
+    id: z.string().max(5000),
+  })
+
+  const getEntitlementsActiveEntitlementsIdQuerySchema = z.object({
+    expand: z.array(z.string().max(5000)).optional(),
+  })
+
+  const getEntitlementsActiveEntitlementsIdBodySchema = z.object({}).optional()
+
+  const getEntitlementsActiveEntitlementsIdResponseValidator =
+    responseValidationFactory(
+      [["200", s_entitlements_active_entitlement]],
+      s_error,
+    )
+
+  router.get(
+    "getEntitlementsActiveEntitlementsId",
+    "/v1/entitlements/active_entitlements/:id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          getEntitlementsActiveEntitlementsIdParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          getEntitlementsActiveEntitlementsIdQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getEntitlementsActiveEntitlementsIdBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_entitlements_active_entitlement>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .getEntitlementsActiveEntitlementsId(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = getEntitlementsActiveEntitlementsIdResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const getEntitlementsFeaturesQuerySchema = z.object({
+    ending_before: z.string().max(5000).optional(),
+    expand: z.array(z.string().max(5000)).optional(),
+    limit: z.coerce.number().optional(),
+    starting_after: z.string().max(5000).optional(),
+  })
+
+  const getEntitlementsFeaturesBodySchema = z.object({}).optional()
+
+  const getEntitlementsFeaturesResponseValidator = responseValidationFactory(
+    [
+      [
+        "200",
+        z.object({
+          data: z.array(s_entitlements_feature),
+          has_more: PermissiveBoolean,
+          object: z.enum(["list"]),
+          url: z
+            .string()
+            .max(5000)
+            .regex(new RegExp("^/v1/entitlements/features")),
+        }),
+      ],
+    ],
+    s_error,
+  )
+
+  router.get(
+    "getEntitlementsFeatures",
+    "/v1/entitlements/features",
+    async (ctx, next) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          getEntitlementsFeaturesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getEntitlementsFeaturesBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            data: t_entitlements_feature[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .getEntitlementsFeatures(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = getEntitlementsFeaturesResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const postEntitlementsFeaturesBodySchema = z.object({
+    expand: z.array(z.string().max(5000)).optional(),
+    lookup_key: z.string().max(80),
+    metadata: z.record(z.string()).optional(),
+    name: z.string().max(80),
+  })
+
+  const postEntitlementsFeaturesResponseValidator = responseValidationFactory(
+    [["200", s_entitlements_feature]],
+    s_error,
+  )
+
+  router.post(
+    "postEntitlementsFeatures",
+    "/v1/entitlements/features",
+    async (ctx, next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          postEntitlementsFeaturesBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_entitlements_feature>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .postEntitlementsFeatures(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = postEntitlementsFeaturesResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const getEntitlementsFeaturesIdParamSchema = z.object({
+    id: z.string().max(5000),
+  })
+
+  const getEntitlementsFeaturesIdQuerySchema = z.object({
+    expand: z.array(z.string().max(5000)).optional(),
+  })
+
+  const getEntitlementsFeaturesIdBodySchema = z.object({}).optional()
+
+  const getEntitlementsFeaturesIdResponseValidator = responseValidationFactory(
+    [["200", s_entitlements_feature]],
+    s_error,
+  )
+
+  router.get(
+    "getEntitlementsFeaturesId",
+    "/v1/entitlements/features/:id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          getEntitlementsFeaturesIdParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          getEntitlementsFeaturesIdQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getEntitlementsFeaturesIdBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_entitlements_feature>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .getEntitlementsFeaturesId(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = getEntitlementsFeaturesIdResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const postEntitlementsFeaturesIdParamSchema = z.object({
+    id: z.string().max(5000),
+  })
+
+  const postEntitlementsFeaturesIdBodySchema = z
+    .object({
+      active: PermissiveBoolean.optional(),
+      expand: z.array(z.string().max(5000)).optional(),
+      metadata: z.record(z.string()).optional(),
+      name: z.string().max(80).optional(),
+    })
+    .optional()
+
+  const postEntitlementsFeaturesIdResponseValidator = responseValidationFactory(
+    [["200", s_entitlements_feature]],
+    s_error,
+  )
+
+  router.post(
+    "postEntitlementsFeaturesId",
+    "/v1/entitlements/features/:id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          postEntitlementsFeaturesIdParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          postEntitlementsFeaturesIdBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_entitlements_feature>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .postEntitlementsFeaturesId(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = postEntitlementsFeaturesIdResponseValidator(status, body)
       ctx.status = status
       return next()
     },
@@ -30179,7 +30961,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postForwardingRequestsBodySchema = z.object({
-    config: z.string().max(5000),
     expand: z.array(z.string().max(5000)).optional(),
     payment_method: z.string().max(5000),
     replacements: z.array(
@@ -31591,7 +32372,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
                           )
                           .optional(),
                         prefetch: z
-                          .array(z.enum(["balances", "transactions"]))
+                          .array(
+                            z.enum(["balances", "ownership", "transactions"]),
+                          )
                           .optional(),
                       })
                       .optional(),
@@ -31778,6 +32561,503 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
+  const postInvoicesCreatePreviewBodySchema = z
+    .object({
+      automatic_tax: z
+        .object({
+          enabled: PermissiveBoolean,
+          liability: z
+            .object({
+              account: z.string().optional(),
+              type: z.enum(["account", "self"]),
+            })
+            .optional(),
+        })
+        .optional(),
+      coupon: z.string().max(5000).optional(),
+      currency: z.string().optional(),
+      customer: z.string().max(5000).optional(),
+      customer_details: z
+        .object({
+          address: z
+            .union([
+              z.object({
+                city: z.string().max(5000).optional(),
+                country: z.string().max(5000).optional(),
+                line1: z.string().max(5000).optional(),
+                line2: z.string().max(5000).optional(),
+                postal_code: z.string().max(5000).optional(),
+                state: z.string().max(5000).optional(),
+              }),
+              z.enum([""]),
+            ])
+            .optional(),
+          shipping: z
+            .union([
+              z.object({
+                address: z.object({
+                  city: z.string().max(5000).optional(),
+                  country: z.string().max(5000).optional(),
+                  line1: z.string().max(5000).optional(),
+                  line2: z.string().max(5000).optional(),
+                  postal_code: z.string().max(5000).optional(),
+                  state: z.string().max(5000).optional(),
+                }),
+                name: z.string().max(5000),
+                phone: z.string().max(5000).optional(),
+              }),
+              z.enum([""]),
+            ])
+            .optional(),
+          tax: z
+            .object({
+              ip_address: z.union([z.string(), z.enum([""])]).optional(),
+            })
+            .optional(),
+          tax_exempt: z.enum(["", "exempt", "none", "reverse"]).optional(),
+          tax_ids: z
+            .array(
+              z.object({
+                type: z.enum([
+                  "ad_nrt",
+                  "ae_trn",
+                  "ar_cuit",
+                  "au_abn",
+                  "au_arn",
+                  "bg_uic",
+                  "bh_vat",
+                  "bo_tin",
+                  "br_cnpj",
+                  "br_cpf",
+                  "ca_bn",
+                  "ca_gst_hst",
+                  "ca_pst_bc",
+                  "ca_pst_mb",
+                  "ca_pst_sk",
+                  "ca_qst",
+                  "ch_vat",
+                  "cl_tin",
+                  "cn_tin",
+                  "co_nit",
+                  "cr_tin",
+                  "do_rcn",
+                  "ec_ruc",
+                  "eg_tin",
+                  "es_cif",
+                  "eu_oss_vat",
+                  "eu_vat",
+                  "gb_vat",
+                  "ge_vat",
+                  "hk_br",
+                  "hu_tin",
+                  "id_npwp",
+                  "il_vat",
+                  "in_gst",
+                  "is_vat",
+                  "jp_cn",
+                  "jp_rn",
+                  "jp_trn",
+                  "ke_pin",
+                  "kr_brn",
+                  "kz_bin",
+                  "li_uid",
+                  "mx_rfc",
+                  "my_frp",
+                  "my_itn",
+                  "my_sst",
+                  "ng_tin",
+                  "no_vat",
+                  "no_voec",
+                  "nz_gst",
+                  "om_vat",
+                  "pe_ruc",
+                  "ph_tin",
+                  "ro_tin",
+                  "rs_pib",
+                  "ru_inn",
+                  "ru_kpp",
+                  "sa_vat",
+                  "sg_gst",
+                  "sg_uen",
+                  "si_tin",
+                  "sv_nit",
+                  "th_vat",
+                  "tr_tin",
+                  "tw_vat",
+                  "ua_vat",
+                  "us_ein",
+                  "uy_ruc",
+                  "ve_rif",
+                  "vn_tin",
+                  "za_vat",
+                ]),
+                value: z.string(),
+              }),
+            )
+            .optional(),
+        })
+        .optional(),
+      discounts: z
+        .union([
+          z.array(
+            z.object({
+              coupon: z.string().max(5000).optional(),
+              discount: z.string().max(5000).optional(),
+              promotion_code: z.string().max(5000).optional(),
+            }),
+          ),
+          z.enum([""]),
+        ])
+        .optional(),
+      expand: z.array(z.string().max(5000)).optional(),
+      invoice_items: z
+        .array(
+          z.object({
+            amount: z.coerce.number().optional(),
+            currency: z.string().optional(),
+            description: z.string().max(5000).optional(),
+            discountable: PermissiveBoolean.optional(),
+            discounts: z
+              .union([
+                z.array(
+                  z.object({
+                    coupon: z.string().max(5000).optional(),
+                    discount: z.string().max(5000).optional(),
+                    promotion_code: z.string().max(5000).optional(),
+                  }),
+                ),
+                z.enum([""]),
+              ])
+              .optional(),
+            invoiceitem: z.string().max(5000).optional(),
+            metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+            period: z
+              .object({ end: z.coerce.number(), start: z.coerce.number() })
+              .optional(),
+            price: z.string().max(5000).optional(),
+            price_data: z
+              .object({
+                currency: z.string(),
+                product: z.string().max(5000),
+                tax_behavior: z
+                  .enum(["exclusive", "inclusive", "unspecified"])
+                  .optional(),
+                unit_amount: z.coerce.number().optional(),
+                unit_amount_decimal: z.string().optional(),
+              })
+              .optional(),
+            quantity: z.coerce.number().optional(),
+            tax_behavior: z
+              .enum(["exclusive", "inclusive", "unspecified"])
+              .optional(),
+            tax_code: z.union([z.string(), z.enum([""])]).optional(),
+            tax_rates: z
+              .union([z.array(z.string().max(5000)), z.enum([""])])
+              .optional(),
+            unit_amount: z.coerce.number().optional(),
+            unit_amount_decimal: z.string().optional(),
+          }),
+        )
+        .optional(),
+      issuer: z
+        .object({
+          account: z.string().optional(),
+          type: z.enum(["account", "self"]),
+        })
+        .optional(),
+      on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
+      schedule: z.string().max(5000).optional(),
+      schedule_details: z
+        .object({
+          end_behavior: z.enum(["cancel", "release"]).optional(),
+          phases: z
+            .array(
+              z.object({
+                add_invoice_items: z
+                  .array(
+                    z.object({
+                      discounts: z
+                        .array(
+                          z.object({
+                            coupon: z.string().max(5000).optional(),
+                            discount: z.string().max(5000).optional(),
+                            promotion_code: z.string().max(5000).optional(),
+                          }),
+                        )
+                        .optional(),
+                      price: z.string().max(5000).optional(),
+                      price_data: z
+                        .object({
+                          currency: z.string(),
+                          product: z.string().max(5000),
+                          tax_behavior: z
+                            .enum(["exclusive", "inclusive", "unspecified"])
+                            .optional(),
+                          unit_amount: z.coerce.number().optional(),
+                          unit_amount_decimal: z.string().optional(),
+                        })
+                        .optional(),
+                      quantity: z.coerce.number().optional(),
+                      tax_rates: z
+                        .union([z.array(z.string().max(5000)), z.enum([""])])
+                        .optional(),
+                    }),
+                  )
+                  .optional(),
+                application_fee_percent: z.coerce.number().optional(),
+                automatic_tax: z
+                  .object({
+                    enabled: PermissiveBoolean,
+                    liability: z
+                      .object({
+                        account: z.string().optional(),
+                        type: z.enum(["account", "self"]),
+                      })
+                      .optional(),
+                  })
+                  .optional(),
+                billing_cycle_anchor: z
+                  .enum(["automatic", "phase_start"])
+                  .optional(),
+                billing_thresholds: z
+                  .union([
+                    z.object({
+                      amount_gte: z.coerce.number().optional(),
+                      reset_billing_cycle_anchor: PermissiveBoolean.optional(),
+                    }),
+                    z.enum([""]),
+                  ])
+                  .optional(),
+                collection_method: z
+                  .enum(["charge_automatically", "send_invoice"])
+                  .optional(),
+                coupon: z.string().max(5000).optional(),
+                default_payment_method: z.string().max(5000).optional(),
+                default_tax_rates: z
+                  .union([z.array(z.string().max(5000)), z.enum([""])])
+                  .optional(),
+                description: z
+                  .union([z.string().max(500), z.enum([""])])
+                  .optional(),
+                discounts: z
+                  .union([
+                    z.array(
+                      z.object({
+                        coupon: z.string().max(5000).optional(),
+                        discount: z.string().max(5000).optional(),
+                        promotion_code: z.string().max(5000).optional(),
+                      }),
+                    ),
+                    z.enum([""]),
+                  ])
+                  .optional(),
+                end_date: z
+                  .union([z.coerce.number(), z.enum(["now"])])
+                  .optional(),
+                invoice_settings: z
+                  .object({
+                    account_tax_ids: z
+                      .union([z.array(z.string().max(5000)), z.enum([""])])
+                      .optional(),
+                    days_until_due: z.coerce.number().optional(),
+                    issuer: z
+                      .object({
+                        account: z.string().optional(),
+                        type: z.enum(["account", "self"]),
+                      })
+                      .optional(),
+                  })
+                  .optional(),
+                items: z.array(
+                  z.object({
+                    billing_thresholds: z
+                      .union([
+                        z.object({ usage_gte: z.coerce.number() }),
+                        z.enum([""]),
+                      ])
+                      .optional(),
+                    discounts: z
+                      .union([
+                        z.array(
+                          z.object({
+                            coupon: z.string().max(5000).optional(),
+                            discount: z.string().max(5000).optional(),
+                            promotion_code: z.string().max(5000).optional(),
+                          }),
+                        ),
+                        z.enum([""]),
+                      ])
+                      .optional(),
+                    metadata: z.record(z.string()).optional(),
+                    price: z.string().max(5000).optional(),
+                    price_data: z
+                      .object({
+                        currency: z.string(),
+                        product: z.string().max(5000),
+                        recurring: z.object({
+                          interval: z.enum(["day", "month", "week", "year"]),
+                          interval_count: z.coerce.number().optional(),
+                        }),
+                        tax_behavior: z
+                          .enum(["exclusive", "inclusive", "unspecified"])
+                          .optional(),
+                        unit_amount: z.coerce.number().optional(),
+                        unit_amount_decimal: z.string().optional(),
+                      })
+                      .optional(),
+                    quantity: z.coerce.number().optional(),
+                    tax_rates: z
+                      .union([z.array(z.string().max(5000)), z.enum([""])])
+                      .optional(),
+                  }),
+                ),
+                iterations: z.coerce.number().optional(),
+                metadata: z.record(z.string()).optional(),
+                on_behalf_of: z.string().optional(),
+                proration_behavior: z
+                  .enum(["always_invoice", "create_prorations", "none"])
+                  .optional(),
+                start_date: z
+                  .union([z.coerce.number(), z.enum(["now"])])
+                  .optional(),
+                transfer_data: z
+                  .object({
+                    amount_percent: z.coerce.number().optional(),
+                    destination: z.string(),
+                  })
+                  .optional(),
+                trial: PermissiveBoolean.optional(),
+                trial_end: z
+                  .union([z.coerce.number(), z.enum(["now"])])
+                  .optional(),
+              }),
+            )
+            .optional(),
+          proration_behavior: z
+            .enum(["always_invoice", "create_prorations", "none"])
+            .optional(),
+        })
+        .optional(),
+      subscription: z.string().max(5000).optional(),
+      subscription_details: z
+        .object({
+          billing_cycle_anchor: z
+            .union([z.enum(["now", "unchanged"]), z.coerce.number()])
+            .optional(),
+          cancel_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
+          cancel_at_period_end: PermissiveBoolean.optional(),
+          cancel_now: PermissiveBoolean.optional(),
+          default_tax_rates: z
+            .union([z.array(z.string().max(5000)), z.enum([""])])
+            .optional(),
+          items: z
+            .array(
+              z.object({
+                billing_thresholds: z
+                  .union([
+                    z.object({ usage_gte: z.coerce.number() }),
+                    z.enum([""]),
+                  ])
+                  .optional(),
+                clear_usage: PermissiveBoolean.optional(),
+                deleted: PermissiveBoolean.optional(),
+                discounts: z
+                  .union([
+                    z.array(
+                      z.object({
+                        coupon: z.string().max(5000).optional(),
+                        discount: z.string().max(5000).optional(),
+                        promotion_code: z.string().max(5000).optional(),
+                      }),
+                    ),
+                    z.enum([""]),
+                  ])
+                  .optional(),
+                id: z.string().max(5000).optional(),
+                metadata: z
+                  .union([z.record(z.string()), z.enum([""])])
+                  .optional(),
+                price: z.string().max(5000).optional(),
+                price_data: z
+                  .object({
+                    currency: z.string(),
+                    product: z.string().max(5000),
+                    recurring: z.object({
+                      interval: z.enum(["day", "month", "week", "year"]),
+                      interval_count: z.coerce.number().optional(),
+                    }),
+                    tax_behavior: z
+                      .enum(["exclusive", "inclusive", "unspecified"])
+                      .optional(),
+                    unit_amount: z.coerce.number().optional(),
+                    unit_amount_decimal: z.string().optional(),
+                  })
+                  .optional(),
+                quantity: z.coerce.number().optional(),
+                tax_rates: z
+                  .union([z.array(z.string().max(5000)), z.enum([""])])
+                  .optional(),
+              }),
+            )
+            .optional(),
+          proration_behavior: z
+            .enum(["always_invoice", "create_prorations", "none"])
+            .optional(),
+          proration_date: z.coerce.number().optional(),
+          resume_at: z.enum(["now"]).optional(),
+          start_date: z.coerce.number().optional(),
+          trial_end: z.union([z.enum(["now"]), z.coerce.number()]).optional(),
+        })
+        .optional(),
+    })
+    .optional()
+
+  const postInvoicesCreatePreviewResponseValidator = responseValidationFactory(
+    [["200", s_invoice]],
+    s_error,
+  )
+
+  router.post(
+    "postInvoicesCreatePreview",
+    "/v1/invoices/create_preview",
+    async (ctx, next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          postInvoicesCreatePreviewBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_invoice>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .postInvoicesCreatePreview(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = postInvoicesCreatePreviewResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
   const getInvoicesSearchQuerySchema = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     limit: z.coerce.number().optional(),
@@ -31915,6 +33195,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "au_abn",
                 "au_arn",
                 "bg_uic",
+                "bh_vat",
                 "bo_tin",
                 "br_cnpj",
                 "br_cpf",
@@ -31948,14 +33229,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "jp_trn",
                 "ke_pin",
                 "kr_brn",
+                "kz_bin",
                 "li_uid",
                 "mx_rfc",
                 "my_frp",
                 "my_itn",
                 "my_sst",
+                "ng_tin",
                 "no_vat",
                 "no_voec",
                 "nz_gst",
+                "om_vat",
                 "pe_ruc",
                 "ph_tin",
                 "ro_tin",
@@ -32053,6 +33337,177 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
     schedule: z.string().max(5000).optional(),
+    schedule_details: z
+      .object({
+        end_behavior: z.enum(["cancel", "release"]).optional(),
+        phases: z
+          .array(
+            z.object({
+              add_invoice_items: z
+                .array(
+                  z.object({
+                    discounts: z
+                      .array(
+                        z.object({
+                          coupon: z.string().max(5000).optional(),
+                          discount: z.string().max(5000).optional(),
+                          promotion_code: z.string().max(5000).optional(),
+                        }),
+                      )
+                      .optional(),
+                    price: z.string().max(5000).optional(),
+                    price_data: z
+                      .object({
+                        currency: z.string(),
+                        product: z.string().max(5000),
+                        tax_behavior: z
+                          .enum(["exclusive", "inclusive", "unspecified"])
+                          .optional(),
+                        unit_amount: z.coerce.number().optional(),
+                        unit_amount_decimal: z.string().optional(),
+                      })
+                      .optional(),
+                    quantity: z.coerce.number().optional(),
+                    tax_rates: z
+                      .union([z.array(z.string().max(5000)), z.enum([""])])
+                      .optional(),
+                  }),
+                )
+                .optional(),
+              application_fee_percent: z.coerce.number().optional(),
+              automatic_tax: z
+                .object({
+                  enabled: PermissiveBoolean,
+                  liability: z
+                    .object({
+                      account: z.string().optional(),
+                      type: z.enum(["account", "self"]),
+                    })
+                    .optional(),
+                })
+                .optional(),
+              billing_cycle_anchor: z
+                .enum(["automatic", "phase_start"])
+                .optional(),
+              billing_thresholds: z
+                .union([
+                  z.object({
+                    amount_gte: z.coerce.number().optional(),
+                    reset_billing_cycle_anchor: PermissiveBoolean.optional(),
+                  }),
+                  z.enum([""]),
+                ])
+                .optional(),
+              collection_method: z
+                .enum(["charge_automatically", "send_invoice"])
+                .optional(),
+              coupon: z.string().max(5000).optional(),
+              default_payment_method: z.string().max(5000).optional(),
+              default_tax_rates: z
+                .union([z.array(z.string().max(5000)), z.enum([""])])
+                .optional(),
+              description: z
+                .union([z.string().max(500), z.enum([""])])
+                .optional(),
+              discounts: z
+                .union([
+                  z.array(
+                    z.object({
+                      coupon: z.string().max(5000).optional(),
+                      discount: z.string().max(5000).optional(),
+                      promotion_code: z.string().max(5000).optional(),
+                    }),
+                  ),
+                  z.enum([""]),
+                ])
+                .optional(),
+              end_date: z
+                .union([z.coerce.number(), z.enum(["now"])])
+                .optional(),
+              invoice_settings: z
+                .object({
+                  account_tax_ids: z
+                    .union([z.array(z.string().max(5000)), z.enum([""])])
+                    .optional(),
+                  days_until_due: z.coerce.number().optional(),
+                  issuer: z
+                    .object({
+                      account: z.string().optional(),
+                      type: z.enum(["account", "self"]),
+                    })
+                    .optional(),
+                })
+                .optional(),
+              items: z.array(
+                z.object({
+                  billing_thresholds: z
+                    .union([
+                      z.object({ usage_gte: z.coerce.number() }),
+                      z.enum([""]),
+                    ])
+                    .optional(),
+                  discounts: z
+                    .union([
+                      z.array(
+                        z.object({
+                          coupon: z.string().max(5000).optional(),
+                          discount: z.string().max(5000).optional(),
+                          promotion_code: z.string().max(5000).optional(),
+                        }),
+                      ),
+                      z.enum([""]),
+                    ])
+                    .optional(),
+                  metadata: z.record(z.string()).optional(),
+                  price: z.string().max(5000).optional(),
+                  price_data: z
+                    .object({
+                      currency: z.string(),
+                      product: z.string().max(5000),
+                      recurring: z.object({
+                        interval: z.enum(["day", "month", "week", "year"]),
+                        interval_count: z.coerce.number().optional(),
+                      }),
+                      tax_behavior: z
+                        .enum(["exclusive", "inclusive", "unspecified"])
+                        .optional(),
+                      unit_amount: z.coerce.number().optional(),
+                      unit_amount_decimal: z.string().optional(),
+                    })
+                    .optional(),
+                  quantity: z.coerce.number().optional(),
+                  tax_rates: z
+                    .union([z.array(z.string().max(5000)), z.enum([""])])
+                    .optional(),
+                }),
+              ),
+              iterations: z.coerce.number().optional(),
+              metadata: z.record(z.string()).optional(),
+              on_behalf_of: z.string().optional(),
+              proration_behavior: z
+                .enum(["always_invoice", "create_prorations", "none"])
+                .optional(),
+              start_date: z
+                .union([z.coerce.number(), z.enum(["now"])])
+                .optional(),
+              transfer_data: z
+                .object({
+                  amount_percent: z.coerce.number().optional(),
+                  destination: z.string(),
+                })
+                .optional(),
+              trial: PermissiveBoolean.optional(),
+              trial_end: z
+                .union([z.coerce.number(), z.enum(["now"])])
+                .optional(),
+            }),
+          )
+          .optional(),
+        proration_behavior: z
+          .enum(["always_invoice", "create_prorations", "none"])
+          .optional(),
+      })
+      .optional(),
     subscription: z.string().max(5000).optional(),
     subscription_billing_cycle_anchor: z
       .union([z.enum(["now", "unchanged"]), z.coerce.number()])
@@ -32064,6 +33519,76 @@ export function createRouter(implementation: Implementation): KoaRouter {
     subscription_cancel_now: PermissiveBoolean.optional(),
     subscription_default_tax_rates: z
       .union([z.array(z.string().max(5000)), z.enum([""])])
+      .optional(),
+    subscription_details: z
+      .object({
+        billing_cycle_anchor: z
+          .union([z.enum(["now", "unchanged"]), z.coerce.number()])
+          .optional(),
+        cancel_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
+        cancel_at_period_end: PermissiveBoolean.optional(),
+        cancel_now: PermissiveBoolean.optional(),
+        default_tax_rates: z
+          .union([z.array(z.string().max(5000)), z.enum([""])])
+          .optional(),
+        items: z
+          .array(
+            z.object({
+              billing_thresholds: z
+                .union([
+                  z.object({ usage_gte: z.coerce.number() }),
+                  z.enum([""]),
+                ])
+                .optional(),
+              clear_usage: PermissiveBoolean.optional(),
+              deleted: PermissiveBoolean.optional(),
+              discounts: z
+                .union([
+                  z.array(
+                    z.object({
+                      coupon: z.string().max(5000).optional(),
+                      discount: z.string().max(5000).optional(),
+                      promotion_code: z.string().max(5000).optional(),
+                    }),
+                  ),
+                  z.enum([""]),
+                ])
+                .optional(),
+              id: z.string().max(5000).optional(),
+              metadata: z
+                .union([z.record(z.string()), z.enum([""])])
+                .optional(),
+              price: z.string().max(5000).optional(),
+              price_data: z
+                .object({
+                  currency: z.string(),
+                  product: z.string().max(5000),
+                  recurring: z.object({
+                    interval: z.enum(["day", "month", "week", "year"]),
+                    interval_count: z.coerce.number().optional(),
+                  }),
+                  tax_behavior: z
+                    .enum(["exclusive", "inclusive", "unspecified"])
+                    .optional(),
+                  unit_amount: z.coerce.number().optional(),
+                  unit_amount_decimal: z.string().optional(),
+                })
+                .optional(),
+              quantity: z.coerce.number().optional(),
+              tax_rates: z
+                .union([z.array(z.string().max(5000)), z.enum([""])])
+                .optional(),
+            }),
+          )
+          .optional(),
+        proration_behavior: z
+          .enum(["always_invoice", "create_prorations", "none"])
+          .optional(),
+        proration_date: z.coerce.number().optional(),
+        resume_at: z.enum(["now"]).optional(),
+        start_date: z.coerce.number().optional(),
+        trial_end: z.union([z.enum(["now"]), z.coerce.number()]).optional(),
+      })
       .optional(),
     subscription_items: z
       .array(
@@ -32119,7 +33644,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     subscription_trial_end: z
       .union([z.enum(["now"]), z.coerce.number()])
       .optional(),
-    subscription_trial_from_plan: PermissiveBoolean.optional(),
   })
 
   const getInvoicesUpcomingBodySchema = z.object({}).optional()
@@ -32237,6 +33761,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "au_abn",
                 "au_arn",
                 "bg_uic",
+                "bh_vat",
                 "bo_tin",
                 "br_cnpj",
                 "br_cpf",
@@ -32270,14 +33795,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "jp_trn",
                 "ke_pin",
                 "kr_brn",
+                "kz_bin",
                 "li_uid",
                 "mx_rfc",
                 "my_frp",
                 "my_itn",
                 "my_sst",
+                "ng_tin",
                 "no_vat",
                 "no_voec",
                 "nz_gst",
+                "om_vat",
                 "pe_ruc",
                 "ph_tin",
                 "ro_tin",
@@ -32377,6 +33905,177 @@ export function createRouter(implementation: Implementation): KoaRouter {
     limit: z.coerce.number().optional(),
     on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
     schedule: z.string().max(5000).optional(),
+    schedule_details: z
+      .object({
+        end_behavior: z.enum(["cancel", "release"]).optional(),
+        phases: z
+          .array(
+            z.object({
+              add_invoice_items: z
+                .array(
+                  z.object({
+                    discounts: z
+                      .array(
+                        z.object({
+                          coupon: z.string().max(5000).optional(),
+                          discount: z.string().max(5000).optional(),
+                          promotion_code: z.string().max(5000).optional(),
+                        }),
+                      )
+                      .optional(),
+                    price: z.string().max(5000).optional(),
+                    price_data: z
+                      .object({
+                        currency: z.string(),
+                        product: z.string().max(5000),
+                        tax_behavior: z
+                          .enum(["exclusive", "inclusive", "unspecified"])
+                          .optional(),
+                        unit_amount: z.coerce.number().optional(),
+                        unit_amount_decimal: z.string().optional(),
+                      })
+                      .optional(),
+                    quantity: z.coerce.number().optional(),
+                    tax_rates: z
+                      .union([z.array(z.string().max(5000)), z.enum([""])])
+                      .optional(),
+                  }),
+                )
+                .optional(),
+              application_fee_percent: z.coerce.number().optional(),
+              automatic_tax: z
+                .object({
+                  enabled: PermissiveBoolean,
+                  liability: z
+                    .object({
+                      account: z.string().optional(),
+                      type: z.enum(["account", "self"]),
+                    })
+                    .optional(),
+                })
+                .optional(),
+              billing_cycle_anchor: z
+                .enum(["automatic", "phase_start"])
+                .optional(),
+              billing_thresholds: z
+                .union([
+                  z.object({
+                    amount_gte: z.coerce.number().optional(),
+                    reset_billing_cycle_anchor: PermissiveBoolean.optional(),
+                  }),
+                  z.enum([""]),
+                ])
+                .optional(),
+              collection_method: z
+                .enum(["charge_automatically", "send_invoice"])
+                .optional(),
+              coupon: z.string().max(5000).optional(),
+              default_payment_method: z.string().max(5000).optional(),
+              default_tax_rates: z
+                .union([z.array(z.string().max(5000)), z.enum([""])])
+                .optional(),
+              description: z
+                .union([z.string().max(500), z.enum([""])])
+                .optional(),
+              discounts: z
+                .union([
+                  z.array(
+                    z.object({
+                      coupon: z.string().max(5000).optional(),
+                      discount: z.string().max(5000).optional(),
+                      promotion_code: z.string().max(5000).optional(),
+                    }),
+                  ),
+                  z.enum([""]),
+                ])
+                .optional(),
+              end_date: z
+                .union([z.coerce.number(), z.enum(["now"])])
+                .optional(),
+              invoice_settings: z
+                .object({
+                  account_tax_ids: z
+                    .union([z.array(z.string().max(5000)), z.enum([""])])
+                    .optional(),
+                  days_until_due: z.coerce.number().optional(),
+                  issuer: z
+                    .object({
+                      account: z.string().optional(),
+                      type: z.enum(["account", "self"]),
+                    })
+                    .optional(),
+                })
+                .optional(),
+              items: z.array(
+                z.object({
+                  billing_thresholds: z
+                    .union([
+                      z.object({ usage_gte: z.coerce.number() }),
+                      z.enum([""]),
+                    ])
+                    .optional(),
+                  discounts: z
+                    .union([
+                      z.array(
+                        z.object({
+                          coupon: z.string().max(5000).optional(),
+                          discount: z.string().max(5000).optional(),
+                          promotion_code: z.string().max(5000).optional(),
+                        }),
+                      ),
+                      z.enum([""]),
+                    ])
+                    .optional(),
+                  metadata: z.record(z.string()).optional(),
+                  price: z.string().max(5000).optional(),
+                  price_data: z
+                    .object({
+                      currency: z.string(),
+                      product: z.string().max(5000),
+                      recurring: z.object({
+                        interval: z.enum(["day", "month", "week", "year"]),
+                        interval_count: z.coerce.number().optional(),
+                      }),
+                      tax_behavior: z
+                        .enum(["exclusive", "inclusive", "unspecified"])
+                        .optional(),
+                      unit_amount: z.coerce.number().optional(),
+                      unit_amount_decimal: z.string().optional(),
+                    })
+                    .optional(),
+                  quantity: z.coerce.number().optional(),
+                  tax_rates: z
+                    .union([z.array(z.string().max(5000)), z.enum([""])])
+                    .optional(),
+                }),
+              ),
+              iterations: z.coerce.number().optional(),
+              metadata: z.record(z.string()).optional(),
+              on_behalf_of: z.string().optional(),
+              proration_behavior: z
+                .enum(["always_invoice", "create_prorations", "none"])
+                .optional(),
+              start_date: z
+                .union([z.coerce.number(), z.enum(["now"])])
+                .optional(),
+              transfer_data: z
+                .object({
+                  amount_percent: z.coerce.number().optional(),
+                  destination: z.string(),
+                })
+                .optional(),
+              trial: PermissiveBoolean.optional(),
+              trial_end: z
+                .union([z.coerce.number(), z.enum(["now"])])
+                .optional(),
+            }),
+          )
+          .optional(),
+        proration_behavior: z
+          .enum(["always_invoice", "create_prorations", "none"])
+          .optional(),
+      })
+      .optional(),
     starting_after: z.string().max(5000).optional(),
     subscription: z.string().max(5000).optional(),
     subscription_billing_cycle_anchor: z
@@ -32389,6 +34088,76 @@ export function createRouter(implementation: Implementation): KoaRouter {
     subscription_cancel_now: PermissiveBoolean.optional(),
     subscription_default_tax_rates: z
       .union([z.array(z.string().max(5000)), z.enum([""])])
+      .optional(),
+    subscription_details: z
+      .object({
+        billing_cycle_anchor: z
+          .union([z.enum(["now", "unchanged"]), z.coerce.number()])
+          .optional(),
+        cancel_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
+        cancel_at_period_end: PermissiveBoolean.optional(),
+        cancel_now: PermissiveBoolean.optional(),
+        default_tax_rates: z
+          .union([z.array(z.string().max(5000)), z.enum([""])])
+          .optional(),
+        items: z
+          .array(
+            z.object({
+              billing_thresholds: z
+                .union([
+                  z.object({ usage_gte: z.coerce.number() }),
+                  z.enum([""]),
+                ])
+                .optional(),
+              clear_usage: PermissiveBoolean.optional(),
+              deleted: PermissiveBoolean.optional(),
+              discounts: z
+                .union([
+                  z.array(
+                    z.object({
+                      coupon: z.string().max(5000).optional(),
+                      discount: z.string().max(5000).optional(),
+                      promotion_code: z.string().max(5000).optional(),
+                    }),
+                  ),
+                  z.enum([""]),
+                ])
+                .optional(),
+              id: z.string().max(5000).optional(),
+              metadata: z
+                .union([z.record(z.string()), z.enum([""])])
+                .optional(),
+              price: z.string().max(5000).optional(),
+              price_data: z
+                .object({
+                  currency: z.string(),
+                  product: z.string().max(5000),
+                  recurring: z.object({
+                    interval: z.enum(["day", "month", "week", "year"]),
+                    interval_count: z.coerce.number().optional(),
+                  }),
+                  tax_behavior: z
+                    .enum(["exclusive", "inclusive", "unspecified"])
+                    .optional(),
+                  unit_amount: z.coerce.number().optional(),
+                  unit_amount_decimal: z.string().optional(),
+                })
+                .optional(),
+              quantity: z.coerce.number().optional(),
+              tax_rates: z
+                .union([z.array(z.string().max(5000)), z.enum([""])])
+                .optional(),
+            }),
+          )
+          .optional(),
+        proration_behavior: z
+          .enum(["always_invoice", "create_prorations", "none"])
+          .optional(),
+        proration_date: z.coerce.number().optional(),
+        resume_at: z.enum(["now"]).optional(),
+        start_date: z.coerce.number().optional(),
+        trial_end: z.union([z.enum(["now"]), z.coerce.number()]).optional(),
+      })
       .optional(),
     subscription_items: z
       .array(
@@ -32444,7 +34213,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     subscription_trial_end: z
       .union([z.enum(["now"]), z.coerce.number()])
       .optional(),
-    subscription_trial_from_plan: PermissiveBoolean.optional(),
   })
 
   const getInvoicesUpcomingLinesBodySchema = z.object({}).optional()
@@ -32792,7 +34560,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
                           )
                           .optional(),
                         prefetch: z
-                          .array(z.enum(["balances", "transactions"]))
+                          .array(
+                            z.enum(["balances", "ownership", "transactions"]),
+                          )
                           .optional(),
                       })
                       .optional(),
@@ -40674,6 +42444,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         affirm: z.object({}).optional(),
         afterpay_clearpay: z.object({}).optional(),
         alipay: z.object({}).optional(),
+        allow_redisplay: z
+          .enum(["always", "limited", "unspecified"])
+          .optional(),
+        amazon_pay: z.object({}).optional(),
         au_becs_debit: z
           .object({
             account_number: z.string().max(5000),
@@ -40870,6 +42644,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "affirm",
           "afterpay_clearpay",
           "alipay",
+          "amazon_pay",
           "au_becs_debit",
           "bacs_debit",
           "bancontact",
@@ -40963,6 +42738,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
         alipay: z
           .union([
             z.object({
+              setup_future_usage: z
+                .enum(["", "none", "off_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ])
+          .optional(),
+        amazon_pay: z
+          .union([
+            z.object({
+              capture_method: z.enum(["", "manual"]).optional(),
               setup_future_usage: z
                 .enum(["", "none", "off_session"])
                 .optional(),
@@ -41396,6 +43182,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         revolut_pay: z
           .union([
             z.object({
+              capture_method: z.enum(["", "manual"]).optional(),
               setup_future_usage: z
                 .enum(["", "none", "off_session"])
                 .optional(),
@@ -41454,7 +43241,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     )
                     .optional(),
                   prefetch: z
-                    .array(z.enum(["balances", "transactions"]))
+                    .array(z.enum(["balances", "ownership", "transactions"]))
                     .optional(),
                   return_url: z.string().max(5000).optional(),
                 })
@@ -41753,6 +43540,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
           affirm: z.object({}).optional(),
           afterpay_clearpay: z.object({}).optional(),
           alipay: z.object({}).optional(),
+          allow_redisplay: z
+            .enum(["always", "limited", "unspecified"])
+            .optional(),
+          amazon_pay: z.object({}).optional(),
           au_becs_debit: z
             .object({
               account_number: z.string().max(5000),
@@ -41949,6 +43740,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
@@ -42044,6 +43836,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
           alipay: z
             .union([
               z.object({
+                setup_future_usage: z
+                  .enum(["", "none", "off_session"])
+                  .optional(),
+              }),
+              z.enum([""]),
+            ])
+            .optional(),
+          amazon_pay: z
+            .union([
+              z.object({
+                capture_method: z.enum(["", "manual"]).optional(),
                 setup_future_usage: z
                   .enum(["", "none", "off_session"])
                   .optional(),
@@ -42483,6 +44286,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           revolut_pay: z
             .union([
               z.object({
+                capture_method: z.enum(["", "manual"]).optional(),
                 setup_future_usage: z
                   .enum(["", "none", "off_session"])
                   .optional(),
@@ -42541,7 +44345,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                       )
                       .optional(),
                     prefetch: z
-                      .array(z.enum(["balances", "transactions"]))
+                      .array(z.enum(["balances", "ownership", "transactions"]))
                       .optional(),
                     return_url: z.string().max(5000).optional(),
                   })
@@ -42918,6 +44722,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
           affirm: z.object({}).optional(),
           afterpay_clearpay: z.object({}).optional(),
           alipay: z.object({}).optional(),
+          allow_redisplay: z
+            .enum(["always", "limited", "unspecified"])
+            .optional(),
+          amazon_pay: z.object({}).optional(),
           au_becs_debit: z
             .object({
               account_number: z.string().max(5000),
@@ -43114,6 +44922,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
@@ -43209,6 +45018,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
           alipay: z
             .union([
               z.object({
+                setup_future_usage: z
+                  .enum(["", "none", "off_session"])
+                  .optional(),
+              }),
+              z.enum([""]),
+            ])
+            .optional(),
+          amazon_pay: z
+            .union([
+              z.object({
+                capture_method: z.enum(["", "manual"]).optional(),
                 setup_future_usage: z
                   .enum(["", "none", "off_session"])
                   .optional(),
@@ -43648,6 +45468,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           revolut_pay: z
             .union([
               z.object({
+                capture_method: z.enum(["", "manual"]).optional(),
                 setup_future_usage: z
                   .enum(["", "none", "off_session"])
                   .optional(),
@@ -43706,7 +45527,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                       )
                       .optional(),
                     prefetch: z
-                      .array(z.enum(["balances", "transactions"]))
+                      .array(z.enum(["balances", "ownership", "transactions"]))
                       .optional(),
                     return_url: z.string().max(5000).optional(),
                   })
@@ -45249,7 +47070,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const getPaymentMethodConfigurationsQuerySchema = z.object({
     application: z.union([z.string().max(100), z.enum([""])]).optional(),
+    ending_before: z.string().max(5000).optional(),
     expand: z.array(z.string().max(5000)).optional(),
+    limit: z.coerce.number().optional(),
+    starting_after: z.string().max(5000).optional(),
   })
 
   const getPaymentMethodConfigurationsBodySchema = z.object({}).optional()
@@ -45263,7 +47087,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
             data: z.array(s_payment_method_configuration),
             has_more: PermissiveBoolean,
             object: z.enum(["list"]),
-            url: z.string().max(5000),
+            url: z
+              .string()
+              .max(5000)
+              .regex(new RegExp("^/v1/payment_method_configurations")),
           }),
         ],
       ],
@@ -45344,6 +47171,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       alipay: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
+      amazon_pay: z
         .object({
           display_preference: z
             .object({ preference: z.enum(["none", "off", "on"]).optional() })
@@ -45556,6 +47390,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
+      swish: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
       us_bank_account: z
         .object({
           display_preference: z
@@ -45726,6 +47567,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       alipay: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
+      amazon_pay: z
         .object({
           display_preference: z
             .object({ preference: z.enum(["none", "off", "on"]).optional() })
@@ -45931,6 +47779,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       sofort: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
+      swish: z
         .object({
           display_preference: z
             .object({ preference: z.enum(["none", "off", "on"]).optional() })
@@ -46350,6 +48205,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "affirm",
         "afterpay_clearpay",
         "alipay",
+        "amazon_pay",
         "au_becs_debit",
         "bacs_debit",
         "bancontact",
@@ -46459,6 +48315,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
       affirm: z.object({}).optional(),
       afterpay_clearpay: z.object({}).optional(),
       alipay: z.object({}).optional(),
+      allow_redisplay: z.enum(["always", "limited", "unspecified"]).optional(),
+      amazon_pay: z.object({}).optional(),
       au_becs_debit: z
         .object({
           account_number: z.string().max(5000),
@@ -46677,6 +48535,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "affirm",
           "afterpay_clearpay",
           "alipay",
+          "amazon_pay",
           "au_becs_debit",
           "bacs_debit",
           "bancontact",
@@ -46837,6 +48696,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postPaymentMethodsPaymentMethodBodySchema = z
     .object({
+      allow_redisplay: z.enum(["always", "limited", "unspecified"]).optional(),
       billing_details: z
         .object({
           address: z
@@ -48359,9 +50219,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     description: z.string().max(40000).optional(),
     expand: z.array(z.string().max(5000)).optional(),
-    features: z.array(z.object({ name: z.string().max(5000) })).optional(),
     id: z.string().max(5000).optional(),
     images: z.array(z.string()).optional(),
+    marketing_features: z
+      .array(z.object({ name: z.string().max(5000) }))
+      .optional(),
     metadata: z.record(z.string()).optional(),
     name: z.string().max(5000),
     package_dimensions: z
@@ -48611,13 +50473,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
       default_price: z.string().max(5000).optional(),
       description: z.union([z.string().max(40000), z.enum([""])]).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      features: z
+      images: z.union([z.array(z.string()), z.enum([""])]).optional(),
+      marketing_features: z
         .union([
           z.array(z.object({ name: z.string().max(5000) })),
           z.enum([""]),
         ])
         .optional(),
-      images: z.union([z.array(z.string()), z.enum([""])]).optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
       name: z.string().max(5000).optional(),
       package_dimensions: z
@@ -48684,6 +50546,263 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ctx.status = status
     return next()
   })
+
+  const getProductsProductFeaturesParamSchema = z.object({
+    product: z.string().max(5000),
+  })
+
+  const getProductsProductFeaturesQuerySchema = z.object({
+    ending_before: z.string().max(5000).optional(),
+    expand: z.array(z.string().max(5000)).optional(),
+    limit: z.coerce.number().optional(),
+    starting_after: z.string().max(5000).optional(),
+  })
+
+  const getProductsProductFeaturesBodySchema = z.object({}).optional()
+
+  const getProductsProductFeaturesResponseValidator = responseValidationFactory(
+    [
+      [
+        "200",
+        z.object({
+          data: z.array(s_product_feature),
+          has_more: PermissiveBoolean,
+          object: z.enum(["list"]),
+          url: z.string().max(5000),
+        }),
+      ],
+    ],
+    s_error,
+  )
+
+  router.get(
+    "getProductsProductFeatures",
+    "/v1/products/:product/features",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          getProductsProductFeaturesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          getProductsProductFeaturesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getProductsProductFeaturesBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            data: t_product_feature[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .getProductsProductFeatures(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = getProductsProductFeaturesResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const postProductsProductFeaturesParamSchema = z.object({
+    product: z.string().max(5000),
+  })
+
+  const postProductsProductFeaturesBodySchema = z.object({
+    entitlement_feature: z.string().max(5000),
+    expand: z.array(z.string().max(5000)).optional(),
+  })
+
+  const postProductsProductFeaturesResponseValidator =
+    responseValidationFactory([["200", s_product_feature]], s_error)
+
+  router.post(
+    "postProductsProductFeatures",
+    "/v1/products/:product/features",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          postProductsProductFeaturesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          postProductsProductFeaturesBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_product_feature>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .postProductsProductFeatures(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = postProductsProductFeaturesResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const deleteProductsProductFeaturesIdParamSchema = z.object({
+    id: z.string().max(5000),
+    product: z.string().max(5000),
+  })
+
+  const deleteProductsProductFeaturesIdBodySchema = z.object({}).optional()
+
+  const deleteProductsProductFeaturesIdResponseValidator =
+    responseValidationFactory([["200", s_deleted_product_feature]], s_error)
+
+  router.delete(
+    "deleteProductsProductFeaturesId",
+    "/v1/products/:product/features/:id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          deleteProductsProductFeaturesIdParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          deleteProductsProductFeaturesIdBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_deleted_product_feature>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .deleteProductsProductFeaturesId(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = deleteProductsProductFeaturesIdResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const getProductsProductFeaturesIdParamSchema = z.object({
+    id: z.string().max(5000),
+    product: z.string().max(5000),
+  })
+
+  const getProductsProductFeaturesIdQuerySchema = z.object({
+    expand: z.array(z.string().max(5000)).optional(),
+  })
+
+  const getProductsProductFeaturesIdBodySchema = z.object({}).optional()
+
+  const getProductsProductFeaturesIdResponseValidator =
+    responseValidationFactory([["200", s_product_feature]], s_error)
+
+  router.get(
+    "getProductsProductFeaturesId",
+    "/v1/products/:product/features/:id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          getProductsProductFeaturesIdParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          getProductsProductFeaturesIdQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getProductsProductFeaturesIdBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_product_feature>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .getProductsProductFeaturesId(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = getProductsProductFeaturesIdResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
 
   const getPromotionCodesQuerySchema = z.object({
     active: PermissiveBoolean.optional(),
@@ -52320,6 +54439,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
           affirm: z.object({}).optional(),
           afterpay_clearpay: z.object({}).optional(),
           alipay: z.object({}).optional(),
+          allow_redisplay: z
+            .enum(["always", "limited", "unspecified"])
+            .optional(),
+          amazon_pay: z.object({}).optional(),
           au_becs_debit: z
             .object({
               account_number: z.string().max(5000),
@@ -52516,6 +54639,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
@@ -52584,6 +54708,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
+          amazon_pay: z.object({}).optional(),
           card: z
             .object({
               mandate_options: z
@@ -52674,7 +54799,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     )
                     .optional(),
                   prefetch: z
-                    .array(z.enum(["balances", "transactions"]))
+                    .array(z.enum(["balances", "ownership", "transactions"]))
                     .optional(),
                   return_url: z.string().max(5000).optional(),
                 })
@@ -52839,6 +54964,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
           affirm: z.object({}).optional(),
           afterpay_clearpay: z.object({}).optional(),
           alipay: z.object({}).optional(),
+          allow_redisplay: z
+            .enum(["always", "limited", "unspecified"])
+            .optional(),
+          amazon_pay: z.object({}).optional(),
           au_becs_debit: z
             .object({
               account_number: z.string().max(5000),
@@ -53035,6 +55164,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
@@ -53103,6 +55233,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
+          amazon_pay: z.object({}).optional(),
           card: z
             .object({
               mandate_options: z
@@ -53193,7 +55324,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     )
                     .optional(),
                   prefetch: z
-                    .array(z.enum(["balances", "transactions"]))
+                    .array(z.enum(["balances", "ownership", "transactions"]))
                     .optional(),
                   return_url: z.string().max(5000).optional(),
                 })
@@ -53379,6 +55510,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
           affirm: z.object({}).optional(),
           afterpay_clearpay: z.object({}).optional(),
           alipay: z.object({}).optional(),
+          allow_redisplay: z
+            .enum(["always", "limited", "unspecified"])
+            .optional(),
+          amazon_pay: z.object({}).optional(),
           au_becs_debit: z
             .object({
               account_number: z.string().max(5000),
@@ -53575,6 +55710,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
@@ -53643,6 +55779,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
+          amazon_pay: z.object({}).optional(),
           card: z
             .object({
               mandate_options: z
@@ -53733,7 +55870,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     )
                     .optional(),
                   prefetch: z
-                    .array(z.enum(["balances", "transactions"]))
+                    .array(z.enum(["balances", "ownership", "transactions"]))
                     .optional(),
                   return_url: z.string().max(5000).optional(),
                 })
@@ -56779,7 +58916,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
                         )
                         .optional(),
                       prefetch: z
-                        .array(z.enum(["balances", "transactions"]))
+                        .array(
+                          z.enum(["balances", "ownership", "transactions"]),
+                        )
                         .optional(),
                     })
                     .optional(),
@@ -57410,7 +59549,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
                           )
                           .optional(),
                         prefetch: z
-                          .array(z.enum(["balances", "transactions"]))
+                          .array(
+                            z.enum(["balances", "ownership", "transactions"]),
+                          )
                           .optional(),
                       })
                       .optional(),
@@ -57707,6 +59848,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "au_abn",
                 "au_arn",
                 "bg_uic",
+                "bh_vat",
                 "bo_tin",
                 "br_cnpj",
                 "br_cpf",
@@ -57740,14 +59882,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "jp_trn",
                 "ke_pin",
                 "kr_brn",
+                "kz_bin",
                 "li_uid",
                 "mx_rfc",
                 "my_frp",
                 "my_itn",
                 "my_sst",
+                "ng_tin",
                 "no_vat",
                 "no_voec",
                 "nz_gst",
+                "om_vat",
                 "pe_ruc",
                 "ph_tin",
                 "ro_tin",
@@ -59129,6 +61274,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "au_abn",
       "au_arn",
       "bg_uic",
+      "bh_vat",
       "bo_tin",
       "br_cnpj",
       "br_cpf",
@@ -59162,14 +61308,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "jp_trn",
       "ke_pin",
       "kr_brn",
+      "kz_bin",
       "li_uid",
       "mx_rfc",
       "my_frp",
       "my_itn",
       "my_sst",
+      "ng_tin",
       "no_vat",
       "no_voec",
       "nz_gst",
+      "om_vat",
       "pe_ruc",
       "ph_tin",
       "ro_tin",
@@ -61311,6 +63460,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
           affirm: z.object({}).optional(),
           afterpay_clearpay: z.object({}).optional(),
           alipay: z.object({}).optional(),
+          allow_redisplay: z
+            .enum(["always", "limited", "unspecified"])
+            .optional(),
+          amazon_pay: z.object({}).optional(),
           au_becs_debit: z
             .object({
               account_number: z.string().max(5000),
@@ -61507,6 +63660,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
@@ -62135,7 +64289,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "unleaded_super",
                 ])
                 .optional(),
-              unit: z.enum(["liter", "us_gallon"]).optional(),
+              unit: z.enum(["liter", "other", "us_gallon"]).optional(),
               unit_cost_decimal: z.string().optional(),
               volume_decimal: z.string().optional(),
             })
@@ -63225,7 +65379,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "unleaded_super",
                 ])
                 .optional(),
-              unit: z.enum(["liter", "us_gallon"]).optional(),
+              unit: z.enum(["liter", "other", "us_gallon"]).optional(),
               unit_cost_decimal: z.string().optional(),
               volume_decimal: z.string().optional(),
             })
@@ -63652,7 +65806,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "unleaded_super",
                 ])
                 .optional(),
-              unit: z.enum(["liter", "us_gallon"]).optional(),
+              unit: z.enum(["liter", "other", "us_gallon"]).optional(),
               unit_cost_decimal: z.string().optional(),
               volume_decimal: z.string().optional(),
             })
@@ -68977,6 +71131,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "customer.tax_id.updated",
         "customer.updated",
         "customer_cash_balance_transaction.created",
+        "entitlements.active_entitlement_summary.updated",
         "file.created",
         "financial_connections.account.created",
         "financial_connections.account.deactivated",
@@ -69392,6 +71547,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "customer.tax_id.updated",
             "customer.updated",
             "customer_cash_balance_transaction.created",
+            "entitlements.active_entitlement_summary.updated",
             "file.created",
             "financial_connections.account.created",
             "financial_connections.account.deactivated",

@@ -38,7 +38,7 @@ export type t_account = {
   requirements?: t_account_requirements
   settings?: t_account_settings | null
   tos_acceptance?: t_account_tos_acceptance
-  type?: "custom" | "express" | "standard"
+  type?: "custom" | "express" | "none" | "standard"
 }
 
 export type t_account_annual_revenue = {
@@ -353,8 +353,28 @@ export type t_account_treasury_settings = {
 }
 
 export type t_account_unification_account_controller = {
+  fees?: t_account_unification_account_controller_fees
   is_controller?: boolean
+  losses?: t_account_unification_account_controller_losses
+  requirement_collection?: "application" | "stripe"
+  stripe_dashboard?: t_account_unification_account_controller_stripe_dashboard
   type: "account" | "application"
+}
+
+export type t_account_unification_account_controller_fees = {
+  payer:
+    | "account"
+    | "application"
+    | "application_custom"
+    | "application_express"
+}
+
+export type t_account_unification_account_controller_losses = {
+  payments: "application" | "stripe"
+}
+
+export type t_account_unification_account_controller_stripe_dashboard = {
+  type: "express" | "full" | "none"
 }
 
 export type t_address = {
@@ -613,6 +633,7 @@ export type t_bank_connections_resource_link_account_session_filters = {
 
 export type t_bank_connections_resource_ownership_refresh = {
   last_attempted_at: number
+  next_refresh_available_at?: number | null
   status: "failed" | "pending" | "succeeded"
 }
 
@@ -658,7 +679,7 @@ export type t_billing_meter_event = {
 }
 
 export type t_billing_meter_event_adjustment = {
-  cancel: t_billing_meter_resource_billing_meter_event_adjustment_cancel
+  cancel?: t_billing_meter_resource_billing_meter_event_adjustment_cancel | null
   event_name: string
   livemode: boolean
   object: "billing.meter_event_adjustment"
@@ -688,7 +709,7 @@ export type t_billing_meter_resource_aggregation_settings = {
 }
 
 export type t_billing_meter_resource_billing_meter_event_adjustment_cancel = {
-  identifier: string
+  identifier?: string | null
 }
 
 export type t_billing_meter_resource_billing_meter_status_transitions = {
@@ -1037,6 +1058,7 @@ export type t_checkout_session = {
   recovered_from?: string | null
   redirect_on_completion?: "always" | "if_required" | "never"
   return_url?: string
+  saved_payment_method_options?: t_payment_pages_checkout_session_saved_payment_method_options | null
   setup_intent?: string | t_setup_intent | null
   shipping_address_collection?: t_payment_pages_checkout_session_shipping_address_collection | null
   shipping_cost?: t_payment_pages_checkout_session_shipping_cost | null
@@ -1078,6 +1100,8 @@ export type t_checkout_afterpay_clearpay_payment_method_options = {
 export type t_checkout_alipay_payment_method_options = {
   setup_future_usage?: "none"
 }
+
+export type t_checkout_amazon_pay_payment_method_options = EmptyObject
 
 export type t_checkout_au_becs_debit_payment_method_options = {
   setup_future_usage?: "none"
@@ -1171,6 +1195,10 @@ export type t_checkout_link_payment_method_options = {
   setup_future_usage?: "none" | "off_session"
 }
 
+export type t_checkout_mobilepay_payment_method_options = {
+  setup_future_usage?: "none"
+}
+
 export type t_checkout_oxxo_payment_method_options = {
   expires_after_days: number
   setup_future_usage?: "none"
@@ -1206,6 +1234,7 @@ export type t_checkout_session_payment_method_options = {
   affirm?: t_checkout_affirm_payment_method_options
   afterpay_clearpay?: t_checkout_afterpay_clearpay_payment_method_options
   alipay?: t_checkout_alipay_payment_method_options
+  amazon_pay?: t_checkout_amazon_pay_payment_method_options
   au_becs_debit?: t_checkout_au_becs_debit_payment_method_options
   bacs_debit?: t_checkout_bacs_debit_payment_method_options
   bancontact?: t_checkout_bancontact_payment_method_options
@@ -1221,6 +1250,7 @@ export type t_checkout_session_payment_method_options = {
   klarna?: t_checkout_klarna_payment_method_options
   konbini?: t_checkout_konbini_payment_method_options
   link?: t_checkout_link_payment_method_options
+  mobilepay?: t_checkout_mobilepay_payment_method_options
   oxxo?: t_checkout_oxxo_payment_method_options
   p24?: t_checkout_p24_payment_method_options
   paynow?: t_checkout_paynow_payment_method_options
@@ -1364,6 +1394,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
   affirm?: t_payment_method_affirm
   afterpay_clearpay?: t_payment_method_afterpay_clearpay
   alipay?: t_payment_flows_private_payment_methods_alipay
+  amazon_pay?: t_payment_method_amazon_pay
   au_becs_debit?: t_payment_method_au_becs_debit
   bacs_debit?: t_payment_method_bacs_debit
   bancontact?: t_payment_method_bancontact
@@ -1399,6 +1430,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
     | "affirm"
     | "afterpay_clearpay"
     | "alipay"
+    | "amazon_pay"
     | "au_becs_debit"
     | "bacs_debit"
     | "bancontact"
@@ -1456,19 +1488,25 @@ export type t_connect_collection_transfer = {
   object: "connect_collection_transfer"
 }
 
-export type t_connect_embedded_account_config = {
+export type t_connect_embedded_account_config_claim = {
   enabled: boolean
-  features: t_connect_embedded_account_features
+  features: t_connect_embedded_account_features_claim
 }
 
-export type t_connect_embedded_account_features = EmptyObject
+export type t_connect_embedded_account_features_claim = {
+  external_account_collection: boolean
+}
 
 export type t_connect_embedded_account_session_create_components = {
-  account_onboarding: t_connect_embedded_account_config
+  account_management: t_connect_embedded_account_config_claim
+  account_onboarding: t_connect_embedded_account_config_claim
+  balances: t_connect_embedded_payouts_config_claim
   documents: t_connect_embedded_base_config_claim
-  payment_details: t_connect_embedded_payments_config
-  payments: t_connect_embedded_payments_config
-  payouts: t_connect_embedded_payouts_config
+  notification_banner: t_connect_embedded_account_config_claim
+  payment_details: t_connect_embedded_payments_config_claim
+  payments: t_connect_embedded_payments_config_claim
+  payouts: t_connect_embedded_payouts_config_claim
+  payouts_list: t_connect_embedded_base_config_claim
 }
 
 export type t_connect_embedded_base_config_claim = {
@@ -1478,19 +1516,19 @@ export type t_connect_embedded_base_config_claim = {
 
 export type t_connect_embedded_base_features = EmptyObject
 
-export type t_connect_embedded_payments_config = {
+export type t_connect_embedded_payments_config_claim = {
   enabled: boolean
   features: t_connect_embedded_payments_features
 }
 
 export type t_connect_embedded_payments_features = {
   capture_payments: boolean
-  destination_on_behalf_of_charge_management?: boolean
+  destination_on_behalf_of_charge_management: boolean
   dispute_management: boolean
   refund_management: boolean
 }
 
-export type t_connect_embedded_payouts_config = {
+export type t_connect_embedded_payouts_config_claim = {
   enabled: boolean
   features: t_connect_embedded_payouts_features
 }
@@ -1991,6 +2029,12 @@ export type t_deleted_product = {
   object: "product"
 }
 
+export type t_deleted_product_feature = {
+  deleted: boolean
+  id: string
+  object: "product_feature"
+}
+
 export type t_deleted_radar_value_list = {
   deleted: boolean
   id: string
@@ -2139,7 +2183,7 @@ export type t_dispute_evidence_details = {
 }
 
 export type t_dispute_payment_method_details = {
-  card?: t_dispute_payment_method_details_card | null
+  card?: t_dispute_payment_method_details_card
   type: "card"
 }
 
@@ -2151,6 +2195,26 @@ export type t_dispute_payment_method_details_card = {
 export type t_email_sent = {
   email_sent_at: number
   email_sent_to: string
+}
+
+export type t_entitlements_active_entitlement = {
+  feature: string
+  id: string
+  livemode: boolean
+  lookup_key: string
+  object: "entitlements.active_entitlement"
+}
+
+export type t_entitlements_feature = {
+  active: boolean
+  id: string
+  livemode: boolean
+  lookup_key: string
+  metadata: {
+    [key: string]: string | undefined
+  }
+  name: string
+  object: "entitlements.feature"
 }
 
 export type t_ephemeral_key = {
@@ -2385,7 +2449,6 @@ export type t_forwarded_response_details = {
 }
 
 export type t_forwarding_request = {
-  config: string
   created: number
   id: string
   livemode: boolean
@@ -2899,8 +2962,13 @@ export type t_invoice_payment_method_options_us_bank_account = {
 
 export type t_invoice_payment_method_options_us_bank_account_linked_account_options =
   {
-    permissions?: ("balances" | "payment_method" | "transactions")[]
-    prefetch?: ("balances" | "transactions")[] | null
+    permissions?: (
+      | "balances"
+      | "ownership"
+      | "payment_method"
+      | "transactions"
+    )[]
+    prefetch?: ("balances" | "ownership" | "transactions")[] | null
   }
 
 export type t_invoice_rendering_pdf = {
@@ -2912,11 +2980,15 @@ export type t_invoice_setting_custom_field = {
   value: string
 }
 
+export type t_invoice_setting_customer_rendering_options = {
+  amount_tax_display?: string | null
+}
+
 export type t_invoice_setting_customer_setting = {
   custom_fields?: t_invoice_setting_custom_field[] | null
   default_payment_method?: string | t_payment_method | null
   footer?: string | null
-  rendering_options?: t_invoice_setting_rendering_options | null
+  rendering_options?: t_invoice_setting_customer_rendering_options | null
 }
 
 export type t_invoice_setting_quote_setting = {
@@ -3063,6 +3135,7 @@ export type t_invoices_resource_invoice_tax_id = {
     | "au_abn"
     | "au_arn"
     | "bg_uic"
+    | "bh_vat"
     | "bo_tin"
     | "br_cnpj"
     | "br_cpf"
@@ -3096,14 +3169,17 @@ export type t_invoices_resource_invoice_tax_id = {
     | "jp_trn"
     | "ke_pin"
     | "kr_brn"
+    | "kz_bin"
     | "li_uid"
     | "mx_rfc"
     | "my_frp"
     | "my_itn"
     | "my_sst"
+    | "ng_tin"
     | "no_vat"
     | "no_voec"
     | "nz_gst"
+    | "om_vat"
     | "pe_ruc"
     | "ph_tin"
     | "ro_tin"
@@ -5801,7 +5877,7 @@ export type t_line_items_tax_amount = {
 
 export type t_linked_account_options_us_bank_account = {
   permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[]
-  prefetch?: ("balances" | "transactions")[] | null
+  prefetch?: ("balances" | "ownership" | "transactions")[] | null
   return_url?: string
 }
 
@@ -6262,6 +6338,9 @@ export type t_payment_intent_payment_method_options = {
     | t_payment_intent_type_specific_payment_method_options_client
   alipay?:
     | t_payment_method_options_alipay
+    | t_payment_intent_type_specific_payment_method_options_client
+  amazon_pay?:
+    | t_payment_method_options_amazon_pay
     | t_payment_intent_type_specific_payment_method_options_client
   au_becs_debit?:
     | t_payment_intent_payment_method_options_au_becs_debit
@@ -6930,6 +7009,7 @@ export type t_payment_method = {
   affirm?: t_payment_method_affirm
   afterpay_clearpay?: t_payment_method_afterpay_clearpay
   alipay?: t_payment_flows_private_payment_methods_alipay
+  amazon_pay?: t_payment_method_amazon_pay
   au_becs_debit?: t_payment_method_au_becs_debit
   bacs_debit?: t_payment_method_bacs_debit
   bancontact?: t_payment_method_bancontact
@@ -6974,6 +7054,7 @@ export type t_payment_method = {
     | "affirm"
     | "afterpay_clearpay"
     | "alipay"
+    | "amazon_pay"
     | "au_becs_debit"
     | "bacs_debit"
     | "bancontact"
@@ -7022,6 +7103,8 @@ export type t_payment_method_acss_debit = {
 export type t_payment_method_affirm = EmptyObject
 
 export type t_payment_method_afterpay_clearpay = EmptyObject
+
+export type t_payment_method_amazon_pay = EmptyObject
 
 export type t_payment_method_au_becs_debit = {
   bsb_number?: string | null
@@ -7165,6 +7248,7 @@ export type t_payment_method_configuration = {
   affirm?: t_payment_method_config_resource_payment_method_properties
   afterpay_clearpay?: t_payment_method_config_resource_payment_method_properties
   alipay?: t_payment_method_config_resource_payment_method_properties
+  amazon_pay?: t_payment_method_config_resource_payment_method_properties
   apple_pay?: t_payment_method_config_resource_payment_method_properties
   application?: string | null
   au_becs_debit?: t_payment_method_config_resource_payment_method_properties
@@ -7200,6 +7284,7 @@ export type t_payment_method_configuration = {
   revolut_pay?: t_payment_method_config_resource_payment_method_properties
   sepa_debit?: t_payment_method_config_resource_payment_method_properties
   sofort?: t_payment_method_config_resource_payment_method_properties
+  swish?: t_payment_method_config_resource_payment_method_properties
   us_bank_account?: t_payment_method_config_resource_payment_method_properties
   wechat_pay?: t_payment_method_config_resource_payment_method_properties
   zip?: t_payment_method_config_resource_payment_method_properties
@@ -7214,6 +7299,7 @@ export type t_payment_method_details = {
   affirm?: t_payment_method_details_affirm
   afterpay_clearpay?: t_payment_method_details_afterpay_clearpay
   alipay?: t_payment_flows_private_payment_methods_alipay_details
+  amazon_pay?: t_payment_method_details_amazon_pay
   au_becs_debit?: t_payment_method_details_au_becs_debit
   bacs_debit?: t_payment_method_details_bacs_debit
   bancontact?: t_payment_method_details_bancontact
@@ -7283,6 +7369,8 @@ export type t_payment_method_details_afterpay_clearpay = {
   order_id?: string | null
   reference?: string | null
 }
+
+export type t_payment_method_details_amazon_pay = EmptyObject
 
 export type t_payment_method_details_au_becs_debit = {
   bsb_number?: string | null
@@ -7910,6 +7998,10 @@ export type t_payment_method_options_alipay = {
   setup_future_usage?: "none" | "off_session"
 }
 
+export type t_payment_method_options_amazon_pay = {
+  capture_method?: "manual"
+}
+
 export type t_payment_method_options_bacs_debit = {
   setup_future_usage?: "none" | "off_session" | "on_session"
 }
@@ -8044,7 +8136,9 @@ export type t_payment_method_options_promptpay = {
   setup_future_usage?: "none"
 }
 
-export type t_payment_method_options_revolut_pay = EmptyObject
+export type t_payment_method_options_revolut_pay = {
+  capture_method?: "manual"
+}
 
 export type t_payment_method_options_sofort = {
   preferred_language?: "de" | "en" | "es" | "fr" | "it" | "nl" | "pl" | null
@@ -8286,6 +8380,11 @@ export type t_payment_pages_checkout_session_payment_method_reuse_agreement = {
 
 export type t_payment_pages_checkout_session_phone_number_collection = {
   enabled: boolean
+}
+
+export type t_payment_pages_checkout_session_saved_payment_method_options = {
+  allow_redisplay_filters?: ("always" | "limited" | "unspecified")[] | null
+  payment_method_save?: "disabled" | "enabled" | null
 }
 
 export type t_payment_pages_checkout_session_shipping_address_collection = {
@@ -8551,6 +8650,7 @@ export type t_payment_pages_checkout_session_tax_id = {
     | "au_abn"
     | "au_arn"
     | "bg_uic"
+    | "bh_vat"
     | "bo_tin"
     | "br_cnpj"
     | "br_cpf"
@@ -8584,14 +8684,17 @@ export type t_payment_pages_checkout_session_tax_id = {
     | "jp_trn"
     | "ke_pin"
     | "kr_brn"
+    | "kz_bin"
     | "li_uid"
     | "mx_rfc"
     | "my_frp"
     | "my_itn"
     | "my_sst"
+    | "ng_tin"
     | "no_vat"
     | "no_voec"
     | "nz_gst"
+    | "om_vat"
     | "pe_ruc"
     | "ph_tin"
     | "ro_tin"
@@ -8969,10 +9072,10 @@ export type t_product = {
   created: number
   default_price?: string | t_price | null
   description?: string | null
-  features: t_product_marketing_feature[]
   id: string
   images: string[]
   livemode: boolean
+  marketing_features: t_product_marketing_feature[]
   metadata: {
     [key: string]: string | undefined
   }
@@ -8985,6 +9088,13 @@ export type t_product = {
   unit_label?: string | null
   updated: number
   url?: string | null
+}
+
+export type t_product_feature = {
+  entitlement_feature: t_entitlements_feature
+  id: string
+  livemode: boolean
+  object: "product_feature"
 }
 
 export type t_product_marketing_feature = {
@@ -9253,6 +9363,7 @@ export type t_refund_destination_details = {
   affirm?: t_destination_details_unimplemented
   afterpay_clearpay?: t_destination_details_unimplemented
   alipay?: t_destination_details_unimplemented
+  amazon_pay?: t_destination_details_unimplemented
   au_bank_transfer?: t_destination_details_unimplemented
   blik?: t_refund_destination_details_generic
   br_bank_transfer?: t_refund_destination_details_generic
@@ -9611,6 +9722,9 @@ export type t_setup_intent_payment_method_options = {
   acss_debit?:
     | t_setup_intent_payment_method_options_acss_debit
     | t_setup_intent_type_specific_payment_method_options_client
+  amazon_pay?:
+    | t_setup_intent_payment_method_options_amazon_pay
+    | t_setup_intent_type_specific_payment_method_options_client
   card?: t_setup_intent_payment_method_options_card
   card_present?:
     | t_setup_intent_payment_method_options_card_present
@@ -9634,6 +9748,8 @@ export type t_setup_intent_payment_method_options_acss_debit = {
   mandate_options?: t_setup_intent_payment_method_options_mandate_options_acss_debit
   verification_method?: "automatic" | "instant" | "microdeposits"
 }
+
+export type t_setup_intent_payment_method_options_amazon_pay = EmptyObject
 
 export type t_setup_intent_payment_method_options_card = {
   mandate_options?: t_setup_intent_payment_method_options_card_mandate_options | null
@@ -10591,6 +10707,7 @@ export type t_tax_id = {
     | "au_abn"
     | "au_arn"
     | "bg_uic"
+    | "bh_vat"
     | "bo_tin"
     | "br_cnpj"
     | "br_cpf"
@@ -10624,14 +10741,17 @@ export type t_tax_id = {
     | "jp_trn"
     | "ke_pin"
     | "kr_brn"
+    | "kz_bin"
     | "li_uid"
     | "mx_rfc"
     | "my_frp"
     | "my_itn"
     | "my_sst"
+    | "ng_tin"
     | "no_vat"
     | "no_voec"
     | "nz_gst"
+    | "om_vat"
     | "pe_ruc"
     | "ph_tin"
     | "ro_tin"
@@ -10780,6 +10900,7 @@ export type t_tax_product_resource_customer_details_resource_tax_id = {
     | "au_abn"
     | "au_arn"
     | "bg_uic"
+    | "bh_vat"
     | "bo_tin"
     | "br_cnpj"
     | "br_cpf"
@@ -10813,14 +10934,17 @@ export type t_tax_product_resource_customer_details_resource_tax_id = {
     | "jp_trn"
     | "ke_pin"
     | "kr_brn"
+    | "kz_bin"
     | "li_uid"
     | "mx_rfc"
     | "my_frp"
     | "my_itn"
     | "my_sst"
+    | "ng_tin"
     | "no_vat"
     | "no_voec"
     | "nz_gst"
+    | "om_vat"
     | "pe_ruc"
     | "ph_tin"
     | "ro_tin"
