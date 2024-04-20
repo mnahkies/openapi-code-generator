@@ -4,7 +4,7 @@ import yaml from "js-yaml"
 import json5 from "json5"
 import type {IFsAdaptor} from "../file-system/fs-adaptor"
 import {logger} from "../logger"
-import {isRemote} from "./utils"
+import {isJsonFile, isRemote, isTextFile, isYamlFile} from "./utils"
 
 export type GenericLoaderRequestHeaders = {
   [uri: string]: {name: string; value: string}[]
@@ -64,8 +64,7 @@ export class GenericLoader {
   private async parseFile(raw: string, filepath: string): Promise<unknown> {
     let result: unknown | undefined
 
-    // TODO: sniff format from raw text
-    if (filepath.endsWith(".json")) {
+    if (isJsonFile(filepath)) {
       try {
         result = json5.parse(raw)
       } catch (err: unknown) {
@@ -74,13 +73,17 @@ export class GenericLoader {
       }
     }
 
-    if (filepath.endsWith(".yaml") || filepath.endsWith(".yml")) {
+    if (isYamlFile(filepath)) {
       try {
         result = yaml.load(raw)
       } catch (err: unknown) {
         logger.error("error parsing yaml", {err})
         throw new Error(`failed to parse yaml from '${filepath}'`)
       }
+    }
+
+    if (isTextFile(filepath)) {
+      result = raw
     }
 
     if (!result) {

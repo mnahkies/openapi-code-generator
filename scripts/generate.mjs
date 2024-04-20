@@ -8,7 +8,9 @@ const templates = execSync(
   .split("\n")
   .map((it) => it.trim())
   .filter(Boolean)
-const definitions = execSync("find ./integration-tests-definitions -type f")
+const definitions = execSync(
+  "find ./integration-tests-definitions -type f -name '*.yaml'",
+)
   .toString("utf-8")
   .split("\n")
   .map((it) => it.trim())

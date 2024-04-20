@@ -6,7 +6,7 @@ import {load} from "js-yaml"
 import {VirtualDefinition, generationLib} from "./generation-lib"
 import type {GenericLoader} from "./loaders/generic.loader"
 import type {TypespecLoader} from "./loaders/typespec.loader"
-import {isRemote} from "./loaders/utils"
+import {isRemote, isTextFile} from "./loaders/utils"
 import type {
   OpenapiDocument,
   Operation,
@@ -166,7 +166,13 @@ export class OpenapiLoader {
       ) {
         // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
         const $ref = (obj[key] = normalizeRef(obj[key], loadedFrom))
-        await this.loadFile(pathFromRef($ref))
+
+        // In-line plain text files rather than trying to load as OpenAPI documents.
+        if (isTextFile($ref)) {
+          obj[key] = this.loadFile($ref)
+        } else {
+          await this.loadFile(pathFromRef($ref))
+        }
       } else if (typeof obj[key] === "object" && !!obj[key]) {
         await this.normalizeRefs(loadedFrom, obj[key])
       }
