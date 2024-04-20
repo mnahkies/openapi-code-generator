@@ -1,7 +1,7 @@
 import path from "path"
 import util from "util"
 
-import {isRemote, loadFile} from "./file-loader"
+import {isRemote, isTextFile, loadFile} from "./file-loader"
 
 import {VirtualDefinition, generationLib} from "./generation-lib"
 import {
@@ -135,7 +135,13 @@ export class OpenapiLoader {
 
       if (key === "$ref") {
         const $ref = (obj[key] = normalizeRef(obj[key]))
-        await this.loadFile(pathFromRef($ref))
+
+        // In-line plain text files rather than trying to load as OpenAPI documents.
+        if (isTextFile($ref)) {
+          obj[key] = loadFile($ref)
+        } else {
+          await this.loadFile(pathFromRef($ref))
+        }
       } else if (typeof obj[key] === "object" && !!obj[key]) {
         await this.normalizeRefs(loadedFrom, obj[key])
       }

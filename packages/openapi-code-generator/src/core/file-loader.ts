@@ -37,11 +37,17 @@ async function loadRemoteFile(uri: string): Promise<[string, any]> {
   return [uri, await parseFile(raw, uri)]
 }
 
+export const isJsonFile = (filepath: string) => filepath.endsWith(".json")
+export const isYamlFile = (filepath: string) =>
+  filepath.endsWith(".yaml") || filepath.endsWith(".yml")
+export const isTextFile = (filepath: string) =>
+  filepath.endsWith(".txt") || filepath.endsWith(".md")
+
 async function parseFile(raw: string, filepath: string): Promise<unknown> {
   let result: unknown | undefined
 
   // TODO: sniff format from raw text
-  if (filepath.endsWith(".json")) {
+  if (isJsonFile(filepath)) {
     try {
       result = JSON.parse(raw)
     } catch (err: any) {
@@ -50,13 +56,17 @@ async function parseFile(raw: string, filepath: string): Promise<unknown> {
     }
   }
 
-  if (filepath.endsWith(".yaml") || filepath.endsWith(".yml")) {
+  if (isYamlFile(filepath)) {
     try {
       result = yaml.load(raw)
     } catch (err: any) {
       logger.error("error parsing yaml", err.stack)
       throw new Error(`failed to parse yaml from '${filepath}'`)
     }
+  }
+
+  if (isTextFile(filepath)) {
+    result = raw
   }
 
   if (!result) {
