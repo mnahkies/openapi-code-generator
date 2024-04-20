@@ -32,6 +32,7 @@ import {
   requestBodyAsParameter,
   statusStringToType,
 } from "../common/typescript-common"
+import {TypescriptFetchClientBuilder} from "../typescript-fetch/typescript-fetch-client-builder"
 
 function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
   return parameters.reduce(
@@ -290,7 +291,7 @@ export class ServerRouterBuilder implements ICompilable {
           .then(it => it.unpack())
           .catch(err => { throw KoaRuntimeError.HandlerError(err) })
 
-  return Response.json(body, {status})
+  return body !== undefined ? Response.json(body, {status}) : new Response(undefined, {status})
   }`,
       }),
     )
@@ -428,29 +429,29 @@ export async function generateTypescriptNextJS(
     : ""
 
   const appDirectory = ["./app", subDirectory].filter(isDefined).join(path.sep)
-  const routesDirectory = ["./generated", subDirectory]
+  const generatedDirectory = ["./generated", subDirectory]
     .filter(isDefined)
     .join(path.sep)
 
   const rootTypeBuilder = await TypeBuilder.fromInput(
-    "./generated/api/models.ts",
+    [generatedDirectory, "models.ts"].join(path.sep),
     input,
     config.compilerOptions,
   )
 
   const rootSchemaBuilder = await schemaBuilderFactory(
-    "./generated/api/schemas.ts",
+    [generatedDirectory, "schemas.ts"].join(path.sep),
     input,
     config.schemaBuilder,
   )
 
   const project = new Project()
 
-  const routers = (
+  const serverRouters = (
     await Promise.all(
       input.groupedOperations("route").map(async (group) => {
         const filename = path.join(
-          routesDirectory,
+          generatedDirectory,
           routeToNextJSFilepath(group.name),
         )
 
@@ -504,10 +505,30 @@ export async function generateTypescriptNextJS(
     )
   ).flat()
 
+  const clientOutputPath = [generatedDirectory, "clients", "client.ts"].join(
+    path.sep,
+  )
+  const clientImportBuilder = new ImportBuilder({filename: clientOutputPath})
+
+  const fetchClientBuilder = new TypescriptFetchClientBuilder(
+    clientOutputPath,
+    "ApiClient",
+    input,
+    clientImportBuilder,
+    rootTypeBuilder.withImports(clientImportBuilder),
+    rootSchemaBuilder.withImports(clientImportBuilder),
+    {
+      enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
+    },
+  )
+
+  input.allOperations().map((it) => fetchClientBuilder.add(it))
+
   await emitGenerationResult(
     config.dest,
     [
-      ...routers,
+      ...serverRouters,
+      fetchClientBuilder.toCompilationUnit(),
       rootTypeBuilder.toCompilationUnit(),
       rootSchemaBuilder.toCompilationUnit(),
     ],

@@ -1,0 +1,6 @@
+import { _POST } from "../../../../../../../generated/okta.idp.yaml/idp/myaccount/phones/[id]/challenge/route"
+
+export const POST = _POST(async ({ params, body }, respond, context) => {
+  // TODO: implementation
+  return respond.withStatus(501).body({ message: "not implemented" } as any)
+})
