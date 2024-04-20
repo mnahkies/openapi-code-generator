@@ -1,0 +1,18 @@
+import {
+  _DELETE,
+  _GET,
+  _PUT,
+} from "../../../../../../generated/okta.oauth.yaml/oauth2/v1/clients/[clientId]/route"
+
+export const GET = _GET(async ({params}, respond, context) => {
+  // TODO: implementation
+  return respond.withStatus(501).body({message: "not implemented"} as any)
+})
+export const PUT = _PUT(async ({params, body}, respond, context) => {
+  // TODO: implementation
+  return respond.withStatus(501).body({message: "not implemented"} as any)
+})
+export const DELETE = _DELETE(async ({params}, respond, context) => {
+  // TODO: implementation
+  return respond.withStatus(501).body({message: "not implemented"} as any)
+})

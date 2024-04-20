@@ -1,0 +1,6 @@
+import { _POST } from "../../../../../generated/orgs/[org]/personal-access-token-requests/[pat_request_id]/route"
+
+export const POST = _POST(async ({ params, body }, respond, context) => {
+  // TODO: implementation
+  return respond.withStatus(501).body({ message: "not implemented" } as any)
+})

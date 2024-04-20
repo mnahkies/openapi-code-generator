@@ -1,5 +1,7 @@
-import fs from "node:fs"
-import path from "node:path"
+// biome-ignore lint/style/useNodejsImportProtocol: <explanation>
+import fs from "fs"
+// biome-ignore lint/style/useNodejsImportProtocol: <explanation>
+import path from "path"
 import _ from "lodash"
 import {
   Project,
@@ -20,10 +22,9 @@ import {
   isHttpMethod,
   titleCase,
 } from "../../core/utils"
-import type {OpenapiGeneratorConfig} from "../../templates.types"
+import type {OpenapiTypescriptGeneratorConfig} from "../../templates.types"
 import {CompilationUnit, type ICompilable} from "../common/compilation-units"
 import {ImportBuilder} from "../common/import-builder"
-import {emitGenerationResult} from "../common/output-utils"
 import {JoiBuilder} from "../common/schema-builders/joi-schema-builder"
 import {
   type SchemaBuilder,
@@ -37,6 +38,7 @@ import {
   requestBodyAsParameter,
   statusStringToType,
 } from "../common/typescript-common"
+import {TypescriptFetchClientBuilder} from "../typescript-fetch/typescript-fetch-client-builder"
 
 function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
   return parameters.reduce(
@@ -295,7 +297,7 @@ export class ServerRouterBuilder implements ICompilable {
           .then(it => it.unpack())
           .catch(err => { throw KoaRuntimeError.HandlerError(err) })
 
-  return Response.json(body, {status})
+  return body !== undefined ? Response.json(body, {status}) : new Response(undefined, {status})
   }`,
       }),
     )
@@ -424,38 +426,41 @@ export class NextJSAppRouterBuilder implements ICompilable {
 }
 
 export async function generateTypescriptNextJS(
-  config: OpenapiGeneratorConfig,
+  config: OpenapiTypescriptGeneratorConfig,
 ): Promise<void> {
-  const input = config.input
+  const {input, emitter, allowAny} = config
 
+  // biome-ignore lint/complexity/useLiteralKeys: <explanation>
   const subDirectory = process.env["OPENAPI_INTEGRATION_TESTS"]
     ? path.basename(config.input.loader.entryPointKey)
     : ""
 
   const appDirectory = ["./app", subDirectory].filter(isDefined).join(path.sep)
-  const routesDirectory = ["./generated", subDirectory]
+  const generatedDirectory = ["./generated", subDirectory]
     .filter(isDefined)
     .join(path.sep)
 
   const rootTypeBuilder = await TypeBuilder.fromInput(
-    "./generated/api/models.ts",
+    [generatedDirectory, "models.ts"].join(path.sep),
     input,
     config.compilerOptions,
+    {allowAny},
   )
 
   const rootSchemaBuilder = await schemaBuilderFactory(
-    "./generated/api/schemas.ts",
+    [generatedDirectory, "schemas.ts"].join(path.sep),
     input,
     config.schemaBuilder,
+    {allowAny},
   )
 
   const project = new Project()
 
-  const routers = (
+  const serverRouters = (
     await Promise.all(
       input.groupedOperations("route").map(async (group) => {
         const filename = path.join(
-          routesDirectory,
+          generatedDirectory,
           routeToNextJSFilepath(group.name),
         )
 
@@ -476,11 +481,14 @@ export async function generateTypescriptNextJS(
         )
 
         const existing = fs.existsSync(
-          path.join(config.dest, nextJsAppRouterPath),
+          path.join(emitter.config.destinationDirectory, nextJsAppRouterPath),
         )
           ? fs
               .readFileSync(
-                path.join(config.dest, nextJsAppRouterPath),
+                path.join(
+                  emitter.config.destinationDirectory,
+                  nextJsAppRouterPath,
+                ),
                 "utf-8",
               )
               .toString()
@@ -496,10 +504,10 @@ export async function generateTypescriptNextJS(
           sourceFile,
         )
 
-        group.operations.forEach((it) => {
-          routerBuilder.add(it)
-          nextJSAppRouterBuilder.add(it)
-        })
+        for (const operation of group.operations) {
+          routerBuilder.add(operation)
+          nextJSAppRouterBuilder.add(operation)
+        }
 
         return [
           routerBuilder.toCompilationUnit(),
@@ -509,17 +517,32 @@ export async function generateTypescriptNextJS(
     )
   ).flat()
 
-  await emitGenerationResult(
-    config.dest,
-    [
-      ...routers,
-      rootTypeBuilder.toCompilationUnit(),
-      rootSchemaBuilder.toCompilationUnit(),
-    ],
+  const clientOutputPath = [generatedDirectory, "clients", "client.ts"].join(
+    path.sep,
+  )
+  const clientImportBuilder = new ImportBuilder({filename: clientOutputPath})
+
+  const fetchClientBuilder = new TypescriptFetchClientBuilder(
+    clientOutputPath,
+    "ApiClient",
+    input,
+    clientImportBuilder,
+    rootTypeBuilder.withImports(clientImportBuilder),
+    rootSchemaBuilder.withImports(clientImportBuilder),
     {
-      allowUnusedImports: config.allowUnusedImports,
+      enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
+      enableTypedBasePaths: config.enableTypedBasePaths,
     },
   )
+
+  input.allOperations().map((it) => fetchClientBuilder.add(it))
+
+  await emitter.emitGenerationResult([
+    ...serverRouters,
+    fetchClientBuilder.toCompilationUnit(),
+    rootTypeBuilder.toCompilationUnit(),
+    rootSchemaBuilder.toCompilationUnit(),
+  ])
 }
 
 function routeToNextJSFilepath(route: string): string {

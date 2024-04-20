@@ -1,0 +1,13 @@
+import {
+  _GET,
+  _DELETE,
+} from "../../../../../../../generated/user/packages/[package_type]/[package_name]/versions/[package_version_id]/route"
+
+export const GET = _GET(async ({ params }, respond, context) => {
+  // TODO: implementation
+  return respond.withStatus(501).body({ message: "not implemented" } as any)
+})
+export const DELETE = _DELETE(async ({ params }, respond, context) => {
+  // TODO: implementation
+  return respond.withStatus(501).body({ message: "not implemented" } as any)
+})

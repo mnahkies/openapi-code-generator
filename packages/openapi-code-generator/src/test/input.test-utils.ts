@@ -1,4 +1,5 @@
-import path from "node:path"
+// biome-ignore lint/style/useNodejsImportProtocol: <explanation>
+import path from "path"
 import {jest} from "@jest/globals"
 import yaml from "js-yaml"
 import {NodeFsAdaptor} from "../core/file-system/node-fs-adaptor"
