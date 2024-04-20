@@ -57,9 +57,9 @@
     "@types/koa": "^2.15.0",
     "@types/koa__cors": "^5.0.0",
     "@types/koa__router": "^12.0.4",
-    "koa": "^2.15.2",
+    "koa": "^2.15.3",
     "koa-body": "^6.0.1",
-    "zod": "^3.22.4"
+    "zod": "^3.22.5"
   },
   "files": [
     "src",

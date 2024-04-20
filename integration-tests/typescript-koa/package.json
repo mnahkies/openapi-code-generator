@@ -14,8 +14,8 @@
     "@koa/router": "^12.0.1",
     "@nahkies/typescript-koa-runtime": "*",
     "@types/hapi__joi": "^17.1.14",
-    "koa": "^2.15.2",
-    "zod": "^3.22.4"
+    "koa": "^2.15.3",
+    "zod": "^3.22.5"
   },
   "devDependencies": {
     "@types/koa": "^2.15.0",
