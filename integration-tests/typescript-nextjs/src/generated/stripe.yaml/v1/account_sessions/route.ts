@@ -35,11 +35,44 @@ export type PostAccountSessions = (
 const postAccountSessionsBodySchema = z.object({
   account: z.string(),
   components: z.object({
+    account_management: z
+      .object({
+        enabled: PermissiveBoolean,
+        features: z
+          .object({ external_account_collection: PermissiveBoolean.optional() })
+          .optional(),
+      })
+      .optional(),
     account_onboarding: z
-      .object({ enabled: PermissiveBoolean, features: z.object({}).optional() })
+      .object({
+        enabled: PermissiveBoolean,
+        features: z
+          .object({ external_account_collection: PermissiveBoolean.optional() })
+          .optional(),
+      })
+      .optional(),
+    balances: z
+      .object({
+        enabled: PermissiveBoolean,
+        features: z
+          .object({
+            edit_payout_schedule: PermissiveBoolean.optional(),
+            instant_payouts: PermissiveBoolean.optional(),
+            standard_payouts: PermissiveBoolean.optional(),
+          })
+          .optional(),
+      })
       .optional(),
     documents: z
       .object({ enabled: PermissiveBoolean, features: z.object({}).optional() })
+      .optional(),
+    notification_banner: z
+      .object({
+        enabled: PermissiveBoolean,
+        features: z
+          .object({ external_account_collection: PermissiveBoolean.optional() })
+          .optional(),
+      })
       .optional(),
     payment_details: z
       .object({
@@ -81,6 +114,9 @@ const postAccountSessionsBodySchema = z.object({
           .optional(),
       })
       .optional(),
+    payouts_list: z
+      .object({ enabled: PermissiveBoolean, features: z.object({}).optional() })
+      .optional(),
   }),
   expand: z.array(z.string().max(5000)).optional(),
 })
@@ -120,5 +156,7 @@ export const _POST =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }

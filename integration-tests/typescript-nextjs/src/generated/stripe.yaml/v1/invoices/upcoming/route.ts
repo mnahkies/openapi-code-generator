@@ -98,6 +98,7 @@ const getInvoicesUpcomingQuerySchema = z.object({
               "au_abn",
               "au_arn",
               "bg_uic",
+              "bh_vat",
               "bo_tin",
               "br_cnpj",
               "br_cpf",
@@ -131,14 +132,17 @@ const getInvoicesUpcomingQuerySchema = z.object({
               "jp_trn",
               "ke_pin",
               "kr_brn",
+              "kz_bin",
               "li_uid",
               "mx_rfc",
               "my_frp",
               "my_itn",
               "my_sst",
+              "ng_tin",
               "no_vat",
               "no_voec",
               "nz_gst",
+              "om_vat",
               "pe_ruc",
               "ph_tin",
               "ro_tin",
@@ -236,6 +240,173 @@ const getInvoicesUpcomingQuerySchema = z.object({
     .optional(),
   on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
   schedule: z.string().max(5000).optional(),
+  schedule_details: z
+    .object({
+      end_behavior: z.enum(["cancel", "release"]).optional(),
+      phases: z
+        .array(
+          z.object({
+            add_invoice_items: z
+              .array(
+                z.object({
+                  discounts: z
+                    .array(
+                      z.object({
+                        coupon: z.string().max(5000).optional(),
+                        discount: z.string().max(5000).optional(),
+                        promotion_code: z.string().max(5000).optional(),
+                      }),
+                    )
+                    .optional(),
+                  price: z.string().max(5000).optional(),
+                  price_data: z
+                    .object({
+                      currency: z.string(),
+                      product: z.string().max(5000),
+                      tax_behavior: z
+                        .enum(["exclusive", "inclusive", "unspecified"])
+                        .optional(),
+                      unit_amount: z.coerce.number().optional(),
+                      unit_amount_decimal: z.string().optional(),
+                    })
+                    .optional(),
+                  quantity: z.coerce.number().optional(),
+                  tax_rates: z
+                    .union([z.array(z.string().max(5000)), z.enum([""])])
+                    .optional(),
+                }),
+              )
+              .optional(),
+            application_fee_percent: z.coerce.number().optional(),
+            automatic_tax: z
+              .object({
+                enabled: PermissiveBoolean,
+                liability: z
+                  .object({
+                    account: z.string().optional(),
+                    type: z.enum(["account", "self"]),
+                  })
+                  .optional(),
+              })
+              .optional(),
+            billing_cycle_anchor: z
+              .enum(["automatic", "phase_start"])
+              .optional(),
+            billing_thresholds: z
+              .union([
+                z.object({
+                  amount_gte: z.coerce.number().optional(),
+                  reset_billing_cycle_anchor: PermissiveBoolean.optional(),
+                }),
+                z.enum([""]),
+              ])
+              .optional(),
+            collection_method: z
+              .enum(["charge_automatically", "send_invoice"])
+              .optional(),
+            coupon: z.string().max(5000).optional(),
+            default_payment_method: z.string().max(5000).optional(),
+            default_tax_rates: z
+              .union([z.array(z.string().max(5000)), z.enum([""])])
+              .optional(),
+            description: z
+              .union([z.string().max(500), z.enum([""])])
+              .optional(),
+            discounts: z
+              .union([
+                z.array(
+                  z.object({
+                    coupon: z.string().max(5000).optional(),
+                    discount: z.string().max(5000).optional(),
+                    promotion_code: z.string().max(5000).optional(),
+                  }),
+                ),
+                z.enum([""]),
+              ])
+              .optional(),
+            end_date: z.union([z.coerce.number(), z.enum(["now"])]).optional(),
+            invoice_settings: z
+              .object({
+                account_tax_ids: z
+                  .union([z.array(z.string().max(5000)), z.enum([""])])
+                  .optional(),
+                days_until_due: z.coerce.number().optional(),
+                issuer: z
+                  .object({
+                    account: z.string().optional(),
+                    type: z.enum(["account", "self"]),
+                  })
+                  .optional(),
+              })
+              .optional(),
+            items: z.array(
+              z.object({
+                billing_thresholds: z
+                  .union([
+                    z.object({ usage_gte: z.coerce.number() }),
+                    z.enum([""]),
+                  ])
+                  .optional(),
+                discounts: z
+                  .union([
+                    z.array(
+                      z.object({
+                        coupon: z.string().max(5000).optional(),
+                        discount: z.string().max(5000).optional(),
+                        promotion_code: z.string().max(5000).optional(),
+                      }),
+                    ),
+                    z.enum([""]),
+                  ])
+                  .optional(),
+                metadata: z.record(z.string()).optional(),
+                price: z.string().max(5000).optional(),
+                price_data: z
+                  .object({
+                    currency: z.string(),
+                    product: z.string().max(5000),
+                    recurring: z.object({
+                      interval: z.enum(["day", "month", "week", "year"]),
+                      interval_count: z.coerce.number().optional(),
+                    }),
+                    tax_behavior: z
+                      .enum(["exclusive", "inclusive", "unspecified"])
+                      .optional(),
+                    unit_amount: z.coerce.number().optional(),
+                    unit_amount_decimal: z.string().optional(),
+                  })
+                  .optional(),
+                quantity: z.coerce.number().optional(),
+                tax_rates: z
+                  .union([z.array(z.string().max(5000)), z.enum([""])])
+                  .optional(),
+              }),
+            ),
+            iterations: z.coerce.number().optional(),
+            metadata: z.record(z.string()).optional(),
+            on_behalf_of: z.string().optional(),
+            proration_behavior: z
+              .enum(["always_invoice", "create_prorations", "none"])
+              .optional(),
+            start_date: z
+              .union([z.coerce.number(), z.enum(["now"])])
+              .optional(),
+            transfer_data: z
+              .object({
+                amount_percent: z.coerce.number().optional(),
+                destination: z.string(),
+              })
+              .optional(),
+            trial: PermissiveBoolean.optional(),
+            trial_end: z.union([z.coerce.number(), z.enum(["now"])]).optional(),
+          }),
+        )
+        .optional(),
+      proration_behavior: z
+        .enum(["always_invoice", "create_prorations", "none"])
+        .optional(),
+    })
+    .optional(),
   subscription: z.string().max(5000).optional(),
   subscription_billing_cycle_anchor: z
     .union([z.enum(["now", "unchanged"]), z.coerce.number()])
@@ -245,6 +416,71 @@ const getInvoicesUpcomingQuerySchema = z.object({
   subscription_cancel_now: PermissiveBoolean.optional(),
   subscription_default_tax_rates: z
     .union([z.array(z.string().max(5000)), z.enum([""])])
+    .optional(),
+  subscription_details: z
+    .object({
+      billing_cycle_anchor: z
+        .union([z.enum(["now", "unchanged"]), z.coerce.number()])
+        .optional(),
+      cancel_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
+      cancel_at_period_end: PermissiveBoolean.optional(),
+      cancel_now: PermissiveBoolean.optional(),
+      default_tax_rates: z
+        .union([z.array(z.string().max(5000)), z.enum([""])])
+        .optional(),
+      items: z
+        .array(
+          z.object({
+            billing_thresholds: z
+              .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
+              .optional(),
+            clear_usage: PermissiveBoolean.optional(),
+            deleted: PermissiveBoolean.optional(),
+            discounts: z
+              .union([
+                z.array(
+                  z.object({
+                    coupon: z.string().max(5000).optional(),
+                    discount: z.string().max(5000).optional(),
+                    promotion_code: z.string().max(5000).optional(),
+                  }),
+                ),
+                z.enum([""]),
+              ])
+              .optional(),
+            id: z.string().max(5000).optional(),
+            metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+            price: z.string().max(5000).optional(),
+            price_data: z
+              .object({
+                currency: z.string(),
+                product: z.string().max(5000),
+                recurring: z.object({
+                  interval: z.enum(["day", "month", "week", "year"]),
+                  interval_count: z.coerce.number().optional(),
+                }),
+                tax_behavior: z
+                  .enum(["exclusive", "inclusive", "unspecified"])
+                  .optional(),
+                unit_amount: z.coerce.number().optional(),
+                unit_amount_decimal: z.string().optional(),
+              })
+              .optional(),
+            quantity: z.coerce.number().optional(),
+            tax_rates: z
+              .union([z.array(z.string().max(5000)), z.enum([""])])
+              .optional(),
+          }),
+        )
+        .optional(),
+      proration_behavior: z
+        .enum(["always_invoice", "create_prorations", "none"])
+        .optional(),
+      proration_date: z.coerce.number().optional(),
+      resume_at: z.enum(["now"]).optional(),
+      start_date: z.coerce.number().optional(),
+      trial_end: z.union([z.enum(["now"]), z.coerce.number()]).optional(),
+    })
     .optional(),
   subscription_items: z
     .array(
@@ -300,7 +536,6 @@ const getInvoicesUpcomingQuerySchema = z.object({
   subscription_trial_end: z
     .union([z.enum(["now"]), z.coerce.number()])
     .optional(),
-  subscription_trial_from_plan: PermissiveBoolean.optional(),
 })
 
 const getInvoicesUpcomingBodySchema = z.object({}).optional()
@@ -344,5 +579,7 @@ export const _GET =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }

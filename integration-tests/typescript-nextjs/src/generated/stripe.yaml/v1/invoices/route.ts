@@ -135,7 +135,9 @@ export const _GET =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }
 
 const postInvoicesBodySchema = z
@@ -295,7 +297,9 @@ const postInvoicesBodySchema = z
                         )
                         .optional(),
                       prefetch: z
-                        .array(z.enum(["balances", "transactions"]))
+                        .array(
+                          z.enum(["balances", "ownership", "transactions"]),
+                        )
                         .optional(),
                     })
                     .optional(),
@@ -472,5 +476,7 @@ export const _POST =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }

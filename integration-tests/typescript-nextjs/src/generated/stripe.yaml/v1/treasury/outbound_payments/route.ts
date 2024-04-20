@@ -123,7 +123,9 @@ export const _GET =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }
 
 const postTreasuryOutboundPaymentsBodySchema = z.object({
@@ -222,5 +224,7 @@ export const _POST =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }

@@ -94,6 +94,10 @@ const postPaymentIntentsIntentConfirmBodySchema = z
         affirm: z.object({}).optional(),
         afterpay_clearpay: z.object({}).optional(),
         alipay: z.object({}).optional(),
+        allow_redisplay: z
+          .enum(["always", "limited", "unspecified"])
+          .optional(),
+        amazon_pay: z.object({}).optional(),
         au_becs_debit: z
           .object({
             account_number: z.string().max(5000),
@@ -290,6 +294,7 @@ const postPaymentIntentsIntentConfirmBodySchema = z
           "affirm",
           "afterpay_clearpay",
           "alipay",
+          "amazon_pay",
           "au_becs_debit",
           "bacs_debit",
           "bancontact",
@@ -383,6 +388,17 @@ const postPaymentIntentsIntentConfirmBodySchema = z
         alipay: z
           .union([
             z.object({
+              setup_future_usage: z
+                .enum(["", "none", "off_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ])
+          .optional(),
+        amazon_pay: z
+          .union([
+            z.object({
+              capture_method: z.enum(["", "manual"]).optional(),
               setup_future_usage: z
                 .enum(["", "none", "off_session"])
                 .optional(),
@@ -816,6 +832,7 @@ const postPaymentIntentsIntentConfirmBodySchema = z
         revolut_pay: z
           .union([
             z.object({
+              capture_method: z.enum(["", "manual"]).optional(),
               setup_future_usage: z
                 .enum(["", "none", "off_session"])
                 .optional(),
@@ -874,7 +891,7 @@ const postPaymentIntentsIntentConfirmBodySchema = z
                     )
                     .optional(),
                   prefetch: z
-                    .array(z.enum(["balances", "transactions"]))
+                    .array(z.enum(["balances", "ownership", "transactions"]))
                     .optional(),
                   return_url: z.string().max(5000).optional(),
                 })
@@ -989,5 +1006,7 @@ export const _POST =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }

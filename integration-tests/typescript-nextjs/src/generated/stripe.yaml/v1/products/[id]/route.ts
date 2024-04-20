@@ -116,7 +116,9 @@ export const _DELETE =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }
 
 const getProductsIdParamSchema = z.object({ id: z.string().max(5000) })
@@ -170,7 +172,9 @@ export const _GET =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }
 
 const postProductsIdParamSchema = z.object({ id: z.string().max(5000) })
@@ -181,10 +185,10 @@ const postProductsIdBodySchema = z
     default_price: z.string().max(5000).optional(),
     description: z.union([z.string().max(40000), z.enum([""])]).optional(),
     expand: z.array(z.string().max(5000)).optional(),
-    features: z
+    images: z.union([z.array(z.string()), z.enum([""])]).optional(),
+    marketing_features: z
       .union([z.array(z.object({ name: z.string().max(5000) })), z.enum([""])])
       .optional(),
-    images: z.union([z.array(z.string()), z.enum([""])]).optional(),
     metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
     name: z.string().max(5000).optional(),
     package_dimensions: z
@@ -245,5 +249,7 @@ export const _POST =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }

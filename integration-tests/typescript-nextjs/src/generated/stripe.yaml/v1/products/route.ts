@@ -122,7 +122,9 @@ export const _GET =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }
 
 const postProductsBodySchema = z.object({
@@ -175,9 +177,11 @@ const postProductsBodySchema = z.object({
     .optional(),
   description: z.string().max(40000).optional(),
   expand: z.array(z.string().max(5000)).optional(),
-  features: z.array(z.object({ name: z.string().max(5000) })).optional(),
   id: z.string().max(5000).optional(),
   images: z.array(z.string()).optional(),
+  marketing_features: z
+    .array(z.object({ name: z.string().max(5000) }))
+    .optional(),
   metadata: z.record(z.string()).optional(),
   name: z.string().max(5000),
   package_dimensions: z
@@ -230,5 +234,7 @@ export const _POST =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }

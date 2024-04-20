@@ -102,7 +102,9 @@ export const _GET =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }
 
 const teamsUpdateLegacyParamSchema = z.object({ team_id: z.coerce.number() })
@@ -166,7 +168,9 @@ export const _PATCH =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }
 
 const teamsDeleteLegacyParamSchema = z.object({ team_id: z.coerce.number() })
@@ -209,5 +213,7 @@ export const _DELETE =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }

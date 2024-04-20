@@ -110,7 +110,9 @@ export const _GET =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }
 
 const postPaymentMethodConfigurationsConfigurationParamSchema = z.object({
@@ -142,6 +144,13 @@ const postPaymentMethodConfigurationsConfigurationBodySchema = z
       })
       .optional(),
     alipay: z
+      .object({
+        display_preference: z
+          .object({ preference: z.enum(["none", "off", "on"]).optional() })
+          .optional(),
+      })
+      .optional(),
+    amazon_pay: z
       .object({
         display_preference: z
           .object({ preference: z.enum(["none", "off", "on"]).optional() })
@@ -353,6 +362,13 @@ const postPaymentMethodConfigurationsConfigurationBodySchema = z
           .optional(),
       })
       .optional(),
+    swish: z
+      .object({
+        display_preference: z
+          .object({ preference: z.enum(["none", "off", "on"]).optional() })
+          .optional(),
+      })
+      .optional(),
     us_bank_account: z
       .object({
         display_preference: z
@@ -416,5 +432,7 @@ export const _POST =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }

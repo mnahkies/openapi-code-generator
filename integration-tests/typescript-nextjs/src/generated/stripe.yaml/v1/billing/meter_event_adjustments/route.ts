@@ -32,10 +32,10 @@ export type PostBillingMeterEventAdjustments = (
 ) => Promise<KoaRuntimeResponse<unknown>>
 
 const postBillingMeterEventAdjustmentsBodySchema = z.object({
-  cancel: z.object({ identifier: z.string().max(100) }),
+  cancel: z.object({ identifier: z.string().max(100).optional() }).optional(),
   event_name: z.string().max(100),
   expand: z.array(z.string().max(5000)).optional(),
-  type: z.enum(["cancel"]).optional(),
+  type: z.enum(["cancel"]),
 })
 
 export const _POST =
@@ -73,5 +73,7 @@ export const _POST =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }

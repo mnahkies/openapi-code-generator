@@ -385,7 +385,7 @@ const postTestHelpersIssuingTransactionsCreateForceCaptureBodySchema = z.object(
                 "unleaded_super",
               ])
               .optional(),
-            unit: z.enum(["liter", "us_gallon"]).optional(),
+            unit: z.enum(["liter", "other", "us_gallon"]).optional(),
             unit_cost_decimal: z.string().optional(),
             volume_decimal: z.string().optional(),
           })
@@ -447,5 +447,7 @@ export const _POST =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }

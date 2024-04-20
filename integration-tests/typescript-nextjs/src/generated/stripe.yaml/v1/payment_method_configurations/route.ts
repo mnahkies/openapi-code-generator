@@ -59,7 +59,10 @@ export type PostPaymentMethodConfigurations = (
 
 const getPaymentMethodConfigurationsQuerySchema = z.object({
   application: z.union([z.string().max(100), z.enum([""])]).optional(),
+  ending_before: z.string().max(5000).optional(),
   expand: z.array(z.string().max(5000)).optional(),
+  limit: z.coerce.number().optional(),
+  starting_after: z.string().max(5000).optional(),
 })
 
 const getPaymentMethodConfigurationsBodySchema = z.object({}).optional()
@@ -108,7 +111,9 @@ export const _GET =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }
 
 const postPaymentMethodConfigurationsBodySchema = z
@@ -135,6 +140,13 @@ const postPaymentMethodConfigurationsBodySchema = z
       })
       .optional(),
     alipay: z
+      .object({
+        display_preference: z
+          .object({ preference: z.enum(["none", "off", "on"]).optional() })
+          .optional(),
+      })
+      .optional(),
+    amazon_pay: z
       .object({
         display_preference: z
           .object({ preference: z.enum(["none", "off", "on"]).optional() })
@@ -347,6 +359,13 @@ const postPaymentMethodConfigurationsBodySchema = z
           .optional(),
       })
       .optional(),
+    swish: z
+      .object({
+        display_preference: z
+          .object({ preference: z.enum(["none", "off", "on"]).optional() })
+          .optional(),
+      })
+      .optional(),
     us_bank_account: z
       .object({
         display_preference: z
@@ -406,5 +425,7 @@ export const _POST =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }

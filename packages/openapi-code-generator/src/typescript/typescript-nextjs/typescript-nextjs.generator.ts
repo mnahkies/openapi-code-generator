@@ -290,7 +290,7 @@ export class ServerRouterBuilder implements ICompilable {
           .then(it => it.unpack())
           .catch(err => { throw KoaRuntimeError.HandlerError(err) })
 
-  return Response.json(body, {status})
+  return body !== undefined ? Response.json(body, {status}) : new Response(undefined, {status})
   }`,
       }),
     )

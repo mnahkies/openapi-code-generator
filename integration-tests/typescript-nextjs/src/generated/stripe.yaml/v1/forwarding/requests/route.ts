@@ -114,11 +114,12 @@ export const _GET =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }
 
 const postForwardingRequestsBodySchema = z.object({
-  config: z.string().max(5000),
   expand: z.array(z.string().max(5000)).optional(),
   payment_method: z.string().max(5000),
   replacements: z.array(
@@ -172,5 +173,7 @@ export const _POST =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }

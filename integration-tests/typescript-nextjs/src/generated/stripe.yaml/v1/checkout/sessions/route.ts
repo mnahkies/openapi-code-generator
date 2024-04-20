@@ -124,7 +124,9 @@ export const _GET =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }
 
 const postCheckoutSessionsBodySchema = z
@@ -407,6 +409,13 @@ const postCheckoutSessionsBodySchema = z
       .optional(),
     payment_method_collection: z.enum(["always", "if_required"]).optional(),
     payment_method_configuration: z.string().max(100).optional(),
+    payment_method_data: z
+      .object({
+        allow_redisplay: z
+          .enum(["always", "limited", "unspecified"])
+          .optional(),
+      })
+      .optional(),
     payment_method_options: z
       .object({
         acss_debit: z
@@ -443,6 +452,11 @@ const postCheckoutSessionsBodySchema = z
           .optional(),
         alipay: z
           .object({ setup_future_usage: z.enum(["none"]).optional() })
+          .optional(),
+        amazon_pay: z
+          .object({
+            setup_future_usage: z.enum(["none", "off_session"]).optional(),
+          })
           .optional(),
         au_becs_debit: z
           .object({ setup_future_usage: z.enum(["none"]).optional() })
@@ -549,6 +563,9 @@ const postCheckoutSessionsBodySchema = z
             setup_future_usage: z.enum(["none", "off_session"]).optional(),
           })
           .optional(),
+        mobilepay: z
+          .object({ setup_future_usage: z.enum(["none"]).optional() })
+          .optional(),
         oxxo: z
           .object({
             expires_after_days: z.coerce.number().optional(),
@@ -633,7 +650,7 @@ const postCheckoutSessionsBodySchema = z
                   )
                   .optional(),
                 prefetch: z
-                  .array(z.enum(["balances", "transactions"]))
+                  .array(z.enum(["balances", "ownership", "transactions"]))
                   .optional(),
               })
               .optional(),
@@ -659,6 +676,7 @@ const postCheckoutSessionsBodySchema = z
           "affirm",
           "afterpay_clearpay",
           "alipay",
+          "amazon_pay",
           "au_becs_debit",
           "bacs_debit",
           "bancontact",
@@ -675,6 +693,7 @@ const postCheckoutSessionsBodySchema = z
           "klarna",
           "konbini",
           "link",
+          "mobilepay",
           "oxxo",
           "p24",
           "paynow",
@@ -698,6 +717,14 @@ const postCheckoutSessionsBodySchema = z
       .enum(["always", "if_required", "never"])
       .optional(),
     return_url: z.string().max(5000).optional(),
+    saved_payment_method_options: z
+      .object({
+        allow_redisplay_filters: z
+          .array(z.enum(["always", "limited", "unspecified"]))
+          .optional(),
+        payment_method_save: z.enum(["disabled", "enabled"]).optional(),
+      })
+      .optional(),
     setup_intent_data: z
       .object({
         description: z.string().max(1000).optional(),
@@ -1094,5 +1121,7 @@ export const _POST =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }

@@ -58,6 +58,7 @@ const postTaxCalculationsBodySchema = z.object({
               "au_abn",
               "au_arn",
               "bg_uic",
+              "bh_vat",
               "bo_tin",
               "br_cnpj",
               "br_cpf",
@@ -91,14 +92,17 @@ const postTaxCalculationsBodySchema = z.object({
               "jp_trn",
               "ke_pin",
               "kr_brn",
+              "kz_bin",
               "li_uid",
               "mx_rfc",
               "my_frp",
               "my_itn",
               "my_sst",
+              "ng_tin",
               "no_vat",
               "no_voec",
               "nz_gst",
+              "om_vat",
               "pe_ruc",
               "ph_tin",
               "ro_tin",
@@ -186,5 +190,7 @@ export const _POST =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }

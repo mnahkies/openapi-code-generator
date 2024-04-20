@@ -107,7 +107,9 @@ export const _GET =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }
 
 const postWebhookEndpointsBodySchema = z.object({
@@ -288,6 +290,7 @@ const postWebhookEndpointsBodySchema = z.object({
       "customer.tax_id.updated",
       "customer.updated",
       "customer_cash_balance_transaction.created",
+      "entitlements.active_entitlement_summary.updated",
       "file.created",
       "financial_connections.account.created",
       "financial_connections.account.deactivated",
@@ -489,5 +492,7 @@ export const _POST =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }

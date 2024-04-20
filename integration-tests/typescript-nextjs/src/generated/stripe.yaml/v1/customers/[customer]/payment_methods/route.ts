@@ -47,6 +47,7 @@ const getCustomersCustomerPaymentMethodsParamSchema = z.object({
 })
 
 const getCustomersCustomerPaymentMethodsQuerySchema = z.object({
+  allow_redisplay: z.enum(["always", "limited", "unspecified"]).optional(),
   ending_before: z.string().optional(),
   expand: z.array(z.string().max(5000)).optional(),
   limit: z.coerce.number().optional(),
@@ -57,6 +58,7 @@ const getCustomersCustomerPaymentMethodsQuerySchema = z.object({
       "affirm",
       "afterpay_clearpay",
       "alipay",
+      "amazon_pay",
       "au_becs_debit",
       "bacs_debit",
       "bancontact",
@@ -141,5 +143,7 @@ export const _GET =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }

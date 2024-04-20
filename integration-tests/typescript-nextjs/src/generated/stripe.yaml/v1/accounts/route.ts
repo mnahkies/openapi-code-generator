@@ -118,7 +118,9 @@ export const _GET =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }
 
 const postAccountsBodySchema = z
@@ -401,6 +403,20 @@ const postAccountsBodySchema = z
           .optional(),
       })
       .optional(),
+    controller: z
+      .object({
+        fees: z
+          .object({ payer: z.enum(["account", "application"]).optional() })
+          .optional(),
+        losses: z
+          .object({ payments: z.enum(["application", "stripe"]).optional() })
+          .optional(),
+        requirement_collection: z.enum(["application", "stripe"]).optional(),
+        stripe_dashboard: z
+          .object({ type: z.enum(["express", "full", "none"]).optional() })
+          .optional(),
+      })
+      .optional(),
     country: z.string().max(5000).optional(),
     default_currency: z.string().optional(),
     documents: z
@@ -673,5 +689,7 @@ export const _POST =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }

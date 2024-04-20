@@ -86,6 +86,10 @@ const postSetupIntentsIntentConfirmBodySchema = z
         affirm: z.object({}).optional(),
         afterpay_clearpay: z.object({}).optional(),
         alipay: z.object({}).optional(),
+        allow_redisplay: z
+          .enum(["always", "limited", "unspecified"])
+          .optional(),
+        amazon_pay: z.object({}).optional(),
         au_becs_debit: z
           .object({
             account_number: z.string().max(5000),
@@ -282,6 +286,7 @@ const postSetupIntentsIntentConfirmBodySchema = z
           "affirm",
           "afterpay_clearpay",
           "alipay",
+          "amazon_pay",
           "au_becs_debit",
           "bacs_debit",
           "bancontact",
@@ -350,6 +355,7 @@ const postSetupIntentsIntentConfirmBodySchema = z
               .optional(),
           })
           .optional(),
+        amazon_pay: z.object({}).optional(),
         card: z
           .object({
             mandate_options: z
@@ -434,7 +440,7 @@ const postSetupIntentsIntentConfirmBodySchema = z
                   )
                   .optional(),
                 prefetch: z
-                  .array(z.enum(["balances", "transactions"]))
+                  .array(z.enum(["balances", "ownership", "transactions"]))
                   .optional(),
                 return_url: z.string().max(5000).optional(),
               })
@@ -500,5 +506,7 @@ export const _POST =
         throw KoaRuntimeError.HandlerError(err)
       })
 
-    return Response.json(body, { status })
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
   }
