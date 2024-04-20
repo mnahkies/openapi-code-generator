@@ -1,16 +1,24 @@
-import path from "path"
+import fs from "node:fs"
+import path from "node:path"
 import _ from "lodash"
+import {
+  Project,
+  SourceFile,
+  StructureKind,
+  SyntaxKind,
+  VariableDeclarationKind,
+} from "ts-morph"
 import {Input} from "../../core/input"
 import {
   IRModelObject,
   IROperation,
   IRParameter,
 } from "../../core/openapi-types-normalized"
-import {titleCase} from "../../core/utils"
+import {HttpMethod, isDefined, isHttpMethod, titleCase} from "../../core/utils"
 import {OpenapiGeneratorConfig} from "../../templates.types"
 import {CompilationUnit, ICompilable} from "../common/compilation-units"
 import {ImportBuilder} from "../common/import-builder"
-import {emitGenerationResult, loadPreviousResult} from "../common/output-utils"
+import {emitGenerationResult} from "../common/output-utils"
 import {JoiBuilder} from "../common/schema-builders/joi-schema-builder"
 import {
   SchemaBuilder,
@@ -64,9 +72,6 @@ export class ServerRouterBuilder implements ICompilable {
     private readonly imports: ImportBuilder,
     public readonly types: TypeBuilder,
     public readonly schemaBuilder: SchemaBuilder,
-    private existingRegions: {
-      [operationId: string]: string
-    },
   ) {
     // todo: unsure why, but adding an export at `.` of index.ts doesn't work properly
     this.imports
@@ -243,9 +248,9 @@ export class ServerRouterBuilder implements ICompilable {
 
     this.statements.push(
       buildExport({
-        name: operation.method.toUpperCase(),
+        name: `_${operation.method.toUpperCase()}`,
         kind: "const",
-        value: `async (request: NextRequest, {params}: {params: unknown}): Promise<Response> => {
+        value: `(implementation: ${titleCase(operation.operationId)}) => async (request: NextRequest, {params}: {params: unknown}): Promise<Response> => {
   const input = {
         params: ${
           paramSchema
@@ -281,12 +286,9 @@ export class ServerRouterBuilder implements ICompilable {
        const {
         status,
         body,
-      } =  await import('@/${this.filename
-        .replace("src/app", "lib")
-        .replace(".ts", "")}')
-                          .then(it => it.GET(input, responder, { request }))
-                          .then(it => it.unpack())
-                          .catch(err => { throw KoaRuntimeError.HandlerError(err) })
+      } = await implementation(input, responder, {request})
+          .then(it => it.unpack())
+          .catch(err => { throw KoaRuntimeError.HandlerError(err) })
 
   return Response.json(body, {status})
   }`,
@@ -297,9 +299,6 @@ export class ServerRouterBuilder implements ICompilable {
   toString(): string {
     const routes = this.statements
     const code = `
-//region safe-edit-region-header
-${this.existingRegions["header"] ?? ""}
-//endregion safe-edit-region-header
 ${this.operationTypes.flatMap((it) => it.statements).join("\n\n")}
 
 ${routes.join("\n\n")}
@@ -312,43 +311,110 @@ ${routes.join("\n\n")}
   }
 }
 
-export class ServerBuilder implements ICompilable {
+export class NextJSAppRouterBuilder implements ICompilable {
   constructor(
     public readonly filename: string,
-    private readonly name: string,
-    private readonly input: Input,
-    private readonly imports: ImportBuilder = new ImportBuilder(),
-  ) {
-    // todo: unsure why, but adding an export at `.` of index.ts doesn't work properly
-    this.imports
-      .from("@nahkies/typescript-koa-runtime/server")
-      .add(
-        "startServer",
-        "ServerConfig",
-        "Response",
-        "KoaRuntimeResponse",
-        "KoaRuntimeResponder",
-        "StatusCode2xx",
-        "StatusCode3xx",
-        "StatusCode4xx",
-        "StatusCode5xx",
-        "StatusCode",
-      )
+    private readonly companionFilename: string,
+    private readonly sourceFile: SourceFile,
+  ) {}
+
+  private readonly httpMethodsUsed = new Set<HttpMethod>()
+
+  add(operation: IROperation): void {
+    const sourceFile = this.sourceFile
+
+    const hasPathParam =
+      operation.parameters.filter((it) => it.in === "path").length > 0
+    const hasQueryParam =
+      operation.parameters.filter((it) => it.in === "query").length > 0
+    const hasBodyParam = Boolean(
+      requestBodyAsParameter(operation).requestBodyParameter,
+    )
+
+    const wrappingMethod = `_${operation.method.toUpperCase()}`
+
+    this.httpMethodsUsed.add(operation.method)
+
+    // Get the existing function, or create a new default one
+    const variableDeclaration =
+      sourceFile
+        .getVariableDeclaration(operation.method.toUpperCase())
+        ?.getVariableStatement() ||
+      sourceFile.addVariableStatement({
+        isExported: true,
+        declarationKind: VariableDeclarationKind.Const,
+        declarations: [
+          {
+            name: operation.method.toUpperCase(),
+            kind: StructureKind.VariableDeclaration,
+            initializer: `${wrappingMethod}(async (input, respond, context) => {
+            // TODO: implementation
+            return respond.withStatus(501).body({message: "not implemented"} as any)
+          })`,
+          },
+        ],
+      })
+
+    // Replace the params based on what inputs we have
+    const declarations = variableDeclaration.getDeclarations()[0]!
+    const innerFunction = declarations
+      .getInitializerIfKindOrThrow(SyntaxKind.CallExpression)
+      .getArguments()[0]!
+      .asKind(SyntaxKind.ArrowFunction)!
+
+    innerFunction?.getParameters().forEach((parameter) => {
+      parameter.remove()
+    })
+
+    innerFunction?.addParameter({
+      name: `{${[
+        hasPathParam ? "params" : undefined,
+        hasQueryParam ? "query" : undefined,
+        hasBodyParam ? "body" : undefined,
+      ]
+        .filter(isDefined)
+        .join(",")}}`,
+    })
+
+    innerFunction?.addParameter({name: "respond"})
+    innerFunction?.addParameter({name: "context"})
   }
 
   toString(): string {
-    const {name} = this
-
-    return `
-      export async function bootstrap(config: ServerConfig) {
-        // ${name}
-        return startServer(config)
-      }
-    `
+    return this.sourceFile.getFullText()
   }
 
   toCompilationUnit(): CompilationUnit {
-    return new CompilationUnit(this.filename, this.imports, this.toString())
+    // Reconcile imports - attempt to find an existing one and replace it with correct one
+    const imports = this.sourceFile.getImportDeclarations()
+    const from = ImportBuilder.normalizeFrom(
+      "./" + this.companionFilename,
+      "./" + this.filename,
+    )
+    imports
+      .filter((it) => it.getModuleSpecifierValue().includes(from))
+      .forEach((it) => it.remove())
+
+    this.sourceFile.addImportDeclaration({
+      namedImports: Array.from(this.httpMethodsUsed).map((it) => `_${it}`),
+      moduleSpecifier: from,
+    })
+
+    // Remove any methods that were removed from the spec
+    this.sourceFile
+      .getVariableDeclarations()
+      .filter((it) => {
+        const name = it.getName()
+        return isHttpMethod(name) && !this.httpMethodsUsed.has(name)
+      })
+      .forEach((it) => it.remove())
+
+    return new CompilationUnit(
+      this.filename,
+      new ImportBuilder(),
+      this.toString(),
+      false,
+    )
   }
 }
 
@@ -357,58 +423,84 @@ export async function generateTypescriptNextJS(
 ): Promise<void> {
   const input = config.input
 
-  const routesDirectory = "./src/app/api"
+  const appDirectory = "./app/api"
+  const routesDirectory = "./generated/api"
 
   const rootTypeBuilder = await TypeBuilder.fromInput(
-    "./src/lib/models.ts",
+    "./generated/api/models.ts",
     input,
     config.compilerOptions,
   )
 
   const rootSchemaBuilder = await schemaBuilderFactory(
-    "./src/lib/schemas.ts",
+    "./generated/api/schemas.ts",
     input,
     config.schemaBuilder,
   )
 
-  const server = new ServerBuilder(
-    "./src/lib/index.ts",
-    input.name(),
-    input,
-    new ImportBuilder(),
-  )
+  const project = new Project()
 
-  const routers = await Promise.all(
-    input.groupedOperations("route").map(async (group) => {
-      const filename = path.join(
-        routesDirectory,
-        routeToNextJSFilepath(group.name),
-      )
+  const routers = (
+    await Promise.all(
+      input.groupedOperations("route").map(async (group) => {
+        const filename = path.join(
+          routesDirectory,
+          routeToNextJSFilepath(group.name),
+        )
 
-      const imports = new ImportBuilder({filename})
+        const imports = new ImportBuilder({filename})
 
-      const routerBuilder = new ServerRouterBuilder(
-        filename,
-        group.name,
-        input,
-        imports,
-        rootTypeBuilder.withImports(imports),
-        rootSchemaBuilder.withImports(imports),
-        loadExistingImplementations(
-          await loadPreviousResult(config.dest, {filename}),
-        ),
-      )
+        const routerBuilder = new ServerRouterBuilder(
+          filename,
+          group.name,
+          input,
+          imports,
+          rootTypeBuilder.withImports(imports),
+          rootSchemaBuilder.withImports(imports),
+        )
 
-      group.operations.forEach((it) => routerBuilder.add(it))
+        const nextJsAppRouterPath = path.join(
+          appDirectory,
+          routeToNextJSFilepath(group.name),
+        )
 
-      return routerBuilder.toCompilationUnit()
-    }),
-  )
+        const existing = fs.existsSync(
+          path.join(config.dest, nextJsAppRouterPath),
+        )
+          ? fs
+              .readFileSync(
+                path.join(config.dest, nextJsAppRouterPath),
+                "utf-8",
+              )
+              .toString()
+          : ""
+        const sourceFile = project.createSourceFile(
+          nextJsAppRouterPath,
+          existing,
+        )
+
+        const nextJSAppRouterBuilder = new NextJSAppRouterBuilder(
+          nextJsAppRouterPath,
+          filename,
+          sourceFile,
+        )
+
+        group.operations.forEach((it) => {
+          routerBuilder.add(it)
+          nextJSAppRouterBuilder.add(it)
+        })
+
+        return [
+          routerBuilder.toCompilationUnit(),
+          nextJSAppRouterBuilder.toCompilationUnit(),
+        ]
+      }),
+    )
+  ).flat()
 
   await emitGenerationResult(
     config.dest,
     [
-      server.toCompilationUnit(),
       ...routers,
       rootTypeBuilder.toCompilationUnit(),
       rootSchemaBuilder.toCompilationUnit(),
@@ -427,32 +519,4 @@ function routeToNextJSFilepath(route: string): string {
   parts.push("route.ts")
 
   return path.join(...parts)
-}
-
-const regionBoundary = /.+safe-edit-region-(.+)/
-
-function loadExistingImplementations(data: string): Record<string, string> {
-  const result: Record<string, string> = {}
-
-  let safeRegionName = ""
-  let buffer = []
-
-  for (const line of data.split("\n")) {
-    const match = regionBoundary.exec(line)
-
-    if (match) {
-      if (safeRegionName) {
-        result[safeRegionName] = buffer.join("\n")
-        buffer = []
-        safeRegionName = ""
-      } else {
-        // this is safe because we tested that the regex matched prior to
-        safeRegionName = match[1]!
-      }
-    } else if (safeRegionName) {
-      buffer.push(line)
-    }
-  }
-
-  return result
 }
