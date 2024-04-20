@@ -423,8 +423,14 @@ export async function generateTypescriptNextJS(
 ): Promise<void> {
   const input = config.input
 
-  const appDirectory = "./app/api"
-  const routesDirectory = "./generated/api"
+  const subDirectory = process.env["OPENAPI_INTEGRATION_TESTS"]
+    ? path.basename(config.input.loader.entryPointKey)
+    : ""
+
+  const appDirectory = ["./app", subDirectory].filter(isDefined).join(path.sep)
+  const routesDirectory = ["./generated", subDirectory]
+    .filter(isDefined)
+    .join(path.sep)
 
   const rootTypeBuilder = await TypeBuilder.fromInput(
     "./generated/api/models.ts",
