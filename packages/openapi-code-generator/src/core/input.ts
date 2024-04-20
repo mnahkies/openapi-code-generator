@@ -85,10 +85,15 @@ export class Input {
         Operation | Reference
       >
 
-      // eslint-disable-next-line prefer-const
       for (let [method, definition] of Object.entries(methods)) {
         if (!definition) {
           continue
+        }
+
+        method = method.toUpperCase()
+
+        if (!isHttpMethod(method)) {
+          throw new Error(`unsupported method '${method}'`)
         }
 
         definition = this.loader.operation(definition)
@@ -102,7 +107,7 @@ export class Input {
         result.push({
           ...additionalAttributes,
           route,
-          method: method.toUpperCase() as IROperation["method"],
+          method,
           parameters: params.concat(
             this.normalizeParameters(definition.parameters),
           ),

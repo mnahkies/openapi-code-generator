@@ -486,6 +486,10 @@ export type t_ParCustomAsParamSchema = {
   authorizationServerId: string
 }
 
+export type t_ParOptionsCustomAsParamSchema = {
+  authorizationServerId: string
+}
+
 export type t_ReplaceClientBodySchema = {
   application_type?: t_ApplicationType
   readonly client_id?: string
@@ -534,6 +538,10 @@ export type t_TokenCustomAsBodySchema = {
 }
 
 export type t_TokenCustomAsParamSchema = {
+  authorizationServerId: string
+}
+
+export type t_TokenOptionsCustomAsParamSchema = {
   authorizationServerId: string
 }
 

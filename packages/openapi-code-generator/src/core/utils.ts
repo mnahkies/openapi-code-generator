@@ -8,10 +8,19 @@ export function hasSingleElement<T>(it: T[]): it is [T] {
   return it.length === 1
 }
 
-const httpMethods = new Set(["get", "put", "patch", "delete", "post"])
+export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS"
 
-export function isHttpMethod(method: string): boolean {
-  return httpMethods.has(method.toLowerCase())
+export const httpMethods = new Set<HttpMethod>([
+  "GET",
+  "POST",
+  "PUT",
+  "PATCH",
+  "DELETE",
+  "OPTIONS",
+])
+
+export function isHttpMethod(method: string): method is HttpMethod {
+  return httpMethods.has(method.toUpperCase() as HttpMethod)
 }
 
 export function deepEqual(x: unknown, y: unknown): boolean {

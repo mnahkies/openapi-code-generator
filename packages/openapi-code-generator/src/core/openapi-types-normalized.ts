@@ -1,3 +1,5 @@
+import {HttpMethod} from "./utils"
+
 export interface IRRef {
   $ref: string
 }
@@ -82,7 +84,7 @@ export interface IRParameter {
 
 export interface IROperation {
   route: string
-  method: "GET" | "PUT" | "POST" | "PATCH" | "DELETE"
+  method: HttpMethod
   parameters: IRParameter[]
   operationId: string
   tags: string[]

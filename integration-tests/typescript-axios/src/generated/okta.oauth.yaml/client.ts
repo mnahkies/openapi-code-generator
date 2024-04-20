@@ -353,6 +353,26 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
+  async parOptions(
+    p: {
+      origin?: string
+    } = {},
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/oauth2/v1/par`
+    const headers = this._headers({ Origin: p["origin"] })
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "OPTIONS",
+      headers,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
   async par(
     p: {
       requestBody: t_ParRequest
@@ -392,6 +412,26 @@ export class ApiClient extends AbstractAxiosClient {
       method: "POST",
       headers,
       data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async tokenOptions(
+    p: {
+      origin?: string
+    } = {},
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/oauth2/v1/token`
+    const headers = this._headers({ Origin: p["origin"] })
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "OPTIONS",
+      headers,
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
@@ -653,6 +693,27 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
+  async parOptionsCustomAs(
+    p: {
+      authorizationServerId: string
+      origin?: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/oauth2/${p["authorizationServerId"]}/v1/par`
+    const headers = this._headers({ Origin: p["origin"] })
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "OPTIONS",
+      headers,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
   async parCustomAs(
     p: {
       authorizationServerId: string
@@ -694,6 +755,27 @@ export class ApiClient extends AbstractAxiosClient {
       method: "POST",
       headers,
       data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async tokenOptionsCustomAs(
+    p: {
+      authorizationServerId: string
+      origin?: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/oauth2/${p["authorizationServerId"]}/v1/token`
+    const headers = this._headers({ Origin: p["origin"] })
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "OPTIONS",
+      headers,
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
