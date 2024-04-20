@@ -48,6 +48,7 @@ import {
   t_deleted_person,
   t_deleted_plan,
   t_deleted_product,
+  t_deleted_product_feature,
   t_deleted_radar_value_list,
   t_deleted_radar_value_list_item,
   t_deleted_subscription_item,
@@ -59,6 +60,8 @@ import {
   t_deleted_webhook_endpoint,
   t_discount,
   t_dispute,
+  t_entitlements_active_entitlement,
+  t_entitlements_feature,
   t_ephemeral_key,
   t_event,
   t_exchange_rate,
@@ -100,6 +103,7 @@ import {
   t_plan,
   t_price,
   t_product,
+  t_product_feature,
   t_promotion_code,
   t_quote,
   t_radar_early_fraud_warning,
@@ -229,13 +233,35 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: {
         account: string
         components: {
+          account_management?: {
+            enabled: boolean
+            features?: {
+              external_account_collection?: boolean
+            }
+          }
           account_onboarding?: {
             enabled: boolean
-            features?: EmptyObject
+            features?: {
+              external_account_collection?: boolean
+            }
+          }
+          balances?: {
+            enabled: boolean
+            features?: {
+              edit_payout_schedule?: boolean
+              instant_payouts?: boolean
+              standard_payouts?: boolean
+            }
           }
           documents?: {
             enabled: boolean
             features?: EmptyObject
+          }
+          notification_banner?: {
+            enabled: boolean
+            features?: {
+              external_account_collection?: boolean
+            }
           }
           payment_details?: {
             enabled: boolean
@@ -262,6 +288,10 @@ export class ApiClient extends AbstractAxiosClient {
               instant_payouts?: boolean
               standard_payouts?: boolean
             }
+          }
+          payouts_list?: {
+            enabled: boolean
+            features?: EmptyObject
           }
         }
         expand?: string[]
@@ -587,6 +617,18 @@ export class ApiClient extends AbstractAxiosClient {
               back?: string
               front?: string
             }
+          }
+        }
+        controller?: {
+          fees?: {
+            payer?: "account" | "application"
+          }
+          losses?: {
+            payments?: "application" | "stripe"
+          }
+          requirement_collection?: "application" | "stripe"
+          stripe_dashboard?: {
+            type?: "express" | "full" | "none"
           }
         }
         country?: string
@@ -3198,12 +3240,12 @@ export class ApiClient extends AbstractAxiosClient {
   async postBillingMeterEventAdjustments(
     p: {
       requestBody: {
-        cancel: {
-          identifier: string
+        cancel?: {
+          identifier?: string
         }
         event_name: string
         expand?: string[]
-        type?: "cancel"
+        type: "cancel"
       }
     },
     timeout?: number,
@@ -3235,7 +3277,7 @@ export class ApiClient extends AbstractAxiosClient {
         payload: {
           [key: string]: string | undefined
         }
-        timestamp: number
+        timestamp?: number
       }
     },
     timeout?: number,
@@ -4772,6 +4814,9 @@ export class ApiClient extends AbstractAxiosClient {
         }
         payment_method_collection?: "always" | "if_required"
         payment_method_configuration?: string
+        payment_method_data?: {
+          allow_redisplay?: "always" | "limited" | "unspecified"
+        }
         payment_method_options?: {
           acss_debit?: {
             currency?: "cad" | "usd"
@@ -4793,6 +4838,9 @@ export class ApiClient extends AbstractAxiosClient {
           }
           alipay?: {
             setup_future_usage?: "none"
+          }
+          amazon_pay?: {
+            setup_future_usage?: "none" | "off_session"
           }
           au_becs_debit?: {
             setup_future_usage?: "none"
@@ -4868,6 +4916,9 @@ export class ApiClient extends AbstractAxiosClient {
           link?: {
             setup_future_usage?: "none" | "off_session"
           }
+          mobilepay?: {
+            setup_future_usage?: "none"
+          }
           oxxo?: {
             expires_after_days?: number
             setup_future_usage?: "none"
@@ -4930,7 +4981,7 @@ export class ApiClient extends AbstractAxiosClient {
                 | "payment_method"
                 | "transactions"
               )[]
-              prefetch?: ("balances" | "transactions")[]
+              prefetch?: ("balances" | "ownership" | "transactions")[]
             }
             setup_future_usage?: "none" | "off_session" | "on_session"
             verification_method?: "automatic" | "instant"
@@ -4946,6 +4997,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "affirm"
           | "afterpay_clearpay"
           | "alipay"
+          | "amazon_pay"
           | "au_becs_debit"
           | "bacs_debit"
           | "bancontact"
@@ -4962,6 +5014,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "klarna"
           | "konbini"
           | "link"
+          | "mobilepay"
           | "oxxo"
           | "p24"
           | "paynow"
@@ -4981,6 +5034,10 @@ export class ApiClient extends AbstractAxiosClient {
         }
         redirect_on_completion?: "always" | "if_required" | "never"
         return_url?: string
+        saved_payment_method_options?: {
+          allow_redisplay_filters?: ("always" | "limited" | "unspecified")[]
+          payment_method_save?: "disabled" | "enabled"
+        }
         setup_intent_data?: {
           description?: string
           metadata?: {
@@ -6582,6 +6639,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "au_abn"
             | "au_arn"
             | "bg_uic"
+            | "bh_vat"
             | "bo_tin"
             | "br_cnpj"
             | "br_cpf"
@@ -6615,14 +6673,17 @@ export class ApiClient extends AbstractAxiosClient {
             | "jp_trn"
             | "ke_pin"
             | "kr_brn"
+            | "kz_bin"
             | "li_uid"
             | "mx_rfc"
             | "my_frp"
             | "my_itn"
             | "my_sst"
+            | "ng_tin"
             | "no_vat"
             | "no_voec"
             | "nz_gst"
+            | "om_vat"
             | "pe_ruc"
             | "ph_tin"
             | "ro_tin"
@@ -7716,6 +7777,7 @@ export class ApiClient extends AbstractAxiosClient {
 
   async getCustomersCustomerPaymentMethods(
     p: {
+      allowRedisplay?: "always" | "limited" | "unspecified"
       customer: string
       endingBefore?: string
       expand?: string[]
@@ -7726,6 +7788,7 @@ export class ApiClient extends AbstractAxiosClient {
         | "affirm"
         | "afterpay_clearpay"
         | "alipay"
+        | "amazon_pay"
         | "au_becs_debit"
         | "bacs_debit"
         | "bancontact"
@@ -7773,6 +7836,7 @@ export class ApiClient extends AbstractAxiosClient {
       "Content-Type": "application/x-www-form-urlencoded",
     })
     const query = this._query({
+      allow_redisplay: p["allowRedisplay"],
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
@@ -8275,7 +8339,7 @@ export class ApiClient extends AbstractAxiosClient {
                       | "payment_method"
                       | "transactions"
                     )[]
-                    prefetch?: ("balances" | "transactions")[]
+                    prefetch?: ("balances" | "ownership" | "transactions")[]
                   }
                   verification_method?:
                     | "automatic"
@@ -8603,7 +8667,7 @@ export class ApiClient extends AbstractAxiosClient {
                       | "payment_method"
                       | "transactions"
                     )[]
-                    prefetch?: ("balances" | "transactions")[]
+                    prefetch?: ("balances" | "ownership" | "transactions")[]
                   }
                   verification_method?:
                     | "automatic"
@@ -8795,6 +8859,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "au_abn"
           | "au_arn"
           | "bg_uic"
+          | "bh_vat"
           | "bo_tin"
           | "br_cnpj"
           | "br_cpf"
@@ -8828,14 +8893,17 @@ export class ApiClient extends AbstractAxiosClient {
           | "jp_trn"
           | "ke_pin"
           | "kr_brn"
+          | "kz_bin"
           | "li_uid"
           | "mx_rfc"
           | "my_frp"
           | "my_itn"
           | "my_sst"
+          | "ng_tin"
           | "no_vat"
           | "no_voec"
           | "nz_gst"
+          | "om_vat"
           | "pe_ruc"
           | "ph_tin"
           | "ro_tin"
@@ -9087,6 +9155,207 @@ export class ApiClient extends AbstractAxiosClient {
     opts?: AxiosRequestConfig,
   ): Promise<AxiosResponse<t_dispute>> {
     const url = `/v1/disputes/${p["dispute"]}/close`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "POST",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async getEntitlementsActiveEntitlements(
+    p: {
+      customer: string
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      startingAfter?: string
+      requestBody?: EmptyObject
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<
+    AxiosResponse<{
+      data: t_entitlements_active_entitlement[]
+      has_more: boolean
+      object: "list"
+      url: string
+    }>
+  > {
+    const url = `/v1/entitlements/active_entitlements`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const query = this._query({
+      customer: p["customer"],
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      starting_after: p["startingAfter"],
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url + query,
+      baseURL: this.basePath,
+      method: "GET",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async getEntitlementsActiveEntitlementsId(
+    p: {
+      expand?: string[]
+      id: string
+      requestBody?: EmptyObject
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_entitlements_active_entitlement>> {
+    const url = `/v1/entitlements/active_entitlements/${p["id"]}`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const query = this._query({ expand: p["expand"] })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url + query,
+      baseURL: this.basePath,
+      method: "GET",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async getEntitlementsFeatures(
+    p: {
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      startingAfter?: string
+      requestBody?: EmptyObject
+    } = {},
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<
+    AxiosResponse<{
+      data: t_entitlements_feature[]
+      has_more: boolean
+      object: "list"
+      url: string
+    }>
+  > {
+    const url = `/v1/entitlements/features`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const query = this._query({
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      starting_after: p["startingAfter"],
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url + query,
+      baseURL: this.basePath,
+      method: "GET",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async postEntitlementsFeatures(
+    p: {
+      requestBody: {
+        expand?: string[]
+        lookup_key: string
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        name: string
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_entitlements_feature>> {
+    const url = `/v1/entitlements/features`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "POST",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async getEntitlementsFeaturesId(
+    p: {
+      expand?: string[]
+      id: string
+      requestBody?: EmptyObject
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_entitlements_feature>> {
+    const url = `/v1/entitlements/features/${p["id"]}`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const query = this._query({ expand: p["expand"] })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url + query,
+      baseURL: this.basePath,
+      method: "GET",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async postEntitlementsFeaturesId(
+    p: {
+      id: string
+      requestBody?: {
+        active?: boolean
+        expand?: string[]
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        name?: string
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_entitlements_feature>> {
+    const url = `/v1/entitlements/features/${p["id"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -10030,7 +10299,6 @@ export class ApiClient extends AbstractAxiosClient {
   async postForwardingRequests(
     p: {
       requestBody: {
-        config: string
         expand?: string[]
         payment_method: string
         replacements: (
@@ -10833,7 +11101,7 @@ export class ApiClient extends AbstractAxiosClient {
                       | "payment_method"
                       | "transactions"
                     )[]
-                    prefetch?: ("balances" | "transactions")[]
+                    prefetch?: ("balances" | "ownership" | "transactions")[]
                   }
                   verification_method?:
                     | "automatic"
@@ -10953,6 +11221,349 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
+  async postInvoicesCreatePreview(
+    p: {
+      requestBody?: {
+        automatic_tax?: {
+          enabled: boolean
+          liability?: {
+            account?: string
+            type: "account" | "self"
+          }
+        }
+        coupon?: string
+        currency?: string
+        customer?: string
+        customer_details?: {
+          address?:
+            | {
+                city?: string
+                country?: string
+                line1?: string
+                line2?: string
+                postal_code?: string
+                state?: string
+              }
+            | ""
+          shipping?:
+            | {
+                address: {
+                  city?: string
+                  country?: string
+                  line1?: string
+                  line2?: string
+                  postal_code?: string
+                  state?: string
+                }
+                name: string
+                phone?: string
+              }
+            | ""
+          tax?: {
+            ip_address?: string | ""
+          }
+          tax_exempt?: "" | "exempt" | "none" | "reverse"
+          tax_ids?: {
+            type:
+              | "ad_nrt"
+              | "ae_trn"
+              | "ar_cuit"
+              | "au_abn"
+              | "au_arn"
+              | "bg_uic"
+              | "bh_vat"
+              | "bo_tin"
+              | "br_cnpj"
+              | "br_cpf"
+              | "ca_bn"
+              | "ca_gst_hst"
+              | "ca_pst_bc"
+              | "ca_pst_mb"
+              | "ca_pst_sk"
+              | "ca_qst"
+              | "ch_vat"
+              | "cl_tin"
+              | "cn_tin"
+              | "co_nit"
+              | "cr_tin"
+              | "do_rcn"
+              | "ec_ruc"
+              | "eg_tin"
+              | "es_cif"
+              | "eu_oss_vat"
+              | "eu_vat"
+              | "gb_vat"
+              | "ge_vat"
+              | "hk_br"
+              | "hu_tin"
+              | "id_npwp"
+              | "il_vat"
+              | "in_gst"
+              | "is_vat"
+              | "jp_cn"
+              | "jp_rn"
+              | "jp_trn"
+              | "ke_pin"
+              | "kr_brn"
+              | "kz_bin"
+              | "li_uid"
+              | "mx_rfc"
+              | "my_frp"
+              | "my_itn"
+              | "my_sst"
+              | "ng_tin"
+              | "no_vat"
+              | "no_voec"
+              | "nz_gst"
+              | "om_vat"
+              | "pe_ruc"
+              | "ph_tin"
+              | "ro_tin"
+              | "rs_pib"
+              | "ru_inn"
+              | "ru_kpp"
+              | "sa_vat"
+              | "sg_gst"
+              | "sg_uen"
+              | "si_tin"
+              | "sv_nit"
+              | "th_vat"
+              | "tr_tin"
+              | "tw_vat"
+              | "ua_vat"
+              | "us_ein"
+              | "uy_ruc"
+              | "ve_rif"
+              | "vn_tin"
+              | "za_vat"
+            value: string
+          }[]
+        }
+        discounts?:
+          | {
+              coupon?: string
+              discount?: string
+              promotion_code?: string
+            }[]
+          | ""
+        expand?: string[]
+        invoice_items?: {
+          amount?: number
+          currency?: string
+          description?: string
+          discountable?: boolean
+          discounts?:
+            | {
+                coupon?: string
+                discount?: string
+                promotion_code?: string
+              }[]
+            | ""
+          invoiceitem?: string
+          metadata?:
+            | {
+                [key: string]: string | undefined
+              }
+            | ""
+          period?: {
+            end: number
+            start: number
+          }
+          price?: string
+          price_data?: {
+            currency: string
+            product: string
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+            unit_amount?: number
+            unit_amount_decimal?: string
+          }
+          quantity?: number
+          tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+          tax_code?: string | ""
+          tax_rates?: string[] | ""
+          unit_amount?: number
+          unit_amount_decimal?: string
+        }[]
+        issuer?: {
+          account?: string
+          type: "account" | "self"
+        }
+        on_behalf_of?: string | ""
+        schedule?: string
+        schedule_details?: {
+          end_behavior?: "cancel" | "release"
+          phases?: {
+            add_invoice_items?: {
+              discounts?: {
+                coupon?: string
+                discount?: string
+                promotion_code?: string
+              }[]
+              price?: string
+              price_data?: {
+                currency: string
+                product: string
+                tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+                unit_amount?: number
+                unit_amount_decimal?: string
+              }
+              quantity?: number
+              tax_rates?: string[] | ""
+            }[]
+            application_fee_percent?: number
+            automatic_tax?: {
+              enabled: boolean
+              liability?: {
+                account?: string
+                type: "account" | "self"
+              }
+            }
+            billing_cycle_anchor?: "automatic" | "phase_start"
+            billing_thresholds?:
+              | {
+                  amount_gte?: number
+                  reset_billing_cycle_anchor?: boolean
+                }
+              | ""
+            collection_method?: "charge_automatically" | "send_invoice"
+            coupon?: string
+            default_payment_method?: string
+            default_tax_rates?: string[] | ""
+            description?: string | ""
+            discounts?:
+              | {
+                  coupon?: string
+                  discount?: string
+                  promotion_code?: string
+                }[]
+              | ""
+            end_date?: number | "now"
+            invoice_settings?: {
+              account_tax_ids?: string[] | ""
+              days_until_due?: number
+              issuer?: {
+                account?: string
+                type: "account" | "self"
+              }
+            }
+            items: {
+              billing_thresholds?:
+                | {
+                    usage_gte: number
+                  }
+                | ""
+              discounts?:
+                | {
+                    coupon?: string
+                    discount?: string
+                    promotion_code?: string
+                  }[]
+                | ""
+              metadata?: {
+                [key: string]: string | undefined
+              }
+              price?: string
+              price_data?: {
+                currency: string
+                product: string
+                recurring: {
+                  interval: "day" | "month" | "week" | "year"
+                  interval_count?: number
+                }
+                tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+                unit_amount?: number
+                unit_amount_decimal?: string
+              }
+              quantity?: number
+              tax_rates?: string[] | ""
+            }[]
+            iterations?: number
+            metadata?: {
+              [key: string]: string | undefined
+            }
+            on_behalf_of?: string
+            proration_behavior?: "always_invoice" | "create_prorations" | "none"
+            start_date?: number | "now"
+            transfer_data?: {
+              amount_percent?: number
+              destination: string
+            }
+            trial?: boolean
+            trial_end?: number | "now"
+          }[]
+          proration_behavior?: "always_invoice" | "create_prorations" | "none"
+        }
+        subscription?: string
+        subscription_details?: {
+          billing_cycle_anchor?: "now" | "unchanged" | number
+          cancel_at?: number | ""
+          cancel_at_period_end?: boolean
+          cancel_now?: boolean
+          default_tax_rates?: string[] | ""
+          items?: {
+            billing_thresholds?:
+              | {
+                  usage_gte: number
+                }
+              | ""
+            clear_usage?: boolean
+            deleted?: boolean
+            discounts?:
+              | {
+                  coupon?: string
+                  discount?: string
+                  promotion_code?: string
+                }[]
+              | ""
+            id?: string
+            metadata?:
+              | {
+                  [key: string]: string | undefined
+                }
+              | ""
+            price?: string
+            price_data?: {
+              currency: string
+              product: string
+              recurring: {
+                interval: "day" | "month" | "week" | "year"
+                interval_count?: number
+              }
+              tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+              unit_amount?: number
+              unit_amount_decimal?: string
+            }
+            quantity?: number
+            tax_rates?: string[] | ""
+          }[]
+          proration_behavior?: "always_invoice" | "create_prorations" | "none"
+          proration_date?: number
+          resume_at?: "now"
+          start_date?: number
+          trial_end?: "now" | number
+        }
+      }
+    } = {},
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_invoice>> {
+    const url = `/v1/invoices/create_preview`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "POST",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
   async getInvoicesSearch(
     p: {
       expand?: string[]
@@ -11045,6 +11656,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "au_abn"
             | "au_arn"
             | "bg_uic"
+            | "bh_vat"
             | "bo_tin"
             | "br_cnpj"
             | "br_cpf"
@@ -11078,14 +11690,17 @@ export class ApiClient extends AbstractAxiosClient {
             | "jp_trn"
             | "ke_pin"
             | "kr_brn"
+            | "kz_bin"
             | "li_uid"
             | "mx_rfc"
             | "my_frp"
             | "my_itn"
             | "my_sst"
+            | "ng_tin"
             | "no_vat"
             | "no_voec"
             | "nz_gst"
+            | "om_vat"
             | "pe_ruc"
             | "ph_tin"
             | "ro_tin"
@@ -11160,12 +11775,163 @@ export class ApiClient extends AbstractAxiosClient {
       }
       onBehalfOf?: string | ""
       schedule?: string
+      scheduleDetails?: {
+        end_behavior?: "cancel" | "release"
+        phases?: {
+          add_invoice_items?: {
+            discounts?: {
+              coupon?: string
+              discount?: string
+              promotion_code?: string
+            }[]
+            price?: string
+            price_data?: {
+              currency: string
+              product: string
+              tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+              unit_amount?: number
+              unit_amount_decimal?: string
+            }
+            quantity?: number
+            tax_rates?: string[] | ""
+          }[]
+          application_fee_percent?: number
+          automatic_tax?: {
+            enabled: boolean
+            liability?: {
+              account?: string
+              type: "account" | "self"
+            }
+          }
+          billing_cycle_anchor?: "automatic" | "phase_start"
+          billing_thresholds?:
+            | {
+                amount_gte?: number
+                reset_billing_cycle_anchor?: boolean
+              }
+            | ""
+          collection_method?: "charge_automatically" | "send_invoice"
+          coupon?: string
+          default_payment_method?: string
+          default_tax_rates?: string[] | ""
+          description?: string | ""
+          discounts?:
+            | {
+                coupon?: string
+                discount?: string
+                promotion_code?: string
+              }[]
+            | ""
+          end_date?: number | "now"
+          invoice_settings?: {
+            account_tax_ids?: string[] | ""
+            days_until_due?: number
+            issuer?: {
+              account?: string
+              type: "account" | "self"
+            }
+          }
+          items: {
+            billing_thresholds?:
+              | {
+                  usage_gte: number
+                }
+              | ""
+            discounts?:
+              | {
+                  coupon?: string
+                  discount?: string
+                  promotion_code?: string
+                }[]
+              | ""
+            metadata?: {
+              [key: string]: string | undefined
+            }
+            price?: string
+            price_data?: {
+              currency: string
+              product: string
+              recurring: {
+                interval: "day" | "month" | "week" | "year"
+                interval_count?: number
+              }
+              tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+              unit_amount?: number
+              unit_amount_decimal?: string
+            }
+            quantity?: number
+            tax_rates?: string[] | ""
+          }[]
+          iterations?: number
+          metadata?: {
+            [key: string]: string | undefined
+          }
+          on_behalf_of?: string
+          proration_behavior?: "always_invoice" | "create_prorations" | "none"
+          start_date?: number | "now"
+          transfer_data?: {
+            amount_percent?: number
+            destination: string
+          }
+          trial?: boolean
+          trial_end?: number | "now"
+        }[]
+        proration_behavior?: "always_invoice" | "create_prorations" | "none"
+      }
       subscription?: string
       subscriptionBillingCycleAnchor?: "now" | "unchanged" | number
       subscriptionCancelAt?: number | ""
       subscriptionCancelAtPeriodEnd?: boolean
       subscriptionCancelNow?: boolean
       subscriptionDefaultTaxRates?: string[] | ""
+      subscriptionDetails?: {
+        billing_cycle_anchor?: "now" | "unchanged" | number
+        cancel_at?: number | ""
+        cancel_at_period_end?: boolean
+        cancel_now?: boolean
+        default_tax_rates?: string[] | ""
+        items?: {
+          billing_thresholds?:
+            | {
+                usage_gte: number
+              }
+            | ""
+          clear_usage?: boolean
+          deleted?: boolean
+          discounts?:
+            | {
+                coupon?: string
+                discount?: string
+                promotion_code?: string
+              }[]
+            | ""
+          id?: string
+          metadata?:
+            | {
+                [key: string]: string | undefined
+              }
+            | ""
+          price?: string
+          price_data?: {
+            currency: string
+            product: string
+            recurring: {
+              interval: "day" | "month" | "week" | "year"
+              interval_count?: number
+            }
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+            unit_amount?: number
+            unit_amount_decimal?: string
+          }
+          quantity?: number
+          tax_rates?: string[] | ""
+        }[]
+        proration_behavior?: "always_invoice" | "create_prorations" | "none"
+        proration_date?: number
+        resume_at?: "now"
+        start_date?: number
+        trial_end?: "now" | number
+      }
       subscriptionItems?: {
         billing_thresholds?:
           | {
@@ -11210,7 +11976,6 @@ export class ApiClient extends AbstractAxiosClient {
       subscriptionResumeAt?: "now"
       subscriptionStartDate?: number
       subscriptionTrialEnd?: "now" | number
-      subscriptionTrialFromPlan?: boolean
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
@@ -11232,19 +11997,20 @@ export class ApiClient extends AbstractAxiosClient {
       issuer: p["issuer"],
       on_behalf_of: p["onBehalfOf"],
       schedule: p["schedule"],
+      schedule_details: p["scheduleDetails"],
       subscription: p["subscription"],
       subscription_billing_cycle_anchor: p["subscriptionBillingCycleAnchor"],
       subscription_cancel_at: p["subscriptionCancelAt"],
       subscription_cancel_at_period_end: p["subscriptionCancelAtPeriodEnd"],
       subscription_cancel_now: p["subscriptionCancelNow"],
       subscription_default_tax_rates: p["subscriptionDefaultTaxRates"],
+      subscription_details: p["subscriptionDetails"],
       subscription_items: p["subscriptionItems"],
       subscription_proration_behavior: p["subscriptionProrationBehavior"],
       subscription_proration_date: p["subscriptionProrationDate"],
       subscription_resume_at: p["subscriptionResumeAt"],
       subscription_start_date: p["subscriptionStartDate"],
       subscription_trial_end: p["subscriptionTrialEnd"],
-      subscription_trial_from_plan: p["subscriptionTrialFromPlan"],
     })
     const body = JSON.stringify(p.requestBody)
 
@@ -11308,6 +12074,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "au_abn"
             | "au_arn"
             | "bg_uic"
+            | "bh_vat"
             | "bo_tin"
             | "br_cnpj"
             | "br_cpf"
@@ -11341,14 +12108,17 @@ export class ApiClient extends AbstractAxiosClient {
             | "jp_trn"
             | "ke_pin"
             | "kr_brn"
+            | "kz_bin"
             | "li_uid"
             | "mx_rfc"
             | "my_frp"
             | "my_itn"
             | "my_sst"
+            | "ng_tin"
             | "no_vat"
             | "no_voec"
             | "nz_gst"
+            | "om_vat"
             | "pe_ruc"
             | "ph_tin"
             | "ro_tin"
@@ -11425,6 +12195,109 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       onBehalfOf?: string | ""
       schedule?: string
+      scheduleDetails?: {
+        end_behavior?: "cancel" | "release"
+        phases?: {
+          add_invoice_items?: {
+            discounts?: {
+              coupon?: string
+              discount?: string
+              promotion_code?: string
+            }[]
+            price?: string
+            price_data?: {
+              currency: string
+              product: string
+              tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+              unit_amount?: number
+              unit_amount_decimal?: string
+            }
+            quantity?: number
+            tax_rates?: string[] | ""
+          }[]
+          application_fee_percent?: number
+          automatic_tax?: {
+            enabled: boolean
+            liability?: {
+              account?: string
+              type: "account" | "self"
+            }
+          }
+          billing_cycle_anchor?: "automatic" | "phase_start"
+          billing_thresholds?:
+            | {
+                amount_gte?: number
+                reset_billing_cycle_anchor?: boolean
+              }
+            | ""
+          collection_method?: "charge_automatically" | "send_invoice"
+          coupon?: string
+          default_payment_method?: string
+          default_tax_rates?: string[] | ""
+          description?: string | ""
+          discounts?:
+            | {
+                coupon?: string
+                discount?: string
+                promotion_code?: string
+              }[]
+            | ""
+          end_date?: number | "now"
+          invoice_settings?: {
+            account_tax_ids?: string[] | ""
+            days_until_due?: number
+            issuer?: {
+              account?: string
+              type: "account" | "self"
+            }
+          }
+          items: {
+            billing_thresholds?:
+              | {
+                  usage_gte: number
+                }
+              | ""
+            discounts?:
+              | {
+                  coupon?: string
+                  discount?: string
+                  promotion_code?: string
+                }[]
+              | ""
+            metadata?: {
+              [key: string]: string | undefined
+            }
+            price?: string
+            price_data?: {
+              currency: string
+              product: string
+              recurring: {
+                interval: "day" | "month" | "week" | "year"
+                interval_count?: number
+              }
+              tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+              unit_amount?: number
+              unit_amount_decimal?: string
+            }
+            quantity?: number
+            tax_rates?: string[] | ""
+          }[]
+          iterations?: number
+          metadata?: {
+            [key: string]: string | undefined
+          }
+          on_behalf_of?: string
+          proration_behavior?: "always_invoice" | "create_prorations" | "none"
+          start_date?: number | "now"
+          transfer_data?: {
+            amount_percent?: number
+            destination: string
+          }
+          trial?: boolean
+          trial_end?: number | "now"
+        }[]
+        proration_behavior?: "always_invoice" | "create_prorations" | "none"
+      }
       startingAfter?: string
       subscription?: string
       subscriptionBillingCycleAnchor?: "now" | "unchanged" | number
@@ -11432,6 +12305,54 @@ export class ApiClient extends AbstractAxiosClient {
       subscriptionCancelAtPeriodEnd?: boolean
       subscriptionCancelNow?: boolean
       subscriptionDefaultTaxRates?: string[] | ""
+      subscriptionDetails?: {
+        billing_cycle_anchor?: "now" | "unchanged" | number
+        cancel_at?: number | ""
+        cancel_at_period_end?: boolean
+        cancel_now?: boolean
+        default_tax_rates?: string[] | ""
+        items?: {
+          billing_thresholds?:
+            | {
+                usage_gte: number
+              }
+            | ""
+          clear_usage?: boolean
+          deleted?: boolean
+          discounts?:
+            | {
+                coupon?: string
+                discount?: string
+                promotion_code?: string
+              }[]
+            | ""
+          id?: string
+          metadata?:
+            | {
+                [key: string]: string | undefined
+              }
+            | ""
+          price?: string
+          price_data?: {
+            currency: string
+            product: string
+            recurring: {
+              interval: "day" | "month" | "week" | "year"
+              interval_count?: number
+            }
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+            unit_amount?: number
+            unit_amount_decimal?: string
+          }
+          quantity?: number
+          tax_rates?: string[] | ""
+        }[]
+        proration_behavior?: "always_invoice" | "create_prorations" | "none"
+        proration_date?: number
+        resume_at?: "now"
+        start_date?: number
+        trial_end?: "now" | number
+      }
       subscriptionItems?: {
         billing_thresholds?:
           | {
@@ -11476,7 +12397,6 @@ export class ApiClient extends AbstractAxiosClient {
       subscriptionResumeAt?: "now"
       subscriptionStartDate?: number
       subscriptionTrialEnd?: "now" | number
-      subscriptionTrialFromPlan?: boolean
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
@@ -11507,6 +12427,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit: p["limit"],
       on_behalf_of: p["onBehalfOf"],
       schedule: p["schedule"],
+      schedule_details: p["scheduleDetails"],
       starting_after: p["startingAfter"],
       subscription: p["subscription"],
       subscription_billing_cycle_anchor: p["subscriptionBillingCycleAnchor"],
@@ -11514,13 +12435,13 @@ export class ApiClient extends AbstractAxiosClient {
       subscription_cancel_at_period_end: p["subscriptionCancelAtPeriodEnd"],
       subscription_cancel_now: p["subscriptionCancelNow"],
       subscription_default_tax_rates: p["subscriptionDefaultTaxRates"],
+      subscription_details: p["subscriptionDetails"],
       subscription_items: p["subscriptionItems"],
       subscription_proration_behavior: p["subscriptionProrationBehavior"],
       subscription_proration_date: p["subscriptionProrationDate"],
       subscription_resume_at: p["subscriptionResumeAt"],
       subscription_start_date: p["subscriptionStartDate"],
       subscription_trial_end: p["subscriptionTrialEnd"],
-      subscription_trial_from_plan: p["subscriptionTrialFromPlan"],
     })
     const body = JSON.stringify(p.requestBody)
 
@@ -11691,7 +12612,7 @@ export class ApiClient extends AbstractAxiosClient {
                       | "payment_method"
                       | "transactions"
                     )[]
-                    prefetch?: ("balances" | "transactions")[]
+                    prefetch?: ("balances" | "ownership" | "transactions")[]
                   }
                   verification_method?:
                     | "automatic"
@@ -17581,6 +18502,8 @@ export class ApiClient extends AbstractAxiosClient {
           affirm?: EmptyObject
           afterpay_clearpay?: EmptyObject
           alipay?: EmptyObject
+          allow_redisplay?: "always" | "limited" | "unspecified"
+          amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -17752,6 +18675,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "affirm"
             | "afterpay_clearpay"
             | "alipay"
+            | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
             | "bancontact"
@@ -17820,6 +18744,12 @@ export class ApiClient extends AbstractAxiosClient {
             | ""
           alipay?:
             | {
+                setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
+          amazon_pay?:
+            | {
+                capture_method?: "" | "manual"
                 setup_future_usage?: "" | "none" | "off_session"
               }
             | ""
@@ -18117,6 +19047,7 @@ export class ApiClient extends AbstractAxiosClient {
             | ""
           revolut_pay?:
             | {
+                capture_method?: "" | "manual"
                 setup_future_usage?: "" | "none" | "off_session"
               }
             | ""
@@ -18155,7 +19086,7 @@ export class ApiClient extends AbstractAxiosClient {
                     | "payment_method"
                     | "transactions"
                   )[]
-                  prefetch?: ("balances" | "transactions")[]
+                  prefetch?: ("balances" | "ownership" | "transactions")[]
                   return_url?: string
                 }
                 mandate_options?: {
@@ -18334,6 +19265,8 @@ export class ApiClient extends AbstractAxiosClient {
           affirm?: EmptyObject
           afterpay_clearpay?: EmptyObject
           alipay?: EmptyObject
+          allow_redisplay?: "always" | "limited" | "unspecified"
+          amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -18505,6 +19438,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "affirm"
             | "afterpay_clearpay"
             | "alipay"
+            | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
             | "bancontact"
@@ -18573,6 +19507,12 @@ export class ApiClient extends AbstractAxiosClient {
             | ""
           alipay?:
             | {
+                setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
+          amazon_pay?:
+            | {
+                capture_method?: "" | "manual"
                 setup_future_usage?: "" | "none" | "off_session"
               }
             | ""
@@ -18870,6 +19810,7 @@ export class ApiClient extends AbstractAxiosClient {
             | ""
           revolut_pay?:
             | {
+                capture_method?: "" | "manual"
                 setup_future_usage?: "" | "none" | "off_session"
               }
             | ""
@@ -18908,7 +19849,7 @@ export class ApiClient extends AbstractAxiosClient {
                     | "payment_method"
                     | "transactions"
                   )[]
-                  prefetch?: ("balances" | "transactions")[]
+                  prefetch?: ("balances" | "ownership" | "transactions")[]
                   return_url?: string
                 }
                 mandate_options?: {
@@ -19126,6 +20067,8 @@ export class ApiClient extends AbstractAxiosClient {
           affirm?: EmptyObject
           afterpay_clearpay?: EmptyObject
           alipay?: EmptyObject
+          allow_redisplay?: "always" | "limited" | "unspecified"
+          amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -19297,6 +20240,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "affirm"
             | "afterpay_clearpay"
             | "alipay"
+            | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
             | "bancontact"
@@ -19365,6 +20309,12 @@ export class ApiClient extends AbstractAxiosClient {
             | ""
           alipay?:
             | {
+                setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
+          amazon_pay?:
+            | {
+                capture_method?: "" | "manual"
                 setup_future_usage?: "" | "none" | "off_session"
               }
             | ""
@@ -19662,6 +20612,7 @@ export class ApiClient extends AbstractAxiosClient {
             | ""
           revolut_pay?:
             | {
+                capture_method?: "" | "manual"
                 setup_future_usage?: "" | "none" | "off_session"
               }
             | ""
@@ -19700,7 +20651,7 @@ export class ApiClient extends AbstractAxiosClient {
                     | "payment_method"
                     | "transactions"
                   )[]
-                  prefetch?: ("balances" | "transactions")[]
+                  prefetch?: ("balances" | "ownership" | "transactions")[]
                   return_url?: string
                 }
                 mandate_options?: {
@@ -20874,7 +21825,10 @@ export class ApiClient extends AbstractAxiosClient {
   async getPaymentMethodConfigurations(
     p: {
       application?: string | ""
+      endingBefore?: string
       expand?: string[]
+      limit?: number
+      startingAfter?: string
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
@@ -20893,7 +21847,10 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const query = this._query({
       application: p["application"],
+      ending_before: p["endingBefore"],
       expand: p["expand"],
+      limit: p["limit"],
+      starting_after: p["startingAfter"],
     })
     const body = JSON.stringify(p.requestBody)
 
@@ -20927,6 +21884,11 @@ export class ApiClient extends AbstractAxiosClient {
           }
         }
         alipay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        amazon_pay?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
           }
@@ -21079,6 +22041,11 @@ export class ApiClient extends AbstractAxiosClient {
             preference?: "none" | "off" | "on"
           }
         }
+        swish?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
         us_bank_account?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
@@ -21164,6 +22131,11 @@ export class ApiClient extends AbstractAxiosClient {
           }
         }
         alipay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        amazon_pay?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
           }
@@ -21311,6 +22283,11 @@ export class ApiClient extends AbstractAxiosClient {
           }
         }
         sofort?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        swish?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
           }
@@ -21519,6 +22496,7 @@ export class ApiClient extends AbstractAxiosClient {
         | "affirm"
         | "afterpay_clearpay"
         | "alipay"
+        | "amazon_pay"
         | "au_becs_debit"
         | "bacs_debit"
         | "bancontact"
@@ -21597,6 +22575,8 @@ export class ApiClient extends AbstractAxiosClient {
         affirm?: EmptyObject
         afterpay_clearpay?: EmptyObject
         alipay?: EmptyObject
+        allow_redisplay?: "always" | "limited" | "unspecified"
+        amazon_pay?: EmptyObject
         au_becs_debit?: {
           account_number: string
           bsb_number: string
@@ -21784,6 +22764,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "affirm"
           | "afterpay_clearpay"
           | "alipay"
+          | "amazon_pay"
           | "au_becs_debit"
           | "bacs_debit"
           | "bancontact"
@@ -21876,6 +22857,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       paymentMethod: string
       requestBody?: {
+        allow_redisplay?: "always" | "limited" | "unspecified"
         billing_details?: {
           address?:
             | {
@@ -22802,11 +23784,11 @@ export class ApiClient extends AbstractAxiosClient {
         }
         description?: string
         expand?: string[]
-        features?: {
-          name: string
-        }[]
         id?: string
         images?: string[]
+        marketing_features?: {
+          name: string
+        }[]
         metadata?: {
           [key: string]: string | undefined
         }
@@ -22947,12 +23929,12 @@ export class ApiClient extends AbstractAxiosClient {
         default_price?: string
         description?: string | ""
         expand?: string[]
-        features?:
+        images?: string[] | ""
+        marketing_features?:
           | {
               name: string
             }[]
           | ""
-        images?: string[] | ""
         metadata?:
           | {
               [key: string]: string | undefined
@@ -22987,6 +23969,130 @@ export class ApiClient extends AbstractAxiosClient {
       url: url,
       baseURL: this.basePath,
       method: "POST",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async getProductsProductFeatures(
+    p: {
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      product: string
+      startingAfter?: string
+      requestBody?: EmptyObject
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<
+    AxiosResponse<{
+      data: t_product_feature[]
+      has_more: boolean
+      object: "list"
+      url: string
+    }>
+  > {
+    const url = `/v1/products/${p["product"]}/features`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const query = this._query({
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      starting_after: p["startingAfter"],
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url + query,
+      baseURL: this.basePath,
+      method: "GET",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async postProductsProductFeatures(
+    p: {
+      product: string
+      requestBody: {
+        entitlement_feature: string
+        expand?: string[]
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_product_feature>> {
+    const url = `/v1/products/${p["product"]}/features`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "POST",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async deleteProductsProductFeaturesId(
+    p: {
+      id: string
+      product: string
+      requestBody?: EmptyObject
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_deleted_product_feature>> {
+    const url = `/v1/products/${p["product"]}/features/${p["id"]}`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "DELETE",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async getProductsProductFeaturesId(
+    p: {
+      expand?: string[]
+      id: string
+      product: string
+      requestBody?: EmptyObject
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_product_feature>> {
+    const url = `/v1/products/${p["product"]}/features/${p["id"]}`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const query = this._query({ expand: p["expand"] })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url + query,
+      baseURL: this.basePath,
+      method: "GET",
       headers,
       data: body,
       ...(timeout ? { timeout } : {}),
@@ -25277,6 +26383,8 @@ export class ApiClient extends AbstractAxiosClient {
           affirm?: EmptyObject
           afterpay_clearpay?: EmptyObject
           alipay?: EmptyObject
+          allow_redisplay?: "always" | "limited" | "unspecified"
+          amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -25448,6 +26556,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "affirm"
             | "afterpay_clearpay"
             | "alipay"
+            | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
             | "bancontact"
@@ -25499,6 +26608,7 @@ export class ApiClient extends AbstractAxiosClient {
             }
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
+          amazon_pay?: EmptyObject
           card?: {
             mandate_options?: {
               amount: number
@@ -25557,7 +26667,7 @@ export class ApiClient extends AbstractAxiosClient {
                 | "payment_method"
                 | "transactions"
               )[]
-              prefetch?: ("balances" | "transactions")[]
+              prefetch?: ("balances" | "ownership" | "transactions")[]
               return_url?: string
             }
             mandate_options?: {
@@ -25655,6 +26765,8 @@ export class ApiClient extends AbstractAxiosClient {
           affirm?: EmptyObject
           afterpay_clearpay?: EmptyObject
           alipay?: EmptyObject
+          allow_redisplay?: "always" | "limited" | "unspecified"
+          amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -25826,6 +26938,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "affirm"
             | "afterpay_clearpay"
             | "alipay"
+            | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
             | "bancontact"
@@ -25877,6 +26990,7 @@ export class ApiClient extends AbstractAxiosClient {
             }
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
+          amazon_pay?: EmptyObject
           card?: {
             mandate_options?: {
               amount: number
@@ -25935,7 +27049,7 @@ export class ApiClient extends AbstractAxiosClient {
                 | "payment_method"
                 | "transactions"
               )[]
-              prefetch?: ("balances" | "transactions")[]
+              prefetch?: ("balances" | "ownership" | "transactions")[]
               return_url?: string
             }
             mandate_options?: {
@@ -26040,6 +27154,8 @@ export class ApiClient extends AbstractAxiosClient {
           affirm?: EmptyObject
           afterpay_clearpay?: EmptyObject
           alipay?: EmptyObject
+          allow_redisplay?: "always" | "limited" | "unspecified"
+          amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -26211,6 +27327,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "affirm"
             | "afterpay_clearpay"
             | "alipay"
+            | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
             | "bancontact"
@@ -26262,6 +27379,7 @@ export class ApiClient extends AbstractAxiosClient {
             }
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
+          amazon_pay?: EmptyObject
           card?: {
             mandate_options?: {
               amount: number
@@ -26320,7 +27438,7 @@ export class ApiClient extends AbstractAxiosClient {
                 | "payment_method"
                 | "transactions"
               )[]
-              prefetch?: ("balances" | "transactions")[]
+              prefetch?: ("balances" | "ownership" | "transactions")[]
               return_url?: string
             }
             mandate_options?: {
@@ -28062,7 +29180,7 @@ export class ApiClient extends AbstractAxiosClient {
                       | "payment_method"
                       | "transactions"
                     )[]
-                    prefetch?: ("balances" | "transactions")[]
+                    prefetch?: ("balances" | "ownership" | "transactions")[]
                   }
                   verification_method?:
                     | "automatic"
@@ -28445,7 +29563,7 @@ export class ApiClient extends AbstractAxiosClient {
                       | "payment_method"
                       | "transactions"
                     )[]
-                    prefetch?: ("balances" | "transactions")[]
+                    prefetch?: ("balances" | "ownership" | "transactions")[]
                   }
                   verification_method?:
                     | "automatic"
@@ -28608,6 +29726,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "au_abn"
               | "au_arn"
               | "bg_uic"
+              | "bh_vat"
               | "bo_tin"
               | "br_cnpj"
               | "br_cpf"
@@ -28641,14 +29760,17 @@ export class ApiClient extends AbstractAxiosClient {
               | "jp_trn"
               | "ke_pin"
               | "kr_brn"
+              | "kz_bin"
               | "li_uid"
               | "mx_rfc"
               | "my_frp"
               | "my_itn"
               | "my_sst"
+              | "ng_tin"
               | "no_vat"
               | "no_voec"
               | "nz_gst"
+              | "om_vat"
               | "pe_ruc"
               | "ph_tin"
               | "ro_tin"
@@ -29469,6 +30591,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "au_abn"
           | "au_arn"
           | "bg_uic"
+          | "bh_vat"
           | "bo_tin"
           | "br_cnpj"
           | "br_cpf"
@@ -29502,14 +30625,17 @@ export class ApiClient extends AbstractAxiosClient {
           | "jp_trn"
           | "ke_pin"
           | "kr_brn"
+          | "kz_bin"
           | "li_uid"
           | "mx_rfc"
           | "my_frp"
           | "my_itn"
           | "my_sst"
+          | "ng_tin"
           | "no_vat"
           | "no_voec"
           | "nz_gst"
+          | "om_vat"
           | "pe_ruc"
           | "ph_tin"
           | "ro_tin"
@@ -30677,6 +31803,8 @@ export class ApiClient extends AbstractAxiosClient {
           affirm?: EmptyObject
           afterpay_clearpay?: EmptyObject
           alipay?: EmptyObject
+          allow_redisplay?: "always" | "limited" | "unspecified"
+          amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -30848,6 +31976,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "affirm"
             | "afterpay_clearpay"
             | "alipay"
+            | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
             | "bancontact"
@@ -31351,7 +32480,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "unleaded_plus"
               | "unleaded_regular"
               | "unleaded_super"
-            unit?: "liter" | "us_gallon"
+            unit?: "liter" | "other" | "us_gallon"
             unit_cost_decimal?: string
             volume_decimal?: string
           }
@@ -32017,7 +33146,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "unleaded_plus"
               | "unleaded_regular"
               | "unleaded_super"
-            unit?: "liter" | "us_gallon"
+            unit?: "liter" | "other" | "us_gallon"
             unit_cost_decimal?: string
             volume_decimal?: string
           }
@@ -32389,7 +33518,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "unleaded_plus"
               | "unleaded_regular"
               | "unleaded_super"
-            unit?: "liter" | "us_gallon"
+            unit?: "liter" | "other" | "us_gallon"
             unit_cost_decimal?: string
             volume_decimal?: string
           }
@@ -35392,6 +36521,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "customer.tax_id.updated"
           | "customer.updated"
           | "customer_cash_balance_transaction.created"
+          | "entitlements.active_entitlement_summary.updated"
           | "file.created"
           | "financial_connections.account.created"
           | "financial_connections.account.deactivated"
@@ -35708,6 +36838,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "customer.tax_id.updated"
           | "customer.updated"
           | "customer_cash_balance_transaction.created"
+          | "entitlements.active_entitlement_summary.updated"
           | "file.created"
           | "financial_connections.account.created"
           | "financial_connections.account.deactivated"

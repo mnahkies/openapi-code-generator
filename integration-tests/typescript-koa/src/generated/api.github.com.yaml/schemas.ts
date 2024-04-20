@@ -2307,10 +2307,10 @@ export const s_repository_rule_update = z.object({
 export const s_repository_ruleset_bypass_actor = z.object({
   actor_id: z.coerce.number(),
   actor_type: z.enum([
-    "RepositoryRole",
-    "Team",
     "Integration",
     "OrganizationAdmin",
+    "RepositoryRole",
+    "Team",
   ]),
   bypass_mode: z.enum(["always", "pull_request"]),
 })
@@ -3340,55 +3340,6 @@ export const s_git_tag = z.object({
   tagger: z.object({ date: z.string(), email: z.string(), name: z.string() }),
   object: z.object({ sha: z.string(), type: z.string(), url: z.string() }),
   verification: s_verification.optional(),
-})
-
-export const s_global_advisory = z.object({
-  ghsa_id: z.string(),
-  cve_id: z.string().nullable(),
-  url: z.string(),
-  html_url: z.string(),
-  repository_advisory_url: z.string().nullable(),
-  summary: z.string().max(1024),
-  description: z.string().max(65535).nullable(),
-  type: z.enum(["reviewed", "unreviewed", "malware"]),
-  severity: z.enum(["critical", "high", "medium", "low", "unknown"]),
-  source_code_location: z.string().nullable(),
-  identifiers: z
-    .array(z.object({ type: z.enum(["CVE", "GHSA"]), value: z.string() }))
-    .nullable(),
-  references: z.array(z.string()).nullable(),
-  published_at: z.string().datetime({ offset: true }),
-  updated_at: z.string().datetime({ offset: true }),
-  github_reviewed_at: z.string().datetime({ offset: true }).nullable(),
-  nvd_published_at: z.string().datetime({ offset: true }).nullable(),
-  withdrawn_at: z.string().datetime({ offset: true }).nullable(),
-  vulnerabilities: z
-    .array(
-      z.object({
-        package: z
-          .object({
-            ecosystem: s_security_advisory_ecosystems,
-            name: z.string().nullable(),
-          })
-          .nullable(),
-        vulnerable_version_range: z.string().nullable(),
-        first_patched_version: z.string().nullable(),
-        vulnerable_functions: z.array(z.string()).nullable(),
-      }),
-    )
-    .nullable(),
-  cvss: z
-    .object({
-      vector_string: z.string().nullable(),
-      score: z.coerce.number().min(0).max(10).nullable(),
-    })
-    .nullable(),
-  cwes: z.array(z.object({ cwe_id: z.string(), name: z.string() })).nullable(),
-  credits: z
-    .array(
-      z.object({ user: s_simple_user, type: s_security_advisory_credit_types }),
-    )
-    .nullable(),
 })
 
 export const s_installation = z.object({
@@ -5059,6 +5010,18 @@ export const s_view_traffic = z.object({
   views: z.array(s_traffic),
 })
 
+export const s_vulnerability = z.object({
+  package: z
+    .object({
+      ecosystem: s_security_advisory_ecosystems,
+      name: z.string().nullable(),
+    })
+    .nullable(),
+  vulnerable_version_range: z.string().nullable(),
+  first_patched_version: z.string().nullable(),
+  vulnerable_functions: z.array(z.string()).nullable(),
+})
+
 export const s_webhook_config = z.object({
   url: s_webhook_config_url.optional(),
   content_type: s_webhook_config_content_type.optional(),
@@ -5800,6 +5763,41 @@ export const s_gist_simple = z.object({
   comments_url: z.string().optional(),
   owner: s_simple_user.optional(),
   truncated: PermissiveBoolean.optional(),
+})
+
+export const s_global_advisory = z.object({
+  ghsa_id: z.string(),
+  cve_id: z.string().nullable(),
+  url: z.string(),
+  html_url: z.string(),
+  repository_advisory_url: z.string().nullable(),
+  summary: z.string().max(1024),
+  description: z.string().max(65535).nullable(),
+  type: z.enum(["reviewed", "unreviewed", "malware"]),
+  severity: z.enum(["critical", "high", "medium", "low", "unknown"]),
+  source_code_location: z.string().nullable(),
+  identifiers: z
+    .array(z.object({ type: z.enum(["CVE", "GHSA"]), value: z.string() }))
+    .nullable(),
+  references: z.array(z.string()).nullable(),
+  published_at: z.string().datetime({ offset: true }),
+  updated_at: z.string().datetime({ offset: true }),
+  github_reviewed_at: z.string().datetime({ offset: true }).nullable(),
+  nvd_published_at: z.string().datetime({ offset: true }).nullable(),
+  withdrawn_at: z.string().datetime({ offset: true }).nullable(),
+  vulnerabilities: z.array(s_vulnerability).nullable(),
+  cvss: z
+    .object({
+      vector_string: z.string().nullable(),
+      score: z.coerce.number().min(0).max(10).nullable(),
+    })
+    .nullable(),
+  cwes: z.array(z.object({ cwe_id: z.string(), name: z.string() })).nullable(),
+  credits: z
+    .array(
+      z.object({ user: s_simple_user, type: s_security_advisory_credit_types }),
+    )
+    .nullable(),
 })
 
 export const s_hook = z.object({

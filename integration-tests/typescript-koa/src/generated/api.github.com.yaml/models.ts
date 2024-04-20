@@ -2328,17 +2328,7 @@ export type t_global_advisory = {
   readonly type: "reviewed" | "unreviewed" | "malware"
   readonly updated_at: string
   readonly url: string
-  vulnerabilities:
-    | {
-        first_patched_version: string | null
-        package: {
-          ecosystem: t_security_advisory_ecosystems
-          name: string | null
-        } | null
-        readonly vulnerable_functions: string[] | null
-        vulnerable_version_range: string | null
-      }[]
-    | null
+  vulnerabilities: t_vulnerability[] | null
   readonly withdrawn_at: string | null
 }
 
@@ -5562,7 +5552,7 @@ export type t_repository_ruleset = {
 
 export type t_repository_ruleset_bypass_actor = {
   actor_id: number
-  actor_type: "RepositoryRole" | "Team" | "Integration" | "OrganizationAdmin"
+  actor_type: "Integration" | "OrganizationAdmin" | "RepositoryRole" | "Team"
   bypass_mode: "always" | "pull_request"
 }
 
@@ -6869,6 +6859,16 @@ export type t_view_traffic = {
   count: number
   uniques: number
   views: t_traffic[]
+}
+
+export type t_vulnerability = {
+  first_patched_version: string | null
+  package: {
+    ecosystem: t_security_advisory_ecosystems
+    name: string | null
+  } | null
+  readonly vulnerable_functions: string[] | null
+  vulnerable_version_range: string | null
 }
 
 export type t_wait_timer = number
