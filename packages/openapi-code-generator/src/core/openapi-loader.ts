@@ -138,7 +138,7 @@ export class OpenapiLoader {
 
         // In-line plain text files rather than trying to load as OpenAPI documents.
         if (isTextFile($ref)) {
-          obj[key] = this.loadFileContent(loadedFrom, $ref)
+          obj[key] = loadFile($ref)
         } else {
           await this.loadFile(pathFromRef($ref))
         }
