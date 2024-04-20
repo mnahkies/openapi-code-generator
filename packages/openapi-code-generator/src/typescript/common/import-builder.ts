@@ -76,7 +76,7 @@ export class ImportBuilder {
 
   private add(name: string, from: string, isAll: boolean): void {
     // biome-ignore lint/style/noParameterAssign: <explanation>
-    from = this.normalizeFrom(from)
+    from = ImportBuilder.normalizeFrom(from, this.unit?.filename)
     // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
     const imports = (this.imports[from] =
       this.imports[from] ?? new Set<string>())
@@ -88,14 +88,15 @@ export class ImportBuilder {
     }
   }
 
-  private normalizeFrom(from: string) {
+  public static normalizeFrom(from: string, filename?: string) {
     if (from.endsWith(".ts")) {
       // biome-ignore lint/style/noParameterAssign: <explanation>
       from = from.substring(0, from.length - ".ts".length)
     }
 
-    if (this.unit && from.startsWith("./")) {
-      const unitDirname = path.dirname(this.unit.filename)
+    // TODO: does this work on windows?
+    if (filename && from.startsWith("./")) {
+      const unitDirname = path.dirname(filename)
       const fromDirname = path.dirname(from)
 
       const relative = path.relative(unitDirname, fromDirname)
