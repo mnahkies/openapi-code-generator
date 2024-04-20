@@ -452,6 +452,28 @@ export class ApiClient {
     )
   }
 
+  parOptions(
+    p: {
+      origin?: string
+    } = {},
+  ): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_Error> & { status: 429 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ Origin: p["origin"] })
+
+    return this.httpClient.request<any>(
+      "OPTIONS",
+      this.config.basePath + `/oauth2/v1/par`,
+      {
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   par(p: {
     requestBody: t_ParRequest
   }): Observable<
@@ -495,6 +517,28 @@ export class ApiClient {
       {
         headers,
         body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  tokenOptions(
+    p: {
+      origin?: string
+    } = {},
+  ): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_Error> & { status: 429 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ Origin: p["origin"] })
+
+    return this.httpClient.request<any>(
+      "OPTIONS",
+      this.config.basePath + `/oauth2/v1/token`,
+      {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -774,6 +818,27 @@ export class ApiClient {
     )
   }
 
+  parOptionsCustomAs(p: {
+    authorizationServerId: string
+    origin?: string
+  }): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_Error> & { status: 429 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ Origin: p["origin"] })
+
+    return this.httpClient.request<any>(
+      "OPTIONS",
+      this.config.basePath + `/oauth2/${p["authorizationServerId"]}/v1/par`,
+      {
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   parCustomAs(p: {
     authorizationServerId: string
     requestBody: t_ParRequest
@@ -819,6 +884,27 @@ export class ApiClient {
       {
         headers,
         body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  tokenOptionsCustomAs(p: {
+    authorizationServerId: string
+    origin?: string
+  }): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_Error> & { status: 429 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ Origin: p["origin"] })
+
+    return this.httpClient.request<any>(
+      "OPTIONS",
+      this.config.basePath + `/oauth2/${p["authorizationServerId"]}/v1/token`,
+      {
+        headers,
         observe: "response",
         reportProgress: false,
       },

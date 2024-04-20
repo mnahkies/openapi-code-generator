@@ -349,6 +349,23 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
+  async parOptions(
+    p: {
+      origin?: string
+    } = {},
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<429, t_Error>>> {
+    const url = this.basePath + `/oauth2/v1/par`
+    const headers = this._headers({ Origin: p["origin"] })
+
+    return this._fetch(
+      url,
+      { method: "OPTIONS", headers, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
   async par(
     p: {
       requestBody: t_ParRequest
@@ -396,6 +413,23 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async tokenOptions(
+    p: {
+      origin?: string
+    } = {},
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<429, t_Error>>> {
+    const url = this.basePath + `/oauth2/v1/token`
+    const headers = this._headers({ Origin: p["origin"] })
+
+    return this._fetch(
+      url,
+      { method: "OPTIONS", headers, ...(opts ?? {}) },
       timeout,
     )
   }
@@ -654,6 +688,24 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
+  async parOptionsCustomAs(
+    p: {
+      authorizationServerId: string
+      origin?: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<429, t_Error>>> {
+    const url = this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/par`
+    const headers = this._headers({ Origin: p["origin"] })
+
+    return this._fetch(
+      url,
+      { method: "OPTIONS", headers, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
   async parCustomAs(
     p: {
       authorizationServerId: string
@@ -704,6 +756,24 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async tokenOptionsCustomAs(
+    p: {
+      authorizationServerId: string
+      origin?: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<429, t_Error>>> {
+    const url = this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/token`
+    const headers = this._headers({ Origin: p["origin"] })
+
+    return this._fetch(
+      url,
+      { method: "OPTIONS", headers, ...(opts ?? {}) },
       timeout,
     )
   }
