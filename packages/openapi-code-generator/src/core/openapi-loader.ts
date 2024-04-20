@@ -22,7 +22,7 @@ export class OpenapiLoader {
   private readonly library = new Map<string, any>()
 
   private constructor(
-    private readonly entryPointKey: string,
+    public readonly entryPointKey: string,
     private readonly validator: OpenapiValidator,
   ) {
     this.virtualLibrary.set(generationLib.key, generationLib)
