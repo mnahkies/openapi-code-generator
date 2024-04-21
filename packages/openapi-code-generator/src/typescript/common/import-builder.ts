@@ -5,7 +5,10 @@ export class ImportBuilder {
   private readonly imports: Record<string, Set<string>> = {}
   private readonly importAll: Record<string, string> = {}
 
-  constructor(private readonly unit?: {filename: string}) {}
+  constructor(
+    private readonly unit?: {filename: string},
+    private readonly importAlias?: string,
+  ) {}
 
   from(from: string) {
     return {
@@ -76,7 +79,7 @@ export class ImportBuilder {
 
   private add(name: string, from: string, isAll: boolean): void {
     // biome-ignore lint/style/noParameterAssign: <explanation>
-    from = ImportBuilder.normalizeFrom(from, this.unit?.filename)
+    from = this.normalizeFrom(from, this.unit?.filename)
     // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
     const imports = (this.imports[from] =
       this.imports[from] ?? new Set<string>())
@@ -88,7 +91,7 @@ export class ImportBuilder {
     }
   }
 
-  public static normalizeFrom(from: string, filename?: string) {
+  public normalizeFrom(from: string, filename?: string) {
     if (from.endsWith(".ts")) {
       // biome-ignore lint/style/noParameterAssign: <explanation>
       from = from.substring(0, from.length - ".ts".length)
@@ -96,6 +99,10 @@ export class ImportBuilder {
 
     // TODO: does this work on windows?
     if (filename && from.startsWith("./")) {
+      if (this.importAlias) {
+        return this.importAlias + from.split(path.sep).slice(1).join(path.sep)
+      }
+
       const unitDirname = path.dirname(filename)
       const fromDirname = path.dirname(from)
 
