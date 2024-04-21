@@ -29,6 +29,16 @@ export type t_AmrValue =
 
 export type t_ApplicationType = "browser" | "native" | "service" | "web"
 
+export type t_BackchannelAuthorizeRequest = {
+  binding_message?: string
+  id_token_hint?: string
+  login_hint?: string
+  request?: string
+  request_expiry?: number
+  scope: string
+  [key: string]: unknown | undefined
+}
+
 export type t_BackchannelAuthorizeResponse = {
   auth_req_id?: string
   expires_in?: number
@@ -59,6 +69,11 @@ export type t_Client = {
 }
 
 export type t_CodeChallengeMethod = "S256"
+
+export type t_DeviceAuthorizeRequest = {
+  client_id?: string
+  scope?: string
+}
 
 export type t_DeviceAuthorizeResponse = {
   device_code?: string
@@ -98,6 +113,11 @@ export type t_GrantType =
   | "urn:ietf:params:oauth:grant-type:saml2-bearer"
   | "urn:ietf:params:oauth:grant-type:token-exchange"
   | "urn:openid:params:grant-type:ciba"
+
+export type t_IntrospectionRequest = {
+  token?: string
+  token_type_hint?: t_TokenTypeHintIntrospect
+}
 
 export type t_IntrospectionResponse = {
   active?: boolean
@@ -172,6 +192,26 @@ export type t_OidcMetadata = t_OAuthMetadata & {
   userinfo_endpoint?: string
 }
 
+export type t_ParRequest = {
+  client_id?: string
+  code_challenge?: string
+  code_challenge_method?: string
+  display?: string
+  idp?: string
+  idp_scope?: string
+  login_hint?: string
+  max_age?: number
+  nonce?: string
+  prompt?: string
+  redirect_uri?: string
+  request?: string
+  response_mode?: string
+  response_type?: string
+  scope?: string
+  sessionToken?: string
+  state?: string
+}
+
 export type t_ParResponse = {
   expires_in?: number
   request_uri?: string
@@ -201,6 +241,11 @@ export type t_ResponseTypesSupported =
   | "id_token token"
   | "token"
 
+export type t_RevokeRequest = {
+  token?: string
+  token_type_hint?: t_TokenTypeHintRevoke
+}
+
 export type t_Scope = string
 
 export type t_SigningAlgorithm =
@@ -217,6 +262,10 @@ export type t_SigningAlgorithm =
 export type t_SubjectType = "pairwise" | "public"
 
 export type t_TokenDeliveryMode = "poll"
+
+export type t_TokenRequest = {
+  grant_type?: t_GrantType
+}
 
 export type t_TokenResponse = {
   access_token?: string

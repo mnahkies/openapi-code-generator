@@ -35,6 +35,37 @@ export type t_AppAuthenticatorEnrollment = {
   }
 }
 
+export type t_AppAuthenticatorEnrollmentRequest = {
+  authenticatorId: string
+  device: {
+    clientInstanceBundleId: string
+    clientInstanceDeviceSdkVersion: string
+    clientInstanceKey: t_KeyObject
+    clientInstanceVersion: string
+    deviceAttestation?: {
+      [key: string]: unknown | undefined
+    }
+    displayName: string
+    manufacturer?: string
+    model?: string
+    osVersion: string
+    platform: "ANDROID" | "IOS"
+    secureHardwarePresent?: boolean
+    udid?: string
+  }
+  methods: {
+    push: {
+      apsEnvironment?: "PRODUCTION" | "DEVELOPMENT"
+      keys: {
+        capabilities?: t_AppAuthenticatorMethodCapabilities
+        proofOfPossession: t_KeyObject
+        userVerification?: t_KeyObject
+      }
+      pushToken: string
+    }
+  }
+}
+
 export type t_AppAuthenticatorMethodCapabilities = {
   transactionTypes?: ("LOGIN" | "CIBA")[]
 }
@@ -150,6 +181,11 @@ export type t_Profile = {
 export type t_PushNotificationChallenge = {
   challenge?: string
   payloadVersion?: "IDXv1"
+}
+
+export type t_PushNotificationVerification = {
+  challengeResponse?: string
+  method?: "push"
 }
 
 export type t_Schema = {

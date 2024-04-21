@@ -7,6 +7,10 @@ export type t_Error = {
   message?: string
 }
 
+export type t_CreateUpdateTodoList = {
+  name: string
+}
+
 export type t_TodoList = {
   created: string
   id: string

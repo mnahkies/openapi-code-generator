@@ -90,6 +90,11 @@ export type t_actions_secret = {
   updated_at: string
 }
 
+export type t_actions_set_default_workflow_permissions = {
+  can_approve_pull_request_reviews?: t_actions_can_approve_pull_request_reviews
+  default_workflow_permissions?: t_actions_default_workflow_permissions
+}
+
 export type t_actions_variable = {
   created_at: string
   name: string
@@ -915,6 +920,21 @@ export type t_code_scanning_default_setup = {
   updated_at?: string | null
 }
 
+export type t_code_scanning_default_setup_update = {
+  languages?: (
+    | "c-cpp"
+    | "csharp"
+    | "go"
+    | "java-kotlin"
+    | "javascript-typescript"
+    | "python"
+    | "ruby"
+    | "swift"
+  )[]
+  query_suite?: "default" | "extended"
+  state?: "configured" | "not-configured"
+}
+
 export type t_code_scanning_default_setup_update_response = {
   run_id?: number
   run_url?: string
@@ -1728,6 +1748,15 @@ export type t_deployment_branch_policy = {
   id?: number
   name?: string
   node_id?: string
+  type?: "branch" | "tag"
+}
+
+export type t_deployment_branch_policy_name_pattern = {
+  name: string
+}
+
+export type t_deployment_branch_policy_name_pattern_with_type = {
+  name: string
   type?: "branch" | "tag"
 }
 
@@ -2569,6 +2598,11 @@ export type t_interaction_group =
   | "existing_users"
   | "contributors_only"
   | "collaborators_only"
+
+export type t_interaction_limit = {
+  expiry?: t_interaction_expiry
+  limit: t_interaction_group
+}
 
 export type t_interaction_limit_response = {
   expires_at: string
@@ -4220,6 +4254,26 @@ export type t_private_user = {
   url: string
 }
 
+export type t_private_vulnerability_report_create = {
+  cvss_vector_string?: string | null
+  cwe_ids?: string[] | null
+  description: string
+  severity?: "critical" | "high" | "medium" | "low" | null
+  start_private_fork?: boolean
+  summary: string
+  vulnerabilities?:
+    | {
+        package: {
+          ecosystem: t_security_advisory_ecosystems
+          name?: string | null
+        }
+        patched_versions?: string | null
+        vulnerable_functions?: string[] | null
+        vulnerable_version_range?: string | null
+      }[]
+    | null
+}
+
 export type t_project = {
   body: string | null
   columns_url: string
@@ -5326,10 +5380,62 @@ export type t_repository_advisory = {
   readonly withdrawn_at: string | null
 }
 
+export type t_repository_advisory_create = {
+  credits?:
+    | {
+        login: string
+        type: t_security_advisory_credit_types
+      }[]
+    | null
+  cve_id?: string | null
+  cvss_vector_string?: string | null
+  cwe_ids?: string[] | null
+  description: string
+  severity?: "critical" | "high" | "medium" | "low" | null
+  start_private_fork?: boolean
+  summary: string
+  vulnerabilities: {
+    package: {
+      ecosystem: t_security_advisory_ecosystems
+      name?: string | null
+    }
+    patched_versions?: string | null
+    vulnerable_functions?: string[] | null
+    vulnerable_version_range?: string | null
+  }[]
+}
+
 export type t_repository_advisory_credit = {
   state: "accepted" | "declined" | "pending"
   type: t_security_advisory_credit_types
   user: t_simple_user
+}
+
+export type t_repository_advisory_update = {
+  collaborating_teams?: string[] | null
+  collaborating_users?: string[] | null
+  credits?:
+    | {
+        login: string
+        type: t_security_advisory_credit_types
+      }[]
+    | null
+  cve_id?: string | null
+  cvss_vector_string?: string | null
+  cwe_ids?: string[] | null
+  description?: string
+  severity?: "critical" | "high" | "medium" | "low" | null
+  state?: "published" | "closed" | "draft"
+  summary?: string
+  vulnerabilities?: {
+    package: {
+      ecosystem: t_security_advisory_ecosystems
+      name?: string | null
+    }
+    patched_versions?: string | null
+    vulnerable_functions?: string[] | null
+    vulnerable_version_range?: string | null
+  }[]
 }
 
 export type t_repository_advisory_vulnerability = {
@@ -6162,6 +6268,27 @@ export type t_simple_user = {
   subscriptions_url: string
   type: string
   url: string
+}
+
+export type t_snapshot = {
+  detector: {
+    name: string
+    url: string
+    version: string
+  }
+  job: {
+    correlator: string
+    html_url?: string
+    id: string
+  }
+  manifests?: {
+    [key: string]: t_manifest | undefined
+  }
+  metadata?: t_metadata
+  ref: string
+  scanned: string
+  sha: string
+  version: number
 }
 
 export type t_social_account = {
