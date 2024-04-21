@@ -15,6 +15,8 @@ if [[ "$template" == "typescript-nextjs" ]]; then
   output="integration-tests/$template/src"
 fi
 
+# TODO: pushd to project directory for correct tsconfig.json finding, adjust paths to be relative to project.
+
 node ./packages/openapi-code-generator/dist/index.js \
   --input="$path" \
   --output="$output" \

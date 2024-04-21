@@ -8,13 +8,20 @@ import {
   SyntaxKind,
   VariableDeclarationKind,
 } from "ts-morph"
+import {CompilerOptions} from "../../core/file-loader"
 import {Input} from "../../core/input"
 import {
   IRModelObject,
   IROperation,
   IRParameter,
 } from "../../core/openapi-types-normalized"
-import {HttpMethod, isDefined, isHttpMethod, titleCase} from "../../core/utils"
+import {
+  HttpMethod,
+  isDefined,
+  isHttpMethod,
+  isTruthy,
+  titleCase,
+} from "../../core/utils"
 import {OpenapiGeneratorConfig} from "../../templates.types"
 import {CompilationUnit, ICompilable} from "../common/compilation-units"
 import {ImportBuilder} from "../common/import-builder"
@@ -315,6 +322,7 @@ ${routes.join("\n\n")}
 export class NextJSAppRouterBuilder implements ICompilable {
   constructor(
     public readonly filename: string,
+    private readonly imports: ImportBuilder,
     private readonly companionFilename: string,
     private readonly sourceFile: SourceFile,
   ) {}
@@ -388,7 +396,7 @@ export class NextJSAppRouterBuilder implements ICompilable {
   toCompilationUnit(): CompilationUnit {
     // Reconcile imports - attempt to find an existing one and replace it with correct one
     const imports = this.sourceFile.getImportDeclarations()
-    const from = ImportBuilder.normalizeFrom(
+    const from = this.imports.normalizeFrom(
       "./" + this.companionFilename,
       "./" + this.filename,
     )
@@ -412,11 +420,21 @@ export class NextJSAppRouterBuilder implements ICompilable {
 
     return new CompilationUnit(
       this.filename,
-      new ImportBuilder(),
+      this.imports,
       this.toString(),
       false,
     )
   }
+}
+
+function findImportAlias(dest: string, compilerOptions: CompilerOptions) {
+  const relative = "./" + path.relative(process.cwd(), dest) + "/*"
+
+  const alias = Object.entries(compilerOptions.paths || {}).find(([, paths]) =>
+    paths.includes(relative),
+  )
+
+  return alias ? alias[0].replace("*", "") : undefined
 }
 
 export async function generateTypescriptNextJS(
@@ -424,13 +442,17 @@ export async function generateTypescriptNextJS(
 ): Promise<void> {
   const input = config.input
 
+  const importAlias = findImportAlias(config.dest, config.compilerOptions)
+
   const subDirectory = process.env["OPENAPI_INTEGRATION_TESTS"]
     ? path.basename(config.input.loader.entryPointKey)
     : ""
 
-  const appDirectory = ["./app", subDirectory].filter(isDefined).join(path.sep)
-  const generatedDirectory = ["./generated", subDirectory]
-    .filter(isDefined)
+  const appDirectory = [".", "app", subDirectory]
+    .filter(isTruthy)
+    .join(path.sep)
+  const generatedDirectory = [".", "generated", subDirectory]
+    .filter(isTruthy)
     .join(path.sep)
 
   const rootTypeBuilder = await TypeBuilder.fromInput(
@@ -455,7 +477,7 @@ export async function generateTypescriptNextJS(
           routeToNextJSFilepath(group.name),
         )
 
-        const imports = new ImportBuilder({filename})
+        const imports = new ImportBuilder({filename}, importAlias)
 
         const routerBuilder = new ServerRouterBuilder(
           filename,
@@ -488,6 +510,7 @@ export async function generateTypescriptNextJS(
 
         const nextJSAppRouterBuilder = new NextJSAppRouterBuilder(
           nextJsAppRouterPath,
+          imports,
           filename,
           sourceFile,
         )
@@ -508,7 +531,10 @@ export async function generateTypescriptNextJS(
   const clientOutputPath = [generatedDirectory, "clients", "client.ts"].join(
     path.sep,
   )
-  const clientImportBuilder = new ImportBuilder({filename: clientOutputPath})
+  const clientImportBuilder = new ImportBuilder(
+    {filename: clientOutputPath},
+    importAlias,
+  )
 
   const fetchClientBuilder = new TypescriptFetchClientBuilder(
     clientOutputPath,
