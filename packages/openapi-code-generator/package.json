@@ -24,12 +24,17 @@
     "test": "jest"
   },
   "devDependencies": {
+    "@azure-tools/typespec-autorest": "^0.41.1",
+    "@azure-tools/typespec-azure-core": "^0.41.0",
+    "@azure-tools/typespec-azure-resource-manager": "^0.41.0",
+    "@azure-tools/typespec-client-generator-core": "^0.41.7",
     "@types/js-yaml": "^4.0.9",
     "@types/lodash": "^4.17.0",
     "@typespec/compiler": "^0.55.0",
     "@typespec/http": "^0.55.0",
     "@typespec/openapi": "^0.55.0",
     "@typespec/openapi3": "^0.55.0",
+    "@typespec/rest": "^0.55.0",
     "@typespec/versioning": "^0.55.0",
     "typescript": "~5.3.3"
   },
