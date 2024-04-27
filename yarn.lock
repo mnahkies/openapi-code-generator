@@ -347,6 +347,63 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@azure-tools/typespec-autorest@npm:^0.41.1":
+  version: 0.41.1
+  resolution: "@azure-tools/typespec-autorest@npm:0.41.1"
+  peerDependencies:
+    "@azure-tools/typespec-azure-core": ~0.41.0
+    "@azure-tools/typespec-client-generator-core": ~0.41.1
+    "@typespec/compiler": ~0.55.0
+    "@typespec/http": ~0.55.0
+    "@typespec/openapi": ~0.55.0
+    "@typespec/rest": ~0.55.0
+    "@typespec/versioning": ~0.55.0
+  checksum: 10/7842236302d4459e54316adf9c67e5c53b37fa599c0dcdf0a30f114e9e549fb05b24073a3848f52b785dd2ee88f155b2fbdb01ec583a6c3601b3cfb94b780324
+  languageName: node
+  linkType: hard
+
+"@azure-tools/typespec-azure-core@npm:^0.41.0":
+  version: 0.41.0
+  resolution: "@azure-tools/typespec-azure-core@npm:0.41.0"
+  peerDependencies:
+    "@typespec/compiler": ~0.55.0
+    "@typespec/http": ~0.55.0
+    "@typespec/rest": ~0.55.0
+  checksum: 10/2c796d1fcf4bbdc827ea9a8fe6893433f43492dc245ce4bb8bfdad336f38bceabe71e343577f15b5bc5be4f8ec4a8a1932fad01d11828a4493d366949a26107d
+  languageName: node
+  linkType: hard
+
+"@azure-tools/typespec-azure-resource-manager@npm:^0.41.0":
+  version: 0.41.0
+  resolution: "@azure-tools/typespec-azure-resource-manager@npm:0.41.0"
+  peerDependencies:
+    "@azure-tools/typespec-autorest": ~0.41.0
+    "@azure-tools/typespec-azure-core": ~0.41.0
+    "@typespec/compiler": ~0.55.0
+    "@typespec/http": ~0.55.0
+    "@typespec/openapi": ~0.55.0
+    "@typespec/rest": ~0.55.0
+    "@typespec/versioning": ~0.55.0
+  checksum: 10/fdac34d01661499965b56592af47b9652a3d48ebb5b07cb14dffda22e26aca1db6fb7ff3018b29bf19ed28dfabba1eabee8d5e626225cd3c79b346c9d68115f5
+  languageName: node
+  linkType: hard
+
+"@azure-tools/typespec-client-generator-core@npm:^0.41.7":
+  version: 0.41.7
+  resolution: "@azure-tools/typespec-client-generator-core@npm:0.41.7"
+  dependencies:
+    change-case: "npm:~5.4.4"
+    pluralize: "npm:^8.0.0"
+  peerDependencies:
+    "@azure-tools/typespec-azure-core": ~0.41.0
+    "@typespec/compiler": ~0.55.0
+    "@typespec/http": ~0.55.0
+    "@typespec/rest": ~0.55.0
+    "@typespec/versioning": ~0.55.0
+  checksum: 10/8ca53d270b60b1beedbf242e5c1cbc710f1a6be316b6cedbc37f8e26852a658d46ebedab5ca8088d7ed36ac55c2367785a27b2c6fe1e05eeee9c11f5b4f97285
+  languageName: node
+  linkType: hard
+
 "@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.12.13, @babel/code-frame@npm:^7.23.5, @babel/code-frame@npm:^7.24.1, @babel/code-frame@npm:^7.24.2, @babel/code-frame@npm:~7.24.2":
   version: 7.24.2
   resolution: "@babel/code-frame@npm:7.24.2"
@@ -4559,6 +4616,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@typespec/rest@npm:^0.55.0":
+  version: 0.55.0
+  resolution: "@typespec/rest@npm:0.55.0"
+  peerDependencies:
+    "@typespec/compiler": ~0.55.0
+    "@typespec/http": ~0.55.0
+  checksum: 10/668b7fcb9d1215656bbb5ae077c10732d98b9d0f6c2fb0ffb9644e4fcfacfcdac5950796410b329b3d2f93531e9ef85102a293f9324fe28f7254d66c347712f2
+  languageName: node
+  linkType: hard
+
 "@typespec/versioning@npm:^0.55.0":
   version: 0.55.0
   resolution: "@typespec/versioning@npm:0.55.0"
@@ -5763,7 +5830,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"change-case@npm:~5.4.3":
+"change-case@npm:~5.4.3, change-case@npm:~5.4.4":
   version: 5.4.4
   resolution: "change-case@npm:5.4.4"
   checksum: 10/446e5573f3c854290a91292afef92b957d2e43a928260c91989b482aa860caaa29711b6725fc40c200af68061cbab357b033446d16a17bc5c553636994074e92
@@ -12302,6 +12369,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "openapi-code-generator-root@workspace:."
   dependencies:
+    "@azure-tools/typespec-autorest": "npm:^0.41.1"
+    "@azure-tools/typespec-azure-core": "npm:^0.41.0"
+    "@azure-tools/typespec-azure-resource-manager": "npm:^0.41.0"
+    "@azure-tools/typespec-client-generator-core": "npm:^0.41.7"
     "@biomejs/biome": "npm:^1.7.0"
     "@swc/core": "npm:^1.4.16"
     "@swc/jest": "npm:^0.2.36"
@@ -12310,6 +12381,7 @@ __metadata:
     "@types/node": "npm:^20.12.7"
     "@typescript-eslint/eslint-plugin": "npm:^7.7.0"
     "@typescript-eslint/parser": "npm:^7.7.0"
+    "@typespec/rest": "npm:^0.55.0"
     eslint: "npm:^8.57.0"
     eslint-plugin-import: "npm:^2.29.1"
     eslint-plugin-jest: "npm:^28.2.0"
@@ -12882,6 +12954,13 @@ __metadata:
   dependencies:
     find-up: "npm:^6.3.0"
   checksum: 10/94298b20a446bfbbd66604474de8a0cdd3b8d251225170970f15d9646f633e056c80520dd5b4c1d1050c9fed8f6a9e5054b141c93806439452efe72e57562c03
+  languageName: node
+  linkType: hard
+
+"pluralize@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "pluralize@npm:8.0.0"
+  checksum: 10/17877fdfdb7ddb3639ce257ad73a7c51a30a966091e40f56ea9f2f545b5727ce548d4928f8cb3ce38e7dc0c5150407d318af6a4ed0ea5265d378473b4c2c61ec
   languageName: node
   linkType: hard
 
