@@ -1,5 +1,5 @@
-import {CompilerOptions} from "../../core/file-loader"
 import {Input} from "../../core/input"
+import {CompilerOptions} from "../../core/loaders/tsconfig.loader"
 import {logger} from "../../core/logger"
 import {Reference} from "../../core/openapi-types"
 import {MaybeIRModel} from "../../core/openapi-types-normalized"

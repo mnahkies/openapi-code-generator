@@ -1,10 +1,10 @@
 import path from "path"
 import util from "util"
 
-import {isRemote, loadFile} from "./file-loader"
-
-import {compileTypeSpecToOpenAPI3} from "./frontends/typespec.loader"
 import {VirtualDefinition, generationLib} from "./generation-lib"
+import {loadFile} from "./loaders/generic.loader"
+import {compileTypeSpecToOpenAPI3} from "./loaders/typespec.loader"
+import {isRemote} from "./loaders/utils"
 import {
   OpenapiDocument,
   Operation,
