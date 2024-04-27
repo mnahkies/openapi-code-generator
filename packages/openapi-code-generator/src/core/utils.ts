@@ -28,13 +28,21 @@ export function deepEqual(x: unknown, y: unknown): boolean {
 }
 
 export function titleCase(str: string): string {
-  const camel = _.camelCase(str)
+  const camel = camelCase(str)
   return _.capitalize(camel[0]) + camel.slice(1)
+}
+
+export function camelCase(str: string): string {
+  return _.camelCase(str)
+}
+
+export function upperFirst(str: string): string {
+  return _.upperFirst(str)
 }
 
 export function mediaTypeToIdentifier(mediaType: string): string {
   const [type, subType] = mediaType.split("/").map((it) => {
-    return _.camelCase(it.replaceAll(/[-.+]/g, " "))
+    return camelCase(it.replaceAll(/[-.+]/g, " "))
   })
 
   if (subType === "json") {

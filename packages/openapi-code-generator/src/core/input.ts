@@ -1,4 +1,3 @@
-import _ from "lodash"
 import {generationLib} from "./generation-lib"
 import {logger} from "./logger"
 import {OpenapiLoader} from "./openapi-loader"
@@ -26,7 +25,12 @@ import {
   MaybeIRModel,
 } from "./openapi-types-normalized"
 import {isRef} from "./openapi-utils"
-import {deepEqual, isHttpMethod, mediaTypeToIdentifier} from "./utils"
+import {
+  camelCase,
+  deepEqual,
+  isHttpMethod,
+  mediaTypeToIdentifier,
+} from "./utils"
 
 export type OperationGroup = {name: string; operations: IROperation[]}
 export type OperationGroupStrategy = "none" | "first-tag" | "first-slug"
@@ -76,14 +80,15 @@ export class Input {
 
       const params = this.normalizeParameters(paths.parameters)
 
-      const additionalAttributes = _.pickBy(
-        paths,
-        (_, key) => key !== "parameters" && !isHttpMethod(key),
-      ) as any
-      const methods = _.pickBy(paths, (_, it) => isHttpMethod(it)) as Record<
-        string,
-        Operation | Reference
-      >
+      const additionalAttributes = Object.fromEntries(
+        Object.entries(paths).filter(
+          ([key]) => key !== "parameters" && !isHttpMethod(key),
+        ),
+      )
+
+      const methods = Object.fromEntries(
+        Object.entries(paths).filter(([key]) => isHttpMethod(key)),
+      ) as Record<string, Operation | Reference>
 
       for (let [method, definition] of Object.entries(methods)) {
         if (!definition) {
@@ -256,10 +261,10 @@ export class Input {
     route: string,
   ) {
     if (operationId) {
-      return _.camelCase(operationId)
+      return camelCase(operationId)
     }
 
-    return _.camelCase([method, ...route.split("/")].join("-"))
+    return camelCase([method, ...route.split("/")].join("-"))
   }
 
   private normalizeMediaTypes(

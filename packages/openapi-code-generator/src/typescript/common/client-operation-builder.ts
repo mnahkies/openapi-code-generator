@@ -1,11 +1,10 @@
-import _ from "lodash"
 import {generationLib} from "../../core/generation-lib"
 import {
   IROperation,
   IRParameter,
   MaybeIRModel,
 } from "../../core/openapi-types-normalized"
-import {isDefined} from "../../core/utils"
+import {camelCase, isDefined} from "../../core/utils"
 import {SchemaBuilder} from "./schema-builders/schema-builder"
 import {TypeBuilder} from "./type-builder"
 import {
@@ -55,7 +54,7 @@ export class ClientOperationBuilder {
 
     return combineParams(
       [...parameters, requestBodyParameter].filter(isDefined).map((it) => ({
-        name: `${_.camelCase(it.name)}`,
+        name: `${camelCase(it.name)}`,
         type: this.models.schemaObjectToType(it.schema),
         required: it.required,
       })),
@@ -167,7 +166,7 @@ export class ClientOperationBuilder {
   }
 
   paramName(name: string): string {
-    return `p['${_.camelCase(name)}']`
+    return `p['${camelCase(name)}']`
   }
 
   private responsesToArray(): {

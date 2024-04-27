@@ -1,7 +1,6 @@
-import _ from "lodash"
 import {logger} from "../../core/logger"
 import {IROperation, IRParameter} from "../../core/openapi-types-normalized"
-import {isDefined} from "../../core/utils"
+import {camelCase, isDefined} from "../../core/utils"
 
 export type MethodParameterDefinition = {
   name: string
@@ -62,9 +61,18 @@ export function routeToTemplateString(route: string, paramName = "p"): string {
   const placeholder = /{([^{}]+)}/g
 
   return Array.from(route.matchAll(placeholder)).reduce((result, match) => {
+    const wholeString = match[0]
+    const placeholderName = match[1]
+
+    if (!placeholderName) {
+      throw new Error(
+        `invalid route parameter placeholder in route '${placeholder}'`,
+      )
+    }
+
     return result.replace(
-      match[0],
-      "${" + paramName + '["' + _.camelCase(match[1]) + '"]}',
+      wholeString,
+      "${" + paramName + '["' + camelCase(placeholderName) + '"]}',
     )
   }, route)
 }

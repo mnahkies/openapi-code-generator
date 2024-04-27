@@ -1,12 +1,11 @@
 import path from "path"
-import _ from "lodash"
 import {Input} from "../../core/input"
 import {
   IRModelObject,
   IROperation,
   IRParameter,
 } from "../../core/openapi-types-normalized"
-import {isDefined, titleCase} from "../../core/utils"
+import {isDefined, titleCase, upperFirst} from "../../core/utils"
 import {OpenapiGeneratorConfig} from "../../templates.types"
 import {CompilationUnit, ICompilable} from "../common/compilation-units"
 import {ImportBuilder} from "../common/import-builder"
@@ -134,7 +133,7 @@ export class ServerRouterBuilder implements ICompilable {
       pathParamsType = types.schemaObjectToType(
         this.input.loader.addVirtualType(
           operation.operationId,
-          _.upperFirst(name),
+          upperFirst(name),
           reduceParamsToOpenApiSchema(pathParams),
         ),
       )
@@ -146,7 +145,7 @@ export class ServerRouterBuilder implements ICompilable {
       queryParamsType = types.schemaObjectToType(
         this.input.loader.addVirtualType(
           operation.operationId,
-          _.upperFirst(name),
+          upperFirst(name),
           reduceParamsToOpenApiSchema(queryParams),
         ),
       )
@@ -158,7 +157,7 @@ export class ServerRouterBuilder implements ICompilable {
       bodyParamsType = types.schemaObjectToType(
         this.input.loader.addVirtualType(
           operation.operationId,
-          _.upperFirst(name),
+          upperFirst(name),
           this.input.schema(requestBodyParameter.schema),
         ),
       )
