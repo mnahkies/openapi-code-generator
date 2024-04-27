@@ -88,13 +88,15 @@ export interface IROperation {
   parameters: IRParameter[]
   operationId: string
   tags: string[]
-  requestBody?: IRRequestBody
-  responses?: {
-    [statusCode: number]: IRResponse
-    default?: IRResponse
-  }
-  summary?: string
-  description?: string
+  requestBody: IRRequestBody | undefined
+  responses:
+    | {
+        [statusCode: number]: IRResponse
+        default?: IRResponse
+      }
+    | undefined
+  summary: string | undefined
+  description: string | undefined
   deprecated: boolean
 }
 
