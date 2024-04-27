@@ -5,8 +5,8 @@ import "source-map-support/register"
 import path from "path"
 
 import {Command, Option} from "@commander-js/extra-typings"
-import {loadTsConfigCompilerOptions} from "./core/file-loader"
 import {Input, OperationGroupStrategy} from "./core/input"
+import {loadTsConfigCompilerOptions} from "./core/loaders/tsconfig.loader"
 import {logger} from "./core/logger"
 import {OpenapiLoader} from "./core/openapi-loader"
 import {OpenapiValidator} from "./core/openapi-validator"
@@ -14,8 +14,18 @@ import {templates} from "./templates"
 
 const program = new Command()
   .addOption(
-    new Option("-i --input <value>", "openapi3 schema file to generate from")
+    new Option("-i --input <value>", "input file to generate from")
       .env("OPENAPI_INPUT")
+      .makeOptionMandatory(),
+  )
+  .addOption(
+    new Option(
+      "--input-type <value>",
+      "type of input file. this can be openapi3 or typespec",
+    )
+      .env("OPENAPI_INPUT_TYPE")
+      .choices(["openapi3", "typespec"] as const)
+      .default("openapi3" as const)
       .makeOptionMandatory(),
   )
   .addOption(
@@ -96,7 +106,10 @@ async function main() {
   )
   const validator = await OpenapiValidator.create()
 
-  const loader = await OpenapiLoader.create(config.input, validator)
+  const loader = await OpenapiLoader.create(
+    {entryPoint: config.input, fileType: config.inputType},
+    validator,
+  )
 
   const input = new Input(loader, {
     extractInlineSchemas: config.extractInlineSchemas,

@@ -41,7 +41,10 @@ export async function unitTestInput(
   }
 
   const file = fileForVersion(version)
-  const loader = await OpenapiLoader.create(file, validator)
+  const loader = await OpenapiLoader.create(
+    {entryPoint: file, fileType: "openapi3"},
+    validator,
+  )
 
   return {input: new Input(loader, {extractInlineSchemas: true}), file}
 }

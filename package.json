@@ -24,7 +24,7 @@
     "format": "biome check --apply .",
     "build": "node ./scripts/generate-ajv-validator.js && lerna run build  --stream --scope '@nahkies/*'",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
-    "integration:generate": "./scripts/generate.all.sh",
+    "integration:generate": "node ./scripts/generate.mjs",
     "integration:validate": "lerna run validate --stream",
     "ci-build": "yarn build",
     "ci-test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",

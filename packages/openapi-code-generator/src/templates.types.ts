@@ -1,5 +1,5 @@
-import {CompilerOptions} from "./core/file-loader"
 import {Input, OperationGroupStrategy} from "./core/input"
+import {CompilerOptions} from "./core/loaders/tsconfig.loader"
 import {SchemaBuilderType} from "./typescript/common/schema-builders/schema-builder"
 
 export interface OpenapiGeneratorConfig {

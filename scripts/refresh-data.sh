@@ -17,3 +17,7 @@ curl -L https://github.com/okta/okta-management-openapi-spec/raw/master/resource
 # Currently invalid - https://github.com/okta/okta-management-openapi-spec/issues/180
 #curl -L https://github.com/okta/okta-management-openapi-spec/raw/master/resources/3.0/management.yaml -o ./integration-tests-definitions/okta.management.yaml
 curl -L https://github.com/okta/okta-management-openapi-spec/raw/master/resources/3.0/oauth.yaml -o ./integration-tests-definitions/okta.oauth.yaml
+
+# typespec samples
+curl -L https://raw.githubusercontent.com/Azure/typespec-azure/main/packages/typespec-azure-playground-website/samples/arm.tsp -o ./integration-tests-definitions/azure-resource-manager.tsp
+curl -L https://github.com/Azure/typespec-azure/raw/main/packages/typespec-azure-playground-website/samples/azure-core.tsp -o ./integration-tests-definitions/azure-core-data-plane-service.tsp
