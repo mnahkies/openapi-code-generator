@@ -53,12 +53,29 @@
     "source-map-support": "^0.5.21",
     "tslib": "^2.6.2"
   },
-  "optionalDependencies": {
+  "peerDependencies": {
     "@typespec/compiler": "^0.55.0",
     "@typespec/http": "^0.55.0",
     "@typespec/openapi": "^0.55.0",
     "@typespec/openapi3": "^0.55.0",
     "@typespec/versioning": "^0.55.0"
+  },
+  "peerDependenciesMeta": {
+    "@typespec/compiler": {
+      "optional": true
+    },
+    "@typespec/http": {
+      "optional": true
+    },
+    "@typespec/openapi": {
+      "optional": true
+    },
+    "@typespec/openapi3": {
+      "optional": true
+    },
+    "@typespec/versioning": {
+      "optional": true
+    }
   },
   "files": [
     "src",
