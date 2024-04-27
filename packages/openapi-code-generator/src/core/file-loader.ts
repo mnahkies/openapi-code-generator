@@ -72,7 +72,7 @@ export function isRemote(location: string): boolean {
 
 export type CompilerOptions = Pick<
   TsCompilerOptions,
-  "exactOptionalPropertyTypes"
+  "exactOptionalPropertyTypes" | "paths"
 >
 
 export function loadTsConfigCompilerOptions(

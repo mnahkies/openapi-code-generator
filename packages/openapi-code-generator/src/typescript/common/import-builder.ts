@@ -4,7 +4,10 @@ export class ImportBuilder {
   private readonly imports: Record<string, Set<string>> = {}
   private readonly importAll: Record<string, string> = {}
 
-  constructor(private readonly unit?: {filename: string}) {}
+  constructor(
+    private readonly unit?: {filename: string},
+    private readonly importAlias?: string,
+  ) {}
 
   from(from: string) {
     return {
@@ -68,7 +71,7 @@ export class ImportBuilder {
   }
 
   private add(name: string, from: string, isAll: boolean): void {
-    from = this.normalizeFrom(from)
+    from = this.normalizeFrom(from, this.unit?.filename)
     const imports = (this.imports[from] =
       this.imports[from] ?? new Set<string>())
 
@@ -79,13 +82,18 @@ export class ImportBuilder {
     }
   }
 
-  private normalizeFrom(from: string) {
+  public normalizeFrom(from: string, filename?: string) {
     if (from.endsWith(".ts")) {
       from = from.substring(0, from.length - ".ts".length)
     }
 
-    if (this.unit && from.startsWith("./")) {
-      const unitDirname = path.dirname(this.unit.filename)
+    // TODO: does this work on windows?
+    if (filename && from.startsWith("./")) {
+      if (this.importAlias) {
+        return this.importAlias + from.split(path.sep).slice(1).join(path.sep)
+      }
+
+      const unitDirname = path.dirname(filename)
       const fromDirname = path.dirname(from)
 
       const relative = path.relative(unitDirname, fromDirname)

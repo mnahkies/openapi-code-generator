@@ -3,10 +3,12 @@ import {generateTypescriptAngular} from "./typescript/typescript-angular/typescr
 import {generateTypescriptAxios} from "./typescript/typescript-axios/typescript-axios.generator"
 import {generateTypescriptFetch} from "./typescript/typescript-fetch/typescript-fetch.generator"
 import {generateTypescriptKoa} from "./typescript/typescript-koa/typescript-koa.generator"
+import {generateTypescriptNextJS} from "./typescript/typescript-nextjs/typescript-nextjs.generator"
 
 export const templates = {
   "typescript-fetch": generateTypescriptFetch,
   "typescript-axios": generateTypescriptAxios,
   "typescript-angular": generateTypescriptAngular,
   "typescript-koa": generateTypescriptKoa,
+  "typescript-nextjs": generateTypescriptNextJS,
 } satisfies Record<string, OpenapiGenerator>
