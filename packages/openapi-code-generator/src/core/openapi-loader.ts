@@ -3,6 +3,7 @@ import util from "util"
 
 import {isRemote, loadFile} from "./file-loader"
 
+import {compileTypeSpecToOpenAPI3} from "./frontends/typespec.loader"
 import {VirtualDefinition, generationLib} from "./generation-lib"
 import {
   OpenapiDocument,
@@ -190,13 +191,31 @@ export class OpenapiLoader {
   }
 
   static async create(
-    entryPoint: string,
+    config: {entryPoint: string; fileType: "openapi3" | "typespec"},
     validator: OpenapiValidator,
   ): Promise<OpenapiLoader> {
-    entryPoint = isRemote(entryPoint) ? entryPoint : path.resolve(entryPoint)
+    const entryPoint = isRemote(config.entryPoint)
+      ? config.entryPoint
+      : path.resolve(config.entryPoint)
+
     const loader = new OpenapiLoader(entryPoint, validator)
 
-    await loader.loadFile(entryPoint)
+    switch (config.fileType) {
+      case "openapi3": {
+        await loader.loadFile(entryPoint)
+        break
+      }
+
+      case "typespec": {
+        const openapi = await compileTypeSpecToOpenAPI3(entryPoint)
+        await loader.loadFileContent(entryPoint, openapi)
+
+        break
+      }
+      default: {
+        throw new Error(`unsupported file type '${config.fileType}'`)
+      }
+    }
 
     return loader
   }

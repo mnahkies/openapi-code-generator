@@ -26,6 +26,11 @@
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
     "@types/lodash": "^4.17.0",
+    "@typespec/compiler": "^0.55.0",
+    "@typespec/http": "^0.55.0",
+    "@typespec/openapi": "^0.55.0",
+    "@typespec/openapi3": "^0.55.0",
+    "@typespec/versioning": "^0.55.0",
     "typescript": "~5.3.3"
   },
   "dependencies": {
@@ -42,6 +47,13 @@
     "lodash": "^4.17.21",
     "source-map-support": "^0.5.21",
     "tslib": "^2.6.2"
+  },
+  "optionalDependencies": {
+    "@typespec/compiler": "^0.55.0",
+    "@typespec/http": "^0.55.0",
+    "@typespec/openapi": "^0.55.0",
+    "@typespec/openapi3": "^0.55.0",
+    "@typespec/versioning": "^0.55.0"
   },
   "files": [
     "src",
