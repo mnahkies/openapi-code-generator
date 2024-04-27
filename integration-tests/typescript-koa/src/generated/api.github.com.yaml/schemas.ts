@@ -819,6 +819,34 @@ export const s_copilot_seat_breakdown = z.object({
   inactive_this_cycle: z.coerce.number().optional(),
 })
 
+export const s_copilot_usage_metrics = z.object({
+  day: z.string(),
+  total_suggestions_count: z.coerce.number().optional(),
+  total_acceptances_count: z.coerce.number().optional(),
+  total_lines_suggested: z.coerce.number().optional(),
+  total_lines_accepted: z.coerce.number().optional(),
+  total_active_users: z.coerce.number().optional(),
+  total_chat_acceptances: z.coerce.number().optional(),
+  total_chat_turns: z.coerce.number().optional(),
+  total_active_chat_users: z.coerce.number().optional(),
+  breakdown: z
+    .array(
+      z.intersection(
+        z.object({
+          language: z.string().optional(),
+          editor: z.string().optional(),
+          suggestions_count: z.coerce.number().optional(),
+          acceptances_count: z.coerce.number().optional(),
+          lines_suggested: z.coerce.number().optional(),
+          lines_accepted: z.coerce.number().optional(),
+          active_users: z.coerce.number().optional(),
+        }),
+        z.record(z.any()),
+      ),
+    )
+    .nullable(),
+})
+
 export const s_custom_deployment_rule_app = z.object({
   id: z.coerce.number(),
   slug: z.string(),
@@ -2305,7 +2333,7 @@ export const s_repository_rule_update = z.object({
 })
 
 export const s_repository_ruleset_bypass_actor = z.object({
-  actor_id: z.coerce.number(),
+  actor_id: z.coerce.number().nullable().optional(),
   actor_type: z.enum([
     "Integration",
     "OrganizationAdmin",
@@ -3365,34 +3393,36 @@ export const s_installation = z.object({
   contact_email: z.string().nullable().optional(),
 })
 
-export const s_integration = z.object({
-  id: z.coerce.number(),
-  slug: z.string().optional(),
-  node_id: z.string(),
-  owner: s_nullable_simple_user,
-  name: z.string(),
-  description: z.string().nullable(),
-  external_url: z.string(),
-  html_url: z.string(),
-  created_at: z.string().datetime({ offset: true }),
-  updated_at: z.string().datetime({ offset: true }),
-  permissions: z.intersection(
-    z.object({
-      issues: z.string().optional(),
-      checks: z.string().optional(),
-      metadata: z.string().optional(),
-      contents: z.string().optional(),
-      deployments: z.string().optional(),
-    }),
-    z.record(z.string()),
-  ),
-  events: z.array(z.string()),
-  installations_count: z.coerce.number().optional(),
-  client_id: z.string().optional(),
-  client_secret: z.string().optional(),
-  webhook_secret: z.string().nullable().optional(),
-  pem: z.string().optional(),
-})
+export const s_integration = z
+  .object({
+    id: z.coerce.number(),
+    slug: z.string().optional(),
+    node_id: z.string(),
+    owner: s_nullable_simple_user,
+    name: z.string(),
+    description: z.string().nullable(),
+    external_url: z.string(),
+    html_url: z.string(),
+    created_at: z.string().datetime({ offset: true }),
+    updated_at: z.string().datetime({ offset: true }),
+    permissions: z.intersection(
+      z.object({
+        issues: z.string().optional(),
+        checks: z.string().optional(),
+        metadata: z.string().optional(),
+        contents: z.string().optional(),
+        deployments: z.string().optional(),
+      }),
+      z.record(z.string()),
+    ),
+    events: z.array(z.string()),
+    installations_count: z.coerce.number().optional(),
+    client_id: z.string().optional(),
+    client_secret: z.string().optional(),
+    webhook_secret: z.string().nullable().optional(),
+    pem: z.string().optional(),
+  })
+  .nullable()
 
 export const s_integration_installation_request = z.object({
   id: z.coerce.number(),
@@ -6828,6 +6858,30 @@ export const s_repository_rule = z.union([
   s_repository_rule_committer_email_pattern,
   s_repository_rule_branch_name_pattern,
   s_repository_rule_tag_name_pattern,
+  z.object({
+    type: z.enum(["file_path_restriction"]),
+    parameters: z
+      .object({ restricted_file_paths: z.array(z.string()) })
+      .optional(),
+  }),
+  z.object({
+    type: z.enum(["max_file_path_length"]),
+    parameters: z
+      .object({ max_file_path_length: z.coerce.number().min(1).max(256) })
+      .optional(),
+  }),
+  z.object({
+    type: z.enum(["file_extension_restriction"]),
+    parameters: z
+      .object({ restricted_file_extensions: z.array(z.string()) })
+      .optional(),
+  }),
+  z.object({
+    type: z.enum(["max_file_size"]),
+    parameters: z
+      .object({ max_file_size: z.coerce.number().min(1).max(100) })
+      .optional(),
+  }),
   s_repository_rule_workflows,
 ])
 
@@ -7343,7 +7397,7 @@ export const s_issue_event_for_issue = z.union([
 export const s_repository_ruleset = z.object({
   id: z.coerce.number(),
   name: z.string(),
-  target: z.enum(["branch", "tag"]).optional(),
+  target: z.enum(["branch", "tag", "push"]).optional(),
   source_type: z.enum(["Repository", "Organization"]).optional(),
   source: z.string(),
   enforcement: s_repository_rule_enforcement,

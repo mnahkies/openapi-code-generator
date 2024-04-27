@@ -1101,7 +1101,9 @@ export type t_checkout_alipay_payment_method_options = {
   setup_future_usage?: "none"
 }
 
-export type t_checkout_amazon_pay_payment_method_options = EmptyObject
+export type t_checkout_amazon_pay_payment_method_options = {
+  setup_future_usage?: "none" | "off_session"
+}
 
 export type t_checkout_au_becs_debit_payment_method_options = {
   setup_future_usage?: "none"
@@ -1223,7 +1225,9 @@ export type t_checkout_pix_payment_method_options = {
   expires_after_seconds?: number | null
 }
 
-export type t_checkout_revolut_pay_payment_method_options = EmptyObject
+export type t_checkout_revolut_pay_payment_method_options = {
+  setup_future_usage?: "none" | "off_session"
+}
 
 export type t_checkout_sepa_debit_payment_method_options = {
   setup_future_usage?: "none" | "off_session" | "on_session"
@@ -2198,7 +2202,7 @@ export type t_email_sent = {
 }
 
 export type t_entitlements_active_entitlement = {
-  feature: string
+  feature: string | t_entitlements_feature
   id: string
   livemode: boolean
   lookup_key: string
@@ -3091,6 +3095,7 @@ export type t_invoices_payment_settings = {
         | "ach_credit_transfer"
         | "ach_debit"
         | "acss_debit"
+        | "amazon_pay"
         | "au_becs_debit"
         | "bacs_debit"
         | "bancontact"
@@ -3109,6 +3114,7 @@ export type t_invoices_payment_settings = {
         | "paynow"
         | "paypal"
         | "promptpay"
+        | "revolut_pay"
         | "sepa_debit"
         | "sofort"
         | "us_bank_account"
@@ -5908,6 +5914,8 @@ export type t_mandate_acss_debit = {
   transaction_type: "business" | "personal"
 }
 
+export type t_mandate_amazon_pay = EmptyObject
+
 export type t_mandate_au_becs_debit = {
   url: string
 }
@@ -5933,12 +5941,14 @@ export type t_mandate_multi_use = EmptyObject
 
 export type t_mandate_payment_method_details = {
   acss_debit?: t_mandate_acss_debit
+  amazon_pay?: t_mandate_amazon_pay
   au_becs_debit?: t_mandate_au_becs_debit
   bacs_debit?: t_mandate_bacs_debit
   card?: t_card_mandate_payment_method_details
   cashapp?: t_mandate_cashapp
   link?: t_mandate_link
   paypal?: t_mandate_paypal
+  revolut_pay?: t_mandate_revolut_pay
   sepa_debit?: t_mandate_sepa_debit
   type: string
   us_bank_account?: t_mandate_us_bank_account
@@ -5948,6 +5958,8 @@ export type t_mandate_paypal = {
   billing_agreement_id?: string | null
   payer_id?: string | null
 }
+
+export type t_mandate_revolut_pay = EmptyObject
 
 export type t_mandate_sepa_debit = {
   reference: string
@@ -7273,6 +7285,7 @@ export type t_payment_method_configuration = {
   konbini?: t_payment_method_config_resource_payment_method_properties
   link?: t_payment_method_config_resource_payment_method_properties
   livemode: boolean
+  mobilepay?: t_payment_method_config_resource_payment_method_properties
   name: string
   object: "payment_method_configuration"
   oxxo?: t_payment_method_config_resource_payment_method_properties
@@ -8000,6 +8013,7 @@ export type t_payment_method_options_alipay = {
 
 export type t_payment_method_options_amazon_pay = {
   capture_method?: "manual"
+  setup_future_usage?: "none" | "off_session"
 }
 
 export type t_payment_method_options_bacs_debit = {
@@ -8138,6 +8152,7 @@ export type t_payment_method_options_promptpay = {
 
 export type t_payment_method_options_revolut_pay = {
   capture_method?: "manual"
+  setup_future_usage?: "none" | "off_session"
 }
 
 export type t_payment_method_options_sofort = {
@@ -9525,6 +9540,7 @@ export type t_setup_attempt = {
 
 export type t_setup_attempt_payment_method_details = {
   acss_debit?: t_setup_attempt_payment_method_details_acss_debit
+  amazon_pay?: t_setup_attempt_payment_method_details_amazon_pay
   au_becs_debit?: t_setup_attempt_payment_method_details_au_becs_debit
   bacs_debit?: t_setup_attempt_payment_method_details_bacs_debit
   bancontact?: t_setup_attempt_payment_method_details_bancontact
@@ -9536,6 +9552,7 @@ export type t_setup_attempt_payment_method_details = {
   klarna?: t_setup_attempt_payment_method_details_klarna
   link?: t_setup_attempt_payment_method_details_link
   paypal?: t_setup_attempt_payment_method_details_paypal
+  revolut_pay?: t_setup_attempt_payment_method_details_revolut_pay
   sepa_debit?: t_setup_attempt_payment_method_details_sepa_debit
   sofort?: t_setup_attempt_payment_method_details_sofort
   type: string
@@ -9543,6 +9560,8 @@ export type t_setup_attempt_payment_method_details = {
 }
 
 export type t_setup_attempt_payment_method_details_acss_debit = EmptyObject
+
+export type t_setup_attempt_payment_method_details_amazon_pay = EmptyObject
 
 export type t_setup_attempt_payment_method_details_au_becs_debit = EmptyObject
 
@@ -9643,6 +9662,8 @@ export type t_setup_attempt_payment_method_details_klarna = EmptyObject
 export type t_setup_attempt_payment_method_details_link = EmptyObject
 
 export type t_setup_attempt_payment_method_details_paypal = EmptyObject
+
+export type t_setup_attempt_payment_method_details_revolut_pay = EmptyObject
 
 export type t_setup_attempt_payment_method_details_sepa_debit = EmptyObject
 
@@ -10528,6 +10549,7 @@ export type t_subscriptions_resource_payment_settings = {
         | "ach_credit_transfer"
         | "ach_debit"
         | "acss_debit"
+        | "amazon_pay"
         | "au_becs_debit"
         | "bacs_debit"
         | "bancontact"
@@ -10546,6 +10568,7 @@ export type t_subscriptions_resource_payment_settings = {
         | "paynow"
         | "paypal"
         | "promptpay"
+        | "revolut_pay"
         | "sepa_debit"
         | "sofort"
         | "us_bank_account"
@@ -10586,6 +10609,7 @@ export type t_tax_calculation = {
   } | null
   livemode: boolean
   object: "tax.calculation"
+  ship_from_details?: t_tax_product_resource_ship_from_details | null
   shipping_cost?: t_tax_product_resource_tax_calculation_shipping_cost | null
   tax_amount_exclusive: number
   tax_amount_inclusive: number
@@ -10647,6 +10671,7 @@ export type t_tax_transaction = {
   object: "tax.transaction"
   reference: string
   reversal?: t_tax_product_resource_tax_transaction_resource_reversal | null
+  ship_from_details?: t_tax_product_resource_ship_from_details | null
   shipping_cost?: t_tax_product_resource_tax_transaction_shipping_cost | null
   tax_date: number
   type: "reversal" | "transaction"
@@ -11025,6 +11050,10 @@ export type t_tax_product_resource_postal_address = {
   line2?: string | null
   postal_code?: string | null
   state?: string | null
+}
+
+export type t_tax_product_resource_ship_from_details = {
+  address: t_tax_product_resource_postal_address
 }
 
 export type t_tax_product_resource_tax_breakdown = {
@@ -20248,6 +20277,7 @@ export type t_PostCustomersCustomerSubscriptionsBodySchema = {
           | "ach_credit_transfer"
           | "ach_debit"
           | "acss_debit"
+          | "amazon_pay"
           | "au_becs_debit"
           | "bacs_debit"
           | "bancontact"
@@ -20266,6 +20296,7 @@ export type t_PostCustomersCustomerSubscriptionsBodySchema = {
           | "paynow"
           | "paypal"
           | "promptpay"
+          | "revolut_pay"
           | "sepa_debit"
           | "sofort"
           | "us_bank_account"
@@ -20493,6 +20524,7 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema 
             | "ach_credit_transfer"
             | "ach_debit"
             | "acss_debit"
+            | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
             | "bancontact"
@@ -20511,6 +20543,7 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema 
             | "paynow"
             | "paypal"
             | "promptpay"
+            | "revolut_pay"
             | "sepa_debit"
             | "sofort"
             | "us_bank_account"
@@ -20845,16 +20878,6 @@ export type t_PostIdentityVerificationSessionsBodySchema = {
           require_matching_selfie?: boolean
         }
       | ""
-    email?:
-      | {
-          require_verification?: boolean
-        }
-      | ""
-    phone?:
-      | {
-          require_verification?: boolean
-        }
-      | ""
   }
   provided_details?: {
     email?: string
@@ -20877,16 +20900,6 @@ export type t_PostIdentityVerificationSessionsSessionBodySchema = {
           require_id_number?: boolean
           require_live_capture?: boolean
           require_matching_selfie?: boolean
-        }
-      | ""
-    email?:
-      | {
-          require_verification?: boolean
-        }
-      | ""
-    phone?:
-      | {
-          require_verification?: boolean
         }
       | ""
   }
@@ -21114,6 +21127,7 @@ export type t_PostInvoicesBodySchema = {
           | "ach_credit_transfer"
           | "ach_debit"
           | "acss_debit"
+          | "amazon_pay"
           | "au_becs_debit"
           | "bacs_debit"
           | "bancontact"
@@ -21132,6 +21146,7 @@ export type t_PostInvoicesBodySchema = {
           | "paynow"
           | "paypal"
           | "promptpay"
+          | "revolut_pay"
           | "sepa_debit"
           | "sofort"
           | "us_bank_account"
@@ -21630,6 +21645,7 @@ export type t_PostInvoicesInvoiceBodySchema = {
           | "ach_credit_transfer"
           | "ach_debit"
           | "acss_debit"
+          | "amazon_pay"
           | "au_becs_debit"
           | "bacs_debit"
           | "bancontact"
@@ -21648,6 +21664,7 @@ export type t_PostInvoicesInvoiceBodySchema = {
           | "paynow"
           | "paypal"
           | "promptpay"
+          | "revolut_pay"
           | "sepa_debit"
           | "sofort"
           | "us_bank_account"
@@ -29065,6 +29082,11 @@ export type t_PostPaymentMethodConfigurationsBodySchema = {
       preference?: "none" | "off" | "on"
     }
   }
+  mobilepay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on"
+    }
+  }
   name?: string
   oxxo?: {
     display_preference?: {
@@ -29258,6 +29280,11 @@ export type t_PostPaymentMethodConfigurationsConfigurationBodySchema = {
     }
   }
   link?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on"
+    }
+  }
+  mobilepay?: {
     display_preference?: {
       preference?: "none" | "off" | "on"
     }
@@ -32806,6 +32833,7 @@ export type t_PostSubscriptionsBodySchema = {
           | "ach_credit_transfer"
           | "ach_debit"
           | "acss_debit"
+          | "amazon_pay"
           | "au_becs_debit"
           | "bacs_debit"
           | "bancontact"
@@ -32824,6 +32852,7 @@ export type t_PostSubscriptionsBodySchema = {
           | "paynow"
           | "paypal"
           | "promptpay"
+          | "revolut_pay"
           | "sepa_debit"
           | "sofort"
           | "us_bank_account"
@@ -33048,6 +33077,7 @@ export type t_PostSubscriptionsSubscriptionExposedIdBodySchema = {
           | "ach_credit_transfer"
           | "ach_debit"
           | "acss_debit"
+          | "amazon_pay"
           | "au_becs_debit"
           | "bacs_debit"
           | "bancontact"
@@ -33066,6 +33096,7 @@ export type t_PostSubscriptionsSubscriptionExposedIdBodySchema = {
           | "paynow"
           | "paypal"
           | "promptpay"
+          | "revolut_pay"
           | "sepa_debit"
           | "sofort"
           | "us_bank_account"
@@ -33213,6 +33244,16 @@ export type t_PostTaxCalculationsBodySchema = {
     tax_behavior?: "exclusive" | "inclusive"
     tax_code?: string
   }[]
+  ship_from_details?: {
+    address: {
+      city?: string | ""
+      country: string
+      line1?: string | ""
+      line2?: string | ""
+      postal_code?: string | ""
+      state?: string | ""
+    }
+  }
   shipping_cost?: {
     amount?: number
     shipping_rate?: string

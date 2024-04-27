@@ -575,7 +575,9 @@ export const s_checkout_alipay_payment_method_options = z.object({
   setup_future_usage: z.enum(["none"]).optional(),
 })
 
-export const s_checkout_amazon_pay_payment_method_options = z.object({})
+export const s_checkout_amazon_pay_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none", "off_session"]).optional(),
+})
 
 export const s_checkout_au_becs_debit_payment_method_options = z.object({
   setup_future_usage: z.enum(["none"]).optional(),
@@ -663,7 +665,9 @@ export const s_checkout_pix_payment_method_options = z.object({
   expires_after_seconds: z.coerce.number().nullable().optional(),
 })
 
-export const s_checkout_revolut_pay_payment_method_options = z.object({})
+export const s_checkout_revolut_pay_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none", "off_session"]).optional(),
+})
 
 export const s_checkout_sepa_debit_payment_method_options = z.object({
   setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
@@ -946,14 +950,6 @@ export const s_dispute_payment_method_details_card = z.object({
 export const s_email_sent = z.object({
   email_sent_at: z.coerce.number(),
   email_sent_to: z.string().max(5000),
-})
-
-export const s_entitlements_active_entitlement = z.object({
-  feature: z.string().max(5000),
-  id: z.string().max(5000),
-  livemode: PermissiveBoolean,
-  lookup_key: z.string().max(5000),
-  object: z.enum(["entitlements.active_entitlement"]),
 })
 
 export const s_entitlements_feature = z.object({
@@ -2314,6 +2310,8 @@ export const s_mandate_acss_debit = z.object({
   transaction_type: z.enum(["business", "personal"]),
 })
 
+export const s_mandate_amazon_pay = z.object({})
+
 export const s_mandate_au_becs_debit = z.object({ url: z.string().max(5000) })
 
 export const s_mandate_bacs_debit = z.object({
@@ -2342,6 +2340,8 @@ export const s_mandate_paypal = z.object({
   billing_agreement_id: z.string().max(5000).nullable().optional(),
   payer_id: z.string().max(5000).nullable().optional(),
 })
+
+export const s_mandate_revolut_pay = z.object({})
 
 export const s_mandate_sepa_debit = z.object({
   reference: z.string().max(5000),
@@ -3413,6 +3413,7 @@ export const s_payment_method_options_alipay = z.object({
 
 export const s_payment_method_options_amazon_pay = z.object({
   capture_method: z.enum(["manual"]).optional(),
+  setup_future_usage: z.enum(["none", "off_session"]).optional(),
 })
 
 export const s_payment_method_options_bacs_debit = z.object({
@@ -3522,6 +3523,7 @@ export const s_payment_method_options_promptpay = z.object({
 
 export const s_payment_method_options_revolut_pay = z.object({
   capture_method: z.enum(["manual"]).optional(),
+  setup_future_usage: z.enum(["none", "off_session"]).optional(),
 })
 
 export const s_payment_method_options_sofort = z.object({
@@ -4259,6 +4261,8 @@ export const s_secret_service_resource_scope = z.object({
 
 export const s_setup_attempt_payment_method_details_acss_debit = z.object({})
 
+export const s_setup_attempt_payment_method_details_amazon_pay = z.object({})
+
 export const s_setup_attempt_payment_method_details_au_becs_debit = z.object({})
 
 export const s_setup_attempt_payment_method_details_bacs_debit = z.object({})
@@ -4278,6 +4282,8 @@ export const s_setup_attempt_payment_method_details_klarna = z.object({})
 export const s_setup_attempt_payment_method_details_link = z.object({})
 
 export const s_setup_attempt_payment_method_details_paypal = z.object({})
+
+export const s_setup_attempt_payment_method_details_revolut_pay = z.object({})
 
 export const s_setup_attempt_payment_method_details_sepa_debit = z.object({})
 
@@ -5674,6 +5680,14 @@ export const s_deleted_payment_source = z.union([
 export const s_dispute_payment_method_details = z.object({
   card: s_dispute_payment_method_details_card.optional(),
   type: z.enum(["card"]),
+})
+
+export const s_entitlements_active_entitlement = z.object({
+  feature: z.union([z.string().max(5000), s_entitlements_feature]),
+  id: z.string().max(5000),
+  livemode: PermissiveBoolean,
+  lookup_key: z.string().max(5000),
+  object: z.enum(["entitlements.active_entitlement"]),
 })
 
 export const s_event = z.object({
@@ -7329,12 +7343,14 @@ export const s_line_items_tax_amount = z.object({
 
 export const s_mandate_payment_method_details = z.object({
   acss_debit: s_mandate_acss_debit.optional(),
+  amazon_pay: s_mandate_amazon_pay.optional(),
   au_becs_debit: s_mandate_au_becs_debit.optional(),
   bacs_debit: s_mandate_bacs_debit.optional(),
   card: s_card_mandate_payment_method_details.optional(),
   cashapp: s_mandate_cashapp.optional(),
   link: s_mandate_link.optional(),
   paypal: s_mandate_paypal.optional(),
+  revolut_pay: s_mandate_revolut_pay.optional(),
   sepa_debit: s_mandate_sepa_debit.optional(),
   type: z.string().max(5000),
   us_bank_account: s_mandate_us_bank_account.optional(),
@@ -8054,6 +8070,10 @@ export const s_tax_product_resource_line_item_tax_breakdown = z.object({
   taxable_amount: z.coerce.number(),
 })
 
+export const s_tax_product_resource_ship_from_details = z.object({
+  address: s_tax_product_resource_postal_address,
+})
+
 export const s_tax_product_resource_tax_breakdown = z.object({
   amount: z.coerce.number(),
   inclusive: PermissiveBoolean,
@@ -8494,6 +8514,8 @@ export const s_payment_method_configuration = z.object({
     s_payment_method_config_resource_payment_method_properties.optional(),
   link: s_payment_method_config_resource_payment_method_properties.optional(),
   livemode: PermissiveBoolean,
+  mobilepay:
+    s_payment_method_config_resource_payment_method_properties.optional(),
   name: z.string().max(5000),
   object: z.enum(["payment_method_configuration"]),
   oxxo: s_payment_method_config_resource_payment_method_properties.optional(),
@@ -8816,6 +8838,9 @@ export const s_tax_transaction = z.object({
   object: z.enum(["tax.transaction"]),
   reference: z.string().max(5000),
   reversal: s_tax_product_resource_tax_transaction_resource_reversal
+    .nullable()
+    .optional(),
+  ship_from_details: s_tax_product_resource_ship_from_details
     .nullable()
     .optional(),
   shipping_cost: s_tax_product_resource_tax_transaction_shipping_cost
@@ -9461,6 +9486,9 @@ export const s_tax_calculation = z.object({
     .optional(),
   livemode: PermissiveBoolean,
   object: z.enum(["tax.calculation"]),
+  ship_from_details: s_tax_product_resource_ship_from_details
+    .nullable()
+    .optional(),
   shipping_cost: s_tax_product_resource_tax_calculation_shipping_cost
     .nullable()
     .optional(),
@@ -9579,6 +9607,7 @@ export const s_invoices_payment_settings = z.object({
         "ach_credit_transfer",
         "ach_debit",
         "acss_debit",
+        "amazon_pay",
         "au_becs_debit",
         "bacs_debit",
         "bancontact",
@@ -9597,6 +9626,7 @@ export const s_invoices_payment_settings = z.object({
         "paynow",
         "paypal",
         "promptpay",
+        "revolut_pay",
         "sepa_debit",
         "sofort",
         "us_bank_account",
@@ -9632,6 +9662,7 @@ export const s_subscriptions_resource_payment_settings = z.object({
         "ach_credit_transfer",
         "ach_debit",
         "acss_debit",
+        "amazon_pay",
         "au_becs_debit",
         "bacs_debit",
         "bancontact",
@@ -9650,6 +9681,7 @@ export const s_subscriptions_resource_payment_settings = z.object({
         "paynow",
         "paypal",
         "promptpay",
+        "revolut_pay",
         "sepa_debit",
         "sofort",
         "us_bank_account",
@@ -13577,6 +13609,7 @@ export const s_setup_attempt_payment_method_details: z.ZodType<
   unknown
 > = z.object({
   acss_debit: s_setup_attempt_payment_method_details_acss_debit.optional(),
+  amazon_pay: s_setup_attempt_payment_method_details_amazon_pay.optional(),
   au_becs_debit:
     s_setup_attempt_payment_method_details_au_becs_debit.optional(),
   bacs_debit: s_setup_attempt_payment_method_details_bacs_debit.optional(),
@@ -13593,6 +13626,7 @@ export const s_setup_attempt_payment_method_details: z.ZodType<
   klarna: s_setup_attempt_payment_method_details_klarna.optional(),
   link: s_setup_attempt_payment_method_details_link.optional(),
   paypal: s_setup_attempt_payment_method_details_paypal.optional(),
+  revolut_pay: s_setup_attempt_payment_method_details_revolut_pay.optional(),
   sepa_debit: s_setup_attempt_payment_method_details_sepa_debit.optional(),
   sofort: z.lazy(() =>
     s_setup_attempt_payment_method_details_sofort.optional(),

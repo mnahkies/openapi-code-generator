@@ -27347,6 +27347,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "ach_credit_transfer",
                   "ach_debit",
                   "acss_debit",
+                  "amazon_pay",
                   "au_becs_debit",
                   "bacs_debit",
                   "bancontact",
@@ -27365,6 +27366,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "paynow",
                   "paypal",
                   "promptpay",
+                  "revolut_pay",
                   "sepa_debit",
                   "sofort",
                   "us_bank_account",
@@ -27911,6 +27913,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "ach_credit_transfer",
                   "ach_debit",
                   "acss_debit",
+                  "amazon_pay",
                   "au_becs_debit",
                   "bacs_debit",
                   "bancontact",
@@ -27929,6 +27932,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "paynow",
                   "paypal",
                   "promptpay",
+                  "revolut_pay",
                   "sepa_debit",
                   "sofort",
                   "us_bank_account",
@@ -31365,18 +31369,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
               z.enum([""]),
             ])
             .optional(),
-          email: z
-            .union([
-              z.object({ require_verification: PermissiveBoolean.optional() }),
-              z.enum([""]),
-            ])
-            .optional(),
-          phone: z
-            .union([
-              z.object({ require_verification: PermissiveBoolean.optional() }),
-              z.enum([""]),
-            ])
-            .optional(),
         })
         .optional(),
       provided_details: z
@@ -31525,18 +31517,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 require_live_capture: PermissiveBoolean.optional(),
                 require_matching_selfie: PermissiveBoolean.optional(),
               }),
-              z.enum([""]),
-            ])
-            .optional(),
-          email: z
-            .union([
-              z.object({ require_verification: PermissiveBoolean.optional() }),
-              z.enum([""]),
-            ])
-            .optional(),
-          phone: z
-            .union([
-              z.object({ require_verification: PermissiveBoolean.optional() }),
               z.enum([""]),
             ])
             .optional(),
@@ -32394,6 +32374,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "ach_credit_transfer",
                   "ach_debit",
                   "acss_debit",
+                  "amazon_pay",
                   "au_becs_debit",
                   "bacs_debit",
                   "bancontact",
@@ -32412,6 +32393,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "paynow",
                   "paypal",
                   "promptpay",
+                  "revolut_pay",
                   "sepa_debit",
                   "sofort",
                   "us_bank_account",
@@ -34582,6 +34564,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "ach_credit_transfer",
                   "ach_debit",
                   "acss_debit",
+                  "amazon_pay",
                   "au_becs_debit",
                   "bacs_debit",
                   "bancontact",
@@ -34600,6 +34583,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "paynow",
                   "paypal",
                   "promptpay",
+                  "revolut_pay",
                   "sepa_debit",
                   "sofort",
                   "us_bank_account",
@@ -47332,6 +47316,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
+      mobilepay: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
       name: z.string().max(100).optional(),
       oxxo: z
         .object({
@@ -47722,6 +47713,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       link: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
+      mobilepay: z
         .object({
           display_preference: z
             .object({ preference: z.enum(["none", "off", "on"]).optional() })
@@ -58938,6 +58936,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "ach_credit_transfer",
                 "ach_debit",
                 "acss_debit",
+                "amazon_pay",
                 "au_becs_debit",
                 "bacs_debit",
                 "bancontact",
@@ -58956,6 +58955,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "paynow",
                 "paypal",
                 "promptpay",
+                "revolut_pay",
                 "sepa_debit",
                 "sofort",
                 "us_bank_account",
@@ -59571,6 +59571,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "ach_credit_transfer",
                   "ach_debit",
                   "acss_debit",
+                  "amazon_pay",
                   "au_becs_debit",
                   "bacs_debit",
                   "bancontact",
@@ -59589,6 +59590,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "paynow",
                   "paypal",
                   "promptpay",
+                  "revolut_pay",
                   "sepa_debit",
                   "sofort",
                   "us_bank_account",
@@ -59934,6 +59936,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
         tax_code: z.string().optional(),
       }),
     ),
+    ship_from_details: z
+      .object({
+        address: z.object({
+          city: z.union([z.string().max(5000), z.enum([""])]).optional(),
+          country: z.string().max(5000),
+          line1: z.union([z.string().max(5000), z.enum([""])]).optional(),
+          line2: z.union([z.string().max(5000), z.enum([""])]).optional(),
+          postal_code: z.union([z.string().max(5000), z.enum([""])]).optional(),
+          state: z.union([z.string().max(5000), z.enum([""])]).optional(),
+        }),
+      })
+      .optional(),
     shipping_cost: z
       .object({
         amount: z.coerce.number().optional(),
