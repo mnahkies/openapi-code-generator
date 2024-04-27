@@ -21,7 +21,7 @@ Promise.all(
 )
   .then(() => {
     console.log("success!")
-    process.exit(1)
+    process.exit(0)
   })
   .catch((err) => {
     console.error(err)
