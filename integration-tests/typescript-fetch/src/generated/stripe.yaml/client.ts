@@ -8306,6 +8306,7 @@ export class ApiClient extends AbstractFetchClient {
                 | "ach_credit_transfer"
                 | "ach_debit"
                 | "acss_debit"
+                | "amazon_pay"
                 | "au_becs_debit"
                 | "bacs_debit"
                 | "bancontact"
@@ -8324,6 +8325,7 @@ export class ApiClient extends AbstractFetchClient {
                 | "paynow"
                 | "paypal"
                 | "promptpay"
+                | "revolut_pay"
                 | "sepa_debit"
                 | "sofort"
                 | "us_bank_account"
@@ -8632,6 +8634,7 @@ export class ApiClient extends AbstractFetchClient {
                 | "ach_credit_transfer"
                 | "ach_debit"
                 | "acss_debit"
+                | "amazon_pay"
                 | "au_becs_debit"
                 | "bacs_debit"
                 | "bancontact"
@@ -8650,6 +8653,7 @@ export class ApiClient extends AbstractFetchClient {
                 | "paynow"
                 | "paypal"
                 | "promptpay"
+                | "revolut_pay"
                 | "sepa_debit"
                 | "sofort"
                 | "us_bank_account"
@@ -10479,16 +10483,6 @@ export class ApiClient extends AbstractFetchClient {
                 require_matching_selfie?: boolean
               }
             | ""
-          email?:
-            | {
-                require_verification?: boolean
-              }
-            | ""
-          phone?:
-            | {
-                require_verification?: boolean
-              }
-            | ""
         }
         provided_details?: {
           email?: string
@@ -10562,16 +10556,6 @@ export class ApiClient extends AbstractFetchClient {
                 require_id_number?: boolean
                 require_live_capture?: boolean
                 require_matching_selfie?: boolean
-              }
-            | ""
-          email?:
-            | {
-                require_verification?: boolean
-              }
-            | ""
-          phone?:
-            | {
-                require_verification?: boolean
               }
             | ""
         }
@@ -11080,6 +11064,7 @@ export class ApiClient extends AbstractFetchClient {
                 | "ach_credit_transfer"
                 | "ach_debit"
                 | "acss_debit"
+                | "amazon_pay"
                 | "au_becs_debit"
                 | "bacs_debit"
                 | "bancontact"
@@ -11098,6 +11083,7 @@ export class ApiClient extends AbstractFetchClient {
                 | "paynow"
                 | "paypal"
                 | "promptpay"
+                | "revolut_pay"
                 | "sepa_debit"
                 | "sofort"
                 | "us_bank_account"
@@ -12585,6 +12571,7 @@ export class ApiClient extends AbstractFetchClient {
                 | "ach_credit_transfer"
                 | "ach_debit"
                 | "acss_debit"
+                | "amazon_pay"
                 | "au_becs_debit"
                 | "bacs_debit"
                 | "bancontact"
@@ -12603,6 +12590,7 @@ export class ApiClient extends AbstractFetchClient {
                 | "paynow"
                 | "paypal"
                 | "promptpay"
+                | "revolut_pay"
                 | "sepa_debit"
                 | "sofort"
                 | "us_bank_account"
@@ -21951,6 +21939,11 @@ export class ApiClient extends AbstractFetchClient {
             preference?: "none" | "off" | "on"
           }
         }
+        mobilepay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
         name?: string
         oxxo?: {
           display_preference?: {
@@ -22195,6 +22188,11 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         link?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        mobilepay?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
           }
@@ -29084,6 +29082,7 @@ export class ApiClient extends AbstractFetchClient {
                 | "ach_credit_transfer"
                 | "ach_debit"
                 | "acss_debit"
+                | "amazon_pay"
                 | "au_becs_debit"
                 | "bacs_debit"
                 | "bancontact"
@@ -29102,6 +29101,7 @@ export class ApiClient extends AbstractFetchClient {
                 | "paynow"
                 | "paypal"
                 | "promptpay"
+                | "revolut_pay"
                 | "sepa_debit"
                 | "sofort"
                 | "us_bank_account"
@@ -29465,6 +29465,7 @@ export class ApiClient extends AbstractFetchClient {
                 | "ach_credit_transfer"
                 | "ach_debit"
                 | "acss_debit"
+                | "amazon_pay"
                 | "au_becs_debit"
                 | "bacs_debit"
                 | "bancontact"
@@ -29483,6 +29484,7 @@ export class ApiClient extends AbstractFetchClient {
                 | "paynow"
                 | "paypal"
                 | "promptpay"
+                | "revolut_pay"
                 | "sepa_debit"
                 | "sofort"
                 | "us_bank_account"
@@ -29688,6 +29690,16 @@ export class ApiClient extends AbstractFetchClient {
           tax_behavior?: "exclusive" | "inclusive"
           tax_code?: string
         }[]
+        ship_from_details?: {
+          address: {
+            city?: string | ""
+            country: string
+            line1?: string | ""
+            line2?: string | ""
+            postal_code?: string | ""
+            state?: string | ""
+          }
+        }
         shipping_cost?: {
           amount?: number
           shipping_rate?: string
