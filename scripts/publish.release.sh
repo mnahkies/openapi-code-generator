@@ -2,6 +2,13 @@
 
 set -ex
 
+if [[ $(git branch --show-current) != "main" ]]; then
+  echo 'releases must be published from main'
+  exit 1
+fi
+
+git pull origin main
+
 yarn clean
 
 yarn --immutable
