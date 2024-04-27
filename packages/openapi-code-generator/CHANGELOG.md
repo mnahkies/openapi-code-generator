@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.8.0...v0.9.0) (2024-04-27)
+
+### Bug Fixes
+
+- allow options ([#151](https://github.com/mnahkies/openapi-code-generator/issues/151)) ([5d45385](https://github.com/mnahkies/openapi-code-generator/commit/5d45385642bfbc6da6902af9c05435596441e368))
+
+### Features
+
+- support loading input from uri ([#150](https://github.com/mnahkies/openapi-code-generator/issues/150)) ([cce87ba](https://github.com/mnahkies/openapi-code-generator/commit/cce87ba7137c3e0c833014ffa5c4f5d2a32f317d)), closes [#43](https://github.com/mnahkies/openapi-code-generator/issues/43)
+- support typespec as an input format ([#158](https://github.com/mnahkies/openapi-code-generator/issues/158)) ([b1cdbf4](https://github.com/mnahkies/openapi-code-generator/commit/b1cdbf4d2675312a19478a1770fcd528a5eb2f18)), closes [#148](https://github.com/mnahkies/openapi-code-generator/issues/148)
+
 # [0.8.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.7.0...v0.8.0) (2024-04-07)
 
 ### Features
