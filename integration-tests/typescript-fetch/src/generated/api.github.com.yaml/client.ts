@@ -98,6 +98,7 @@ import {
   t_contributor_activity,
   t_copilot_organization_details,
   t_copilot_seat_details,
+  t_copilot_usage_metrics,
   t_custom_deployment_rule_app,
   t_custom_property_value,
   t_dependabot_alert,
@@ -926,6 +927,36 @@ export class ApiClient extends AbstractFetchClient {
     const url = this.basePath + `/emojis`
 
     return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async copilotUsageMetricsForEnterprise(
+    p: {
+      enterprise: string
+      since?: string
+      until?: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_copilot_usage_metrics[]>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
+  > {
+    const url = this.basePath + `/enterprises/${p["enterprise"]}/copilot/usage`
+    const query = this._query({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async dependabotListAlertsForEnterprise(
@@ -3713,6 +3744,36 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
+  async copilotUsageMetricsForOrg(
+    p: {
+      org: string
+      since?: string
+      until?: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_copilot_usage_metrics[]>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/copilot/usage`
+    const query = this._query({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
   async dependabotListAlertsForOrg(
     p: {
       org: string
@@ -6072,7 +6133,7 @@ export class ApiClient extends AbstractFetchClient {
         enforcement: t_repository_rule_enforcement
         name: string
         rules?: t_repository_rule[]
-        target?: "branch" | "tag"
+        target?: "branch" | "tag" | "push"
       }
     },
     timeout?: number,
@@ -6175,7 +6236,7 @@ export class ApiClient extends AbstractFetchClient {
         enforcement?: t_repository_rule_enforcement
         name?: string
         rules?: t_repository_rule[]
-        target?: "branch" | "tag"
+        target?: "branch" | "tag" | "push"
       }
     },
     timeout?: number,
@@ -6371,6 +6432,38 @@ export class ApiClient extends AbstractFetchClient {
       this.basePath + `/orgs/${p["org"]}/settings/billing/shared-storage`
 
     return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async copilotUsageMetricsForTeam(
+    p: {
+      org: string
+      teamSlug: string
+      since?: string
+      until?: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_copilot_usage_metrics[]>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/team/${p["teamSlug"]}/copilot/usage`
+    const query = this._query({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async teamsList(
@@ -17699,7 +17792,7 @@ export class ApiClient extends AbstractFetchClient {
         enforcement: t_repository_rule_enforcement
         name: string
         rules?: t_repository_rule[]
-        target?: "branch" | "tag"
+        target?: "branch" | "tag" | "push"
       }
     },
     timeout?: number,
@@ -17811,7 +17904,7 @@ export class ApiClient extends AbstractFetchClient {
         enforcement?: t_repository_rule_enforcement
         name?: string
         rules?: t_repository_rule[]
-        target?: "branch" | "tag"
+        target?: "branch" | "tag" | "push"
       }
     },
     timeout?: number,

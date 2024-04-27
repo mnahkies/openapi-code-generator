@@ -413,6 +413,12 @@ import {
   t_CopilotGetCopilotSeatDetailsForUserParamSchema,
   t_CopilotListCopilotSeatsParamSchema,
   t_CopilotListCopilotSeatsQuerySchema,
+  t_CopilotUsageMetricsForEnterpriseParamSchema,
+  t_CopilotUsageMetricsForEnterpriseQuerySchema,
+  t_CopilotUsageMetricsForOrgParamSchema,
+  t_CopilotUsageMetricsForOrgQuerySchema,
+  t_CopilotUsageMetricsForTeamParamSchema,
+  t_CopilotUsageMetricsForTeamQuerySchema,
   t_DependabotAddSelectedRepoToOrgSecretParamSchema,
   t_DependabotCreateOrUpdateOrgSecretBodySchema,
   t_DependabotCreateOrUpdateOrgSecretParamSchema,
@@ -1433,6 +1439,7 @@ import {
   t_contributor_activity,
   t_copilot_organization_details,
   t_copilot_seat_details,
+  t_copilot_usage_metrics,
   t_custom_deployment_rule_app,
   t_custom_property_value,
   t_dependabot_alert,
@@ -1699,6 +1706,7 @@ import {
   s_contributor_activity,
   s_copilot_organization_details,
   s_copilot_seat_details,
+  s_copilot_usage_metrics,
   s_custom_deployment_rule_app,
   s_custom_property_value,
   s_dependabot_alert,
@@ -2450,6 +2458,31 @@ export type EmojisGet = (
       }
     >
   | Response<304, void>
+>
+
+export type CopilotUsageMetricsForEnterpriseResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_usage_metrics[]>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotUsageMetricsForEnterprise = (
+  params: Params<
+    t_CopilotUsageMetricsForEnterpriseParamSchema,
+    t_CopilotUsageMetricsForEnterpriseQuerySchema,
+    void
+  >,
+  respond: CopilotUsageMetricsForEnterpriseResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_copilot_usage_metrics[]>
+  | Response<401, t_basic_error>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
 >
 
 export type DependabotListAlertsForEnterpriseResponder = {
@@ -4882,6 +4915,31 @@ export type CopilotCancelCopilotSeatAssignmentForUsers = (
   | Response<500, t_basic_error>
 >
 
+export type CopilotUsageMetricsForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_usage_metrics[]>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotUsageMetricsForOrg = (
+  params: Params<
+    t_CopilotUsageMetricsForOrgParamSchema,
+    t_CopilotUsageMetricsForOrgQuerySchema,
+    void
+  >,
+  respond: CopilotUsageMetricsForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_copilot_usage_metrics[]>
+  | Response<401, t_basic_error>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
 export type DependabotListAlertsForOrgResponder = {
   with200(): KoaRuntimeResponse<t_dependabot_alert_with_repository[]>
   with304(): KoaRuntimeResponse<void>
@@ -7008,6 +7066,31 @@ export type BillingGetSharedStorageBillingOrg = (
   ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_combined_billing_usage>
+>
+
+export type CopilotUsageMetricsForTeamResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_usage_metrics[]>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotUsageMetricsForTeam = (
+  params: Params<
+    t_CopilotUsageMetricsForTeamParamSchema,
+    t_CopilotUsageMetricsForTeamQuerySchema,
+    void
+  >,
+  respond: CopilotUsageMetricsForTeamResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_copilot_usage_metrics[]>
+  | Response<401, t_basic_error>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
 >
 
 export type TeamsListResponder = {
@@ -19885,6 +19968,7 @@ export type Implementation = {
   codesOfConductGetAllCodesOfConduct: CodesOfConductGetAllCodesOfConduct
   codesOfConductGetConductCode: CodesOfConductGetConductCode
   emojisGet: EmojisGet
+  copilotUsageMetricsForEnterprise: CopilotUsageMetricsForEnterprise
   dependabotListAlertsForEnterprise: DependabotListAlertsForEnterprise
   secretScanningListAlertsForEnterprise: SecretScanningListAlertsForEnterprise
   activityListPublicEvents: ActivityListPublicEvents
@@ -20006,6 +20090,7 @@ export type Implementation = {
   copilotCancelCopilotSeatAssignmentForTeams: CopilotCancelCopilotSeatAssignmentForTeams
   copilotAddCopilotSeatsForUsers: CopilotAddCopilotSeatsForUsers
   copilotCancelCopilotSeatAssignmentForUsers: CopilotCancelCopilotSeatAssignmentForUsers
+  copilotUsageMetricsForOrg: CopilotUsageMetricsForOrg
   dependabotListAlertsForOrg: DependabotListAlertsForOrg
   dependabotListOrgSecrets: DependabotListOrgSecrets
   dependabotGetOrgPublicKey: DependabotGetOrgPublicKey
@@ -20120,6 +20205,7 @@ export type Implementation = {
   billingGetGithubActionsBillingOrg: BillingGetGithubActionsBillingOrg
   billingGetGithubPackagesBillingOrg: BillingGetGithubPackagesBillingOrg
   billingGetSharedStorageBillingOrg: BillingGetSharedStorageBillingOrg
+  copilotUsageMetricsForTeam: CopilotUsageMetricsForTeam
   teamsList: TeamsList
   teamsCreate: TeamsCreate
   teamsGetByName: TeamsGetByName
@@ -22575,6 +22661,83 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ctx.status = status
     return next()
   })
+
+  const copilotUsageMetricsForEnterpriseParamSchema = z.object({
+    enterprise: z.string(),
+  })
+
+  const copilotUsageMetricsForEnterpriseQuerySchema = z.object({
+    since: z.string().optional(),
+    until: z.string().optional(),
+    page: z.coerce.number().optional(),
+    per_page: z.coerce.number().optional(),
+  })
+
+  const copilotUsageMetricsForEnterpriseResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_copilot_usage_metrics)],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotUsageMetricsForEnterprise",
+    "/enterprises/:enterprise/copilot/usage",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          copilotUsageMetricsForEnterpriseParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          copilotUsageMetricsForEnterpriseQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_usage_metrics[]>(200)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .copilotUsageMetricsForEnterprise(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = copilotUsageMetricsForEnterpriseResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
 
   const dependabotListAlertsForEnterpriseParamSchema = z.object({
     enterprise: z.string(),
@@ -30147,6 +30310,80 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
+  const copilotUsageMetricsForOrgParamSchema = z.object({ org: z.string() })
+
+  const copilotUsageMetricsForOrgQuerySchema = z.object({
+    since: z.string().optional(),
+    until: z.string().optional(),
+    page: z.coerce.number().optional(),
+    per_page: z.coerce.number().optional(),
+  })
+
+  const copilotUsageMetricsForOrgResponseValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_copilot_usage_metrics)],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["500", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "copilotUsageMetricsForOrg",
+    "/orgs/:org/copilot/usage",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          copilotUsageMetricsForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          copilotUsageMetricsForOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_usage_metrics[]>(200)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .copilotUsageMetricsForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = copilotUsageMetricsForOrgResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
   const dependabotListAlertsForOrgParamSchema = z.object({ org: z.string() })
 
   const dependabotListAlertsForOrgQuerySchema = z.object({
@@ -36516,7 +36753,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposCreateOrgRulesetBodySchema = z.object({
     name: z.string(),
-    target: z.enum(["branch", "tag"]).optional(),
+    target: z.enum(["branch", "tag", "push"]).optional(),
     enforcement: s_repository_rule_enforcement,
     bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
     conditions: s_org_ruleset_conditions.optional(),
@@ -36772,7 +37009,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposUpdateOrgRulesetBodySchema = z
     .object({
       name: z.string().optional(),
-      target: z.enum(["branch", "tag"]).optional(),
+      target: z.enum(["branch", "tag", "push"]).optional(),
       enforcement: s_repository_rule_enforcement.optional(),
       bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
       conditions: s_org_ruleset_conditions.optional(),
@@ -37339,6 +37576,83 @@ export function createRouter(implementation: Implementation): KoaRouter {
         status,
         body,
       )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const copilotUsageMetricsForTeamParamSchema = z.object({
+    org: z.string(),
+    team_slug: z.string(),
+  })
+
+  const copilotUsageMetricsForTeamQuerySchema = z.object({
+    since: z.string().optional(),
+    until: z.string().optional(),
+    page: z.coerce.number().optional(),
+    per_page: z.coerce.number().optional(),
+  })
+
+  const copilotUsageMetricsForTeamResponseValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_copilot_usage_metrics)],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["500", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "copilotUsageMetricsForTeam",
+    "/orgs/:org/team/:team_slug/copilot/usage",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          copilotUsageMetricsForTeamParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          copilotUsageMetricsForTeamQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_usage_metrics[]>(200)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .copilotUsageMetricsForTeam(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = copilotUsageMetricsForTeamResponseValidator(status, body)
       ctx.status = status
       return next()
     },
@@ -66241,7 +66555,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposCreateRepoRulesetBodySchema = z.object({
     name: z.string(),
-    target: z.enum(["branch", "tag"]).optional(),
+    target: z.enum(["branch", "tag", "push"]).optional(),
     enforcement: s_repository_rule_enforcement,
     bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
     conditions: s_repository_ruleset_conditions.optional(),
@@ -66511,7 +66825,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposUpdateRepoRulesetBodySchema = z
     .object({
       name: z.string().optional(),
-      target: z.enum(["branch", "tag"]).optional(),
+      target: z.enum(["branch", "tag", "push"]).optional(),
       enforcement: s_repository_rule_enforcement.optional(),
       bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
       conditions: s_repository_ruleset_conditions.optional(),

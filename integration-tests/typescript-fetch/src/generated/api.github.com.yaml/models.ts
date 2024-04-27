@@ -1515,6 +1515,30 @@ export type t_copilot_seat_details = {
   updated_at?: string
 }
 
+export type t_copilot_usage_metrics = {
+  breakdown:
+    | {
+        acceptances_count?: number
+        active_users?: number
+        editor?: string
+        language?: string
+        lines_accepted?: number
+        lines_suggested?: number
+        suggestions_count?: number
+        [key: string]: unknown | undefined
+      }[]
+    | null
+  day: string
+  total_acceptances_count?: number
+  total_active_chat_users?: number
+  total_active_users?: number
+  total_chat_acceptances?: number
+  total_chat_turns?: number
+  total_lines_accepted?: number
+  total_lines_suggested?: number
+  total_suggestions_count?: number
+}
+
 export type t_custom_deployment_rule_app = {
   id: number
   integration_url: string
@@ -2577,7 +2601,7 @@ export type t_integration = {
   slug?: string
   updated_at: string
   webhook_secret?: string | null
-}
+} | null
 
 export type t_integration_installation_request = {
   account: t_simple_user | t_enterprise
@@ -5482,6 +5506,30 @@ export type t_repository_rule =
   | t_repository_rule_committer_email_pattern
   | t_repository_rule_branch_name_pattern
   | t_repository_rule_tag_name_pattern
+  | {
+      parameters?: {
+        restricted_file_paths: string[]
+      }
+      type: "file_path_restriction"
+    }
+  | {
+      parameters?: {
+        max_file_path_length: number
+      }
+      type: "max_file_path_length"
+    }
+  | {
+      parameters?: {
+        restricted_file_extensions: string[]
+      }
+      type: "file_extension_restriction"
+    }
+  | {
+      parameters?: {
+        max_file_size: number
+      }
+      type: "max_file_size"
+    }
   | t_repository_rule_workflows
 
 export type t_repository_rule_branch_name_pattern = {
@@ -5652,12 +5700,12 @@ export type t_repository_ruleset = {
   rules?: t_repository_rule[]
   source: string
   source_type?: "Repository" | "Organization"
-  target?: "branch" | "tag"
+  target?: "branch" | "tag" | "push"
   updated_at?: string
 }
 
 export type t_repository_ruleset_bypass_actor = {
-  actor_id: number
+  actor_id?: number | null
   actor_type: "Integration" | "OrganizationAdmin" | "RepositoryRole" | "Team"
   bypass_mode: "always" | "pull_request"
 }

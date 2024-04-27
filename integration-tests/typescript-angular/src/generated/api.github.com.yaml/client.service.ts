@@ -98,6 +98,7 @@ import {
   t_contributor_activity,
   t_copilot_organization_details,
   t_copilot_seat_details,
+  t_copilot_usage_metrics,
   t_custom_deployment_rule_app,
   t_custom_property_value,
   t_dependabot_alert,
@@ -1076,6 +1077,38 @@ export class ApiClient {
       "GET",
       this.config.basePath + `/emojis`,
       {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  copilotUsageMetricsForEnterprise(p: {
+    enterprise: string
+    since?: string
+    until?: string
+    page?: number
+    perPage?: number
+  }): Observable<
+    | (HttpResponse<t_copilot_usage_metrics[]> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/enterprises/${p["enterprise"]}/copilot/usage`,
+      {
+        params,
         observe: "response",
         reportProgress: false,
       },
@@ -4064,6 +4097,38 @@ export class ApiClient {
     )
   }
 
+  copilotUsageMetricsForOrg(p: {
+    org: string
+    since?: string
+    until?: string
+    page?: number
+    perPage?: number
+  }): Observable<
+    | (HttpResponse<t_copilot_usage_metrics[]> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/orgs/${p["org"]}/copilot/usage`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   dependabotListAlertsForOrg(p: {
     org: string
     state?: string
@@ -6571,7 +6636,7 @@ export class ApiClient {
       enforcement: t_repository_rule_enforcement
       name: string
       rules?: t_repository_rule[]
-      target?: "branch" | "tag"
+      target?: "branch" | "tag" | "push"
     }
   }): Observable<
     | (HttpResponse<t_repository_ruleset> & { status: 201 })
@@ -6676,7 +6741,7 @@ export class ApiClient {
       enforcement?: t_repository_rule_enforcement
       name?: string
       rules?: t_repository_rule[]
-      target?: "branch" | "tag"
+      target?: "branch" | "tag" | "push"
     }
   }): Observable<
     | (HttpResponse<t_repository_ruleset> & { status: 200 })
@@ -6892,6 +6957,40 @@ export class ApiClient {
       this.config.basePath +
         `/orgs/${p["org"]}/settings/billing/shared-storage`,
       {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  copilotUsageMetricsForTeam(p: {
+    org: string
+    teamSlug: string
+    since?: string
+    until?: string
+    page?: number
+    perPage?: number
+  }): Observable<
+    | (HttpResponse<t_copilot_usage_metrics[]> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/team/${p["teamSlug"]}/copilot/usage`,
+      {
+        params,
         observe: "response",
         reportProgress: false,
       },
@@ -18812,7 +18911,7 @@ export class ApiClient {
       enforcement: t_repository_rule_enforcement
       name: string
       rules?: t_repository_rule[]
-      target?: "branch" | "tag"
+      target?: "branch" | "tag" | "push"
     }
   }): Observable<
     | (HttpResponse<t_repository_ruleset> & { status: 201 })
@@ -18927,7 +19026,7 @@ export class ApiClient {
       enforcement?: t_repository_rule_enforcement
       name?: string
       rules?: t_repository_rule[]
-      target?: "branch" | "tag"
+      target?: "branch" | "tag" | "push"
     }
   }): Observable<
     | (HttpResponse<t_repository_ruleset> & { status: 200 })
