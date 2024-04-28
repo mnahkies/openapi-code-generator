@@ -1,6 +1,6 @@
 import {useRouter} from "next/router"
 
-export default {
+const ThemeConfig = {
   logo: <strong>🔧 OpenAPI Code Generator</strong>,
   project: {
     link: "https://github.com/mnahkies/openapi-code-generator",
@@ -19,3 +19,5 @@ export default {
     }
   },
 }
+
+export default ThemeConfig
