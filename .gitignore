@@ -4,7 +4,6 @@ node_modules
 .nyc_output
 coverage
 .eslintcache
-yarn-error.log
 .env
 .DS_Store
 
@@ -12,3 +11,32 @@ yarn-error.log
 .yarn/*
 
 packages/openapi-code-generator/src/typescript/common/new-builder.ts
+
+# dependencies
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# testing
+/coverage
+
+# next.js
+.next
+
+# misc
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
