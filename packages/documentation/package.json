@@ -21,7 +21,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "publish:gh-pages": "yarn clean && yarn build && yarn gh-pages -d ./dist -b gh-pages --cname openapi-code-generator.nahkies.co.nz"
+    "publish:gh-pages": "yarn clean && yarn build && yarn gh-pages -d ./dist -b gh-pages --cname openapi-code-generator.nahkies.co.nz --nojekyll"
   },
   "dependencies": {
     "next": "14.2.3",
