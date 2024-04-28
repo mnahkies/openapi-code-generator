@@ -1,0 +1,62 @@
+# Using the `typescript-axios` template
+
+The `typescript-axios` template outputs a client SDK based on the [axios](https://www.npmjs.com/package/axios) that gives the following:
+
+- Typed methods to call each endpoint
+
+It does not yet support runtime validation/parsing - compile time type safety only at this stage.
+
+It follows the standard `axios` pattern of rejecting any response that isn't `2xx` and thus can't provide typed
+error responses. If you'd like to have strong typing over your error responses consider using the `typescript-fetch` template.
+
+See [integration-tests/typescript-axios](https://github.com/mnahkies/openapi-code-generator/tree/main/integration-tests/typescript-axios) for more samples.
+
+### Install dependencies
+Prerequisite [installed the cli](../../getting-started/quick-start)
+
+```sh npm2yarn
+npm i axios @nahkies/typescript-axios-runtime
+```
+
+### Run generation
+
+```sh npm2yarn
+npm run openapi-code-generator \
+  --input ./openapi.yaml \
+  --output ./src/clients/some-service \
+  --template typescript-axios \
+  --schema-builder zod
+```
+
+### Using the generated code
+Running the above will output these files into `./src/clients/some-service`:
+
+- `./client.ts`: exports a class `ApiClient` that implements methods for calling each endpoint
+- `./models.ts`: exports typescript types
+- `./schemas.ts`: exports runtime parsers using the chosen `schema-builder` (default `zod`)
+
+Once generated usage should look something like this:
+
+```typescript
+const client = new ApiClient({
+  // Pass a axios instance if you wish to use interceptors for auth, logging, etc
+  // axios: axios.create({...}),
+  basePath: `http://localhost:${address.port}`,
+  defaultHeaders: {
+    "Content-Type": "application/json",
+    Authorisation: "Bearer: <TOKEN>", // can pass auth headers here
+  },
+})
+
+// rejects if status code isn't 2xx, following typical axios behavior
+const res = await client.createTodoListItem({
+  listId: list.id,
+  requestBody: {content: "test item"},
+  // optionally pass a timeout (ms), or any arbitrary axios options
+  // timeout?: number,
+  // opts?: AxiosRequestConfig
+})
+
+// data will be typed correctly
+console.log(`id is: ${res.data.id}`)
+```

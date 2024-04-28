@@ -1,0 +1,42 @@
+{
+  "name": "documentation",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "author": {
+    "name": "Michael Nahkies",
+    "email": "support@nahkies.co.nz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mnahkies/openapi-code-generator.git",
+    "directory": "packages/documentation"
+  },
+  "bugs": {
+    "url": "https://github.com/mnahkies/openapi-code-generator/issues"
+  },
+  "scripts": {
+    "clean": "rm -rf ./.next ./dist",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "publish:gh-pages": "yarn clean && yarn build && yarn gh-pages -d ./dist -b gh-pages --cname openapi-code-generator.nahkies.co.nz --nojekyll"
+  },
+  "dependencies": {
+    "next": "14.2.3",
+    "nextra": "^2.13.4",
+    "nextra-theme-docs": "^2.13.4",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3",
+    "gh-pages": "^6.1.1",
+    "typescript": "^5"
+  }
+}

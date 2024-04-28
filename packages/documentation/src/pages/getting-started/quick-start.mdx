@@ -1,0 +1,39 @@
+import {Steps, Tabs} from 'nextra/components'
+
+# Requirements
+Install the latest [NodeJS LTS release](https://nodejs.org/en/download), though any recent version of NodeJS will likely work.
+
+You can check the version we develop and test against [here](https://github.com/mnahkies/openapi-code-generator/blob/main/.github/workflows/ci.yml#L17).
+
+# Installation
+
+<Steps>
+  ### Install the cli
+  First we must install the cli package. It's recommended to install this as a `devDependency` in each project that
+  depends on it, though you could also install it globally if you prefer.
+  ```sh npm2yarn
+  npm i -D @nahkies/openapi-code-generator
+  ```
+
+  ### (Optional) For typespec support
+  If you want to use [typespec](https://typespec.io/) instead of [openapi3](https://spec.openapis.org/oas/latest.html)
+  as your input specifications, additionally install the typespec compiler and supporting packages.
+
+  ```sh npm2yarn
+  npm i -D @typespec/compiler @typespec/http @typespec/openapi @typespec/openapi3 @typespec/versioning
+  ```
+
+  Depending how your typespec specification is written, you may find you need to install additional packages such
+  as `@typespec/rest`.
+
+  ### Follow the instructions for the desired template
+  Each template has it's own dependency requirements. Please see the specific guides linked below
+
+  #### Server Scaffolding Templates
+  - [typescript-koa](../guides/server-templates/typescript-koa)
+
+  #### Client SDK Templates
+  - [typescript-fetch](../guides/client-templates/typescript-fetch)
+  - [typescript-axios](../guides/client-templates/typescript-axios)
+  - [typescript-angular](../guides/client-templates/typescript-angular)
+</Steps>

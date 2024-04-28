@@ -1,0 +1,67 @@
+import { Callout } from 'nextra/components'
+
+# Using the `typescript-angular` template
+
+<Callout type="warning" emoji="⚠️">
+  this is the least battle tested of the templates and most likely to have critical bugs
+</Callout>
+
+The `typescript-angular` template outputs a client SDK based on the [Angular HttpClient](https://angular.io/api/common/http/HttpClient) that gives the following:
+- Typed methods to call each endpoint returning an [RxJS Observable](https://rxjs.dev/guide/observable)
+
+It does not yet support runtime validation/parsing - compile time type safety only at this stage.
+
+See [integration-tests/typescript-angular](https://github.com/mnahkies/openapi-code-generator/tree/main/integration-tests/typescript-angular) for more samples.
+
+### Install dependencies
+Prerequisite [installed the cli](../../getting-started/quick-start)
+
+There are no additional dependencies required for this template at this stage.
+
+### Run generation
+
+```sh npm2yarn
+npm run openapi-code-generator \
+  --input ./openapi.yaml \
+  --output ./src/app/clients/some-service \
+  --template typescript-angular \
+  --schema-builder zod
+```
+
+### Using the generated code
+Running the above will output these files into `./src/app/clients/some-service`:
+
+- `./api.module.ts`: exports a class `ApiModule` as an `NgModule`
+- `./client.service.ts`: exports a class `ApiClient` as injectable Angular service
+- `./models.ts`: exports typescript types
+- `./schemas.ts`: exports runtime parsers using the chosen `schema-builder` (default `zod`)
+
+Once generated usage should look something like this:
+
+```typescript
+// Root Angular module
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule, ApiModule],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
+})
+export class AppComponent {
+  // inject into your component
+  constructor(client: ApiClient) {
+    client.updateTodoListById({listId: "1", requestBody: {name: "Foo"}}).subscribe((next) => {
+      if (next.status === 200) {
+        // TODO: body is currently incorrectly `unknown` here
+        console.log(next.body.id)
+      }
+    })
+  }
+}
+```

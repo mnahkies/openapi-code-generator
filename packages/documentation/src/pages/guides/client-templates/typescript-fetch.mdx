@@ -1,0 +1,73 @@
+import { Callout } from 'nextra/components'
+
+# Using the `typescript-fetch` template
+
+The `typescript-fetch` template outputs a client SDK based on the [fetch api](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) that gives the following:
+
+- Typed methods to call each endpoint
+- Support for passing a `timeout`, abort signals are still respected
+
+It does not yet support runtime validation/parsing - compile time type safety only at this stage.
+
+See [integration-tests/typescript-fetch](https://github.com/mnahkies/openapi-code-generator/tree/main/integration-tests/typescript-fetch) for more samples.
+
+Dependencies:
+
+### Install dependencies
+Prerequisite [installed the cli](../../getting-started/quick-start)
+
+```sh npm2yarn
+npm i @nahkies/typescript-fetch-runtime
+```
+
+
+<Callout emoji="💡">
+  If you're using an older version of NodeJS, or targeting very old web browsers,
+  you may need a polyfill like [node-fetch-native](https://www.npmjs.com/package/node-fetch-native)
+</Callout>
+
+### Run generation
+
+```sh npm2yarn
+npm run openapi-code-generator \
+  --input ./openapi.yaml \
+  --output ./src/clients/some-service \
+  --template typescript-fetch \
+  --schema-builder zod
+```
+
+### Using the generated code
+Running the above will output these files into `./src/clients/some-service`:
+
+- `./client.ts`: exports a class `ApiClient` that implements methods for calling each endpoint
+- `./models.ts`: exports typescript types
+- `./schemas.ts`: exports runtime parsers using the chosen `schema-builder` (default `zod`)
+
+Once generated usage should look something like this:
+
+```typescript
+const client = new ApiClient({
+  basePath: `http://localhost:${address.port}`,
+  defaultHeaders: {
+    "Content-Type": "application/json",
+    Authorisation: "Bearer: <TOKEN>", // can pass auth headers here
+  },
+})
+
+const res = await client.createTodoListItem({
+  listId: list.id,
+  requestBody: {content: "test item"},
+  // optionally pass a timeout (ms), or any arbitrary fetch options (eg: an abort signal)
+  // timeout?: number,
+  // opts?: RequestInit
+})
+
+// checking the status code narrows the response body types (ie: remove error types from the type union)
+if (res.status !== 200) {
+  throw new Error("failed to create item")
+}
+
+// body will be typed correctly
+const body = await res.json()
+console.log(`id is: ${body.id}`)
+```
