@@ -2,11 +2,11 @@ import nextra from "nextra"
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output:"export",
+  output: "export",
   distDir: "dist",
   reactStrictMode: true,
   images: {
-    unoptimized: true
+    unoptimized: true,
   },
   async redirects() {
     return [{source: "/", destination: "/overview/about", permanent: false}]
