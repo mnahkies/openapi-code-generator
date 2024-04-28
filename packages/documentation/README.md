@@ -1,6 +1,8 @@
 # @nahkies/openapi-code-generator - documentation website
 The documentation website is built using [NextJS](https://nextjs.org/) / [Nextra](https://nextra.site/) site.
 
+It's hosted at https://openapi-code-generator.nahkies.co.nz/ using GitHub pages.
+
 <!-- toc -->
 
 - [Local development](#local-development)
