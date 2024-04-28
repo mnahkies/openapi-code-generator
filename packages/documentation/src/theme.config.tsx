@@ -1,7 +1,21 @@
+import {useRouter} from "next/router"
+
 export default {
-  logo: <span>My Nextra Documentation</span>,
+  logo: <strong>🔧 OpenAPI Code Generator</strong>,
   project: {
-    link: "https://github.com/shuding/nextra",
+    link: "https://github.com/mnahkies/openapi-code-generator",
   },
-  // ... other theme options
+  docsRepositoryBase:
+    "https://github.com/mnahkies/openapi-code-generator/tree/main/packages/documentation",
+  darkMode: true,
+  faviconGlyph: "🔧",
+
+  useNextSeoProps() {
+    const {asPath} = useRouter()
+    if (asPath !== "/") {
+      return {
+        titleTemplate: "%s – OpenAPI Code Generator",
+      }
+    }
+  },
 }

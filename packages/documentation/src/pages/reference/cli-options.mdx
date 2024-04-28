@@ -1,0 +1,100 @@
+import {
+  Callout
+} from "nextra/components"
+
+## CLI Configuration Reference
+All CLI options can be provided as command-line parameters, or environment variables as you prefer.
+
+
+## Generate
+
+The default action is to run code generation.
+
+### Required Parameters
+
+#### `-i --input <value>`
+As environment variable `OPENAPI_INPUT`
+
+Path to the input specification to generate from. Either a local path, or a url may be provided, though not all
+specifications will build correctly from a url.
+
+By default, this must be a [OpenAPI 3.0](https://swagger.io/specification/v3) or [OpenAPI 3.1](https://swagger.io/specification/)
+specification, in either `YAML` or `JSON` format.
+
+When used in conjunction with `--input-type typespec` then a [TypeSpec](https://typespec.io/) specification can be
+supplied instead.
+
+#### `-o --output <value>`
+As environment variable `OPENAPI_OUTPUT`
+
+directory to output generated code (env: )
+
+#### `-t --template <value>`
+As environment variable `OPENAPI_TEMPLATE`
+
+Which template you wish to generate, one of:
+- [typescript-koa](../guides/server-templates/typescript-koa)
+- [typescript-fetch](../guides/client-templates/typescript-fetch)
+- [typescript-axios](../guides/client-templates/typescript-axios)
+- [typescript-angular](../guides/client-templates/typescript-angular)
+
+
+### Optional Parameters
+
+#### `--input-type <value>`
+As environment variable `OPENAPI_INPUT_TYPE`
+
+What type of input file is being provided, one of:
+- `openapi3` (**default**)
+- `typespec`
+
+#### `-s --schema-builder <value>`
+As environment variable `OPENAPI_SCHEMA_BUILDER`
+
+Which runtime schema parsing library to use, one of:
+- `zod` (default)
+- `joi`
+
+
+#### `--grouping-strategy <value>` (experimental)
+As environment variable `OPENAPI_GROUPING_STRATEGY`
+
+Strategy to use for splitting output into separate files. Set to none for a single `generated.ts` file, one of:
+- `none` don't split output, yield single `generated.ts` (default)
+- `first-tag` group operations based on their first `tag`
+- `first-slug` group operations based on their first route slug/segment
+
+
+#### `--enable-runtime-response-validation` (experimental)
+As environment variable `OPENAPI_ENABLE_RUNTIME_RESPONSE_VALIDATION`
+
+Controls whether to validate response bodies using the chosen runtime schema library.
+
+Default `false`
+
+<Callout type="warning" emoji="⚠️">
+  Note: this is currently always `true` for server templates, and only applies to the client library templates.
+</Callout>
+
+#### `--extract-inline-schemas` (experimental)
+As environment variable `OPENAPI_EXTRACT_INLINE_SCHEMAS`
+
+Generate names based on usage, and extract in-line schemas to be standalone types / schemas in the
+generated code. This is especially useful when dealing with input schemas that don't make good use
+of named `$ref`'s.
+
+Default `false`
+
+#### `--allow-unused-imports`
+As environment variable `OPENAPI_ALLOW_UNUSED_IMPORTS`
+
+Allow unused imports to be emitted in generated code. Offered as an escape hatch if any bugs
+in the unused-import elimination occur.
+
+Default `false`
+
+### Misc
+
+#### `-h, --help`
+Displays help text for command
+

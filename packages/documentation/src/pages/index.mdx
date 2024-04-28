@@ -1,3 +1,8 @@
-# Welcome to Nextra
+import {useRouter} from "next/router"
 
-Hello, world!
+export const Redirect = () => {
+  const router = useRouter()
+  router.push('/overview/about')
+}
+
+<Redirect/>
