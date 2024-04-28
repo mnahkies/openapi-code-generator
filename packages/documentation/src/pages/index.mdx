@@ -1,8 +1,12 @@
 import {useRouter} from "next/router"
+import {useEffect} from "react"
 
 export const Redirect = () => {
   const router = useRouter()
-  router.push('/overview/about')
+
+  useEffect(() => {
+    router.push('/overview/about')
+  }, [router]);
 }
 
 <Redirect/>

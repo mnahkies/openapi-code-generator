@@ -16,11 +16,12 @@
     "url": "https://github.com/mnahkies/openapi-code-generator/issues"
   },
   "scripts": {
-    "clean": "rm -rf ./.next",
+    "clean": "rm -rf ./.next ./dist",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "publish:gh-pages": "yarn clean && yarn build && yarn gh-pages -d ./dist -b gh-pages"
   },
   "dependencies": {
     "next": "14.2.3",
@@ -35,6 +36,7 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
+    "gh-pages": "^6.1.1",
     "typescript": "^5"
   }
 }
