@@ -1,7 +1,5 @@
+import {GA_ID} from "@/lib/ga"
 import {Head, Html, Main, NextScript} from "next/document"
-import Script from "next/script"
-
-const GA_ID = "G-X7JHJYGVNR"
 
 export default function Document() {
   return (
@@ -33,10 +31,6 @@ export default function Document() {
           }}
         />
       </Head>
-      <Script
-        strategy={"afterInteractive"}
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-      />
       <body>
         <Main />
         <NextScript />
