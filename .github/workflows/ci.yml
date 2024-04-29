@@ -19,8 +19,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      #      with:
-      #        fetch-depth: ''
+        with:
+          fetch-depth: 0
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
@@ -51,6 +51,11 @@ jobs:
 
       - name: Check for uncommitted changes
         run: ./scripts/assert-clean-working-directory.sh
+
+      - name: Publish documentation
+        run: yarn lerna run publish:gh-pages --scope '@nahkies/openapi-code-generator-documentation'
+        if: github.ref == 'refs/heads/main'
+
 # TODO: figure out how to do this safely, eg: no risk of external contributors exfiltrating publish secret.
 #    - name: Configure Git User
 #      run: |

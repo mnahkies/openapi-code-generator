@@ -1,3 +1,11 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "settings": {
+    "next": {
+      "rootDir": "packages/documentation/"
+    }
+  },
+  "rules": {
+    "react-hooks/exhaustive-deps": "error"
+  }
 }

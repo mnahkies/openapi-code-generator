@@ -1,5 +1,5 @@
 {
-  "name": "documentation",
+  "name": "@nahkies/openapi-code-generator-documentation",
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
@@ -19,9 +19,8 @@
     "clean": "rm -rf ./.next ./dist",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
     "lint": "next lint",
-    "publish:gh-pages": "yarn clean && yarn build && yarn gh-pages -d ./dist -b gh-pages --cname openapi-code-generator.nahkies.co.nz --nojekyll"
+    "publish:gh-pages": "yarn gh-pages -d ./dist -b gh-pages --cname openapi-code-generator.nahkies.co.nz --nojekyll"
   },
   "dependencies": {
     "next": "14.2.3",

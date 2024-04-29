@@ -2968,6 +2968,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nahkies/openapi-code-generator-documentation@workspace:packages/documentation":
+  version: 0.0.0-use.local
+  resolution: "@nahkies/openapi-code-generator-documentation@workspace:packages/documentation"
+  dependencies:
+    "@types/node": "npm:^20"
+    "@types/react": "npm:^18"
+    "@types/react-dom": "npm:^18"
+    eslint: "npm:^8"
+    eslint-config-next: "npm:14.2.3"
+    gh-pages: "npm:^6.1.1"
+    next: "npm:14.2.3"
+    nextra: "npm:^2.13.4"
+    nextra-theme-docs: "npm:^2.13.4"
+    react: "npm:^18"
+    react-dom: "npm:^18"
+    typescript: "npm:^5"
+  languageName: unknown
+  linkType: soft
+
 "@nahkies/openapi-code-generator@workspace:packages/openapi-code-generator":
   version: 0.0.0-use.local
   resolution: "@nahkies/openapi-code-generator@workspace:packages/openapi-code-generator"
@@ -8131,25 +8150,6 @@ __metadata:
   checksum: 10/b4b28f1df5c563f7d876e7461254a4597b8cabe915abe94d7c5d1633fed263fcf9a85e8d3836591fc2d040108e822b0d32758e5ec1fe31c590dc7e08086e3e48
   languageName: node
   linkType: hard
-
-"documentation@workspace:packages/documentation":
-  version: 0.0.0-use.local
-  resolution: "documentation@workspace:packages/documentation"
-  dependencies:
-    "@types/node": "npm:^20"
-    "@types/react": "npm:^18"
-    "@types/react-dom": "npm:^18"
-    eslint: "npm:^8"
-    eslint-config-next: "npm:14.2.3"
-    gh-pages: "npm:^6.1.1"
-    next: "npm:14.2.3"
-    nextra: "npm:^2.13.4"
-    nextra-theme-docs: "npm:^2.13.4"
-    react: "npm:^18"
-    react-dom: "npm:^18"
-    typescript: "npm:^5"
-  languageName: unknown
-  linkType: soft
 
 "dom-serialize@npm:^2.2.1":
   version: 2.2.1
