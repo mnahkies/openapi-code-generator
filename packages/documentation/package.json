@@ -20,7 +20,7 @@
     "dev": "next dev",
     "build": "next build",
     "lint": "next lint",
-    "publish:gh-pages": "yarn gh-pages -d ./dist -b gh-pages --cname openapi-code-generator.nahkies.co.nz --nojekyll"
+    "publish:gh-pages": "yarn gh-pages -d ./dist -b gh-pages --cname openapi-code-generator.nahkies.co.nz --nojekyll  -u 'github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>'"
   },
   "dependencies": {
     "next": "14.2.3",
