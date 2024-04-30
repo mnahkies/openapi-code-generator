@@ -1,3 +1,4 @@
+import {NextSeoProps} from "next-seo"
 import {useRouter} from "next/router"
 
 const ThemeConfig = {
@@ -10,12 +11,16 @@ const ThemeConfig = {
   darkMode: true,
   faviconGlyph: "🔧",
 
-  useNextSeoProps() {
+  useNextSeoProps(): NextSeoProps {
     const {asPath} = useRouter()
-    if (asPath !== "/") {
-      return {
-        titleTemplate: "%s – OpenAPI Code Generator",
-      }
+
+    const titleTemplate =
+      asPath !== "/" ? "%s – OpenAPI Code Generator" : "OpenAPI Code Generator"
+
+    return {
+      titleTemplate,
+      description:
+        "A code generation tool for openapi 3 / 3.1, and typespec specifications, primarily aimed at generating typescript client SDKs, and server stubs, with an emphasis on compile & runtime safety.",
     }
   },
 }
