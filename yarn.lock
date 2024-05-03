@@ -3016,7 +3016,7 @@ __metadata:
     lodash: "npm:^4.17.21"
     source-map-support: "npm:^0.5.21"
     tslib: "npm:^2.6.2"
-    typescript: "npm:~5.3.3"
+    typescript: "npm:~5.4.0"
   peerDependencies:
     "@typespec/compiler": ^0.55.0
     "@typespec/http": ^0.55.0
@@ -15474,7 +15474,7 @@ __metadata:
     markdown-toc: "npm:^1.2.0"
     prettier: "npm:^3.2.5"
     source-map-support: "npm:^0.5.21"
-    typescript: "npm:~5.3.3"
+    typescript: "npm:~5.4.0"
   languageName: unknown
   linkType: soft
 
@@ -18844,7 +18844,7 @@ __metadata:
     karma-jasmine-html-reporter: "npm:~2.1.0"
     rxjs: "npm:~7.8.1"
     tslib: "npm:^2.6.2"
-    typescript: "npm:~5.3.3"
+    typescript: "npm:~5.4.0"
     zone.js: "npm:~0.14.4"
   languageName: unknown
   linkType: soft
@@ -18857,7 +18857,7 @@ __metadata:
     "@types/node": "npm:^20.12.7"
     axios: "npm:^1.6.8"
     dotenv: "npm:^16.4.5"
-    typescript: "npm:~5.3.3"
+    typescript: "npm:~5.4.0"
   languageName: unknown
   linkType: soft
 
@@ -18868,7 +18868,7 @@ __metadata:
     "@nahkies/typescript-fetch-runtime": "npm:*"
     "@types/node": "npm:^20.12.7"
     dotenv: "npm:^16.4.5"
-    typescript: "npm:~5.3.3"
+    typescript: "npm:~5.4.0"
   languageName: unknown
   linkType: soft
 
@@ -18883,12 +18883,12 @@ __metadata:
     "@types/koa": "npm:^2.15.0"
     "@types/koa__router": "npm:^12.0.4"
     koa: "npm:^2.15.3"
-    typescript: "npm:~5.3.3"
+    typescript: "npm:~5.4.0"
     zod: "npm:^3.23.4"
   languageName: unknown
   linkType: soft
 
-"typescript@npm:>=3 < 6, typescript@npm:^5":
+"typescript@npm:>=3 < 6, typescript@npm:^5, typescript@npm:~5.4.0":
   version: 5.4.5
   resolution: "typescript@npm:5.4.5"
   bin:
@@ -18898,33 +18898,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:~5.3.3":
-  version: 5.3.3
-  resolution: "typescript@npm:5.3.3"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10/6e4e6a14a50c222b3d14d4ea2f729e79f972fa536ac1522b91202a9a65af3605c2928c4a790a4a50aa13694d461c479ba92cedaeb1e7b190aadaa4e4b96b8e18
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@npm%3A>=3 < 6#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A>=3 < 6#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A~5.4.0#optional!builtin<compat/typescript>":
   version: 5.4.5
   resolution: "typescript@patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>::version=5.4.5&hash=d69c25"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 10/584be8bac7112ad49a9eb9992f71d542b1ff2fafb5bb315e1c196145e8feab589f1d7223cfb2d5df6770789582e6918f8287d1f2f89911b38eb80e29c560ad00
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@npm%3A~5.3.3#optional!builtin<compat/typescript>":
-  version: 5.3.3
-  resolution: "typescript@patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=e012d7"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10/c93786fcc9a70718ba1e3819bab56064ead5817004d1b8186f8ca66165f3a2d0100fee91fa64c840dcd45f994ca5d615d8e1f566d39a7470fc1e014dbb4cf15d
   languageName: node
   linkType: hard
 
