@@ -1,3 +1,5 @@
+import {Tabs} from 'nextra/components'
+
 # Using the `typescript-koa` template
 The `typescript-koa` template outputs scaffolding code that handles the following:
 
@@ -19,14 +21,30 @@ npm i --dev @types/koa @types/koa__router
 ```
 
 ### Run generation
+<Tabs items={["OpenAPI3", "Typespec"]}>
 
-```sh npm2yarn
-npm run openapi-code-generator \
-  --input ./openapi.yaml \
-  --output ./src \
-  --template typescript-koa \
-  --schema-builder zod
-```
+  <Tabs.Tab>
+    ```sh npm2yarn
+    npm run openapi-code-generator \
+      --input ./openapi.yaml \
+      --input-type openapi3 \
+      --output ./src \
+      --template typescript-koa \
+      --schema-builder zod
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```sh npm2yarn
+    npm run openapi-code-generator \
+      --input ./typespec.tsp \
+      --input-type typespec \
+      --output ./src \
+      --template typescript-koa \
+      --schema-builder zod
+    ```
+  </Tabs.Tab>
+
+</Tabs>
 
 ### Using the generated code
 Running the above will output three files into `./src`:
