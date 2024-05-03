@@ -1,13 +1,16 @@
+import {Callout, Tabs} from 'nextra/components'
+
 # Using the `typescript-axios` template
 
 The `typescript-axios` template outputs a client SDK based on the [axios](https://www.npmjs.com/package/axios) that gives the following:
 
 - Typed methods to call each endpoint
-
-It does not yet support runtime validation/parsing - compile time type safety only at this stage.
+- Optionally, runtime response validation
 
 It follows the standard `axios` pattern of rejecting any response that isn't `2xx` and thus can't provide typed
-error responses. If you'd like to have strong typing over your error responses consider using the `typescript-fetch` template.
+error responses. If you'd like to have strong typing over your error responses consider using the [`typescript-fetch` template](./typescript-fetch).
+
+Runtime request parameter validation is not currently supported.
 
 See [integration-tests/typescript-axios](https://github.com/mnahkies/openapi-code-generator/tree/main/integration-tests/typescript-axios) for more samples.
 
@@ -19,14 +22,35 @@ npm i axios @nahkies/typescript-axios-runtime
 ```
 
 ### Run generation
+<Tabs items={["OpenAPI3", "Typespec"]}>
 
-```sh npm2yarn
-npm run openapi-code-generator \
-  --input ./openapi.yaml \
-  --output ./src/clients/some-service \
-  --template typescript-axios \
-  --schema-builder zod
-```
+  <Callout emoji="💡">
+    Experimental support for runtime response validation is available behind the `--enable-runtime-response-validation`
+    flag.
+  </Callout>
+
+  <Tabs.Tab>
+    ```sh npm2yarn
+    npm run openapi-code-generator \
+      --input ./openapi.yaml \
+      --input-type openapi3 \
+      --output ./src/clients/some-service \
+      --template typescript-axios \
+      --schema-builder zod
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```sh npm2yarn
+    npm run openapi-code-generator \
+      --input ./typespec.tsp \
+      --input-type typespec \
+      --output ./src/clients/some-service \
+      --template typescript-axios \
+      --schema-builder zod
+    ```
+  </Tabs.Tab>
+</Tabs>
+
 
 ### Using the generated code
 Running the above will output these files into `./src/clients/some-service`:

@@ -1,4 +1,4 @@
-import { Callout } from 'nextra/components'
+import {Callout, Tabs} from 'nextra/components'
 
 # Using the `typescript-angular` template
 
@@ -16,17 +16,33 @@ See [integration-tests/typescript-angular](https://github.com/mnahkies/openapi-c
 ### Install dependencies
 Prerequisite [installed the cli](../../getting-started/quick-start)
 
-There are no additional dependencies required for this template at this stage.
+There are no additional dependencies required for this template.
 
 ### Run generation
 
-```sh npm2yarn
-npm run openapi-code-generator \
-  --input ./openapi.yaml \
-  --output ./src/app/clients/some-service \
-  --template typescript-angular \
-  --schema-builder zod
-```
+<Tabs items={["OpenAPI3", "Typespec"]}>
+
+  <Tabs.Tab>
+    ```sh npm2yarn
+    npm run openapi-code-generator \
+      --input ./openapi.yaml \
+      --input-type openapi3 \
+      --output ./src/app/clients/some-service \
+      --template typescript-angular \
+      --schema-builder zod
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```sh npm2yarn
+    npm run openapi-code-generator \
+      --input ./typespec.tsp \
+      --input-type typespec \
+      --output ./src/app/clients/some-service \
+      --template typescript-angular \
+      --schema-builder zod
+    ```
+  </Tabs.Tab>
+</Tabs>
 
 ### Using the generated code
 Running the above will output these files into `./src/app/clients/some-service`:
