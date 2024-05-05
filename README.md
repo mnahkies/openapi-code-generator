@@ -3,20 +3,28 @@
 ![CI/CD](https://github.com/mnahkies/openapi-code-generator/actions/workflows/ci.yml/badge.svg)
 [![npm](https://img.shields.io/npm/v/@nahkies/openapi-code-generator.svg)](https://www.npmjs.com/package/@nahkies/openapi-code-generator)
 
-> [!TIP]
-> We have a new documentation site at https://openapi-code-generator.nahkies.co.nz/
+`@nahkies/openapi-code-generator` is a CLI tool that aims to generate high quality typescript client SDK's,
+and API server scaffolding (routing, validation, serialization) from OpenAPI 3 specifications.
 
-This project should be considered alpha quality. However, as shown by the integration tests, it does a fair job of
-generating a strongly typed client for large/complex definitions like the GitHub api.
+Currently, [OpenAPI 3.0](https://swagger.io/specification/v3), [OpenAPI 3.1](https://swagger.io/specification/),
+and [TypeSpec](https://typespec.io/) are supported an input specifications.
 
 <!-- toc -->
 
-- [Project Structure](#project-structure)
 - [Documentation](#documentation)
+- [Project Structure](#project-structure)
 - [Contributing](#contributing)
 - [License](#license)
 
 <!-- tocstop -->
+
+## Documentation
+
+Visit https://openapi-code-generator.nahkies.co.nz/ for detailed documentation including
+quick start guides and reference material.
+
+The documentation is built using NextJS / Nextra, and deployed using Github pages.
+You can contribute to it in [./packages/documentation](./packages/documentation)
 
 ## Project Structure
 
@@ -35,16 +43,11 @@ code output to [./integration-tests](./integration-tests)
 
 Scripts to refresh the test data live in [./scripts](./scripts)
 
-## Documentation
-
-Please see [./packages/openapi-code-generator](./packages/openapi-code-generator) for the main `README.md`, detailing the **goals**
-of the project and **usage information**.
-
 ## Contributing
 
 Contributing guidelines can be found in [./CONTRIBUTING.md](./CONTRIBUTING.md).
 
-An overview of the codebase architecture is in [./packages/openapi-code-generator/ARCHITECTURE.md](./packages/openapi-code-generator/ARCHITECTURE.md)
+An overview of the codebase architecture is [available here](https://openapi-code-generator.nahkies.co.nz/reference/architecture)
 
 ## License
 
