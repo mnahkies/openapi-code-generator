@@ -8,31 +8,25 @@ across all templates / target languages, and then the template functions.
 
 Some templates also make use of a runtime library.
 
-<!-- toc -->
-
-- [Core](#core)
-  - [`file-loader`](#file-loader)
-  - [`openapi-validator`](#openapi-validator)
-  - [`openapi-loader`](#openapi-loader)
-  - [`input`](#input)
-- [Templates](#templates)
-
-<!-- tocstop -->
-
-![high level architecture](./architecture_high_level.svg)
+![high level architecture](/architecture_high_level.svg)
 
 ## Core
 
-This directory [`./src/core`](./src/core) contains the generator/target language agnostic parts of the project.
+This directory [`./src/core`](https://github.com/mnahkies/openapi-code-generator/tree/main/packages/openapi-code-generator/src/core) contains the generator/target language agnostic parts of the project.
 
 The process of generation resembles a pipeline.
 
-![core architecture](./architecture_core.svg)
+![core architecture](/architecture_core.svg)
 
-### `file-loader`
+### `./loaders`
 
-Does what it says on the tin, given a path/URI it reads in the file and parses
-it from JSON/YAML
+Loaders are responsible for fetching a supported input format, and converting
+it to openapi3 if required, to be handed off to the `openapi-validator` / `openapi-loader`.
+
+Two loaders are supported:
+- `generic` which loads openapi3 specs in JSON/YAML formats
+- `typespec` which loads typespec specs and converts them in-memory to openapi3
+
 
 ### `openapi-validator`
 
@@ -41,6 +35,9 @@ it against the OpenAPI 3 specification in JSON schema format.
 
 Useful for detecting errors due to bad input rather than bugs in the
 code generation.
+
+Due to a [bug](https://github.com/mnahkies/openapi-code-generator/issues/103) in `ajv`
+validation is currently skipped for OpenAPI 3.1 documents.
 
 ### `openapi-loader`
 
@@ -69,18 +66,22 @@ that has already de-referenced parameters / responses, and set default values on
 
 ## Templates
 
-Currently only `typescript` templates are implemented, living in [./src/typescript](./src/typescript).
+Currently only `typescript` templates are implemented, living in [./src/typescript](https://github.com/mnahkies/openapi-code-generator/tree/main/packages/openapi-code-generator/src/typescript).
 
-![templates architecture](./architecture_templates.svg)
+![templates architecture](/architecture_templates.svg)
 
 Each template currently has a simple signature:
-(from [./src/templates.types.ts](./src/templates.types.ts))
+(from [./src/templates.types.ts](https://github.com/mnahkies/openapi-code-generator/tree/main/packages/openapi-code-generator/src/templates.types.ts))
 
 ```typescript
 export interface OpenapiGeneratorConfig {
   dest: string
   input: Input
   schemaBuilder: SchemaBuilderType
+  enableRuntimeResponseValidation: boolean
+  compilerOptions: CompilerOptions
+  allowUnusedImports: boolean
+  groupingStrategy: OperationGroupStrategy
 }
 
 export interface OpenapiGenerator {
@@ -91,5 +92,5 @@ export interface OpenapiGenerator {
 Where `dest` is a path to a directory to emit code into, and `input` is an initialized instance
 of the `Input` class described above. `schemaBuilder` refers to `zod | joi`
 
-You can find all registered generators in [./src/templates.ts](./src/templates.ts) - eventually this likely be split into
+You can find all registered generators in [./src/templates.ts](https://github.com/mnahkies/openapi-code-generator/tree/main/packages/openapi-code-generator/src/templates.ts) - eventually this likely be split into
 packages that consume the core modules, or some other more pluggable system.
