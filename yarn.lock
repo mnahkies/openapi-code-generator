@@ -382,8 +382,8 @@ __metadata:
   linkType: hard
 
 "@azure-tools/typespec-client-generator-core@npm:^0.41.7":
-  version: 0.41.8
-  resolution: "@azure-tools/typespec-client-generator-core@npm:0.41.8"
+  version: 0.41.9
+  resolution: "@azure-tools/typespec-client-generator-core@npm:0.41.9"
   dependencies:
     change-case: "npm:~5.4.4"
     pluralize: "npm:^8.0.0"
@@ -393,7 +393,7 @@ __metadata:
     "@typespec/http": ~0.55.0
     "@typespec/rest": ~0.55.0
     "@typespec/versioning": ~0.55.0
-  checksum: 10/bc395a864487f14acc0f573f6d86a862e54cfca990f3f1a96c1a08170231b0fc62b369e9f2985c003be4f68061d340aef31e235b738a6e61278b6f324cc60e48
+  checksum: 10/77c669e7a8fe825d4ccf5a28331be3288bc0575d2f29c7618340c0ee95428b8606da73859c59668d40338a18b021cf9998d63e2e0f6348765a72878b07bd417f
   languageName: node
   linkType: hard
 
