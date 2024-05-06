@@ -1957,13 +1957,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@biomejs/js-api@npm:0.5.0":
-  version: 0.5.0
-  resolution: "@biomejs/js-api@npm:0.5.0"
+"@biomejs/js-api@npm:0.6.0":
+  version: 0.6.0
+  resolution: "@biomejs/js-api@npm:0.6.0"
   peerDependencies:
-    "@biomejs/wasm-bundler": ^1.6.1
-    "@biomejs/wasm-nodejs": ^1.6.1
-    "@biomejs/wasm-web": ^1.6.1
+    "@biomejs/wasm-bundler": ^1.7.2
+    "@biomejs/wasm-nodejs": ^1.7.2
+    "@biomejs/wasm-web": ^1.7.2
   peerDependenciesMeta:
     "@biomejs/wasm-bundler":
       optional: true
@@ -1971,7 +1971,7 @@ __metadata:
       optional: true
     "@biomejs/wasm-web":
       optional: true
-  checksum: 10/bf15eac71428f160b46c2529cb39615ae98e2e71f69501976f42aec27b94be40926ec345ea0442a9841622e35d053ca6028fb3b2a451c3dcfe7f3342cfdf57aa
+  checksum: 10/8dbacc3698b5da5b684fc6528b09b07b1186689abf3e1964a342197d6bb31dc0d3c6107feba741fc28cb3f02a68645b3cdc1e5459e18c90c694497d9d2c19cc0
   languageName: node
   linkType: hard
 
@@ -2996,7 +2996,7 @@ __metadata:
     "@azure-tools/typespec-azure-resource-manager": "npm:^0.41.0"
     "@azure-tools/typespec-client-generator-core": "npm:^0.41.7"
     "@biomejs/biome": "npm:^1.7.1"
-    "@biomejs/js-api": "npm:0.5.0"
+    "@biomejs/js-api": "npm:0.6.0"
     "@biomejs/wasm-nodejs": "npm:^1.7.1"
     "@commander-js/extra-typings": "npm:^12.0.1"
     "@types/js-yaml": "npm:^4.0.9"
