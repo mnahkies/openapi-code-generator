@@ -1976,9 +1976,9 @@ __metadata:
   linkType: hard
 
 "@biomejs/wasm-nodejs@npm:^1.7.1":
-  version: 1.7.1
-  resolution: "@biomejs/wasm-nodejs@npm:1.7.1"
-  checksum: 10/d809eadf01e611ce5b43ccc52ae8ccfc910fd8fb0277bde7995614b9eaa0cef092ff763647092fcc799c8f109a5626dffaa06d5d00f0630c89475ef4949fd9b7
+  version: 1.7.3
+  resolution: "@biomejs/wasm-nodejs@npm:1.7.3"
+  checksum: 10/f2c2b2bb7ab9f941c8859964373626f529602d5b55c38f2b9437ebde84e09603db15ca3775d079394eabf72153820c77956e8296427b4131ad7534701e7c2fcd
   languageName: node
   linkType: hard
 
