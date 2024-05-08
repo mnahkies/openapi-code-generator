@@ -340,18 +340,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure-tools/typespec-autorest@npm:^0.41.1":
-  version: 0.41.1
-  resolution: "@azure-tools/typespec-autorest@npm:0.41.1"
+"@azure-tools/typespec-autorest@npm:^0.42.0":
+  version: 0.42.0
+  resolution: "@azure-tools/typespec-autorest@npm:0.42.0"
   peerDependencies:
-    "@azure-tools/typespec-azure-core": ~0.41.0
-    "@azure-tools/typespec-client-generator-core": ~0.41.1
-    "@typespec/compiler": ~0.55.0
-    "@typespec/http": ~0.55.0
-    "@typespec/openapi": ~0.55.0
-    "@typespec/rest": ~0.55.0
-    "@typespec/versioning": ~0.55.0
-  checksum: 10/7842236302d4459e54316adf9c67e5c53b37fa599c0dcdf0a30f114e9e549fb05b24073a3848f52b785dd2ee88f155b2fbdb01ec583a6c3601b3cfb94b780324
+    "@azure-tools/typespec-azure-core": ~0.42.0
+    "@azure-tools/typespec-client-generator-core": ~0.42.0
+    "@typespec/compiler": ~0.56.0
+    "@typespec/http": ~0.56.0
+    "@typespec/openapi": ~0.56.0
+    "@typespec/rest": ~0.56.0
+    "@typespec/versioning": ~0.56.0
+  checksum: 10/69a6dc6a105b288c2644787b58ffe31b9b7eb5f83cbd0fc2952dbe4602798151513a4d085be778977b16741396c23fa5402f47a31827239d41cd2dc758dd87d1
   languageName: node
   linkType: hard
 
@@ -2991,7 +2991,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@nahkies/openapi-code-generator@workspace:packages/openapi-code-generator"
   dependencies:
-    "@azure-tools/typespec-autorest": "npm:^0.41.1"
+    "@azure-tools/typespec-autorest": "npm:^0.42.0"
     "@azure-tools/typespec-azure-core": "npm:^0.41.0"
     "@azure-tools/typespec-azure-resource-manager": "npm:^0.41.0"
     "@azure-tools/typespec-client-generator-core": "npm:^0.41.7"
