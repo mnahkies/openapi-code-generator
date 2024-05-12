@@ -98,9 +98,6 @@ import {
 } from "@nahkies/typescript-koa-runtime/zod"
 import { z } from "zod"
 
-//region safe-edit-region-header
-
-//endregion safe-edit-region-header
 export type ServiceStatusResponder = {
   with200(): KoaRuntimeResponse<{
     statusString: string

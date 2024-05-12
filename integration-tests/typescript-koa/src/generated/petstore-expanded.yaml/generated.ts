@@ -31,9 +31,6 @@ import {
 } from "@nahkies/typescript-koa-runtime/zod"
 import { z } from "zod"
 
-//region safe-edit-region-header
-
-//endregion safe-edit-region-header
 export type FindPetsResponder = {
   with200(): KoaRuntimeResponse<t_Pet[]>
   withDefault(status: StatusCode): KoaRuntimeResponse<t_Error>
