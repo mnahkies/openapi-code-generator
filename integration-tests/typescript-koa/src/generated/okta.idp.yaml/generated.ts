@@ -68,9 +68,6 @@ import {
 } from "@nahkies/typescript-koa-runtime/zod"
 import { z } from "zod"
 
-//region safe-edit-region-header
-
-//endregion safe-edit-region-header
 export type CreateAppAuthenticatorEnrollmentResponder = {
   with200(): KoaRuntimeResponse<t_AppAuthenticatorEnrollment>
   with400(): KoaRuntimeResponse<t_Error>
