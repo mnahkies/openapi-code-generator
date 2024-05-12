@@ -9,7 +9,7 @@ import {isDefined, titleCase, upperFirst} from "../../core/utils"
 import {OpenapiGeneratorConfig} from "../../templates.types"
 import {CompilationUnit, ICompilable} from "../common/compilation-units"
 import {ImportBuilder} from "../common/import-builder"
-import {emitGenerationResult, loadPreviousResult} from "../common/output-utils"
+import {emitGenerationResult} from "../common/output-utils"
 import {JoiBuilder} from "../common/schema-builders/joi-schema-builder"
 import {
   SchemaBuilder,
@@ -63,9 +63,6 @@ export class ServerRouterBuilder implements ICompilable {
     private readonly imports: ImportBuilder,
     public readonly types: TypeBuilder,
     public readonly schemaBuilder: SchemaBuilder,
-    private existingRegions: {
-      [operationId: string]: string
-    },
   ) {
     // todo: unsure why, but adding an export at `.` of index.ts doesn't work properly
     this.imports
@@ -317,9 +314,6 @@ export class ServerRouterBuilder implements ICompilable {
   toString(): string {
     const routes = this.statements
     const code = `
-//region safe-edit-region-header
-${this.existingRegions["header"] ?? ""}
-//endregion safe-edit-region-header
 ${this.operationTypes.flatMap((it) => it.statements).join("\n\n")}
 
 ${buildExport({
@@ -437,9 +431,6 @@ export async function generateTypescriptKoa(
         imports,
         rootTypeBuilder.withImports(imports),
         rootSchemaBuilder.withImports(imports),
-        loadExistingImplementations(
-          await loadPreviousResult(config.dest, {filename}),
-        ),
       )
 
       group.operations.forEach((it) => routerBuilder.add(it))
@@ -476,32 +467,4 @@ export async function generateTypescriptKoa(
       },
     )
   }
-}
-
-const regionBoundary = /.+safe-edit-region-(.+)/
-
-function loadExistingImplementations(data: string): Record<string, string> {
-  const result: Record<string, string> = {}
-
-  let safeRegionName = ""
-  let buffer = []
-
-  for (const line of data.split("\n")) {
-    const match = regionBoundary.exec(line)
-
-    if (match) {
-      if (safeRegionName) {
-        result[safeRegionName] = buffer.join("\n")
-        buffer = []
-        safeRegionName = ""
-      } else {
-        // this is safe because we tested that the regex matched prior to
-        safeRegionName = match[1]!
-      }
-    } else if (safeRegionName) {
-      buffer.push(line)
-    }
-  }
-
-  return result
 }

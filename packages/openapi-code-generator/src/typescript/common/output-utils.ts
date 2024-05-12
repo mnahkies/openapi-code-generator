@@ -4,18 +4,6 @@ import {Biome, Distribution} from "@biomejs/js-api"
 import {logger} from "../../core/logger"
 import {CompilationUnit} from "./compilation-units"
 
-export async function loadPreviousResult(
-  dest: string,
-  unit: Pick<CompilationUnit, "filename">,
-): Promise<string> {
-  if (!fs.existsSync(path.join(dest, unit.filename))) {
-    return ""
-  }
-  return fs.readFileSync(path.join(dest, unit.filename), {
-    encoding: "utf-8",
-  })
-}
-
 export async function emitGenerationResult(
   dest: string,
   units: CompilationUnit[],
