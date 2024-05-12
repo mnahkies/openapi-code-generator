@@ -2,7 +2,7 @@ import {Input} from "../../../core/input"
 import {IRModel, MaybeIRModel} from "../../../core/openapi-types-normalized"
 import {OpenApiVersion, unitTestInput} from "../../../test/input.test-utils"
 import {ImportBuilder} from "../import-builder"
-import {formatOutput} from "../output-utils"
+import {TypescriptFormatter} from "../typescript-formatter"
 import {SchemaBuilderType, schemaBuilderFactory} from "./schema-builder"
 
 export function schemaBuilderTestHarness(
@@ -24,6 +24,8 @@ export function schemaBuilderTestHarness(
     maybeModel: MaybeIRModel,
     required: boolean,
   ) {
+    const formatter = await TypescriptFormatter.createNodeFormatter()
+
     const imports = new ImportBuilder()
 
     const builder = await schemaBuilderFactory(
@@ -36,22 +38,22 @@ export function schemaBuilderTestHarness(
 
     return {
       code: (
-        await formatOutput(
+        await formatter.format(
+          "unit-test.code.ts",
           `
           ${imports.toString()}
 
           const x = ${schema}
         `,
-          "unit-test.code.ts",
         )
       ).trim(),
       schemas: (
-        await formatOutput(
+        await formatter.format(
+          "unit-test.schemas.ts",
           builder.toCompilationUnit().getRawFileContent({
             allowUnusedImports: false,
             includeHeader: false,
           }),
-          "unit-test.schemas.ts",
         )
       ).trim(),
     }

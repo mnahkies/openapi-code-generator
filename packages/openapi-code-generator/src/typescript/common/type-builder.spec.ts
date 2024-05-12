@@ -1,8 +1,8 @@
 import {describe, expect, it} from "@jest/globals"
 import {testVersions, unitTestInput} from "../../test/input.test-utils"
 import {ImportBuilder} from "./import-builder"
-import {formatOutput} from "./output-utils"
 import {TypeBuilder} from "./type-builder"
+import {TypescriptFormatter} from "./typescript-formatter"
 
 describe.each(testVersions)(
   "%s - typescript/common/type-builder",
@@ -11,23 +11,20 @@ describe.each(testVersions)(
       const {code, types} = await getActual("components/schemas/SimpleObject")
 
       expect(code).toMatchInlineSnapshot(`
-      "
-      import {t_SimpleObject} from './unit-test.types'
+        "import {t_SimpleObject} from './unit-test.types'
 
-      const x: t_SimpleObject
-      "
+        const x: t_SimpleObject"
       `)
 
       expect(types).toMatchInlineSnapshot(`
-      "export type t_SimpleObject = {
-        date: string
-        datetime: string
-        num: number
-        optional_str?: string
-        required_nullable: string | null
-        str: string
-      }
-      "
+        "export type t_SimpleObject = {
+          date: string
+          datetime: string
+          num: number
+          optional_str?: string
+          required_nullable: string | null
+          str: string
+        }"
       `)
     })
 
@@ -38,18 +35,15 @@ describe.each(testVersions)(
       )
 
       expect(code).toMatchInlineSnapshot(`
-      "
-      import {t_OptionalProperties} from './unit-test.types'
+        "import {t_OptionalProperties} from './unit-test.types'
 
-      const x: t_OptionalProperties
-      "
+        const x: t_OptionalProperties"
       `)
 
       expect(types).toMatchInlineSnapshot(`
-      "export type t_OptionalProperties = {
-        optional_str?: string | undefined
-      }
-      "
+        "export type t_OptionalProperties = {
+          optional_str?: string | undefined
+        }"
       `)
     })
 
@@ -57,28 +51,25 @@ describe.each(testVersions)(
       const {code, types} = await getActual("components/schemas/ObjectWithRefs")
 
       expect(code).toMatchInlineSnapshot(`
-      "
-      import {t_ObjectWithRefs} from './unit-test.types'
+        "import {t_ObjectWithRefs} from './unit-test.types'
 
-      const x: t_ObjectWithRefs
-      "
+        const x: t_ObjectWithRefs"
       `)
 
       expect(types).toMatchInlineSnapshot(`
-      "export type t_ObjectWithRefs = {
-        optionalObject?: t_SimpleObject
-        requiredObject: t_SimpleObject
-      }
+        "export type t_ObjectWithRefs = {
+          optionalObject?: t_SimpleObject
+          requiredObject: t_SimpleObject
+        }
 
-      export type t_SimpleObject = {
-        date: string
-        datetime: string
-        num: number
-        optional_str?: string
-        required_nullable: string | null
-        str: string
-      }
-      "
+        export type t_SimpleObject = {
+          date: string
+          datetime: string
+          num: number
+          optional_str?: string
+          required_nullable: string | null
+          str: string
+        }"
       `)
     })
 
@@ -88,38 +79,32 @@ describe.each(testVersions)(
       )
 
       expect(code).toMatchInlineSnapshot(`
-      "
-      import {t_NamedNullableStringEnum} from './unit-test.types'
+        "import {t_NamedNullableStringEnum} from './unit-test.types'
 
-      const x: t_NamedNullableStringEnum
-      "
+        const x: t_NamedNullableStringEnum"
       `)
 
-      expect(types).toMatchInlineSnapshot(`
-      "export type t_NamedNullableStringEnum = "" | "one" | "two" | "three" | null
-      "
-      `)
+      expect(types).toMatchInlineSnapshot(
+        '"export type t_NamedNullableStringEnum = "" | "one" | "two" | "three" | null"',
+      )
     })
 
     it("can build a type for a oneOf correctly", async () => {
       const {code, types} = await getActual("components/schemas/OneOf")
 
       expect(code).toMatchInlineSnapshot(`
-      "
-      import {t_OneOf} from './unit-test.types'
+        "import {t_OneOf} from './unit-test.types'
 
-      const x: t_OneOf
-      "
+        const x: t_OneOf"
       `)
 
       expect(types).toMatchInlineSnapshot(`
-      "export type t_OneOf =
-        | {
-            strs: string[]
-          }
-        | string[]
-        | string
-      "
+        "export type t_OneOf =
+          | {
+              strs: string[]
+            }
+          | string[]
+          | string"
       `)
     })
 
@@ -127,40 +112,34 @@ describe.each(testVersions)(
       const {code, types} = await getActual("components/schemas/AnyOf")
 
       expect(code).toMatchInlineSnapshot(`
-      "
-      import {t_AnyOf} from './unit-test.types'
+        "import {t_AnyOf} from './unit-test.types'
 
-      const x: t_AnyOf
-      "
+        const x: t_AnyOf"
       `)
 
-      expect(types).toMatchInlineSnapshot(`
-      "export type t_AnyOf = number | string
-      "
-      `)
+      expect(types).toMatchInlineSnapshot(
+        '"export type t_AnyOf = number | string"',
+      )
     })
 
     it("can build a type for a allOf correctly", async () => {
       const {code, types} = await getActual("components/schemas/AllOf")
 
       expect(code).toMatchInlineSnapshot(`
-      "
-      import {t_AllOf} from './unit-test.types'
+        "import {t_AllOf} from './unit-test.types'
 
-      const x: t_AllOf
-      "
+        const x: t_AllOf"
       `)
 
       expect(types).toMatchInlineSnapshot(`
-      "export type t_AllOf = t_Base & {
-        id: number
-      }
+        "export type t_AllOf = t_Base & {
+          id: number
+        }
 
-      export type t_Base = {
-        breed?: string
-        name: string
-      }
-      "
+        export type t_Base = {
+          breed?: string
+          name: string
+        }"
       `)
     })
 
@@ -170,18 +149,15 @@ describe.each(testVersions)(
       )
 
       expect(code).toMatchInlineSnapshot(`
-      "
-      import {t_AdditionalPropertiesBool} from './unit-test.types'
+        "import {t_AdditionalPropertiesBool} from './unit-test.types'
 
-      const x: t_AdditionalPropertiesBool
-      "
+        const x: t_AdditionalPropertiesBool"
       `)
 
       expect(types).toMatchInlineSnapshot(`
-      "export type t_AdditionalPropertiesBool = {
-        [key: string]: unknown | undefined
-      }
-      "
+        "export type t_AdditionalPropertiesBool = {
+          [key: string]: unknown | undefined
+        }"
       `)
     })
 
@@ -191,18 +167,15 @@ describe.each(testVersions)(
       )
 
       expect(code).toMatchInlineSnapshot(`
-      "
-      import {t_AdditionalPropertiesUnknownEmptySchema} from './unit-test.types'
+        "import {t_AdditionalPropertiesUnknownEmptySchema} from './unit-test.types'
 
-      const x: t_AdditionalPropertiesUnknownEmptySchema
-      "
+        const x: t_AdditionalPropertiesUnknownEmptySchema"
       `)
 
       expect(types).toMatchInlineSnapshot(`
-      "export type t_AdditionalPropertiesUnknownEmptySchema = {
-        [key: string]: unknown | undefined
-      }
-      "
+        "export type t_AdditionalPropertiesUnknownEmptySchema = {
+          [key: string]: unknown | undefined
+        }"
       `)
     })
 
@@ -212,22 +185,19 @@ describe.each(testVersions)(
       )
 
       expect(code).toMatchInlineSnapshot(`
-      "
-      import {t_AdditionalPropertiesUnknownEmptyObjectSchema} from './unit-test.types'
+        "import {t_AdditionalPropertiesUnknownEmptyObjectSchema} from './unit-test.types'
 
-      const x: t_AdditionalPropertiesUnknownEmptyObjectSchema
-      "
+        const x: t_AdditionalPropertiesUnknownEmptyObjectSchema"
       `)
 
       expect(types).toMatchInlineSnapshot(`
-      "export type t_AdditionalPropertiesUnknownEmptyObjectSchema = {
-        [key: string]:
-          | {
-              [key: string]: unknown | undefined
-            }
-          | undefined
-      }
-      "
+        "export type t_AdditionalPropertiesUnknownEmptyObjectSchema = {
+          [key: string]:
+            | {
+                [key: string]: unknown | undefined
+              }
+            | undefined
+        }"
       `)
     })
 
@@ -235,18 +205,15 @@ describe.each(testVersions)(
       const {code, types} = await getActual("components/schemas/Recursive")
 
       expect(code).toMatchInlineSnapshot(`
-      "
-      import {t_Recursive} from './unit-test.types'
+        "import {t_Recursive} from './unit-test.types'
 
-      const x: t_Recursive
-      "
+        const x: t_Recursive"
       `)
 
       expect(types).toMatchInlineSnapshot(`
-      "export type t_Recursive = {
-        child?: t_Recursive
-      }
-      "
+        "export type t_Recursive = {
+          child?: t_Recursive
+        }"
       `)
     })
 
@@ -256,21 +223,18 @@ describe.each(testVersions)(
       )
 
       expect(code).toMatchInlineSnapshot(`
-      "
-      import {t_AdditionalPropertiesSchema} from './unit-test.types'
+        "import {t_AdditionalPropertiesSchema} from './unit-test.types'
 
-      const x: t_AdditionalPropertiesSchema
-      "
+        const x: t_AdditionalPropertiesSchema"
       `)
 
       expect(types).toMatchInlineSnapshot(`
-      "export type t_AdditionalPropertiesSchema = {
-        name?: string
-        [key: string]: t_NamedNullableStringEnum | undefined
-      }
+        "export type t_AdditionalPropertiesSchema = {
+          name?: string
+          [key: string]: t_NamedNullableStringEnum | undefined
+        }
 
-      export type t_NamedNullableStringEnum = "" | "one" | "two" | "three" | null
-      "
+        export type t_NamedNullableStringEnum = "" | "one" | "two" | "three" | null"
       `)
     })
 
@@ -280,20 +244,17 @@ describe.each(testVersions)(
       )
 
       expect(code).toMatchInlineSnapshot(`
-      "
-      import {t_AdditionalPropertiesMixed} from './unit-test.types'
+        "import {t_AdditionalPropertiesMixed} from './unit-test.types'
 
-      const x: t_AdditionalPropertiesMixed
-      "
+        const x: t_AdditionalPropertiesMixed"
       `)
 
       expect(types).toMatchInlineSnapshot(`
-      "export type t_AdditionalPropertiesMixed = {
-        id?: string
-        name?: string
-        [key: string]: unknown | undefined
-      }
-      "
+        "export type t_AdditionalPropertiesMixed = {
+          id?: string
+          name?: string
+          [key: string]: unknown | undefined
+        }"
       `)
     })
 
@@ -301,6 +262,8 @@ describe.each(testVersions)(
       path: string,
       compilerOptions = {exactOptionalPropertyTypes: false},
     ) {
+      const formatter = await TypescriptFormatter.createNodeFormatter()
+
       const {input, file} = await unitTestInput(version)
       const schema = {$ref: `${file}#/${path}`}
 
@@ -315,15 +278,19 @@ describe.each(testVersions)(
       const type = builder.withImports(imports).schemaObjectToType(schema)
 
       return {
-        code: await formatOutput(
-          `
+        code: (
+          await formatter.format(
+            "./unit-test.code.ts",
+            `
           ${imports.toString()}
 
           const x: ${type}
         `,
-          "./unit-test.code.ts",
-        ),
-        types: await formatOutput(builder.toString(), "unit-test.types.ts"),
+          )
+        ).trim(),
+        types: (
+          await formatter.format("unit-test.types.ts", builder.toString())
+        ).trim(),
       }
     }
   },
