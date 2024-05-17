@@ -1,14 +1,14 @@
 import {Input, OperationGroupStrategy} from "./core/input"
 import {CompilerOptions} from "./core/loaders/tsconfig.loader"
 import {SchemaBuilderType} from "./typescript/common/schema-builders/schema-builder"
+import {TypescriptEmitter} from "./typescript/common/typescript-emitter"
 
 export interface OpenapiGeneratorConfig {
-  dest: string
   input: Input
+  emitter: TypescriptEmitter
   schemaBuilder: SchemaBuilderType
   enableRuntimeResponseValidation: boolean
   compilerOptions: CompilerOptions
-  allowUnusedImports: boolean
   groupingStrategy: OperationGroupStrategy
 }
 

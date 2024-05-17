@@ -1,7 +1,7 @@
-import fs from "fs"
 import path from "path"
 import json5 from "json5"
 import ts from "typescript"
+import {IFsAdaptor} from "../file-system/fs-adaptor"
 import {logger} from "../logger"
 import {
   TsCompilerOptions,
@@ -14,16 +14,17 @@ export type CompilerOptions = Pick<
   "exactOptionalPropertyTypes"
 >
 
-export function loadTsConfigCompilerOptions(
+export async function loadTsConfigCompilerOptions(
   searchPath: string,
-): CompilerOptions {
+  fsAdaptor: IFsAdaptor,
+): Promise<CompilerOptions> {
   const defaults = {exactOptionalPropertyTypes: false}
 
   try {
-    const path = ts.findConfigFile(searchPath, (it) => fs.existsSync(it))
+    const path = ts.findConfigFile(searchPath, (it) => fsAdaptor.existsSync(it))
 
     if (path) {
-      return loadTsConfig(path).compilerOptions
+      return (await loadTsConfig(path, fsAdaptor)).compilerOptions
     }
 
     logger.warn(`no tsconfig.json found for ${searchPath}, using defaults`, {
@@ -41,15 +42,23 @@ export function loadTsConfigCompilerOptions(
   return defaults
 }
 
-function loadTsConfig(configPath: string): TsConfig {
+async function loadTsConfig(
+  configPath: string,
+  fsAdaptor: IFsAdaptor,
+): Promise<TsConfig> {
   const config = tsconfigSchema.parse(
-    json5.parse(fs.readFileSync(configPath, "utf-8")),
+    json5.parse(await fsAdaptor.readFile(configPath)),
   )
-  const configExtends = (
-    typeof config.extends === "string" ? [config.extends] : config.extends ?? []
+
+  const configExtends = await Promise.all(
+    (typeof config.extends === "string"
+      ? [config.extends]
+      : config.extends ?? []
+    )
+      .map((it) => require.resolve(it, {paths: [path.dirname(configPath)]}))
+      .map((it) => loadTsConfig(it, fsAdaptor)),
   )
-    .map((it) => require.resolve(it, {paths: [path.dirname(configPath)]}))
-    .map(loadTsConfig)
+
   configExtends.push(config)
 
   return configExtends.reduce((acc, it) => ({

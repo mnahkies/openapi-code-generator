@@ -1,7 +1,9 @@
 import path from "path"
 import {jest} from "@jest/globals"
 import yaml from "js-yaml"
+import {NodeFsAdaptor} from "../core/file-system/node-fs-adaptor"
 import {Input} from "../core/input"
+import {GenericLoader} from "../core/loaders/generic.loader"
 import {logger} from "../core/logger"
 import {OpenapiLoader} from "../core/openapi-loader"
 import {OpenapiValidator} from "../core/openapi-validator"
@@ -44,6 +46,7 @@ export async function unitTestInput(
   const loader = await OpenapiLoader.create(
     {entryPoint: file, fileType: "openapi3"},
     validator,
+    new GenericLoader(new NodeFsAdaptor()),
   )
 
   return {input: new Input(loader, {extractInlineSchemas: true}), file}
@@ -65,7 +68,11 @@ export async function createTestInputFromYamlString(
     jest.spyOn(validator, "validate").mockResolvedValue()
   }
 
-  const loader = await OpenapiLoader.createFromLiteral(spec, validator)
+  const loader = await OpenapiLoader.createFromLiteral(
+    spec,
+    validator,
+    new GenericLoader(new NodeFsAdaptor()),
+  )
 
   return new Input(loader, {extractInlineSchemas: true})
 }
