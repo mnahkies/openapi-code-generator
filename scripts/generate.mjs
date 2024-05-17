@@ -43,7 +43,7 @@ async function runSingle(template, input) {
 
   try {
     const result = await runCmd(
-      `node ./packages/openapi-code-generator/dist/index.js ${args.join(" ")}`,
+      `node ./packages/openapi-code-generator/dist/cli.js ${args.join(" ")}`,
     )
     result.forEach((it) => {
       console.info(`[${template} - ${filename}] ${it}`)
