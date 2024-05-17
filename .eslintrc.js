@@ -43,6 +43,31 @@ module.exports = {
   },
   overrides: [
     {
+      files: "./packages/openapi-code-generator/**/*.ts",
+      excludedFiles: "./packages/openapi-code-generator/**/*.spec.ts",
+      rules: {
+        "no-restricted-imports": [
+          "error",
+          {
+            paths: [
+              {
+                name: "fs",
+                message:
+                  "nodejs apis must not be used outside of the generation host",
+              },
+            ],
+            patterns: [
+              {
+                group: ["node:*"],
+                message:
+                  "nodejs apis must not be used outside of the generation host",
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
       files: "**/*.spec.ts",
       extends: ["plugin:jest/recommended", "plugin:jest/style"],
       env: {

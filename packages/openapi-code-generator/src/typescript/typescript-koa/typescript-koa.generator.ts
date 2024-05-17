@@ -9,7 +9,6 @@ import {isDefined, titleCase, upperFirst} from "../../core/utils"
 import {OpenapiGeneratorConfig} from "../../templates.types"
 import {CompilationUnit, ICompilable} from "../common/compilation-units"
 import {ImportBuilder} from "../common/import-builder"
-import {emitGenerationResult} from "../common/output-utils"
 import {JoiBuilder} from "../common/schema-builders/joi-schema-builder"
 import {
   SchemaBuilder,
@@ -394,7 +393,7 @@ function route(route: string): string {
 export async function generateTypescriptKoa(
   config: OpenapiGeneratorConfig,
 ): Promise<void> {
-  const input = config.input
+  const {input, emitter} = config
 
   const routesDirectory =
     config.groupingStrategy === "none" ? "./" : "./routes/"
@@ -440,31 +439,21 @@ export async function generateTypescriptKoa(
   )
 
   if (config.groupingStrategy === "none") {
-    await emitGenerationResult(
-      config.dest,
-      [
-        CompilationUnit.merge(
-          "./generated.ts",
-          ...routers,
-          server.toCompilationUnit(),
-        ),
-        rootTypeBuilder.toCompilationUnit(),
-        rootSchemaBuilder.toCompilationUnit(),
-      ],
-      {allowUnusedImports: config.allowUnusedImports},
-    )
-  } else {
-    await emitGenerationResult(
-      config.dest,
-      [
-        server.toCompilationUnit(),
+    await emitter.emitGenerationResult([
+      CompilationUnit.merge(
+        "./generated.ts",
         ...routers,
-        rootTypeBuilder.toCompilationUnit(),
-        rootSchemaBuilder.toCompilationUnit(),
-      ],
-      {
-        allowUnusedImports: config.allowUnusedImports,
-      },
-    )
+        server.toCompilationUnit(),
+      ),
+      rootTypeBuilder.toCompilationUnit(),
+      rootSchemaBuilder.toCompilationUnit(),
+    ])
+  } else {
+    await emitter.emitGenerationResult([
+      server.toCompilationUnit(),
+      ...routers,
+      rootTypeBuilder.toCompilationUnit(),
+      rootSchemaBuilder.toCompilationUnit(),
+    ])
   }
 }

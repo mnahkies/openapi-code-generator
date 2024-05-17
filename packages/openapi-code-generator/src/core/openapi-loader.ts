@@ -2,7 +2,7 @@ import path from "path"
 import util from "util"
 
 import {VirtualDefinition, generationLib} from "./generation-lib"
-import {loadFile} from "./loaders/generic.loader"
+import {GenericLoader} from "./loaders/generic.loader"
 import {compileTypeSpecToOpenAPI3} from "./loaders/typespec.loader"
 import {isRemote} from "./loaders/utils"
 import {
@@ -25,6 +25,7 @@ export class OpenapiLoader {
   private constructor(
     private readonly entryPointKey: string,
     private readonly validator: OpenapiValidator,
+    private readonly genericLoader: GenericLoader,
   ) {
     this.virtualLibrary.set(generationLib.key, generationLib)
     this.library.set(generationLib.key, generationLib.definition)
@@ -117,7 +118,7 @@ export class OpenapiLoader {
       return
     }
 
-    const [loadedFrom, definition] = await loadFile(file)
+    const [loadedFrom, definition] = await this.genericLoader.loadFile(file)
     await this.loadFileContent(loadedFrom, definition)
   }
 
@@ -182,8 +183,9 @@ export class OpenapiLoader {
   static async createFromLiteral(
     value: object,
     validator: OpenapiValidator,
+    genericLoader: GenericLoader,
   ): Promise<OpenapiLoader> {
-    const loader = new OpenapiLoader("input.yaml", validator)
+    const loader = new OpenapiLoader("input.yaml", validator, genericLoader)
 
     await loader.loadFileContent("input.yaml", value)
 
@@ -193,12 +195,13 @@ export class OpenapiLoader {
   static async create(
     config: {entryPoint: string; fileType: "openapi3" | "typespec"},
     validator: OpenapiValidator,
+    genericLoader: GenericLoader,
   ): Promise<OpenapiLoader> {
     const entryPoint = isRemote(config.entryPoint)
       ? config.entryPoint
       : path.resolve(config.entryPoint)
 
-    const loader = new OpenapiLoader(entryPoint, validator)
+    const loader = new OpenapiLoader(entryPoint, validator, genericLoader)
 
     switch (config.fileType) {
       case "openapi3": {
