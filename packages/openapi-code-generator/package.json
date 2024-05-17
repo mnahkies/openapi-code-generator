@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/mnahkies/openapi-code-generator/issues"
   },
-  "bin": "./dist/index.js",
+  "bin": "./dist/cli.js",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
