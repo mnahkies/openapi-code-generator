@@ -4,6 +4,7 @@ import {
   IRModelArray,
   IRModelBoolean,
   IRModelNumeric,
+  IRModelObject,
   IRModelString,
 } from "../../../core/openapi-types-normalized"
 import {testVersions} from "../../../test/input.test-utils"
@@ -770,6 +771,90 @@ describe.each(testVersions)(
         )
         await expect(executeParseSchema(code, [3, 3, 3])).rejects.toThrow(
           '"[1]" contains a duplicate value',
+        )
+      })
+    })
+
+    describe("objects", () => {
+      const base: IRModelObject = {
+        type: "object",
+        allOf: [],
+        anyOf: [],
+        oneOf: [],
+        properties: {},
+        additionalProperties: false,
+        required: [],
+        nullable: false,
+        readOnly: false,
+      }
+
+      it("supports general objects", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          properties: {
+            name: {type: "string", nullable: false, readOnly: false},
+            age: {type: "number", nullable: false, readOnly: false},
+          },
+          required: ["name", "age"],
+        })
+
+        expect(code).toMatchInlineSnapshot(`
+          "const x = joi
+            .object()
+            .keys({ name: joi.string().required(), age: joi.number().required() })
+            .required()"
+        `)
+
+        await expect(
+          executeParseSchema(code, {name: "John", age: 35}),
+        ).resolves.toEqual({name: "John", age: 35})
+
+        await expect(executeParseSchema(code, {age: 35})).rejects.toThrow(
+          '"name" is required',
+        )
+      })
+
+      it("supports any objects", async () => {
+        /*
+        some_property: {}
+         */
+        const {code} = await getActualFromModel({...base})
+
+        expect(code).toMatchInlineSnapshot('"const x = joi.any().required()"')
+
+        await expect(
+          executeParseSchema(code, {any: "object"}),
+        ).resolves.toEqual({any: "object"})
+        await expect(executeParseSchema(code, ["foo", 12])).resolves.toEqual([
+          "foo",
+          12,
+        ])
+        await expect(executeParseSchema(code, null)).resolves.toBeNull()
+        await expect(executeParseSchema(code, 123)).resolves.toBe(123)
+        await expect(executeParseSchema(code, "some string")).resolves.toBe(
+          "some string",
+        )
+      })
+
+      it("supports record objects", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          additionalProperties: {
+            type: "number",
+            nullable: false,
+            readOnly: false,
+          },
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.object().pattern(joi.any(), joi.number().required()).required()"',
+        )
+
+        await expect(executeParseSchema(code, {key: 1})).resolves.toEqual({
+          key: 1,
+        })
+        await expect(executeParseSchema(code, {key: "string"})).rejects.toThrow(
+          '"key" must be a number',
         )
       })
     })

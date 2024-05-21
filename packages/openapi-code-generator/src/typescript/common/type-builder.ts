@@ -199,14 +199,12 @@ export class TypeBuilder implements ICompilable {
             ? `[key: string]: ${union(additionalPropertiesType, "undefined")}`
             : ""
 
-          const emptyObject =
-            !additionalProperties && properties.length === 0
-              ? this.addStaticType("EmptyObject")
-              : ""
+          const any =
+            !additionalProperties && properties.length === 0 ? "any" : ""
 
           properties.push(additionalProperties)
 
-          result.push(object(properties), emptyObject)
+          result.push(object(properties), any)
           break
         }
 

@@ -118,10 +118,16 @@ export class JoiBuilder extends AbstractSchemaBuilder<
   }
 
   protected object(keys: Record<string, string>): string {
+    const entries = Object.entries(keys)
+
+    if (entries.length === 0) {
+      return `${joi}.any()`
+    }
+
     return [
       joi,
       "object()",
-      `keys({${Object.entries(keys)
+      `keys({${entries
         .map(([key, value]) => `"${key}": ${value}`)
         .join(",")} })`,
     ]
