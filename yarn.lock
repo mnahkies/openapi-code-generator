@@ -3035,7 +3035,7 @@ __metadata:
     "@typespec/versioning":
       optional: true
   bin:
-    openapi-code-generator: ./dist/index.js
+    openapi-code-generator: ./dist/cli.js
   languageName: unknown
   linkType: soft
 
